@@ -2,11 +2,12 @@
 //  AppDelegate.m
 //  ZLGitHubClient
 //
-//  Created by panzhengwei on 2018/12/27.
-//  Copyright © 2018年 ZTE. All rights reserved.
+//  Created by zhumeng on 2018/12/27.
+//  Copyright © 2018年 ZM. All rights reserved.
 //
 
 #import "AppDelegate.h"
+#import "ZLGitHubClient-Swift.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +18,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    UIViewController * rootViewController = [SYDCentralPivotUIAdapter getZLMainViewController];
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    [self.window setRootViewController:rootViewController];
+    [self.window setBackgroundColor:[UIColor whiteColor]];
+    [self.window makeKeyAndVisible];
+
     return YES;
 }
 

@@ -8,12 +8,26 @@
 
 /* Begin PBXBuildFile section */
 		0ADF902F21D4B01900BF86CD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADF902E21D4B01900BF86CD /* AppDelegate.m */; };
-		0ADF903221D4B01900BF86CD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADF903121D4B01900BF86CD /* ViewController.m */; };
 		0ADF903521D4B01900BF86CD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0ADF903321D4B01900BF86CD /* Main.storyboard */; };
 		0ADF903721D4B01900BF86CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0ADF903621D4B01900BF86CD /* Assets.xcassets */; };
 		0ADF903A21D4B01900BF86CD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0ADF903821D4B01900BF86CD /* LaunchScreen.storyboard */; };
 		0ADF903D21D4B01900BF86CD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADF903C21D4B01900BF86CD /* main.m */; };
-		0ADF904721D4EDF800BF86CD /* test1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADF904621D4EDF800BF86CD /* test1.swift */; };
+		7436AC8221EB7B4500F03276 /* ZLBaseNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7436AC7C21EB7B4500F03276 /* ZLBaseNavigationViewController.m */; };
+		7436AC8321EB7B4500F03276 /* ZLBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7436AC7F21EB7B4500F03276 /* ZLBaseView.m */; };
+		7436AC8421EB7B4500F03276 /* ZLBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7436AC8121EB7B4500F03276 /* ZLBaseViewController.m */; };
+		7436AC8621EB815800F03276 /* SYDCenteralFactoryConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7436AC8521EB815800F03276 /* SYDCenteralFactoryConfig.plist */; };
+		7436AC8A21EB848700F03276 /* SYDCentralPivotUIAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7436AC8921EB848700F03276 /* SYDCentralPivotUIAdapter.m */; };
+		7436AC8B21EB869C00F03276 /* SYDCentralFactory+SYDService.m in Sources */ = {isa = PBXBuildFile; fileRef = 746B090A21EB5C37000EE88B /* SYDCentralFactory+SYDService.m */; };
+		7436AC8C21EB869C00F03276 /* SYDCentralFactory+ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 746B090C21EB5C37000EE88B /* SYDCentralFactory+ViewController.m */; };
+		7436AC8D21EB869C00F03276 /* SYDCentralFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 746B090E21EB5C37000EE88B /* SYDCentralFactory.m */; };
+		7436AC8E21EB869C00F03276 /* SYDCentralQueuePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 746B091221EB5C37000EE88B /* SYDCentralQueuePool.m */; };
+		7436AC8F21EB869C00F03276 /* SYDCentralRouter+SYDService.m in Sources */ = {isa = PBXBuildFile; fileRef = 746B091521EB5C37000EE88B /* SYDCentralRouter+SYDService.m */; };
+		7436AC9021EB869C00F03276 /* SYDCentralRouter+ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 746B091721EB5C37000EE88B /* SYDCentralRouter+ViewController.m */; };
+		7436AC9121EB869D00F03276 /* SYDCentralRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 746B091921EB5C37000EE88B /* SYDCentralRouter.m */; };
+		7436AC9221EB869D00F03276 /* SYDCentralRouterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 746B091B21EB5C37000EE88B /* SYDCentralRouterModel.m */; };
+		7436AC9321EB869D00F03276 /* UIViewController+SYDRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 746B091E21EB5C37000EE88B /* UIViewController+SYDRouter.m */; };
+		746B092121EB6DA1000EE88B /* ApolloAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746B092021EB6DA1000EE88B /* ApolloAdapter.swift */; };
+		746B092E21EB7362000EE88B /* ZLMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 746B092D21EB7362000EE88B /* ZLMainViewController.m */; };
 		A6389CC5113B9E045DD7D154 /* Pods_ZLGitHubClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71EC483528FF72DE8C8B1035 /* Pods_ZLGitHubClient.framework */; };
 /* End PBXBuildFile section */
 
@@ -22,16 +36,46 @@
 		0ADF902A21D4B01900BF86CD /* ZLGitHubClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZLGitHubClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ADF902D21D4B01900BF86CD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0ADF902E21D4B01900BF86CD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		0ADF903021D4B01900BF86CD /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		0ADF903121D4B01900BF86CD /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		0ADF903421D4B01900BF86CD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0ADF903621D4B01900BF86CD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0ADF903921D4B01900BF86CD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0ADF903B21D4B01900BF86CD /* ZLGitHubClient_Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ZLGitHubClient_Info.plist; sourceTree = "<group>"; };
 		0ADF903C21D4B01900BF86CD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0ADF904321D4D33D00BF86CD /* ZLGitHubClient-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZLGitHubClient-Bridging-Header.h"; sourceTree = "<group>"; };
-		0ADF904621D4EDF800BF86CD /* test1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test1.swift; sourceTree = "<group>"; };
 		71EC483528FF72DE8C8B1035 /* Pods_ZLGitHubClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZLGitHubClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7436AC7B21EB7B4500F03276 /* ZLBaseNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLBaseNavigationViewController.h; sourceTree = "<group>"; };
+		7436AC7C21EB7B4500F03276 /* ZLBaseNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLBaseNavigationViewController.m; sourceTree = "<group>"; };
+		7436AC7D21EB7B4500F03276 /* ZLBaseUIHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLBaseUIHeader.h; sourceTree = "<group>"; };
+		7436AC7E21EB7B4500F03276 /* ZLBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLBaseView.h; sourceTree = "<group>"; };
+		7436AC7F21EB7B4500F03276 /* ZLBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLBaseView.m; sourceTree = "<group>"; };
+		7436AC8021EB7B4500F03276 /* ZLBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLBaseViewController.h; sourceTree = "<group>"; };
+		7436AC8121EB7B4500F03276 /* ZLBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLBaseViewController.m; sourceTree = "<group>"; };
+		7436AC8521EB815800F03276 /* SYDCenteralFactoryConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = SYDCenteralFactoryConfig.plist; sourceTree = "<group>"; };
+		7436AC8821EB848700F03276 /* SYDCentralPivotUIAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYDCentralPivotUIAdapter.h; sourceTree = "<group>"; };
+		7436AC8921EB848700F03276 /* SYDCentralPivotUIAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYDCentralPivotUIAdapter.m; sourceTree = "<group>"; };
+		746B090921EB5C37000EE88B /* SYDCentralFactory+SYDService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SYDCentralFactory+SYDService.h"; sourceTree = "<group>"; };
+		746B090A21EB5C37000EE88B /* SYDCentralFactory+SYDService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "SYDCentralFactory+SYDService.m"; sourceTree = "<group>"; };
+		746B090B21EB5C37000EE88B /* SYDCentralFactory+ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SYDCentralFactory+ViewController.h"; sourceTree = "<group>"; };
+		746B090C21EB5C37000EE88B /* SYDCentralFactory+ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "SYDCentralFactory+ViewController.m"; sourceTree = "<group>"; };
+		746B090D21EB5C37000EE88B /* SYDCentralFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYDCentralFactory.h; sourceTree = "<group>"; };
+		746B090E21EB5C37000EE88B /* SYDCentralFactory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYDCentralFactory.m; sourceTree = "<group>"; };
+		746B090F21EB5C37000EE88B /* SYDCentralPivotHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYDCentralPivotHeader.h; sourceTree = "<group>"; };
+		746B091121EB5C37000EE88B /* SYDCentralQueuePool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYDCentralQueuePool.h; sourceTree = "<group>"; };
+		746B091221EB5C37000EE88B /* SYDCentralQueuePool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYDCentralQueuePool.m; sourceTree = "<group>"; };
+		746B091421EB5C37000EE88B /* SYDCentralRouter+SYDService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SYDCentralRouter+SYDService.h"; sourceTree = "<group>"; };
+		746B091521EB5C37000EE88B /* SYDCentralRouter+SYDService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "SYDCentralRouter+SYDService.m"; sourceTree = "<group>"; };
+		746B091621EB5C37000EE88B /* SYDCentralRouter+ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SYDCentralRouter+ViewController.h"; sourceTree = "<group>"; };
+		746B091721EB5C37000EE88B /* SYDCentralRouter+ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "SYDCentralRouter+ViewController.m"; sourceTree = "<group>"; };
+		746B091821EB5C37000EE88B /* SYDCentralRouter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYDCentralRouter.h; sourceTree = "<group>"; };
+		746B091921EB5C37000EE88B /* SYDCentralRouter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYDCentralRouter.m; sourceTree = "<group>"; };
+		746B091A21EB5C37000EE88B /* SYDCentralRouterModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYDCentralRouterModel.h; sourceTree = "<group>"; };
+		746B091B21EB5C37000EE88B /* SYDCentralRouterModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYDCentralRouterModel.m; sourceTree = "<group>"; };
+		746B091D21EB5C37000EE88B /* UIViewController+SYDRouter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+SYDRouter.h"; sourceTree = "<group>"; };
+		746B091E21EB5C37000EE88B /* UIViewController+SYDRouter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+SYDRouter.m"; sourceTree = "<group>"; };
+		746B092021EB6DA1000EE88B /* ApolloAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloAdapter.swift; sourceTree = "<group>"; };
+		746B092C21EB7362000EE88B /* ZLMainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLMainViewController.h; sourceTree = "<group>"; };
+		746B092D21EB7362000EE88B /* ZLMainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLMainViewController.m; sourceTree = "<group>"; };
+		746B093021EB74EF000EE88B /* ZLGitHubClient-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZLGitHubClient-Prefix.pch"; sourceTree = "<group>"; };
 		CD0AEC7A0ED54B14C3F6E8C9 /* Pods-ZLGitHubClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZLGitHubClient.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZLGitHubClient/Pods-ZLGitHubClient.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -68,17 +112,17 @@
 		0ADF902C21D4B01900BF86CD /* ZLGitHubClient */ = {
 			isa = PBXGroup;
 			children = (
+				7436AC8721EB845500F03276 /* SYDCentralPivotAdapter */,
+				746B092F21EB7496000EE88B /* ZLSupportFiles */,
+				746B092221EB71F7000EE88B /* ZLUI */,
+				746B091F21EB6D83000EE88B /* ApolloAdapter */,
+				746B090721EB5C37000EE88B /* SYDCentralPivot */,
 				0ADF902D21D4B01900BF86CD /* AppDelegate.h */,
 				0ADF902E21D4B01900BF86CD /* AppDelegate.m */,
-				0ADF903021D4B01900BF86CD /* ViewController.h */,
-				0ADF903121D4B01900BF86CD /* ViewController.m */,
 				0ADF903321D4B01900BF86CD /* Main.storyboard */,
 				0ADF903621D4B01900BF86CD /* Assets.xcassets */,
 				0ADF903821D4B01900BF86CD /* LaunchScreen.storyboard */,
-				0ADF903B21D4B01900BF86CD /* ZLGitHubClient_Info.plist */,
 				0ADF903C21D4B01900BF86CD /* main.m */,
-				0ADF904321D4D33D00BF86CD /* ZLGitHubClient-Bridging-Header.h */,
-				0ADF904621D4EDF800BF86CD /* test1.swift */,
 			);
 			path = ZLGitHubClient;
 			sourceTree = "<group>";
@@ -89,6 +133,124 @@
 				71EC483528FF72DE8C8B1035 /* Pods_ZLGitHubClient.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7436AC7A21EB7B4500F03276 /* ZLBaseUI */ = {
+			isa = PBXGroup;
+			children = (
+				7436AC7B21EB7B4500F03276 /* ZLBaseNavigationViewController.h */,
+				7436AC7C21EB7B4500F03276 /* ZLBaseNavigationViewController.m */,
+				7436AC7D21EB7B4500F03276 /* ZLBaseUIHeader.h */,
+				7436AC7E21EB7B4500F03276 /* ZLBaseView.h */,
+				7436AC7F21EB7B4500F03276 /* ZLBaseView.m */,
+				7436AC8021EB7B4500F03276 /* ZLBaseViewController.h */,
+				7436AC8121EB7B4500F03276 /* ZLBaseViewController.m */,
+			);
+			path = ZLBaseUI;
+			sourceTree = "<group>";
+		};
+		7436AC8721EB845500F03276 /* SYDCentralPivotAdapter */ = {
+			isa = PBXGroup;
+			children = (
+				7436AC8821EB848700F03276 /* SYDCentralPivotUIAdapter.h */,
+				7436AC8921EB848700F03276 /* SYDCentralPivotUIAdapter.m */,
+			);
+			path = SYDCentralPivotAdapter;
+			sourceTree = "<group>";
+		};
+		746B090721EB5C37000EE88B /* SYDCentralPivot */ = {
+			isa = PBXGroup;
+			children = (
+				746B090821EB5C37000EE88B /* SYDCentralFactory */,
+				746B090F21EB5C37000EE88B /* SYDCentralPivotHeader.h */,
+				746B091021EB5C37000EE88B /* SYDCentralQueuePool */,
+				746B091321EB5C37000EE88B /* SYDCentralRouter */,
+				746B091A21EB5C37000EE88B /* SYDCentralRouterModel.h */,
+				746B091B21EB5C37000EE88B /* SYDCentralRouterModel.m */,
+				746B091C21EB5C37000EE88B /* UIViewController */,
+			);
+			path = SYDCentralPivot;
+			sourceTree = "<group>";
+		};
+		746B090821EB5C37000EE88B /* SYDCentralFactory */ = {
+			isa = PBXGroup;
+			children = (
+				746B090921EB5C37000EE88B /* SYDCentralFactory+SYDService.h */,
+				746B090A21EB5C37000EE88B /* SYDCentralFactory+SYDService.m */,
+				746B090B21EB5C37000EE88B /* SYDCentralFactory+ViewController.h */,
+				746B090C21EB5C37000EE88B /* SYDCentralFactory+ViewController.m */,
+				746B090D21EB5C37000EE88B /* SYDCentralFactory.h */,
+				746B090E21EB5C37000EE88B /* SYDCentralFactory.m */,
+			);
+			path = SYDCentralFactory;
+			sourceTree = "<group>";
+		};
+		746B091021EB5C37000EE88B /* SYDCentralQueuePool */ = {
+			isa = PBXGroup;
+			children = (
+				746B091121EB5C37000EE88B /* SYDCentralQueuePool.h */,
+				746B091221EB5C37000EE88B /* SYDCentralQueuePool.m */,
+			);
+			path = SYDCentralQueuePool;
+			sourceTree = "<group>";
+		};
+		746B091321EB5C37000EE88B /* SYDCentralRouter */ = {
+			isa = PBXGroup;
+			children = (
+				746B091421EB5C37000EE88B /* SYDCentralRouter+SYDService.h */,
+				746B091521EB5C37000EE88B /* SYDCentralRouter+SYDService.m */,
+				746B091621EB5C37000EE88B /* SYDCentralRouter+ViewController.h */,
+				746B091721EB5C37000EE88B /* SYDCentralRouter+ViewController.m */,
+				746B091821EB5C37000EE88B /* SYDCentralRouter.h */,
+				746B091921EB5C37000EE88B /* SYDCentralRouter.m */,
+			);
+			path = SYDCentralRouter;
+			sourceTree = "<group>";
+		};
+		746B091C21EB5C37000EE88B /* UIViewController */ = {
+			isa = PBXGroup;
+			children = (
+				746B091D21EB5C37000EE88B /* UIViewController+SYDRouter.h */,
+				746B091E21EB5C37000EE88B /* UIViewController+SYDRouter.m */,
+			);
+			path = UIViewController;
+			sourceTree = "<group>";
+		};
+		746B091F21EB6D83000EE88B /* ApolloAdapter */ = {
+			isa = PBXGroup;
+			children = (
+				746B092021EB6DA1000EE88B /* ApolloAdapter.swift */,
+			);
+			path = ApolloAdapter;
+			sourceTree = "<group>";
+		};
+		746B092221EB71F7000EE88B /* ZLUI */ = {
+			isa = PBXGroup;
+			children = (
+				7436AC7A21EB7B4500F03276 /* ZLBaseUI */,
+				746B092B21EB7305000EE88B /* ZLMainViewController */,
+			);
+			path = ZLUI;
+			sourceTree = "<group>";
+		};
+		746B092B21EB7305000EE88B /* ZLMainViewController */ = {
+			isa = PBXGroup;
+			children = (
+				746B092C21EB7362000EE88B /* ZLMainViewController.h */,
+				746B092D21EB7362000EE88B /* ZLMainViewController.m */,
+			);
+			path = ZLMainViewController;
+			sourceTree = "<group>";
+		};
+		746B092F21EB7496000EE88B /* ZLSupportFiles */ = {
+			isa = PBXGroup;
+			children = (
+				746B093021EB74EF000EE88B /* ZLGitHubClient-Prefix.pch */,
+				0ADF903B21D4B01900BF86CD /* ZLGitHubClient_Info.plist */,
+				0ADF904321D4D33D00BF86CD /* ZLGitHubClient-Bridging-Header.h */,
+				7436AC8521EB815800F03276 /* SYDCenteralFactoryConfig.plist */,
+			);
+			path = ZLSupportFiles;
 			sourceTree = "<group>";
 		};
 		8AD159E421EC467DE119C80F /* Pods */ = {
@@ -135,7 +297,7 @@
 					0ADF902921D4B01900BF86CD = {
 						CreatedOnToolsVersion = 9.0.1;
 						LastSwiftMigration = 0900;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -164,6 +326,7 @@
 			files = (
 				0ADF903A21D4B01900BF86CD /* LaunchScreen.storyboard in Resources */,
 				0ADF903721D4B01900BF86CD /* Assets.xcassets in Resources */,
+				7436AC8621EB815800F03276 /* SYDCenteralFactoryConfig.plist in Resources */,
 				0ADF903521D4B01900BF86CD /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -229,10 +392,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0ADF903221D4B01900BF86CD /* ViewController.m in Sources */,
+				7436AC8B21EB869C00F03276 /* SYDCentralFactory+SYDService.m in Sources */,
+				7436AC8C21EB869C00F03276 /* SYDCentralFactory+ViewController.m in Sources */,
+				7436AC8D21EB869C00F03276 /* SYDCentralFactory.m in Sources */,
+				7436AC8E21EB869C00F03276 /* SYDCentralQueuePool.m in Sources */,
+				7436AC8F21EB869C00F03276 /* SYDCentralRouter+SYDService.m in Sources */,
+				7436AC9021EB869C00F03276 /* SYDCentralRouter+ViewController.m in Sources */,
+				7436AC9121EB869D00F03276 /* SYDCentralRouter.m in Sources */,
+				7436AC9221EB869D00F03276 /* SYDCentralRouterModel.m in Sources */,
+				7436AC9321EB869D00F03276 /* UIViewController+SYDRouter.m in Sources */,
+				7436AC8221EB7B4500F03276 /* ZLBaseNavigationViewController.m in Sources */,
+				7436AC8421EB7B4500F03276 /* ZLBaseViewController.m in Sources */,
 				0ADF903D21D4B01900BF86CD /* main.m in Sources */,
+				7436AC8321EB7B4500F03276 /* ZLBaseView.m in Sources */,
+				746B092121EB6DA1000EE88B /* ApolloAdapter.swift in Sources */,
 				0ADF902F21D4B01900BF86CD /* AppDelegate.m in Sources */,
-				0ADF904721D4EDF800BF86CD /* test1.swift in Sources */,
+				746B092E21EB7362000EE88B /* ZLMainViewController.m in Sources */,
+				7436AC8A21EB848700F03276 /* SYDCentralPivotUIAdapter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,19 +545,22 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Manual;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = ELNKAU5W5R;
+				DEVELOPMENT_TEAM = 24LG5QVBPR;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
-				INFOPLIST_FILE = ZLGitHubClient/ZLGitHubClient_Info.plist;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ZLGitHubClient/ZLSupportFiles/ZLGitHubClient-Prefix.pch";
+				INFOPLIST_FILE = ZLGitHubClient/ZLSupportFiles/ZLGitHubClient_Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				NEW_SETTING = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ZTE.ZLGitHubClient;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zm.ZLGitHubClient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "86a3953e-9ea1-4d55-bb5c-51add99a52fb";
-				PROVISIONING_PROFILE_SPECIFIER = zteDev;
-				SWIFT_OBJC_BRIDGING_HEADER = "ZLGitHubClient/ZLGitHubClient-Bridging-Header.h";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "ZLGitHubClient/ZLSupportFiles/ZLGitHubClient-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -395,19 +574,22 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Manual;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = ELNKAU5W5R;
+				DEVELOPMENT_TEAM = 24LG5QVBPR;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
-				INFOPLIST_FILE = ZLGitHubClient/ZLGitHubClient_Info.plist;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ZLGitHubClient/ZLSupportFiles/ZLGitHubClient-Prefix.pch";
+				INFOPLIST_FILE = ZLGitHubClient/ZLSupportFiles/ZLGitHubClient_Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				NEW_SETTING = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ZTE.ZLGitHubClient;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zm.ZLGitHubClient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "86a3953e-9ea1-4d55-bb5c-51add99a52fb";
-				PROVISIONING_PROFILE_SPECIFIER = zteDev;
-				SWIFT_OBJC_BRIDGING_HEADER = "ZLGitHubClient/ZLGitHubClient-Bridging-Header.h";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "ZLGitHubClient/ZLSupportFiles/ZLGitHubClient-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
