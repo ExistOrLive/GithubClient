@@ -11,5 +11,41 @@
 		<key>isSingle</key>
 		<false/>
 	</dict>
+	<key>ZLNewsViewController</key>
+	<dict>
+		<key>class</key>
+		<string>ZLNewsViewController</string>
+		<key>type</key>
+		<integer>0</integer>
+		<key>isSingle</key>
+		<false/>
+	</dict>
+	<key>ZLRepositoriesViewController</key>
+	<dict>
+		<key>class</key>
+		<string>ZLRepositoriesViewController</string>
+		<key>type</key>
+		<integer>0</integer>
+		<key>isSingle</key>
+		<false/>
+	</dict>
+	<key>ZLExploreViewController</key>
+	<dict>
+		<key>class</key>
+		<string>ZLExploreViewController</string>
+		<key>type</key>
+		<integer>0</integer>
+		<key>isSingle</key>
+		<false/>
+	</dict>
+	<key>ZLProfileViewController</key>
+	<dict>
+		<key>class</key>
+		<string>ZLProfileViewController</string>
+		<key>type</key>
+		<integer>0</integer>
+		<key>isSingle</key>
+		<false/>
+	</dict>
 </dict>
 </plist>

@@ -12,7 +12,10 @@
 
 #pragma mark - ZLMainViewController
 
-+ (UIViewController *) getZLMainViewController;
-
++ (UIViewController *)getZLMainViewController;
++ (UIViewController *)getZLNewsViewController;
++ (UIViewController *)getZLRepositoriesViewController;
++ (UIViewController *)getZLExploreViewController;
++ (UIViewController *)getZLProfileViewController;
 
 @end

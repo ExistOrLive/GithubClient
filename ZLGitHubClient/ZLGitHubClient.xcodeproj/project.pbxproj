@@ -29,6 +29,14 @@
 		746B092121EB6DA1000EE88B /* ApolloAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746B092021EB6DA1000EE88B /* ApolloAdapter.swift */; };
 		746B092E21EB7362000EE88B /* ZLMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 746B092D21EB7362000EE88B /* ZLMainViewController.m */; };
 		A6389CC5113B9E045DD7D154 /* Pods_ZLGitHubClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71EC483528FF72DE8C8B1035 /* Pods_ZLGitHubClient.framework */; };
+		D1135F7021ECD09D003A26C1 /* ZLProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1135F6F21ECD09D003A26C1 /* ZLProfileViewController.m */; };
+		D1135F7921ECD34A003A26C1 /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = D1135F7321ECD34A003A26C1 /* UIView+Frame.m */; };
+		D1135F7A21ECD34A003A26C1 /* UIImage+Image.m in Sources */ = {isa = PBXBuildFile; fileRef = D1135F7421ECD34A003A26C1 /* UIImage+Image.m */; };
+		D1135F7B21ECD34A003A26C1 /* UIBarButtonItem+Item.m in Sources */ = {isa = PBXBuildFile; fileRef = D1135F7621ECD34A003A26C1 /* UIBarButtonItem+Item.m */; };
+		D1135F8421ECD502003A26C1 /* ZLExploreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1135F8321ECD502003A26C1 /* ZLExploreViewController.m */; };
+		D1135F8721ECD513003A26C1 /* ZLNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1135F8621ECD513003A26C1 /* ZLNewsViewController.m */; };
+		D1135F8A21ECD523003A26C1 /* ZLRepositoriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1135F8921ECD523003A26C1 /* ZLRepositoriesViewController.m */; };
+		D1135FA821ECE3A6003A26C1 /* UITextField+PlaceHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = D1135FA721ECE3A6003A26C1 /* UITextField+PlaceHolder.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,6 +85,22 @@
 		746B092D21EB7362000EE88B /* ZLMainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLMainViewController.m; sourceTree = "<group>"; };
 		746B093021EB74EF000EE88B /* ZLGitHubClient-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZLGitHubClient-Prefix.pch"; sourceTree = "<group>"; };
 		CD0AEC7A0ED54B14C3F6E8C9 /* Pods-ZLGitHubClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZLGitHubClient.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZLGitHubClient/Pods-ZLGitHubClient.debug.xcconfig"; sourceTree = "<group>"; };
+		D1135F6E21ECD09D003A26C1 /* ZLProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLProfileViewController.h; sourceTree = "<group>"; };
+		D1135F6F21ECD09D003A26C1 /* ZLProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLProfileViewController.m; sourceTree = "<group>"; };
+		D1135F7321ECD34A003A26C1 /* UIView+Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frame.m"; sourceTree = "<group>"; };
+		D1135F7421ECD34A003A26C1 /* UIImage+Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Image.m"; sourceTree = "<group>"; };
+		D1135F7521ECD34A003A26C1 /* UIBarButtonItem+Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+Item.h"; sourceTree = "<group>"; };
+		D1135F7621ECD34A003A26C1 /* UIBarButtonItem+Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+Item.m"; sourceTree = "<group>"; };
+		D1135F7721ECD34A003A26C1 /* UIImage+Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Image.h"; sourceTree = "<group>"; };
+		D1135F7821ECD34A003A26C1 /* UIView+Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Frame.h"; sourceTree = "<group>"; };
+		D1135F8221ECD502003A26C1 /* ZLExploreViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLExploreViewController.h; sourceTree = "<group>"; };
+		D1135F8321ECD502003A26C1 /* ZLExploreViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLExploreViewController.m; sourceTree = "<group>"; };
+		D1135F8521ECD513003A26C1 /* ZLNewsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLNewsViewController.h; sourceTree = "<group>"; };
+		D1135F8621ECD513003A26C1 /* ZLNewsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLNewsViewController.m; sourceTree = "<group>"; };
+		D1135F8821ECD523003A26C1 /* ZLRepositoriesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLRepositoriesViewController.h; sourceTree = "<group>"; };
+		D1135F8921ECD523003A26C1 /* ZLRepositoriesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLRepositoriesViewController.m; sourceTree = "<group>"; };
+		D1135FA621ECE3A5003A26C1 /* UITextField+PlaceHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+PlaceHolder.h"; sourceTree = "<group>"; };
+		D1135FA721ECE3A6003A26C1 /* UITextField+PlaceHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+PlaceHolder.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,8 +251,13 @@
 		746B092221EB71F7000EE88B /* ZLUI */ = {
 			isa = PBXGroup;
 			children = (
-				7436AC7A21EB7B4500F03276 /* ZLBaseUI */,
 				746B092B21EB7305000EE88B /* ZLMainViewController */,
+				D1135F8021ECD487003A26C1 /* ZLNewsViewController */,
+				D1135F7C21ECD487003A26C1 /* ZLRepositoriesViewController */,
+				D1135F7D21ECD487003A26C1 /* ZLExploreViewController */,
+				D1135F6A21ECC9AE003A26C1 /* ZLProfileViewController */,
+				7436AC7A21EB7B4500F03276 /* ZLBaseUI */,
+				D1135F7121ECD2ED003A26C1 /* ZLUtils */,
 			);
 			path = ZLUI;
 			sourceTree = "<group>";
@@ -262,6 +291,65 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		D1135F6A21ECC9AE003A26C1 /* ZLProfileViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D1135F6E21ECD09D003A26C1 /* ZLProfileViewController.h */,
+				D1135F6F21ECD09D003A26C1 /* ZLProfileViewController.m */,
+			);
+			path = ZLProfileViewController;
+			sourceTree = "<group>";
+		};
+		D1135F7121ECD2ED003A26C1 /* ZLUtils */ = {
+			isa = PBXGroup;
+			children = (
+				D1135F7221ECD34A003A26C1 /* Category */,
+			);
+			path = ZLUtils;
+			sourceTree = "<group>";
+		};
+		D1135F7221ECD34A003A26C1 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				D1135FA621ECE3A5003A26C1 /* UITextField+PlaceHolder.h */,
+				D1135FA721ECE3A6003A26C1 /* UITextField+PlaceHolder.m */,
+				D1135F7321ECD34A003A26C1 /* UIView+Frame.m */,
+				D1135F7421ECD34A003A26C1 /* UIImage+Image.m */,
+				D1135F7521ECD34A003A26C1 /* UIBarButtonItem+Item.h */,
+				D1135F7621ECD34A003A26C1 /* UIBarButtonItem+Item.m */,
+				D1135F7721ECD34A003A26C1 /* UIImage+Image.h */,
+				D1135F7821ECD34A003A26C1 /* UIView+Frame.h */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		D1135F7C21ECD487003A26C1 /* ZLRepositoriesViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D1135F8821ECD523003A26C1 /* ZLRepositoriesViewController.h */,
+				D1135F8921ECD523003A26C1 /* ZLRepositoriesViewController.m */,
+			);
+			path = ZLRepositoriesViewController;
+			sourceTree = "<group>";
+		};
+		D1135F7D21ECD487003A26C1 /* ZLExploreViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D1135F8221ECD502003A26C1 /* ZLExploreViewController.h */,
+				D1135F8321ECD502003A26C1 /* ZLExploreViewController.m */,
+			);
+			path = ZLExploreViewController;
+			sourceTree = "<group>";
+		};
+		D1135F8021ECD487003A26C1 /* ZLNewsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D1135F8521ECD513003A26C1 /* ZLNewsViewController.h */,
+				D1135F8621ECD513003A26C1 /* ZLNewsViewController.m */,
+			);
+			path = ZLNewsViewController;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -291,6 +379,7 @@
 		0ADF902221D4B01900BF86CD /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = ZL;
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = ZTE;
 				TargetAttributes = {
@@ -393,21 +482,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				7436AC8B21EB869C00F03276 /* SYDCentralFactory+SYDService.m in Sources */,
+				D1135F7A21ECD34A003A26C1 /* UIImage+Image.m in Sources */,
 				7436AC8C21EB869C00F03276 /* SYDCentralFactory+ViewController.m in Sources */,
 				7436AC8D21EB869C00F03276 /* SYDCentralFactory.m in Sources */,
 				7436AC8E21EB869C00F03276 /* SYDCentralQueuePool.m in Sources */,
 				7436AC8F21EB869C00F03276 /* SYDCentralRouter+SYDService.m in Sources */,
+				D1135F8A21ECD523003A26C1 /* ZLRepositoriesViewController.m in Sources */,
 				7436AC9021EB869C00F03276 /* SYDCentralRouter+ViewController.m in Sources */,
 				7436AC9121EB869D00F03276 /* SYDCentralRouter.m in Sources */,
+				D1135F8421ECD502003A26C1 /* ZLExploreViewController.m in Sources */,
 				7436AC9221EB869D00F03276 /* SYDCentralRouterModel.m in Sources */,
+				D1135F8721ECD513003A26C1 /* ZLNewsViewController.m in Sources */,
 				7436AC9321EB869D00F03276 /* UIViewController+SYDRouter.m in Sources */,
 				7436AC8221EB7B4500F03276 /* ZLBaseNavigationViewController.m in Sources */,
+				D1135F7921ECD34A003A26C1 /* UIView+Frame.m in Sources */,
 				7436AC8421EB7B4500F03276 /* ZLBaseViewController.m in Sources */,
 				0ADF903D21D4B01900BF86CD /* main.m in Sources */,
 				7436AC8321EB7B4500F03276 /* ZLBaseView.m in Sources */,
 				746B092121EB6DA1000EE88B /* ApolloAdapter.swift in Sources */,
 				0ADF902F21D4B01900BF86CD /* AppDelegate.m in Sources */,
 				746B092E21EB7362000EE88B /* ZLMainViewController.m in Sources */,
+				D1135FA821ECE3A6003A26C1 /* UITextField+PlaceHolder.m in Sources */,
+				D1135F7021ECD09D003A26C1 /* ZLProfileViewController.m in Sources */,
+				D1135F7B21ECD34A003A26C1 /* UIBarButtonItem+Item.m in Sources */,
 				7436AC8A21EB848700F03276 /* SYDCentralPivotUIAdapter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -548,7 +645,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 24LG5QVBPR;
+				DEVELOPMENT_TEAM = U6M3H59V7X;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ZLGitHubClient/ZLSupportFiles/ZLGitHubClient-Prefix.pch";
@@ -556,7 +653,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				NEW_SETTING = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.zm.ZLGitHubClient;
+				PRODUCT_BUNDLE_IDENTIFIER = long.ZLGitHubClient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -577,7 +674,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 24LG5QVBPR;
+				DEVELOPMENT_TEAM = U6M3H59V7X;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ZLGitHubClient/ZLSupportFiles/ZLGitHubClient-Prefix.pch";
@@ -585,7 +682,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				NEW_SETTING = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.zm.ZLGitHubClient;
+				PRODUCT_BUNDLE_IDENTIFIER = long.ZLGitHubClient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
