@@ -2,13 +2,26 @@ PODS:
   - Apollo (0.8.0):
     - Apollo/Core (= 0.8.0)
   - Apollo/Core (0.8.0)
+  - CocoaLumberjack (3.4.1):
+    - CocoaLumberjack/Default (= 3.4.1)
+    - CocoaLumberjack/Extensions (= 3.4.1)
+  - CocoaLumberjack/Default (3.4.1)
+  - CocoaLumberjack/Extensions (3.4.1):
+    - CocoaLumberjack/Default
 
 DEPENDENCIES:
   - Apollo (~> 0.8.0)
+  - CocoaLumberjack (~> 3.4.1)
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - Apollo
+    - CocoaLumberjack
 
 SPEC CHECKSUMS:
   Apollo: 66e0f52289551545adb7ecdd994e713fdbae26eb
+  CocoaLumberjack: 2e258a064cacc8eb9a2aca318e24d02a0a7fd56d
 
-PODFILE CHECKSUM: 1bad8769e0fe76e90da2fa4f308cf51bf7c42e24
+PODFILE CHECKSUM: 808e556d18cf66245d04fbf63d098001f6cdddb8
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.0

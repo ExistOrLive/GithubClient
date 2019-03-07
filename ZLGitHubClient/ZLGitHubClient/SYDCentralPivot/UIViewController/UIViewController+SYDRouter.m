@@ -1,7 +1,7 @@
 
 //
 //  UIViewController+SYDRouter.m
-//  
+//  SYDServiceSDK
 //
 //  Created by zhumeng on 2019/1/7.
 //  Copyright © 2019年 zhumeng. All rights reserved.
@@ -27,7 +27,15 @@
     [paramDic enumerateKeysAndObjectsUsingBlock:^(id  key,id value,BOOL * stop)
      {
          NSString * tmpKey = key;
-         [controller setValue:value forKey:tmpKey];
+         @try
+         {
+             [controller setValue:value forKey:tmpKey];
+         }
+         @catch(NSException * exception)
+         {
+             NSLog(@"enterViewControllerWithViewControllerConfig: value for key[%@] not exist,exception[%@]",key,exception);
+         }
+       
      }];
     
     if(config.isNavigated)

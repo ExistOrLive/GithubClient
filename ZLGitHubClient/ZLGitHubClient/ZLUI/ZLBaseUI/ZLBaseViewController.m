@@ -16,23 +16,43 @@
 
 - (void)viewDidLoad
 {
+    ZLLog_Info(@"ZLMonitor: [%@] viewDidLoad at [%@]",self,[NSDate date]);
     [super viewDidLoad];
+    
 }
 
-- (void)didReceiveMemoryWarning {
+- (void) viewWillAppear:(BOOL)animated
+{
+    ZLLog_Info(@"ZLMonitor: [%@] viewWillAppear at [%@]",self,[NSDate date]);
+    [super viewWillAppear:animated];
+}
+
+- (void) viewDidAppear:(BOOL)animated
+{
+    ZLLog_Info(@"ZLMonitor: [%@] viewDidAppear at [%@]",self,[NSDate date]);
+    [super viewDidAppear:animated];
+}
+
+- (void) viewWillDisappear:(BOOL)animated
+{
+    ZLLog_Info(@"ZLMonitor: [%@] viewWillDisappear at [%@]",self,[NSDate date]);
+    [super viewWillDisappear:animated];
+}
+
+- (void) viewDidDisappear:(BOOL)animated
+{
+    ZLLog_Info(@"ZLMonitor: [%@] viewDidDisappear at [%@]",self,[NSDate date]);
+    [super viewDidDisappear:animated];
+}
+
+- (void)didReceiveMemoryWarning
+{
+    ZLLog_Info(@"ZLMonitor: [%@] didReceiveMemoryWarning at [%@]",self,[NSDate date]);
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+ 
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 #pragma mark - 设置Navigation Bar
 - (void) setupNavigationBar:(NSString *) titleText

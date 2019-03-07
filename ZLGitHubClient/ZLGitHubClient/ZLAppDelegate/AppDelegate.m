@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "ZLGitHubClient-Swift.h"
+#import "ZLLoginViewController.h"
 
 @interface AppDelegate ()
 
@@ -19,11 +20,27 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    UIViewController * rootViewController = [SYDCentralPivotUIAdapter getZLMainViewController];
+    /**
+     *
+     *  初始化中间件
+     **/
+    [SYDCentralRouter sharedInstance];
+    
+    /**
+     *
+     * 初始化工具模块
+     **/
+    [ZLToolManager sharedInstance];
+    
+    ZLLog_Info(@"中间件，工具模块初始化完毕");
+    
+    //UIViewController * rootViewController = [SYDCentralPivotUIAdapter getZLMainViewController];
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    [self.window setRootViewController:rootViewController];
+    [self.window setRootViewController:[[ZLLoginViewController alloc] init]];
     [self.window setBackgroundColor:[UIColor whiteColor]];
     [self.window makeKeyAndVisible];
+    
+
 
     return YES;
 }

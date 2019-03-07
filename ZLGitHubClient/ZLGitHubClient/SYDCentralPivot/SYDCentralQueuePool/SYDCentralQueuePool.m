@@ -1,7 +1,7 @@
 
 //
 //  SYDCentralQueuePool.m
-//  
+//  SYDServiceSDK
 //
 //  Created by zhumeng on 2019/1/10.
 //  Copyright © 2019年 zhumeng. All rights reserved.
