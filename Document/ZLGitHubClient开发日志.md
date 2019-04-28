@@ -14,6 +14,29 @@
 
 ----
 
+## 2018-03-07
+
+### 引入`CocoaLumberjack`日志框架
+
+- 首先在Cocoapods中引入CocoaLumberjack
+
+![Cocoapods 引入日志模块][7]
+
+- 创建`ZLLogManager`类，用于封装和管理日志模块
+
+> `ZLLogManager`类实现了`ZLLogModuleProtocol`协议，该协议定义了日志模块的外部调用方法
+
+> 然后通过中间件`SYDCentralPivot`获取`ZLLogManager`单例,注入到`ZLToolManager`的属性`zlLogModule`
+
+> 外部通过宏定义调用实现了`ZLLogModuleProtocol`协议的`zlLogModule`的相应方法。
+
+这样就可以实现工具模块的解耦合
+
+
+
+
+
+
 
 [1]: https://developer.github.com
 [2]: https://developer.github.com/v4/explorer/
@@ -21,3 +44,4 @@
 [4]: http://graphql.cn
 [5]: https://github.com/apollographql/apollo-ios
 [6]: ../../iOS/Swift/Swift与OC混编/OC工程引入Swift代码.md
+[7]: pic/引入日志模块.png

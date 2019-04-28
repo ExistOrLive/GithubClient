@@ -1,4 +1,19 @@
 PODS:
+  - AFNetworking (3.2.0):
+    - AFNetworking/NSURLSession (= 3.2.0)
+    - AFNetworking/Reachability (= 3.2.0)
+    - AFNetworking/Security (= 3.2.0)
+    - AFNetworking/Serialization (= 3.2.0)
+    - AFNetworking/UIKit (= 3.2.0)
+  - AFNetworking/NSURLSession (3.2.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.2.0)
+  - AFNetworking/Security (3.2.0)
+  - AFNetworking/Serialization (3.2.0)
+  - AFNetworking/UIKit (3.2.0):
+    - AFNetworking/NSURLSession
   - Apollo (0.8.0):
     - Apollo/Core (= 0.8.0)
   - Apollo/Core (0.8.0)
@@ -10,18 +25,21 @@ PODS:
     - CocoaLumberjack/Default
 
 DEPENDENCIES:
+  - AFNetworking (~> 3.2.0)
   - Apollo (~> 0.8.0)
   - CocoaLumberjack (~> 3.4.1)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
+    - AFNetworking
     - Apollo
     - CocoaLumberjack
 
 SPEC CHECKSUMS:
+  AFNetworking: 8ac6017b94ea105479f7776e5288e48ae9c59bb4
   Apollo: 66e0f52289551545adb7ecdd994e713fdbae26eb
   CocoaLumberjack: 2e258a064cacc8eb9a2aca318e24d02a0a7fd56d
 
-PODFILE CHECKSUM: 808e556d18cf66245d04fbf63d098001f6cdddb8
+PODFILE CHECKSUM: 3be4092fa92a8efcc59e7f17d828416a8d3e91f6
 
 COCOAPODS: 1.5.0
