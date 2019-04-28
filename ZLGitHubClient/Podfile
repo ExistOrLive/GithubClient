@@ -9,4 +9,5 @@ pod 'CocoaLumberjack', '~> 3.4.1'
 
 pod 'AFNetworking', '~> 3.2.0'
 
+pod 'FMDB', '~> 2.7.2'
 end

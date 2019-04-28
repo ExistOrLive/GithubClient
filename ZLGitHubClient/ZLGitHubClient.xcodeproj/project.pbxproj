@@ -37,6 +37,7 @@
 		748905D322300B46003562E1 /* ZLLoginLogoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 748905D222300B46003562E1 /* ZLLoginLogoView.m */; };
 		748905DB223019AE003562E1 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 748905DA22301984003562E1 /* icon.png */; };
 		748905DF22301A31003562E1 /* ZLCustomTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 748905DE22301A31003562E1 /* ZLCustomTextField.m */; };
+		74A614682275FEC0008FA3F3 /* ZLDataBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A614672275FEC0008FA3F3 /* ZLDataBaseManager.m */; };
 		A6389CC5113B9E045DD7D154 /* Pods_ZLGitHubClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71EC483528FF72DE8C8B1035 /* Pods_ZLGitHubClient.framework */; };
 		D1135F7021ECD09D003A26C1 /* ZLProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1135F6F21ECD09D003A26C1 /* ZLProfileViewController.m */; };
 		D1135F7921ECD34A003A26C1 /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = D1135F7321ECD34A003A26C1 /* UIView+Frame.m */; };
@@ -111,6 +112,8 @@
 		748905DA22301984003562E1 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		748905DD22301A31003562E1 /* ZLCustomTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLCustomTextField.h; sourceTree = "<group>"; };
 		748905DE22301A31003562E1 /* ZLCustomTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLCustomTextField.m; sourceTree = "<group>"; };
+		74A614662275FEC0008FA3F3 /* ZLDataBaseManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLDataBaseManager.h; sourceTree = "<group>"; };
+		74A614672275FEC0008FA3F3 /* ZLDataBaseManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLDataBaseManager.m; sourceTree = "<group>"; };
 		CD0AEC7A0ED54B14C3F6E8C9 /* Pods-ZLGitHubClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZLGitHubClient.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZLGitHubClient/Pods-ZLGitHubClient.debug.xcconfig"; sourceTree = "<group>"; };
 		D1135F6E21ECD09D003A26C1 /* ZLProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLProfileViewController.h; sourceTree = "<group>"; };
 		D1135F6F21ECD09D003A26C1 /* ZLProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLProfileViewController.m; sourceTree = "<group>"; };
@@ -316,6 +319,7 @@
 		746F47AB222A7927004D2A2F /* ToolManager */ = {
 			isa = PBXGroup;
 			children = (
+				74A614652275FE87008FA3F3 /* ZLDataBaseManager */,
 				746F47B5222D60FD004D2A2F /* ZLToolManager */,
 				746F47AC222A7942004D2A2F /* ZLLogManager */,
 			);
@@ -429,6 +433,15 @@
 				748905DE22301A31003562E1 /* ZLCustomTextField.m */,
 			);
 			path = ZLCustomTextField;
+			sourceTree = "<group>";
+		};
+		74A614652275FE87008FA3F3 /* ZLDataBaseManager */ = {
+			isa = PBXGroup;
+			children = (
+				74A614662275FEC0008FA3F3 /* ZLDataBaseManager.h */,
+				74A614672275FEC0008FA3F3 /* ZLDataBaseManager.m */,
+			);
+			path = ZLDataBaseManager;
 			sourceTree = "<group>";
 		};
 		8AD159E421EC467DE119C80F /* Pods */ = {
@@ -582,12 +595,14 @@
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/Apollo/Apollo.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
+				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Apollo.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMDB.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -637,6 +652,7 @@
 				7436AC9221EB869D00F03276 /* SYDCentralRouterModel.m in Sources */,
 				D1135F8721ECD513003A26C1 /* ZLNewsViewController.m in Sources */,
 				746F47B0222A7965004D2A2F /* ZLLogManager.m in Sources */,
+				74A614682275FEC0008FA3F3 /* ZLDataBaseManager.m in Sources */,
 				7436AC9321EB869D00F03276 /* UIViewController+SYDRouter.m in Sources */,
 				7436AC8221EB7B4500F03276 /* ZLBaseNavigationViewController.m in Sources */,
 				746F47B8222D6119004D2A2F /* ZLToolManager.m in Sources */,
