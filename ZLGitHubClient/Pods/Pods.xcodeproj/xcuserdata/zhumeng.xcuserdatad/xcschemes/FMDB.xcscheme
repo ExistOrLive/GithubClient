@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0930"
+   LastUpgradeVersion = "1100"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "251BAD17812F7EBF6532EACF66F941C3"
+               BlueprintIdentifier = "8592E0E389D40AC17881400ADC67ABC0"
+               BuildableName = "FMDB.framework"
                BlueprintName = "FMDB"
-               ReferencedContainer = "container:Pods.xcodeproj"
-               BuildableName = "FMDB.framework">
+               ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
