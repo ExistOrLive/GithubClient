@@ -8,8 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "ZLLogModuleProtocol.h"
+#import "ZLDBModuleProtocol.h"
 
 #define ZLLOGMODULE [ZLToolManager sharedInstance].zlLogModule
+#define ZLDBMODULE [ZLToolManager sharedInstance].zlDBModule
 
 #pragma mark - 日志模块快速调用宏
 
@@ -29,6 +31,12 @@
  * 日志模块组件
  **/
 @property(nonatomic,strong,readonly) id<ZLLogModuleProtocol> zlLogModule;
+
+/**
+ *
+ * 数据库模块组件
+ **/
+@property(nonatomic,strong,readonly) id<ZLDBModuleProtocol> zlDBModule;
 
 + (instancetype) sharedInstance;
 

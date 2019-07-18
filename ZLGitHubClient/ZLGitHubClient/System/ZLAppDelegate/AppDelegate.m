@@ -32,6 +32,9 @@
      **/
     [ZLToolManager sharedInstance];
     
+    [ZLLoginServiceModel sharedServiceModel];
+    [ZLUserServiceModel sharedServiceModel];
+    
     ZLLog_Info(@"中间件，工具模块初始化完毕");
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];

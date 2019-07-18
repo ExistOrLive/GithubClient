@@ -3,23 +3,25 @@
 //  ZLGitHubClient
 //
 //  Created by 朱猛 on 2019/7/15.
-//  Copyright © 2019 ZTE. All rights reserved.
+//  Copyright © 2019 ZM. All rights reserved.
 //
 
 import UIKit
 
 class ZLProfileHeaderView: ZLBaseView {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
-
+    @IBOutlet weak var headImageView: UIImageView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var createTimeLabel: UILabel!
+    
+    @IBOutlet weak var repositoryNum: UILabel!
+    @IBOutlet weak var gistNumLabel: UILabel!
+    @IBOutlet weak var followersNumLabel: UILabel!
+    @IBOutlet weak var followingNumLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.headImageView.layer.cornerRadius = 30.0;
         
     }
 }

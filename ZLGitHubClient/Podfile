@@ -3,9 +3,17 @@ use_frameworks!
 
 target 'ZLGitHubClient' do
 
-pod 'CocoaLumberjack', '~> 3.4.1'
+# 日志打印
+pod 'CocoaLumberjack'
+pod 'CocoaLumberjack/Swift'
 
-pod 'AFNetworking', '~> 3.2.0'
+# Http
+pod 'AFNetworking'
 
-pod 'FMDB', '~> 2.7.2'
+# 数据库
+pod 'FMDB'
+
+# Json Model 转换
+pod 'MJExtension'
+
 end

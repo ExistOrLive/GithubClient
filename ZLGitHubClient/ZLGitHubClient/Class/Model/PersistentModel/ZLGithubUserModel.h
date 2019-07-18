@@ -3,7 +3,7 @@
 //  ZLGitHubClient
 //
 //  Created by 朱猛 on 2019/7/15.
-//  Copyright © 2019 ZTE. All rights reserved.
+//  Copyright © 2019 ZM. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -16,9 +16,11 @@ typedef enum
     ZLGithubUserType_Organization
 } ZLGithubUserType;
 
-@interface ZLGithubUserModel : NSObject
+@interface ZLGithubUserModel : NSObject <NSCopying>
 
 @property (strong,nonatomic) NSString * identity;
+
+@property (strong,nonatomic) NSString * node_id;
 
 @property (strong,nonatomic) NSString * loginName;
 
@@ -49,6 +51,9 @@ typedef enum
 @property (strong,nonatomic) NSString * created_at;                   //github主页地址
 
 @property (strong,nonatomic) NSString * updated_at;
+
+
++ (instancetype) getInstanceWithDic:(NSDictionary *) dic;
 
 @end
 

@@ -3,28 +3,60 @@
 //  ZLGitHubClient
 //
 //  Created by 朱猛 on 2019/7/16.
-//  Copyright © 2019 ZTE. All rights reserved.
+//  Copyright © 2019 ZM. All rights reserved.
 //
 
 import UIKit
 
 class ZLProfileBaseViewModel: ZLBaseViewModel {
     
+    // view
     weak var profileBaseView: ZLProfileBaseView?
 
+    // model
+    var currentUserInfo: ZLGithubUserModel?
+    
+    deinit {
+        // 注销监听
+        ZLUserServiceModel.shared().unRegisterObserver(self, name: ZLGetCurrentUserInfoResult_Notification)
+    }
+    
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
         
         if !(targetView is ZLProfileBaseView)
         {
+            ZLLog_Info("targetView is invalid")
             return;
         }
         
         self.profileBaseView = targetView as? ZLProfileBaseView;
         self.profileBaseView?.tableView.delegate = self;
         self.profileBaseView?.tableView.dataSource = self;
-
+        
+        // 注册监听
+        ZLUserServiceModel.shared().registerObserver(self, selector: #selector(onNotificationArrived(notication:)), name: ZLGetCurrentUserInfoResult_Notification)
+        
+        guard let currentUserInfo:ZLGithubUserModel =  ZLUserServiceModel.shared().currentUserInfo() else
+        {
+            return;
+        }
+        
+        // 设置data
+        self.setViewDataForProfileBaseView(model: currentUserInfo, view: self.profileBaseView!)
+        
     }
     
+    func setViewDataForProfileBaseView(model:ZLGithubUserModel, view:ZLProfileBaseView)
+    {
+        self.currentUserInfo = model;
+        
+        view.tableHeaderView?.nameLabel.text = String("\(model.name)(\(model.loginName))")
+        view.tableHeaderView?.createTimeLabel.text = String("创建于 \(model.created_at)")
+        view.tableHeaderView?.repositoryNum.text = String("\(model.public_repos)")
+        view.tableHeaderView?.gistNumLabel.text = String("\(model.public_gists)")
+        view.tableHeaderView?.followersNumLabel.text = String("\(model.followers)")
+        view.tableHeaderView?.followingNumLabel.text = String("\(model.following)")
+    }
 }
 
 extension ZLProfileBaseViewModel: UITableViewDelegate, UITableViewDataSource
@@ -87,6 +119,35 @@ extension ZLProfileBaseViewModel: UITableViewDelegate, UITableViewDataSource
         }
         
         return tableViewCell;
+    }
+}
+
+
+// MARK: onNotificationArrived
+extension ZLProfileBaseViewModel
+{
+    @objc func onNotificationArrived(notication: Notification)
+    {
+        ZLLog_Info("notificaition[\(notication) arrived]")
+        
+        switch notication.name
+        {
+        case ZLGetCurrentUserInfoResult_Notification: do{
+            
+            guard let model: ZLGithubUserModel = notication.params as? ZLGithubUserModel else
+            {
+                ZLLog_Info("notificaition.params is nil]")
+                return;
+            }
+            
+            // 更新UI
+            self.setViewDataForProfileBaseView(model: model, view: self.profileBaseView!);
+            
+            }
+        default:
+            break;
+        }
+        
     }
 }
 

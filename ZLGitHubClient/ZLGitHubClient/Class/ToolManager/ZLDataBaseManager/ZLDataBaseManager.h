@@ -7,11 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ZLDBModuleProtocol.h"
 
-@interface ZLDataBaseManager : NSObject
-
-+ (instancetype) sharedInstance;
-
-- (BOOL) createDataBaseWithPath:(NSString *) dataBasePath dataBaseKey:(NSString *) dataBaseKey;
+@interface ZLDataBaseManager : NSObject<ZLDBModuleProtocol>
 
 @end

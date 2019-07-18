@@ -3,7 +3,7 @@
 //  ZLGitHubClient
 //
 //  Created by 朱猛 on 2019/7/8.
-//  Copyright © 2019 ZTE. All rights reserved.
+//  Copyright © 2019 ZM. All rights reserved.
 //
 
 import UIKit
@@ -51,12 +51,12 @@ extension ZLOAuthBaseViewModel: UIWebViewDelegate
 {
     func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebView.NavigationType) -> Bool
     {
-        print("OAuth: shouldStartLoadWith %@",request.url?.absoluteString ?? "");
+        ZLLog_Info("OAuth: shouldStartLoadWith \(String(describing: request.url))");
         
         if (request.url?.absoluteString ?? "").hasPrefix(OAuthCallBackURL)
         {
             // 登陆成功获取token
-            ZLGithubHttpClient.default().getAccessToken(request.url!.query!);
+            ZLLoginServiceModel.shared().getAccessToken(request.url!.query!);
             self.viewController?.dismiss(animated: true, completion: nil);
             return false;
         }

@@ -12,10 +12,20 @@
 #import "ZLToolManager.h"
 #import "ZLKeyChainManager.h"
 
+// Service
 #import "ZLLoginServiceModel.h"
+#import "ZLUserServiceModel.h"
 
+// VC
 #import "ZLVideoViewController.h"
 
+//persistent Model
+#import "ZLGithubUserModel.h"
+
+// tmp Model
+#import "ZLLoginResultModel.h"
+
+// Network
 #import "ZLGithubHTTPClient.h"
 
 #import "AppDelegate.h"

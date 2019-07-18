@@ -18,15 +18,15 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="15a-27-hPs">
                     <rect key="frame" x="0.0" y="0.0" width="318" height="190"/>
                     <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="defaulthead" translatesAutoresizingMaskIntoConstraints="NO" id="5Ns-sz-mkf">
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="timg" translatesAutoresizingMaskIntoConstraints="NO" id="5Ns-sz-mkf">
                             <rect key="frame" x="22" y="30" width="60" height="60"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="60" id="Dhd-jf-sF1"/>
                                 <constraint firstAttribute="width" constant="60" id="uQ5-PM-k79"/>
                             </constraints>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="朱猛(ExistOrLive)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NcN-SZ-3x3">
-                            <rect key="frame" x="102" y="40" width="130" height="17"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NcN-SZ-3x3">
+                            <rect key="frame" x="102" y="40" width="0.0" height="17"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="17" id="jeG-gC-Aw6"/>
                             </constraints>
@@ -34,8 +34,8 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="创建于 2016-04-13" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GvF-MU-KfX">
-                            <rect key="frame" x="102" y="68" width="107.5" height="12"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="创建于" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GvF-MU-KfX">
+                            <rect key="frame" x="102" y="68" width="36" height="12"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="12" id="u4i-ul-KGI"/>
                             </constraints>
@@ -249,12 +249,21 @@
                 <constraint firstItem="Rsj-dY-eGJ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="xy4-ve-SBV"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="createTimeLabel" destination="GvF-MU-KfX" id="Jnr-t9-dsH"/>
+                <outlet property="followersNumLabel" destination="N0I-Bq-pj2" id="QwA-ll-PXx"/>
+                <outlet property="followingNumLabel" destination="vm1-aD-NI2" id="RjT-xo-mVJ"/>
+                <outlet property="gistNumLabel" destination="txi-46-3nR" id="163-jX-pjv"/>
+                <outlet property="headImageView" destination="5Ns-sz-mkf" id="Rpb-6u-rQ4"/>
+                <outlet property="nameLabel" destination="NcN-SZ-3x3" id="4bq-Pm-znr"/>
+                <outlet property="repositoryNum" destination="z5v-Mb-fHj" id="56I-Q7-kUM"/>
+            </connections>
             <point key="canvasLocation" x="247.82608695652175" y="-133.25892857142856"/>
         </view>
     </objects>
     <resources>
         <image name="Edit_MyProfile" width="10.5" height="10.5"/>
         <image name="Next_MyProfile" width="5" height="9"/>
-        <image name="defaulthead" width="460" height="460"/>
+        <image name="timg" width="625" height="602"/>
     </resources>
 </document>

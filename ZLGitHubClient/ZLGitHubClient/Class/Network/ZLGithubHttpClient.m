@@ -3,12 +3,23 @@
 //  ZLGitHubClient
 //
 //  Created by 朱猛 on 2019/7/12.
-//  Copyright © 2019 ZTE. All rights reserved.
+//  Copyright © 2019 ZM. All rights reserved.
 //
 
 #import "ZLGithubHttpClient.h"
-#import "ZLKeyChainManager.h"
 #import <AFNetworking/AFNetworking.h>
+
+// Tool
+#import "ZLKeyChainManager.h"
+// model
+#import "ZLGithubUserModel.h"
+
+#define MyClientID          @"fbd34c5a34be72f66c35"
+#define MyClientSecret      @"02e5eb8a2805f6492d3d1ff7c5a618d73e1edb35"
+#define OAuthState          @"31415"
+#define OAuthScope          @"user,repo,gist"
+
+#pragma mark - OAuth 相关接口
 
 #define GitHubMainURL       @"https://github.com"
 
@@ -18,10 +29,12 @@
 #define OAuthCallBackURL        @"https://github.com/organizations/MengAndJie/CallBack"
 #define OAuthAccessTokenURL     @"https://github.com/login/oauth/access_token"
 
-#define MyClientID          @"fbd34c5a34be72f66c35"
-#define MyClientSecret      @"02e5eb8a2805f6492d3d1ff7c5a618d73e1edb35"
-#define OAuthState          @"31415"
-#define OAuthScope          @"user,repo,gist"
+#pragma mark - github业务接口
+
+#define GitHubAPIURL @"https://api.github.com"
+
+#define currenUserUrl @"/user"
+
 
 @interface ZLGithubHttpClient()
 
@@ -54,6 +67,9 @@
     {
         _httpConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
         _sessionManager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:_httpConfig];
+        
+        // 处理success，failed的队列
+        _sessionManager.completionQueue = dispatch_queue_create("AFURLSessionManagerCompleteQueue", DISPATCH_QUEUE_SERIAL);
         
     }
     return self;
@@ -172,5 +188,36 @@
     
 }
 
+
+
+/**
+ *
+ * 获取当前登陆的用户信息
+ **/
+- (void) getCurrentLoginUserInfo:(void(^)(BOOL,ZLGithubUserModel *)) block
+{
+    NSString * userUrl = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,currenUserUrl];
+    
+    [self.sessionManager.requestSerializer setValue:[NSString stringWithFormat:@"token %@",self.token] forHTTPHeaderField:@"Authorization"];
+    
+    void(^successBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
+    ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+    {
+        ZLGithubUserModel * model = [ZLGithubUserModel getInstanceWithDic:(NSDictionary *) responseObject];
+        block(YES,model);
+    };
+    
+    void(^failedBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
+    ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+    {
+        block(NO,nil);
+    };
+    
+   [self.sessionManager GET:userUrl
+                 parameters:nil
+                   progress:nil
+                    success:successBlock
+                    failure:failedBlock];
+}
 
 @end

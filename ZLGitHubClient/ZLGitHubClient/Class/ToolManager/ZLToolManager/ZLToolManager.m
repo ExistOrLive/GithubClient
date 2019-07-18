@@ -10,6 +10,7 @@
 #import "SYDCentralFactory.h"
 
 static const NSString * ZLLogModule = @"ZLLogModule";
+static const NSString * ZLDBModule = @"ZLDBModule";
 
 @implementation ZLToolManager
 
@@ -29,6 +30,7 @@ static const NSString * ZLLogModule = @"ZLLogModule";
     if(self = [super init])
     {
         _zlLogModule = [[SYDCentralFactory sharedInstance] getCommonBean:ZLLogModule];
+        _zlDBModule = [[SYDCentralFactory sharedInstance] getCommonBean:ZLDBModule];
     }
     return self;
 }

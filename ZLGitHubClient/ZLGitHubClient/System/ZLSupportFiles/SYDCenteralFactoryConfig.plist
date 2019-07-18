@@ -58,5 +58,16 @@
 		<key>singleMethod</key>
 		<string>sharedInstance</string>
 	</dict>
+	<key>ZLDBModule</key>
+	<dict>
+		<key>class</key>
+		<string>ZLDataBaseManager</string>
+		<key>type</key>
+		<integer>2</integer>
+		<key>isSingle</key>
+		<true/>
+		<key>singleMethod</key>
+		<string>sharedInstance</string>
+	</dict>
 </dict>
 </plist>
