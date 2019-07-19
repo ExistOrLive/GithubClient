@@ -55,6 +55,10 @@ typedef enum
 
 + (instancetype) getInstanceWithDic:(NSDictionary *) dic;
 
+- (NSDate * __nullable) createdDate;
+
+- (NSDate * __nullable) updatedDate;
+
 @end
 
 NS_ASSUME_NONNULL_END

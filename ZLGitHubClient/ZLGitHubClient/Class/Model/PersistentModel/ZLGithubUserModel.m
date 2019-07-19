@@ -27,6 +27,33 @@
     return [ZLGithubUserModel mj_objectWithKeyValues:dic];
 }
 
+- (NSDate *) createdDate
+{
+    if(!_created_at)
+    {
+        return nil;
+    }
+    NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+    
+    return [dateFormatter dateFromString:_created_at];
+}
+
+- (NSDate *) updatedDate
+{
+    if(!_updated_at)
+    {
+        return nil;
+    }
+    
+    NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+    
+    return [dateFormatter dateFromString:_updated_at];
+}
+
 - (id)copyWithZone:(nullable NSZone *)zone
 {
     ZLGithubUserModel * newModel = [[[self class] alloc] init];

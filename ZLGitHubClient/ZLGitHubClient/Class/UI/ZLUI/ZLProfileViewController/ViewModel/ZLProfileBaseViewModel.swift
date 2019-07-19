@@ -51,7 +51,16 @@ class ZLProfileBaseViewModel: ZLBaseViewModel {
         self.currentUserInfo = model;
         
         view.tableHeaderView?.nameLabel.text = String("\(model.name)(\(model.loginName))")
-        view.tableHeaderView?.createTimeLabel.text = String("创建于 \(model.created_at)")
+        
+        var dateStr = model.created_at
+        if let date: Date = model.createdDate()
+        {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            dateFormatter.timeZone = TimeZone.init(secondsFromGMT: 8 * 60 * 60) // 北京时区
+            dateStr = dateFormatter.string(from: date)
+        }
+        view.tableHeaderView?.createTimeLabel.text = String("创建于 \(dateStr)")
         view.tableHeaderView?.repositoryNum.text = String("\(model.public_repos)")
         view.tableHeaderView?.gistNumLabel.text = String("\(model.public_gists)")
         view.tableHeaderView?.followersNumLabel.text = String("\(model.followers)")

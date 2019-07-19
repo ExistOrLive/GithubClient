@@ -19,16 +19,16 @@
 
 
 #pragma mark - query sql
-#define dbVersionQuery @"select version from dbverison"
-#define githubUserQueryById @"select * from githubUser where id = %@"
+#define dbVersionQuery @"select version from dbversion"
+#define githubUserQueryById @"select * from githubUser where id = ?"
 
 #pragma mark - update sql
 
-#define dbversionInsert @"insert into dbversion (version) values(%d)"
-#define dbversionUpdate @"update dbversion set version = %d where rowid = 1"
+#define dbversionInsert @"insert into dbversion (version) values(?)"
+#define dbversionUpdate @"update dbversion set version = ? where rowid = 1"
 
-#define githubUserInsert @"insert into githubUser (id,node_id,loginName,name,company,blog,location,email,bio,html_url,avatar_url,public_repos,public_gists,followers,following,created_at,updated_at) values(%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%d,%d,%d,%d,%@,%@)"
-#define githubUserUpdate @"update githubUser set node_id = %@,loginName = %@,name = %@,company= %@,blog = %@,location = %@,email = %@, bio = %@, html_url = %@,avatar_url = %@,public_repos = %d,public_gists = %d,followers = %d, following = %d, created_at = %@,updated_at = %@ where id = %@"
+#define githubUserInsert @"insert into githubUser (id,node_id,loginName,name,company,blog,location,email,bio,html_url,avatar_url,public_repos,public_gists,followers,following,created_at,updated_at) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+#define githubUserUpdate @"update githubUser set node_id = ?,loginName = ?,name = ?,company= ?,blog = ?,location = ?,email = ?, bio = ?, html_url = ?,avatar_url = ?,public_repos = ?,public_gists = ?,followers = ?, following = ?, created_at = ?,updated_at = ? where id = ?"
 
 
 #endif /* ZLDataBaseSql_h */

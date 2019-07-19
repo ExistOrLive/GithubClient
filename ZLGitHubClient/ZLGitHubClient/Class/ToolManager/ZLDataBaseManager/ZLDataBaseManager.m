@@ -87,7 +87,7 @@
             }
         }
         
-        NSString * dbPath = [NSString stringWithFormat:@"%@\%@.db",dbHomePath,userId];
+        NSString * dbPath = [NSString stringWithFormat:@"%@/%@.db",dbHomePath,userId];
         
         
         // 1、创建db，并打开
@@ -171,13 +171,13 @@
         {
             ZLLog_Info(@"ZLDataBase: record for model[%@] is exist, so update");
             
-            [ZLDataBaseManager updateTableInDB:database WithSql:githubUserUpdate,model.node_id,model.loginName,model.name,model.company,model.blog,model.location,model.email,model.bio,model.html_url,model.avatar_url,model.public_repos,model.public_gists,model.followers,model.following,model.created_at,model.updated_at,model.identity];
+            [ZLDataBaseManager updateTableInDB:database WithSql:githubUserUpdate,model.node_id,model.loginName,model.name,model.company,model.blog,model.location,model.email,model.bio,model.html_url,model.avatar_url,@(model.public_repos),@(model.public_gists),@(model.followers),@(model.following),model.created_at,model.updated_at,model.identity];
         }
         else if(resultSet)
         {
             ZLLog_Info(@"ZLDataBase: record for model[%@] not exist, so insert");
             
-            [ZLDataBaseManager updateTableInDB:database WithSql:githubUserInsert,model.identity,model.node_id,model.loginName,model.name,model.company,model.blog,model.location,model.email,model.bio,model.html_url,model.avatar_url,model.public_repos,model.public_gists,model.followers,model.following,model.created_at,model.updated_at];
+            [ZLDataBaseManager updateTableInDB:database WithSql:githubUserInsert,model.identity,model.node_id,model.loginName,model.name,model.company,model.blog,model.location,model.email,model.bio,model.html_url,model.avatar_url,@(model.public_repos),@(model.public_gists),@(model.followers),@(model.following),model.created_at,model.updated_at];
         }
         else
         {
@@ -243,7 +243,7 @@
  **/
 + (BOOL) updateDBVersionForDB:(FMDatabase *)db withVersion:(int) version
 {
-    BOOL result = [self updateTableInDB:db WithSql:dbversionUpdate,version];
+    BOOL result = [self updateTableInDB:db WithSql:dbversionUpdate,@(version)];
     ZLLog_Info(@"ZLDataBase: updateDBVersionForDB result= %d version=%d",result,version);
     return result;
 }
@@ -254,7 +254,7 @@
  **/
 + (BOOL) insertDBVersionForDB:(FMDatabase *)db withVersion:(int) version
 {
-    BOOL result = [self updateTableInDB:db WithSql:dbversionInsert,version];
+    BOOL result = [self updateTableInDB:db WithSql:dbversionInsert,@(version)];
     ZLLog_Info(@"ZLDataBase: updateDBVersionForDB result= %d verson=%d",result,version);
     return result;
 }
@@ -283,6 +283,7 @@
     if(openResult)
     {
         // [dataBase setKey:dataBaseKey];
+        [dataBase setShouldCacheStatements:YES];
         return dataBase;
     }
     else
@@ -292,6 +293,10 @@
     }
 }
 
+
+/**
+ * sql 中需要使用？作为占位符
+ **/
 + (BOOL) updateTableInDB:(FMDatabase *) db WithSql:(NSString *) sql withArgumentsInArray:(NSArray *) array
 {
     ZLLog_Info(@"ZLDataBase: dbUpdate sql=%@ db=%@",sql,db);
