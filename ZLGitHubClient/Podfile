@@ -3,6 +3,19 @@ use_frameworks!
 
 target 'ZLGitHubClient' do
 
-pod 'Apollo', '~> 0.8.0'
+# 日志打印
+pod 'CocoaLumberjack'
+pod 'CocoaLumberjack/Swift'
+
+# Http
+pod 'AFNetworking'
+
+# 数据库
+pod 'FMDB'
+
+# Json Model 转换
+pod 'MJExtension'
+
+pod 'SDWebImage', '~> 5.0.0'
 
 end

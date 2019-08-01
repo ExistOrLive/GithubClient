@@ -1,0 +1,41 @@
+/* 
+  ZLGitHubClientLocalizable.strings
+  ZLGitHubClient
+
+  Created by 朱猛 on 2019/7/30.
+  Copyright © 2019 ZM. All rights reserved.
+*/
+
+"repositories" = "repositories";
+"gists" = "gists";
+"followers" = "followers";
+"following" = "following";
+"created at" = "created at";
+"fork" = "fork";
+"star" = "star";
+"owner" = "owner";
+
+"company" = "company";
+"location" = "location";
+"email" = "email";
+"blog" = "blog";
+"setting" = "setting";
+"about" = "about";
+"feedback" = "feedback";
+
+"lastest update" = "lastest update";
+"all update" = "all update";
+
+"login" = "login";
+"logout" = "logout";
+
+"fork :" = "fork :";
+"star :" = "star :";
+"private" = "private";
+
+
+"DropDownSeeMore" = "drop down see more";
+"DropUpSeeMore" = "drop up see more";
+"Loading" = "loading";
+"LoadFinished" = "load finished";
+
