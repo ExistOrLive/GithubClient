@@ -24,11 +24,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.baseView = [[NSBundle mainBundle] loadNibNamed:@"ZLProfileBaseView" owner:self options:nil].firstObject;
+    self.viewModel = [[ZLProfileBaseViewModel alloc] initWithViewController:self];
+    
+    self.baseView = [[NSBundle mainBundle] loadNibNamed:@"ZLProfileBaseView" owner:self.viewModel options:nil].firstObject;
     [self.baseView setFrame:ZLScreenBounds];
     [self.view addSubview:self.baseView];
     
-    self.viewModel = [[ZLProfileBaseViewModel alloc] initWithViewController:self];
     [self.viewModel bindModel:nil andView:self.baseView];
 }
 

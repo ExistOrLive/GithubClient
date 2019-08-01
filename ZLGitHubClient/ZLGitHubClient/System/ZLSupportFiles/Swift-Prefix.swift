@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import CocoaLumberjack
+import SDWebImage
 
 // MARK: 界面常用参数
 
@@ -21,6 +22,10 @@ let ZLScreenBounds  = UIScreen.main.bounds;
 
 let ZLLoginResult_Notification = Notification.Name(rawValue: "ZLLoginResult_Notification")
 let ZLGetCurrentUserInfoResult_Notification = Notification.Name(rawValue: "ZLGetCurrentUserInfoResult_Notification")
+let ZLGetReposResult_Notification = Notification.Name(rawValue: "ZLGetReposResult_Notification")
+let ZLGetFollowersResult_Notification = Notification.Name(rawValue: "ZLGetFollowersResult_Notification")
+let ZLGetFollowingResult_Notification = Notification.Name(rawValue: "ZLGetFollowingResult_Notification")
+let ZLGetGistsResult_Notification = Notification.Name(rawValue: "ZLGetGistsResult_Notification")
 
 extension Notification
 {
@@ -58,4 +63,11 @@ func ZLLog_Verbose(_ message: @autoclosure () -> String, level: DDLogLevel = ZLL
 
 func ZLLog_Error(_ message: @autoclosure () -> String, level: DDLogLevel = ZLLogLevel, context: Int = 0, file: StaticString = #file, function: StaticString = #function, line: UInt = #line, tag: Any? = nil, asynchronous async: Bool = false, ddlog: DDLog = DDLog.sharedInstance) {
     _DDLogMessage(message, level: level, flag: .error, context: context, file: file, function: function, line: line, tag: tag, asynchronous: async, ddlog: ddlog)
+}
+
+// MARK: ZLLANModule
+
+func ZLLocalizedString(string: String, comment: String) -> String
+{
+    return ZLToolManager.sharedInstance()?.zlLANModule.localized(withKey: string) ?? string;
 }

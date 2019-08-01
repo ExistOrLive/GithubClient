@@ -69,5 +69,16 @@
 		<key>singleMethod</key>
 		<string>sharedInstance</string>
 	</dict>
+	<key>ZLLANModule</key>
+	<dict>
+		<key>class</key>
+		<string>ZLLanguageManager</string>
+		<key>type</key>
+		<integer>2</integer>
+		<key>isSingle</key>
+		<true/>
+		<key>singleMethod</key>
+		<string>sharedInstance</string>
+	</dict>
 </dict>
 </plist>

@@ -17,7 +17,7 @@
 
 - (id) sendMessageToService:(const NSString *) serviceKey withSEL:(SEL) message withPara:(NSArray *) paramArray isInstanceMessage:(BOOL) isInstanceMessage
 {
-    NSLog(@"SYDCentralRouter_sendMessageToService: serviceKey[%@] message[%@] paramArray[%@]",serviceKey, message,paramArray);
+    NSLog(@"SYDCentralRouter_sendMessageToService: serviceKey[%@] message[%@] paramArray[%@]",serviceKey, NSStringFromSelector(message),paramArray);
     
     id serviceBean = [self.centralFactory getSYDServiceBean:serviceKey];
     
@@ -33,7 +33,7 @@
     {
         if(![serviceBean respondsToSelector:message])
         {
-            NSLog(@"SYDCentralRouter_sendMessageToService: serviceBean [%@] can not respondsToInstanceSelector[%@]",serviceKey,message);
+            NSLog(@"SYDCentralRouter_sendMessageToService: serviceBean [%@] can not respondsToInstanceSelector[%@]",serviceKey,NSStringFromSelector(message));
             return nil;
         }
         invocation =  [SYDCentralRouter injectArguments:paramArray withSelector:message withReceiver:serviceBean];
@@ -42,7 +42,7 @@
     {
         if(![[serviceBean class] respondsToSelector:message])
         {
-            NSLog(@"SYDCentralRouter_sendMessageToService: serviceBean [%@] can not respondsToClassSelector[%@]",serviceKey,message);
+            NSLog(@"SYDCentralRouter_sendMessageToService: serviceBean [%@] can not respondsToClassSelector[%@]",serviceKey,NSStringFromSelector(message));
             return nil;
         }
         invocation =  [SYDCentralRouter injectArguments:paramArray withSelector:message withReceiver:[serviceBean class]];
@@ -53,7 +53,7 @@
     
     if([[model asyncMethodArray] containsObject:NSStringFromSelector(message)])
     {
-        NSLog(@"SYDCentralRouter_sendMessageToService: async perform message [%@] for service[%@]",message,serviceKey);
+        NSLog(@"SYDCentralRouter_sendMessageToService: async perform message [%@] for service[%@]",NSStringFromSelector(message),serviceKey);
         
         [[SYDCentralQueuePool sharedInstance] asyncPerformBlock:^{
             [invocation invoke];
@@ -63,7 +63,7 @@
     }
     else
     {
-        NSLog(@"SYDCentralRouter_sendMessageToService: sync perform message [%@] for service[%@]",message,serviceKey);
+        NSLog(@"SYDCentralRouter_sendMessageToService: sync perform message [%@] for service[%@]",NSStringFromSelector(message),serviceKey);
         
         [invocation invoke];
         return [SYDCentralRouter getReturnValue:invocation isAsync:NO];

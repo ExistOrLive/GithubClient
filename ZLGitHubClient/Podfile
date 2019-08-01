@@ -16,6 +16,6 @@ pod 'FMDB'
 # Json Model 转换
 pod 'MJExtension'
 
-pod 'SDWebImage'
+pod 'SDWebImage', '~> 5.0.0'
 
 end

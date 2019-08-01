@@ -48,6 +48,11 @@
 		74BED25922DF772F006B07C1 /* ZLBaseServiceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 74BED25822DF772F006B07C1 /* ZLBaseServiceModel.m */; };
 		74BED25C22DF86C5006B07C1 /* ZLUserServiceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 74BED25B22DF86C5006B07C1 /* ZLUserServiceModel.m */; };
 		74BED26222E01179006B07C1 /* ZLLoginResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 74BED26122E01179006B07C1 /* ZLLoginResultModel.m */; };
+		74BEF59F22F2D75900FD1738 /* ZLUserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BEF59D22F2D75900FD1738 /* ZLUserTableViewCell.swift */; };
+		74BEF5A022F2D75900FD1738 /* ZLUserTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74BEF59E22F2D75900FD1738 /* ZLUserTableViewCell.xib */; };
+		74BEF5A322F2F85300FD1738 /* ZLAdditionInfoResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 74BEF5A222F2F85300FD1738 /* ZLAdditionInfoResultModel.m */; };
+		74BEF5AA22F303D700FD1738 /* ZMRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 74BEF5A522F303D700FD1738 /* ZMRefreshView.m */; };
+		74BEF5AB22F303D700FD1738 /* ZMRefreshManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 74BEF5A922F303D700FD1738 /* ZMRefreshManager.m */; };
 		74C3F8C122D1DD930086A3F9 /* ZLLoginBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C3F8C022D1DD930086A3F9 /* ZLLoginBaseView.swift */; };
 		74C3F8C322D1DDA20086A3F9 /* ZLLoginBaseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74C3F8C222D1DDA20086A3F9 /* ZLLoginBaseView.xib */; };
 		74C3F8C922D1E2DB0086A3F9 /* ZLLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C3F8C822D1E2DB0086A3F9 /* ZLLoginViewModel.swift */; };
@@ -58,6 +63,18 @@
 		74C3F8DD22D24CD70086A3F9 /* ZLOAuthBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C3F8DC22D24CD70086A3F9 /* ZLOAuthBaseView.swift */; };
 		74C3F8DF22D24CF20086A3F9 /* ZLOAuthBaseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74C3F8DE22D24CF20086A3F9 /* ZLOAuthBaseView.xib */; };
 		74C3F8E222D2536B0086A3F9 /* ZLOAuthBaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C3F8E122D2536B0086A3F9 /* ZLOAuthBaseViewModel.swift */; };
+		74C861C622F025F100A30B79 /* ZLRepositoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C861C422F025F100A30B79 /* ZLRepositoryTableViewCell.swift */; };
+		74C861C722F025F100A30B79 /* ZLRepositoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74C861C522F025F100A30B79 /* ZLRepositoryTableViewCell.xib */; };
+		74C861CA22F02BED00A30B79 /* ZLGitHubClientLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 74C861CC22F02BED00A30B79 /* ZLGitHubClientLocalizable.strings */; };
+		74C861D822F02F1F00A30B79 /* ZLLanguageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 74C861D722F02F1F00A30B79 /* ZLLanguageManager.m */; };
+		74D7B5FD22F1398F00C109CA /* ZLUserAdditionInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D7B5FC22F1398F00C109CA /* ZLUserAdditionInfoController.swift */; };
+		74D7B60122F139CC00C109CA /* ZLUserAdditionInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D7B60022F139CC00C109CA /* ZLUserAdditionInfoView.swift */; };
+		74D7B60322F139FB00C109CA /* ZLUserAdditionInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74D7B60222F139FB00C109CA /* ZLUserAdditionInfoView.xib */; };
+		74D7B60522F140DC00C109CA /* ZLUserAdditionInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D7B60422F140DC00C109CA /* ZLUserAdditionInfoViewModel.swift */; };
+		74D7B60922F16F8200C109CA /* ZLAdditionInfoServiceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D7B60822F16F8200C109CA /* ZLAdditionInfoServiceModel.m */; };
+		74D7B60D22F178CB00C109CA /* ZLGithubRequestErrorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D7B60C22F178CB00C109CA /* ZLGithubRequestErrorModel.m */; };
+		74DCC97C22E1712600CEDEE8 /* ZLExploreBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DCC97B22E1712600CEDEE8 /* ZLExploreBaseView.swift */; };
+		74DCC97E22E1714D00CEDEE8 /* ZLExploreBaseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74DCC97D22E1714D00CEDEE8 /* ZLExploreBaseView.xib */; };
 		74F02CCC22DCCF5600AE153F /* ZLProfileBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F02CCB22DCCF5600AE153F /* ZLProfileBaseView.swift */; };
 		74F02CCE22DCCF7000AE153F /* ZLProfileBaseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74F02CCD22DCCF7000AE153F /* ZLProfileBaseView.xib */; };
 		74F02CD222DCD02800AE153F /* ZLGithubUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 74F02CD122DCD02800AE153F /* ZLGithubUserModel.m */; };
@@ -66,6 +83,8 @@
 		74F02CD922DD719500AE153F /* ZLProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F02CD722DD719500AE153F /* ZLProfileTableViewCell.swift */; };
 		74F02CDA22DD719500AE153F /* ZLProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74F02CD822DD719500AE153F /* ZLProfileTableViewCell.xib */; };
 		74F02CDD22DD75E600AE153F /* ZLProfileBaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F02CDC22DD75E600AE153F /* ZLProfileBaseViewModel.swift */; };
+		74FE777022EEF2CD00DAEAC4 /* ZLGitHubEventModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 74FE776F22EEF2CD00DAEAC4 /* ZLGitHubEventModel.m */; };
+		74FE777322EF4AEE00DAEAC4 /* ZLGithubRepositoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 74FE777222EF4AEE00DAEAC4 /* ZLGithubRepositoryModel.m */; };
 		A6389CC5113B9E045DD7D154 /* Pods_ZLGitHubClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71EC483528FF72DE8C8B1035 /* Pods_ZLGitHubClient.framework */; };
 		D1135F7021ECD09D003A26C1 /* ZLProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1135F6F21ECD09D003A26C1 /* ZLProfileViewController.m */; };
 		D1135F7921ECD34A003A26C1 /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = D1135F7321ECD34A003A26C1 /* UIView+Frame.m */; };
@@ -166,6 +185,15 @@
 		74BED26122E01179006B07C1 /* ZLLoginResultModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLLoginResultModel.m; sourceTree = "<group>"; };
 		74BED26422E01DAA006B07C1 /* ZLDBModuleProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLDBModuleProtocol.h; sourceTree = "<group>"; };
 		74BED26522E023B7006B07C1 /* ZLUserServiceHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLUserServiceHeader.h; sourceTree = "<group>"; };
+		74BEF59D22F2D75900FD1738 /* ZLUserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLUserTableViewCell.swift; sourceTree = "<group>"; };
+		74BEF59E22F2D75900FD1738 /* ZLUserTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZLUserTableViewCell.xib; sourceTree = "<group>"; };
+		74BEF5A122F2F85300FD1738 /* ZLAdditionInfoResultModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLAdditionInfoResultModel.h; sourceTree = "<group>"; };
+		74BEF5A222F2F85300FD1738 /* ZLAdditionInfoResultModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLAdditionInfoResultModel.m; sourceTree = "<group>"; };
+		74BEF5A522F303D700FD1738 /* ZMRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMRefreshView.m; sourceTree = "<group>"; };
+		74BEF5A622F303D700FD1738 /* ZMRefreshManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMRefreshManager.h; sourceTree = "<group>"; };
+		74BEF5A722F303D700FD1738 /* ZMRefreshConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMRefreshConfig.h; sourceTree = "<group>"; };
+		74BEF5A822F303D700FD1738 /* ZMRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMRefreshView.h; sourceTree = "<group>"; };
+		74BEF5A922F303D700FD1738 /* ZMRefreshManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMRefreshManager.m; sourceTree = "<group>"; };
 		74C3F8C022D1DD930086A3F9 /* ZLLoginBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLLoginBaseView.swift; sourceTree = "<group>"; };
 		74C3F8C222D1DDA20086A3F9 /* ZLLoginBaseView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZLLoginBaseView.xib; sourceTree = "<group>"; };
 		74C3F8C822D1E2DB0086A3F9 /* ZLLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLLoginViewModel.swift; sourceTree = "<group>"; };
@@ -177,6 +205,28 @@
 		74C3F8DC22D24CD70086A3F9 /* ZLOAuthBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLOAuthBaseView.swift; sourceTree = "<group>"; };
 		74C3F8DE22D24CF20086A3F9 /* ZLOAuthBaseView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZLOAuthBaseView.xib; sourceTree = "<group>"; };
 		74C3F8E122D2536B0086A3F9 /* ZLOAuthBaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLOAuthBaseViewModel.swift; sourceTree = "<group>"; };
+		74C861C422F025F100A30B79 /* ZLRepositoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLRepositoryTableViewCell.swift; sourceTree = "<group>"; };
+		74C861C522F025F100A30B79 /* ZLRepositoryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZLRepositoryTableViewCell.xib; sourceTree = "<group>"; };
+		74C861CB22F02BED00A30B79 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ZLGitHubClientLocalizable.strings; sourceTree = "<group>"; };
+		74C861CF22F02CA700A30B79 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		74C861D022F02CA700A30B79 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		74C861D122F02CA700A30B79 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/ZLGitHubClientLocalizable.strings"; sourceTree = "<group>"; };
+		74C861D222F02CB200A30B79 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		74C861D322F02CB300A30B79 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		74C861D622F02F1F00A30B79 /* ZLLanguageManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLLanguageManager.h; sourceTree = "<group>"; };
+		74C861D722F02F1F00A30B79 /* ZLLanguageManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLLanguageManager.m; sourceTree = "<group>"; };
+		74C861DA22F0306F00A30B79 /* ZLLanguageModuleProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLLanguageModuleProtocol.h; sourceTree = "<group>"; };
+		74D7B5FC22F1398F00C109CA /* ZLUserAdditionInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLUserAdditionInfoController.swift; sourceTree = "<group>"; };
+		74D7B60022F139CC00C109CA /* ZLUserAdditionInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLUserAdditionInfoView.swift; sourceTree = "<group>"; };
+		74D7B60222F139FB00C109CA /* ZLUserAdditionInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZLUserAdditionInfoView.xib; sourceTree = "<group>"; };
+		74D7B60422F140DC00C109CA /* ZLUserAdditionInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLUserAdditionInfoViewModel.swift; sourceTree = "<group>"; };
+		74D7B60722F16F8200C109CA /* ZLAdditionInfoServiceModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLAdditionInfoServiceModel.h; sourceTree = "<group>"; };
+		74D7B60822F16F8200C109CA /* ZLAdditionInfoServiceModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLAdditionInfoServiceModel.m; sourceTree = "<group>"; };
+		74D7B60A22F1703600C109CA /* ZLAdditionInfoServiceHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLAdditionInfoServiceHeader.h; sourceTree = "<group>"; };
+		74D7B60B22F178CB00C109CA /* ZLGithubRequestErrorModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLGithubRequestErrorModel.h; sourceTree = "<group>"; };
+		74D7B60C22F178CB00C109CA /* ZLGithubRequestErrorModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLGithubRequestErrorModel.m; sourceTree = "<group>"; };
+		74DCC97B22E1712600CEDEE8 /* ZLExploreBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLExploreBaseView.swift; sourceTree = "<group>"; };
+		74DCC97D22E1714D00CEDEE8 /* ZLExploreBaseView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZLExploreBaseView.xib; sourceTree = "<group>"; };
 		74F02CCB22DCCF5600AE153F /* ZLProfileBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLProfileBaseView.swift; sourceTree = "<group>"; };
 		74F02CCD22DCCF7000AE153F /* ZLProfileBaseView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZLProfileBaseView.xib; sourceTree = "<group>"; };
 		74F02CD022DCD02800AE153F /* ZLGithubUserModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLGithubUserModel.h; sourceTree = "<group>"; };
@@ -187,6 +237,11 @@
 		74F02CD822DD719500AE153F /* ZLProfileTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZLProfileTableViewCell.xib; sourceTree = "<group>"; };
 		74F02CDC22DD75E600AE153F /* ZLProfileBaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLProfileBaseViewModel.swift; sourceTree = "<group>"; };
 		74FCB75A22DEC99900D92EF1 /* ZLDataBaseSql.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLDataBaseSql.h; sourceTree = "<group>"; };
+		74FE776D22EEF09600DAEAC4 /* ZLGithubAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLGithubAPI.h; sourceTree = "<group>"; };
+		74FE776E22EEF2CD00DAEAC4 /* ZLGitHubEventModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLGitHubEventModel.h; sourceTree = "<group>"; };
+		74FE776F22EEF2CD00DAEAC4 /* ZLGitHubEventModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLGitHubEventModel.m; sourceTree = "<group>"; };
+		74FE777122EF4AEE00DAEAC4 /* ZLGithubRepositoryModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLGithubRepositoryModel.h; sourceTree = "<group>"; };
+		74FE777222EF4AEE00DAEAC4 /* ZLGithubRepositoryModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLGithubRepositoryModel.m; sourceTree = "<group>"; };
 		CD0AEC7A0ED54B14C3F6E8C9 /* Pods-ZLGitHubClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZLGitHubClient.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZLGitHubClient/Pods-ZLGitHubClient.debug.xcconfig"; sourceTree = "<group>"; };
 		D1135F6E21ECD09D003A26C1 /* ZLProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLProfileViewController.h; sourceTree = "<group>"; };
 		D1135F6F21ECD09D003A26C1 /* ZLProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLProfileViewController.m; sourceTree = "<group>"; };
@@ -355,6 +410,8 @@
 		746B092221EB71F7000EE88B /* ZLUI */ = {
 			isa = PBXGroup;
 			children = (
+				74D7B5FB22F1393700C109CA /* ZLUserAdditionInfoController */,
+				74C861C222F0259700A30B79 /* ZLReuseView */,
 				74C3F8D522D24C270086A3F9 /* ZLOAuthViewController */,
 				74BD10A722CBB1CC00FAE0EB /* ZLVideoViewController */,
 				746F47BA222D678A004D2A2F /* ZLLoginViewController */,
@@ -384,6 +441,7 @@
 				0ADF904321D4D33D00BF86CD /* ZLGitHubClient-Bridging-Header.h */,
 				7436AC8521EB815800F03276 /* SYDCenteralFactoryConfig.plist */,
 				74C3F8CF22D1E79D0086A3F9 /* Swift-Prefix.swift */,
+				74C861CC22F02BED00A30B79 /* ZLGitHubClientLocalizable.strings */,
 			);
 			path = ZLSupportFiles;
 			sourceTree = "<group>";
@@ -391,12 +449,9 @@
 		746F47AB222A7927004D2A2F /* ToolManager */ = {
 			isa = PBXGroup;
 			children = (
-				741F516722DC282A00F32959 /* ZLKeyChainManager */,
+				74C861D422F02ED800A30B79 /* Managers */,
 				746F47B1222A8181004D2A2F /* ZLModuleProtocol */,
-				742441C322CC3C3C00F687C2 /* ZLVideo */,
-				74A614652275FE87008FA3F3 /* ZLDataBaseManager */,
 				746F47B5222D60FD004D2A2F /* ZLToolManager */,
-				746F47AC222A7942004D2A2F /* ZLLogManager */,
 			);
 			path = ToolManager;
 			sourceTree = "<group>";
@@ -413,6 +468,7 @@
 		746F47B1222A8181004D2A2F /* ZLModuleProtocol */ = {
 			isa = PBXGroup;
 			children = (
+				74C861D922F0302700A30B79 /* ZLLanguageModuleProtocol */,
 				74BED26322E01D83006B07C1 /* ZLDBModuleProtocol */,
 				746F47B2222A819D004D2A2F /* ZLToolModuleProtocol */,
 			);
@@ -466,6 +522,7 @@
 		7482F93B22D440200099ED70 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				74D7B60622F16F5A00C109CA /* additionInfoService */,
 				74BED25622DF7702006B07C1 /* baseService */,
 				74BED25522DF76E0006B07C1 /* userService */,
 				74BED25422DF76C9006B07C1 /* loginService */,
@@ -478,6 +535,7 @@
 			children = (
 				7466754722D885C300A08773 /* ZLGithubHttpClient.h */,
 				7466754822D885C300A08773 /* ZLGithubHttpClient.m */,
+				74FE776D22EEF09600DAEAC4 /* ZLGithubAPI.h */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -639,6 +697,10 @@
 			children = (
 				74F02CD022DCD02800AE153F /* ZLGithubUserModel.h */,
 				74F02CD122DCD02800AE153F /* ZLGithubUserModel.m */,
+				74FE776E22EEF2CD00DAEAC4 /* ZLGitHubEventModel.h */,
+				74FE776F22EEF2CD00DAEAC4 /* ZLGitHubEventModel.m */,
+				74FE777122EF4AEE00DAEAC4 /* ZLGithubRepositoryModel.h */,
+				74FE777222EF4AEE00DAEAC4 /* ZLGithubRepositoryModel.m */,
 			);
 			path = PersistentModel;
 			sourceTree = "<group>";
@@ -648,6 +710,10 @@
 			children = (
 				74BED26022E01179006B07C1 /* ZLLoginResultModel.h */,
 				74BED26122E01179006B07C1 /* ZLLoginResultModel.m */,
+				74D7B60B22F178CB00C109CA /* ZLGithubRequestErrorModel.h */,
+				74D7B60C22F178CB00C109CA /* ZLGithubRequestErrorModel.m */,
+				74BEF5A122F2F85300FD1738 /* ZLAdditionInfoResultModel.h */,
+				74BEF5A222F2F85300FD1738 /* ZLAdditionInfoResultModel.m */,
 			);
 			path = tmpModel;
 			sourceTree = "<group>";
@@ -658,6 +724,27 @@
 				74BED26422E01DAA006B07C1 /* ZLDBModuleProtocol.h */,
 			);
 			path = ZLDBModuleProtocol;
+			sourceTree = "<group>";
+		};
+		74BEF59C22F2D72500FD1738 /* ZLUserTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				74BEF59D22F2D75900FD1738 /* ZLUserTableViewCell.swift */,
+				74BEF59E22F2D75900FD1738 /* ZLUserTableViewCell.xib */,
+			);
+			path = ZLUserTableViewCell;
+			sourceTree = "<group>";
+		};
+		74BEF5A422F303D700FD1738 /* ZMRefreshTools */ = {
+			isa = PBXGroup;
+			children = (
+				74BEF5A522F303D700FD1738 /* ZMRefreshView.m */,
+				74BEF5A622F303D700FD1738 /* ZMRefreshManager.h */,
+				74BEF5A722F303D700FD1738 /* ZMRefreshConfig.h */,
+				74BEF5A822F303D700FD1738 /* ZMRefreshView.h */,
+				74BEF5A922F303D700FD1738 /* ZMRefreshManager.m */,
+			);
+			path = ZMRefreshTools;
 			sourceTree = "<group>";
 		};
 		74C3F8BE22D1DCDC0086A3F9 /* LoginLogoView */ = {
@@ -770,6 +857,99 @@
 			path = ZLOAuthBaseViewModel;
 			sourceTree = "<group>";
 		};
+		74C861C222F0259700A30B79 /* ZLReuseView */ = {
+			isa = PBXGroup;
+			children = (
+				74BEF59C22F2D72500FD1738 /* ZLUserTableViewCell */,
+				74C861C322F025B000A30B79 /* ZLRepositoryTableViewCell */,
+			);
+			path = ZLReuseView;
+			sourceTree = "<group>";
+		};
+		74C861C322F025B000A30B79 /* ZLRepositoryTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				74C861C422F025F100A30B79 /* ZLRepositoryTableViewCell.swift */,
+				74C861C522F025F100A30B79 /* ZLRepositoryTableViewCell.xib */,
+			);
+			path = ZLRepositoryTableViewCell;
+			sourceTree = "<group>";
+		};
+		74C861D422F02ED800A30B79 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				74C861D522F02EFE00A30B79 /* ZLLanguageManager */,
+				742441C322CC3C3C00F687C2 /* ZLVideo */,
+				746F47AC222A7942004D2A2F /* ZLLogManager */,
+				74A614652275FE87008FA3F3 /* ZLDataBaseManager */,
+				741F516722DC282A00F32959 /* ZLKeyChainManager */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		74C861D522F02EFE00A30B79 /* ZLLanguageManager */ = {
+			isa = PBXGroup;
+			children = (
+				74C861D622F02F1F00A30B79 /* ZLLanguageManager.h */,
+				74C861D722F02F1F00A30B79 /* ZLLanguageManager.m */,
+			);
+			path = ZLLanguageManager;
+			sourceTree = "<group>";
+		};
+		74C861D922F0302700A30B79 /* ZLLanguageModuleProtocol */ = {
+			isa = PBXGroup;
+			children = (
+				74C861DA22F0306F00A30B79 /* ZLLanguageModuleProtocol.h */,
+			);
+			path = ZLLanguageModuleProtocol;
+			sourceTree = "<group>";
+		};
+		74D7B5FB22F1393700C109CA /* ZLUserAdditionInfoController */ = {
+			isa = PBXGroup;
+			children = (
+				74D7B5FF22F139B200C109CA /* ViewModel */,
+				74D7B5FE22F1399600C109CA /* View */,
+				74D7B5FC22F1398F00C109CA /* ZLUserAdditionInfoController.swift */,
+			);
+			path = ZLUserAdditionInfoController;
+			sourceTree = "<group>";
+		};
+		74D7B5FE22F1399600C109CA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				74D7B60022F139CC00C109CA /* ZLUserAdditionInfoView.swift */,
+				74D7B60222F139FB00C109CA /* ZLUserAdditionInfoView.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		74D7B5FF22F139B200C109CA /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				74D7B60422F140DC00C109CA /* ZLUserAdditionInfoViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		74D7B60622F16F5A00C109CA /* additionInfoService */ = {
+			isa = PBXGroup;
+			children = (
+				74D7B60722F16F8200C109CA /* ZLAdditionInfoServiceModel.h */,
+				74D7B60822F16F8200C109CA /* ZLAdditionInfoServiceModel.m */,
+				74D7B60A22F1703600C109CA /* ZLAdditionInfoServiceHeader.h */,
+			);
+			path = additionInfoService;
+			sourceTree = "<group>";
+		};
+		74DCC97A22E170FB00CEDEE8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				74DCC97B22E1712600CEDEE8 /* ZLExploreBaseView.swift */,
+				74DCC97D22E1714D00CEDEE8 /* ZLExploreBaseView.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		74F02CC922DCCF2100AE153F /* controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -831,6 +1011,7 @@
 		D1135F7121ECD2ED003A26C1 /* ZLUtils */ = {
 			isa = PBXGroup;
 			children = (
+				74BEF5A422F303D700FD1738 /* ZMRefreshTools */,
 				D1135F7221ECD34A003A26C1 /* Category */,
 			);
 			path = ZLUtils;
@@ -863,6 +1044,7 @@
 		D1135F7D21ECD487003A26C1 /* ZLExploreViewController */ = {
 			isa = PBXGroup;
 			children = (
+				74DCC97A22E170FB00CEDEE8 /* View */,
 				D1135F8221ECD502003A26C1 /* ZLExploreViewController.h */,
 				D1135F8321ECD502003A26C1 /* ZLExploreViewController.m */,
 			);
@@ -924,6 +1106,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 0ADF902121D4B01900BF86CD;
 			productRefGroup = 0ADF902B21D4B01900BF86CD /* Products */;
@@ -941,11 +1124,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				74F02CD622DCD76600AE153F /* ZLProfileHeaderView.xib in Resources */,
+				74BEF5A022F2D75900FD1738 /* ZLUserTableViewCell.xib in Resources */,
 				74F02CDA22DD719500AE153F /* ZLProfileTableViewCell.xib in Resources */,
+				74DCC97E22E1714D00CEDEE8 /* ZLExploreBaseView.xib in Resources */,
+				74C861C722F025F100A30B79 /* ZLRepositoryTableViewCell.xib in Resources */,
 				0ADF903A21D4B01900BF86CD /* LaunchScreen.storyboard in Resources */,
 				74C3F8DF22D24CF20086A3F9 /* ZLOAuthBaseView.xib in Resources */,
+				74C861CA22F02BED00A30B79 /* ZLGitHubClientLocalizable.strings in Resources */,
 				0ADF903721D4B01900BF86CD /* Assets.xcassets in Resources */,
 				74F02CCE22DCCF7000AE153F /* ZLProfileBaseView.xib in Resources */,
+				74D7B60322F139FB00C109CA /* ZLUserAdditionInfoView.xib in Resources */,
 				74BD10AD22CBB2D500FAE0EB /* ZLVideoOverlayView.xib in Resources */,
 				7436AC8621EB815800F03276 /* SYDCenteralFactoryConfig.plist in Resources */,
 				0ADF903521D4B01900BF86CD /* Main.storyboard in Resources */,
@@ -967,6 +1155,7 @@
 				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
 				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
 				"${BUILT_PRODUCTS_DIR}/MJExtension/MJExtension.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -974,6 +1163,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMDB.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJExtension.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1006,10 +1196,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				74C3F8C922D1E2DB0086A3F9 /* ZLLoginViewModel.swift in Sources */,
+				74D7B60922F16F8200C109CA /* ZLAdditionInfoServiceModel.m in Sources */,
 				74BED26222E01179006B07C1 /* ZLLoginResultModel.m in Sources */,
 				748905C0222EBA16003562E1 /* ZLTextView.m in Sources */,
 				748905C1222EBA16003562E1 /* ZLTextViewCoreData.m in Sources */,
 				7436AC8B21EB869C00F03276 /* SYDCentralFactory+SYDService.m in Sources */,
+				74C861D822F02F1F00A30B79 /* ZLLanguageManager.m in Sources */,
 				D1135F7A21ECD34A003A26C1 /* UIImage+Image.m in Sources */,
 				74C3F8E222D2536B0086A3F9 /* ZLOAuthBaseViewModel.swift in Sources */,
 				7436AC8C21EB869C00F03276 /* SYDCentralFactory+ViewController.m in Sources */,
@@ -1019,7 +1211,10 @@
 				748905C4222EBBBA003562E1 /* NSMutableAttributedString+ZLTextEngine.m in Sources */,
 				7436AC8F21EB869C00F03276 /* SYDCentralRouter+SYDService.m in Sources */,
 				D1135F8A21ECD523003A26C1 /* ZLRepositoriesViewController.m in Sources */,
+				74D7B60122F139CC00C109CA /* ZLUserAdditionInfoView.swift in Sources */,
 				74F02CCC22DCCF5600AE153F /* ZLProfileBaseView.swift in Sources */,
+				74FE777022EEF2CD00DAEAC4 /* ZLGitHubEventModel.m in Sources */,
+				74DCC97C22E1712600CEDEE8 /* ZLExploreBaseView.swift in Sources */,
 				7436AC9021EB869C00F03276 /* SYDCentralRouter+ViewController.m in Sources */,
 				7436AC9121EB869D00F03276 /* SYDCentralRouter.m in Sources */,
 				D1135F8421ECD502003A26C1 /* ZLExploreViewController.m in Sources */,
@@ -1031,12 +1226,17 @@
 				746F47B0222A7965004D2A2F /* ZLLogManager.m in Sources */,
 				74F02CD422DCD74500AE153F /* ZLProfileHeaderView.swift in Sources */,
 				74C3F8DA22D24C930086A3F9 /* ZLOAuthViewController.swift in Sources */,
+				74BEF5AA22F303D700FD1738 /* ZMRefreshView.m in Sources */,
 				74C3F8CB22D1E3070086A3F9 /* ZLLoginViewController.swift in Sources */,
 				74F02CD922DD719500AE153F /* ZLProfileTableViewCell.swift in Sources */,
+				74FE777322EF4AEE00DAEAC4 /* ZLGithubRepositoryModel.m in Sources */,
 				74A614682275FEC0008FA3F3 /* ZLDataBaseManager.m in Sources */,
+				74BEF59F22F2D75900FD1738 /* ZLUserTableViewCell.swift in Sources */,
 				74BED25922DF772F006B07C1 /* ZLBaseServiceModel.m in Sources */,
+				74D7B60D22F178CB00C109CA /* ZLGithubRequestErrorModel.m in Sources */,
 				74C3F8C122D1DD930086A3F9 /* ZLLoginBaseView.swift in Sources */,
 				7482F94922D482FE0099ED70 /* ZLVideoPreviewView.m in Sources */,
+				74BEF5A322F2F85300FD1738 /* ZLAdditionInfoResultModel.m in Sources */,
 				74C3F8D022D1E79D0086A3F9 /* Swift-Prefix.swift in Sources */,
 				7436AC9321EB869D00F03276 /* UIViewController+SYDRouter.m in Sources */,
 				7436AC8221EB7B4500F03276 /* ZLBaseNavigationController.m in Sources */,
@@ -1046,6 +1246,7 @@
 				7436AC8421EB7B4500F03276 /* ZLBaseViewController.m in Sources */,
 				742441C622CC3C6800F687C2 /* ZLVideoRecorder.m in Sources */,
 				74BED25C22DF86C5006B07C1 /* ZLUserServiceModel.m in Sources */,
+				74D7B5FD22F1398F00C109CA /* ZLUserAdditionInfoController.swift in Sources */,
 				0ADF903D21D4B01900BF86CD /* main.m in Sources */,
 				748905D322300B46003562E1 /* ZLLoginLogoView.m in Sources */,
 				74BD10C022CBB64400FAE0EB /* ZLVideoViewModel.m in Sources */,
@@ -1060,7 +1261,10 @@
 				74F02CDD22DD75E600AE153F /* ZLProfileBaseViewModel.swift in Sources */,
 				D1135F7021ECD09D003A26C1 /* ZLProfileViewController.m in Sources */,
 				D1135F7B21ECD34A003A26C1 /* UIBarButtonItem+Item.m in Sources */,
+				74BEF5AB22F303D700FD1738 /* ZMRefreshManager.m in Sources */,
 				7436AC8A21EB848700F03276 /* SYDCentralPivotUIAdapter.m in Sources */,
+				74C861C622F025F100A30B79 /* ZLRepositoryTableViewCell.swift in Sources */,
+				74D7B60522F140DC00C109CA /* ZLUserAdditionInfoViewModel.swift in Sources */,
 				741F516A22DC285800F32959 /* ZLKeyChainManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1072,6 +1276,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				0ADF903421D4B01900BF86CD /* Base */,
+				74C861CF22F02CA700A30B79 /* zh-Hans */,
+				74C861D222F02CB200A30B79 /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -1080,8 +1286,19 @@
 			isa = PBXVariantGroup;
 			children = (
 				0ADF903921D4B01900BF86CD /* Base */,
+				74C861D022F02CA700A30B79 /* zh-Hans */,
+				74C861D322F02CB300A30B79 /* zh-Hans */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		74C861CC22F02BED00A30B79 /* ZLGitHubClientLocalizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				74C861CB22F02BED00A30B79 /* en */,
+				74C861D122F02CA700A30B79 /* zh-Hans */,
+			);
+			name = ZLGitHubClientLocalizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1091,6 +1308,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1146,6 +1364,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

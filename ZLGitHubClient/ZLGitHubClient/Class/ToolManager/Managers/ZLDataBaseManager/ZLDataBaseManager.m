@@ -126,7 +126,7 @@
         if([resultSet next])
         {
             model = [[ZLGithubUserModel alloc] init];
-            model.identity = [resultSet stringForColumn:@"id"];
+            model.id_User = [resultSet stringForColumn:@"id_User"];
             model.node_id = [resultSet stringForColumn:@"node_id"];
             model.loginName = [resultSet stringForColumn:@"name"];
             model.company = [resultSet stringForColumn:@"company"];
@@ -151,7 +151,7 @@
 
 - (void) insertOrUpdateUserInfo:(ZLGithubUserModel *) model
 {
-    if(model.identity.length == 0)
+    if(model.id_User.length == 0)
     {
         ZLLog_Info(@"ZLDataBase: ZLGithubUserModel is invalid");
         return;
@@ -165,19 +165,19 @@
             ZLLog_Error(@"ZLDataBase: FMDB for currrent user[%@] not exist",self.currentUser);
         }
         
-        FMResultSet * resultSet = [ZLDataBaseManager queryTableInDB:database WithSql:githubUserQueryById,model.identity];
+        FMResultSet * resultSet = [ZLDataBaseManager queryTableInDB:database WithSql:githubUserQueryById,model.id_User];
         
         if([resultSet next])
         {
-            ZLLog_Info(@"ZLDataBase: record for model[%@] is exist, so update");
+            ZLLog_Info(@"ZLDataBase: record for model[%@] is exist, so update",model);
             
-            [ZLDataBaseManager updateTableInDB:database WithSql:githubUserUpdate,model.node_id,model.loginName,model.name,model.company,model.blog,model.location,model.email,model.bio,model.html_url,model.avatar_url,@(model.public_repos),@(model.public_gists),@(model.followers),@(model.following),model.created_at,model.updated_at,model.identity];
+            [ZLDataBaseManager updateTableInDB:database WithSql:githubUserUpdate,model.node_id,model.loginName,model.name,model.company,model.blog,model.location,model.email,model.bio,model.html_url,model.avatar_url,@(model.public_repos),@(model.public_gists),@(model.followers),@(model.following),model.created_at,model.updated_at,model.id_User];
         }
         else if(resultSet)
         {
-            ZLLog_Info(@"ZLDataBase: record for model[%@] not exist, so insert");
+            ZLLog_Info(@"ZLDataBase: record for model[%@] not exist, so insert",model);
             
-            [ZLDataBaseManager updateTableInDB:database WithSql:githubUserInsert,model.identity,model.node_id,model.loginName,model.name,model.company,model.blog,model.location,model.email,model.bio,model.html_url,model.avatar_url,@(model.public_repos),@(model.public_gists),@(model.followers),@(model.following),model.created_at,model.updated_at];
+            [ZLDataBaseManager updateTableInDB:database WithSql:githubUserInsert,model.id_User,model.node_id,model.loginName,model.name,model.company,model.blog,model.location,model.email,model.bio,model.html_url,model.avatar_url,@(model.public_repos),@(model.public_gists),@(model.followers),@(model.following),model.created_at,model.updated_at];
         }
         else
         {

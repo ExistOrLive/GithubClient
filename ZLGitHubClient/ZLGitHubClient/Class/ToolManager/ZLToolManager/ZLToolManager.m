@@ -11,6 +11,7 @@
 
 static const NSString * ZLLogModule = @"ZLLogModule";
 static const NSString * ZLDBModule = @"ZLDBModule";
+static const NSString * ZLLANModule = @"ZLLANModule";
 
 @implementation ZLToolManager
 
@@ -29,8 +30,14 @@ static const NSString * ZLDBModule = @"ZLDBModule";
 {
     if(self = [super init])
     {
+        // 日志模块放在最前面初始化
         _zlLogModule = [[SYDCentralFactory sharedInstance] getCommonBean:ZLLogModule];
+        
+        // 数据库模块
         _zlDBModule = [[SYDCentralFactory sharedInstance] getCommonBean:ZLDBModule];
+        
+        // 国际化模块
+        _zlLANModule = [[SYDCentralFactory sharedInstance] getCommonBean:ZLLANModule];
     }
     return self;
 }

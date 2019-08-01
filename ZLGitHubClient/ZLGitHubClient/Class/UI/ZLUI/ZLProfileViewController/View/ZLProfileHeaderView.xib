@@ -34,8 +34,8 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="创建于" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GvF-MU-KfX">
-                            <rect key="frame" x="102" y="68" width="36" height="12"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GvF-MU-KfX">
+                            <rect key="frame" x="102" y="68" width="0.0" height="12"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="12" id="u4i-ul-KGI"/>
                             </constraints>
@@ -63,7 +63,7 @@
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qPd-WJ-q4h">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qPd-WJ-q4h">
                                             <rect key="frame" x="7.5" y="0.0" width="60" height="45"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="60" id="NoD-Zb-Prr"/>
@@ -72,6 +72,9 @@
                                             <state key="normal" title="仓库">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </state>
+                                            <connections>
+                                                <action selector="onProfileHeaderViewButtonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="3j3-jn-YVE"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -92,7 +95,7 @@
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Hf-vF-Fne">
+                                        <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Hf-vF-Fne">
                                             <rect key="frame" x="7.5" y="0.0" width="60" height="45"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="60" id="8ih-Os-SXs"/>
@@ -101,6 +104,9 @@
                                             <state key="normal" title="代码片段">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </state>
+                                            <connections>
+                                                <action selector="onProfileHeaderViewButtonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="CfI-LF-6AK"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -121,13 +127,16 @@
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3tb-Z8-UmR">
+                                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3tb-Z8-UmR">
                                             <rect key="frame" x="7.5" y="0.0" width="60" height="45"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="60" id="1bf-sC-nyW"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="12"/>
                                             <state key="normal" title="粉丝"/>
+                                            <connections>
+                                                <action selector="onProfileHeaderViewButtonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="3bg-h1-i5e"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -148,13 +157,16 @@
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MXN-MP-Z9K">
+                                        <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MXN-MP-Z9K">
                                             <rect key="frame" x="7.5" y="0.0" width="60" height="45"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="60" id="a9y-bw-NhH"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="12"/>
                                             <state key="normal" title="关注"/>
+                                            <connections>
+                                                <action selector="onProfileHeaderViewButtonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="fwb-iy-jO5"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -250,12 +262,19 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="allUpdateLabel" destination="Gba-bV-UjE" id="V0a-pU-ROQ"/>
                 <outlet property="createTimeLabel" destination="GvF-MU-KfX" id="Jnr-t9-dsH"/>
+                <outlet property="followersButton" destination="3tb-Z8-UmR" id="fom-96-cBG"/>
                 <outlet property="followersNumLabel" destination="N0I-Bq-pj2" id="QwA-ll-PXx"/>
+                <outlet property="followingButton" destination="MXN-MP-Z9K" id="ez6-q4-70c"/>
                 <outlet property="followingNumLabel" destination="vm1-aD-NI2" id="RjT-xo-mVJ"/>
                 <outlet property="gistNumLabel" destination="txi-46-3nR" id="163-jX-pjv"/>
+                <outlet property="gistsButton" destination="8Hf-vF-Fne" id="ScM-Db-QjB"/>
                 <outlet property="headImageView" destination="5Ns-sz-mkf" id="Rpb-6u-rQ4"/>
+                <outlet property="latestModifiedView" destination="Rsj-dY-eGJ" id="2ib-oD-VBn"/>
+                <outlet property="latestUpdateLabel" destination="EY7-Hj-YAT" id="7gw-Dd-Ylj"/>
                 <outlet property="nameLabel" destination="NcN-SZ-3x3" id="4bq-Pm-znr"/>
+                <outlet property="repositoriesButton" destination="qPd-WJ-q4h" id="Xb6-gv-rKK"/>
                 <outlet property="repositoryNum" destination="z5v-Mb-fHj" id="56I-Q7-kUM"/>
             </connections>
             <point key="canvasLocation" x="247.82608695652175" y="-133.25892857142856"/>

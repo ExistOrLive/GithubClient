@@ -26,6 +26,9 @@ PODS:
     - FMDB/standard (= 2.7.2)
   - FMDB/standard (2.7.2)
   - MJExtension (3.0.17)
+  - SDWebImage (5.0.6):
+    - SDWebImage/Core (= 5.0.6)
+  - SDWebImage/Core (5.0.6)
 
 DEPENDENCIES:
   - AFNetworking
@@ -33,6 +36,7 @@ DEPENDENCIES:
   - CocoaLumberjack/Swift
   - FMDB
   - MJExtension
+  - SDWebImage (~> 5.0.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -40,13 +44,15 @@ SPEC REPOS:
     - CocoaLumberjack
     - FMDB
     - MJExtension
+    - SDWebImage
 
 SPEC CHECKSUMS:
   AFNetworking: 8ac6017b94ea105479f7776e5288e48ae9c59bb4
   CocoaLumberjack: 2e258a064cacc8eb9a2aca318e24d02a0a7fd56d
   FMDB: 6198a90e7b6900cfc046e6bc0ef6ebb7be9236aa
   MJExtension: 74ec83124a68891619fb7ba9c5c811bbf1691076
+  SDWebImage: 920f1a2ff1ca8296ad34f6e0510a1ef1d70ac965
 
-PODFILE CHECKSUM: 3e2576050852edbd0adb904d97846ffa8ae6beee
+PODFILE CHECKSUM: 72cd45d76287a1c9bb11643c9044b643e2618af4
 
 COCOAPODS: 1.7.2

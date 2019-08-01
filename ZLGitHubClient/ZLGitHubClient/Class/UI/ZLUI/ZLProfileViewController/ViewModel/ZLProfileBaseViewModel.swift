@@ -11,10 +11,10 @@ import UIKit
 class ZLProfileBaseViewModel: ZLBaseViewModel {
     
     // view
-    weak var profileBaseView: ZLProfileBaseView?
+    private weak var profileBaseView: ZLProfileBaseView?
 
     // model
-    var currentUserInfo: ZLGithubUserModel?
+    private var currentUserInfo: ZLGithubUserModel?
     
     deinit {
         // 注销监听
@@ -32,10 +32,17 @@ class ZLProfileBaseViewModel: ZLBaseViewModel {
         self.profileBaseView = targetView as? ZLProfileBaseView;
         self.profileBaseView?.tableView.delegate = self;
         self.profileBaseView?.tableView.dataSource = self;
+        self.profileBaseView?.tableHeaderView?.delegate = self;
         
         // 注册监听
         ZLUserServiceModel.shared().registerObserver(self, selector: #selector(onNotificationArrived(notication:)), name: ZLGetCurrentUserInfoResult_Notification)
+    }
+    
+    override func vcLifeCycle_viewWillAppear() {
         
+        super.vcLifeCycle_viewWillAppear()
+        
+        // 每次界面将要展示时，更新数据
         guard let currentUserInfo:ZLGithubUserModel =  ZLUserServiceModel.shared().currentUserInfo() else
         {
             return;
@@ -43,13 +50,16 @@ class ZLProfileBaseViewModel: ZLBaseViewModel {
         
         // 设置data
         self.setViewDataForProfileBaseView(model: currentUserInfo, view: self.profileBaseView!)
-        
     }
-    
+}
+
+extension ZLProfileBaseViewModel
+{
     func setViewDataForProfileBaseView(model:ZLGithubUserModel, view:ZLProfileBaseView)
     {
         self.currentUserInfo = model;
         
+        view.tableHeaderView?.headImageView.sd_setImage(with: URL.init(string: model.avatar_url), placeholderImage: nil);
         view.tableHeaderView?.nameLabel.text = String("\(model.name)(\(model.loginName))")
         
         var dateStr = model.created_at
@@ -60,11 +70,14 @@ class ZLProfileBaseViewModel: ZLBaseViewModel {
             dateFormatter.timeZone = TimeZone.init(secondsFromGMT: 8 * 60 * 60) // 北京时区
             dateStr = dateFormatter.string(from: date)
         }
-        view.tableHeaderView?.createTimeLabel.text = String("创建于 \(dateStr)")
-        view.tableHeaderView?.repositoryNum.text = String("\(model.public_repos)")
-        view.tableHeaderView?.gistNumLabel.text = String("\(model.public_gists)")
+        let createdAtStr = ZLLocalizedString(string:"created at", comment: "创建于")
+        view.tableHeaderView?.createTimeLabel.text = String("\(createdAtStr) \(dateStr)")
+        view.tableHeaderView?.repositoryNum.text = String("\(model.public_repos + model.total_private_repos)")
+        view.tableHeaderView?.gistNumLabel.text = String("\(model.public_gists + model.private_gists)")
         view.tableHeaderView?.followersNumLabel.text = String("\(model.followers)")
         view.tableHeaderView?.followingNumLabel.text = String("\(model.following)")
+        
+        view.tableView.reloadData();
     }
 }
 
@@ -93,28 +106,39 @@ extension ZLProfileBaseViewModel: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let tableViewCell:ZLProfileTableViewCell  = tableView.dequeueReusableCell(withIdentifier: "ZLProfileTableViewCell", for: indexPath) as! ZLProfileTableViewCell;
+        tableViewCell.itemContentLabel.text = ""
+        tableViewCell.nextImageView.isHidden = true
         
         switch  ZLProfileBaseView.profileItemsArray[indexPath.section][indexPath.row]{
         case ZLProfileItemType.company:do {
-            tableViewCell.itemTitleLabel.text = "公司"
+            tableViewCell.itemTitleLabel.text = ZLLocalizedString(string:"company", comment: "公司")
+            tableViewCell.itemContentLabel.text = self.currentUserInfo?.company
             }
         case ZLProfileItemType.location:do {
-            tableViewCell.itemTitleLabel.text = "地址"
+            tableViewCell.itemTitleLabel.text = ZLLocalizedString(string:"location", comment: "地址")
+            tableViewCell.itemContentLabel.text = self.currentUserInfo?.location
             }
         case ZLProfileItemType.email:do {
-            tableViewCell.itemTitleLabel.text = "邮箱"
+            tableViewCell.itemTitleLabel.text = ZLLocalizedString(string:"email", comment: "邮箱")
+            tableViewCell.itemContentLabel.text = self.currentUserInfo?.email
+            tableViewCell.nextImageView.isHidden = false
             }
         case ZLProfileItemType.blog:do {
-            tableViewCell.itemTitleLabel.text = "博客"
+            tableViewCell.itemTitleLabel.text = ZLLocalizedString(string:"blog", comment: "博客")
+            tableViewCell.itemContentLabel.text = self.currentUserInfo?.blog
+            tableViewCell.nextImageView.isHidden = false
             }
         case ZLProfileItemType.setting:do {
-            tableViewCell.itemTitleLabel.text = "设置"
+            tableViewCell.itemTitleLabel.text = ZLLocalizedString(string:"setting", comment: "设置")
+            tableViewCell.nextImageView.isHidden = false
             }
         case ZLProfileItemType.aboutMe:do {
-            tableViewCell.itemTitleLabel.text = "关于"
+            tableViewCell.itemTitleLabel.text = ZLLocalizedString(string:"about", comment: "关于")
+            tableViewCell.nextImageView.isHidden = false
             }
         case ZLProfileItemType.feedback:do {
-            tableViewCell.itemTitleLabel.text = "反馈"
+            tableViewCell.itemTitleLabel.text = ZLLocalizedString(string:"feedback", comment: "反馈")
+            tableViewCell.nextImageView.isHidden = false
             }
         }
         
@@ -131,6 +155,47 @@ extension ZLProfileBaseViewModel: UITableViewDelegate, UITableViewDataSource
     }
 }
 
+// MARK: ZLProfileHeaderViewDelegate
+extension ZLProfileBaseViewModel : ZLProfileHeaderViewDelegate
+{
+    func onProfileHeaderViewButtonClicked(button: UIButton) {
+       
+        let type = ZLProfileHeaderViewButtonType.init(rawValue: button.tag)
+        
+        switch type!
+        {
+        case .repositories:do{
+            let vc = ZLUserAdditionInfoController.init()
+            vc.userInfo = self.currentUserInfo
+            vc.type = .repositories
+            vc.hidesBottomBarWhenPushed = true
+            self.viewController?.navigationController?.pushViewController(vc, animated: true);
+            }
+        case .followers:do
+        {
+            let vc = ZLUserAdditionInfoController.init()
+            vc.userInfo = self.currentUserInfo
+            vc.type = .followers
+            vc.hidesBottomBarWhenPushed = true
+            self.viewController?.navigationController?.pushViewController(vc, animated: true);
+            }
+        case .following:do{
+            let vc = ZLUserAdditionInfoController.init()
+            vc.userInfo = self.currentUserInfo
+            vc.type = .following
+            vc.hidesBottomBarWhenPushed = true
+            self.viewController?.navigationController?.pushViewController(vc, animated: true);
+            }
+        case .gists:do{
+            let vc = ZLUserAdditionInfoController.init()
+            vc.userInfo = self.currentUserInfo
+            vc.type = .gists
+            vc.hidesBottomBarWhenPushed = true
+            self.viewController?.navigationController?.pushViewController(vc, animated: true);
+            }
+        }
+    }
+}
 
 // MARK: onNotificationArrived
 extension ZLProfileBaseViewModel

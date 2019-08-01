@@ -7,6 +7,7 @@
 // customView
 #import "ZLCustomTextField.h"
 #import "ZLLoginLogoView.h"
+#import "ZMRefreshManager.h"
 
 // TOOL
 #import "ZLToolManager.h"
@@ -15,15 +16,23 @@
 // Service
 #import "ZLLoginServiceModel.h"
 #import "ZLUserServiceModel.h"
+#import "ZLAdditionInfoServiceModel.h"
+
+// viewModel
+#import "ZLBaseViewModel.h"
+
 
 // VC
 #import "ZLVideoViewController.h"
 
 //persistent Model
 #import "ZLGithubUserModel.h"
+#import "ZLGithubRepositoryModel.h"
 
 // tmp Model
 #import "ZLLoginResultModel.h"
+#import "ZLAdditionInfoResultModel.h"
+#import "ZLGithubRequestErrorModel.h"
 
 // Network
 #import "ZLGithubHTTPClient.h"

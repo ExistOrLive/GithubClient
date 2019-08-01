@@ -57,6 +57,12 @@
 
 # pragma mark - outer
 
+- (NSString *) currentUserLoginName
+{
+    NSString * userName = self.myInfoModel.loginName;
+    return userName;
+}
+
 - (ZLGithubUserModel * __nullable) currentUserInfo
 {
     ZLGithubUserModel * model = [self.myInfoModel copy];
@@ -102,12 +108,11 @@
         weakSelf.myInfoModel = [model copy];
         
         // DB
-        [ZLDBMODULE initialDBForUser:model.identity];
+        [ZLDBMODULE initialDBForUser:model.id_User];
         [ZLDBMODULE insertOrUpdateUserInfo:model];
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self postNotification:ZLGetCurrentUserInfoResult_Notification withParams:model];
-        });
+        // 在UI线程发出通知
+        ZLMainThreadDispatch([self postNotification:ZLGetCurrentUserInfoResult_Notification withParams:model])
     }];
 }
 

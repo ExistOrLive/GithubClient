@@ -9,23 +9,41 @@
 #import "ZLGithubUserModel.h"
 #import <MJExtension/MJExtension.h>
 
+#pragma mark - ZLGithubUserBriefModel
+
+@implementation ZLGithubUserBriefModel
+
+//MARK: NSCopy
+
+- (id)copyWithZone:(nullable NSZone *)zone
+{
+    ZLGithubUserBriefModel * newModel = [[[self class] alloc] init];
+    newModel.id_User = self.id_User;
+    newModel.node_id = self.node_id;
+    newModel.loginName = self.loginName;
+    newModel.name = self.name;
+    newModel.html_url = self.html_url;
+    newModel.avatar_url = self.avatar_url;
+    newModel.url = self.url;
+    return newModel;
+}
+
+//MARK: MJExtension
+
++ (NSDictionary *)mj_replacedKeyFromPropertyName
+{
+    return @{@"id_User":@"id",
+             @"loginName":@"login"
+             };
+}
+
+@end
+
+#pragma mark - ZLGithubUserModel
+
 @implementation ZLGithubUserModel
 
-+ (instancetype) getInstanceWithDic:(NSDictionary *) dic
-{
-    if(!dic)
-    {
-        return nil;
-    }
-    
-    [ZLGithubUserModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
-        return @{@"identity":@"id",
-                 @"loginName":@"login"
-                 };
-    }];
-    
-    return [ZLGithubUserModel mj_objectWithKeyValues:dic];
-}
+//MARK: Setter Getter
 
 - (NSDate *) createdDate
 {
@@ -54,31 +72,60 @@
     return [dateFormatter dateFromString:_updated_at];
 }
 
+
+
+- (NSString *) description
+{
+    return [NSString stringWithFormat:@"id = %@, name = %@ ",self.id_User,self.name];
+}
+
+//MARK: NSCopy
+
 - (id)copyWithZone:(nullable NSZone *)zone
 {
     ZLGithubUserModel * newModel = [[[self class] alloc] init];
-    newModel.identity = self.identity;
+    newModel.id_User = self.id_User;
     newModel.node_id = self.node_id;
     newModel.loginName = self.loginName;
     newModel.name = self.name;
+    newModel.html_url = self.html_url;
+    newModel.avatar_url = self.avatar_url;
+    newModel.url = self.url;
     newModel.company = self.company;
     newModel.blog = self.blog;
     newModel.email = self.email;
     newModel.bio = self.bio;
-    newModel.html_url = self.html_url;
-    newModel.avatar_url = self.avatar_url;
     newModel.public_repos = self.public_repos;
     newModel.public_gists = self.public_gists;
     newModel.followers = self.followers;
     newModel.following = self.following;
+    newModel.private_gists = self.private_gists;
+    newModel.total_private_repos = self.total_private_repos;
+    newModel.owned_private_repos = self.owned_private_repos;
     newModel.created_at = self.created_at;
     newModel.updated_at = self.updated_at;
     return newModel;
 }
 
-- (NSString *) description
+//MARK: MJExtension
+
++ (NSDictionary *)mj_replacedKeyFromPropertyName
 {
-    return [NSString stringWithFormat:@"id = %@, name = %@ ",self.identity,self.name];
+    return @{@"id_User":@"id",
+             @"loginName":@"login"
+             };
 }
+
++ (instancetype) getInstanceWithDic:(NSDictionary *) dic
+{
+    if(!dic)
+    {
+        return nil;
+    }
+    
+    return [ZLGithubUserModel mj_objectWithKeyValues:dic];
+}
+
+
 
 @end
