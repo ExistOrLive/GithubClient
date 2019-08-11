@@ -10,6 +10,16 @@ import UIKit
 
 class ZLExploreBaseView: UIView {
 
-  
-
+    @IBOutlet weak var topViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var searchButton: UIButton!
+    
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        self.topViewHeightConstraint.constant = self.topViewHeightConstraint.constant + ZLStatusBarHeight
+        self.searchButton.layer.cornerRadius = 20;
+        
+    }
+    
 }

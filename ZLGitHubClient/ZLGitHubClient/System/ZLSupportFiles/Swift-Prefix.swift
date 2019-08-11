@@ -26,6 +26,7 @@ let ZLGetReposResult_Notification = Notification.Name(rawValue: "ZLGetReposResul
 let ZLGetFollowersResult_Notification = Notification.Name(rawValue: "ZLGetFollowersResult_Notification")
 let ZLGetFollowingResult_Notification = Notification.Name(rawValue: "ZLGetFollowingResult_Notification")
 let ZLGetGistsResult_Notification = Notification.Name(rawValue: "ZLGetGistsResult_Notification")
+let ZLSearchResult_Notification = Notification.Name(rawValue: "ZLSearchResult_Notification")
 
 extension Notification
 {

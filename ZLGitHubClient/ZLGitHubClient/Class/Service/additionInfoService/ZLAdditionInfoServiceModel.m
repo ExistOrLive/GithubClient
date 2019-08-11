@@ -15,7 +15,7 @@
 #import "ZLUserServiceModel.h"
 
 // Model
-#import "ZLAdditionInfoResultModel.h"
+#import "ZLOperationResultModel.h"
 
 
 @implementation ZLAdditionInfoServiceModel
@@ -100,18 +100,11 @@
 {
     GithubResponse responseBlock = ^(BOOL result, id _Nullable responseObject, NSString * serialNumber) {
         
-        ZLAdditionInfoResultModel * repoResultModel = [[ZLAdditionInfoResultModel alloc] init];
+        ZLOperationResultModel * repoResultModel = [[ZLOperationResultModel alloc] init];
         repoResultModel.result = result;
         repoResultModel.serialNumber = serialNumber;
-        
-        if(result)
-        {
-            repoResultModel.data = responseObject;
-        }
-        else
-        {
-            repoResultModel.errorModel = responseObject;
-        }
+        repoResultModel.data = responseObject;
+ 
         
         ZLMainThreadDispatch([self postNotification:ZLGetReposResult_Notification withParams:repoResultModel])
         
@@ -152,18 +145,11 @@
 {
     GithubResponse responseBlock = ^(BOOL result, id _Nullable responseObject, NSString * serialNumber) {
         
-        ZLAdditionInfoResultModel * followerResultModel = [[ZLAdditionInfoResultModel alloc] init];
+        ZLOperationResultModel * followerResultModel = [[ZLOperationResultModel alloc] init];
         followerResultModel.result = result;
         followerResultModel.serialNumber = serialNumber;
-        
-        if(result)
-        {
-            followerResultModel.data = responseObject;
-        }
-        else
-        {
-            followerResultModel.errorModel = responseObject;
-        }
+        followerResultModel.data = responseObject;
+     
         
         ZLMainThreadDispatch([self postNotification:ZLGetFollowersResult_Notification withParams:followerResultModel])
         
@@ -193,18 +179,11 @@
 {
     GithubResponse responseBlock = ^(BOOL result, id _Nullable responseObject, NSString * serialNumber) {
         
-        ZLAdditionInfoResultModel * followingResultModel = [[ZLAdditionInfoResultModel alloc] init];
+        ZLOperationResultModel * followingResultModel = [[ZLOperationResultModel alloc] init];
         followingResultModel.result = result;
         followingResultModel.serialNumber = serialNumber;
-        
-        if(result)
-        {
-            followingResultModel.data = responseObject;
-        }
-        else
-        {
-            followingResultModel.errorModel = responseObject;
-        }
+        followingResultModel.data = responseObject;
+ 
         
         ZLMainThreadDispatch([self postNotification:ZLGetFollowingResult_Notification withParams:followingResultModel])
         

@@ -7,6 +7,11 @@
 */
 
 "repositories" = "repositories";
+"users" = "users";
+"commits" = "commits";
+"topics" = "topics";
+"issues" = "issues";
+"code" = "code";
 "gists" = "gists";
 "followers" = "followers";
 "following" = "following";

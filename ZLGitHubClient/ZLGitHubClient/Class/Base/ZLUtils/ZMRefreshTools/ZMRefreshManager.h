@@ -37,12 +37,10 @@
 
 // 刷新结束
 - (void) setHeaderViewRefreshEnd;
-
 - (void) setFooterViewRefreshEnd;
 
 // 全部刷新结束
 - (void) setHeaderViewNoMoreFresh;
-
 - (void) setFooterViewNoMoreFresh;
 
 

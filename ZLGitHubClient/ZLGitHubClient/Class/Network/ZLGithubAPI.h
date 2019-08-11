@@ -28,7 +28,10 @@
 
 #define GitHubAPIURL @"https://api.github.com"
 
+#pragma mark -
+
 #define currenUserUrl           @"/user"                            // 当前登陆用户的信息
+#define searchUserUrl           @"/search/users"
 
 #pragma mark event
 
@@ -40,11 +43,13 @@
 
 #define repoUrl                 @"/user/repos"                       // 当前用户的Repo 包括private
 #define userRepoUrl             @"/users/%@/repos"                   // 某用户的Repos 不包括private
+#define searchRepoUrl           @"/search/repositories"              // 根据关键字搜索repo
 
-#pragma mark followers
 
-#define repoUrl                 @"/user/repos"                       // 当前用户的Repo 包括private
-#define userRepoUrl             @"/users/%@/repos"                   // 某用户的Repos 不包括private
+#pragma mark gists
+
+#define gistUrl                 @"/user/gists"                       // 当前用户的gists 包括private
+#define userGistUrl             @"/users/%@/gists"                   // 某用户的gists 不包括private
 
 #pragma mark following
 

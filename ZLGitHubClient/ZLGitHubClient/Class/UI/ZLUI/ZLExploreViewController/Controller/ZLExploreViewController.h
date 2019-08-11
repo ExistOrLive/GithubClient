@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ZLExploreViewController : UIViewController
+@interface ZLExploreViewController : ZLBaseViewController
 
 @end
