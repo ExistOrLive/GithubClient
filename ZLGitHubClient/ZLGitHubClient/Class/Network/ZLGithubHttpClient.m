@@ -17,7 +17,7 @@
 #import "ZLGithubUserModel.h"
 #import "ZLGithubRepositoryModel.h"
 #import "ZLGithubRequestErrorModel.h"
-
+#import "ZLSearchResultModel.h"
 
 @interface ZLGithubHttpClient()
 
@@ -171,13 +171,14 @@
     
 }
 
-
+#pragma mark - users
 
 /**
  *
  * 获取当前登陆的用户信息
  **/
-- (void) getCurrentLoginUserInfo:(void(^)(BOOL,ZLGithubUserModel *)) block
+- (void) getCurrentLoginUserInfo:(GithubResponse) block
+                    serialNumber:(NSString *) serialNumber
 {
     NSString * userUrl = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,currenUserUrl];
     
@@ -187,13 +188,13 @@
     ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
     {
         ZLGithubUserModel * model = [ZLGithubUserModel getInstanceWithDic:(NSDictionary *) responseObject];
-        block(YES,model);
+        block(YES,model,serialNumber);
     };
     
     void(^failedBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
     ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
     {
-        block(NO,nil);
+         block(NO,nil,serialNumber);
     };
     
    [self.sessionManager GET:userUrl
@@ -201,6 +202,119 @@
                    progress:nil
                     success:successBlock
                     failure:failedBlock];
+}
+
+/**
+ * @brief 根据loginName获取指定的用户信息
+ * @param loginName 登陆名
+ **/
+- (void) getUserInfo:(GithubResponse) block
+           loginName:(NSString *) loginName
+        serialNumber:(NSString *) serialNumber
+{
+    NSString * userUrl = [NSString stringWithFormat:@"%@%@%@",GitHubAPIURL,userInfo,loginName];
+    
+    [self.sessionManager.requestSerializer setValue:[NSString stringWithFormat:@"token %@",self.token] forHTTPHeaderField:@"Authorization"];
+    
+    void(^successBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
+    ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+    {
+        ZLGithubUserModel * model = [ZLGithubUserModel getInstanceWithDic:(NSDictionary *) responseObject];
+        block(YES,model,serialNumber);
+    };
+    
+    void(^failedBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
+    ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+    {
+        block(NO,nil,serialNumber);
+    };
+    
+    [self.sessionManager GET:userUrl
+                  parameters:nil
+                    progress:nil
+                     success:successBlock
+                     failure:failedBlock];
+}
+
+
+/**
+ * @brief 根据loginName和userType获取指定的组织信息
+ * @param loginName 登陆名
+ **/
+- (void) getOrgInfo:(GithubResponse) block
+          loginName:(NSString *) loginName
+       serialNumber:(NSString *) serialNumber
+{
+    NSString * userUrl = [NSString stringWithFormat:@"%@%@%@",GitHubAPIURL,orgInfo,loginName];
+    
+    [self.sessionManager.requestSerializer setValue:[NSString stringWithFormat:@"token %@",self.token] forHTTPHeaderField:@"Authorization"];
+    
+    void(^successBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
+    ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+    {
+        ZLGithubUserModel * model = [ZLGithubUserModel getInstanceWithDic:(NSDictionary *) responseObject];
+        block(YES,model,serialNumber);
+    };
+    
+    void(^failedBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
+    ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+    {
+        block(NO,nil,serialNumber);
+    };
+    
+    [self.sessionManager GET:userUrl
+                  parameters:nil
+                    progress:nil
+                     success:successBlock
+                     failure:failedBlock];
+}
+
+
+- (void) searchUser:(GithubResponse) block
+            keyword:(NSString *) keyword
+               page:(NSUInteger) page
+           per_page:(NSUInteger) per_page
+       serialNumber:(NSString *) serialNumber
+{
+    NSString * urlForSearchUser = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,searchUserUrl];
+    
+    [self.sessionManager.requestSerializer setValue:[NSString stringWithFormat:@"token %@",self.token] forHTTPHeaderField:@"Authorization"];
+    
+    NSDictionary * params = @{@"q":keyword,
+                              @"page":[NSNumber numberWithUnsignedInteger:page],
+                              @"per_page":[NSNumber numberWithUnsignedInteger:per_page]};
+    
+    void(^successBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
+    ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+    {
+        ZLSearchResultModel * resultModel = [[ZLSearchResultModel alloc] init];
+        resultModel.totalNumber = [[responseObject objectForKey:@"total_count"] unsignedIntegerValue];
+        resultModel.incomplete_results = [[responseObject objectForKey:@"incomplete_results"] unsignedIntegerValue];
+        resultModel.data = [ZLGithubUserModel mj_objectArrayWithKeyValuesArray:[responseObject objectForKey:@"items"]];
+        block(YES,resultModel,serialNumber);
+    };
+    
+    void(^failedBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
+    ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+    {
+        ZLLog_Warning(@"failedBlock: responseObject[%@]",responseObject);
+        
+        ZLGithubRequestErrorModel * errorModel = [ZLGithubRequestErrorModel mj_objectWithKeyValues:responseObject];
+        if(errorModel == nil)
+        {
+            errorModel = [[ZLGithubRequestErrorModel alloc] init];
+        }
+        errorModel.statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
+        
+        block(NO,errorModel,serialNumber);
+    };
+    
+    
+    [self.sessionManager GET:urlForSearchUser
+                  parameters:params
+                    progress:nil
+                     success:successBlock
+                     failure:failedBlock];
 }
 
 #pragma mark - repositories
@@ -297,6 +411,55 @@
                      success:successBlock
                      failure:failedBlock];
 }
+
+
+- (void) searchRepos:(GithubResponse) block
+             keyword:(NSString *) keyword
+                page:(NSUInteger) page
+            per_page:(NSUInteger) per_page
+        serialNumber:(NSString *) serialNumber
+{
+    NSString * urlForSearchUser = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,searchRepoUrl];
+    
+    [self.sessionManager.requestSerializer setValue:[NSString stringWithFormat:@"token %@",self.token] forHTTPHeaderField:@"Authorization"];
+    
+    NSDictionary * params = @{@"q":keyword,
+                              @"page":[NSNumber numberWithUnsignedInteger:page],
+                              @"per_page":[NSNumber numberWithUnsignedInteger:per_page]};
+    
+    void(^successBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
+    ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+    {
+        ZLSearchResultModel * resultModel = [[ZLSearchResultModel alloc] init];
+        resultModel.totalNumber = [[responseObject objectForKey:@"total_count"] unsignedIntegerValue];
+        resultModel.incomplete_results = [[responseObject objectForKey:@"incomplete_results"] unsignedIntegerValue];
+        resultModel.data = [ZLGithubRepositoryModel mj_objectArrayWithKeyValuesArray:[responseObject objectForKey:@"items"]];
+        block(YES,resultModel,serialNumber);
+    };
+    
+    void(^failedBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
+    ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+    {
+        ZLLog_Warning(@"failedBlock: responseObject[%@]",responseObject);
+        
+        ZLGithubRequestErrorModel * errorModel = [ZLGithubRequestErrorModel mj_objectWithKeyValues:responseObject];
+        if(errorModel == nil)
+        {
+            errorModel = [[ZLGithubRequestErrorModel alloc] init];
+        }
+        errorModel.statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
+        
+        block(NO,errorModel,serialNumber);
+    };
+    
+    
+    [self.sessionManager GET:urlForSearchUser
+                  parameters:params
+                    progress:nil
+                     success:successBlock
+                     failure:failedBlock];
+}
+
 
 
 #pragma mark - followers

@@ -37,6 +37,6 @@
 
 
 
-#define ZLMainThreadDispatch(a)     if([NSThread isMainThread]){ a; }else{dispatch_async(dispatch_get_main_queue(), ^{ a; });}
+#define ZLMainThreadDispatch(a)     if([NSThread isMainThread]){ a }else{dispatch_async(dispatch_get_main_queue(), ^{ a });}
 
 #endif /* ZLGitHubClient_prefix_pch */

@@ -7,6 +7,11 @@
 */
 
 "repositories" = "仓库";
+"users" = "用户";
+"commits" = "提交";
+"topics" = "标题";
+"issues" = "问题";
+"code" = "代码";
 "gists" = "代码片段";
 "followers" = "粉丝";
 "following" = "关注";

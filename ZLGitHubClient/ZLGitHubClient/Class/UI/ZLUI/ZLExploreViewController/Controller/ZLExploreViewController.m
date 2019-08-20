@@ -22,7 +22,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor orangeColor];
+    //  创建ViewModel
+    self.viewModel = [[ZLExploreBaseViewModel alloc] initWithViewController:self];
+    
+    // 创建baseView
+    ZLExploreBaseView * baseView = [[NSBundle mainBundle] loadNibNamed:@"ZLExploreBaseView" owner:self.viewModel options:nil].firstObject;
+    [baseView setFrame:ZLScreenBounds];
+    [self.view addSubview:baseView];
+    
+    // 关联View ViewModel VC
+    [self.viewModel bindModel:nil andView:baseView];
+    
+}
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES];
 }
 
 - (void)didReceiveMemoryWarning {

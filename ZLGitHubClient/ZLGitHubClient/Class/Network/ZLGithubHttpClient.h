@@ -30,11 +30,47 @@ NS_ASSUME_NONNULL_BEGIN
  **/
 - (void) getAccessToken:(NSString *) queryString;
 
+
+#pragma mark - users
+
 /**
  *
  * 获取当前登陆的用户信息
  **/
-- (void) getCurrentLoginUserInfo:(void(^)(BOOL,ZLGithubUserModel *)) block;
+- (void) getCurrentLoginUserInfo:(GithubResponse) block
+                    serialNumber:(NSString *) serialNumber;
+
+
+/**
+ * @brief 根据loginName获取指定的用户信息
+ * @param loginName 登陆名
+ **/
+- (void) getUserInfo:(GithubResponse) block
+           loginName:(NSString *) loginName
+        serialNumber:(NSString *) serialNumber;
+
+
+/**
+ * @brief 根据loginName和userType获取指定的组织信息
+ * @param loginName 登陆名
+ **/
+- (void) getOrgInfo:(GithubResponse) block
+          loginName:(NSString *) loginName
+       serialNumber:(NSString *) serialNumber;
+
+/**
+ * @brief 根据关键字搜索users
+ * @param block 请求回调
+ * @param keyword 关键字
+ * @param page  第n页
+ * @param per_page 一页多少记录
+ * @param serialNumber 流水号 通过block回调原样返回
+ **/
+- (void) searchUser:(GithubResponse) block
+            keyword:(NSString *) keyword
+               page:(NSUInteger) page
+           per_page:(NSUInteger) per_page
+       serialNumber:(NSString *) serialNumber;
 
 
 #pragma mark - repositories
@@ -66,6 +102,20 @@ NS_ASSUME_NONNULL_BEGIN
                            page:(NSUInteger) page
                        per_page:(NSUInteger) per_page
                    serialNumber:(NSString *) serialNumber;
+
+/**
+ * @brief 根据关键字搜索repos
+ * @param block 请求回调
+ * @param keyword 关键字
+ * @param page  第n页
+ * @param per_page 一页多少记录
+ * @param serialNumber 流水号 通过block回调原样返回
+ **/
+- (void) searchRepos:(GithubResponse) block
+             keyword:(NSString *) keyword
+                page:(NSUInteger) page
+            per_page:(NSUInteger) per_page
+        serialNumber:(NSString *) serialNumber;
 
 #pragma mark - followers
 

@@ -37,6 +37,25 @@
              };
 }
 
+
+- (id)mj_newValueFromOldValue:(id)oldValue property:(MJProperty *)property
+{
+    if([property.name isEqualToString:@"type"])
+    {
+        if([oldValue isEqualToString:@"User"])
+        {
+            return [NSNumber numberWithInt:ZLGithubUserType_User];
+        }
+        else
+        {
+            return [NSNumber numberWithInt:ZLGithubUserType_Organization];
+        }
+    }
+    
+    return oldValue;
+    
+}
+
 @end
 
 #pragma mark - ZLGithubUserModel

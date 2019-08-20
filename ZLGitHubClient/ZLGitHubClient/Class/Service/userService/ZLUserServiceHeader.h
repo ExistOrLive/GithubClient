@@ -11,4 +11,6 @@
 
 static const NSNotificationName ZLGetCurrentUserInfoResult_Notification = @"ZLGetCurrentUserInfoResult_Notification";
 
+static const NSNotificationName ZLGetSpecifiedUserInfoResult_Notification = @"ZLGetSpecifiedUserInfoResult_Notification";
+
 #endif /* ZLUserServiceHeader_h */

@@ -18,4 +18,6 @@ pod 'MJExtension'
 
 pod 'SDWebImage', '~> 5.0.0'
 
+pod 'MMMarkdown'
+
 end

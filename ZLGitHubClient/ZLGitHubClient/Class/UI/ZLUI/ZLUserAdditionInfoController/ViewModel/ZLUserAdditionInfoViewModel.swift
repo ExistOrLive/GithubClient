@@ -138,7 +138,7 @@ extension ZLUserAdditionInfoViewModel
             fallthrough
         case ZLGetFollowingResult_Notification:do{
             
-            guard let notiPara: ZLAdditionInfoResultModel  = notification.params as? ZLAdditionInfoResultModel else
+            guard let notiPara: ZLOperationResultModel  = notification.params as? ZLOperationResultModel else
             {
                 self.refreshManager?.setFooterViewRefreshEnd()
                 return
@@ -146,7 +146,9 @@ extension ZLUserAdditionInfoViewModel
             
             if notiPara.result == true
             {
-                if notiPara.data.count > 0
+                let itemArray: [Any]? = notiPara.data as? [Any]
+                
+                if itemArray != nil && itemArray!.count > 0
                 {
                     self.currentPage = self.currentPage + 1
                     self.refreshManager?.setFooterViewRefreshEnd()
@@ -159,11 +161,11 @@ extension ZLUserAdditionInfoViewModel
                 
                 if self.array == nil
                 {
-                    self.array = (notiPara.data as NSArray).mutableCopy() as? [Any]
+                    self.array = (itemArray! as NSArray).mutableCopy() as? [Any]
                 }
                 else
                 {
-                    self.array?.append(contentsOf: notiPara.data)
+                    self.array?.append(contentsOf: itemArray!)
                 }
                 self.baseView?.tableView.reloadData();
                 
@@ -171,7 +173,12 @@ extension ZLUserAdditionInfoViewModel
             else
             {
                 self.refreshManager?.setFooterViewRefreshEnd()
-                ZLLog_Warn("get repos failed statusCode[\(notiPara.errorModel.statusCode)] message[\(notiPara.errorModel.message)]")
+                guard let errorModel : ZLGithubRequestErrorModel = notiPara.data as? ZLGithubRequestErrorModel else
+                {
+                    return;
+                }
+                
+                ZLLog_Warn("get repos failed statusCode[\(errorModel.statusCode)] message[\(errorModel.message)]")
             }
             
             
@@ -231,6 +238,7 @@ extension ZLUserAdditionInfoViewModel: UITableViewDelegate,UITableViewDataSource
             tableViewCell.descriptionLabel.text = data?.desc_Repo
             tableViewCell.forkNumLabel.text = "\(data?.forks ?? 0)"
             tableViewCell.starNumLabel.text = "\(data?.stargazers_count ?? 0)"
+            tableViewCell.ownerNameLabel.text = data?.owner.loginName
             
             return tableViewCell
             }
@@ -282,6 +290,34 @@ extension ZLUserAdditionInfoViewModel: UITableViewDelegate,UITableViewDataSource
         }
         
       
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        switch self.baseView!.viewType
+        {
+        case .repositories:do{
+            
+            let data = self.array?[indexPath.row] as? ZLGithubRepositoryModel
+            if data != nil
+            {
+                let vc = ZLRepoInfoController.init(repoInfoModel: data!)
+                self.viewController?.navigationController?.pushViewController(vc, animated: false)
+            }
+        }
+        case .gists:do{
+            break;
+            }
+        case .users:do{
+            let data = self.array?[indexPath.row] as? ZLGithubUserModel
+            if data != nil
+            {
+                let vc = ZLUserInfoController.init(userInfoModel: data!)
+                self.viewController?.navigationController?.pushViewController(vc, animated: false)
+            }
+            
+        }
+        }
     }
 }
 
