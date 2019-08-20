@@ -37,7 +37,26 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * 获取当前登陆的用户信息
  **/
-- (void) getCurrentLoginUserInfo:(void(^)(BOOL,ZLGithubUserModel *)) block;
+- (void) getCurrentLoginUserInfo:(GithubResponse) block
+                    serialNumber:(NSString *) serialNumber;
+
+
+/**
+ * @brief 根据loginName获取指定的用户信息
+ * @param loginName 登陆名
+ **/
+- (void) getUserInfo:(GithubResponse) block
+           loginName:(NSString *) loginName
+        serialNumber:(NSString *) serialNumber;
+
+
+/**
+ * @brief 根据loginName和userType获取指定的组织信息
+ * @param loginName 登陆名
+ **/
+- (void) getOrgInfo:(GithubResponse) block
+          loginName:(NSString *) loginName
+       serialNumber:(NSString *) serialNumber;
 
 /**
  * @brief 根据关键字搜索users

@@ -25,109 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ZLGitHubClient/Class/UI/ZLUI/ZLUserAdditionInfoController/ViewModel/ZLUserAdditionInfoViewModel.swift"
-            timestampString = "587151746.084128"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "170"
-            endingLineNumber = "170"
-            landmarkName = "onNotificationArrived(notification:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ZLGitHubClient/Class/UI/ZLUI/ZLUserAdditionInfoController/ViewModel/ZLUserAdditionInfoViewModel.swift"
-            timestampString = "587151746.084471"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "221"
-            endingLineNumber = "221"
-            landmarkName = "tableView(_:cellForRowAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ZLGitHubClient/Class/Service/searchService/ZLSearchServiceModel.m"
-            timestampString = "587226805.144411"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
-            landmarkName = "-searchInfoWithKeyWord:type:filterInfo:page:per_page:serialNumber:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ZLGitHubClient/Class/Service/searchService/ZLSearchServiceModel.m"
-            timestampString = "587226805.1444941"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
-            landmarkName = "-searchRepoInfoKeyWord:filterInfo:page:per_page:serialNumber:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "ZLGitHubClient/Class/Network/ZLGithubHttpClient.m"
-            timestampString = "587151746.084838"
+            timestampString = "587405839.415719"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "356"
-            endingLineNumber = "356"
-            landmarkName = "-searchRepos:keyword:page:per_page:serialNumber:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ZLGitHubClient/Class/Network/ZLGithubHttpClient.m"
-            timestampString = "587151746.085116"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "362"
-            endingLineNumber = "362"
-            landmarkName = "-searchRepos:keyword:page:per_page:serialNumber:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ZLGitHubClient/Class/Network/ZLGithubHttpClient.m"
-            timestampString = "587151746.085232"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "377"
-            endingLineNumber = "377"
-            landmarkName = "-searchRepos:keyword:page:per_page:serialNumber:"
+            startingLineNumber = "409"
+            endingLineNumber = "409"
+            landmarkName = "-getRepositoriesForUser:loginName:page:per_page:serialNumber:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -138,13 +42,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZLGitHubClient/Class/UI/ZLUI/ZLSearchController/ViewModel/ZLSearchItemsViewModel.swift"
-            timestampString = "587227103.653199"
+            timestampString = "587922594.1808161"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "215"
-            endingLineNumber = "215"
-            landmarkName = "zmRefreshIsDragUp(_:refreshView:)"
-            landmarkType = "7">
+            startingLineNumber = "245"
+            endingLineNumber = "245"
+            landmarkName = "ZLSearchItemsViewModel"
+            landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -163,12 +67,28 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ZLGitHubClient/Class/UI/ZLUI/ZLSearchController/ViewModel/ZLSearchItemsViewModel.swift"
-            timestampString = "587227103.6533509"
+            filePath = "ZLGitHubClient/Class/Service/userService/ZLUserServiceModel.m"
+            timestampString = "587405839.415888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "240"
-            endingLineNumber = "240"
+            startingLineNumber = "136"
+            endingLineNumber = "136"
+            landmarkName = "-getUserInfoWithLoginName:userType:serialNumber:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ZLGitHubClient/Class/UI/ZLUI/ZLUserInfoController/viewModel/ZLUserInfoViewModel.swift"
+            timestampString = "587405839.415979"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
             landmarkName = "onNotificationArrived(notification:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -179,13 +99,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ZLGitHubClient/Class/UI/ZLUI/ZLSearchController/ViewModel/ZLSearchItemsViewModel.swift"
-            timestampString = "587227103.65342"
+            filePath = "ZLGitHubClient/Class/UI/ZLUI/ZLRepoInfoController/viewmodel/ZLRepoInfoViewModel.swift"
+            timestampString = "588006815.880501"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "280"
-            endingLineNumber = "280"
-            landmarkName = "onNotificationArrived(notification:)"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "bindModel(_:andView:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -195,141 +115,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ZLGitHubClient/Class/Service/searchService/ZLSearchServiceModel.m"
-            timestampString = "587226805.145615"
+            filePath = "ZLGitHubClient/Class/UI/ZLUI/ZLRepoInfoController/viewmodel/ZLRepoInfoViewModel.swift"
+            timestampString = "588006815.880591"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "60"
             endingLineNumber = "60"
-            landmarkName = "-searchUserInfoKeyWord:filterInfo:page:per_page:serialNumber:"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[ZLSearchServiceModel searchUserInfoKeyWord:filterInfo:page:per_page:serialNumber:]"
-                  moduleName = "ZLGitHubClient"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zhumeng/%E5%BC%80%E5%8F%91/github/ZLClient/ZLGithubClient/ZLGitHubClient/ZLGitHubClient/Class/Service/searchService/ZLSearchServiceModel.m"
-                  timestampString = "587228208.248053"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "60"
-                  endingLineNumber = "60"
-                  offsetFromSymbolStart = "144">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__84-[ZLSearchServiceModel searchUserInfoKeyWord:filterInfo:page:per_page:serialNumber:]_block_invoke"
-                  moduleName = "ZLGitHubClient"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zhumeng/%E5%BC%80%E5%8F%91/github/ZLClient/ZLGithubClient/ZLGitHubClient/ZLGitHubClient/Class/Service/searchService/ZLSearchServiceModel.m"
-                  timestampString = "587228208.2503099"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "62"
-                  endingLineNumber = "62"
-                  offsetFromSymbolStart = "108">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ZLGitHubClient/Class/Service/searchService/ZLSearchServiceModel.m"
-            timestampString = "587226805.1456749"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
-            landmarkName = "-searchUserInfoKeyWord:filterInfo:page:per_page:serialNumber:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ZLGitHubClient/Class/Service/searchService/ZLSearchServiceModel.m"
-            timestampString = "587226805.1457289"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
-            landmarkName = "-searchRepoInfoKeyWord:filterInfo:page:per_page:serialNumber:"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[ZLSearchServiceModel searchRepoInfoKeyWord:filterInfo:page:per_page:serialNumber:]"
-                  moduleName = "ZLGitHubClient"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zhumeng/%E5%BC%80%E5%8F%91/github/ZLClient/ZLGithubClient/ZLGitHubClient/ZLGitHubClient/Class/Service/searchService/ZLSearchServiceModel.m"
-                  timestampString = "587228208.259529"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "86"
-                  endingLineNumber = "86"
-                  offsetFromSymbolStart = "144">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__84-[ZLSearchServiceModel searchRepoInfoKeyWord:filterInfo:page:per_page:serialNumber:]_block_invoke"
-                  moduleName = "ZLGitHubClient"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zhumeng/%E5%BC%80%E5%8F%91/github/ZLClient/ZLGithubClient/ZLGitHubClient/ZLGitHubClient/Class/Service/searchService/ZLSearchServiceModel.m"
-                  timestampString = "587228208.2615319"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "88"
-                  endingLineNumber = "88"
-                  offsetFromSymbolStart = "108">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ZLGitHubClient/Class/UI/ZLUI/ZLSearchController/ViewModel/ZLSearchItemsViewModel.swift"
-            timestampString = "587227103.6535389"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "61"
-            endingLineNumber = "61"
-            landmarkName = "startSearch(keyWord:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ZLGitHubClient/System/ZLAppDelegate/AppDelegate.m"
-            timestampString = "587228205.683093"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "23"
-            endingLineNumber = "23"
-            landmarkName = "-application:didFinishLaunchingWithOptions:"
+            landmarkName = "setViewDataForRepoInfoView(model:view:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

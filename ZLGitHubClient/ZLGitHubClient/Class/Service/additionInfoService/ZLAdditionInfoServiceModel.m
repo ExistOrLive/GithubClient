@@ -98,6 +98,8 @@
                                 per_page:(NSUInteger) per_page
                             serialNumber:(NSString *) serialNumber
 {
+    
+    __weak typeof(self) weakSelf = self;
     GithubResponse responseBlock = ^(BOOL result, id _Nullable responseObject, NSString * serialNumber) {
         
         ZLOperationResultModel * repoResultModel = [[ZLOperationResultModel alloc] init];
@@ -106,7 +108,7 @@
         repoResultModel.data = responseObject;
  
         
-        ZLMainThreadDispatch([self postNotification:ZLGetReposResult_Notification withParams:repoResultModel])
+        ZLMainThreadDispatch([weakSelf postNotification:ZLGetReposResult_Notification withParams:repoResultModel];)
         
        
     };
@@ -143,6 +145,8 @@
                                 per_page:(NSUInteger) per_page
                             serialNumber:(NSString *) serialNumber
 {
+    
+    __weak typeof(self) weakSelf = self;
     GithubResponse responseBlock = ^(BOOL result, id _Nullable responseObject, NSString * serialNumber) {
         
         ZLOperationResultModel * followerResultModel = [[ZLOperationResultModel alloc] init];
@@ -151,7 +155,7 @@
         followerResultModel.data = responseObject;
      
         
-        ZLMainThreadDispatch([self postNotification:ZLGetFollowersResult_Notification withParams:followerResultModel])
+        ZLMainThreadDispatch([weakSelf postNotification:ZLGetFollowersResult_Notification withParams:followerResultModel];)
         
         
     };
@@ -177,6 +181,7 @@
                              per_page:(NSUInteger) per_page
                          serialNumber:(NSString *) serialNumber
 {
+    __weak typeof(self) weakSelf = self;
     GithubResponse responseBlock = ^(BOOL result, id _Nullable responseObject, NSString * serialNumber) {
         
         ZLOperationResultModel * followingResultModel = [[ZLOperationResultModel alloc] init];
@@ -185,7 +190,7 @@
         followingResultModel.data = responseObject;
  
         
-        ZLMainThreadDispatch([self postNotification:ZLGetFollowingResult_Notification withParams:followingResultModel])
+        ZLMainThreadDispatch([weakSelf postNotification:ZLGetFollowingResult_Notification withParams:followingResultModel];)
         
         
     };

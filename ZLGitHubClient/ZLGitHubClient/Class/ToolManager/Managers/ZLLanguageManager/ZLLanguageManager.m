@@ -76,7 +76,7 @@
         _currentLanguageBundle = [NSBundle bundleWithPath:resourcePath];
     }
     
-    NSString * localizedString = [_currentLanguageBundle localizedStringForKey:key value:@"key的注释" table:@"ZLGitHubClientLocalizable"];
+    NSString * localizedString = [_currentLanguageBundle localizedStringForKey:key value:key table:@"ZLGitHubClientLocalizable"];
     
     if(!localizedString)
     {

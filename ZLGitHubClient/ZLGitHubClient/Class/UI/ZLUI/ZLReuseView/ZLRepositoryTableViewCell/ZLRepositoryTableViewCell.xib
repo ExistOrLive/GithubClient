@@ -48,12 +48,11 @@
                                 <color key="textColor" red="0.2666666667" green="0.2666666667" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Bl-Od-eiX">
-                                <rect key="frame" x="70" y="67" width="250" height="34"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dasdasdhaskjdhaskjdhkajshdj" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Bl-Od-eiX">
+                                <rect key="frame" x="70" y="67" width="250" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="250" id="Cnk-J5-h3s"/>
                                 </constraints>
-                                <string key="text">dasdasdhaskjdhaskjdhkajshdjkashdjkashdkjhasjkdhasjkhdjkashdkjashdjkashdjkhasjkdhaskjdhjkashdkjashdjkashdjkahsjkdhasjkdhajkshdjkashdjkashdk</string>
                                 <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="12"/>
                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>

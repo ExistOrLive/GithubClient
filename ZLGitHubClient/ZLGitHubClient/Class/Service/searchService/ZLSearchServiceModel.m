@@ -57,6 +57,8 @@
                       per_page:(NSUInteger) per_page
                   serialNumber:(NSString *) serialNumber
 {
+    
+    __weak typeof(self) weakSelf = self;
     GithubResponse response = ^(BOOL result,id responseObject,NSString * serialNumber){
         
         ZLOperationResultModel * repoResultModel = [[ZLOperationResultModel alloc] init];
@@ -64,7 +66,7 @@
         repoResultModel.serialNumber = serialNumber;
         repoResultModel.data = responseObject;
         
-        ZLMainThreadDispatch([self postNotification:ZLSearchResult_Notification withParams:repoResultModel])
+        ZLMainThreadDispatch([weakSelf postNotification:ZLSearchResult_Notification withParams:repoResultModel];)
     };
     
     
@@ -83,6 +85,8 @@
                       per_page:(NSUInteger) per_page
                   serialNumber:(NSString *) serialNumber
 {
+    
+    __weak typeof(self) weakSelf = self;
     GithubResponse response = ^(BOOL result,id responseObject,NSString * serialNumber){
         
         ZLOperationResultModel * repoResultModel = [[ZLOperationResultModel alloc] init];
@@ -90,7 +94,7 @@
         repoResultModel.serialNumber = serialNumber;
         repoResultModel.data = responseObject;
         
-        ZLMainThreadDispatch([self postNotification:ZLSearchResult_Notification withParams:repoResultModel])
+        ZLMainThreadDispatch([weakSelf postNotification:ZLSearchResult_Notification withParams:repoResultModel];)
     };
     
     [[ZLGithubHttpClient defaultClient] searchRepos:response

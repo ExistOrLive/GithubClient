@@ -139,6 +139,32 @@ extension ZLSearchItemsViewModel: UITableViewDelegate,UITableViewDataSource
             }
         }
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        switch(self.currentSearchType)
+        {
+        case .repositories:do{
+            let item : ZLGithubRepositoryModel = self.itemsInfo![indexPath.row] as! ZLGithubRepositoryModel
+            let vc = ZLRepoInfoController.init(repoInfoModel: item)
+            self.viewController?.navigationController?.pushViewController(vc, animated: false)
+            
+            break;
+            }
+        case .users:do{
+            
+            let item : ZLGithubUserModel = self.itemsInfo![indexPath.row] as! ZLGithubUserModel
+            let vc = ZLUserInfoController.init(userInfoModel: item)
+            self.viewController?.navigationController?.pushViewController(vc, animated: false)
+            
+            }
+            
+        default:do{
+            break
+            }
+        }
+       
+    }
 }
 
 extension ZLSearchItemsViewModel: UICollectionViewDelegate,UICollectionViewDataSource

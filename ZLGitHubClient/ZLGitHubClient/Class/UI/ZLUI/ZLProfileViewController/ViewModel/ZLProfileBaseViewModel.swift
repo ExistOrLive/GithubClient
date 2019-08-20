@@ -208,9 +208,15 @@ extension ZLProfileBaseViewModel
         {
         case ZLGetCurrentUserInfoResult_Notification: do{
             
-            guard let model: ZLGithubUserModel = notication.params as? ZLGithubUserModel else
+            guard let resultModel: ZLOperationResultModel = notication.params as? ZLOperationResultModel else
             {
                 ZLLog_Info("notificaition.params is nil]")
+                return;
+            }
+            
+            guard let model: ZLGithubUserModel = resultModel.data as? ZLGithubUserModel else
+            {
+                ZLLog_Info("the data of ZLOperationResultModel is ZLGithubUserModel")
                 return;
             }
             

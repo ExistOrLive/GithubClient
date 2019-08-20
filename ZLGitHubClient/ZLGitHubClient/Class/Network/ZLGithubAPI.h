@@ -33,6 +33,9 @@
 #define currenUserUrl           @"/user"                            // 当前登陆用户的信息
 #define searchUserUrl           @"/search/users"
 
+#define userInfo                @"/users/"
+#define orgInfo                 @"/orgs/"
+
 #pragma mark event
 
 #define eventsUrl               @"/events"                          // 所有的公共事件

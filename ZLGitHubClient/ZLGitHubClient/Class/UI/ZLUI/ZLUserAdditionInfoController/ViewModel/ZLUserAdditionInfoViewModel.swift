@@ -291,6 +291,34 @@ extension ZLUserAdditionInfoViewModel: UITableViewDelegate,UITableViewDataSource
         
       
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        switch self.baseView!.viewType
+        {
+        case .repositories:do{
+            
+            let data = self.array?[indexPath.row] as? ZLGithubRepositoryModel
+            if data != nil
+            {
+                let vc = ZLRepoInfoController.init(repoInfoModel: data!)
+                self.viewController?.navigationController?.pushViewController(vc, animated: false)
+            }
+        }
+        case .gists:do{
+            break;
+            }
+        case .users:do{
+            let data = self.array?[indexPath.row] as? ZLGithubUserModel
+            if data != nil
+            {
+                let vc = ZLUserInfoController.init(userInfoModel: data!)
+                self.viewController?.navigationController?.pushViewController(vc, animated: false)
+            }
+            
+        }
+        }
+    }
 }
 
 extension ZLUserAdditionInfoViewModel : ZMRefreshManagerDelegate

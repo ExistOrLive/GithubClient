@@ -177,7 +177,8 @@
  *
  * 获取当前登陆的用户信息
  **/
-- (void) getCurrentLoginUserInfo:(void(^)(BOOL,ZLGithubUserModel *)) block
+- (void) getCurrentLoginUserInfo:(GithubResponse) block
+                    serialNumber:(NSString *) serialNumber
 {
     NSString * userUrl = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,currenUserUrl];
     
@@ -187,13 +188,13 @@
     ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
     {
         ZLGithubUserModel * model = [ZLGithubUserModel getInstanceWithDic:(NSDictionary *) responseObject];
-        block(YES,model);
+        block(YES,model,serialNumber);
     };
     
     void(^failedBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
     ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
     {
-        block(NO,nil);
+         block(NO,nil,serialNumber);
     };
     
    [self.sessionManager GET:userUrl
@@ -202,6 +203,72 @@
                     success:successBlock
                     failure:failedBlock];
 }
+
+/**
+ * @brief 根据loginName获取指定的用户信息
+ * @param loginName 登陆名
+ **/
+- (void) getUserInfo:(GithubResponse) block
+           loginName:(NSString *) loginName
+        serialNumber:(NSString *) serialNumber
+{
+    NSString * userUrl = [NSString stringWithFormat:@"%@%@%@",GitHubAPIURL,userInfo,loginName];
+    
+    [self.sessionManager.requestSerializer setValue:[NSString stringWithFormat:@"token %@",self.token] forHTTPHeaderField:@"Authorization"];
+    
+    void(^successBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
+    ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+    {
+        ZLGithubUserModel * model = [ZLGithubUserModel getInstanceWithDic:(NSDictionary *) responseObject];
+        block(YES,model,serialNumber);
+    };
+    
+    void(^failedBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
+    ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+    {
+        block(NO,nil,serialNumber);
+    };
+    
+    [self.sessionManager GET:userUrl
+                  parameters:nil
+                    progress:nil
+                     success:successBlock
+                     failure:failedBlock];
+}
+
+
+/**
+ * @brief 根据loginName和userType获取指定的组织信息
+ * @param loginName 登陆名
+ **/
+- (void) getOrgInfo:(GithubResponse) block
+          loginName:(NSString *) loginName
+       serialNumber:(NSString *) serialNumber
+{
+    NSString * userUrl = [NSString stringWithFormat:@"%@%@%@",GitHubAPIURL,orgInfo,loginName];
+    
+    [self.sessionManager.requestSerializer setValue:[NSString stringWithFormat:@"token %@",self.token] forHTTPHeaderField:@"Authorization"];
+    
+    void(^successBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
+    ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+    {
+        ZLGithubUserModel * model = [ZLGithubUserModel getInstanceWithDic:(NSDictionary *) responseObject];
+        block(YES,model,serialNumber);
+    };
+    
+    void(^failedBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
+    ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+    {
+        block(NO,nil,serialNumber);
+    };
+    
+    [self.sessionManager GET:userUrl
+                  parameters:nil
+                    progress:nil
+                     success:successBlock
+                     failure:failedBlock];
+}
+
 
 - (void) searchUser:(GithubResponse) block
             keyword:(NSString *) keyword
