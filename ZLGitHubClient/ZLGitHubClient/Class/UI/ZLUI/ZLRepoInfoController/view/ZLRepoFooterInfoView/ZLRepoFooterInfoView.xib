@@ -15,12 +15,6 @@
             <rect key="frame" x="0.0" y="0.0" width="460" height="618"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Readme" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xbc-xO-1yg">
-                    <rect key="frame" x="20" y="20" width="74" height="27"/>
-                    <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="19"/>
-                    <color key="textColor" white="0.29999999999999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tE9-G5-g3P">
                     <rect key="frame" x="380" y="20" width="60" height="25"/>
                     <constraints>
@@ -31,15 +25,45 @@
                         <color key="titleColor" white="0.29999999999999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="README" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xbc-xO-1yg">
+                    <rect key="frame" x="20" y="20" width="81" height="27"/>
+                    <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="19"/>
+                    <color key="textColor" white="0.29999999999999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="v5J-y5-dOL">
+                    <rect key="frame" x="0.0" y="60" width="460" height="2"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="2" id="xBu-nu-FeM"/>
+                    </constraints>
+                    <color key="progressTintColor" white="0.67000000000000004" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="trackTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </progressView>
+                <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fx6-06-aTN">
+                    <rect key="frame" x="0.0" y="62" width="460" height="556"/>
+                    <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </webView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="fx6-06-aTN" secondAttribute="trailing" id="8Xp-T6-IMU"/>
+                <constraint firstAttribute="bottom" secondItem="fx6-06-aTN" secondAttribute="bottom" id="JXs-vZ-SKK"/>
+                <constraint firstItem="fx6-06-aTN" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="OMy-NB-bCS"/>
                 <constraint firstItem="Xbc-xO-1yg" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="TwP-CT-9Ia"/>
+                <constraint firstItem="v5J-y5-dOL" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="60" id="Vaa-bY-fAq"/>
+                <constraint firstItem="v5J-y5-dOL" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="c1F-7d-huB"/>
+                <constraint firstItem="fx6-06-aTN" firstAttribute="top" secondItem="v5J-y5-dOL" secondAttribute="bottom" id="hcy-Tx-Sv1"/>
                 <constraint firstItem="Xbc-xO-1yg" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="jVN-zV-Wic"/>
+                <constraint firstAttribute="trailing" secondItem="v5J-y5-dOL" secondAttribute="trailing" id="lRU-cT-1Ng"/>
                 <constraint firstItem="tE9-G5-g3P" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="tDW-Pg-sNP"/>
                 <constraint firstAttribute="trailing" secondItem="tE9-G5-g3P" secondAttribute="trailing" constant="20" id="z5e-uh-bPW"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="progressView" destination="v5J-y5-dOL" id="X3a-gn-a1M"/>
+                <outlet property="refreshButton" destination="tE9-G5-g3P" id="P9r-U0-Zia"/>
+                <outlet property="webView" destination="fx6-06-aTN" id="ilX-j7-V8t"/>
+            </connections>
             <point key="canvasLocation" x="171.01449275362319" y="60.267857142857139"/>
         </view>
     </objects>

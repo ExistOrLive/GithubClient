@@ -44,9 +44,10 @@
 
 #pragma mark repositories
 
-#define repoUrl                 @"/user/repos"                       // 当前用户的Repo 包括private
+#define currentUserRepoUrl      @"/user/repos"                       // 当前用户的Repo 包括private
 #define userRepoUrl             @"/users/%@/repos"                   // 某用户的Repos 不包括private
 #define searchRepoUrl           @"/search/repositories"              // 根据关键字搜索repo
+#define reposUrl                @"/repos"                            // 获取某个Repo的信息
 
 
 #pragma mark gists
