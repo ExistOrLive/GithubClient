@@ -324,7 +324,7 @@
                                    per_page:(NSUInteger) per_page
                                serialNumber:(NSString *) serialNumber
 {
-    NSString * urlForRepo = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoUrl];
+    NSString * urlForRepo = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,currentUserRepoUrl];
     
     [self.sessionManager.requestSerializer setValue:[NSString stringWithFormat:@"token %@",self.token] forHTTPHeaderField:@"Authorization"];
     
@@ -458,6 +458,47 @@
                     progress:nil
                      success:successBlock
                      failure:failedBlock];
+}
+
+
+- (void) getRepositoryInfo:(GithubResponse) block
+                  fullName:(NSString *) fullName
+              serialNumber:(NSString *) serialNumber
+{
+    NSString * urlForRepo = [NSString stringWithFormat:@"%@%@/%@",GitHubAPIURL,reposUrl,fullName];
+    
+    [self.sessionManager.requestSerializer setValue:[NSString stringWithFormat:@"token %@",self.token] forHTTPHeaderField:@"Authorization"];
+    
+    void(^successBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
+    ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+    {
+        ZLGithubRepositoryModel * model = [ZLGithubRepositoryModel mj_objectWithKeyValues:responseObject];
+        
+        block(YES,model,serialNumber);
+    };
+    
+    void(^failedBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
+    ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+    {
+        ZLLog_Warning(@"failedBlock: responseObject[%@]",responseObject);
+        
+        ZLGithubRequestErrorModel * errorModel = [ZLGithubRequestErrorModel mj_objectWithKeyValues:responseObject];
+        if(errorModel == nil)
+        {
+            errorModel = [[ZLGithubRequestErrorModel alloc] init];
+        }
+        errorModel.statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
+        
+        block(NO,errorModel,serialNumber);
+    };
+    
+    
+    [self.sessionManager GET:urlForRepo
+                  parameters:nil
+                    progress:nil
+                     success:successBlock
+                     failure:failedBlock];
+    
 }
 
 

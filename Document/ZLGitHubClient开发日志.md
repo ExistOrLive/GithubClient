@@ -37,6 +37,15 @@
 
 [github API接口][8]
 
+## 2019-08-24
+
+引入`MMMarkdown`,支持将markdown转换为HTML，用webview浏览
+
+问题： 
+    
+    - MMMarkDown转换后的HTML效果不好
+    - 使用AFNetworking，获取readme文件，后期派生AFHTTPResponseSerializer，实现在AFNetworking处理流程中将markdown转为html
+
 
 
 

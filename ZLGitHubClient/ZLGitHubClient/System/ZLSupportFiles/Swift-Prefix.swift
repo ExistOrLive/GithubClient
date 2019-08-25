@@ -11,6 +11,7 @@ import UIKit
 import CocoaLumberjack
 import SDWebImage
 
+
 // MARK: 界面常用参数
 
 let ZLStatusBarHeight = UIApplication.shared.statusBarFrame.size.height
@@ -28,6 +29,7 @@ let ZLGetFollowingResult_Notification = Notification.Name(rawValue: "ZLGetFollow
 let ZLGetGistsResult_Notification = Notification.Name(rawValue: "ZLGetGistsResult_Notification")
 let ZLSearchResult_Notification = Notification.Name(rawValue: "ZLSearchResult_Notification")
 let ZLGetSpecifiedUserInfoResult_Notification = Notification.Name(rawValue: "ZLGetSpecifiedUserInfoResult_Notification")
+let ZLGetSpecifiedRepoInfoResult_Notification  = Notification.Name(rawValue: "ZLGetSpecifiedRepoInfoResult_Notification")
 
 extension Notification
 {

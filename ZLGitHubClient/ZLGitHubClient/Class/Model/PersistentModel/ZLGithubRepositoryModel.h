@@ -32,10 +32,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(assign, nonatomic) NSUInteger open_issues_count;                      //！issue公开问题数
 @property(assign, nonatomic) NSUInteger stargazers_count;                       //! star订阅数
-@property(assign, nonatomic) NSUInteger watchers_count;                         //! watch关注数
-@property(assign, nonatomic) NSUInteger forks_count;                            //! fork拷贝数         这四个属性不准确，尽量用底下四个
+@property(assign, nonatomic) NSUInteger subscribers_count;                      //! watchers订阅数
+@property(assign, nonatomic) NSUInteger forks_count;                            //! fork拷贝数         
 @property(assign, nonatomic) NSUInteger open_issues;                            //！issue公开问题数
-@property(assign, nonatomic) NSUInteger subscribers_count;                      //! star订阅数
+@property(assign, nonatomic) NSUInteger watchers_count;                         //! watch关注数
 @property(assign, nonatomic) NSUInteger watchers;                               //! watch关注数
 @property(assign, nonatomic) NSUInteger forks;                                  //! fork拷贝数
 

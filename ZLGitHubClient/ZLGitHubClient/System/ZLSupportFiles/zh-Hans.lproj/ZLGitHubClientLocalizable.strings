@@ -42,3 +42,17 @@
 "DropUpSeeMore" = "上拉显示更多";
 "Loading" = "加载中";
 "LoadFinished" = "全部加载完毕";
+
+"pull request" = "合并请求";
+"branch" = "分支";
+
+"day ago" = "天前";
+"hour ago" = "小时前";
+"minute ago" = "分钟前";
+
+"day later" = "天后";
+"hour later" = "小时后";
+"minute later" = "分钟后";
+
+"update " = "更新于";
+

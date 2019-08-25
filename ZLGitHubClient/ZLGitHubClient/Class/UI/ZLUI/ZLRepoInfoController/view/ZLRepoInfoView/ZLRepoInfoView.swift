@@ -39,7 +39,7 @@ class ZLRepoInfoView: ZLBaseView {
         if footerView != nil
         {
             footerView?.autoresizingMask = UIViewAutoresizing.init(rawValue: 0)
-            footerView?.frame = CGRect.init(x: 0, y: 0, width: ZLScreenWidth, height: 50)
+            footerView?.frame = CGRect.init(x: 0, y: 0, width: ZLScreenWidth, height: 300)
             self.tableView.tableFooterView = footerView
             self.footerView = footerView
         }

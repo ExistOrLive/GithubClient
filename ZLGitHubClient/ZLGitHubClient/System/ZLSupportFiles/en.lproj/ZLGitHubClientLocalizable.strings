@@ -44,3 +44,17 @@
 "Loading" = "loading";
 "LoadFinished" = "load finished";
 
+"pull request" = "pull request";
+"branch" = "branch";
+
+"day ago" = " day ago";
+"hour ago" = " hour ago";
+"minute ago" = "minute ago";
+
+"day later" = " day later";
+"hour later" = " hour later";
+"minute later" = " minute later";
+
+"update " = "update ";
+
+

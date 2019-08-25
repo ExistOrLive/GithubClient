@@ -9,24 +9,8 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ZLGitHubClient/Class/Base/ZLUtils/ZMRefreshTools/ZMRefreshManager.m"
-            timestampString = "587150417.63375"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "154"
-            endingLineNumber = "154"
-            landmarkName = "-setFooterViewNoMoreFresh"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "ZLGitHubClient/Class/Network/ZLGithubHttpClient.m"
-            timestampString = "587405839.415719"
+            timestampString = "588421366.691244"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "409"
@@ -47,8 +31,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "245"
             endingLineNumber = "245"
-            landmarkName = "ZLSearchItemsViewModel"
-            landmarkType = "21">
+            landmarkName = "zmRefreshIsDragUp(_:refreshView:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -90,38 +74,6 @@
             startingLineNumber = "125"
             endingLineNumber = "125"
             landmarkName = "onNotificationArrived(notification:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ZLGitHubClient/Class/UI/ZLUI/ZLRepoInfoController/viewmodel/ZLRepoInfoViewModel.swift"
-            timestampString = "588006815.880501"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
-            landmarkName = "bindModel(_:andView:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ZLGitHubClient/Class/UI/ZLUI/ZLRepoInfoController/viewmodel/ZLRepoInfoViewModel.swift"
-            timestampString = "588006815.880591"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
-            landmarkName = "setViewDataForRepoInfoView(model:view:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
