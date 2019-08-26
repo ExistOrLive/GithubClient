@@ -193,6 +193,10 @@ extension ZLProfileBaseViewModel : ZLProfileHeaderViewDelegate
             vc.hidesBottomBarWhenPushed = true
             self.viewController?.navigationController?.pushViewController(vc, animated: true);
             }
+        case .editProfile:
+            let vc = ZLEditProfileController.init()
+            vc.hidesBottomBarWhenPushed = true
+            self.viewController?.navigationController?.pushViewController(vc, animated: true);
         }
     }
 }
