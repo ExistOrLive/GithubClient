@@ -317,6 +317,61 @@
                      failure:failedBlock];
 }
 
+- (void) updateUserPublicProfile:(GithubResponse) block
+                            name:(NSString *) name
+                           email:(NSString *) email
+                            blog:(NSString *) blog
+                         company:(NSString *) company
+                        location:(NSString *) location
+                        hireable:(NSNumber *) hireable
+                             bio:(NSString *) bio
+                    serialNumber:(NSString *) serialNumber
+{
+    NSString * userUrl = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,currenUserUrl];
+    
+    NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
+    {
+        if(name)
+            [params setObject:name forKey:@"name"];
+        if(email)
+            [params setObject:email forKey:@"email"];
+        if(blog)
+            [params setObject:blog forKey:@"blog"];
+        if(company)
+            [params setObject:company forKey:@"company"];
+        if(location)
+            [params setObject:location forKey:@"location"];
+        if(hireable)
+            [params setObject:hireable forKey:@"hireable"];
+        if(bio)
+            [params setObject:bio forKey:@"bio"];
+    }
+    
+    self.sessionManager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [self.sessionManager.requestSerializer setValue:[NSString stringWithFormat:@"token %@",self.token] forHTTPHeaderField:@"Authorization"];
+    
+    void(^successBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
+    ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+    {
+        ZLGithubUserModel * model = [ZLGithubUserModel getInstanceWithDic:(NSDictionary *) responseObject];
+        block(YES,model,serialNumber);
+    };
+    
+    void(^failedBlock)(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) =
+    ^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error)
+    {
+        block(NO,nil,serialNumber);
+    };
+    
+    [self.sessionManager PATCH:userUrl
+                    parameters:params
+                       success:successBlock
+                       failure:failedBlock];
+    
+    self.sessionManager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    
+}
+
 #pragma mark - repositories
 
 - (void) getRepositoriesForCurrentLoginUser:(GithubResponse) block

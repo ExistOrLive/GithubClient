@@ -30,6 +30,7 @@ let ZLGetGistsResult_Notification = Notification.Name(rawValue: "ZLGetGistsResul
 let ZLSearchResult_Notification = Notification.Name(rawValue: "ZLSearchResult_Notification")
 let ZLGetSpecifiedUserInfoResult_Notification = Notification.Name(rawValue: "ZLGetSpecifiedUserInfoResult_Notification")
 let ZLGetSpecifiedRepoInfoResult_Notification  = Notification.Name(rawValue: "ZLGetSpecifiedRepoInfoResult_Notification")
+let ZLUpdateUserPublicProfileInfoResult_Notification = Notification.Name(rawValue: "ZLUpdateUserPublicProfileInfoResult_Notification")
 
 extension Notification
 {

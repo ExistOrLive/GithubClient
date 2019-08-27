@@ -140,7 +140,8 @@
         repoResultModel.data = responseObject;
         
         // 在UI线程发出通知
-        ZLMainThreadDispatch([weakSelf postNotification:ZLGetSpecifiedUserInfoResult_Notification withParams:repoResultModel];)
+        ZLMainThreadDispatch([weakSelf postNotification:ZLGetSpecifiedUserInfoResult_Notification withParams:repoResultModel];
+)
     };
     
     if([loginName isEqualToString:self.currentUserLoginName] && userType == ZLGithubUserType_User)
@@ -160,6 +161,40 @@
                                           serialNumber:serailNumber];
     }
 }
+
+
+- (void) updateUserPublicProfileWithemail:(NSString *) email
+                                     blog:(NSString *) blog
+                                  company:(NSString *) company
+                                 location:(NSString *) location
+                                      bio:(NSString *) bio
+                             serialNumber:(NSString *) serialNumber
+{
+    __weak typeof(self) weakSelf = self;
+    GithubResponse response = ^(BOOL result,id responseObject,NSString * serialNumber){
+        
+        ZLLog_Info(@"result = %d, model = %@",result,responseObject);
+        
+        ZLOperationResultModel * repoResultModel = [[ZLOperationResultModel alloc] init];
+        repoResultModel.result = result;
+        repoResultModel.serialNumber = serialNumber;
+        repoResultModel.data = responseObject;
+        
+        // 在UI线程发出通知
+        ZLMainThreadDispatch([weakSelf postNotification:ZLUpdateUserPublicProfileInfoResult_Notification withParams:repoResultModel];
+                             if(result){[weakSelf postNotification:ZLGetCurrentUserInfoResult_Notification withParams:repoResultModel];})
+    };
+    
+    [[ZLGithubHttpClient defaultClient] updateUserPublicProfile:response
+                                                           name:nil
+                                                          email:email
+                                                           blog:blog
+                                                        company:company
+                                                       location:location
+                                                       hireable:nil
+                                                            bio:bio
+                                                   serialNumber:serialNumber];
+ }
 
 
 #pragma mark - onNotificationArrived:

@@ -42,12 +42,14 @@
 #define userEventUrl            @"/users/%@/events"                 // 某个用户的事件(如果为当前登陆用户则会包含私密事件)
 #define userReceivedEventUrl    @"/users/%@/received_events"        // 某个用户接受的事件(关注的仓库或用户的事件)
 
+
 #pragma mark repositories
 
 #define currentUserRepoUrl      @"/user/repos"                       // 当前用户的Repo 包括private
 #define userRepoUrl             @"/users/%@/repos"                   // 某用户的Repos 不包括private
 #define searchRepoUrl           @"/search/repositories"              // 根据关键字搜索repo
 #define reposUrl                @"/repos"                            // 获取某个Repo的信息
+
 
 
 #pragma mark gists

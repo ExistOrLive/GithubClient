@@ -105,10 +105,6 @@ extension ZLRepoInfoViewModel : UIWebViewDelegate
         
         ZLRepoInfoViewModel.httpSessionManager?.get(URLStr, parameters: nil, progress:{(progess:Progress) in
             
-            let currentProgess = Double(progess.completedUnitCount) / Double(progess.totalUnitCount)
-            
-           
-            
         }, success: { (task : URLSessionTask, reponseObject:Any?) in
             
             if reponseObject != nil && reponseObject is Data

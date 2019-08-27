@@ -10,7 +10,9 @@
 import UIKit
 
 class ZLEditProfileController: ZLBaseViewController {
-
+    
+    var userInfoModel : ZLGithubUserModel?              //! 用户信息
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -24,7 +26,7 @@ class ZLEditProfileController: ZLBaseViewController {
         baseView.frame = ZLScreenBounds
         self.view.addSubview(baseView)
         
-        self.viewModel.bindModel(nil, andView: baseView)
+        self.viewModel.bindModel(self.userInfoModel, andView: baseView)
     }
     
 
