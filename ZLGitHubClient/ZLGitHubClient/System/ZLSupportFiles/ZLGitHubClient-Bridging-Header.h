@@ -25,8 +25,10 @@
 #import "ZLSearchServiceModel.h"
 #import "ZLRepoServiceModel.h"
 
+
 // viewModel
 #import "ZLBaseViewModel.h"
+#import "ZLWebContentViewModel.h"
 
 
 // VC
