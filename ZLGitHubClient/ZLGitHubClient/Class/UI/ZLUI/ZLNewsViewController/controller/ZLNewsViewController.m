@@ -12,6 +12,7 @@
 
 @interface ZLNewsViewController ()
 
+@property (strong, nonatomic) ZLNewsBaseView * baseView;
 
 @end
 
@@ -25,7 +26,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor blueColor];
+    self.view.backgroundColor = [UIColor whiteColor];
+    self.title = ZLLocalizedString(@"news", @"动态");
+    
+//    self.viewModel = [[ZLProfileBaseViewModel alloc] initWithViewController:self];
+//    self.baseView = [[NSBundle mainBundle] loadNibNamed:@"ZLProfileBaseView" owner:self.viewModel options:nil].firstObject;
+//    [self.baseView setFrame:ZLScreenBounds];
+//    [self.view addSubview:self.baseView];
+//    
+//    [self.viewModel bindModel:nil andView:self.baseView];
     
 }
 
