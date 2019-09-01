@@ -20,6 +20,7 @@
 
 #pragma mark - query sql
 #define dbVersionQuery @"select version from dbversion"
+#define githubUserQueryByLoginName @"select * from githubUser where loginName = ?"
 #define githubUserQueryById @"select * from githubUser where id_User = ?"
 
 #pragma mark - update sql

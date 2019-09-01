@@ -87,8 +87,6 @@
 		74C3F8D022D1E79D0086A3F9 /* Swift-Prefix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C3F8CF22D1E79D0086A3F9 /* Swift-Prefix.swift */; };
 		74C3F8D422D225EC0086A3F9 /* ZLLoginServiceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 74C3F8D322D225EC0086A3F9 /* ZLLoginServiceModel.m */; };
 		74C3F8DA22D24C930086A3F9 /* ZLOAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C3F8D922D24C930086A3F9 /* ZLOAuthViewController.swift */; };
-		74C3F8DD22D24CD70086A3F9 /* ZLOAuthBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C3F8DC22D24CD70086A3F9 /* ZLOAuthBaseView.swift */; };
-		74C3F8DF22D24CF20086A3F9 /* ZLOAuthBaseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74C3F8DE22D24CF20086A3F9 /* ZLOAuthBaseView.xib */; };
 		74C3F8E222D2536B0086A3F9 /* ZLOAuthBaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C3F8E122D2536B0086A3F9 /* ZLOAuthBaseViewModel.swift */; };
 		74C861C622F025F100A30B79 /* ZLRepositoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C861C422F025F100A30B79 /* ZLRepositoryTableViewCell.swift */; };
 		74C861C722F025F100A30B79 /* ZLRepositoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74C861C522F025F100A30B79 /* ZLRepositoryTableViewCell.xib */; };
@@ -96,6 +94,8 @@
 		74C861D822F02F1F00A30B79 /* ZLLanguageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 74C861D722F02F1F00A30B79 /* ZLLanguageManager.m */; };
 		74D0426B22FC5B1200119E2F /* ZLSearchServiceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D0426A22FC5B1200119E2F /* ZLSearchServiceModel.m */; };
 		74D0426F22FC5F5800119E2F /* ZLSearchFilterInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D0426E22FC5F5800119E2F /* ZLSearchFilterInfoModel.m */; };
+		74D34931231BD01900A949B2 /* ZLLoginProcessModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D34930231BD01900A949B2 /* ZLLoginProcessModel.m */; };
+		74D34934231C000900A949B2 /* NSString+ZLExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D34933231C000900A949B2 /* NSString+ZLExtension.m */; };
 		74D55DE722FB0A8B004114BC /* ZLSearchItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D55DE622FB0A8B004114BC /* ZLSearchItemsViewModel.swift */; };
 		74D55DE922FB0AAD004114BC /* ZLSearchRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D55DE822FB0AAD004114BC /* ZLSearchRecordViewModel.swift */; };
 		74D55DEC22FB183E004114BC /* ZLSearchRecordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D55DEA22FB183E004114BC /* ZLSearchRecordTableViewCell.swift */; };
@@ -278,8 +278,6 @@
 		74C3F8D222D225EC0086A3F9 /* ZLLoginServiceModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLLoginServiceModel.h; sourceTree = "<group>"; };
 		74C3F8D322D225EC0086A3F9 /* ZLLoginServiceModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLLoginServiceModel.m; sourceTree = "<group>"; };
 		74C3F8D922D24C930086A3F9 /* ZLOAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLOAuthViewController.swift; sourceTree = "<group>"; };
-		74C3F8DC22D24CD70086A3F9 /* ZLOAuthBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLOAuthBaseView.swift; sourceTree = "<group>"; };
-		74C3F8DE22D24CF20086A3F9 /* ZLOAuthBaseView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZLOAuthBaseView.xib; sourceTree = "<group>"; };
 		74C3F8E122D2536B0086A3F9 /* ZLOAuthBaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLOAuthBaseViewModel.swift; sourceTree = "<group>"; };
 		74C861C422F025F100A30B79 /* ZLRepositoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLRepositoryTableViewCell.swift; sourceTree = "<group>"; };
 		74C861C522F025F100A30B79 /* ZLRepositoryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZLRepositoryTableViewCell.xib; sourceTree = "<group>"; };
@@ -297,6 +295,10 @@
 		74D0426C22FC5B3200119E2F /* ZLSearchServiceHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLSearchServiceHeader.h; sourceTree = "<group>"; };
 		74D0426D22FC5F5800119E2F /* ZLSearchFilterInfoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLSearchFilterInfoModel.h; sourceTree = "<group>"; };
 		74D0426E22FC5F5800119E2F /* ZLSearchFilterInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLSearchFilterInfoModel.m; sourceTree = "<group>"; };
+		74D3492F231BD01900A949B2 /* ZLLoginProcessModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLLoginProcessModel.h; sourceTree = "<group>"; };
+		74D34930231BD01900A949B2 /* ZLLoginProcessModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLLoginProcessModel.m; sourceTree = "<group>"; };
+		74D34932231C000900A949B2 /* NSString+ZLExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+ZLExtension.h"; sourceTree = "<group>"; };
+		74D34933231C000900A949B2 /* NSString+ZLExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+ZLExtension.m"; sourceTree = "<group>"; };
 		74D55DE622FB0A8B004114BC /* ZLSearchItemsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLSearchItemsViewModel.swift; sourceTree = "<group>"; };
 		74D55DE822FB0AAD004114BC /* ZLSearchRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLSearchRecordViewModel.swift; sourceTree = "<group>"; };
 		74D55DEA22FB183E004114BC /* ZLSearchRecordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLSearchRecordTableViewCell.swift; sourceTree = "<group>"; };
@@ -597,6 +599,8 @@
 			children = (
 				743F18102312667B00E39A95 /* NSDate+localizeStr.h */,
 				743F18112312667B00E39A95 /* NSDate+localizeStr.m */,
+				74D34932231C000900A949B2 /* NSString+ZLExtension.h */,
+				74D34933231C000900A949B2 /* NSString+ZLExtension.m */,
 			);
 			path = extension;
 			sourceTree = "<group>";
@@ -1014,6 +1018,8 @@
 				74EA4B3422FF165E006D2FD3 /* ZLSearchResultModel.m */,
 				74EA4B3622FF215C006D2FD3 /* ZLOperationResultModel.h */,
 				74EA4B3722FF215C006D2FD3 /* ZLOperationResultModel.m */,
+				74D3492F231BD01900A949B2 /* ZLLoginProcessModel.h */,
+				74D34930231BD01900A949B2 /* ZLLoginProcessModel.m */,
 			);
 			path = tmpModel;
 			sourceTree = "<group>";
@@ -1135,19 +1141,9 @@
 			isa = PBXGroup;
 			children = (
 				74C3F8E022D253470086A3F9 /* ZLOAuthBaseViewModel */,
-				74C3F8DB22D24C9F0086A3F9 /* ZLOAuthBaseView */,
 				74C3F8D922D24C930086A3F9 /* ZLOAuthViewController.swift */,
 			);
 			path = ZLOAuthViewController;
-			sourceTree = "<group>";
-		};
-		74C3F8DB22D24C9F0086A3F9 /* ZLOAuthBaseView */ = {
-			isa = PBXGroup;
-			children = (
-				74C3F8DC22D24CD70086A3F9 /* ZLOAuthBaseView.swift */,
-				74C3F8DE22D24CF20086A3F9 /* ZLOAuthBaseView.xib */,
-			);
-			path = ZLOAuthBaseView;
 			sourceTree = "<group>";
 		};
 		74C3F8E022D253470086A3F9 /* ZLOAuthBaseViewModel */ = {
@@ -1516,7 +1512,6 @@
 				74C861C722F025F100A30B79 /* ZLRepositoryTableViewCell.xib in Resources */,
 				0ADF903A21D4B01900BF86CD /* LaunchScreen.storyboard in Resources */,
 				746FAFD32316AC73006A0288 /* ZLWebContentView.xib in Resources */,
-				74C3F8DF22D24CF20086A3F9 /* ZLOAuthBaseView.xib in Resources */,
 				743425E3230ADBC80031AD7D /* ZLRepoFooterInfoView.xib in Resources */,
 				743425DD230AD2A30031AD7D /* ZLRepoInfoTableViewCell.xib in Resources */,
 				74C861CA22F02BED00A30B79 /* ZLGitHubClientLocalizable.strings in Resources */,
@@ -1674,6 +1669,7 @@
 				743425E6230AEA400031AD7D /* ZLRepoInfoViewModel.swift in Sources */,
 				7431B42922F5DDD70060968A /* ZLExploreBaseViewModel.swift in Sources */,
 				74D7B5FD22F1398F00C109CA /* ZLUserAdditionInfoController.swift in Sources */,
+				74D34934231C000900A949B2 /* NSString+ZLExtension.m in Sources */,
 				74EA4B3522FF165E006D2FD3 /* ZLSearchResultModel.m in Sources */,
 				0ADF903D21D4B01900BF86CD /* main.m in Sources */,
 				748905D322300B46003562E1 /* ZLLoginLogoView.m in Sources */,
@@ -1683,10 +1679,10 @@
 				7436AC8321EB7B4500F03276 /* ZLBaseView.m in Sources */,
 				74D55DEC22FB183E004114BC /* ZLSearchRecordTableViewCell.swift in Sources */,
 				0ADF902F21D4B01900BF86CD /* AppDelegate.m in Sources */,
+				74D34931231BD01900A949B2 /* ZLLoginProcessModel.m in Sources */,
 				74FCBDA423142E0200DDE46A /* ZLEditProfileViewModel.swift in Sources */,
 				74BD10B122CBB45F00FAE0EB /* ZLVideoViewController.m in Sources */,
 				746B092E21EB7362000EE88B /* ZLMainViewController.m in Sources */,
-				74C3F8DD22D24CD70086A3F9 /* ZLOAuthBaseView.swift in Sources */,
 				D1135FA821ECE3A6003A26C1 /* UITextField+PlaceHolder.m in Sources */,
 				74F02CDD22DD75E600AE153F /* ZLProfileBaseViewModel.swift in Sources */,
 				D1135F7021ECD09D003A26C1 /* ZLProfileViewController.m in Sources */,

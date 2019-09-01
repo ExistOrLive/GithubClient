@@ -16,15 +16,39 @@ enum ZLWebContentProgress : Float {
     case endLoad = 1.0
 }
 
+@objc protocol ZLWebContentViewDelegate : NSObjectProtocol
+{
+    @objc func onBackButtonClick(button: UIButton)
+    
+    @objc func webView(_ webView: WKWebView, navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void)
+    
+    @objc func webView(_ webView: WKWebView, navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void)
+}
+
+extension ZLWebContentViewDelegate
+{
+    func webView(_ webView: WKWebView, navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void)
+    {
+         decisionHandler(.allow)
+    }
+    
+    func webView(_ webView: WKWebView, navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void)
+    {
+        decisionHandler(.allow)
+    }
+}
+
 class ZLWebContentView: ZLBaseView {
 
     @objc @IBOutlet private weak var topViewHeightConstraint: NSLayoutConstraint!
     
     @objc @IBOutlet private weak var titleLabel: UILabel!
     
+    @IBOutlet weak var additionButton: UIButton!
+    
     @objc @IBOutlet private weak var progressView: UIProgressView!
     
-    @IBOutlet weak var collectionView: UIView!
+    @IBOutlet weak var containerView: UIView!
     
     @IBOutlet private weak var toolBar: UIToolbar!           // 工具栏
     
@@ -39,12 +63,17 @@ class ZLWebContentView: ZLBaseView {
     
     private(set) var isLoading : Bool = false               // 是否在加载请求
     
+    @objc var delegate : ZLWebContentViewDelegate?
+    @objc var title : String?                               // 预置title
+    {
+        didSet{
+            self.titleLabel.text = self.title as String?
+        }
+    }
     
     
     deinit {
         self.webView?.removeObserver(self, forKeyPath: "title", context: nil)
-        self.webView?.removeObserver(self, forKeyPath: "estimatedProgress", context: nil)
-        self.webView?.removeObserver(self, forKeyPath: "isLoading", context: nil)
         self.webView?.removeObserver(self, forKeyPath: "canGoBack", context: nil)
         self.webView?.removeObserver(self, forKeyPath: "canGoForward", context: nil)
     }
@@ -56,9 +85,9 @@ class ZLWebContentView: ZLBaseView {
         self.topViewHeightConstraint.constant = self.topViewHeightConstraint.constant + ZLStatusBarHeight
         
         let webViewConfig = WKWebViewConfiguration.init()
-        let webView : WKWebView = WKWebView.init(frame: self.collectionView.bounds,configuration: webViewConfig)
+        let webView : WKWebView = WKWebView.init(frame: self.containerView.bounds,configuration: webViewConfig)
         webView.autoresizingMask = UIViewAutoresizing.init(rawValue: UIViewAutoresizing.flexibleWidth.rawValue | UIViewAutoresizing.flexibleHeight.rawValue)
-        self.collectionView.insertSubview(webView, belowSubview: self.toolBar)
+        self.containerView.insertSubview(webView, belowSubview: self.toolBar)
         self.webView = webView
         self.webView?.uiDelegate = self
         self.webView?.navigationDelegate = self
@@ -66,8 +95,6 @@ class ZLWebContentView: ZLBaseView {
         self.setUpToolBar()
         
         self.webView?.addObserver(self, forKeyPath: "title", options: NSKeyValueObservingOptions.new, context: nil)
-        self.webView?.addObserver(self, forKeyPath: "estimatedProgress", options: NSKeyValueObservingOptions.new, context: nil)
-        self.webView?.addObserver(self, forKeyPath: "isLoading", options: NSKeyValueObservingOptions.new, context: nil)
         self.webView?.addObserver(self, forKeyPath: "canGoBack", options: NSKeyValueObservingOptions.new, context: nil)
         self.webView?.addObserver(self, forKeyPath: "canGoForward", options: NSKeyValueObservingOptions.new, context: nil)
     }
@@ -75,11 +102,11 @@ class ZLWebContentView: ZLBaseView {
     
     func setUpToolBar()
     {
-        let backBarButtonItem : UIBarButtonItem = UIBarButtonItem.init(title: "上一页", style: UIBarButtonItemStyle.plain, target: self, action: #selector(onBackButtonClicked))
+        let backBarButtonItem : UIBarButtonItem = UIBarButtonItem.init(title: "上一页", style: UIBarButtonItemStyle.plain, target: self, action: #selector(onGoBackButtonClicked))
         self.backBarButtonItem?.isEnabled = false
         self.backBarButtonItem = backBarButtonItem
         
-        let forwardBarButtonItem : UIBarButtonItem = UIBarButtonItem.init(title: "下一页", style: UIBarButtonItemStyle.plain, target: self, action: #selector(onForwardButtonClicked))
+        let forwardBarButtonItem : UIBarButtonItem = UIBarButtonItem.init(title: "下一页", style: UIBarButtonItemStyle.plain, target: self, action: #selector(onGoForwardButtonClicked))
         forwardBarButtonItem.isEnabled = false
         self.forwardBarButtonItem = forwardBarButtonItem
         
@@ -92,10 +119,25 @@ class ZLWebContentView: ZLBaseView {
     }
     
     
+    
+    @IBAction func onBackButtonClicked(_ sender: Any) {
+        
+        if self.delegate != nil && self.delegate!.responds(to: #selector(ZLWebContentViewDelegate.onBackButtonClick(button:)))
+        {
+            self.delegate?.onBackButtonClick(button: sender as! UIButton)
+        }
+        
+    }
+    
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
         if("title" == keyPath)
         {
+            if self.title != nil
+            {
+                return
+            }
+            
             let newTitle = change?[NSKeyValueChangeKey.newKey] as? String
             self.titleLabel.text = newTitle
         }
@@ -181,7 +223,7 @@ extension ZLWebContentView
 // MARK: UIToolBar
 extension ZLWebContentView
 {
-    @objc func onBackButtonClicked()
+    @objc func onGoBackButtonClicked()
     {
         if self.webView?.canGoBack ?? false
         {
@@ -189,7 +231,7 @@ extension ZLWebContentView
         }
     }
     
-    @objc func onForwardButtonClicked()
+    @objc func onGoForwardButtonClicked()
     {
         if self.webView?.canGoForward ?? false
         {
@@ -221,14 +263,33 @@ extension ZLWebContentView : WKUIDelegate,WKNavigationDelegate
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         
         ZLLog_Debug("ZLWebContentView: webView:decidePolicyForNavigationAction: type[\(navigationAction.navigationType)] request[\(navigationAction.request)]]")
-        decisionHandler(.allow)
         
         self.setSendRequestStatus()
+        
+        if self.delegate != nil && self.delegate!.responds(to: #selector(ZLWebContentViewDelegate.webView(_:navigationAction:decisionHandler:)))
+        {
+            self.delegate?.webView(webView, navigationAction: navigationAction, decisionHandler: decisionHandler)
+        }
+        else
+        {
+            decisionHandler(.allow)
+        }
+        
+        
     }
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
         ZLLog_Debug("ZLWebContentView: webView:decidePolicyForNavigationResponse: response[\(navigationResponse.response)]")
-        decisionHandler(.allow)
+        
+        if self.delegate != nil && self.delegate!.responds(to: #selector(ZLWebContentViewDelegate.webView(_:navigationResponse:decisionHandler:)))
+        {
+            self.delegate?.webView(webView, navigationResponse: navigationResponse, decisionHandler: decisionHandler)
+        }
+        else
+        {
+            decisionHandler(.allow)
+        }
+        
         
         self.setGetResponseStatus()
     }

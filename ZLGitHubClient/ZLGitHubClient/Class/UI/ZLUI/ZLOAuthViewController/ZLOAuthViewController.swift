@@ -10,13 +10,14 @@ import UIKit
 
 class ZLOAuthViewController: ZLBaseViewController {
     
-    var request: URLRequest?
+    var loginProcessModel : ZLLoginProcessModel?
 
     override func viewDidLoad() {
         super.viewDidLoad();
         
-        let baseView: ZLOAuthBaseView? = Bundle.main.loadNibNamed("ZLOAuthBaseView", owner: nil, options: nil)?.first as? ZLOAuthBaseView;
-     
+        let baseView: ZLWebContentView? = Bundle.main.loadNibNamed("ZLWebContentView", owner: nil, options: nil)?.first as? ZLWebContentView;
+        baseView?.title = ZLLocalizedString(string: "login", comment: "登陆")
+        baseView?.additionButton.isHidden = true
         
         if baseView != nil
         {
@@ -24,7 +25,7 @@ class ZLOAuthViewController: ZLBaseViewController {
             self.view.addSubview(baseView!);
             
             self.viewModel = ZLOAuthBaseViewModel.init(viewController: self);
-            self.viewModel.bindModel(self.request, andView: baseView!);
+            self.viewModel.bindModel(self.loginProcessModel, andView: baseView!);
         }
         else
         {

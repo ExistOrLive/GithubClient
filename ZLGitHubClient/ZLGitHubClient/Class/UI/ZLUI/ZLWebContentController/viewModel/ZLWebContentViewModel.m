@@ -9,7 +9,7 @@
 #import "ZLWebContentViewModel.h"
 #import <WebKit/WebKit.h>
 
-@interface ZLWebContentViewModel()<WKUIDelegate,WKNavigationDelegate>
+@interface ZLWebContentViewModel()<ZLWebContentViewDelegate>
 
 // view
 @property(weak, nonatomic) ZLWebContentView * webContentView;
@@ -30,6 +30,7 @@
     }
     
     self.webContentView = (ZLWebContentView *)targetView;
+    self.webContentView.delegate = self;
     
     self.url = (NSURL *) targetModel;
     
@@ -44,9 +45,23 @@
 }
 
 
-- (IBAction)onBackButtonClicked:(id)sender {
-    [self.viewController.navigationController popViewControllerAnimated:YES];
+#pragma mark - ZLWebContentViewDelegate
+
+- (void) onBackButtonClickWithButton:(UIButton *)button
+{
+     [self.viewController.navigationController popViewControllerAnimated:true];
 }
+
+- (void)webView:(WKWebView * _Nonnull)webView navigationAction:(WKNavigationAction * _Nonnull)navigationAction decisionHandler:(void (^ _Nonnull)(WKNavigationActionPolicy))decisionHandler { 
+    decisionHandler(WKNavigationActionPolicyAllow);
+}
+
+
+- (void)webView:(WKWebView * _Nonnull)webView navigationResponse:(WKNavigationResponse * _Nonnull)navigationResponse decisionHandler:(void (^ _Nonnull)(WKNavigationResponsePolicy))decisionHandler { 
+    decisionHandler(WKNavigationResponsePolicyAllow);
+}
+
+
 
 
 

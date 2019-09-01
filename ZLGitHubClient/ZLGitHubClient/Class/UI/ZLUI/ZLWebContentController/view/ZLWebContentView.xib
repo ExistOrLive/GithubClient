@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ZLWebContentViewModel" customModule="ZLGitHubClient" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ZLWebContentView" customModule="ZLGitHubClient" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="471" height="745"/>
@@ -36,7 +36,7 @@
                             </constraints>
                             <state key="normal" image="back_Common"/>
                             <connections>
-                                <action selector="onBackButtonClicked:" destination="-1" eventType="touchUpInside" id="QSR-nP-Toy"/>
+                                <action selector="onBackButtonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="0jt-hU-bgh"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kLm-nd-RMF">
@@ -97,7 +97,8 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="collectionView" destination="aKa-5W-o6U" id="s2S-8E-fn3"/>
+                <outlet property="additionButton" destination="kLm-nd-RMF" id="1HG-aZ-lJP"/>
+                <outlet property="containerView" destination="aKa-5W-o6U" id="Z3G-d1-Z2L"/>
                 <outlet property="progressView" destination="OIy-KX-gba" id="bqR-71-UwU"/>
                 <outlet property="titleLabel" destination="A9v-qA-5mc" id="1ww-wq-TNl"/>
                 <outlet property="toolBar" destination="rXi-jp-Avz" id="xQ3-bc-cy0"/>
