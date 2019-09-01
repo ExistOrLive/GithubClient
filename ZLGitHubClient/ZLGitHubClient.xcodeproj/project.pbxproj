@@ -139,6 +139,9 @@
 		D1135F8721ECD513003A26C1 /* ZLNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1135F8621ECD513003A26C1 /* ZLNewsViewController.m */; };
 		D1135F8A21ECD523003A26C1 /* ZLRepositoriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1135F8921ECD523003A26C1 /* ZLRepositoriesViewController.m */; };
 		D1135FA821ECE3A6003A26C1 /* UITextField+PlaceHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = D1135FA721ECE3A6003A26C1 /* UITextField+PlaceHolder.m */; };
+		D1259F9A2319555A00C7892B /* ZLNewsBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1259F992319555A00C7892B /* ZLNewsBaseView.swift */; };
+		D1259F9E231955CC00C7892B /* ZLNewsBaseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1259F9D231955CC00C7892B /* ZLNewsBaseView.xib */; };
+		D1259FA023195CC700C7892B /* ZLNewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1259F9F23195CC700C7892B /* ZLNewsViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -358,6 +361,9 @@
 		D1135F8921ECD523003A26C1 /* ZLRepositoriesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLRepositoriesViewController.m; sourceTree = "<group>"; };
 		D1135FA621ECE3A5003A26C1 /* UITextField+PlaceHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+PlaceHolder.h"; sourceTree = "<group>"; };
 		D1135FA721ECE3A6003A26C1 /* UITextField+PlaceHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+PlaceHolder.m"; sourceTree = "<group>"; };
+		D1259F992319555A00C7892B /* ZLNewsBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLNewsBaseView.swift; sourceTree = "<group>"; };
+		D1259F9D231955CC00C7892B /* ZLNewsBaseView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZLNewsBaseView.xib; sourceTree = "<group>"; };
+		D1259F9F23195CC700C7892B /* ZLNewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLNewsViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1439,10 +1445,37 @@
 		D1135F8021ECD487003A26C1 /* ZLNewsViewController */ = {
 			isa = PBXGroup;
 			children = (
+				D1259F962319547100C7892B /* viewmodel */,
+				D1259F98231954A200C7892B /* view */,
+				D1259F972319548A00C7892B /* controller */,
+			);
+			path = ZLNewsViewController;
+			sourceTree = "<group>";
+		};
+		D1259F962319547100C7892B /* viewmodel */ = {
+			isa = PBXGroup;
+			children = (
+				D1259F9F23195CC700C7892B /* ZLNewsViewModel.swift */,
+			);
+			path = viewmodel;
+			sourceTree = "<group>";
+		};
+		D1259F972319548A00C7892B /* controller */ = {
+			isa = PBXGroup;
+			children = (
 				D1135F8521ECD513003A26C1 /* ZLNewsViewController.h */,
 				D1135F8621ECD513003A26C1 /* ZLNewsViewController.m */,
 			);
-			path = ZLNewsViewController;
+			path = controller;
+			sourceTree = "<group>";
+		};
+		D1259F98231954A200C7892B /* view */ = {
+			isa = PBXGroup;
+			children = (
+				D1259F992319555A00C7892B /* ZLNewsBaseView.swift */,
+				D1259F9D231955CC00C7892B /* ZLNewsBaseView.xib */,
+			);
+			path = view;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1512,6 +1545,7 @@
 				74BEF5A022F2D75900FD1738 /* ZLUserTableViewCell.xib in Resources */,
 				74F02CDA22DD719500AE153F /* ZLProfileTableViewCell.xib in Resources */,
 				74DCC97E22E1714D00CEDEE8 /* ZLExploreBaseView.xib in Resources */,
+				D1259F9E231955CC00C7892B /* ZLNewsBaseView.xib in Resources */,
 				74FCBDA1231423C100DDE46A /* ZLEditProfileContentView.xib in Resources */,
 				74C861C722F025F100A30B79 /* ZLRepositoryTableViewCell.xib in Resources */,
 				0ADF903A21D4B01900BF86CD /* LaunchScreen.storyboard in Resources */,
@@ -1604,6 +1638,7 @@
 				743425C7230AC6AD0031AD7D /* ZLRepoInfoController.swift in Sources */,
 				7436AC8B21EB869C00F03276 /* SYDCentralFactory+SYDService.m in Sources */,
 				74C861D822F02F1F00A30B79 /* ZLLanguageManager.m in Sources */,
+				D1259FA023195CC700C7892B /* ZLNewsViewModel.swift in Sources */,
 				D1135F7A21ECD34A003A26C1 /* UIImage+Image.m in Sources */,
 				74C3F8E222D2536B0086A3F9 /* ZLOAuthBaseViewModel.swift in Sources */,
 				7436AC8C21EB869C00F03276 /* SYDCentralFactory+ViewController.m in Sources */,
@@ -1683,6 +1718,7 @@
 				7436AC8321EB7B4500F03276 /* ZLBaseView.m in Sources */,
 				74D55DEC22FB183E004114BC /* ZLSearchRecordTableViewCell.swift in Sources */,
 				0ADF902F21D4B01900BF86CD /* AppDelegate.m in Sources */,
+				D1259F9A2319555A00C7892B /* ZLNewsBaseView.swift in Sources */,
 				74FCBDA423142E0200DDE46A /* ZLEditProfileViewModel.swift in Sources */,
 				74BD10B122CBB45F00FAE0EB /* ZLVideoViewController.m in Sources */,
 				746B092E21EB7362000EE88B /* ZLMainViewController.m in Sources */,
@@ -1852,7 +1888,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 24LG5QVBPR;
+				DEVELOPMENT_TEAM = U6M3H59V7X;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ZLGitHubClient/System/ZLSupportFiles/ZLGitHubClient-Prefix.pch";
@@ -1881,7 +1917,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 24LG5QVBPR;
+				DEVELOPMENT_TEAM = U6M3H59V7X;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ZLGitHubClient/System/ZLSupportFiles/ZLGitHubClient-Prefix.pch";

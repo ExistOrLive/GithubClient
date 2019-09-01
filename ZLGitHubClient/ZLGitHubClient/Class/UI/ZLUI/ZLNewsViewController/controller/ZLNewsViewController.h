@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ZLNewsViewController : UIViewController
+@interface ZLNewsViewController : ZLBaseViewController
 
 @end

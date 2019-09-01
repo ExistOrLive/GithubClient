@@ -18,9 +18,10 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jwj-ck-4SH">
                     <rect key="frame" x="0.0" y="0.0" width="471" height="60"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="webview" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A9v-qA-5mc">
-                            <rect key="frame" x="199" y="0.0" width="73.5" height="60"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="webview" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A9v-qA-5mc">
+                            <rect key="frame" x="135.5" y="0.0" width="200" height="60"/>
                             <constraints>
+                                <constraint firstAttribute="width" constant="200" id="L8y-JM-WPA"/>
                                 <constraint firstAttribute="height" constant="60" id="SBd-Bl-j5H"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="PingFangSC-Semibold" family="PingFang SC" pointSize="18"/>
@@ -60,35 +61,46 @@
                         <constraint firstAttribute="height" constant="60" id="jcX-45-l2c"/>
                     </constraints>
                 </view>
-                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="OIy-KX-gba">
+                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OIy-KX-gba">
                     <rect key="frame" x="0.0" y="60" width="471" height="2"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="2" id="gR7-YN-ekD"/>
                     </constraints>
                 </progressView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aKa-5W-o6U">
-                    <rect key="frame" x="0.0" y="62" width="471" height="683"/>
+                    <rect key="frame" x="0.0" y="62" width="471" height="633"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rXi-jp-Avz">
+                    <rect key="frame" x="0.0" y="695" width="471" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="Lrf-CG-ELX"/>
+                    </constraints>
+                    <items/>
+                </toolbar>
             </subviews>
             <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="rXi-jp-Avz" secondAttribute="bottom" id="0tQ-XR-eA1"/>
                 <constraint firstItem="Jwj-ck-4SH" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="2kw-tG-R2a"/>
+                <constraint firstItem="rXi-jp-Avz" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="5tD-Sb-tiL"/>
                 <constraint firstItem="aKa-5W-o6U" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="AE9-6D-FWp"/>
                 <constraint firstItem="OIy-KX-gba" firstAttribute="top" secondItem="Jwj-ck-4SH" secondAttribute="bottom" id="Iux-eU-DLe"/>
+                <constraint firstItem="rXi-jp-Avz" firstAttribute="top" secondItem="aKa-5W-o6U" secondAttribute="bottom" id="Mh7-SA-wyz"/>
                 <constraint firstAttribute="trailing" secondItem="OIy-KX-gba" secondAttribute="trailing" id="NLT-qP-uza"/>
                 <constraint firstAttribute="trailing" secondItem="Jwj-ck-4SH" secondAttribute="trailing" id="PvP-EE-2fo"/>
                 <constraint firstItem="aKa-5W-o6U" firstAttribute="top" secondItem="OIy-KX-gba" secondAttribute="bottom" id="Qjf-iM-OLF"/>
+                <constraint firstAttribute="trailing" secondItem="rXi-jp-Avz" secondAttribute="trailing" id="S2g-vf-3Kb"/>
                 <constraint firstItem="Jwj-ck-4SH" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="fz5-0g-fu4"/>
                 <constraint firstItem="OIy-KX-gba" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="nhe-Dl-3HG"/>
                 <constraint firstAttribute="trailing" secondItem="aKa-5W-o6U" secondAttribute="trailing" id="sPY-Fy-nYv"/>
-                <constraint firstAttribute="bottom" secondItem="aKa-5W-o6U" secondAttribute="bottom" id="tRz-1W-TMe"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="collectionView" destination="aKa-5W-o6U" id="s2S-8E-fn3"/>
                 <outlet property="progressView" destination="OIy-KX-gba" id="bqR-71-UwU"/>
                 <outlet property="titleLabel" destination="A9v-qA-5mc" id="1ww-wq-TNl"/>
+                <outlet property="toolBar" destination="rXi-jp-Avz" id="xQ3-bc-cy0"/>
                 <outlet property="topViewHeightConstraint" destination="jcX-45-l2c" id="eyM-cU-aWD"/>
             </connections>
             <point key="canvasLocation" x="92.028985507246389" y="-31.138392857142854"/>
