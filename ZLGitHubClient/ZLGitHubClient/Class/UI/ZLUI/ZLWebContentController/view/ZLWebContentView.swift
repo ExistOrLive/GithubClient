@@ -103,7 +103,7 @@ class ZLWebContentView: ZLBaseView {
     func setUpToolBar()
     {
         let backBarButtonItem : UIBarButtonItem = UIBarButtonItem.init(title: "上一页", style: UIBarButtonItemStyle.plain, target: self, action: #selector(onGoBackButtonClicked))
-        self.backBarButtonItem?.isEnabled = false
+        backBarButtonItem.isEnabled = false
         self.backBarButtonItem = backBarButtonItem
         
         let forwardBarButtonItem : UIBarButtonItem = UIBarButtonItem.init(title: "下一页", style: UIBarButtonItemStyle.plain, target: self, action: #selector(onGoForwardButtonClicked))
@@ -194,8 +194,6 @@ extension ZLWebContentView
     {
         self.progressView.isHidden = false
         self.progressView.progress = ZLWebContentProgress.getResponse.rawValue
-        self.reloadOrStoploadBarButtonItem?.title = "重新加载"
-        self.isLoading = false
     }
     
     func setFaildRequestStatus()
@@ -206,7 +204,7 @@ extension ZLWebContentView
         self.isLoading = false
     }
     
-    func setStarLoadStatus()
+    func setStartLoadStatus()
     {
         self.progressView.isHidden = false
         self.progressView.progress = ZLWebContentProgress.startLoad.rawValue
@@ -216,6 +214,7 @@ extension ZLWebContentView
     {
         self.progressView.isHidden = true
         self.progressView.progress = ZLWebContentProgress.endLoad.rawValue
+        self.reloadOrStoploadBarButtonItem?.title = "重新加载"
         self.isLoading = false
     }
 }
@@ -317,7 +316,7 @@ extension ZLWebContentView : WKUIDelegate,WKNavigationDelegate
     
     func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
         
-        self.setStarLoadStatus()
+        self.setStartLoadStatus()
         
     }
     
