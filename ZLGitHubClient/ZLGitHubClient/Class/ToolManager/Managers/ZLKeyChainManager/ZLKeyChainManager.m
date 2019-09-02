@@ -12,6 +12,7 @@
 #define ZLKeyChainService @"com.zm.fbd34c5a34be72f66c35.ZLGitHubClient"
 #define ZLAccessTokenKey @"ZLAccessTokenKey"
 #define ZLUserAccountKey @"ZLUserAccountKey"
+#define ZLUserHeadImageKey @"ZLUserHeadImageKey"
 
 @implementation ZLKeyChainManager
 
@@ -41,6 +42,15 @@
     NSString * userAccount = [info objectForKey:ZLUserAccountKey];
     
     return userAccount;
+}
+
+- (NSString *) getHeadImageURL
+{
+    NSDictionary * info = [ZLKeyChainManager load:ZLKeyChainService];
+    
+    NSString * headImageURL = [info objectForKey:ZLUserHeadImageKey];
+    
+    return headImageURL;
 }
 
 - (BOOL) updateUserAccount:(NSString * __nullable) userAccount withAccessToken:(NSString * __nullable) token
@@ -96,6 +106,25 @@
     
     return YES;
     
+}
+
+
+- (BOOL) updateUserHeadImageURL:(NSString *) headImageURL
+{
+    if(!headImageURL)
+    {
+        return NO;
+    }
+    
+    NSMutableDictionary * info = [ZLKeyChainManager load:ZLKeyChainService];
+    if(!info)
+    {
+        info = [[NSMutableDictionary alloc] init];
+    }
+    [info setObject:headImageURL forKey:ZLUserHeadImageKey];
+    [ZLKeyChainManager save:ZLKeyChainService data:info];
+    
+    return YES;
 }
 
 # pragma mark -

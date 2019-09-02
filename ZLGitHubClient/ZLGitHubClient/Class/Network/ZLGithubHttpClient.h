@@ -22,13 +22,16 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * OAuth 认证
  **/
-- (void) startOAuth:(void(^)(NSURLRequest * request,BOOL isNeedContinuedLogin,BOOL success)) block;
+- (void) startOAuth:(GithubResponse) block
+       serialNumber:(NSString *) serialNumber;
 
 /**
  *
  * OAuth 认证后 获取token
  **/
-- (void) getAccessToken:(NSString *) queryString;
+- (void) getAccessToken:(GithubResponse) block
+            queryString:(NSString *) queryString
+           serialNumber:(NSString *) serialNumber;
 
 
 #pragma mark - users
@@ -71,6 +74,28 @@ NS_ASSUME_NONNULL_BEGIN
                page:(NSUInteger) page
            per_page:(NSUInteger) per_page
        serialNumber:(NSString *) serialNumber;
+
+
+/**
+ * @brief 更新用户的public Profile info
+ * @param block 请求回调
+ * @param name 名字 nil时不更新
+ * @param blog 博客 nil时不更新
+ * @param company 公司 nil时不更新
+ * @param location 地址 nil时不更新
+ * @param hireable 是否可以被雇佣 nil时不更新
+ * @param bio 自我描述 nil时不更新
+ * @param serialNumber 流水号 通过block回调原样返回
+ **/
+- (void) updateUserPublicProfile:(GithubResponse) block
+                            name:(NSString * _Nullable) name
+                           email:(NSString * _Nullable) email
+                            blog:(NSString * _Nullable) blog
+                         company:(NSString * _Nullable) company
+                        location:(NSString * _Nullable) location
+                        hireable:(NSNumber * _Nullable) hireable
+                             bio:(NSString * _Nullable) bio
+                    serialNumber:(NSString *) serialNumber;
 
 
 #pragma mark - repositories

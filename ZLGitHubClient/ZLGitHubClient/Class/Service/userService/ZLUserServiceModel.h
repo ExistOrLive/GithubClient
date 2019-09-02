@@ -42,6 +42,23 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 
+/**
+ * @brief 更新用户的public Profile info
+ * @param email 邮箱
+ * @param blog 博客 nil时不更新
+ * @param company 公司 nil时不更新
+ * @param location 地址 nil时不更新
+ * @param bio 自我描述 nil时不更新
+ **/
+- (void) updateUserPublicProfileWithemail:(NSString * _Nullable) email
+                                     blog:(NSString * _Nullable) blog
+                                  company:(NSString * _Nullable) company
+                                 location:(NSString * _Nullable) location
+                                      bio:(NSString * _Nullable) bio
+                             serialNumber:(NSString *) serialNumber;
+
+
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -153,6 +153,44 @@ extension ZLProfileBaseViewModel: UITableViewDelegate, UITableViewDataSource
         
         return tableViewCell;
     }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        switch  ZLProfileBaseView.profileItemsArray[indexPath.section][indexPath.row]{
+        case ZLProfileItemType.company:
+            break;
+        case ZLProfileItemType.location:
+            break;
+        case ZLProfileItemType.email:
+            break;
+        case ZLProfileItemType.blog:do{
+            
+            if self.currentUserInfo?.blog == nil
+            {
+                return
+            }
+            
+            let url:URL? = URL.init(string:self.currentUserInfo!.blog)
+            if url == nil
+            {
+                return;
+            }
+            
+            let vc = ZLWebContentController.init()
+            vc.requestURL = url
+            vc.hidesBottomBarWhenPushed = true
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        }
+        case ZLProfileItemType.setting:
+            break;
+        case ZLProfileItemType.aboutMe:
+            break;
+        case ZLProfileItemType.feedback:
+            break;
+        }
+        
+    }
 }
 
 // MARK: ZLProfileHeaderViewDelegate
@@ -193,6 +231,11 @@ extension ZLProfileBaseViewModel : ZLProfileHeaderViewDelegate
             vc.hidesBottomBarWhenPushed = true
             self.viewController?.navigationController?.pushViewController(vc, animated: true);
             }
+        case .editProfile:
+            let vc = ZLEditProfileController.init()
+            vc.userInfoModel = self.currentUserInfo
+            vc.hidesBottomBarWhenPushed = true
+            self.viewController?.navigationController?.pushViewController(vc, animated: true);
         }
     }
 }

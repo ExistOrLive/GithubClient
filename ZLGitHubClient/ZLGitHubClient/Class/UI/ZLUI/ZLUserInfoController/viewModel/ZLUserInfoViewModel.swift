@@ -83,6 +83,25 @@ class ZLUserInfoViewModel: ZLBaseViewModel {
         vc.type = .following
         self.viewController?.navigationController?.pushViewController(vc, animated: false)
     }
+    
+    
+    @IBAction func onBlogButtonClicked(_ sender: Any) {
+        
+        if self.userInfoModel?.blog == nil
+        {
+            return
+        }
+        
+        let url:URL? = URL.init(string:self.userInfoModel!.blog)
+        if url == nil
+        {
+            return;
+        }
+        
+        let vc = ZLWebContentController.init()
+        vc.requestURL = url
+   self.viewController?.navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 

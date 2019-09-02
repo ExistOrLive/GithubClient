@@ -105,10 +105,6 @@ extension ZLRepoInfoViewModel : UIWebViewDelegate
         
         ZLRepoInfoViewModel.httpSessionManager?.get(URLStr, parameters: nil, progress:{(progess:Progress) in
             
-            let currentProgess = Double(progess.completedUnitCount) / Double(progess.totalUnitCount)
-            
-           
-            
         }, success: { (task : URLSessionTask, reponseObject:Any?) in
             
             if reponseObject != nil && reponseObject is Data
@@ -144,7 +140,8 @@ extension ZLRepoInfoViewModel : UIWebViewDelegate
     
 
 
-    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebView.NavigationType) -> Bool
+//    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebView.NavigationType) -> Bool
+    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool
     {
         return true
     }
@@ -225,6 +222,10 @@ extension ZLRepoInfoViewModel: UITableViewDelegate,UITableViewDataSource
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 10.0
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+       
     }
 }
 

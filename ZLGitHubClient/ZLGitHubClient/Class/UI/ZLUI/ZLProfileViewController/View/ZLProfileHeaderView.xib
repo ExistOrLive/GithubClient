@@ -43,13 +43,16 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hFi-TB-MzG">
+                        <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hFi-TB-MzG">
                             <rect key="frame" x="278" y="30" width="20" height="20"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="20" id="i6Z-53-7Nn"/>
                                 <constraint firstAttribute="width" constant="20" id="rJ0-nN-fbt"/>
                             </constraints>
                             <state key="normal" backgroundImage="Edit_MyProfile"/>
+                            <connections>
+                                <action selector="onProfileHeaderViewButtonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="p16-6J-TKP"/>
+                            </connections>
                         </button>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="hta-JP-ru7">
                             <rect key="frame" x="10" y="110" width="298" height="45"/>

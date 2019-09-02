@@ -13,6 +13,7 @@ enum ZLProfileHeaderViewButtonType: Int {
     case gists
     case followers
     case following
+    case editProfile
 }
 
 @objc protocol ZLProfileHeaderViewDelegate: NSObjectProtocol {

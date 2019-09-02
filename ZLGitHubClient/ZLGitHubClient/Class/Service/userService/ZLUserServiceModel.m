@@ -109,8 +109,10 @@
         }
         weakSelf.myInfoModel = [responseObject copy];
         
-        // DB
-        [ZLDBMODULE initialDBForUser:model.id_User];
+        
+        // 更新头像URL
+        [[ZLKeyChainManager sharedInstance] updateUserHeadImageURL:model.avatar_url];
+        // 更新本地数据库中个人信息
         [ZLDBMODULE insertOrUpdateUserInfo:model];
         
         ZLOperationResultModel * repoResultModel = [[ZLOperationResultModel alloc] init];
@@ -140,7 +142,8 @@
         repoResultModel.data = responseObject;
         
         // 在UI线程发出通知
-        ZLMainThreadDispatch([weakSelf postNotification:ZLGetSpecifiedUserInfoResult_Notification withParams:repoResultModel];)
+        ZLMainThreadDispatch([weakSelf postNotification:ZLGetSpecifiedUserInfoResult_Notification withParams:repoResultModel];
+)
     };
     
     if([loginName isEqualToString:self.currentUserLoginName] && userType == ZLGithubUserType_User)
@@ -162,6 +165,40 @@
 }
 
 
+- (void) updateUserPublicProfileWithemail:(NSString *) email
+                                     blog:(NSString *) blog
+                                  company:(NSString *) company
+                                 location:(NSString *) location
+                                      bio:(NSString *) bio
+                             serialNumber:(NSString *) serialNumber
+{
+    __weak typeof(self) weakSelf = self;
+    GithubResponse response = ^(BOOL result,id responseObject,NSString * serialNumber){
+        
+        ZLLog_Info(@"result = %d, model = %@",result,responseObject);
+        
+        ZLOperationResultModel * repoResultModel = [[ZLOperationResultModel alloc] init];
+        repoResultModel.result = result;
+        repoResultModel.serialNumber = serialNumber;
+        repoResultModel.data = responseObject;
+        
+        // 在UI线程发出通知
+        ZLMainThreadDispatch([weakSelf postNotification:ZLUpdateUserPublicProfileInfoResult_Notification withParams:repoResultModel];
+                             if(result){[weakSelf postNotification:ZLGetCurrentUserInfoResult_Notification withParams:repoResultModel];})
+    };
+    
+    [[ZLGithubHttpClient defaultClient] updateUserPublicProfile:response
+                                                           name:nil
+                                                          email:email
+                                                           blog:blog
+                                                        company:company
+                                                       location:location
+                                                       hireable:nil
+                                                            bio:bio
+                                                   serialNumber:serialNumber];
+ }
+
+
 #pragma mark - onNotificationArrived:
 
 - (void) onNotificationArrived:(NSNotification *) notification
@@ -170,9 +207,19 @@
     
     if([notification.name isEqualToString:ZLLoginResult_Notification])
     {
-        ZLLoginResultModel * resultModel = notification.params;
-        if(resultModel.result == YES)
+        ZLLoginProcessModel * resultModel = notification.params;
+        if(resultModel.loginStep == ZLLoginStep_Success)
         {
+            NSString * loginName = [[ZLKeyChainManager sharedInstance] getUserAccount];
+            if(loginName != nil && ![loginName isEqualToString:@""])
+            {
+                ZLGithubUserModel * userModel = [ZLDBMODULE getUserInfoWithUserLoginName:loginName];
+                if(userModel != nil)
+                {
+                    [self setMyInfoModel:userModel];
+                }
+            }
+            
             // 登陆成功后，获取当前用户信息
             [self getCurrentUserInfoForServer:@"serialNumber"];
         }

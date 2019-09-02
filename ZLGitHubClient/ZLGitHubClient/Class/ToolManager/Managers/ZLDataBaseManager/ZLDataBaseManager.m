@@ -110,7 +110,7 @@
     });
 }
 
-- (ZLGithubUserModel *) getUserInfoWithUserId:(NSString *) userId
+- (ZLGithubUserModel *) getUserInfoWithUserLoginName:(NSString *) userId
 {
     __block ZLGithubUserModel * model = nil;
     dispatch_sync(self.concurrentQueue, ^{
@@ -121,7 +121,7 @@
             ZLLog_Error(@"ZLDataBase: FMDB for currrent user[%@] not exist",self.currentUser);
         }
         
-        FMResultSet * resultSet = [ZLDataBaseManager queryTableInDB:database WithSql:githubUserQueryById,userId];
+        FMResultSet * resultSet = [ZLDataBaseManager queryTableInDB:database WithSql:githubUserQueryByLoginName,userId];
         
         if([resultSet next])
         {

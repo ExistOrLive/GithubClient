@@ -13,6 +13,15 @@
 
 // model
 #import "ZLLoginResultModel.h"
+#import "ZLLoginProcessModel.h"
+
+@interface ZLLoginServiceModel()
+
+@property(nonatomic,assign) ZLLoginStep step;
+
+@property(nonatomic,assign) NSString * currentLoginSerialNumber;
+
+@end
 
 @implementation ZLLoginServiceModel
 
@@ -26,25 +35,119 @@
     return serviceModel;
 }
 
-- (void) startOAuth
+- (void) stopLogin
 {
+    if(self.step != ZLLoginStep_init)
+    {
+        self.step = ZLLoginStep_init;
+        self.currentLoginSerialNumber = nil;
+    }
+}
+
+/**
+ *
+ * 当前登陆的过程
+ **/
+- (ZLLoginStep) currentLoginStep
+{
+    return self.step;
+}
+
+- (void) startOAuth:(NSString *) serialNumber 
+{
+    self.step = ZLLoginStep_checkIsLogined;
+    self.currentLoginSerialNumber = serialNumber;
+    
     __weak typeof(self) weakSelf = self;
-    [[ZLGithubHttpClient defaultClient] startOAuth:^(NSURLRequest * _Nonnull request, BOOL isNeedContinuedLogin, BOOL success) {
+   
+    [[ZLGithubHttpClient defaultClient] startOAuth:^(BOOL result, id _Nullable response, NSString * _Nonnull serialNumber) {
+        
+        ZLLoginProcessModel * processModel = (ZLLoginProcessModel *)response;
+        
+        if(![self.currentLoginSerialNumber isEqualToString:processModel.serialNumber])
+        {
+            return;
+        }
+        
+        ZLLog_Info(@"ZLLoginResult: result[%d] response[%d] serialNumber[%@]",result,response,serialNumber);
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            ZLLoginResultModel * resultModel = [[ZLLoginResultModel alloc] initWithResult:success withIsNeedContinuedLogin:isNeedContinuedLogin loginRequest:request];
-            
-            [weakSelf postNotification:ZLLoginResult_Notification withParams:resultModel];
-        });
+            if(result)
+            {
+                self.step = processModel.loginStep;
+                
+                // 登陆流程全部成功
+                if(self.step == ZLLoginStep_Success)
+                {
+                    // 初始化个人数据库
+                    NSString * loginName = [[ZLKeyChainManager sharedInstance] getUserAccount];
+                    [ZLDBMODULE initialDBForUser:loginName];
+                }
+            }
+            else
+            {
+                self.step = ZLLoginStep_init;
+                self.currentLoginSerialNumber = nil;
+            }
         
-    }];
+            [weakSelf postNotification:ZLLoginResult_Notification withParams:processModel];
+        });
+                
+    } serialNumber:serialNumber];
    
 }
 
 - (void) getAccessToken:(NSString *) queryString
+           serialNumber:(NSString *) serialNumber
 {
-    [[ZLGithubHttpClient defaultClient] getAccessToken:queryString];
+    if(![serialNumber isEqualToString:self.currentLoginSerialNumber])
+    {
+        ZLLog_Info(@"getAccessToken serialNumber not match,so  return");
+        return;
+    }
+    
+    self.step = ZLLoginStep_getToken;
+
+    __weak typeof(self) weakSelf = self;
+    [[ZLGithubHttpClient defaultClient] getAccessToken:^(BOOL result, id _Nullable response, NSString * _Nonnull serialNumber) {
+        
+         ZLLoginProcessModel * processModel = (ZLLoginProcessModel *)response;
+        
+        if(![self.currentLoginSerialNumber isEqualToString:processModel.serialNumber])
+        {
+            return;
+        }
+        
+        ZLLog_Info(@"ZLLoginResult: result[%d] response[%d] serialNumber[%@]",result,response,serialNumber);
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+           
+            
+            if(result)
+            {
+                self.step = processModel.loginStep;
+                // 登陆流程全部成功
+                if(self.step == ZLLoginStep_Success)
+                {
+                    // 初始化个人数据库
+                    NSString * loginName = [[ZLKeyChainManager sharedInstance] getUserAccount];
+                    [ZLDBMODULE initialDBForUser:loginName];
+                }
+            }
+            else
+            {
+                self.step = ZLLoginStep_init;
+                self.currentLoginSerialNumber = nil;
+            }
+            
+            [weakSelf postNotification:ZLLoginResult_Notification withParams:processModel];
+        });
+        
+        
+        
+    } queryString:queryString serialNumber:serialNumber];
 }
 
 
