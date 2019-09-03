@@ -729,6 +729,8 @@
         {
             for (ZLReceivedEventModel *eventModel in array)
             {
+                
+                
                 NSDictionary *dic = eventModel.payload;
                 if (dic.count > 0)
                 {
@@ -742,6 +744,10 @@
                     else if (eventModel.type == ZLReceivedEventType_PullRequestEvent)
                     {
                         //TODO::
+                    }
+                    else
+                    {
+                        
                     }
                 }
             }

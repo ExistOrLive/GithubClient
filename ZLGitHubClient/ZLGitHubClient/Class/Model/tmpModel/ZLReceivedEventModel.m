@@ -77,6 +77,10 @@
        {
            return [NSNumber numberWithInteger:ZLReceivedEventType_PullRequestEvent];
        }
+       else
+       {
+           return [NSNumber numberWithInteger:ZLReceivedEventType_UnKnow];
+       }
     }
     
     return oldValue;

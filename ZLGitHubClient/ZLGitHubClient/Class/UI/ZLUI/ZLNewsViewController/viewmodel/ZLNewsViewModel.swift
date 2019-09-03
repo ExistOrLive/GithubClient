@@ -14,11 +14,13 @@ class ZLNewsViewModel: ZLBaseViewModel {
     var receivedEventArray: [Any]?
     
     var currentPage: Int = 0
-    var per_page: Int = 20
+    var per_page: Int = 10
 
     var curLoginName: String?
     var userInfo: ZLGithubUserModel?
-    var serialNumber: String?
+    private var serialNumber: String?
+    
+    var refreshManager: ZMRefreshManager?
     
     override func bindModel(_ targetModel: Any?, andView targetView: UIView)
     {
@@ -31,30 +33,34 @@ class ZLNewsViewModel: ZLBaseViewModel {
         self.newsBaseView?.tableView.delegate = self
         self.newsBaseView?.tableView.dataSource = self
         
+        //刷新组件
+        self.refreshManager = ZMRefreshManager.init(scrollView: self.newsBaseView!.tableView, addHeaderView: false, addFooterView: true);
+        self.refreshManager?.delegate = self
+        self.refreshManager?.setFooterViewRefreshing()
+        
         // 注册事件监听
         ZLEventServiceModel.shareInstance().registerObserver(self, selector: #selector(onNotificationArrived(notification:)), name:ZLGetUserReceivedEventResult_Notification)
-        // 注册用户监听
         ZLUserServiceModel.shared().registerObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLGetCurrentUserInfoResult_Notification)
     }
     
     deinit {
         ZLEventServiceModel.shareInstance().unRegisterObserver(self, name: ZLGetUserReceivedEventResult_Notification)
         ZLUserServiceModel.shared().unRegisterObserver(self, name: ZLGetCurrentUserInfoResult_Notification)
+        self.refreshManager?.free()
     }
     
     override func vcLifeCycle_viewWillAppear() {
         super.vcLifeCycle_viewWillAppear()
         
         // 每次界面将要展示时，更新数据
-        //每次进入请求太频繁，暂时注释
-//        guard self.userInfo != nil else
-//        {
-//            return;
-//        }
-//
-//        self.serialNumber = "12343455";
-//
-//        ZLEventServiceModel.shareInstance().getReceivedEvents(forUser: userInfo?.loginName, page: UInt(self.currentPage + 1), per_page: UInt(self.per_page), serialNumber: self.serialNumber)
+        guard self.userInfo != nil else
+        {
+            return;
+        }
+
+        self.serialNumber = NSString.generateSerialNumber();
+        
+        ZLEventServiceModel.shareInstance().getReceivedEvents(forUser: userInfo?.loginName, page: UInt(self.currentPage + 1), per_page: UInt(self.per_page), serialNumber: self.serialNumber)
     }
 }
 
@@ -71,32 +77,44 @@ extension ZLNewsViewModel
             {
                 guard let resultModel: ZLOperationResultModel = notification.params as? ZLOperationResultModel else
                 {
+                    self.refreshManager?.setFooterViewRefreshEnd()
                     return
                 }
                 
-                if resultModel.result == false
+                guard resultModel.result == true else
                 {
-                    ZLLog_Info("result is false, so return")
+                    self.refreshManager?.setFooterViewRefreshEnd()
+                    guard let errorModel : ZLGithubRequestErrorModel = resultModel.data as? ZLGithubRequestErrorModel else
+                    {
+                        return;
+                    }
+                    
+                    ZLLog_Warn("get received event failed statusCode[\(errorModel.statusCode)] message[\(errorModel.message)]")
+                    
                     return
                 }
                 
                 let itemArray: [Any]? = resultModel.data as? [Any]
                 
-                if itemArray == nil || (itemArray?.count)! <= 0
+                guard itemArray != nil && itemArray!.count > 0 else
                 {
+                    self.refreshManager?.setFooterViewNoMoreFresh()
                     ZLLog_Info("itemArray is nil or itemArray count < 0, so return")
                     return
                 }
                 
+                self.currentPage = self.currentPage + 1
+                self.refreshManager?.setFooterViewRefreshEnd()
+                
                 if self.receivedEventArray == nil
                 {
-                    self.receivedEventArray = itemArray
-                    self.newsBaseView?.tableView.reloadData()
+                    self.receivedEventArray = (itemArray! as NSArray).mutableCopy() as? [Any]
                 }
                 else
                 {
-                    //append
+                    self.receivedEventArray?.append(contentsOf: itemArray!)
                 }
+                self.newsBaseView?.tableView.reloadData()
             }
             case ZLGetCurrentUserInfoResult_Notification:do
             {
@@ -107,9 +125,9 @@ extension ZLNewsViewModel
                     ZLLog_Warn("data of operationResultModel is not ZLGithubUserModel,so return")
                     return
                 }
+                
                 self.userInfo = userInfo
-
-                self.serialNumber = "12343455";
+                self.serialNumber = NSString.generateSerialNumber()
                 
                 ZLEventServiceModel.shareInstance().getReceivedEvents(forUser: self.userInfo?.loginName, page: UInt(self.currentPage + 1), per_page: UInt(self.per_page), serialNumber: self.serialNumber)
             }
@@ -118,7 +136,6 @@ extension ZLNewsViewModel
         }
     }
 }
-
 
 // MARK: UITableViewDelegate
 extension ZLNewsViewModel: UITableViewDelegate, UITableViewDataSource
@@ -143,13 +160,21 @@ extension ZLNewsViewModel: UITableViewDelegate, UITableViewDataSource
                     let payload: ZLPayloadModel? = data?.payload as? ZLPayloadModel
                     let commitItems: [ZLCommitInfoModel]? = payload?.commits as? [ZLCommitInfoModel]
                     
-                    let commitCount: Int = (commitItems?.count)!
+                    guard let commitCount: Int = commitItems?.count else
+                    {
+                        return 140
+                    }
+                    
                     let cellHeight = 140 + commitCount * 35;
                     return CGFloat.init(cellHeight);
                 }
                 case .pullRequestEvent: do
                 {
                     return 140
+                }
+                case .unKnow: do
+                {
+                    return 0
                 }
             }
         }
@@ -236,9 +261,22 @@ extension ZLNewsViewModel: UITableViewDelegate, UITableViewDataSource
                         tableViewCell.contentLabel.text = "Closed pull request " + (data?.repo.name)!
                     }
                 }
+                case .unKnow: do
+                {
+                    return UITableViewCell()
+                }
             }
         }
         
         return tableViewCell
+    }
+}
+
+extension ZLNewsViewModel : ZMRefreshManagerDelegate
+{
+    func zmRefreshIsDragUp(_ isDragUp: Bool, refreshView: UIView!) {
+        
+        self.serialNumber = NSString.generateSerialNumber()
+        ZLEventServiceModel.shareInstance().getReceivedEvents(forUser: userInfo?.loginName, page: UInt(self.currentPage + 1), per_page: UInt(self.per_page), serialNumber: self.serialNumber)
     }
 }

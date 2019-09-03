@@ -10,7 +10,7 @@
 
 @implementation NSString (ZLExtension)
 
-+ (NSString *) generateSerialNumber
++ (NSString *)generateSerialNumber
 {
     //17位的当前时间+3位16进制的随机数
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];

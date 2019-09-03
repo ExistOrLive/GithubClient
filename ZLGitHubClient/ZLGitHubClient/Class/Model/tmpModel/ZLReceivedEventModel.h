@@ -13,7 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 typedef NS_ENUM(NSInteger, ZLReceivedEventType)
 {
     ZLReceivedEventType_PushEvent,
-    ZLReceivedEventType_PullRequestEvent
+    ZLReceivedEventType_PullRequestEvent,
+    ZLReceivedEventType_UnKnow
 };
 
 @interface ZLEventActorModel : NSObject
