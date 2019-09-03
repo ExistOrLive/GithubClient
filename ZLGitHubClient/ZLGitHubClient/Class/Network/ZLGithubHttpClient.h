@@ -167,6 +167,13 @@ NS_ASSUME_NONNULL_BEGIN
                     per_page:(NSUInteger) per_page
                 serialNumber:(NSString *) serialNumber;
 
+#pragma mark - events
+- (void)getReceivedEventsForUser:(NSString *)userName
+                            page:(NSUInteger)page
+                        per_page:(NSUInteger)per_page
+                    serialNumber:(NSString *)serialNumber
+                   responseBlock:(GithubResponse)block;
+
 @end
 
 

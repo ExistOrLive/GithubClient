@@ -18,6 +18,7 @@
 #import "ZLGithubRepositoryModel.h"
 #import "ZLGithubRequestErrorModel.h"
 #import "ZLSearchResultModel.h"
+#import "ZLReceivedEventModel.h"
 
 @interface ZLGithubHttpClient()
 
@@ -656,6 +657,74 @@
                      failure:failedBlock];
 }
 
+#pragma mark - events
 
+- (void)getReceivedEventsForUser:(NSString *)userName
+                                 page:(NSUInteger)page
+                             per_page:(NSUInteger)per_page
+                         serialNumber:(NSString *)serialNumber
+                        responseBlock:(GithubResponse)block
+{
+    NSString * urlForReceivedEvent = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,userReceivedEventUrl];
+    urlForReceivedEvent = [NSString stringWithFormat:urlForReceivedEvent,userName];
+    
+    [self.sessionManager.requestSerializer setValue:[NSString stringWithFormat:@"token %@",self.token] forHTTPHeaderField:@"Authorization"];
+    
+    NSDictionary * params = @{@"page":[NSNumber numberWithUnsignedInteger:page],
+                              @"per_page":[NSNumber numberWithUnsignedInteger:per_page]};
+    
+    void(^successBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
+    ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+    {
+        NSArray * array = [[ZLReceivedEventModel mj_objectArrayWithKeyValuesArray:responseObject] copy];
+        
+        if(array && array.count > 0)
+        {
+            for (ZLReceivedEventModel *eventModel in array)
+            {
+                NSDictionary *dic = eventModel.payload;
+                if (dic.count > 0)
+                {
+                    if(eventModel.type == ZLReceivedEventType_PushEvent)
+                    {
+                        ZLPayloadModel *tempPayloadModel = [ZLPayloadModel mj_objectWithKeyValues:dic];
+                        NSArray *commitArray = [ZLCommitInfoModel mj_objectArrayWithKeyValuesArray: tempPayloadModel.commits];
+                        tempPayloadModel.commits = commitArray;
+                        eventModel.payload = tempPayloadModel;
+                    }
+                    else if (eventModel.type == ZLReceivedEventType_PullRequestEvent)
+                    {
+                        //TODO::
+                    }
+                }
+            }
+        }
+        
+        block(YES,array,serialNumber);
+    };
+    
+    void(^failedBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
+    ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+    {
+        ZLLog_Warning(@"failedBlock: responseObject[%@]",responseObject);
+        
+        ZLGithubRequestErrorModel * errorModel = [ZLGithubRequestErrorModel mj_objectWithKeyValues:responseObject];
+        if(errorModel == nil)
+        {
+            errorModel = [[ZLGithubRequestErrorModel alloc] init];
+        }
+        errorModel.statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
 
+        block(NO,errorModel,serialNumber);
+    };
+    
+    
+    [self.sessionManager GET:urlForReceivedEvent
+                  parameters:params
+                    progress:nil
+                     success:successBlock
+                     failure:failedBlock];
+    
+    
+}
 @end
