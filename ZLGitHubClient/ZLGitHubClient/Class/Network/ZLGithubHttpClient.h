@@ -22,13 +22,16 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * OAuth 认证
  **/
-- (void) startOAuth:(void(^)(NSURLRequest * request,BOOL isNeedContinuedLogin,BOOL success)) block;
+- (void) startOAuth:(GithubResponse) block
+       serialNumber:(NSString *) serialNumber;
 
 /**
  *
  * OAuth 认证后 获取token
  **/
-- (void) getAccessToken:(NSString *) queryString;
+- (void) getAccessToken:(GithubResponse) block
+            queryString:(NSString *) queryString
+           serialNumber:(NSString *) serialNumber;
 
 
 #pragma mark - users

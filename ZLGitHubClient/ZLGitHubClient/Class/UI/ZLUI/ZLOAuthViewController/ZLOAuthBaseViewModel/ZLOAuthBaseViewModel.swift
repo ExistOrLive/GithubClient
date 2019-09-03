@@ -7,78 +7,83 @@
 //
 
 import UIKit
+import WebKit
 
 fileprivate let OAuthCallBackURL = "https://github.com/organizations/MengAndJie/CallBack"
 
 class ZLOAuthBaseViewModel: ZLBaseViewModel {
     
-    weak var baseView: ZLOAuthBaseView?
+    weak var baseView: ZLWebContentView?
+    
+    var loginProcess :ZLLoginProcessModel?
     
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
         
-        if !(targetView is ZLOAuthBaseView)
+        if !(targetView is ZLWebContentView)
         {
             return;
         }
         
-        self.baseView = targetView as? ZLOAuthBaseView
+        self.baseView = targetView as? ZLWebContentView
         self.baseView?.delegate = self;
-        self.baseView?.webView.delegate = self;
         
-        if (targetModel != nil) && (targetModel is URLRequest)
+        guard let loginProcess : ZLLoginProcessModel = targetModel as? ZLLoginProcessModel else
         {
-            self.baseView?.webView.loadRequest(targetModel as! URLRequest);
+            ZLLog_Info("targetModel is not valid,return")
+            return
         }
-
+        
+        self.loginProcess = loginProcess;
+        
+        self.baseView?.webView?.load(loginProcess.loginRequest);
     }
     
     
 }
 
+
+
 // MARK: ZLOAuthBaseViewDelegate
-extension ZLOAuthBaseViewModel: ZLOAuthBaseViewDelegate
+extension ZLOAuthBaseViewModel: ZLWebContentViewDelegate
 {
-    func onBackButtonClicked(button: UIButton)
+    func webView(_ webView: WKWebView, navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        
+        ZLLog_Info("OAuth: shouldStartLoadWith \(String(describing: navigationAction.request.url))");
+        
+        if (navigationAction.request.url?.absoluteString ?? "").hasPrefix(OAuthCallBackURL)
+        {
+            // 登陆成功获取token
+            ZLLoginServiceModel.shared().getAccessToken(navigationAction.request.url!.query!, serialNumber: self.loginProcess!.serialNumber)
+            decisionHandler(.cancel)
+            self.viewController?.dismiss(animated: true, completion: nil);
+        }
+        else
+        {
+            decisionHandler(.allow)
+        }
+        
+    }
+    
+    func webView(_ webView: WKWebView, navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+        
+        ZLLog_Info("OAuth: shouldStartLoadWith \(String(describing: navigationResponse.response))");
+        
+        let response = navigationResponse.response as! HTTPURLResponse
+        
+        ZLLog_Info("dasdadasdadass response \(String(describing: response.url?.absoluteString)) \(response.statusCode)")
+       
+        decisionHandler(.allow)
+    }
+    
+
+    
+    func onBackButtonClick(button: UIButton)
     {
-        self.baseView?.webView.stopLoading();
+        ZLLoginServiceModel.shared().stopLogin()
+        self.baseView?.webView?.stopLoading();
         self.viewController?.dismiss(animated: true, completion: nil);
     }
 }
 
 
-// MARK: UIWebViewDelegate
-extension ZLOAuthBaseViewModel: UIWebViewDelegate
-{
-//    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebView.NavigationType) -> Bool
-    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool
-    {
-        ZLLog_Info("OAuth: shouldStartLoadWith \(String(describing: request.url))");
-        
-        if (request.url?.absoluteString ?? "").hasPrefix(OAuthCallBackURL)
-        {
-            // 登陆成功获取token
-            ZLLoginServiceModel.shared().getAccessToken(request.url!.query!);
-            self.viewController?.dismiss(animated: true, completion: nil);
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-    }
-    
-    func webViewDidStartLoad(_ webView: UIWebView)
-    {
-        
-    }
-    
-    func webViewDidFinishLoad(_ webView: UIWebView)
-    {
-        
-    }
-    
-    func webView(_ webView: UIWebView, didFailLoadWithError error: Error)
-    {
-        
-    }
-}
+

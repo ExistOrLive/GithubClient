@@ -109,8 +109,10 @@
         }
         weakSelf.myInfoModel = [responseObject copy];
         
-        // DB
-        [ZLDBMODULE initialDBForUser:model.id_User];
+        
+        // 更新头像URL
+        [[ZLKeyChainManager sharedInstance] updateUserHeadImageURL:model.avatar_url];
+        // 更新本地数据库中个人信息
         [ZLDBMODULE insertOrUpdateUserInfo:model];
         
         ZLOperationResultModel * repoResultModel = [[ZLOperationResultModel alloc] init];
@@ -205,9 +207,19 @@
     
     if([notification.name isEqualToString:ZLLoginResult_Notification])
     {
-        ZLLoginResultModel * resultModel = notification.params;
-        if(resultModel.result == YES)
+        ZLLoginProcessModel * resultModel = notification.params;
+        if(resultModel.loginStep == ZLLoginStep_Success)
         {
+            NSString * loginName = [[ZLKeyChainManager sharedInstance] getUserAccount];
+            if(loginName != nil && ![loginName isEqualToString:@""])
+            {
+                ZLGithubUserModel * userModel = [ZLDBMODULE getUserInfoWithUserLoginName:loginName];
+                if(userModel != nil)
+                {
+                    [self setMyInfoModel:userModel];
+                }
+            }
+            
             // 登陆成功后，获取当前用户信息
             [self getCurrentUserInfoForServer:@"serialNumber"];
         }

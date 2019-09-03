@@ -19,6 +19,7 @@
 #import "ZLGithubRequestErrorModel.h"
 #import "ZLSearchResultModel.h"
 #import "ZLReceivedEventModel.h"
+#import "ZLLoginProcessModel.h"
 
 @interface ZLGithubHttpClient()
 
@@ -27,6 +28,7 @@
 @property (nonatomic, strong) NSURLSessionConfiguration * httpConfig;
 
 @property (nonatomic, copy) void(^ loginBlock)(NSURLRequest * _Nullable request,BOOL isNeedContinuedLogin,BOOL success);
+
 
 @property (nonatomic, strong) NSString * token;
 
@@ -63,11 +65,9 @@
  *
  * OAuth 认证
  **/
-- (void) startOAuth:(void(^)(NSURLRequest * _Nullable request,BOOL isNeedContinuedLogin,BOOL success)) block
+- (void) startOAuth:(GithubResponse) block
+       serialNumber:(NSString *) serialNumber
 {
-    // 保持loginBlock
-    self.loginBlock = block;
-    
     NSString * urlStr = [NSString stringWithFormat:@"%@?client_id=%@&scope=%@&state=%@",OAuthAuthorizeURL,MyClientID,OAuthScope,OAuthState];
     
     __weak typeof(self) weakSelf = self;
@@ -78,16 +78,27 @@
             return request;
         }
         
+        // 需要输入密码登陆
         if([request.URL.absoluteString hasPrefix:OAuthLoginURL])
         {
-             // 需要输入密码登陆
-             weakSelf.loginBlock(request,YES,NO);
-             return nil;
+            ZLLoginProcessModel * loginProcessModel = [[ZLLoginProcessModel alloc] init];
+            loginProcessModel.result = YES;
+            loginProcessModel.loginStep = ZLLoginStep_logining;
+            loginProcessModel.loginRequest = request;
+            loginProcessModel.serialNumber = serialNumber;
+            block(YES, loginProcessModel, serialNumber);
+            return nil;
         }
         else if([request.URL.absoluteString hasPrefix:OAuthCallBackURL])
         {
+            ZLLoginProcessModel * loginProcessModel = [[ZLLoginProcessModel alloc] init];
+            loginProcessModel.result = YES;
+            loginProcessModel.loginStep = ZLLoginStep_getToken;
+            loginProcessModel.serialNumber = serialNumber;
+            block(YES, loginProcessModel, serialNumber);
+            
             // OAuth 收到结果，接下来获取token
-            [weakSelf getAccessToken:request.URL.query];
+            [weakSelf getAccessToken:block queryString:request.URL.query serialNumber:serialNumber];
             return nil;
         }
         
@@ -99,18 +110,29 @@
     [self.sessionManager GET:urlStr parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSHTTPURLResponse * response = (NSHTTPURLResponse*)task.response;
-      
+        
+         NSHTTPURLResponse * response = (NSHTTPURLResponse*)task.response;
         if(!NSLocationInRange(response.statusCode, NSMakeRange(100, 300)))
         {
-            weakSelf.loginBlock(task.currentRequest, NO, NO);
+            ZLGithubRequestErrorModel * model = [[ZLGithubRequestErrorModel alloc] init];
+            model.statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
+            model.message = error.localizedDescription;
+            
+            ZLLoginProcessModel * processModel = [[ZLLoginProcessModel alloc] init];
+            processModel.result = false;
+            processModel.loginStep = ZLLoginStep_checkIsLogined;
+            processModel.serialNumber = serialNumber;
+            block(NO,processModel,serialNumber);
         }
+    
     }];
     
 }
 
 
-- (void) getAccessToken:(NSString *) queryString
+- (void) getAccessToken:(GithubResponse) block
+            queryString:(NSString *) queryString
+           serialNumber:(NSString *) serialNumber
 {
     if(![queryString containsString:@"code"] || ![queryString containsString:@"state"])
     {
@@ -143,7 +165,7 @@
     }
     
     NSDictionary * params = @{@"client_id":MyClientID,@"client_secret":MyClientSecret,@"code":code,@"state":state};
-   
+    
     self.sessionManager.requestSerializer = [AFHTTPRequestSerializer serializer];
     // 设置接受的格式，否则默认body是以查询字符串的格式
     [self.sessionManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
@@ -152,16 +174,40 @@
     void(^successBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
     ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
     {
+        NSArray * cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:GitHubMainURL]];
+        
+        NSString * userAccount = nil;
+        for(NSHTTPCookie * cookie in cookies)
+        {
+            if([@"dotcom_user" isEqualToString:cookie.name])
+            {
+                userAccount = cookie.value;
+            }
+        }
+        
         NSDictionary * dic = (NSDictionary *) responseObject;
         weakSelf.token = [dic objectForKey:@"access_token"];
-        [[ZLKeyChainManager sharedInstance] updateUserAccount:nil withAccessToken:weakSelf.token];
-        weakSelf.loginBlock(task.currentRequest, NO, YES);
+        [[ZLKeyChainManager sharedInstance] updateUserAccount:userAccount withAccessToken:weakSelf.token];
+        
+        ZLLoginProcessModel * processModel = [[ZLLoginProcessModel alloc] init];
+        processModel.result = YES;
+        processModel.loginStep = ZLLoginStep_Success;
+        processModel.serialNumber = serialNumber;
+        block(YES,processModel,serialNumber);
     };
     
     void(^failedBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
-    ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+    ^(NSURLSessionDataTask * _Nonnull task, NSError *  error)
     {
-        weakSelf.loginBlock(task.currentRequest, NO, NO);
+        ZLGithubRequestErrorModel * model = [[ZLGithubRequestErrorModel alloc] init];
+        model.statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
+        model.message = error.localizedDescription;
+        
+        ZLLoginProcessModel * processModel = [[ZLLoginProcessModel alloc] init];
+        processModel.result = false;
+        processModel.loginStep = ZLLoginStep_getToken;
+        processModel.serialNumber = serialNumber;
+        block(NO,processModel,serialNumber);
     };
     
     [self.sessionManager POST:OAuthAccessTokenURL
@@ -171,6 +217,7 @@
                       failure:failedBlock];
     
 }
+
 
 #pragma mark - users
 

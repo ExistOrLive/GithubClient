@@ -18,11 +18,25 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *
+ * 当前登陆的过程
+ **/
+- (ZLLoginStep) currentLoginStep;
+
+
+- (void) stopLogin;
+
+/**
+ *
  * 进行登陆
  **/
-- (void) startOAuth;
+- (void) startOAuth:(NSString *) serialNumber;
 
-- (void) getAccessToken:(NSString *) queryString;
+/**
+ * 登陆认证后，获取token
+ *
+ **/
+- (void) getAccessToken:(NSString *) queryString
+           serialNumber:(NSString *) serialNumber;
 
 @end
 

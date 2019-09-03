@@ -48,6 +48,7 @@
 #import "ZLGithubRequestErrorModel.h"
 #import "ZLSearchFilterInfoModel.h"
 #import "ZLSearchResultModel.h"
+#import "ZLLoginProcessModel.h"
 
 #import "ZLReceivedEventModel.h"
 
@@ -56,5 +57,6 @@
 
 // extersion
 #import "NSDate+localizeStr.h"
+#import "NSString+ZLExtension.h"
 
 #import "AppDelegate.h"

@@ -9,6 +9,15 @@
 #ifndef ZLLoginServiceHeader_h
 #define ZLLoginServiceHeader_h
 
+typedef enum : NSUInteger {
+    ZLLoginStep_init,
+    ZLLoginStep_checkIsLogined,
+    ZLLoginStep_logining,
+    ZLLoginStep_getToken,
+    ZLLoginStep_Success,
+} ZLLoginStep;
+
+
 static const NSNotificationName ZLLoginResult_Notification = @"ZLLoginResult_Notification";
 
 

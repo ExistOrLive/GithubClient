@@ -19,15 +19,21 @@ class ZLLoginBaseView: ZLBaseView {
     @IBOutlet weak var loginLogoView: ZLLoginLogoView!
     @IBOutlet weak var logoTopConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var userHeadImageView: UIImageView!
+    @IBOutlet weak var userLoginNameLabel: UILabel!
+    
+    @IBOutlet weak var loginInfoLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var loginButton: UIButton!
     
     override func awakeFromNib() {
         
-        self.loginLogoView.isVertical = true
+        self.loginLogoView.isVertical = false
         self.logoTopConstraint.constant += self.logoTopConstraint.constant + ZLStatusBarHeight;
         self.loginButton.layer.cornerRadius = 5.0;
         self.activityIndicator.isHidden = true;
+        self.userHeadImageView.layer.cornerRadius = 40.0
+        self.userHeadImageView.layer.masksToBounds = true
         
     }
     
