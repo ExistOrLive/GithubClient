@@ -112,6 +112,7 @@
     newModel.url = self.url;
     newModel.company = self.company;
     newModel.blog = self.blog;
+    newModel.location = self.location;
     newModel.email = self.email;
     newModel.bio = self.bio;
     newModel.public_repos = self.public_repos;

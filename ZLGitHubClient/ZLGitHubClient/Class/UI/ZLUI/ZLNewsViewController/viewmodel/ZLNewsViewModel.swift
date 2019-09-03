@@ -159,12 +159,8 @@ extension ZLNewsViewModel: UITableViewDelegate, UITableViewDataSource
                 {
                     let payload: ZLPayloadModel? = data?.payload as? ZLPayloadModel
                     let commitItems: [ZLCommitInfoModel]? = payload?.commits as? [ZLCommitInfoModel]
-                    
-                    guard let commitCount: Int = commitItems?.count else
-                    {
-                        return 140
-                    }
-                    
+            
+                    let commitCount: Int = commitItems?.count ?? 0
                     let cellHeight = 140 + commitCount * 35;
                     return CGFloat.init(cellHeight);
                 }
@@ -196,7 +192,7 @@ extension ZLNewsViewModel: UITableViewDelegate, UITableViewDataSource
         tableViewCell.avatarImageView.sd_setImage(with: URL.init(string: data?.actor.avatar_url ?? ""), placeholderImage: nil);
         tableViewCell.userNameLabel.text = data?.actor.login ?? "";
 
-        let timeStr = NSString.init(format: "%@",(data?.created_at as! NSDate).dateLocalStrSinceCurrentTime())
+        let timeStr = NSString.init(format: "%@",(data?.created_at as NSDate?)?.dateLocalStrSinceCurrentTime() ?? "")
         tableViewCell.dateLabel.text = timeStr as String;
         
         tableViewCell.layer.cornerRadius = 2;
