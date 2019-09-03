@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZLGitHubClient/Class/UI/ZLUI/ZLWebContentController/view/ZLWebContentView.swift"
-            timestampString = "589044745.808822"
+            timestampString = "589127217.439769"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "326"
-            endingLineNumber = "326"
+            startingLineNumber = "325"
+            endingLineNumber = "325"
             landmarkName = "webView(_:didFail:withError:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -36,11 +36,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZLGitHubClient/Class/UI/ZLUI/ZLWebContentController/view/ZLWebContentView.swift"
-            timestampString = "589044745.808923"
+            timestampString = "589127217.440298"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "331"
-            endingLineNumber = "331"
+            startingLineNumber = "330"
+            endingLineNumber = "330"
             landmarkName = "webView(_:didFinish:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -52,11 +52,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZLGitHubClient/Class/UI/ZLUI/ZLWebContentController/view/ZLWebContentView.swift"
-            timestampString = "589044745.809009"
+            timestampString = "589127217.440622"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "320"
-            endingLineNumber = "320"
+            startingLineNumber = "319"
+            endingLineNumber = "319"
             landmarkName = "webView(_:didCommit:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -68,11 +68,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZLGitHubClient/Class/UI/ZLUI/ZLWebContentController/view/ZLWebContentView.swift"
-            timestampString = "589044745.809093"
+            timestampString = "589127217.440936"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "265"
-            endingLineNumber = "265"
+            startingLineNumber = "264"
+            endingLineNumber = "264"
             landmarkName = "webView(_:decidePolicyFor:decisionHandler:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -84,11 +84,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZLGitHubClient/Class/UI/ZLUI/ZLWebContentController/view/ZLWebContentView.swift"
-            timestampString = "589044745.809173"
+            timestampString = "589127217.441257"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "293"
-            endingLineNumber = "293"
+            startingLineNumber = "292"
+            endingLineNumber = "292"
             landmarkName = "webView(_:decidePolicyFor:decisionHandler:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -100,28 +100,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZLGitHubClient/Class/UI/ZLUI/ZLWebContentController/view/ZLWebContentView.swift"
-            timestampString = "589044745.8092541"
+            timestampString = "589127217.441552"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "309"
-            endingLineNumber = "309"
+            startingLineNumber = "308"
+            endingLineNumber = "308"
             landmarkName = "webView(_:didFailProvisionalNavigation:withError:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ZLGitHubClient/Class/UI/ZLUI/ZLWebContentController/view/ZLWebContentView.swift"
-            timestampString = "589044745.809334"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "228"
-            endingLineNumber = "228"
-            landmarkName = "onGoBackButtonClicked()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -164,7 +148,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZLGitHubClient/Class/UI/ZLUI/ZLWebContentController/view/ZLWebContentView.swift"
-            timestampString = "589044745.809558"
+            timestampString = "589127217.44189"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "125"
