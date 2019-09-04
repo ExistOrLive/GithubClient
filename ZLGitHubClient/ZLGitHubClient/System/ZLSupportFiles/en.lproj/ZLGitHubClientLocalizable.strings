@@ -6,25 +6,25 @@
   Copyright © 2019 ZM. All rights reserved.
 */
 
-"repositories" = "repositories";
-"users" = "users";
-"commits" = "commits";
-"topics" = "topics";
-"issues" = "issues";
-"code" = "code";
-"gists" = "gists";
-"followers" = "followers";
-"following" = "following";
-"created at" = "created at";
-"fork" = "fork";
-"star" = "star";
-"owner" = "owner";
+"repositories" = "Repos";
+"users" = "Users";
+"commits" = "Commits";
+"topics" = "Topics";
+"issues" = "Issues";
+"code" = "Code";
+"gists" = "Gists";
+"followers" = "Followers";
+"following" = "Following";
+"created at" = "Created at";
+"fork" = "Fork";
+"star" = "Star";
+"owner" = "Owner";
 
-"company" = "company";
-"location" = "location";
-"email" = "email";
-"blog" = "blog";
-"setting" = "setting";
+"company" = "Company";
+"location" = "Location";
+"email" = "Email";
+"blog" = "Blog";
+"setting" = "Setting";
 "about" = "about";
 "feedback" = "feedback";
 
@@ -61,5 +61,9 @@
 "explore" = "Explore";
 "profile" = "Profile";
 
+
+"Language" = "Language";
+"SimpleChineses" = "Simple Chineses";
+"English" = "English";
 
 

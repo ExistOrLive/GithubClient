@@ -109,7 +109,7 @@
 }
 
 
-- (BOOL) updateUserHeadImageURL:(NSString *) headImageURL
+- (BOOL) updateUserHeadImageURL:(NSString * __nullable) headImageURL
 {
     if(!headImageURL)
     {

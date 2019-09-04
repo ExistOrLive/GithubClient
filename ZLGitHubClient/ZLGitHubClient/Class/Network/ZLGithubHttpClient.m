@@ -217,6 +217,24 @@
                       failure:failedBlock];
     
 }
+    
+
+
+- (void) logout:(NSString *) serialNumber
+{
+    self.token = nil;
+    NSArray * cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:GitHubMainURL]];
+    
+    // 清空所有的cookie
+    for(NSHTTPCookie * cookie in cookies)
+    {
+        [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
+    }
+    
+    [[ZLKeyChainManager sharedInstance] updateUserAccount:nil withAccessToken:nil];
+    [[ZLKeyChainManager sharedInstance] updateUserHeadImageURL:nil];
+        
+}
 
 
 #pragma mark - users

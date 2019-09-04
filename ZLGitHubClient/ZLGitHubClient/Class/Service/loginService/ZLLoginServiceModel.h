@@ -24,6 +24,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 - (void) stopLogin;
+    
+
+/**
+ * 注销登录
+ *
+ **/
+- (void) logout:(NSString *) serialNumber;
 
 /**
  *

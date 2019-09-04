@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL) updateUserAccount:(NSString * __nullable) userAccount withAccessToken:(NSString * __nullable) token;
 
-- (BOOL) updateUserHeadImageURL:(NSString *) headImageURL;
+- (BOOL) updateUserHeadImageURL:(NSString * __nullable) headImageURL;
 
 @end
 

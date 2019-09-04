@@ -45,6 +45,20 @@
 }
 
 /**
+ * 注销登录
+ *
+ **/
+- (void) logout:(NSString *) serialNumber
+{
+    self.step = ZLLoginStep_init;
+    self.currentLoginSerialNumber = nil;
+    
+    [[ZLGithubHttpClient defaultClient] logout:serialNumber];
+    
+}
+
+    
+/**
  *
  * 当前登陆的过程
  **/

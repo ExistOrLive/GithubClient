@@ -32,6 +32,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) getAccessToken:(GithubResponse) block
             queryString:(NSString *) queryString
            serialNumber:(NSString *) serialNumber;
+    
+/**
+ *
+ * 注销
+ **/
+- (void) logout:(NSString *) serialNumber;
 
 
 #pragma mark - users

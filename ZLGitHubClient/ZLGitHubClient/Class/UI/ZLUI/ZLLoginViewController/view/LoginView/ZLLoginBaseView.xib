@@ -16,15 +16,15 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J6d-gF-psP" customClass="ZLLoginLogoView">
-                    <rect key="frame" x="0.0" y="20" width="300" height="80"/>
+                    <rect key="frame" x="0.0" y="20" width="300" height="40"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="80" id="NSd-2D-ArC"/>
+                        <constraint firstAttribute="height" constant="40" id="NSd-2D-ArC"/>
                         <constraint firstAttribute="width" constant="300" id="pWw-jW-CpL"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6eH-XD-Vow">
-                    <rect key="frame" x="20" y="310" width="374" height="40"/>
+                    <rect key="frame" x="20" y="270" width="374" height="40"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="Lrx-f7-a5S"/>
@@ -39,26 +39,26 @@
                     </connections>
                 </button>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5xE-aB-bqH">
-                    <rect key="frame" x="70" y="200" width="80" height="80"/>
+                    <rect key="frame" x="70" y="160" width="80" height="80"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="80" id="4eo-uC-kYk"/>
                         <constraint firstAttribute="width" constant="80" id="v2T-vF-aRA"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ke-b1-UDh">
-                    <rect key="frame" x="180" y="240" width="0.0" height="0.0"/>
+                    <rect key="frame" x="180" y="200" width="0.0" height="0.0"/>
                     <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PXB-jt-SeK">
-                    <rect key="frame" x="30" y="370" width="0.0" height="0.0"/>
+                    <rect key="frame" x="30" y="330" width="0.0" height="0.0"/>
                     <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="12"/>
                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="XIC-A5-rJg">
-                    <rect key="frame" x="40" y="370" width="20" height="20"/>
+                    <rect key="frame" x="40" y="330" width="20" height="20"/>
                 </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
