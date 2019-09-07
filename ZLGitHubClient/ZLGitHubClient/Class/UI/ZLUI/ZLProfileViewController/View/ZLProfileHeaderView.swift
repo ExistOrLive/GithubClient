@@ -45,7 +45,7 @@ class ZLProfileHeaderView: ZLBaseView {
         super.awakeFromNib()
         self.headImageView.layer.cornerRadius = 30.0;
        self.latestModifiedView.layer.cornerRadius = 10.0
-        self.justUpdate();
+        self.justReloadView();
     }
     
     
@@ -60,7 +60,7 @@ class ZLProfileHeaderView: ZLBaseView {
     }
     
     
-    func justUpdate()
+    func justReloadView()
     {
         self.repositoriesButton.setTitle(ZLLocalizedString(string: "repositories",comment: "仓库"), for: UIControlState.normal);
         self.gistsButton.setTitle(ZLLocalizedString(string: "gists",comment: "代码片段"), for: UIControlState.normal);

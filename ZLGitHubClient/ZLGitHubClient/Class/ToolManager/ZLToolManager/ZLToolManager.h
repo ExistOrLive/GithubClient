@@ -27,6 +27,8 @@
 
 #define ZLLocalizedString(string,comment) [[ZLToolManager sharedInstance].zlLANModule localizedWithKey:string]
 
+static const NSNotificationName ZLLanguageTypeChange_Notificaiton = @"ZLLanguageTypeChange_Notificaiton";
+
 
 #pragma mark - ZLToolManger 
 

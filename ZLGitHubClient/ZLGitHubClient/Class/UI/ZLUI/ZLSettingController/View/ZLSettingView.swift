@@ -20,11 +20,17 @@ class ZLSettingView: ZLBaseView {
     
     override func awakeFromNib() {
         self.topViewHeightConstraint.constant = self.topViewHeightConstraint.constant + ZLStatusBarHeight
-        self.titleLabel.text = ZLLocalizedString(string: "setting", comment: "设置")
- 
-        self.tableView.sectionFooterHeight = 10.0
+       // self.tableView.sectionFooterHeight = 10.0
         self.tableView.register(UINib.init(nibName: "ZLSettingItemTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLSettingItemTableViewCell")
         self.tableView.register(UINib.init(nibName: "ZLSettingLogoutTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLSettingLogoutTableViewCell")
+        
+        self.titleLabel.text = ZLLocalizedString(string: "setting", comment: "设置")
+    }
+    
+    func justReloadView()
+    {
+        self.titleLabel.text = ZLLocalizedString(string: "setting", comment: "设置")
+        self.tableView.reloadData()
     }
     
 

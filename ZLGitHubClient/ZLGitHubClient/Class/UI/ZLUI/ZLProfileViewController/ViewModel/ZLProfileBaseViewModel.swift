@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 class ZLProfileBaseViewModel: ZLBaseViewModel {
     
@@ -19,6 +20,7 @@ class ZLProfileBaseViewModel: ZLBaseViewModel {
     deinit {
         // 注销监听
         ZLUserServiceModel.shared().unRegisterObserver(self, name: ZLGetCurrentUserInfoResult_Notification)
+        NotificationCenter.default.removeObserver(self, name: ZLLanguageTypeChange_Notificaiton, object: nil)
     }
     
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
@@ -36,6 +38,7 @@ class ZLProfileBaseViewModel: ZLBaseViewModel {
         
         // 注册监听
         ZLUserServiceModel.shared().registerObserver(self, selector: #selector(onNotificationArrived(notication:)), name: ZLGetCurrentUserInfoResult_Notification)
+        NotificationCenter.default.addObserver(self, selector: #selector(onNotificationArrived(notication:)), name: ZLLanguageTypeChange_Notificaiton, object: nil)
     }
     
     override func vcLifeCycle_viewWillAppear() {
@@ -269,6 +272,11 @@ extension ZLProfileBaseViewModel
             // 更新UI
             self.setViewDataForProfileBaseView(model: model, view: self.profileBaseView!);
             
+            }
+        case ZLLanguageTypeChange_Notificaiton:do
+        {
+            self.profileBaseView?.tableHeaderView?.justReloadView()
+            self.profileBaseView?.tableView.reloadData()
             }
         default:
             break;

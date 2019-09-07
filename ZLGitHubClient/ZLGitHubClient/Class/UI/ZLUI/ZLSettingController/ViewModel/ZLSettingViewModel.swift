@@ -19,6 +19,10 @@ class ZLSettingViewModel: ZLBaseViewModel {
     // view
     var settingView : ZLSettingView?
     
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: ZLLanguageTypeChange_Notificaiton, object: nil)
+    }
+    
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
         
         guard let settingView = targetView as? ZLSettingView else {
@@ -31,14 +35,16 @@ class ZLSettingViewModel: ZLBaseViewModel {
         self.settingView?.tableView.dataSource = self
         self.settingView?.tableView.delegate = self
         
+        NotificationCenter.default.addObserver(self, selector:#selector(onNotificationArrived(notication:)) , name: ZLLanguageTypeChange_Notificaiton, object: nil)
+        
     }
     
     
     func onLogout()
     {
-        let alertController = UIAlertController.init(title: "您确定要退出吗？", message: nil, preferredStyle: UIAlertControllerStyle.alert)
-        let cancelAction = UIAlertAction.init(title: "取消", style: UIAlertActionStyle.default, handler:nil)
-        let confirmAction = UIAlertAction.init(title: "确定", style: UIAlertActionStyle.destructive, handler:{ (action : UIAlertAction) in
+        let alertController = UIAlertController.init(title: ZLLocalizedString(string: "AreYouSureToLogout", comment: "您确定要退出吗？"), message: nil, preferredStyle: UIAlertControllerStyle.alert)
+        let cancelAction = UIAlertAction.init(title: ZLLocalizedString(string: "Cancel", comment: "取消"), style: UIAlertActionStyle.default, handler:nil)
+        let confirmAction = UIAlertAction.init(title: ZLLocalizedString(string: "Confirm", comment: "确认"), style: UIAlertActionStyle.destructive, handler:{ (action : UIAlertAction) in
             
             ZLLoginServiceModel.shared().logout(NSString.generateSerialNumber())
             let appDelegate:AppDelegate  = UIApplication.shared.delegate! as! AppDelegate;
@@ -52,9 +58,60 @@ class ZLSettingViewModel: ZLBaseViewModel {
         self.viewController?.present(alertController, animated: true, completion: nil)
         
     }
+    
+    func onChangeLanguage()
+    {
+        let alertController = UIAlertController.init(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+       
+        for rawValue in [0,ZLLanguageType.simpleChinese.rawValue]
+        {
+            var title : String? = nil
+            let handle : ((UIAlertAction) -> Void) = {(action: UIAlertAction) in ZLLANMODULE?.setLanguageType(ZLLanguageType.init(rawValue: rawValue)!, error: nil)
+            }
+            
+            switch ZLLanguageType.init(rawValue: rawValue)!
+            {
+            case .english:do{
+                title = ZLLocalizedString(string: "English", comment: "英文")
+                }
+            case .simpleChinese:do{
+                title = ZLLocalizedString(string: "SimpleChinese", comment: "简体中文")
+                }
+            }
+            
+            let action = UIAlertAction.init(title: title, style: UIAlertActionStyle.default, handler:handle)
+            alertController.addAction(action)
+        }
+        
+        let cancelAction = UIAlertAction.init(title:ZLLocalizedString(string: "Cancel", comment: "取消") , style: UIAlertActionStyle.cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        self.viewController?.present(alertController, animated: true, completion: nil)
+    }
 
     @IBAction func onBackButtonClicked(_ sender: Any) {
         self.viewController?.navigationController?.popViewController(animated: true)
+    }
+}
+
+
+// MARK:onNotificationArrived
+extension ZLSettingViewModel
+{
+    @objc func onNotificationArrived(notication: Notification)
+    {
+        ZLLog_Info("notificaition[\(notication) arrived]")
+        
+        switch notication.name
+        {
+        case ZLLanguageTypeChange_Notificaiton:do
+        {
+            self.settingView?.justReloadView()
+            }
+        default:
+            break;
+        }
+        
     }
 }
 
@@ -90,12 +147,26 @@ extension ZLSettingViewModel: UITableViewDataSource,UITableViewDelegate
             }
             
             tableViewCell.itemTypeLabel.text = ZLLocalizedString(string: "Language", comment: "语言")
-     
+            switch ZLLANMODULE?.currentLanguageType() ?? ZLLanguageType.english
+            {
+            case .english:do{
+                tableViewCell.itemValueLabel.text = ZLLocalizedString(string: "English", comment: "英文")
+                }
+            case .simpleChinese:do{
+                tableViewCell.itemValueLabel.text = ZLLocalizedString(string: "SimpleChinese", comment: "简体中文")
+                }
+            }
             return tableViewCell
             
             }
         case .logout:do{
-            let tableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLSettingLogoutTableViewCell", for: indexPath)
+            
+            guard let tableViewCell: ZLSettingLogoutTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLSettingLogoutTableViewCell", for: indexPath) as? ZLSettingLogoutTableViewCell else
+            {
+                let cell = UITableViewCell.init()
+                return cell
+            }
+            tableViewCell.titleLabel.text = ZLLocalizedString(string: "logout", comment: "注销")
             return tableViewCell
             }
         }
@@ -107,8 +178,7 @@ extension ZLSettingViewModel: UITableViewDataSource,UITableViewDelegate
         return ZLSettingViewModel.settingItemTypes.count
     }
     
-    
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let settingItemType = ZLSettingViewModel.settingItemTypes[indexPath.section][indexPath.row]
@@ -116,8 +186,7 @@ extension ZLSettingViewModel: UITableViewDataSource,UITableViewDelegate
         switch settingItemType
         {
         case .language:do{
-            
-            
+            self.onChangeLanguage()
             }
         case .logout:do{
             self.onLogout()

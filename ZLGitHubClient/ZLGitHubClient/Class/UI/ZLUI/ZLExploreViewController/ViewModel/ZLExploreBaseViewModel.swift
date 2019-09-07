@@ -12,6 +12,10 @@ class ZLExploreBaseViewModel: ZLBaseViewModel {
     
     var baseView : ZLExploreBaseView?
     
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: ZLLanguageTypeChange_Notificaiton, object: nil)
+    }
+    
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
         
         if !(targetView is ZLExploreBaseView)
@@ -20,6 +24,8 @@ class ZLExploreBaseViewModel: ZLBaseViewModel {
             return
         }
         self.baseView = targetView as? ZLExploreBaseView
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(onNotificationArrived(notication:)), name: ZLLanguageTypeChange_Notificaiton, object: nil)
     }
     
 
@@ -28,5 +34,23 @@ class ZLExploreBaseViewModel: ZLBaseViewModel {
        vc.hidesBottomBarWhenPushed = true
        self.viewController?.navigationController?.pushViewController(vc, animated: true)
     }
+    
+
+    @objc func onNotificationArrived(notication: Notification)
+    {
+        ZLLog_Info("notificaition[\(notication) arrived]")
+        
+        switch notication.name
+        {
+        case ZLLanguageTypeChange_Notificaiton:do
+        {
+            self.baseView?.justReloadView()
+            }
+        default:
+            break;
+        }
+        
+    }
+    
     
 }

@@ -25,14 +25,14 @@
 "email" = "Email";
 "blog" = "Blog";
 "setting" = "Setting";
-"about" = "about";
-"feedback" = "feedback";
+"about" = "About";
+"feedback" = "Feedback";
 
 "lastest update" = "lastest update";
 "all update" = "all update";
 
 "login" = "login";
-"logout" = "logout";
+"logout" = "Logout";
 
 "fork :" = "fork :";
 "star :" = "star :";
@@ -57,13 +57,17 @@
 
 "update " = "update ";
 "news" = "News";
-"repositories" = "Repositories";
 "explore" = "Explore";
 "profile" = "Profile";
 
 
 "Language" = "Language";
-"SimpleChineses" = "Simple Chineses";
+"SimpleChinese" = "Simple Chineses";
 "English" = "English";
 
+"Search" = "Search";
+
+"Cancel" = "Cancel";
+"Confirm" = "Confirm";
+"AreYouSureToLogout" = "Are You Sure to Logout? ";
 

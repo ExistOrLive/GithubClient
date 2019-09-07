@@ -33,6 +33,8 @@ let ZLGetSpecifiedRepoInfoResult_Notification  = Notification.Name(rawValue: "ZL
 let ZLUpdateUserPublicProfileInfoResult_Notification = Notification.Name(rawValue: "ZLUpdateUserPublicProfileInfoResult_Notification")
 let ZLGetUserReceivedEventResult_Notification = Notification.Name(rawValue: "ZLGetUserReceivedEventResult_Notification")
 
+let ZLLanguageTypeChange_Notificaiton = Notification.Name(rawValue: "ZLLanguageTypeChange_Notificaiton")
+
 extension Notification
 {
     var params: Any?
@@ -73,7 +75,14 @@ func ZLLog_Error(_ message: @autoclosure () -> String, level: DDLogLevel = ZLLog
 
 // MARK: ZLLANModule
 
+let ZLLANMODULE = ZLToolManager.sharedInstance()?.zlLANModule
 func ZLLocalizedString(string: String, comment: String) -> String
 {
     return ZLToolManager.sharedInstance()?.zlLANModule.localized(withKey: string) ?? string;
 }
+
+
+
+
+
+
