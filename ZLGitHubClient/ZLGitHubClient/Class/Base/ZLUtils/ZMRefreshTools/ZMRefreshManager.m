@@ -11,9 +11,6 @@
 #import "ZMRefreshView.h"
 #import "ZMRefreshConfig.h"
 
-
-
-
 @interface ZMRefreshManager()
 
 @property(nonatomic,weak) UIScrollView * scrollView;
@@ -58,9 +55,6 @@
         
         [_scrollView addObserver:self forKeyPath:KVOContentSize options:NSKeyValueObservingOptionNew| NSKeyValueObservingOptionOld context:nil];
         [_scrollView addObserver:self forKeyPath:KVOContentOffset options:NSKeyValueObservingOptionNew| NSKeyValueObservingOptionOld context:nil];
-        
-   
-        
     }
     
     return self;

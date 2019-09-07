@@ -32,6 +32,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) getAccessToken:(GithubResponse) block
             queryString:(NSString *) queryString
            serialNumber:(NSString *) serialNumber;
+    
+/**
+ *
+ * 注销
+ **/
+- (void) logout:(NSString *) serialNumber;
 
 
 #pragma mark - users
@@ -169,6 +175,13 @@ NS_ASSUME_NONNULL_BEGIN
                         page:(NSUInteger) page
                     per_page:(NSUInteger) per_page
                 serialNumber:(NSString *) serialNumber;
+
+#pragma mark - events
+- (void)getReceivedEventsForUser:(NSString *)userName
+                            page:(NSUInteger)page
+                        per_page:(NSUInteger)per_page
+                    serialNumber:(NSString *)serialNumber
+                   responseBlock:(GithubResponse)block;
 
 @end
 

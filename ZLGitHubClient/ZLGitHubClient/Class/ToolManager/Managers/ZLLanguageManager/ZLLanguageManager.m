@@ -8,6 +8,8 @@
 
 #import "ZLLanguageManager.h"
 
+static NSString * ZLLanguageTypeForUserDefaults = @"ZLLanguageTypeForUserDefaults";
+
 @interface ZLLanguageManager()
 
 @property(nonatomic, strong) NSBundle * currentLanguageBundle;              //!当前语言对应的国际化文件bundle
@@ -33,7 +35,9 @@
 {
     if(self = [super init])
     {
-        _currentLanguageType = ZLLanguageType_SimpleChinese;
+        NSNumber * languageTypeNumber = [[NSUserDefaults standardUserDefaults] objectForKey:ZLLanguageTypeForUserDefaults];
+         _currentLanguageType = (ZLLanguageType)[languageTypeNumber intValue];
+        
         // 初始化加载默认的语言类型
         switch(_currentLanguageType)
         {
@@ -93,6 +97,28 @@
 
 - (void) setLanguageType:(ZLLanguageType) type error:(NSError **) error
 {
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:type] forKey:ZLLanguageTypeForUserDefaults];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
+    _currentLanguageType = type;
+
+    switch(_currentLanguageType)
+    {
+        case ZLLanguageType_English:
+        {
+            NSString * resourcePath = [[NSBundle mainBundle] pathForResource:@"en" ofType:@"lproj"];
+            _currentLanguageBundle = [NSBundle bundleWithPath:resourcePath];
+        }
+            break;
+        case ZLLanguageType_SimpleChinese:
+        {
+            NSString * resourcePath = [[NSBundle mainBundle] pathForResource:@"zh-Hans" ofType:@"lproj"];
+            _currentLanguageBundle = [NSBundle bundleWithPath:resourcePath];
+        }
+            break;
+    }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:ZLLanguageTypeChange_Notificaiton object:nil];
     
 }
 

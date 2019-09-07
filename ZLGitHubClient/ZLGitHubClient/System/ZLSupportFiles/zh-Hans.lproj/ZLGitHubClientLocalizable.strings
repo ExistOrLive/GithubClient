@@ -6,7 +6,7 @@
   Copyright © 2019 ZM. All rights reserved.
 */
 
-"repositories" = "仓库";
+"repositories" = "版本库";
 "users" = "用户";
 "commits" = "提交";
 "topics" = "标题";
@@ -55,4 +55,19 @@
 "minute later" = "分钟后";
 
 "update " = "更新于";
+
 "news" = "动态";
+"repositories" = "仓库";
+"explore" = "搜索";
+"profile" = "我";
+
+"Language" = "语言";
+"SimpleChinese" = "简体中文";
+"English" = "英语";
+
+"Search" = "搜索";
+
+"Cancel" = "取消";
+"Confirm" = "确认";
+"AreYouSureToLogout" = "您确定要退出吗？";
+

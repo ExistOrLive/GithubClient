@@ -33,6 +33,11 @@
     [item setTitleTextAttributes:attrDic2 forState:UIControlStateNormal];
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:ZLLanguageTypeChange_Notificaiton object:nil];
+}
+
 - (instancetype) init
 {
     return [super init];
@@ -43,23 +48,9 @@
     
     [self setupAllChildViewController];
     [self setupTabBarItems];
-}
-
-- (void)setUpContainerViewControllers
-{
-    UIViewController * tmpViewController = [UIViewController new];
-    ZLBaseNavigationController * tmpNavigationController = [[ZLBaseNavigationController alloc] initWithRootViewController:tmpViewController];
     
-    UITabBarItem * tabBarItem = [[UITabBarItem alloc] init];
-    [tabBarItem setTitle:@"Search"];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onNotificationArrived:) name:ZLLanguageTypeChange_Notificaiton object:nil];
     
-
-    NSDictionary * seletedTextAttribute = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor brownColor],NSForegroundColorAttributeName,nil];
-    [tabBarItem setTitleTextAttributes:seletedTextAttribute forState:UIControlStateSelected];
-    
-    [tmpNavigationController setTabBarItem:tabBarItem];
-    
-    [self addChildViewController:tmpNavigationController];
 }
 
 - (void)setupAllChildViewController {
@@ -83,25 +74,47 @@
 
 - (void)setupTabBarItems {
     ZLBaseNavigationController *newsNavigationController = self.childViewControllers[0];
-    newsNavigationController.tabBarItem.title = @"News";
-    newsNavigationController.tabBarItem.image = [UIImage imageNamed:@"tabBar_essence_icon"];
-    newsNavigationController.tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_essence_click_icon"];
+    newsNavigationController.tabBarItem.title = ZLLocalizedString(@"news", @"动态");
+    newsNavigationController.tabBarItem.image = [UIImage imageNamed:@"tabBar_new_icon"];
+    newsNavigationController.tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_new_click_icon"];
     
     ZLBaseNavigationController *repositoriesNavigationController = self.childViewControllers[1];
-    repositoriesNavigationController.tabBarItem.title = @"repositories";
+    repositoriesNavigationController.tabBarItem.title = ZLLocalizedString(@"repositories", @"仓库");
     repositoriesNavigationController.tabBarItem.image = [UIImage imageNamed:@"tabBar_essence_icon"];
     repositoriesNavigationController.tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_essence_click_icon"];
     
     ZLBaseNavigationController *exploreNavigationController = self.childViewControllers[2];
-    exploreNavigationController.tabBarItem.title = @"explore";
-    exploreNavigationController.tabBarItem.image = [UIImage imageNamed:@"tabBar_essence_icon"];
-    exploreNavigationController.tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_essence_click_icon"];
+    exploreNavigationController.tabBarItem.title = ZLLocalizedString(@"explore", @"搜索");
+    exploreNavigationController.tabBarItem.image = [UIImage imageNamed:@"tabBar_me_icon"];
+    exploreNavigationController.tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_me_click_icon"];
     
     ZLBaseNavigationController *profileNavigationController = self.childViewControllers[3];
-    profileNavigationController.tabBarItem.title = @"profile";
-    profileNavigationController.tabBarItem.image = [UIImage imageNamed:@"tabBar_essence_icon"];
-    profileNavigationController.tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_essence_click_icon"];
+    profileNavigationController.tabBarItem.title = ZLLocalizedString(@"profile", @"我");
+    profileNavigationController.tabBarItem.image = [UIImage imageNamed:@"tabBar_friendTrends_icon"];
+    profileNavigationController.tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_friendTrends_click_icon"];
 }
 
+- (void) justReloadView
+{
+    ZLBaseNavigationController *newsNavigationController = self.childViewControllers[0];
+    newsNavigationController.tabBarItem.title = ZLLocalizedString(@"news", @"动态");
+    
+    ZLBaseNavigationController *repositoriesNavigationController = self.childViewControllers[1];
+    repositoriesNavigationController.tabBarItem.title = ZLLocalizedString(@"repositories", @"仓库");
+    
+    ZLBaseNavigationController *exploreNavigationController = self.childViewControllers[2];
+    exploreNavigationController.tabBarItem.title = ZLLocalizedString(@"explore", @"搜索");
+
+    ZLBaseNavigationController *profileNavigationController = self.childViewControllers[3];
+    profileNavigationController.tabBarItem.title = ZLLocalizedString(@"profile", @"我");
+}
+
+- (void) onNotificationArrived:(NSNotification *) notification
+{
+    if([ZLLanguageTypeChange_Notificaiton isEqualToString:notification.name])
+    {
+        [self justReloadView];
+    }
+}
 
 @end

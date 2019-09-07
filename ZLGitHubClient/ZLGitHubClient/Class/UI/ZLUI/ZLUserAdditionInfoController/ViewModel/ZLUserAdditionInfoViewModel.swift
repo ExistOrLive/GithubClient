@@ -180,9 +180,7 @@ extension ZLUserAdditionInfoViewModel
                 
                 ZLLog_Warn("get repos failed statusCode[\(errorModel.statusCode)] message[\(errorModel.message)]")
             }
-            
-            
-            }
+        }
         
         default:
             break;

@@ -18,8 +18,14 @@ class ZLExploreBaseView: UIView {
         super.awakeFromNib()
         
         self.topViewHeightConstraint.constant = self.topViewHeightConstraint.constant + ZLStatusBarHeight
-        self.searchButton.layer.cornerRadius = 20;
-        
+        self.searchButton.layer.cornerRadius = 3.0;
+        self.justReloadView()
+    }
+    
+    
+    func justReloadView()
+    {
+        self.searchButton.setTitle(ZLLocalizedString(string: "Search", comment: "搜索"), for: .normal)
     }
     
 }

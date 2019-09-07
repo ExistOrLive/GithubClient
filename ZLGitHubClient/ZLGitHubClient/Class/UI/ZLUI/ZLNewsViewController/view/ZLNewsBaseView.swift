@@ -15,7 +15,9 @@ class ZLNewsBaseView: ZLBaseView {
     override func awakeFromNib() {
         
         tableView.autoresizingMask = UIViewAutoresizing.init(rawValue: 0)
-//        tableView.register(<#T##cellClass: AnyClass?##AnyClass?#>, forCellReuseIdentifier: <#T##String#>)
+        tableView.register(UINib.init(nibName: "ZLNewsTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "ZLNewsTableViewCell")
+//        tableView.register(ZLNewsTableViewCell.self, forCellReuseIdentifier: "ZLNewsTableViewCell")
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
     }
 
 }

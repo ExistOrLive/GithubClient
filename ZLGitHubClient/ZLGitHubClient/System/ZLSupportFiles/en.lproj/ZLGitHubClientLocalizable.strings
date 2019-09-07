@@ -6,33 +6,33 @@
   Copyright © 2019 ZM. All rights reserved.
 */
 
-"repositories" = "repositories";
-"users" = "users";
-"commits" = "commits";
-"topics" = "topics";
-"issues" = "issues";
-"code" = "code";
-"gists" = "gists";
-"followers" = "followers";
-"following" = "following";
-"created at" = "created at";
-"fork" = "fork";
-"star" = "star";
-"owner" = "owner";
+"repositories" = "Repos";
+"users" = "Users";
+"commits" = "Commits";
+"topics" = "Topics";
+"issues" = "Issues";
+"code" = "Code";
+"gists" = "Gists";
+"followers" = "Followers";
+"following" = "Following";
+"created at" = "Created at";
+"fork" = "Fork";
+"star" = "Star";
+"owner" = "Owner";
 
-"company" = "company";
-"location" = "location";
-"email" = "email";
-"blog" = "blog";
-"setting" = "setting";
-"about" = "about";
-"feedback" = "feedback";
+"company" = "Company";
+"location" = "Location";
+"email" = "Email";
+"blog" = "Blog";
+"setting" = "Setting";
+"about" = "About";
+"feedback" = "Feedback";
 
 "lastest update" = "lastest update";
 "all update" = "all update";
 
 "login" = "login";
-"logout" = "logout";
+"logout" = "Logout";
 
 "fork :" = "fork :";
 "star :" = "star :";
@@ -57,4 +57,17 @@
 
 "update " = "update ";
 "news" = "News";
+"explore" = "Explore";
+"profile" = "Profile";
+
+
+"Language" = "Language";
+"SimpleChinese" = "Simple Chineses";
+"English" = "English";
+
+"Search" = "Search";
+
+"Cancel" = "Cancel";
+"Confirm" = "Confirm";
+"AreYouSureToLogout" = "Are You Sure to Logout? ";
 

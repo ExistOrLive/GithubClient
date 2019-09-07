@@ -11,8 +11,6 @@
 
 #import <Foundation/Foundation.h>
 
-static const NSNotificationName ZLLanguageChangeNotification =  @"ZLLanguageChangeNotification";
-
 typedef NS_ENUM(NSUInteger,ZLLanguageType) {
     ZLLanguageType_English = 0,
     ZLLanguageType_SimpleChinese
