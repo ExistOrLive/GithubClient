@@ -293,6 +293,7 @@ extension ZLWebContentView : WKUIDelegate,WKNavigationDelegate
         self.setGetResponseStatus()
     }
     
+
     
     func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
         ZLLog_Debug("ZLWebContentView: webView:didReceiveServerRedirectForProvisionalNavigation navigation[\(String(describing: navigation))]")
@@ -307,6 +308,8 @@ extension ZLWebContentView : WKUIDelegate,WKNavigationDelegate
         
         self.setFaildRequestStatus()
     }
+    
+    
     
 
     /**

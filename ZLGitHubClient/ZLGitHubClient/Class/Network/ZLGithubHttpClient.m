@@ -21,6 +21,8 @@
 #import "ZLReceivedEventModel.h"
 #import "ZLLoginProcessModel.h"
 
+static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
+
 @interface ZLGithubHttpClient()
 
 @property (nonatomic, strong) AFHTTPSessionManager * sessionManager;
@@ -52,6 +54,7 @@
     if(self = [super init])
     {
         _httpConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+        _httpConfig.HTTPShouldSetCookies = NO;      // 登陆cookie保存在NSUserDefaults中，需要手动设置
         _sessionManager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:_httpConfig];
         
         // 处理success，failed的队列
@@ -106,6 +109,18 @@
     }];
     
     self.sessionManager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    
+    // 设置cookies
+    NSArray * cookies = [self cookiesForCurrentLogin];
+    if([cookies count] > 0)
+    {
+        NSDictionary * cookiesHeader =  [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
+        
+        for(NSString * key in cookiesHeader.allKeys)
+        {
+            [self.sessionManager.requestSerializer setValue:[cookiesHeader objectForKey:key] forHTTPHeaderField:key];
+        }
+    }
     
     [self.sessionManager GET:urlStr parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
@@ -170,23 +185,26 @@
     // 设置接受的格式，否则默认body是以查询字符串的格式
     [self.sessionManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     
+    // 设置cookies
+    NSArray * cookies = [self cookiesForCurrentLogin];
+    if([cookies count] > 0)
+    {
+        NSDictionary * cookiesHeader =  [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
+        
+        for(NSString * key in cookiesHeader.allKeys)
+        {
+            [self.sessionManager.requestSerializer setValue:[cookiesHeader objectForKey:key] forHTTPHeaderField:key];
+        }
+    }
+    
     __weak typeof(self) weakSelf = self;
     void(^successBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
     ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
     {
-        NSArray * cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:GitHubMainURL]];
-        
-        NSString * userAccount = nil;
-        for(NSHTTPCookie * cookie in cookies)
-        {
-            if([@"dotcom_user" isEqualToString:cookie.name])
-            {
-                userAccount = cookie.value;
-            }
-        }
-        
+        NSString * userAccount = [self syncLoginCookiesToUsersDefaults];
         NSDictionary * dic = (NSDictionary *) responseObject;
         weakSelf.token = [dic objectForKey:@"access_token"];
+        
         [[ZLKeyChainManager sharedInstance] updateUserAccount:userAccount withAccessToken:weakSelf.token];
         
         ZLLoginProcessModel * processModel = [[ZLLoginProcessModel alloc] init];
@@ -231,6 +249,7 @@
         [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
     }
     
+    [self removeLoginCookies];
     [[ZLKeyChainManager sharedInstance] updateUserAccount:nil withAccessToken:nil];
     [[ZLKeyChainManager sharedInstance] updateUserHeadImageURL:nil];
         
@@ -798,4 +817,67 @@
     
     
 }
+
+
+#pragma mark - Cookies for login status
+
+/**
+ * 将Github中保存登陆信息的cookie 保存在NSUserDefaults中
+ *
+ **/
+- (NSString *) syncLoginCookiesToUsersDefaults
+{
+    // 将Cookies 保存到 NSUserDefaults中
+    NSArray * cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:GitHubMainURL]];
+    
+    if([cookies count] == 0)
+    {
+        return nil;
+    }
+    
+    
+    NSMutableDictionary * cookiesDic = [[NSUserDefaults standardUserDefaults] objectForKey:ZLGithubLoginCookiesKey];
+    if(cookiesDic == nil)
+    {
+        cookiesDic = [[NSMutableDictionary alloc] init];
+    }
+    
+    NSString * userAccount = nil;
+    for(NSHTTPCookie * cookie in cookies)
+    {
+        [cookiesDic setObject:[cookie properties] forKey:cookie.name];
+        
+        if([@"dotcom_user" isEqualToString:cookie.name])
+        {
+            userAccount = cookie.value;
+        }
+        [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
+    }
+    [[NSUserDefaults standardUserDefaults] setObject:cookiesDic forKey:ZLGithubLoginCookiesKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    return userAccount;
+}
+
+- (void) removeLoginCookies
+{
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:ZLGithubLoginCookiesKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSArray *) cookiesForCurrentLogin
+{
+    NSMutableDictionary * cookiesDic = [[NSUserDefaults standardUserDefaults] objectForKey:ZLGithubLoginCookiesKey];
+    NSMutableArray * cookiesArray = [[NSMutableArray alloc] init];
+    
+    for(NSDictionary * cookieProperty in cookiesDic.allValues)
+    {
+        [cookiesArray addObject:[NSHTTPCookie cookieWithProperties:cookieProperty]];
+    }
+    
+    return cookiesArray;
+}
+
+
+
 @end

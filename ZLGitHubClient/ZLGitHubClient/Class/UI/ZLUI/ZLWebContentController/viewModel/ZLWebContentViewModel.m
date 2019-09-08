@@ -20,6 +20,10 @@
 
 @implementation ZLWebContentViewModel
 
+- (void) dealloc
+{
+    [self clearCookiesForWkWebView];
+}
 
 - (void) bindModel:(id _Nullable) targetModel andView:(UIView *) targetView
 {
@@ -62,7 +66,14 @@
 }
 
 
-
+-(void) clearCookiesForWkWebView
+{
+    NSArray * types = @[WKWebsiteDataTypeCookies,WKWebsiteDataTypeSessionStorage];
+    NSSet * set = [NSSet setWithArray:types];
+ 
+    NSDate * date = [NSDate dateWithTimeIntervalSince1970:0];
+    [[WKWebsiteDataStore defaultDataStore] removeDataOfTypes:set modifiedSince:date completionHandler:^{}];
+}
 
 
 @end
