@@ -16,7 +16,8 @@ class ZLUserAdditionInfoViewModel: ZLBaseViewModel {
     var type : ZLUserAdditionInfoType?              // info类型
     var userInfo : ZLGithubUserModel?               // 用户信息
     var array : [Any]?                              // repo信息/gist信息/following信息
-    var currentPage : Int  =  0                    // 当前页号
+    var currentPage : Int  =  0                     // 当前页号
+    var serialNumber: String?                       // 当前请求的流水号
     
     // view
     var baseView : ZLUserAdditionInfoView?
@@ -59,14 +60,11 @@ class ZLUserAdditionInfoViewModel: ZLBaseViewModel {
         ZLAdditionInfoServiceModel.shared().registerObserver(self, selector: #selector(self.onNotificationArrived(notification:)), name: ZLGetFollowingResult_Notification)
         ZLAdditionInfoServiceModel.shared().registerObserver(self, selector: #selector(self.onNotificationArrived(notification:)), name: ZLGetFollowersResult_Notification)
         
-        ZLAdditionInfoServiceModel.shared().getAdditionInfo(forUser: self.userInfo!.loginName, infoType: self.type!, page:UInt(self.currentPage + 1), per_page:ZLUserAdditionInfoViewModel.per_page, serialNumber: "123");
+        self.serialNumber = NSString.generateSerialNumber()
+        ZLAdditionInfoServiceModel.shared().getAdditionInfo(forUser: self.userInfo!.loginName, infoType: self.type!, page:UInt(self.currentPage + 1), per_page:ZLUserAdditionInfoViewModel.per_page, serialNumber:self.serialNumber!);
         
         // 根据model 更新 UI
         self.setViewDataForUserAdditionInfoView(userInfo: self.userInfo!, type: self.type!, view: self.baseView!);
-        
-        // 设置为刷新状态
-        self.refreshManager?.setFooterViewRefreshing()
-        
     }
     
     
@@ -140,9 +138,15 @@ extension ZLUserAdditionInfoViewModel
             
             guard let notiPara: ZLOperationResultModel  = notification.params as? ZLOperationResultModel else
             {
-                self.refreshManager?.setFooterViewRefreshEnd()
                 return
             }
+            
+            if self.serialNumber == nil || notiPara.serialNumber != self.serialNumber!
+            {
+                return;
+            }
+            self.serialNumber = nil;
+            self.baseView?.indicatorView.isHidden = true
             
             if notiPara.result == true
             {
@@ -322,6 +326,9 @@ extension ZLUserAdditionInfoViewModel: UITableViewDelegate,UITableViewDataSource
 extension ZLUserAdditionInfoViewModel : ZMRefreshManagerDelegate
 {
     func zmRefreshIsDragUp(_ isDragUp: Bool, refreshView: UIView!) {
-        ZLAdditionInfoServiceModel.shared().getAdditionInfo(forUser: self.userInfo!.loginName, infoType: self.type!, page:UInt(self.currentPage + 1), per_page:ZLUserAdditionInfoViewModel.per_page, serialNumber: "123");
+        
+        self.serialNumber = NSString.generateSerialNumber()
+        
+        ZLAdditionInfoServiceModel.shared().getAdditionInfo(forUser: self.userInfo!.loginName, infoType: self.type!, page:UInt(self.currentPage + 1), per_page:ZLUserAdditionInfoViewModel.per_page, serialNumber: self.serialNumber!);
     }
 }
