@@ -18,13 +18,7 @@ static const NSString * ProfileViewController = @"ZLProfileViewController";
 
 + (UIViewController *)getZLMainViewController
 {
-    static UIViewController * mainViewController = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        mainViewController = [[SYDCentralFactory sharedInstance] getOneUIViewController:MainViewController];
-    });
-    
-    return mainViewController;
+    return [[SYDCentralFactory sharedInstance] getOneUIViewController:MainViewController];
 }
 
 + (UIViewController *)getZLNewsViewController
@@ -40,35 +34,17 @@ static const NSString * ProfileViewController = @"ZLProfileViewController";
 
 + (UIViewController *)getZLRepositoriesViewController
 {
-    static UIViewController * newsViewController = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        newsViewController = [[SYDCentralFactory sharedInstance] getOneUIViewController:RepositoriesViewController];
-    });
-    
-    return newsViewController;
+    return  [[SYDCentralFactory sharedInstance] getOneUIViewController:RepositoriesViewController];
 }
 
 + (UIViewController *)getZLExploreViewController
 {
-    static UIViewController * profileViewController = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        profileViewController = [[SYDCentralFactory sharedInstance] getOneUIViewController:ExploreViewController];
-    });
-    
-    return profileViewController;
+    return [[SYDCentralFactory sharedInstance] getOneUIViewController:ExploreViewController];
 }
 
 + (UIViewController *)getZLProfileViewController
 {
-    static UIViewController * profileViewController = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        profileViewController = [[SYDCentralFactory sharedInstance] getOneUIViewController:ProfileViewController];
-    });
-    
-    return profileViewController;
+    return [[SYDCentralFactory sharedInstance] getOneUIViewController:ProfileViewController];
 }
 
 

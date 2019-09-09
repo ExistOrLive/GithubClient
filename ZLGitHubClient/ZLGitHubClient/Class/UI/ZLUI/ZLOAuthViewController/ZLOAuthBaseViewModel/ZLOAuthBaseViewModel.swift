@@ -17,6 +17,10 @@ class ZLOAuthBaseViewModel: ZLBaseViewModel {
     
     var loginProcess :ZLLoginProcessModel?
     
+    deinit {
+        self.clearCookiesForWkWebView()
+    }
+    
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
         
         if !(targetView is ZLWebContentView)
@@ -34,7 +38,6 @@ class ZLOAuthBaseViewModel: ZLBaseViewModel {
         }
         
         self.loginProcess = loginProcess;
-        
         self.baseView?.webView?.load(loginProcess.loginRequest);
     }
     
@@ -53,9 +56,9 @@ extension ZLOAuthBaseViewModel: ZLWebContentViewDelegate
         if (navigationAction.request.url?.absoluteString ?? "").hasPrefix(OAuthCallBackURL)
         {
             // 登陆成功获取token
-            ZLLoginServiceModel.shared().getAccessToken(navigationAction.request.url!.query!, serialNumber: self.loginProcess!.serialNumber)
-            decisionHandler(.cancel)
+            decisionHandler(.allow)
             self.viewController?.dismiss(animated: true, completion: nil);
+         ZLLoginServiceModel.shared().getAccessToken(navigationAction.request.url!.query!, serialNumber: self.loginProcess!.serialNumber)
         }
         else
         {
@@ -68,9 +71,7 @@ extension ZLOAuthBaseViewModel: ZLWebContentViewDelegate
         
         ZLLog_Info("OAuth: shouldStartLoadWith \(String(describing: navigationResponse.response))");
         
-        let response = navigationResponse.response as! HTTPURLResponse
-        
-        ZLLog_Info("dasdadasdadass response \(String(describing: response.url?.absoluteString)) \(response.statusCode)")
+      //  let response = navigationResponse.response as! HTTPURLResponse
        
         decisionHandler(.allow)
     }
@@ -83,6 +84,26 @@ extension ZLOAuthBaseViewModel: ZLWebContentViewDelegate
         self.baseView?.webView?.stopLoading();
         self.viewController?.dismiss(animated: true, completion: nil);
     }
+    
+    
+    func clearCookiesForWkWebView()
+    {
+//            let types = [WKWebsiteDataTypeCookies,WKWebsiteDataTypeSessionStorage]
+//            let set = Set(types)
+//            let date = Date.init(timeIntervalSince1970: TimeInterval.init(0.0))
+//
+//            WKWebsiteDataStore.default().removeData(ofTypes: set, modifiedSince: date, completionHandler: {() in })
+        let path = NSHomeDirectory()
+        let cookiesPath = path + "/Library/Cookies"
+        do{
+            try FileManager.default.removeItem(atPath: cookiesPath)
+            
+        }
+        catch{
+                
+        }
+    }
+    
 }
 
 
