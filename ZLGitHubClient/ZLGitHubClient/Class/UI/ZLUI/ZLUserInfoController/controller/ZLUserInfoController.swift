@@ -52,7 +52,7 @@ class ZLUserInfoController: ZLBaseViewController {
         
         // bind view and viewModel
         self.viewModel.bindModel(self.userInfoModel, andView: baseView)
-    
+
     }
     
 
