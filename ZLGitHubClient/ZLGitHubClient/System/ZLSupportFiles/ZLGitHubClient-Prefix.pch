@@ -18,6 +18,8 @@
 
 #define ZLStatusBarHeight CGRectGetHeight([UIApplication sharedApplication].statusBarFrame)
 
+#define IS_IPhoneX ([UIScreen mainScreen].bounds.size.height == 812.0f || [UIScreen mainScreen].bounds.size.height == 896.0f)
+
 #pragma mark - swift module
 #import "ZLGitHubClient-Swift.h"
 

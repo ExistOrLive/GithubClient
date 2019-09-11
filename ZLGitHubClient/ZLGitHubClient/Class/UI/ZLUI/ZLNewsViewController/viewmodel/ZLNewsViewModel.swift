@@ -52,7 +52,9 @@ class ZLNewsViewModel: ZLBaseViewModel {
     override func vcLifeCycle_viewWillAppear() {
         super.vcLifeCycle_viewWillAppear()
         
-        // 每次界面将要展示时，更新数据
+        self.newsBaseView?.navTitle.text = ZLLocalizedString(string: "news", comment: "动态")
+        
+        //每次界面将要展示时，更新数据
         guard self.userInfo != nil else
         {
             return;
@@ -151,31 +153,40 @@ extension ZLNewsViewModel: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let data: ZLReceivedEventModel? = self.receivedEventArray?[indexPath.row] as? ZLReceivedEventModel
         
-        if let eventType: ZLReceivedEventType = data?.type
+        guard let eventType: ZLReceivedEventType = data?.type else
         {
-            switch eventType
-            {
-                case .pushEvent: do
-                {
-                    let payload: ZLPayloadModel? = data?.payload as? ZLPayloadModel
-                    let commitItems: [ZLCommitInfoModel]? = payload?.commits as? [ZLCommitInfoModel]
-            
-                    let commitCount: Int = commitItems?.count ?? 0
-                    let cellHeight = 140 + commitCount * 35;
-                    return CGFloat.init(cellHeight);
-                }
-                case .pullRequestEvent: do
-                {
-                    return 140
-                }
-                case .unKnow: do
-                {
-                    return 0
-                }
-            }
+            ZLLog_Info("eventType isn't ZLReceivedEventType")
+            return 0
         }
         
-        return 140
+        switch eventType
+        {
+            case .createEvent: do
+            {
+                 return 140
+            }
+            case .pushEvent: do
+            {
+                let payload: ZLPayloadModel? = data?.payload as? ZLPayloadModel
+                let commitItems: [ZLCommitInfoModel]? = payload?.commits as? [ZLCommitInfoModel]
+        
+                let commitCount: Int = commitItems?.count ?? 0
+                let cellHeight = 140 + commitCount * 35;
+                return CGFloat.init(cellHeight);
+            }
+            case .pullRequestEvent: do
+            {
+                return 140
+            }
+            case .watchEvent: do
+            {
+                return 140
+            }
+            case .unKnow: do
+            {
+                return 0
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -188,20 +199,38 @@ extension ZLNewsViewModel: UITableViewDelegate, UITableViewDataSource
         }
         
         tableViewCell.autoresizingMask = UIViewAutoresizing.init(rawValue: 0)
-        tableViewCell.frame = CGRect.init(x: 0, y: 0, width: tableViewCell.lc_with, height: 125.0)
+        tableViewCell.backgroundColor = UIColor.clear
         tableViewCell.avatarImageView.sd_setImage(with: URL.init(string: data?.actor.avatar_url ?? ""), placeholderImage: nil);
         tableViewCell.userNameLabel.text = data?.actor.login ?? "";
 
         let timeStr = NSString.init(format: "%@",(data?.created_at as NSDate?)?.dateLocalStrSinceCurrentTime() ?? "")
         tableViewCell.dateLabel.text = timeStr as String;
         
-        tableViewCell.layer.cornerRadius = 2;
-        tableViewCell.layer.masksToBounds = true;
+        tableViewCell.containView.layer.cornerRadius = 2
+        tableViewCell.containView.layer.masksToBounds = true
         
         if let eventType: ZLReceivedEventType = data?.type
         {
             switch eventType
             {
+                case .createEvent: do
+                {
+                    let createPayLoad: ZLCreateEventPayloadModel = data?.payload as! ZLCreateEventPayloadModel
+                    let refType: ZLReferenceType = createPayLoad.ref_type as ZLReferenceType
+                    let repoName: String = data?.repo.name ?? ""
+                    let mainContent: String
+                    
+                    if refType == ZLReferenceType.repository
+                    {
+                        mainContent = "Created repository " + repoName
+                    }
+                    else
+                    {
+                        mainContent = "Create tag " + repoName
+                    }
+
+                    tableViewCell.contentLabel.text = mainContent
+                }
                 case .pushEvent: do
                 {
                     let repoName: String = data?.repo.name ?? ""
@@ -215,7 +244,7 @@ extension ZLNewsViewModel: UITableViewDelegate, UITableViewDataSource
                     guard let commitItems: [ZLCommitInfoModel] = payload?.commits as? [ZLCommitInfoModel] else
                     {
                         ZLLog_Info("unWrap fail")
-                        return UITableViewCell()
+                        return tableViewCell
                     }
                     
                     let detailInfo: NSMutableAttributedString = NSMutableAttributedString.init()
@@ -257,14 +286,39 @@ extension ZLNewsViewModel: UITableViewDelegate, UITableViewDataSource
                         tableViewCell.contentLabel.text = "Closed pull request " + (data?.repo.name)!
                     }
                 }
+                case .watchEvent: do
+                {
+                    let watchPayLoad: ZLWatchEventPayloadModel = data?.payload as! ZLWatchEventPayloadModel
+                    let repoName: String = data?.repo.name ?? ""
+                    let mainContent: String
+                    
+                    if watchPayLoad.action == "started"
+                    {
+                        mainContent = "Starred " + repoName
+                    }
+                    else
+                    {
+                        mainContent = "UnKnow operation"
+                    }
+                
+                    tableViewCell.contentLabel.text = mainContent
+                }
                 case .unKnow: do
                 {
-                    return UITableViewCell()
+                    ZLLog_Info("")
                 }
             }
         }
+        else
+        {
+            ZLLog_Info("")
+        }
         
         return tableViewCell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(indexPath)
     }
 }
 

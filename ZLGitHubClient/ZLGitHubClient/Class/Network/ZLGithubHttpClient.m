@@ -761,17 +761,29 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
     {
         NSArray * array = [[ZLReceivedEventModel mj_objectArrayWithKeyValuesArray:responseObject] copy];
+        NSMutableArray *usefulDataArray = [[NSMutableArray alloc] init];
         
         if(array && array.count > 0)
         {
             for (ZLReceivedEventModel *eventModel in array)
             {
-                
+                if(eventModel.type != ZLReceivedEventType_CreateEvent &&
+                   eventModel.type != ZLReceivedEventType_PushEvent &&
+                   eventModel.type != ZLReceivedEventType_PullRequestEvent &&
+                   eventModel.type != ZLReceivedEventType_WatchEvent)
+                {
+                    continue;
+                }
                 
                 NSDictionary *dic = eventModel.payload;
                 if (dic.count > 0)
                 {
-                    if(eventModel.type == ZLReceivedEventType_PushEvent)
+                    if(eventModel.type == ZLReceivedEventType_CreateEvent)
+                    {
+                        ZLCreateEventPayloadModel *createEventPayload = [ZLCreateEventPayloadModel mj_objectWithKeyValues:dic];
+                        eventModel.payload = createEventPayload;
+                    }
+                    else if(eventModel.type == ZLReceivedEventType_PushEvent)
                     {
                         ZLPayloadModel *tempPayloadModel = [ZLPayloadModel mj_objectWithKeyValues:dic];
                         NSArray *commitArray = [ZLCommitInfoModel mj_objectArrayWithKeyValuesArray: tempPayloadModel.commits];
@@ -782,15 +794,22 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                     {
                         //TODO::
                     }
+                    else if (eventModel.type == ZLReceivedEventType_WatchEvent)
+                    {
+                        ZLWatchEventPayloadModel *watchEventPayload = [ZLWatchEventPayloadModel mj_objectWithKeyValues:dic];
+                        eventModel.payload = watchEventPayload;
+                    }
                     else
                     {
-                        
+                        //TODO:: 这是其他类型的解析
                     }
                 }
+                
+                [usefulDataArray addObject:eventModel];
             }
         }
         
-        block(YES,array,serialNumber);
+        block(YES,[usefulDataArray copy],serialNumber);
     };
     
     void(^failedBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
@@ -836,7 +855,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     }
     
     
-    NSMutableDictionary * cookiesDic = [[NSUserDefaults standardUserDefaults] objectForKey:ZLGithubLoginCookiesKey];
+    NSMutableDictionary * cookiesDic = [[[NSUserDefaults standardUserDefaults] objectForKey:ZLGithubLoginCookiesKey] mutableCopy];
     if(cookiesDic == nil)
     {
         cookiesDic = [[NSMutableDictionary alloc] init];
