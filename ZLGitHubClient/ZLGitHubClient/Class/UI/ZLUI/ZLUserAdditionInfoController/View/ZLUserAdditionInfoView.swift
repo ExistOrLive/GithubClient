@@ -26,6 +26,9 @@ class ZLUserAdditionInfoView: UIView {
     
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var indicatorView: UIView!
+    
+    
     // 修改类型，同时修改tableviewcell类型
     var viewType : ZLUserAdditionInfoViewType = .repositories
     {
@@ -68,5 +71,7 @@ class ZLUserAdditionInfoView: UIView {
         }
         
     }
+    
+    
     
 }
