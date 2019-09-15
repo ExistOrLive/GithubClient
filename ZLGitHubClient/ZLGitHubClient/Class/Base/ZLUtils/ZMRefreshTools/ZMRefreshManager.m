@@ -156,6 +156,33 @@
     }
 }
 
+- (void) resetHeaderViewInit
+{
+    [_headerView updateRefreshState:ZMRefreshState_Init];
+    _scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+}
+
+- (void) resetFooterViewInit
+{
+    [_footerView updateRefreshState:ZMRefreshState_Init];
+    _scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+}
+
+
+- (void) resetHeaderViewNoMoreFresh
+{
+    [_headerView updateRefreshState:ZMRefreshState_NoMoreRefresh];
+    _scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+}
+
+- (void) resetFooterViewNoMoreFresh
+{
+    [_footerView updateRefreshState:ZMRefreshState_NoMoreRefresh];
+    _scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+}
+
+
+
 - (void) resetScrollViewContentInset
 {
     [UIView animateWithDuration:0.1 animations:^{

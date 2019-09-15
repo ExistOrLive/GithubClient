@@ -37,7 +37,6 @@
 #import "ZLGithubRepositoryModel.h"
 
 // tmp Model
-#import "ZLLoginResultModel.h"
 #import "ZLOperationResultModel.h"
 
 #import "ZLGithubRequestErrorModel.h"

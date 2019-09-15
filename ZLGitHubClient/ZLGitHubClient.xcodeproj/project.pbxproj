@@ -83,7 +83,6 @@
 		74BD10C022CBB64400FAE0EB /* ZLVideoViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 74BD10BF22CBB64400FAE0EB /* ZLVideoViewModel.m */; };
 		74BED25922DF772F006B07C1 /* ZLBaseServiceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 74BED25822DF772F006B07C1 /* ZLBaseServiceModel.m */; };
 		74BED25C22DF86C5006B07C1 /* ZLUserServiceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 74BED25B22DF86C5006B07C1 /* ZLUserServiceModel.m */; };
-		74BED26222E01179006B07C1 /* ZLLoginResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 74BED26122E01179006B07C1 /* ZLLoginResultModel.m */; };
 		74BEF59F22F2D75900FD1738 /* ZLUserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BEF59D22F2D75900FD1738 /* ZLUserTableViewCell.swift */; };
 		74BEF5A022F2D75900FD1738 /* ZLUserTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74BEF59E22F2D75900FD1738 /* ZLUserTableViewCell.xib */; };
 		74BEF5AA22F303D700FD1738 /* ZMRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 74BEF5A522F303D700FD1738 /* ZMRefreshView.m */; };
@@ -284,8 +283,6 @@
 		74BED25A22DF86C5006B07C1 /* ZLUserServiceModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLUserServiceModel.h; sourceTree = "<group>"; };
 		74BED25B22DF86C5006B07C1 /* ZLUserServiceModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLUserServiceModel.m; sourceTree = "<group>"; };
 		74BED25D22E00E2A006B07C1 /* ZLLoginServiceHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLLoginServiceHeader.h; sourceTree = "<group>"; };
-		74BED26022E01179006B07C1 /* ZLLoginResultModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLLoginResultModel.h; sourceTree = "<group>"; };
-		74BED26122E01179006B07C1 /* ZLLoginResultModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLLoginResultModel.m; sourceTree = "<group>"; };
 		74BED26422E01DAA006B07C1 /* ZLDBModuleProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLDBModuleProtocol.h; sourceTree = "<group>"; };
 		74BED26522E023B7006B07C1 /* ZLUserServiceHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLUserServiceHeader.h; sourceTree = "<group>"; };
 		74BEF59D22F2D75900FD1738 /* ZLUserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLUserTableViewCell.swift; sourceTree = "<group>"; };
@@ -1080,8 +1077,6 @@
 		74BED25F22E01159006B07C1 /* tmpModel */ = {
 			isa = PBXGroup;
 			children = (
-				74BED26022E01179006B07C1 /* ZLLoginResultModel.h */,
-				74BED26122E01179006B07C1 /* ZLLoginResultModel.m */,
 				74D7B60B22F178CB00C109CA /* ZLGithubRequestErrorModel.h */,
 				74D7B60C22F178CB00C109CA /* ZLGithubRequestErrorModel.m */,
 				74D0426D22FC5F5800119E2F /* ZLSearchFilterInfoModel.h */,
@@ -1711,7 +1706,6 @@
 				74C3F8C922D1E2DB0086A3F9 /* ZLLoginViewModel.swift in Sources */,
 				74FCBDA623142F1300DDE46A /* ZLEditProfileController.swift in Sources */,
 				74D7B60922F16F8200C109CA /* ZLAdditionInfoServiceModel.m in Sources */,
-				74BED26222E01179006B07C1 /* ZLLoginResultModel.m in Sources */,
 				748905C0222EBA16003562E1 /* ZLTextView.m in Sources */,
 				748905C1222EBA16003562E1 /* ZLTextViewCoreData.m in Sources */,
 				743425C7230AC6AD0031AD7D /* ZLRepoInfoController.swift in Sources */,
@@ -1978,7 +1972,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = U6M3H59V7X;
+				DEVELOPMENT_TEAM = 24LG5QVBPR;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ZLGitHubClient/System/ZLSupportFiles/ZLGitHubClient-Prefix.pch";
@@ -2007,7 +2001,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = U6M3H59V7X;
+				DEVELOPMENT_TEAM = 24LG5QVBPR;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ZLGitHubClient/System/ZLSupportFiles/ZLGitHubClient-Prefix.pch";

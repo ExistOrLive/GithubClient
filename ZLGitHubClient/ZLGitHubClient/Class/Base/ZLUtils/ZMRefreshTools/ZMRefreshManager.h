@@ -43,5 +43,12 @@
 - (void) setHeaderViewNoMoreFresh;
 - (void) setFooterViewNoMoreFresh;
 
+// 强制修改refresh的状态，无动画
+- (void) resetHeaderViewInit;
+- (void) resetFooterViewInit;
+
+- (void) resetHeaderViewNoMoreFresh;
+- (void) resetFooterViewNoMoreFresh;
+
 
 @end
