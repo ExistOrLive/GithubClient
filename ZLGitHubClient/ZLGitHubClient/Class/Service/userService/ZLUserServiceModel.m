@@ -14,7 +14,6 @@
 #import "ZLGithubHttpClient.h"
 
 // model
-#import "ZLLoginResultModel.h"
 
 @interface ZLUserServiceModel()
 {

@@ -12,9 +12,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSInteger, ZLReceivedEventType)
 {
+    ZLReceivedEventType_CreateEvent,
     ZLReceivedEventType_PushEvent,
     ZLReceivedEventType_PullRequestEvent,
+    ZLReceivedEventType_WatchEvent,
     ZLReceivedEventType_UnKnow
+};
+
+typedef NS_ENUM(NSInteger, ZLReferenceType)
+{
+    ZLReferenceType_Repository,
+    ZLReferenceType_Tag
 };
 
 @interface ZLEventActorModel : NSObject
@@ -46,6 +54,7 @@ typedef NS_ENUM(NSInteger, ZLReceivedEventType)
 
 @end
 
+//PullEventPayload
 @interface ZLPayloadModel : NSObject
 
 @property (nonatomic, assign) NSInteger push_id;
@@ -57,6 +66,25 @@ typedef NS_ENUM(NSInteger, ZLReceivedEventType)
 @property (nonatomic, strong) id commits;
 
 @end
+
+//WatchEventPayload
+@interface ZLWatchEventPayloadModel : NSObject
+
+@property (nonatomic, strong) NSString *action;     //! 目前只有stared
+
+@end
+
+//CreateEventPayload
+@interface ZLCreateEventPayloadModel : NSObject
+
+@property (nonatomic, strong) NSString *ref;             //! 提交的sha
+@property (nonatomic, assign) ZLReferenceType ref_type;  //! 目前有两种类型：repository、tag
+@property (nonatomic, strong) NSString *master_branch;   //! 默认是master
+@property (nonatomic, strong) NSString *description;
+@property (nonatomic, strong) NSString *pusher_type;
+
+@end
+
 
 @interface ZLGitHubOrgModel : NSObject
 

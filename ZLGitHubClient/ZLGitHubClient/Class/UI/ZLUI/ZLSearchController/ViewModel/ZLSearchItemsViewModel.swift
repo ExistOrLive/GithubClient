@@ -8,20 +8,38 @@
 
 import UIKit
 
+class ZLSearchTypeAttachInfo: NSObject
+{
+    var searchFilterInfo : ZLSearchFilterInfoModel? = nil               // 默认为空
+    var currentPage: Int = 0                                            // 默认为0
+    var itemsInfo : [Any]?                                              // 搜索的结果
+    var isEnd : Bool  = false                                           // 是否全部搜索完毕
+    
+    var contentOffset : CGPoint = CGPoint(x:0,y:0)            // tableView的contentSize
+    
+}
+
+
+
 class ZLSearchItemsViewModel: ZLBaseViewModel {
+    
+    
+    static let per_page : Int = 10
+    
+    //  static let searchTypes:[ZLSearchType] = [.repositories,.users,.commits,.issues,.code,.topics]
+    static let searchTypes:[ZLSearchType] = [.repositories,.users]
 
     // view
     private var searchItemsView : ZLSearchItemsView?
     private var refreshManager: ZMRefreshManager?
     
     // model
-    static let per_page : Int = 10
     var keyWord : String = ""                                           // 搜索关键字
     var currentSearchType : ZLSearchType = .repositories                // 当前搜索类型
-    var searchFilterInfo : ZLSearchFilterInfoModel? = nil               // 默认为空
-    var currentPage: Int = 0                                                 // 默认为0
     
-    var itemsInfo : [Any]?                                              // 搜索的结果
+    var searchTypeAttachInfos : [ZLSearchType:ZLSearchTypeAttachInfo]?  //
+    
+    var serialNumber : String?                // 流水号
     
     deinit {
         ZLSearchServiceModel.shared().unRegisterObserver(self, name: ZLSearchResult_Notification)
@@ -37,12 +55,25 @@ class ZLSearchItemsViewModel: ZLBaseViewModel {
         }
         
         self.searchItemsView = targetView as? ZLSearchItemsView
+        self.searchItemsView?.delegate = self
+        
+        self.searchTypeAttachInfos = [ZLSearchType:ZLSearchTypeAttachInfo]()
+        for type in ZLSearchItemsViewModel.searchTypes
+        {
+            self.searchTypeAttachInfos?.updateValue(ZLSearchTypeAttachInfo(), forKey: type)
+        }
         
         self.searchItemsView?.tableView.delegate = self
         self.searchItemsView?.tableView.dataSource = self
         
         self.searchItemsView?.searchTypeCollectionView.delegate = self
         self.searchItemsView?.searchTypeCollectionView.dataSource = self
+        
+        self.refreshManager = ZMRefreshManager.init(scrollView: self.searchItemsView!.tableView, addHeaderView: false, addFooterView: true);
+        self.refreshManager?.delegate = self
+        
+        // 初始时，没有数据，隐藏tableView，避免滑动refresh
+        self.searchItemsView?.tableView.isHidden = true
         
         ZLSearchServiceModel.shared().registerObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLSearchResult_Notification)
         
@@ -51,11 +82,12 @@ class ZLSearchItemsViewModel: ZLBaseViewModel {
     
     func startSearch(keyWord:String?)
     {
-        
         // 更换关键字，一切状态重置
-        self.currentPage = 0
-        self.refreshManager?.setFooterViewRefreshEnd() // 设置refresh为init状态
-        self.itemsInfo = nil
+        for type in ZLSearchItemsViewModel.searchTypes
+        {
+            self.searchTypeAttachInfos?.updateValue(ZLSearchTypeAttachInfo(), forKey: type)
+        }
+        self.refreshManager?.resetFooterViewInit()// 设置refresh为init状态
         self.searchItemsView?.tableView.reloadData()
         
         if keyWord == nil || keyWord! == ""
@@ -78,7 +110,8 @@ class ZLSearchItemsViewModel: ZLBaseViewModel {
 extension ZLSearchItemsViewModel: UITableViewDelegate,UITableViewDataSource
 {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.itemsInfo?.count ?? 0;
+        let currentSearchTypeAttachInfo = self.searchTypeAttachInfos?[self.currentSearchType]
+        return currentSearchTypeAttachInfo?.itemsInfo?.count ?? 0;
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -100,7 +133,9 @@ extension ZLSearchItemsViewModel: UITableViewDelegate,UITableViewDataSource
         {
         case .repositories:do{
             let tableViewCell: ZLRepositoryTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLRepositoryTableViewCell", for: indexPath) as! ZLRepositoryTableViewCell
-            guard let itemInfo : ZLGithubRepositoryModel = self.itemsInfo![indexPath.row] as? ZLGithubRepositoryModel else
+            let currentSearchTypeAttachInfo = self.searchTypeAttachInfos?[self.currentSearchType]
+        
+            guard let itemInfo : ZLGithubRepositoryModel = currentSearchTypeAttachInfo!.itemsInfo![indexPath.row] as? ZLGithubRepositoryModel else
             {
                 return tableViewCell;
             }
@@ -118,7 +153,8 @@ extension ZLSearchItemsViewModel: UITableViewDelegate,UITableViewDataSource
         case .users:do{
             
             let tableViewCell: ZLUserTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLUserTableViewCell", for: indexPath) as! ZLUserTableViewCell
-            guard let itemInfo : ZLGithubUserModel = self.itemsInfo![indexPath.row] as? ZLGithubUserModel else
+              let currentSearchTypeAttachInfo = self.searchTypeAttachInfos?[self.currentSearchType]
+            guard let itemInfo : ZLGithubUserModel = currentSearchTypeAttachInfo!.itemsInfo![indexPath.row] as? ZLGithubUserModel else
             {
                 return tableViewCell;
             }
@@ -145,15 +181,16 @@ extension ZLSearchItemsViewModel: UITableViewDelegate,UITableViewDataSource
         switch(self.currentSearchType)
         {
         case .repositories:do{
-            let item : ZLGithubRepositoryModel = self.itemsInfo![indexPath.row] as! ZLGithubRepositoryModel
+            let currentSearchTypeAttachInfo = self.searchTypeAttachInfos?[self.currentSearchType]
+            let item : ZLGithubRepositoryModel = currentSearchTypeAttachInfo!.itemsInfo![indexPath.row] as! ZLGithubRepositoryModel
             let vc = ZLRepoInfoController.init(repoInfoModel: item)
             self.viewController?.navigationController?.pushViewController(vc, animated: false)
             
             break;
             }
         case .users:do{
-            
-            let item : ZLGithubUserModel = self.itemsInfo![indexPath.row] as! ZLGithubUserModel
+            let currentSearchTypeAttachInfo = self.searchTypeAttachInfos?[self.currentSearchType]
+            let item : ZLGithubUserModel = currentSearchTypeAttachInfo!.itemsInfo![indexPath.row] as! ZLGithubUserModel
             let vc = ZLUserInfoController.init(userInfoModel: item)
             self.viewController?.navigationController?.pushViewController(vc, animated: false)
             
@@ -167,30 +204,58 @@ extension ZLSearchItemsViewModel: UITableViewDelegate,UITableViewDataSource
     }
 }
 
+// MARK: UICollectionViewDelegate,UICollectionViewDataSource
 extension ZLSearchItemsViewModel: UICollectionViewDelegate,UICollectionViewDataSource
 {
-  //  static let searchTypes:[ZLSearchType] = [.repositories,.users,.commits,.issues,.code,.topics]
-    static let searchTypes:[ZLSearchType] = [.repositories,.users]
+
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return ZLSearchItemsViewModel.searchTypes.count
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.currentSearchType = ZLSearchItemsViewModel.searchTypes[indexPath.row]
-        self.searchItemsView?.searchTypeCollectionView.reloadData()
         
-        self.currentPage = 0;
-        self.itemsInfo = nil
-        self.refreshManager?.setFooterViewRefreshEnd() // 设置refresh为init状态
+        let preSearchTypeAttachInfo = self.searchTypeAttachInfos![self.currentSearchType]
+        preSearchTypeAttachInfo?.contentOffset = self.searchItemsView?.tableView.contentOffset ?? CGPoint(x: 0, y: 0)
+        
+
+        self.currentSearchType = ZLSearchItemsViewModel.searchTypes[indexPath.row]
+        self.serialNumber = nil
+        self.searchItemsView?.searchTypeCollectionView.reloadData()
+        self.searchItemsView?.indicatorBackView.isHidden = true
+        self.searchItemsView?.activityIndicator.stopAnimating()
+        
+        let currentSearchTypeInfo = self.searchTypeAttachInfos![self.currentSearchType]
         self.searchItemsView?.tableView.reloadData()
         
-        if self.keyWord != ""
+        if currentSearchTypeInfo?.itemsInfo?.count ?? 0 == 0 && currentSearchTypeInfo?.isEnd == false
+        {
+            self.searchItemsView?.tableView.isHidden = true
+        }
+        else
+        {
+            self.searchItemsView?.tableView.isHidden = false
+        }
+        
+        if currentSearchTypeInfo?.isEnd == true
+        {
+            self.refreshManager?.resetFooterViewNoMoreFresh()
+        }
+        else
+        {
+            self.refreshManager?.resetFooterViewInit()
+        }
+        
+        if self.keyWord != "" &&
+            currentSearchTypeInfo?.isEnd ?? false == false &&
+            currentSearchTypeInfo?.itemsInfo?.count ?? 0 == 0
         {
             self.searchItemsView?.indicatorBackView.isHidden = false
             self.searchItemsView?.activityIndicator.startAnimating()
             self.searchFromServer()
         }
+        
+        self.searchItemsView?.tableView.setContentOffset(currentSearchTypeInfo!.contentOffset, animated: false)
 
     }
     
@@ -237,19 +302,29 @@ extension ZLSearchItemsViewModel: UICollectionViewDelegate,UICollectionViewDataS
 }
 
 
-//MARK : ZLRefreshManagerDelegate
+// MARK: ZLRefreshManagerDelegate
 extension ZLSearchItemsViewModel: ZMRefreshManagerDelegate
 {
     func zmRefreshIsDragUp(_ isDragUp: Bool, refreshView: UIView!) {
         
-        if self.currentPage == 0 || self.keyWord == ""
-        {
-            ZLLog_Info("current page = 0 or keyword is nil,return")
-            self.refreshManager?.setFooterViewRefreshEnd()
-            return
-        }
+//        if self.currentPage == 0 || self.keyWord == ""
+//        {
+//            ZLLog_Info("current page = 0 or keyword is nil,return")
+//            self.refreshManager?.setFooterViewRefreshEnd()
+//            return
+//        }
         
         self.searchFromServer()
+    }
+}
+
+
+// MARK: ZLSearchItemsViewDelegate
+extension ZLSearchItemsViewModel: ZLSearchItemsViewDelegate
+{
+    func onFilterButtonClicked(button : UIButton)
+    {
+        self.super?.getEvent(ZLSearchViewEventType.filterButtonClicked, fromSubViewModel: self)
     }
 }
 
@@ -258,7 +333,17 @@ extension ZLSearchItemsViewModel
 {
     func searchFromServer()
     {
-        ZLSearchServiceModel.shared().searchInfo(withKeyWord: self.keyWord, type: self.currentSearchType, filterInfo: self.searchFilterInfo, page: UInt(self.currentPage + 1), per_page: UInt(ZLSearchItemsViewModel.per_page), serialNumber: "123")
+        let searchTypeAttachInfo = self.searchTypeAttachInfos?[self.currentSearchType]
+        
+        if searchTypeAttachInfo != nil
+        {
+            self.serialNumber = NSString.generateSerialNumber()
+            ZLSearchServiceModel.shared().searchInfo(withKeyWord: self.keyWord, type: self.currentSearchType, filterInfo: searchTypeAttachInfo!.searchFilterInfo, page: UInt(searchTypeAttachInfo!.currentPage + 1), per_page: UInt(ZLSearchItemsViewModel.per_page), serialNumber: self.serialNumber!)
+        }
+        else
+        {
+            ZLLog_Warn("searchTypeAttachInfo for \(self.currentSearchType) is nil");
+        }
     }
     
     
@@ -269,18 +354,18 @@ extension ZLSearchItemsViewModel
             
             guard let notiPara: ZLOperationResultModel  = notification.params as? ZLOperationResultModel else
             {
-                self.searchItemsView?.indicatorBackView.isHidden = true
-                self.searchItemsView?.activityIndicator.stopAnimating()
-                self.refreshManager?.setFooterViewRefreshEnd()
+                ZLLog_Warn("notiPara is not ZLOperationResultModel, so return")
                 return
             }
             
-            // refreshManager为空时，创建
-            if self.refreshManager == nil
+            if self.serialNumber == nil || self.serialNumber! != notiPara.serialNumber
             {
-                self.refreshManager = ZMRefreshManager.init(scrollView: self.searchItemsView!.tableView, addHeaderView: false, addFooterView: true);
-                self.refreshManager?.delegate = self
+                ZLLog_Warn("notiPara serialNumber \(notiPara.serialNumber) not match serialNumber \(String(describing: self.serialNumber))")
+                return
             }
+            
+            self.searchItemsView?.indicatorBackView.isHidden = true
+            self.searchItemsView?.activityIndicator.stopAnimating()
             
             if notiPara.result == true
             {
@@ -291,29 +376,41 @@ extension ZLSearchItemsViewModel
                     return
                 }
                 
+                let searchTypeAttachInfo = self.searchTypeAttachInfos?[self.currentSearchType]
+                
+                if searchTypeAttachInfo == nil
+                {
+                    return
+                }
+                
                 if searchResult.data.count > 0
                 {
-                    self.currentPage = self.currentPage + 1
-                    
-                    self.searchItemsView?.indicatorBackView.isHidden = true
-                    self.searchItemsView?.activityIndicator.stopAnimating()
+                    searchTypeAttachInfo!.currentPage = searchTypeAttachInfo!.currentPage + 1
                     self.refreshManager?.setFooterViewRefreshEnd()
                 }
                 else
                 {
-                    self.searchItemsView?.indicatorBackView.isHidden = true
-                    self.searchItemsView?.activityIndicator.stopAnimating()
+                    searchTypeAttachInfo?.isEnd = true
                     self.refreshManager?.setFooterViewNoMoreFresh()
-                    return;
+                    //return;
                 }
                 
-                if self.itemsInfo == nil
+                if searchTypeAttachInfo!.itemsInfo == nil
                 {
-                    self.itemsInfo = (searchResult.data as NSArray).mutableCopy() as? [Any]
+                    searchTypeAttachInfo!.itemsInfo = (searchResult.data as NSArray).mutableCopy() as? [Any]
                 }
                 else
                 {
-                    self.itemsInfo?.append(contentsOf: searchResult.data)
+                    searchTypeAttachInfo!.itemsInfo!.append(contentsOf: searchResult.data)
+                }
+                
+                if searchTypeAttachInfo!.itemsInfo?.count ?? 0 == 0 && searchTypeAttachInfo?.isEnd == false
+                {
+                    self.searchItemsView?.tableView.isHidden = true
+                }
+                else
+                {
+                    self.searchItemsView?.tableView.isHidden = false
                 }
                 self.searchItemsView?.tableView.reloadData()
             }

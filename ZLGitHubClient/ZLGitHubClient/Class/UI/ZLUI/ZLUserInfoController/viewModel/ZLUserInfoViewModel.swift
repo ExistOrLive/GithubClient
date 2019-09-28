@@ -51,7 +51,7 @@ class ZLUserInfoViewModel: ZLBaseViewModel {
     
     
     @IBAction func onBackButtonClicked(_ sender: Any) {
-        self.viewController?.navigationController?.popViewController(animated: false)
+        self.viewController?.navigationController?.popViewController(animated: true)
     }
     
     
@@ -59,7 +59,7 @@ class ZLUserInfoViewModel: ZLBaseViewModel {
         let vc = ZLUserAdditionInfoController.init()
         vc.userInfo = self.userInfoModel
         vc.type = .repositories
-        self.viewController?.navigationController?.pushViewController(vc, animated: false)
+        self.viewController?.navigationController?.pushViewController(vc, animated: true)
         
     }
     
@@ -67,21 +67,21 @@ class ZLUserInfoViewModel: ZLBaseViewModel {
         let vc = ZLUserAdditionInfoController.init()
         vc.userInfo = self.userInfoModel
         vc.type = .gists
-        self.viewController?.navigationController?.pushViewController(vc, animated: false)
+        self.viewController?.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func onFollowsButtonClicked(_ sender: Any) {
         let vc = ZLUserAdditionInfoController.init()
         vc.userInfo = self.userInfoModel
         vc.type = .followers
-        self.viewController?.navigationController?.pushViewController(vc, animated: false)
+        self.viewController?.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func onFollowingsButtonClicked(_ sender: Any) {
         let vc = ZLUserAdditionInfoController.init()
         vc.userInfo = self.userInfoModel
         vc.type = .following
-        self.viewController?.navigationController?.pushViewController(vc, animated: false)
+        self.viewController?.navigationController?.pushViewController(vc, animated: true)
     }
     
     

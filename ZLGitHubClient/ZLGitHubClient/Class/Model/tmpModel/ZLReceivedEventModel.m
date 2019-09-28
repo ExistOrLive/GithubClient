@@ -33,7 +33,34 @@
 
 @end
 
+//PullEventPayload
 @implementation ZLPayloadModel
+
+@end
+
+//WatchEventPayload
+@implementation ZLWatchEventPayloadModel
+
+@end
+
+//CreateEventPayload
+@implementation ZLCreateEventPayloadModel
+
+- (id)mj_newValueFromOldValue:(id)oldValue property:(MJProperty *)property
+{
+    if([property.name isEqualToString:@"ref_type"])
+    {
+        if([oldValue isEqualToString:@"repository"])
+        {
+            return [NSNumber numberWithInteger:ZLReferenceType_Repository];
+        }
+        else
+        {
+            return [NSNumber numberWithInteger:ZLReferenceType_Tag];
+        }
+    }
+    return oldValue;
+}
 
 @end
 
@@ -69,18 +96,26 @@
     }
     else if([property.name isEqualToString:@"type"])
     {
-       if([oldValue isEqualToString:@"PushEvent"])
-       {
+        if([oldValue isEqualToString:@"CreateEvent"])
+        {
+            return [NSNumber numberWithInteger:ZLReceivedEventType_CreateEvent];
+        }
+        else if([oldValue isEqualToString:@"PushEvent"])
+        {
            return [NSNumber numberWithInteger:ZLReceivedEventType_PushEvent];
-       }
-       else if([oldValue isEqualToString:@"PullRequestEvent"])
-       {
+        }
+        else if([oldValue isEqualToString:@"PullRequestEvent"])
+        {
            return [NSNumber numberWithInteger:ZLReceivedEventType_PullRequestEvent];
-       }
-       else
-       {
+        }
+        else if([oldValue isEqualToString:@"WatchEvent"])
+        {
+           return [NSNumber numberWithInteger:ZLReceivedEventType_WatchEvent];
+        }
+        else
+        {
            return [NSNumber numberWithInteger:ZLReceivedEventType_UnKnow];
-       }
+        }
     }
     
     return oldValue;

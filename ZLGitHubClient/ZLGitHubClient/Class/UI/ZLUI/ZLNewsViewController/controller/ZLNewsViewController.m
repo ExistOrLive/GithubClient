@@ -27,13 +27,18 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.title = ZLLocalizedString(@"news", @"动态");
     
     self.viewModel = [[ZLNewsViewModel alloc] initWithViewController:self];
     self.baseView = [[NSBundle mainBundle] loadNibNamed:@"ZLNewsBaseView" owner:self options:nil].firstObject;
     [self.baseView setFrame:ZLScreenBounds];
     [self.view addSubview:self.baseView];
     [self.viewModel bindModel:nil andView:self.baseView];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear: animated];
+    self.navigationController.navigationBarHidden = YES;
 }
 
 - (void)didReceiveMemoryWarning {

@@ -8,7 +8,14 @@
 
 import UIKit
 
+@objc protocol ZLSearchItemsViewDelegate : NSObjectProtocol
+{
+    func onFilterButtonClicked(button : UIButton)
+}
+
 class ZLSearchItemsView: ZLBaseView {
+    
+    var delegate : ZLSearchItemsViewDelegate?
 
     @IBOutlet weak var searchTypeCollectionView: UICollectionView!
     @IBOutlet weak var searchTypeCollectionLayout: UICollectionViewFlowLayout!
@@ -31,5 +38,13 @@ class ZLSearchItemsView: ZLBaseView {
     }
     
     
+    @IBAction func onFilterViewClicked(_ sender: Any) {
+        
+        if self.delegate?.responds(to: #selector(ZLSearchItemsViewDelegate.onFilterButtonClicked(button:))) ?? false
+        {
+            self.delegate?.onFilterButtonClicked(button: sender as! UIButton)
+        }
+        
+    }
     
 }

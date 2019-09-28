@@ -41,6 +41,29 @@ class ZLSearchViewModel: ZLBaseViewModel {
         self.searchRecordViewModel = searchRecordViewModel;
         
     }
+    
+    
+    override func getEvent(_ event: Any?, fromSubViewModel subViewModel: ZLBaseViewModel) {
+        
+        guard let eventType : ZLSearchViewEventType = event as? ZLSearchViewEventType else
+        {
+            ZLLog_Warn("event is not valid")
+            return
+        }
+        
+        switch eventType
+        {
+        case .filterButtonClicked:
+            do {
+                self.searchView?.showFilterView(delegate: self)
+            }
+        }
+        
+        
+        
+        
+    }
+    
 
     @IBAction func onBackButtonClicked(_ sender: Any) {
         self.viewController?.navigationController?.popViewController(animated: true)
