@@ -55,6 +55,7 @@ class ZLSearchItemsViewModel: ZLBaseViewModel {
         }
         
         self.searchItemsView = targetView as? ZLSearchItemsView
+        self.searchItemsView?.delegate = self
         
         self.searchTypeAttachInfos = [ZLSearchType:ZLSearchTypeAttachInfo]()
         for type in ZLSearchItemsViewModel.searchTypes
@@ -203,6 +204,7 @@ extension ZLSearchItemsViewModel: UITableViewDelegate,UITableViewDataSource
     }
 }
 
+// MARK: UICollectionViewDelegate,UICollectionViewDataSource
 extension ZLSearchItemsViewModel: UICollectionViewDelegate,UICollectionViewDataSource
 {
 
@@ -300,7 +302,7 @@ extension ZLSearchItemsViewModel: UICollectionViewDelegate,UICollectionViewDataS
 }
 
 
-//MARK : ZLRefreshManagerDelegate
+// MARK: ZLRefreshManagerDelegate
 extension ZLSearchItemsViewModel: ZMRefreshManagerDelegate
 {
     func zmRefreshIsDragUp(_ isDragUp: Bool, refreshView: UIView!) {
@@ -313,6 +315,16 @@ extension ZLSearchItemsViewModel: ZMRefreshManagerDelegate
 //        }
         
         self.searchFromServer()
+    }
+}
+
+
+// MARK: ZLSearchItemsViewDelegate
+extension ZLSearchItemsViewModel: ZLSearchItemsViewDelegate
+{
+    func onFilterButtonClicked(button : UIButton)
+    {
+        self.super?.getEvent(ZLSearchViewEventType.filterButtonClicked, fromSubViewModel: self)
     }
 }
 

@@ -70,16 +70,38 @@
                     <rect key="frame" x="0.0" y="60" width="414" height="836"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mpf-ZE-Ffb" userLabel="FilterBackView">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2C1-0m-ouh" userLabel="FilterContentView">
+                            <rect key="frame" x="114" y="0.0" width="300" height="896"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="300" id="CwF-PR-nxo"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.29999999999999999" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="2C1-0m-ouh" secondAttribute="leading" constant="300" id="7aA-NX-G69"/>
+                        <constraint firstItem="2C1-0m-ouh" firstAttribute="top" secondItem="Mpf-ZE-Ffb" secondAttribute="top" id="agB-k7-W0r"/>
+                        <constraint firstAttribute="bottom" secondItem="2C1-0m-ouh" secondAttribute="bottom" id="sth-6z-Jdp"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="Mpf-ZE-Ffb" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="6sI-WP-Wcz"/>
                 <constraint firstAttribute="trailing" secondItem="MRb-SK-hyF" secondAttribute="trailing" id="CC3-sA-7we"/>
                 <constraint firstItem="MRb-SK-hyF" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="GbO-0U-6jn"/>
                 <constraint firstItem="MRb-SK-hyF" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="IL9-Jv-JrK"/>
                 <constraint firstAttribute="bottom" secondItem="tR4-ZC-lgL" secondAttribute="bottom" id="Jcn-HX-HlK"/>
+                <constraint firstAttribute="bottom" secondItem="Mpf-ZE-Ffb" secondAttribute="bottom" id="R3U-hd-XNm"/>
                 <constraint firstItem="tR4-ZC-lgL" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="ZW4-Uw-Aca"/>
                 <constraint firstItem="tR4-ZC-lgL" firstAttribute="top" secondItem="MRb-SK-hyF" secondAttribute="bottom" id="bEo-4r-tzn"/>
+                <constraint firstItem="Mpf-ZE-Ffb" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="eog-H3-kvE"/>
                 <constraint firstAttribute="trailing" secondItem="tR4-ZC-lgL" secondAttribute="trailing" id="qNU-ZR-70i"/>
+                <constraint firstAttribute="trailing" secondItem="Mpf-ZE-Ffb" secondAttribute="trailing" id="tZa-rp-d5F"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
@@ -87,6 +109,10 @@
                 <outlet property="cancelButton" destination="ODX-4F-h1t" id="SqI-LS-m6T"/>
                 <outlet property="cancelButtonWidthConstraint" destination="7lI-9I-Njm" id="icf-W7-a8H"/>
                 <outlet property="contentView" destination="tR4-ZC-lgL" id="z3G-DQ-IRD"/>
+                <outlet property="filterBackView" destination="Mpf-ZE-Ffb" id="Lju-ML-HqW"/>
+                <outlet property="filterBackViewTopConstraint" destination="eog-H3-kvE" id="o3J-zJ-Z1X"/>
+                <outlet property="filterContentView" destination="2C1-0m-ouh" id="ZMg-VS-1g2"/>
+                <outlet property="filterContentViewTrailingConstraint" destination="7aA-NX-G69" id="HCH-te-gJ0"/>
                 <outlet property="searchTextField" destination="lCu-s9-cM6" id="l38-qb-1OK"/>
                 <outlet property="topViewHeightConstraint" destination="bet-DF-OTb" id="Trw-hH-id9"/>
             </connections>

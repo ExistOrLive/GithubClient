@@ -27,6 +27,9 @@
                             <state key="normal" title="过滤">
                                 <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
+                            <connections>
+                                <action selector="onFilterViewClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="djt-GM-el9"/>
+                            </connections>
                         </button>
                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="B2e-jg-KV2">
                             <rect key="frame" x="0.0" y="0.0" width="311" height="60"/>
