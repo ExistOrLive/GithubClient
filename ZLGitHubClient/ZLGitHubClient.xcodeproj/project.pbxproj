@@ -105,8 +105,6 @@
 		74C861D822F02F1F00A30B79 /* ZLLanguageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 74C861D722F02F1F00A30B79 /* ZLLanguageManager.m */; };
 		74D0426B22FC5B1200119E2F /* ZLSearchServiceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D0426A22FC5B1200119E2F /* ZLSearchServiceModel.m */; };
 		74D0426F22FC5F5800119E2F /* ZLSearchFilterInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D0426E22FC5F5800119E2F /* ZLSearchFilterInfoModel.m */; };
-		74D333A9232E1CBA003EE928 /* ZLSearchFilterViewForUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D333A8232E1CBA003EE928 /* ZLSearchFilterViewForUser.swift */; };
-		74D333AB232E1CE0003EE928 /* ZLSearchFilterViewForUser.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74D333AA232E1CE0003EE928 /* ZLSearchFilterViewForUser.xib */; };
 		74D34931231BD01900A949B2 /* ZLLoginProcessModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D34930231BD01900A949B2 /* ZLLoginProcessModel.m */; };
 		74D34934231C000900A949B2 /* NSString+ZLExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D34933231C000900A949B2 /* NSString+ZLExtension.m */; };
 		74D55DE722FB0A8B004114BC /* ZLSearchItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D55DE622FB0A8B004114BC /* ZLSearchItemsViewModel.swift */; };
@@ -327,8 +325,6 @@
 		74D0426C22FC5B3200119E2F /* ZLSearchServiceHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLSearchServiceHeader.h; sourceTree = "<group>"; };
 		74D0426D22FC5F5800119E2F /* ZLSearchFilterInfoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLSearchFilterInfoModel.h; sourceTree = "<group>"; };
 		74D0426E22FC5F5800119E2F /* ZLSearchFilterInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLSearchFilterInfoModel.m; sourceTree = "<group>"; };
-		74D333A8232E1CBA003EE928 /* ZLSearchFilterViewForUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLSearchFilterViewForUser.swift; sourceTree = "<group>"; };
-		74D333AA232E1CE0003EE928 /* ZLSearchFilterViewForUser.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZLSearchFilterViewForUser.xib; sourceTree = "<group>"; };
 		74D3492F231BD01900A949B2 /* ZLLoginProcessModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLLoginProcessModel.h; sourceTree = "<group>"; };
 		74D34930231BD01900A949B2 /* ZLLoginProcessModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLLoginProcessModel.m; sourceTree = "<group>"; };
 		74D34932231C000900A949B2 /* NSString+ZLExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+ZLExtension.h"; sourceTree = "<group>"; };
@@ -513,6 +509,7 @@
 		7431B42F22F5DFA50060968A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				74CB30BB235DF9BB00B8F5D0 /* ZLSearchFilterView */,
 				7431B43122F5DFF50060968A /* ZLSearchView.swift */,
 				7431B43322F5E03F0060968A /* ZLSearchView.xib */,
 				740318CA22F702B7004CE52D /* ZLSearchRecordView.swift */,
@@ -523,12 +520,6 @@
 				740318D322F70867004CE52D /* ZLSearchTypeCollectionViewCell.xib */,
 				74D55DEA22FB183E004114BC /* ZLSearchRecordTableViewCell.swift */,
 				74D55DEB22FB183E004114BC /* ZLSearchRecordTableViewCell.xib */,
-				74D333A8232E1CBA003EE928 /* ZLSearchFilterViewForUser.swift */,
-				74D333AA232E1CE0003EE928 /* ZLSearchFilterViewForUser.xib */,
-				74A96FBF23327B01008365CA /* ZLSearchFilterViewForRepo.xib */,
-				74A96FC123327B69008365CA /* ZLSearchFilterViewForRepo.swift */,
-				74A96FC323327D9E008365CA /* ZLSearchFilterPickerView.swift */,
-				74A96FC523327DBA008365CA /* ZLSearchFilterPickerView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1288,6 +1279,17 @@
 			path = ZLLanguageModuleProtocol;
 			sourceTree = "<group>";
 		};
+		74CB30BB235DF9BB00B8F5D0 /* ZLSearchFilterView */ = {
+			isa = PBXGroup;
+			children = (
+				74A96FBF23327B01008365CA /* ZLSearchFilterViewForRepo.xib */,
+				74A96FC123327B69008365CA /* ZLSearchFilterViewForRepo.swift */,
+				74A96FC323327D9E008365CA /* ZLSearchFilterPickerView.swift */,
+				74A96FC523327DBA008365CA /* ZLSearchFilterPickerView.xib */,
+			);
+			path = ZLSearchFilterView;
+			sourceTree = "<group>";
+		};
 		74D0426822FC5AE400119E2F /* searchService */ = {
 			isa = PBXGroup;
 			children = (
@@ -1652,7 +1654,6 @@
 				0ADF903721D4B01900BF86CD /* Assets.xcassets in Resources */,
 				74A96FC023327B01008365CA /* ZLSearchFilterViewForRepo.xib in Resources */,
 				74F02CCE22DCCF7000AE153F /* ZLProfileBaseView.xib in Resources */,
-				74D333AB232E1CE0003EE928 /* ZLSearchFilterViewForUser.xib in Resources */,
 				74D7B60322F139FB00C109CA /* ZLUserAdditionInfoView.xib in Resources */,
 				74A96FC623327DBA008365CA /* ZLSearchFilterPickerView.xib in Resources */,
 				740318D522F70867004CE52D /* ZLSearchTypeCollectionViewCell.xib in Resources */,
@@ -1683,7 +1684,9 @@
 				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
 				"${BUILT_PRODUCTS_DIR}/MJExtension/MJExtension.framework",
 				"${BUILT_PRODUCTS_DIR}/MMMarkdown/MMMarkdown.framework",
+				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -1692,7 +1695,9 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMDB.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJExtension.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MMMarkdown.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1724,7 +1729,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				74D333A9232E1CBA003EE928 /* ZLSearchFilterViewForUser.swift in Sources */,
 				74C3F8C922D1E2DB0086A3F9 /* ZLLoginViewModel.swift in Sources */,
 				74FCBDA623142F1300DDE46A /* ZLEditProfileController.swift in Sources */,
 				74D7B60922F16F8200C109CA /* ZLAdditionInfoServiceModel.m in Sources */,
