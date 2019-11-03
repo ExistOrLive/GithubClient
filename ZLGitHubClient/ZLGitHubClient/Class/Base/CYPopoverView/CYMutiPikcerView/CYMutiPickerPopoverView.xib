@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="CYMutiPickerPopoverView">
+            <rect key="frame" x="0.0" y="0.0" width="554" height="774"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QC3-Zk-Wfb">
+                    <rect key="frame" x="137" y="244" width="280" height="286"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="魅力部位" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mE1-ly-KXG">
+                            <rect key="frame" x="107.5" y="16" width="65.5" height="19.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4xu-Rx-rUU">
+                            <rect key="frame" x="0.0" y="42.5" width="280" height="1"/>
+                            <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="2Rp-Fz-Uov"/>
+                            </constraints>
+                        </view>
+                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="hSc-OA-rGb">
+                            <rect key="frame" x="0.0" y="51.5" width="280" height="146.5"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="UbD-US-Seh">
+                                <size key="itemSize" width="50" height="50"/>
+                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            </collectionViewFlowLayout>
+                        </collectionView>
+                        <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B3Q-Dr-1hh">
+                            <rect key="frame" x="24" y="214" width="232" height="40"/>
+                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="232" id="JN5-c8-BXT"/>
+                                <constraint firstAttribute="height" constant="40" id="Zly-f6-cAw"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <state key="normal" title="确认"/>
+                            <state key="disabled" backgroundImage="Popover_inputbtn_disabled"/>
+                            <connections>
+                                <action selector="onConfirmButtonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="tui-db-0Ri"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="hSc-OA-rGb" firstAttribute="top" secondItem="4xu-Rx-rUU" secondAttribute="bottom" constant="8" id="EQm-6n-zzJ"/>
+                        <constraint firstItem="B3Q-Dr-1hh" firstAttribute="top" secondItem="hSc-OA-rGb" secondAttribute="bottom" constant="16" id="Ht5-kR-04k"/>
+                        <constraint firstAttribute="height" constant="286" id="K5i-qW-pwq"/>
+                        <constraint firstItem="mE1-ly-KXG" firstAttribute="centerX" secondItem="QC3-Zk-Wfb" secondAttribute="centerX" id="M5b-Mh-v09"/>
+                        <constraint firstItem="B3Q-Dr-1hh" firstAttribute="centerX" secondItem="QC3-Zk-Wfb" secondAttribute="centerX" id="PhT-LG-WPb"/>
+                        <constraint firstAttribute="trailing" secondItem="4xu-Rx-rUU" secondAttribute="trailing" id="SC9-DS-kMJ"/>
+                        <constraint firstItem="4xu-Rx-rUU" firstAttribute="leading" secondItem="QC3-Zk-Wfb" secondAttribute="leading" id="TZh-b1-t1O"/>
+                        <constraint firstItem="4xu-Rx-rUU" firstAttribute="top" secondItem="mE1-ly-KXG" secondAttribute="bottom" constant="7" id="Xy5-lC-bbu"/>
+                        <constraint firstItem="mE1-ly-KXG" firstAttribute="top" secondItem="QC3-Zk-Wfb" secondAttribute="top" constant="16" id="cOl-ke-q9c"/>
+                        <constraint firstAttribute="width" constant="280" id="ilq-U8-Nvk"/>
+                        <constraint firstAttribute="bottom" secondItem="B3Q-Dr-1hh" secondAttribute="bottom" constant="32" id="ptP-b3-eYW"/>
+                        <constraint firstItem="hSc-OA-rGb" firstAttribute="leading" secondItem="QC3-Zk-Wfb" secondAttribute="leading" id="qlY-sJ-bMg"/>
+                        <constraint firstAttribute="trailing" secondItem="hSc-OA-rGb" secondAttribute="trailing" id="xtd-b7-sL0"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="QC3-Zk-Wfb" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="7ZF-I3-w65"/>
+                <constraint firstItem="QC3-Zk-Wfb" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="cLB-cA-hyd"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="collectionView" destination="hSc-OA-rGb" id="q86-S2-zYE"/>
+                <outlet property="collectionViewLayout" destination="UbD-US-Seh" id="Uuc-vf-04y"/>
+                <outlet property="confirmButton" destination="B3Q-Dr-1hh" id="3xu-Js-EsM"/>
+                <outlet property="containerView" destination="QC3-Zk-Wfb" id="iSp-xi-vuW"/>
+                <outlet property="titleLabel" destination="mE1-ly-KXG" id="uea-Uo-ehC"/>
+            </connections>
+            <point key="canvasLocation" x="233.33333333333334" y="112.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="Popover_inputbtn_disabled" width="232" height="40"/>
+    </resources>
+</document>

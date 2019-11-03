@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="CYSinglePickerPopoverView">
+            <rect key="frame" x="0.0" y="0.0" width="649" height="881"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pJp-tI-hkd">
+                    <rect key="frame" x="184.5" y="262" width="280" height="357"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="年龄" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NdW-MG-IY9">
+                            <rect key="frame" x="123.5" y="16" width="33" height="19.5"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="19.5" id="c1c-0v-J7f"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ohW-ZP-xsP">
+                            <rect key="frame" x="0.0" y="42.5" width="280" height="1"/>
+                            <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="SZm-za-w46"/>
+                            </constraints>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q89-b0-o2j">
+                            <rect key="frame" x="24" y="285" width="232" height="40"/>
+                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="232" id="2cW-yo-TDZ"/>
+                                <constraint firstAttribute="height" constant="40" id="elU-RE-czx"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <state key="normal" title="确定"/>
+                            <state key="disabled" backgroundImage="Popover_inputbtn_disabled"/>
+                            <connections>
+                                <action selector="onConfirmButtonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="XZ0-RZ-b1o"/>
+                            </connections>
+                        </button>
+                        <pickerView contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="8sS-TP-bVK">
+                            <rect key="frame" x="0.0" y="48.5" width="280" height="212.5"/>
+                        </pickerView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="280" id="7qi-ii-HML"/>
+                        <constraint firstAttribute="height" constant="357" id="9PO-9b-q05"/>
+                        <constraint firstItem="8sS-TP-bVK" firstAttribute="top" secondItem="ohW-ZP-xsP" secondAttribute="bottom" constant="5" id="H9Z-o3-vWG"/>
+                        <constraint firstAttribute="bottom" secondItem="Q89-b0-o2j" secondAttribute="bottom" constant="32" id="Rub-4U-FZC"/>
+                        <constraint firstItem="NdW-MG-IY9" firstAttribute="centerX" secondItem="pJp-tI-hkd" secondAttribute="centerX" id="Sy0-Jb-JCo"/>
+                        <constraint firstItem="Q89-b0-o2j" firstAttribute="centerX" secondItem="pJp-tI-hkd" secondAttribute="centerX" id="T8N-Ru-fXC"/>
+                        <constraint firstAttribute="trailing" secondItem="ohW-ZP-xsP" secondAttribute="trailing" id="Yqc-f5-Y0k"/>
+                        <constraint firstItem="NdW-MG-IY9" firstAttribute="top" secondItem="pJp-tI-hkd" secondAttribute="top" constant="16" id="gC8-Ah-Umi"/>
+                        <constraint firstItem="ohW-ZP-xsP" firstAttribute="leading" secondItem="pJp-tI-hkd" secondAttribute="leading" id="gpW-gC-b1n"/>
+                        <constraint firstAttribute="trailing" secondItem="8sS-TP-bVK" secondAttribute="trailing" id="koH-aZ-B1B"/>
+                        <constraint firstItem="ohW-ZP-xsP" firstAttribute="top" secondItem="NdW-MG-IY9" secondAttribute="bottom" constant="7" id="wr2-68-jNn"/>
+                        <constraint firstItem="Q89-b0-o2j" firstAttribute="top" secondItem="8sS-TP-bVK" secondAttribute="bottom" constant="24" id="xBd-oh-ph8"/>
+                        <constraint firstItem="8sS-TP-bVK" firstAttribute="leading" secondItem="pJp-tI-hkd" secondAttribute="leading" id="zrt-p0-P8w"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="pJp-tI-hkd" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="0MN-by-Uee"/>
+                <constraint firstItem="pJp-tI-hkd" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="N7y-eA-rZ8"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="confirmButton" destination="Q89-b0-o2j" id="ugx-je-FEB"/>
+                <outlet property="containerView" destination="pJp-tI-hkd" id="OQ5-6R-XOp"/>
+                <outlet property="pickerView" destination="8sS-TP-bVK" id="Rcz-te-oQy"/>
+                <outlet property="titleLabel" destination="NdW-MG-IY9" id="6RW-9f-SPU"/>
+            </connections>
+            <point key="canvasLocation" x="-50.000000000000007" y="62.611607142857139"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="Popover_inputbtn_disabled" width="232" height="40"/>
+    </resources>
+</document>

@@ -82,9 +82,16 @@
             }
         }
     }
-
-    
-    
 }
+
+- (NSString *) dateStrForYYYYMMdd
+{
+    NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"YYYY-MM-dd"];
+    
+    return [dateFormatter stringFromDate:self];
+}
+
+
 
 @end
