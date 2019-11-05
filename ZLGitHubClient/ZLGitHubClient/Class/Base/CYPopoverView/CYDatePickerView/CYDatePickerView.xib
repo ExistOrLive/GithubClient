@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -42,7 +40,6 @@
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <state key="normal" title="确定"/>
-                            <state key="disabled" backgroundImage="Popover_inputbtn_disabled"/>
                             <connections>
                                 <action selector="onConfirmButtonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="XZ0-RZ-b1o"/>
                             </connections>
@@ -84,7 +81,4 @@
             <point key="canvasLocation" x="-50.000000000000007" y="62.611607142857139"/>
         </view>
     </objects>
-    <resources>
-        <image name="Popover_inputbtn_disabled" width="232" height="40"/>
-    </resources>
 </document>

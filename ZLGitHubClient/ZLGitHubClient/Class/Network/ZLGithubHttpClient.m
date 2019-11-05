@@ -577,7 +577,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                                 @"page":[NSNumber numberWithUnsignedInteger:page],
                                 @"per_page":[NSNumber numberWithUnsignedInteger:per_page]} mutableCopy];
     
-    if(sort && [sort length] == 0)
+    if(sort && [sort length] > 0)
     {
         [params setObject:sort forKey:@"sort"];
         [params setObject:isAsc ? @"asc":@"desc" forKey:@"order"];

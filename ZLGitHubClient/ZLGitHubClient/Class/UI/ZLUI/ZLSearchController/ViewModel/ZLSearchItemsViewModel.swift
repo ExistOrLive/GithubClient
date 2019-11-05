@@ -120,6 +120,12 @@ class ZLSearchItemsViewModel: ZLBaseViewModel {
             return
         }
         
+        if(self.keyWord == "")
+        {
+            // keyword 未空时不记录过滤条件
+            return;
+        }
+        
         switch(eventType)
         {
         case .repoFilterResult:do{
@@ -386,7 +392,7 @@ extension ZLSearchItemsViewModel: ZLSearchItemsViewDelegate
                 return
             }
             self.addSubViewModel(viewModel)
-        viewModel.bindModel(self.searchTypeAttachInfos?[.repositories]?.searchFilterInfo, andView: view)
+            viewModel.bindModel(self.searchTypeAttachInfos?[.repositories]?.searchFilterInfo, andView: view)
             
             ZLPresentContainerView.showPresentContainerView(withContentView: view, withContentInSet: UIEdgeInsets.init(top: 0, left:ZLScreenWidth - ZLSearchFilterViewForRepo.minWidth , bottom: 0, right: 0))
             

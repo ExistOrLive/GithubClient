@@ -61,23 +61,36 @@ class ZLSearchFilterViewForRepo: ZLBaseView {
         self.firstStarNumField.delegate = self;
         self.secondStarNumField.delegate = self;
         self.sizeFiled.delegate = self;
+        
+        let gestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(resignAllResponder))
+        self.addGestureRecognizer(gestureRecognizer)
     }
     
-    @IBAction func onOrderButtonClicked(_ sender: Any) {
+    @IBAction func onOrderButtonClicked(_ sender: UIButton) {
         
-        ZLSearchFilterPickerView.showRepoOrderPickerView(resultBlock: {(result: String) in
-            let button = sender as! UIButton
-            button.setTitle(result, for: .normal)
+        ZLSearchFilterPickerView.showRepoOrderPickerView(initTitle:sender.titleLabel?.text, resultBlock: {(result: String) in
+            sender.setTitle(result, for: .normal)
         })
     }
     
     
-    @IBAction func onLanguageButtonClicked(_ sender: Any) {
+    @IBAction func onLanguageButtonClicked(_ sender: UIButton) {
         
-        ZLSearchFilterPickerView.showLanguagePickerView(resultBlock:{ (result: String) in
-            let button = sender as! UIButton
-            button.setTitle(result, for: .normal)
+        ZLSearchFilterPickerView.showLanguagePickerView(initTitle:sender.titleLabel?.text, resultBlock:{ (result: String) in
+
+            sender.setTitle(result, for: .normal)
         })
+    }
+    
+    @objc func resignAllResponder()
+    {
+        self.firstTimeFileld.resignFirstResponder()
+        self.secondTimeField.resignFirstResponder()
+        self.firstForkNumField.resignFirstResponder()
+        self.secondForkNumField.resignFirstResponder()
+        self.firstStarNumField.resignFirstResponder()
+        self.secondStarNumField.resignFirstResponder()
+        self.sizeFiled.resignFirstResponder()
     }
     
 }

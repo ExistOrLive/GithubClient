@@ -128,8 +128,8 @@
     _comfirmButton = [UIButton buttonWithType:UIButtonTypeCustom];
     NSAttributedString * attributedTitle = [[NSAttributedString alloc] initWithString:@"确认" attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:[UIFont systemFontOfSize:14]}];
     [_comfirmButton setAttributedTitle:attributedTitle forState:UIControlStateNormal];
-    [_comfirmButton setBackgroundImage:[UIImage imageNamed:@"Popover_inputbtn_disabled"] forState:UIControlStateDisabled];
-    [_comfirmButton setBackgroundImage:[UIImage imageNamed:@"Popover_btn_normal"] forState:UIControlStateNormal];
+    [_comfirmButton setBackgroundColor:ZLRGBStr_H(@"#333333")];
+    _comfirmButton.layer.cornerRadius = 20.0;
     [_comfirmButton setEnabled:NO];
     [_comfirmButton addTarget:self action:@selector(onConfirmButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [containerView addSubview:_comfirmButton];
@@ -137,6 +137,8 @@
     [_comfirmButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(containerView.mas_bottom).with.offset(-32);
         make.centerX.equalTo(containerView.mas_centerX);
+        make.width.equalTo(@232);
+        make.height.equalTo(@40);
     }];
     
     [self addSubview:containerView];

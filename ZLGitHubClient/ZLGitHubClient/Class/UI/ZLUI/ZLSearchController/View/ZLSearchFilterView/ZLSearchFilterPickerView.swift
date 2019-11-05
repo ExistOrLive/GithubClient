@@ -12,29 +12,50 @@ import UIKit
 
 class ZLSearchFilterPickerView: ZLBaseView {
     
-    static func showLanguagePickerView(resultBlock:((String)->Void)?)
+    static func showLanguagePickerView(initTitle:String?,resultBlock:((String)->Void)?)
     {
         let languageArray = ["Any Language","Action Sheet","C","C++","C#","Clojure","CoffeeScript","CSS","Dart","Go","Haskell","HTML","Java","JavaScript","Lua","MATLAB","Objective-C","Objective-C++","Perl","PHP","Python","R","Ruby","Scala","Shell","Swift","Tex","Vim script"]
         
-        CYSinglePickerPopoverView.showCYSinglePickerPopover(withTitle: "请选择语言", withDataArray: languageArray, withResultBlock: {(result:Int32) in
+        var initIndex = 0;
+        if(initTitle != nil)
+        {
+            let index =  languageArray.index(of: initTitle!)
+            initIndex = index ?? 0;
+        }
+        
+        CYSinglePickerPopoverView.showCYSinglePickerPopover(withTitle: "请选择语言",withInitIndex: UInt(initIndex), withDataArray: languageArray, withResultBlock: {(result:UInt) in
             resultBlock?(languageArray[Int(result)])
         })
     }
     
-    static func showRepoOrderPickerView(resultBlock:((String)->Void)?)
+    static func showRepoOrderPickerView(initTitle:String?, resultBlock:((String)->Void)?)
     {
         let repoOrderArray = ["Best match","Most stars","Fewst stars","Most forks","Fewest forks","Recently updated","Least recently updated"]
         
-        CYSinglePickerPopoverView.showCYSinglePickerPopover(withTitle: "排序规则", withDataArray: repoOrderArray, withResultBlock: {(result:Int32) in
+        var initIndex = 0;
+             if(initTitle != nil)
+             {
+                 let index =  repoOrderArray.index(of: initTitle!)
+                 initIndex = index ?? 0;
+             }
+        
+        CYSinglePickerPopoverView.showCYSinglePickerPopover(withTitle: "排序规则",withInitIndex: UInt(initIndex), withDataArray: repoOrderArray, withResultBlock: {(result:UInt) in
             resultBlock?(repoOrderArray[Int(result)])
         })
     }
     
-    static func showUserOrderPickerView(resultBlock:((String)->Void)?)
+    static func showUserOrderPickerView(initTitle:String?, resultBlock:((String)->Void)?)
     {
         let userOrderArray = ["Best match","Most followers","Fewest followers","Most recently joined","Least recently joined","Most repositories","Fewest repositories"]
         
-        CYSinglePickerPopoverView.showCYSinglePickerPopover(withTitle: "排序规则", withDataArray: userOrderArray, withResultBlock: {(result:Int32) in
+        var initIndex = 0;
+        if(initTitle != nil)
+        {
+            let index =  userOrderArray.index(of: initTitle!)
+            initIndex = index ?? 0;
+        }
+        
+        CYSinglePickerPopoverView.showCYSinglePickerPopover(withTitle: "排序规则", withInitIndex: UInt(initIndex), withDataArray: userOrderArray, withResultBlock: {(result:UInt) in
             resultBlock?(userOrderArray[Int(result)])
         })
     }

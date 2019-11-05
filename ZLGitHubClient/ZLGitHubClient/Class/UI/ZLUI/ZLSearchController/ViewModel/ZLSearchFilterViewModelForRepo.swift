@@ -30,8 +30,6 @@ class ZLSearchFilterViewModelForRepo: ZLBaseViewModel {
         
         self.searchFilterModel = model
         self.setViewDataForSearchFilterViewForRepo(searchFilterModel: model, view: self.searchFilterview!)
-        
-        
     }
     
     func setViewDataForSearchFilterViewForRepo(searchFilterModel: ZLSearchFilterInfoModel, view:ZLSearchFilterViewForRepo)
@@ -45,12 +43,10 @@ class ZLSearchFilterViewModelForRepo: ZLBaseViewModel {
         {
             view.languageButton.setTitle(searchFilterModel.language, for: .normal)
         }
-        
-        
     }
     
 
-    @IBAction func onFinishButtonClicked(_ sender: Any) {
+    @IBAction func onFinishButtonClicked(_ sender: UIButton) {
         
         self.searchFilterModel = ZLSearchFilterInfoModel.init()
         self.searchFilterModel!.order = self.searchFilterview?.orderButton.title(for: .normal) ?? ""
@@ -64,6 +60,9 @@ class ZLSearchFilterViewModelForRepo: ZLBaseViewModel {
         self.searchFilterModel!.size = Double(self.searchFilterview?.sizeFiled.text ?? "0.0") ?? 0.0
         
         self.super?.getEvent(ZLSearchItemsViewEventType.repoFilterResult, fromSubViewModel: self)
+        
+        
+        sender.superview?.superview?.removeFromSuperview();
         
         
     }

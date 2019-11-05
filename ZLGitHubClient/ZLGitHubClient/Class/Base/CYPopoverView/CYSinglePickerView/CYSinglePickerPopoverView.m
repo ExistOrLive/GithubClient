@@ -16,21 +16,18 @@
 
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
 @property (weak, nonatomic) IBOutlet UIButton *confirmButton;
 
-@property (assign, nonatomic) int currentIndex;
-
-@property (strong, nonatomic) NSArray<NSString *> * itemTitlesArray;
-
-@property (copy, nonatomic) void(^resultBlock)(int);
+@property (assign, nonatomic) NSUInteger initIndex;                     // 初始index
+@property (strong, nonatomic) NSArray<NSString *> * itemTitlesArray;    //
+@property (copy, nonatomic) void(^resultBlock)(NSUInteger);                    // 回调
 
 @end
 
 @implementation CYSinglePickerPopoverView
 
-+ (void) showCYSinglePickerPopoverWithTitle:(NSString *)title withDataArray:(NSArray<NSString *> *)dataArray  withResultBlock:(void(^)(int)) resultBlock
++ (void) showCYSinglePickerPopoverWithTitle:(NSString *)title withInitIndex:(NSUInteger)initIndex withDataArray:(NSArray<NSString *> *)dataArray  withResultBlock:(void(^)(NSUInteger)) resultBlock
 {
     
     UIWindow * window = [UIApplication sharedApplication].delegate.window;
@@ -40,6 +37,7 @@
     PopoverView.resultBlock = resultBlock;
     PopoverView.itemTitlesArray = dataArray;
     [PopoverView setTitle:title];
+    [PopoverView setInitIndex:initIndex];
     
     UITapGestureRecognizer * gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:PopoverView action:@selector(onCloseAction)];
     gestureRecognizer.delegate = PopoverView;
@@ -75,7 +73,8 @@
     
     if(self.resultBlock)
     {
-        self.resultBlock(self.currentIndex);
+        NSUInteger currentIndex = [self.pickerView selectedRowInComponent:0];
+        self.resultBlock(currentIndex);
     }
 
     [self removeFromSuperview];
@@ -87,11 +86,19 @@
 {
     _itemTitlesArray = itemTitlesArray;
     [self.pickerView reloadAllComponents];
+    [self.pickerView selectRow:self.initIndex inComponent:0 animated:NO];
 }
 
 - (void) setTitle:(NSString *) title
 {
     self.titleLabel.text = title;
+}
+
+- (void) setInitIndex:(NSUInteger)initIndex
+{
+    _initIndex = initIndex;
+    
+    [self.pickerView selectRow:initIndex inComponent:0 animated:NO];
 }
 
 #pragma mark -
@@ -121,25 +128,13 @@
         cell = [CYPopoverPickerViewCell new];
     }
     [cell setTitle:self.itemTitlesArray[row]];
-    
-    if(self.currentIndex == row)
-    {
-        [cell setSelected:YES];
-    }
-    else
-    {
-        [cell setSelected:NO];
-    }
+    [cell setSelected:YES];
     
     return cell;
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    CYPopoverPickerViewCell * cell = (CYPopoverPickerViewCell *)[pickerView viewForRow:row forComponent:component];
-    [cell setSelected:YES];
-    
-    self.currentIndex = (int)row;
 
 }
 

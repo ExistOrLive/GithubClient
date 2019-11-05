@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CYSinglePickerPopoverView: UIView
 
-+ (void) showCYSinglePickerPopoverWithTitle:(NSString *)title withDataArray:(NSArray<NSString *> *)dataArray  withResultBlock:(void(^)(int)) resultBlock;
++ (void) showCYSinglePickerPopoverWithTitle:(NSString *)title withInitIndex:(NSUInteger)initIndex withDataArray:(NSArray<NSString *> *)dataArray  withResultBlock:(void(^)(NSUInteger)) resultBlock;
 
 @end
 

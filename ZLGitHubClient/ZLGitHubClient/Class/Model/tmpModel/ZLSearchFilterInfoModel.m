@@ -67,22 +67,22 @@
     
     if(self.language && [self.language length] > 0)
     {
-        [finalKeyWord appendFormat:@"+language:%@",self.language];
+        [finalKeyWord appendFormat:@" language:%@",self.language];
     }
     
     if([self.firstCreatedTimeStr length] > 0 || [self.secondCreatedTimeStr length] > 0)
     {
-        [finalKeyWord appendFormat:@"+created:%@..%@",[self.firstCreatedTimeStr length] > 0 ? self.firstCreatedTimeStr : @"*",[self.secondCreatedTimeStr length] > 0 ? self.secondCreatedTimeStr : @"*"];
+        [finalKeyWord appendFormat:@" created:%@..%@",[self.firstCreatedTimeStr length] > 0 ? self.firstCreatedTimeStr : @"*",[self.secondCreatedTimeStr length] > 0 ? self.secondCreatedTimeStr : @"*"];
     }
     
     if(self.firstForkNum > 0 || self.secondForkNum > 0)
     {
-        [finalKeyWord appendFormat:@"+fork:%@..%@",self.firstForkNum > 0 ? @(self.firstForkNum) : @"*",self.secondForkNum > 0 ? @(self.secondForkNum) : @"*" ];
+        [finalKeyWord appendFormat:@" fork:%@..%@",self.firstForkNum > 0 ? @(self.firstForkNum) : @"*",self.secondForkNum > 0 ? @(self.secondForkNum) : @"*" ];
     }
     
     if(self.firstStarNum > 0 || self.secondStarNum > 0)
     {
-         [finalKeyWord appendFormat:@"+stars:%@..%@",self.firstStarNum > 0 ? @(self.firstStarNum) : @"*",self.secondStarNum > 0 ? @(self.secondStarNum) : @"*" ];
+         [finalKeyWord appendFormat:@" stars:%@..%@",self.firstStarNum > 0 ? @(self.firstStarNum) : @"*",self.secondStarNum > 0 ? @(self.secondStarNum) : @"*" ];
     }
     
     return [finalKeyWord copy];
