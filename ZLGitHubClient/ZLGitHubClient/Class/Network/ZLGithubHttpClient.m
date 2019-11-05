@@ -357,6 +357,8 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 
 - (void) searchUser:(GithubResponse) block
             keyword:(NSString *) keyword
+               sort:(NSString *) sort
+              order:(BOOL) isAsc
                page:(NSUInteger) page
            per_page:(NSUInteger) per_page
        serialNumber:(NSString *) serialNumber
@@ -365,9 +367,15 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     
     [self.sessionManager.requestSerializer setValue:[NSString stringWithFormat:@"token %@",self.token] forHTTPHeaderField:@"Authorization"];
     
-    NSDictionary * params = @{@"q":keyword,
+    NSMutableDictionary * params = [@{@"q":keyword,
                               @"page":[NSNumber numberWithUnsignedInteger:page],
-                              @"per_page":[NSNumber numberWithUnsignedInteger:per_page]};
+                              @"per_page":[NSNumber numberWithUnsignedInteger:per_page]} mutableCopy];
+    if(sort && [sort length] == 0)
+    {
+        [params setObject:sort forKey:@"sort"];
+        [params setObject:isAsc ? @"asc":@"desc" forKey:@"order"];
+    }
+    
     
     void(^successBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
     ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
@@ -555,6 +563,8 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 
 - (void) searchRepos:(GithubResponse) block
              keyword:(NSString *) keyword
+                sort:(NSString *) sort
+               order:(BOOL) isAsc
                 page:(NSUInteger) page
             per_page:(NSUInteger) per_page
         serialNumber:(NSString *) serialNumber
@@ -563,9 +573,15 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     
     [self.sessionManager.requestSerializer setValue:[NSString stringWithFormat:@"token %@",self.token] forHTTPHeaderField:@"Authorization"];
     
-    NSDictionary * params = @{@"q":keyword,
-                              @"page":[NSNumber numberWithUnsignedInteger:page],
-                              @"per_page":[NSNumber numberWithUnsignedInteger:per_page]};
+    NSMutableDictionary * params = [@{@"q":keyword,
+                                @"page":[NSNumber numberWithUnsignedInteger:page],
+                                @"per_page":[NSNumber numberWithUnsignedInteger:per_page]} mutableCopy];
+    
+    if(sort && [sort length] == 0)
+    {
+        [params setObject:sort forKey:@"sort"];
+        [params setObject:isAsc ? @"asc":@"desc" forKey:@"order"];
+    }
     
     void(^successBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
     ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)

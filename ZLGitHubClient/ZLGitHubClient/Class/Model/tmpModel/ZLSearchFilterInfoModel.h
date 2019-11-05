@@ -24,6 +24,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *) finalKeyWordForRepoFilter:(NSString *) keyWord;
 
+- (NSString *) getSortFiled;
+
+- (BOOL) getIsAsc;
+
 @end
 
 NS_ASSUME_NONNULL_END

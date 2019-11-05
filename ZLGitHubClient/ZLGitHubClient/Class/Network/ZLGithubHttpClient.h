@@ -77,6 +77,8 @@ NS_ASSUME_NONNULL_BEGIN
  **/
 - (void) searchUser:(GithubResponse) block
             keyword:(NSString *) keyword
+               sort:(NSString *) sort
+              order:(BOOL) isAsc
                page:(NSUInteger) page
            per_page:(NSUInteger) per_page
        serialNumber:(NSString *) serialNumber;
@@ -144,6 +146,8 @@ NS_ASSUME_NONNULL_BEGIN
  **/
 - (void) searchRepos:(GithubResponse) block
              keyword:(NSString *) keyword
+                sort:(NSString *) sort
+               order:(BOOL) isAsc
                 page:(NSUInteger) page
             per_page:(NSUInteger) per_page
         serialNumber:(NSString *) serialNumber;
