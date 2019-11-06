@@ -52,7 +52,7 @@ class ZLSearchFilterViewForRepo: ZLBaseView {
         
         self.orderButton.layer.cornerRadius = 17.5
         self.languageButton.layer.cornerRadius = 17.5
-        self.finishButton.layer.cornerRadius = 15
+        self.finishButton.layer.cornerRadius = 20.0
         
         self.firstTimeFileld.delegate = self;
         self.secondTimeField.delegate = self;

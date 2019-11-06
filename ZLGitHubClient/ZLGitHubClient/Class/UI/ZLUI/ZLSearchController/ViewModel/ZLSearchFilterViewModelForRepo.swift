@@ -10,7 +10,7 @@ import UIKit
 
 class ZLSearchFilterViewModelForRepo: ZLBaseViewModel {
     
-    var searchFilterview : ZLSearchFilterViewForRepo?
+    weak var searchFilterview : ZLSearchFilterViewForRepo?
     
     var searchFilterModel : ZLSearchFilterInfoModel?
     
@@ -20,17 +20,18 @@ class ZLSearchFilterViewModelForRepo: ZLBaseViewModel {
         {
             return
         }
-        
         self.searchFilterview = view
         
         guard let model : ZLSearchFilterInfoModel = targetModel as? ZLSearchFilterInfoModel else
         {
             return
         }
-        
         self.searchFilterModel = model
+        
         self.setViewDataForSearchFilterViewForRepo(searchFilterModel: model, view: self.searchFilterview!)
     }
+    
+    
     
     func setViewDataForSearchFilterViewForRepo(searchFilterModel: ZLSearchFilterInfoModel, view:ZLSearchFilterViewForRepo)
     {
@@ -43,6 +44,14 @@ class ZLSearchFilterViewModelForRepo: ZLBaseViewModel {
         {
             view.languageButton.setTitle(searchFilterModel.language, for: .normal)
         }
+        
+        self.searchFilterview?.firstTimeFileld.text = searchFilterModel.firstCreatedTimeStr
+        self.searchFilterview?.secondTimeField.text = searchFilterModel.secondCreatedTimeStr
+        self.searchFilterview?.firstStarNumField.text = String(searchFilterModel.firstStarNum)
+        self.searchFilterview?.secondStarNumField.text = String(searchFilterModel.secondStarNum)
+        self.searchFilterview?.firstForkNumField.text = String(searchFilterModel.firstForkNum)
+        self.searchFilterview?.secondStarNumField.text = String(searchFilterModel.secondForkNum)
+        self.searchFilterview?.sizeFiled.text = String(searchFilterModel.size)
     }
     
 

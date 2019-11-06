@@ -90,11 +90,11 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kN5-gC-l0s">
-                    <rect key="frame" x="180" y="635" width="100" height="30"/>
+                    <rect key="frame" x="130" y="625" width="150" height="40"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="100" id="gV3-Yk-iSk"/>
-                        <constraint firstAttribute="height" constant="30" id="tbi-FO-2iS"/>
+                        <constraint firstAttribute="width" constant="150" id="gV3-Yk-iSk"/>
+                        <constraint firstAttribute="height" constant="40" id="tbi-FO-2iS"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="14"/>
                     <state key="normal" title="Finish"/>

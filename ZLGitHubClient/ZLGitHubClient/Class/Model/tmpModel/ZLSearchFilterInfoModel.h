@@ -16,13 +16,22 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong) NSString * language;
 @property(nonatomic,strong) NSString * firstCreatedTimeStr;
 @property(nonatomic,strong) NSString * secondCreatedTimeStr;
+
 @property(nonatomic,assign) NSUInteger firstStarNum;
 @property(nonatomic,assign) NSUInteger secondStarNum;
 @property(nonatomic,assign) NSUInteger firstForkNum;
 @property(nonatomic,assign) NSUInteger secondForkNum;
 @property(nonatomic,assign) double     size;
 
+@property(nonatomic,assign) NSUInteger firstFollowersNum;
+@property(nonatomic,assign) NSUInteger secondFollowersNum;
+@property(nonatomic,assign) NSUInteger firstPubReposNum;
+@property(nonatomic,assign) NSUInteger secondPubReposNum;
+
+
+
 - (NSString *) finalKeyWordForRepoFilter:(NSString *) keyWord;
+- (NSString *) finalKeyWordForUserFilter:(NSString *) keyWord;
 
 - (NSString *) getSortFiled;
 

@@ -85,6 +85,15 @@
 }
 
 /**
+ * 解除与父ViewModel之间的关系
+ */
+- (void) removeFromSuperViewModel
+{
+    ZLBaseViewModel * superViewModel = [self superViewModel];
+    [superViewModel.realSubViewModels removeObject:self];
+}
+
+/**
  * 绑定 viewModel,View,model, 由superViewModel或者VC调用
  * @param targetModel           model
  * @param targetView         view

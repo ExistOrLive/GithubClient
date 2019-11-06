@@ -148,7 +148,7 @@ class ZLSearchItemsViewModel: ZLBaseViewModel {
             let searchAttachInfo = ZLSearchTypeAttachInfo()
             searchAttachInfo.searchFilterInfo = viewModel.searchFilterModel
             
-            self.searchTypeAttachInfos?.updateValue(searchAttachInfo, forKey: .repositories)
+            self.searchTypeAttachInfos?.updateValue(searchAttachInfo, forKey: .users)
             
             }
         }
@@ -387,12 +387,13 @@ extension ZLSearchItemsViewModel: ZLSearchItemsViewDelegate
         switch(self.currentSearchType)
         {
         case .repositories:do{
+            
             let viewModel = ZLSearchFilterViewModelForRepo.init()
             guard let view : ZLSearchFilterViewForRepo = Bundle.main.loadNibNamed("ZLSearchFilterViewForRepo", owner: viewModel, options: nil)?.first as? ZLSearchFilterViewForRepo else {
                 return
             }
             self.addSubViewModel(viewModel)
-            viewModel.bindModel(self.searchTypeAttachInfos?[.repositories]?.searchFilterInfo, andView: view)
+         viewModel.bindModel(self.searchTypeAttachInfos?[.repositories]?.searchFilterInfo, andView: view)
             
             ZLPresentContainerView.showPresentContainerView(withContentView: view, withContentInSet: UIEdgeInsets.init(top: 0, left:ZLScreenWidth - ZLSearchFilterViewForRepo.minWidth , bottom: 0, right: 0))
             
