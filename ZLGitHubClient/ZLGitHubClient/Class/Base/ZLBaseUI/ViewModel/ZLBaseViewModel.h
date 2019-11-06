@@ -30,6 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
  **/
 - (void) addSubViewModel:(ZLBaseViewModel *) subViewModel;
 
+- (void) removeFromSuperViewModel;
+
 /**
  * 绑定 viewModel,View,model, 由superViewModel或者VC调用
  * @param targetModel        model

@@ -27,11 +27,6 @@ class ZLSearchView: ZLBaseView {
     @IBOutlet weak var cancelButton: UIButton!
     
     
-    @IBOutlet weak var filterBackViewTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var filterBackView: UIView!
-    @IBOutlet weak var filterContentView: UIView!
-    @IBOutlet weak var filterContentViewTrailingConstraint: NSLayoutConstraint!
-    
     var searchRecordView : ZLSearchRecordView?
     var searchItemsView: ZLSearchItemsView?
     var searchFilterView : UIView?
@@ -41,7 +36,6 @@ class ZLSearchView: ZLBaseView {
         super.awakeFromNib()
         
         self.topViewHeightConstraint.constant = self.topViewHeightConstraint.constant + ZLStatusBarHeight
-        self.filterBackViewTopConstraint.constant = self.filterBackViewTopConstraint.constant + ZLStatusBarHeight
         
         // ZLSearchItemsView
         self.searchItemsView = Bundle.main.loadNibNamed("ZLSearchItemsView", owner: self, options: nil)?.first as? ZLSearchItemsView
@@ -62,17 +56,12 @@ class ZLSearchView: ZLBaseView {
         }
         self.searchRecordView?.isHidden = true
         
-        // ZLSearchFilterView
-        self.filterBackView.isHidden = true
-        let gestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(hiddenFilterView))
-        self.filterBackView.addGestureRecognizer(gestureRecognizer)
-        
     }
     
     
     func setEditStatus()
     {
-       self.backButtonWidthConstraint.constant = 0.0
+        self.backButtonWidthConstraint.constant = 0.0
         self.cancelButtonWidthConstraint.constant = 40.0
         self.searchRecordView?.isHidden = false
     }
@@ -83,34 +72,15 @@ class ZLSearchView: ZLBaseView {
         self.cancelButtonWidthConstraint.constant = 0.0
         self.searchRecordView?.isHidden = true
     }
-
-    func showFilterView(delegate : NSObject)
+    
+    func showUserFilterView()
     {
-        let filterView = Bundle.main.loadNibNamed("ZLSearchFilterViewForUser", owner: nil, options: nil)?.first as? ZLSearchFilterViewForUser
-        filterView?.frame = self.filterContentView.bounds
-        filterView?.autoresizingMask = UIViewAutoresizing.init(rawValue: UIViewAutoresizing.flexibleHeight.rawValue | UIViewAutoresizing.flexibleWidth.rawValue)
-        self.searchFilterView = filterView
-        self.filterContentView.addSubview(filterView!)
-        
-        self.filterBackView.isHidden = false
-        
-        UIView.animate(withDuration: 1.0, animations: {
-            self.filterContentViewTrailingConstraint.constant = 300
-        })
-        
         
     }
     
-    @objc func hiddenFilterView()
+    func showRepoFilterView()
     {
-        self.searchFilterView?.removeFromSuperview()
-        self.searchFilterView = nil
         
-        self.filterBackView.isHidden = true
-        
-        UIView.animate(withDuration: 1.0, animations: {
-            self.filterContentViewTrailingConstraint.constant = 0
-        })
     }
     
 }

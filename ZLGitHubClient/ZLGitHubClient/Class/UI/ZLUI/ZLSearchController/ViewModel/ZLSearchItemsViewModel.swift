@@ -8,6 +8,8 @@
 
 import UIKit
 
+
+
 class ZLSearchTypeAttachInfo: NSObject
 {
     var searchFilterInfo : ZLSearchFilterInfoModel? = nil               // 默认为空
@@ -19,6 +21,11 @@ class ZLSearchTypeAttachInfo: NSObject
     
 }
 
+enum  ZLSearchItemsViewEventType
+{
+    case userFilterResult
+    case repoFilterResult
+}
 
 
 class ZLSearchItemsViewModel: ZLBaseViewModel {
@@ -40,6 +47,8 @@ class ZLSearchItemsViewModel: ZLBaseViewModel {
     var searchTypeAttachInfos : [ZLSearchType:ZLSearchTypeAttachInfo]?  //
     
     var serialNumber : String?                // 流水号
+    
+    
     
     deinit {
         ZLSearchServiceModel.shared().unRegisterObserver(self, name: ZLSearchResult_Notification)
@@ -101,6 +110,57 @@ class ZLSearchItemsViewModel: ZLBaseViewModel {
             self.searchItemsView?.activityIndicator.startAnimating()
             self.searchFromServer();
         }
+    }
+    
+    
+    override func getEvent(_ event: Any?, fromSubViewModel subViewModel: ZLBaseViewModel) {
+        
+        guard let eventType : ZLSearchItemsViewEventType = event as? ZLSearchItemsViewEventType else
+        {
+            return
+        }
+        
+        if(self.keyWord == "")
+        {
+            // keyword 未空时不记录过滤条件
+            return;
+        }
+        
+        switch(eventType)
+        {
+        case .repoFilterResult:do{
+            guard let viewModel : ZLSearchFilterViewModelForRepo = subViewModel as? ZLSearchFilterViewModelForRepo else
+            {
+                return
+            }
+            
+            let searchAttachInfo = ZLSearchTypeAttachInfo()
+            searchAttachInfo.searchFilterInfo = viewModel.searchFilterModel
+            
+             self.searchTypeAttachInfos?.updateValue(searchAttachInfo, forKey: .repositories)
+            }
+        case .userFilterResult:do{
+            guard let viewModel : ZLSearchFilterViewModelForUser = subViewModel as? ZLSearchFilterViewModelForUser else
+            {
+                return
+            }
+            
+            let searchAttachInfo = ZLSearchTypeAttachInfo()
+            searchAttachInfo.searchFilterInfo = viewModel.searchFilterModel
+            
+            self.searchTypeAttachInfos?.updateValue(searchAttachInfo, forKey: .users)
+            
+            }
+        }
+        
+        // 根据过滤条件，重新拉取数据
+        
+        self.refreshManager?.resetFooterViewInit()// 设置refresh为init状态
+        self.searchItemsView?.tableView.reloadData()
+        
+        self.searchItemsView?.indicatorBackView.isHidden = false
+        self.searchItemsView?.activityIndicator.startAnimating()
+        self.searchFromServer();
     }
     
 }
@@ -324,7 +384,38 @@ extension ZLSearchItemsViewModel: ZLSearchItemsViewDelegate
 {
     func onFilterButtonClicked(button : UIButton)
     {
-        self.super?.getEvent(ZLSearchViewEventType.filterButtonClicked, fromSubViewModel: self)
+        switch(self.currentSearchType)
+        {
+        case .repositories:do{
+            
+            let viewModel = ZLSearchFilterViewModelForRepo.init()
+            guard let view : ZLSearchFilterViewForRepo = Bundle.main.loadNibNamed("ZLSearchFilterViewForRepo", owner: viewModel, options: nil)?.first as? ZLSearchFilterViewForRepo else {
+                return
+            }
+            self.addSubViewModel(viewModel)
+         viewModel.bindModel(self.searchTypeAttachInfos?[.repositories]?.searchFilterInfo, andView: view)
+            
+            ZLPresentContainerView.showPresentContainerView(withContentView: view, withContentInSet: UIEdgeInsets.init(top: 0, left:ZLScreenWidth - ZLSearchFilterViewForRepo.minWidth , bottom: 0, right: 0))
+            
+            }
+        case .users:do{
+            
+            let viewModel = ZLSearchFilterViewModelForUser.init()
+            guard let view : ZLSearchFilterViewForUser = Bundle.main.loadNibNamed("ZLSearchFilterViewForUser", owner: viewModel, options: nil)?.first as? ZLSearchFilterViewForUser else {
+                return
+            }
+            self.addSubViewModel(viewModel)
+            viewModel.bindModel(self.searchTypeAttachInfos?[.users]?.searchFilterInfo, andView: view)
+            
+            ZLPresentContainerView.showPresentContainerView(withContentView: view, withContentInSet: UIEdgeInsets.init(top: 0, left:ZLScreenWidth - ZLSearchFilterViewForRepo.minWidth , bottom: 0, right: 0))
+            
+            }
+        case .commits: break
+        case .issues: break
+        case .code: break
+        case .topics: break
+        }
+        
     }
 }
 

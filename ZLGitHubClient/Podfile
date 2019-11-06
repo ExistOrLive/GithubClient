@@ -20,4 +20,7 @@ pod 'SDWebImage', '~> 5.0.0'
 
 pod 'MMMarkdown'
 
+# AutoLayout
+pod 'Masonry'
+pod 'SnapKit', '~> 4.0.0'
 end

@@ -55,13 +55,9 @@ class ZLSearchViewModel: ZLBaseViewModel {
         {
         case .filterButtonClicked:
             do {
-                self.searchView?.showFilterView(delegate: self)
+               
             }
         }
-        
-        
-        
-        
     }
     
 
