@@ -10,4 +10,9 @@
 
 @implementation ZLGithubRequestErrorModel
 
+- (NSString *) description
+{
+    return [NSString stringWithFormat:@"StatusCode %ld, Error %@",(long)self.statusCode,self.message];
+}
+
 @end
