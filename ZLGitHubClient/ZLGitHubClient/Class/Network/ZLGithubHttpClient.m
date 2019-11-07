@@ -330,26 +330,19 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 {
     NSString * userUrl = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,currenUserUrl];
     
-    [self.sessionManager.requestSerializer setValue:[NSString stringWithFormat:@"token %@",self.token] forHTTPHeaderField:@"Authorization"];
-    
-    void(^successBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
-    ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
-    {
-        ZLGithubUserModel * model = [ZLGithubUserModel getInstanceWithDic:(NSDictionary *) responseObject];
-        block(YES,model,serialNumber);
+    GithubResponse newResponse = ^(BOOL result,id _Nullable responseObject,NSString * _Nonnull serailNumber){
+        
+        if(result)
+        {
+            responseObject = [ZLGithubUserModel getInstanceWithDic:responseObject];
+        }
+        block(result,responseObject,serialNumber);
     };
     
-    void(^failedBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
-    ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
-    {
-        block(NO,nil,serialNumber);
-    };
-    
-    [self.sessionManager GET:userUrl
-                  parameters:nil
-                    progress:nil
-                     success:successBlock
-                     failure:failedBlock];
+    [self GETRequestWithURL:userUrl
+                 WithParams:nil
+          WithResponseBlock:newResponse
+               serialNumber:serialNumber];
 }
 
 /**
@@ -362,26 +355,19 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 {
     NSString * userUrl = [NSString stringWithFormat:@"%@%@%@",GitHubAPIURL,userInfo,loginName];
     
-    [self.sessionManager.requestSerializer setValue:[NSString stringWithFormat:@"token %@",self.token] forHTTPHeaderField:@"Authorization"];
-    
-    void(^successBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
-    ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
-    {
-        ZLGithubUserModel * model = [ZLGithubUserModel getInstanceWithDic:(NSDictionary *) responseObject];
-        block(YES,model,serialNumber);
+    GithubResponse newResponse = ^(BOOL result,id _Nullable responseObject,NSString * _Nonnull serailNumber){
+        
+        if(result)
+        {
+            responseObject = [ZLGithubUserModel getInstanceWithDic:responseObject];
+        }
+        block(result,responseObject,serialNumber);
     };
     
-    void(^failedBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
-    ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
-    {
-        block(NO,nil,serialNumber);
-    };
-    
-    [self.sessionManager GET:userUrl
-                  parameters:nil
-                    progress:nil
-                     success:successBlock
-                     failure:failedBlock];
+    [self GETRequestWithURL:userUrl
+                 WithParams:nil
+          WithResponseBlock:newResponse
+               serialNumber:serialNumber];
 }
 
 
@@ -395,26 +381,19 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 {
     NSString * userUrl = [NSString stringWithFormat:@"%@%@%@",GitHubAPIURL,orgInfo,loginName];
     
-    [self.sessionManager.requestSerializer setValue:[NSString stringWithFormat:@"token %@",self.token] forHTTPHeaderField:@"Authorization"];
-    
-    void(^successBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
-    ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
-    {
-        ZLGithubUserModel * model = [ZLGithubUserModel getInstanceWithDic:(NSDictionary *) responseObject];
-        block(YES,model,serialNumber);
+    GithubResponse newResponse = ^(BOOL result,id _Nullable responseObject,NSString * _Nonnull serailNumber){
+        
+        if(result)
+        {
+            responseObject = [ZLGithubUserModel getInstanceWithDic:responseObject];
+        }
+        block(result,responseObject,serialNumber);
     };
     
-    void(^failedBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
-    ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
-    {
-        block(NO,nil,serialNumber);
-    };
-    
-    [self.sessionManager GET:userUrl
-                  parameters:nil
-                    progress:nil
-                     success:successBlock
-                     failure:failedBlock];
+    [self GETRequestWithURL:userUrl
+                 WithParams:nil
+          WithResponseBlock:newResponse
+               serialNumber:serialNumber];
 }
 
 
@@ -428,8 +407,6 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 {
     NSString * urlForSearchUser = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,searchUserUrl];
     
-    [self.sessionManager.requestSerializer setValue:[NSString stringWithFormat:@"token %@",self.token] forHTTPHeaderField:@"Authorization"];
-    
     NSMutableDictionary * params = [@{@"q":keyword,
                                       @"page":[NSNumber numberWithUnsignedInteger:page],
                                       @"per_page":[NSNumber numberWithUnsignedInteger:per_page]} mutableCopy];
@@ -439,38 +416,23 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         [params setObject:isAsc ? @"asc":@"desc" forKey:@"order"];
     }
     
-    
-    void(^successBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
-    ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
-    {
-        ZLSearchResultModel * resultModel = [[ZLSearchResultModel alloc] init];
-        resultModel.totalNumber = [[responseObject objectForKey:@"total_count"] unsignedIntegerValue];
-        resultModel.incomplete_results = [[responseObject objectForKey:@"incomplete_results"] unsignedIntegerValue];
-        resultModel.data = [ZLGithubUserModel mj_objectArrayWithKeyValuesArray:[responseObject objectForKey:@"items"]];
-        block(YES,resultModel,serialNumber);
-    };
-    
-    void(^failedBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
-    ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
-    {
-        ZLLog_Warning(@"failedBlock: responseObject[%@]",responseObject);
+    GithubResponse newResponse = ^(BOOL result,id _Nullable responseObject,NSString * _Nonnull serailNumber){
         
-        ZLGithubRequestErrorModel * errorModel = [ZLGithubRequestErrorModel mj_objectWithKeyValues:responseObject];
-        if(errorModel == nil)
+        if(result)
         {
-            errorModel = [[ZLGithubRequestErrorModel alloc] init];
+            ZLSearchResultModel * resultModel = [[ZLSearchResultModel alloc] init];
+            resultModel.totalNumber = [[responseObject objectForKey:@"total_count"] unsignedIntegerValue];
+            resultModel.incomplete_results = [[responseObject objectForKey:@"incomplete_results"] unsignedIntegerValue];
+            resultModel.data = [ZLGithubUserModel mj_objectArrayWithKeyValuesArray:[responseObject objectForKey:@"items"]];
+            responseObject = resultModel;
         }
-        errorModel.statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
-        
-        block(NO,errorModel,serialNumber);
+        block(result,responseObject,serialNumber);
     };
     
-    
-    [self.sessionManager GET:urlForSearchUser
-                  parameters:params
-                    progress:nil
-                     success:successBlock
-                     failure:failedBlock];
+    [self GETRequestWithURL:urlForSearchUser
+                 WithParams:params
+          WithResponseBlock:newResponse
+               serialNumber:serialNumber];
 }
 
 - (void) updateUserPublicProfile:(GithubResponse) block
@@ -598,7 +560,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         serialNumber:(NSString *) serialNumber
 {
     NSString * urlForSearchUser = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,searchRepoUrl];
-        
+    
     NSMutableDictionary * params = [@{@"q":keyword,
                                       @"page":[NSNumber numberWithUnsignedInteger:page],
                                       @"per_page":[NSNumber numberWithUnsignedInteger:per_page]} mutableCopy];
@@ -635,37 +597,20 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 {
     NSString * urlForRepo = [NSString stringWithFormat:@"%@%@/%@",GitHubAPIURL,reposUrl,fullName];
     
-    [self.sessionManager.requestSerializer setValue:[NSString stringWithFormat:@"token %@",self.token] forHTTPHeaderField:@"Authorization"];
-    
-    void(^successBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
-    ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
-    {
-        ZLGithubRepositoryModel * model = [ZLGithubRepositoryModel mj_objectWithKeyValues:responseObject];
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
         
-        block(YES,model,serialNumber);
-    };
-    
-    void(^failedBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
-    ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
-    {
-        ZLLog_Warning(@"failedBlock: responseObject[%@]",responseObject);
-        
-        ZLGithubRequestErrorModel * errorModel = [ZLGithubRequestErrorModel mj_objectWithKeyValues:responseObject];
-        if(errorModel == nil)
+        if(result)
         {
-            errorModel = [[ZLGithubRequestErrorModel alloc] init];
+            ZLGithubRepositoryModel * model = [ZLGithubRepositoryModel mj_objectWithKeyValues:responseObject];
+            responseObject = model;
         }
-        errorModel.statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
-        
-        block(NO,errorModel,serialNumber);
+        block(result,responseObject,serialNumber);
     };
     
-    
-    [self.sessionManager GET:urlForRepo
-                  parameters:nil
-                    progress:nil
-                     success:successBlock
-                     failure:failedBlock];
+    [self GETRequestWithURL:urlForRepo
+                 WithParams:nil
+          WithResponseBlock:newBlock
+               serialNumber:serialNumber];
     
 }
 
@@ -683,40 +628,23 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     NSString * urlForFollowers = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,userfollowersUrl];
     urlForFollowers = [NSString stringWithFormat:urlForFollowers,loginName];
     
-    [self.sessionManager.requestSerializer setValue:[NSString stringWithFormat:@"token %@",self.token] forHTTPHeaderField:@"Authorization"];
-    
     NSDictionary * params = @{@"page":[NSNumber numberWithUnsignedInteger:page],
                               @"per_page":[NSNumber numberWithUnsignedInteger:per_page]};
     
-    void(^successBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
-    ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
-    {
-        NSArray * array = [[ZLGithubUserModel mj_objectArrayWithKeyValuesArray:responseObject] copy];
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
         
-        block(YES,array,serialNumber);
-    };
-    
-    void(^failedBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
-    ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
-    {
-        ZLLog_Warning(@"failedBlock: responseObject[%@]",responseObject);
-        
-        ZLGithubRequestErrorModel * errorModel = [ZLGithubRequestErrorModel mj_objectWithKeyValues:responseObject];
-        if(errorModel == nil)
+        if(result)
         {
-            errorModel = [[ZLGithubRequestErrorModel alloc] init];
+            NSArray * array = [[ZLGithubUserModel mj_objectArrayWithKeyValuesArray:responseObject] copy];
+            responseObject = array;
         }
-        errorModel.statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
-        
-        block(NO,errorModel,serialNumber);
+        block(result,responseObject,serialNumber);
     };
     
-    
-    [self.sessionManager GET:urlForFollowers
-                  parameters:params
-                    progress:nil
-                     success:successBlock
-                     failure:failedBlock];
+    [self GETRequestWithURL:urlForFollowers
+                 WithParams:params
+          WithResponseBlock:newBlock
+               serialNumber:serialNumber];
 }
 
 
@@ -733,40 +661,25 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     NSString * urlForFollowing = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,userfollowingUrl];
     urlForFollowing = [NSString stringWithFormat:urlForFollowing,loginName];
     
-    [self.sessionManager.requestSerializer setValue:[NSString stringWithFormat:@"token %@",self.token] forHTTPHeaderField:@"Authorization"];
     
     NSDictionary * params = @{@"page":[NSNumber numberWithUnsignedInteger:page],
                               @"per_page":[NSNumber numberWithUnsignedInteger:per_page]};
     
-    void(^successBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
-    ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
-    {
-        NSArray * array = [[ZLGithubUserModel mj_objectArrayWithKeyValuesArray:responseObject] copy];
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
         
-        block(YES,array,serialNumber);
-    };
-    
-    void(^failedBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
-    ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
-    {
-        ZLLog_Warning(@"failedBlock: responseObject[%@]",responseObject);
-        
-        ZLGithubRequestErrorModel * errorModel = [ZLGithubRequestErrorModel mj_objectWithKeyValues:responseObject];
-        if(errorModel == nil)
+        if(result)
         {
-            errorModel = [[ZLGithubRequestErrorModel alloc] init];
+            NSArray * array = [[ZLGithubUserModel mj_objectArrayWithKeyValuesArray:responseObject] copy];
+            responseObject = array;
         }
-        errorModel.statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
-        
-        block(NO,errorModel,serialNumber);
+        block(result,responseObject,serialNumber);
     };
     
+    [self GETRequestWithURL:urlForFollowing
+                 WithParams:params
+          WithResponseBlock:newBlock
+               serialNumber:serialNumber];
     
-    [self.sessionManager GET:urlForFollowing
-                  parameters:params
-                    progress:nil
-                     success:successBlock
-                     failure:failedBlock];
 }
 
 #pragma mark - events
@@ -780,89 +693,71 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     NSString * urlForReceivedEvent = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,userReceivedEventUrl];
     urlForReceivedEvent = [NSString stringWithFormat:urlForReceivedEvent,userName];
     
-    [self.sessionManager.requestSerializer setValue:[NSString stringWithFormat:@"token %@",self.token] forHTTPHeaderField:@"Authorization"];
-    
     NSDictionary * params = @{@"page":[NSNumber numberWithUnsignedInteger:page],
                               @"per_page":[NSNumber numberWithUnsignedInteger:per_page]};
     
-    void(^successBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
-    ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
-    {
-        NSArray * array = [[ZLReceivedEventModel mj_objectArrayWithKeyValuesArray:responseObject] copy];
-        NSMutableArray *usefulDataArray = [[NSMutableArray alloc] init];
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
         
-        if(array && array.count > 0)
+        if(result)
         {
-            for (ZLReceivedEventModel *eventModel in array)
+            NSArray * array = [[ZLReceivedEventModel mj_objectArrayWithKeyValuesArray:responseObject] copy];
+            NSMutableArray *usefulDataArray = [[NSMutableArray alloc] init];
+            
+            if(array && array.count > 0)
             {
-                if(eventModel.type != ZLReceivedEventType_CreateEvent &&
-                   eventModel.type != ZLReceivedEventType_PushEvent &&
-                   eventModel.type != ZLReceivedEventType_PullRequestEvent &&
-                   eventModel.type != ZLReceivedEventType_WatchEvent)
+                for (ZLReceivedEventModel *eventModel in array)
                 {
-                    continue;
+                    if(eventModel.type != ZLReceivedEventType_CreateEvent &&
+                       eventModel.type != ZLReceivedEventType_PushEvent &&
+                       eventModel.type != ZLReceivedEventType_PullRequestEvent &&
+                       eventModel.type != ZLReceivedEventType_WatchEvent)
+                    {
+                        continue;
+                    }
+                    
+                    NSDictionary *dic = eventModel.payload;
+                    if (dic.count > 0)
+                    {
+                        if(eventModel.type == ZLReceivedEventType_CreateEvent)
+                        {
+                            ZLCreateEventPayloadModel *createEventPayload = [ZLCreateEventPayloadModel mj_objectWithKeyValues:dic];
+                            eventModel.payload = createEventPayload;
+                        }
+                        else if(eventModel.type == ZLReceivedEventType_PushEvent)
+                        {
+                            ZLPayloadModel *tempPayloadModel = [ZLPayloadModel mj_objectWithKeyValues:dic];
+                            NSArray *commitArray = [ZLCommitInfoModel mj_objectArrayWithKeyValuesArray: tempPayloadModel.commits];
+                            tempPayloadModel.commits = commitArray;
+                            eventModel.payload = tempPayloadModel;
+                        }
+                        else if (eventModel.type == ZLReceivedEventType_PullRequestEvent)
+                        {
+                            //TODO::
+                        }
+                        else if (eventModel.type == ZLReceivedEventType_WatchEvent)
+                        {
+                            ZLWatchEventPayloadModel *watchEventPayload = [ZLWatchEventPayloadModel mj_objectWithKeyValues:dic];
+                            eventModel.payload = watchEventPayload;
+                        }
+                        else
+                        {
+                            //TODO:: 这是其他类型的解析
+                        }
+                    }
+                    
+                    [usefulDataArray addObject:eventModel];
                 }
-                
-                NSDictionary *dic = eventModel.payload;
-                if (dic.count > 0)
-                {
-                    if(eventModel.type == ZLReceivedEventType_CreateEvent)
-                    {
-                        ZLCreateEventPayloadModel *createEventPayload = [ZLCreateEventPayloadModel mj_objectWithKeyValues:dic];
-                        eventModel.payload = createEventPayload;
-                    }
-                    else if(eventModel.type == ZLReceivedEventType_PushEvent)
-                    {
-                        ZLPayloadModel *tempPayloadModel = [ZLPayloadModel mj_objectWithKeyValues:dic];
-                        NSArray *commitArray = [ZLCommitInfoModel mj_objectArrayWithKeyValuesArray: tempPayloadModel.commits];
-                        tempPayloadModel.commits = commitArray;
-                        eventModel.payload = tempPayloadModel;
-                    }
-                    else if (eventModel.type == ZLReceivedEventType_PullRequestEvent)
-                    {
-                        //TODO::
-                    }
-                    else if (eventModel.type == ZLReceivedEventType_WatchEvent)
-                    {
-                        ZLWatchEventPayloadModel *watchEventPayload = [ZLWatchEventPayloadModel mj_objectWithKeyValues:dic];
-                        eventModel.payload = watchEventPayload;
-                    }
-                    else
-                    {
-                        //TODO:: 这是其他类型的解析
-                    }
-                }
-                
-                [usefulDataArray addObject:eventModel];
             }
+            responseObject = [usefulDataArray copy];
         }
-        
-        block(YES,[usefulDataArray copy],serialNumber);
-    };
-    
-    void(^failedBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
-    ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
-    {
-        ZLLog_Warning(@"failedBlock: responseObject[%@]",responseObject);
-        
-        ZLGithubRequestErrorModel * errorModel = [ZLGithubRequestErrorModel mj_objectWithKeyValues:responseObject];
-        if(errorModel == nil)
-        {
-            errorModel = [[ZLGithubRequestErrorModel alloc] init];
-        }
-        errorModel.statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
-        
-        block(NO,errorModel,serialNumber);
+        block(result,responseObject,serialNumber);
     };
     
     
-    [self.sessionManager GET:urlForReceivedEvent
-                  parameters:params
-                    progress:nil
-                     success:successBlock
-                     failure:failedBlock];
-    
-    
+    [self GETRequestWithURL:urlForReceivedEvent
+                 WithParams:params
+          WithResponseBlock:newBlock
+               serialNumber:serialNumber];
 }
 
 

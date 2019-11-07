@@ -152,6 +152,7 @@ extension ZLNewsViewModel
                 }
 
                 let vc = ZLUserInfoController.init(userInfoModel: userInfo)
+                vc.hidesBottomBarWhenPushed = true
                 self.viewController?.navigationController?.pushViewController(vc, animated: true)
             }
             default:
