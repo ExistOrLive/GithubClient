@@ -31,6 +31,7 @@ let AreaInsetWidthRight: CGFloat = (UIScreen.main.bounds.width == 812 || UIScree
 // MARK: NotificationName
 
 let ZLLoginResult_Notification = Notification.Name(rawValue: "ZLLoginResult_Notification")
+let ZLLogoutResult_Notification = Notification.Name(rawValue:"ZLLogoutResult_Notification")
 let ZLGetCurrentUserInfoResult_Notification = Notification.Name(rawValue: "ZLGetCurrentUserInfoResult_Notification")
 let ZLGetReposResult_Notification = Notification.Name(rawValue: "ZLGetReposResult_Notification")
 let ZLGetFollowersResult_Notification = Notification.Name(rawValue: "ZLGetFollowersResult_Notification")
@@ -43,6 +44,7 @@ let ZLUpdateUserPublicProfileInfoResult_Notification = Notification.Name(rawValu
 let ZLGetUserReceivedEventResult_Notification = Notification.Name(rawValue: "ZLGetUserReceivedEventResult_Notification")
 
 let ZLLanguageTypeChange_Notificaiton = Notification.Name(rawValue: "ZLLanguageTypeChange_Notificaiton")
+
 
 extension Notification
 {

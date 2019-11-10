@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "ZLGithubAPI.h"
 
 
 @interface AppDelegate ()
@@ -40,8 +41,19 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [self.window setBackgroundColor:[UIColor whiteColor]];
     [self.window makeKeyAndVisible];
-    [self switchToLoginController];
-
+    
+    
+    if([[ZLKeyChainManager sharedInstance] getGithubAccessToken].length == 0)
+    {
+        // token为空，切到登陆界面
+        [self switchToLoginController];
+    }
+    else
+    {
+        // token不为空，跳到主界面
+        [self switchToMainController];
+    }
+    
     return YES;
 }
 
@@ -86,4 +98,30 @@
     UIViewController * rootViewController = [[ZLLoginViewController alloc] init];
     [self.window setRootViewController:rootViewController];
 }
+
+
+#pragma mark -
+
+- (void) addObserver
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onGithubTokenInvalid) name:ZLGithubTokenInvalid_Notification object:nil];
+}
+
+- (void) removeObserver
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:ZLGithubTokenInvalid_Notification object:nil];
+}
+
+
+#pragma mark -
+
+- (void) onGithubTokenInvalid
+{
+    if(![self.window.rootViewController isKindOfClass:[ZLLoginViewController class]])
+    {
+        [self switchToLoginController];
+    }
+    
+}
+ 
 @end

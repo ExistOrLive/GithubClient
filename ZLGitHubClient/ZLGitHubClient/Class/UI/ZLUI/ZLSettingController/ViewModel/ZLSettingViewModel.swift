@@ -19,8 +19,12 @@ class ZLSettingViewModel: ZLBaseViewModel {
     // view
     var settingView : ZLSettingView?
     
+    // Model
+    var logoutSerialNumber : String?
+    
     deinit {
         NotificationCenter.default.removeObserver(self, name: ZLLanguageTypeChange_Notificaiton, object: nil)
+        ZLLoginServiceModel.shared().unRegisterObserver(self, name: ZLLogoutResult_Notification)
     }
     
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
@@ -36,6 +40,7 @@ class ZLSettingViewModel: ZLBaseViewModel {
         self.settingView?.tableView.delegate = self
         
         NotificationCenter.default.addObserver(self, selector:#selector(onNotificationArrived(notication:)) , name: ZLLanguageTypeChange_Notificaiton, object: nil)
+        ZLLoginServiceModel.shared().registerObserver(self, selector:#selector(onNotificationArrived(notication:)), name:ZLLogoutResult_Notification)
         
     }
     
@@ -46,10 +51,8 @@ class ZLSettingViewModel: ZLBaseViewModel {
         let cancelAction = UIAlertAction.init(title: ZLLocalizedString(string: "Cancel", comment: "取消"), style: UIAlertActionStyle.default, handler:nil)
         let confirmAction = UIAlertAction.init(title: ZLLocalizedString(string: "Confirm", comment: "确认"), style: UIAlertActionStyle.destructive, handler:{ (action : UIAlertAction) in
             
-            ZLLoginServiceModel.shared().logout(NSString.generateSerialNumber())
-            let appDelegate:AppDelegate  = UIApplication.shared.delegate! as! AppDelegate;
-            appDelegate.switchToLoginController();
-            
+            self.logoutSerialNumber = NSString.generateSerialNumber()
+            ZLLoginServiceModel.shared().logout(self.logoutSerialNumber ?? "")
         })
         
         alertController.addAction(cancelAction)
@@ -107,6 +110,11 @@ extension ZLSettingViewModel
         case ZLLanguageTypeChange_Notificaiton:do
         {
             self.settingView?.justReloadView()
+            }
+        case ZLLogoutResult_Notification:do
+        {
+            let appDelegate:AppDelegate  = UIApplication.shared.delegate! as! AppDelegate;
+            appDelegate.switchToLoginController();
             }
         default:
             break;

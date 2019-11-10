@@ -29,10 +29,10 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 
 @property (nonatomic, strong) NSURLSessionConfiguration * httpConfig;
 
+@property (nonatomic, strong) NSString * token;
+
 @property (nonatomic, copy) void(^ loginBlock)(NSURLRequest * _Nullable request,BOOL isNeedContinuedLogin,BOOL success);
 
-
-@property (nonatomic, strong) NSString * token;
 
 @end
 
@@ -54,11 +54,15 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     if(self = [super init])
     {
         _httpConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
-        _httpConfig.HTTPShouldSetCookies = NO;      // 登陆cookie保存在NSUserDefaults中，需要手动设置
         _sessionManager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:_httpConfig];
-        
-        // 处理success，failed的队列
+        // 通知github返回的数据是json格式
+        [_sessionManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+
+        // 处理success，failed的队列,不要抛到主线程
         _sessionManager.completionQueue = dispatch_queue_create("AFURLSessionManagerCompleteQueue", DISPATCH_QUEUE_SERIAL);
+        
+        // 获取用户token
+        _token = [[ZLKeyChainManager sharedInstance] getGithubAccessToken];
         
     }
     return self;
@@ -69,6 +73,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 
 - (void) GETRequestWithURL:(NSString *) URL WithParams:(NSDictionary *) params WithResponseBlock:(GithubResponse) block serialNumber:(NSString *) serialNumber
 {
+    // 设置token
     [self.sessionManager.requestSerializer setValue:[NSString stringWithFormat:@"token %@",self.token] forHTTPHeaderField:@"Authorization"];
     
     void(^successBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
@@ -155,6 +160,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
             block(YES, loginProcessModel, serialNumber);
             return nil;
         }
+        // 获取token
         else if([request.URL.absoluteString hasPrefix:OAuthCallBackURL])
         {
             ZLLoginProcessModel * loginProcessModel = [[ZLLoginProcessModel alloc] init];
@@ -171,31 +177,17 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         return request;
     }];
     
-    self.sessionManager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
-    // 设置cookies
-    NSArray * cookies = [self cookiesForCurrentLogin];
-    if([cookies count] > 0)
-    {
-        NSDictionary * cookiesHeader =  [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
+
         
-        for(NSString * key in cookiesHeader.allKeys)
-        {
-            [self.sessionManager.requestSerializer setValue:[cookiesHeader objectForKey:key] forHTTPHeaderField:key];
-        }
-    }
-    
-    [self.sessionManager GET:urlStr parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+    [self.sessionManager GET:urlStr
+                  parameters:nil
+                    progress:nil
+                     success:nil
+                     failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
         NSHTTPURLResponse * response = (NSHTTPURLResponse*)task.response;
         if(!NSLocationInRange(response.statusCode, NSMakeRange(100, 300)))
         {
-            ZLGithubRequestErrorModel * model = [[ZLGithubRequestErrorModel alloc] init];
-            model.statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
-            model.message = error.localizedDescription;
-            
             ZLLoginProcessModel * processModel = [[ZLLoginProcessModel alloc] init];
             processModel.result = false;
             processModel.loginStep = ZLLoginStep_checkIsLogined;
@@ -244,31 +236,13 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     
     NSDictionary * params = @{@"client_id":MyClientID,@"client_secret":MyClientSecret,@"code":code,@"state":state};
     
-    self.sessionManager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    // 设置接受的格式，否则默认body是以查询字符串的格式
-    [self.sessionManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    
-    // 设置cookies
-    NSArray * cookies = [self cookiesForCurrentLogin];
-    if([cookies count] > 0)
-    {
-        NSDictionary * cookiesHeader =  [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
-        
-        for(NSString * key in cookiesHeader.allKeys)
-        {
-            [self.sessionManager.requestSerializer setValue:[cookiesHeader objectForKey:key] forHTTPHeaderField:key];
-        }
-    }
-    
     __weak typeof(self) weakSelf = self;
     void(^successBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
     ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
     {
-        NSString * userAccount = [self syncLoginCookiesToUsersDefaults];
         NSDictionary * dic = (NSDictionary *) responseObject;
         weakSelf.token = [dic objectForKey:@"access_token"];
-        
-        [[ZLKeyChainManager sharedInstance] updateUserAccount:userAccount withAccessToken:weakSelf.token];
+        [[ZLKeyChainManager sharedInstance] updateUserAccount:nil withAccessToken:weakSelf.token];
         
         ZLLoginProcessModel * processModel = [[ZLLoginProcessModel alloc] init];
         processModel.result = YES;
@@ -280,10 +254,6 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     void(^failedBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
     ^(NSURLSessionDataTask * _Nonnull task, NSError *  error)
     {
-        ZLGithubRequestErrorModel * model = [[ZLGithubRequestErrorModel alloc] init];
-        model.statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
-        model.message = error.localizedDescription;
-        
         ZLLoginProcessModel * processModel = [[ZLLoginProcessModel alloc] init];
         processModel.result = false;
         processModel.loginStep = ZLLoginStep_getToken;
@@ -301,21 +271,24 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 
 
 
-- (void) logout:(NSString *) serialNumber
+- (void) logout:(GithubResponse) block
+   serialNumber:(NSString *) serialNumber
 {
-    self.token = nil;
-    NSArray * cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:GitHubMainURL]];
+    NSDictionary * params = @{@"utf8":@"✓",@"authenticity_token":self.token};
     
-    // 清空所有的cookie
-    for(NSHTTPCookie * cookie in cookies)
-    {
-        [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
-    }
-    
-    [self removeLoginCookies];
-    [[ZLKeyChainManager sharedInstance] updateUserAccount:nil withAccessToken:nil];
-    [[ZLKeyChainManager sharedInstance] updateUserHeadImageURL:nil];
-    
+    GithubResponse newResponse = ^(BOOL result,id _Nullable responseObject,NSString * _Nonnull serailNumber){
+        
+        if(result)
+        {
+            // 注销成功，清空用户token和信息
+            self.token = nil;
+            [[ZLKeyChainManager sharedInstance] clearGithubTokenAndUserInfo];
+        }
+        block(result,responseObject,serialNumber);
+    };
+
+    [self POSTRequestWithURL:OAuthLogoutURL WithParams:params WithResponseBlock:newResponse serialNumber:serialNumber];
+        
 }
 
 
@@ -487,6 +460,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                        failure:failedBlock];
     
     self.sessionManager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    [self.sessionManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     
 }
 
@@ -759,67 +733,6 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
           WithResponseBlock:newBlock
                serialNumber:serialNumber];
 }
-
-
-#pragma mark - Cookies for login status
-
-/**
- * 将Github中保存登陆信息的cookie 保存在NSUserDefaults中
- *
- **/
-- (NSString *) syncLoginCookiesToUsersDefaults
-{
-    // 将Cookies 保存到 NSUserDefaults中
-    NSArray * cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:GitHubMainURL]];
-    
-    if([cookies count] == 0)
-    {
-        return nil;
-    }
-    
-    
-    NSMutableDictionary * cookiesDic = [[[NSUserDefaults standardUserDefaults] objectForKey:ZLGithubLoginCookiesKey] mutableCopy];
-    if(cookiesDic == nil)
-    {
-        cookiesDic = [[NSMutableDictionary alloc] init];
-    }
-    
-    NSString * userAccount = nil;
-    for(NSHTTPCookie * cookie in cookies)
-    {
-        [cookiesDic setObject:[cookie properties] forKey:cookie.name];
-        
-        if([@"dotcom_user" isEqualToString:cookie.name])
-        {
-            userAccount = cookie.value;
-        }
-        [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
-    }
-    [[NSUserDefaults standardUserDefaults] setObject:cookiesDic forKey:ZLGithubLoginCookiesKey];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    return userAccount;
-}
-
-- (void) removeLoginCookies
-{
-    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:ZLGithubLoginCookiesKey];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (NSArray *) cookiesForCurrentLogin
-{
-    NSMutableDictionary * cookiesDic = [[NSUserDefaults standardUserDefaults] objectForKey:ZLGithubLoginCookiesKey];
-    NSMutableArray * cookiesArray = [[NSMutableArray alloc] init];
-    
-    for(NSDictionary * cookieProperty in cookiesDic.allValues)
-    {
-        [cookiesArray addObject:[NSHTTPCookie cookieWithProperties:cookieProperty]];
-    }
-    
-    return cookiesArray;
-}
-
 
 
 @end

@@ -20,9 +20,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *) getHeadImageURL;
 
+- (BOOL) updateGithubAccessToken:(NSString * __nullable) token;
+
+- (BOOL) updateUserAccount:(NSString * __nullable) userAccount;
+
 - (BOOL) updateUserAccount:(NSString * __nullable) userAccount withAccessToken:(NSString * __nullable) token;
 
 - (BOOL) updateUserHeadImageURL:(NSString * __nullable) headImageURL;
+
+- (void) clearGithubTokenAndUserInfo;
 
 @end
 

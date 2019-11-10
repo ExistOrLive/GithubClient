@@ -19,7 +19,6 @@ class ZLLoginViewModel: ZLBaseViewModel,ZLLoginBaseViewDelegate {
         ZLLoginServiceModel.shared().unRegisterObserver(self, name: ZLLoginResult_Notification)
     }
     
-    
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
         if !(targetView is ZLLoginBaseView)
         {
@@ -136,6 +135,7 @@ class ZLLoginViewModel: ZLBaseViewModel,ZLLoginBaseViewDelegate {
                 if loginProcess.loginStep == ZLLoginStep_logining
                 {
                     let vc:ZLOAuthViewController = ZLOAuthViewController();
+                    vc.modalPresentationStyle = .fullScreen
                     vc.loginProcessModel = loginProcess
                     self.viewController?.present(vc, animated: false, completion: nil);
                 }

@@ -19,6 +19,8 @@ typedef enum : NSUInteger {
 
 
 static const NSNotificationName ZLLoginResult_Notification = @"ZLLoginResult_Notification";
+static const NSNotificationName ZLLogoutResult_Notification = @"ZLLogoutResult_Notification";
+
 
 
 #endif /* ZLLoginServiceHeader_h */

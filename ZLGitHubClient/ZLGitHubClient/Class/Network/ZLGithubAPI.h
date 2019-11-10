@@ -20,6 +20,7 @@
 
 #define OAuthAuthorizeURL       @"https://github.com/login/oauth/authorize"
 #define OAuthLoginURL           @"https://github.com/login"
+#define OAuthLogoutURL          @"https://github.com/logout"
 #define OAuthHomePageURL        @"https://github.com/organizations/MengAndJie/Home"
 #define OAuthCallBackURL        @"https://github.com/organizations/MengAndJie/CallBack"
 #define OAuthAccessTokenURL     @"https://github.com/login/oauth/access_token"
@@ -68,6 +69,8 @@
 #define userfollowersUrl             @"/users/%@/followers"                   // 某用户的followers
 
 
+
+static const NSNotificationName ZLGithubTokenInvalid_Notification = @"ZLGithubTokenInvalid_Notification";
 
 
 

@@ -37,7 +37,8 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * 注销
  **/
-- (void) logout:(NSString *) serialNumber;
+- (void) logout:(GithubResponse) block
+   serialNumber:(NSString *) serialNumber;
 
 
 #pragma mark - users

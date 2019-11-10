@@ -37,8 +37,8 @@ class ZLOAuthBaseViewModel: ZLBaseViewModel {
             return
         }
         
-        self.loginProcess = loginProcess;
-        self.baseView?.webView?.load(loginProcess.loginRequest);
+        self.loginProcess = loginProcess
+        self.baseView?.webView?.load(loginProcess.loginRequest)
     }
     
     
