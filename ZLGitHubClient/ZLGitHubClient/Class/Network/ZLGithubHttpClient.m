@@ -91,6 +91,14 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         ZLLog_Warning(@"GET response error [%@]",model);
         
         block(NO,model,serialNumber);
+        
+        if(model.statusCode == 401)
+        {
+            // token 过期失效
+            ZLMainThreadDispatch([[NSNotificationCenter defaultCenter] postNotificationName:ZLGithubTokenInvalid_Notification object:nil];)
+
+        }
+
     };
     
     [self.sessionManager GET:URL
@@ -118,8 +126,15 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         model.statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
         model.message = error.localizedDescription;
         ZLLog_Warning(@"GET response error [%@]",model);
-        
+            
         block(NO,model,serialNumber);
+        
+        if(model.statusCode == 401)
+        {
+            // token 过期失效
+            ZLMainThreadDispatch([[NSNotificationCenter defaultCenter] postNotificationName:ZLGithubTokenInvalid_Notification object:nil];)
+
+        }
     };
     
     [self.sessionManager POST:URL
@@ -274,21 +289,24 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 - (void) logout:(GithubResponse) block
    serialNumber:(NSString *) serialNumber
 {
-    NSDictionary * params = @{@"utf8":@"✓",@"authenticity_token":self.token};
-    
-    GithubResponse newResponse = ^(BOOL result,id _Nullable responseObject,NSString * _Nonnull serailNumber){
-        
-        if(result)
-        {
-            // 注销成功，清空用户token和信息
-            self.token = nil;
-            [[ZLKeyChainManager sharedInstance] clearGithubTokenAndUserInfo];
-        }
-        block(result,responseObject,serialNumber);
-    };
+    NSArray * types = @[WKWebsiteDataTypeCookies,WKWebsiteDataTypeSessionStorage];
+    NSSet * set = [NSSet setWithArray:types];
 
-    [self POSTRequestWithURL:OAuthLogoutURL WithParams:params WithResponseBlock:newResponse serialNumber:serialNumber];
-        
+    NSDate * date = [NSDate dateWithTimeIntervalSince1970:0];
+    [[WKWebsiteDataStore defaultDataStore] removeDataOfTypes:set modifiedSince:date completionHandler:^{}];
+
+    NSArray * cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:GitHubMainURL]];
+    for(NSHTTPCookie * cookie in cookies)
+    {
+        [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
+    }
+
+    // 注销成功，清空用户token和信息
+    self.token = nil;
+    [[ZLKeyChainManager sharedInstance] clearGithubTokenAndUserInfo];
+    
+    block(YES,nil,serialNumber);
+    
 }
 
 

@@ -88,20 +88,14 @@ extension ZLOAuthBaseViewModel: ZLWebContentViewDelegate
     
     func clearCookiesForWkWebView()
     {
-//            let types = [WKWebsiteDataTypeCookies,WKWebsiteDataTypeSessionStorage]
-//            let set = Set(types)
-//            let date = Date.init(timeIntervalSince1970: TimeInterval.init(0.0))
-//
-//            WKWebsiteDataStore.default().removeData(ofTypes: set, modifiedSince: date, completionHandler: {() in })
-        let path = NSHomeDirectory()
-        let cookiesPath = path + "/Library/Cookies"
-        do{
-            try FileManager.default.removeItem(atPath: cookiesPath)
+        let types = [WKWebsiteDataTypeCookies,WKWebsiteDataTypeSessionStorage]
+        let set = Set(types)
+        let date = Date.init(timeIntervalSince1970: TimeInterval.init(0.0))
+        WKWebsiteDataStore.default().removeData(ofTypes: set, modifiedSince: date, completionHandler: {() in
             
-        }
-        catch{
-                
-        }
+        })
+        
+
     }
     
 }

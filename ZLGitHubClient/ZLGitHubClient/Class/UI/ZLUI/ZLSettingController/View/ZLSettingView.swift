@@ -18,7 +18,8 @@ class ZLSettingView: ZLBaseView {
     @IBOutlet private weak var topViewHeightConstraint: NSLayoutConstraint!
     
     
-    override func awakeFromNib() {
+    override func awakeFromNib()
+    {
         self.topViewHeightConstraint.constant = self.topViewHeightConstraint.constant + ZLStatusBarHeight
        // self.tableView.sectionFooterHeight = 10.0
         self.tableView.register(UINib.init(nibName: "ZLSettingItemTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLSettingItemTableViewCell")

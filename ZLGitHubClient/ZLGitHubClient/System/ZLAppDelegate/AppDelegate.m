@@ -38,6 +38,17 @@
     
     ZLLog_Info(@"中间件，工具模块初始化完毕");
     
+    /**
+     *
+     *  添加监听
+     **/
+    
+    [self addObserver];
+    
+      /**
+       *
+       *  初始化window
+       **/
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [self.window setBackgroundColor:[UIColor whiteColor]];
     [self.window makeKeyAndVisible];
@@ -82,6 +93,7 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    [self removeObserver];
 }
 
 
@@ -110,6 +122,8 @@
 - (void) removeObserver
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:ZLGithubTokenInvalid_Notification object:nil];
+    
+  
 }
 
 
