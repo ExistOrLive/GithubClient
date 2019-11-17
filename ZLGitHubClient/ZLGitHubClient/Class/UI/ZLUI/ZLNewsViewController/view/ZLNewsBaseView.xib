@@ -14,20 +14,19 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="izY-gJ-pea">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                    <rect key="frame" x="0.0" y="10" width="375" height="647"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                 </tableView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="izY-gJ-pea" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="0jb-ea-UJV"/>
+                <constraint firstItem="izY-gJ-pea" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="0jb-ea-UJV"/>
                 <constraint firstItem="izY-gJ-pea" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="OAH-lx-TXy"/>
+                <constraint firstAttribute="bottom" secondItem="izY-gJ-pea" secondAttribute="bottom" constant="10" id="j7j-bb-rLh"/>
                 <constraint firstAttribute="trailing" secondItem="izY-gJ-pea" secondAttribute="trailing" id="oBe-zG-dAP"/>
-                <constraint firstAttribute="bottom" secondItem="izY-gJ-pea" secondAttribute="bottom" constant="49" id="oXp-N6-BHO"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="bottomViewHeightConstraint" destination="oXp-N6-BHO" id="cPy-zi-S63"/>
                 <outlet property="tableView" destination="izY-gJ-pea" id="S2D-FC-0fO"/>
             </connections>
             <point key="canvasLocation" x="33.5" y="53.5"/>
