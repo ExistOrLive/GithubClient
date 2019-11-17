@@ -26,12 +26,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
-    
+ 
     self.viewModel = [[ZLNewsViewModel alloc] initWithViewController:self];
     self.baseView = [[NSBundle mainBundle] loadNibNamed:@"ZLNewsBaseView" owner:self options:nil].firstObject;
-    [self.baseView setFrame:ZLScreenBounds];
-    [self.view addSubview:self.baseView];
+    [self.contentView addSubview:self.baseView];
+    
+    [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.contentView);
+    }];
+    
     [self.viewModel bindModel:nil andView:self.baseView];
 }
 

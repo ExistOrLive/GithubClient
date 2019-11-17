@@ -55,7 +55,7 @@
 
 - (void) setTitle:(NSString *) title withIndex:(NSUInteger) index
 {
-    NSAttributedString * attributedTitle = [[NSAttributedString alloc] initWithString:title attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14],NSForegroundColorAttributeName:LZRGBValue_H(0x999999)}];
+    NSAttributedString * attributedTitle = [[NSAttributedString alloc] initWithString:title attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14],NSForegroundColorAttributeName:ZLRGBValue_H(0x999999)}];
     [self.pickerButton setAttributedTitle:attributedTitle forState:UIControlStateNormal];
     
     self.pickerButton.tag = index;

@@ -13,15 +13,13 @@
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
 
-
-
 #define ZLScreenHeight      [UIScreen mainScreen].bounds.size.height
 #define ZLScreenWidth       [UIScreen mainScreen].bounds.size.width
 #define ZLScreenBounds      [UIScreen mainScreen].bounds
 
 #define ZLStatusBarHeight CGRectGetHeight([UIApplication sharedApplication].statusBarFrame)
 
-#define IS_IPhoneX ([UIScreen mainScreen].bounds.size.height == 812.0f || [UIScreen mainScreen].bounds.size.height == 896.0f)
+#define ZLCustomNavigationBarHeight (60 + ZLStatusBarHeight)    // 设置自定义导航栏高度包括导航栏高度
 
 #pragma mark - swift module
 #import "ZLGitHubClient-Swift.h"
@@ -46,11 +44,23 @@
 #pragma mark -
 #import "UIColor+HexColor.h"
 
+#pragma mark -
 
-#define LZRGBValue_H(colorValue) [UIColor colorWithRGB:colorValue alpha:1.0]
-#define LZRGBAValue_H(colorValue,alphaValue) [UIColor colorWithRGB:colorValue alpha:alphaValue]
+#define ZLBackgroundColor [UIColor colorWithRGB:@"F6F6F6" alpha:1.0]
+
+#define ZLRGBValue_H(colorValue) [UIColor colorWithRGB:colorValue alpha:1.0]
+#define ZLRGBAValue_H(colorValue,alphaValue) [UIColor colorWithRGB:colorValue alpha:alphaValue]
 #define ZLRGBStr_H(colorStr) [UIColor colorWithHexString:colorStr alpha:1.0]
 
+
+#pragma mark - font
+
+#define Font_PingFangSCMedium @"PingFang-SC-Medium"
+#define Font_PingFangSCSemiBold @"PingFang-SC-SemiBold"
+#define Font_PingFangSCRegular @"PingFang-SC-Regular"
+
+
 #define ZLMainThreadDispatch(a)     if([NSThread isMainThread]){ a }else{dispatch_async(dispatch_get_main_queue(), ^{ a });}
+
 
 #endif /* ZLGitHubClient_prefix_pch */

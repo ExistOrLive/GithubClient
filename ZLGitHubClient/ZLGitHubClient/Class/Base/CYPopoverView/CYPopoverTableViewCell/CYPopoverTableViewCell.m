@@ -48,7 +48,7 @@
     
     self.titleLabel = [[UILabel alloc] init];
     self.titleLabel.font = [UIFont systemFontOfSize:14];
-    self.titleLabel.textColor = LZRGBValue_H(0x999999);
+    self.titleLabel.textColor = ZLRGBValue_H(0x999999);
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
     
     [self.contentView addSubview:self.titleLabel];
@@ -68,13 +68,13 @@
     
     if(selected)
     {
-        self.contentView.backgroundColor = LZRGBValue_H(0xF9F9F9);
-        self.titleLabel.textColor = LZRGBValue_H(0x333333);
+        self.contentView.backgroundColor = ZLRGBValue_H(0xF9F9F9);
+        self.titleLabel.textColor = ZLRGBValue_H(0x333333);
     }
     else
     {
         self.contentView.backgroundColor = [UIColor whiteColor];
-        self.titleLabel.textColor = LZRGBValue_H(0x999999);
+        self.titleLabel.textColor = ZLRGBValue_H(0x999999);
     }
 }
 

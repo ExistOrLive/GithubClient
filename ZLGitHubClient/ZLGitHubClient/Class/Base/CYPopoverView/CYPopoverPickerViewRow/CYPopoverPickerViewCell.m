@@ -41,7 +41,7 @@
 {
     self.titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     self.titleLabel.backgroundColor = [UIColor whiteColor];
-    self.titleLabel.textColor = LZRGBValue_H(0x999999);
+    self.titleLabel.textColor = ZLRGBValue_H(0x999999);
     self.titleLabel.font = [UIFont systemFontOfSize:14];
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
     
@@ -61,12 +61,12 @@
 {
     if(selected)
     {
-        self.titleLabel.textColor = LZRGBValue_H(0x333333);
-       // self.titleLabel.backgroundColor = LZRGBValue_H(0xF9F9F9);
+        self.titleLabel.textColor = ZLRGBValue_H(0x333333);
+       // self.titleLabel.backgroundColor = ZLRGBValue_H(0xF9F9F9);
     }
     else
     {
-        self.titleLabel.textColor = LZRGBValue_H(0x999999);
+        self.titleLabel.textColor = ZLRGBValue_H(0x999999);
         self.titleLabel.backgroundColor = [UIColor whiteColor];
     }
 }

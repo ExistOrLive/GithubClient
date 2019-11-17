@@ -54,7 +54,7 @@ class ZLNewsViewModel: ZLBaseViewModel {
     override func vcLifeCycle_viewWillAppear() {
         super.vcLifeCycle_viewWillAppear()
         
-        self.newsBaseView?.navTitle.text = ZLLocalizedString(string: "news", comment: "动态")
+        self.viewController?.title = ZLLocalizedString(string: "news", comment: "动态")
         
         //每次界面将要展示时，更新数据
         guard self.userInfo != nil else
