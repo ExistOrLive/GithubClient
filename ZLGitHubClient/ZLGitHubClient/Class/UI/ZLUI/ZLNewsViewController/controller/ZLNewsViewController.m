@@ -31,7 +31,7 @@
     self.baseView = [[NSBundle mainBundle] loadNibNamed:@"ZLNewsBaseView" owner:self options:nil].firstObject;
     [self.contentView addSubview:self.baseView];
     
-    [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.baseView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.contentView);
     }];
     
