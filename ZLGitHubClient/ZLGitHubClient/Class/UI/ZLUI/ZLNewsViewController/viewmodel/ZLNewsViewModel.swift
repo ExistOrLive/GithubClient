@@ -172,11 +172,11 @@ extension ZLNewsViewModel: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let data: ZLReceivedEventModel? = self.receivedEventArray?[indexPath.row] as? ZLReceivedEventModel
+        let data: ZLGithubEventModel? = self.receivedEventArray?[indexPath.row] as? ZLGithubEventModel
         
-        guard let eventType: ZLReceivedEventType = data?.type else
+        guard let eventType: ZLGithubEventType = data?.type else
         {
-            ZLLog_Info("eventType isn't ZLReceivedEventType")
+            ZLLog_Info("eventType isn't ZLGithubEventType")
             return 0
         }
         
@@ -188,8 +188,8 @@ extension ZLNewsViewModel: UITableViewDelegate, UITableViewDataSource
             }
             case .pushEvent: do
             {
-                let payload: ZLPayloadModel? = data?.payload as? ZLPayloadModel
-                let commitItems: [ZLCommitInfoModel]? = payload?.commits as? [ZLCommitInfoModel]
+                let payload: ZLPushEventPayloadModel? = data?.payload as? ZLPushEventPayloadModel
+                let commitItems: [ZLCommitInfoModel]? = payload?.commits
         
                 let commitCount: Int = commitItems?.count ?? 0
                 let cellHeight = 140 + commitCount * 35;
@@ -212,7 +212,7 @@ extension ZLNewsViewModel: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let data: ZLReceivedEventModel? = self.receivedEventArray?[indexPath.row] as? ZLReceivedEventModel
+        let data: ZLGithubEventModel? = self.receivedEventArray?[indexPath.row] as? ZLGithubEventModel
 
         guard let tableViewCell: ZLNewsTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLNewsTableViewCell", for: indexPath) as? ZLNewsTableViewCell else
         {
@@ -224,7 +224,7 @@ extension ZLNewsViewModel: UITableViewDelegate, UITableViewDataSource
         let timeStr = NSString.init(format: "%@",(data?.created_at as NSDate?)?.dateLocalStrSinceCurrentTime() ?? "")
         tableViewCell.dateLabel.text = timeStr as String;
         
-        if let eventType: ZLReceivedEventType = data?.type
+        if let eventType: ZLGithubEventType = data?.type
         {
             switch eventType
             {
@@ -250,13 +250,13 @@ extension ZLNewsViewModel: UITableViewDelegate, UITableViewDataSource
                 {
                     let repoName: String = data?.repo.name ?? ""
                     
-                    let payload: ZLPayloadModel? = data?.payload as? ZLPayloadModel
+                    let payload: ZLPushEventPayloadModel? = data?.payload as? ZLPushEventPayloadModel
                     let items: [String] = payload?.ref.components(separatedBy: "/") ?? [String]()
                     let branch: String = items.last ?? ""
                     
                     let mainContent: String = "Push to " + branch + " at " + repoName
                 
-                    guard let commitItems: [ZLCommitInfoModel] = payload?.commits as? [ZLCommitInfoModel] else
+                    guard let commitItems: [ZLCommitInfoModel] = payload?.commits else
                     {
                         ZLLog_Info("unWrap fail")
                         return tableViewCell
@@ -330,7 +330,7 @@ extension ZLNewsViewModel: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-//        let data: ZLReceivedEventModel? = self.receivedEventArray?[indexPath.row] as? ZLReceivedEventModel
+//        let data: ZLGithubEventModel? = self.receivedEventArray?[indexPath.row] as? ZLGithubEventModel
     
 //        self.serialNumber = NSString.generateSerialNumber()
 //        ZLUserServiceModel.shared().getUserInfo(withLoginName: data?.actor.login ?? "", userType: ZLGithubUserType_User, serialNumber: self.serialNumber!)

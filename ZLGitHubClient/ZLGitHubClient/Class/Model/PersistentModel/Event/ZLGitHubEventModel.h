@@ -1,23 +1,14 @@
 //
-//  ZLReceivedEventResultModel.h
+//  ZLGitHubEventModel.h
 //  ZLGitHubClient
 //
-//  Created by LongMac on 2019/9/1.
-//  Copyright © 2019年 ZM. All rights reserved.
+//  Created by 朱猛 on 2019/7/29.
+//  Copyright © 2019 ZM. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
+#import "ZLGithubEventType.h"
 
-NS_ASSUME_NONNULL_BEGIN
-
-typedef NS_ENUM(NSInteger, ZLReceivedEventType)
-{
-    ZLReceivedEventType_CreateEvent,
-    ZLReceivedEventType_PushEvent,
-    ZLReceivedEventType_PullRequestEvent,
-    ZLReceivedEventType_WatchEvent,
-    ZLReceivedEventType_UnKnown
-};
 
 typedef NS_ENUM(NSInteger, ZLReferenceType)
 {
@@ -25,12 +16,15 @@ typedef NS_ENUM(NSInteger, ZLReferenceType)
     ZLReferenceType_Tag
 };
 
-@interface ZLEventActorModel : NSObject
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface ZLActorBriefInfoModel : NSObject
 
 @property (nonatomic, assign) NSInteger id_eventActor;
 @property (nonatomic, strong) NSString *login;
 @property (nonatomic, strong) NSString *display_login;
-@property (nonatomic, strong) NSString * _Nullable gravatar_id;
+@property (nonatomic, strong) NSString * gravatar_id;
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic, strong) NSString *avatar_url;
 
@@ -54,8 +48,21 @@ typedef NS_ENUM(NSInteger, ZLReferenceType)
 
 @end
 
-//PullEventPayload
-@interface ZLPayloadModel : NSObject
+
+@interface ZLGitHubOrgModel : NSObject
+
+@property (nonatomic, assign) NSInteger id_org;
+@property (nonatomic, strong) NSString *login;
+@property (nonatomic, strong) NSString *gravatar_id;
+@property (nonatomic, strong) NSString *url;
+@property (nonatomic, strong) NSString *avatar_url;
+
+@end
+
+
+#pragma mark - Event Payloads
+
+@interface ZLPushEventPayloadModel : NSObject
 
 @property (nonatomic, assign) NSInteger push_id;
 @property (nonatomic, assign) NSInteger size;
@@ -63,7 +70,7 @@ typedef NS_ENUM(NSInteger, ZLReferenceType)
 @property (nonatomic, strong) NSString *ref;
 @property (nonatomic, strong) NSString *head;
 @property (nonatomic, strong) NSString *before;
-@property (nonatomic, strong) id commits;
+@property (nonatomic, strong) NSArray<ZLCommitInfoModel *> * commits;
 
 @end
 
@@ -86,22 +93,14 @@ typedef NS_ENUM(NSInteger, ZLReferenceType)
 @end
 
 
-@interface ZLGitHubOrgModel : NSObject
 
-@property (nonatomic, assign) NSInteger id_org;
-@property (nonatomic, strong) NSString *login;
-@property (nonatomic, strong) NSString *gravatar_id;
-@property (nonatomic, strong) NSString *url;
-@property (nonatomic, strong) NSString *avatar_url;
+#pragma mark - EventModel
 
-@end
+@interface ZLGithubEventModel : NSObject
 
-
-@interface ZLReceivedEventModel : NSObject
-
-@property (nonatomic, strong) NSString *id_eventRecv;
-@property (nonatomic, assign) ZLReceivedEventType type;
-@property (nonatomic, strong) ZLEventActorModel *actor;
+@property (nonatomic, strong) NSString * eventId;
+@property (nonatomic, assign) ZLGithubEventType type;
+@property (nonatomic, strong) ZLActorBriefInfoModel * actor;
 @property (nonatomic, strong) ZLRepoBriefInfoModel *repo;
 @property (nonatomic, strong) id payload;
 @property (nonatomic, assign, getter=isPub) BOOL pub;

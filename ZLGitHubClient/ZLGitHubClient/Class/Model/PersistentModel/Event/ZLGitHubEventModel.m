@@ -1,15 +1,58 @@
 //
-//  ZLReceivedEventResultModel.m
+//  ZLGitHubEventModel.m
 //  ZLGitHubClient
 //
-//  Created by LongMac on 2019/9/1.
-//  Copyright © 2019年 ZM. All rights reserved.
+//  Created by 朱猛 on 2019/7/29.
+//  Copyright © 2019 ZM. All rights reserved.
 //
 
-#import "ZLReceivedEventModel.h"
+/** metal json
+{
+  "id": "10935002618",
+  "type": "PushEvent",
+  "actor": {
+    "id": 20825931,
+    "login": "Zeman-Dalibor",
+    "display_login": "Zeman-Dalibor",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/Zeman-Dalibor",
+    "avatar_url": "https://avatars.githubusercontent.com/u/20825931?"
+  },
+  "repo": {
+    "id": 210201187,
+    "name": "Zeman-Dalibor/DotNetLibraryExporter",
+    "url": "https://api.github.com/repos/Zeman-Dalibor/DotNetLibraryExporter"
+  },
+  "payload": {
+    "push_id": 4313766002,
+    "size": 1,
+    "distinct_size": 1,
+    "ref": "refs/heads/master",
+    "head": "14218504bc53ea7ef3a24ee83a19a0db66b294de",
+    "before": "566c319033511f1e8c36f599d4fa5835ee67f793",
+    "commits": [
+      {
+        "sha": "14218504bc53ea7ef3a24ee83a19a0db66b294de",
+        "author": {
+          "email": "Zeman-Dalibor@users.noreply.github.com",
+          "name": "Dalibor Zeman"
+        },
+        "message": "Update README.md",
+        "distinct": true,
+        "url": "https://api.github.com/repos/Zeman-Dalibor/DotNetLibraryExporter/commits/14218504bc53ea7ef3a24ee83a19a0db66b294de"
+      }
+    ]
+  },
+  "public": true,
+  "created_at": "2019-11-24T15:29:10Z"
+}
+
+ */
+
+#import "ZLGitHubEventModel.h"
 #import <MJExtension/MJExtension.h>
 
-@implementation ZLEventActorModel
+@implementation ZLActorBriefInfoModel
 
 + (NSDictionary *)mj_replacedKeyFromPropertyName
 {
@@ -28,13 +71,17 @@
 
 @end
 
-
 @implementation ZLCommitInfoModel
 
 @end
 
 //PullEventPayload
-@implementation ZLPayloadModel
+@implementation ZLPushEventPayloadModel
+
++ (NSDictionary *)mj_objectClassInArray
+{
+    return @{@"commits":[ZLCommitInfoModel class]};
+}
 
 @end
 
@@ -73,11 +120,12 @@
 
 @end
 
-@implementation ZLReceivedEventModel
+
+@implementation ZLGithubEventModel
 
 + (NSDictionary *)mj_replacedKeyFromPropertyName
 {
-    return @{@"id_eventRecv":@"id",
+    return @{@"eventId":@"id",
              @"pub":@"public"
              };
 }
@@ -98,33 +146,28 @@
     {
         if([oldValue isEqualToString:@"CreateEvent"])
         {
-            return [NSNumber numberWithInteger:ZLReceivedEventType_CreateEvent];
+            return [NSNumber numberWithInteger:ZLGithubEventType_CreateEvent];
         }
         else if([oldValue isEqualToString:@"PushEvent"])
         {
-           return [NSNumber numberWithInteger:ZLReceivedEventType_PushEvent];
+           return [NSNumber numberWithInteger:ZLGithubEventType_PushEvent];
         }
         else if([oldValue isEqualToString:@"PullRequestEvent"])
         {
-           return [NSNumber numberWithInteger:ZLReceivedEventType_PullRequestEvent];
+           return [NSNumber numberWithInteger:ZLGithubEventType_PullRequestEvent];
         }
         else if([oldValue isEqualToString:@"WatchEvent"])
         {
-           return [NSNumber numberWithInteger:ZLReceivedEventType_WatchEvent];
+           return [NSNumber numberWithInteger:ZLGithubEventType_WatchEvent];
         }
         else
         {
-           return [NSNumber numberWithInteger:ZLReceivedEventType_UnKnown];
+           return [NSNumber numberWithInteger:ZLGithubEventType_UnKnown];
         }
     }
     
     return oldValue;
 }
 
+
 @end
-
-
-
-
-
-

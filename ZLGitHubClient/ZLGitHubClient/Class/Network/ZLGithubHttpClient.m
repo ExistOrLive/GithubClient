@@ -18,8 +18,9 @@
 #import "ZLGithubRepositoryModel.h"
 #import "ZLGithubRequestErrorModel.h"
 #import "ZLSearchResultModel.h"
-#import "ZLReceivedEventModel.h"
+#import "ZLGithubEventModel.h"
 #import "ZLLoginProcessModel.h"
+#import "ZLGithubRequestErrorModel.h"
 
 static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 
@@ -692,17 +693,17 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         
         if(result)
         {
-            NSArray * array = [[ZLReceivedEventModel mj_objectArrayWithKeyValuesArray:responseObject] copy];
+            NSArray * array = [[ZLGithubEventModel mj_objectArrayWithKeyValuesArray:responseObject] copy];
             NSMutableArray *usefulDataArray = [[NSMutableArray alloc] init];
             
             if(array && array.count > 0)
             {
-                for (ZLReceivedEventModel *eventModel in array)
+                for (ZLGithubEventModel *eventModel in array)
                 {
-                    if(eventModel.type != ZLReceivedEventType_CreateEvent &&
-                       eventModel.type != ZLReceivedEventType_PushEvent &&
-                       eventModel.type != ZLReceivedEventType_PullRequestEvent &&
-                       eventModel.type != ZLReceivedEventType_WatchEvent)
+                    if(eventModel.type != ZLGithubEventType_CreateEvent &&
+                       eventModel.type != ZLGithubEventType_PushEvent &&
+                       eventModel.type != ZLGithubEventType_PullRequestEvent &&
+                       eventModel.type != ZLGithubEventType_WatchEvent)
                     {
                         continue;
                     }
@@ -710,23 +711,21 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                     NSDictionary *dic = eventModel.payload;
                     if (dic.count > 0)
                     {
-                        if(eventModel.type == ZLReceivedEventType_CreateEvent)
+                        if(eventModel.type == ZLGithubEventType_CreateEvent)
                         {
                             ZLCreateEventPayloadModel *createEventPayload = [ZLCreateEventPayloadModel mj_objectWithKeyValues:dic];
                             eventModel.payload = createEventPayload;
                         }
-                        else if(eventModel.type == ZLReceivedEventType_PushEvent)
+                        else if(eventModel.type == ZLGithubEventType_PushEvent)
                         {
-                            ZLPayloadModel *tempPayloadModel = [ZLPayloadModel mj_objectWithKeyValues:dic];
-                            NSArray *commitArray = [ZLCommitInfoModel mj_objectArrayWithKeyValuesArray: tempPayloadModel.commits];
-                            tempPayloadModel.commits = commitArray;
+                            ZLPushEventPayloadModel *tempPayloadModel = [ZLPushEventPayloadModel mj_objectWithKeyValues:dic];
                             eventModel.payload = tempPayloadModel;
                         }
-                        else if (eventModel.type == ZLReceivedEventType_PullRequestEvent)
+                        else if (eventModel.type == ZLGithubEventType_PullRequestEvent)
                         {
                             //TODO::
                         }
-                        else if (eventModel.type == ZLReceivedEventType_WatchEvent)
+                        else if (eventModel.type == ZLGithubEventType_WatchEvent)
                         {
                             ZLWatchEventPayloadModel *watchEventPayload = [ZLWatchEventPayloadModel mj_objectWithKeyValues:dic];
                             eventModel.payload = watchEventPayload;

@@ -46,7 +46,7 @@
 #import "ZLSearchResultModel.h"
 #import "ZLLoginProcessModel.h"
 
-#import "ZLReceivedEventModel.h"
+#import "ZLGithubEventModel.h"
 
 // Network
 #import "ZLGithubHTTPClient.h"
