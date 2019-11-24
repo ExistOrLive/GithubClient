@@ -16,7 +16,7 @@ typedef NS_ENUM(NSInteger, ZLReceivedEventType)
     ZLReceivedEventType_PushEvent,
     ZLReceivedEventType_PullRequestEvent,
     ZLReceivedEventType_WatchEvent,
-    ZLReceivedEventType_UnKnow
+    ZLReceivedEventType_UnKnown
 };
 
 typedef NS_ENUM(NSInteger, ZLReferenceType)
@@ -80,7 +80,7 @@ typedef NS_ENUM(NSInteger, ZLReferenceType)
 @property (nonatomic, strong) NSString *ref;             //! 提交的sha
 @property (nonatomic, assign) ZLReferenceType ref_type;  //! 目前有两种类型：repository、tag
 @property (nonatomic, strong) NSString *master_branch;   //! 默认是master
-@property (nonatomic, strong) NSString *description;
+//@property (nonatomic, strong) NSString *description;
 @property (nonatomic, strong) NSString *pusher_type;
 
 @end

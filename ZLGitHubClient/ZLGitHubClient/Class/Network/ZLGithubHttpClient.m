@@ -682,7 +682,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                     serialNumber:(NSString *)serialNumber
                    responseBlock:(GithubResponse)block
 {
-    NSString * urlForReceivedEvent = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,userReceivedEventUrl];
+    NSString * urlForReceivedEvent = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,userEventUrl];
     urlForReceivedEvent = [NSString stringWithFormat:urlForReceivedEvent,userName];
     
     NSDictionary * params = @{@"page":[NSNumber numberWithUnsignedInteger:page],

@@ -26,6 +26,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.title = ZLLocalizedString(@"news",@"动态");
  
     self.viewModel = [[ZLNewsViewModel alloc] initWithViewController:self];
     self.baseView = [[NSBundle mainBundle] loadNibNamed:@"ZLNewsBaseView" owner:self options:nil].firstObject;
@@ -41,7 +43,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear: animated];
-    self.navigationController.navigationBarHidden = YES;
 }
 
 - (void)didReceiveMemoryWarning {

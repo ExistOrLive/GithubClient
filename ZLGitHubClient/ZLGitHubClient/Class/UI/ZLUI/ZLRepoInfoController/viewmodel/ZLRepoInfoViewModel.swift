@@ -25,8 +25,6 @@ class ZLRepoInfoViewModel: ZLBaseViewModel {
     
     deinit {
         ZLRepoServiceModel.shared().unRegisterObserver(self, name: ZLGetSpecifiedRepoInfoResult_Notification)
-        
-//        self.repoInfoView?.footerView?.webView.scrollView.removeObserver(self, forKeyPath: "contentSize")
     }
     
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {

@@ -32,6 +32,7 @@ PODS:
     - SDWebImage/Core (= 5.0.6)
   - SDWebImage/Core (5.0.6)
   - SnapKit (4.0.1)
+  - YYText (1.0.7)
 
 DEPENDENCIES:
   - AFNetworking
@@ -43,9 +44,10 @@ DEPENDENCIES:
   - MMMarkdown
   - SDWebImage (~> 5.0.0)
   - SnapKit (~> 4.0.0)
+  - YYText
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - AFNetworking
     - CocoaLumberjack
     - FMDB
@@ -54,6 +56,8 @@ SPEC REPOS:
     - MMMarkdown
     - SDWebImage
     - SnapKit
+  trunk:
+    - YYText
 
 SPEC CHECKSUMS:
   AFNetworking: 8ac6017b94ea105479f7776e5288e48ae9c59bb4
@@ -64,7 +68,8 @@ SPEC CHECKSUMS:
   MMMarkdown: 1af97166ce0f6d6e0cb05695665492195d27c3f1
   SDWebImage: 920f1a2ff1ca8296ad34f6e0510a1ef1d70ac965
   SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
+  YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: a23b22746f94d2cffe1ade2d8f02dd549fd3812a
+PODFILE CHECKSUM: 54c50428b5e4eb1287017a8e6c1cecadc4a44209
 
-COCOAPODS: 1.7.2
+COCOAPODS: 1.8.4

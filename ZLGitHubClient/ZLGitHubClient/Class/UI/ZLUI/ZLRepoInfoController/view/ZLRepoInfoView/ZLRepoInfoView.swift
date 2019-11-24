@@ -30,7 +30,7 @@ class ZLRepoInfoView: ZLBaseView {
         if headerView != nil
         {
             headerView?.autoresizingMask = UIViewAutoresizing.init(rawValue: 0)
-            headerView?.frame = CGRect.init(x: 0, y: 0, width: ZLScreenWidth, height: 220)
+            headerView?.frame = CGRect.init(x: 0, y: 0, width: ZLScreenWidth, height: 240)
             self.tableView.tableHeaderView = headerView
             self.headerView = headerView
         }

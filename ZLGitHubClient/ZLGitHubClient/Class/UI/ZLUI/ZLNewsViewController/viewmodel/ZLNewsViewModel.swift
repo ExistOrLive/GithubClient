@@ -53,10 +53,9 @@ class ZLNewsViewModel: ZLBaseViewModel {
     
     override func vcLifeCycle_viewWillAppear() {
         super.vcLifeCycle_viewWillAppear()
-        
-        self.viewController?.title = ZLLocalizedString(string: "news", comment: "动态")
-        
+    
         //每次界面将要展示时，更新数据
+        self.userInfo = ZLUserServiceModel.shared().currentUserInfo()
         guard self.userInfo != nil else
         {
             return;
@@ -204,7 +203,7 @@ extension ZLNewsViewModel: UITableViewDelegate, UITableViewDataSource
             {
                 return 140
             }
-            case .unKnow: do
+            case .unKnown: do
             {
                 return 0
             }
@@ -220,29 +219,10 @@ extension ZLNewsViewModel: UITableViewDelegate, UITableViewDataSource
             return UITableViewCell()
         }
         
-        tableViewCell.autoresizingMask = UIViewAutoresizing.init(rawValue: 0)
-        tableViewCell.backgroundColor = UIColor.clear
-        tableViewCell.selectionStyle = UITableViewCellSelectionStyle.none
-        tableViewCell.avatarImageView.sd_setImage(with: URL.init(string: data?.actor.avatar_url ?? ""), placeholderImage: nil);
-        tableViewCell.userNameLabel.text = data?.actor.login ?? "";
-
+        tableViewCell.avatarButton.sd_setBackgroundImage(with: URL.init(string: data?.actor.avatar_url ?? ""), for: .normal, completed:nil)
+        tableViewCell.userNameLabel.text = data?.actor.login ?? ""
         let timeStr = NSString.init(format: "%@",(data?.created_at as NSDate?)?.dateLocalStrSinceCurrentTime() ?? "")
         tableViewCell.dateLabel.text = timeStr as String;
-        
-        tableViewCell.containView.layer.cornerRadius = 2
-        tableViewCell.containView.layer.masksToBounds = true
-        
-        //添加手势
-        let tapGestureRecognizer1 = UITapGestureRecognizer.init(target: self, action: #selector(onSingleTapEvent(tapGesture:)))
-        let tapGestureRecognizer2 = UITapGestureRecognizer.init(target: self, action: #selector(onSingleTapEvent(tapGesture:)))
-        if tableViewCell.avatarImageView.gestureRecognizers == nil
-        {
-            tableViewCell.avatarImageView.addGestureRecognizer(tapGestureRecognizer1)
-        }
-        if tableViewCell.userNameLabel.gestureRecognizers == nil
-        {
-            tableViewCell.userNameLabel.addGestureRecognizer(tapGestureRecognizer2)
-        }
         
         if let eventType: ZLReceivedEventType = data?.type
         {
@@ -338,7 +318,7 @@ extension ZLNewsViewModel: UITableViewDelegate, UITableViewDataSource
                 
                     tableViewCell.contentLabel.text = mainContent
                 }
-                case .unKnow: do
+                case .unKnown: do
                 {
                     ZLLog_Info("")
                 }

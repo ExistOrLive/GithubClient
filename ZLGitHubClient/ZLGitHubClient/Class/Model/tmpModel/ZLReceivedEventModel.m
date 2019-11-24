@@ -114,7 +114,7 @@
         }
         else
         {
-           return [NSNumber numberWithInteger:ZLReceivedEventType_UnKnow];
+           return [NSNumber numberWithInteger:ZLReceivedEventType_UnKnown];
         }
     }
     

@@ -11,7 +11,8 @@ import UIKit
 class ZLNewsTableViewCell: UITableViewCell {
     
     @IBOutlet weak var containView: UIView!
-    @IBOutlet weak var avatarImageView: UIImageView!
+    
+    @IBOutlet weak var avatarButton: UIButton!
     
     @IBOutlet weak var userNameLabel: UILabel!
     
@@ -21,24 +22,15 @@ class ZLNewsTableViewCell: UITableViewCell {
     
     override func awakeFromNib()
     {
-        self.avatarImageView.layer.cornerRadius = self.avatarImageView.lc_with/2
-        self.avatarImageView.layer.masksToBounds = true
+        self.avatarButton.layer.cornerRadius = 20
+        self.avatarButton.layer.masksToBounds = true
+        self.autoresizingMask = UIViewAutoresizing.init(rawValue: 0)
+        self.backgroundColor = UIColor.clear
+        self.selectionStyle = UITableViewCellSelectionStyle.none
+        self.containView.layer.cornerRadius = 2
+        self.containView.layer.masksToBounds = true
     }
     
-//    override var frame: CGRect
-//    {
-//        didSet
-//        {
-//            var newFrame: CGRect = frame
-//            newFrame.origin.x += 10;
-//            newFrame.origin.y += 10;
-//            newFrame.size.height -= 10;
-//            newFrame.size.width -= 20;
-//
-//            super.frame = newFrame
-//        }
-//    }
-
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
