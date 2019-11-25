@@ -84,11 +84,11 @@ NS_ASSUME_NONNULL_BEGIN
 //CreateEventPayload
 @interface ZLCreateEventPayloadModel : NSObject
 
-@property (nonatomic, strong) NSString *ref;             //! 提交的sha
+@property (nonatomic, strong) NSString * ref;             //! 提交的sha
 @property (nonatomic, assign) ZLReferenceType ref_type;  //! 目前有两种类型：repository、tag
-@property (nonatomic, strong) NSString *master_branch;   //! 默认是master
-//@property (nonatomic, strong) NSString *description;
-@property (nonatomic, strong) NSString *pusher_type;
+@property (nonatomic, strong) NSString * master_branch;   //! 默认是master
+@property (nonatomic, strong) NSString * desc;
+@property (nonatomic, strong) NSString * pusher_type;
 
 @end
 
@@ -96,13 +96,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - EventModel
 
+/**
+ *  ref  https://developer.github.com/v3/activity/events/
+ *  ref  https://developer.github.com/v3/activity/events/types/
+ */
 @interface ZLGithubEventModel : NSObject
 
-@property (nonatomic, strong) NSString * eventId;
-@property (nonatomic, assign) ZLGithubEventType type;
-@property (nonatomic, strong) ZLActorBriefInfoModel * actor;
-@property (nonatomic, strong) ZLRepoBriefInfoModel *repo;
-@property (nonatomic, strong) id payload;
+@property (nonatomic, strong) NSString * eventId;                       //！ 事件id
+@property (nonatomic, assign) ZLGithubEventType type;                   //!  事件类型
+@property (nonatomic, strong) ZLActorBriefInfoModel * actor;            //! 事件的操作者
+@property (nonatomic, strong) ZLRepoBriefInfoModel *repo;               //! 操作的仓库
+@property (nonatomic, strong) id payload;                               //! 事件的负载（根据type不同而不同）
 @property (nonatomic, assign, getter=isPub) BOOL pub;
 @property (nonatomic, strong) NSDate *created_at;
 @property (nonatomic, strong) ZLGitHubOrgModel *org;

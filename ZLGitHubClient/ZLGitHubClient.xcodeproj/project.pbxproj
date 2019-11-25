@@ -12,6 +12,7 @@
 		0ADF903721D4B01900BF86CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0ADF903621D4B01900BF86CD /* Assets.xcassets */; };
 		0ADF903A21D4B01900BF86CD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0ADF903821D4B01900BF86CD /* LaunchScreen.storyboard */; };
 		0ADF903D21D4B01900BF86CD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADF903C21D4B01900BF86CD /* main.m */; };
+		3628FCE1238BB22000FC36FC /* ZLEventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3628FCDF238BB22000FC36FC /* ZLEventTableViewCell.swift */; };
 		740318CB22F702B7004CE52D /* ZLSearchRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740318CA22F702B7004CE52D /* ZLSearchRecordView.swift */; };
 		740318CD22F702D1004CE52D /* ZLSearchRecordView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 740318CC22F702D1004CE52D /* ZLSearchRecordView.xib */; };
 		740318CF22F702E6004CE52D /* ZLSearchItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740318CE22F702E6004CE52D /* ZLSearchItemsView.swift */; };
@@ -189,6 +190,7 @@
 		0ADF903B21D4B01900BF86CD /* ZLGitHubClient_Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ZLGitHubClient_Info.plist; sourceTree = "<group>"; };
 		0ADF903C21D4B01900BF86CD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0ADF904321D4D33D00BF86CD /* ZLGitHubClient-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZLGitHubClient-Bridging-Header.h"; sourceTree = "<group>"; };
+		3628FCDF238BB22000FC36FC /* ZLEventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLEventTableViewCell.swift; sourceTree = "<group>"; };
 		71EC483528FF72DE8C8B1035 /* Pods_ZLGitHubClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZLGitHubClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		740318CA22F702B7004CE52D /* ZLSearchRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLSearchRecordView.swift; sourceTree = "<group>"; };
 		740318CC22F702D1004CE52D /* ZLSearchRecordView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZLSearchRecordView.xib; sourceTree = "<group>"; };
@@ -339,7 +341,7 @@
 		74BEF5A722F303D700FD1738 /* ZMRefreshConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMRefreshConfig.h; sourceTree = "<group>"; };
 		74BEF5A822F303D700FD1738 /* ZMRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMRefreshView.h; sourceTree = "<group>"; };
 		74BEF5A922F303D700FD1738 /* ZMRefreshManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMRefreshManager.m; sourceTree = "<group>"; };
-		74C0CED2238AE3FF008B46FA /* ZLGithbEventType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLGithbEventType.h; sourceTree = "<group>"; };
+		74C0CED2238AE3FF008B46FA /* ZLGithubEventType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLGithubEventType.h; sourceTree = "<group>"; };
 		74C3F8C022D1DD930086A3F9 /* ZLLoginBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLLoginBaseView.swift; sourceTree = "<group>"; };
 		74C3F8C222D1DDA20086A3F9 /* ZLLoginBaseView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZLLoginBaseView.xib; sourceTree = "<group>"; };
 		74C3F8C822D1E2DB0086A3F9 /* ZLLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLLoginViewModel.swift; sourceTree = "<group>"; };
@@ -495,6 +497,32 @@
 				71EC483528FF72DE8C8B1035 /* Pods_ZLGitHubClient.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3628FCDA238BA0EA00FC36FC /* User */ = {
+			isa = PBXGroup;
+			children = (
+				74F02CD022DCD02800AE153F /* ZLGithubUserModel.h */,
+				74F02CD122DCD02800AE153F /* ZLGithubUserModel.m */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		3628FCDB238BA0F900FC36FC /* Respository */ = {
+			isa = PBXGroup;
+			children = (
+				74FE777122EF4AEE00DAEAC4 /* ZLGithubRepositoryModel.h */,
+				74FE777222EF4AEE00DAEAC4 /* ZLGithubRepositoryModel.m */,
+			);
+			path = Respository;
+			sourceTree = "<group>";
+		};
+		3628FCDC238BB1DD00FC36FC /* ZLEventTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				3628FCDF238BB22000FC36FC /* ZLEventTableViewCell.swift */,
+			);
+			path = ZLEventTableViewCell;
 			sourceTree = "<group>";
 		};
 		741F516722DC282A00F32959 /* ZLKeyChainManager */ = {
@@ -1213,11 +1241,9 @@
 		74BED25E22E01119006B07C1 /* PersistentModel */ = {
 			isa = PBXGroup;
 			children = (
+				3628FCDB238BA0F900FC36FC /* Respository */,
+				3628FCDA238BA0EA00FC36FC /* User */,
 				74C0CED1238AE3C8008B46FA /* Event */,
-				74F02CD022DCD02800AE153F /* ZLGithubUserModel.h */,
-				74F02CD122DCD02800AE153F /* ZLGithubUserModel.m */,
-				74FE777122EF4AEE00DAEAC4 /* ZLGithubRepositoryModel.h */,
-				74FE777222EF4AEE00DAEAC4 /* ZLGithubRepositoryModel.m */,
 			);
 			path = PersistentModel;
 			sourceTree = "<group>";
@@ -1303,7 +1329,7 @@
 		74C0CED0238AE3BB008B46FA /* Event */ = {
 			isa = PBXGroup;
 			children = (
-				74C0CED2238AE3FF008B46FA /* ZLGithbEventType.h */,
+				74C0CED2238AE3FF008B46FA /* ZLGithubEventType.h */,
 			);
 			path = Event;
 			sourceTree = "<group>";
@@ -1428,6 +1454,7 @@
 		74C861C222F0259700A30B79 /* ZLReuseView */ = {
 			isa = PBXGroup;
 			children = (
+				3628FCDC238BB1DD00FC36FC /* ZLEventTableViewCell */,
 				74BEF59C22F2D72500FD1738 /* ZLUserTableViewCell */,
 				74C861C322F025B000A30B79 /* ZLRepositoryTableViewCell */,
 			);
@@ -2046,6 +2073,7 @@
 				746B092E21EB7362000EE88B /* ZLMainViewController.m in Sources */,
 				D1135FA821ECE3A6003A26C1 /* UITextField+PlaceHolder.m in Sources */,
 				74F02CDD22DD75E600AE153F /* ZLProfileBaseViewModel.swift in Sources */,
+				3628FCE1238BB22000FC36FC /* ZLEventTableViewCell.swift in Sources */,
 				D1135F7021ECD09D003A26C1 /* ZLProfileViewController.m in Sources */,
 				D1135F7B21ECD34A003A26C1 /* UIBarButtonItem+Item.m in Sources */,
 				74BEF5AB22F303D700FD1738 /* ZMRefreshManager.m in Sources */,

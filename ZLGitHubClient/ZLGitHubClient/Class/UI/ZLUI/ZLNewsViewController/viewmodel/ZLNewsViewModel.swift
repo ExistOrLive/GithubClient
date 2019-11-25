@@ -182,7 +182,7 @@ extension ZLNewsViewModel: UITableViewDelegate, UITableViewDataSource
         
         switch eventType
         {
-            case .createEvent: do
+            case .createEvent:do
             {
                  return 140
             }
@@ -207,6 +207,8 @@ extension ZLNewsViewModel: UITableViewDelegate, UITableViewDataSource
             {
                 return 0
             }
+            default:
+                return 0
         }
     }
     
@@ -322,6 +324,10 @@ extension ZLNewsViewModel: UITableViewDelegate, UITableViewDataSource
                 {
                     ZLLog_Info("")
                 }
+                default : do
+                {
+                
+                }
             }
         }
         
@@ -335,7 +341,6 @@ extension ZLNewsViewModel: UITableViewDelegate, UITableViewDataSource
 //        self.serialNumber = NSString.generateSerialNumber()
 //        ZLUserServiceModel.shared().getUserInfo(withLoginName: data?.actor.login ?? "", userType: ZLGithubUserType_User, serialNumber: self.serialNumber!)
     }
-    
 }
 
 extension ZLNewsViewModel

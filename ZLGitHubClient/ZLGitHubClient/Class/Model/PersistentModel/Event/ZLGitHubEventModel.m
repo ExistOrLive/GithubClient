@@ -93,6 +93,12 @@
 //CreateEventPayload
 @implementation ZLCreateEventPayloadModel
 
++ (NSDictionary *)mj_replacedKeyFromPropertyName
+{
+    return @{@"desc":@"description"};
+}
+
+
 - (id)mj_newValueFromOldValue:(id)oldValue property:(MJProperty *)property
 {
     if([property.name isEqualToString:@"ref_type"])
@@ -120,8 +126,68 @@
 
 @end
 
+#pragma mark -
+
+static NSArray * ZLGithubEventTypeArray = nil;
 
 @implementation ZLGithubEventModel
+
++ (void)initialize
+{
+    if (self == [ZLGithubEventModel class]) {
+        ZLGithubEventTypeArray = @[@"CheckRunEvent",
+            @"CheckSuiteEvent",
+            @"CommitCommentEvent",
+            @"ContentReferenceEvent",
+            @"CreateEvent",
+            @"DeleteEvent",
+            @"DeployKeyEvent",
+            @"DeploymentEvent",
+            @"DeploymentStatusEvent",
+            @"DownloadEvent",
+            @"FollowEvent",
+            @"ForkEvent",
+            @"ForkApplyEvent",
+            @"GitHubAppAuthorizationEvent",
+            @"GistEvent",
+            @"GollumEvent",
+            @"InstallationEvent",
+            @"InstallationRepositoriesEvent",
+            @"IssueCommentEvent",
+            @"IssuesEvent",
+            @"LabelEvent",
+            @"MarketplacePurchaseEvent",
+            @"MemberEvent",
+            @"MembershipEvent",
+            @"MetaEvent",
+            @"MilestoneEvent",
+            @"OrganizationEvent",
+            @"OrgBlockEvent",
+            @"PackageEvent",
+            @"PageBuildEvent",
+            @"ProjectCardEvent",
+            @"ProjectColumnEvent",
+            @"ProjectEvent",
+            @"PublicEvent",
+            @"PullRequestEvent",
+            @"PullRequestReviewEvent",
+            @"PullRequestReviewCommentEvent",
+            @"PushEvent",
+            @"ReleaseEvent",
+            @"RepositoryDispatchEvent",
+            @"RepositoryEvent",
+            @"RepositoryImportEvent",
+            @"RepositoryVulnerabilityAlertEvent",
+            @"SecurityAdvisoryEvent",
+            @"StarEvent",
+            @"StatusEvent",
+            @"TeamEvent",
+            @"TeamAddEvent",
+            @"WatchEvent",
+            @"UnKnown"];
+    }
+}
+
 
 + (NSDictionary *)mj_replacedKeyFromPropertyName
 {
@@ -144,26 +210,8 @@
     }
     else if([property.name isEqualToString:@"type"])
     {
-        if([oldValue isEqualToString:@"CreateEvent"])
-        {
-            return [NSNumber numberWithInteger:ZLGithubEventType_CreateEvent];
-        }
-        else if([oldValue isEqualToString:@"PushEvent"])
-        {
-           return [NSNumber numberWithInteger:ZLGithubEventType_PushEvent];
-        }
-        else if([oldValue isEqualToString:@"PullRequestEvent"])
-        {
-           return [NSNumber numberWithInteger:ZLGithubEventType_PullRequestEvent];
-        }
-        else if([oldValue isEqualToString:@"WatchEvent"])
-        {
-           return [NSNumber numberWithInteger:ZLGithubEventType_WatchEvent];
-        }
-        else
-        {
-           return [NSNumber numberWithInteger:ZLGithubEventType_UnKnown];
-        }
+        ZLGithubEventType eventType = (ZLGithubEventType)[ZLGithubEventTypeArray indexOfObject:oldValue];
+        return @(eventType);
     }
     
     return oldValue;
