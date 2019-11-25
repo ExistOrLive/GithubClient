@@ -25,13 +25,13 @@ class ZLSearchTypeCollectionViewCell: UICollectionViewCell {
             if newValue == true
             {
                 self.underlineView.isHidden = false
-                self.label.font = UIFont.init(name: "PingFang-SC-SemiBold", size:16.0)
+                self.label.font = UIFont.init(name: Font_PingFangSCSemiBold, size:16.0)
                 self.label.textColor = UIColor.init(hexString: "1A191F", alpha: 1.0)
             }
             else
             {
                 self.underlineView.isHidden = true
-                self.label.font = UIFont.init(name: "PingFang-SC-Regular", size:14.0)
+                self.label.font = UIFont.init(name: Font_PingFangSCRegular, size:14.0)
                 self.label.textColor = UIColor.init(hexString: "999999", alpha: 1.0)
             }
         }

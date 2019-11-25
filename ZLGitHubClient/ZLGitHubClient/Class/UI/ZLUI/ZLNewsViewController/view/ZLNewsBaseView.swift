@@ -14,6 +14,8 @@ class ZLNewsBaseView: ZLBaseView {
         
     override func awakeFromNib() {
         tableView.register(UINib.init(nibName: "ZLNewsTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "ZLNewsTableViewCell")
+        
+        tableView.register(ZLEventTableViewCell.self, forCellReuseIdentifier: "ZLEventTableViewCell")
     }
 
 }

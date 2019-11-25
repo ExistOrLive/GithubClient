@@ -215,121 +215,134 @@ extension ZLNewsViewModel: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let data: ZLGithubEventModel? = self.receivedEventArray?[indexPath.row] as? ZLGithubEventModel
-
-        guard let tableViewCell: ZLNewsTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLNewsTableViewCell", for: indexPath) as? ZLNewsTableViewCell else
-        {
-            return UITableViewCell()
-        }
         
-        tableViewCell.avatarButton.sd_setBackgroundImage(with: URL.init(string: data?.actor.avatar_url ?? ""), for: .normal, completed:nil)
-        tableViewCell.userNameLabel.text = data?.actor.login ?? ""
+        guard let tableViewCell : ZLEventTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLEventTableViewCell", for: indexPath) as? ZLEventTableViewCell else
+        {
+            return  UITableViewCell()
+        }
+        tableViewCell.headImageButton?.sd_setBackgroundImage(with: URL.init(string: data?.actor.avatar_url ?? ""), for: .normal, completed:nil)
+        tableViewCell.actorNameLabel?.text = data?.actor.login ?? ""
         let timeStr = NSString.init(format: "%@",(data?.created_at as NSDate?)?.dateLocalStrSinceCurrentTime() ?? "")
-        tableViewCell.dateLabel.text = timeStr as String;
+        tableViewCell.timeLabel?.text = timeStr as String
         
-        if let eventType: ZLGithubEventType = data?.type
-        {
-            switch eventType
-            {
-                case .createEvent: do
-                {
-                    let createPayLoad: ZLCreateEventPayloadModel = data?.payload as! ZLCreateEventPayloadModel
-                    let refType: ZLReferenceType = createPayLoad.ref_type as ZLReferenceType
-                    let repoName: String = data?.repo.name ?? ""
-                    let mainContent: String
-                    
-                    if refType == ZLReferenceType.repository
-                    {
-                        mainContent = "Created repository " + repoName
-                    }
-                    else
-                    {
-                        mainContent = "Create tag " + repoName
-                    }
+        //        tableViewCell.userNameLabel.text = data?.actor.login ?? ""
+        //        let timeStr = NSString.init(format: "%@",(data?.created_at as NSDate?)?.dateLocalStrSinceCurrentTime() ?? "")
+        //        tableViewCell.dateLabel.text = timeStr as String;
 
-                    tableViewCell.contentLabel.text = mainContent
-                }
-                case .pushEvent: do
-                {
-                    let repoName: String = data?.repo.name ?? ""
-                    
-                    let payload: ZLPushEventPayloadModel? = data?.payload as? ZLPushEventPayloadModel
-                    let items: [String] = payload?.ref.components(separatedBy: "/") ?? [String]()
-                    let branch: String = items.last ?? ""
-                    
-                    let mainContent: String = "Push to " + branch + " at " + repoName
-                
-                    guard let commitItems: [ZLCommitInfoModel] = payload?.commits else
-                    {
-                        ZLLog_Info("unWrap fail")
-                        return tableViewCell
-                    }
-                    
-                    let detailInfo: NSMutableAttributedString = NSMutableAttributedString.init()
-                    
-                    for (_, value) in commitItems.enumerated()
-                    {
-                        let commit = value as ZLCommitInfoModel
-                        var commit_sha: String = commit.sha as String
-                        let commit_message: String = commit.message as String
-                        
-                        if commit_sha.count > 6
-                        {
-                            commit_sha = String(commit_sha.suffix(6))
-                        }
-    
-                        let shaAttriStr = NSMutableAttributedString(text: (commit_sha), font: UIFont.init(name: "PingFangSC-Regular", size: 14), textForegroundColor: UIColor.init("199BFF"), paragraphStyle: NSParagraphStyle.init())
-                        
-                        let messageAttriStr = NSMutableAttributedString(text: (" - " + commit_message + "\n"), font: UIFont.init(name: "PingFangSC-Regular", size: 16), textForegroundColor: UIColor.black, paragraphStyle: NSParagraphStyle.init())
-        
-                        detailInfo.append(shaAttriStr!)
-                        detailInfo.append(messageAttriStr!)
-                    }
-                    
-                    let mainContentAttriStr :NSMutableAttributedString = NSMutableAttributedString(text: (mainContent + "\n"), font: UIFont.init(name: "PingFangSC-Medium", size: 17), textForegroundColor: UIColor.black, paragraphStyle: NSParagraphStyle.init())
-                    
-                    mainContentAttriStr.append(detailInfo)
-                    tableViewCell.contentLabel.attributedText = mainContentAttriStr
-                }
-                case .pullRequestEvent: do
-                {
-                    let dic: [String:Any]? = data?.payload as? [String: Any]
-                    let operationType: String? = dic?["action"] as? String
-                    if operationType == "opened"
-                    {
-                        tableViewCell.contentLabel.text = "Opened pull request " + (data?.repo.name)!
-                    }
-                    else if operationType == "closed"
-                    {
-                        tableViewCell.contentLabel.text = "Closed pull request " + (data?.repo.name)!
-                    }
-                }
-                case .watchEvent: do
-                {
-                    let watchPayLoad: ZLWatchEventPayloadModel = data?.payload as! ZLWatchEventPayloadModel
-                    let repoName: String = data?.repo.name ?? ""
-                    let mainContent: String
-                    
-                    if watchPayLoad.action == "started"
-                    {
-                        mainContent = "Starred " + repoName
-                    }
-                    else
-                    {
-                        mainContent = "UnKnow operation"
-                    }
-                
-                    tableViewCell.contentLabel.text = mainContent
-                }
-                case .unKnown: do
-                {
-                    ZLLog_Info("")
-                }
-                default : do
-                {
-                
-                }
-            }
-        }
+//        guard let tableViewCell: ZLNewsTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLNewsTableViewCell", for: indexPath) as? ZLNewsTableViewCell else
+//        {
+//            return UITableViewCell()
+//        }
+//
+//        tableViewCell.avatarButton.sd_setBackgroundImage(with: URL.init(string: data?.actor.avatar_url ?? ""), for: .normal, completed:nil)
+//        tableViewCell.userNameLabel.text = data?.actor.login ?? ""
+//        let timeStr = NSString.init(format: "%@",(data?.created_at as NSDate?)?.dateLocalStrSinceCurrentTime() ?? "")
+//        tableViewCell.dateLabel.text = timeStr as String;
+//
+//        if let eventType: ZLGithubEventType = data?.type
+//        {
+//            switch eventType
+//            {
+//                case .createEvent: do
+//                {
+//                    let createPayLoad: ZLCreateEventPayloadModel = data?.payload as! ZLCreateEventPayloadModel
+//                    let refType: ZLReferenceType = createPayLoad.ref_type as ZLReferenceType
+//                    let repoName: String = data?.repo.name ?? ""
+//                    let mainContent: String
+//
+//                    if refType == ZLReferenceType.repository
+//                    {
+//                        mainContent = "Created repository " + repoName
+//                    }
+//                    else
+//                    {
+//                        mainContent = "Create tag " + repoName
+//                    }
+//
+//                    tableViewCell.contentLabel.text = mainContent
+//                }
+//                case .pushEvent: do
+//                {
+//                    let repoName: String = data?.repo.name ?? ""
+//
+//                    let payload: ZLPushEventPayloadModel? = data?.payload as? ZLPushEventPayloadModel
+//                    let items: [String] = payload?.ref.components(separatedBy: "/") ?? [String]()
+//                    let branch: String = items.last ?? ""
+//
+//                    let mainContent: String = "Push to " + branch + " at " + repoName
+//
+//                    guard let commitItems: [ZLCommitInfoModel] = payload?.commits else
+//                    {
+//                        ZLLog_Info("unWrap fail")
+//                        return tableViewCell
+//                    }
+//
+//                    let detailInfo: NSMutableAttributedString = NSMutableAttributedString.init()
+//
+//                    for (_, value) in commitItems.enumerated()
+//                    {
+//                        let commit = value as ZLCommitInfoModel
+//                        var commit_sha: String = commit.sha as String
+//                        let commit_message: String = commit.message as String
+//
+//                        if commit_sha.count > 6
+//                        {
+//                            commit_sha = String(commit_sha.suffix(6))
+//                        }
+//
+//                        let shaAttriStr = NSMutableAttributedString(text: (commit_sha), font: UIFont.init(name: "PingFangSC-Regular", size: 14), textForegroundColor: UIColor.init("199BFF"), paragraphStyle: NSParagraphStyle.init())
+//
+//                        let messageAttriStr = NSMutableAttributedString(text: (" - " + commit_message + "\n"), font: UIFont.init(name: "PingFangSC-Regular", size: 16), textForegroundColor: UIColor.black, paragraphStyle: NSParagraphStyle.init())
+//
+//                        detailInfo.append(shaAttriStr!)
+//                        detailInfo.append(messageAttriStr!)
+//                    }
+//
+//                    let mainContentAttriStr :NSMutableAttributedString = NSMutableAttributedString(text: (mainContent + "\n"), font: UIFont.init(name: "PingFangSC-Medium", size: 17), textForegroundColor: UIColor.black, paragraphStyle: NSParagraphStyle.init())
+//
+//                    mainContentAttriStr.append(detailInfo)
+//                    tableViewCell.contentLabel.attributedText = mainContentAttriStr
+//                }
+//                case .pullRequestEvent: do
+//                {
+//                    let dic: [String:Any]? = data?.payload as? [String: Any]
+//                    let operationType: String? = dic?["action"] as? String
+//                    if operationType == "opened"
+//                    {
+//                        tableViewCell.contentLabel.text = "Opened pull request " + (data?.repo.name)!
+//                    }
+//                    else if operationType == "closed"
+//                    {
+//                        tableViewCell.contentLabel.text = "Closed pull request " + (data?.repo.name)!
+//                    }
+//                }
+//                case .watchEvent: do
+//                {
+//                    let watchPayLoad: ZLWatchEventPayloadModel = data?.payload as! ZLWatchEventPayloadModel
+//                    let repoName: String = data?.repo.name ?? ""
+//                    let mainContent: String
+//
+//                    if watchPayLoad.action == "started"
+//                    {
+//                        mainContent = "Starred " + repoName
+//                    }
+//                    else
+//                    {
+//                        mainContent = "UnKnow operation"
+//                    }
+//
+//                    tableViewCell.contentLabel.text = mainContent
+//                }
+//                case .unKnown: do
+//                {
+//                    ZLLog_Info("")
+//                }
+//                default : do
+//                {
+//
+//                }
+//            }
+//        }
         
         return tableViewCell
     }

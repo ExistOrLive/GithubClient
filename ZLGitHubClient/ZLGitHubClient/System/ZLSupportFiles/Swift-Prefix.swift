@@ -28,6 +28,13 @@ let AreaInsetHeightBottom: CGFloat = (UIScreen.main.bounds.height == 812 || UISc
 let AreaInsetWidthLeft: CGFloat = (UIScreen.main.bounds.width == 812 || UIScreen.main.bounds.width == 896) ? 44.0 : 0
 let AreaInsetWidthRight: CGFloat = (UIScreen.main.bounds.width == 812 || UIScreen.main.bounds.width == 896) ? 34.0 : 0
 
+
+//MARK: Font
+
+let Font_PingFangSCMedium = "PingFang-SC-Medium"
+let Font_PingFangSCSemiBold = "PingFang-SC-SemiBold"
+let Font_PingFangSCRegular = "PingFang-SC-Regular"
+
 // MARK: NotificationName
 
 let ZLLoginResult_Notification = Notification.Name(rawValue: "ZLLoginResult_Notification")
