@@ -216,14 +216,14 @@ extension ZLNewsViewModel: UITableViewDelegate, UITableViewDataSource
         
         let data: ZLGithubEventModel? = self.receivedEventArray?[indexPath.row] as? ZLGithubEventModel
         
+        let cellData: ZLEventTableViewCellData = ZLEventTableViewCellData.init(eventModel: data!)
+        
         guard let tableViewCell : ZLEventTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLEventTableViewCell", for: indexPath) as? ZLEventTableViewCell else
         {
             return  UITableViewCell()
         }
-        tableViewCell.headImageButton?.sd_setBackgroundImage(with: URL.init(string: data?.actor.avatar_url ?? ""), for: .normal, completed:nil)
-        tableViewCell.actorNameLabel?.text = data?.actor.login ?? ""
-        let timeStr = NSString.init(format: "%@",(data?.created_at as NSDate?)?.dateLocalStrSinceCurrentTime() ?? "")
-        tableViewCell.timeLabel?.text = timeStr as String
+        
+        tableViewCell.fillWithData(cellData: cellData)
         
         //        tableViewCell.userNameLabel.text = data?.actor.login ?? ""
         //        let timeStr = NSString.init(format: "%@",(data?.created_at as NSDate?)?.dateLocalStrSinceCurrentTime() ?? "")

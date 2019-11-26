@@ -111,6 +111,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSDate *created_at;
 @property (nonatomic, strong) ZLGitHubOrgModel *org;
 
+@property (nonatomic, readonly) NSString * eventDescription;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -218,4 +218,9 @@ static NSArray * ZLGithubEventTypeArray = nil;
 }
 
 
+- (NSString *) eventDescription
+{
+    return [NSString stringWithFormat:@"%@ at %@",ZLGithubEventTypeArray[_type],_repo.name];
+}
+
 @end

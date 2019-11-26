@@ -103,10 +103,18 @@ class ZLEventTableViewCell: UITableViewCell {
         
     }
     
-
-    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
+    
+    func fillWithData(cellData : ZLEventTableViewCellData)
+    {
+        self.headImageButton?.sd_setBackgroundImage(with: URL.init(string: cellData.getActorAvaterURL()), for: .normal, completed:nil)
+        self.actorNameLabel?.text = cellData.getActorName()
+        self.timeLabel?.text = cellData.getTimeStr()
+        self.eventDesLabel?.text = cellData.getEventDescrption()
+    }
+    
+    
     
 }
