@@ -38,6 +38,7 @@
 		743425E1230ADBB20031AD7D /* ZLRepoFooterInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743425E0230ADBB20031AD7D /* ZLRepoFooterInfoView.swift */; };
 		743425E3230ADBC80031AD7D /* ZLRepoFooterInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 743425E2230ADBC80031AD7D /* ZLRepoFooterInfoView.xib */; };
 		743425E6230AEA400031AD7D /* ZLRepoInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743425E5230AEA400031AD7D /* ZLRepoInfoViewModel.swift */; };
+		7434CA7F238EC05D00763220 /* ZLEventListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7434CA7E238EC05D00763220 /* ZLEventListView.swift */; };
 		7436A0A6236DCDA700AF554C /* CYPopoverTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7436A08F236DCDA700AF554C /* CYPopoverTableViewCell.m */; };
 		7436A0A7236DCDA700AF554C /* CYMutiPickerPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7436A092236DCDA700AF554C /* CYMutiPickerPopoverView.m */; };
 		7436A0A8236DCDA700AF554C /* CYMutiPickerPopoverView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7436A093236DCDA700AF554C /* CYMutiPickerPopoverView.xib */; };
@@ -221,6 +222,7 @@
 		743425E0230ADBB20031AD7D /* ZLRepoFooterInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLRepoFooterInfoView.swift; sourceTree = "<group>"; };
 		743425E2230ADBC80031AD7D /* ZLRepoFooterInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZLRepoFooterInfoView.xib; sourceTree = "<group>"; };
 		743425E5230AEA400031AD7D /* ZLRepoInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLRepoInfoViewModel.swift; sourceTree = "<group>"; };
+		7434CA7E238EC05D00763220 /* ZLEventListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLEventListView.swift; sourceTree = "<group>"; };
 		7436A08F236DCDA700AF554C /* CYPopoverTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYPopoverTableViewCell.m; sourceTree = "<group>"; };
 		7436A090236DCDA700AF554C /* CYPopoverTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYPopoverTableViewCell.h; sourceTree = "<group>"; };
 		7436A092236DCDA700AF554C /* CYMutiPickerPopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYMutiPickerPopoverView.m; sourceTree = "<group>"; };
@@ -532,6 +534,7 @@
 			isa = PBXGroup;
 			children = (
 				3628FCDF238BB22000FC36FC /* ZLEventTableViewCell.swift */,
+				7434CA7E238EC05D00763220 /* ZLEventListView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1928,6 +1931,7 @@
 				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
 				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
 				"${BUILT_PRODUCTS_DIR}/MJExtension/MJExtension.framework",
+				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/MMMarkdown/MMMarkdown.framework",
 				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
@@ -1940,6 +1944,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMDB.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJExtension.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MMMarkdown.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
@@ -2071,6 +2076,7 @@
 				74D7B5FD22F1398F00C109CA /* ZLUserAdditionInfoController.swift in Sources */,
 				74D34934231C000900A949B2 /* NSString+ZLExtension.m in Sources */,
 				74EA4B3522FF165E006D2FD3 /* ZLSearchResultModel.m in Sources */,
+				7434CA7F238EC05D00763220 /* ZLEventListView.swift in Sources */,
 				0ADF903D21D4B01900BF86CD /* main.m in Sources */,
 				748905D322300B46003562E1 /* ZLLoginLogoView.m in Sources */,
 				74BD10C022CBB64400FAE0EB /* ZLVideoViewModel.m in Sources */,

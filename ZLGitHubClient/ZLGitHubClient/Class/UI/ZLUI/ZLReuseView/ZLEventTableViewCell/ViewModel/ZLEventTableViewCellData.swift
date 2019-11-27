@@ -8,20 +8,33 @@
 
 import UIKit
 
-class ZLEventTableViewCellData: NSObject {
+class ZLEventTableViewCellData: ZLBaseViewModel {
     
-    var eventModel : ZLGithubEventModel!
+    var eventModel : ZLGithubEventModel
     
     override init() {
+        self.eventModel = ZLGithubEventModel()
         super.init()
     }
     
     convenience init(eventModel : ZLGithubEventModel)
     {
         self.init()
-        self.eventModel = eventModel;
+        self.eventModel = eventModel
     }
     
+    override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
+        guard let cell : ZLEventTableViewCell = targetView as? ZLEventTableViewCell else {
+            return
+        }
+        cell.fillWithData(cellData: self)
+        cell.delegate = self
+    }
+}
+
+// MARK : cellData
+extension ZLEventTableViewCellData
+{
     func getActorAvaterURL() -> String
     {
         return self.eventModel.actor.avatar_url
@@ -41,5 +54,21 @@ class ZLEventTableViewCellData: NSObject {
     func getEventDescrption() -> String
     {
         return self.eventModel.eventDescription
+    }
+}
+
+
+extension ZLEventTableViewCellData : ZLEventTableViewCellDelegate
+{
+    func onAvatarClicked() {
+        let vc = ZLUserInfoController.init(loginName: self.eventModel.actor.login, type: ZLGithubUserType_User)
+        self.viewController?.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func onCellSingleTap() {
+        let repoModel = ZLGithubRepositoryModel.init()
+        repoModel.full_name = self.eventModel.repo.name;
+        let vc = ZLRepoInfoController.init(repoInfoModel: repoModel)
+        self.viewController?.navigationController?.pushViewController(vc, animated: true)
     }
 }

@@ -8,7 +8,16 @@
 
 import UIKit
 
+@objc protocol ZLEventTableViewCellDelegate: NSObjectProtocol{
+    func onAvatarClicked() -> Void;
+    
+    func onCellSingleTap() -> Void;
+    
+}
+
 class ZLEventTableViewCell: UITableViewCell {
+    
+    weak var delegate : ZLEventTableViewCellDelegate?
     
     var containerView : UIView?
     
@@ -46,6 +55,8 @@ class ZLEventTableViewCell: UITableViewCell {
             make.edges.equalTo(self.contentView).inset(UIEdgeInsets.init(top: 5, left: 10, bottom: 5, right: 10))
         })
         self.containerView = view
+        let singleTagGesture = UITapGestureRecognizer.init(target: self, action: #selector(self.onCellSingleTap(gestureRecognizer:)))
+        self.containerView?.addGestureRecognizer(singleTagGesture)
         
         // headImageButton
         let headImageButton = UIButton.init(type: .custom)
@@ -59,6 +70,7 @@ class ZLEventTableViewCell: UITableViewCell {
             make.height.equalTo(40)
         })
         self.headImageButton = headImageButton
+        self.headImageButton?.addTarget(self, action: #selector(self.onAvatarButtonClicked(button:)), for: .touchUpInside)
         
         let actorNameLabel = UILabel.init()
         actorNameLabel.textColor = UIColor.black
@@ -114,7 +126,25 @@ class ZLEventTableViewCell: UITableViewCell {
         self.timeLabel?.text = cellData.getTimeStr()
         self.eventDesLabel?.text = cellData.getEventDescrption()
     }
+}
+
+
+// MARK : action
+extension ZLEventTableViewCell
+{
+    @objc func onAvatarButtonClicked(button: UIButton) -> Void
+    {
+        if self.delegate?.responds(to: #selector(ZLEventTableViewCellDelegate.onAvatarClicked)) ?? false
+        {
+            self.delegate?.onAvatarClicked()
+        }
+    }
     
-    
-    
+    @objc func onCellSingleTap(gestureRecognizer : UITapGestureRecognizer)
+    {
+        if self.delegate?.responds(to: #selector(ZLEventTableViewCellDelegate.onCellSingleTap)) ?? false
+        {
+            self.delegate?.onCellSingleTap()
+        }
+    }
 }

@@ -27,6 +27,7 @@ PODS:
   - FMDB/standard (2.7.2)
   - Masonry (1.1.0)
   - MJExtension (3.0.17)
+  - MJRefresh (3.2.0)
   - MMMarkdown (0.5.5)
   - SDWebImage (5.0.6):
     - SDWebImage/Core (= 5.0.6)
@@ -41,22 +42,23 @@ DEPENDENCIES:
   - FMDB
   - Masonry
   - MJExtension
+  - MJRefresh
   - MMMarkdown
   - SDWebImage (~> 5.0.0)
   - SnapKit (~> 4.0.0)
   - YYText
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - AFNetworking
     - CocoaLumberjack
     - FMDB
     - Masonry
     - MJExtension
+    - MJRefresh
     - MMMarkdown
     - SDWebImage
     - SnapKit
-  trunk:
     - YYText
 
 SPEC CHECKSUMS:
@@ -65,11 +67,12 @@ SPEC CHECKSUMS:
   FMDB: 6198a90e7b6900cfc046e6bc0ef6ebb7be9236aa
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJExtension: 74ec83124a68891619fb7ba9c5c811bbf1691076
+  MJRefresh: ed450d6eb9d3346a2cb033ab7eb6de090aeef437
   MMMarkdown: 1af97166ce0f6d6e0cb05695665492195d27c3f1
   SDWebImage: 920f1a2ff1ca8296ad34f6e0510a1ef1d70ac965
   SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: 54c50428b5e4eb1287017a8e6c1cecadc4a44209
+PODFILE CHECKSUM: 0b006b5d2d48a4049ca7d61b7d87cf4d04b239b8
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.7.2

@@ -16,6 +16,10 @@ pod 'FMDB'
 # Json Model 转换
 pod 'MJExtension'
 
+# 刷新控件
+pod 'MJRefresh'
+
+#下载图片
 pod 'SDWebImage', '~> 5.0.0'
 
 pod 'MMMarkdown'
