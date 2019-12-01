@@ -55,6 +55,7 @@
         
         [_scrollView addObserver:self forKeyPath:KVOContentSize options:NSKeyValueObservingOptionNew| NSKeyValueObservingOptionOld context:nil];
         [_scrollView addObserver:self forKeyPath:KVOContentOffset options:NSKeyValueObservingOptionNew| NSKeyValueObservingOptionOld context:nil];
+        [_scrollView addObserver:self forKeyPath:@"frame" options:NSKeyValueObservingOptionNew context:nil];
     }
     
     return self;
@@ -89,12 +90,23 @@
 }
 
 #pragma mark - 管理刷新状态
+
+- (void) headerBeginRefreshing
+{
+    _scrollView.contentOffset = CGPointMake(0, 100);
+}
+
+- (void) footerBeginRefreshing
+{
+    
+}
+
 - (void) setHeaderViewRefreshing
 {
     if(_headerView.refreshState != ZMRefreshState_Refreshing)
     {
         [_headerView updateRefreshState:ZMRefreshState_Refreshing];    // 刷新
-        [UIView animateWithDuration:0.1 animations:^{
+        [UIView animateWithDuration:1 animations:^{
             _scrollView.contentInset = UIEdgeInsetsMake(ZMRefreshViewHeight, 0, 0, 0);
         }];
     }
@@ -105,7 +117,7 @@
     if(_footerView.refreshState != ZMRefreshState_Refreshing)
     {
         [_footerView updateRefreshState:ZMRefreshState_Refreshing];    // 刷新
-        [UIView animateWithDuration:0.1 animations:^{
+        [UIView animateWithDuration:1 animations:^{
             _scrollView.contentInset = UIEdgeInsetsMake(0, 0, ZMRefreshViewHeight, 0);
         }];
     }
@@ -185,7 +197,7 @@
 
 - (void) resetScrollViewContentInset
 {
-    [UIView animateWithDuration:0.1 animations:^{
+    [UIView animateWithDuration:1 animations:^{
         _scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     }];
 }
@@ -239,7 +251,7 @@
                     if(oldState == ZMRefreshState_willRefreshing && _scrollView.isDecelerating) // 松手
                     {
                         [_headerView updateRefreshState:ZMRefreshState_Refreshing];    // 刷新
-                        [UIView animateWithDuration:0.1 animations:^{
+                        [UIView animateWithDuration:1 animations:^{
                             _scrollView.contentInset = UIEdgeInsetsMake(ZMRefreshViewHeight, 0, 0, 0);
                         }
                         completion:^(BOOL finish)
@@ -292,7 +304,7 @@
                     {
                         [_footerView updateRefreshState:ZMRefreshState_Refreshing];    // 刷新
                         
-                        [UIView animateWithDuration:0.1 animations:^{
+                        [UIView animateWithDuration:1 animations:^{
                             _scrollView.contentInset = UIEdgeInsetsMake(0, 0, _scrollView.contentSize.height < _scrollView.frame.size.height ? ZMRefreshViewHeight + _scrollView.frame.size.height - _scrollView.contentSize.height : ZMRefreshViewHeight , 0);
                         }
                         completion:^(BOOL finish)
@@ -336,6 +348,15 @@
         }
         
 
+    }
+    else if([@"frame" isEqualToString:keyPath])
+    {
+        CGRect oldFrame = self.headerView.frame;
+        self.headerView.frame = CGRectMake(oldFrame.origin.x, oldFrame.origin.y, CGRectGetWidth(self.scrollView.frame), oldFrame.size.height);
+        
+        oldFrame = self.footerView.frame;
+        self.footerView.frame = CGRectMake(oldFrame.origin.x, oldFrame.origin.y, CGRectGetWidth(self.scrollView.frame), oldFrame.size.height);
+        
     }
 
 }

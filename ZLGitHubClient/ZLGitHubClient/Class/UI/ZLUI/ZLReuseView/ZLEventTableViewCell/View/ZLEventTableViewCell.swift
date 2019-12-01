@@ -93,13 +93,14 @@ class ZLEventTableViewCell: UITableViewCell {
         self.timeLabel = timeLabel
         
         let eventDesLabel = UILabel.init()
-        eventDesLabel.textColor = UIColor.init(hexString: "#878787", alpha: 1.0)
-        eventDesLabel.font = UIFont.init(name: Font_PingFangSCRegular, size: 13.0)
+        eventDesLabel.textColor = UIColor.init(hexString: "#333333", alpha: 1.0)
+        eventDesLabel.font = UIFont.init(name: Font_PingFangSCRegular, size: 15.0)
         self.containerView?.addSubview(eventDesLabel)
         eventDesLabel.snp.makeConstraints({(make) -> Void in
             make.left.equalTo(self.containerView!.snp_left).offset(10)
             make.right.equalTo(self.containerView!.snp_right).offset(-10)
             make.top.equalTo(self.headImageButton!.snp.bottom).offset(10)
+            make.height.equalTo(30)
         })
         self.eventDesLabel = eventDesLabel
         

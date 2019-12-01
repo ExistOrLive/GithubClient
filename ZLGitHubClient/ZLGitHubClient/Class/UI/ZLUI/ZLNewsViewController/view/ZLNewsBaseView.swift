@@ -10,12 +10,30 @@ import UIKit
 
 class ZLNewsBaseView: ZLBaseView {
 
-    @IBOutlet weak var tableView: UITableView!
+    let eventListView : ZLEventListView
+    
+    required init?(coder: NSCoder) {
         
-    override func awakeFromNib() {
-        tableView.register(UINib.init(nibName: "ZLNewsTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "ZLNewsTableViewCell")
+        self.eventListView = ZLEventListView(frame: ZLScreenBounds)
+        super.init(coder: coder)
         
-        tableView.register(ZLEventTableViewCell.self, forCellReuseIdentifier: "ZLEventTableViewCell")
+        self.setUpView()
+    }
+    
+    override init(frame: CGRect) {
+        self.eventListView = ZLEventListView(frame: ZLScreenBounds)
+        super.init(frame: frame)
+        
+        self.setUpView()
+    }
+    
+    
+    func setUpView()
+    {
+        self.addSubview(self.eventListView)
+        self.eventListView.snp.makeConstraints({ (make) in
+            make.edges.equalToSuperview().inset(UIEdgeInsets.init(top: 10, left: 0, bottom: 10, right: 0))
+        })
     }
 
 }

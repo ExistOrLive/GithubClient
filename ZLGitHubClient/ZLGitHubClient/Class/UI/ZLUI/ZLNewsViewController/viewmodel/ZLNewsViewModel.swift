@@ -11,16 +11,14 @@ import UIKit
 class ZLNewsViewModel: ZLBaseViewModel {
 
     private weak var newsBaseView: ZLNewsBaseView?
-    var receivedEventArray: [Any]?
     
+    var isRefreshNew : Bool = true
     var currentPage: Int = 0
     var per_page: Int = 10
 
     var curLoginName: String?
     var userInfo: ZLGithubUserModel?
     private var serialNumber: String?
-    
-    var refreshManager: ZMRefreshManager?
     
     override func bindModel(_ targetModel: Any?, andView targetView: UIView)
     {
@@ -30,13 +28,7 @@ class ZLNewsViewModel: ZLBaseViewModel {
         }
         
         self.newsBaseView = targetView as? ZLNewsBaseView
-        self.newsBaseView?.tableView.delegate = self
-        self.newsBaseView?.tableView.dataSource = self
-        
-        //刷新组件
-        self.refreshManager = ZMRefreshManager.init(scrollView: self.newsBaseView!.tableView, addHeaderView: false, addFooterView: true);
-        self.refreshManager?.delegate = self
-        self.refreshManager?.setFooterViewRefreshing()
+        self.newsBaseView?.eventListView.delegate = self
         
         // 注册事件监听
         ZLEventServiceModel.shareInstance().registerObserver(self, selector: #selector(onNotificationArrived(notification:)), name:ZLGetUserReceivedEventResult_Notification)
@@ -48,7 +40,6 @@ class ZLNewsViewModel: ZLBaseViewModel {
         ZLEventServiceModel.shareInstance().unRegisterObserver(self, name: ZLGetUserReceivedEventResult_Notification)
         ZLUserServiceModel.shared().unRegisterObserver(self, name: ZLGetCurrentUserInfoResult_Notification)
         ZLUserServiceModel.shared().unRegisterObserver(self, name: ZLGetSpecifiedUserInfoResult_Notification)
-        self.refreshManager?.free()
     }
     
     override func vcLifeCycle_viewWillAppear() {
@@ -56,14 +47,13 @@ class ZLNewsViewModel: ZLBaseViewModel {
     
         //每次界面将要展示时，更新数据
         self.userInfo = ZLUserServiceModel.shared().currentUserInfo()
+       
         guard self.userInfo != nil else
         {
             return;
         }
 
-        self.serialNumber = NSString.generateSerialNumber();
-        
-        ZLEventServiceModel.shareInstance().getReceivedEvents(forUser: userInfo?.loginName, page: UInt(self.currentPage + 1), per_page: UInt(self.per_page), serialNumber: self.serialNumber)
+        //self.newsBaseView?.eventListView.beginRefresh()
     }
 }
 
@@ -80,13 +70,18 @@ extension ZLNewsViewModel
             {
                 guard let resultModel: ZLOperationResultModel = notification.params as? ZLOperationResultModel else
                 {
-                    self.refreshManager?.setFooterViewRefreshEnd()
                     return
+                }
+                
+                // 
+                if resultModel.serialNumber != self.serialNumber!
+                {
+                    return;
                 }
                 
                 guard resultModel.result == true else
                 {
-                    self.refreshManager?.setFooterViewRefreshEnd()
+                    self.newsBaseView?.eventListView.endRefreshWithError()
                     guard let errorModel : ZLGithubRequestErrorModel = resultModel.data as? ZLGithubRequestErrorModel else
                     {
                         return;
@@ -97,27 +92,32 @@ extension ZLNewsViewModel
                     return
                 }
                 
-                let itemArray: [Any]? = resultModel.data as? [Any]
-                
-                guard itemArray != nil && itemArray!.count > 0 else
+                guard let itemArray: [ZLGithubEventModel] = resultModel.data as? [ZLGithubEventModel] else
                 {
-                    self.refreshManager?.setFooterViewNoMoreFresh()
-                    ZLLog_Info("itemArray is nil or itemArray count < 0, so return")
+                    self.newsBaseView?.eventListView.endRefreshWithError()
                     return
                 }
                 
-                self.currentPage = self.currentPage + 1
-                self.refreshManager?.setFooterViewRefreshEnd()
+                var cellDataArray :[ZLEventTableViewCellData] = [];
                 
-                if self.receivedEventArray == nil
+                for model in itemArray
                 {
-                    self.receivedEventArray = (itemArray! as NSArray).mutableCopy() as? [Any]
+                    let cellData : ZLEventTableViewCellData = ZLEventTableViewCellData.getCellDataWithEventModel(eventModel: model)
+                    self.addSubViewModel(cellData)
+                    cellDataArray.append(cellData)
+                }
+                
+                if self.isRefreshNew
+                {
+                    self.newsBaseView?.eventListView.resetCellDatas(cellDatas: cellDataArray)
+                    self.isRefreshNew = false
+                    self.currentPage = 2
                 }
                 else
                 {
-                    self.receivedEventArray?.append(contentsOf: itemArray!)
+                    self.newsBaseView?.eventListView.apppendCellDatas(cellDatas: cellDataArray)
+                    self.currentPage = self.currentPage + 1
                 }
-                self.newsBaseView?.tableView.reloadData()
             }
             case ZLGetCurrentUserInfoResult_Notification:do
             {
@@ -130,9 +130,6 @@ extension ZLNewsViewModel
                 }
                 
                 self.userInfo = userInfo
-                self.serialNumber = NSString.generateSerialNumber()
-                
-                ZLEventServiceModel.shareInstance().getReceivedEvents(forUser: self.userInfo?.loginName, page: UInt(self.currentPage + 1), per_page: UInt(self.per_page), serialNumber: self.serialNumber)
             }
             case ZLGetSpecifiedUserInfoResult_Notification: do
             {
@@ -160,223 +157,18 @@ extension ZLNewsViewModel
     }
 }
 
-// MARK: UITableViewDelegate
-extension ZLNewsViewModel: UITableViewDelegate, UITableViewDataSource
+extension ZLNewsViewModel : ZLEventListViewDelegate
 {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.receivedEventArray?.count ?? 0
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let data: ZLGithubEventModel? = self.receivedEventArray?[indexPath.row] as? ZLGithubEventModel
-        
-        guard let eventType: ZLGithubEventType = data?.type else
-        {
-            ZLLog_Info("eventType isn't ZLGithubEventType")
-            return 0
-        }
-        
-        switch eventType
-        {
-            case .createEvent:do
-            {
-                 return 140
-            }
-            case .pushEvent: do
-            {
-                let payload: ZLPushEventPayloadModel? = data?.payload as? ZLPushEventPayloadModel
-                let commitItems: [ZLCommitInfoModel]? = payload?.commits
-        
-                let commitCount: Int = commitItems?.count ?? 0
-                let cellHeight = 140 + commitCount * 35;
-                return CGFloat.init(cellHeight);
-            }
-            case .pullRequestEvent: do
-            {
-                return 140
-            }
-            case .watchEvent: do
-            {
-                return 140
-            }
-            case .unKnown: do
-            {
-                return 0
-            }
-            default:
-                return 0
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let data: ZLGithubEventModel? = self.receivedEventArray?[indexPath.row] as? ZLGithubEventModel
-        
-        let cellData: ZLEventTableViewCellData = ZLEventTableViewCellData.init(eventModel: data!)
-        
-        guard let tableViewCell : ZLEventTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLEventTableViewCell", for: indexPath) as? ZLEventTableViewCell else
-        {
-            return  UITableViewCell()
-        }
-        
-        tableViewCell.fillWithData(cellData: cellData)
-        
-        //        tableViewCell.userNameLabel.text = data?.actor.login ?? ""
-        //        let timeStr = NSString.init(format: "%@",(data?.created_at as NSDate?)?.dateLocalStrSinceCurrentTime() ?? "")
-        //        tableViewCell.dateLabel.text = timeStr as String;
-
-//        guard let tableViewCell: ZLNewsTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLNewsTableViewCell", for: indexPath) as? ZLNewsTableViewCell else
-//        {
-//            return UITableViewCell()
-//        }
-//
-//        tableViewCell.avatarButton.sd_setBackgroundImage(with: URL.init(string: data?.actor.avatar_url ?? ""), for: .normal, completed:nil)
-//        tableViewCell.userNameLabel.text = data?.actor.login ?? ""
-//        let timeStr = NSString.init(format: "%@",(data?.created_at as NSDate?)?.dateLocalStrSinceCurrentTime() ?? "")
-//        tableViewCell.dateLabel.text = timeStr as String;
-//
-//        if let eventType: ZLGithubEventType = data?.type
-//        {
-//            switch eventType
-//            {
-//                case .createEvent: do
-//                {
-//                    let createPayLoad: ZLCreateEventPayloadModel = data?.payload as! ZLCreateEventPayloadModel
-//                    let refType: ZLReferenceType = createPayLoad.ref_type as ZLReferenceType
-//                    let repoName: String = data?.repo.name ?? ""
-//                    let mainContent: String
-//
-//                    if refType == ZLReferenceType.repository
-//                    {
-//                        mainContent = "Created repository " + repoName
-//                    }
-//                    else
-//                    {
-//                        mainContent = "Create tag " + repoName
-//                    }
-//
-//                    tableViewCell.contentLabel.text = mainContent
-//                }
-//                case .pushEvent: do
-//                {
-//                    let repoName: String = data?.repo.name ?? ""
-//
-//                    let payload: ZLPushEventPayloadModel? = data?.payload as? ZLPushEventPayloadModel
-//                    let items: [String] = payload?.ref.components(separatedBy: "/") ?? [String]()
-//                    let branch: String = items.last ?? ""
-//
-//                    let mainContent: String = "Push to " + branch + " at " + repoName
-//
-//                    guard let commitItems: [ZLCommitInfoModel] = payload?.commits else
-//                    {
-//                        ZLLog_Info("unWrap fail")
-//                        return tableViewCell
-//                    }
-//
-//                    let detailInfo: NSMutableAttributedString = NSMutableAttributedString.init()
-//
-//                    for (_, value) in commitItems.enumerated()
-//                    {
-//                        let commit = value as ZLCommitInfoModel
-//                        var commit_sha: String = commit.sha as String
-//                        let commit_message: String = commit.message as String
-//
-//                        if commit_sha.count > 6
-//                        {
-//                            commit_sha = String(commit_sha.suffix(6))
-//                        }
-//
-//                        let shaAttriStr = NSMutableAttributedString(text: (commit_sha), font: UIFont.init(name: "PingFangSC-Regular", size: 14), textForegroundColor: UIColor.init("199BFF"), paragraphStyle: NSParagraphStyle.init())
-//
-//                        let messageAttriStr = NSMutableAttributedString(text: (" - " + commit_message + "\n"), font: UIFont.init(name: "PingFangSC-Regular", size: 16), textForegroundColor: UIColor.black, paragraphStyle: NSParagraphStyle.init())
-//
-//                        detailInfo.append(shaAttriStr!)
-//                        detailInfo.append(messageAttriStr!)
-//                    }
-//
-//                    let mainContentAttriStr :NSMutableAttributedString = NSMutableAttributedString(text: (mainContent + "\n"), font: UIFont.init(name: "PingFangSC-Medium", size: 17), textForegroundColor: UIColor.black, paragraphStyle: NSParagraphStyle.init())
-//
-//                    mainContentAttriStr.append(detailInfo)
-//                    tableViewCell.contentLabel.attributedText = mainContentAttriStr
-//                }
-//                case .pullRequestEvent: do
-//                {
-//                    let dic: [String:Any]? = data?.payload as? [String: Any]
-//                    let operationType: String? = dic?["action"] as? String
-//                    if operationType == "opened"
-//                    {
-//                        tableViewCell.contentLabel.text = "Opened pull request " + (data?.repo.name)!
-//                    }
-//                    else if operationType == "closed"
-//                    {
-//                        tableViewCell.contentLabel.text = "Closed pull request " + (data?.repo.name)!
-//                    }
-//                }
-//                case .watchEvent: do
-//                {
-//                    let watchPayLoad: ZLWatchEventPayloadModel = data?.payload as! ZLWatchEventPayloadModel
-//                    let repoName: String = data?.repo.name ?? ""
-//                    let mainContent: String
-//
-//                    if watchPayLoad.action == "started"
-//                    {
-//                        mainContent = "Starred " + repoName
-//                    }
-//                    else
-//                    {
-//                        mainContent = "UnKnow operation"
-//                    }
-//
-//                    tableViewCell.contentLabel.text = mainContent
-//                }
-//                case .unKnown: do
-//                {
-//                    ZLLog_Info("")
-//                }
-//                default : do
-//                {
-//
-//                }
-//            }
-//        }
-        
-        return tableViewCell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-//        let data: ZLGithubEventModel? = self.receivedEventArray?[indexPath.row] as? ZLGithubEventModel
-    
-//        self.serialNumber = NSString.generateSerialNumber()
-//        ZLUserServiceModel.shared().getUserInfo(withLoginName: data?.actor.login ?? "", userType: ZLGithubUserType_User, serialNumber: self.serialNumber!)
-    }
-}
-
-extension ZLNewsViewModel
-{
-    @objc func onSingleTapEvent(tapGesture: UITapGestureRecognizer)
+    func eventListViewRefreshDragUp(eventListView: ZLEventListView) -> Void
     {
-        let point: CGPoint = tapGesture.location(in: self.newsBaseView?.tableView)
-        let indexPath: IndexPath? = self.newsBaseView?.tableView.indexPathForRow(at: point)
-        guard let tableViewCell: ZLNewsTableViewCell = self.newsBaseView?.tableView.cellForRow(at: indexPath!) as? ZLNewsTableViewCell else
-        {
-            return
-        }
-        
-        self.serialNumber = NSString.generateSerialNumber()
-        ZLUserServiceModel.shared().getUserInfo(withLoginName: tableViewCell.userNameLabel.text ?? "", userType: ZLGithubUserType_User, serialNumber: self.serialNumber!)
-    } 
-}
-
-extension ZLNewsViewModel : ZMRefreshManagerDelegate
-{
-    func zmRefreshIsDragUp(_ isDragUp: Bool, refreshView: UIView!) {
-        
         self.serialNumber = NSString.generateSerialNumber()
         ZLEventServiceModel.shareInstance().getReceivedEvents(forUser: userInfo?.loginName, page: UInt(self.currentPage + 1), per_page: UInt(self.per_page), serialNumber: self.serialNumber)
+    }
+    
+    func eventListViewRefreshDragDown(eventListView: ZLEventListView) -> Void
+    {
+        self.isRefreshNew = true;
+        self.serialNumber = NSString.generateSerialNumber()
+        ZLEventServiceModel.shareInstance().getReceivedEvents(forUser: userInfo?.loginName, page: 1, per_page: UInt(self.per_page), serialNumber: self.serialNumber)
     }
 }

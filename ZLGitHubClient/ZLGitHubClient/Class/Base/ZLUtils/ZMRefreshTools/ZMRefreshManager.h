@@ -31,6 +31,9 @@
 
 #pragma mark - 管理刷新状态
 
+- (void) headerBeginRefreshing;
+- (void) footerBeginRefreshing;
+
 // 设置刷新状态
 - (void) setHeaderViewRefreshing;
 - (void) setFooterViewRefreshing;

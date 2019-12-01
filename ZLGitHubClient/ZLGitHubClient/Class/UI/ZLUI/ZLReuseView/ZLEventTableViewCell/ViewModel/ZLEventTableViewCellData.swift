@@ -12,16 +12,12 @@ class ZLEventTableViewCellData: ZLBaseViewModel {
     
     var eventModel : ZLGithubEventModel
     
-    override init() {
-        self.eventModel = ZLGithubEventModel()
+    init(eventModel : ZLGithubEventModel)
+    {
+        self.eventModel = eventModel
         super.init()
     }
     
-    convenience init(eventModel : ZLGithubEventModel)
-    {
-        self.init()
-        self.eventModel = eventModel
-    }
     
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
         guard let cell : ZLEventTableViewCell = targetView as? ZLEventTableViewCell else {
@@ -51,7 +47,25 @@ extension ZLEventTableViewCellData
         return timeStr as String
     }
     
-    func getEventDescrption() -> String
+    func getCellReuseIdentifier() -> String
+    {
+        switch(self.eventModel.type)
+        {
+        case .pushEvent: do {
+            return "ZLPushEventTableViewCell"
+            }
+        default: do{
+            return "ZLEventTableViewCell"
+            }
+        }
+    }
+    
+    @objc func getCellHeight() -> CGFloat
+    {
+        return 135.0
+    }
+    
+    @objc func getEventDescrption() -> String
     {
         return self.eventModel.eventDescription
     }
@@ -62,13 +76,14 @@ extension ZLEventTableViewCellData : ZLEventTableViewCellDelegate
 {
     func onAvatarClicked() {
         let vc = ZLUserInfoController.init(loginName: self.eventModel.actor.login, type: ZLGithubUserType_User)
+        vc.hidesBottomBarWhenPushed = true
         self.viewController?.navigationController?.pushViewController(vc, animated: true)
     }
     
     func onCellSingleTap() {
-        let repoModel = ZLGithubRepositoryModel.init()
-        repoModel.full_name = self.eventModel.repo.name;
-        let vc = ZLRepoInfoController.init(repoInfoModel: repoModel)
-        self.viewController?.navigationController?.pushViewController(vc, animated: true)
+//        let repoModel = ZLGithubRepositoryModel.init()
+//        repoModel.full_name = self.eventModel.repo.name;
+//        let vc = ZLRepoInfoController.init(repoInfoModel: repoModel)
+//        self.viewController?.navigationController?.pushViewController(vc, animated: true)
     }
 }

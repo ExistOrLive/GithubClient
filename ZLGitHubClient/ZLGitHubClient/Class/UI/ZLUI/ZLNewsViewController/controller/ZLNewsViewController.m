@@ -30,7 +30,7 @@
     self.title = ZLLocalizedString(@"news",@"动态");
  
     self.viewModel = [[ZLNewsViewModel alloc] initWithViewController:self];
-    self.baseView = [[NSBundle mainBundle] loadNibNamed:@"ZLNewsBaseView" owner:self options:nil].firstObject;
+    self.baseView = [ZLNewsBaseView new];
     [self.contentView addSubview:self.baseView];
     
     [self.baseView mas_makeConstraints:^(MASConstraintMaker *make) {
