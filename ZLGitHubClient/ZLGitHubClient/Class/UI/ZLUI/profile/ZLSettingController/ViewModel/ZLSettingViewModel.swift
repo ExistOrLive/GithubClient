@@ -12,6 +12,7 @@ enum ZLSettingItemType: Int
 {
     case language
     case logout
+    case monitor
 }
 
 class ZLSettingViewModel: ZLBaseViewModel {
@@ -91,6 +92,12 @@ class ZLSettingViewModel: ZLBaseViewModel {
         
         self.viewController?.present(alertController, animated: true, completion: nil)
     }
+    
+    func onMonitor()
+    {
+        
+    }
+    
 
     @IBAction func onBackButtonClicked(_ sender: Any) {
         self.viewController?.navigationController?.popViewController(animated: true)
@@ -128,8 +135,11 @@ extension ZLSettingViewModel
 
 extension ZLSettingViewModel: UITableViewDataSource,UITableViewDelegate
 {
-    
+    #if debug
+    static let settingItemTypes : [[ZLSettingItemType]] = [[.language,.monitor],[.logout]]
+    #else
     static let settingItemTypes : [[ZLSettingItemType]] = [[.language],[.logout]]
+    #endif
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50.0
@@ -167,6 +177,18 @@ extension ZLSettingViewModel: UITableViewDataSource,UITableViewDelegate
             return tableViewCell
             
             }
+        case .monitor:do{
+            
+            guard let tableViewCell: ZLSettingItemTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLSettingItemTableViewCell", for: indexPath) as? ZLSettingItemTableViewCell else
+                     {
+                         let cell = UITableViewCell.init()
+                         return cell
+                     }
+                     
+                     tableViewCell.itemTypeLabel.text = ZLLocalizedString(string: "Monitor", comment: "监控")
+                     return tableViewCell
+                      
+                  }
         case .logout:do{
             
             guard let tableViewCell: ZLSettingLogoutTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLSettingLogoutTableViewCell", for: indexPath) as? ZLSettingLogoutTableViewCell else
@@ -177,7 +199,9 @@ extension ZLSettingViewModel: UITableViewDataSource,UITableViewDelegate
             tableViewCell.titleLabel.text = ZLLocalizedString(string: "logout", comment: "注销")
             return tableViewCell
             }
+          
         }
+        
         
     }
     
@@ -198,6 +222,9 @@ extension ZLSettingViewModel: UITableViewDataSource,UITableViewDelegate
             }
         case .logout:do{
             self.onLogout()
+            }
+        case .monitor:do{
+            self.onMonitor()
             }
         }
         

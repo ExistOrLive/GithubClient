@@ -38,6 +38,8 @@
     }];
     
     [self.viewModel bindModel:nil andView:self.baseView];
+    
+
 }
 
 - (void)viewWillAppear:(BOOL)animated

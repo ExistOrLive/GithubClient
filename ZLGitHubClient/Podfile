@@ -33,5 +33,9 @@ pod 'SnapKit', '~> 4.0.0'
 pod 'YYText'
 
 # 移动监控工具
-pod  'YKWoodpecker'
+pod 'LookinServer', :configurations => ['Debug']
+pod 'DoraemonKit/Core', '~> 2.0.0', :configurations => ['Debug']
+pod 'DoraemonKit/WithLogger', '~> 2.0.0', :configurations => ['Debug']
+#pod 'DoraemonKit/WithGPS', '~> 2.0.0', :configurations => ['Debug']
+pod 'DoraemonKit/WithMLeaksFinder', '2.0.0', :configurations => ['Debug']
 end

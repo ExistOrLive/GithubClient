@@ -8,7 +8,10 @@
 
 #import "AppDelegate.h"
 #import "ZLGithubAPI.h"
-#import <YKWoodpecker/YKWoodpecker.h>
+
+#ifdef DEBUG
+#import <DoraemonKit/DoraemonManager.h>
+#endif
 
 
 @interface AppDelegate ()
@@ -22,7 +25,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    [self setUpYKWoodpecker];
+    [self setUpDoraemonKit];
     
     /**
      *
@@ -67,6 +70,8 @@
         // token不为空，跳到主界面
         [self switchToMainController];
     }
+    
+     
     
     return YES;
 }
@@ -140,26 +145,16 @@
     }
 }
 
-#pragma mark - 啄木鸟
+#pragma mark - DoraemonKit
 
-- (void) setUpYKWoodpecker
+- (void) setUpDoraemonKit
 {
-      // 方法监听命令配置JSON地址 * 可选，如无单独配置，可使用 https://github.com/ZimWoodpecker/WoodpeckerCmdSource 上的配置
-       [YKWoodpeckerManager shareInstance].cmdSourceUrl = @"https://raw.githubusercontent.com/ZimWoodpecker/WoodpeckerCmdSource/master/cmdSource/default/cmds_cn.json";
-       
-       // Release 下可开启安全模式，只支持打开安全插件 * 可选
-    #ifndef DEBUG
-       [YKWoodpeckerManager sharedInstance].safePluginMode = YES;
-    #endif
-
-       // 设置 parseDelegate，可通过 YKWCmdCoreCmdParseDelegate 协议实现自定义命令 * 可选
-       [YKWoodpeckerManager shareInstance].cmdCore.parseDelegate = self;
-       
-       // 显示啄幕鸟，启动默认打开UI检查插件
-       [[YKWoodpeckerManager shareInstance] show];
-       
-       // 启动时可直接打开某一插件 * 可选
-    //    [[YKWoodpeckerManager sharedInstance] openPluginNamed:@"xxx"];
+    #ifdef DEBUG
+           //默认
+           [[DoraemonManager shareInstance] install];
+           // 或者使用传入位置,解决遮挡关键区域,减少频繁移动
+           //[[DoraemonManager shareInstance] installWithStartingPosition:CGPointMake(66, 66)];
+       #endif
 }
  
 @end
