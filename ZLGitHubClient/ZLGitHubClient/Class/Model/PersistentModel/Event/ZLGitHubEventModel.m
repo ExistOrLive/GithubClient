@@ -217,6 +217,41 @@ static NSArray * ZLGithubEventTypeArray = nil;
     return oldValue;
 }
 
+- (void)mj_keyValuesDidFinishConvertingToObject:(NSDictionary *)keyValues
+{
+    NSDictionary *dic = self.payload;
+    
+    switch(self.type)
+    {
+        case ZLGithubEventType_CreateEvent:
+        {
+            ZLCreateEventPayloadModel *createEventPayload = [ZLCreateEventPayloadModel mj_objectWithKeyValues:dic];
+            self.payload = createEventPayload;
+        }
+            break;
+        case ZLGithubEventType_PushEvent:
+        {
+            ZLPushEventPayloadModel *tempPayloadModel = [ZLPushEventPayloadModel mj_objectWithKeyValues:dic];
+            self.payload = tempPayloadModel;
+        }
+            break;
+        case ZLGithubEventType_PullRequestEvent:
+        {
+            
+        }
+            break;
+        case ZLGithubEventType_WatchEvent:
+        {
+            ZLWatchEventPayloadModel *watchEventPayload = [ZLWatchEventPayloadModel mj_objectWithKeyValues:dic];
+            self.payload = watchEventPayload;
+        }
+            break;
+        default:
+            break;
+    }
+                  
+}
+
 
 - (NSString *) eventDescription
 {

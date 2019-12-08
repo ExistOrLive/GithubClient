@@ -93,7 +93,23 @@
 
 - (void) headerBeginRefreshing
 {
-    _scrollView.contentOffset = CGPointMake(0, 100);
+    if(_headerView.refreshState == ZMRefreshState_Refreshing || _headerView.refreshState == ZMRefreshState_NoMoreRefresh)
+    {
+        return;
+    }
+
+    [_headerView updateRefreshState:ZMRefreshState_Refreshing];    // 刷新
+    [UIView animateWithDuration:1 animations:^{
+        _scrollView.contentInset = UIEdgeInsetsMake(ZMRefreshViewHeight, 0, 0, 0);
+    }
+    completion:^(BOOL finish)
+    {
+        if(_delegate && [_delegate respondsToSelector:@selector(ZMRefreshIsDragUp:refreshView:)])
+        {
+            [_delegate ZMRefreshIsDragUp:NO refreshView:_headerView];
+        }
+        
+    }];
 }
 
 - (void) footerBeginRefreshing
@@ -101,27 +117,6 @@
     
 }
 
-- (void) setHeaderViewRefreshing
-{
-    if(_headerView.refreshState != ZMRefreshState_Refreshing)
-    {
-        [_headerView updateRefreshState:ZMRefreshState_Refreshing];    // 刷新
-        [UIView animateWithDuration:1 animations:^{
-            _scrollView.contentInset = UIEdgeInsetsMake(ZMRefreshViewHeight, 0, 0, 0);
-        }];
-    }
-}
-
-- (void) setFooterViewRefreshing
-{
-    if(_footerView.refreshState != ZMRefreshState_Refreshing)
-    {
-        [_footerView updateRefreshState:ZMRefreshState_Refreshing];    // 刷新
-        [UIView animateWithDuration:1 animations:^{
-            _scrollView.contentInset = UIEdgeInsetsMake(0, 0, ZMRefreshViewHeight, 0);
-        }];
-    }
-}
 
 - (void) setHeaderViewRefreshEnd
 {
@@ -197,7 +192,7 @@
 
 - (void) resetScrollViewContentInset
 {
-    [UIView animateWithDuration:1 animations:^{
+    [UIView animateWithDuration:0.1 animations:^{
         _scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     }];
 }

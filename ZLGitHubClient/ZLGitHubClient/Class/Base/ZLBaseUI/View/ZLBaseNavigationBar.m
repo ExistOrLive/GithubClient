@@ -84,7 +84,7 @@
 - (void) setUIBackButton
 {
     self.backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.backButton setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+    [self.backButton setImage:[UIImage imageNamed:@"back_Common"] forState:UIControlStateNormal];
     [self addSubview:self.backButton];
     [self.backButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).with.offset(10);

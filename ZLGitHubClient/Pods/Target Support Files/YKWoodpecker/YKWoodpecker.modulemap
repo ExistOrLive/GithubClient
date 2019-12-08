@@ -1,0 +1,6 @@
+framework module YKWoodpecker {
+  umbrella header "YKWoodpecker-umbrella.h"
+
+  export *
+  module * { export * }
+}

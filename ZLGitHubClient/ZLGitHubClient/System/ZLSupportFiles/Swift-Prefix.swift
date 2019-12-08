@@ -50,6 +50,7 @@ let ZLGetSpecifiedUserInfoResult_Notification = Notification.Name(rawValue: "ZLG
 let ZLGetSpecifiedRepoInfoResult_Notification  = Notification.Name(rawValue: "ZLGetSpecifiedRepoInfoResult_Notification")
 let ZLUpdateUserPublicProfileInfoResult_Notification = Notification.Name(rawValue: "ZLUpdateUserPublicProfileInfoResult_Notification")
 let ZLGetUserReceivedEventResult_Notification = Notification.Name(rawValue: "ZLGetUserReceivedEventResult_Notification")
+let ZLGetMyEventResult_Notification = Notification.Name(rawValue: "ZLGetMyEventResult_Notification")
 
 let ZLLanguageTypeChange_Notificaiton = Notification.Name(rawValue: "ZLLanguageTypeChange_Notificaiton")
 

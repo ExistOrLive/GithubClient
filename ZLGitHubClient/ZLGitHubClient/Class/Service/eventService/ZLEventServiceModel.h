@@ -12,6 +12,24 @@
 
 + (instancetype)shareInstance;
 
+/**
+ *  @brief 请求当前用户的event
+ *
+ **/
+- (void) getMyEventsWithpage:(NSUInteger)page
+                    per_page:(NSUInteger)per_page
+                serialNumber:(NSString *)serialNumber;
+
+/**
+ *  @brief 请求用户的event
+ *
+ **/
+- (void) getEventsForUser:(NSString *) userName
+                     page:(NSUInteger)page
+                 per_page:(NSUInteger)per_page
+             serialNumber:(NSString *)serialNumber;
+
+
 
 /**
  * @brief 请求某个用户的receive_events

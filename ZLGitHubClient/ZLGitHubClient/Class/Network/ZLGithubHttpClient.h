@@ -188,6 +188,13 @@ NS_ASSUME_NONNULL_BEGIN
                     serialNumber:(NSString *)serialNumber
                    responseBlock:(GithubResponse)block;
 
+
+- (void)getEventsForUser:(NSString *)userName
+                    page:(NSUInteger)page
+                per_page:(NSUInteger)per_page
+            serialNumber:(NSString *)serialNumber
+           responseBlock:(GithubResponse)block;
+
 @end
 
 

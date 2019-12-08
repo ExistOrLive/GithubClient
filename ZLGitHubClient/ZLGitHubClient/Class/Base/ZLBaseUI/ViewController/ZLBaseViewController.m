@@ -95,13 +95,13 @@
 {
     self.zlNavigationBar = [[ZLBaseNavigationBar alloc] init];
     [self.view addSubview:self.zlNavigationBar];
+    [self.zlNavigationBar.backButton addTarget:self action:@selector(onBackButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.zlNavigationBar mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view.mas_top);
         make.left.equalTo(self.view.mas_left);
         make.right.equalTo(self.view.mas_right);
     }];
-    
     
     if(self.navigationController == nil)   // 如果是model弹出
     {
@@ -114,6 +114,10 @@
         if(controllers.firstObject == self)  // 如果是UINavigationController的根VC
         {
             [self.zlNavigationBar.backButton setHidden:YES];
+        }
+        else
+        {
+            [self.zlNavigationBar.backButton setHidden:NO];
         }
     }
 }
@@ -128,6 +132,18 @@
 - (void) setZLNavigationBarHidden:(BOOL)hidden
 {
     [self.zlNavigationBar setHidden:hidden];
+}
+
+- (void) onBackButtonClicked:(UIButton *) button
+{
+    if(self.navigationController)
+    {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    else
+    {
+        [self dismissViewControllerAnimated:YES completion:^{}];
+    }
 }
 
 #pragma mark - 设置contentView

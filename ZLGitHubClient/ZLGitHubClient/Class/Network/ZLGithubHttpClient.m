@@ -690,62 +690,45 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                               @"per_page":[NSNumber numberWithUnsignedInteger:per_page]};
     
     GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
-        
         if(result)
         {
             NSArray * array = [[ZLGithubEventModel mj_objectArrayWithKeyValuesArray:responseObject] copy];
-            NSMutableArray *usefulDataArray = [[NSMutableArray alloc] init];
-            
-            if(array && array.count > 0)
-            {
-                for (ZLGithubEventModel *eventModel in array)
-                {
-                    if(eventModel.type != ZLGithubEventType_CreateEvent &&
-                       eventModel.type != ZLGithubEventType_PushEvent &&
-                       eventModel.type != ZLGithubEventType_PullRequestEvent &&
-                       eventModel.type != ZLGithubEventType_WatchEvent)
-                    {
-                        continue;
-                    }
-                    
-                    NSDictionary *dic = eventModel.payload;
-                    if (dic.count > 0)
-                    {
-                        if(eventModel.type == ZLGithubEventType_CreateEvent)
-                        {
-                            ZLCreateEventPayloadModel *createEventPayload = [ZLCreateEventPayloadModel mj_objectWithKeyValues:dic];
-                            eventModel.payload = createEventPayload;
-                        }
-                        else if(eventModel.type == ZLGithubEventType_PushEvent)
-                        {
-                            ZLPushEventPayloadModel *tempPayloadModel = [ZLPushEventPayloadModel mj_objectWithKeyValues:dic];
-                            eventModel.payload = tempPayloadModel;
-                        }
-                        else if (eventModel.type == ZLGithubEventType_PullRequestEvent)
-                        {
-                            //TODO::
-                        }
-                        else if (eventModel.type == ZLGithubEventType_WatchEvent)
-                        {
-                            ZLWatchEventPayloadModel *watchEventPayload = [ZLWatchEventPayloadModel mj_objectWithKeyValues:dic];
-                            eventModel.payload = watchEventPayload;
-                        }
-                        else
-                        {
-                            //TODO:: 这是其他类型的解析
-                        }
-                    }
-                    
-                    [usefulDataArray addObject:eventModel];
-                }
-            }
-            responseObject = [usefulDataArray copy];
+            responseObject = array;
         }
         block(result,responseObject,serialNumber);
     };
     
     
     [self GETRequestWithURL:urlForReceivedEvent
+                 WithParams:params
+          WithResponseBlock:newBlock
+               serialNumber:serialNumber];
+}
+
+
+- (void)getEventsForUser:(NSString *)userName
+                    page:(NSUInteger)page
+                per_page:(NSUInteger)per_page
+            serialNumber:(NSString *)serialNumber
+           responseBlock:(GithubResponse)block
+{
+    NSString * urlForEvent = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,userEventUrl];
+    urlForEvent = [NSString stringWithFormat:urlForEvent,userName];
+    
+    NSDictionary * params = @{@"page":[NSNumber numberWithUnsignedInteger:page],
+                              @"per_page":[NSNumber numberWithUnsignedInteger:per_page]};
+    
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
+        if(result)
+        {
+            NSArray * array = [[ZLGithubEventModel mj_objectArrayWithKeyValuesArray:responseObject] copy];
+            responseObject = array;
+        }
+        block(result,responseObject,serialNumber);
+    };
+    
+    
+    [self GETRequestWithURL:urlForEvent
                  WithParams:params
           WithResponseBlock:newBlock
                serialNumber:serialNumber];
