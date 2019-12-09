@@ -48,7 +48,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "134"
             endingLineNumber = "134"
-            landmarkName = "-onGithubTokenInvalid"
+            landmarkName = "-removeObserver"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

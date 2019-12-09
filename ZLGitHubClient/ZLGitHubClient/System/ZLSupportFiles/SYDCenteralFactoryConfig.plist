@@ -20,10 +20,10 @@
 		<key>isSingle</key>
 		<false/>
 	</dict>
-	<key>ZLRepositoriesViewController</key>
+	<key>ZLStarRepoViewController</key>
 	<dict>
 		<key>class</key>
-		<string>ZLRepositoriesViewController</string>
+		<string>ZLStarRepoViewController</string>
 		<key>type</key>
 		<integer>0</integer>
 		<key>isSingle</key>

@@ -57,8 +57,8 @@
     UIViewController *newsViewController = [SYDCentralPivotUIAdapter getZLNewsViewController];
     ZLBaseNavigationController *newsNavigationController = [[ZLBaseNavigationController alloc] initWithRootViewController:newsViewController];
     
-    UIViewController *repositoriesViewController = [SYDCentralPivotUIAdapter getZLRepositoriesViewController];
-    ZLBaseNavigationController *repositoriesNavigationController = [[ZLBaseNavigationController alloc] initWithRootViewController:repositoriesViewController];
+    UIViewController *starsViewController = [SYDCentralPivotUIAdapter getZLStarRepoViewController];
+    ZLBaseNavigationController *repositoriesNavigationController = [[ZLBaseNavigationController alloc] initWithRootViewController:starsViewController];
     
     UIViewController *exploreViewController = [SYDCentralPivotUIAdapter getZLExploreViewController];
     ZLBaseNavigationController *exploreNavigationController = [[ZLBaseNavigationController alloc] initWithRootViewController:exploreViewController];
@@ -79,7 +79,7 @@
     newsNavigationController.tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_new_click_icon"];
     
     ZLBaseNavigationController *repositoriesNavigationController = self.childViewControllers[1];
-    repositoriesNavigationController.tabBarItem.title = ZLLocalizedString(@"repositories", @"仓库");
+    repositoriesNavigationController.tabBarItem.title =  ZLLocalizedString(@"star", "标星");
     repositoriesNavigationController.tabBarItem.image = [UIImage imageNamed:@"tabBar_essence_icon"];
     repositoriesNavigationController.tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_essence_click_icon"];
     
