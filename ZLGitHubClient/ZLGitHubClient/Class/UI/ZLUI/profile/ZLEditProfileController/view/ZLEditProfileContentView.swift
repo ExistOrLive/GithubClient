@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ZLEditProfileContentView: ZLBaseView {
+class ZLEditProfileContentView: ZLBaseView,UITextFieldDelegate,UITextViewDelegate {
 
     static let minHeight: CGFloat = 550.0
     
@@ -24,6 +24,12 @@ class ZLEditProfileContentView: ZLBaseView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        self.blogTextField.delegate = self
+        self.personalDescTextView.delegate = self
+        self.companyTextField.delegate = self
+        self.addressTextField.delegate = self
+        self.emailTextField.delegate = self
     }
 
     func resignAllFirstResponder()
@@ -34,5 +40,13 @@ class ZLEditProfileContentView: ZLBaseView {
         self.emailTextField.resignFirstResponder()
         self.blogTextField.resignFirstResponder()
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool
+    {
+        textField.resignFirstResponder()
+        return true;
+    }
+    
+    
     
 }

@@ -10,7 +10,7 @@
 
 static const NSString * MainViewController = @"ZLMainViewController";
 static const NSString * NewsViewController = @"ZLNewsViewController";
-static const NSString * RepositoriesViewController = @"ZLRepositoriesViewController";
+static const NSString * StarRepoViewController = @"ZLStarRepoViewController";
 static const NSString * ExploreViewController = @"ZLExploreViewController";
 static const NSString * ProfileViewController = @"ZLProfileViewController";
 
@@ -32,9 +32,9 @@ static const NSString * ProfileViewController = @"ZLProfileViewController";
     return profileViewController;
 }
 
-+ (UIViewController *)getZLRepositoriesViewController
++ (UIViewController *)getZLStarRepoViewController
 {
-    return  [[SYDCentralFactory sharedInstance] getOneUIViewController:RepositoriesViewController];
+    return  [[SYDCentralFactory sharedInstance] getOneUIViewController:StarRepoViewController];
 }
 
 + (UIViewController *)getZLExploreViewController
