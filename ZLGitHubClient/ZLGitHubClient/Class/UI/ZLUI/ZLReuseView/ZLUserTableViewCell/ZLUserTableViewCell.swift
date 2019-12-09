@@ -23,6 +23,8 @@ class ZLUserTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        self.selectionStyle = .none
+        
         self.headImageView.layer.cornerRadius = 25.0
         self.headImageView.layer.masksToBounds = true
     }

@@ -27,7 +27,9 @@ class ZLRepositoryTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.justUpdate();
+        
+        self.selectionStyle = .none
+        self.justUpdate()
         self.headImageView.layer.cornerRadius = 25.0
         self.headImageView.layer.masksToBounds = true
         
