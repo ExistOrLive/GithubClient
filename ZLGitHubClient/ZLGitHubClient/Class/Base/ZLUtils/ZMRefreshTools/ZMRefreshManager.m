@@ -55,7 +55,6 @@
         
         [_scrollView addObserver:self forKeyPath:KVOContentSize options:NSKeyValueObservingOptionNew| NSKeyValueObservingOptionOld context:nil];
         [_scrollView addObserver:self forKeyPath:KVOContentOffset options:NSKeyValueObservingOptionNew| NSKeyValueObservingOptionOld context:nil];
-        [_scrollView addObserver:self forKeyPath:@"frame" options:NSKeyValueObservingOptionNew context:nil];
     }
     
     return self;
@@ -343,15 +342,6 @@
         }
         
 
-    }
-    else if([@"frame" isEqualToString:keyPath])
-    {
-        CGRect oldFrame = self.headerView.frame;
-        self.headerView.frame = CGRectMake(oldFrame.origin.x, oldFrame.origin.y, CGRectGetWidth(self.scrollView.frame), oldFrame.size.height);
-        
-        oldFrame = self.footerView.frame;
-        self.footerView.frame = CGRectMake(oldFrame.origin.x, oldFrame.origin.y, CGRectGetWidth(self.scrollView.frame), oldFrame.size.height);
-        
     }
 
 }

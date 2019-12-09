@@ -50,3 +50,17 @@ class ZLRepositoryTableViewCell: UITableViewCell {
     }
     
 }
+
+extension ZLRepositoryTableViewCell
+{
+    func fillWithData(data : ZLRepositoryTableViewCellData) -> Void
+    {
+        self.headImageView.sd_setImage(with: URL.init(string: data.getOwnerAvatarURL() ?? ""), placeholderImage: nil);
+        self.repostitoryNameLabel.text = data.getRepoName()
+        self.languageLabel.text = data.getRepoMainLanguage()
+        self.descriptionLabel.text = data.getRepoDesc()
+        self.forkNumLabel.text = "\(data.forkNum())"
+        self.starNumLabel.text = "\(data.starNum())"
+        self.ownerNameLabel.text = data.getOwnerName()
+    }
+}

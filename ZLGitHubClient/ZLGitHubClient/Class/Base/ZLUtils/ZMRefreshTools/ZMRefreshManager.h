@@ -34,10 +34,6 @@
 - (void) headerBeginRefreshing;
 - (void) footerBeginRefreshing;
 
-// 设置刷新状态
-- (void) setHeaderViewRefreshing;
-- (void) setFooterViewRefreshing;
-
 // 刷新结束
 - (void) setHeaderViewRefreshEnd;
 - (void) setFooterViewRefreshEnd;
