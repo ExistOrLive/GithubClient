@@ -52,7 +52,18 @@
     self.step = ZLLoginStep_init;
     self.currentLoginSerialNumber = nil;
     
-    [[ZLGithubHttpClient defaultClient] logout:serialNumber];
+    GithubResponse  response = ^(BOOL result,id _Nullable responseObject,NSString * serialNumber)
+    {
+        ZLLog_Info(@"ZLLoginResult: result[%d] serialNumber[%@]",result,serialNumber);
+        
+        ZLOperationResultModel * resultModel = [ZLOperationResultModel new];
+        resultModel.result = result;
+        resultModel.serialNumber = serialNumber;
+        
+        ZLMainThreadDispatch([self postNotification:ZLLogoutResult_Notification withParams:resultModel];)
+    };
+    
+    [[ZLGithubHttpClient defaultClient] logout:response serialNumber:serialNumber];
     
 }
 
@@ -89,14 +100,6 @@
             if(result)
             {
                 self.step = processModel.loginStep;
-                
-                // 登陆流程全部成功
-                if(self.step == ZLLoginStep_Success)
-                {
-                    // 初始化个人数据库
-                    NSString * loginName = [[ZLKeyChainManager sharedInstance] getUserAccount];
-                    [ZLDBMODULE initialDBForUser:loginName];
-                }
             }
             else
             {
@@ -136,18 +139,9 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
-           
-            
             if(result)
             {
                 self.step = processModel.loginStep;
-                // 登陆流程全部成功
-                if(self.step == ZLLoginStep_Success)
-                {
-                    // 初始化个人数据库
-                    NSString * loginName = [[ZLKeyChainManager sharedInstance] getUserAccount];
-                    [ZLDBMODULE initialDBForUser:loginName];
-                }
             }
             else
             {

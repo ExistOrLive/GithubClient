@@ -31,9 +31,6 @@
 #import "ZLBaseViewModel.h"
 #import "ZLWebContentViewModel.h"
 
-// VC
-#import "ZLVideoViewController.h"
-
 //persistent Model
 #import "ZLGithubUserModel.h"
 #import "ZLGithubRepositoryModel.h"
@@ -46,7 +43,7 @@
 #import "ZLSearchResultModel.h"
 #import "ZLLoginProcessModel.h"
 
-#import "ZLReceivedEventModel.h"
+#import "ZLGithubEventModel.h"
 
 // Network
 #import "ZLGithubHTTPClient.h"

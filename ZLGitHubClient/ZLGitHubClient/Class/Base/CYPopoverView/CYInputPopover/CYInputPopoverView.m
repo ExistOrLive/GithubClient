@@ -47,7 +47,7 @@
     UIWindow * window = [UIApplication sharedApplication].delegate.window;
     
     CYInputPopoverView *  InputPopover = [[CYInputPopoverView alloc] initWithFrame:window.bounds];
-    [InputPopover setBackgroundColor:LZRGBAValue_H(0x000000, 0.5)];
+    [InputPopover setBackgroundColor:ZLRGBAValue_H(0x000000, 0.5)];
     InputPopover.resultBlock = resultBlock;
     if(placeHolder)
     {
@@ -111,8 +111,8 @@
     [_textFiled setLeftViewMode:UITextFieldViewModeAlways];
     [_textFiled setLeftView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 16, 10)]];
     [_textFiled setBorderStyle:UITextBorderStyleNone];
-    [_textFiled setBackgroundColor:LZRGBValue_H(0xF9F9F9)];
-    _textFiled.layer.borderColor = LZRGBValue_H(0xEEEEEE).CGColor;
+    [_textFiled setBackgroundColor:ZLRGBValue_H(0xF9F9F9)];
+    _textFiled.layer.borderColor = ZLRGBValue_H(0xEEEEEE).CGColor;
     _textFiled.layer.borderWidth = 1;
     _textFiled.layer.cornerRadius = 4;
     _textFiled.delegate = self;

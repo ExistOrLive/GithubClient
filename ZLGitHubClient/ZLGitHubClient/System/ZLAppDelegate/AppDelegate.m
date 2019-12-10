@@ -7,6 +7,11 @@
 //
 
 #import "AppDelegate.h"
+#import "ZLGithubAPI.h"
+
+#ifdef DEBUG
+#import <DoraemonKit/DoraemonManager.h>
+#endif
 
 
 @interface AppDelegate ()
@@ -19,6 +24,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    [self setUpDoraemonKit];
     
     /**
      *
@@ -37,11 +44,35 @@
     
     ZLLog_Info(@"中间件，工具模块初始化完毕");
     
+    /**
+     *
+     *  添加监听
+     **/
+    
+    [self addObserver];
+    
+      /**
+       *
+       *  初始化window
+       **/
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [self.window setBackgroundColor:[UIColor whiteColor]];
     [self.window makeKeyAndVisible];
-    [self switchToLoginController];
-
+    
+    
+    if([[ZLKeyChainManager sharedInstance] getGithubAccessToken].length == 0)
+    {
+        // token为空，切到登陆界面
+        [self switchToLoginController];
+    }
+    else
+    {
+        // token不为空，跳到主界面
+        [self switchToMainController];
+    }
+    
+     
+    
     return YES;
 }
 
@@ -70,6 +101,7 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    [self removeObserver];
 }
 
 
@@ -86,4 +118,43 @@
     UIViewController * rootViewController = [[ZLLoginViewController alloc] init];
     [self.window setRootViewController:rootViewController];
 }
+
+
+#pragma mark -
+
+- (void) addObserver
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onGithubTokenInvalid) name:ZLGithubTokenInvalid_Notification object:nil];
+}
+
+- (void) removeObserver
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:ZLGithubTokenInvalid_Notification object:nil];
+    
+  
+}
+
+
+#pragma mark -
+
+- (void) onGithubTokenInvalid
+{
+    if(![self.window.rootViewController isKindOfClass:[ZLLoginViewController class]])
+    {
+        [self switchToLoginController];
+    }
+}
+
+#pragma mark - DoraemonKit
+
+- (void) setUpDoraemonKit
+{
+    #ifdef DEBUG
+           //默认
+           [[DoraemonManager shareInstance] install];
+           // 或者使用传入位置,解决遮挡关键区域,减少频繁移动
+           //[[DoraemonManager shareInstance] installWithStartingPosition:CGPointMake(66, 66)];
+       #endif
+}
+ 
 @end

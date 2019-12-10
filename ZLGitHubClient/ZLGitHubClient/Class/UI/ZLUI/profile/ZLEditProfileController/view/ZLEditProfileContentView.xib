@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ZLEditProfileContentView" customModule="ZLGitHubClient" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="468" height="550"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="69y-47-pba">
+                    <rect key="frame" x="0.0" y="0.0" width="468" height="250"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="个人描述:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jJA-04-VEy">
+                            <rect key="frame" x="10" y="20" width="73" height="24"/>
+                            <fontDescription key="fontDescription" name="PingFangSC-Semibold" family="PingFang SC" pointSize="17"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="E5h-xc-GES">
+                            <rect key="frame" x="10" y="54" width="448" height="180"/>
+                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="180" id="Yx6-yd-Tb6"/>
+                            </constraints>
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="15"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
+                        </textView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="jJA-04-VEy" firstAttribute="leading" secondItem="69y-47-pba" secondAttribute="leading" constant="10" id="269-uw-UxG"/>
+                        <constraint firstItem="E5h-xc-GES" firstAttribute="top" secondItem="jJA-04-VEy" secondAttribute="bottom" constant="10" id="VXi-lO-IUG"/>
+                        <constraint firstItem="jJA-04-VEy" firstAttribute="top" secondItem="69y-47-pba" secondAttribute="top" constant="20" id="djd-k1-RH2"/>
+                        <constraint firstItem="E5h-xc-GES" firstAttribute="leading" secondItem="69y-47-pba" secondAttribute="leading" constant="10" id="lCh-ia-IoE"/>
+                        <constraint firstAttribute="trailing" secondItem="E5h-xc-GES" secondAttribute="trailing" constant="10" id="sKS-TR-rPJ"/>
+                        <constraint firstAttribute="height" constant="250" id="y91-Vp-q0E"/>
+                    </constraints>
+                </view>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="tHq-A4-RIt">
+                    <rect key="frame" x="0.0" y="260" width="468" height="200"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h5x-aY-esc">
+                            <rect key="frame" x="0.0" y="0.0" width="468" height="50"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="公司" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rK7-TJ-tFx">
+                                    <rect key="frame" x="20" y="13" width="60" height="24"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="60" id="Dda-2w-EXs"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="PingFangSC-Semibold" family="PingFang SC" pointSize="17"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请填写公司" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SPh-9J-oOv">
+                                    <rect key="frame" x="90" y="5" width="368" height="40"/>
+                                    <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="15"/>
+                                    <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                </textField>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="SPh-9J-oOv" secondAttribute="bottom" constant="5" id="1Uw-UE-Wp1"/>
+                                <constraint firstItem="SPh-9J-oOv" firstAttribute="top" secondItem="h5x-aY-esc" secondAttribute="top" constant="5" id="7TK-Vr-PnP"/>
+                                <constraint firstAttribute="trailing" secondItem="SPh-9J-oOv" secondAttribute="trailing" constant="10" id="F8G-QE-TUW"/>
+                                <constraint firstItem="SPh-9J-oOv" firstAttribute="leading" secondItem="rK7-TJ-tFx" secondAttribute="trailing" constant="10" id="W5K-Rk-bVZ"/>
+                                <constraint firstItem="rK7-TJ-tFx" firstAttribute="centerY" secondItem="h5x-aY-esc" secondAttribute="centerY" id="gfl-3x-jft"/>
+                                <constraint firstItem="rK7-TJ-tFx" firstAttribute="leading" secondItem="h5x-aY-esc" secondAttribute="leading" constant="20" id="tUU-Pf-9wu"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HKh-QC-CAs">
+                            <rect key="frame" x="0.0" y="50" width="468" height="50"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="地址" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="inh-ja-OOD">
+                                    <rect key="frame" x="20" y="13" width="60" height="24"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="60" id="K2i-Ie-5x3"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="PingFangSC-Semibold" family="PingFang SC" pointSize="17"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请填写地址" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yWT-Yu-KTo">
+                                    <rect key="frame" x="90" y="5" width="368" height="40"/>
+                                    <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="15"/>
+                                    <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                </textField>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="yWT-Yu-KTo" secondAttribute="bottom" constant="5" id="2gH-vH-yQ1"/>
+                                <constraint firstItem="inh-ja-OOD" firstAttribute="centerY" secondItem="HKh-QC-CAs" secondAttribute="centerY" id="BxA-Ky-2DZ"/>
+                                <constraint firstItem="yWT-Yu-KTo" firstAttribute="top" secondItem="HKh-QC-CAs" secondAttribute="top" constant="5" id="Kuh-7v-LrX"/>
+                                <constraint firstAttribute="trailing" secondItem="yWT-Yu-KTo" secondAttribute="trailing" constant="10" id="Q1G-v7-jij"/>
+                                <constraint firstItem="yWT-Yu-KTo" firstAttribute="leading" secondItem="inh-ja-OOD" secondAttribute="trailing" constant="10" id="ckJ-ev-iyE"/>
+                                <constraint firstItem="inh-ja-OOD" firstAttribute="leading" secondItem="HKh-QC-CAs" secondAttribute="leading" constant="20" id="rL8-Mr-o11"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qki-qh-EIq">
+                            <rect key="frame" x="0.0" y="100" width="468" height="50"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="邮箱" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zgk-NI-7Ps">
+                                    <rect key="frame" x="20" y="13" width="60" height="24"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="60" id="CZ0-99-iJY"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="PingFangSC-Semibold" family="PingFang SC" pointSize="17"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入邮箱" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YlO-Jt-HHH">
+                                    <rect key="frame" x="90" y="5" width="368" height="40"/>
+                                    <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="15"/>
+                                    <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                </textField>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="zgk-NI-7Ps" firstAttribute="centerY" secondItem="Qki-qh-EIq" secondAttribute="centerY" id="Gq3-dI-PP5"/>
+                                <constraint firstAttribute="trailing" secondItem="YlO-Jt-HHH" secondAttribute="trailing" constant="10" id="Swg-cf-XqC"/>
+                                <constraint firstItem="zgk-NI-7Ps" firstAttribute="leading" secondItem="Qki-qh-EIq" secondAttribute="leading" constant="20" id="WTc-dD-aS2"/>
+                                <constraint firstItem="YlO-Jt-HHH" firstAttribute="leading" secondItem="zgk-NI-7Ps" secondAttribute="trailing" constant="10" id="dHZ-En-Qkz"/>
+                                <constraint firstItem="YlO-Jt-HHH" firstAttribute="top" secondItem="Qki-qh-EIq" secondAttribute="top" constant="5" id="kdk-mu-SdL"/>
+                                <constraint firstAttribute="bottom" secondItem="YlO-Jt-HHH" secondAttribute="bottom" constant="5" id="nOW-FO-sTj"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ga6-Wt-ORw">
+                            <rect key="frame" x="0.0" y="150" width="468" height="50"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="博客" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F4q-vB-EiM">
+                                    <rect key="frame" x="20" y="13" width="60" height="24"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="60" id="FPf-mT-sNt"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="PingFangSC-Semibold" family="PingFang SC" pointSize="17"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入博客地址" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Umg-F1-aD0">
+                                    <rect key="frame" x="90" y="5" width="368" height="40"/>
+                                    <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="15"/>
+                                    <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                </textField>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="Umg-F1-aD0" secondAttribute="bottom" constant="5" id="Daw-k1-s11"/>
+                                <constraint firstItem="Umg-F1-aD0" firstAttribute="top" secondItem="ga6-Wt-ORw" secondAttribute="top" constant="5" id="Pps-No-yLY"/>
+                                <constraint firstItem="F4q-vB-EiM" firstAttribute="leading" secondItem="ga6-Wt-ORw" secondAttribute="leading" constant="20" id="YFu-hO-tkY"/>
+                                <constraint firstAttribute="trailing" secondItem="Umg-F1-aD0" secondAttribute="trailing" constant="10" id="p26-R5-VBS"/>
+                                <constraint firstItem="F4q-vB-EiM" firstAttribute="centerY" secondItem="ga6-Wt-ORw" secondAttribute="centerY" id="phx-j5-P4f"/>
+                                <constraint firstItem="Umg-F1-aD0" firstAttribute="leading" secondItem="F4q-vB-EiM" secondAttribute="trailing" constant="10" id="zos-sf-P4t"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="200" id="uDQ-TX-THd"/>
+                    </constraints>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="tHq-A4-RIt" firstAttribute="top" secondItem="69y-47-pba" secondAttribute="bottom" constant="10" id="34m-O3-uoa"/>
+                <constraint firstItem="69y-47-pba" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="3Bh-vY-axU"/>
+                <constraint firstAttribute="trailing" secondItem="69y-47-pba" secondAttribute="trailing" id="4ng-hi-2ad"/>
+                <constraint firstItem="69y-47-pba" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="p1y-Pv-pJJ"/>
+                <constraint firstItem="tHq-A4-RIt" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="pkU-Zc-k7X"/>
+                <constraint firstAttribute="trailing" secondItem="tHq-A4-RIt" secondAttribute="trailing" id="t5w-Oj-8dL"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="addressTextField" destination="yWT-Yu-KTo" id="WVk-4c-2gB"/>
+                <outlet property="blogTextField" destination="Umg-F1-aD0" id="uMp-OM-UK8"/>
+                <outlet property="companyTextField" destination="SPh-9J-oOv" id="8Fe-sv-ngZ"/>
+                <outlet property="emailTextField" destination="YlO-Jt-HHH" id="xqK-AW-CM5"/>
+                <outlet property="personalDescTextView" destination="E5h-xc-GES" id="O7O-ei-7Dy"/>
+            </connections>
+            <point key="canvasLocation" x="176.81159420289856" y="146.65178571428569"/>
+        </view>
+    </objects>
+</document>

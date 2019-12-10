@@ -45,6 +45,11 @@
     {
         _concurrentQueue = dispatch_queue_create("ZLUserServiceModel_Queue", DISPATCH_QUEUE_CONCURRENT);
         [[ZLLoginServiceModel sharedServiceModel] registerObserver:self selector:@selector(onNotificationArrived:) name:ZLLoginResult_Notification];
+        [[ZLLoginServiceModel sharedServiceModel] registerObserver:self selector:@selector(onNotificationArrived:) name:ZLLogoutResult_Notification];
+        
+        // 初始化数据库
+        NSString * userLoginName = [[ZLKeyChainManager sharedInstance] getUserAccount];
+        [ZLDBMODULE initialDBForUser:userLoginName];
     }
     return self;
 }
@@ -77,6 +82,10 @@
 {
     __block ZLGithubUserModel * model = nil;
     dispatch_sync(self.concurrentQueue, ^{
+        if(!_myInfoModel)
+        {
+            _myInfoModel = [ZLDBMODULE getCurrentUserInfo];
+        }
         model = _myInfoModel;
     });
     return model;
@@ -108,10 +117,12 @@
         }
         weakSelf.myInfoModel = [responseObject copy];
         
-        
-        // 更新头像URL
+        // 更新用户名和头像URL
         [[ZLKeyChainManager sharedInstance] updateUserHeadImageURL:model.avatar_url];
+        [[ZLKeyChainManager sharedInstance] updateUserAccount:model.loginName];
+        
         // 更新本地数据库中个人信息
+        [ZLDBMODULE initialDBForUser:model.loginName];
         [ZLDBMODULE insertOrUpdateUserInfo:model];
         
         ZLOperationResultModel * repoResultModel = [[ZLOperationResultModel alloc] init];
@@ -209,6 +220,7 @@
         ZLLoginProcessModel * resultModel = notification.params;
         if(resultModel.loginStep == ZLLoginStep_Success)
         {
+            // 如果本地缓存了数据，就先从本地取出数据
             NSString * loginName = [[ZLKeyChainManager sharedInstance] getUserAccount];
             if(loginName != nil && ![loginName isEqualToString:@""])
             {
@@ -221,6 +233,15 @@
             
             // 登陆成功后，获取当前用户信息
             [self getCurrentUserInfoForServer:@"serialNumber"];
+        }
+    }
+    else if([notification.name isEqualToString:ZLLogoutResult_Notification])
+    {
+        ZLOperationResultModel * resultModel = notification.params;
+        if(resultModel.result)
+        {
+            // 注销成功
+            [self setMyInfoModel:nil];
         }
     }
 }

@@ -89,7 +89,7 @@
     
 }
 
-- (BOOL) updateAccessToken:(NSString *) token
+- (BOOL) updateGithubAccessToken:(NSString *) token
 {
     if(!token)
     {
@@ -125,6 +125,18 @@
     [ZLKeyChainManager save:ZLKeyChainService data:info];
     
     return YES;
+}
+
+- (void) clearGithubTokenAndUserInfo
+{
+    NSMutableDictionary * info = [ZLKeyChainManager load:ZLKeyChainService];
+    if(info)
+    {
+        [info removeObjectForKey:ZLAccessTokenKey];
+        [info removeObjectForKey:ZLUserAccountKey];
+        [info removeObjectForKey:ZLUserHeadImageKey];
+        [ZLKeyChainManager save:ZLKeyChainService data:info];
+    }
 }
 
 # pragma mark -

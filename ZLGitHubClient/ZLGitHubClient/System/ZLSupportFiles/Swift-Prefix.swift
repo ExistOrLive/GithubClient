@@ -11,6 +11,7 @@ import UIKit
 import CocoaLumberjack
 import SDWebImage
 import SnapKit
+import MJRefresh
 
 
 // MARK: 界面常用参数
@@ -28,9 +29,17 @@ let AreaInsetHeightBottom: CGFloat = (UIScreen.main.bounds.height == 812 || UISc
 let AreaInsetWidthLeft: CGFloat = (UIScreen.main.bounds.width == 812 || UIScreen.main.bounds.width == 896) ? 44.0 : 0
 let AreaInsetWidthRight: CGFloat = (UIScreen.main.bounds.width == 812 || UIScreen.main.bounds.width == 896) ? 34.0 : 0
 
+
+//MARK: Font
+
+let Font_PingFangSCMedium = "PingFang-SC-Medium"
+let Font_PingFangSCSemiBold = "PingFang-SC-SemiBold"
+let Font_PingFangSCRegular = "PingFang-SC-Regular"
+
 // MARK: NotificationName
 
 let ZLLoginResult_Notification = Notification.Name(rawValue: "ZLLoginResult_Notification")
+let ZLLogoutResult_Notification = Notification.Name(rawValue:"ZLLogoutResult_Notification")
 let ZLGetCurrentUserInfoResult_Notification = Notification.Name(rawValue: "ZLGetCurrentUserInfoResult_Notification")
 let ZLGetReposResult_Notification = Notification.Name(rawValue: "ZLGetReposResult_Notification")
 let ZLGetFollowersResult_Notification = Notification.Name(rawValue: "ZLGetFollowersResult_Notification")
@@ -41,8 +50,10 @@ let ZLGetSpecifiedUserInfoResult_Notification = Notification.Name(rawValue: "ZLG
 let ZLGetSpecifiedRepoInfoResult_Notification  = Notification.Name(rawValue: "ZLGetSpecifiedRepoInfoResult_Notification")
 let ZLUpdateUserPublicProfileInfoResult_Notification = Notification.Name(rawValue: "ZLUpdateUserPublicProfileInfoResult_Notification")
 let ZLGetUserReceivedEventResult_Notification = Notification.Name(rawValue: "ZLGetUserReceivedEventResult_Notification")
+let ZLGetMyEventResult_Notification = Notification.Name(rawValue: "ZLGetMyEventResult_Notification")
 
 let ZLLanguageTypeChange_Notificaiton = Notification.Name(rawValue: "ZLLanguageTypeChange_Notificaiton")
+
 
 extension Notification
 {

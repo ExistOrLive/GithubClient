@@ -14,7 +14,7 @@
 
 + (UIViewController *)getZLMainViewController;
 + (UIViewController *)getZLNewsViewController;
-+ (UIViewController *)getZLRepositoriesViewController;
++ (UIViewController *)getZLStarRepoViewController;
 + (UIViewController *)getZLExploreViewController;
 + (UIViewController *)getZLProfileViewController;
 

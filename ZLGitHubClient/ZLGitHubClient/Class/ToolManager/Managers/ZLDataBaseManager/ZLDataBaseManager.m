@@ -128,7 +128,8 @@
             model = [[ZLGithubUserModel alloc] init];
             model.id_User = [resultSet stringForColumn:@"id_User"];
             model.node_id = [resultSet stringForColumn:@"node_id"];
-            model.loginName = [resultSet stringForColumn:@"name"];
+            model.name = [resultSet stringForColumn:@"name"];
+            model.loginName = [resultSet stringForColumn:@"loginName"];
             model.company = [resultSet stringForColumn:@"company"];
             model.blog = [resultSet stringForColumn:@"blog"];
             model.location = [resultSet stringForColumn:@"location"];
@@ -147,6 +148,11 @@
         ZLLog_Error(@"ZLDataBase: currentUserInfo[%@]",model);
     });
     return model;
+}
+
+- (ZLGithubUserModel *) getCurrentUserInfo
+{
+    return [self getUserInfoWithUserLoginName:self.currentUser];
 }
 
 - (void) insertOrUpdateUserInfo:(ZLGithubUserModel *) model

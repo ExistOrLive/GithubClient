@@ -37,7 +37,8 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * 注销
  **/
-- (void) logout:(NSString *) serialNumber;
+- (void) logout:(GithubResponse) block
+   serialNumber:(NSString *) serialNumber;
 
 
 #pragma mark - users
@@ -186,6 +187,13 @@ NS_ASSUME_NONNULL_BEGIN
                         per_page:(NSUInteger)per_page
                     serialNumber:(NSString *)serialNumber
                    responseBlock:(GithubResponse)block;
+
+
+- (void)getEventsForUser:(NSString *)userName
+                    page:(NSUInteger)page
+                per_page:(NSUInteger)per_page
+            serialNumber:(NSString *)serialNumber
+           responseBlock:(GithubResponse)block;
 
 @end
 

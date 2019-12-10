@@ -89,27 +89,33 @@
 }
 
 #pragma mark - 管理刷新状态
-- (void) setHeaderViewRefreshing
+
+- (void) headerBeginRefreshing
 {
-    if(_headerView.refreshState != ZMRefreshState_Refreshing)
+    if(_headerView.refreshState == ZMRefreshState_Refreshing || _headerView.refreshState == ZMRefreshState_NoMoreRefresh)
     {
-        [_headerView updateRefreshState:ZMRefreshState_Refreshing];    // 刷新
-        [UIView animateWithDuration:0.1 animations:^{
-            _scrollView.contentInset = UIEdgeInsetsMake(ZMRefreshViewHeight, 0, 0, 0);
-        }];
+        return;
     }
+
+    [_headerView updateRefreshState:ZMRefreshState_Refreshing];    // 刷新
+    [UIView animateWithDuration:1 animations:^{
+        _scrollView.contentInset = UIEdgeInsetsMake(ZMRefreshViewHeight, 0, 0, 0);
+    }
+    completion:^(BOOL finish)
+    {
+        if(_delegate && [_delegate respondsToSelector:@selector(ZMRefreshIsDragUp:refreshView:)])
+        {
+            [_delegate ZMRefreshIsDragUp:NO refreshView:_headerView];
+        }
+        
+    }];
 }
 
-- (void) setFooterViewRefreshing
+- (void) footerBeginRefreshing
 {
-    if(_footerView.refreshState != ZMRefreshState_Refreshing)
-    {
-        [_footerView updateRefreshState:ZMRefreshState_Refreshing];    // 刷新
-        [UIView animateWithDuration:0.1 animations:^{
-            _scrollView.contentInset = UIEdgeInsetsMake(0, 0, ZMRefreshViewHeight, 0);
-        }];
-    }
+    
 }
+
 
 - (void) setHeaderViewRefreshEnd
 {
@@ -239,7 +245,7 @@
                     if(oldState == ZMRefreshState_willRefreshing && _scrollView.isDecelerating) // 松手
                     {
                         [_headerView updateRefreshState:ZMRefreshState_Refreshing];    // 刷新
-                        [UIView animateWithDuration:0.1 animations:^{
+                        [UIView animateWithDuration:1 animations:^{
                             _scrollView.contentInset = UIEdgeInsetsMake(ZMRefreshViewHeight, 0, 0, 0);
                         }
                         completion:^(BOOL finish)
@@ -292,7 +298,7 @@
                     {
                         [_footerView updateRefreshState:ZMRefreshState_Refreshing];    // 刷新
                         
-                        [UIView animateWithDuration:0.1 animations:^{
+                        [UIView animateWithDuration:1 animations:^{
                             _scrollView.contentInset = UIEdgeInsetsMake(0, 0, _scrollView.contentSize.height < _scrollView.frame.size.height ? ZMRefreshViewHeight + _scrollView.frame.size.height - _scrollView.contentSize.height : ZMRefreshViewHeight , 0);
                         }
                         completion:^(BOOL finish)

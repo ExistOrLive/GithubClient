@@ -12,6 +12,7 @@
 #pragma mark - NotificationName
 
 static const NSNotificationName ZLGetUserReceivedEventResult_Notification = @"ZLGetUserReceivedEventResult_Notification";
+static const NSNotificationName ZLGetMyEventResult_Notification = @"ZLGetMyEventResult_Notification";
 
 
 #endif /* ZLEventServiceHeader_h */

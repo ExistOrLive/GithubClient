@@ -8,17 +8,24 @@
 
 #import <UIKit/UIKit.h>
 @class ZLBaseViewModel;
+@class ZLBaseNavigationBar;
 
 @interface ZLBaseViewController : UIViewController
 
 #pragma mark -
 
+// 导航栏
+@property(nonatomic, strong) ZLBaseNavigationBar * zlNavigationBar;
+
+// contentView
+@property(nonatomic, strong) UIView * contentView;
+
+
 @property (strong, nonatomic) ZLBaseViewModel * viewModel;
 
-@property (assign, nonatomic ) BOOL isNavigated;   // 进入方式，是否通过NavigationBar
-
 #pragma mark - 设置Navigation Bar
-- (void) setupNavigationBar:(NSString *) titleText;
+
+- (void) setZLNavigationBarHidden:(BOOL)hidden;
 
 
 @end

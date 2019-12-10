@@ -20,6 +20,7 @@
 - (void) initialDBForUser:(NSString *) userId;
 
 // 获取，插入，更新 userId的信息
+- (ZLGithubUserModel *) getCurrentUserInfo;
 - (ZLGithubUserModel *) getUserInfoWithUserLoginName:(NSString *) userId;
 - (void) insertOrUpdateUserInfo:(ZLGithubUserModel *) model;
 
