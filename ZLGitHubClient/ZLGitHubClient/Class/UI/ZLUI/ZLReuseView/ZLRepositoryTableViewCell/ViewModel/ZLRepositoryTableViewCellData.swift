@@ -12,7 +12,6 @@ class ZLRepositoryTableViewCellData: ZLBaseViewModel {
     
     let data : ZLGithubRepositoryModel
     
-    
     init(data : ZLGithubRepositoryModel)
     {
         self.data = data;
@@ -21,6 +20,13 @@ class ZLRepositoryTableViewCellData: ZLBaseViewModel {
     
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
         
+        guard let cell : ZLRepositoryTableViewCell = targetView as? ZLRepositoryTableViewCell else
+        {
+            return
+        }
+        
+        cell.fillWithData(data: self)
+        cell.delegate = self
     }
 }
 
@@ -70,5 +76,24 @@ extension ZLRepositoryTableViewCellData
     func forkNum() -> Int
     {
         return Int(self.data.forks)
+    }
+    
+    func getCellHeight() -> CGFloat
+    {
+        return 135.0
+    }
+}
+
+
+extension ZLRepositoryTableViewCellData : ZLRepositoryTableViewCellDelegate
+{
+    func onRepoAvaterButtonClicked(button: UIButton) -> Void
+    {
+        
+    }
+    
+    func onRepoContainerViewClicked() -> Void
+    {
+        
     }
 }

@@ -12,6 +12,8 @@
 		0ADF903721D4B01900BF86CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0ADF903621D4B01900BF86CD /* Assets.xcassets */; };
 		0ADF903A21D4B01900BF86CD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0ADF903821D4B01900BF86CD /* LaunchScreen.storyboard */; };
 		0ADF903D21D4B01900BF86CD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADF903C21D4B01900BF86CD /* main.m */; };
+		361B8B7B239FD1C000F725B8 /* ZLStarReposBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 361B8B7A239FD1C000F725B8 /* ZLStarReposBaseView.m */; };
+		361B8B7F239FD35000F725B8 /* ZLStarReposBaseViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 361B8B7E239FD35000F725B8 /* ZLStarReposBaseViewModel.m */; };
 		3628FCE1238BB22000FC36FC /* ZLEventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3628FCDF238BB22000FC36FC /* ZLEventTableViewCell.swift */; };
 		3628FCE6238CF1C600FC36FC /* ZLEventTableViewCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3628FCE5238CF1C600FC36FC /* ZLEventTableViewCellData.swift */; };
 		362DFCB9239E175D00979594 /* ZLStarRepoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 362DFCB8239E175D00979594 /* ZLStarRepoViewController.m */; };
@@ -195,6 +197,10 @@
 		0ADF903B21D4B01900BF86CD /* ZLGitHubClient_Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ZLGitHubClient_Info.plist; sourceTree = "<group>"; };
 		0ADF903C21D4B01900BF86CD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0ADF904321D4D33D00BF86CD /* ZLGitHubClient-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZLGitHubClient-Bridging-Header.h"; sourceTree = "<group>"; };
+		361B8B79239FD1C000F725B8 /* ZLStarReposBaseView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLStarReposBaseView.h; sourceTree = "<group>"; };
+		361B8B7A239FD1C000F725B8 /* ZLStarReposBaseView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLStarReposBaseView.m; sourceTree = "<group>"; };
+		361B8B7D239FD35000F725B8 /* ZLStarReposBaseViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLStarReposBaseViewModel.h; sourceTree = "<group>"; };
+		361B8B7E239FD35000F725B8 /* ZLStarReposBaseViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLStarReposBaseViewModel.m; sourceTree = "<group>"; };
 		3628FCDF238BB22000FC36FC /* ZLEventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLEventTableViewCell.swift; sourceTree = "<group>"; };
 		3628FCE5238CF1C600FC36FC /* ZLEventTableViewCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLEventTableViewCellData.swift; sourceTree = "<group>"; };
 		362DFCB7239E175D00979594 /* ZLStarRepoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLStarRepoViewController.h; sourceTree = "<group>"; };
@@ -505,6 +511,24 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		361B8B78239FD19100F725B8 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				361B8B79239FD1C000F725B8 /* ZLStarReposBaseView.h */,
+				361B8B7A239FD1C000F725B8 /* ZLStarReposBaseView.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		361B8B7C239FD32F00F725B8 /* viewModel */ = {
+			isa = PBXGroup;
+			children = (
+				361B8B7D239FD35000F725B8 /* ZLStarReposBaseViewModel.h */,
+				361B8B7E239FD35000F725B8 /* ZLStarReposBaseViewModel.m */,
+			);
+			path = viewModel;
+			sourceTree = "<group>";
+		};
 		3628FCDA238BA0EA00FC36FC /* User */ = {
 			isa = PBXGroup;
 			children = (
@@ -563,6 +587,8 @@
 		362DFCBA239E193900979594 /* StarRepoViewController */ = {
 			isa = PBXGroup;
 			children = (
+				361B8B7C239FD32F00F725B8 /* viewModel */,
+				361B8B78239FD19100F725B8 /* view */,
 				362DFCBB239E194C00979594 /* controller */,
 			);
 			path = StarRepoViewController;
@@ -2084,6 +2110,7 @@
 				74F0ABE5236596F100D1B954 /* ZLSearchFilterViewForUser.swift in Sources */,
 				748905C4222EBBBA003562E1 /* NSMutableAttributedString+ZLTextEngine.m in Sources */,
 				74CB30C92364AEB800B8F5D0 /* ZLPresentContainerView.m in Sources */,
+				361B8B7B239FD1C000F725B8 /* ZLStarReposBaseView.m in Sources */,
 				7436AC8F21EB869C00F03276 /* SYDCentralRouter+SYDService.m in Sources */,
 				74478D44231FEAA2007D3832 /* ZLSettingItemTableViewCell.swift in Sources */,
 				74EA4B4423007247006D2FD3 /* ZLUserInfoViewModel.swift in Sources */,
@@ -2158,6 +2185,7 @@
 				74D7B5FD22F1398F00C109CA /* ZLUserAdditionInfoController.swift in Sources */,
 				74D34934231C000900A949B2 /* NSString+ZLExtension.m in Sources */,
 				74C19210239EAB3800636F24 /* ZLReposListView.swift in Sources */,
+				361B8B7F239FD35000F725B8 /* ZLStarReposBaseViewModel.m in Sources */,
 				74EA4B3522FF165E006D2FD3 /* ZLSearchResultModel.m in Sources */,
 				7434CA7F238EC05D00763220 /* ZLEventListView.swift in Sources */,
 				0ADF903D21D4B01900BF86CD /* main.m in Sources */,

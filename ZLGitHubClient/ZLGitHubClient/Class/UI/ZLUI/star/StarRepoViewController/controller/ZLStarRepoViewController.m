@@ -7,6 +7,7 @@
 //
 
 #import "ZLStarRepoViewController.h"
+#import "ZLStarReposBaseView.h"
 
 @interface ZLStarRepoViewController ()
 
@@ -21,8 +22,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     self.title = ZLLocalizedString(@"star", "标星");
+    
+    ZLStarReposBaseView * baseView = [[ZLStarReposBaseView alloc] initWithFrame:ZLScreenBounds];
+    [self.contentView addSubview:baseView];
+    [baseView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.contentView);
+    }];
+    
+    
 }
 
 /*

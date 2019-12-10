@@ -8,6 +8,14 @@
 
 import UIKit
 
+
+protocol ZLRepositoryTableViewCellDelegate : NSObjectProtocol
+{
+    func onRepoAvaterButtonClicked(button: UIButton) -> Void
+    
+    func onRepoContainerViewClicked() -> Void
+}
+
 class ZLRepositoryTableViewCell: UITableViewCell {
 
     @IBOutlet weak var headImageView: UIImageView!
@@ -23,6 +31,8 @@ class ZLRepositoryTableViewCell: UITableViewCell {
     
     @IBOutlet weak var starNumLabel: UILabel!
     @IBOutlet weak var forkNumLabel: UILabel!
+    
+    weak var delegate : ZLRepositoryTableViewCellDelegate?
 
     
     override func awakeFromNib() {
@@ -40,7 +50,6 @@ class ZLRepositoryTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(false, animated: animated)
-
     }
     
     
