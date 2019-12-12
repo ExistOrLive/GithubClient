@@ -8,6 +8,7 @@
 
 #import "ZLStarRepoViewController.h"
 #import "ZLStarReposBaseView.h"
+#import "ZLStarReposBaseViewModel.h"
 
 @interface ZLStarRepoViewController ()
 
@@ -31,7 +32,8 @@
         make.edges.equalTo(self.contentView);
     }];
     
-    
+    self.viewModel = [[ZLStarReposBaseViewModel alloc] initWithViewController:self];
+    [self.viewModel bindModel:nil andView:baseView];
 }
 
 /*

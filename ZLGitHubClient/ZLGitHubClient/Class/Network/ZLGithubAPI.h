@@ -52,7 +52,6 @@
 #define reposUrl                @"/repos"                            // 获取某个Repo的信息
 
 
-
 #pragma mark gists
 
 #define gistUrl                 @"/user/gists"                       // 当前用户的gists 包括private

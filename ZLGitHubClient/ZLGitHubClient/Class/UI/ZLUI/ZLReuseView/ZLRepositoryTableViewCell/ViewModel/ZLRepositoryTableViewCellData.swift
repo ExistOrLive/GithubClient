@@ -87,12 +87,11 @@ extension ZLRepositoryTableViewCellData
 
 extension ZLRepositoryTableViewCellData : ZLRepositoryTableViewCellDelegate
 {
-    func onRepoAvaterButtonClicked(button: UIButton) -> Void
-    {
+    func onRepoAvaterClicked() {
         
     }
-    
-    func onRepoContainerViewClicked() -> Void
+        
+    func onRepoContainerViewClicked()
     {
         
     }

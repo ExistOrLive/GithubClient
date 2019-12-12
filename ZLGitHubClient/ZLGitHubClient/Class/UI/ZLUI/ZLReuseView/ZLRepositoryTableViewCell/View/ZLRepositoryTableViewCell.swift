@@ -9,15 +9,16 @@
 import UIKit
 
 
-protocol ZLRepositoryTableViewCellDelegate : NSObjectProtocol
+@objc protocol ZLRepositoryTableViewCellDelegate : NSObjectProtocol
 {
-    func onRepoAvaterButtonClicked(button: UIButton) -> Void
+    func onRepoAvaterClicked() -> Void
     
     func onRepoContainerViewClicked() -> Void
 }
 
 class ZLRepositoryTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var headImageView: UIImageView!
     @IBOutlet weak var repostitoryNameLabel: UILabel!
     @IBOutlet weak var languageLabel: UILabel!
@@ -46,6 +47,12 @@ class ZLRepositoryTableViewCell: UITableViewCell {
         self.privateLabel.layer.cornerRadius = 2.0
         self.privateLabel.layer.borderColor = UIColor.lightGray.cgColor
         self.privateLabel.layer.borderWidth = 1.0
+        
+        let avatarImageTapGesture = UITapGestureRecognizer.init(target: self, action: #selector(onAvatarSingleTapAction))
+        self.headImageView.addGestureRecognizer(avatarImageTapGesture)
+        
+        let containerTapGesture = UITapGestureRecognizer.init(target: self, action: #selector(onContainerTapAction))
+        self.containerView.addGestureRecognizer(containerTapGesture)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -73,5 +80,25 @@ extension ZLRepositoryTableViewCell
         self.forkNumLabel.text = "\(data.forkNum())"
         self.starNumLabel.text = "\(data.starNum())"
         self.ownerNameLabel.text = data.getOwnerName()
+    }
+}
+
+
+extension ZLRepositoryTableViewCell
+{
+    @objc func onAvatarSingleTapAction()
+    {
+        if self.delegate?.responds(to: #selector(ZLRepositoryTableViewCellDelegate.onRepoAvaterClicked)) ?? false
+        {
+            self.delegate?.onRepoAvaterClicked()
+        }
+    }
+    
+    @objc func onContainerTapAction()
+    {
+        if self.delegate?.responds(to: #selector(ZLRepositoryTableViewCellDelegate.onRepoContainerViewClicked)) ??  false
+        {
+            self.delegate?.onRepoContainerViewClicked()
+        }
     }
 }

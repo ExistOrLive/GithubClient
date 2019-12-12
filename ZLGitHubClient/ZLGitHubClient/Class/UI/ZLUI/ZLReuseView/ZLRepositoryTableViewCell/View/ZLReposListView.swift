@@ -23,7 +23,7 @@ import UIKit
     
     var cellDatas : [ZLRepositoryTableViewCellData]?
     
-    var delegate : ZLReposListViewDelegate?
+    @objc var delegate : ZLReposListViewDelegate?
     
     override init(frame: CGRect) {
         

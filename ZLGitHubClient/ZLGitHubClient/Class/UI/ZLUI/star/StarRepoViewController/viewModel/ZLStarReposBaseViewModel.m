@@ -8,9 +8,11 @@
 
 #import "ZLStarReposBaseViewModel.h"
 #import "ZLStarReposBaseView.h"
-@interface ZLStarReposBaseViewModel()
+@interface ZLStarReposBaseViewModel() <ZLReposListViewDelegate>
 
 @property(nonatomic, weak) ZLStarReposBaseView * view;
+
+@property(nonatomic, assign) int pageNum;
 
 
 @end
@@ -25,11 +27,30 @@
     }
     
     self.view = (ZLStarReposBaseView *) targetView;
-    self.view.reposListView.dele
+    self.view.reposListView.delegate = self;
+}
+
+- (void)VCLifeCycle_viewWillAppear
+{
+    [super VCLifeCycle_viewWillAppear];
     
-    
-    
+    [self.view.reposListView beginRefresh];
+}
+
+
+
+
+#pragma mark - ZLReposListViewDelegate
+
+- (void)reposListViewRefreshDragDownWithReposListView:(ZLReposListView * _Nonnull)reposListView {
     
 }
+
+- (void)reposListViewRefreshDragUpWithReposListView:(ZLReposListView * _Nonnull)reposListView {
+    
+}
+
+
+#pragma mark - 
 
 @end
