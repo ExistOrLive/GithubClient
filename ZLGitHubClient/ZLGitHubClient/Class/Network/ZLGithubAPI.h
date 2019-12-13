@@ -52,6 +52,12 @@
 #define reposUrl                @"/repos"                            // 获取某个Repo的信息
 
 
+#pragma mark starred
+
+#define currentUserStarredURL   @"/user/starred"                    // 当前用户标星的repo
+#define userStarredURL          @"/users/%@/starred"                // 某个用户标星的repo
+
+
 #pragma mark gists
 
 #define gistUrl                 @"/user/gists"                       // 当前用户的gists 包括private
