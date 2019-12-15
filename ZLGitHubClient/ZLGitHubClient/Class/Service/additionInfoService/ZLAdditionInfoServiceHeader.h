@@ -19,7 +19,7 @@ typedef NS_ENUM(NSUInteger, ZLUserAdditionInfoType) {
     ZLUserAdditionInfoTypeGists,
     ZLUserAdditionInfoTypeFollowers,
     ZLUserAdditionInfoTypeFollowing,
-    ZLUserAdditionInfoTypeStars,
+    ZLUserAdditionInfoTypeStarredRepos,
 };
 
 
@@ -29,6 +29,7 @@ static const NSNotificationName ZLGetReposResult_Notification = @"ZLGetReposResu
 static const NSNotificationName ZLGetFollowersResult_Notification = @"ZLGetFollowersResult_Notification";
 static const NSNotificationName ZLGetFollowingResult_Notification = @"ZLGetFollowingResult_Notification";
 static const NSNotificationName ZLGetGistsResult_Notification = @"ZLGetGistsResult_Notification";
+static const NSNotificationName ZLGetStarredReposResult_Notification = @"ZLGetStarredReposResult_Notification";
 
 
 #endif /* ZLAdditionInfoServiceHeader_h */

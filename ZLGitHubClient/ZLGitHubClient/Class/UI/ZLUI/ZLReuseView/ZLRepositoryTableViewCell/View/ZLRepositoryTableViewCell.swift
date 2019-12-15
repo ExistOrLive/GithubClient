@@ -40,6 +40,10 @@ class ZLRepositoryTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         self.selectionStyle = .none
+        
+        self.containerView.layer.cornerRadius = 8.0
+        self.containerView.layer.masksToBounds = true
+        
         self.justUpdate()
         self.headImageView.layer.cornerRadius = 25.0
         self.headImageView.layer.masksToBounds = true

@@ -28,7 +28,7 @@
     self.reposListView = [[ZLReposListView alloc] initWithFrame:self.bounds];
     [self addSubview:self.reposListView];
     [self.reposListView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self);
+        make.edges.equalTo(self).with.insets(UIEdgeInsetsMake(10, 0, 10, 0));
     }];
 }
 

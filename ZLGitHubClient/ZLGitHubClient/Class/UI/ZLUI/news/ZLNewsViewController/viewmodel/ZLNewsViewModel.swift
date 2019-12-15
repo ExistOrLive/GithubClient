@@ -43,7 +43,7 @@ class ZLNewsViewModel: ZLBaseViewModel {
                 return;
             }
 
-            self.newsBaseView?.eventListView.beginRefresh()
+            
         
     }
     
@@ -55,8 +55,7 @@ class ZLNewsViewModel: ZLBaseViewModel {
     
     override func vcLifeCycle_viewWillAppear() {
         super.vcLifeCycle_viewWillAppear()
-    
-    
+        self.newsBaseView?.eventListView.beginRefresh()
     }
 }
 
@@ -133,6 +132,8 @@ extension ZLNewsViewModel
                 }
                 
                 self.userInfo = userInfo
+                
+                self.newsBaseView?.eventListView.beginRefresh()
             }
             case ZLGetSpecifiedUserInfoResult_Notification: do
             {

@@ -544,6 +544,64 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 }
 
 
+- (void) getStarredRepositoriesForCurrentLoginUser:(GithubResponse) block
+                                              page:(NSUInteger) page
+                                          per_page:(NSUInteger) per_page
+                                      serialNumber:(NSString *) serialNumber
+{
+    NSString * urlForRepo = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,currentUserStarredURL];
+    
+    NSDictionary * params = @{@"page":[NSNumber numberWithUnsignedInteger:page],
+                              @"per_page":[NSNumber numberWithUnsignedInteger:per_page]};
+    
+    
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
+        
+        if(result)
+        {
+            responseObject = [[ZLGithubRepositoryModel mj_objectArrayWithKeyValuesArray:responseObject] copy];
+        }
+        block(result,responseObject,serialNumber);
+    };
+    
+    [self GETRequestWithURL:urlForRepo
+                 WithParams:params
+          WithResponseBlock:newBlock
+               serialNumber:serialNumber];
+    
+}
+
+
+- (void) getStarredRepositoriesForUser:(GithubResponse) block
+                             loginName:(NSString*) loginName
+                                  page:(NSUInteger) page
+                              per_page:(NSUInteger) per_page
+                          serialNumber:(NSString *) serialNumber
+{
+    NSString * urlForRepo = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,userStarredURL];
+    urlForRepo = [NSString stringWithFormat:urlForRepo,loginName];
+    
+    NSDictionary * params = @{@"page":[NSNumber numberWithUnsignedInteger:page],
+                              @"per_page":[NSNumber numberWithUnsignedInteger:per_page]};
+    
+    
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
+        
+        if(result)
+        {
+            responseObject = [[ZLGithubRepositoryModel mj_objectArrayWithKeyValuesArray:responseObject] copy];
+        }
+        block(result,responseObject,serialNumber);
+    };
+    
+    [self GETRequestWithURL:urlForRepo
+                 WithParams:params
+          WithResponseBlock:newBlock
+               serialNumber:serialNumber];
+    
+}
+
+
 - (void) searchRepos:(GithubResponse) block
              keyword:(NSString *) keyword
                 sort:(NSString *) sort

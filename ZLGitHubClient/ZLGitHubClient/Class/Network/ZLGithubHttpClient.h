@@ -137,6 +137,37 @@ NS_ASSUME_NONNULL_BEGIN
                        per_page:(NSUInteger) per_page
                    serialNumber:(NSString *) serialNumber;
 
+
+/**
+ * @brief 获取当前登陆的用户 标星的repositories信息
+ * @param block 请求回调
+ * @param page  第n页
+ * @param per_page 一页多少记录
+ * @param serialNumber 流水号 通过block回调原样返回
+ **/
+- (void) getStarredRepositoriesForCurrentLoginUser:(GithubResponse) block
+                                              page:(NSUInteger) page
+                                          per_page:(NSUInteger) per_page
+                                      serialNumber:(NSString *) serialNumber;
+
+
+
+
+/**
+ * @brief 获取某用户标星 repositories信息
+ * @param block 请求回调
+ * @param loginName 用户的登陆名
+ * @param page  第n页
+ * @param per_page 一页多少记录
+ * @param serialNumber 流水号 通过block回调原样返回
+ **/
+- (void) getStarredRepositoriesForUser:(GithubResponse) block
+                             loginName:(NSString*) loginName
+                                  page:(NSUInteger) page
+                              per_page:(NSUInteger) per_page
+                          serialNumber:(NSString *) serialNumber;
+
+
 /**
  * @brief 根据关键字搜索repos
  * @param block 请求回调

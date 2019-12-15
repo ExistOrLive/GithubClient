@@ -109,7 +109,7 @@ extension ZLUserAdditionInfoViewModel
             view.numLabel.text = "\(userInfo.following)"
             view.viewType = .users
             }
-        case .stars:do
+        case .starredRepos:do
         {
             view.titleLabel.text = ZLLocalizedString(string: "stars", comment: "标星")
             view.infoLabel.text = ZLLocalizedString(string: "stars", comment: "标星")

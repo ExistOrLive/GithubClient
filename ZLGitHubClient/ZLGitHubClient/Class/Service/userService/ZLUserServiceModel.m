@@ -71,7 +71,7 @@
 {
     ZLGithubUserModel * model = [self.myInfoModel copy];
     
-    [self getCurrentUserInfoForServer:@"serialNumber"];
+   // [self getCurrentUserInfoForServer:@"serialNumber"];
     
     return model;
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ZLRepositoryTableViewCellData: ZLBaseViewModel {
+@objcMembers class ZLRepositoryTableViewCellData: ZLBaseViewModel {
     
     let data : ZLGithubRepositoryModel
     
@@ -80,7 +80,7 @@ extension ZLRepositoryTableViewCellData
     
     func getCellHeight() -> CGFloat
     {
-        return 135.0
+        return 170.0
     }
 }
 
