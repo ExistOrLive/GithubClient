@@ -38,4 +38,7 @@ pod 'DoraemonKit/Core', '~> 2.0.0', :configurations => ['Debug']
 pod 'DoraemonKit/WithLogger', '~> 2.0.0', :configurations => ['Debug']
 #pod 'DoraemonKit/WithGPS', '~> 2.0.0', :configurations => ['Debug']
 pod 'DoraemonKit/WithMLeaksFinder', '2.0.0', :configurations => ['Debug']
+
+# bugly
+pod 'Bugly'
 end

@@ -15,6 +15,7 @@ PODS:
   - AFNetworking/UIKit (3.2.0):
     - AFNetworking/NSURLSession
   - BSBacktraceLogger (0.0.1)
+  - Bugly (2.5.2)
   - CocoaLumberjack (3.4.1):
     - CocoaLumberjack/Default (= 3.4.1)
     - CocoaLumberjack/Extensions (= 3.4.1)
@@ -54,6 +55,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
+  - Bugly
   - CocoaLumberjack
   - CocoaLumberjack/Swift
   - DoraemonKit/Core (~> 2.0.0)
@@ -73,6 +75,7 @@ SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - AFNetworking
     - BSBacktraceLogger
+    - Bugly
     - CocoaLumberjack
     - DoraemonKit
     - FBRetainCycleDetector
@@ -90,6 +93,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   AFNetworking: 8ac6017b94ea105479f7776e5288e48ae9c59bb4
   BSBacktraceLogger: 06b983ee93a9f87d957960e9c73d660d5966b447
+  Bugly: dbac48b55ad469a97cc4321045cd50df8f63d44f
   CocoaLumberjack: 2e258a064cacc8eb9a2aca318e24d02a0a7fd56d
   DoraemonKit: 9e923599e28d0b61f1c6de4aef2c2d669b30abb7
   FBRetainCycleDetector: 46f8179bbb1c587deee3ea838a1a3ee02acf5015
@@ -104,6 +108,6 @@ SPEC CHECKSUMS:
   SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: 3320524658bfd1de189421be13a45871521093a4
+PODFILE CHECKSUM: f25bb07908d4006e99a00a00cf414349d9654cf6
 
 COCOAPODS: 1.8.4

@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "ZLGithubAPI.h"
+#import <Bugly/Bugly.h>
 
 #ifdef DEBUG
 #import <DoraemonKit/DoraemonManager.h>
@@ -156,5 +157,12 @@
            //[[DoraemonManager shareInstance] installWithStartingPosition:CGPointMake(66, 66)];
        #endif
 }
+
+#pragma mark - Bugly
+- (void) setUpBugly
+{
+    [Bugly startWithAppId:@"ff723a2926"];
+}
+
  
 @end
