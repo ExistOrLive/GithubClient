@@ -65,7 +65,7 @@
 
 - (void) setUp
 {
-    [Bugly startWithAppId:ZLBuyglyAppId config:<#(BuglyConfig * _Nullable)#>];
+    [Bugly startWithAppId:ZLBuyglyAppId config:self.myBuglyConfig];
 }
 
 
@@ -86,7 +86,12 @@
 {
     if([ZLGetCurrentUserInfoResult_Notification isEqualToString:notification.name])
     {
-        
+        ZLOperationResultModel * resultModel = (ZLOperationResultModel *)notification.params;
+        if(resultModel.result)
+        {
+            ZLGithubUserModel * model = resultModel.data;
+            [Bugly setUserIdentifier:model.loginName];
+        }
     }
 }
 

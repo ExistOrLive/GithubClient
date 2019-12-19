@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype) sharedManager;
 
+- (void) setUp;
+
 @end
 
 NS_ASSUME_NONNULL_END

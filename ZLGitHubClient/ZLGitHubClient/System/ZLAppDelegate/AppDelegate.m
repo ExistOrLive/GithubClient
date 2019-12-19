@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "ZLGithubAPI.h"
-#import <Bugly/Bugly.h>
+#import "ZLBuglyManager.h"
 
 #ifdef DEBUG
 #import <DoraemonKit/DoraemonManager.h>
@@ -164,7 +164,7 @@
 - (void) setUpBugly
 {
     
-    
+    [[ZLBuglyManager sharedManager] setUp];
    
 }
 
