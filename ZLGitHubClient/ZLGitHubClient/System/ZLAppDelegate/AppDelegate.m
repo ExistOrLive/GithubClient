@@ -28,6 +28,8 @@
     
     [self setUpDoraemonKit];
     
+    [self setUpBugly];
+    
     /**
      *
      *  初始化中间件
@@ -161,7 +163,9 @@
 #pragma mark - Bugly
 - (void) setUpBugly
 {
-    [Bugly startWithAppId:@"ff723a2926"];
+    
+    
+   
 }
 
  
