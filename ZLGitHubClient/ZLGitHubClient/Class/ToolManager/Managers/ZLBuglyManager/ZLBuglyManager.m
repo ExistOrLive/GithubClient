@@ -57,6 +57,7 @@
         config.blockMonitorEnable = YES;
         config.blockMonitorTimeout = 2.0;
         config.delegate = self;
+        _myBuglyConfig = config;
         
     }
     return _myBuglyConfig;
@@ -65,7 +66,19 @@
 
 - (void) setUp
 {
-    [Bugly startWithAppId:ZLBuyglyAppId config:self.myBuglyConfig];
+    BOOL isDevelopmentDevice = NO;
+#ifdef debug
+    isDevelopmentDevice = YES;
+#endif
+    
+    [Bugly startWithAppId:ZLBuyglyAppId  developmentDevice:isDevelopmentDevice config:self.myBuglyConfig];
+    
+    if([[ZLUserServiceModel sharedServiceModel].currentUserLoginName length] > 0)
+    {
+        [Bugly setUserIdentifier:[ZLUserServiceModel sharedServiceModel].currentUserLoginName];
+    }
+    
+    ZLLog_Info(@"bugly %@ start up ------\n",[Bugly sdkVersion]);
 }
 
 
