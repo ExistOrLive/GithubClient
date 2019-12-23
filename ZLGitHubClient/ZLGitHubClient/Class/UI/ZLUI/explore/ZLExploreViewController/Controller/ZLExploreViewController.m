@@ -26,7 +26,27 @@
     self.viewModel = [[ZLExploreBaseViewModel alloc] initWithViewController:self];
     
     // 创建baseView
+    ZLPageTabViewController * pageTabViewController = [ZLPageTabViewController new];
+    UIViewController * controller1 = [UIViewController new];
+    [controller1.view setBackgroundColor:[UIColor redColor]];
+    controller1.title = @"red";
+    
+    UIViewController * controller2 = [UIViewController new];
+       [controller2.view setBackgroundColor:[UIColor yellowColor]];
+       controller2.title = @"yellow";
+    
+    UIViewController * controller3 = [UIViewController new];
+       [controller3.view setBackgroundColor:[UIColor greenColor]];
+       controller3.title = @"green";
+    
+    [pageTabViewController addChildViewController:controller1];
+    [pageTabViewController addChildViewController:controller2];
+    [pageTabViewController addChildViewController:controller3];
+
+    [self addChildViewController:pageTabViewController];
+    
     ZLExploreBaseView * baseView = [[NSBundle mainBundle] loadNibNamed:@"ZLExploreBaseView" owner:self.viewModel options:nil].firstObject;
+    [baseView addMainViewWithMainView:pageTabViewController.view];
     [baseView setFrame:ZLScreenBounds];
     [self.view addSubview:baseView];
     

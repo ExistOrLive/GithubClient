@@ -8,8 +8,6 @@
 
 #import "ZLNewsViewController.h"
 
-#import "ZLVideoRecorder.h"
-
 @interface ZLNewsViewController ()
 
 @property (strong, nonatomic) ZLNewsBaseView * baseView;

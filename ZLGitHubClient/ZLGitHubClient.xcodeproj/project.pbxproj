@@ -146,6 +146,7 @@
 		74D7B60D22F178CB00C109CA /* ZLGithubRequestErrorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D7B60C22F178CB00C109CA /* ZLGithubRequestErrorModel.m */; };
 		74DCC97C22E1712600CEDEE8 /* ZLExploreBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DCC97B22E1712600CEDEE8 /* ZLExploreBaseView.swift */; };
 		74DCC97E22E1714D00CEDEE8 /* ZLExploreBaseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74DCC97D22E1714D00CEDEE8 /* ZLExploreBaseView.xib */; };
+		74DF713323B1073100DB2BD5 /* ZLAboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DF713223B1073100DB2BD5 /* ZLAboutViewController.swift */; };
 		74EA4B3522FF165E006D2FD3 /* ZLSearchResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 74EA4B3422FF165E006D2FD3 /* ZLSearchResultModel.m */; };
 		74EA4B3822FF215C006D2FD3 /* ZLOperationResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 74EA4B3722FF215C006D2FD3 /* ZLOperationResultModel.m */; };
 		74EA4B3E2300654D006D2FD3 /* ZLUserInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EA4B3D2300654D006D2FD3 /* ZLUserInfoController.swift */; };
@@ -410,6 +411,7 @@
 		74D7B60C22F178CB00C109CA /* ZLGithubRequestErrorModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLGithubRequestErrorModel.m; sourceTree = "<group>"; };
 		74DCC97B22E1712600CEDEE8 /* ZLExploreBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLExploreBaseView.swift; sourceTree = "<group>"; };
 		74DCC97D22E1714D00CEDEE8 /* ZLExploreBaseView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZLExploreBaseView.xib; sourceTree = "<group>"; };
+		74DF713223B1073100DB2BD5 /* ZLAboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLAboutViewController.swift; sourceTree = "<group>"; };
 		74EA4B3322FF165E006D2FD3 /* ZLSearchResultModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLSearchResultModel.h; sourceTree = "<group>"; };
 		74EA4B3422FF165E006D2FD3 /* ZLSearchResultModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLSearchResultModel.m; sourceTree = "<group>"; };
 		74EA4B3622FF215C006D2FD3 /* ZLOperationResultModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLOperationResultModel.h; sourceTree = "<group>"; };
@@ -1391,6 +1393,7 @@
 		74C191FE239D203F00636F24 /* profile */ = {
 			isa = PBXGroup;
 			children = (
+				74DF712B23B1060300DB2BD5 /* ZLAboutViewController */,
 				74C19205239D210100636F24 /* ZLMyEventViewController */,
 				D1135F6A21ECC9AE003A26C1 /* ZLProfileViewController */,
 				74D7B5FB22F1393700C109CA /* ZLUserAdditionInfoController */,
@@ -1725,6 +1728,38 @@
 				74DCC97D22E1714D00CEDEE8 /* ZLExploreBaseView.xib */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		74DF712B23B1060300DB2BD5 /* ZLAboutViewController */ = {
+			isa = PBXGroup;
+			children = (
+				74DF713123B106B800DB2BD5 /* ViewModel */,
+				74DF713023B106AC00DB2BD5 /* Controller */,
+				74DF712F23B106A100DB2BD5 /* View */,
+			);
+			path = ZLAboutViewController;
+			sourceTree = "<group>";
+		};
+		74DF712F23B106A100DB2BD5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		74DF713023B106AC00DB2BD5 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				74DF713223B1073100DB2BD5 /* ZLAboutViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		74DF713123B106B800DB2BD5 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		74EA4B39230064E5006D2FD3 /* ZLUserInfoController */ = {
@@ -2242,6 +2277,7 @@
 				74C19214239EAFF800636F24 /* ZLRepositoryTableViewCellData.swift in Sources */,
 				74FCBDA423142E0200DDE46A /* ZLEditProfileViewModel.swift in Sources */,
 				D1302098231B74E100D13A5C /* ZLEventServiceModel.m in Sources */,
+				74DF713323B1073100DB2BD5 /* ZLAboutViewController.swift in Sources */,
 				746B092E21EB7362000EE88B /* ZLMainViewController.m in Sources */,
 				D1135FA821ECE3A6003A26C1 /* UITextField+PlaceHolder.m in Sources */,
 				74F02CDD22DD75E600AE153F /* ZLProfileBaseViewModel.swift in Sources */,
