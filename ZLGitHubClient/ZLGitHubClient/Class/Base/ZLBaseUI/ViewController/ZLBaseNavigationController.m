@@ -8,7 +8,10 @@
 
 #import "ZLBaseNavigationController.h"
 
-@interface ZLBaseNavigationController ()
+@interface ZLBaseNavigationController () <UIGestureRecognizerDelegate>
+{
+    UIScreenEdgePanGestureRecognizer * _ScreenEdgePanGestureRecognizer;
+}
 
 @end
 
@@ -16,13 +19,37 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    [self setUpCustomPopGestureRecognizer];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+#pragma mark - 右滑手势支持
+
+- (void) setUpCustomPopGestureRecognizer
+{
+    /**
+     * 当不使用系统的返回按钮，右滑手势interactivePopGestureRecognizer将会失效
+     * 这里创建UIScreenEdgePanGestureRecognizer 实现右滑 target 和 delegate 均为interactivePopGestureRecognizer.delegate
+     **/
+    #pragma GCC diagnostic ignored "-Wundeclared-selector"
+   
+    UIScreenEdgePanGestureRecognizer * recognizer = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self.interactivePopGestureRecognizer.delegate action:@selector(handleNavigationTransition:)];
+    recognizer.edges = UIRectEdgeLeft;
+    recognizer.delegate = self.interactivePopGestureRecognizer.delegate;
+    [self.view addGestureRecognizer:recognizer];
+    [[super interactivePopGestureRecognizer] setEnabled:NO];
+    
+    _ScreenEdgePanGestureRecognizer = recognizer;
+}
+
+
+
 
 /*
 #pragma mark - Navigation
