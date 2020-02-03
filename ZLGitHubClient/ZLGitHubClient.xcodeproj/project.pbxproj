@@ -74,6 +74,7 @@
 		7436AC9121EB869D00F03276 /* SYDCentralRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 746B091921EB5C37000EE88B /* SYDCentralRouter.m */; };
 		7436AC9221EB869D00F03276 /* SYDCentralRouterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 746B091B21EB5C37000EE88B /* SYDCentralRouterModel.m */; };
 		7436AC9321EB869D00F03276 /* UIViewController+SYDRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 746B091E21EB5C37000EE88B /* UIViewController+SYDRouter.m */; };
+		7439072E23E8776900EEA197 /* ZLToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7439072D23E8776900EEA197 /* ZLToastView.m */; };
 		743F180D2311335F00E39A95 /* ZLRepoServiceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 743F180C2311335F00E39A95 /* ZLRepoServiceModel.m */; };
 		743F18122312667B00E39A95 /* NSDate+localizeStr.m in Sources */ = {isa = PBXBuildFile; fileRef = 743F18112312667B00E39A95 /* NSDate+localizeStr.m */; };
 		74478D3C231FE37B007D3832 /* ZLSettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74478D3B231FE37B007D3832 /* ZLSettingController.swift */; };
@@ -275,6 +276,8 @@
 		7436AC8521EB815800F03276 /* SYDCenteralFactoryConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = SYDCenteralFactoryConfig.plist; sourceTree = "<group>"; };
 		7436AC8821EB848700F03276 /* SYDCentralPivotUIAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYDCentralPivotUIAdapter.h; sourceTree = "<group>"; };
 		7436AC8921EB848700F03276 /* SYDCentralPivotUIAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYDCentralPivotUIAdapter.m; sourceTree = "<group>"; };
+		7439072C23E8776900EEA197 /* ZLToastView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLToastView.h; sourceTree = "<group>"; };
+		7439072D23E8776900EEA197 /* ZLToastView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLToastView.m; sourceTree = "<group>"; };
 		743F180B2311335F00E39A95 /* ZLRepoServiceModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLRepoServiceModel.h; sourceTree = "<group>"; };
 		743F180C2311335F00E39A95 /* ZLRepoServiceModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLRepoServiceModel.m; sourceTree = "<group>"; };
 		743F180E2311366D00E39A95 /* ZLRepoServiceHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLRepoServiceHeader.h; sourceTree = "<group>"; };
@@ -900,6 +903,15 @@
 				7436AC8921EB848700F03276 /* SYDCentralPivotUIAdapter.m */,
 			);
 			path = SYDCentralPivotAdapter;
+			sourceTree = "<group>";
+		};
+		7439072B23E8776900EEA197 /* ZLToastView */ = {
+			isa = PBXGroup;
+			children = (
+				7439072C23E8776900EEA197 /* ZLToastView.h */,
+				7439072D23E8776900EEA197 /* ZLToastView.m */,
+			);
+			path = ZLToastView;
 			sourceTree = "<group>";
 		};
 		743F180A2311333100E39A95 /* RepoService */ = {
@@ -1864,6 +1876,7 @@
 		D1135F7121ECD2ED003A26C1 /* ZLUtils */ = {
 			isa = PBXGroup;
 			children = (
+				7439072B23E8776900EEA197 /* ZLToastView */,
 				36C43F9E23ABAFAF002DE5D6 /* ZLDeviceInfo */,
 				36C43F9A23ABAE91002DE5D6 /* ZLAppInfo */,
 				74BEF5A422F303D700FD1738 /* ZMRefreshTools */,
@@ -2068,7 +2081,10 @@
 				"${BUILT_PRODUCTS_DIR}/MMMarkdown/MMMarkdown.framework",
 				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Toast/Toast.framework",
+				"${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework",
 				"${BUILT_PRODUCTS_DIR}/YYText/YYText.framework",
 				"${BUILT_PRODUCTS_DIR}/fishhook/fishhook.framework",
 			);
@@ -2086,7 +2102,10 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MMMarkdown.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast_Swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYText.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/fishhook.framework",
 			);
@@ -2235,6 +2254,7 @@
 				7436A0AE236DCDA700AF554C /* CYPopoverCollectionViewCell.m in Sources */,
 				74C1920E239D31CE00636F24 /* ZLMyEventBaseViewModel.swift in Sources */,
 				74D34931231BD01900A949B2 /* ZLLoginProcessModel.m in Sources */,
+				7439072E23E8776900EEA197 /* ZLToastView.m in Sources */,
 				7436A0A6236DCDA700AF554C /* CYPopoverTableViewCell.m in Sources */,
 				7436A0AA236DCDA700AF554C /* CYSinglePickerPopoverView.m in Sources */,
 				7436A0B4236DDF6A00AF554C /* CYDatePickerView.m in Sources */,

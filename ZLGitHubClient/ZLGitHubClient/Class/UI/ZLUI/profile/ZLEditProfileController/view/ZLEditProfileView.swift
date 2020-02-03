@@ -11,22 +11,12 @@ import UIKit
 
 class ZLEditProfileView: ZLBaseView {
     
-    @IBOutlet weak var topViewHeightConstraint: NSLayoutConstraint!
-    
     @IBOutlet weak var scrollView: UIScrollView!
-    
-    @IBOutlet weak var indicatorView: UIView!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var saveButton: UIButton!
     
     var contentView: ZLEditProfileContentView?
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        self.topViewHeightConstraint.constant = self.topViewHeightConstraint.constant + ZLStatusBarHeight
-        
-        self.saveButton.layer.cornerRadius = 5.0
         
         guard let contentView : ZLEditProfileContentView = Bundle.main.loadNibNamed("ZLEditProfileContentView", owner: nil, options: nil)?.first as? ZLEditProfileContentView else
         {
@@ -39,6 +29,10 @@ class ZLEditProfileView: ZLBaseView {
         self.scrollView.contentSize = CGSize.init(width: ZLScreenWidth, height:ZLEditProfileContentView.minHeight)
         self.contentView = contentView
         
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.endEditing(true)
     }
     
     

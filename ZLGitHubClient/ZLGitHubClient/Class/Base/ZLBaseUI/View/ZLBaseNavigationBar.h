@@ -8,15 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-
-
 NS_ASSUME_NONNULL_BEGIN
+
+#define ZLBaseNavigationBarHeight 60
 
 @interface ZLBaseNavigationBar : UIView
 
-@property(nonatomic ,strong) UIButton * backButton;
+@property(nonatomic, readonly) UIButton * backButton;
 
-@property(nonatomic, strong) UILabel * titleLabel;
+@property(nonatomic, readonly) UILabel * titleLabel;
+
+@property(nonatomic, strong) UIButton * rightButton;
 
 @end
 

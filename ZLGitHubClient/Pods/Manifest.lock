@@ -51,6 +51,9 @@ PODS:
     - SDWebImage/Core (= 5.0.6)
   - SDWebImage/Core (5.0.6)
   - SnapKit (4.0.1)
+  - SVProgressHUD (2.2.5)
+  - Toast (4.0.0)
+  - Toast-Swift (5.0.1)
   - YYText (1.0.7)
 
 DEPENDENCIES:
@@ -69,6 +72,9 @@ DEPENDENCIES:
   - MMMarkdown
   - SDWebImage (~> 5.0.0)
   - SnapKit (~> 4.0.0)
+  - SVProgressHUD
+  - Toast
+  - Toast-Swift
   - YYText
 
 SPEC REPOS:
@@ -88,6 +94,9 @@ SPEC REPOS:
     - MMMarkdown
     - SDWebImage
     - SnapKit
+    - SVProgressHUD
+    - Toast
+    - Toast-Swift
     - YYText
 
 SPEC CHECKSUMS:
@@ -106,8 +115,11 @@ SPEC CHECKSUMS:
   MMMarkdown: 1af97166ce0f6d6e0cb05695665492195d27c3f1
   SDWebImage: 920f1a2ff1ca8296ad34f6e0510a1ef1d70ac965
   SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+  Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
+  Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: f25bb07908d4006e99a00a00cf414349d9654cf6
+PODFILE CHECKSUM: 7a1ee8ccafd4202a1be5785333182a0def5d7ac7
 
 COCOAPODS: 1.8.4
