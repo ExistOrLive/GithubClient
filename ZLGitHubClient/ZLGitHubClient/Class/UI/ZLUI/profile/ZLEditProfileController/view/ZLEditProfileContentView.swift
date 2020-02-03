@@ -31,22 +31,12 @@ class ZLEditProfileContentView: ZLBaseView,UITextFieldDelegate,UITextViewDelegat
         self.addressTextField.delegate = self
         self.emailTextField.delegate = self
     }
-
-    func resignAllFirstResponder()
-    {
-        self.personalDescTextView.resignFirstResponder()
-        self.companyTextField.resignFirstResponder()
-        self.addressTextField.resignFirstResponder()
-        self.emailTextField.resignFirstResponder()
-        self.blogTextField.resignFirstResponder()
-    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool
     {
         textField.resignFirstResponder()
         return true;
     }
-    
     
     
 }

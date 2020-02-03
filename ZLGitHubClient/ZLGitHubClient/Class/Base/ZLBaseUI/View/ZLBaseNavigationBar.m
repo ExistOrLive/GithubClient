@@ -33,7 +33,7 @@
 
 - (instancetype) init
 {
-    return [self initWithFrame:CGRectMake(0, 0, ZLScreenWidth, ZLCustomNavigationBarHeight)];
+    return [self initWithFrame:CGRectMake(0, 0, ZLScreenWidth, ZLStatusBarHeight + ZLBaseNavigationBarHeight)];
 }
 
 
@@ -58,7 +58,7 @@
     else
     {
         [self mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.height.equalTo(@(ZLCustomNavigationBarHeight));
+            make.height.equalTo(@(ZLStatusBarHeight + ZLBaseNavigationBarHeight));
         }];
     }
 }
@@ -70,44 +70,55 @@
     [self setBackgroundColor:[UIColor whiteColor]];
     
     // 创建返回按钮
-    [self setUIBackButton];
+    [self setUpBackButton];
     
     // 创建Title
     [self setUpTitleLabel];
 
     // 约束高度
     [self mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@(ZLCustomNavigationBarHeight));
+        make.height.equalTo(@(ZLStatusBarHeight + ZLBaseNavigationBarHeight));
     }];
 }
 
-- (void) setUIBackButton
+- (void) setUpBackButton
 {
-    self.backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.backButton setImage:[UIImage imageNamed:@"back_Common"] forState:UIControlStateNormal];
     [self addSubview:self.backButton];
     [self.backButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).with.offset(10);
         make.bottom.equalTo(self.mas_bottom);
         make.width.equalTo(@30);
-        make.height.equalTo(@60);
+        make.height.equalTo(@(ZLBaseNavigationBarHeight));
     }];
 }
 
 - (void) setUpTitleLabel
 {
-    self.titleLabel = [UILabel new];
+    _titleLabel = [UILabel new];
     [self.titleLabel setTextColor:[UIColor blackColor]];
     [self.titleLabel setFont:[UIFont fontWithName:Font_PingFangSCMedium size:18]];
     [self addSubview:self.titleLabel];
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.mas_centerX);
         make.bottom.equalTo(self.mas_bottom);
-        make.height.equalTo(@60);
+        make.height.equalTo(@(ZLBaseNavigationBarHeight));
     }];
 }
 
 
+- (void) setRightButton:(UIButton *)rightButton
+{
+    _rightButton = rightButton;
+    [self addSubview:rightButton];
+    [rightButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.mas_right).with.offset(-10);
+        make.centerY.equalTo(self.titleLabel);
+        make.width.equalTo(@(rightButton.frame.size.width));
+        make.height.equalTo(@(rightButton.frame.size.height));
+    }];
+}
 
 
 

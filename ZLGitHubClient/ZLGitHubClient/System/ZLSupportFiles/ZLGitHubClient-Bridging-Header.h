@@ -4,6 +4,7 @@
 
 #import <AFNetworking/AFNetworking.h>
 #import <MMMarkdown/MMMarkdown.h>
+#import <SVProgressHUD/SVProgressHUD.h>
 
 #import "ZLBaseUIHeader.h"
 
@@ -17,6 +18,7 @@
 // TOOL
 #import "ZLToolManager.h"
 #import "ZLKeyChainManager.h"
+#import "ZLToastView.h"
 
 // Service
 #import "ZLLoginServiceModel.h"
