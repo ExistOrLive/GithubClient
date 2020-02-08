@@ -60,15 +60,11 @@ class ZLEditProfileViewModel: ZLBaseViewModel {
     
     func addObservers()
     {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillShow(notification:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillHide(notification:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
         ZLUserServiceModel.shared().registerObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLUpdateUserPublicProfileInfoResult_Notification)
     }
     
     func removeObservers()
     {
-        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillHide, object: nil)
         ZLUserServiceModel.shared().unRegisterObserver(self, name: ZLUpdateUserPublicProfileInfoResult_Notification)
     }
     
@@ -104,30 +100,6 @@ extension ZLEditProfileViewModel{
     
 }
 
-// MARK : 监听键盘弹出
-extension ZLEditProfileViewModel{
-    
-    @objc func keyBoardWillShow(notification: Notification)
-    {
-        guard let userInfo = notification.userInfo else {return}
-        let value = userInfo["UIKeyboardFrameBeginUserInfoKey"] as! NSValue
-        let keyboardRect = value.cgRectValue
-        let keyboradHeight = keyboardRect.size.height
-        
-        self.editProfileView!.scrollView.contentSize.height = self.editProfileView!.scrollView.contentSize.height + keyboradHeight
-    }
-    
-    @objc func keyBoardWillHide(notification: Notification)
-    {
-        guard let userInfo = notification.userInfo else {return}
-        let value = userInfo["UIKeyboardFrameBeginUserInfoKey"] as! NSValue
-        let keyboardRect = value.cgRectValue
-        let keyboradHeight = keyboardRect.size.height
-        
-        self.editProfileView!.scrollView.contentSize.height = self.editProfileView!.scrollView.contentSize.height - keyboradHeight
-    }
-    
-}
 
 extension ZLEditProfileViewModel
 {

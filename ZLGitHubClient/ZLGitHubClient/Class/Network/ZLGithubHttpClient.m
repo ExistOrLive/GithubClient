@@ -12,7 +12,7 @@
 #import <MJExtension/MJExtension.h>
 
 // Tool
-#import "ZLKeyChainManager.h"
+#import "ZLSharedDataManager.h"
 // model
 #import "ZLGithubUserModel.h"
 #import "ZLGithubRepositoryModel.h"
@@ -63,7 +63,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         _sessionManager.completionQueue = dispatch_queue_create("AFURLSessionManagerCompleteQueue", DISPATCH_QUEUE_SERIAL);
         
         // 获取用户token
-        _token = [[ZLKeyChainManager sharedInstance] getGithubAccessToken];
+        _token = [[ZLSharedDataManager sharedInstance] githubAccessToken];
         
     }
     return self;
@@ -258,7 +258,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     {
         NSDictionary * dic = (NSDictionary *) responseObject;
         weakSelf.token = [dic objectForKey:@"access_token"];
-        [[ZLKeyChainManager sharedInstance] updateUserAccount:nil withAccessToken:weakSelf.token];
+        [[ZLSharedDataManager sharedInstance] setGithubAccessToken:weakSelf.token];
         
         ZLLoginProcessModel * processModel = [[ZLLoginProcessModel alloc] init];
         processModel.result = YES;
@@ -304,7 +304,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 
     // 注销成功，清空用户token和信息
     self.token = nil;
-    [[ZLKeyChainManager sharedInstance] clearGithubTokenAndUserInfo];
+    [[ZLSharedDataManager sharedInstance] clearGithubTokenAndUserInfo];
     
     block(YES,nil,serialNumber);
     

@@ -13,7 +13,8 @@
 // network
 #import "ZLGithubHttpClient.h"
 
-// model
+// tool
+#import "ZLSharedDataManager.h"
 
 @interface ZLUserServiceModel()
 {
@@ -46,10 +47,6 @@
         _concurrentQueue = dispatch_queue_create("ZLUserServiceModel_Queue", DISPATCH_QUEUE_CONCURRENT);
         [[ZLLoginServiceModel sharedServiceModel] registerObserver:self selector:@selector(onNotificationArrived:) name:ZLLoginResult_Notification];
         [[ZLLoginServiceModel sharedServiceModel] registerObserver:self selector:@selector(onNotificationArrived:) name:ZLLogoutResult_Notification];
-        
-        // 初始化数据库
-        NSString * userLoginName = [[ZLKeyChainManager sharedInstance] getUserAccount];
-        [ZLDBMODULE initialDBForUser:userLoginName];
     }
     return self;
 }
@@ -71,7 +68,7 @@
 {
     ZLGithubUserModel * model = [self.myInfoModel copy];
     
-   // [self getCurrentUserInfoForServer:@"serialNumber"];
+    [self getCurrentUserInfoForServer:@"serialNumber"];
     
     return model;
 }
@@ -84,7 +81,7 @@
     dispatch_sync(self.concurrentQueue, ^{
         if(!_myInfoModel)
         {
-            _myInfoModel = [ZLDBMODULE getCurrentUserInfo];
+            _myInfoModel = [[ZLSharedDataManager sharedInstance] userInfoModel];
         }
         model = _myInfoModel;
     });
@@ -115,15 +112,9 @@
             ZLLog_Error(@"get current login ")
             return;
         }
+        
         weakSelf.myInfoModel = [responseObject copy];
-        
-        // 更新用户名和头像URL
-        [[ZLKeyChainManager sharedInstance] updateUserHeadImageURL:model.avatar_url];
-        [[ZLKeyChainManager sharedInstance] updateUserAccount:model.loginName];
-        
-        // 更新本地数据库中个人信息
-        [ZLDBMODULE initialDBForUser:model.loginName];
-        [ZLDBMODULE insertOrUpdateUserInfo:model];
+        [[ZLSharedDataManager sharedInstance] setUserInfoModel:weakSelf.myInfoModel];
         
         ZLOperationResultModel * repoResultModel = [[ZLOperationResultModel alloc] init];
         repoResultModel.result = result;
@@ -193,8 +184,14 @@
         repoResultModel.data = responseObject;
         
         // 在UI线程发出通知
-        ZLMainThreadDispatch([weakSelf postNotification:ZLUpdateUserPublicProfileInfoResult_Notification withParams:repoResultModel];
-                             if(result){[weakSelf postNotification:ZLGetCurrentUserInfoResult_Notification withParams:repoResultModel];})
+        ZLMainThreadDispatch(
+                             
+        [weakSelf postNotification:ZLUpdateUserPublicProfileInfoResult_Notification withParams:repoResultModel];
+                            
+        if(result){
+            [weakSelf postNotification:ZLGetCurrentUserInfoResult_Notification withParams:repoResultModel];
+            
+        })
     };
     
     [[ZLGithubHttpClient defaultClient] updateUserPublicProfile:response
@@ -220,16 +217,10 @@
         ZLLoginProcessModel * resultModel = notification.params;
         if(resultModel.loginStep == ZLLoginStep_Success)
         {
+            
             // 如果本地缓存了数据，就先从本地取出数据
-            NSString * loginName = [[ZLKeyChainManager sharedInstance] getUserAccount];
-            if(loginName != nil && ![loginName isEqualToString:@""])
-            {
-                ZLGithubUserModel * userModel = [ZLDBMODULE getUserInfoWithUserLoginName:loginName];
-                if(userModel != nil)
-                {
-                    [self setMyInfoModel:userModel];
-                }
-            }
+            ZLGithubUserModel * myInfoModel = [[ZLSharedDataManager sharedInstance] userInfoModel];
+            [self setMyInfoModel:myInfoModel];
             
             // 登陆成功后，获取当前用户信息
             [self getCurrentUserInfoForServer:@"serialNumber"];

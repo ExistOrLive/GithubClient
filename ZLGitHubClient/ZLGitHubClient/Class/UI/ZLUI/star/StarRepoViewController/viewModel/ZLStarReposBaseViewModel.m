@@ -58,7 +58,7 @@
 {
     [super VCLifeCycle_viewWillAppear];
     
-    [self.view.reposListView beginRefresh];
+    [self loadNewData];
 }
 
 
@@ -67,7 +67,38 @@
 #pragma mark - ZLReposListViewDelegate
 
 - (void)reposListViewRefreshDragDownWithReposListView:(ZLReposListView * _Nonnull)reposListView {
+    [self loadNewData];
+}
+
+- (void)reposListViewRefreshDragUpWithReposListView:(ZLReposListView * _Nonnull)reposListView {
+    [self loadMoreData];
+}
+
+
+#pragma mark -  notification
+
+- (void) loadMoreData
+{
+    NSString * loginName = [[ZLUserServiceModel sharedServiceModel] currentUserLoginName];
     
+    if([loginName length] > 0)
+    {
+        self.serialNumber = [NSString generateSerialNumber];
+        self.isFreshNew = NO;
+        [[ZLAdditionInfoServiceModel sharedServiceModel] getAdditionInfoForUser:loginName
+                                                                       infoType:ZLUserAdditionInfoTypeStarredRepos
+                                                                           page:self.pageNum
+                                                                       per_page:10
+                                                                   serialNumber:self.serialNumber];
+    }
+    else
+    {
+        [self.view.reposListView endRefreshWithError];
+    }
+}
+
+- (void) loadNewData
+{
     NSString * loginName = [[ZLUserServiceModel sharedServiceModel] currentUserLoginName];
     
     if([loginName length] > 0)
@@ -82,38 +113,16 @@
     }
     else
     {
-        [reposListView endRefreshWithError];
+        [self.view.reposListView endRefreshWithError];
     }
 }
 
-- (void)reposListViewRefreshDragUpWithReposListView:(ZLReposListView * _Nonnull)reposListView {
-    
-    NSString * loginName = [[ZLUserServiceModel sharedServiceModel] currentUserLoginName];
-       
-       if([loginName length] > 0)
-       {
-           self.serialNumber = [NSString generateSerialNumber];
-           self.isFreshNew = NO;
-           [[ZLAdditionInfoServiceModel sharedServiceModel] getAdditionInfoForUser:loginName
-                                                                          infoType:ZLUserAdditionInfoTypeStarredRepos
-                                                                              page:self.pageNum
-                                                                          per_page:10
-                                                                      serialNumber:self.serialNumber];
-       }
-       else
-       {
-           [reposListView endRefreshWithError];
-       }
-}
-
-
-#pragma mark -  notification
 
 - (void) onNotificationArrived:(NSNotification *) notification
 {
     if([notification.name isEqualToString:ZLGetCurrentUserInfoResult_Notification])
     {
-        [self.view.reposListView beginRefresh];
+        [self loadNewData];
     }
     else if([notification.name isEqualToString:ZLGetStarredReposResult_Notification])
     {

@@ -9,10 +9,7 @@
 #import "ZLKeyChainManager.h"
 #import <Security/Security.h>
 
-#define ZLKeyChainService @"com.zm.fbd34c5a34be72f66c35.ZLGitHubClient"
-#define ZLAccessTokenKey @"ZLAccessTokenKey"
-#define ZLUserAccountKey @"ZLUserAccountKey"
-#define ZLUserHeadImageKey @"ZLUserHeadImageKey"
+
 
 @implementation ZLKeyChainManager
 
@@ -24,119 +21,6 @@
         manager = [[ZLKeyChainManager alloc] init];
     });
     return manager;
-}
-
-- (NSString *) getGithubAccessToken
-{
-    NSDictionary * info = [ZLKeyChainManager load:ZLKeyChainService];
-    
-    NSString * accessToken = [info objectForKey:ZLAccessTokenKey];
-    
-    return accessToken;
-}
-
-- (NSString *) getUserAccount
-{
-    NSDictionary * info = [ZLKeyChainManager load:ZLKeyChainService];
-    
-    NSString * userAccount = [info objectForKey:ZLUserAccountKey];
-    
-    return userAccount;
-}
-
-- (NSString *) getHeadImageURL
-{
-    NSDictionary * info = [ZLKeyChainManager load:ZLKeyChainService];
-    
-    NSString * headImageURL = [info objectForKey:ZLUserHeadImageKey];
-    
-    return headImageURL;
-}
-
-- (BOOL) updateUserAccount:(NSString * __nullable) userAccount withAccessToken:(NSString * __nullable) token
-{
-    NSMutableDictionary * info = [[NSMutableDictionary alloc] init];
-    if(userAccount)
-    {
-        [info setObject:userAccount forKey:ZLUserAccountKey];
-    }
-    if(token)
-    {
-        [info setObject:token forKey:ZLAccessTokenKey];
-    }
-    [ZLKeyChainManager save:ZLKeyChainService data:info];
-    
-    return YES;
-}
-
-- (BOOL) updateUserAccount:(NSString *) userAccount
-{
-    if(!userAccount)
-    {
-        return NO;
-    }
-    
-    NSMutableDictionary * info = [ZLKeyChainManager load:ZLKeyChainService];
-    if(!info)
-    {
-        info = [[NSMutableDictionary alloc] init];
-    }
-    [info setObject:userAccount forKey:ZLUserAccountKey];
-    [ZLKeyChainManager save:ZLKeyChainService data:info];
-    
-    return YES;
-    
-    
-}
-
-- (BOOL) updateGithubAccessToken:(NSString *) token
-{
-    if(!token)
-    {
-        return NO;
-    }
-    
-    NSMutableDictionary * info = [ZLKeyChainManager load:ZLKeyChainService];
-    if(!info)
-    {
-        info = [[NSMutableDictionary alloc] init];
-    }
-    [info setObject:token forKey:ZLAccessTokenKey];
-    [ZLKeyChainManager save:ZLKeyChainService data:info];
-    
-    return YES;
-    
-}
-
-
-- (BOOL) updateUserHeadImageURL:(NSString * __nullable) headImageURL
-{
-    if(!headImageURL)
-    {
-        return NO;
-    }
-    
-    NSMutableDictionary * info = [ZLKeyChainManager load:ZLKeyChainService];
-    if(!info)
-    {
-        info = [[NSMutableDictionary alloc] init];
-    }
-    [info setObject:headImageURL forKey:ZLUserHeadImageKey];
-    [ZLKeyChainManager save:ZLKeyChainService data:info];
-    
-    return YES;
-}
-
-- (void) clearGithubTokenAndUserInfo
-{
-    NSMutableDictionary * info = [ZLKeyChainManager load:ZLKeyChainService];
-    if(info)
-    {
-        [info removeObjectForKey:ZLAccessTokenKey];
-        [info removeObjectForKey:ZLUserAccountKey];
-        [info removeObjectForKey:ZLUserHeadImageKey];
-        [ZLKeyChainManager save:ZLKeyChainService data:info];
-    }
 }
 
 # pragma mark -

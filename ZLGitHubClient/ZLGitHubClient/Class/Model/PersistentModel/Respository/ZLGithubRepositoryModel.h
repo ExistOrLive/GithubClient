@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZLGithubRepositoryModel : NSObject
+@interface ZLGithubRepositoryModel : ZLBaseObject
 
 @property(strong, nonatomic) NSString * id_Repo;
 @property(strong, nonatomic) NSString * node_id;

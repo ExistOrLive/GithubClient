@@ -55,13 +55,28 @@ class ZLNewsViewModel: ZLBaseViewModel {
     
     override func vcLifeCycle_viewWillAppear() {
         super.vcLifeCycle_viewWillAppear()
-        self.newsBaseView?.eventListView.beginRefresh()
+        self.loadNewData()
     }
 }
 
 // MARK: onNotificationArrived
 extension ZLNewsViewModel
 {
+    func loadMoreData()
+    {
+        self.serialNumber = NSString.generateSerialNumber()
+        ZLEventServiceModel.shareInstance().getReceivedEvents(forUser: userInfo?.loginName, page: UInt(self.currentPage + 1), per_page: UInt(self.per_page), serialNumber: self.serialNumber)
+    }
+    
+    
+    func loadNewData()
+    {
+        self.isRefreshNew = true;
+        self.serialNumber = NSString.generateSerialNumber()
+        ZLEventServiceModel.shareInstance().getReceivedEvents(forUser: userInfo?.loginName, page: 1, per_page: UInt(self.per_page), serialNumber: self.serialNumber)
+    }
+    
+    
     @objc func onNotificationArrived(notification: Notification)
     {
         ZLLog_Info("onNotificationArrived: notification[\(notification.name)]")
@@ -133,7 +148,7 @@ extension ZLNewsViewModel
                 
                 self.userInfo = userInfo
                 
-                self.newsBaseView?.eventListView.beginRefresh()
+                self.loadNewData()
             }
             case ZLGetSpecifiedUserInfoResult_Notification: do
             {
@@ -165,14 +180,12 @@ extension ZLNewsViewModel : ZLEventListViewDelegate
 {
     func eventListViewRefreshDragUp(eventListView: ZLEventListView) -> Void
     {
-        self.serialNumber = NSString.generateSerialNumber()
-        ZLEventServiceModel.shareInstance().getReceivedEvents(forUser: userInfo?.loginName, page: UInt(self.currentPage + 1), per_page: UInt(self.per_page), serialNumber: self.serialNumber)
+        self.loadMoreData()
     }
     
     func eventListViewRefreshDragDown(eventListView: ZLEventListView) -> Void
     {
-        self.isRefreshNew = true;
-        self.serialNumber = NSString.generateSerialNumber()
-        ZLEventServiceModel.shareInstance().getReceivedEvents(forUser: userInfo?.loginName, page: 1, per_page: UInt(self.per_page), serialNumber: self.serialNumber)
+        self.loadNewData()
+
     }
 }

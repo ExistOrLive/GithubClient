@@ -16,7 +16,7 @@ typedef enum
     ZLGithubUserType_Organization
 } ZLGithubUserType;
 
-@interface ZLGithubUserBriefModel : NSObject <NSCopying>
+@interface ZLGithubUserBriefModel : ZLBaseObject
 
 @property (strong,nonatomic) NSString * id_User;
 
@@ -38,7 +38,7 @@ typedef enum
 @end
 
 
-@interface ZLGithubUserModel : ZLGithubUserBriefModel <NSCopying>
+@interface ZLGithubUserModel : ZLGithubUserBriefModel
 
 @property (strong,nonatomic) NSString * company;
 

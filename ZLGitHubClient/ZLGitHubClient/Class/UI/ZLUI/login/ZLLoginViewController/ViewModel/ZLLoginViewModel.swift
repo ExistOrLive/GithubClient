@@ -44,16 +44,6 @@ class ZLLoginViewModel: ZLBaseViewModel,ZLLoginBaseViewDelegate {
     
     func reloadView()
     {
-        let loginName = ZLKeyChainManager.sharedInstance().getUserAccount()
-        let headImageUrlStr = ZLKeyChainManager.sharedInstance().getHeadImageURL()
-        let imageUrl = URL.init(string: headImageUrlStr)
-        
-        self.baseView?.userLoginNameLabel.text = loginName
-        if imageUrl != nil
-        {
-           self.baseView?.userHeadImageView.setImageWith(imageUrl!, placeholderImage: nil)
-        }
-        
         switch(ZLLoginServiceModel.shared().currentLoginStep())
         {
         case ZLLoginStep_init:do{

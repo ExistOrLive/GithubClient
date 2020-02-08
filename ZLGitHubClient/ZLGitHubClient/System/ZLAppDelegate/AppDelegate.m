@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "ZLGithubAPI.h"
 #import "ZLBuglyManager.h"
+#import "ZLSharedDataManager.h"
 
 #ifdef DEBUG
 #import <DoraemonKit/DoraemonManager.h>
@@ -63,7 +64,7 @@
     [self.window makeKeyAndVisible];
     
     
-    if([[ZLKeyChainManager sharedInstance] getGithubAccessToken].length == 0)
+    if([[ZLSharedDataManager sharedInstance] githubAccessToken].length == 0)
     {
         // token为空，切到登陆界面
         [self switchToLoginController];
@@ -112,14 +113,28 @@
 
 - (void) switchToMainController
 {
-    UIViewController * rootViewController = [SYDCentralPivotUIAdapter getZLMainViewController];
-    [self.window setRootViewController:rootViewController];
+    [UIView transitionWithView:self.window duration:0.5 options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
+        
+        UIViewController * rootViewController = [SYDCentralPivotUIAdapter getZLMainViewController];
+        [self.window setRootViewController:rootViewController];
+        
+    } completion:^(BOOL finished) {
+        
+    }];
+    
+  
 }
 
 - (void) switchToLoginController
 {
-    UIViewController * rootViewController = [[ZLLoginViewController alloc] init];
-    [self.window setRootViewController:rootViewController];
+    [UIView transitionWithView:self.window duration:0.5 options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
+          
+        UIViewController * rootViewController = [[ZLLoginViewController alloc] init];
+        [self.window setRootViewController:rootViewController];
+          
+      } completion:^(BOOL finished) {
+          
+      }];
 }
 
 
@@ -163,9 +178,7 @@
 #pragma mark - Bugly
 - (void) setUpBugly
 {
-    
     [[ZLBuglyManager sharedManager] setUp];
-   
 }
 
  

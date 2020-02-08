@@ -7,6 +7,7 @@
 #import <SVProgressHUD/SVProgressHUD.h>
 
 #import "ZLBaseUIHeader.h"
+#import "ZLBaseObject.h"
 
 // customView
 #import "ZLCustomTextField.h"
