@@ -10,7 +10,7 @@ import UIKit
 
 class ZLEventTableViewCellData: ZLBaseViewModel {
     
-    var eventModel : ZLGithubEventModel
+    let eventModel : ZLGithubEventModel
     
     init(eventModel : ZLGithubEventModel)
     {

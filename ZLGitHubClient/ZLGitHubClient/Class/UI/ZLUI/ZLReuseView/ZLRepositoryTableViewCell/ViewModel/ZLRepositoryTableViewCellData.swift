@@ -12,6 +12,8 @@ import UIKit
     
     let data : ZLGithubRepositoryModel
     
+    private var _cellHeight : CGFloat?
+    
     init(data : ZLGithubRepositoryModel)
     {
         self.data = data;
@@ -80,7 +82,17 @@ extension ZLRepositoryTableViewCellData
     
     func getCellHeight() -> CGFloat
     {
-        return 170.0
+        if self._cellHeight != nil
+        {
+            return self._cellHeight!
+        }
+        
+        let attributeStr = NSAttributedString.init(string: self.data.desc_Repo, attributes: [NSAttributedStringKey.font:UIFont.init(name: Font_PingFangSCRegular, size: 12)!])
+        let rect = attributeStr.boundingRect(with: CGSize.init(width: 250, height: ZLSCreenHeight), options: .usesLineFragmentOrigin, context: nil)
+        
+        self._cellHeight = rect.size.height + 150
+      
+        return self._cellHeight!
     }
 }
 
