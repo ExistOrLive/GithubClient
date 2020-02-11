@@ -195,6 +195,20 @@ NS_ASSUME_NONNULL_BEGIN
                   fullName:(NSString *) fullName
               serialNumber:(NSString *) serialNumber;
 
+
+#pragma mark - gists
+
+- (void) getGistsForCurrentUser:(GithubResponse) block
+                           page:(NSUInteger) page
+                       per_page:(NSUInteger) per_page
+                   serialNumber:(NSString *) serialNumber;
+
+- (void) getGistsForUser:(GithubResponse) block
+               loginName:(NSString *) loginName
+                    page:(NSUInteger) page
+                per_page:(NSUInteger) per_page
+            serialNumber:(NSString *) serialNumber;
+
 #pragma mark - followers
 
 

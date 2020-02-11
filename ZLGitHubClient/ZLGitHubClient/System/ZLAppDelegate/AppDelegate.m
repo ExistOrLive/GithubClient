@@ -55,6 +55,9 @@
     
     [self addObserver];
     
+    
+    [self initUIConfig];
+    
       /**
        *
        *  初始化window
@@ -110,6 +113,11 @@
 
 
 #pragma mark -
+
+- (void) initUIConfig
+{
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeBlack];
+}
 
 - (void) switchToMainController
 {

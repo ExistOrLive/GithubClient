@@ -9,8 +9,6 @@
 import UIKit
 
 class ZLUserInfoView: ZLBaseView {
-
-    @IBOutlet weak var topViewHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var headImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -38,8 +36,6 @@ class ZLUserInfoView: ZLBaseView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        self.topViewHeightConstraint.constant = self.topViewHeightConstraint.constant + ZLStatusBarHeight
         self.headImageView.layer.cornerRadius = 30.0;
         self.justUpdate();
         

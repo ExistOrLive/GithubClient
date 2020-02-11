@@ -21,6 +21,7 @@
 #import "ZLGithubEventModel.h"
 #import "ZLLoginProcessModel.h"
 #import "ZLGithubRequestErrorModel.h"
+#import "ZLGithubGistModel.h"
 
 static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 
@@ -664,6 +665,64 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                serialNumber:serialNumber];
     
 }
+
+
+#pragma mark - gists
+
+- (void) getGistsForCurrentUser:(GithubResponse) block
+                           page:(NSUInteger) page
+                       per_page:(NSUInteger) per_page
+                   serialNumber:(NSString *) serialNumber
+{
+    NSString * urlForGist = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,gistUrl];
+    
+    NSDictionary * params = @{@"page":[NSNumber numberWithUnsignedInteger:page],
+                              @"per_page":[NSNumber numberWithUnsignedInteger:per_page]};
+    
+    
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
+        
+        if(result)
+        {
+            responseObject = [[ZLGithubGistModel mj_objectArrayWithKeyValuesArray:responseObject] copy];
+        }
+        block(result,responseObject,serialNumber);
+    };
+    
+    [self GETRequestWithURL:urlForGist
+                 WithParams:params
+          WithResponseBlock:newBlock
+               serialNumber:serialNumber];
+}
+
+- (void) getGistsForUser:(GithubResponse) block
+               loginName:(NSString *) loginName
+                    page:(NSUInteger) page
+                per_page:(NSUInteger) per_page
+            serialNumber:(NSString *) serialNumber
+{
+    NSString * urlForGist = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,userGistUrl];
+    urlForGist = [NSString stringWithFormat:urlForGist,loginName];
+      
+    NSDictionary * params = @{@"page":[NSNumber numberWithUnsignedInteger:page],
+                                @"per_page":[NSNumber numberWithUnsignedInteger:per_page]};
+      
+      
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
+          
+          if(result)
+          {
+              responseObject = [[ZLGithubGistModel mj_objectArrayWithKeyValuesArray:responseObject] copy];
+          }
+          block(result,responseObject,serialNumber);
+    };
+      
+    [self GETRequestWithURL:userGistUrl
+                   WithParams:params
+            WithResponseBlock:newBlock
+                 serialNumber:serialNumber];
+}
+
 
 
 

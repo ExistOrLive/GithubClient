@@ -55,7 +55,7 @@
 "hour later" = " hour later";
 "minute later" = " minute later";
 
-"update " = "update ";
+"update at" = "update at ";
 "news" = "News";
 "explore" = "Explore";
 "profile" = "Profile";
@@ -72,4 +72,9 @@
 "AreYouSureToLogout" = "Are You Sure to Logout? ";
 "EditProfile" = "Edit Profile";
 "Save" = "Save";
+
+"User" = "User";
+
+"gistFiles" = " files";
+"comments" = " comments";
 

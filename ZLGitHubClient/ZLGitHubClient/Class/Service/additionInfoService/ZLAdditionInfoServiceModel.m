@@ -55,7 +55,10 @@
             break;
         case ZLUserAdditionInfoTypeGists:
         {
-            
+            return [self getGistsReposInfoForUser:userLoginName
+                                             page:page
+                                         per_page:per_page
+                                     serialNumber:serialNumber];
         }
             break;
         case ZLUserAdditionInfoTypeFollowers:
@@ -244,4 +247,46 @@
        
        return nil;
 }
+
+
+/**
+ * @brief 请求标星的repos
+ *
+ **/
+- (NSArray *) getGistsReposInfoForUser:(NSString *) userLoginName
+                                  page:(NSUInteger) page
+                              per_page:(NSUInteger) per_page
+                          serialNumber:(NSString *) serialNumber
+{
+    __weak typeof(self) weakSelf = self;
+    GithubResponse responseBlock = ^(BOOL result, id _Nullable responseObject, NSString * serialNumber) {
+        
+        ZLOperationResultModel * repoResultModel = [[ZLOperationResultModel alloc] init];
+        repoResultModel.result = result;
+        repoResultModel.serialNumber = serialNumber;
+        repoResultModel.data = responseObject;
+        
+        
+        ZLMainThreadDispatch([weakSelf postNotification:ZLGetGistsResult_Notification withParams:repoResultModel];)
+        
+        
+    };
+    
+    NSString * currentLoginName = [ZLUserServiceModel sharedServiceModel].currentUserLoginName;
+    
+    if([currentLoginName isEqualToString:userLoginName])
+    {
+        // 为当前登陆的用户
+        [[ZLGithubHttpClient defaultClient] getGistsForCurrentUser:responseBlock page:page per_page:per_page serialNumber:serialNumber];
+    }
+    else
+    {
+        // 不是当前登陆的用户
+        [[ZLGithubHttpClient defaultClient] getGistsForUser:responseBlock loginName:userLoginName page:page per_page:per_page serialNumber:serialNumber];
+    }
+    
+    return nil;
+}
+
+
 @end

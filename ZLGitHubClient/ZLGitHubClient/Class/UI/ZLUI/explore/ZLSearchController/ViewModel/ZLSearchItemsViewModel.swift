@@ -179,7 +179,7 @@ extension ZLSearchItemsViewModel: UITableViewDelegate,UITableViewDataSource
         switch(self.currentSearchType)
         {
         case .repositories:
-            return 170
+            return 180
         case .users:
             return 100
         default:

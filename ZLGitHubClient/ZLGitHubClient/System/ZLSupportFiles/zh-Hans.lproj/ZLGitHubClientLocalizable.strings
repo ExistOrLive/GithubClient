@@ -54,7 +54,7 @@
 "hour later" = "小时后";
 "minute later" = "分钟后";
 
-"update " = "更新于";
+"update at" = "更新于";
 
 "news" = "动态";
 "repositories" = "仓库";
@@ -70,4 +70,9 @@
 "Cancel" = "取消";
 "Confirm" = "确认";
 "AreYouSureToLogout" = "您确定要退出吗？";
+
+"User" = "用户";
+
+"gistFiles" = "条代码片段";
+"comments" = "条评论";
 

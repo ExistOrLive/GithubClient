@@ -23,6 +23,15 @@ class ZLRepoInfoController: ZLBaseViewController {
         self.repoInfoModel = repoInfoModel;
     }
     
+    convenience init(repoFullName: String)
+    {
+        self.init()
+        let repoInfoModel = ZLGithubRepositoryModel.init()
+        repoInfoModel.full_name = repoFullName
+        self.repoInfoModel = repoInfoModel
+    }
+    
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

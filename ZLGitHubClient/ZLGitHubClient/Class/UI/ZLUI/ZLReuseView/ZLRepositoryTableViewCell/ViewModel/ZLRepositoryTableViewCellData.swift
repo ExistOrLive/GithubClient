@@ -100,11 +100,13 @@ extension ZLRepositoryTableViewCellData
 extension ZLRepositoryTableViewCellData : ZLRepositoryTableViewCellDelegate
 {
     func onRepoAvaterClicked() {
-        
+        let userInfoVC = ZLUserInfoController.init(loginName: self.data.owner.loginName, type: self.data.owner.type)
+        self.viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
     }
         
     func onRepoContainerViewClicked()
     {
-        
+        let repoInfoVC = ZLRepoInfoController.init(repoInfoModel: self.data)
+        self.viewController?.navigationController?.pushViewController(repoInfoVC, animated: true)
     }
 }

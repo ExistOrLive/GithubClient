@@ -81,7 +81,7 @@ extension ZLRepoInfoViewModel
         view.headerView?.starsNumLabel.text = "\(model.stargazers_count)"
         view.headerView?.forksNumLabel.text = "\(model.forks_count)"
         
-        let timeStr = NSString.init(format: "%@%@", ZLLocalizedString(string: "update ", comment: "更新于"),(model.updated_at as NSDate).dateLocalStrSinceCurrentTime())
+        let timeStr = NSString.init(format: "%@%@", ZLLocalizedString(string: "update at", comment: "更新于"),(model.updated_at as NSDate).dateLocalStrSinceCurrentTime())
         view.headerView?.timeLabel.text = timeStr as String
         
     }

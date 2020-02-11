@@ -36,8 +36,8 @@
  *
  **/
 - (void)getReceivedEventsForUser:(NSString *)userName
-                                 page:(NSUInteger)page
-                             per_page:(NSUInteger)per_page
-                         serialNumber:(NSString *)serialNumber;
+                            page:(NSUInteger)page
+                        per_page:(NSUInteger)per_page
+                    serialNumber:(NSString *)serialNumber;
 
 @end

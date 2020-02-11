@@ -60,7 +60,7 @@
 
 #pragma mark gists
 
-#define gistUrl                 @"/user/gists"                       // 当前用户的gists 包括private
+#define gistUrl                 @"/gists"                       // 当前用户的gists 包括private
 #define userGistUrl             @"/users/%@/gists"                   // 某用户的gists 不包括private
 
 #pragma mark following

@@ -16,17 +16,11 @@ enum ZLUserAdditionInfoViewType : Int
 }
 
 class ZLUserAdditionInfoView: UIView {
-
-    @IBOutlet weak var topViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var titleLabel: UILabel!
     
     @IBOutlet weak var headImageView: UIImageView!
     @IBOutlet weak var numLabel: UILabel!
     @IBOutlet weak var infoLabel: UILabel!
-    
     @IBOutlet weak var tableView: UITableView!
-    
-    @IBOutlet weak var indicatorView: UIView!
     
     
     // 修改类型，同时修改tableviewcell类型
@@ -39,7 +33,7 @@ class ZLUserAdditionInfoView: UIView {
                 self.tableView.register(UINib.init(nibName: "ZLRepositoryTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLRepositoryTableViewCell")
                 }
             case .gists:do{
-                self.tableView.register(UINib.init(nibName: "ZLRepositoryTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLRepositoryTableViewCell")
+                self.tableView.register(UINib.init(nibName: "ZLGistTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLGistTableViewCell")
                 }
             case .users:do{
                 self.tableView.register(UINib.init(nibName: "ZLUserTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLUserTableViewCell")
@@ -51,8 +45,7 @@ class ZLUserAdditionInfoView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib();
-        
-        self.topViewHeightConstraint.constant = self.topViewHeightConstraint.constant + ZLStatusBarHeight;
+
         self.headImageView.layer.cornerRadius = 30.0;
         self.headImageView.layer.masksToBounds = true;
         self.tableView.backgroundColor = UIColor.clear;
@@ -63,7 +56,7 @@ class ZLUserAdditionInfoView: UIView {
             self.tableView.register(UINib.init(nibName: "ZLRepositoryTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLRepositoryTableViewCell")
             }
         case .gists:do{
-            self.tableView.register(UINib.init(nibName: "ZLRepositoryTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLRepositoryTableViewCell")
+            self.tableView.register(UINib.init(nibName: "ZLGistTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLGistTableViewCell")
             }
         case .users:do{
             self.tableView.register(UINib.init(nibName: "ZLUserTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLUserTableViewCell")

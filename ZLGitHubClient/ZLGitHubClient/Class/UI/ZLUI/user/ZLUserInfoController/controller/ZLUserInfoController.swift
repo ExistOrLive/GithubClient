@@ -14,8 +14,8 @@ class ZLUserInfoController: ZLBaseViewController {
 
     required init()
     {
-        super.init(nibName: nil, bundle: nil)
         self.userInfoModel = nil;
+        super.init(nibName: nil, bundle: nil)
     }
     
     convenience init(loginName: String, type : ZLGithubUserType)
@@ -37,8 +37,11 @@ class ZLUserInfoController: ZLBaseViewController {
     }
     
 
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
+        
+        self.title = ZLLocalizedString(string: "User", comment: "用户")
 
         self.viewModel = ZLUserInfoViewModel.init(viewController: self)
         
@@ -46,9 +49,10 @@ class ZLUserInfoController: ZLBaseViewController {
         {
             return
         }
-        
-        baseView.frame = ZLScreenBounds
-        self.view.addSubview(baseView)
+        self.contentView.addSubview(baseView)
+        baseView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
         
         // bind view and viewModel
         self.viewModel.bindModel(self.userInfoModel, andView: baseView)
