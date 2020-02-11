@@ -26,7 +26,7 @@
 		<key>Bugly.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>18</integer>
+			<integer>21</integer>
 		</dict>
 		<key>CocoaLumberjack.xcscheme</key>
 		<dict>
@@ -115,7 +115,7 @@
 		<key>SVProgressHUD.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>18</integer>
+			<integer>16</integer>
 		</dict>
 		<key>SnapKit.xcscheme</key>
 		<dict>
@@ -127,19 +127,19 @@
 		<key>Toast-Swift.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>20</integer>
+			<integer>18</integer>
 		</dict>
 		<key>Toast.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>19</integer>
+			<integer>17</integer>
 		</dict>
 		<key>YYText.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>16</integer>
+			<integer>19</integer>
 		</dict>
 		<key>fishhook.xcscheme</key>
 		<dict>

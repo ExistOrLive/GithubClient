@@ -717,7 +717,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
           block(result,responseObject,serialNumber);
     };
       
-    [self GETRequestWithURL:userGistUrl
+    [self GETRequestWithURL:urlForGist
                    WithParams:params
             WithResponseBlock:newBlock
                  serialNumber:serialNumber];

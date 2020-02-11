@@ -266,11 +266,11 @@ extension ZLUserAdditionInfoViewModel: UITableViewDelegate,UITableViewDataSource
             
             if data?.isPub ?? false
             {
-                tableViewCell.privateLabel.isHidden = false
+                tableViewCell.privateLabel.isHidden = true
             }
             else
             {
-                tableViewCell.privateLabel.isHidden = true
+                tableViewCell.privateLabel.isHidden = false
             }
             
             if data?.updated_at != nil
