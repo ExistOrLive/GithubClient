@@ -16,16 +16,16 @@ or alternatively using `brew cask install fastlane`
 
 # Available Actions
 ## iOS
-### ios custom_lane
+### ios adhoc
 ```
-fastlane ios custom_lane
+fastlane ios adhoc
 ```
-Description of what the lane does
-### ios beta
+build one adhoc release
+### ios testflight
 ```
-fastlane ios beta
+fastlane ios testflight
 ```
-
+build one TestFlight release
 
 ----
 
