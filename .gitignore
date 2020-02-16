@@ -2,7 +2,7 @@
 # Created by https://www.gitignore.io/api/swift,objective-c
 # Edit at https://www.gitignore.io/?templates=swift,objective-c
 
-.DS_Store
+*.DS_Store
 
 ### Objective-C ###
 # Xcode
@@ -22,8 +22,8 @@ DerivedData/
 !default.mode2v3
 *.perspectivev3
 !default.perspectivev3
-xcuserdata/
-
+ZLGitHubClient/ZLGitHubClient.xcworkspace/xcuserdata
+ZLGitHubClient/Pods/Pods.xcodeproj/xcuserdata
 ## Other
 *.moved-aside
 *.xccheckout
