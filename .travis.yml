@@ -12,7 +12,7 @@ before_install:
   - bundle install                        # bundle命令根据gemfile下载相应的依赖包
   - pod repo update
 install: 
-  - pod install                           # 安装工程依赖pod库
+  - pod install --no-repo-update                        # 安装工程依赖pod库
 script:
   - fastlane travis_adhoc                 # fastlane 打包工程
 cache:
