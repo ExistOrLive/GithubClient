@@ -8,8 +8,7 @@ xcode_scheme: ZLGithubClient
 podfile: ZLGithubClient/Podfile
 before_install:
   - cd ZLGithubClient
-  - brew update
-  - brew install bundle
+  - gem install bundler
   - bundle install
 install: 
   - pod install 
