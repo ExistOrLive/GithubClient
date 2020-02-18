@@ -7,13 +7,20 @@ xcode_workspace: ZLGitHubClient.xcworkspace
 xcode_scheme: ZLGithubClient
 podfile: ZLGithubClient/Podfile
 before_install:
-  - cd ZLGithubClient
-  - gem install bundler
-  - bundle install
+  - cd ZLGithubClient                     # 切换到 工程目录
+  - gem install bundler                   # 安装最新的bundle
+  - bundle install                        # bundle命令根据gemfile下载相应的依赖包
 install: 
-  - pod install 
+  - pod install                           # 安装工程依赖pod库
 script:
-  - fastlane adhoc
+  - fastlane travis_adhoc                 # fastlane 打包工程
 cache:
-  - cocoapods
- 
+  - cocoapods                             # 缓存pod库
+
+
+
+
+# travis 使用 fastlane 打包 https://docs.travis-ci.com/user/common-build-problems/#fastlane
+
+
+# travis 使用 cocoapods  https://docs.travis-ci.com/user/common-build-problems/#mac-errors-running-cocoapods
