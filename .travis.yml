@@ -1,0 +1,20 @@
+# 官方文档： https://docs.travis-ci.com/user/languages/objective-c/
+# https://config.travis-ci.com/ref/language
+language: objective-c         # 语言
+os: osx
+osx_image: xcode11.2          # SDK version
+xcode_workspace: ZLGitHubClient.xcworkspace   
+xcode_scheme: ZLGithubClient
+podfile: ZLGithubClient/Podfile
+before_install:
+  - cd ZLGithubClient
+  - brew update
+  - brew install bundle
+  - bundle install
+install: 
+  - pod install 
+script:
+  - fastlane adhoc
+cache:
+  - cocoapods
+ 
