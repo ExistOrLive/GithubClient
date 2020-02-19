@@ -1,0 +1,27 @@
+# action 语法 https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions
+name: ZLGithub Build
+
+on:                               # 触发条件
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: build
+    runs-on: macos-latest # runner 系统 
+    steps:
+    - name: construct build enviroment
+      working-directory: ./ZLGithubClient          # 指定run 的工作目录
+      run: |
+        pwd
+        gem install bundler
+        bundle install
+        pod install
+    - name: archive app
+      working-directory: ./ZLGithubClient
+      run: |
+        fastlane adhoc
