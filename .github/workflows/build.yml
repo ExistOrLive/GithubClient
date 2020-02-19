@@ -14,8 +14,12 @@ jobs:
     name: build
     runs-on: macos-latest # runner 系统 
     steps:
+    - name: checkout
+      uses: actions/checkout@v2.0.0
+      with: 
+        ref: branch 
     - name: construct build enviroment
-      working-directory: ./ZLGithubClient          # 指定run 的工作目录
+      working-directory: ./Github/ZLGithubClient          # 指定run 的工作目录
       run: |
         echo "start constructing build enviroment"
         pwd
@@ -23,6 +27,6 @@ jobs:
         bundle install
         pod install
     - name: archive app
-      working-directory: ./ZLGithubClient
+      working-directory: ./Github/ZLGithubClient
       run: |
         fastlane adhoc
