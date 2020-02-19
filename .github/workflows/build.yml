@@ -17,6 +17,7 @@ jobs:
     - name: construct build enviroment
       working-directory: ./ZLGithubClient          # 指定run 的工作目录
       run: |
+        echo "start constructing build enviroment"
         pwd
         gem install bundler
         bundle install
