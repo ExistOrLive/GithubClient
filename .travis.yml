@@ -5,9 +5,11 @@ os: osx
 osx_image: xcode11.2          # SDK version
 xcode_workspace: ZLGitHubClient.xcworkspace   
 xcode_scheme: ZLGithubClient
-podfile: ZLGithubClient/Podfile
+#podfile: ZLGithubClient/Podfile
 before_install:
   - cd ZLGithubClient                     # 切换到 工程目录
+  - pwd 
+  - ls
   - gem install bundler                   # 安装最新的bundle
   - bundle install                        # bundle命令根据gemfile下载相应的依赖包
   - pod repo update
