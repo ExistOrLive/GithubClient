@@ -20,12 +20,22 @@ or alternatively using `brew cask install fastlane`
 ```
 fastlane ios adhoc
 ```
-build one adhoc release
-### ios testflight
+build one adhoc release local
+### ios travis_adhoc
 ```
-fastlane ios testflight
+fastlane ios travis_adhoc
+```
+build one adhoc release on travis
+### ios beta
+```
+fastlane ios beta
 ```
 build one TestFlight release
+### ios release
+```
+fastlane ios release
+```
+build one release for apple check
 
 ----
 
