@@ -116,3 +116,7 @@ Dependencies/
 
 
 # End of https://www.gitignore.io/api/swift,objective-c
+
+ZLGitHubClient/Pods
+ZLGitHubClient/ZLGitHubClient.xcworkspace/xcuserdata
+ZLGitHubClient/ZLGitHubClient.xcodeproj/xcuserdata
