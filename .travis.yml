@@ -6,6 +6,7 @@ osx_image: xcode11.2          # SDK version
 xcode_workspace: ZLGitHubClient.xcworkspace   
 xcode_scheme: ZLGithubClient
 podfile: ZLGithubClient/Podfile
+gemfile: ZLGitHubClient/Gemfile
 before_install:
   - cd ZLGithubClient                     # 切换到 工程目录
   - rm -rf /fastlane/ipa                  # 清空构建结果
