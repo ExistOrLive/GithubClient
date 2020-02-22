@@ -22,8 +22,7 @@ DerivedData/
 !default.mode2v3
 *.perspectivev3
 !default.perspectivev3
-ZLGitHubClient/ZLGitHubClient.xcworkspace/xcuserdata
-ZLGitHubClient/Pods/Pods.xcodeproj/xcuserdata
+ZLGitHubClient/ZLGitHubClient.xcworkspace/xcuserdata/*
 ## Other
 *.moved-aside
 *.xccheckout
