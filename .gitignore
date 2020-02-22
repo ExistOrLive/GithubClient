@@ -22,7 +22,6 @@ DerivedData/
 !default.mode2v3
 *.perspectivev3
 !default.perspectivev3
-ZLGitHubClient/ZLGitHubClient.xcworkspace/xcuserdata/*
 ## Other
 *.moved-aside
 *.xccheckout
@@ -116,6 +115,10 @@ Dependencies/
 
 # End of https://www.gitignore.io/api/swift,objective-c
 
+#userdata
+ZLGitHubClient/ZLGitHubClient.xcworkspace/xcuserdata
+ZLGitHubClient/ZLGitHubClient.xcodeproj/xcuserdata
+
 # Xcodebuild
 ZLGitHubClient/Xcodebuild/ipa
 ZLGitHubClient/Xcodebuild/archive
@@ -123,3 +126,4 @@ ZLGitHubClient/Xcodebuild/archive
 
 #cocoapods
 ZLGitHubClient/Pods
+
