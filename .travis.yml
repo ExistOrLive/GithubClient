@@ -5,7 +5,7 @@ os: osx
 osx_image: xcode11.2          # SDK version
 xcode_workspace: ZLGitHubClient.xcworkspace   
 xcode_scheme: ZLGithubClient
-#podfile: ZLGithubClient/Podfile
+podfile: ZLGithubClient/Podfile
 before_install:
   - cd ZLGithubClient                     # 切换到 工程目录
   - rm -rf /fastlane/ipa                  # 清空构建结果
@@ -20,10 +20,11 @@ after_success:
   - curl -T ./fastlane/ipa/ZLGitHubClient.ipa  -u ${ARTIFACTS_TOKEN}  "https://existorlive-generic.pkg.coding.net/ZLGitHubClient/adhoc/ZLGitHubClient.ipa" -v                    # 上传ipa到制品库
   - curl -T ./fastlane/ipa/ZLGitHubClient.app.dSYM.zip  -u ${ARTIFACTS_TOKEN}  "https://existorlive-generic.pkg.coding.net/ZLGitHubClient/adhoc/ZLGitHubClient.app.dSYM.zip" -v  # 上传符号化文件dsym
 cache:
-  - cocoapods                             # 缓存pod库
+  bundler: true
+  cocoapods: true                            # 缓存pod库
 
 
-
+# cache 使用 https://docs.travis-ci.com/user/caching/
 
 # travis 使用 fastlane 打包 https://docs.travis-ci.com/user/common-build-problems/#fastlane
 

@@ -120,3 +120,7 @@ Dependencies/
 # Xcodebuild
 ZLGitHubClient/Xcodebuild/ipa
 ZLGitHubClient/Xcodebuild/archive
+
+
+#cocoapods
+ZLGitHubClient/Pods
