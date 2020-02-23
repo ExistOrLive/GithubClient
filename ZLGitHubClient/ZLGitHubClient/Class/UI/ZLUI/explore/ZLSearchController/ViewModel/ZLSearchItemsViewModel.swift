@@ -199,7 +199,7 @@ extension ZLSearchItemsViewModel: UITableViewDelegate,UITableViewDataSource
             {
                 return tableViewCell;
             }
-            tableViewCell.headImageView.sd_setImage(with: URL.init(string: itemInfo.owner.avatar_url), placeholderImage: nil);
+            tableViewCell.headImageView.sd_setImage(with: URL.init(string: itemInfo.owner.avatar_url), placeholderImage: UIImage.init(named: "default_avatar"));
             tableViewCell.repostitoryNameLabel.text = itemInfo.name
             tableViewCell.languageLabel.text = itemInfo.language
             tableViewCell.descriptionLabel.text = itemInfo.desc_Repo
@@ -219,7 +219,7 @@ extension ZLSearchItemsViewModel: UITableViewDelegate,UITableViewDataSource
                 return tableViewCell;
             }
             
-            tableViewCell.headImageView.sd_setImage(with: URL.init(string: itemInfo.avatar_url), placeholderImage: nil);
+            tableViewCell.headImageView.sd_setImage(with: URL.init(string: itemInfo.avatar_url), placeholderImage: UIImage.init(named: "default_avatar"));
             tableViewCell.nameLabel.text = itemInfo.name
             tableViewCell.loginNameLabel.text = itemInfo.loginName
             tableViewCell.companyLabel.text = itemInfo.company

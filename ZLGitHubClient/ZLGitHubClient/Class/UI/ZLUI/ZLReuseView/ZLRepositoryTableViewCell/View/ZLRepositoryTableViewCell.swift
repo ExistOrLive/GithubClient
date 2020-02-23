@@ -77,7 +77,7 @@ extension ZLRepositoryTableViewCell
 {
     func fillWithData(data : ZLRepositoryTableViewCellData) -> Void
     {
-        self.headImageView.sd_setImage(with: URL.init(string: data.getOwnerAvatarURL() ?? ""), placeholderImage: nil);
+        self.headImageView.sd_setImage(with: URL.init(string: data.getOwnerAvatarURL() ?? ""), placeholderImage: UIImage.init(named: "default_avatar"));
         self.repostitoryNameLabel.text = data.getRepoName()
         self.languageLabel.text = data.getRepoMainLanguage()
         self.descriptionLabel.text = data.getRepoDesc()

@@ -85,7 +85,7 @@ extension ZLUserAdditionInfoViewModel
         view.tableView.delegate = self;
         view.tableView.dataSource = self;
         
-        view.headImageView.sd_setImage(with: URL.init(string: userInfo.avatar_url), placeholderImage: nil);
+        view.headImageView.sd_setImage(with: URL.init(string: userInfo.avatar_url), placeholderImage: UIImage.init(named: "default_avatar"));
         
         switch type
         {
@@ -238,7 +238,7 @@ extension ZLUserAdditionInfoViewModel: UITableViewDelegate,UITableViewDataSource
             {
                 tableViewCell.privateLabel.isHidden = true
             }
-            tableViewCell.headImageView.sd_setImage(with: URL.init(string: data?.owner.avatar_url ?? ""), placeholderImage: nil);
+            tableViewCell.headImageView.sd_setImage(with: URL.init(string: data?.owner.avatar_url ?? ""), placeholderImage: UIImage.init(named: "default_avatar"));
             tableViewCell.repostitoryNameLabel.text = data?.name
             tableViewCell.languageLabel.text = data?.language
             tableViewCell.descriptionLabel.text = data?.desc_Repo
@@ -257,7 +257,7 @@ extension ZLUserAdditionInfoViewModel: UITableViewDelegate,UITableViewDataSource
                 return UITableViewCell()
             }
             
-            tableViewCell.imageButton.setImageFor(.normal, with: URL.init(string: data?.owner.avatar_url ?? "")!, placeholderImage: nil)
+            tableViewCell.imageButton.setImageFor(.normal, with: URL.init(string: data?.owner.avatar_url ?? "")!, placeholderImage: UIImage.init(named: "default_avatar"))
             let firstFileName = data?.files.first?.key as? String
             
             tableViewCell.gistNameLabel.text = NSString.init(format: "%@/%@", data?.owner.loginName ?? "",firstFileName ?? "") as String
@@ -296,7 +296,7 @@ extension ZLUserAdditionInfoViewModel: UITableViewDelegate,UITableViewDataSource
                 return UITableViewCell()
             }
           
-            tableViewCell.headImageView.sd_setImage(with: URL.init(string: data?.avatar_url ?? ""), placeholderImage: nil);
+            tableViewCell.headImageView.sd_setImage(with: URL.init(string: data?.avatar_url ?? ""), placeholderImage: UIImage.init(named: "default_avatar"));
             tableViewCell.nameLabel.text = data?.name
             tableViewCell.loginNameLabel.text = data?.loginName
             tableViewCell.companyLabel.text = data?.company

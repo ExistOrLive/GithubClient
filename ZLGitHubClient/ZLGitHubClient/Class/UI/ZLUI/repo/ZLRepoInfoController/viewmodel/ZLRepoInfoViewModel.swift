@@ -73,7 +73,7 @@ extension ZLRepoInfoViewModel
     {
         self.repoInfoModel = model
         
-        view.headerView?.headImageView.sd_setImage(with: URL.init(string: model.owner.avatar_url), placeholderImage: nil);
+        view.headerView?.headImageView.sd_setImage(with: URL.init(string: model.owner.avatar_url), placeholderImage: UIImage.init(named: "default_avatar"));
         view.headerView?.repoNameLabel.text = model.name
         view.headerView?.descLabel.text = model.desc_Repo
         view.headerView?.issuesNumLabel.text = "\(model.open_issues_count)"
