@@ -193,6 +193,15 @@ extension ZLSearchItemsViewModel: UITableViewDelegate,UITableViewDataSource
         {
         case .repositories:do{
             let tableViewCell: ZLRepositoryTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLRepositoryTableViewCell", for: indexPath) as! ZLRepositoryTableViewCell
+            
+            if tableViewCell.containerView.gestureRecognizers != nil
+            {
+                for gestureRecognizer in tableViewCell.containerView.gestureRecognizers!
+                {
+                    gestureRecognizer.isEnabled = false
+                }
+            }
+            
             let currentSearchTypeAttachInfo = self.searchTypeAttachInfos?[self.currentSearchType]
         
             guard let itemInfo : ZLGithubRepositoryModel = currentSearchTypeAttachInfo!.itemsInfo![indexPath.row] as? ZLGithubRepositoryModel else
@@ -244,7 +253,7 @@ extension ZLSearchItemsViewModel: UITableViewDelegate,UITableViewDataSource
             let currentSearchTypeAttachInfo = self.searchTypeAttachInfos?[self.currentSearchType]
             let item : ZLGithubRepositoryModel = currentSearchTypeAttachInfo!.itemsInfo![indexPath.row] as! ZLGithubRepositoryModel
             let vc = ZLRepoInfoController.init(repoInfoModel: item)
-            self.viewController?.navigationController?.pushViewController(vc, animated: false)
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
             
             break;
             }
@@ -252,7 +261,7 @@ extension ZLSearchItemsViewModel: UITableViewDelegate,UITableViewDataSource
             let currentSearchTypeAttachInfo = self.searchTypeAttachInfos?[self.currentSearchType]
             let item : ZLGithubUserModel = currentSearchTypeAttachInfo!.itemsInfo![indexPath.row] as! ZLGithubUserModel
             let vc = ZLUserInfoController.init(userInfoModel: item)
-            self.viewController?.navigationController?.pushViewController(vc, animated: false)
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
             
             }
             

@@ -87,7 +87,7 @@ extension ZLRepositoryTableViewCellData
             return self._cellHeight!
         }
         
-        let attributeStr = NSAttributedString.init(string: self.data.desc_Repo, attributes: [NSAttributedStringKey.font:UIFont.init(name: Font_PingFangSCRegular, size: 12)!])
+        let attributeStr = NSAttributedString.init(string: self.data.desc_Repo ?? "", attributes: [NSAttributedStringKey.font:UIFont.init(name: Font_PingFangSCRegular, size: 12)!])
         let rect = attributeStr.boundingRect(with: CGSize.init(width: 250, height: ZLSCreenHeight), options: .usesLineFragmentOrigin, context: nil)
         
         self._cellHeight = rect.size.height + 150
@@ -101,12 +101,14 @@ extension ZLRepositoryTableViewCellData : ZLRepositoryTableViewCellDelegate
 {
     func onRepoAvaterClicked() {
         let userInfoVC = ZLUserInfoController.init(loginName: self.data.owner.loginName, type: self.data.owner.type)
+        userInfoVC.hidesBottomBarWhenPushed = true
         self.viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
     }
         
     func onRepoContainerViewClicked()
     {
         let repoInfoVC = ZLRepoInfoController.init(repoInfoModel: self.data)
+        repoInfoVC.hidesBottomBarWhenPushed = true
         self.viewController?.navigationController?.pushViewController(repoInfoVC, animated: true)
     }
 }

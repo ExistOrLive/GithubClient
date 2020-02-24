@@ -22,6 +22,9 @@ class ZLRepoInfoViewModel: ZLBaseViewModel {
     // model
     private var repoInfoModel : ZLGithubRepositoryModel?
     
+    // 当前repo请求流水号
+    private var serialNumber: String?
+    
     
     deinit {
         ZLRepoServiceModel.shared().unRegisterObserver(self, name: ZLGetSpecifiedRepoInfoResult_Notification)
@@ -50,18 +53,14 @@ class ZLRepoInfoViewModel: ZLBaseViewModel {
         
         ZLRepoServiceModel.shared().registerObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLGetSpecifiedRepoInfoResult_Notification)
         
+        
         // 获取仓库的详细信息
-        ZLRepoServiceModel.shared().getRepoInfo(withFullName: repoInfoModel.full_name, serialNumber: "dasda")
+        SVProgressHUD.show()
+        self.serialNumber = NSString.generateSerialNumber() as String
+        ZLRepoServiceModel.shared().getRepoInfo(withFullName: repoInfoModel.full_name, serialNumber: self.serialNumber!)
         
         // 加载readme
         self.loadREADME()
-        
-    }
-    
-    
-    @IBAction func onBackButtonClicked(_ sender: Any) {
-        
-        self.viewController?.navigationController?.popViewController(animated: true)
         
     }
 }
@@ -73,15 +72,22 @@ extension ZLRepoInfoViewModel
     {
         self.repoInfoModel = model
         
+        self.viewController?.title = model.name == nil ? "Repo" : model.name
+        
         view.headerView?.headImageView.sd_setImage(with: URL.init(string: model.owner.avatar_url), placeholderImage: UIImage.init(named: "default_avatar"));
-        view.headerView?.repoNameLabel.text = model.name
+        view.headerView?.repoNameLabel.text = model.full_name
         view.headerView?.descLabel.text = model.desc_Repo
         view.headerView?.issuesNumLabel.text = "\(model.open_issues_count)"
         view.headerView?.watchersNumLabel.text = "\(model.subscribers_count)"
         view.headerView?.starsNumLabel.text = "\(model.stargazers_count)"
         view.headerView?.forksNumLabel.text = "\(model.forks_count)"
         
-        let timeStr = NSString.init(format: "%@%@", ZLLocalizedString(string: "update at", comment: "更新于"),(model.updated_at as NSDate).dateLocalStrSinceCurrentTime())
+        guard let date : NSDate = model.updated_at as NSDate? else
+        {
+            return
+        }
+        
+        let timeStr = NSString.init(format: "%@%@", ZLLocalizedString(string: "update at", comment: "更新于"),date.dateLocalStrSinceCurrentTime())
         view.headerView?.timeLabel.text = timeStr as String
         
     }
@@ -237,6 +243,13 @@ extension ZLRepoInfoViewModel
         case ZLGetSpecifiedRepoInfoResult_Notification:do
         {
             let operationResultModel : ZLOperationResultModel = notification.params as! ZLOperationResultModel
+            
+            if operationResultModel.serialNumber != operationResultModel.serialNumber
+            {
+                return;
+            }
+            
+            SVProgressHUD.dismiss()
             
             guard let repoInfo : ZLGithubRepositoryModel = operationResultModel.data as? ZLGithubRepositoryModel else
             {

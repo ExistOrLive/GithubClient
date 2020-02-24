@@ -13,8 +13,8 @@ class ZLRepoInfoController: ZLBaseViewController {
     private var repoInfoModel: ZLGithubRepositoryModel?
     
     required init() {
-        super.init(nibName: nil, bundle: nil);
         self.repoInfoModel = nil;
+        super.init(nibName: nil, bundle: nil);
     }
     
     convenience  init(repoInfoModel:ZLGithubRepositoryModel)
@@ -47,7 +47,10 @@ class ZLRepoInfoController: ZLBaseViewController {
             return;
         }
         baseView.frame = ZLScreenBounds
-        self.view.addSubview(baseView)
+        self.contentView.addSubview(baseView)
+        baseView.snp.makeConstraints({ (make) in
+            make.edges.equalToSuperview()
+        })
         
         self.viewModel.bindModel(self.repoInfoModel, andView: baseView)
     }

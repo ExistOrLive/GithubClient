@@ -81,9 +81,10 @@ extension ZLEventTableViewCellData : ZLEventTableViewCellDelegate
     }
     
     func onCellSingleTap() {
-//        let repoModel = ZLGithubRepositoryModel.init()
-//        repoModel.full_name = self.eventModel.repo.name;
-//        let vc = ZLRepoInfoController.init(repoInfoModel: repoModel)
-//        self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        let repoModel = ZLGithubRepositoryModel.init()
+        repoModel.full_name = self.eventModel.repo.name;
+        let vc = ZLRepoInfoController.init(repoInfoModel: repoModel)
+        vc.hidesBottomBarWhenPushed = true
+        self.viewController?.navigationController?.pushViewController(vc, animated: true)
     }
 }

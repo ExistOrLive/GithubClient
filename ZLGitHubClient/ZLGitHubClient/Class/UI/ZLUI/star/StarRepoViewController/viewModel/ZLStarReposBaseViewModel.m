@@ -138,6 +138,9 @@
         if(!resultModel.result)
         {
             ZLLog_Warning(@"error");
+            ZLGithubRequestErrorModel * model = resultModel.data;
+            [ZLToastView showMessage:[NSString stringWithFormat:@"%@(%ld)",model.message,(long)model.statusCode]];
+            return;
         }
         
         NSArray<ZLGithubRepositoryModel *> * repoModels = resultModel.data;
@@ -145,6 +148,7 @@
         for(ZLGithubRepositoryModel * model in repoModels)
         {
             ZLRepositoryTableViewCellData * cellData = [[ZLRepositoryTableViewCellData alloc] initWithData:model];
+            [self addSubViewModel:cellData];
             [celldatas addObject:cellData];
         }
         

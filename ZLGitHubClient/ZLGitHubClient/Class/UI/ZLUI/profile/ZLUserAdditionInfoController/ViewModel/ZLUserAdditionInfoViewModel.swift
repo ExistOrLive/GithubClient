@@ -230,6 +230,15 @@ extension ZLUserAdditionInfoViewModel: UITableViewDelegate,UITableViewDataSource
                 return UITableViewCell()
             }
             
+            if tableViewCell.containerView.gestureRecognizers != nil
+            {
+                for gestureRecognizer in tableViewCell.containerView.gestureRecognizers!
+                {
+                    gestureRecognizer.isEnabled = false
+                }
+            }
+          
+            
             if data?.isPriva ?? false
             {
                 tableViewCell.privateLabel.isHidden = false
@@ -320,7 +329,7 @@ extension ZLUserAdditionInfoViewModel: UITableViewDelegate,UITableViewDataSource
             if data != nil
             {
                 let vc = ZLRepoInfoController.init(repoInfoModel: data!)
-                self.viewController?.navigationController?.pushViewController(vc, animated: false)
+                self.viewController?.navigationController?.pushViewController(vc, animated: true)
             }
         }
         case .gists:do{
@@ -331,7 +340,7 @@ extension ZLUserAdditionInfoViewModel: UITableViewDelegate,UITableViewDataSource
             if data != nil
             {
                 let vc = ZLUserInfoController.init(userInfoModel: data!)
-                self.viewController?.navigationController?.pushViewController(vc, animated: false)
+                self.viewController?.navigationController?.pushViewController(vc, animated: true)
             }
             
         }

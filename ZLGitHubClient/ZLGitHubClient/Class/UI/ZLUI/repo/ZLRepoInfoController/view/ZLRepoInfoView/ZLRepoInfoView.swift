@@ -10,7 +10,6 @@ import UIKit
 
 class ZLRepoInfoView: ZLBaseView {
 
-    @IBOutlet weak var topViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var tableView: UITableView!
     
     var headerView : ZLRepoHeaderInfoView?
@@ -19,9 +18,7 @@ class ZLRepoInfoView: ZLBaseView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        self.topViewHeightConstraint.constant = self.topViewHeightConstraint.constant + ZLStatusBarHeight
-        
+                
         self.tableView.backgroundColor = UIColor.clear
         self.tableView.register(UINib.init(nibName: "ZLRepoInfoTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLRepoInfoTableViewCell")
         

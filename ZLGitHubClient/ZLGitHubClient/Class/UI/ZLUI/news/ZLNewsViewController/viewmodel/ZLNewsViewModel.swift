@@ -93,7 +93,7 @@ extension ZLNewsViewModel
                 // 
                 if resultModel.serialNumber != self.serialNumber!
                 {
-                    return;
+                    return
                 }
                 
                 guard resultModel.result == true else
@@ -104,6 +104,7 @@ extension ZLNewsViewModel
                         return;
                     }
                     
+                    ZLToastView.showMessage("\(errorModel.message)(\(errorModel.statusCode))")
                     ZLLog_Warn("get received event failed statusCode[\(errorModel.statusCode)] message[\(errorModel.message)]")
                     
                     return
