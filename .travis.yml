@@ -9,7 +9,8 @@ podfile: ZLGithubClient/Podfile
 gemfile: ZLGitHubClient/Gemfile
 before_install:
   - cd ZLGithubClient                     # 切换到 工程目录
-  - rm -rf /fastlane/ipa                  # 清空构建结果
+  - rm -rf ./fastlane/ipa                 # 清空构建结果
+  - mkdir -p ./fastlane/ipa              
   - gem install bundler                   # 安装最新的bundle
   - bundle install                        # bundle命令根据gemfile下载相应的依赖包
   - pod repo update
