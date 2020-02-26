@@ -26,7 +26,7 @@ class ZLRepoInfoView: ZLBaseView {
         
         if headerView != nil
         {
-            headerView?.autoresizingMask = UIViewAutoresizing.init(rawValue: 0)
+            headerView?.autoresizingMask = UIView.AutoresizingMask.init(rawValue: 0)
             headerView?.frame = CGRect.init(x: 0, y: 0, width: ZLScreenWidth, height: 240)
             self.tableView.tableHeaderView = headerView
             self.headerView = headerView
@@ -35,8 +35,8 @@ class ZLRepoInfoView: ZLBaseView {
         let footerView:ZLRepoFooterInfoView? = Bundle.main.loadNibNamed("ZLRepoFooterInfoView", owner: nil, options: nil)?.first as? ZLRepoFooterInfoView
         if footerView != nil
         {
-            footerView?.autoresizingMask = UIViewAutoresizing.init(rawValue: 0)
-            footerView?.frame = CGRect.init(x: 0, y: 0, width: ZLScreenWidth, height: 300)
+            footerView?.autoresizingMask = UIView.AutoresizingMask.init(rawValue: 0)
+            footerView?.frame = CGRect.init(x: 0, y: 0, width: ZLScreenWidth, height: ZLSCreenHeight)
             self.tableView.tableFooterView = footerView
             self.footerView = footerView
         }

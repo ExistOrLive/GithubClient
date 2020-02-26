@@ -113,8 +113,8 @@ class ZLLoginViewModel: ZLBaseViewModel,ZLLoginBaseViewDelegate {
             {
                 self.baseView?.loginButton.isUserInteractionEnabled = true;
                 self.baseView?.activityIndicator.isHidden = true;
-                let controller: UIAlertController = UIAlertController.init(title: "登陆失败", message: nil, preferredStyle: UIAlertControllerStyle.alert);
-                let action: UIAlertAction = UIAlertAction.init(title: "确定", style: UIAlertActionStyle.default, handler: nil);
+                let controller: UIAlertController = UIAlertController.init(title: "登陆失败", message: nil, preferredStyle: UIAlertController.Style.alert);
+                let action: UIAlertAction = UIAlertAction.init(title: "确定", style: UIAlertAction.Style.default, handler: nil);
                                 controller.addAction(action);
                 self.viewController?.present(controller, animated: true, completion: nil);
                 

@@ -48,9 +48,9 @@ class ZLSettingViewModel: ZLBaseViewModel {
     
     func onLogout()
     {
-        let alertController = UIAlertController.init(title: ZLLocalizedString(string: "AreYouSureToLogout", comment: "您确定要退出吗？"), message: nil, preferredStyle: UIAlertControllerStyle.alert)
-        let cancelAction = UIAlertAction.init(title: ZLLocalizedString(string: "Cancel", comment: "取消"), style: UIAlertActionStyle.default, handler:nil)
-        let confirmAction = UIAlertAction.init(title: ZLLocalizedString(string: "Confirm", comment: "确认"), style: UIAlertActionStyle.destructive, handler:{ (action : UIAlertAction) in
+        let alertController = UIAlertController.init(title: ZLLocalizedString(string: "AreYouSureToLogout", comment: "您确定要退出吗？"), message: nil, preferredStyle: UIAlertController.Style.alert)
+        let cancelAction = UIAlertAction.init(title: ZLLocalizedString(string: "Cancel", comment: "取消"), style: UIAlertAction.Style.default, handler:nil)
+        let confirmAction = UIAlertAction.init(title: ZLLocalizedString(string: "Confirm", comment: "确认"), style: UIAlertAction.Style.destructive, handler:{ (action : UIAlertAction) in
             
             self.logoutSerialNumber = NSString.generateSerialNumber()
             ZLLoginServiceModel.shared().logout(self.logoutSerialNumber ?? "")
@@ -65,7 +65,7 @@ class ZLSettingViewModel: ZLBaseViewModel {
     
     func onChangeLanguage()
     {
-        let alertController = UIAlertController.init(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+        let alertController = UIAlertController.init(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
        
         for rawValue in [0,ZLLanguageType.simpleChinese.rawValue]
         {
@@ -83,11 +83,11 @@ class ZLSettingViewModel: ZLBaseViewModel {
                 }
             }
             
-            let action = UIAlertAction.init(title: title, style: UIAlertActionStyle.default, handler:handle)
+            let action = UIAlertAction.init(title: title, style: UIAlertAction.Style.default, handler:handle)
             alertController.addAction(action)
         }
         
-        let cancelAction = UIAlertAction.init(title:ZLLocalizedString(string: "Cancel", comment: "取消") , style: UIAlertActionStyle.cancel, handler: nil)
+        let cancelAction = UIAlertAction.init(title:ZLLocalizedString(string: "Cancel", comment: "取消") , style: UIAlertAction.Style.cancel, handler: nil)
         alertController.addAction(cancelAction)
         
         self.viewController?.present(alertController, animated: true, completion: nil)

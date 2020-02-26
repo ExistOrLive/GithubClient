@@ -70,7 +70,7 @@ class ZLEditProfileViewModel: ZLBaseViewModel {
     
     func setUpSaveButton()
     {
-        let attributedTitle = NSAttributedString.init(string: ZLLocalizedString(string: "Save",comment: "保存"), attributes: [NSAttributedStringKey.font:UIFont.init(name: Font_PingFangSCRegular, size: 14)!,NSAttributedStringKey.foregroundColor:UIColor.white])
+        let attributedTitle = NSAttributedString.init(string: ZLLocalizedString(string: "Save",comment: "保存"), attributes: [NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 14)!,NSAttributedString.Key.foregroundColor:UIColor.white])
         
         let button = UIButton.init(type: .custom)
         button.backgroundColor = UIColor.black

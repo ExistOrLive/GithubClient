@@ -1,29 +1,26 @@
 PODS:
-  - AFNetworking (3.2.0):
-    - AFNetworking/NSURLSession (= 3.2.0)
-    - AFNetworking/Reachability (= 3.2.0)
-    - AFNetworking/Security (= 3.2.0)
-    - AFNetworking/Serialization (= 3.2.0)
-    - AFNetworking/UIKit (= 3.2.0)
-  - AFNetworking/NSURLSession (3.2.0):
+  - AFNetworking (3.2.1):
+    - AFNetworking/NSURLSession (= 3.2.1)
+    - AFNetworking/Reachability (= 3.2.1)
+    - AFNetworking/Security (= 3.2.1)
+    - AFNetworking/Serialization (= 3.2.1)
+    - AFNetworking/UIKit (= 3.2.1)
+  - AFNetworking/NSURLSession (3.2.1):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (3.2.0)
-  - AFNetworking/Security (3.2.0)
-  - AFNetworking/Serialization (3.2.0)
-  - AFNetworking/UIKit (3.2.0):
+  - AFNetworking/Reachability (3.2.1)
+  - AFNetworking/Security (3.2.1)
+  - AFNetworking/Serialization (3.2.1)
+  - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
   - BSBacktraceLogger (0.0.1)
   - Bugly (2.5.2)
-  - CocoaLumberjack (3.4.1):
-    - CocoaLumberjack/Default (= 3.4.1)
-    - CocoaLumberjack/Extensions (= 3.4.1)
-  - CocoaLumberjack/Default (3.4.1)
-  - CocoaLumberjack/Extensions (3.4.1):
-    - CocoaLumberjack/Default
-  - CocoaLumberjack/Swift (3.4.1):
-    - CocoaLumberjack/Default
+  - CocoaLumberjack (3.6.1):
+    - CocoaLumberjack/Core (= 3.6.1)
+  - CocoaLumberjack/Core (3.6.1)
+  - CocoaLumberjack/Swift (3.6.1):
+    - CocoaLumberjack/Core
   - DoraemonKit/Core (2.0.0):
     - BSBacktraceLogger
     - fishhook
@@ -39,14 +36,14 @@ PODS:
     - fishhook
   - FBRetainCycleDetector (0.1.4)
   - fishhook (0.2)
-  - FMDB (2.7.2):
-    - FMDB/standard (= 2.7.2)
-  - FMDB/standard (2.7.2)
+  - FMDB (2.7.5):
+    - FMDB/standard (= 2.7.5)
+  - FMDB/standard (2.7.5)
   - LookinServer (1.0.0)
+  - MarkdownView (1.5.0)
   - Masonry (1.1.0)
-  - MJExtension (3.0.17)
-  - MJRefresh (3.2.0)
-  - MMMarkdown (0.5.5)
+  - MJExtension (3.2.1)
+  - MJRefresh (3.3.1)
   - SDWebImage (5.0.6):
     - SDWebImage/Core (= 5.0.6)
   - SDWebImage/Core (5.0.6)
@@ -66,10 +63,10 @@ DEPENDENCIES:
   - DoraemonKit/WithMLeaksFinder (= 2.0.0)
   - FMDB
   - LookinServer
+  - MarkdownView
   - Masonry
   - MJExtension
   - MJRefresh
-  - MMMarkdown
   - SDWebImage (~> 5.0.0)
   - SnapKit (~> 4.0.0)
   - SVProgressHUD
@@ -88,10 +85,10 @@ SPEC REPOS:
     - fishhook
     - FMDB
     - LookinServer
+    - MarkdownView
     - Masonry
     - MJExtension
     - MJRefresh
-    - MMMarkdown
     - SDWebImage
     - SnapKit
     - SVProgressHUD
@@ -100,19 +97,19 @@ SPEC REPOS:
     - YYText
 
 SPEC CHECKSUMS:
-  AFNetworking: 8ac6017b94ea105479f7776e5288e48ae9c59bb4
+  AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   BSBacktraceLogger: 06b983ee93a9f87d957960e9c73d660d5966b447
   Bugly: dbac48b55ad469a97cc4321045cd50df8f63d44f
-  CocoaLumberjack: 2e258a064cacc8eb9a2aca318e24d02a0a7fd56d
+  CocoaLumberjack: b17ae15142558d08bbacf69775fa10c4abbebcc9
   DoraemonKit: 9e923599e28d0b61f1c6de4aef2c2d669b30abb7
   FBRetainCycleDetector: 46f8179bbb1c587deee3ea838a1a3ee02acf5015
   fishhook: ea19933abfe8f2f52c55fd8b6e2718467d3ebc89
-  FMDB: 6198a90e7b6900cfc046e6bc0ef6ebb7be9236aa
+  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   LookinServer: 0002891cd3cec5e082a910e897dfe71b4f06b89e
+  MarkdownView: 5bbee438c823db1cd189002d44c84fa909b3a896
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  MJExtension: 74ec83124a68891619fb7ba9c5c811bbf1691076
-  MJRefresh: ed450d6eb9d3346a2cb033ab7eb6de090aeef437
-  MMMarkdown: 1af97166ce0f6d6e0cb05695665492195d27c3f1
+  MJExtension: 635f2c663dcb1bf76fa4b715b2570a5710aec545
+  MJRefresh: eeda70fbf0ad277f3178cef1cd0c3532591d6237
   SDWebImage: 920f1a2ff1ca8296ad34f6e0510a1ef1d70ac965
   SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
@@ -120,6 +117,6 @@ SPEC CHECKSUMS:
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: 7a1ee8ccafd4202a1be5785333182a0def5d7ac7
+PODFILE CHECKSUM: 69a705e39be4e2ebb9b6e0ffe4a6f3c26547ee12
 
 COCOAPODS: 1.8.4

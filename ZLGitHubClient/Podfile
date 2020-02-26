@@ -29,7 +29,8 @@ pod 'Toast'
 #下载图片
 pod 'SDWebImage', '~> 5.0.0'
 
-pod 'MMMarkdown'
+#pod 'MMMarkdown'
+pod 'MarkdownView'
 
 # AutoLayout
 pod 'Masonry'

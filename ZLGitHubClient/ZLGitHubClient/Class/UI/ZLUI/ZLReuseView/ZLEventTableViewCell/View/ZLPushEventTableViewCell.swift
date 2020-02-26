@@ -12,7 +12,7 @@ class ZLPushEventTableViewCell: ZLEventTableViewCell {
     
     let commitInfoLabel : UILabel
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         
          self.commitInfoLabel = UILabel.init()
          super.init(style: style,reuseIdentifier: reuseIdentifier)

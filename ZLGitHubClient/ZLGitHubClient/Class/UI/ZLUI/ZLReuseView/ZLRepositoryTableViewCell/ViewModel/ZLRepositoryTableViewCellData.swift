@@ -87,7 +87,7 @@ extension ZLRepositoryTableViewCellData
             return self._cellHeight!
         }
         
-        let attributeStr = NSAttributedString.init(string: self.data.desc_Repo ?? "", attributes: [NSAttributedStringKey.font:UIFont.init(name: Font_PingFangSCRegular, size: 12)!])
+        let attributeStr = NSAttributedString.init(string: self.data.desc_Repo ?? "", attributes: [NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 12)!])
         let rect = attributeStr.boundingRect(with: CGSize.init(width: 250, height: ZLSCreenHeight), options: .usesLineFragmentOrigin, context: nil)
         
         self._cellHeight = rect.size.height + 150

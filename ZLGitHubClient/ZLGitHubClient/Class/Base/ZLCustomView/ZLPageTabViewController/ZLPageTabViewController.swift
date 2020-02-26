@@ -50,8 +50,8 @@ class ZLPageTabViewConfig : NSObject
         self.viewHasLoad = true
     }
     
-    override func addChildViewController(_ childController: UIViewController) {
-        super.addChildViewController(childController)
+    override func addChild(_ childController: UIViewController) {
+        super.addChild(childController)
         
         if self.viewHasLoad
         {
@@ -74,9 +74,9 @@ class ZLPageTabViewConfig : NSObject
             make.top.equalTo(self.headTabView().snp_bottom)
         }
         
-        if self.childViewControllers.count > 0
+        if self.children.count > 0
         {
-            for vc in self.childViewControllers
+            for vc in self.children
             {
                 self.addViewForChildVC(childController: vc)
             }
@@ -87,8 +87,8 @@ class ZLPageTabViewConfig : NSObject
     func addViewForChildVC(childController : UIViewController)
     {
         
-        let selectedAttributedStr = NSAttributedString.init(string: childController.title ?? "" , attributes:[NSAttributedStringKey.font:self.config.tabTitleSelectedFont,NSAttributedStringKey.foregroundColor:self.config.tabTitleSeletedColor] )
-        let unselectedAttributedStr = NSAttributedString.init(string: childController.title ?? "" , attributes:[NSAttributedStringKey.font:self.config.tabTitleUnSelectedFont,NSAttributedStringKey.foregroundColor:self.config.tabTitleUnSelectedColor] )
+        let selectedAttributedStr = NSAttributedString.init(string: childController.title ?? "" , attributes:[NSAttributedString.Key.font:self.config.tabTitleSelectedFont,NSAttributedString.Key.foregroundColor:self.config.tabTitleSeletedColor] )
+        let unselectedAttributedStr = NSAttributedString.init(string: childController.title ?? "" , attributes:[NSAttributedString.Key.font:self.config.tabTitleUnSelectedFont,NSAttributedString.Key.foregroundColor:self.config.tabTitleUnSelectedColor] )
         let rect = selectedAttributedStr.boundingRect(with: CGSize.init(width: Int.max, height: Int(self.config.tabViewHeight)), options: .usesLineFragmentOrigin, context: nil)
         
         let button = UIButton.init(type: .custom)
@@ -178,7 +178,7 @@ class ZLPageTabViewConfig : NSObject
             button.isSelected = true
             
             let contentSizeWidth = self.mainPageView().contentSize.width
-            let num = self.childViewControllers.count
+            let num = self.children.count
             let newContentOffsetX = (contentSizeWidth / CGFloat(num)) * CGFloat(self.selectedIndex)
             
             self.mainPageView().setContentOffset(CGPoint.init(x: newContentOffsetX,y: 0), animated: true)
@@ -203,7 +203,7 @@ extension ZLPageTabViewController : UIScrollViewDelegate
         ZLLog_Info(NSString.init(format: "%d %d", scrollView.contentOffset.x,scrollView.contentSize.width) as String)
         let contentOffsetX = scrollView.contentOffset.x
         let contentSizeWidth = scrollView.contentSize.width
-        let num = self.childViewControllers.count
+        let num = self.children.count
         
         if num > 0
         {

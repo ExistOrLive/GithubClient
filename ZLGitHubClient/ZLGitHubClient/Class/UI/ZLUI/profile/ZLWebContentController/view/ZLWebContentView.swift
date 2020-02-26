@@ -86,7 +86,7 @@ class ZLWebContentView: ZLBaseView {
         
         let webViewConfig = WKWebViewConfiguration.init()
         let webView : WKWebView = WKWebView.init(frame: self.containerView.bounds,configuration: webViewConfig)
-        webView.autoresizingMask = UIViewAutoresizing.init(rawValue: UIViewAutoresizing.flexibleWidth.rawValue | UIViewAutoresizing.flexibleHeight.rawValue)
+        webView.autoresizingMask = UIView.AutoresizingMask.init(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
         self.containerView.insertSubview(webView, belowSubview: self.toolBar)
         self.webView = webView
         self.webView?.uiDelegate = self
@@ -102,15 +102,15 @@ class ZLWebContentView: ZLBaseView {
     
     func setUpToolBar()
     {
-        let backBarButtonItem : UIBarButtonItem = UIBarButtonItem.init(title: "上一页", style: UIBarButtonItemStyle.plain, target: self, action: #selector(onGoBackButtonClicked))
+        let backBarButtonItem : UIBarButtonItem = UIBarButtonItem.init(title: "上一页", style: .plain, target: self, action: #selector(onGoBackButtonClicked))
         backBarButtonItem.isEnabled = false
         self.backBarButtonItem = backBarButtonItem
         
-        let forwardBarButtonItem : UIBarButtonItem = UIBarButtonItem.init(title: "下一页", style: UIBarButtonItemStyle.plain, target: self, action: #selector(onGoForwardButtonClicked))
+        let forwardBarButtonItem : UIBarButtonItem = UIBarButtonItem.init(title: "下一页", style: .plain, target: self, action: #selector(onGoForwardButtonClicked))
         forwardBarButtonItem.isEnabled = false
         self.forwardBarButtonItem = forwardBarButtonItem
         
-        let reloadOrStoploadBarButtonItem : UIBarButtonItem = UIBarButtonItem.init(title: "停止加载", style: UIBarButtonItemStyle.plain, target: self, action: #selector(onReloadOrStopLoadButtonCicked))
+        let reloadOrStoploadBarButtonItem : UIBarButtonItem = UIBarButtonItem.init(title: "停止加载", style:.plain, target: self, action: #selector(onReloadOrStopLoadButtonCicked))
         self.reloadOrStoploadBarButtonItem = reloadOrStoploadBarButtonItem
         
         let barButtonItems = [backBarButtonItem,forwardBarButtonItem,reloadOrStoploadBarButtonItem]

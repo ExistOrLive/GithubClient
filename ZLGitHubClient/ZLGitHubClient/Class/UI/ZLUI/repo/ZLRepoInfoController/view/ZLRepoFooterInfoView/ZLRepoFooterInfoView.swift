@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MarkdownView
 
 class ZLRepoFooterInfoView: ZLBaseView {
 
@@ -14,17 +15,31 @@ class ZLRepoFooterInfoView: ZLBaseView {
     
     @IBOutlet weak var refreshButton: UIButton!
     
-    @IBOutlet weak var webView: UIWebView!
+    var markdownView : MarkdownView!
+    
+    required init?(coder: NSCoder) {
+        self.markdownView = MarkdownView()
+        super.init(coder: coder)
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
         self.refreshButton.layer.cornerRadius = 5.0
         self.refreshButton.layer.borderColor = UIColor.lightGray.cgColor
-        
         self.refreshButton.layer.borderWidth = 1.0
         
-        self.webView.scrollView.isScrollEnabled = false
+        self.markdownView?.isScrollEnabled = false
+        self.addSubview(self.markdownView)
+        self.markdownView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.progressView.snp_bottom)
+            make.left.right.bottom.equalToSuperview()
+        }
+        
+//        self.markdownView.onRendered = { [weak self] (height) in
+//            self?.frame = CGRect.init(x: 0, y: 0, width: ZLScreenWidth, height: 300 + height)
+//        }
+        
     }
     
 }

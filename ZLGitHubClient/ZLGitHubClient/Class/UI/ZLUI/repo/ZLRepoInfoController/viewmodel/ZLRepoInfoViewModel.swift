@@ -41,7 +41,6 @@ class ZLRepoInfoViewModel: ZLBaseViewModel {
         self.repoInfoView = targetView as? ZLRepoInfoView
         self.repoInfoView?.tableView.delegate = self
         self.repoInfoView?.tableView.dataSource = self
-        self.repoInfoView?.footerView?.webView.delegate  = self
         
         guard let repoInfoModel: ZLGithubRepositoryModel = targetModel as? ZLGithubRepositoryModel else
         {
@@ -116,14 +115,7 @@ extension ZLRepoInfoViewModel : UIWebViewDelegate
                 let str = String.init(data: reponseObject as! Data, encoding: .utf8)
                 if(str != nil)
                 {
-                    do{
-                        let htmlStr = try MMMarkdown.htmlString(withMarkdown: str!, extensions: MMMarkdownExtensions.gitHubFlavored)
-                        self.repoInfoView?.footerView?.webView.loadHTMLString(htmlStr, baseURL: nil)
-                    }
-                    catch
-                    {
-                        
-                    }
+                    self.repoInfoView?.footerView?.markdownView.load(markdown: str, enableImage: true)
                 }
                 else
                 {
@@ -137,41 +129,10 @@ extension ZLRepoInfoViewModel : UIWebViewDelegate
                 ZLLog_Warn("readme data is nil");
             }
         }, failure: { (task : URLSessionTask?, error :Error) in
-            
-            self.repoInfoView?.footerView?.webView.loadHTMLString("something error", baseURL: nil)
+            self.repoInfoView?.footerView?.markdownView.load(markdown: "# Something Error", enableImage: true)
         })
     }
-    
 
-
-//    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebView.NavigationType) -> Bool
-    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool
-    {
-        return true
-    }
-    
-    func webViewDidStartLoad(_ webView: UIWebView)
-    {
-        
-    }
-    
-    func webViewDidFinishLoad(_ webView: UIWebView)
-    {
-        let contentSize = self.repoInfoView?.footerView?.webView.scrollView.contentSize
-        self.repoInfoView?.footerView?.frame.size.height = contentSize!.height + 70
-        
-        self.repoInfoView?.tableView.reloadData()
-    }
-    
-
-    func webView(_ webView: UIWebView, didFailLoadWithError error: Error)
-    {
-        let contentSize = self.repoInfoView?.footerView?.webView.scrollView.contentSize
-        self.repoInfoView?.footerView?.frame.size.height = contentSize!.height + 70
-        
-        self.repoInfoView?.tableView.reloadData()
-    }
-    
 }
 
 // MARK: UITableViewDelegate,UITableViewDataSource
