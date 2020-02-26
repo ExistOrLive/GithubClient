@@ -95,41 +95,32 @@ extension ZLRepoInfoViewModel
 // MARK: README
 extension ZLRepoInfoViewModel : UIWebViewDelegate
 {
-    static var httpSessionManager : AFHTTPSessionManager?
     func loadREADME()
     {
-        if ZLRepoInfoViewModel.httpSessionManager == nil
+        guard let fullName = self.repoInfoModel?.full_name else
         {
-            ZLRepoInfoViewModel.httpSessionManager = AFHTTPSessionManager.init(sessionConfiguration: URLSessionConfiguration.default)
-            ZLRepoInfoViewModel.httpSessionManager?.responseSerializer = AFHTTPResponseSerializer()
+            return;
         }
         
-        let URLStr = "https://raw.githubusercontent.com/\(self.repoInfoModel!.full_name)/\(self.repoInfoModel!.default_branch)/README.md"
-        
-        ZLRepoInfoViewModel.httpSessionManager?.get(URLStr, parameters: nil, progress:{(progess:Progress) in
+        ZLRepoServiceModel.shared().getRepoReadMeInfo(withFullName:fullName , serialNumber: NSString.generateSerialNumber(), completeHandle: { (resultModel : ZLOperationResultModel) in
             
-        }, success: { (task : URLSessionTask, reponseObject:Any?) in
-            
-            if reponseObject != nil && reponseObject is Data
+            if resultModel.result == false
             {
-                let str = String.init(data: reponseObject as! Data, encoding: .utf8)
-                if(str != nil)
-                {
-                    self.repoInfoView?.footerView?.markdownView.load(markdown: str, enableImage: true)
-                }
-                else
-                {
-                    ZLLog_Warn("readme data is nil");
-                }
-                
-                
+                let errorModel : ZLGithubRequestErrorModel = resultModel.data as! ZLGithubRequestErrorModel
+                self.repoInfoView?.footerView?.markdownView.load(markdown: errorModel.message, enableImage: true)
             }
             else
             {
-                ZLLog_Warn("readme data is nil");
+                let readModel : ZLGithubRepositoryReadMeModel = resultModel.data as! ZLGithubRepositoryReadMeModel
+                guard let data : Data = Data.init(base64Encoded: readModel.content, options: .ignoreUnknownCharacters) else
+                {
+                    self.repoInfoView?.footerView?.markdownView.load(markdown: "parse error", enableImage: true)
+                    return
+                }
+                
+                let readMeStr = String.init(data: data, encoding: .utf8)
+                self.repoInfoView?.footerView?.markdownView.load(markdown: readMeStr, enableImage: true)
             }
-        }, failure: { (task : URLSessionTask?, error :Error) in
-            self.repoInfoView?.footerView?.markdownView.load(markdown: "# Something Error", enableImage: true)
         })
     }
 

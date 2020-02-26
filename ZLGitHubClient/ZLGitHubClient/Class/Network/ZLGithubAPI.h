@@ -51,6 +51,8 @@
 #define searchRepoUrl           @"/search/repositories"              // 根据关键字搜索repo
 #define reposUrl                @"/repos"                            // 获取某个Repo的信息
 
+#define reposReadMeUrl          @"/repos/%@/readme"                  // 获取某个repo的readme信息
+
 
 #pragma mark starred
 

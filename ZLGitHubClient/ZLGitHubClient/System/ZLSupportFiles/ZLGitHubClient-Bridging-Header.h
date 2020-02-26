@@ -36,8 +36,10 @@
 //persistent Model
 #import "ZLGithubUserModel.h"
 #import "ZLGithubRepositoryModel.h"
+#import "ZLGithubRepositoryReadMeModel.h"
 #import "ZLGithubEventModel.h"
 #import "ZLGithubGistModel.h"
+
 
 // tmp Model
 #import "ZLOperationResultModel.h"
