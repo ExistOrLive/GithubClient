@@ -40,13 +40,8 @@ class ZLRepoInfoController: ZLBaseViewController {
         super.viewDidLoad()
 
         self.viewModel = ZLRepoInfoViewModel.init(viewController: self)
-        
-        guard let baseView: ZLRepoInfoView = Bundle.main.loadNibNamed("ZLRepoInfoView", owner: self.viewModel, options: nil)?.first as? ZLRepoInfoView else
-        {
-            ZLLog_Warn("ZLRepoInfoView can not be loaded");
-            return;
-        }
-        baseView.frame = ZLScreenBounds
+
+        let baseView = ZLRepoInfoView.init(frame: CGRect())
         self.contentView.addSubview(baseView)
         baseView.snp.makeConstraints({ (make) in
             make.edges.equalToSuperview()

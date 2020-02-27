@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,19 +13,19 @@
             <rect key="frame" x="0.0" y="0.0" width="476" height="57"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="476" height="56.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="476" height="57"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Feedback" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OUo-Vk-V7c">
-                        <rect key="frame" x="20" y="16.5" width="80" height="24"/>
+                        <rect key="frame" x="20" y="17.5" width="80" height="22.5"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="80" id="H10-zb-mRm"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="PingFangSC-Semibold" family="PingFang SC" pointSize="17"/>
+                        <fontDescription key="fontDescription" name="PingFangSC-Semibold" family="PingFang SC" pointSize="16"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W8r-sV-gqa">
-                        <rect key="frame" x="110" y="28.5" width="0.0" height="0.0"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W8r-sV-gqa">
+                        <rect key="frame" x="426" y="28.5" width="0.0" height="0.0"/>
                         <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="13"/>
                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -40,7 +38,7 @@
                         </constraints>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hu2-Ji-U2y">
-                        <rect key="frame" x="20" y="55.5" width="456" height="1"/>
+                        <rect key="frame" x="20" y="56" width="456" height="1"/>
                         <color key="backgroundColor" white="0.67000000000000004" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="XLf-f4-dft"/>
@@ -54,9 +52,9 @@
                     <constraint firstItem="hu2-Ji-U2y" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="ZRf-7w-4U6"/>
                     <constraint firstItem="OUo-Vk-V7c" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="czI-rQ-5Mh"/>
                     <constraint firstItem="W8r-sV-gqa" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="kF1-4a-fNV"/>
+                    <constraint firstAttribute="trailing" secondItem="W8r-sV-gqa" secondAttribute="trailing" constant="50" id="kJR-uO-Z0m"/>
                     <constraint firstAttribute="bottom" secondItem="hu2-Ji-U2y" secondAttribute="bottom" id="mfi-M1-UMO"/>
                     <constraint firstItem="DXR-5d-575" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="pgr-PE-NQu"/>
-                    <constraint firstItem="W8r-sV-gqa" firstAttribute="leading" secondItem="OUo-Vk-V7c" secondAttribute="trailing" constant="10" id="z9d-yK-LQ3"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

@@ -39,9 +39,7 @@ class ZLRepoInfoViewModel: ZLBaseViewModel {
         }
         
         self.repoInfoView = targetView as? ZLRepoInfoView
-        self.repoInfoView?.tableView.delegate = self
-        self.repoInfoView?.tableView.dataSource = self
-        
+    
         guard let repoInfoModel: ZLGithubRepositoryModel = targetModel as? ZLGithubRepositoryModel else
         {
             ZLLog_Warn("targetModel is not ZLGithubRepositoryModel,so return")
@@ -125,66 +123,6 @@ extension ZLRepoInfoViewModel : UIWebViewDelegate
     }
 
 }
-
-// MARK: UITableViewDelegate,UITableViewDataSource
-extension ZLRepoInfoViewModel: UITableViewDelegate,UITableViewDataSource
-{
-    static let itemsTypes: [ZLRepoInfoItemType] = [.file, .pullRequest, .branch]
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ZLRepoInfoViewModel.itemsTypes.count;
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let tableViewCell : ZLRepoInfoTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLRepoInfoTableViewCell", for: indexPath) as! ZLRepoInfoTableViewCell
-        
-        if(indexPath.row == ZLRepoInfoViewModel.itemsTypes.count - 1)
-        {
-           tableViewCell.singleLineView.isHidden = true
-        }
-        else
-        {
-            tableViewCell.singleLineView.isHidden = false
-        }
-        
-        let itemType = ZLRepoInfoViewModel.itemsTypes[indexPath.row]
-        
-        switch(itemType)
-        {
-        case .file:do{
-            tableViewCell.repoInfoTypeLabel.text = ZLLocalizedString(string: "code", comment: "代码")
-            tableViewCell.repoInfoDetailLabel.text = self.repoInfoModel?.language
-            }
-        case .pullRequest:do{
-            tableViewCell.repoInfoTypeLabel.text = ZLLocalizedString(string: "pull request", comment: "合并请求")
-            //tableViewCell.repoInfoDetailLabel.text = "\(self.repoInfoModel)"
-            }
-        case .branch:do{
-            tableViewCell.repoInfoTypeLabel.text = ZLLocalizedString(string: "branch", comment: "分支")
-            tableViewCell.repoInfoDetailLabel.text = self.repoInfoModel?.default_branch
-            }
-        }
-        
-        return tableViewCell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50.0
-    }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 10.0
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 10.0
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       
-    }
-}
-
 
 extension ZLRepoInfoViewModel
 {

@@ -8,6 +8,7 @@
 
 import UIKit
 import MarkdownView
+import WebKit
 
 class ZLRepoFooterInfoView: ZLBaseView {
 
@@ -29,16 +30,33 @@ class ZLRepoFooterInfoView: ZLBaseView {
         self.refreshButton.layer.borderColor = UIColor.lightGray.cgColor
         self.refreshButton.layer.borderWidth = 1.0
         
-     //   self.markdownView?.isScrollEnabled = false
+        self.markdownView?.isScrollEnabled = false
         self.addSubview(self.markdownView)
         self.markdownView.snp.makeConstraints { (make) in
             make.top.equalTo(self.progressView.snp_bottom)
             make.left.right.bottom.equalToSuperview()
         }
+    }
+    
+    func loadMarkdown(markDown: String)
+    {
+        self.markdownView.load(markdown: markDown, enableImage: true)
         
-//        self.markdownView.onRendered = { [weak self] (height) in
-//            self?.frame = CGRect.init(x: 0, y: 0, width: ZLScreenWidth, height: 300 + height)
-//        }
+        guard let webView : WKWebView = self.markdownView.value(forKey: "webView") as? WKWebView else
+        {
+            return
+        }
+        
+        webView.addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
+    }
+    
+    
+    override class func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        
+        if keyPath == "contentSize"
+        {
+            
+        }
         
     }
     
