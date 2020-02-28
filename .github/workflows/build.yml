@@ -27,6 +27,7 @@ jobs:
         bundle install
         pod install
     - name: archive app
+      working-directory: ./ZLGitHubClient          # 指定run 的工作目录
       run: |
         pwd 
         bundle exec fastlane github_action_adhoc
