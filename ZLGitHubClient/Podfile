@@ -30,7 +30,7 @@ pod 'Toast'
 pod 'SDWebImage', '~> 5.0.0'
 
 #pod 'MMMarkdown'
-pod 'MarkdownView'
+#pod 'MarkdownView'
 
 # AutoLayout
 pod 'Masonry'

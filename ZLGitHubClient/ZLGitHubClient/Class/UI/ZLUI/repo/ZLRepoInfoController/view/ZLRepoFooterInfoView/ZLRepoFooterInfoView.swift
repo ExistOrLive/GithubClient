@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import MarkdownView
 import WebKit
 
 class ZLRepoFooterInfoView: ZLBaseView {
@@ -41,7 +40,7 @@ class ZLRepoFooterInfoView: ZLBaseView {
     func loadMarkdown(markDown: String)
     {
         self.markdownView.load(markdown: markDown, enableImage: true)
-        
+
         guard let webView : WKWebView = self.markdownView.value(forKey: "webView") as? WKWebView else
         {
             return

@@ -67,9 +67,6 @@ class ZLRepoInfoView: ZLBaseView {
             
         }
         self.footerView = footView
-        
-        
-        self.footerView?.markdownView.value(forKey: "")
     }
     
     required init?(coder: NSCoder) {
