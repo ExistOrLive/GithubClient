@@ -15,7 +15,7 @@ jobs:
     runs-on: macos-latest # runner 系统 
     steps:
     - name: checkout
-      uses: actions/checkout@v2.0.0
+      uses: actions/checkout@v1
       with: 
         ref: branch 
     - name: construct build enviroment
