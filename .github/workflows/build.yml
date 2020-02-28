@@ -25,6 +25,7 @@ jobs:
         gem cleanup
         gem install bundler
         bundle install
+        pod repo update
         pod install
     - name: archive app
       working-directory: ./ZLGitHubClient          # 指定run 的工作目录
