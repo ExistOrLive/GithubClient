@@ -38,6 +38,32 @@ platform :ios do
   end
 
   desc "build one adhoc release on travis"
+  lane :github_action_adhoc do
+    create_keychain(
+      name: ENV['MATCH_KEYCHAIN_NAME'],
+      password: ENV['MATCH_PASSWORD'],
+      default_keychain: true,
+      unlock: true,
+      timeout: 3600,
+      add_to_search_list: true
+    ) 
+    match(type: "adhoc",
+          readonly: true,
+          app_identifier: "com.zm.ZLGitHubClient",
+          keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
+          keychain_password: ENV['MATCH_PASSWORD'],
+          git_url: ENV['MATCH_GITHUB_URL'])
+    gym(workspace: "ZLGitHubClient.xcworkspace",
+        scheme: "ZLGitHubClient",
+        clean: true,
+        include_symbols: true,
+        include_bitcode: true,
+        output_directory: "./fastlane/ipa",
+        output_name: "ZLGitHubClient.ipa")
+  end
+
+
+  desc "build one adhoc release on travis"
   lane :travis_adhoc do
     create_keychain(
       name: ENV["MATCH_KEYCHAIN_NAME"],
@@ -61,6 +87,7 @@ platform :ios do
         output_directory: "./fastlane/ipa",
         output_name: "ZLGitHubClient.ipa")
   end
+
 
   desc "build one TestFlight release"
   lane :beta do
