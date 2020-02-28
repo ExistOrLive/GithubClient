@@ -21,12 +21,12 @@ jobs:
     - name: construct build enviroment
       working-directory: ./ZLGitHubClient          # 指定run 的工作目录
       run: |
-        echo "start constructing build enviroment"
         gem cleanup
         gem install bundler
         bundle install
         pod repo update
         pod install
+        echo "construct build enviroment success"
     - name: archive app
       working-directory: ./ZLGitHubClient          # 指定run 的工作目录
       env: 
@@ -36,3 +36,13 @@ jobs:
       run: |
         pwd 
         bundle exec fastlane github_action_adhoc
+        echo "ipa build success"
+    - name: upload artifact
+      working-directory: ./ZLGitHubClient          # 指定run 的工作目录
+      if: success()
+      env: 
+        CODING_ARTIFACT_TOKEN: ${{ secrets.CODING_ARTIFACT_TOKEN }}
+      run: |
+        curl -T ./fastlane/ipa/ZLGitHubClient.ipa  -u $CODING_ARTIFACT_TOKEN  "https://existorlive-generic.pkg.coding.net/ZLGitHubClient/adhoc/ZLGitHubClient.ipa" -v                    # 上传ipa到制品库
+        curl -T ./fastlane/ipa/ZLGitHubClient.app.dSYM.zip  -u $CODING_ARTIFACT_TOKEN  "https://existorlive-generic.pkg.coding.net/ZLGitHubClient/adhoc/ZLGitHubClient.app.dSYM.zip" -v  # 上传符号化文件dsym
+        echo "work flow build end"
