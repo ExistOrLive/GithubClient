@@ -17,7 +17,7 @@ jobs:
     - name: checkout
       uses: actions/checkout@v1
       with: 
-        ref: branch 
+        ref: master 
     - name: construct build enviroment
       working-directory: ./Github/ZLGithubClient          # 指定run 的工作目录
       run: |
