@@ -28,6 +28,10 @@ jobs:
         pod install
     - name: archive app
       working-directory: ./ZLGitHubClient          # 指定run 的工作目录
+      env: 
+        MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
+        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+        MATCH_GITHUB_URL: ${{ secrets.MATCH_GITHUB_URL }}
       run: |
         pwd 
         bundle exec fastlane github_action_adhoc
