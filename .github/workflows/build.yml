@@ -22,11 +22,11 @@ jobs:
       working-directory: ./ZLGitHubClient          # 指定run 的工作目录
       run: |
         echo "start constructing build enviroment"
-        cd ZLGitHubClient
-        pwd
+        gem cleanup
         gem install bundler
         bundle install
         pod install
     - name: archive app
       run: |
-        fastlane github_action_adhoc
+        pwd 
+        bundle exec fastlane github_action_adhoc
