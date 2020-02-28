@@ -19,7 +19,7 @@ jobs:
       with: 
         ref: master 
     - name: construct build enviroment
-      #working-directory: ./Github/ZLGithubClient          # 指定run 的工作目录
+      working-directory: ./ZLGitHubClient          # 指定run 的工作目录
       run: |
         echo "start constructing build enviroment"
         pwd
@@ -27,6 +27,6 @@ jobs:
         bundle install
         pod install
     - name: archive app
-      working-directory: ./Github/ZLGithubClient
+      working-directory: ./ZLGithubClient
       run: |
         fastlane adhoc
