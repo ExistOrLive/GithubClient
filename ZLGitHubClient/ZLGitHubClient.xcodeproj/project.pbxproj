@@ -133,6 +133,9 @@
 		74C861CA22F02BED00A30B79 /* ZLGitHubClientLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 74C861CC22F02BED00A30B79 /* ZLGitHubClientLocalizable.strings */; };
 		74C861D822F02F1F00A30B79 /* ZLLanguageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 74C861D722F02F1F00A30B79 /* ZLLanguageManager.m */; };
 		74CB30C92364AEB800B8F5D0 /* ZLPresentContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 74CB30C72364AEB700B8F5D0 /* ZLPresentContainerView.m */; };
+		74CCC436240D53560001AA5D /* ZLRepoHeaderInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CCC435240D53560001AA5D /* ZLRepoHeaderInfoViewModel.swift */; };
+		74CCC439240D5AA90001AA5D /* ZLRepoItemInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CCC438240D5AA90001AA5D /* ZLRepoItemInfoViewModel.swift */; };
+		74CCC43C240D62120001AA5D /* ZLRepoFooterInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CCC43B240D62120001AA5D /* ZLRepoFooterInfoViewModel.swift */; };
 		74CDA6812409833C00049EF8 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 74CDA67A2409833C00049EF8 /* index.html */; };
 		74CDA6822409833C00049EF8 /* main.css in Resources */ = {isa = PBXBuildFile; fileRef = 74CDA67B2409833C00049EF8 /* main.css */; };
 		74CDA6832409833C00049EF8 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = 74CDA67C2409833C00049EF8 /* main.js */; };
@@ -406,6 +409,9 @@
 		74C861DA22F0306F00A30B79 /* ZLLanguageModuleProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLLanguageModuleProtocol.h; sourceTree = "<group>"; };
 		74CB30C72364AEB700B8F5D0 /* ZLPresentContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLPresentContainerView.m; sourceTree = "<group>"; };
 		74CB30C82364AEB800B8F5D0 /* ZLPresentContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLPresentContainerView.h; sourceTree = "<group>"; };
+		74CCC435240D53560001AA5D /* ZLRepoHeaderInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLRepoHeaderInfoViewModel.swift; sourceTree = "<group>"; };
+		74CCC438240D5AA90001AA5D /* ZLRepoItemInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLRepoItemInfoViewModel.swift; sourceTree = "<group>"; };
+		74CCC43B240D62120001AA5D /* ZLRepoFooterInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLRepoFooterInfoViewModel.swift; sourceTree = "<group>"; };
 		74CDA67A2409833C00049EF8 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		74CDA67B2409833C00049EF8 /* main.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = main.css; sourceTree = "<group>"; };
 		74CDA67C2409833C00049EF8 /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
@@ -831,7 +837,10 @@
 		743425E4230AEA180031AD7D /* viewmodel */ = {
 			isa = PBXGroup;
 			children = (
-				743425E5230AEA400031AD7D /* ZLRepoInfoViewModel.swift */,
+				74CCC43A240D61F10001AA5D /* ZLRepoFooterInfoViewModel */,
+				74CCC437240D5A8A0001AA5D /* ZLRepoItemInfoViewModel */,
+				74CCC434240D529F0001AA5D /* ZLRepoHeadeInfoViewModel */,
+				74CCC433240D527B0001AA5D /* ZLRepoInfoViewModel */,
 			);
 			path = viewmodel;
 			sourceTree = "<group>";
@@ -1731,6 +1740,38 @@
 			path = ZLSearchFilterView;
 			sourceTree = "<group>";
 		};
+		74CCC433240D527B0001AA5D /* ZLRepoInfoViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				743425E5230AEA400031AD7D /* ZLRepoInfoViewModel.swift */,
+			);
+			path = ZLRepoInfoViewModel;
+			sourceTree = "<group>";
+		};
+		74CCC434240D529F0001AA5D /* ZLRepoHeadeInfoViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				74CCC435240D53560001AA5D /* ZLRepoHeaderInfoViewModel.swift */,
+			);
+			path = ZLRepoHeadeInfoViewModel;
+			sourceTree = "<group>";
+		};
+		74CCC437240D5A8A0001AA5D /* ZLRepoItemInfoViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				74CCC438240D5AA90001AA5D /* ZLRepoItemInfoViewModel.swift */,
+			);
+			path = ZLRepoItemInfoViewModel;
+			sourceTree = "<group>";
+		};
+		74CCC43A240D61F10001AA5D /* ZLRepoFooterInfoViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				74CCC43B240D62120001AA5D /* ZLRepoFooterInfoViewModel.swift */,
+			);
+			path = ZLRepoFooterInfoViewModel;
+			sourceTree = "<group>";
+		};
 		74CDA6772409833C00049EF8 /* Import */ = {
 			isa = PBXGroup;
 			children = (
@@ -2408,6 +2449,7 @@
 				74F0ABEB2365C2BF00D1B954 /* ZLSearchFilterViewModelForUser.swift in Sources */,
 				74478D3C231FE37B007D3832 /* ZLSettingController.swift in Sources */,
 				74BED25C22DF86C5006B07C1 /* ZLUserServiceModel.m in Sources */,
+				74CCC439240D5AA90001AA5D /* ZLRepoItemInfoViewModel.swift in Sources */,
 				740318D422F70867004CE52D /* ZLSearchTypeCollectionViewCell.swift in Sources */,
 				743425E6230AEA400031AD7D /* ZLRepoInfoViewModel.swift in Sources */,
 				7431B42922F5DDD70060968A /* ZLExploreBaseViewModel.swift in Sources */,
@@ -2415,6 +2457,7 @@
 				74D34934231C000900A949B2 /* NSString+ZLExtension.m in Sources */,
 				74C19210239EAB3800636F24 /* ZLReposListView.swift in Sources */,
 				361B8B7F239FD35000F725B8 /* ZLStarReposBaseViewModel.m in Sources */,
+				74CCC43C240D62120001AA5D /* ZLRepoFooterInfoViewModel.swift in Sources */,
 				74EA4B3522FF165E006D2FD3 /* ZLSearchResultModel.m in Sources */,
 				7434CA7F238EC05D00763220 /* ZLEventListView.swift in Sources */,
 				0ADF903D21D4B01900BF86CD /* main.m in Sources */,
@@ -2448,6 +2491,7 @@
 				36C786012407E05F001B74C9 /* ZLRepoItemInfoView.swift in Sources */,
 				74F02CDD22DD75E600AE153F /* ZLProfileBaseViewModel.swift in Sources */,
 				7434CA832393E89100763220 /* ZLPushEventTableViewCell.swift in Sources */,
+				74CCC436240D53560001AA5D /* ZLRepoHeaderInfoViewModel.swift in Sources */,
 				3628FCE1238BB22000FC36FC /* ZLEventTableViewCell.swift in Sources */,
 				D1135F7021ECD09D003A26C1 /* ZLProfileViewController.m in Sources */,
 				D1135F7B21ECD34A003A26C1 /* UIBarButtonItem+Item.m in Sources */,

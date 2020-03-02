@@ -63,8 +63,6 @@ class ZLRepoInfoView: ZLBaseView {
             make.top.equalTo(self.itemView!.snp_bottom).offset(10)
             make.left.bottom.equalToSuperview()
             make.width.equalTo(self.snp_width)
-            make.height.equalTo(ZLSCreenHeight)
-            
         }
         self.footerView = footView
     }

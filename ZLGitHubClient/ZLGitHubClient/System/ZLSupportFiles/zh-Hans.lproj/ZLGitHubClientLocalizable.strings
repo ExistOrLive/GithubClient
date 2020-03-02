@@ -19,6 +19,7 @@
 "fork" = "拷贝";
 "star" = "标星";
 "owner" = "作者";
+"watcher" = "关注";
 
 "company" = "公司";
 "location" = "地址";

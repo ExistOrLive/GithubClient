@@ -30,4 +30,7 @@
 - (void) setZLNavigationBarHidden:(BOOL)hidden;
 
 
+- (void) onBackButtonClicked:(UIButton *) button;
+
+
 @end
