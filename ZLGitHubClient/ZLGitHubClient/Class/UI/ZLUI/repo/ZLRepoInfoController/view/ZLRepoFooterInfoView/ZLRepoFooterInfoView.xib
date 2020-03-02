@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -30,11 +30,11 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="v5J-y5-dOL">
-                    <rect key="frame" x="0.0" y="60" width="442" height="2"/>
+                    <rect key="frame" x="10" y="60" width="422" height="1"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="2" id="xBu-nu-FeM"/>
+                        <constraint firstAttribute="height" constant="1" id="xBu-nu-FeM"/>
                     </constraints>
-                    <color key="progressTintColor" white="0.67000000000000004" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="progressTintColor" white="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <color key="trackTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </progressView>
             </subviews>
@@ -42,9 +42,9 @@
             <constraints>
                 <constraint firstItem="Xbc-xO-1yg" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="TwP-CT-9Ia"/>
                 <constraint firstItem="v5J-y5-dOL" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="60" id="Vaa-bY-fAq"/>
-                <constraint firstItem="v5J-y5-dOL" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="c1F-7d-huB"/>
+                <constraint firstItem="v5J-y5-dOL" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="c1F-7d-huB"/>
                 <constraint firstItem="Xbc-xO-1yg" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="jVN-zV-Wic"/>
-                <constraint firstAttribute="trailing" secondItem="v5J-y5-dOL" secondAttribute="trailing" id="lRU-cT-1Ng"/>
+                <constraint firstAttribute="trailing" secondItem="v5J-y5-dOL" secondAttribute="trailing" constant="10" id="lRU-cT-1Ng"/>
                 <constraint firstItem="tE9-G5-g3P" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="tDW-Pg-sNP"/>
                 <constraint firstAttribute="trailing" secondItem="tE9-G5-g3P" secondAttribute="trailing" constant="20" id="z5e-uh-bPW"/>
             </constraints>

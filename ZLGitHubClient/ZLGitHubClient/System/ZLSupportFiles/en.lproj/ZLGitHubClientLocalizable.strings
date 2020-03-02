@@ -16,8 +16,9 @@
 "followers" = "Followers";
 "following" = "Following";
 "created at" = "Created at";
-"fork" = "Fork";
-"star" = "Star";
+"fork" = "Forks";
+"star" = "Stars";
+"watcher" = "Watchers";
 "owner" = "Owner";
 
 "company" = "Company";
@@ -44,8 +45,8 @@
 "Loading" = "loading";
 "LoadFinished" = "load finished";
 
-"pull request" = "pull request";
-"branch" = "branch";
+"pull request" = "Pull Request";
+"branch" = "Branch";
 
 "day ago" = " day ago";
 "hour ago" = " hour ago";
