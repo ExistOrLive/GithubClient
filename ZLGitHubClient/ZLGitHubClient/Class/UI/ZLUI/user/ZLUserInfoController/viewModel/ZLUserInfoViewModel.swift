@@ -111,7 +111,9 @@ extension ZLUserInfoViewModel
     {
         self.userInfoModel = model;
         
-        view.headImageView.sd_setImage(with: URL.init(string: model.avatar_url), placeholderImage: nil);
+        self.viewController?.title = model.loginName
+        
+        view.headImageView.sd_setImage(with: URL.init(string: model.avatar_url), placeholderImage: UIImage.init(named: "default_avatar"));
         view.nameLabel.text = String("\(model.name)(\(model.loginName))")
         
         var dateStr = model.created_at

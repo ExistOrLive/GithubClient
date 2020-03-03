@@ -31,13 +31,13 @@ class ZLProfileBaseView: ZLBaseView {
         
         // 设置tableView
         self.tableView.register(UINib.init(nibName: "ZLProfileTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLProfileTableViewCell");
-        self.tableView.autoresizingMask = UIViewAutoresizing.init(rawValue: 0);
+        self.tableView.autoresizingMask = UIView.AutoresizingMask.init(rawValue: 0);
         
         // 设置tableViewHeader
         let tableViewHeader: ZLProfileHeaderView? = Bundle.main.loadNibNamed("ZLProfileHeaderView", owner: self, options: nil)?.first as? ZLProfileHeaderView;
         if tableViewHeader != nil
         {
-            tableViewHeader!.autoresizingMask = UIViewAutoresizing.init(rawValue: 0);
+            tableViewHeader!.autoresizingMask = UIView.AutoresizingMask.init(rawValue: 0);
             tableViewHeader!.frame = CGRect.init(x: 0, y: 0, width: ZLScreenWidth, height: 350);
             tableView.tableHeaderView = tableViewHeader;
             self.tableHeaderView = tableViewHeader;

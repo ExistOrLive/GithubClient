@@ -35,7 +35,7 @@ class ZLEventTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
      
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style,reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
         self.backgroundColor = UIColor.clear
@@ -122,7 +122,7 @@ class ZLEventTableViewCell: UITableViewCell {
     
     func fillWithData(cellData : ZLEventTableViewCellData)
     {
-        self.headImageButton?.sd_setBackgroundImage(with: URL.init(string: cellData.getActorAvaterURL()), for: .normal, completed:nil)
+        self.headImageButton?.sd_setBackgroundImage(with: URL.init(string: cellData.getActorAvaterURL()), for: .normal, placeholderImage: UIImage.init(named: "default_avatar"), options: .refreshCached, context: nil)
         self.actorNameLabel?.text = cellData.getActorName()
         self.timeLabel?.text = cellData.getTimeStr()
         self.eventDesLabel?.text = cellData.getEventDescrption()

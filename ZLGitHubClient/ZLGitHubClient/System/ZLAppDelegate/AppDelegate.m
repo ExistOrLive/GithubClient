@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import "ZLGithubAPI.h"
+#import "ZLBuglyManager.h"
+#import "ZLSharedDataManager.h"
 
 #ifdef DEBUG
 #import <DoraemonKit/DoraemonManager.h>
@@ -26,6 +28,8 @@
     // Override point for customization after application launch.
     
     [self setUpDoraemonKit];
+    
+    [self setUpBugly];
     
     /**
      *
@@ -51,6 +55,9 @@
     
     [self addObserver];
     
+    
+    [self initUIConfig];
+    
       /**
        *
        *  初始化window
@@ -60,7 +67,7 @@
     [self.window makeKeyAndVisible];
     
     
-    if([[ZLKeyChainManager sharedInstance] getGithubAccessToken].length == 0)
+    if([[ZLSharedDataManager sharedInstance] githubAccessToken].length == 0)
     {
         // token为空，切到登陆界面
         [self switchToLoginController];
@@ -107,16 +114,35 @@
 
 #pragma mark -
 
+- (void) initUIConfig
+{
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeBlack];
+}
+
 - (void) switchToMainController
 {
-    UIViewController * rootViewController = [SYDCentralPivotUIAdapter getZLMainViewController];
-    [self.window setRootViewController:rootViewController];
+    [UIView transitionWithView:self.window duration:0.5 options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
+        
+        UIViewController * rootViewController = [SYDCentralPivotUIAdapter getZLMainViewController];
+        [self.window setRootViewController:rootViewController];
+        
+    } completion:^(BOOL finished) {
+        
+    }];
+    
+  
 }
 
 - (void) switchToLoginController
 {
-    UIViewController * rootViewController = [[ZLLoginViewController alloc] init];
-    [self.window setRootViewController:rootViewController];
+    [UIView transitionWithView:self.window duration:0.5 options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
+          
+        UIViewController * rootViewController = [[ZLLoginViewController alloc] init];
+        [self.window setRootViewController:rootViewController];
+          
+      } completion:^(BOOL finished) {
+          
+      }];
 }
 
 
@@ -156,5 +182,12 @@
            //[[DoraemonManager shareInstance] installWithStartingPosition:CGPointMake(66, 66)];
        #endif
 }
+
+#pragma mark - Bugly
+- (void) setUpBugly
+{
+    [[ZLBuglyManager sharedManager] setUp];
+}
+
  
 @end

@@ -44,16 +44,6 @@ class ZLLoginViewModel: ZLBaseViewModel,ZLLoginBaseViewDelegate {
     
     func reloadView()
     {
-        let loginName = ZLKeyChainManager.sharedInstance().getUserAccount()
-        let headImageUrlStr = ZLKeyChainManager.sharedInstance().getHeadImageURL()
-        let imageUrl = URL.init(string: headImageUrlStr)
-        
-        self.baseView?.userLoginNameLabel.text = loginName
-        if imageUrl != nil
-        {
-           self.baseView?.userHeadImageView.setImageWith(imageUrl!, placeholderImage: nil)
-        }
-        
         switch(ZLLoginServiceModel.shared().currentLoginStep())
         {
         case ZLLoginStep_init:do{
@@ -123,8 +113,8 @@ class ZLLoginViewModel: ZLBaseViewModel,ZLLoginBaseViewDelegate {
             {
                 self.baseView?.loginButton.isUserInteractionEnabled = true;
                 self.baseView?.activityIndicator.isHidden = true;
-                let controller: UIAlertController = UIAlertController.init(title: "登陆失败", message: nil, preferredStyle: UIAlertControllerStyle.alert);
-                let action: UIAlertAction = UIAlertAction.init(title: "确定", style: UIAlertActionStyle.default, handler: nil);
+                let controller: UIAlertController = UIAlertController.init(title: "登陆失败", message: nil, preferredStyle: UIAlertController.Style.alert);
+                let action: UIAlertAction = UIAlertAction.init(title: "确定", style: UIAlertAction.Style.default, handler: nil);
                                 controller.addAction(action);
                 self.viewController?.present(controller, animated: true, completion: nil);
                 

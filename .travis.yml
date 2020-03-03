@@ -1,0 +1,34 @@
+# 官方文档： https://docs.travis-ci.com/user/languages/objective-c/
+# https://config.travis-ci.com/ref/language
+language: objective-c         # 语言
+os: osx
+osx_image: xcode11.2          # SDK version
+xcode_workspace: ZLGitHubClient.xcworkspace   
+xcode_scheme: ZLGithubClient
+podfile: ZLGithubClient/Podfile
+gemfile: ZLGitHubClient/Gemfile
+before_install:
+  - cd ZLGithubClient                     # 切换到 工程目录
+  - rm -rf ./fastlane/ipa                 # 清空构建结果
+  - mkdir -p ./fastlane/ipa              
+  - gem install bundler                   # 安装最新的bundle
+  - bundle install                        # bundle命令根据gemfile下载相应的依赖包
+  - pod repo update
+install: 
+  - pod install --no-repo-update                        # 安装工程依赖pod库
+script:
+  - fastlane travis_adhoc                 # fastlane 打包工程
+after_success:
+  - curl -T ./fastlane/ipa/ZLGitHubClient.ipa  -u ${ARTIFACTS_TOKEN}  "https://existorlive-generic.pkg.coding.net/ZLGitHubClient/adhoc/ZLGitHubClient.ipa" -v                    # 上传ipa到制品库
+  - curl -T ./fastlane/ipa/ZLGitHubClient.app.dSYM.zip  -u ${ARTIFACTS_TOKEN}  "https://existorlive-generic.pkg.coding.net/ZLGitHubClient/adhoc/ZLGitHubClient.app.dSYM.zip" -v  # 上传符号化文件dsym
+cache:
+  bundler: true
+  cocoapods: true                            # 缓存pod库
+
+
+# cache 使用 https://docs.travis-ci.com/user/caching/
+
+# travis 使用 fastlane 打包 https://docs.travis-ci.com/user/common-build-problems/#fastlane
+
+
+# travis 使用 cocoapods  https://docs.travis-ci.com/user/common-build-problems/#mac-errors-running-cocoapods

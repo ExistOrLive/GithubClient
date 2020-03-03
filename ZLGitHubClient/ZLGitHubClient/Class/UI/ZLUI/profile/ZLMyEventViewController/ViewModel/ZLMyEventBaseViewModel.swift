@@ -130,7 +130,9 @@ extension ZLMyEventBaseViewModel
             var cellDataArray : [ZLEventTableViewCellData] = [];
             for eventModel in responseObject.data as! [ZLGithubEventModel]
             {
-                cellDataArray.append(ZLEventTableViewCellData.getCellDataWithEventModel(eventModel: eventModel))
+               let cellData = ZLEventTableViewCellData.getCellDataWithEventModel(eventModel: eventModel)
+                self.addSubViewModel(cellData)
+                cellDataArray.append(cellData)
             }
                             
             if responseObject.serialNumber == self.serialNumberDic[ZLMyEventBaseViewModel.ZLQueryMoreMyEventRequestKey]

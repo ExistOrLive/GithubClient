@@ -3,9 +3,10 @@
 //
 
 #import <AFNetworking/AFNetworking.h>
-#import <MMMarkdown/MMMarkdown.h>
+#import <SVProgressHUD/SVProgressHUD.h>
 
 #import "ZLBaseUIHeader.h"
+#import "ZLBaseObject.h"
 
 // customView
 #import "ZLCustomTextField.h"
@@ -17,6 +18,7 @@
 // TOOL
 #import "ZLToolManager.h"
 #import "ZLKeyChainManager.h"
+#import "ZLToastView.h"
 
 // Service
 #import "ZLLoginServiceModel.h"
@@ -34,6 +36,10 @@
 //persistent Model
 #import "ZLGithubUserModel.h"
 #import "ZLGithubRepositoryModel.h"
+#import "ZLGithubRepositoryReadMeModel.h"
+#import "ZLGithubEventModel.h"
+#import "ZLGithubGistModel.h"
+
 
 // tmp Model
 #import "ZLOperationResultModel.h"
@@ -43,7 +49,7 @@
 #import "ZLSearchResultModel.h"
 #import "ZLLoginProcessModel.h"
 
-#import "ZLGithubEventModel.h"
+
 
 // Network
 #import "ZLGithubHTTPClient.h"

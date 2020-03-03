@@ -14,21 +14,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype) sharedInstance;
 
-- (NSString *) getGithubAccessToken;
++ (void) save:(NSString *)service data:(id)data;
 
-- (NSString *) getUserAccount;
++ (id) load:(NSString *)service;
 
-- (NSString *) getHeadImageURL;
-
-- (BOOL) updateGithubAccessToken:(NSString * __nullable) token;
-
-- (BOOL) updateUserAccount:(NSString * __nullable) userAccount;
-
-- (BOOL) updateUserAccount:(NSString * __nullable) userAccount withAccessToken:(NSString * __nullable) token;
-
-- (BOOL) updateUserHeadImageURL:(NSString * __nullable) headImageURL;
-
-- (void) clearGithubTokenAndUserInfo;
++ (void) delete:(NSString *)service;
 
 @end
 

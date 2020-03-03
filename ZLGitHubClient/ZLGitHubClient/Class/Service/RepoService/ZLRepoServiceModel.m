@@ -47,7 +47,8 @@
         repoResultModel.serialNumber = serialNumber;
         repoResultModel.data = responseObject;
         
-        ZLMainThreadDispatch([weakSelf postNotification:ZLGetSpecifiedRepoInfoResult_Notification withParams:repoResultModel];)
+        ZLMainThreadDispatch(
+        [weakSelf postNotification:ZLGetSpecifiedRepoInfoResult_Notification withParams:repoResultModel];)
     };
     
     [[ZLGithubHttpClient defaultClient] getRepositoryInfo:response
@@ -75,6 +76,37 @@
     
     [self getRepoInfoWithFullName:fullName serialNumber:serialNumber];
 }
+
+
+
+- (void) getRepoReadMeInfoWithFullName:(NSString *) fullName
+                          serialNumber:(NSString *) serialNumber
+                        completeHandle:(void(^)(ZLOperationResultModel *)) handle
+{
+    if(fullName.length == 0 || ![fullName containsString:@"/"])
+    {
+         ZLLog_Info(@"fullName is not valid");
+         return;
+    }
+    
+    GithubResponse response = ^(BOOL  result, id responseObject, NSString * serialNumber)
+    {
+        ZLOperationResultModel * repoResultModel = [[ZLOperationResultModel alloc] init];
+        repoResultModel.result = result;
+        repoResultModel.serialNumber = serialNumber;
+        repoResultModel.data = responseObject;
+        
+        if(handle)
+        {
+            ZLMainThreadDispatch(handle(repoResultModel);)
+        }
+    };
+    
+    [[ZLGithubHttpClient defaultClient] getRepositoryReadMeInfo:response
+                                                       fullName:fullName
+                                                   serialNumber:serialNumber];
+}
+
 
 
 @end

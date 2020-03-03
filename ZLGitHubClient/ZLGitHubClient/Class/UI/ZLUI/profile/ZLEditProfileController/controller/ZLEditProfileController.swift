@@ -15,6 +15,8 @@ class ZLEditProfileController: ZLBaseViewController {
  
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.title = ZLLocalizedString(string: "EditProfile", comment: "编辑主页")
 
         self.viewModel = ZLEditProfileViewModel.init(viewController: self)
         
@@ -23,9 +25,11 @@ class ZLEditProfileController: ZLBaseViewController {
             ZLLog_Warn("ZLRepoInfoView can not be loaded");
             return;
         }
-        baseView.frame = ZLScreenBounds
-        self.view.addSubview(baseView)
         
+        self.contentView.addSubview(baseView)
+        baseView.snp.makeConstraints({ (make) in
+            make.edges.equalToSuperview()
+        })
         self.viewModel.bindModel(self.userInfoModel, andView: baseView)
     }
     

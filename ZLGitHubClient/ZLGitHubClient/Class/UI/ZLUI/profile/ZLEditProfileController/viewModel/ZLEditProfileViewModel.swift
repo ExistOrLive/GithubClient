@@ -18,9 +18,7 @@ class ZLEditProfileViewModel: ZLBaseViewModel {
     
     
     deinit {
-        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillHide, object: nil)
-        ZLUserServiceModel.shared().unRegisterObserver(self, name: ZLUpdateUserPublicProfileInfoResult_Notification)
+        self.removeObservers()
     }
     
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
@@ -31,6 +29,7 @@ class ZLEditProfileViewModel: ZLBaseViewModel {
         }
         
         self.editProfileView = targetView as? ZLEditProfileView
+        self.setUpSaveButton()
         
         if targetModel == nil || !(targetModel is ZLGithubUserModel)
         {
@@ -39,21 +38,13 @@ class ZLEditProfileViewModel: ZLBaseViewModel {
         
         self.setViewDataForEditProfileView(model: targetModel as! ZLGithubUserModel)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillShow(notification:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillHide(notification:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
-        
-        ZLUserServiceModel.shared().registerObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLUpdateUserPublicProfileInfoResult_Notification)
+        self.addObservers()
     }
     
     
-    @IBAction func onBackButtonClicked(_ sender: Any) {
-
-        self.viewController?.navigationController?.popViewController(animated: true)
-    }
-    
-    @IBAction func onSaveButtonClicked(_ sender: Any) {
+    @objc func onSaveButtonClicked(_ sender: Any) {
         
-        self.editProfileView?.contentView?.resignAllFirstResponder()
+        self.editProfileView?.endEditing(true)
         
         let bio = self.editProfileView?.contentView?.personalDescTextView.text
         let company = self.editProfileView?.contentView?.companyTextField.text
@@ -63,12 +54,34 @@ class ZLEditProfileViewModel: ZLBaseViewModel {
         
         ZLUserServiceModel.shared().updateUserPublicProfileWithemail(email, blog: blog, company: company, location: location, bio: bio, serialNumber: "da")
         
-        self.editProfileView?.indicatorView.isHidden = false
-        self.editProfileView?.activityIndicator.startAnimating()
-        
-        
+        SVProgressHUD.show();
     }
     
+    
+    func addObservers()
+    {
+        ZLUserServiceModel.shared().registerObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLUpdateUserPublicProfileInfoResult_Notification)
+    }
+    
+    func removeObservers()
+    {
+        ZLUserServiceModel.shared().unRegisterObserver(self, name: ZLUpdateUserPublicProfileInfoResult_Notification)
+    }
+    
+    func setUpSaveButton()
+    {
+        let attributedTitle = NSAttributedString.init(string: ZLLocalizedString(string: "Save",comment: "保存"), attributes: [NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 14)!,NSAttributedString.Key.foregroundColor:UIColor.white])
+        
+        let button = UIButton.init(type: .custom)
+        button.backgroundColor = UIColor.black
+        button.layer.cornerRadius = 3.0
+        button.setAttributedTitle(attributedTitle, for: .normal)
+        button.frame = CGRect.init(x: 0, y: 0, width: 70, height: 30)
+        button.addTarget(self, action: #selector(onSaveButtonClicked), for: .touchUpInside)
+        
+        let vc = self.viewController as? ZLBaseViewController
+        vc?.zlNavigationBar.rightButton = button
+    }
     
 }
 
@@ -87,30 +100,6 @@ extension ZLEditProfileViewModel{
     
 }
 
-// MARK : 监听键盘弹出
-extension ZLEditProfileViewModel{
-    
-    @objc func keyBoardWillShow(notification: Notification)
-    {
-        guard let userInfo = notification.userInfo else {return}
-        let value = userInfo["UIKeyboardFrameBeginUserInfoKey"] as! NSValue
-        let keyboardRect = value.cgRectValue
-        let keyboradHeight = keyboardRect.size.height
-        
-        self.editProfileView!.scrollView.contentSize.height = self.editProfileView!.scrollView.contentSize.height + keyboradHeight
-    }
-    
-    @objc func keyBoardWillHide(notification: Notification)
-    {
-        guard let userInfo = notification.userInfo else {return}
-        let value = userInfo["UIKeyboardFrameBeginUserInfoKey"] as! NSValue
-        let keyboardRect = value.cgRectValue
-        let keyboradHeight = keyboardRect.size.height
-        
-        self.editProfileView!.scrollView.contentSize.height = self.editProfileView!.scrollView.contentSize.height - keyboradHeight
-    }
-    
-}
 
 extension ZLEditProfileViewModel
 {
@@ -120,8 +109,7 @@ extension ZLEditProfileViewModel
         {
         case ZLUpdateUserPublicProfileInfoResult_Notification:do
         {
-            self.editProfileView?.indicatorView.isHidden = true
-            self.editProfileView?.activityIndicator.stopAnimating()
+            SVProgressHUD.dismiss();
             
             let operationResultModel : ZLOperationResultModel = notification.params as! ZLOperationResultModel
             
@@ -129,10 +117,12 @@ extension ZLEditProfileViewModel
             {
                 ZLLog_Info("update public profile success")
                 self.viewController?.navigationController?.popViewController(animated: true)
+                ZLToastView.showMessage("保存成功")
             }
             else
             {
                 ZLLog_Info("update public profile failed")
+                ZLToastView.showMessage("保存失败")
             }
         
             }

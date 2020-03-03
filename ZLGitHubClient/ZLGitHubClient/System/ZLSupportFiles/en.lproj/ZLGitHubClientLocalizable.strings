@@ -16,8 +16,9 @@
 "followers" = "Followers";
 "following" = "Following";
 "created at" = "Created at";
-"fork" = "Fork";
-"star" = "Star";
+"fork" = "Forks";
+"star" = "Stars";
+"watcher" = "Watchers";
 "owner" = "Owner";
 
 "company" = "Company";
@@ -44,8 +45,8 @@
 "Loading" = "loading";
 "LoadFinished" = "load finished";
 
-"pull request" = "pull request";
-"branch" = "branch";
+"pull request" = "Pull Request";
+"branch" = "Branch";
 
 "day ago" = " day ago";
 "hour ago" = " hour ago";
@@ -55,7 +56,7 @@
 "hour later" = " hour later";
 "minute later" = " minute later";
 
-"update " = "update ";
+"update at" = "update at ";
 "news" = "News";
 "explore" = "Explore";
 "profile" = "Profile";
@@ -70,4 +71,11 @@
 "Cancel" = "Cancel";
 "Confirm" = "Confirm";
 "AreYouSureToLogout" = "Are You Sure to Logout? ";
+"EditProfile" = "Edit Profile";
+"Save" = "Save";
+
+"User" = "User";
+
+"gistFiles" = " files";
+"comments" = " comments";
 

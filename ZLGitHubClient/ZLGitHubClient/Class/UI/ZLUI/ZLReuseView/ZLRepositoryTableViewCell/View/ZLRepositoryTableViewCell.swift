@@ -8,8 +8,17 @@
 
 import UIKit
 
+
+@objc protocol ZLRepositoryTableViewCellDelegate : NSObjectProtocol
+{
+    func onRepoAvaterClicked() -> Void
+    
+    func onRepoContainerViewClicked() -> Void
+}
+
 class ZLRepositoryTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var headImageView: UIImageView!
     @IBOutlet weak var repostitoryNameLabel: UILabel!
     @IBOutlet weak var languageLabel: UILabel!
@@ -23,12 +32,18 @@ class ZLRepositoryTableViewCell: UITableViewCell {
     
     @IBOutlet weak var starNumLabel: UILabel!
     @IBOutlet weak var forkNumLabel: UILabel!
+    
+    weak var delegate : ZLRepositoryTableViewCellDelegate?
 
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
         self.selectionStyle = .none
+        
+        self.containerView.layer.cornerRadius = 8.0
+        self.containerView.layer.masksToBounds = true
+        
         self.justUpdate()
         self.headImageView.layer.cornerRadius = 25.0
         self.headImageView.layer.masksToBounds = true
@@ -36,11 +51,16 @@ class ZLRepositoryTableViewCell: UITableViewCell {
         self.privateLabel.layer.cornerRadius = 2.0
         self.privateLabel.layer.borderColor = UIColor.lightGray.cgColor
         self.privateLabel.layer.borderWidth = 1.0
+        
+        let avatarImageTapGesture = UITapGestureRecognizer.init(target: self, action: #selector(onAvatarSingleTapAction))
+        self.headImageView.addGestureRecognizer(avatarImageTapGesture)
+        
+        let containerTapGesture = UITapGestureRecognizer.init(target: self, action: #selector(onContainerTapAction))
+        self.containerView.addGestureRecognizer(containerTapGesture)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(false, animated: animated)
-
     }
     
     
@@ -57,12 +77,32 @@ extension ZLRepositoryTableViewCell
 {
     func fillWithData(data : ZLRepositoryTableViewCellData) -> Void
     {
-        self.headImageView.sd_setImage(with: URL.init(string: data.getOwnerAvatarURL() ?? ""), placeholderImage: nil);
+        self.headImageView.sd_setImage(with: URL.init(string: data.getOwnerAvatarURL() ?? ""), placeholderImage: UIImage.init(named: "default_avatar"));
         self.repostitoryNameLabel.text = data.getRepoName()
         self.languageLabel.text = data.getRepoMainLanguage()
         self.descriptionLabel.text = data.getRepoDesc()
         self.forkNumLabel.text = "\(data.forkNum())"
         self.starNumLabel.text = "\(data.starNum())"
         self.ownerNameLabel.text = data.getOwnerName()
+    }
+}
+
+
+extension ZLRepositoryTableViewCell
+{
+    @objc func onAvatarSingleTapAction()
+    {
+        if self.delegate?.responds(to: #selector(ZLRepositoryTableViewCellDelegate.onRepoAvaterClicked)) ?? false
+        {
+            self.delegate?.onRepoAvaterClicked()
+        }
+    }
+    
+    @objc func onContainerTapAction()
+    {
+        if self.delegate?.responds(to: #selector(ZLRepositoryTableViewCellDelegate.onRepoContainerViewClicked)) ??  false
+        {
+            self.delegate?.onRepoContainerViewClicked()
+        }
     }
 }

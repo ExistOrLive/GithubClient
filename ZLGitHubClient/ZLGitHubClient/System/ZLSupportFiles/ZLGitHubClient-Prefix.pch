@@ -36,7 +36,9 @@
 #import "ZLBaseViewController.h"
 
 #pragma mark - model
+#import "ZLBaseObject.h"
 #import "ZLGithubRequestErrorModel.h"
+#import "ZLOperationResultModel.h"
 
 #pragma mark -
 #import <Masonry/Masonry.h>
@@ -61,6 +63,7 @@
 
 
 #define ZLMainThreadDispatch(a)     if([NSThread isMainThread]){ a }else{dispatch_async(dispatch_get_main_queue(), ^{ a });}
+
 
 
 #endif /* ZLGitHubClient_prefix_pch */

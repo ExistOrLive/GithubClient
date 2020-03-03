@@ -36,13 +36,6 @@
                             per_page:(NSUInteger) per_page
                         serialNumber:(NSString *) serialNumber
 {
-    // 首先检查流水号
-    //    if(serialNumber.length == 0)
-    //    {
-    //        ZLLog_Warning(@"serialNumber is nil,so return");
-    //        return nil;
-    //    }
-    
     // 检查登录名
     if(userLoginName.length == 0)
     {
@@ -62,7 +55,10 @@
             break;
         case ZLUserAdditionInfoTypeGists:
         {
-            
+            return [self getGistsReposInfoForUser:userLoginName
+                                             page:page
+                                         per_page:per_page
+                                     serialNumber:serialNumber];
         }
             break;
         case ZLUserAdditionInfoTypeFollowers:
@@ -75,9 +71,9 @@
             return [self getFollowingInfoForUser:userLoginName page:page per_page:per_page serialNumber:serialNumber];
         }
             break;
-        case ZLUserAdditionInfoTypeStars:
+        case ZLUserAdditionInfoTypeStarredRepos:
         {
-            
+            return [self getStarredReposInfoForUser:userLoginName page:page per_page:per_page serialNumber:serialNumber];
         }
             break;
     }
@@ -203,4 +199,94 @@
                                                serialNumber:serialNumber];
     return nil;
 }
+
+
+
+/**
+ * @brief 请求标星的repos
+ *
+ **/
+- (NSArray *) getStarredReposInfoForUser:(NSString *) userLoginName
+                                    page:(NSUInteger) page
+                                per_page:(NSUInteger) per_page
+                            serialNumber:(NSString *) serialNumber
+{
+    __weak typeof(self) weakSelf = self;
+    GithubResponse responseBlock = ^(BOOL result, id _Nullable responseObject, NSString * serialNumber) {
+           
+           ZLOperationResultModel * repoResultModel = [[ZLOperationResultModel alloc] init];
+           repoResultModel.result = result;
+           repoResultModel.serialNumber = serialNumber;
+           repoResultModel.data = responseObject;
+    
+           
+           ZLMainThreadDispatch([weakSelf postNotification:ZLGetStarredReposResult_Notification withParams:repoResultModel];)
+           
+          
+       };
+       
+    NSString * currentLoginName = [ZLUserServiceModel sharedServiceModel].currentUserLoginName;
+       
+       if([currentLoginName isEqualToString:userLoginName])
+       {
+           // 为当前登陆的用户
+           [[ZLGithubHttpClient defaultClient] getStarredRepositoriesForCurrentLoginUser:responseBlock
+                                                                                    page:page
+                                                                                per_page:per_page
+                                                                            serialNumber:serialNumber];
+       }
+       else
+       {
+           // 不是当前登陆的用户
+           [[ZLGithubHttpClient defaultClient] getStarredRepositoriesForUser:responseBlock
+                                                                   loginName:userLoginName
+                                                                        page:page
+                                                                    per_page:per_page
+                                                                serialNumber:serialNumber];
+       }
+       
+       return nil;
+}
+
+
+/**
+ * @brief 请求标星的repos
+ *
+ **/
+- (NSArray *) getGistsReposInfoForUser:(NSString *) userLoginName
+                                  page:(NSUInteger) page
+                              per_page:(NSUInteger) per_page
+                          serialNumber:(NSString *) serialNumber
+{
+    __weak typeof(self) weakSelf = self;
+    GithubResponse responseBlock = ^(BOOL result, id _Nullable responseObject, NSString * serialNumber) {
+        
+        ZLOperationResultModel * repoResultModel = [[ZLOperationResultModel alloc] init];
+        repoResultModel.result = result;
+        repoResultModel.serialNumber = serialNumber;
+        repoResultModel.data = responseObject;
+        
+        
+        ZLMainThreadDispatch([weakSelf postNotification:ZLGetGistsResult_Notification withParams:repoResultModel];)
+        
+        
+    };
+    
+    NSString * currentLoginName = [ZLUserServiceModel sharedServiceModel].currentUserLoginName;
+    
+    if([currentLoginName isEqualToString:userLoginName])
+    {
+        // 为当前登陆的用户
+        [[ZLGithubHttpClient defaultClient] getGistsForCurrentUser:responseBlock page:page per_page:per_page serialNumber:serialNumber];
+    }
+    else
+    {
+        // 不是当前登陆的用户
+        [[ZLGithubHttpClient defaultClient] getGistsForUser:responseBlock loginName:userLoginName page:page per_page:per_page serialNumber:serialNumber];
+    }
+    
+    return nil;
+}
+
+
 @end

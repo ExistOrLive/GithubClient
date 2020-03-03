@@ -11,22 +11,17 @@ import UIKit
 
 class ZLEditProfileView: ZLBaseView {
     
-    @IBOutlet weak var topViewHeightConstraint: NSLayoutConstraint!
-    
     @IBOutlet weak var scrollView: UIScrollView!
-    
-    @IBOutlet weak var indicatorView: UIView!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var saveButton: UIButton!
     
     var contentView: ZLEditProfileContentView?
     
+    
+    deinit {
+        self.removeObservers()
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        self.topViewHeightConstraint.constant = self.topViewHeightConstraint.constant + ZLStatusBarHeight
-        
-        self.saveButton.layer.cornerRadius = 5.0
         
         guard let contentView : ZLEditProfileContentView = Bundle.main.loadNibNamed("ZLEditProfileContentView", owner: nil, options: nil)?.first as? ZLEditProfileContentView else
         {
@@ -34,11 +29,46 @@ class ZLEditProfileView: ZLBaseView {
             return
         }
         contentView.frame = CGRect.init(x: 0, y: 10, width: self.scrollView.frame.size.width, height: ZLEditProfileContentView.minHeight)
-        contentView.autoresizingMask = UIViewAutoresizing.flexibleWidth
+        contentView.autoresizingMask = UIView.AutoresizingMask.flexibleWidth
         self.scrollView.addSubview(contentView)
         self.scrollView.contentSize = CGSize.init(width: ZLScreenWidth, height:ZLEditProfileContentView.minHeight)
         self.contentView = contentView
         
+        self.addObservers()
+        
+    }
+    
+    func addObservers()
+    {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    func removeObservers()
+    {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func keyBoardWillShow(notification: Notification)
+    {
+        guard let userInfo = notification.userInfo else {return}
+        let value = userInfo["UIKeyboardFrameBeginUserInfoKey"] as! NSValue
+        let keyboardRect = value.cgRectValue
+        let keyboradHeight = keyboardRect.size.height
+        
+        
+        self.scrollView.contentSize.height = (ZLEditProfileContentView.minHeight > ZLSCreenHeight ? ZLEditProfileContentView.minHeight : ZLSCreenHeight) + keyboradHeight
+    }
+    
+    @objc func keyBoardWillHide(notification: Notification)
+    {
+        self.scrollView.contentSize.height = ZLEditProfileContentView.minHeight
+    }
+    
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.endEditing(true)
     }
     
     

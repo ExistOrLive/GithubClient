@@ -27,8 +27,10 @@ class ZLUserAdditionInfoController: ZLBaseViewController {
             self.navigationController?.popViewController(animated: false)
             return;
         }
-        baseView.frame = ZLScreenBounds;
-        self.view.addSubview(baseView);
+        self.contentView.addSubview(baseView)
+        baseView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
         
         // bind view and viewModel
         if self.type == nil || self.userInfo == nil

@@ -30,6 +30,7 @@ class ZLUserAdditionInfoViewModel: ZLBaseViewModel {
         ZLAdditionInfoServiceModel.shared().unRegisterObserver(self, name:ZLGetReposResult_Notification);
         ZLAdditionInfoServiceModel.shared().unRegisterObserver(self, name:ZLGetFollowingResult_Notification);
         ZLAdditionInfoServiceModel.shared().unRegisterObserver(self, name:ZLGetFollowersResult_Notification);
+        ZLAdditionInfoServiceModel.shared().unRegisterObserver(self, name: ZLGetGistsResult_Notification)
         self.refreshManager?.free()
     }
 
@@ -59,8 +60,10 @@ class ZLUserAdditionInfoViewModel: ZLBaseViewModel {
         ZLAdditionInfoServiceModel.shared().registerObserver(self, selector: #selector(self.onNotificationArrived(notification:)), name: ZLGetReposResult_Notification)
         ZLAdditionInfoServiceModel.shared().registerObserver(self, selector: #selector(self.onNotificationArrived(notification:)), name: ZLGetFollowingResult_Notification)
         ZLAdditionInfoServiceModel.shared().registerObserver(self, selector: #selector(self.onNotificationArrived(notification:)), name: ZLGetFollowersResult_Notification)
+        ZLAdditionInfoServiceModel.shared().registerObserver(self, selector: #selector(self.onNotificationArrived(notification:)), name: ZLGetGistsResult_Notification)
         
         self.serialNumber = NSString.generateSerialNumber()
+        SVProgressHUD.show()
         ZLAdditionInfoServiceModel.shared().getAdditionInfo(forUser: self.userInfo!.loginName, infoType: self.type!, page:UInt(self.currentPage + 1), per_page:ZLUserAdditionInfoViewModel.per_page, serialNumber:self.serialNumber!);
         
         // 根据model 更新 UI
@@ -82,36 +85,37 @@ extension ZLUserAdditionInfoViewModel
         view.tableView.delegate = self;
         view.tableView.dataSource = self;
         
-        view.headImageView.sd_setImage(with: URL.init(string: userInfo.avatar_url), placeholderImage: nil);
+        view.headImageView.sd_setImage(with: URL.init(string: userInfo.avatar_url), placeholderImage: UIImage.init(named: "default_avatar"));
         
         switch type
         {
         case .repositories:do{
-            view.titleLabel.text = ZLLocalizedString(string: "repositories", comment: "仓库")
+            self.viewController?.title = ZLLocalizedString(string: "repositories", comment: "仓库")
             view.infoLabel.text = ZLLocalizedString(string: "repositories", comment: "仓库")
             view.numLabel.text = "\(userInfo.public_repos + userInfo.total_private_repos)"
             view.viewType = .repositories
             }
         case .gists:do{
-            view.titleLabel.text = ZLLocalizedString(string: "gists", comment: "代码片段")
+            self.viewController?.title = ZLLocalizedString(string: "gists", comment: "代码片段")
             view.infoLabel.text = ZLLocalizedString(string: "gists", comment: "代码片段")
             view.numLabel.text = "\(userInfo.public_gists + userInfo.private_gists)"
+            view.viewType = .gists
             }
         case .followers:do{
-            view.titleLabel.text = ZLLocalizedString(string: "followers", comment: "粉丝")
+            self.viewController?.title = ZLLocalizedString(string: "followers", comment: "粉丝")
             view.infoLabel.text = ZLLocalizedString(string: "followers", comment: "粉丝")
             view.numLabel.text = "\(userInfo.followers)"
             view.viewType = .users
             }
         case .following:do{
-            view.titleLabel.text = ZLLocalizedString(string: "following", comment: "关注")
+            self.viewController?.title = ZLLocalizedString(string: "following", comment: "关注")
             view.infoLabel.text = ZLLocalizedString(string: "following", comment: "关注")
             view.numLabel.text = "\(userInfo.following)"
             view.viewType = .users
             }
-        case .stars:do
+        case .starredRepos:do
         {
-            view.titleLabel.text = ZLLocalizedString(string: "stars", comment: "标星")
+            self.viewController?.title = ZLLocalizedString(string: "stars", comment: "标星")
             view.infoLabel.text = ZLLocalizedString(string: "stars", comment: "标星")
             view.viewType = .repositories
             }
@@ -146,7 +150,7 @@ extension ZLUserAdditionInfoViewModel
                 return;
             }
             self.serialNumber = nil;
-            self.baseView?.indicatorView.isHidden = true
+            SVProgressHUD.dismiss()
             
             if notiPara.result == true
             {
@@ -202,10 +206,10 @@ extension ZLUserAdditionInfoViewModel: UITableViewDelegate,UITableViewDataSource
         switch self.baseView!.viewType
         {
         case .repositories:do{
-            return 170;
+            return 180;
             }
         case .gists:do{
-            return 170;
+            return 180;
             }
         case .users:do{
             return 100;
@@ -226,6 +230,15 @@ extension ZLUserAdditionInfoViewModel: UITableViewDelegate,UITableViewDataSource
                 return UITableViewCell()
             }
             
+            if tableViewCell.containerView.gestureRecognizers != nil
+            {
+                for gestureRecognizer in tableViewCell.containerView.gestureRecognizers!
+                {
+                    gestureRecognizer.isEnabled = false
+                }
+            }
+          
+            
             if data?.isPriva ?? false
             {
                 tableViewCell.privateLabel.isHidden = false
@@ -234,7 +247,7 @@ extension ZLUserAdditionInfoViewModel: UITableViewDelegate,UITableViewDataSource
             {
                 tableViewCell.privateLabel.isHidden = true
             }
-            tableViewCell.headImageView.sd_setImage(with: URL.init(string: data?.owner.avatar_url ?? ""), placeholderImage: nil);
+            tableViewCell.headImageView.sd_setImage(with: URL.init(string: data?.owner.avatar_url ?? ""), placeholderImage: UIImage.init(named: "default_avatar"));
             tableViewCell.repostitoryNameLabel.text = data?.name
             tableViewCell.languageLabel.text = data?.language
             tableViewCell.descriptionLabel.text = data?.desc_Repo
@@ -246,28 +259,40 @@ extension ZLUserAdditionInfoViewModel: UITableViewDelegate,UITableViewDataSource
             }
         case .gists:do{
             
-            let data = self.array?[indexPath.row] as? ZLGithubRepositoryModel
+            let data = self.array?[indexPath.row] as? ZLGithubGistModel
             
-            guard let tableViewCell: ZLRepositoryTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLRepositoryTableViewCell", for: indexPath) as? ZLRepositoryTableViewCell else
+            guard let tableViewCell: ZLGistTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLGistTableViewCell", for: indexPath) as? ZLGistTableViewCell else
             {
                 return UITableViewCell()
             }
             
-            if data?.isPriva ?? false
-            {
-                tableViewCell.privateLabel.isHidden = false
-            }
-            else
+            tableViewCell.imageButton.setImageFor(.normal, with: URL.init(string: data?.owner.avatar_url ?? "")!, placeholderImage: UIImage.init(named: "default_avatar"))
+            let firstFileName = data?.files.first?.key as? String
+            
+            tableViewCell.gistNameLabel.text = NSString.init(format: "%@/%@", data?.owner.loginName ?? "",firstFileName ?? "") as String
+            tableViewCell.fileLabel.text = "\(String(describing: data!.files.count))\(ZLLocalizedString(string: "gistFiles", comment: "条代码片段"))"
+            tableViewCell.commentLabel.text = "\(String(describing: data!.comments))\(ZLLocalizedString(string: "comments", comment: "条评论"))"
+            
+            if data?.isPub ?? false
             {
                 tableViewCell.privateLabel.isHidden = true
             }
-            tableViewCell.headImageView.sd_setImage(with: URL.init(string: data?.owner.avatar_url ?? ""), placeholderImage: nil);
-            tableViewCell.repostitoryNameLabel.text = data?.name
-            tableViewCell.languageLabel.text = data?.language
-            tableViewCell.descriptionLabel.text = data?.desc_Repo
-            tableViewCell.forkNumLabel.text = "\(data?.forks ?? 0)"
-            tableViewCell.starNumLabel.text = "\(data?.stargazers_count ?? 0)"
+            else
+            {
+                tableViewCell.privateLabel.isHidden = false
+            }
             
+            if data?.updated_at != nil
+            {
+                tableViewCell.timeLabel.text =  NSString.init(format: "%@%@", ZLLocalizedString(string: "update at", comment: "更新于"),(data!.updated_at as NSDate).dateLocalStrSinceCurrentTime()) as String
+            }
+            else if data?.created_at != nil
+            {
+                tableViewCell.timeLabel.text =  NSString.init(format: "%@%@", ZLLocalizedString(string: "created at ", comment: "创建于"),(data!.created_at as NSDate).dateLocalStrSinceCurrentTime()) as String
+            }
+            
+            tableViewCell.descLabel.text = data?.desc_Gist
+                        
             return tableViewCell
             
             }
@@ -280,7 +305,7 @@ extension ZLUserAdditionInfoViewModel: UITableViewDelegate,UITableViewDataSource
                 return UITableViewCell()
             }
           
-            tableViewCell.headImageView.sd_setImage(with: URL.init(string: data?.avatar_url ?? ""), placeholderImage: nil);
+            tableViewCell.headImageView.sd_setImage(with: URL.init(string: data?.avatar_url ?? ""), placeholderImage: UIImage.init(named: "default_avatar"));
             tableViewCell.nameLabel.text = data?.name
             tableViewCell.loginNameLabel.text = data?.loginName
             tableViewCell.companyLabel.text = data?.company
@@ -304,7 +329,7 @@ extension ZLUserAdditionInfoViewModel: UITableViewDelegate,UITableViewDataSource
             if data != nil
             {
                 let vc = ZLRepoInfoController.init(repoInfoModel: data!)
-                self.viewController?.navigationController?.pushViewController(vc, animated: false)
+                self.viewController?.navigationController?.pushViewController(vc, animated: true)
             }
         }
         case .gists:do{
@@ -315,7 +340,7 @@ extension ZLUserAdditionInfoViewModel: UITableViewDelegate,UITableViewDataSource
             if data != nil
             {
                 let vc = ZLUserInfoController.init(userInfoModel: data!)
-                self.viewController?.navigationController?.pushViewController(vc, animated: false)
+                self.viewController?.navigationController?.pushViewController(vc, animated: true)
             }
             
         }

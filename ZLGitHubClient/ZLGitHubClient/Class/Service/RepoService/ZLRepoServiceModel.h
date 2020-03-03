@@ -8,6 +8,8 @@
 
 #import "ZLBaseServiceModel.h"
 
+@class ZLOperationResultModel;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZLRepoServiceModel : ZLBaseServiceModel
@@ -31,6 +33,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) getRepoInfoWithOwnerName:(NSString *) ownerName
                      withrepoName:(NSString *) repoName
                     serialNumber:(NSString *) serialNumber;
+
+
+/**
+* @brief 根据repo readMe 地址
+* @param fullName octocat/Hello-World
+* @param serialNumber 流水号
+**/
+- (void) getRepoReadMeInfoWithFullName:(NSString *) fullName
+                          serialNumber:(NSString *) serialNumber
+                        completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
 
 
 @end

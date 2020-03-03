@@ -8,10 +8,11 @@
 
 import UIKit
 
-class ZLRepositoryTableViewCellData: ZLBaseViewModel {
+@objcMembers class ZLRepositoryTableViewCellData: ZLBaseViewModel {
     
     let data : ZLGithubRepositoryModel
     
+    private var _cellHeight : CGFloat?
     
     init(data : ZLGithubRepositoryModel)
     {
@@ -21,6 +22,13 @@ class ZLRepositoryTableViewCellData: ZLBaseViewModel {
     
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
         
+        guard let cell : ZLRepositoryTableViewCell = targetView as? ZLRepositoryTableViewCell else
+        {
+            return
+        }
+        
+        cell.fillWithData(data: self)
+        cell.delegate = self
     }
 }
 
@@ -70,5 +78,37 @@ extension ZLRepositoryTableViewCellData
     func forkNum() -> Int
     {
         return Int(self.data.forks)
+    }
+    
+    func getCellHeight() -> CGFloat
+    {
+        if self._cellHeight != nil
+        {
+            return self._cellHeight!
+        }
+        
+        let attributeStr = NSAttributedString.init(string: self.data.desc_Repo ?? "", attributes: [NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 12)!])
+        let rect = attributeStr.boundingRect(with: CGSize.init(width: 250, height: ZLSCreenHeight), options: .usesLineFragmentOrigin, context: nil)
+        
+        self._cellHeight = rect.size.height + 150
+      
+        return self._cellHeight!
+    }
+}
+
+
+extension ZLRepositoryTableViewCellData : ZLRepositoryTableViewCellDelegate
+{
+    func onRepoAvaterClicked() {
+        let userInfoVC = ZLUserInfoController.init(loginName: self.data.owner.loginName, type: self.data.owner.type)
+        userInfoVC.hidesBottomBarWhenPushed = true
+        self.viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
+    }
+        
+    func onRepoContainerViewClicked()
+    {
+        let repoInfoVC = ZLRepoInfoController.init(repoInfoModel: self.data)
+        repoInfoVC.hidesBottomBarWhenPushed = true
+        self.viewController?.navigationController?.pushViewController(repoInfoVC, animated: true)
     }
 }

@@ -33,8 +33,8 @@ static const NSString * ZLLANModule = @"ZLLANModule";
         // 日志模块放在最前面初始化
         _zlLogModule = [[SYDCentralFactory sharedInstance] getCommonBean:ZLLogModule];
         
-        // 数据库模块
-        _zlDBModule = [[SYDCentralFactory sharedInstance] getCommonBean:ZLDBModule];
+        // 数据库模块 暂时不需要数据库
+        // _zlDBModule = [[SYDCentralFactory sharedInstance] getCommonBean:ZLDBModule];
         
         // 国际化模块
         _zlLANModule = [[SYDCentralFactory sharedInstance] getCommonBean:ZLLANModule];

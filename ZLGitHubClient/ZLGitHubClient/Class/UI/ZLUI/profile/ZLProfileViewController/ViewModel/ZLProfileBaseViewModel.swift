@@ -64,7 +64,7 @@ extension ZLProfileBaseViewModel
     {
         self.currentUserInfo = model;
         
-        view.tableHeaderView?.headImageView.sd_setImage(with: URL.init(string: model.avatar_url), placeholderImage: nil);
+        view.tableHeaderView?.headImageView.sd_setImage(with: URL.init(string: model.avatar_url), placeholderImage: UIImage.init(named: "default_avatar"));
         view.tableHeaderView?.nameLabel.text = String("\(model.name)(\(model.loginName))")
         
         var dateStr = model.created_at

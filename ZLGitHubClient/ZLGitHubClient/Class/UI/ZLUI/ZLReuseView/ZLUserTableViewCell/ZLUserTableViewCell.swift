@@ -10,6 +10,8 @@ import UIKit
 
 class ZLUserTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var containerView: UIView!
+    
     @IBOutlet weak var headImageView: UIImageView!
     
     @IBOutlet weak var nameLabel: UILabel!
@@ -24,6 +26,9 @@ class ZLUserTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         self.selectionStyle = .none
+        
+        self.containerView.layer.cornerRadius = 8.0
+        self.containerView.layer.masksToBounds = true
         
         self.headImageView.layer.cornerRadius = 25.0
         self.headImageView.layer.masksToBounds = true

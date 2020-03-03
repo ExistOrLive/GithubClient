@@ -9,8 +9,6 @@
 import UIKit
 
 class ZLUserInfoView: ZLBaseView {
-
-    @IBOutlet weak var topViewHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var headImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -38,8 +36,6 @@ class ZLUserInfoView: ZLBaseView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        self.topViewHeightConstraint.constant = self.topViewHeightConstraint.constant + ZLStatusBarHeight
         self.headImageView.layer.cornerRadius = 30.0;
         self.justUpdate();
         
@@ -47,10 +43,10 @@ class ZLUserInfoView: ZLBaseView {
     
     func justUpdate()
     {
-        self.repositoriesButton.setTitle(ZLLocalizedString(string: "repositories",comment: "仓库"), for: UIControlState.normal);
-        self.gistsButton.setTitle(ZLLocalizedString(string: "gists",comment: "代码片段"), for: UIControlState.normal);
-        self.followersButton.setTitle(ZLLocalizedString(string: "followers",comment: "粉丝"), for: UIControlState.normal);
-        self.followingButton.setTitle(ZLLocalizedString(string: "following",comment: "关注"), for: UIControlState.normal);
+        self.repositoriesButton.setTitle(ZLLocalizedString(string: "repositories",comment: "仓库"), for: .normal);
+        self.gistsButton.setTitle(ZLLocalizedString(string: "gists",comment: "代码片段"), for: .normal);
+        self.followersButton.setTitle(ZLLocalizedString(string: "followers",comment: "粉丝"), for: .normal);
+        self.followingButton.setTitle(ZLLocalizedString(string: "following",comment: "关注"), for: .normal);
         self.companyLabel.text = ZLLocalizedString(string:"company", comment: "公司")
         self.addrLabel.text = ZLLocalizedString(string:"location", comment: "地址")
         self.emailLabel.text = ZLLocalizedString(string:"email", comment: "邮箱")

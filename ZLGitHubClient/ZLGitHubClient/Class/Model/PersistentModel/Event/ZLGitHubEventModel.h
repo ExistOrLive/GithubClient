@@ -19,7 +19,7 @@ typedef NS_ENUM(NSInteger, ZLReferenceType)
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZLActorBriefInfoModel : NSObject
+@interface ZLActorBriefInfoModel : ZLBaseObject
 
 @property (nonatomic, assign) NSInteger id_eventActor;
 @property (nonatomic, strong) NSString *login;
@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface ZLRepoBriefInfoModel : NSObject
+@interface ZLRepoBriefInfoModel : ZLBaseObject
 
 @property (nonatomic, assign) NSInteger id_repo;
 @property (nonatomic, strong) NSString *name;
@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface ZLCommitInfoModel : NSObject
+@interface ZLCommitInfoModel : ZLBaseObject
 
 @property (nonatomic, strong) NSString *sha;
 @property (nonatomic, strong) NSString *author;
@@ -49,7 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-@interface ZLGitHubOrgModel : NSObject
+@interface ZLGitHubOrgModel : ZLBaseObject
 
 @property (nonatomic, assign) NSInteger id_org;
 @property (nonatomic, strong) NSString *login;
@@ -62,7 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Event Payloads
 
-@interface ZLPushEventPayloadModel : NSObject
+@interface ZLPushEventPayloadModel : ZLBaseObject
 
 @property (nonatomic, assign) NSInteger push_id;
 @property (nonatomic, assign) NSInteger size;
@@ -75,14 +75,14 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 //WatchEventPayload
-@interface ZLWatchEventPayloadModel : NSObject
+@interface ZLWatchEventPayloadModel : ZLBaseObject
 
 @property (nonatomic, strong) NSString *action;     //! 目前只有stared
 
 @end
 
 //CreateEventPayload
-@interface ZLCreateEventPayloadModel : NSObject
+@interface ZLCreateEventPayloadModel : ZLBaseObject
 
 @property (nonatomic, strong) NSString * ref;             //! 提交的sha
 @property (nonatomic, assign) ZLReferenceType ref_type;  //! 目前有两种类型：repository、tag
@@ -100,7 +100,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  ref  https://developer.github.com/v3/activity/events/
  *  ref  https://developer.github.com/v3/activity/events/types/
  */
-@interface ZLGithubEventModel : NSObject
+@interface ZLGithubEventModel : ZLBaseObject
 
 @property (nonatomic, strong) NSString * eventId;                       //！ 事件id
 @property (nonatomic, assign) ZLGithubEventType type;                   //!  事件类型

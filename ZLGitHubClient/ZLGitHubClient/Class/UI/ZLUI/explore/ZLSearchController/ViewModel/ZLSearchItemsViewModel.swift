@@ -179,7 +179,7 @@ extension ZLSearchItemsViewModel: UITableViewDelegate,UITableViewDataSource
         switch(self.currentSearchType)
         {
         case .repositories:
-            return 170
+            return 180
         case .users:
             return 100
         default:
@@ -193,13 +193,22 @@ extension ZLSearchItemsViewModel: UITableViewDelegate,UITableViewDataSource
         {
         case .repositories:do{
             let tableViewCell: ZLRepositoryTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLRepositoryTableViewCell", for: indexPath) as! ZLRepositoryTableViewCell
+            
+            if tableViewCell.containerView.gestureRecognizers != nil
+            {
+                for gestureRecognizer in tableViewCell.containerView.gestureRecognizers!
+                {
+                    gestureRecognizer.isEnabled = false
+                }
+            }
+            
             let currentSearchTypeAttachInfo = self.searchTypeAttachInfos?[self.currentSearchType]
         
             guard let itemInfo : ZLGithubRepositoryModel = currentSearchTypeAttachInfo!.itemsInfo![indexPath.row] as? ZLGithubRepositoryModel else
             {
                 return tableViewCell;
             }
-            tableViewCell.headImageView.sd_setImage(with: URL.init(string: itemInfo.owner.avatar_url), placeholderImage: nil);
+            tableViewCell.headImageView.sd_setImage(with: URL.init(string: itemInfo.owner.avatar_url), placeholderImage: UIImage.init(named: "default_avatar"));
             tableViewCell.repostitoryNameLabel.text = itemInfo.name
             tableViewCell.languageLabel.text = itemInfo.language
             tableViewCell.descriptionLabel.text = itemInfo.desc_Repo
@@ -219,7 +228,7 @@ extension ZLSearchItemsViewModel: UITableViewDelegate,UITableViewDataSource
                 return tableViewCell;
             }
             
-            tableViewCell.headImageView.sd_setImage(with: URL.init(string: itemInfo.avatar_url), placeholderImage: nil);
+            tableViewCell.headImageView.sd_setImage(with: URL.init(string: itemInfo.avatar_url), placeholderImage: UIImage.init(named: "default_avatar"));
             tableViewCell.nameLabel.text = itemInfo.name
             tableViewCell.loginNameLabel.text = itemInfo.loginName
             tableViewCell.companyLabel.text = itemInfo.company
@@ -244,7 +253,7 @@ extension ZLSearchItemsViewModel: UITableViewDelegate,UITableViewDataSource
             let currentSearchTypeAttachInfo = self.searchTypeAttachInfos?[self.currentSearchType]
             let item : ZLGithubRepositoryModel = currentSearchTypeAttachInfo!.itemsInfo![indexPath.row] as! ZLGithubRepositoryModel
             let vc = ZLRepoInfoController.init(repoInfoModel: item)
-            self.viewController?.navigationController?.pushViewController(vc, animated: false)
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
             
             break;
             }
@@ -252,7 +261,7 @@ extension ZLSearchItemsViewModel: UITableViewDelegate,UITableViewDataSource
             let currentSearchTypeAttachInfo = self.searchTypeAttachInfos?[self.currentSearchType]
             let item : ZLGithubUserModel = currentSearchTypeAttachInfo!.itemsInfo![indexPath.row] as! ZLGithubUserModel
             let vc = ZLUserInfoController.init(userInfoModel: item)
-            self.viewController?.navigationController?.pushViewController(vc, animated: false)
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
             
             }
             

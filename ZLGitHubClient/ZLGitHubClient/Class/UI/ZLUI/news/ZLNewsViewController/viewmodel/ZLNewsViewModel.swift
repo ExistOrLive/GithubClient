@@ -43,7 +43,7 @@ class ZLNewsViewModel: ZLBaseViewModel {
                 return;
             }
 
-            self.newsBaseView?.eventListView.beginRefresh()
+            
         
     }
     
@@ -55,14 +55,28 @@ class ZLNewsViewModel: ZLBaseViewModel {
     
     override func vcLifeCycle_viewWillAppear() {
         super.vcLifeCycle_viewWillAppear()
-    
-    
+        self.loadNewData()
     }
 }
 
 // MARK: onNotificationArrived
 extension ZLNewsViewModel
 {
+    func loadMoreData()
+    {
+        self.serialNumber = NSString.generateSerialNumber()
+        ZLEventServiceModel.shareInstance().getReceivedEvents(forUser: userInfo?.loginName, page: UInt(self.currentPage + 1), per_page: UInt(self.per_page), serialNumber: self.serialNumber)
+    }
+    
+    
+    func loadNewData()
+    {
+        self.isRefreshNew = true;
+        self.serialNumber = NSString.generateSerialNumber()
+        ZLEventServiceModel.shareInstance().getReceivedEvents(forUser: userInfo?.loginName, page: 1, per_page: UInt(self.per_page), serialNumber: self.serialNumber)
+    }
+    
+    
     @objc func onNotificationArrived(notification: Notification)
     {
         ZLLog_Info("onNotificationArrived: notification[\(notification.name)]")
@@ -79,7 +93,7 @@ extension ZLNewsViewModel
                 // 
                 if resultModel.serialNumber != self.serialNumber!
                 {
-                    return;
+                    return
                 }
                 
                 guard resultModel.result == true else
@@ -90,6 +104,7 @@ extension ZLNewsViewModel
                         return;
                     }
                     
+                    ZLToastView.showMessage("\(errorModel.message)(\(errorModel.statusCode))")
                     ZLLog_Warn("get received event failed statusCode[\(errorModel.statusCode)] message[\(errorModel.message)]")
                     
                     return
@@ -133,6 +148,8 @@ extension ZLNewsViewModel
                 }
                 
                 self.userInfo = userInfo
+                
+                self.loadNewData()
             }
             case ZLGetSpecifiedUserInfoResult_Notification: do
             {
@@ -164,14 +181,12 @@ extension ZLNewsViewModel : ZLEventListViewDelegate
 {
     func eventListViewRefreshDragUp(eventListView: ZLEventListView) -> Void
     {
-        self.serialNumber = NSString.generateSerialNumber()
-        ZLEventServiceModel.shareInstance().getReceivedEvents(forUser: userInfo?.loginName, page: UInt(self.currentPage + 1), per_page: UInt(self.per_page), serialNumber: self.serialNumber)
+        self.loadMoreData()
     }
     
     func eventListViewRefreshDragDown(eventListView: ZLEventListView) -> Void
     {
-        self.isRefreshNew = true;
-        self.serialNumber = NSString.generateSerialNumber()
-        ZLEventServiceModel.shareInstance().getReceivedEvents(forUser: userInfo?.loginName, page: 1, per_page: UInt(self.per_page), serialNumber: self.serialNumber)
+        self.loadNewData()
+
     }
 }

@@ -9,6 +9,7 @@
 #ifndef ZLUserServiceHeader_h
 #define ZLUserServiceHeader_h
 
+// 获取到登陆用户的信息
 static const NSNotificationName ZLGetCurrentUserInfoResult_Notification = @"ZLGetCurrentUserInfoResult_Notification";
 
 static const NSNotificationName ZLGetSpecifiedUserInfoResult_Notification = @"ZLGetSpecifiedUserInfoResult_Notification";

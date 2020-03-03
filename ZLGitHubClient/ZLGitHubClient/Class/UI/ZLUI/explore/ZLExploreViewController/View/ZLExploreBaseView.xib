@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,7 +14,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sdd-9o-VKY">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0iD-VE-AuT">
                             <rect key="frame" x="10" y="20" width="394" height="40"/>
@@ -35,31 +33,22 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="bottom" secondItem="0iD-VE-AuT" secondAttribute="bottom" id="2bl-FB-1Zy"/>
+                        <constraint firstAttribute="bottom" secondItem="0iD-VE-AuT" secondAttribute="bottom" constant="20" id="2bl-FB-1Zy"/>
                         <constraint firstItem="0iD-VE-AuT" firstAttribute="leading" secondItem="Sdd-9o-VKY" secondAttribute="leading" constant="10" id="4TR-qn-gp9"/>
                         <constraint firstAttribute="trailing" secondItem="0iD-VE-AuT" secondAttribute="trailing" constant="10" id="etR-I6-Twr"/>
-                        <constraint firstAttribute="height" constant="60" id="lGV-wq-jBP"/>
-                    </constraints>
-                </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E4P-oa-8Lv">
-                    <rect key="frame" x="0.0" y="60" width="414" height="40"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="40" id="TdK-Ij-vG7"/>
+                        <constraint firstAttribute="height" constant="80" id="lGV-wq-jBP"/>
                     </constraints>
                 </view>
             </subviews>
             <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="E4P-oa-8Lv" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="1qF-Ax-7Bu"/>
-                <constraint firstAttribute="trailing" secondItem="E4P-oa-8Lv" secondAttribute="trailing" id="6BG-iL-A2a"/>
-                <constraint firstItem="E4P-oa-8Lv" firstAttribute="top" secondItem="Sdd-9o-VKY" secondAttribute="bottom" id="FfH-TF-n5D"/>
                 <constraint firstItem="Sdd-9o-VKY" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="dYN-PJ-ofk"/>
                 <constraint firstAttribute="trailing" secondItem="Sdd-9o-VKY" secondAttribute="trailing" id="pb8-1s-P1Y"/>
                 <constraint firstItem="Sdd-9o-VKY" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="r2G-Qj-KcQ"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="headerView" destination="Sdd-9o-VKY" id="1bA-06-3Lq"/>
                 <outlet property="searchButton" destination="0iD-VE-AuT" id="TcQ-hm-5VH"/>
                 <outlet property="topViewHeightConstraint" destination="lGV-wq-jBP" id="wzL-1e-oVv"/>
             </connections>

@@ -20,11 +20,17 @@ pod 'MJExtension'
 
 # 刷新控件
 pod 'MJRefresh'
+# 转圈控件  https://github.com/SVProgressHUD/SVProgressHUD
+pod 'SVProgressHUD'
+# ToastView https://github.com/scalessec/Toast-Swift
+pod 'Toast-Swift'
+pod 'Toast'
 
 #下载图片
 pod 'SDWebImage', '~> 5.0.0'
 
-pod 'MMMarkdown'
+#pod 'MMMarkdown'
+#pod 'MarkdownView'
 
 # AutoLayout
 pod 'Masonry'
@@ -38,4 +44,7 @@ pod 'DoraemonKit/Core', '~> 2.0.0', :configurations => ['Debug']
 pod 'DoraemonKit/WithLogger', '~> 2.0.0', :configurations => ['Debug']
 #pod 'DoraemonKit/WithGPS', '~> 2.0.0', :configurations => ['Debug']
 pod 'DoraemonKit/WithMLeaksFinder', '2.0.0', :configurations => ['Debug']
+
+# bugly
+pod 'Bugly'
 end

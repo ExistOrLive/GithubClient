@@ -8,10 +8,11 @@
 
 import UIKit
 
-class ZLExploreBaseView: UIView {
+@objcMembers class ZLExploreBaseView: UIView {
 
     @IBOutlet weak var topViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var searchButton: UIButton!
+    @IBOutlet weak var headerView: UIView!
     
     
     override func awakeFromNib() {
@@ -22,10 +23,21 @@ class ZLExploreBaseView: UIView {
         self.justReloadView()
     }
     
+    @objc func addMainView(mainView : UIView)
+    {
+        self.addSubview(mainView)
+        
+        mainView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.headerView.snp_bottom).offset(10)
+            make.left.right.bottom.equalToSuperview()
+        }
+    }
     
     func justReloadView()
     {
         self.searchButton.setTitle(ZLLocalizedString(string: "Search", comment: "搜索"), for: .normal)
     }
+    
+    
     
 }

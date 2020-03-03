@@ -88,10 +88,10 @@ class ZLProfileHeaderView: ZLBaseView {
     
     func justReloadView()
     {
-        self.repositoriesButton.setTitle(ZLLocalizedString(string: "repositories",comment: "仓库"), for: UIControlState.normal);
-        self.gistsButton.setTitle(ZLLocalizedString(string: "gists",comment: "代码片段"), for: UIControlState.normal);
-        self.followersButton.setTitle(ZLLocalizedString(string: "followers",comment: "粉丝"), for: UIControlState.normal);
-        self.followingButton.setTitle(ZLLocalizedString(string: "following",comment: "关注"), for: UIControlState.normal);
+        self.repositoriesButton.setTitle(ZLLocalizedString(string: "repositories",comment: "仓库"), for: UIControl.State.normal);
+        self.gistsButton.setTitle(ZLLocalizedString(string: "gists",comment: "代码片段"), for: UIControl.State.normal);
+        self.followersButton.setTitle(ZLLocalizedString(string: "followers",comment: "粉丝"), for: UIControl.State.normal);
+        self.followingButton.setTitle(ZLLocalizedString(string: "following",comment: "关注"), for: UIControl.State.normal);
         
         self.latestUpdateLabel.text = ZLLocalizedString(string: "lastest update", comment: "最近修改")
         self.allUpdateButton.setTitle(ZLLocalizedString(string: "all update", comment: "查看全部修改"), for: .normal)

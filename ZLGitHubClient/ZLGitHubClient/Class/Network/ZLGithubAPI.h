@@ -51,11 +51,18 @@
 #define searchRepoUrl           @"/search/repositories"              // 根据关键字搜索repo
 #define reposUrl                @"/repos"                            // 获取某个Repo的信息
 
+#define reposReadMeUrl          @"/repos/%@/readme"                  // 获取某个repo的readme信息
+
+
+#pragma mark starred
+
+#define currentUserStarredURL   @"/user/starred"                    // 当前用户标星的repo
+#define userStarredURL          @"/users/%@/starred"                // 某个用户标星的repo
 
 
 #pragma mark gists
 
-#define gistUrl                 @"/user/gists"                       // 当前用户的gists 包括private
+#define gistUrl                 @"/gists"                       // 当前用户的gists 包括private
 #define userGistUrl             @"/users/%@/gists"                   // 某用户的gists 不包括private
 
 #pragma mark following

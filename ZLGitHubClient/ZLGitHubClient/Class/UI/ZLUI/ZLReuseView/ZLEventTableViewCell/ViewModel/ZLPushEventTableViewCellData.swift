@@ -97,29 +97,33 @@ class ZLPushEventTableViewCellData: ZLEventTableViewCellData {
         paraghStyle.lineSpacing = 5
         paraghStyle.lineBreakMode = .byClipping
         
-        let commitNumStr : NSAttributedString = NSAttributedString.init(string: NSString.init(format: "%d commits to ", self.commitNum()) as String, attributes: [NSAttributedStringKey.font:UIFont.init(name: Font_PingFangSCRegular, size: 14)!,NSAttributedStringKey.foregroundColor:UIColor.black])
+        let commitNumStr : NSAttributedString = NSAttributedString.init(string: NSString.init(format: "%d commits to ", self.commitNum()) as String, attributes: [NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 14)!,NSAttributedString.Key.foregroundColor:UIColor.black])
         str.append(commitNumStr)
         
-        let branchStr : NSAttributedString = NSAttributedString.init(string:String.init(format: "%@\n", self.branch()),attributes:[NSAttributedStringKey.font:UIFont.init(name: Font_PingFangSCRegular, size: 14)!,NSAttributedStringKey.foregroundColor:UIColor.init("199BFF")])
+        let branchStr : NSAttributedString = NSAttributedString.init(string:String.init(format: "%@\n", self.branch()),attributes:[NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 14)!,NSAttributedString.Key.foregroundColor:UIColor.init("199BFF")])
         str.append(branchStr)
         
-        for i in 0...(min(1,self.commitNum() - 1))
+        if(self.commitNum() > 0)
         {
-            let str1 = NSAttributedString.init(string:String.init(format: "%@ ", self.commitShaForIndex(index:i)),attributes:[NSAttributedStringKey.font:UIFont.init(name: Font_PingFangSCRegular, size: 14)!,NSAttributedStringKey.foregroundColor:UIColor.init("199BFF")])
-            str.append(str1)
-            
-            let str2 = NSAttributedString.init(string: String.init(format: "%@\n", self.commitMessageForIndex(index:i)), attributes: [NSAttributedStringKey.font:UIFont.init(name: Font_PingFangSCRegular, size: 14)!,NSAttributedStringKey.foregroundColor:UIColor.lightGray])
-            str.append(str2)
-        }
-        
-        if self.commitNum() > 2
-        {
-            let str1 = NSAttributedString.init(string: String.init(format: "%d more commits >> \n", self.commitNum() - 2) , attributes: [NSAttributedStringKey.font:UIFont.init(name: Font_PingFangSCRegular, size: 15)!,NSAttributedStringKey.foregroundColor:UIColor.init("333333")])
+            for i in 0...(min(1,self.commitNum() - 1))
+            {
+                let str1 = NSAttributedString.init(string:String.init(format: "%@ ", self.commitShaForIndex(index:i)),attributes:[NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 14)!,NSAttributedString.Key.foregroundColor:UIColor.init("199BFF")])
+                str.append(str1)
                 
-            str.append(str1)
+                let str2 = NSAttributedString.init(string: String.init(format: "%@\n", self.commitMessageForIndex(index:i)), attributes: [NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 14)!,NSAttributedString.Key.foregroundColor:UIColor.lightGray])
+                str.append(str2)
+            }
+            
+            if self.commitNum() > 2
+            {
+                let str1 = NSAttributedString.init(string: String.init(format: "%d more commits >> \n", self.commitNum() - 2) , attributes: [NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 15)!,NSAttributedString.Key.foregroundColor:UIColor.init("333333")])
+                    
+                str.append(str1)
+            }
         }
         
-        str.addAttribute(NSAttributedStringKey.paragraphStyle, value: paraghStyle, range: NSRange.init(location: 0, length: str.length))
+        
+        str.addAttribute(NSAttributedString.Key.paragraphStyle, value: paraghStyle, range: NSRange.init(location: 0, length: str.length))
         
         self._commitInfoAttributedStr = str
         

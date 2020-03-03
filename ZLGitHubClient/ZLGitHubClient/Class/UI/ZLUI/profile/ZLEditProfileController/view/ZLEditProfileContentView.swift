@@ -31,15 +31,6 @@ class ZLEditProfileContentView: ZLBaseView,UITextFieldDelegate,UITextViewDelegat
         self.addressTextField.delegate = self
         self.emailTextField.delegate = self
     }
-
-    func resignAllFirstResponder()
-    {
-        self.personalDescTextView.resignFirstResponder()
-        self.companyTextField.resignFirstResponder()
-        self.addressTextField.resignFirstResponder()
-        self.emailTextField.resignFirstResponder()
-        self.blogTextField.resignFirstResponder()
-    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool
     {
@@ -47,6 +38,7 @@ class ZLEditProfileContentView: ZLBaseView,UITextFieldDelegate,UITextViewDelegat
         return true;
     }
     
-    
-    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.endEditing(true)
+    }
 }
