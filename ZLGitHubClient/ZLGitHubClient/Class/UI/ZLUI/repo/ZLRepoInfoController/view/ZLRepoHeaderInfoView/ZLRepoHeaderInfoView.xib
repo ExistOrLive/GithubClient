@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -53,7 +53,7 @@
                                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qPd-WJ-q4h">
+                                        <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qPd-WJ-q4h">
                                             <rect key="frame" x="24" y="0.0" width="60" height="50"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="60" id="NoD-Zb-Prr"/>
@@ -62,6 +62,9 @@
                                             <state key="normal" title="问题">
                                                 <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
+                                            <connections>
+                                                <action selector="onButtonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="bFw-eT-wdQ"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -82,7 +85,7 @@
                                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Hf-vF-Fne">
+                                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Hf-vF-Fne">
                                             <rect key="frame" x="24" y="0.0" width="60" height="50"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="60" id="8ih-Os-SXs"/>
@@ -91,6 +94,9 @@
                                             <state key="normal" title="标星">
                                                 <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
+                                            <connections>
+                                                <action selector="onButtonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="UsJ-Cg-gQh"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -111,7 +117,7 @@
                                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3tb-Z8-UmR">
+                                        <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3tb-Z8-UmR">
                                             <rect key="frame" x="24" y="0.0" width="60" height="50"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="60" id="1bf-sC-nyW"/>
@@ -120,6 +126,9 @@
                                             <state key="normal" title="拷贝">
                                                 <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
+                                            <connections>
+                                                <action selector="onButtonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="rhR-IV-cV4"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -140,7 +149,7 @@
                                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MXN-MP-Z9K">
+                                        <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MXN-MP-Z9K">
                                             <rect key="frame" x="24" y="0.0" width="60" height="50"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="60" id="a9y-bw-NhH"/>
@@ -149,6 +158,9 @@
                                             <state key="normal" title="关注">
                                                 <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
+                                            <connections>
+                                                <action selector="onButtonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="TW7-HH-WOR"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -195,12 +207,16 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="descLabel" destination="djF-Bw-mnc" id="gDT-tZ-OvQ"/>
+                <outlet property="forksButton" destination="3tb-Z8-UmR" id="s7t-XW-t2O"/>
                 <outlet property="forksNumLabel" destination="N0I-Bq-pj2" id="fh4-hR-NkT"/>
                 <outlet property="headImageView" destination="5Ns-sz-mkf" id="YyK-30-Fxs"/>
+                <outlet property="issuesButton" destination="qPd-WJ-q4h" id="9gM-YM-h3N"/>
                 <outlet property="issuesNumLabel" destination="z5v-Mb-fHj" id="zUH-VZ-Niq"/>
                 <outlet property="repoNameLabel" destination="NcN-SZ-3x3" id="2Rc-Up-ctz"/>
+                <outlet property="starsButton" destination="8Hf-vF-Fne" id="nb0-if-pAM"/>
                 <outlet property="starsNumLabel" destination="txi-46-3nR" id="VQA-Ek-cam"/>
                 <outlet property="timeLabel" destination="GvF-MU-KfX" id="IM1-57-1M5"/>
+                <outlet property="watchersButton" destination="MXN-MP-Z9K" id="Xh8-I6-co4"/>
                 <outlet property="watchersNumLabel" destination="vm1-aD-NI2" id="lHZ-ZO-cSy"/>
             </connections>
             <point key="canvasLocation" x="-93.478260869565219" y="1.6741071428571428"/>

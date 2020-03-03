@@ -37,6 +37,14 @@ jobs:
         pwd 
         bundle exec fastlane github_action_adhoc
         echo "ipa build success"
+    - name: upload github artifact
+      if: success()
+      uses: actions/upload-artifact@v1.0.0
+      with:
+          # Artifact name
+          name: ZLGitHubClient
+          # Directory containing files to upload
+          path: ./ZLGitHubClient/fastlane/ipa
     - name: upload artifact
       working-directory: ./ZLGitHubClient          # 指定run 的工作目录
       if: success()

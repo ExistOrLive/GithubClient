@@ -12,6 +12,8 @@ class ZLRepoInfoController: ZLBaseViewController {
 
     private var repoInfoModel: ZLGithubRepositoryModel?
     
+    private var baseView : ZLRepoInfoView?
+    
     required init() {
         self.repoInfoModel = nil;
         super.init(nibName: nil, bundle: nil);
@@ -42,6 +44,7 @@ class ZLRepoInfoController: ZLBaseViewController {
         self.viewModel = ZLRepoInfoViewModel.init(viewController: self)
 
         let baseView = ZLRepoInfoView.init(frame: CGRect())
+        self.baseView = baseView
         self.contentView.addSubview(baseView)
         baseView.snp.makeConstraints({ (make) in
             make.edges.equalToSuperview()
@@ -49,6 +52,12 @@ class ZLRepoInfoController: ZLBaseViewController {
         
         self.viewModel.bindModel(self.repoInfoModel, andView: baseView)
     }
+    
+    override func onBackButtonClicked(_ button: UIButton!) {
+        self.baseView?.footerView?.stopLoad()
+        super.onBackButtonClicked(button)
+    }
+    
     
 
     /*
