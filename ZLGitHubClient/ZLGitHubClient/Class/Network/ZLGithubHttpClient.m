@@ -23,6 +23,7 @@
 #import "ZLGithubRequestErrorModel.h"
 #import "ZLGithubGistModel.h"
 #import "ZLGithubRepositoryReadMeModel.h"
+#import "ZLGithubPullRequestModel.h"
 
 static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 
@@ -695,6 +696,37 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                  WithParams:nil
           WithResponseBlock:newBlock
                serialNumber:serialNumber];
+}
+
+
+
+/**
+* @brief 根据fullName直接获取Repo readme 信息
+* @param block 请求回调
+* @param fullName octocat/Hello-World
+* @param serialNumber 流水号 通过block回调原样返回
+**/
+- (void) getRepositoryPullRequestInfo:(GithubResponse) block
+                             fullName:(NSString *) fullName
+                         serialNumber:(NSString *) serialNumber
+{
+    NSString * urlForRepoReadMe = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoPullRequestUrl];
+      urlForRepoReadMe = [NSString stringWithFormat:urlForRepoReadMe,fullName];
+      
+      GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
+          
+          if(result)
+          {
+              ZLGithubRepositoryReadMeModel * model = [ZLGithubRepositoryReadMeModel mj_objectWithKeyValues:responseObject];
+              responseObject = model;
+          }
+          block(result,responseObject,serialNumber);
+      };
+      
+      [self GETRequestWithURL:urlForRepoReadMe
+                   WithParams:nil
+            WithResponseBlock:newBlock
+                 serialNumber:serialNumber];
 }
 
 

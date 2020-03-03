@@ -35,8 +35,40 @@ class ZLRepoItemInfoViewModel: ZLBaseViewModel {
     
     func setViewDataForRepoItemInfoView()
     {
-        self.repoItemInfoView?.codeInfoLabel.text = self.repoInfoModel?.language ?? ""
         self.repoItemInfoView?.branchInfoLabel.text = self.repoInfoModel?.default_branch
+        self.repoItemInfoView?.languageInfoLabel.text = self.repoInfoModel?.language
+        
+        self.setLanguageInfo()
+        
     }
+    
+    
+    func setLanguageInfo()
+    {
+        let size = self.repoInfoModel?.size ?? 0
+        if size == 0
+        {
+            self.repoItemInfoView?.codeInfoLabel.text = nil
+        }
+        else
+        {
+            if size < 1024
+            {
+                self.repoItemInfoView?.codeInfoLabel.text = "\(size)B"
+            }
+            else if size < 1024 * 1024
+            {
+                self.repoItemInfoView?.codeInfoLabel.text = "\(size / 1024)KB"
+            }
+            else
+            {
+                self.repoItemInfoView?.codeInfoLabel.text = "\(size / 1024 / 1024)GB"
+            }
+            
+        }
+    }
+    
+    
+    
 
 }
