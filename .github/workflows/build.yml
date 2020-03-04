@@ -52,5 +52,4 @@ jobs:
         CODING_ARTIFACT_TOKEN: ${{ secrets.CODING_ARTIFACT_TOKEN }}
       run: |
         curl -T ./fastlane/ipa/ZLGitHubClient.ipa  -u $CODING_ARTIFACT_TOKEN  "https://existorlive-generic.pkg.coding.net/ZLGitHubClient/adhoc/ZLGitHubClient.ipa" -v                    # 上传ipa到制品库
-        curl -T ./fastlane/ipa/ZLGitHubClient.app.dSYM.zip  -u $CODING_ARTIFACT_TOKEN  "https://existorlive-generic.pkg.coding.net/ZLGitHubClient/adhoc/ZLGitHubClient.app.dSYM.zip" -v  # 上传符号化文件dsym
         echo "work flow build end"
