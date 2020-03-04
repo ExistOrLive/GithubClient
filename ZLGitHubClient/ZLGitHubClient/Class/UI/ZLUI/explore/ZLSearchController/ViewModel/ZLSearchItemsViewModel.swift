@@ -353,6 +353,8 @@ extension ZLSearchItemsViewModel: UICollectionViewDelegate,UICollectionViewDataS
         case .topics:do{
             collectionCell.label.text = ZLLocalizedString(string: "topics", comment: "标题")
             }
+        @unknown default:do {
+        }
         }
         
         if indexPath.row == self.currentSearchType.rawValue
@@ -423,6 +425,8 @@ extension ZLSearchItemsViewModel: ZLSearchItemsViewDelegate
         case .issues: break
         case .code: break
         case .topics: break
+        @unknown default:do {
+        }
         }
         
     }

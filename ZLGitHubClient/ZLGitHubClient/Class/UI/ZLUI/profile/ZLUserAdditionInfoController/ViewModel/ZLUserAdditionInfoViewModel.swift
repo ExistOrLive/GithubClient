@@ -119,7 +119,8 @@ extension ZLUserAdditionInfoViewModel
             view.infoLabel.text = ZLLocalizedString(string: "stars", comment: "标星")
             view.viewType = .repositories
             }
-            
+        @unknown default:do {
+            }
         }
     }
 }

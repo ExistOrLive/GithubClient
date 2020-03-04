@@ -19,7 +19,7 @@ class ZLSearchFilterPickerView: ZLBaseView {
         var initIndex = 0;
         if(initTitle != nil)
         {
-            let index =  languageArray.index(of: initTitle!)
+            let index =  languageArray.firstIndex(of: initTitle!)
             initIndex = index ?? 0;
         }
         
@@ -35,7 +35,7 @@ class ZLSearchFilterPickerView: ZLBaseView {
         var initIndex = 0;
              if(initTitle != nil)
              {
-                 let index =  repoOrderArray.index(of: initTitle!)
+                let index =  repoOrderArray.firstIndex(of: initTitle!)
                  initIndex = index ?? 0;
              }
         
@@ -51,7 +51,7 @@ class ZLSearchFilterPickerView: ZLBaseView {
         var initIndex = 0;
         if(initTitle != nil)
         {
-            let index =  userOrderArray.index(of: initTitle!)
+            let index =  userOrderArray.firstIndex(of: initTitle!)
             initIndex = index ?? 0;
         }
         
