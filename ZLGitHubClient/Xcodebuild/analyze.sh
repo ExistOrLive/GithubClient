@@ -1,8 +1,9 @@
 #!/bin/bash
-# oclint 静态分析 脚本
 
 # clean build cache
-#xcodebuild clean -workspace ZLGitHubClient.xcworkspace -scheme ZLGitHubClient 
+xcodebuild clean -workspace ZLGitHubClient.xcworkspace -scheme ZLGitHubClient 
+
+# oclint 静态分析 脚本
 
 #rm -rf Xcodebuild/analyze
 
@@ -26,3 +27,4 @@
 
 ## infer 静态分析脚本
 
+infer --keep-going -- xcodebuild -workspace ZLGitHubClient.xcworkspace -scheme ZLGitHubClient  
