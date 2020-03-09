@@ -26,7 +26,6 @@ class ZLRepoItemInfoView: ZLBaseView {
     @IBOutlet weak var pullRequestInfoLabel: UILabel!
     @IBOutlet weak var languageInfoLabel: UILabel!
     @IBOutlet weak var actionInfoLabel: UILabel!
-    @IBOutlet weak var contributerInfoLabel: UILabel!
     
     override func awakeFromNib(){
         super.awakeFromNib()
@@ -37,7 +36,6 @@ class ZLRepoItemInfoView: ZLBaseView {
         self.branchLabel.text = ZLLocalizedString(string:"branch", comment: "分支")
         self.languageLabel.text = ZLLocalizedString(string: "Language", comment: "语言")
         self.actionLabel.text = ZLLocalizedString(string: "action", comment: "action")
-        self.contributerLabel.text = ZLLocalizedString(string: "contributer", comment: "贡献者")
     }
 
 }

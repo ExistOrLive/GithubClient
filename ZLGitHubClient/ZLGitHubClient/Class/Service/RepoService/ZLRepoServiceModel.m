@@ -131,9 +131,9 @@
            }
        };
        
-       [[ZLGithubHttpClient defaultClient] getRepositoryReadMeInfo:response
-                                                          fullName:fullName
-                                                      serialNumber:serialNumber];
+       [[ZLGithubHttpClient defaultClient] getRepositoryPullRequestInfo:response
+                                                               fullName:fullName
+                                                           serialNumber:serialNumber];
 }
 
 

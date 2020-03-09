@@ -39,6 +39,7 @@
 #import "ZLGithubRepositoryReadMeModel.h"
 #import "ZLGithubEventModel.h"
 #import "ZLGithubGistModel.h"
+#import "ZLGithubPullRequestModel.h"
 
 
 // tmp Model

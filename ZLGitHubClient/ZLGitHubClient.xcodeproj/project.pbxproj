@@ -88,6 +88,9 @@
 		74478D49231FEAE3007D3832 /* ZLSettingLogoutTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74478D47231FEAE3007D3832 /* ZLSettingLogoutTableViewCell.xib */; };
 		74478D4C231FF37A007D3832 /* ZLSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74478D4B231FF37A007D3832 /* ZLSettingViewModel.swift */; };
 		7451993B236F068700A050A4 /* ZLRoundRectTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 7451993A236F068700A050A4 /* ZLRoundRectTextField.m */; };
+		7456A2ED2416A31200222D6C /* ZLPullRequestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7456A2EB2416A31200222D6C /* ZLPullRequestTableViewCell.swift */; };
+		7456A2EE2416A31200222D6C /* ZLPullRequestTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7456A2EC2416A31200222D6C /* ZLPullRequestTableViewCell.xib */; };
+		7456A2F02416A4E100222D6C /* ZLPullRequestTableViewCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7456A2EF2416A4E100222D6C /* ZLPullRequestTableViewCellData.swift */; };
 		7466754922D885C300A08773 /* ZLGithubHttpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 7466754822D885C300A08773 /* ZLGithubHttpClient.m */; };
 		746B092E21EB7362000EE88B /* ZLMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 746B092D21EB7362000EE88B /* ZLMainViewController.m */; };
 		746F47B0222A7965004D2A2F /* ZLLogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 746F47AF222A7965004D2A2F /* ZLLogManager.m */; };
@@ -314,6 +317,9 @@
 		74478D4B231FF37A007D3832 /* ZLSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLSettingViewModel.swift; sourceTree = "<group>"; };
 		74519939236F068700A050A4 /* ZLRoundRectTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLRoundRectTextField.h; sourceTree = "<group>"; };
 		7451993A236F068700A050A4 /* ZLRoundRectTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLRoundRectTextField.m; sourceTree = "<group>"; };
+		7456A2EB2416A31200222D6C /* ZLPullRequestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLPullRequestTableViewCell.swift; sourceTree = "<group>"; };
+		7456A2EC2416A31200222D6C /* ZLPullRequestTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZLPullRequestTableViewCell.xib; sourceTree = "<group>"; };
+		7456A2EF2416A4E100222D6C /* ZLPullRequestTableViewCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLPullRequestTableViewCellData.swift; sourceTree = "<group>"; };
 		7466754722D885C300A08773 /* ZLGithubHttpClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLGithubHttpClient.h; sourceTree = "<group>"; };
 		7466754822D885C300A08773 /* ZLGithubHttpClient.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLGithubHttpClient.m; sourceTree = "<group>"; };
 		746B090921EB5C37000EE88B /* SYDCentralFactory+SYDService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SYDCentralFactory+SYDService.h"; sourceTree = "<group>"; };
@@ -1032,6 +1038,24 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		7456A2E92416A2CF00222D6C /* ZLPullRequestTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				7456A2EA2416A2F300222D6C /* view */,
+				7456A2EF2416A4E100222D6C /* ZLPullRequestTableViewCellData.swift */,
+			);
+			path = ZLPullRequestTableViewCell;
+			sourceTree = "<group>";
+		};
+		7456A2EA2416A2F300222D6C /* view */ = {
+			isa = PBXGroup;
+			children = (
+				7456A2EB2416A31200222D6C /* ZLPullRequestTableViewCell.swift */,
+				7456A2EC2416A31200222D6C /* ZLPullRequestTableViewCell.xib */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
 		746B090721EB5C37000EE88B /* SYDCentralPivot */ = {
 			isa = PBXGroup;
 			children = (
@@ -1694,6 +1718,7 @@
 		74C861C222F0259700A30B79 /* ZLReuseView */ = {
 			isa = PBXGroup;
 			children = (
+				7456A2E92416A2CF00222D6C /* ZLPullRequestTableViewCell */,
 				74DB05A923F137F80009FEAC /* ZLGistTableViewCell */,
 				3628FCDC238BB1DD00FC36FC /* ZLEventTableViewCell */,
 				74BEF59C22F2D72500FD1738 /* ZLUserTableViewCell */,
@@ -2276,6 +2301,7 @@
 				74D7B60322F139FB00C109CA /* ZLUserAdditionInfoView.xib in Resources */,
 				740318D522F70867004CE52D /* ZLSearchTypeCollectionViewCell.xib in Resources */,
 				74CDA6842409833C00049EF8 /* LICENSE in Resources */,
+				7456A2EE2416A31200222D6C /* ZLPullRequestTableViewCell.xib in Resources */,
 				74F0ABE72365971900D1B954 /* ZLSearchFilterViewForUser.xib in Resources */,
 				7436A0AC236DCDA700AF554C /* CYRangePickerPopoverView.xib in Resources */,
 				74D55DED22FB183E004114BC /* ZLSearchRecordTableViewCell.xib in Resources */,
@@ -2424,6 +2450,7 @@
 				74F02CD222DCD02800AE153F /* ZLGithubUserModel.m in Sources */,
 				D1135F8721ECD513003A26C1 /* ZLNewsViewController.m in Sources */,
 				7431B43622F5E0510060968A /* ZLSearchViewModel.swift in Sources */,
+				7456A2F02416A4E100222D6C /* ZLPullRequestTableViewCellData.swift in Sources */,
 				746F47B0222A7965004D2A2F /* ZLLogManager.m in Sources */,
 				36C43F9D23ABAEA6002DE5D6 /* ZLAppInfo.m in Sources */,
 				74FCBD9B23141FE000DDE46A /* ZLEditProfileView.swift in Sources */,
@@ -2459,6 +2486,7 @@
 				3628FCE6238CF1C600FC36FC /* ZLEventTableViewCellData.swift in Sources */,
 				7436AC8421EB7B4500F03276 /* ZLBaseViewController.m in Sources */,
 				740318D822F70F8D004CE52D /* UIColor+HexColor.m in Sources */,
+				7456A2ED2416A31200222D6C /* ZLPullRequestTableViewCell.swift in Sources */,
 				74E1DEA623ED72AC0036014C /* ZLBaseObject.m in Sources */,
 				74F0ABEB2365C2BF00D1B954 /* ZLSearchFilterViewModelForUser.swift in Sources */,
 				74478D3C231FE37B007D3832 /* ZLSettingController.swift in Sources */,
@@ -2672,8 +2700,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 24LG5QVBPR;
