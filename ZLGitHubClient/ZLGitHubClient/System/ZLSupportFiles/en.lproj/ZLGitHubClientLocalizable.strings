@@ -45,8 +45,11 @@
 "Loading" = "loading";
 "LoadFinished" = "load finished";
 
+"commit" = "Commit";
 "pull request" = "Pull Request";
 "branch" = "Branch";
+"action" = "Action";
+"contributer" = "Contributer";
 
 "day ago" = " day ago";
 "hour ago" = " hour ago";

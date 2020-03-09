@@ -45,6 +45,18 @@ NS_ASSUME_NONNULL_BEGIN
                         completeHandle:(void(^)(ZLOperationResultModel *)) handle;
 
 
+/**
+* @brief 根据repo 获取pullrequest
+* @param fullName octocat/Hello-World
+* @param serialNumber 流水号
+**/
+
+- (void) getRepoPullRequestWithFullName:(NSString *) fullName
+                           serialNumber:(NSString *) serialNumber
+                         completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+
+
 
 @end
 

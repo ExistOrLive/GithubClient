@@ -53,6 +53,8 @@
 
 #define reposReadMeUrl          @"/repos/%@/readme"                  // 获取某个repo的readme信息
 
+#define repoPullRequestUrl      @"/repos/%@/pulls"                   // 获取pullrequest
+
 
 #pragma mark starred
 

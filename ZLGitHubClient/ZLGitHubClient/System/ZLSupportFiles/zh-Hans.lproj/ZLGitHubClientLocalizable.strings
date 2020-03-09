@@ -46,6 +46,9 @@
 
 "pull request" = "合并请求";
 "branch" = "分支";
+"commit" = "提交";
+"action" = "Action";
+"contributer" = "贡献者";
 
 "day ago" = "天前";
 "hour ago" = "小时前";
