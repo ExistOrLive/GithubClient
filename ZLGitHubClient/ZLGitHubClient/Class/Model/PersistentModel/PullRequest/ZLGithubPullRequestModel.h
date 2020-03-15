@@ -31,11 +31,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, strong) NSDate * created_at;       // 创建时间
 
-@property(nonatomic, strong) NSDate * updated_at;
+@property(nonatomic, strong, nullable) NSDate * updated_at;
 
-@property(nonatomic, strong) NSDate * closed_at;        // 关闭时间
+@property(nonatomic, strong, nullable) NSDate * closed_at;        // 关闭时间
 
-@property(nonatomic, strong) NSDate * merged_at;        // 合并时间
+@property(nonatomic, strong, nullable) NSDate * merged_at;        // 合并时间
 
 @property(nonatomic, strong) ZLGithubUserBriefModel * user;    // pull request 创建者
 

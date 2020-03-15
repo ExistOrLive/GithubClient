@@ -19,6 +19,11 @@
        [property.name isEqualToString:@"merged_at"])&&
             property.type.typeClass == [NSDate class])
     {
+        if(oldValue == [NSNull null])
+        {
+            return  nil;
+        }
+        
         // String 转为 Date
         NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];

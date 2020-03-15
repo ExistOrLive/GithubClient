@@ -31,12 +31,12 @@ class ZLPullRequestTableViewCellData: ZLBaseViewModel {
 
 extension ZLPullRequestTableViewCellData
 {
-    func getTitle() -> String
+    func getTitle() -> String?
     {
         return self.pullRequestModel.title
     }
     
-    func getAssistInfo() -> String
+    func getAssistInfo() -> String?
     {
         if self.pullRequestModel.state == "open"
         {
@@ -45,9 +45,38 @@ extension ZLPullRequestTableViewCellData
         }
         else 
         {
-           let assitInfo = "#\(self.pullRequestModel.number) \(self.pullRequestModel.user.loginName) \(ZLLocalizedString(string: "closed at", comment: "关闭于")) \((self.pullRequestModel.closed_at as NSDate).dateLocalStrSinceCurrentTime())"
-            return assitInfo
+            var date : Date? = nil
+            
+            if self.pullRequestModel.merged_at != nil
+            {
+                date = self.pullRequestModel.merged_at
+            }
+            else if self.pullRequestModel.closed_at != nil
+            {
+                date = self.pullRequestModel.closed_at
+            }
+            else if self.pullRequestModel.updated_at != nil
+            {
+                date = self.pullRequestModel.updated_at
+            }
+            
+            if date != nil
+            {
+                let assitInfo = "#\(self.pullRequestModel.number) \(self.pullRequestModel.user.loginName) \(ZLLocalizedString(string: "closed at", comment: "关闭于")) \((date as! NSDate).dateLocalStrSinceCurrentTime())"
+                           return assitInfo
+            }
+            else
+            {
+                return ""
+            }
+            
+          
         }
+    }
+    
+    func getCellHeight() -> CGFloat
+    {
+        return 80.0
     }
 }
 

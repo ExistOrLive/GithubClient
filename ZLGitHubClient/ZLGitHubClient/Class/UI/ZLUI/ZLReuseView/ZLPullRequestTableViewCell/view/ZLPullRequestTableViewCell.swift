@@ -37,7 +37,7 @@ class ZLPullRequestTableViewCell: UITableViewCell {
     func fillWithData(data : ZLPullRequestTableViewCellData)
     {
         self.titleLabel.text = data.getTitle()
-        self.assitInfoLabel.text = data.getAssistInfo()
+        self.assitInfoLabel.text = data.getAssistInfo() 
     }
     
     

@@ -109,8 +109,10 @@
 
 
 - (void) getRepoPullRequestWithFullName:(NSString *) fullName
+                                  state:(NSString *) state
                            serialNumber:(NSString *) serialNumber
                          completeHandle:(void(^)(ZLOperationResultModel *)) handle
+
 {
     if(fullName.length == 0 || ![fullName containsString:@"/"])
        {
@@ -131,9 +133,10 @@
            }
        };
        
-       [[ZLGithubHttpClient defaultClient] getRepositoryPullRequestInfo:response
-                                                               fullName:fullName
-                                                           serialNumber:serialNumber];
+    [[ZLGithubHttpClient defaultClient] getRepositoryPullRequestInfo:response
+                                                            fullName:fullName
+                                                               state:state
+                                                        serialNumber:serialNumber];
 }
 
 

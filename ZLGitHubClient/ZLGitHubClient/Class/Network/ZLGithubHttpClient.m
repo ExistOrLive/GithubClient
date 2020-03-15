@@ -708,10 +708,13 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 **/
 - (void) getRepositoryPullRequestInfo:(GithubResponse) block
                              fullName:(NSString *) fullName
+                                state:(NSString *) state
                          serialNumber:(NSString *) serialNumber
 {
     NSString * urlForRepoReadMe = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoPullRequestUrl];
       urlForRepoReadMe = [NSString stringWithFormat:urlForRepoReadMe,fullName];
+    
+    NSDictionary * params = @{@"state":state};
       
       GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
           
@@ -724,7 +727,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
       };
       
       [self GETRequestWithURL:urlForRepoReadMe
-                   WithParams:nil
+                   WithParams:params
             WithResponseBlock:newBlock
                  serialNumber:serialNumber];
 }

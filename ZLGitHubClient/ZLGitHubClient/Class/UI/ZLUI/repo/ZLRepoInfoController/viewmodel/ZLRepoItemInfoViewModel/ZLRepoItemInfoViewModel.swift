@@ -28,6 +28,7 @@ class ZLRepoItemInfoViewModel: ZLBaseViewModel {
             return
         }
         self.repoItemInfoView = repoItemInfoView
+        self.repoItemInfoView?.delegate = self
         
         self.setViewDataForRepoItemInfoView()
     }
@@ -73,7 +74,7 @@ class ZLRepoItemInfoViewModel: ZLBaseViewModel {
     
     func setPullRequestInfo()
     {
-        ZLRepoServiceModel.shared().getRepoPullRequest(withFullName: self.repoInfoModel?.full_name ?? "", serialNumber: NSString.generateSerialNumber() as String, completeHandle: {( resultModel : ZLOperationResultModel) in
+        ZLRepoServiceModel.shared().getRepoPullRequest(withFullName: self.repoInfoModel?.full_name ?? "", state:"open", serialNumber: NSString.generateSerialNumber() as String, completeHandle: {( resultModel : ZLOperationResultModel) in
             
             if resultModel.result == true
             {
@@ -87,7 +88,36 @@ class ZLRepoItemInfoViewModel: ZLBaseViewModel {
         })
     }
     
-    
-    
-
 }
+
+
+extension ZLRepoItemInfoViewModel : ZLRepoItemInfoViewDelegate
+{
+     func onZLRepoItemInfoViewEvent(type : ZLRepoItemType)
+     {
+        switch(type)
+        {
+        case .action : do{
+            
+            }
+        case .branch :do{
+            
+            }
+        case .pullRequest : do{
+            let controller = ZLRepoPullRequestController.init()
+            controller.repoFullName = self.repoInfoModel?.full_name
+            self.viewController?.navigationController?.pushViewController(controller, animated: true)
+            }
+        case .code : do{
+            
+            }
+        case .commit : do{
+            
+            }
+        case .language : do{
+            
+            }
+        }
+    }
+}
+

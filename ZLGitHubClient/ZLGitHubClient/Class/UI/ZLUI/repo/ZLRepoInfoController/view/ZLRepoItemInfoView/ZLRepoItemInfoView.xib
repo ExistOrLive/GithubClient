@@ -25,12 +25,15 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XH8-yE-Kp3">
+                                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XH8-yE-Kp3">
                                     <rect key="frame" x="470" y="0.0" width="50" height="50"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="50" id="4oS-xV-1wM"/>
                                     </constraints>
                                     <state key="normal" image="itemnext_MyProfile"/>
+                                    <connections>
+                                        <action selector="onButtonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="IuQ-9h-f3y"/>
+                                    </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X77-g6-IHy">
                                     <rect key="frame" x="470" y="0.0" width="0.0" height="50"/>
@@ -62,13 +65,16 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zSs-um-sQg">
+                                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zSs-um-sQg">
                                     <rect key="frame" x="470" y="0.0" width="50" height="50"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="50" id="3ds-ky-v6U"/>
                                         <constraint firstAttribute="height" constant="50" id="DAT-eo-CLp"/>
                                     </constraints>
                                     <state key="normal" image="itemnext_MyProfile"/>
+                                    <connections>
+                                        <action selector="onButtonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="uDw-To-xuD"/>
+                                    </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pJd-Ox-hRe">
                                     <rect key="frame" x="470" y="0.0" width="0.0" height="50"/>
@@ -100,13 +106,16 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Znw-iZ-8HL">
+                                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Znw-iZ-8HL">
                                     <rect key="frame" x="470" y="0.0" width="50" height="50"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="50" id="5Gh-TG-KTe"/>
                                         <constraint firstAttribute="height" constant="50" id="kXE-oo-qLl"/>
                                     </constraints>
                                     <state key="normal" image="itemnext_MyProfile"/>
+                                    <connections>
+                                        <action selector="onButtonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="ymV-zp-Git"/>
+                                    </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ERO-o4-Dsa">
                                     <rect key="frame" x="470" y="0.0" width="0.0" height="50"/>
@@ -138,12 +147,15 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tow-nx-eyS">
+                                <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tow-nx-eyS">
                                     <rect key="frame" x="470" y="0.0" width="50" height="50"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="50" id="s7y-iV-gst"/>
                                     </constraints>
                                     <state key="normal" image="itemnext_MyProfile"/>
+                                    <connections>
+                                        <action selector="onButtonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="clG-Sk-EcF"/>
+                                    </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Own-Ot-90N">
                                     <rect key="frame" x="470" y="0.0" width="0.0" height="50"/>
@@ -175,12 +187,15 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nZp-PT-4yS">
+                                <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nZp-PT-4yS">
                                     <rect key="frame" x="470" y="0.0" width="50" height="50"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="50" id="DOV-QK-oUa"/>
                                     </constraints>
                                     <state key="normal" image="itemnext_MyProfile"/>
+                                    <connections>
+                                        <action selector="onButtonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="ehH-S9-hvh"/>
+                                    </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Zo-dH-f3D">
                                     <rect key="frame" x="470" y="0.0" width="0.0" height="50"/>
@@ -212,13 +227,16 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BUZ-nE-pJ4">
+                                <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BUZ-nE-pJ4">
                                     <rect key="frame" x="470" y="0.0" width="50" height="50"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="50" id="Tk1-YL-jfv"/>
                                         <constraint firstAttribute="height" constant="50" id="lgF-fN-Gjg"/>
                                     </constraints>
                                     <state key="normal" image="itemnext_MyProfile"/>
+                                    <connections>
+                                        <action selector="onButtonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="xM1-hr-Y81"/>
+                                    </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jj6-tH-vXX">
                                     <rect key="frame" x="470" y="0.0" width="0.0" height="50"/>

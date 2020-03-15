@@ -208,13 +208,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
-* @brief 根据fullName直接获取Repo readme 信息
-* @param block 请求回调
-* @param fullName octocat/Hello-World
-* @param serialNumber 流水号 通过block回调原样返回
-**/
+ * @brief 根据fullName直接获取Repo readme 信息
+ * @param block 请求回调
+ * @param fullName octocat/Hello-World
+ * @param state closed / open / all
+ * @param serialNumber 流水号 通过block回调原样返回
+ **/
 - (void) getRepositoryPullRequestInfo:(GithubResponse) block
                              fullName:(NSString *) fullName
+                                state:(NSString *) state
                          serialNumber:(NSString *) serialNumber;
 
 #pragma mark - gists
