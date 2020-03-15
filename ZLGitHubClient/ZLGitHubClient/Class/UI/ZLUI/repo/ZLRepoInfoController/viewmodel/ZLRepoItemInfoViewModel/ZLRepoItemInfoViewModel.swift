@@ -28,6 +28,7 @@ class ZLRepoItemInfoViewModel: ZLBaseViewModel {
             return
         }
         self.repoItemInfoView = repoItemInfoView
+        self.repoItemInfoView?.delegate = self
         
         self.setViewDataForRepoItemInfoView()
     }
@@ -36,14 +37,17 @@ class ZLRepoItemInfoViewModel: ZLBaseViewModel {
     func setViewDataForRepoItemInfoView()
     {
         self.repoItemInfoView?.branchInfoLabel.text = self.repoInfoModel?.default_branch
+        
         self.repoItemInfoView?.languageInfoLabel.text = self.repoInfoModel?.language
         
-        self.setLanguageInfo()
+        self.setCodeInfo()
+        
+        self.setPullRequestInfo()
         
     }
     
     
-    func setLanguageInfo()
+    func setCodeInfo()
     {
         let size = self.repoInfoModel?.size ?? 0
         if size == 0
@@ -68,7 +72,52 @@ class ZLRepoItemInfoViewModel: ZLBaseViewModel {
         }
     }
     
+    func setPullRequestInfo()
+    {
+        ZLRepoServiceModel.shared().getRepoPullRequest(withFullName: self.repoInfoModel?.full_name ?? "", state:"open", serialNumber: NSString.generateSerialNumber() as String, completeHandle: {( resultModel : ZLOperationResultModel) in
+            
+            if resultModel.result == true
+            {
+                guard let data : [Any] = resultModel.data as? [Any] else
+                {
+                    return;
+                }
+                
+                self.repoItemInfoView?.pullRequestInfoLabel.text = "\(data.count)"
+            }
+        })
+    }
     
-    
-
 }
+
+
+extension ZLRepoItemInfoViewModel : ZLRepoItemInfoViewDelegate
+{
+     func onZLRepoItemInfoViewEvent(type : ZLRepoItemType)
+     {
+        switch(type)
+        {
+        case .action : do{
+            
+            }
+        case .branch :do{
+            
+            }
+        case .pullRequest : do{
+            let controller = ZLRepoPullRequestController.init()
+            controller.repoFullName = self.repoInfoModel?.full_name
+            self.viewController?.navigationController?.pushViewController(controller, animated: true)
+            }
+        case .code : do{
+            
+            }
+        case .commit : do{
+            
+            }
+        case .language : do{
+            
+            }
+        }
+    }
+}
+

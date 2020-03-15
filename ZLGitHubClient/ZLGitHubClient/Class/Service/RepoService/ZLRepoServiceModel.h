@@ -52,6 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 **/
 
 - (void) getRepoPullRequestWithFullName:(NSString *) fullName
+                                  state:(NSString *) state
                            serialNumber:(NSString *) serialNumber
                          completeHandle:(void(^)(ZLOperationResultModel *)) handle;
 

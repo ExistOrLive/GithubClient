@@ -8,8 +8,25 @@
 
 import UIKit
 
+@objc enum ZLRepoItemType : Int
+{
+    case commit = 1
+    case branch = 2
+    case language = 3
+    case code = 4
+    case action = 5
+    case pullRequest = 6
+}
+
+@objc protocol ZLRepoItemInfoViewDelegate : NSObjectProtocol
+{
+    func onZLRepoItemInfoViewEvent(type : ZLRepoItemType)
+}
+
+
 class ZLRepoItemInfoView: ZLBaseView {
 
+    weak var delegate : ZLRepoItemInfoViewDelegate?
     
     @IBOutlet private weak var commitLabel: UILabel!
     @IBOutlet private weak var branchLabel: UILabel!
@@ -17,7 +34,6 @@ class ZLRepoItemInfoView: ZLBaseView {
     @IBOutlet private weak var codeLabel: UILabel!
     @IBOutlet private weak var actionLabel: UILabel!
     @IBOutlet private weak var pullRequestLabel: UILabel!
-    @IBOutlet private weak var contributerLabel: UILabel!
     
     
     @IBOutlet weak var commitInfoLabel: UILabel!
@@ -26,7 +42,6 @@ class ZLRepoItemInfoView: ZLBaseView {
     @IBOutlet weak var pullRequestInfoLabel: UILabel!
     @IBOutlet weak var languageInfoLabel: UILabel!
     @IBOutlet weak var actionInfoLabel: UILabel!
-    @IBOutlet weak var contributerInfoLabel: UILabel!
     
     override func awakeFromNib(){
         super.awakeFromNib()
@@ -37,7 +52,21 @@ class ZLRepoItemInfoView: ZLBaseView {
         self.branchLabel.text = ZLLocalizedString(string:"branch", comment: "分支")
         self.languageLabel.text = ZLLocalizedString(string: "Language", comment: "语言")
         self.actionLabel.text = ZLLocalizedString(string: "action", comment: "action")
-        self.contributerLabel.text = ZLLocalizedString(string: "contributer", comment: "贡献者")
     }
-
+    
+    
+    @IBAction func onButtonClicked(_ sender: UIButton) {
+        
+        if self.delegate?.responds(to: #selector(ZLRepoItemInfoViewDelegate.onZLRepoItemInfoViewEvent(type:))) ?? false
+        {
+            let type = ZLRepoItemType.init(rawValue: sender.tag)
+            
+            if type != nil
+            {
+               self.delegate?.onZLRepoItemInfoViewEvent(type: type!)
+            }
+            
+        }
+    }
+    
 }
