@@ -62,7 +62,7 @@ extension ZLPullRequestTableViewCellData
             
             if date != nil
             {
-                let assitInfo = "#\(self.pullRequestModel.number) \(self.pullRequestModel.user.loginName) \(ZLLocalizedString(string: "closed at", comment: "关闭于")) \((date as! NSDate).dateLocalStrSinceCurrentTime())"
+                let assitInfo = "#\(self.pullRequestModel.number) \(self.pullRequestModel.user.loginName) \(ZLLocalizedString(string: "closed at", comment: "关闭于")) \((date! as NSDate).dateLocalStrSinceCurrentTime())"
                            return assitInfo
             }
             else
@@ -76,7 +76,7 @@ extension ZLPullRequestTableViewCellData
     
     func getCellHeight() -> CGFloat
     {
-        return 80.0
+        return 100.0
     }
 }
 

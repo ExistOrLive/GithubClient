@@ -4,6 +4,7 @@
 
 #import <AFNetworking/AFNetworking.h>
 #import <SVProgressHUD/SVProgressHUD.h>
+#import <MJRefresh/MJRefresh.h>
 
 #import "ZLBaseUIHeader.h"
 #import "ZLBaseObject.h"
