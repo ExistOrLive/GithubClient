@@ -11,6 +11,7 @@
 #import "ZLBuglyManager.h"
 #import "ZLSharedDataManager.h"
 
+#import <JJException/JJException.h>
 #ifdef DEBUG
 #import <DoraemonKit/DoraemonManager.h>
 #endif
@@ -26,6 +27,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    [self setUpJJException];
     
     [self setUpDoraemonKit];
     
@@ -187,6 +190,13 @@
 - (void) setUpBugly
 {
     [[ZLBuglyManager sharedManager] setUp];
+}
+
+#pragma mark - JJException
+- (void) setUpJJException
+{
+    [JJException configExceptionCategory:JJExceptionGuardAll];
+    [JJException startGuardException];
 }
 
  

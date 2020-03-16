@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ZLEventTableViewCellData: ZLBaseViewModel {
+class ZLEventTableViewCellData: ZLGithubItemTableViewCellData {
     
     let eventModel : ZLGithubEventModel
     
@@ -25,6 +25,24 @@ class ZLEventTableViewCellData: ZLBaseViewModel {
         }
         cell.fillWithData(cellData: self)
         cell.delegate = self
+    }
+    
+    override func getCellReuseIdentifier() -> String
+    {
+        switch(self.eventModel.type)
+        {
+        case .pushEvent: do {
+            return "ZLPushEventTableViewCell"
+            }
+        default: do{
+            return "ZLEventTableViewCell"
+            }
+        }
+    }
+    
+    override func getCellHeight() -> CGFloat
+    {
+        return 135.0
     }
 }
 
@@ -45,24 +63,6 @@ extension ZLEventTableViewCellData
     {
         let timeStr = NSString.init(format: "%@",(self.eventModel.created_at as NSDate?)?.dateLocalStrSinceCurrentTime() ?? "")
         return timeStr as String
-    }
-    
-    func getCellReuseIdentifier() -> String
-    {
-        switch(self.eventModel.type)
-        {
-        case .pushEvent: do {
-            return "ZLPushEventTableViewCell"
-            }
-        default: do{
-            return "ZLEventTableViewCell"
-            }
-        }
-    }
-    
-    @objc func getCellHeight() -> CGFloat
-    {
-        return 135.0
     }
     
     @objc func getEventDescrption() -> String

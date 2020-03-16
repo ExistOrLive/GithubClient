@@ -16,7 +16,7 @@ class ZLRepoPullRequestController: ZLBaseViewController {
         
         super.viewDidLoad()
         
-        self.title = self.repoFullName
+        self.title = ZLLocalizedString(string: "pull request", comment: "合并请求")
 
         let pullRequestView : ZLPullRequestListView = ZLPullRequestListView.init(frame:CGRect.init())
         self.contentView.addSubview(pullRequestView)

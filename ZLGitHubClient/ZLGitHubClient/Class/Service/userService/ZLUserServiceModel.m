@@ -105,7 +105,6 @@
     
     GithubResponse response = ^(BOOL result,id responseObject,NSString * serialNumber){
         
-        ZLGithubUserModel * model = (ZLGithubUserModel *) responseObject;
         ZLLog_Info(@"result = %d, model = %@",result,responseObject);
         if(!result)
         {

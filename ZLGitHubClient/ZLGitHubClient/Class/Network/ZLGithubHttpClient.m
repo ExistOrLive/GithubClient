@@ -13,6 +13,7 @@
 
 // Tool
 #import "ZLSharedDataManager.h"
+#import "NSDate+localizeStr.h"
 // model
 #import "ZLGithubUserModel.h"
 #import "ZLGithubRepositoryModel.h"
@@ -24,6 +25,7 @@
 #import "ZLGithubGistModel.h"
 #import "ZLGithubRepositoryReadMeModel.h"
 #import "ZLGithubPullRequestModel.h"
+#import "ZLGithubCommitModel.h"
 
 static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 
@@ -731,6 +733,43 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
             WithResponseBlock:newBlock
                  serialNumber:serialNumber];
 }
+
+
+/**
+* @brief 根据fullName直接获取Repo readme 信息
+* @param block 请求回调
+* @param fullName octocat/Hello-World
+* @param serialNumber 流水号 通过block回调原样返回
+**/
+- (void) getRepositoryCommitsInfo:(GithubResponse) block
+                         fullName:(NSString *) fullName
+                             until:(NSDate *) untilDate
+                            since:(NSDate *) sinceDate
+                     serialNumber:(NSString *) serialNumber
+{
+    NSString * urlForRepoCommits = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoCommitsUrl];
+    urlForRepoCommits = [NSString stringWithFormat:urlForRepoCommits,fullName];
+    
+    NSDictionary * params = @{@"since":[sinceDate dateStrForYYYYMMDDTHHMMSSZForTimeZone0],
+                              @"until":[untilDate dateStrForYYYYMMDDTHHMMSSZForTimeZone0]};
+    
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
+        
+        if(result)
+        {
+            NSArray<ZLGithubCommitModel *> * model = [ZLGithubCommitModel mj_objectArrayWithKeyValuesArray:responseObject];
+            responseObject = model;
+        }
+        block(result,responseObject,serialNumber);
+    };
+    
+    [self GETRequestWithURL:urlForRepoCommits
+                 WithParams:params
+          WithResponseBlock:newBlock
+               serialNumber:serialNumber];
+}
+
+
 
 
 #pragma mark - gists

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ZLPullRequestTableViewCellData: ZLBaseViewModel {
+class ZLPullRequestTableViewCellData: ZLGithubItemTableViewCellData {
 
     let pullRequestModel : ZLGithubPullRequestModel
     
@@ -27,6 +27,15 @@ class ZLPullRequestTableViewCellData: ZLBaseViewModel {
         cell.delegate = self
     }
     
+    override func getCellHeight() -> CGFloat
+    {
+        return 100.0
+    }
+    
+    override func getCellReuseIdentifier() -> String
+    {
+        return "ZLPullRequestTableViewCell"
+    }
 }
 
 extension ZLPullRequestTableViewCellData
@@ -62,7 +71,7 @@ extension ZLPullRequestTableViewCellData
             
             if date != nil
             {
-                let assitInfo = "#\(self.pullRequestModel.number) \(self.pullRequestModel.user.loginName) \(ZLLocalizedString(string: "closed at", comment: "关闭于")) \((date as! NSDate).dateLocalStrSinceCurrentTime())"
+                let assitInfo = "#\(self.pullRequestModel.number) \(self.pullRequestModel.user.loginName) \(ZLLocalizedString(string: "closed at", comment: "关闭于")) \((date! as NSDate).dateLocalStrSinceCurrentTime())"
                            return assitInfo
             }
             else
@@ -74,10 +83,10 @@ extension ZLPullRequestTableViewCellData
         }
     }
     
-    func getCellHeight() -> CGFloat
-    {
-        return 80.0
-    }
+   
+    
+    
+    
 }
 
 

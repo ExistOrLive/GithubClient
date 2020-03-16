@@ -48,6 +48,8 @@ pod 'DoraemonKit/WithMLeaksFinder', '2.0.0', :configurations => ['Debug']
 # bugly
 pod 'Bugly'
 
+pod 'JJException'
+
 
 ## fix oclint issue : one compiler command contains multiple jobs
 

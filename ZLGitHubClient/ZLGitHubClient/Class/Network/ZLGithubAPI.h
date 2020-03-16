@@ -55,6 +55,8 @@
 
 #define repoPullRequestUrl      @"/repos/%@/pulls"                   // 获取pullrequest
 
+#define repoCommitsUrl          @"/repos/%@/commits"                 // 获取commits
+
 
 #pragma mark starred
 

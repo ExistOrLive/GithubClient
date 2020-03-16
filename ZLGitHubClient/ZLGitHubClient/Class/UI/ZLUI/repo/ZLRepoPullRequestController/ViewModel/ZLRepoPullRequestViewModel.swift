@@ -25,7 +25,7 @@ class ZLRepoPullRequestViewModel: ZLBaseViewModel {
         
         self.fullName = targetModel as? String
         
-        self.sendPullRequestListRequest()
+        self.pullRequestListView?.beginRefresh()
     }
 }
 

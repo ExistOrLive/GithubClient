@@ -10,8 +10,6 @@ import UIKit
 
 @objc protocol ZLPullRequestListViewDelegate : NSObjectProtocol
 {
-    func pullRequestListViewRefreshDragUp(pullRequestListView: ZLPullRequestListView) -> Void;
-     
     func pullRequestListViewRefreshDragDown(pullRequestListView: ZLPullRequestListView) -> Void;
 }
 
@@ -49,10 +47,11 @@ class ZLPullRequestListView: ZLBaseView {
         
         self.tableView?.delegate = self
         self.tableView?.dataSource = self;
-
-        
-        self.refreshManager = ZMRefreshManager.init(scrollView: self.tableView, addHeaderView: true, addFooterView: false)
-        self.refreshManager?.delegate = self;
+       
+        weak var selfWeak = self
+        self.tableView?.mj_header = ZLRefresh.refreshHeader(refreshingBlock: {
+            selfWeak?.startRefresh()
+        })
     }
 }
 
@@ -77,25 +76,17 @@ extension ZLPullRequestListView : UITableViewDelegate, UITableViewDataSource
        }
 }
 
-extension ZLPullRequestListView : ZMRefreshManagerDelegate
+extension ZLPullRequestListView
 {
-    func zmRefreshIsDragUp(_ isDragUp: Bool, refreshView: UIView!) {
+    func startRefresh() {
         
-        if(isDragUp)    // 上拉
+        
+        if
+            self.delegate?.responds(to:#selector(ZLPullRequestListViewDelegate.pullRequestListViewRefreshDragDown(pullRequestListView:))) ?? false
         {
-            if self.delegate?.responds(to: #selector(ZLPullRequestListViewDelegate.pullRequestListViewRefreshDragUp(pullRequestListView:))) ?? false
-            {
-                self.delegate?.pullRequestListViewRefreshDragUp(pullRequestListView:self)
-            }
+            self.delegate?.pullRequestListViewRefreshDragDown(pullRequestListView:self)
         }
-        else           // 下拉
-        {
-            if
-                self.delegate?.responds(to:#selector(ZLPullRequestListViewDelegate.pullRequestListViewRefreshDragDown(pullRequestListView:))) ?? false
-            {
-                self.delegate?.pullRequestListViewRefreshDragDown(pullRequestListView:self)
-            }
-        }
+        
     }
 }
 
@@ -104,8 +95,8 @@ extension ZLPullRequestListView
 {
     func resetCellDatas(cellDatas: [ZLPullRequestTableViewCellData]?)
     {
-        self.refreshManager?.resetFooterViewInit();
-        self.refreshManager?.resetHeaderViewInit();
+        self.tableView?.mj_header?.endRefreshing()
+        self.tableView?.mj_footer?.endRefreshing()
         
         if self.cellDatas != nil
         {
@@ -123,12 +114,12 @@ extension ZLPullRequestListView
     {
         if((cellDatas == nil) || cellDatas?.count == 0)
         {
-            self.refreshManager?.setFooterViewNoMoreFresh()
+            self.tableView?.mj_footer?.endRefreshingWithNoMoreData()
             return
         }
-        
-        self.refreshManager?.setFooterViewRefreshEnd()
-        
+    
+        self.tableView?.mj_footer?.endRefreshing()
+    
         if(self.cellDatas == nil)
         {
             self.cellDatas = [];
@@ -140,14 +131,14 @@ extension ZLPullRequestListView
     
     func beginRefresh()
     {
-        self.refreshManager?.headerBeginRefreshing()
+        self.tableView?.mj_header?.beginRefreshing()
     }
     
     
     func endRefreshWithError()
     {
-        self.refreshManager?.setFooterViewRefreshEnd()
-        self.refreshManager?.setHeaderViewRefreshEnd()
+        self.tableView?.mj_header?.endRefreshing()
+        self.tableView?.mj_footer?.endRefreshing()
     }
     
 }

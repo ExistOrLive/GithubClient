@@ -8,7 +8,7 @@
 
 import UIKit
 
-@objcMembers class ZLRepositoryTableViewCellData: ZLBaseViewModel {
+@objcMembers class ZLRepositoryTableViewCellData: ZLGithubItemTableViewCellData {
     
     let data : ZLGithubRepositoryModel
     
@@ -30,6 +30,27 @@ import UIKit
         cell.fillWithData(data: self)
         cell.delegate = self
     }
+    
+    override func getCellHeight() -> CGFloat
+    {
+        if self._cellHeight != nil
+        {
+            return self._cellHeight!
+        }
+        
+        let attributeStr = NSAttributedString.init(string: self.data.desc_Repo ?? "", attributes: [NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 12)!])
+        let rect = attributeStr.boundingRect(with: CGSize.init(width: 250, height: ZLSCreenHeight), options: .usesLineFragmentOrigin, context: nil)
+        
+        self._cellHeight = rect.size.height + 150
+      
+        return self._cellHeight!
+    }
+    
+    override func getCellReuseIdentifier() -> String {
+        return "ZLRepositoryTableViewCell"
+    }
+    
+    
 }
 
 
@@ -80,20 +101,7 @@ extension ZLRepositoryTableViewCellData
         return Int(self.data.forks)
     }
     
-    func getCellHeight() -> CGFloat
-    {
-        if self._cellHeight != nil
-        {
-            return self._cellHeight!
-        }
-        
-        let attributeStr = NSAttributedString.init(string: self.data.desc_Repo ?? "", attributes: [NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 12)!])
-        let rect = attributeStr.boundingRect(with: CGSize.init(width: 250, height: ZLSCreenHeight), options: .usesLineFragmentOrigin, context: nil)
-        
-        self._cellHeight = rect.size.height + 150
-      
-        return self._cellHeight!
-    }
+    
 }
 
 
