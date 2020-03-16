@@ -9,12 +9,20 @@
 import UIKit
 
 class ZLRepoCommitController: ZLBaseViewController {
+    
+    var fullName : String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-    
-    
-    
+        
+        let itemListView = ZLGithubItemListView.init()
+        self.contentView.addSubview(itemListView)
+        itemListView.snp.makeConstraints ({ (make) in
+            make.edges.equalToSuperview()
+        })
+        
+        self.viewModel = ZLRepoCommitViewModel.init(viewController: self)
+        viewModel.bindModel(fullName, andView: itemListView)
         
     }
 }
