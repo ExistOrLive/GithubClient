@@ -219,6 +219,20 @@ NS_ASSUME_NONNULL_BEGIN
                                 state:(NSString *) state
                          serialNumber:(NSString *) serialNumber;
 
+/**
+ * @brief 根据fullName直接获取Repo readme 信息
+ * @param block 请求回调
+ * @param fullName octocat/Hello-World
+ * @param utilDate  限制commit的最晚时间
+ * @param sinceDate 限制commir的最早时间
+ * @param serialNumber 流水号 通过block回调原样返回
+ **/
+- (void) getRepositoryCommitsInfo:(GithubResponse) block
+                         fullName:(NSString *) fullName
+                             util:(NSDate *) utilDate
+                            since:(NSDate *) sinceDate
+                     serialNumber:(NSString *) serialNumber;
+
 #pragma mark - gists
 
 - (void) getGistsForCurrentUser:(GithubResponse) block

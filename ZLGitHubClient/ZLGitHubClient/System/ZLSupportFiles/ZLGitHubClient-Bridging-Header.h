@@ -41,6 +41,7 @@
 #import "ZLGithubEventModel.h"
 #import "ZLGithubGistModel.h"
 #import "ZLGithubPullRequestModel.h"
+#import "ZLGithubCommitModel.h"
 
 
 // tmp Model

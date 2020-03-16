@@ -57,6 +57,18 @@ NS_ASSUME_NONNULL_BEGIN
                          completeHandle:(void(^)(ZLOperationResultModel *)) handle;
 
 
+/**
+* @brief 根据repo 获取commit
+* @param fullName octocat/Hello-World
+* @param serialNumber 流水号
+**/
+
+- (void) getRepoCommitWithFullName:(NSString *) fullName
+                             until:(NSDate * __nullable) utilDate
+                             since:(NSDate * __nullable) sinceDate
+                      serialNumber:(NSString *) serialNumber
+                    completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
 
 
 @end

@@ -16,6 +16,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *) dateStrForYYYYMMdd;
 
+- (NSString *) dateStrForYYYYMMDDTHHMMSSZForTimeZone0;
+
+- (NSString *) dateStrForYYYYMMDDTHHMMSSZForTimeZoneCurrent;
+
+
+
 @end
 
 NS_ASSUME_NONNULL_END

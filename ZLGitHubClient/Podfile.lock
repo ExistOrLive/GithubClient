@@ -39,6 +39,24 @@ PODS:
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
+  - JJException (0.2.7):
+    - JJException/All (= 0.2.7)
+  - JJException/All (0.2.7):
+    - JJException/ARC
+    - JJException/DeallocBlock
+    - JJException/Main
+    - JJException/MRC
+    - JJException/Swizzle
+  - JJException/ARC (0.2.7):
+    - JJException/DeallocBlock
+    - JJException/Main
+    - JJException/Swizzle
+  - JJException/DeallocBlock (0.2.7)
+  - JJException/Main (0.2.7)
+  - JJException/MRC (0.2.7):
+    - JJException/Main
+    - JJException/Swizzle
+  - JJException/Swizzle (0.2.7)
   - LookinServer (1.0.0)
   - Masonry (1.1.0)
   - MJExtension (3.2.1)
@@ -61,6 +79,7 @@ DEPENDENCIES:
   - DoraemonKit/WithLogger (~> 2.0.0)
   - DoraemonKit/WithMLeaksFinder (= 2.0.0)
   - FMDB
+  - JJException
   - LookinServer
   - Masonry
   - MJExtension
@@ -82,6 +101,7 @@ SPEC REPOS:
     - FBRetainCycleDetector
     - fishhook
     - FMDB
+    - JJException
     - LookinServer
     - Masonry
     - MJExtension
@@ -102,6 +122,7 @@ SPEC CHECKSUMS:
   FBRetainCycleDetector: 46f8179bbb1c587deee3ea838a1a3ee02acf5015
   fishhook: ea19933abfe8f2f52c55fd8b6e2718467d3ebc89
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  JJException: 6d987840193b7ef59e778d41bca463401a80a79b
   LookinServer: 0002891cd3cec5e082a910e897dfe71b4f06b89e
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJExtension: 635f2c663dcb1bf76fa4b715b2570a5710aec545
@@ -113,6 +134,6 @@ SPEC CHECKSUMS:
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: a3a1efc52ae4cd67b679020302fb51a03a4c89c8
+PODFILE CHECKSUM: 429da455f00246c213207febee5287fbd18f1784
 
 COCOAPODS: 1.8.4
