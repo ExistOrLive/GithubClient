@@ -64,7 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
 **/
 
 - (void) getRepoCommitWithFullName:(NSString *) fullName
-                             until:(NSDate * __nullable) utilDate
+                             until:(NSDate * __nullable) untilDate
                              since:(NSDate * __nullable) sinceDate
                       serialNumber:(NSString *) serialNumber
                     completeHandle:(void(^)(ZLOperationResultModel *)) handle;

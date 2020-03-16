@@ -25,6 +25,7 @@
 #import "ZLGithubGistModel.h"
 #import "ZLGithubRepositoryReadMeModel.h"
 #import "ZLGithubPullRequestModel.h"
+#import "ZLGithubCommitModel.h"
 
 static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 
@@ -742,7 +743,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 **/
 - (void) getRepositoryCommitsInfo:(GithubResponse) block
                          fullName:(NSString *) fullName
-                             util:(NSDate *) utilDate
+                             until:(NSDate *) untilDate
                             since:(NSDate *) sinceDate
                      serialNumber:(NSString *) serialNumber
 {
@@ -750,13 +751,13 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     urlForRepoCommits = [NSString stringWithFormat:urlForRepoCommits,fullName];
     
     NSDictionary * params = @{@"since":[sinceDate dateStrForYYYYMMDDTHHMMSSZForTimeZone0],
-                              @"util":[utilDate dateStrForYYYYMMDDTHHMMSSZForTimeZone0]};
+                              @"until":[untilDate dateStrForYYYYMMDDTHHMMSSZForTimeZone0]};
     
     GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
         
         if(result)
         {
-            NSArray<ZLGithubPullRequestModel *> * model = [ZLGithubPullRequestModel mj_objectArrayWithKeyValuesArray:responseObject];
+            NSArray<ZLGithubCommitModel *> * model = [ZLGithubCommitModel mj_objectArrayWithKeyValuesArray:responseObject];
             responseObject = model;
         }
         block(result,responseObject,serialNumber);

@@ -24,17 +24,17 @@ class ZLCommitTableViewCellData: ZLGithubItemTableViewCellData {
              return
          }
          cell.fillWithData(cellData: self)
-        // cell.delegate = self
+         cell.delegate = self
      }
      
      override func getCellHeight() -> CGFloat
      {
-         return 100.0
+         return 110.0
      }
      
      override func getCellReuseIdentifier() -> String
      {
-         return "ZLPullRequestTableViewCell"
+         return "ZLCommitTableViewCell"
      }
 
 }
@@ -54,13 +54,24 @@ extension ZLCommitTableViewCellData
     
     func getCommitSha() -> String?
     {
-        return self.commitModel.sha
+        return String(self.commitModel.sha.prefix(7))
     }
     
     
     func getAssistInfo() -> String?
     {
-        return "\(self.commitModel.committer.loginName) \(ZLLocalizedString(string: "committed", comment: "提交于")) \(String(describing: NSDate.dateLocalStrSinceCurrentTime(self.commitModel.commit_at as NSDate? ?? NSDate.init())))"
+        return "\(self.commitModel.committer.loginName) \(ZLLocalizedString(string: "committed", comment: "提交于")) \((self.commitModel.commit_at as NSDate? ?? NSDate.init()).dateLocalStrSinceCurrentTime() as String) "
     }
+    
+}
+
+extension ZLCommitTableViewCellData : ZLCommitTableViewCellDelegate
+{
+    func onCellClicked() {
+        let vc = ZLWebContentController.init()
+        vc.requestURL = URL.init(string: self.commitModel.html_url)
+        self.viewController?.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     
 }

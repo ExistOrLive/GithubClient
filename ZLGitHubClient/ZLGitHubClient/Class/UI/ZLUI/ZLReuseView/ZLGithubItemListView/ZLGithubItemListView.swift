@@ -51,9 +51,6 @@ class ZLGithubItemListView: ZLBaseView {
         
         self.tableView?.delegate = self
         self.tableView?.dataSource = self;
-        
-       
-      
     }
     
     
@@ -103,7 +100,8 @@ extension ZLGithubItemListView : UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return self.cellDatas?[indexPath.row].getCellHeight() ?? 0.0
+        return UITableView.automaticDimension
+        //return self.cellDatas?[indexPath.row].getCellHeight() ?? 0.0
     }
 }
 
@@ -149,7 +147,7 @@ extension ZLGithubItemListView
         self.tableView?.reloadData();
     }
     
-    func apppendCellDatas(cellDatas: [ZLGithubItemTableViewCellData]?)
+    func appendCellDatas(cellDatas: [ZLGithubItemTableViewCellData]?)
     {
         if((cellDatas == nil) || cellDatas?.count == 0)
         {

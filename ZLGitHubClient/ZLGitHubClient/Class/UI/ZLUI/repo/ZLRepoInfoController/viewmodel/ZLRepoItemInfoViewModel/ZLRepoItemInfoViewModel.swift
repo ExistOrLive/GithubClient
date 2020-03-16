@@ -112,7 +112,9 @@ extension ZLRepoItemInfoViewModel : ZLRepoItemInfoViewDelegate
             
             }
         case .commit : do{
-            
+            let controller = ZLRepoCommitController.init()
+            controller.repoFullName = self.repoInfoModel?.full_name
+            self.viewController?.navigationController?.pushViewController(controller, animated: true)
             }
         case .language : do{
             

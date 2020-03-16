@@ -8,8 +8,14 @@
 
 import UIKit
 
+@objc protocol ZLCommitTableViewCellDelegate : NSObjectProtocol
+{
+    func onCellClicked() -> Void
+}
+
 class ZLCommitTableViewCell: UITableViewCell {
     
+    weak var delegate : ZLCommitTableViewCellDelegate?
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var avatarImageView: UIImageView!
@@ -20,7 +26,7 @@ class ZLCommitTableViewCell: UITableViewCell {
         super.awakeFromNib()
         self.selectionStyle = .none
         self.containerView.layer.cornerRadius = 8.0
-        self.avatarImageView.layer.cornerRadius = 10
+        self.avatarImageView.layer.cornerRadius = 15
         self.avatarImageView.layer.masksToBounds = true
               
         let gestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(self.onCellClicked(gestureRecognizer:)))
@@ -48,6 +54,9 @@ extension ZLCommitTableViewCell
 {
     @objc func onCellClicked(gestureRecognizer: UITapGestureRecognizer)
     {
-        
+        if self.delegate?.responds(to: #selector(ZLCommitTableViewCellDelegate.onCellClicked)) ?? false
+        {
+            self.delegate?.onCellClicked()
+        }
     }
 }

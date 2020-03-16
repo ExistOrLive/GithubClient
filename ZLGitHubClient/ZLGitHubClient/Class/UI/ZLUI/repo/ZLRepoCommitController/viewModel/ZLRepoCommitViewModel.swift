@@ -12,11 +12,9 @@ class ZLRepoCommitViewModel: ZLBaseViewModel {
     
     private var fullName : String?
     
-    private var utilDate : Date?
+    private var untilDate : Date?
     
     private var itemListView : ZLGithubItemListView?
-    
-    private var commitArray : [ZLGithubCommitModel] = []
     
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
         
@@ -40,17 +38,20 @@ extension ZLRepoCommitViewModel
         if self.fullName == nil
         {
             ZLToastView .showMessage("fullName is nil")
+            self.itemListView?.endRefreshWithError()
             return
         }
         
+        let date = Date.init(timeInterval: -1, since: self.untilDate ?? Date.init())
         weak var weakSelf = self
-        ZLRepoServiceModel.shared().getRepoCommit(withFullName: self.fullName!, until: self.utilDate, since: nil, serialNumber: NSString.generateSerialNumber(), completeHandle: { (resultModel : ZLOperationResultModel) in
+        ZLRepoServiceModel.shared().getRepoCommit(withFullName: self.fullName!, until: date, since: nil, serialNumber: NSString.generateSerialNumber(), completeHandle: { (resultModel : ZLOperationResultModel) in
             
             if resultModel.result == false
             {
                 weakSelf?.itemListView?.endRefreshWithError()
                 let errorModel = resultModel.data as? ZLGithubRequestErrorModel
-                ZLToastView.showMessage("Query Pull Request Failed Code [\(errorModel?.statusCode ?? 0)] Message[\(errorModel?.message ?? "")]")
+                ZLToastView.showMessage("Query commit Failed Code [\(errorModel?.statusCode ?? 0)] Message[\(errorModel?.message ?? "")]")
+                return
             }
             
             guard let data : [ZLGithubCommitModel] = resultModel.data as? [ZLGithubCommitModel] else
@@ -60,7 +61,7 @@ extension ZLRepoCommitViewModel
                 return;
             }
             
-            weakSelf?.utilDate = data.last
+            weakSelf?.untilDate = data.last?.commit_at
             var cellDatas : [ZLCommitTableViewCellData] = []
             for commitModel in data
             {
@@ -68,7 +69,7 @@ extension ZLRepoCommitViewModel
                 self.addSubViewModel(cellData)
                 cellDatas.append(cellData)
             }
-            weakSelf?.itemListView?.resetCellDatas(cellDatas: cellDatas)
+            weakSelf?.itemListView?.appendCellDatas(cellDatas: cellDatas)
             
             
         })
@@ -79,10 +80,37 @@ extension ZLRepoCommitViewModel
         if self.fullName == nil
         {
             ZLToastView .showMessage("fullName is nil")
+            self.itemListView?.endRefreshWithError()
             return
         }
         
+        weak var weakSelf = self
         ZLRepoServiceModel.shared().getRepoCommit(withFullName: self.fullName!, until: Date.init(), since: nil, serialNumber: NSString.generateSerialNumber(), completeHandle: { (resultModel : ZLOperationResultModel) in
+            
+            if resultModel.result == false
+            {
+                weakSelf?.itemListView?.endRefreshWithError()
+                let errorModel = resultModel.data as? ZLGithubRequestErrorModel
+                ZLToastView.showMessage("Query commit Failed Code [\(errorModel?.statusCode ?? 0)] Message[\(errorModel?.message ?? "")]")
+                return
+            }
+            
+            guard let data : [ZLGithubCommitModel] = resultModel.data as? [ZLGithubCommitModel] else
+            {
+                weakSelf?.itemListView?.endRefreshWithError()
+                ZLToastView.showMessage("ZLGithubCommitModel transfer error")
+                return;
+            }
+            
+            weakSelf?.untilDate = data.last?.commit_at
+            var cellDatas : [ZLCommitTableViewCellData] = []
+            for commitModel in data
+            {
+                let cellData = ZLCommitTableViewCellData.init(commitModel:commitModel )
+                self.addSubViewModel(cellData)
+                cellDatas.append(cellData)
+            }
+            weakSelf?.itemListView?.resetCellDatas(cellDatas: cellDatas)
             
         })
     }
@@ -99,6 +127,6 @@ extension ZLRepoCommitViewModel : ZLGithubItemListViewDelegate
     
     func githubItemListViewRefreshDragUp(pullRequestListView: ZLGithubItemListView) -> Void
     {
-        self.loadMoreData()()
+        self.loadMoreData()
     }
 }

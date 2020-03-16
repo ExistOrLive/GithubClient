@@ -20,7 +20,8 @@ class ZLRefresh: NSObject {
     
     static func refreshFooter(refreshingBlock:@escaping MJRefreshComponentAction) -> MJRefreshFooter
       {
-          let footer = MJRefreshAutoNormalFooter.init(refreshingBlock:refreshingBlock)
+          let footer = MJRefreshAutoStateFooter.init(refreshingBlock:refreshingBlock)
+          footer.setTitle("", for: .idle)
           return footer
       }
 

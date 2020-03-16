@@ -142,7 +142,7 @@
 
 
 - (void) getRepoCommitWithFullName:(NSString *) fullName
-                             until:(NSDate *) utilDate
+                             until:(NSDate *) untilDate
                              since:(NSDate *) sinceDate
                       serialNumber:(NSString *) serialNumber
                     completeHandle:(void(^)(ZLOperationResultModel *)) handle
@@ -169,7 +169,7 @@
     
     [[ZLGithubHttpClient defaultClient] getRepositoryCommitsInfo:response
                                                         fullName:fullName
-                                                            util:utilDate
+                                                           until:untilDate
                                                            since:sinceDate
                                                     serialNumber:serialNumber];
 }

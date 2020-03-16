@@ -10,19 +10,23 @@ import UIKit
 
 class ZLRepoCommitController: ZLBaseViewController {
     
-    var fullName : String?
+    var repoFullName : String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = ZLLocalizedString(string: "commits", comment: "提交")
+        
         let itemListView = ZLGithubItemListView.init()
+        itemListView.setTableViewFooter()
+        itemListView.setTableViewHeader()
         self.contentView.addSubview(itemListView)
         itemListView.snp.makeConstraints ({ (make) in
             make.edges.equalToSuperview()
         })
         
         self.viewModel = ZLRepoCommitViewModel.init(viewController: self)
-        viewModel.bindModel(fullName, andView: itemListView)
+        viewModel.bindModel(repoFullName, andView: itemListView)
         
     }
 }
