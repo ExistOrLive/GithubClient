@@ -42,7 +42,7 @@ class ZLEventTableViewCellData: ZLGithubItemTableViewCellData {
     
     override func getCellHeight() -> CGFloat
     {
-        return 135.0
+        return UITableView.automaticDimension
     }
 }
 

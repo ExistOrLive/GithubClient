@@ -10,7 +10,7 @@ import UIKit
 
 class ZLNewsViewModel: ZLBaseViewModel {
 
-    private weak var newsBaseView: ZLNewsBaseView?
+    private weak var itemListView: ZLGithubItemListView?
     
     var isRefreshNew : Bool = true
     var currentPage: Int = 0
@@ -22,13 +22,14 @@ class ZLNewsViewModel: ZLBaseViewModel {
     
     override func bindModel(_ targetModel: Any?, andView targetView: UIView)
     {
-        if !(targetView is ZLNewsBaseView)
+        if !(targetView is ZLGithubItemListView)
         {
             ZLLog_Info("targetView is invalid")
         }
         
-        self.newsBaseView = targetView as? ZLNewsBaseView
-        self.newsBaseView?.eventListView.delegate = self
+        self.itemListView = targetView as? ZLGithubItemListView
+        self.itemListView?.delegate = self
+        
         
         // 注册事件监听
         ZLEventServiceModel.shareInstance().registerObserver(self, selector: #selector(onNotificationArrived(notification:)), name:ZLGetUserReceivedEventResult_Notification)
@@ -36,15 +37,13 @@ class ZLNewsViewModel: ZLBaseViewModel {
         ZLUserServiceModel.shared().registerObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLGetSpecifiedUserInfoResult_Notification)
         
         //每次界面将要展示时，更新数据
-            self.userInfo = ZLUserServiceModel.shared().currentUserInfo()
-           
-            guard self.userInfo != nil else
-            {
-                return;
-            }
-
-            
+        self.userInfo = ZLUserServiceModel.shared().currentUserInfo()
+        guard self.userInfo != nil else
+        {
+            return;
+        }
         
+        self.itemListView?.beginRefresh()
     }
     
     deinit {
@@ -54,8 +53,13 @@ class ZLNewsViewModel: ZLBaseViewModel {
     }
     
     override func vcLifeCycle_viewWillAppear() {
+        
         super.vcLifeCycle_viewWillAppear()
-        self.loadNewData()
+        
+        if self.itemListView?.itemCount() == 0
+        {
+            self.itemListView?.beginRefresh()
+        }
     }
 }
 
@@ -87,6 +91,7 @@ extension ZLNewsViewModel
             {
                 guard let resultModel: ZLOperationResultModel = notification.params as? ZLOperationResultModel else
                 {
+                    ZLToastView.showMessage("ZLOperationResultModel transfer error")
                     return
                 }
                 
@@ -98,13 +103,13 @@ extension ZLNewsViewModel
                 
                 guard resultModel.result == true else
                 {
-                    self.newsBaseView?.eventListView.endRefreshWithError()
+                    self.itemListView?.endRefreshWithError()
                     guard let errorModel : ZLGithubRequestErrorModel = resultModel.data as? ZLGithubRequestErrorModel else
                     {
                         return;
                     }
                     
-                    ZLToastView.showMessage("\(errorModel.message)(\(errorModel.statusCode))")
+                    ZLToastView.showMessage("get received event failed statusCode[\(errorModel.statusCode)] message[\(errorModel.message)]")
                     ZLLog_Warn("get received event failed statusCode[\(errorModel.statusCode)] message[\(errorModel.message)]")
                     
                     return
@@ -112,7 +117,8 @@ extension ZLNewsViewModel
                 
                 guard let itemArray: [ZLGithubEventModel] = resultModel.data as? [ZLGithubEventModel] else
                 {
-                    self.newsBaseView?.eventListView.endRefreshWithError()
+                    self.itemListView?.endRefreshWithError()
+                    ZLToastView.showMessage("ZLGithubEventModel transfer error")
                     return
                 }
                 
@@ -127,13 +133,13 @@ extension ZLNewsViewModel
                 
                 if self.isRefreshNew
                 {
-                    self.newsBaseView?.eventListView.resetCellDatas(cellDatas: cellDataArray)
+                    self.itemListView?.resetCellDatas(cellDatas: cellDataArray)
                     self.isRefreshNew = false
                     self.currentPage = 2
                 }
                 else
                 {
-                    self.newsBaseView?.eventListView.apppendCellDatas(cellDatas: cellDataArray)
+                    self.itemListView?.appendCellDatas(cellDatas: cellDataArray)
                     self.currentPage = self.currentPage + 1
                 }
             }
@@ -177,16 +183,15 @@ extension ZLNewsViewModel
     }
 }
 
-extension ZLNewsViewModel : ZLEventListViewDelegate
+extension ZLNewsViewModel : ZLGithubItemListViewDelegate
 {
-    func eventListViewRefreshDragUp(eventListView: ZLEventListView) -> Void
-    {
-        self.loadMoreData()
-    }
-    
-    func eventListViewRefreshDragDown(eventListView: ZLEventListView) -> Void
+    func githubItemListViewRefreshDragDown(pullRequestListView: ZLGithubItemListView) -> Void
     {
         self.loadNewData()
-
+    }
+      
+    func githubItemListViewRefreshDragUp(pullRequestListView: ZLGithubItemListView) -> Void
+    {
+        self.loadMoreData()
     }
 }

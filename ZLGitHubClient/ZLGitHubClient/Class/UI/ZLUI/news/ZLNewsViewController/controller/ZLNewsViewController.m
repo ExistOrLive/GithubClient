@@ -10,8 +10,6 @@
 
 @interface ZLNewsViewController ()
 
-@property (strong, nonatomic) ZLNewsBaseView * baseView;
-
 @end
 
 @implementation ZLNewsViewController
@@ -28,28 +26,18 @@
     self.title = ZLLocalizedString(@"news",@"动态");
  
     self.viewModel = [[ZLNewsViewModel alloc] initWithViewController:self];
-    self.baseView = [ZLNewsBaseView new];
-    [self.contentView addSubview:self.baseView];
+    ZLGithubItemListView * baseView = [[ZLGithubItemListView alloc] init];
+    [baseView setTableViewFooter];
+    [baseView setTableViewHeader];
+    [self.contentView addSubview:baseView];
     
-    [self.baseView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.contentView);
+    [baseView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.contentView).insets(UIEdgeInsetsMake(10, 0, 0, 0));
     }];
     
-    [self.viewModel bindModel:nil andView:self.baseView];
+    [self.viewModel bindModel:nil andView:baseView];
     
 
 }
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear: animated];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
 
 @end
