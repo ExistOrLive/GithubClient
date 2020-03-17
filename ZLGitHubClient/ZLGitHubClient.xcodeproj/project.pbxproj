@@ -243,6 +243,7 @@
 		362DFCB8239E175D00979594 /* ZLStarRepoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLStarRepoViewController.m; sourceTree = "<group>"; };
 		363FF087240E9031007A855F /* ZLGithubPullRequestModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLGithubPullRequestModel.h; sourceTree = "<group>"; };
 		363FF088240E9031007A855F /* ZLGithubPullRequestModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLGithubPullRequestModel.m; sourceTree = "<group>"; };
+		366488532420B73100EC8FC7 /* ZLGitHubClient.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ZLGitHubClient.entitlements; sourceTree = "<group>"; };
 		366DB833241F103C002A0896 /* ZLRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLRefresh.swift; sourceTree = "<group>"; };
 		366DB836241F2185002A0896 /* ZLGithubCommitModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLGithubCommitModel.h; sourceTree = "<group>"; };
 		366DB837241F2185002A0896 /* ZLGithubCommitModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLGithubCommitModel.m; sourceTree = "<group>"; };
@@ -577,6 +578,7 @@
 		0ADF902C21D4B01900BF86CD /* ZLGitHubClient */ = {
 			isa = PBXGroup;
 			children = (
+				366488532420B73100EC8FC7 /* ZLGitHubClient.entitlements */,
 				74C3F8C522D1DE360086A3F9 /* Class */,
 				74C3F8C422D1DE220086A3F9 /* System */,
 			);
@@ -2848,6 +2850,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = ZLGitHubClient/ZLGitHubClient.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
@@ -2878,6 +2881,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = ZLGitHubClient/ZLGitHubClient.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
