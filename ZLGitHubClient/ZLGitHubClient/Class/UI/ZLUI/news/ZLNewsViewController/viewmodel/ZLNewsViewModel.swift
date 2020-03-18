@@ -155,7 +155,10 @@ extension ZLNewsViewModel
                 
                 self.userInfo = userInfo
                 
-                self.loadNewData()
+                if self.itemListView?.itemCount() == 0
+                {
+                    self.itemListView?.beginRefresh()
+                }
             }
             case ZLGetSpecifiedUserInfoResult_Notification: do
             {

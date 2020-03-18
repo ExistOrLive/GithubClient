@@ -13,8 +13,12 @@ class ZLRepoItemInfoViewModel: ZLBaseViewModel {
     // model
     private var repoInfoModel : ZLGithubRepositoryModel?
     
+    private var currentBranch : String?                  // 当前选中的分支
+    
     // view
     private var repoItemInfoView : ZLRepoItemInfoView?
+    
+         
 
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
         
@@ -101,7 +105,11 @@ extension ZLRepoItemInfoViewModel : ZLRepoItemInfoViewDelegate
             
             }
         case .branch :do{
-            
+            ZLRepoBranchesView.showRepoBranchedView(repoFullName: self.repoInfoModel!.full_name,currentBranch: self.currentBranch ?? self.repoInfoModel!.default_branch , handle: {(branch: String) in
+                
+                self.currentBranch = branch
+                self.repoItemInfoView?.branchInfoLabel.text = branch
+            })
             }
         case .pullRequest : do{
             let controller = ZLRepoPullRequestController.init()

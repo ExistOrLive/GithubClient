@@ -70,6 +70,15 @@ NS_ASSUME_NONNULL_BEGIN
                     completeHandle:(void(^)(ZLOperationResultModel *)) handle;
 
 
+/**
+* @brief 根据repo 获取branch
+* @param fullName octocat/Hello-World
+* @param serialNumber 流水号
+**/
+- (void) getRepositoryBranchesInfoWithFullName:(NSString *) fullName
+                                  serialNumber:(NSString *) serialNumber
+                                completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
 
 @end
 

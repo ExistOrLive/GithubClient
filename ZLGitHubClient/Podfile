@@ -1,5 +1,6 @@
 platform :ios, '9.0'
 use_frameworks!
+inhibit_all_warnings!     # 屏蔽pod中h告警
 
 source 'https://github.com/CocoaPods/Specs.git'
 

@@ -21,6 +21,11 @@ or alternatively using `brew cask install fastlane`
 fastlane ios adhoc
 ```
 build one adhoc release local
+### ios github_action_adhoc
+```
+fastlane ios github_action_adhoc
+```
+build one adhoc release on travis
 ### ios travis_adhoc
 ```
 fastlane ios travis_adhoc

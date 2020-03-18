@@ -37,6 +37,18 @@ let Font_PingFangSCMedium = "PingFang-SC-Medium"
 let Font_PingFangSCSemiBold = "PingFang-SC-SemiBold"
 let Font_PingFangSCRegular = "PingFang-SC-Regular"
 
+//MARK: Color
+
+func ZLRGBValue_H(colorValue: UInt) -> UIColor
+{
+    return UIColor.init(rgb: colorValue, alpha: 1.0)
+}
+
+func ZLRGBAValue_H(colorValue: UInt, alphaValue: CGFloat) -> UIColor
+{
+    return UIColor.init(rgb: colorValue, alpha: alphaValue)
+}
+
 // MARK: NotificationName
 
 let ZLLoginResult_Notification = Notification.Name(rawValue: "ZLLoginResult_Notification")

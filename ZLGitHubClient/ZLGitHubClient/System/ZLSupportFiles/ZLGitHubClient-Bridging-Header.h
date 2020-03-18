@@ -5,6 +5,7 @@
 #import <AFNetworking/AFNetworking.h>
 #import <SVProgressHUD/SVProgressHUD.h>
 #import <MJRefresh/MJRefresh.h>
+#import <FFPopup/FFPopup.h>
 
 #import "ZLBaseUIHeader.h"
 #import "ZLBaseObject.h"
@@ -42,6 +43,8 @@
 #import "ZLGithubGistModel.h"
 #import "ZLGithubPullRequestModel.h"
 #import "ZLGithubCommitModel.h"
+#import "ZLGithubRepositoryBranchModel.h"
+#import "ZLGithubContentModel.h"
 
 
 // tmp Model
