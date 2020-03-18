@@ -127,3 +127,5 @@ ZLGitHubClient/Xcodebuild/archive
 #cocoapods
 ZLGitHubClient/Pods
 
+.idea
+

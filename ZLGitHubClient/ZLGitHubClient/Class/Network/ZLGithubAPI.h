@@ -34,7 +34,7 @@
 #define currenUserUrl           @"/user"                            // 当前登陆用户的信息
 #define searchUserUrl           @"/search/users"
 
-#define userInfo                @"/users/"
+#define githubUserInfo                @"/users/"
 #define orgInfo                 @"/orgs/"
 
 #pragma mark event
@@ -56,6 +56,10 @@
 #define repoPullRequestUrl      @"/repos/%@/pulls"                   // 获取pullrequest
 
 #define repoCommitsUrl          @"/repos/%@/commits"                 // 获取commits
+
+#define repoBranchedUrl         @"/repos/%@/branches"                // 获取branch
+
+#define repoContentsUrl         @"/repos/%@/contents"                // 获取代码内容
 
 
 #pragma mark starred

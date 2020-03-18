@@ -60,12 +60,12 @@ class ZLGithubItemListView: ZLBaseView {
         self.tableView?.register(UINib.init(nibName: "ZLPullRequestTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLPullRequestTableViewCell")
         self.tableView?.register(UINib.init(nibName: "ZLCommitTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLCommitTableViewCell")
         self.tableView?.register(UINib.init(nibName: "ZLGistTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLGistTableViewCell")
-        self.tableView?.register(UINib.init(nibName: "ZLEventTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLEventTableViewCell")
-        self.tableView?.register(UINib.init(nibName: "ZLPushEventTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLPushEventTableViewCell")
+        self.tableView?.register(ZLEventTableViewCell.self, forCellReuseIdentifier: "ZLEventTableViewCell")
+        self.tableView?.register(ZLPushEventTableViewCell.self, forCellReuseIdentifier: "ZLPushEventTableViewCell")
         self.tableView?.register(UINib.init(nibName: "ZLUserTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLUserTableViewCell")
     }
     
-    func setTableViewHeader()
+    @objc func setTableViewHeader()
     {
         weak var selfWeak = self
         self.tableView?.mj_header = ZLRefresh.refreshHeader(refreshingBlock: {
@@ -73,12 +73,17 @@ class ZLGithubItemListView: ZLBaseView {
         })
     }
     
-    func setTableViewFooter()
+    @objc func setTableViewFooter()
     {
         weak var selfWeak = self
         self.tableView?.mj_footer = ZLRefresh.refreshFooter(refreshingBlock: {
             selfWeak?.loadMoreData()
         })
+    }
+    
+    func itemCount() -> Int
+    {
+        return self.cellDatas?.count ?? 0
     }
 }
 
