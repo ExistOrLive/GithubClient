@@ -35,6 +35,7 @@ PODS:
     - FBRetainCycleDetector
     - fishhook
   - FBRetainCycleDetector (0.1.4)
+  - FFPopup (1.1.0)
   - fishhook (0.2)
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
@@ -78,6 +79,7 @@ DEPENDENCIES:
   - DoraemonKit/Core (~> 2.0.0)
   - DoraemonKit/WithLogger (~> 2.0.0)
   - DoraemonKit/WithMLeaksFinder (= 2.0.0)
+  - FFPopup
   - FMDB
   - JJException
   - LookinServer
@@ -99,6 +101,7 @@ SPEC REPOS:
     - CocoaLumberjack
     - DoraemonKit
     - FBRetainCycleDetector
+    - FFPopup
     - fishhook
     - FMDB
     - JJException
@@ -120,6 +123,7 @@ SPEC CHECKSUMS:
   CocoaLumberjack: b17ae15142558d08bbacf69775fa10c4abbebcc9
   DoraemonKit: 9e923599e28d0b61f1c6de4aef2c2d669b30abb7
   FBRetainCycleDetector: 46f8179bbb1c587deee3ea838a1a3ee02acf5015
+  FFPopup: 408e38711f4fe2fddd3c8612c045cf0df6da2e4e
   fishhook: ea19933abfe8f2f52c55fd8b6e2718467d3ebc89
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   JJException: 6d987840193b7ef59e778d41bca463401a80a79b
@@ -134,6 +138,6 @@ SPEC CHECKSUMS:
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: 429da455f00246c213207febee5287fbd18f1784
+PODFILE CHECKSUM: 5b2bc7bd94bb9e59424ef549ea034db85bdc3de7
 
 COCOAPODS: 1.8.4

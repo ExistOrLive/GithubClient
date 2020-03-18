@@ -32,7 +32,7 @@
     [self.contentView addSubview:baseView];
     
     [baseView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.contentView).insets(UIEdgeInsetsMake(10, 0, 0, 0));
+        make.edges.equalTo(self.contentView).insets(UIEdgeInsetsMake(0, 0, 0, 0));
     }];
     
     [self.viewModel bindModel:nil andView:baseView];
