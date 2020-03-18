@@ -26,6 +26,8 @@
 #import "ZLGithubRepositoryReadMeModel.h"
 #import "ZLGithubPullRequestModel.h"
 #import "ZLGithubCommitModel.h"
+#import "ZLGithubRepositoryBranchModel.h"
+#import "ZLGithubContentModel.h"
 
 static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 
@@ -769,6 +771,29 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                serialNumber:serialNumber];
 }
 
+
+- (void) getRepositoryBranchesInfo:(GithubResponse) block
+                          fullName:(NSString *) fullName
+                      serialNumber:(NSString *) serialNumber
+{
+    NSString * urlForRepoBranches = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoBranchedUrl];
+    urlForRepoBranches = [NSString stringWithFormat:urlForRepoBranches,fullName];
+    
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
+        
+        if(result)
+        {
+            NSArray<ZLGithubRepositoryBranchModel *> * model = [ZLGithubRepositoryBranchModel mj_objectArrayWithKeyValuesArray:responseObject];
+            responseObject = model;
+        }
+        block(result,responseObject,serialNumber);
+    };
+    
+    [self GETRequestWithURL:urlForRepoBranches
+                 WithParams:nil
+          WithResponseBlock:newBlock
+               serialNumber:serialNumber];
+}
 
 
 
