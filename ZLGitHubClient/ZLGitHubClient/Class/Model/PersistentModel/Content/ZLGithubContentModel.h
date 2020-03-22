@@ -10,6 +10,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NSString * ZLGithubContentType;
+
+static const ZLGithubContentType  ZLGithubContentType_dir;
+static const ZLGithubContentType  ZLGithubContentType_file;
+
+
 @interface ZLGithubContentModel : ZLBaseObject
 
 @property(nonatomic, strong) NSString * html_url;
@@ -24,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, strong) NSString * path;
 
-@property(nonatomic, strong) NSString * type;              // dir / file
+@property(nonatomic, strong) ZLGithubContentType type;              // dir / file
 
 @property(nonatomic, strong) NSString * __nullable content;
 

@@ -99,6 +99,11 @@ extension ZLRepoItemInfoViewModel : ZLRepoItemInfoViewDelegate
 {
      func onZLRepoItemInfoViewEvent(type : ZLRepoItemType)
      {
+        if self.repoInfoModel == nil
+        {
+            return
+        }
+        
         switch(type)
         {
         case .action : do{
@@ -117,7 +122,9 @@ extension ZLRepoItemInfoViewModel : ZLRepoItemInfoViewDelegate
             self.viewController?.navigationController?.pushViewController(controller, animated: true)
             }
         case .code : do{
-            
+            let controller = ZLRepoContentController.init(repoFullName: self.repoInfoModel!.full_name, branch : self.currentBranch ?? self.repoInfoModel!.default_branch)
+            controller.modalPresentationStyle = .fullScreen
+            self.viewController?.present(controller, animated: true, completion: nil)
             }
         case .commit : do{
             let controller = ZLRepoCommitController.init()
