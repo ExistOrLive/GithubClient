@@ -62,6 +62,7 @@ extension ZLRepoPullRequestViewModel
                 weakSelf?.pullRequestListView?.endRefreshWithError()
                 let errorModel = resultModel.data as? ZLGithubRequestErrorModel
                 ZLToastView.showMessage("Query Pull Request Failed Code [\(errorModel?.statusCode ?? 0)] Message[\(errorModel?.message ?? "")]")
+                return
             }
             
             guard let data : [ZLGithubPullRequestModel] = resultModel.data as? [ZLGithubPullRequestModel] else

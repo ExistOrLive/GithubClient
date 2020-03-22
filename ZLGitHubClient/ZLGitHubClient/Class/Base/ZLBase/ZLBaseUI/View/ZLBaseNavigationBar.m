@@ -99,11 +99,16 @@
     _titleLabel = [UILabel new];
     [self.titleLabel setTextColor:[UIColor blackColor]];
     [self.titleLabel setFont:[UIFont fontWithName:Font_PingFangSCMedium size:18]];
+    [self.titleLabel setTextAlignment:NSTextAlignmentCenter];
+    self.titleLabel.adjustsFontSizeToFitWidth = true;
+    self.titleLabel.numberOfLines = 2;
     [self addSubview:self.titleLabel];
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.mas_centerX);
         make.bottom.equalTo(self.mas_bottom);
         make.height.equalTo(@(ZLBaseNavigationBarHeight));
+        make.left.equalTo(self.mas_left).with.offset(50);
+        make.right.equalTo(self.mas_right).with.offset(-50);
     }];
 }
 

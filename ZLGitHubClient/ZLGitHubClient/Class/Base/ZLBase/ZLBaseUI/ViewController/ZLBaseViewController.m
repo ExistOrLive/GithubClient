@@ -24,6 +24,15 @@
 
 @implementation ZLBaseViewController
 
+- (instancetype) init
+{
+    if(self = [super init])
+    {
+        
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     ZLLog_Info(@"ZLMonitor: [%@] viewDidLoad at [%@]",self,[NSDate date]);

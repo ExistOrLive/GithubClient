@@ -243,6 +243,21 @@ NS_ASSUME_NONNULL_BEGIN
                           fullName:(NSString *) fullName
                       serialNumber:(NSString *) serialNumber;
 
+
+/**
+ * @brief 根据fullName直接获取contents 信息
+ * @param block 请求回调
+ * @param fullName octocat/Hello-World
+ * @param path 路径
+ * @param serialNumber 流水号 通过block回调原样返回
+ **/
+- (void) getRepositoryContentsInfo:(GithubResponse) block
+                          fullName:(NSString *) fullName
+                              path:(NSString *) path
+                            branch:(NSString *) branch
+                      serialNumber:(NSString *) serialNumber;
+
+
 #pragma mark - gists
 
 - (void) getGistsForCurrentUser:(GithubResponse) block

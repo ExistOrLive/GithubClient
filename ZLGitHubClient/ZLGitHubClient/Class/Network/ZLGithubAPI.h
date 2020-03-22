@@ -59,7 +59,7 @@
 
 #define repoBranchedUrl         @"/repos/%@/branches"                // 获取branch
 
-#define repoContentsUrl         @"/repos/%@/contents"                // 获取代码内容
+#define repoContentsUrl         @"/repos/%@/contents/%@"                // 获取代码内容
 
 
 #pragma mark starred
