@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZLStarReposBaseView : ZLBaseView
 
-@property (nonatomic, strong) ZLReposListView * reposListView;
+@property (nonatomic, strong) ZLGithubItemListView * listView;
 
 @end
 
