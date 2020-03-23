@@ -258,6 +258,13 @@ NS_ASSUME_NONNULL_BEGIN
                       serialNumber:(NSString *) serialNumber;
 
 
+- (void) getRepositoryFileInfo:(GithubResponse) block
+                      fullName:(NSString *) fullName
+                          path:(NSString *) path
+                        branch:(NSString *) branch
+                  serialNumber:(NSString *) serialNumber;
+
+
 #pragma mark - gists
 
 - (void) getGistsForCurrentUser:(GithubResponse) block

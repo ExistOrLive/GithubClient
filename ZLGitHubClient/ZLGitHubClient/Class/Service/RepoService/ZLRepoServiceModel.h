@@ -91,6 +91,15 @@ NS_ASSUME_NONNULL_BEGIN
                                   serialNumber:(NSString *) serialNumber
                                 completeHandle:(void(^)(ZLOperationResultModel *)) handle;
 
+
+- (void) getRepositoryFileInfoWithFullName:(NSString *) fullName
+                                      path:(NSString *) path
+                                    branch:(NSString *) branch
+                              serialNumber:(NSString *) serialNumber
+                            completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+
+
 @end
 
 NS_ASSUME_NONNULL_END

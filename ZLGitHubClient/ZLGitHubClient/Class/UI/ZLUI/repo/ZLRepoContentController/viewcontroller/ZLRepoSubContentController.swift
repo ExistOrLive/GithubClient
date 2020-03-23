@@ -136,15 +136,22 @@ extension ZLRepoSubContentController : UITableViewDelegate,UITableViewDataSource
         }
         else if "file" == contentModel.type
         {
-            let webController = ZLWebContentController.init()
-            webController.requestURL = URL.init(string: contentModel.html_url)
-            self.navigationController?.pushViewController(webController, animated: true)
+            let url = URL.init(string: contentModel.name)
+            if NSString.isTextFile(forExtension:(url?.pathExtension ?? "")) == true
+            {
+                let controller = ZLRepoCodePreviewController.init(repoFullName: self.repoFullName, path: contentModel.path, branch: self.branch)
+                self.navigationController?.pushViewController(controller, animated: true)
+                
+            }else{
+                let webController = ZLWebContentController.init()
+                webController.requestURL = URL.init(string: contentModel.html_url)
+                self.navigationController?.pushViewController(webController, animated: true)
+            }
+          
         }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
-    
-
 }

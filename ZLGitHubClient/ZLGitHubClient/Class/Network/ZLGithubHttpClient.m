@@ -822,6 +822,33 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                serialNumber:serialNumber];
 }
 
+- (void) getRepositoryFileInfo:(GithubResponse) block
+                      fullName:(NSString *) fullName
+                          path:(NSString *) path
+                        branch:(NSString *) branch
+                  serialNumber:(NSString *) serialNumber
+{
+    NSString * urlForRepoContent = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoContentsUrl];
+    urlForRepoContent = [NSString stringWithFormat:urlForRepoContent,fullName,path];
+    
+    NSDictionary * params = @{@"ref":branch};
+    
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
+        
+        if(result)
+        {
+            ZLGithubContentModel * model = [ZLGithubContentModel mj_objectWithKeyValues:responseObject];
+            responseObject = model;
+        }
+        block(result,responseObject,serialNumber);
+    };
+    
+    [self GETRequestWithURL:urlForRepoContent
+                 WithParams:params
+          WithResponseBlock:newBlock
+               serialNumber:serialNumber];
+}
+
 
 
 #pragma mark - gists
