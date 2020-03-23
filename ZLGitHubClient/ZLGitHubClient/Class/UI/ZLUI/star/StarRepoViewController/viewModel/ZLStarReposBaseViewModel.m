@@ -19,7 +19,7 @@
 #import "ZLAdditionInfoServiceModel.h"
 #import "ZLUserServiceModel.h"
 
-@interface ZLStarReposBaseViewModel() <ZLReposListViewDelegate>
+@interface ZLStarReposBaseViewModel() <ZLGithubItemListViewDelegate>
 
 @property(nonatomic, weak) ZLStarReposBaseView * view;
 
@@ -47,31 +47,33 @@
     }
     
     self.view = (ZLStarReposBaseView *) targetView;
-    self.view.reposListView.delegate = self;
+    self.view.listView.delegate = self;
     
     [[ZLUserServiceModel sharedServiceModel] registerObserver:self selector:@selector(onNotificationArrived:) name:ZLGetCurrentUserInfoResult_Notification];
     [[ZLAdditionInfoServiceModel sharedServiceModel] registerObserver:self selector:@selector(onNotificationArrived:) name:ZLGetStarredReposResult_Notification];
     
+    [self.view.listView beginRefresh];
 }
 
 - (void)VCLifeCycle_viewWillAppear
 {
     [super VCLifeCycle_viewWillAppear];
     
-    [self loadNewData];
+    if(self.view.listView.itemCount == 0)
+    {
+       [self.view.listView beginRefresh];
+    }
 }
-
-
 
 
 #pragma mark - ZLReposListViewDelegate
 
-- (void)reposListViewRefreshDragDownWithReposListView:(ZLReposListView * _Nonnull)reposListView {
-    [self loadNewData];
+- (void) githubItemListViewRefreshDragUpWithPullRequestListView:(ZLGithubItemListView *)pullRequestListView{
+    [self loadMoreData];
 }
 
-- (void)reposListViewRefreshDragUpWithReposListView:(ZLReposListView * _Nonnull)reposListView {
-    [self loadMoreData];
+- (void) githubItemListViewRefreshDragDownWithPullRequestListView:(ZLGithubItemListView *)pullRequestListView{
+    [self loadNewData];
 }
 
 
@@ -93,7 +95,7 @@
     }
     else
     {
-        [self.view.reposListView endRefreshWithError];
+        [self.view.listView endRefreshWithError];
     }
 }
 
@@ -113,7 +115,7 @@
     }
     else
     {
-        [self.view.reposListView endRefreshWithError];
+        [self.view.listView endRefreshWithError];
     }
 }
 
@@ -122,7 +124,10 @@
 {
     if([notification.name isEqualToString:ZLGetCurrentUserInfoResult_Notification])
     {
-        [self loadNewData];
+        if(self.view.listView.itemCount == 0)
+        {
+            [self.view.listView beginRefresh];
+        }
     }
     else if([notification.name isEqualToString:ZLGetStarredReposResult_Notification])
     {
@@ -155,12 +160,12 @@
         if(self.isFreshNew)
         {
             self.pageNum = 2;
-            [self.view.reposListView resetCellDatasWithCellDatas:celldatas];
+            [self.view.listView resetCellDatasWithCellDatas:celldatas];
         }
         else
         {
             self.pageNum ++;
-            [self.view.reposListView apppendCellDatasWithCellDatas:celldatas];
+            [self.view.listView appendCellDatasWithCellDatas:celldatas];
         }
     }
 }

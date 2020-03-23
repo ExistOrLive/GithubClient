@@ -15,7 +15,7 @@ import UIKit
 }
 
 
-class ZLGithubItemListView: ZLBaseView {
+@objcMembers class ZLGithubItemListView: ZLBaseView {
     
     private var tableView : UITableView?
     
@@ -62,6 +62,7 @@ class ZLGithubItemListView: ZLBaseView {
         self.tableView?.register(UINib.init(nibName: "ZLGistTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLGistTableViewCell")
         self.tableView?.register(ZLEventTableViewCell.self, forCellReuseIdentifier: "ZLEventTableViewCell")
         self.tableView?.register(ZLPushEventTableViewCell.self, forCellReuseIdentifier: "ZLPushEventTableViewCell")
+        self.tableView?.register(UINib.init(nibName: "ZLRepositoryTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLRepositoryTableViewCell")
         self.tableView?.register(UINib.init(nibName: "ZLUserTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLUserTableViewCell")
     }
     

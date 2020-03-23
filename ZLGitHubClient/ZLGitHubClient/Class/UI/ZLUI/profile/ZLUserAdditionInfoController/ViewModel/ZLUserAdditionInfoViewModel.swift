@@ -334,6 +334,13 @@ extension ZLUserAdditionInfoViewModel: UITableViewDelegate,UITableViewDataSource
             }
         }
         case .gists:do{
+            let data = self.array?[indexPath.row] as? ZLGithubGistModel
+            if data != nil
+            {
+                let vc = ZLWebContentController.init()
+                vc.requestURL = URL.init(string: data!.html_url)
+                self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            }
             break;
             }
         case .users:do{

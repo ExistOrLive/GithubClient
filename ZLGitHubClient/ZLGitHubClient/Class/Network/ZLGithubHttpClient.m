@@ -690,7 +690,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         
         if(result)
         {
-            ZLGithubRepositoryReadMeModel * model = [ZLGithubRepositoryReadMeModel mj_objectWithKeyValues:responseObject];
+            ZLGithubContentModel * model = [ZLGithubContentModel mj_objectWithKeyValues:responseObject];
             responseObject = model;
         }
         block(result,responseObject,serialNumber);

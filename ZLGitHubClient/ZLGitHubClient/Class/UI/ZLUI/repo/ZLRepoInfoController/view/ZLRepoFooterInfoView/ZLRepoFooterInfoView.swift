@@ -29,7 +29,7 @@ class ZLRepoFooterInfoView: ZLBaseView {
         self.refreshButton.layer.borderColor = UIColor.lightGray.cgColor
         self.refreshButton.layer.borderWidth = 1.0
         
-        self.markdownView?.isScrollEnabled = false
+        self.markdownView?.isScrollEnabled = true
         self.addSubview(self.markdownView)
         self.markdownView.snp.makeConstraints { (make) in
             make.height.equalTo(20)
@@ -38,11 +38,11 @@ class ZLRepoFooterInfoView: ZLBaseView {
         }
     }
     
-    func loadMarkdown(markDown: String)
+    func loadMarkdown(markDown: String, baseUrl: String?)
     {
         self.stopLoad()
     
-        self.markdownView.load(markdown: markDown, enableImage: true)
+        self.markdownView.load(markdown: markDown,baseUrl:baseUrl, enableImage: true)
         
         self.markdownView.onRendered = { (height:CGFloat) in
             self.progressView.setProgress(1.0, animated: true)
