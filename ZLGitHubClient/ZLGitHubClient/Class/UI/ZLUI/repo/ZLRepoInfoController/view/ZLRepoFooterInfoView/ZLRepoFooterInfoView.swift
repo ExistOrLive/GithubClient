@@ -38,11 +38,11 @@ class ZLRepoFooterInfoView: ZLBaseView {
         }
     }
     
-    func loadMarkdown(markDown: String)
+    func loadMarkdown(markDown: String, baseUrl: String?)
     {
         self.stopLoad()
     
-        self.markdownView.load(markdown: markDown, enableImage: true)
+        self.markdownView.load(markdown: markDown,baseUrl:baseUrl, enableImage: true)
         
         self.markdownView.onRendered = { (height:CGFloat) in
             self.progressView.setProgress(1.0, animated: true)

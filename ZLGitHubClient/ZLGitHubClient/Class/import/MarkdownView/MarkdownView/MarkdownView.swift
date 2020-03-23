@@ -48,7 +48,7 @@ open class MarkdownView: UIView {
     }
   }
 
-    public func load(markdown: String?, enableImage: Bool = true) {
+    public func load(markdown: String?, baseUrl: String?, enableImage: Bool = true) {
         guard let markdown = markdown else { return }
         
         let bundle = Bundle.main
@@ -70,12 +70,20 @@ open class MarkdownView: UIView {
             
             let templateRequest = URLRequest(url: url)
             
+            let controller = WKUserContentController()
+            if baseUrl != nil
+            {
+                let addBaseScript = "let head = document.getElementsByTagName('head')[0]; let baseTag = document.createElement('base');baseTag.href=\(baseUrl!);head.appendChild(baseTag);"
+                let addBaseUserScript = WKUserScript(source: addBaseScript, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
+                controller.addUserScript(addBaseUserScript)
+            }
+            
             let escapedMarkdown = self.escape(markdown: markdown) ?? ""
             let imageOption = enableImage ? "true" : "false"
             let script = "window.showMarkdown('\(escapedMarkdown)', \(imageOption));"
             let userScript = WKUserScript(source: script, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
             
-            let controller = WKUserContentController()
+            
             controller.addUserScript(userScript)
             
             let configuration = WKWebViewConfiguration()
