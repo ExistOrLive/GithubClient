@@ -53,15 +53,17 @@ class ZLRepoFooterInfoViewModel: ZLBaseViewModel {
             }
             else
             {
-                let readModel : ZLGithubRepositoryReadMeModel = resultModel.data as! ZLGithubRepositoryReadMeModel
-                guard let data : Data = Data.init(base64Encoded: readModel.content, options: .ignoreUnknownCharacters) else
+                let readModel : ZLGithubContentModel = resultModel.data as! ZLGithubContentModel
+                guard let data : Data = Data.init(base64Encoded: readModel.content!, options: .ignoreUnknownCharacters) else
                 {
                     self.repoFooterInfoView?.loadMarkdown(markDown: "parse error",baseUrl: nil)
                     return
                 }
                 
                 let readMeStr = String.init(data: data, encoding: .utf8)
-                self.repoFooterInfoView?.loadMarkdown(markDown: readMeStr ?? "", baseUrl:"")
+                let url = URL.init(string: readModel.download_url!)! as NSURL
+                
+                self.repoFooterInfoView?.loadMarkdown(markDown: readMeStr ?? "", baseUrl:url.deletingLastPathComponent?.absoluteString)
             }
         })
     }

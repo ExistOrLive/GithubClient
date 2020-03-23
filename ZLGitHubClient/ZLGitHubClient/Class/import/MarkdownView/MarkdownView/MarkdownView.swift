@@ -71,20 +71,20 @@ open class MarkdownView: UIView {
             let templateRequest = URLRequest(url: url)
             
             let controller = WKUserContentController()
-            if baseUrl != nil
-            {
-                let addBaseScript = "let head = document.getElementsByTagName('head')[0]; let baseTag = document.createElement('base');baseTag.href=\(baseUrl!);head.appendChild(baseTag);"
-                let addBaseUserScript = WKUserScript(source: addBaseScript, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
-                controller.addUserScript(addBaseUserScript)
-            }
             
             let escapedMarkdown = self.escape(markdown: markdown) ?? ""
             let imageOption = enableImage ? "true" : "false"
             let script = "window.showMarkdown('\(escapedMarkdown)', \(imageOption));"
             let userScript = WKUserScript(source: script, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
-            
-            
             controller.addUserScript(userScript)
+            
+            // 对于相对路径的图片，修正为绝对路径
+            if baseUrl != nil
+            {
+                let addBaseScript = "let a = '\(baseUrl!)';let contentDiv = document.getElementById('contents');let array = contentDiv.getElementsByTagName('img');for(i=0;i<array.length;i++){let item=array[i];if(item.getAttribute('src').indexOf('http') == -1){item.src = a + item.getAttribute('src');}}"
+                let addBaseUserScript = WKUserScript(source: addBaseScript, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
+                controller.addUserScript(addBaseUserScript)
+            }
             
             let configuration = WKWebViewConfiguration()
             configuration.userContentController = controller
