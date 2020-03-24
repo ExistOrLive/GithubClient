@@ -1,11 +1,36 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    </head>
-    <body>
-        <pre class="prettyprint linenums" id="code"></pre>
-        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?skin=doxy"></script>
-    </body>
+<head>
+<meta charset="utf-8">
+<title>Making Quines Prettier</title>
+<!-- The defer attribute is not necessary for autoloading, but is necessary
+     for the script at the bottom to work as a Quine. -->
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js" defer=""></script>
+</head>
+ 
+<body onload="prettyPrint()">
+ 
+<!-- Language hints can be put in XML application directive style comments. -->
+<!--?prettify lang=html linenums=true?-->
+<pre class="prettyprint" lang="C"></pre>
+ 
+<script type="text/javascript">//<![CDATA[
+function insertCode(quineHtml) {
+  function htmlEscape(s) {
+    return s
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
+ 
+  // Highlight the operative parts:
+  quineHtml = quineHtml.replace(
+    /&lt;script src[\s\S]*?&gt;&lt;\/script&gt;|&lt;!--\?[\s\S]*?--&gt;|&lt;pre\b[\s\S]*?&lt;\/pre&gt;/g,
+    '<span class="operative">$&<\/span>');
+ 
+  // insert into PRE
+  document.getElementById("quine").innerHTML = quineHtml;
+}
+//]]>
+</script></body>
 </html>
