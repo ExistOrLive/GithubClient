@@ -139,7 +139,7 @@ extension ZLRepoSubContentController : UITableViewDelegate,UITableViewDataSource
             let url = URL.init(string: contentModel.name)
             if NSString.isTextFile(forExtension:(url?.pathExtension ?? "")) == true
             {
-                let controller = ZLRepoCodePreviewController.init(repoFullName: self.repoFullName, path: contentModel.path, branch: self.branch)
+                let controller = ZLRepoCodePreview2Controller.init(repoFullName: self.repoFullName, path: contentModel.path, branch: self.branch)
                 self.navigationController?.pushViewController(controller, animated: true)
                 
             }else{
