@@ -98,32 +98,30 @@ class ZLRepoCodePreviewController: ZLBaseViewController {
         
         if let url = htmlURL {
 
-            let templateRequest = URLRequest(url: url)
-            
-            let controller = WKUserContentController()
-            
-            let script = "let codeNode = document.getElementById('code');codeNode.innerText='\(codeStr)';"
-            let userScript = WKUserScript(source: script, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
-           // controller.addUserScript(userScript)
-            
-            let configuration = WKWebViewConfiguration()
-            configuration.userContentController = controller
-            
-            let wv = WKWebView(frame: CGRect.init(), configuration: configuration)
-            
-            self.contentView.addSubview(wv)
-            wv.snp.makeConstraints({(make) in
-                make.edges.equalToSuperview()
-            })
-            wv.uiDelegate = self
-            wv.navigationDelegate = self
-            wv.load(templateRequest)
-            self.webView = wv
-            
-//            self.webView?.evaluateJavaScript(script, completionHandler: { (obj : Any?, error : Error?) in
-//
-//            })
-            
+            do {
+                let htmlStr = try String.init(contentsOf: url)
+                let range = (htmlStr as NSString).range(of:"</pre>")
+                if  range.location != NSNotFound{
+                    let newHtmlStr = NSMutableString.init(string: htmlStr)
+                    newHtmlStr.insert((codeStr as NSString).htmlEntityEncode(), at: range.location)
+                    
+                    let controller = WKUserContentController()
+                    let configuration = WKWebViewConfiguration()
+                    configuration.userContentController = controller
+                    
+                    let wv = WKWebView(frame: CGRect.init(), configuration: configuration)
+                    
+                    self.contentView.addSubview(wv)
+                    wv.snp.makeConstraints({(make) in
+                        make.edges.equalToSuperview()
+                    })
+                    wv.uiDelegate = self
+                    wv.navigationDelegate = self
+                    wv.loadHTMLString(newHtmlStr as String, baseURL: nil)
+                }
+            }catch{
+                ZLToastView.showMessage("load Code index html failed");
+            }
         }
     }
 }
@@ -146,14 +144,13 @@ extension ZLRepoCodePreviewController : WKUIDelegate,WKNavigationDelegate
     }
     
     
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!)
-    {
-        let codeEncodeStr = (self.codeStr! as NSString).htmlEntityEncode()
-        var script = "let codeNode = document.getElementById('code');codeNode.innerText='\(codeEncodeStr)';"
-        script = (script as NSString).replacingOccurrences(of: "\n", with: "")
-        script = (script as NSString).replacingOccurrences(of: " ", with: "")
-        webView.evaluateJavaScript(script, completionHandler: {(obj : Any? , error : Error?) in
-            
-        })
-    }
+//    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!)
+//    {
+//        let codeEncodeStr = (self.codeStr! as NSString).htmlEntityEncode()
+//       // let codeEncodeStr = "function a(){\n let c = 1 + 2;\n print(c);\n}"
+//        let script = "insertCode('\((codeEncodeStr as NSString).htmlEntityEncode())')"
+//        webView.evaluateJavaScript(script, completionHandler: {(obj : Any? , error : Error?) in
+//
+//        })
+//    }
 }

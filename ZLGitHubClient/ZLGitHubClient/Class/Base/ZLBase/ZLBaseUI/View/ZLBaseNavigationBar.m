@@ -68,6 +68,7 @@
 - (void) setUPUI
 {
     [self setBackgroundColor:[UIColor whiteColor]];
+    self.layer.shadowRadius = 0.3;
     
     // 创建返回按钮
     [self setUpBackButton];
