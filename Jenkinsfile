@@ -1,5 +1,7 @@
 pipeline{
-    agent any
+    agent {
+        label 'beecloud'
+    }
 
     stages{
         stage('Construct Environment'){
