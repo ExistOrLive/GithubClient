@@ -42,6 +42,8 @@ platform :ios do
      match(type: "adhoc",
           readonly: true,
           app_identifier: "com.zm.ZLGitHubClient",
+          keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
+          keychain_password: ENV['MATCH_PASSWORD'],
           git_url: ENV['MATCH_GITHUB_URL'])
      gym(workspace: "ZLGitHubClient.xcworkspace",
          scheme: "ZLGitHubClient",
