@@ -39,6 +39,14 @@ platform :ios do
 
   desc "build one adhoc release local"
   lane :jenkins_adhoc do
+     create_keychain(
+      name: ENV['MATCH_KEYCHAIN_NAME'],
+      password: ENV['MATCH_PASSWORD'],
+      default_keychain: true,
+      unlock: true,
+      timeout: 3600,
+      add_to_search_list: true
+    ) 
      match(type: "adhoc",
           readonly: true,
           app_identifier: "com.zm.ZLGitHubClient",
