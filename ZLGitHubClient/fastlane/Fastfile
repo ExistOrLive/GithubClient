@@ -37,6 +37,21 @@ platform :ios do
         output_name: "ZLGitHubClient.ipa")
   end
 
+  desc "build one adhoc release local"
+  lane :jenkins_adhoc do
+     match(type: "adhoc",
+          readonly: true,
+          app_identifier: "com.zm.ZLGitHubClient",
+          git_url: ENV['MATCH_GITHUB_URL'])
+     gym(workspace: "ZLGitHubClient.xcworkspace",
+         scheme: "ZLGitHubClient",
+         clean: true,
+         include_symbols: true,
+         include_bitcode: true,
+         output_directory: "./fastlane/ipa",
+         output_name: "ZLGitHubClient.ipa")
+  end
+
   desc "build one adhoc release on travis"
   lane :github_action_adhoc do
     create_keychain(
