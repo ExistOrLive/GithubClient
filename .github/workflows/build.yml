@@ -53,3 +53,11 @@ jobs:
       run: |
         curl -T ./fastlane/ipa/ZLGitHubClient.ipa  -u $CODING_ARTIFACT_TOKEN  "https://existorlive-generic.pkg.coding.net/ZLGitHubClient/adhoc/ZLGitHubClient.ipa" -v                    # 上传ipa到制品库
         echo "work flow build end"
+    - name: email send for success
+      working-directory: ./ZLGitHubClient/EmailSender
+      if: success()
+      env: 
+        NOREPLEY_PWD: ${{ secrets.NOREPLY_PASSWD }}
+        Email_Receivers: ${{ secrets.Email_Receivers }}
+      run: |
+        python3 EmailSenderForGitAction.py $NOREPLEY_PWD $Email_Receivers true
