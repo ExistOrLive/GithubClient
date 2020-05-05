@@ -60,4 +60,4 @@ jobs:
         NOREPLEY_PWD: ${{ secrets.NOREPLY_PASSWD }}
         Email_Receivers: ${{ secrets.Email_Receivers }}
       run: |
-        python EmailSenderForGitAction $NOREPLEY_PWD $Email_Receivers true
+        python3 EmailSenderForGitAction.py $NOREPLEY_PWD $Email_Receivers true
