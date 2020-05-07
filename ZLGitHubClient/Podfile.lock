@@ -1,10 +1,4 @@
 PODS:
-  - AFNetworking (3.2.1):
-    - AFNetworking/NSURLSession (= 3.2.1)
-    - AFNetworking/Reachability (= 3.2.1)
-    - AFNetworking/Security (= 3.2.1)
-    - AFNetworking/Serialization (= 3.2.1)
-    - AFNetworking/UIKit (= 3.2.1)
   - AFNetworking/NSURLSession (3.2.1):
     - AFNetworking/Reachability
     - AFNetworking/Security
@@ -12,8 +6,6 @@ PODS:
   - AFNetworking/Reachability (3.2.1)
   - AFNetworking/Security (3.2.1)
   - AFNetworking/Serialization (3.2.1)
-  - AFNetworking/UIKit (3.2.1):
-    - AFNetworking/NSURLSession
   - BSBacktraceLogger (0.0.1)
   - Bugly (2.5.2)
   - CocoaLumberjack (3.6.1):
@@ -72,7 +64,10 @@ PODS:
   - YYText (1.0.7)
 
 DEPENDENCIES:
-  - AFNetworking
+  - AFNetworking/NSURLSession
+  - AFNetworking/Reachability
+  - AFNetworking/Security
+  - AFNetworking/Serialization
   - Bugly
   - CocoaLumberjack
   - CocoaLumberjack/Swift
@@ -138,6 +133,6 @@ SPEC CHECKSUMS:
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: b01d784fc416dffa32cce89104b7aafe9c50a4ac
+PODFILE CHECKSUM: 2f6d1911ad1094f96bc0ba641a9254742810241a
 
 COCOAPODS: 1.9.1

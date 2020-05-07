@@ -267,7 +267,7 @@ extension ZLUserAdditionInfoViewModel: UITableViewDelegate,UITableViewDataSource
                 return UITableViewCell()
             }
             
-            tableViewCell.imageButton.setImageFor(.normal, with: URL.init(string: data?.owner.avatar_url ?? "")!, placeholderImage: UIImage.init(named: "default_avatar"))
+            tableViewCell.imageButton.sd_setBackgroundImage(with: URL.init(string: data?.owner.avatar_url ?? ""), for: .normal, placeholderImage: UIImage.init(named: "default_avatar"), options: .refreshCached, context: nil)
             let firstFileName = data?.files.first?.key as? String
             
             tableViewCell.gistNameLabel.text = NSString.init(format: "%@/%@", data?.owner.loginName ?? "",firstFileName ?? "") as String
