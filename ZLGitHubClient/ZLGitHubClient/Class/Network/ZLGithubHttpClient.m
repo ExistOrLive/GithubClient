@@ -8,7 +8,7 @@
 
 #import "ZLGithubHttpClient.h"
 #import "ZLGithubAPI.h"
-#import <AFNetworking/AFNetworking.h>
+#import <AFNetworking/AFHTTPSessionManager.h>
 #import <MJExtension/MJExtension.h>
 
 // Tool
