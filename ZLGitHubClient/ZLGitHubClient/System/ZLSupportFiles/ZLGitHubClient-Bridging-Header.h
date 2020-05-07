@@ -10,6 +10,9 @@
 #import "ZLBaseUIHeader.h"
 #import "ZLBaseObject.h"
 
+#import "SYDCentralPivotHeader.h"
+#import "SYDCentralPivotUIAdapter.h"
+
 // customView
 #import "ZLCustomTextField.h"
 #import "ZLLoginLogoView.h"
