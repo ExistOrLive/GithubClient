@@ -55,10 +55,17 @@
                 
                 NSString * classString = [modelValue objectForKey:@"class"];
                 Class cla = NSClassFromString(classString);
-                SYDCentralRouterModelType type = (SYDCentralRouterModelType)((NSNumber *)[modelValue objectForKey:@"type"]).intValue;
+                if(!cla){
+                    // 支持swift 创建的类
+                    NSString *appName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleName"];
+                    NSString *classStringName = [NSString stringWithFormat:@"_TtC%lu%@%lu%@", (unsigned long)appName.length, appName, (unsigned long)classString.length, classString];
+                    cla = NSClassFromString(classStringName);
+                }
+                
                 
                 if(cla)
                 {
+                    SYDCentralRouterModelType type = (SYDCentralRouterModelType)((NSNumber *)[modelValue objectForKey:@"type"]).intValue;
                     SYDCentralRouterModel * model = nil;
                     if(SYDCentralRouterModelType_Service == type)
                     {
