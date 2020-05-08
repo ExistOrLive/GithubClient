@@ -106,8 +106,7 @@ extension ZLGithubItemListView : UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
-        //return self.cellDatas?[indexPath.row].getCellHeight() ?? 0.0
+        return self.cellDatas?[indexPath.row].getCellHeight() ?? 0.0
     }
 }
 

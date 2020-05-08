@@ -61,6 +61,8 @@
 
 #define repoContentsUrl         @"/repos/%@/contents/%@"                // 获取代码内容
 
+#define repoContributorsUrl         @"/repos/%@/contributors"           // 获取repo的贡献者
+
 
 #pragma mark starred
 

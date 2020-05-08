@@ -850,6 +850,29 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 }
 
 
+- (void) getRepositoryContributors:(GithubResponse) block
+                          fullName:(NSString *) fullName
+                      serialNumber:(NSString *) serialNumber{
+    NSString * urlForRepoContributor = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoContributorsUrl];
+    urlForRepoContributor = [NSString stringWithFormat:urlForRepoContributor,fullName];
+    
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
+        
+        if(result)
+        {
+            NSArray<ZLGithubUserModel *> * model = [ZLGithubUserModel mj_objectArrayWithKeyValuesArray:responseObject];
+            responseObject = model;
+        }
+        block(result,responseObject,serialNumber);
+    };
+    
+    [self GETRequestWithURL:urlForRepoContributor
+                 WithParams:@{}
+          WithResponseBlock:newBlock
+               serialNumber:serialNumber];
+}
+
+
 
 #pragma mark - gists
 

@@ -8,6 +8,11 @@
 
 import UIKit
 
+@objc protocol ZLUserTableViewCellDelegate : NSObjectProtocol {
+    func onUserContainerViewClicked() -> Void
+}
+
+
 class ZLUserTableViewCell: UITableViewCell {
 
     @IBOutlet weak var containerView: UIView!
@@ -22,6 +27,8 @@ class ZLUserTableViewCell: UITableViewCell {
     
     @IBOutlet weak var locationLabel: UILabel!
     
+    weak var delegate : ZLUserTableViewCellDelegate?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -32,10 +39,36 @@ class ZLUserTableViewCell: UITableViewCell {
         
         self.headImageView.layer.cornerRadius = 25.0
         self.headImageView.layer.masksToBounds = true
+        
+        let gestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(ZLUserTableViewCell.onCellClicked))
+        self.contentView.addGestureRecognizer(gestureRecognizer)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(false, animated: animated)
     }
     
+}
+
+
+extension ZLUserTableViewCell
+{
+    func fillWithData(data : ZLUserTableViewCellData) -> Void
+    {
+        self.headImageView.sd_setImage(with: URL.init(string: data.getAvatarUrl() ?? ""), placeholderImage: UIImage.init(named: "default_avatar"))
+        self.nameLabel.text = data.getName()
+        self.loginNameLabel.text = data.getLoginName()
+        self.companyLabel.text = data.getCompany()
+        self.locationLabel.text = data.getLocation()
+    }
+}
+
+
+extension ZLUserTableViewCell
+{
+    @objc func onCellClicked() -> Void{
+        if self.delegate?.responds(to: #selector(ZLUserTableViewCellDelegate.onUserContainerViewClicked)) ?? false {
+            self.delegate?.onUserContainerViewClicked()
+        }
+    }
 }

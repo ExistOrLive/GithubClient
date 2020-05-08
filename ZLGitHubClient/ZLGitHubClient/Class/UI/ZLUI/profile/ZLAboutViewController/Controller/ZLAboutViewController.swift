@@ -24,6 +24,6 @@ import UIKit
         contentView.snp_makeConstraints({ (make) in
             make.edges.equalToSuperview()
         })
-        self.viewModel.bindModel(nil, andView: self.contentView)
+        self.viewModel.bindModel(nil, andView: contentView)
     }
 }

@@ -100,8 +100,6 @@ extension ZLRepositoryTableViewCellData
     {
         return Int(self.data.forks)
     }
-    
-    
 }
 
 
