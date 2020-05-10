@@ -7,6 +7,7 @@
 */
 
 "repositories" = "版本库";
+"repository" = "版本库";
 "users" = "用户";
 "commits" = "提交";
 "topics" = "标题";

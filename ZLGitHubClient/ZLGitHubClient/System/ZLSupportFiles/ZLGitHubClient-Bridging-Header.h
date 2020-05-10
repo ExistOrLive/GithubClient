@@ -6,6 +6,7 @@
 #import <SVProgressHUD/SVProgressHUD.h>
 #import <MJRefresh/MJRefresh.h>
 #import <FFPopup/FFPopup.h>
+#import <UITextView_Placeholder/UITextView+Placeholder.h>
 
 #import "ZLBaseUIHeader.h"
 #import "ZLBaseObject.h"

@@ -61,6 +61,7 @@ PODS:
   - SVProgressHUD (2.2.5)
   - Toast (4.0.0)
   - Toast-Swift (5.0.1)
+  - "UITextView+Placeholder (1.4.0)"
   - YYText (1.0.7)
 
 DEPENDENCIES:
@@ -86,6 +87,7 @@ DEPENDENCIES:
   - SVProgressHUD
   - Toast
   - Toast-Swift
+  - "UITextView+Placeholder"
   - YYText
 
 SPEC REPOS:
@@ -109,6 +111,7 @@ SPEC REPOS:
     - SVProgressHUD
     - Toast
     - Toast-Swift
+    - "UITextView+Placeholder"
     - YYText
 
 SPEC CHECKSUMS:
@@ -131,8 +134,9 @@ SPEC CHECKSUMS:
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
+  "UITextView+Placeholder": d7b0c400921f66523f3a85d74f774512e14f6502
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: 2f6d1911ad1094f96bc0ba641a9254742810241a
+PODFILE CHECKSUM: 6145a37ad4f8738db771b87d3d5a50076b0bbe9f
 
 COCOAPODS: 1.9.1

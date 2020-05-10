@@ -7,6 +7,7 @@
 */
 
 "repositories" = "Repos";
+"repository" = "Repo";
 "users" = "Users";
 "commits" = "Commits";
 "topics" = "Topics";

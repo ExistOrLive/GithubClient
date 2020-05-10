@@ -55,6 +55,9 @@ pod 'Bugly'
 # 异常防护
 pod 'JJException'
 
+# 扩展
+pod 'UITextView+Placeholder'
+
 
 ## fix oclint issue : one compiler command contains multiple jobs
 
