@@ -96,6 +96,7 @@
 		7439072E23E8776900EEA197 /* ZLToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7439072D23E8776900EEA197 /* ZLToastView.m */; };
 		743F180D2311335F00E39A95 /* ZLRepoServiceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 743F180C2311335F00E39A95 /* ZLRepoServiceModel.m */; };
 		743F18122312667B00E39A95 /* NSDate+localizeStr.m in Sources */ = {isa = PBXBuildFile; fileRef = 743F18112312667B00E39A95 /* NSDate+localizeStr.m */; };
+		744402982469ACC0004892A0 /* ZLGithubIssueModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 744402972469ACC0004892A0 /* ZLGithubIssueModel.m */; };
 		74478D3C231FE37B007D3832 /* ZLSettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74478D3B231FE37B007D3832 /* ZLSettingController.swift */; };
 		74478D3F231FE3C6007D3832 /* ZLSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74478D3E231FE3C6007D3832 /* ZLSettingView.swift */; };
 		74478D41231FE3EE007D3832 /* ZLSettingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74478D40231FE3EE007D3832 /* ZLSettingView.xib */; };
@@ -362,6 +363,8 @@
 		743F180E2311366D00E39A95 /* ZLRepoServiceHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLRepoServiceHeader.h; sourceTree = "<group>"; };
 		743F18102312667B00E39A95 /* NSDate+localizeStr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDate+localizeStr.h"; sourceTree = "<group>"; };
 		743F18112312667B00E39A95 /* NSDate+localizeStr.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDate+localizeStr.m"; sourceTree = "<group>"; };
+		744402962469ACC0004892A0 /* ZLGithubIssueModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLGithubIssueModel.h; sourceTree = "<group>"; };
+		744402972469ACC0004892A0 /* ZLGithubIssueModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLGithubIssueModel.m; sourceTree = "<group>"; };
 		74478D3B231FE37B007D3832 /* ZLSettingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLSettingController.swift; sourceTree = "<group>"; };
 		74478D3E231FE3C6007D3832 /* ZLSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLSettingView.swift; sourceTree = "<group>"; };
 		74478D40231FE3EE007D3832 /* ZLSettingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZLSettingView.xib; sourceTree = "<group>"; };
@@ -1208,6 +1211,15 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		744402952469AC22004892A0 /* issues */ = {
+			isa = PBXGroup;
+			children = (
+				744402962469ACC0004892A0 /* ZLGithubIssueModel.h */,
+				744402972469ACC0004892A0 /* ZLGithubIssueModel.m */,
+			);
+			path = issues;
+			sourceTree = "<group>";
+		};
 		74478D3A231FE32F007D3832 /* ZLSettingController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1647,6 +1659,7 @@
 		74BED25E22E01119006B07C1 /* PersistentModel */ = {
 			isa = PBXGroup;
 			children = (
+				744402952469AC22004892A0 /* issues */,
 				360F4FB72421ED0B0066A7EA /* Content */,
 				366DB835241F216B002A0896 /* Commit */,
 				363FF086240E9006007A855F /* PullRequest */,
@@ -2833,6 +2846,7 @@
 				7436AC9321EB869D00F03276 /* UIViewController+SYDRouter.m in Sources */,
 				363FF089240E9031007A855F /* ZLGithubPullRequestModel.m in Sources */,
 				7436AC8221EB7B4500F03276 /* ZLBaseNavigationController.m in Sources */,
+				744402982469ACC0004892A0 /* ZLGithubIssueModel.m in Sources */,
 				746F47B8222D6119004D2A2F /* ZLToolManager.m in Sources */,
 				7434CA812393E5CF00763220 /* ZLEventTableViewCellDataProvider.swift in Sources */,
 				D1135F7921ECD34A003A26C1 /* UIView+Frame.m in Sources */,

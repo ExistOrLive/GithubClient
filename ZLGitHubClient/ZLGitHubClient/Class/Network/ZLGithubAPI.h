@@ -64,6 +64,9 @@
 #define repoContributorsUrl         @"/repos/%@/contributors"           // 获取repo的贡献者
 
 
+#define repoIssuesUrl           @"/repos/%@/issues"                  // 获取repos的issues
+
+
 #pragma mark starred
 
 #define currentUserStarredURL   @"/user/starred"                    // 当前用户标星的repo
