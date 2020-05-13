@@ -18,6 +18,7 @@
 "following" = "Following";
 "created at" = "Created at";
 "closed at" = "Closed at";
+"opened at" = "Opened at";
 "fork" = "Forks";
 "star" = "Stars";
 "watcher" = "Watchers";

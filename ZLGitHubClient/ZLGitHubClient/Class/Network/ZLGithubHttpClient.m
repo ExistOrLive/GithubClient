@@ -28,6 +28,7 @@
 #import "ZLGithubCommitModel.h"
 #import "ZLGithubRepositoryBranchModel.h"
 #import "ZLGithubContentModel.h"
+#import "ZLGithubIssueModel.h"
 
 static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 
@@ -870,6 +871,32 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                  WithParams:@{}
           WithResponseBlock:newBlock
                serialNumber:serialNumber];
+}
+
+
+- (void) getRepositoryIssues:(GithubResponse) block
+                    fullName:(NSString *) fullName
+                serialNumber:(NSString *) serialNumber{
+    
+    NSString * urlForRepoContributor = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoIssuesUrl];
+    urlForRepoContributor = [NSString stringWithFormat:urlForRepoContributor,fullName];
+    
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
+        
+        if(result)
+        {
+            NSArray<ZLGithubIssueModel *> * model = [ZLGithubIssueModel mj_objectArrayWithKeyValuesArray:responseObject];
+            responseObject = model;
+        }
+        block(result,responseObject,serialNumber);
+    };
+    
+    [self GETRequestWithURL:urlForRepoContributor
+                 WithParams:@{}
+          WithResponseBlock:newBlock
+               serialNumber:serialNumber];
+    
+    
 }
 
 

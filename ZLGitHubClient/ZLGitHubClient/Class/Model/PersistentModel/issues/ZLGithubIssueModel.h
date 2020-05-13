@@ -88,6 +88,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, strong) NSArray<ZLGithubLabelModel *> *labels;   // 标签
 
+@property(nonatomic, strong) ZLGithubMilestoneModel *milestone;      // milestone
 
 @property(nonatomic, strong) ZLGithubUserBriefModel *user;
 

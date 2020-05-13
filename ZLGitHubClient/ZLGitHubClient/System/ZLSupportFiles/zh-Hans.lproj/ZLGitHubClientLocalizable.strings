@@ -18,6 +18,7 @@
 "following" = "关注";
 "created at" = "创建于";
 "closed at" = "关闭于";
+"opened at" = "打开于";
 "fork" = "拷贝";
 "star" = "标星";
 "owner" = "作者";

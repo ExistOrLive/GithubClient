@@ -49,6 +49,7 @@
 #import "ZLGithubCommitModel.h"
 #import "ZLGithubRepositoryBranchModel.h"
 #import "ZLGithubContentModel.h"
+#import "ZLGithubIssueModel.h"
 
 
 // tmp Model

@@ -109,6 +109,16 @@ NS_ASSUME_NONNULL_BEGIN
                                 completeHandle:(void(^)(ZLOperationResultModel *)) handle;
 
 
+/**
+ * @brief 根据repo fullname获取 issues
+ * @param fullName octocat/Hello-World
+ * @param serialNumber 流水号
+ **/
+- (void) getRepositoryIssuesWithFullName:(NSString *) fullName
+                            serialNumber:(NSString *) serialNumber
+                          completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+
 
 @end
 

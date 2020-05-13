@@ -269,6 +269,10 @@ NS_ASSUME_NONNULL_BEGIN
                           fullName:(NSString *) fullName
                       serialNumber:(NSString *) serialNumber;
 
+- (void) getRepositoryIssues:(GithubResponse) block
+                    fullName:(NSString *) fullName
+                serialNumber:(NSString *) serialNumber;
+
 
 #pragma mark - gists
 

@@ -52,7 +52,7 @@
 }
 
 @end
-
+   
 
 @implementation ZLGithubIssueModel
 
@@ -77,6 +77,11 @@
     }
     
     return oldValue;
+}
+
++ (NSDictionary *)mj_objectClassInArray
+{
+    return @{@"labels":[ZLGithubLabelModel class]};
 }
 
 @end
