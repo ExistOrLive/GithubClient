@@ -9,7 +9,16 @@
 import UIKit
 import WebKit
 
+@objc protocol ZLRepoFooterInfoViewDelegate : NSObjectProtocol {
+    
+    func onRefreshReadmeAction() -> Void
+    
+}
+
+
 class ZLRepoFooterInfoView: ZLBaseView {
+    
+    weak var delegate : ZLRepoFooterInfoViewDelegate?
 
     @IBOutlet weak var progressView: UIProgressView!
     
@@ -25,6 +34,7 @@ class ZLRepoFooterInfoView: ZLBaseView {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        self.refreshButton.setTitle(ZLLocalizedString(string: "refresh", comment: "刷新"), for: .normal)
         self.refreshButton.layer.cornerRadius = 5.0
         self.refreshButton.layer.borderColor = UIColor.lightGray.cgColor
         self.refreshButton.layer.borderWidth = 1.0
@@ -42,14 +52,24 @@ class ZLRepoFooterInfoView: ZLBaseView {
     {
         self.stopLoad()
     
+        self.progressView.isHidden = false
+        self.progressView.setProgress(0.3, animated: false)
+        
         self.markdownView.load(markdown: markDown,baseUrl:baseUrl, enableImage: true)
         
         self.markdownView.onRendered = { (height:CGFloat) in
-            self.progressView.setProgress(1.0, animated: true)
+            
             self.markdownView.snp.updateConstraints { (make) in
                     make.height.equalTo(height + 40)
             }
             self.markdownView.webView?.scrollView.removeObserver(self, forKeyPath: "contentSize")
+            
+            UIView.animate(withDuration: 0.3, animations: { () in
+                self.progressView.setProgress(1.0, animated: false) }, completion:
+                { (result : Bool) in
+                    self.progressView.isHidden = true
+            })
+            
         }
 
         self.markdownView.webView?.scrollView.addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
@@ -71,15 +91,6 @@ class ZLRepoFooterInfoView: ZLBaseView {
         
         if keyPath == "contentSize"
         {
-//            guard let size : CGSize = change?[.newKey] as? CGSize else
-//            {
-//                return
-//            }
-//
-//            self.markdownView.snp.updateConstraints { (make) in
-//                make.height.equalTo(size.height + 10)
-//            }
-            
             if self.markdownView.webView != nil
             {
                 let script = "document.body.scrollHeight;"
@@ -95,7 +106,13 @@ class ZLRepoFooterInfoView: ZLBaseView {
           
             
         }
-        
+    }
+    
+    
+    @IBAction func onRefreshButtonClicked(_ sender: Any) {
+        if self.delegate?.responds(to: #selector(ZLRepoFooterInfoViewDelegate.onRefreshReadmeAction)) ?? false {
+            self.delegate?.onRefreshReadmeAction()
+        }
     }
     
 }

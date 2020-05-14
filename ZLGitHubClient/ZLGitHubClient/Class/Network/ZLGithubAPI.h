@@ -64,9 +64,6 @@
 #define repoContributorsUrl         @"/repos/%@/contributors"           // 获取repo的贡献者
 
 
-#define repoIssuesUrl           @"/repos/%@/issues"                  // 获取repos的issues
-
-
 #pragma mark starred
 
 #define currentUserStarredURL   @"/user/starred"                    // 当前用户标星的repo
@@ -87,6 +84,15 @@
 
 #define followersUrl                 @"/user/followers"                       // 当前用户的followers
 #define userfollowersUrl             @"/users/%@/followers"                   // 某用户的followers
+
+
+#pragma mark issues
+
+#define repoIssuesUrl              @"/repos/%@/issues"                  // get 获取repos的issues
+
+#define createIssueUrl                @"/repos/%@/issues"                  // post 获取repos的issues
+
+#define updateIssueUrl                 @"/repos/%@/issues/%@"               // patch
 
 
 

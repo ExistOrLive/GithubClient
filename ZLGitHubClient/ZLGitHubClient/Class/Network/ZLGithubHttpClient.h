@@ -269,9 +269,7 @@ NS_ASSUME_NONNULL_BEGIN
                           fullName:(NSString *) fullName
                       serialNumber:(NSString *) serialNumber;
 
-- (void) getRepositoryIssues:(GithubResponse) block
-                    fullName:(NSString *) fullName
-                serialNumber:(NSString *) serialNumber;
+
 
 
 #pragma mark - gists
@@ -317,6 +315,24 @@ NS_ASSUME_NONNULL_BEGIN
                 per_page:(NSUInteger)per_page
             serialNumber:(NSString *)serialNumber
            responseBlock:(GithubResponse)block;
+
+
+
+#pragma mark - Issues
+
+
+- (void) getRepositoryIssues:(GithubResponse) block
+                    fullName:(NSString *) fullName
+                serialNumber:(NSString *) serialNumber;
+
+
+- (void) createIssue:(GithubResponse) block
+            fullName:(NSString *) fullName
+               title:(NSString *) title
+             content:(NSString * __nullable) content
+              labels:(NSArray * __nullable) labels
+           assignees:(NSArray * __nullable) assignees
+        serialNumber:(NSString *) serialNumber;
 
 @end
 

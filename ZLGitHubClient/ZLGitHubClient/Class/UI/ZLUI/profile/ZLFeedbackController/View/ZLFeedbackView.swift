@@ -9,13 +9,15 @@
 import UIKit
 
 class ZLFeedbackView: ZLBaseView {
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    
+    @IBOutlet weak var feedbackTextView: UITextView!
+    @IBOutlet weak var submitButton: UIButton!
+    @IBOutlet weak var contextLabel: UILabel!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.feedbackTextView.placeholder = ZLLocalizedString(string: "thanks for your feedback", comment: "感谢您的反馈")
+        self.submitButton.setTitle(ZLLocalizedString(string: "submit", comment: "提交"), for: .normal)
     }
-    */
 
 }

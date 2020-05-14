@@ -70,28 +70,25 @@ extension ZLRepoInfoViewModel
     {
         self.viewController?.title = self.repoInfoModel?.name == nil ? "Repo" : self.repoInfoModel?.name
         
-        if self.repoHeaderInfoViewModel == nil
-        {
+        if self.repoHeaderInfoViewModel == nil{
             self.repoHeaderInfoViewModel = ZLRepoHeaderInfoViewModel()
             self.addSubViewModel(self.repoHeaderInfoViewModel!)
         }
-    self.repoHeaderInfoViewModel?.bindModel(self.repoInfoModel,andView:self.repoInfoView!.headerView!)
+        self.repoHeaderInfoViewModel?.bindModel(self.repoInfoModel,andView:self.repoInfoView!.headerView!)
         
-        if self.repoItemInfoViewModel == nil
-        {
+        if self.repoItemInfoViewModel == nil{
             self.repoItemInfoViewModel = ZLRepoItemInfoViewModel()
             self.addSubViewModel(self.repoItemInfoViewModel!)
         }
-    self.repoItemInfoViewModel?.bindModel(self.repoInfoModel,andView:self.repoInfoView!.itemView!)
+        self.repoItemInfoViewModel?.bindModel(self.repoInfoModel,andView:self.repoInfoView!.itemView!)
         
-        if self.repoFooterInfoViewModel == nil
-        {
+        if self.repoFooterInfoViewModel == nil{
             self.repoFooterInfoViewModel = ZLRepoFooterInfoViewModel()
             self.addSubViewModel(self.repoFooterInfoViewModel!)
         }
-    self.repoFooterInfoViewModel?.bindModel(self.repoInfoModel,andView:self.repoInfoView!.footerView!)
+        self.repoFooterInfoViewModel?.bindModel(self.repoInfoModel,andView:self.repoInfoView!.footerView!)
         
-    
+        
         
     }
 }

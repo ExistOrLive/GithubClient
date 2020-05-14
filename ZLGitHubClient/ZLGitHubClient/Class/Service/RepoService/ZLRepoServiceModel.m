@@ -318,6 +318,8 @@
 }
 
 
+#pragma mark - issue
+
 /**
  * @brief 根据repo fullname获取 issues
  * @param fullName octocat/Hello-World
@@ -352,4 +354,42 @@
                                                    serialNumber:serialNumber];
 }
 
+
+
+- (void) createIssueWithFullName:(NSString *) fullName
+                           title:(NSString *) title
+                            body:(NSString *) body
+                          labels:(NSArray *) labels
+                       assignees:(NSArray *) assignees
+                    serialNumber:(NSString *) serialNumber
+                  completeHandle:(void(^)(ZLOperationResultModel *)) handle{
+    
+    if(fullName.length == 0 || ![fullName containsString:@"/"])
+    {
+        ZLLog_Info(@"fullName is not valid");
+        return;
+    }
+    
+    GithubResponse response = ^(BOOL  result, id responseObject, NSString * serialNumber)
+    {
+        ZLOperationResultModel * repoResultModel = [[ZLOperationResultModel alloc] init];
+        repoResultModel.result = result;
+        repoResultModel.serialNumber = serialNumber;
+        repoResultModel.data = responseObject;
+        
+        if(handle)
+        {
+            ZLMainThreadDispatch(handle(repoResultModel);)
+        }
+    };
+    
+    
+    [[ZLGithubHttpClient defaultClient] createIssue:response
+                                           fullName:fullName
+                                              title:title
+                                            content:body
+                                             labels:labels
+                                          assignees:assignees
+                                       serialNumber:serialNumber];
+}
 @end

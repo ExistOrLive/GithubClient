@@ -202,7 +202,11 @@ extension ZLProfileBaseViewModel: UITableViewDelegate, UITableViewDataSource
             }
             
             break;
-        case ZLProfileItemType.feedback:
+        case ZLProfileItemType.feedback: do{
+            let vc = ZLFeedbackController.init()
+            vc.hidesBottomBarWhenPushed = true
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        }
             break;
         }
         

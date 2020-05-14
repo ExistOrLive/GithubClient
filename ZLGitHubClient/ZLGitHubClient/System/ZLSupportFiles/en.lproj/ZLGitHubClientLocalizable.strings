@@ -23,6 +23,7 @@
 "star" = "Stars";
 "watcher" = "Watchers";
 "owner" = "Owner";
+"submit" = "Submit";
 
 "company" = "Company";
 "location" = "Location";
@@ -88,3 +89,8 @@
 "committed" = " committed ";
 "current" = "current";
 
+"thanks for your feedback" = "Thanks for your feedback";
+"submission failed" = "Submission Failed";
+"input feedback" = "Input feedback please";
+
+"refresh" = "refresh";

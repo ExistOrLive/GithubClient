@@ -25,6 +25,7 @@
 #import "ZLToolManager.h"
 #import "ZLKeyChainManager.h"
 #import "ZLToastView.h"
+#import "ZLDeviceInfo.h"
 
 // Service
 #import "ZLLoginServiceModel.h"
@@ -65,7 +66,7 @@
 // Network
 #import "ZLGithubHTTPClient.h"
 
-// extersion
+// extension
 #import "NSDate+localizeStr.h"
 #import "NSString+ZLExtension.h"
 #import "UIView+Frame.h"
