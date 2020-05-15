@@ -14,12 +14,18 @@ import UIKit
     @IBOutlet weak var searchButton: UIButton!
     @IBOutlet weak var headerView: UIView!
     
+    @IBOutlet weak var listView: ZLGithubItemListView!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
         self.topViewHeightConstraint.constant = self.topViewHeightConstraint.constant + ZLStatusBarHeight
         self.searchButton.layer.cornerRadius = 3.0;
+        
+        self.listView.tableView?.separatorStyle = .none
+        self.listView.tableView?.backgroundColor = .clear
+        
         self.justReloadView()
     }
     

@@ -17,7 +17,7 @@ import UIKit
 
 @objcMembers class ZLGithubItemListView: ZLBaseView {
     
-    private var tableView : UITableView?
+    var tableView : UITableView?
     
     private var cellDatas : [ZLGithubItemTableViewCellData]?
     
@@ -126,7 +126,7 @@ extension ZLGithubItemListView
     
     func loadMoreData()
     {
-        if self.delegate?.responds(to: #selector(ZLGithubItemListViewDelegate.githubItemListViewRefreshDragUp(pullRequestListView:))) ?? false
+        if self.delegate?.responds(to:#selector(ZLGithubItemListViewDelegate.githubItemListViewRefreshDragUp(pullRequestListView:))) ?? false
         {
             self.delegate?.githubItemListViewRefreshDragUp(pullRequestListView: self)
         }

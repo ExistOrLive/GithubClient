@@ -16,6 +16,21 @@
 		360F4FBD2421F3F80066A7EA /* ZLGithubRepositoryBranchModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 360F4FBC2421F3F80066A7EA /* ZLGithubRepositoryBranchModel.m */; };
 		361B8B7B239FD1C000F725B8 /* ZLStarReposBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 361B8B7A239FD1C000F725B8 /* ZLStarReposBaseView.m */; };
 		361B8B7F239FD35000F725B8 /* ZLStarReposBaseViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 361B8B7E239FD35000F725B8 /* ZLStarReposBaseViewModel.m */; };
+		3624C4D0246EC6B4002E23B8 /* string_buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 3624C4AD246EC6B4002E23B8 /* string_buffer.c */; };
+		3624C4D1246EC6B4002E23B8 /* util.c in Sources */ = {isa = PBXBuildFile; fileRef = 3624C4B0246EC6B4002E23B8 /* util.c */; };
+		3624C4D2246EC6B4002E23B8 /* char_ref.rl in Resources */ = {isa = PBXBuildFile; fileRef = 3624C4B1246EC6B4002E23B8 /* char_ref.rl */; };
+		3624C4D3246EC6B4002E23B8 /* vector.c in Sources */ = {isa = PBXBuildFile; fileRef = 3624C4B4246EC6B4002E23B8 /* vector.c */; };
+		3624C4D4246EC6B4002E23B8 /* attribute.c in Sources */ = {isa = PBXBuildFile; fileRef = 3624C4B5246EC6B4002E23B8 /* attribute.c */; };
+		3624C4D5246EC6B4002E23B8 /* char_ref.c in Sources */ = {isa = PBXBuildFile; fileRef = 3624C4B6246EC6B4002E23B8 /* char_ref.c */; };
+		3624C4D6246EC6B4002E23B8 /* utf8.c in Sources */ = {isa = PBXBuildFile; fileRef = 3624C4B8246EC6B4002E23B8 /* utf8.c */; };
+		3624C4D7246EC6B4002E23B8 /* error.c in Sources */ = {isa = PBXBuildFile; fileRef = 3624C4BE246EC6B4002E23B8 /* error.c */; };
+		3624C4D8246EC6B4002E23B8 /* tag.in in Resources */ = {isa = PBXBuildFile; fileRef = 3624C4BF246EC6B4002E23B8 /* tag.in */; };
+		3624C4D9246EC6B4002E23B8 /* tag.c in Sources */ = {isa = PBXBuildFile; fileRef = 3624C4C1246EC6B4002E23B8 /* tag.c */; };
+		3624C4DA246EC6B4002E23B8 /* parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 3624C4C5246EC6B4002E23B8 /* parser.c */; };
+		3624C4DB246EC6B4002E23B8 /* tokenizer.c in Sources */ = {isa = PBXBuildFile; fileRef = 3624C4C9246EC6B4002E23B8 /* tokenizer.c */; };
+		3624C4DC246EC6B4002E23B8 /* string_piece.c in Sources */ = {isa = PBXBuildFile; fileRef = 3624C4CA246EC6B4002E23B8 /* string_piece.c */; };
+		3624C4DD246EC6B4002E23B8 /* OCGumbo+Query.m in Sources */ = {isa = PBXBuildFile; fileRef = 3624C4CE246EC6B4002E23B8 /* OCGumbo+Query.m */; };
+		3624C4DE246EC6B4002E23B8 /* OCGumbo.m in Sources */ = {isa = PBXBuildFile; fileRef = 3624C4CF246EC6B4002E23B8 /* OCGumbo.m */; };
 		3628FCE1238BB22000FC36FC /* ZLEventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3628FCDF238BB22000FC36FC /* ZLEventTableViewCell.swift */; };
 		3628FCE6238CF1C600FC36FC /* ZLEventTableViewCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3628FCE5238CF1C600FC36FC /* ZLEventTableViewCellData.swift */; };
 		362DFCB9239E175D00979594 /* ZLStarRepoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 362DFCB8239E175D00979594 /* ZLStarRepoViewController.m */; };
@@ -270,6 +285,41 @@
 		361B8B7A239FD1C000F725B8 /* ZLStarReposBaseView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLStarReposBaseView.m; sourceTree = "<group>"; };
 		361B8B7D239FD35000F725B8 /* ZLStarReposBaseViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLStarReposBaseViewModel.h; sourceTree = "<group>"; };
 		361B8B7E239FD35000F725B8 /* ZLStarReposBaseViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLStarReposBaseViewModel.m; sourceTree = "<group>"; };
+		3624C4AD246EC6B4002E23B8 /* string_buffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = string_buffer.c; sourceTree = "<group>"; };
+		3624C4AE246EC6B4002E23B8 /* error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = error.h; sourceTree = "<group>"; };
+		3624C4AF246EC6B4002E23B8 /* tag_enum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tag_enum.h; sourceTree = "<group>"; };
+		3624C4B0246EC6B4002E23B8 /* util.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = util.c; sourceTree = "<group>"; };
+		3624C4B1246EC6B4002E23B8 /* char_ref.rl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = char_ref.rl; sourceTree = "<group>"; };
+		3624C4B2246EC6B4002E23B8 /* insertion_mode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = insertion_mode.h; sourceTree = "<group>"; };
+		3624C4B3246EC6B4002E23B8 /* parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = parser.h; sourceTree = "<group>"; };
+		3624C4B4246EC6B4002E23B8 /* vector.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vector.c; sourceTree = "<group>"; };
+		3624C4B5246EC6B4002E23B8 /* attribute.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = attribute.c; sourceTree = "<group>"; };
+		3624C4B6246EC6B4002E23B8 /* char_ref.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = char_ref.c; sourceTree = "<group>"; };
+		3624C4B7246EC6B4002E23B8 /* tokenizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tokenizer.h; sourceTree = "<group>"; };
+		3624C4B8246EC6B4002E23B8 /* utf8.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utf8.c; sourceTree = "<group>"; };
+		3624C4B9246EC6B4002E23B8 /* string_piece.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = string_piece.h; sourceTree = "<group>"; };
+		3624C4BA246EC6B4002E23B8 /* tokenizer_states.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tokenizer_states.h; sourceTree = "<group>"; };
+		3624C4BB246EC6B4002E23B8 /* token_type.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = token_type.h; sourceTree = "<group>"; };
+		3624C4BC246EC6B4002E23B8 /* tag_gperf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tag_gperf.h; sourceTree = "<group>"; };
+		3624C4BD246EC6B4002E23B8 /* string_buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = string_buffer.h; sourceTree = "<group>"; };
+		3624C4BE246EC6B4002E23B8 /* error.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = error.c; sourceTree = "<group>"; };
+		3624C4BF246EC6B4002E23B8 /* tag.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tag.in; sourceTree = "<group>"; };
+		3624C4C0246EC6B4002E23B8 /* util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = util.h; sourceTree = "<group>"; };
+		3624C4C1246EC6B4002E23B8 /* tag.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tag.c; sourceTree = "<group>"; };
+		3624C4C2246EC6B4002E23B8 /* char_ref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = char_ref.h; sourceTree = "<group>"; };
+		3624C4C3246EC6B4002E23B8 /* vector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vector.h; sourceTree = "<group>"; };
+		3624C4C4246EC6B4002E23B8 /* attribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = attribute.h; sourceTree = "<group>"; };
+		3624C4C5246EC6B4002E23B8 /* parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = parser.c; sourceTree = "<group>"; };
+		3624C4C6246EC6B4002E23B8 /* tag_sizes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tag_sizes.h; sourceTree = "<group>"; };
+		3624C4C7246EC6B4002E23B8 /* tag_strings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tag_strings.h; sourceTree = "<group>"; };
+		3624C4C8246EC6B4002E23B8 /* utf8.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utf8.h; sourceTree = "<group>"; };
+		3624C4C9246EC6B4002E23B8 /* tokenizer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tokenizer.c; sourceTree = "<group>"; };
+		3624C4CA246EC6B4002E23B8 /* string_piece.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = string_piece.c; sourceTree = "<group>"; };
+		3624C4CB246EC6B4002E23B8 /* gumbo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gumbo.h; sourceTree = "<group>"; };
+		3624C4CC246EC6B4002E23B8 /* OCGumbo+Query.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OCGumbo+Query.h"; sourceTree = "<group>"; };
+		3624C4CD246EC6B4002E23B8 /* OCGumbo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCGumbo.h; sourceTree = "<group>"; };
+		3624C4CE246EC6B4002E23B8 /* OCGumbo+Query.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OCGumbo+Query.m"; sourceTree = "<group>"; };
+		3624C4CF246EC6B4002E23B8 /* OCGumbo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCGumbo.m; sourceTree = "<group>"; };
 		3628FCDF238BB22000FC36FC /* ZLEventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLEventTableViewCell.swift; sourceTree = "<group>"; };
 		3628FCE5238CF1C600FC36FC /* ZLEventTableViewCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLEventTableViewCellData.swift; sourceTree = "<group>"; };
 		362DFCB7239E175D00979594 /* ZLStarRepoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLStarRepoViewController.h; sourceTree = "<group>"; };
@@ -691,6 +741,57 @@
 				361B8B7E239FD35000F725B8 /* ZLStarReposBaseViewModel.m */,
 			);
 			path = viewModel;
+			sourceTree = "<group>";
+		};
+		3624C4AB246EC6B4002E23B8 /* OCGumbo */ = {
+			isa = PBXGroup;
+			children = (
+				3624C4AC246EC6B4002E23B8 /* gumbo */,
+				3624C4CC246EC6B4002E23B8 /* OCGumbo+Query.h */,
+				3624C4CD246EC6B4002E23B8 /* OCGumbo.h */,
+				3624C4CE246EC6B4002E23B8 /* OCGumbo+Query.m */,
+				3624C4CF246EC6B4002E23B8 /* OCGumbo.m */,
+			);
+			name = OCGumbo;
+			path = ZLGitHubClient/Class/import/OCGumbo;
+			sourceTree = SOURCE_ROOT;
+		};
+		3624C4AC246EC6B4002E23B8 /* gumbo */ = {
+			isa = PBXGroup;
+			children = (
+				3624C4AD246EC6B4002E23B8 /* string_buffer.c */,
+				3624C4AE246EC6B4002E23B8 /* error.h */,
+				3624C4AF246EC6B4002E23B8 /* tag_enum.h */,
+				3624C4B0246EC6B4002E23B8 /* util.c */,
+				3624C4B1246EC6B4002E23B8 /* char_ref.rl */,
+				3624C4B2246EC6B4002E23B8 /* insertion_mode.h */,
+				3624C4B3246EC6B4002E23B8 /* parser.h */,
+				3624C4B4246EC6B4002E23B8 /* vector.c */,
+				3624C4B5246EC6B4002E23B8 /* attribute.c */,
+				3624C4B6246EC6B4002E23B8 /* char_ref.c */,
+				3624C4B7246EC6B4002E23B8 /* tokenizer.h */,
+				3624C4B8246EC6B4002E23B8 /* utf8.c */,
+				3624C4B9246EC6B4002E23B8 /* string_piece.h */,
+				3624C4BA246EC6B4002E23B8 /* tokenizer_states.h */,
+				3624C4BB246EC6B4002E23B8 /* token_type.h */,
+				3624C4BC246EC6B4002E23B8 /* tag_gperf.h */,
+				3624C4BD246EC6B4002E23B8 /* string_buffer.h */,
+				3624C4BE246EC6B4002E23B8 /* error.c */,
+				3624C4BF246EC6B4002E23B8 /* tag.in */,
+				3624C4C0246EC6B4002E23B8 /* util.h */,
+				3624C4C1246EC6B4002E23B8 /* tag.c */,
+				3624C4C2246EC6B4002E23B8 /* char_ref.h */,
+				3624C4C3246EC6B4002E23B8 /* vector.h */,
+				3624C4C4246EC6B4002E23B8 /* attribute.h */,
+				3624C4C5246EC6B4002E23B8 /* parser.c */,
+				3624C4C6246EC6B4002E23B8 /* tag_sizes.h */,
+				3624C4C7246EC6B4002E23B8 /* tag_strings.h */,
+				3624C4C8246EC6B4002E23B8 /* utf8.h */,
+				3624C4C9246EC6B4002E23B8 /* tokenizer.c */,
+				3624C4CA246EC6B4002E23B8 /* string_piece.c */,
+				3624C4CB246EC6B4002E23B8 /* gumbo.h */,
+			);
+			path = gumbo;
 			sourceTree = "<group>";
 		};
 		3628FCDA238BA0EA00FC36FC /* User */ = {
@@ -2163,6 +2264,7 @@
 		74CDA6772409833C00049EF8 /* Import */ = {
 			isa = PBXGroup;
 			children = (
+				3624C4AB246EC6B4002E23B8 /* OCGumbo */,
 				360F4FB62421E95C0066A7EA /* MarkdownView */,
 			);
 			path = Import;
@@ -2695,6 +2797,7 @@
 				74C861CA22F02BED00A30B79 /* ZLGitHubClientLocalizable.strings in Resources */,
 				7436A0B6236DDF8900AF554C /* CYDatePickerView.xib in Resources */,
 				740318CD22F702D1004CE52D /* ZLSearchRecordView.xib in Resources */,
+				3624C4D2246EC6B4002E23B8 /* char_ref.rl in Resources */,
 				7431B43422F5E03F0060968A /* ZLSearchView.xib in Resources */,
 				743425D9230ACA8F0031AD7D /* ZLRepoHeaderInfoView.xib in Resources */,
 				74CDA6852409833C00049EF8 /* README.md in Resources */,
@@ -2706,6 +2809,7 @@
 				74D7B60322F139FB00C109CA /* ZLUserAdditionInfoView.xib in Resources */,
 				740318D522F70867004CE52D /* ZLSearchTypeCollectionViewCell.xib in Resources */,
 				74CDA6842409833C00049EF8 /* LICENSE in Resources */,
+				3624C4D8246EC6B4002E23B8 /* tag.in in Resources */,
 				7456A2EE2416A31200222D6C /* ZLPullRequestTableViewCell.xib in Resources */,
 				74F0ABE72365971900D1B954 /* ZLSearchFilterViewForUser.xib in Resources */,
 				7436A0AC236DCDA700AF554C /* CYRangePickerPopoverView.xib in Resources */,
@@ -2811,8 +2915,10 @@
 				74D7B60922F16F8200C109CA /* ZLAdditionInfoServiceModel.m in Sources */,
 				748905C0222EBA16003562E1 /* ZLTextView.m in Sources */,
 				7436A0A9236DCDA700AF554C /* CYPopoverPickerViewCell.m in Sources */,
+				3624C4D3246EC6B4002E23B8 /* vector.c in Sources */,
 				748905C1222EBA16003562E1 /* ZLTextViewCoreData.m in Sources */,
 				743425C7230AC6AD0031AD7D /* ZLRepoInfoController.swift in Sources */,
+				3624C4D1246EC6B4002E23B8 /* util.c in Sources */,
 				366DB834241F103C002A0896 /* ZLRefresh.swift in Sources */,
 				7436AC8B21EB869C00F03276 /* SYDCentralFactory+SYDService.m in Sources */,
 				74C861D822F02F1F00A30B79 /* ZLLanguageManager.m in Sources */,
@@ -2839,8 +2945,12 @@
 				361B8B7B239FD1C000F725B8 /* ZLStarReposBaseView.m in Sources */,
 				7436AC8F21EB869C00F03276 /* SYDCentralRouter+SYDService.m in Sources */,
 				74478D44231FEAA2007D3832 /* ZLSettingItemTableViewCell.swift in Sources */,
+				3624C4DE246EC6B4002E23B8 /* OCGumbo.m in Sources */,
 				74EA4B4423007247006D2FD3 /* ZLUserInfoViewModel.swift in Sources */,
 				74EF615A241E731F008C8D27 /* ZLPullRequestListView.swift in Sources */,
+				3624C4DA246EC6B4002E23B8 /* parser.c in Sources */,
+				3624C4DC246EC6B4002E23B8 /* string_piece.c in Sources */,
+				3624C4D4246EC6B4002E23B8 /* attribute.c in Sources */,
 				74478D3F231FE3C6007D3832 /* ZLSettingView.swift in Sources */,
 				74B32E302465B63000AF1D6B /* ZLRepoContributorsViewModel.swift in Sources */,
 				366DB849241F4B93002A0896 /* ZLRepoCommitController.swift in Sources */,
@@ -2878,6 +2988,7 @@
 				362DFCB9239E175D00979594 /* ZLStarRepoViewController.m in Sources */,
 				74F02CD222DCD02800AE153F /* ZLGithubUserModel.m in Sources */,
 				D1135F8721ECD513003A26C1 /* ZLNewsViewController.m in Sources */,
+				3624C4DD246EC6B4002E23B8 /* OCGumbo+Query.m in Sources */,
 				74DFD9E12427BA68005825D3 /* ZLRepoSubContentController.swift in Sources */,
 				7431B43622F5E0510060968A /* ZLSearchViewModel.swift in Sources */,
 				7456A2F02416A4E100222D6C /* ZLPullRequestTableViewCellData.swift in Sources */,
@@ -2885,6 +2996,7 @@
 				36C43F9D23ABAEA6002DE5D6 /* ZLAppInfo.m in Sources */,
 				74FCBD9B23141FE000DDE46A /* ZLEditProfileView.swift in Sources */,
 				74F02CD422DCD74500AE153F /* ZLProfileHeaderView.swift in Sources */,
+				3624C4D0246EC6B4002E23B8 /* string_buffer.c in Sources */,
 				74D55DE722FB0A8B004114BC /* ZLSearchItemsViewModel.swift in Sources */,
 				74A96FC423327D9E008365CA /* ZLSearchFilterPickerView.swift in Sources */,
 				74C3F8DA22D24C930086A3F9 /* ZLOAuthViewController.swift in Sources */,
@@ -2939,6 +3051,7 @@
 				361B8B7F239FD35000F725B8 /* ZLStarReposBaseViewModel.m in Sources */,
 				74CCC43C240D62120001AA5D /* ZLRepoFooterInfoViewModel.swift in Sources */,
 				74EA4B3522FF165E006D2FD3 /* ZLSearchResultModel.m in Sources */,
+				3624C4D7246EC6B4002E23B8 /* error.c in Sources */,
 				7434CA7F238EC05D00763220 /* ZLEventListView.swift in Sources */,
 				0ADF903D21D4B01900BF86CD /* main.m in Sources */,
 				74E1DEA123ED6F720036014C /* ZLSharedDataManager.m in Sources */,
@@ -2953,6 +3066,7 @@
 				36C43FA123ABAFC8002DE5D6 /* ZLDeviceInfo.m in Sources */,
 				741A2E69246C5D1400A443E4 /* ZLRepoIssuesController.swift in Sources */,
 				74D55DEC22FB183E004114BC /* ZLSearchRecordTableViewCell.swift in Sources */,
+				3624C4D6246EC6B4002E23B8 /* utf8.c in Sources */,
 				7498F3C22406CB5500F93580 /* ZLGithubRepositoryReadMeModel.m in Sources */,
 				0ADF902F21D4B01900BF86CD /* AppDelegate.m in Sources */,
 				74CDA6862409833C00049EF8 /* MarkdownView.swift in Sources */,
@@ -2975,15 +3089,18 @@
 				7434CA832393E89100763220 /* ZLPushEventTableViewCell.swift in Sources */,
 				74CCC436240D53560001AA5D /* ZLRepoHeaderInfoViewModel.swift in Sources */,
 				3628FCE1238BB22000FC36FC /* ZLEventTableViewCell.swift in Sources */,
+				3624C4DB246EC6B4002E23B8 /* tokenizer.c in Sources */,
 				D1135F7021ECD09D003A26C1 /* ZLProfileViewController.m in Sources */,
 				D1135F7B21ECD34A003A26C1 /* UIBarButtonItem+Item.m in Sources */,
 				74BEF5AB22F303D700FD1738 /* ZMRefreshManager.m in Sources */,
+				3624C4D5246EC6B4002E23B8 /* char_ref.c in Sources */,
 				366DB843241F3DE1002A0896 /* ZLGithubItemTableViewCellData.swift in Sources */,
 				360F4FBA2421ED3F0066A7EA /* ZLGithubContentModel.m in Sources */,
 				74EF6161241E7FFA008C8D27 /* ZLRepoPullRequestViewModel.swift in Sources */,
 				7436AC8A21EB848700F03276 /* SYDCentralPivotUIAdapter.m in Sources */,
 				74B32E2E2465B61000AF1D6B /* ZLRepoContributorsController.swift in Sources */,
 				74C861C622F025F100A30B79 /* ZLRepositoryTableViewCell.swift in Sources */,
+				3624C4D9246EC6B4002E23B8 /* tag.c in Sources */,
 				74D7B60522F140DC00C109CA /* ZLUserAdditionInfoViewModel.swift in Sources */,
 				74EF615D241E7E1C008C8D27 /* ZLRepoPullRequestController.swift in Sources */,
 				74C191FA23956E2B00636F24 /* ZLProfileEventCollectionViewCell.swift in Sources */,
@@ -3152,7 +3269,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 24LG5QVBPR;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
@@ -3170,7 +3287,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "ZLGitHubClient/System/ZLSupportFiles/ZLGitHubClient-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -3184,7 +3301,7 @@
 				CODE_SIGN_IDENTITY = "Apple Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 24LG5QVBPR;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
@@ -3201,7 +3318,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc com.zm.ZLGitHubClient";
 				SWIFT_OBJC_BRIDGING_HEADER = "ZLGitHubClient/System/ZLSupportFiles/ZLGitHubClient-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

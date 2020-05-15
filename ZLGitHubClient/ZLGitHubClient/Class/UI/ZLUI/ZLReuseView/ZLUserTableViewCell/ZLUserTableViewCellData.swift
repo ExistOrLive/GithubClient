@@ -12,6 +12,8 @@ class ZLUserTableViewCellData: ZLGithubItemTableViewCellData {
     
     let userModel : ZLGithubUserModel
     
+    weak var cell : ZLUserTableViewCell?
+    
     init(userModel : ZLGithubUserModel){
         self.userModel = userModel
         super.init()
@@ -23,6 +25,7 @@ class ZLUserTableViewCellData: ZLGithubItemTableViewCellData {
         {
             return
         }
+        self.cell = cell
         cell.fillWithData(data: self)
         cell.delegate = self
     }

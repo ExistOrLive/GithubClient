@@ -26,6 +26,8 @@ class ZLExploreBaseViewModel: ZLBaseViewModel {
         self.baseView = targetView as? ZLExploreBaseView
         
         NotificationCenter.default.addObserver(self, selector: #selector(onNotificationArrived(notication:)), name: ZLLanguageTypeChange_Notificaiton, object: nil)
+        
+        self.getTrendRepo()
     }
     
 
@@ -51,6 +53,35 @@ class ZLExploreBaseViewModel: ZLBaseViewModel {
         }
         
     }
-    
-    
+}
+
+extension ZLExploreBaseViewModel{
+    func getTrendRepo() -> Void {
+        weak var weakSelf = self
+        
+        ZLSearchServiceModel.shared().trending(with:.repositories, language: nil, dateRange: ZLDateRangeDaily, serialNumber: NSString.generateSerialNumber(), completeHandle: { (model:ZLOperationResultModel) in
+            
+            if model.result == true {
+                guard let repoArray : [ZLGithubRepositoryModel] = model.data as?  [ZLGithubRepositoryModel] else {
+                    ZLLocalizedString(string: "ZLGithubRepositoryModel transfer failed", comment: "")
+                    
+                    return
+                }
+                
+                var repoCellDatas : [ZLRepositoryTableViewCellData] = []
+                for item in repoArray {
+                    let cellData = ZLRepositoryTableViewCellData.init(data: item, needPullData: true)
+                    self.addSubViewModel(cellData)
+                    repoCellDatas.append(cellData)
+                }
+                
+                weakSelf?.baseView?.listView.resetCellDatas(cellDatas: repoCellDatas)
+                
+            } else {
+                
+                ZLLocalizedString(string: "ZLGithubRepositoryModel transfer failed", comment: "")
+            }
+            
+        })
+    }
 }

@@ -210,7 +210,7 @@
 - (void)registerPush {
     // Push组件基本功能配置
     
-    [[UIApplication sharedApplication] registerForRemoteNotifications];
+   // [[UIApplication sharedApplication] registerForRemoteNotifications];
     
     [UNUserNotificationCenter currentNotificationCenter].delegate = self;
     [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:UNAuthorizationOptionBadge|UNAuthorizationOptionSound|UNAuthorizationOptionAlert completionHandler:^(BOOL granted, NSError * _Nullable error) {
@@ -222,25 +222,25 @@
 }
 
 
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(nonnull NSData *)deviceToken {
-    
-    if (![deviceToken isKindOfClass:[NSData class]]) return;
-    const unsigned *tokenBytes = [deviceToken bytes];
-    NSString *hexToken = [NSString stringWithFormat:@"%08x%08x%08x%08x%08x%08x%08x%08x",
-                          ntohl(tokenBytes[0]), ntohl(tokenBytes[1]), ntohl(tokenBytes[2]),
-                          ntohl(tokenBytes[3]), ntohl(tokenBytes[4]), ntohl(tokenBytes[5]),
-                          ntohl(tokenBytes[6]), ntohl(tokenBytes[7])];
-    
-    
-    NSLog(@"deviceToken: %@",hexToken);
-    
-    
-}
-
-- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
-{
-   NSLog(@"register for remote notification failed :%@", error.localizedDescription);
-}
+//- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(nonnull NSData *)deviceToken {
+//
+//    if (![deviceToken isKindOfClass:[NSData class]]) return;
+//    const unsigned *tokenBytes = [deviceToken bytes];
+//    NSString *hexToken = [NSString stringWithFormat:@"%08x%08x%08x%08x%08x%08x%08x%08x",
+//                          ntohl(tokenBytes[0]), ntohl(tokenBytes[1]), ntohl(tokenBytes[2]),
+//                          ntohl(tokenBytes[3]), ntohl(tokenBytes[4]), ntohl(tokenBytes[5]),
+//                          ntohl(tokenBytes[6]), ntohl(tokenBytes[7])];
+//
+//
+//    NSLog(@"deviceToken: %@",hexToken);
+//
+//
+//}
+//
+//- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+//{
+//   NSLog(@"register for remote notification failed :%@", error.localizedDescription);
+//}
 
 
 #pragma mark  UNUserNotificationCenterDelegate

@@ -9,6 +9,7 @@
 #import "ZLBaseServiceModel.h"
 #import "ZLSearchServiceHeader.h"
 
+@class ZLOperationResultModel;
 @class ZLSearchFilterInfoModel;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -17,12 +18,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype) sharedServiceModel;
 
+#pragma mark - search
+
 - (void) searchInfoWithKeyWord:(NSString *) keyWord
                           type:(ZLSearchType) type
                     filterInfo:(ZLSearchFilterInfoModel * __nullable) filterInfo
                           page:(NSUInteger) page
                       per_page:(NSUInteger) per_page
                   serialNumber:(NSString *) serialNumber;
+
+#pragma mark - trend
+
+- (void) trendingWithType:(ZLSearchType) type
+                 language:(NSString *__nullable) language
+                dateRange:(ZLDateRange) dateRange
+             serialNumber:(NSString *) serialNumber
+           completeHandle:(void(^)(ZLOperationResultModel *)) handle;
 
 @end
 

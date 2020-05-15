@@ -24,6 +24,19 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) getRepoInfoWithFullName:(NSString *) fullName
                     serialNumber:(NSString *) serialNumber;
 
+
+
+/**
+ * @brief 根据repo full name 获取仓库信息
+ * @param fullName octocat/Hello-World
+ * @param serialNumber 流水号
+ **/
+
+- (void) getRepoInfoWithFullName:(NSString *) fullName
+                    serialNumber:(NSString *) serialNumber
+                  completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+
 /**
  * @brief 根据repo full name 获取仓库信息
  * @param ownerName octocat

@@ -10,31 +10,38 @@ import UIKit
 
 @objcMembers class ZLRepositoryTableViewCellData: ZLGithubItemTableViewCellData {
     
-    let data : ZLGithubRepositoryModel
-    
+    var data : ZLGithubRepositoryModel
+    let needPullData : Bool
     private var _cellHeight : CGFloat?
     
-    init(data : ZLGithubRepositoryModel)
-    {
+    init(data : ZLGithubRepositoryModel, needPullData : Bool){
+        self.needPullData = needPullData;
         self.data = data;
         super.init()
     }
     
+    convenience init(data : ZLGithubRepositoryModel){
+        self.init(data: data, needPullData: false)
+    }
+    
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
         
-        guard let cell : ZLRepositoryTableViewCell = targetView as? ZLRepositoryTableViewCell else
-        {
+        guard let cell : ZLRepositoryTableViewCell = targetView as? ZLRepositoryTableViewCell else{
             return
         }
         
         cell.fillWithData(data: self)
         cell.delegate = self
+        
+        if self.needPullData == true {
+            self.getRepoInfoFromServer()
+        }
+        
     }
     
     override func getCellHeight() -> CGFloat
     {
-        if self._cellHeight != nil
-        {
+        if self._cellHeight != nil{
             return self._cellHeight!
         }
         
@@ -48,6 +55,20 @@ import UIKit
     
     override func getCellReuseIdentifier() -> String {
         return "ZLRepositoryTableViewCell"
+    }
+    
+    
+    func getRepoInfoFromServer() {
+        weak var weakSelf = self
+        ZLRepoServiceModel.shared().getRepoInfo(withFullName: self.data.full_name, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+            if resultModel.result == true {
+                guard  let model : ZLGithubRepositoryModel = resultModel.data as? ZLGithubRepositoryModel  else {
+                    return
+                }
+                weakSelf?._cellHeight = nil
+                weakSelf?.data = model
+            }
+        })
     }
     
     
