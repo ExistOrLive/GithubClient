@@ -7,8 +7,7 @@
 //
 
 import UIKit
-@objc protocol ZLGithubItemListViewDelegate : NSObjectProtocol
-{
+@objc protocol ZLGithubItemListViewDelegate : NSObjectProtocol{
     func githubItemListViewRefreshDragDown(pullRequestListView: ZLGithubItemListView) -> Void;
     
     func githubItemListViewRefreshDragUp(pullRequestListView: ZLGithubItemListView) -> Void;

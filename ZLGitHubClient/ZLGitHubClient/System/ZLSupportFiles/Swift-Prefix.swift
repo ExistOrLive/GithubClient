@@ -13,6 +13,7 @@ import SDWebImage
 import SnapKit
 import MJRefresh
 import Toast_Swift
+import JXSegmentedView
 
 
 // MARK: 界面常用参数

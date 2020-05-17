@@ -13,11 +13,15 @@ import UIKit
     var data : ZLGithubRepositoryModel
     let needPullData : Bool
     private var _cellHeight : CGFloat?
+    weak var cell : ZLRepositoryTableViewCell?
     
     init(data : ZLGithubRepositoryModel, needPullData : Bool){
         self.needPullData = needPullData;
         self.data = data;
         super.init()
+        if self.needPullData == true {
+            self.getRepoInfoFromServer()
+        }
     }
     
     convenience init(data : ZLGithubRepositoryModel){
@@ -32,25 +36,12 @@ import UIKit
         
         cell.fillWithData(data: self)
         cell.delegate = self
-        
-        if self.needPullData == true {
-            self.getRepoInfoFromServer()
-        }
-        
+        self.cell = cell
     }
     
     override func getCellHeight() -> CGFloat
     {
-        if self._cellHeight != nil{
-            return self._cellHeight!
-        }
-        
-        let attributeStr = NSAttributedString.init(string: self.data.desc_Repo ?? "", attributes: [NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 12)!])
-        let rect = attributeStr.boundingRect(with: CGSize.init(width: 250, height: ZLSCreenHeight), options: .usesLineFragmentOrigin, context: nil)
-        
-        self._cellHeight = rect.size.height + 150
-      
-        return self._cellHeight!
+        return UITableView.automaticDimension
     }
     
     override func getCellReuseIdentifier() -> String {
@@ -67,6 +58,10 @@ import UIKit
                 }
                 weakSelf?._cellHeight = nil
                 weakSelf?.data = model
+                let delegate = weakSelf?.cell?.delegate
+                if ((delegate?.isEqual(weakSelf)) != false) {
+                    weakSelf?.cell?.fillWithData(data: weakSelf!)
+                }
             }
         })
     }
