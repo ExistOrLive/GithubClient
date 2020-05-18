@@ -70,20 +70,20 @@
                 break;
             case 1:{
                 tabBarItem.title =  ZLLocalizedString(@"star", "标星");
-                tabBarItem.image = [UIImage imageOriginalName:@"tabBar_essence_icon"];
-                tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_essence_click_icon"];
+                tabBarItem.image = [UIImage imageOriginalName:@"tabBar_me_icon"];
+                tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_me_click_icon"];
             }
                 break;
             case 2:{
                 tabBarItem.title = ZLLocalizedString(@"explore", @"搜索");
-                tabBarItem.image = [UIImage imageOriginalName:@"tabBar_me_icon"];
-                tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_me_click_icon"];
+                tabBarItem.image = [UIImage imageOriginalName:@"tabBar_friendTrends_icon"];
+                tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_friendTrends_click_icon"];
             }
                 break;
             case 3:{
-                tabBarItem.title = ZLLocalizedString(@"explore", @"搜索");
-                tabBarItem.image = [UIImage imageOriginalName:@"tabBar_me_icon"];
-                tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_me_click_icon"];
+                tabBarItem.title = ZLLocalizedString(@"profile", @"我");
+                tabBarItem.image = [UIImage imageOriginalName:@"tabBar_essence_icon"];
+                tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_essence_click_icon"];
             }
                 break;
         }

@@ -70,8 +70,8 @@ import JXSegmentedView
         self.addSubview(self.segmentedListContainerView!)
         self.segmentedListContainerView!.snp.makeConstraints { (make) in
             make.left.right.equalToSuperview()
-            make.bottom.equalTo(self.snp.bottomMargin)
-            make.top.equalTo(self.segmentedView.snp_bottom)
+            make.bottom.equalTo(self.snp.bottom)
+            make.top.equalTo(self.headerView.snp_bottom)
         }
         self.segmentedView.listContainer = self.segmentedListContainerView
         

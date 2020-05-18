@@ -67,6 +67,7 @@ extension ZLExploreBaseViewModel{
             if model.result == true {
                 guard let repoArray : [ZLGithubRepositoryModel] = model.data as?  [ZLGithubRepositoryModel] else {
                     ZLLog_Info("ZLGithubRepositoryModel transfer failed")
+                    weakSelf?.baseView?.githubItemListViewArray[0].endRefreshWithError()
                     return
                 }
                 
@@ -79,6 +80,7 @@ extension ZLExploreBaseViewModel{
                 
                 weakSelf?.baseView?.githubItemListViewArray[0].resetCellDatas(cellDatas: repoCellDatas)
             } else {
+                weakSelf?.baseView?.githubItemListViewArray[0].endRefreshWithError()
                 ZLLog_Info("Query trending repo failed")
             }
             
@@ -93,6 +95,7 @@ extension ZLExploreBaseViewModel{
             if model.result == true {
                 guard let userArray : [ZLGithubUserModel] = model.data as?  [ZLGithubUserModel] else {
                     ZLLog_Info("ZLGithubUserModel transfer failed")
+                    weakSelf?.baseView?.githubItemListViewArray[1].endRefreshWithError()
                     return
                 }
                 
@@ -106,6 +109,7 @@ extension ZLExploreBaseViewModel{
                 weakSelf?.baseView?.githubItemListViewArray[1].resetCellDatas(cellDatas: userCellDatas)
             } else {
                 ZLLog_Info("Query trending user failed")
+                weakSelf?.baseView?.githubItemListViewArray[1].endRefreshWithError()
             }
             
         })
