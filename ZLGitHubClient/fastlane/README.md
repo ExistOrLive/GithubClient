@@ -36,6 +36,11 @@ build one adhoc release on travis
 fastlane ios travis_adhoc
 ```
 build one adhoc release on travis
+### ios github_action_testFlight
+```
+fastlane ios github_action_testFlight
+```
+build one TestFlight release on travis
 ### ios beta
 ```
 fastlane ios beta
