@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,10 +18,10 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0iD-VE-AuT">
-                            <rect key="frame" x="15" y="10" width="345" height="30"/>
+                            <rect key="frame" x="15" y="10" width="345" height="40"/>
                             <color key="backgroundColor" red="0.73333333333333328" green="0.73333333333333328" blue="0.73333333333333328" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="30" id="cXA-BC-IIU"/>
+                                <constraint firstAttribute="height" constant="40" id="cXA-BC-IIU"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="12"/>
                             <state key="normal">
@@ -44,14 +44,22 @@
                                 <constraint firstAttribute="height" constant="30" id="Xmo-KZ-6gI"/>
                             </constraints>
                         </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trending" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zgy-nV-ciH">
+                            <rect key="frame" x="15" y="64.5" width="63" height="21"/>
+                            <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="15"/>
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="bottom" secondItem="0iD-VE-AuT" secondAttribute="bottom" constant="60" id="2bl-FB-1Zy"/>
+                        <constraint firstAttribute="bottom" secondItem="0iD-VE-AuT" secondAttribute="bottom" constant="50" id="2bl-FB-1Zy"/>
                         <constraint firstItem="0iD-VE-AuT" firstAttribute="leading" secondItem="Sdd-9o-VKY" secondAttribute="leading" constant="15" id="4TR-qn-gp9"/>
+                        <constraint firstItem="Zgy-nV-ciH" firstAttribute="leading" secondItem="Sdd-9o-VKY" secondAttribute="leading" constant="15" id="MIz-ti-x5C"/>
                         <constraint firstItem="DUu-dz-gfN" firstAttribute="centerX" secondItem="Sdd-9o-VKY" secondAttribute="centerX" id="Z7I-9G-PJU"/>
                         <constraint firstAttribute="trailing" secondItem="0iD-VE-AuT" secondAttribute="trailing" constant="15" id="etR-I6-Twr"/>
                         <constraint firstAttribute="bottom" secondItem="DUu-dz-gfN" secondAttribute="bottom" constant="10" id="ftt-IT-uTG"/>
+                        <constraint firstItem="Zgy-nV-ciH" firstAttribute="centerY" secondItem="DUu-dz-gfN" secondAttribute="centerY" id="xUI-Bz-WZN"/>
                     </constraints>
                 </view>
             </subviews>

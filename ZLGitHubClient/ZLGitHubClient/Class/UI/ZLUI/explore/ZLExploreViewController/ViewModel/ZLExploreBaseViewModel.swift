@@ -35,9 +35,14 @@ class ZLExploreBaseViewModel: ZLBaseViewModel {
     
 
     @IBAction func onSearchButtonClicked(_ sender: Any) {
-       let vc = ZLSearchController()
-       vc.hidesBottomBarWhenPushed = true
-       self.viewController?.navigationController?.pushViewController(vc, animated: true)
+//       let vc = ZLSearchController()
+//       vc.hidesBottomBarWhenPushed = true
+//       self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        
+        ZLLanguageSelectView.showLanguageSelectView(resultBlock: { (result : String) in
+            
+        })
+        
     }
     
 
