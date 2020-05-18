@@ -33,9 +33,13 @@ jobs:
         MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
         MATCH_GITHUB_URL: ${{ secrets.MATCH_GITHUB_URL }}
+        FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.apple_pwd }}   # pwd for upload to testflight 
+        FASTLANE_USER: ${{ secrets.FASTLANE_USER }}                                    
+        FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }} 
+
       run: |
         pwd 
-        bundle exec fastlane github_action_adhoc
+        bundle exec fastlane github_action_testFlight
         echo "ipa build success"
     - name: upload github artifact
       if: success()
@@ -44,14 +48,14 @@ jobs:
           # Artifact name
           name: ZLGitHubClient
           # Directory containing files to upload
-          path: ./ZLGitHubClient/fastlane/ipa
+          path: ./ZLGitHubClient/fastlane/ipa/adhoc
     - name: upload artifact
       working-directory: ./ZLGitHubClient          # 指定run 的工作目录
       if: success()
       env: 
         CODING_ARTIFACT_TOKEN: ${{ secrets.CODING_ARTIFACT_TOKEN }}
       run: |
-        curl -T ./fastlane/ipa/ZLGitHubClient.ipa  -u $CODING_ARTIFACT_TOKEN  "https://existorlive-generic.pkg.coding.net/ZLGitHubClient/adhoc/ZLGitHubClient.ipa" -v                    # 上传ipa到制品库
+        curl -T ./fastlane/ipa/adhoc/ZLGitHubClient.ipa  -u $CODING_ARTIFACT_TOKEN  "https://existorlive-generic.pkg.coding.net/ZLGitHubClient/adhoc/ZLGitHubClient.ipa" -v                    # 上传ipa到制品库
         echo "work flow build end"
     - name: email send for success
       working-directory: ./ZLGitHubClient/EmailSender
