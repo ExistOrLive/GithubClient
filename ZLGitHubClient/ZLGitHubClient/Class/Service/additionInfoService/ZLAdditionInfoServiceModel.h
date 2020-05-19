@@ -8,6 +8,7 @@
 
 #import "ZLBaseServiceModel.h"
 #import "ZLAdditionInfoServiceHeader.h"
+@class ZLOperationResultModel;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -25,6 +26,15 @@ NS_ASSUME_NONNULL_BEGIN
                                 page:(NSUInteger) page
                             per_page:(NSUInteger) per_page
                         serialNumber:(NSString *) serialNumber;
+
+
+
+/**
+ * @brief 获取language列表
+ *
+ **/
+- (void) getLanguagesWithSerialNumber:(NSString *) serialNumber
+                       completeHandle:(void(^)(ZLOperationResultModel *)) handle;
 
 
 @end

@@ -16,11 +16,13 @@ class ZLLanguageSelectView: UIView {
     
     @IBOutlet weak var tableView: UITableView!
     
+    var allLanguagesArray: [String] = []
+    
+    var filterLanguagesArray: [String] = []
+    
     weak var popup : FFPopup?
    
     var resultBlock : ((String) -> Void)?
-    
-    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -32,6 +34,31 @@ class ZLLanguageSelectView: UIView {
         self.tableView.register(UINib.init(nibName: "ZLLanguageTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLLanguageTableViewCell")
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        
+        self.textField.delegate = self
+    
+        weak var weakSelf = self
+        ZLAdditionInfoServiceModel.shared().getLanguagesWithSerialNumber(NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+            
+            if resultModel.result == true {
+                guard let languageArray : [String] = resultModel.data as? [String] else {
+                    ZLToastView.showMessage("language list transfer failed", duration: 3.0)
+                    return
+                }
+                var newLanguageArray = ["Any"]
+                newLanguageArray.append(contentsOf: languageArray)
+                weakSelf?.allLanguagesArray = newLanguageArray
+                weakSelf?.filterLanguagesArray = newLanguageArray
+                weakSelf?.tableView.reloadData()
+            }else {
+                guard let errorModel : ZLGithubRequestErrorModel = resultModel.data as? ZLGithubRequestErrorModel else {
+                    ZLToastView.showMessage("query language list failed", duration: 3.0)
+                    return;
+                }
+                ZLToastView.showMessage("query language list failed statusCode[\(errorModel.statusCode) message[\(errorModel.message)]]", duration: 3.0)
+            }
+        })
+        
     }
     
     
@@ -43,7 +70,7 @@ class ZLLanguageSelectView: UIView {
         view.resultBlock = resultBlock
         
         view.frame = CGRect.init(x: 0, y: 0, width: ZLScreenWidth - 80, height: 500)
-        let popup = FFPopup.popup(contetnView: view, showType: .bounceIn, dismissType: .bounceOut, maskType: FFPopup.MaskType.dimmed, dismissOnBackgroundTouch: true, dismissOnContentTouch: false)
+        let popup = FFPopup.popup(contetnView: view, showType: .bounceIn, dismissType: .bounceOut, maskType: FFPopup.MaskType.dimmed, dismissOnBackgroundTouch: false, dismissOnContentTouch: false)
         view.popup = popup
         popup.show(layout: .Center)
         
@@ -63,7 +90,9 @@ extension ZLLanguageSelectView : UITableViewDelegate,UITableViewDataSource {
         guard let cell : ZLLanguageTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLLanguageTableViewCell", for: indexPath) as? ZLLanguageTableViewCell else {
             return UITableViewCell.init()
         }
-        cell.languageLabel.text = "c++";
+        
+        let language = self.filterLanguagesArray[indexPath.row]
+        cell.languageLabel.text = language;
         return cell
     }
     
@@ -72,12 +101,43 @@ extension ZLLanguageSelectView : UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return self.filterLanguagesArray.count
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        var language = self.filterLanguagesArray[indexPath.row]
+        if self.resultBlock != nil {
+            if "Any" == language {
+                language = ""
+            }
+            self.resultBlock!(language)
+        }
         self.popup?.dismiss(animated: true)
     }
     
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.endEditing(true)
+    }
+}
+
+extension ZLLanguageSelectView : UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if string == "\n" {
+            textField.resignFirstResponder()
+            return false
+        }
+        
+        let textStr : NSString? = self.textField.text as NSString?
+        let text : String = textStr?.replacingCharacters(in: range, with: string) ?? ""
+        let predicate : NSPredicate = NSPredicate.init(format: "SELF CONTAINS[cd] %@", text)
+        let array = (self.allLanguagesArray as NSArray).filtered(using: predicate) as! [String]
+        self.filterLanguagesArray = array
+        self.tableView.reloadData()
+        
+        return true
+    }
     
 }

@@ -94,7 +94,9 @@
 
 #define updateIssueUrl                 @"/repos/%@/issues/%@"               // patch
 
+#pragma mark language
 
+#define languageUrl              @"/languages"
 
 static const NSNotificationName ZLGithubTokenInvalid_Notification = @"ZLGithubTokenInvalid_Notification";
 

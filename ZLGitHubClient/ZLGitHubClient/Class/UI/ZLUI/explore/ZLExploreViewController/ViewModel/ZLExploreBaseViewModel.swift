@@ -10,7 +10,13 @@ import UIKit
 
 class ZLExploreBaseViewModel: ZLBaseViewModel {
     
+    
+    // view
     var baseView : ZLExploreBaseView?
+    
+    
+    // model
+    var language : [String] = ["",""]
     
     deinit {
         NotificationCenter.default.removeObserver(self, name: ZLLanguageTypeChange_Notificaiton, object: nil)
@@ -33,19 +39,6 @@ class ZLExploreBaseViewModel: ZLBaseViewModel {
         }
     }
     
-
-    @IBAction func onSearchButtonClicked(_ sender: Any) {
-//       let vc = ZLSearchController()
-//       vc.hidesBottomBarWhenPushed = true
-//       self.viewController?.navigationController?.pushViewController(vc, animated: true)
-        
-        ZLLanguageSelectView.showLanguageSelectView(resultBlock: { (result : String) in
-            
-        })
-        
-    }
-    
-
     @objc func onNotificationArrived(notication: Notification)
     {
         ZLLog_Info("notificaition[\(notication) arrived]")
@@ -148,5 +141,20 @@ extension ZLExploreBaseViewModel : ZLExploreBaseViewDelegate{
         return [ZLLocalizedString(string: "repositories", comment: ""),ZLLocalizedString(string: "users", comment: "")]
     }
     
+    func onSearchButtonClicked() -> Void {
+        let vc = ZLSearchController()
+        vc.hidesBottomBarWhenPushed = true
+        self.viewController?.navigationController?.pushViewController(vc, animated: true)
+    }
+      
+    func onLanguageButtonClicked() -> Void {
+        ZLLanguageSelectView.showLanguageSelectView(resultBlock: { (language : String) in
+            self.baseView?.languageButton.setTitle(language.isEmpty ? "Any" : language , for: .normal)
+        })
+    }
+      
+    func onDateRangeButtonClicked() -> Void {
+        
+    }
     
 }

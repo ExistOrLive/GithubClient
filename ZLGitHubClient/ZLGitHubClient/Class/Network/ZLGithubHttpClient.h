@@ -334,6 +334,12 @@ NS_ASSUME_NONNULL_BEGIN
            assignees:(NSArray * __nullable) assignees
         serialNumber:(NSString *) serialNumber;
 
+
+#pragma mark - languages
+
+- (void) getLanguagesList:(GithubResponse) block
+             serialNumber:(NSString *) serialNumber;
+
 @end
 
 

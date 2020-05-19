@@ -12,12 +12,21 @@ import JXSegmentedView
 @objc protocol ZLExploreBaseViewDelegate : ZLGithubItemListViewDelegate {
     
     func exploreTypeTitles() -> [String]
+    
+    func onSearchButtonClicked() -> Void
+    
+    func onLanguageButtonClicked() -> Void
+    
+    func onDateRangeButtonClicked() -> Void
 }
 
 
 @objcMembers class ZLExploreBaseView: UIView {
 
+    @IBOutlet weak var trendingLabel: UILabel!
     @IBOutlet weak var searchButton: UIButton!
+    @IBOutlet weak var languageButton: UIButton!
+    @IBOutlet weak var dateRangeButton: UIButton!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var segmentedView: JXSegmentedView!
     var segmentedListContainerView: JXSegmentedListContainerView?
@@ -80,7 +89,30 @@ import JXSegmentedView
         
     func justReloadView(){
         self.searchButton.setTitle(ZLLocalizedString(string: "Search", comment: "搜索"), for: .normal)
+        self.trendingLabel.text = ZLLocalizedString(string: "trending", comment: "趋势")
     }
+    
+    
+    @IBAction func onLanguageButtonClicked(_ sender: Any) {
+        if self.delegate?.responds(to: #selector(ZLExploreBaseViewDelegate.onLanguageButtonClicked)) ?? false {
+            self.delegate?.onLanguageButtonClicked()
+        }
+    }
+    
+    
+    @IBAction func onDateRangeButtonClicked(_ sender: Any) {
+        if self.delegate?.responds(to: #selector(ZLExploreBaseViewDelegate.onDateRangeButtonClicked)) ?? false {
+            self.delegate?.onDateRangeButtonClicked()
+        }
+    }
+    
+    
+    @IBAction func onSearchButtonClicked(_ sender: Any) {
+        if self.delegate?.responds(to: #selector(ZLExploreBaseViewDelegate.onSearchButtonClicked)) ?? false {
+            self.delegate?.onSearchButtonClicked()
+        }
+    }
+    
 }
 
 
