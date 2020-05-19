@@ -41,7 +41,7 @@ else:
 
     mail_msg = """
     <p>Github Action: ZLGithubClient Auto Build Success, Please download newest beta version</p>
-    <p><a href="itms-services://?action=download-manifest&url=https://existorlive.gitee.io/public/GithubClient/CodingArtifacts/manifest.plist">Beta Version</a></p>
+    <p><a href="itms-services://?action=download-manifest&url=https://existorlive.github.io/public/GithubClient/CodingArtifacts/manifest.plist">Beta Version</a></p>
     <p><img src="cid:image1"/></p>
     """
     msgAlternative.attach(MIMEText(mail_msg, 'html', 'utf-8'))
