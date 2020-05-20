@@ -18,6 +18,8 @@ import JXSegmentedView
     func onLanguageButtonClicked() -> Void
     
     func onDateRangeButtonClicked() -> Void
+    
+    func onSegmentViewSelectedIndex(segmentView: JXSegmentedView, index : Int) -> Void
 }
 
 
@@ -29,12 +31,10 @@ import JXSegmentedView
     @IBOutlet weak var dateRangeButton: UIButton!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var segmentedView: JXSegmentedView!
+    @IBOutlet weak var languageLabel: UILabel!
     var segmentedListContainerView: JXSegmentedListContainerView?
     var githubItemListViewArray : [ZLGithubItemListView] = []
     var segmentedViewDatasource: JXSegmentedTitleDataSource = JXSegmentedTitleDataSource()
-    
-    
-    
     
     weak var delegate : ZLExploreBaseViewDelegate? {
         didSet{
@@ -133,7 +133,9 @@ extension ZLExploreBaseView : ZLGithubItemListViewDelegate {
 extension ZLExploreBaseView : JXSegmentedViewDelegate {
  
     func segmentedView(_ segmentedView: JXSegmentedView, didSelectedItemAt index: Int){
-        
+        if self.delegate?.responds(to: #selector(ZLExploreBaseViewDelegate.onSegmentViewSelectedIndex(segmentView:index:))) ?? false {
+            self.delegate?.onSegmentViewSelectedIndex(segmentView: segmentedView, index: index)
+        }
     }
 
     func segmentedView(_ segmentedView: JXSegmentedView, didClickSelectedItemAt index: Int){

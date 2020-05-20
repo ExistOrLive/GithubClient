@@ -273,6 +273,9 @@
                 if([fullName length] > 0){
                     ZLGithubRepositoryModel * model = [ZLGithubRepositoryModel new];
                     model.full_name = [fullName substringFromIndex:1];
+                    model.owner = [ZLGithubUserBriefModel new];
+                    model.owner.loginName = [fullName componentsSeparatedByString:@"/"].firstObject;
+                    model.name = [fullName componentsSeparatedByString:@"/"].lastObject;
                     model.desc_Repo = desc;
                     [repoArray addObject:model];
                 }

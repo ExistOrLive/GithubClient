@@ -22,7 +22,7 @@ class ZLLanguageSelectView: UIView {
     
     weak var popup : FFPopup?
    
-    var resultBlock : ((String) -> Void)?
+    var resultBlock : ((String?) -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -62,7 +62,7 @@ class ZLLanguageSelectView: UIView {
     }
     
     
-    static func showLanguageSelectView(resultBlock : @escaping ((String) -> Void)) {
+    static func showLanguageSelectView(resultBlock : @escaping ((String?) -> Void)) {
         
         guard let view : ZLLanguageSelectView = Bundle.main.loadNibNamed("ZLLanguageSelectView", owner:nil , options: nil)?.first as? ZLLanguageSelectView else {
             return
@@ -70,7 +70,7 @@ class ZLLanguageSelectView: UIView {
         view.resultBlock = resultBlock
         
         view.frame = CGRect.init(x: 0, y: 0, width: ZLScreenWidth - 80, height: 500)
-        let popup = FFPopup.popup(contetnView: view, showType: .bounceIn, dismissType: .bounceOut, maskType: FFPopup.MaskType.dimmed, dismissOnBackgroundTouch: false, dismissOnContentTouch: false)
+        let popup = FFPopup.popup(contetnView: view, showType: .bounceIn, dismissType: .bounceOut, maskType: FFPopup.MaskType.dimmed, dismissOnBackgroundTouch: true, dismissOnContentTouch: false)
         view.popup = popup
         popup.show(layout: .Center)
         
@@ -105,18 +105,17 @@ extension ZLLanguageSelectView : UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var language = self.filterLanguagesArray[indexPath.row]
+        var language : String? = self.filterLanguagesArray[indexPath.row]
         if self.resultBlock != nil {
             if "Any" == language {
-                language = ""
+                language = nil
             }
             self.resultBlock!(language)
         }
         self.popup?.dismiss(animated: true)
     }
     
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         self.endEditing(true)
     }
 }
