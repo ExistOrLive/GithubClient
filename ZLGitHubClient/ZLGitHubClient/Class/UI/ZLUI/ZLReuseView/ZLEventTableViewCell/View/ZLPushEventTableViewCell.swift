@@ -14,8 +14,8 @@ class ZLPushEventTableViewCell: ZLEventTableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         
-         self.commitInfoLabel = UILabel.init()
-         super.init(style: style,reuseIdentifier: reuseIdentifier)
+        self.commitInfoLabel = UILabel.init()
+        super.init(style: style,reuseIdentifier: reuseIdentifier)
         
         self.commitInfoLabel.numberOfLines = 0
         self.assistInfoView?.addSubview(self.commitInfoLabel)

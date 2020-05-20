@@ -8,11 +8,12 @@
 
 #import "ZLGithubHttpClient.h"
 #import "ZLGithubAPI.h"
-#import <AFNetworking/AFNetworking.h>
+#import <AFNetworking/AFHTTPSessionManager.h>
 #import <MJExtension/MJExtension.h>
 
 // Tool
 #import "ZLSharedDataManager.h"
+#import "NSDate+localizeStr.h"
 // model
 #import "ZLGithubUserModel.h"
 #import "ZLGithubRepositoryModel.h"
@@ -23,6 +24,11 @@
 #import "ZLGithubRequestErrorModel.h"
 #import "ZLGithubGistModel.h"
 #import "ZLGithubRepositoryReadMeModel.h"
+#import "ZLGithubPullRequestModel.h"
+#import "ZLGithubCommitModel.h"
+#import "ZLGithubRepositoryBranchModel.h"
+#import "ZLGithubContentModel.h"
+#import "ZLGithubIssueModel.h"
 
 static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 
@@ -59,6 +65,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         _httpConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
         _sessionManager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:_httpConfig];
         // 通知github返回的数据是json格式
+        _sessionManager.requestSerializer = [AFJSONRequestSerializer serializer];
         [_sessionManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
 
         // 处理success，failed的队列,不要抛到主线程
@@ -128,7 +135,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         ZLGithubRequestErrorModel * model = [[ZLGithubRequestErrorModel alloc] init];
         model.statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
         model.message = error.localizedDescription;
-        ZLLog_Warning(@"GET response error [%@]",model);
+        ZLLog_Warning(@"POST response error [%@]",model);
             
         block(NO,model,serialNumber);
         
@@ -347,7 +354,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
            loginName:(NSString *) loginName
         serialNumber:(NSString *) serialNumber
 {
-    NSString * userUrl = [NSString stringWithFormat:@"%@%@%@",GitHubAPIURL,userInfo,loginName];
+    NSString * userUrl = [NSString stringWithFormat:@"%@%@%@",GitHubAPIURL,githubUserInfo,loginName];
     
     GithubResponse newResponse = ^(BOOL result,id _Nullable responseObject,NSString * _Nonnull serailNumber){
         
@@ -459,7 +466,6 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
             [params setObject:bio forKey:@"bio"];
     }
     
-    self.sessionManager.requestSerializer = [AFJSONRequestSerializer serializer];
     [self.sessionManager.requestSerializer setValue:[NSString stringWithFormat:@"token %@",self.token] forHTTPHeaderField:@"Authorization"];
     
     void(^successBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
@@ -479,10 +485,6 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                     parameters:params
                        success:successBlock
                        failure:failedBlock];
-    
-    self.sessionManager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    [self.sessionManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    
 }
 
 #pragma mark - repositories
@@ -685,7 +687,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         
         if(result)
         {
-            ZLGithubRepositoryReadMeModel * model = [ZLGithubRepositoryReadMeModel mj_objectWithKeyValues:responseObject];
+            ZLGithubContentModel * model = [ZLGithubContentModel mj_objectWithKeyValues:responseObject];
             responseObject = model;
         }
         block(result,responseObject,serialNumber);
@@ -693,6 +695,176 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     
     [self GETRequestWithURL:urlForRepoReadMe
                  WithParams:nil
+          WithResponseBlock:newBlock
+               serialNumber:serialNumber];
+}
+
+
+
+/**
+* @brief 根据fullName直接获取Repo readme 信息
+* @param block 请求回调
+* @param fullName octocat/Hello-World
+* @param serialNumber 流水号 通过block回调原样返回
+**/
+- (void) getRepositoryPullRequestInfo:(GithubResponse) block
+                             fullName:(NSString *) fullName
+                                state:(NSString *) state
+                         serialNumber:(NSString *) serialNumber
+{
+    NSString * urlForRepoReadMe = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoPullRequestUrl];
+      urlForRepoReadMe = [NSString stringWithFormat:urlForRepoReadMe,fullName];
+    
+    NSDictionary * params = @{@"state":state};
+      
+      GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
+          
+          if(result)
+          {
+              NSArray<ZLGithubPullRequestModel *> * model = [ZLGithubPullRequestModel mj_objectArrayWithKeyValuesArray:responseObject];
+              responseObject = model;
+          }
+          block(result,responseObject,serialNumber);
+      };
+      
+      [self GETRequestWithURL:urlForRepoReadMe
+                   WithParams:params
+            WithResponseBlock:newBlock
+                 serialNumber:serialNumber];
+}
+
+
+/**
+* @brief 根据fullName直接获取Repo readme 信息
+* @param block 请求回调
+* @param fullName octocat/Hello-World
+* @param serialNumber 流水号 通过block回调原样返回
+**/
+- (void) getRepositoryCommitsInfo:(GithubResponse) block
+                         fullName:(NSString *) fullName
+                             until:(NSDate *) untilDate
+                            since:(NSDate *) sinceDate
+                     serialNumber:(NSString *) serialNumber
+{
+    NSString * urlForRepoCommits = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoCommitsUrl];
+    urlForRepoCommits = [NSString stringWithFormat:urlForRepoCommits,fullName];
+    
+    NSDictionary * params = @{@"since":[sinceDate dateStrForYYYYMMDDTHHMMSSZForTimeZone0],
+                              @"until":[untilDate dateStrForYYYYMMDDTHHMMSSZForTimeZone0]};
+    
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
+        
+        if(result)
+        {
+            NSArray<ZLGithubCommitModel *> * model = [ZLGithubCommitModel mj_objectArrayWithKeyValuesArray:responseObject];
+            responseObject = model;
+        }
+        block(result,responseObject,serialNumber);
+    };
+    
+    [self GETRequestWithURL:urlForRepoCommits
+                 WithParams:params
+          WithResponseBlock:newBlock
+               serialNumber:serialNumber];
+}
+
+
+- (void) getRepositoryBranchesInfo:(GithubResponse) block
+                          fullName:(NSString *) fullName
+                      serialNumber:(NSString *) serialNumber
+{
+    NSString * urlForRepoBranches = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoBranchedUrl];
+    urlForRepoBranches = [NSString stringWithFormat:urlForRepoBranches,fullName];
+    
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
+        
+        if(result)
+        {
+            NSArray<ZLGithubRepositoryBranchModel *> * model = [ZLGithubRepositoryBranchModel mj_objectArrayWithKeyValuesArray:responseObject];
+            responseObject = model;
+        }
+        block(result,responseObject,serialNumber);
+    };
+    
+    [self GETRequestWithURL:urlForRepoBranches
+                 WithParams:nil
+          WithResponseBlock:newBlock
+               serialNumber:serialNumber];
+}
+
+- (void) getRepositoryContentsInfo:(GithubResponse) block
+                          fullName:(NSString *) fullName
+                              path:(NSString *) path
+                            branch:(NSString *) branch
+                      serialNumber:(NSString *) serialNumber
+{
+    NSString * urlForRepoContent = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoContentsUrl];
+    urlForRepoContent = [NSString stringWithFormat:urlForRepoContent,fullName,path];
+    
+    NSDictionary * params = @{@"ref":branch};
+    
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
+        
+        if(result)
+        {
+            NSArray<ZLGithubContentModel *> * model = [ZLGithubContentModel mj_objectArrayWithKeyValuesArray:responseObject];
+            responseObject = model;
+        }
+        block(result,responseObject,serialNumber);
+    };
+    
+    [self GETRequestWithURL:urlForRepoContent
+                 WithParams:params
+          WithResponseBlock:newBlock
+               serialNumber:serialNumber];
+}
+
+- (void) getRepositoryFileInfo:(GithubResponse) block
+                      fullName:(NSString *) fullName
+                          path:(NSString *) path
+                        branch:(NSString *) branch
+                  serialNumber:(NSString *) serialNumber
+{
+    NSString * urlForRepoContent = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoContentsUrl];
+    urlForRepoContent = [NSString stringWithFormat:urlForRepoContent,fullName,path];
+    
+    NSDictionary * params = @{@"ref":branch};
+    
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
+        
+        if(result)
+        {
+            ZLGithubContentModel * model = [ZLGithubContentModel mj_objectWithKeyValues:responseObject];
+            responseObject = model;
+        }
+        block(result,responseObject,serialNumber);
+    };
+    
+    [self GETRequestWithURL:urlForRepoContent
+                 WithParams:params
+          WithResponseBlock:newBlock
+               serialNumber:serialNumber];
+}
+
+
+- (void) getRepositoryContributors:(GithubResponse) block
+                          fullName:(NSString *) fullName
+                      serialNumber:(NSString *) serialNumber{
+    NSString * urlForRepoContributor = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoContributorsUrl];
+    urlForRepoContributor = [NSString stringWithFormat:urlForRepoContributor,fullName];
+    
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
+        
+        if(result)
+        {
+            NSArray<ZLGithubUserModel *> * model = [ZLGithubUserModel mj_objectArrayWithKeyValuesArray:responseObject];
+            responseObject = model;
+        }
+        block(result,responseObject,serialNumber);
+    };
+    
+    [self GETRequestWithURL:urlForRepoContributor
+                 WithParams:@{}
           WithResponseBlock:newBlock
                serialNumber:serialNumber];
 }
@@ -880,6 +1052,76 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                  WithParams:params
           WithResponseBlock:newBlock
                serialNumber:serialNumber];
+}
+
+
+
+
+#pragma mark - Issues
+
+- (void) getRepositoryIssues:(GithubResponse) block
+                    fullName:(NSString *) fullName
+                serialNumber:(NSString *) serialNumber{
+    
+    NSString * urlForRepoContributor = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoIssuesUrl];
+    urlForRepoContributor = [NSString stringWithFormat:urlForRepoContributor,fullName];
+    
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
+        
+        if(result)
+        {
+            NSArray<ZLGithubIssueModel *> * model = [ZLGithubIssueModel mj_objectArrayWithKeyValuesArray:responseObject];
+            responseObject = model;
+        }
+        block(result,responseObject,serialNumber);
+    };
+    
+    [self GETRequestWithURL:urlForRepoContributor
+                 WithParams:@{}
+          WithResponseBlock:newBlock
+               serialNumber:serialNumber];
+    
+    
+}
+
+- (void) createIssue:(GithubResponse) block
+            fullName:(NSString *) fullName
+               title:(NSString *) title
+             content:(NSString *) content
+              labels:(NSArray *) labels
+           assignees:(NSArray *) assignees
+        serialNumber:(NSString *) serialNumber{
+    
+    NSString * urlForRepoContributor = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,createIssueUrl];
+    urlForRepoContributor = [NSString stringWithFormat:urlForRepoContributor,fullName];
+    
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
+        if(!result){
+            ZLGithubRequestErrorModel *model = responseObject;
+            if(model.statusCode == 410){  // 410 gone issues are disabled in the repository
+                model.message = @"issues are disabled in the repository";
+            }
+        }
+        block(result,responseObject,serialNumber);
+    };
+    
+    NSMutableDictionary *params = [NSMutableDictionary new];
+    {
+        if(title)
+            [params setObject:title forKey:@"title"];
+        if(labels)
+            [params setObject:labels forKey:@"labels"];
+        if(content)
+            [params setObject:content forKey:@"body"];
+        if(assignees)
+            [params setObject:assignees forKey:@"assignees"];
+    }
+    
+    [self POSTRequestWithURL:urlForRepoContributor
+                  WithParams:params
+           WithResponseBlock:newBlock
+                serialNumber:serialNumber];
+    
 }
 
 

@@ -81,6 +81,8 @@ class ZLSettingViewModel: ZLBaseViewModel {
             case .simpleChinese:do{
                 title = ZLLocalizedString(string: "SimpleChinese", comment: "简体中文")
                 }
+            @unknown default:do {
+            }
             }
             
             let action = UIAlertAction.init(title: title, style: UIAlertAction.Style.default, handler:handle)
@@ -173,6 +175,8 @@ extension ZLSettingViewModel: UITableViewDataSource,UITableViewDelegate
             case .simpleChinese:do{
                 tableViewCell.itemValueLabel.text = ZLLocalizedString(string: "SimpleChinese", comment: "简体中文")
                 }
+            @unknown default:do {
+            }
             }
             return tableViewCell
             

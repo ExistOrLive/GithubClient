@@ -7,6 +7,7 @@
 */
 
 "repositories" = "Repos";
+"repository" = "Repo";
 "users" = "Users";
 "commits" = "Commits";
 "topics" = "Topics";
@@ -16,10 +17,13 @@
 "followers" = "Followers";
 "following" = "Following";
 "created at" = "Created at";
+"closed at" = "Closed at";
+"opened at" = "Opened at";
 "fork" = "Forks";
 "star" = "Stars";
 "watcher" = "Watchers";
 "owner" = "Owner";
+"submit" = "Submit";
 
 "company" = "Company";
 "location" = "Location";
@@ -45,8 +49,11 @@
 "Loading" = "loading";
 "LoadFinished" = "load finished";
 
+"commit" = "Commit";
 "pull request" = "Pull Request";
 "branch" = "Branch";
+"action" = "Action";
+"contributor" = "Contributors";
 
 "day ago" = " day ago";
 "hour ago" = " hour ago";
@@ -79,3 +86,11 @@
 "gistFiles" = " files";
 "comments" = " comments";
 
+"committed" = " committed ";
+"current" = "current";
+
+"thanks for your feedback" = "Thanks for your feedback";
+"submission failed" = "Submission Failed";
+"input feedback" = "Input feedback please";
+
+"refresh" = "refresh";

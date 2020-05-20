@@ -93,5 +93,20 @@
 }
 
 
+- (NSString *) dateStrForYYYYMMDDTHHMMSSZForTimeZone0
+{
+    NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+    return [dateFormatter stringFromDate:self];
+}
+
+- (NSString *) dateStrForYYYYMMDDTHHMMSSZForTimeZoneCurrent
+{
+    NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+    return [dateFormatter stringFromDate:self];
+}
+
 
 @end

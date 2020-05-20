@@ -11,7 +11,7 @@
 
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
-
+#ifdef __OBJC__              // 避免C语言的头文件中引入OC代码
 
 #define ZLScreenHeight      [UIScreen mainScreen].bounds.size.height
 #define ZLScreenWidth       [UIScreen mainScreen].bounds.size.width
@@ -64,6 +64,6 @@
 
 #define ZLMainThreadDispatch(a)     if([NSThread isMainThread]){ a }else{dispatch_async(dispatch_get_main_queue(), ^{ a });}
 
-
+#endif
 
 #endif /* ZLGitHubClient_prefix_pch */

@@ -29,11 +29,11 @@
     {
         if([oldValue isEqualToString:@"User"])
         {
-            return [NSNumber numberWithInt:ZLGithubUserType_User];
+            return @(ZLGithubUserType_User);
         }
         else
         {
-            return [NSNumber numberWithInt:ZLGithubUserType_Organization];
+            return @(ZLGithubUserType_Organization);
         }
     }
     

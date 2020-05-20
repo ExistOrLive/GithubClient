@@ -21,18 +21,20 @@ class ZLPushEventTableViewCellData: ZLEventTableViewCellData {
     
     override func getCellHeight() -> CGFloat
     {
-        if self._cellHeight != nil
-        {
-            return self._cellHeight!
-        }
+        return UITableView.automaticDimension
+//        if self._cellHeight != nil
+//        {
+//            return self._cellHeight!
+//        }
+//
+//        let height : CGFloat = super.getCellHeight()
+//
+//        let bounds = self.commitInfoAttributedStr().boundingRect(with: CGSize(width: ZLScreenWidth - 60 , height: ZLSCreenHeight), options: .usesLineFragmentOrigin, context: nil)
+//
+//        self._cellHeight = bounds.size.height + height + 15;
+//
+//        return self._cellHeight!;
         
-        let height : CGFloat = super.getCellHeight()
-        
-        let bounds = self.commitInfoAttributedStr().boundingRect(with: CGSize(width: ZLScreenWidth - 60 , height: ZLSCreenHeight), options: .usesLineFragmentOrigin, context: nil)
-        
-        self._cellHeight = bounds.size.height + height + 15;
-        
-        return self._cellHeight!;
     }
     
 

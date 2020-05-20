@@ -8,28 +8,65 @@
 
 import UIKit
 
-@objcMembers class ZLRepositoryTableViewCellData: ZLBaseViewModel {
+@objcMembers class ZLRepositoryTableViewCellData: ZLGithubItemTableViewCellData {
     
-    let data : ZLGithubRepositoryModel
-    
+    var data : ZLGithubRepositoryModel
+    let needPullData : Bool
     private var _cellHeight : CGFloat?
+    weak var cell : ZLRepositoryTableViewCell?
     
-    init(data : ZLGithubRepositoryModel)
-    {
+    init(data : ZLGithubRepositoryModel, needPullData : Bool){
+        self.needPullData = needPullData;
         self.data = data;
         super.init()
+        if self.needPullData == true {
+            self.getRepoInfoFromServer()
+        }
+    }
+    
+    convenience init(data : ZLGithubRepositoryModel){
+        self.init(data: data, needPullData: false)
     }
     
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
         
-        guard let cell : ZLRepositoryTableViewCell = targetView as? ZLRepositoryTableViewCell else
-        {
+        guard let cell : ZLRepositoryTableViewCell = targetView as? ZLRepositoryTableViewCell else{
             return
         }
         
         cell.fillWithData(data: self)
         cell.delegate = self
+        self.cell = cell
     }
+    
+    override func getCellHeight() -> CGFloat
+    {
+        return UITableView.automaticDimension
+    }
+    
+    override func getCellReuseIdentifier() -> String {
+        return "ZLRepositoryTableViewCell"
+    }
+    
+    
+    func getRepoInfoFromServer() {
+        weak var weakSelf = self
+        ZLRepoServiceModel.shared().getRepoInfo(withFullName: self.data.full_name, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+            if resultModel.result == true {
+                guard  let model : ZLGithubRepositoryModel = resultModel.data as? ZLGithubRepositoryModel  else {
+                    return
+                }
+                weakSelf?._cellHeight = nil
+                weakSelf?.data = model
+                let delegate = weakSelf?.cell?.delegate
+                if ((delegate?.isEqual(weakSelf)) != false) {
+                    weakSelf?.cell?.fillWithData(data: weakSelf!)
+                }
+            }
+        })
+    }
+    
+    
 }
 
 
@@ -78,21 +115,6 @@ extension ZLRepositoryTableViewCellData
     func forkNum() -> Int
     {
         return Int(self.data.forks)
-    }
-    
-    func getCellHeight() -> CGFloat
-    {
-        if self._cellHeight != nil
-        {
-            return self._cellHeight!
-        }
-        
-        let attributeStr = NSAttributedString.init(string: self.data.desc_Repo ?? "", attributes: [NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 12)!])
-        let rect = attributeStr.boundingRect(with: CGSize.init(width: 250, height: ZLSCreenHeight), options: .usesLineFragmentOrigin, context: nil)
-        
-        self._cellHeight = rect.size.height + 150
-      
-        return self._cellHeight!
     }
 }
 

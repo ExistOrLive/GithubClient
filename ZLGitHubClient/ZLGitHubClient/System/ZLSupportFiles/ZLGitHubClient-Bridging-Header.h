@@ -2,11 +2,17 @@
 //  Use this file to import your target's public headers that you would like to expose to Swift.
 //
 
-#import <AFNetworking/AFNetworking.h>
+#import <AFNetworking/AFHTTPSessionManager.h>
 #import <SVProgressHUD/SVProgressHUD.h>
+#import <MJRefresh/MJRefresh.h>
+#import <FFPopup/FFPopup.h>
+#import <UITextView_Placeholder/UITextView+Placeholder.h>
 
 #import "ZLBaseUIHeader.h"
 #import "ZLBaseObject.h"
+
+#import "SYDCentralPivotHeader.h"
+#import "SYDCentralPivotUIAdapter.h"
 
 // customView
 #import "ZLCustomTextField.h"
@@ -19,6 +25,7 @@
 #import "ZLToolManager.h"
 #import "ZLKeyChainManager.h"
 #import "ZLToastView.h"
+#import "ZLDeviceInfo.h"
 
 // Service
 #import "ZLLoginServiceModel.h"
@@ -39,6 +46,11 @@
 #import "ZLGithubRepositoryReadMeModel.h"
 #import "ZLGithubEventModel.h"
 #import "ZLGithubGistModel.h"
+#import "ZLGithubPullRequestModel.h"
+#import "ZLGithubCommitModel.h"
+#import "ZLGithubRepositoryBranchModel.h"
+#import "ZLGithubContentModel.h"
+#import "ZLGithubIssueModel.h"
 
 
 // tmp Model
@@ -54,7 +66,7 @@
 // Network
 #import "ZLGithubHTTPClient.h"
 
-// extersion
+// extension
 #import "NSDate+localizeStr.h"
 #import "NSString+ZLExtension.h"
 #import "UIView+Frame.h"

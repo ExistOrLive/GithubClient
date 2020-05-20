@@ -60,6 +60,15 @@ extension ZLRepoHeaderInfoViewModel : ZLRepoHeaderInfoViewDelegate
 {
     func onZLRepoHeaderInfoViewEvent(event: ZLRepoHeaderInfoViewEvent)
     {
-        
+        switch event{
+        case .copy: break
+        case .issue: do {
+            let vc : ZLRepoIssuesController = ZLRepoIssuesController.init()
+            vc.repoFullName = self.repoInfoModel?.full_name
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        }
+        case .star: break
+        case .watch: break
+        }
     }
 }

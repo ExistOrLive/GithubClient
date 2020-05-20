@@ -14,6 +14,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSString *) generateSerialNumber;
 
++ (NSString *) MIMETypeForExtention:(NSString *) ext;
+
++ (BOOL) isTextFileForExtension:(NSString *) ext;
+
+-(NSString *)htmlEntityDecode;
+
+
+-(NSString *)htmlEntityEncode;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -195,8 +195,18 @@ extension ZLProfileBaseViewModel: UITableViewDelegate, UITableViewDataSource
             self.viewController?.navigationController?.pushViewController(vc, animated: true)
         }
         case ZLProfileItemType.aboutMe:
+            let vc = SYDCentralPivotUIAdapter.getZLAboutViewController()
+            if vc != nil{
+                vc!.hidesBottomBarWhenPushed = true
+                self.viewController?.navigationController?.pushViewController(vc!, animated: true)
+            }
+            
             break;
-        case ZLProfileItemType.feedback:
+        case ZLProfileItemType.feedback: do{
+            let vc = ZLFeedbackController.init()
+            vc.hidesBottomBarWhenPushed = true
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        }
             break;
         }
         

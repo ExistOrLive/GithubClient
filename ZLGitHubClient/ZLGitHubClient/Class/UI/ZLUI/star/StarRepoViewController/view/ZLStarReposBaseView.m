@@ -25,10 +25,12 @@
 
 - (void) setUpUI
 {
-    self.reposListView = [[ZLReposListView alloc] initWithFrame:self.bounds];
-    [self addSubview:self.reposListView];
-    [self.reposListView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self).with.insets(UIEdgeInsetsMake(10, 0, 10, 0));
+    self.listView = [[ZLGithubItemListView alloc] initWithFrame:self.bounds];
+    [self.listView setTableViewFooter];
+    [self.listView setTableViewHeader];
+    [self addSubview:self.listView];
+    [self.listView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self).with.insets(UIEdgeInsetsMake(0, 0, 0, 0));
     }];
 }
 

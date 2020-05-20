@@ -13,6 +13,7 @@ import SDWebImage
 import SnapKit
 import MJRefresh
 import Toast_Swift
+import JXSegmentedView
 
 
 // MARK: 界面常用参数
@@ -36,6 +37,18 @@ let AreaInsetWidthRight: CGFloat = (UIScreen.main.bounds.width == 812 || UIScree
 let Font_PingFangSCMedium = "PingFang-SC-Medium"
 let Font_PingFangSCSemiBold = "PingFang-SC-SemiBold"
 let Font_PingFangSCRegular = "PingFang-SC-Regular"
+
+//MARK: Color
+
+func ZLRGBValue_H(colorValue: UInt) -> UIColor
+{
+    return UIColor.init(rgb: colorValue, alpha: 1.0)
+}
+
+func ZLRGBAValue_H(colorValue: UInt, alphaValue: CGFloat) -> UIColor
+{
+    return UIColor.init(rgb: colorValue, alpha: alphaValue)
+}
 
 // MARK: NotificationName
 

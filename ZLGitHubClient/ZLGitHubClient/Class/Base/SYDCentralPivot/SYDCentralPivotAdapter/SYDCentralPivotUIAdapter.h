@@ -18,4 +18,6 @@
 + (UIViewController *)getZLExploreViewController;
 + (UIViewController *)getZLProfileViewController;
 
++ (UIViewController *)getZLAboutViewController;
+
 @end

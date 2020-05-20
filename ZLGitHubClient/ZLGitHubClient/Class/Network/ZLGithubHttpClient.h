@@ -206,6 +206,72 @@ NS_ASSUME_NONNULL_BEGIN
                         fullName:(NSString *) fullName
                     serialNumber:(NSString *) serialNumber;
 
+
+/**
+ * @brief 根据fullName直接获取Repo readme 信息
+ * @param block 请求回调
+ * @param fullName octocat/Hello-World
+ * @param state closed / open / all
+ * @param serialNumber 流水号 通过block回调原样返回
+ **/
+- (void) getRepositoryPullRequestInfo:(GithubResponse) block
+                             fullName:(NSString *) fullName
+                                state:(NSString *) state
+                         serialNumber:(NSString *) serialNumber;
+
+/**
+ * @brief 根据fullName直接获取Repo readme 信息
+ * @param block 请求回调
+ * @param fullName octocat/Hello-World
+ * @param untilDate  限制commit的最晚时间
+ * @param sinceDate 限制commir的最早时间
+ * @param serialNumber 流水号 通过block回调原样返回
+ **/
+- (void) getRepositoryCommitsInfo:(GithubResponse) block
+                         fullName:(NSString *) fullName
+                            until:(NSDate *) untilDate
+                            since:(NSDate *) sinceDate
+                     serialNumber:(NSString *) serialNumber;
+
+/**
+ * @brief 根据fullName直接获取branches 信息
+ * @param block 请求回调
+ * @param fullName octocat/Hello-World
+ * @param serialNumber 流水号 通过block回调原样返回
+ **/
+- (void) getRepositoryBranchesInfo:(GithubResponse) block
+                          fullName:(NSString *) fullName
+                      serialNumber:(NSString *) serialNumber;
+
+
+/**
+ * @brief 根据fullName直接获取contents 信息
+ * @param block 请求回调
+ * @param fullName octocat/Hello-World
+ * @param path 路径
+ * @param serialNumber 流水号 通过block回调原样返回
+ **/
+- (void) getRepositoryContentsInfo:(GithubResponse) block
+                          fullName:(NSString *) fullName
+                              path:(NSString *) path
+                            branch:(NSString *) branch
+                      serialNumber:(NSString *) serialNumber;
+
+
+- (void) getRepositoryFileInfo:(GithubResponse) block
+                      fullName:(NSString *) fullName
+                          path:(NSString *) path
+                        branch:(NSString *) branch
+                  serialNumber:(NSString *) serialNumber;
+
+
+- (void) getRepositoryContributors:(GithubResponse) block
+                          fullName:(NSString *) fullName
+                      serialNumber:(NSString *) serialNumber;
+
+
+
+
 #pragma mark - gists
 
 - (void) getGistsForCurrentUser:(GithubResponse) block
@@ -249,6 +315,24 @@ NS_ASSUME_NONNULL_BEGIN
                 per_page:(NSUInteger)per_page
             serialNumber:(NSString *)serialNumber
            responseBlock:(GithubResponse)block;
+
+
+
+#pragma mark - Issues
+
+
+- (void) getRepositoryIssues:(GithubResponse) block
+                    fullName:(NSString *) fullName
+                serialNumber:(NSString *) serialNumber;
+
+
+- (void) createIssue:(GithubResponse) block
+            fullName:(NSString *) fullName
+               title:(NSString *) title
+             content:(NSString * __nullable) content
+              labels:(NSArray * __nullable) labels
+           assignees:(NSArray * __nullable) assignees
+        serialNumber:(NSString *) serialNumber;
 
 @end
 

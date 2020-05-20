@@ -22,8 +22,7 @@ class ZLProfileEventCollectionViewCell: UICollectionViewCell {
         self.containerView.layer.cornerRadius = 5.0
     }
 
-    func fillWithData(data : ZLProfileEventCollectionViewCellData?)
-    {
+    func fillWithData(data : ZLProfileEventCollectionViewCellData?){
         self.timeLabel.text = data?.timeText
         self.eventInfoLabel.text = data?.eventInfo
     }

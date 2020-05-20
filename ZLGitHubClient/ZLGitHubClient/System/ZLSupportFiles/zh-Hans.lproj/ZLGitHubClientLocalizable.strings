@@ -7,6 +7,7 @@
 */
 
 "repositories" = "版本库";
+"repository" = "版本库";
 "users" = "用户";
 "commits" = "提交";
 "topics" = "标题";
@@ -16,6 +17,8 @@
 "followers" = "粉丝";
 "following" = "关注";
 "created at" = "创建于";
+"closed at" = "关闭于";
+"opened at" = "打开于";
 "fork" = "拷贝";
 "star" = "标星";
 "owner" = "作者";
@@ -28,6 +31,7 @@
 "setting" = "设置";
 "about" = "关于";
 "feedback" = "反馈";
+"submit" = "提交";
 
 "lastest update" = "最近修改";
 "all update" = "查看全部修改";
@@ -46,6 +50,9 @@
 
 "pull request" = "合并请求";
 "branch" = "分支";
+"commit" = "提交";
+"action" = "Action";
+"contributor" = "贡献者";
 
 "day ago" = "天前";
 "hour ago" = "小时前";
@@ -77,3 +84,11 @@
 "gistFiles" = "条代码片段";
 "comments" = "条评论";
 
+"committed" = "提交于";
+"current" = "当前";
+
+"thanks for your feedback" = "感谢您的反馈";
+"submission failed" = "提交失败";
+"input feedback" = "请填写您的建议";
+
+"refresh" = "刷新";

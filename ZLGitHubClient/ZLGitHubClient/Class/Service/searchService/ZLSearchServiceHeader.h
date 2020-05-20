@@ -20,6 +20,12 @@ typedef NS_ENUM(NSUInteger, ZLSearchType) {
     ZLSearchTypeTopics
 };
 
+typedef enum {
+    ZLDateRangeDaily,
+    ZLDateRangeWeakly,
+    ZLDateRangeMonthly,
+} ZLDateRange;
+
 #pragma mark - NotificationName
 
 static const NSNotificationName ZLSearchResult_Notification = @"ZLSearchResult_Notification";

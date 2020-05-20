@@ -18,21 +18,6 @@
     return mainViewController;
 }
 
-+ (void)load {
-    //获取所有的TabBarItem
-    UITabBarItem *item = [UITabBarItem appearanceWhenContainedInInstancesOfClasses:@[[ZLMainViewController class]]];
-    
-    //设置title的颜色
-    NSMutableDictionary *attrDic = [NSMutableDictionary dictionary];
-    attrDic[NSForegroundColorAttributeName] = [UIColor blackColor];
-    [item setTitleTextAttributes:attrDic forState:UIControlStateSelected];
-    
-    //设置title字体的大小
-    NSMutableDictionary *attrDic2 = [NSMutableDictionary dictionary];
-    attrDic2[NSFontAttributeName] = [UIFont systemFontOfSize:13];
-    [item setTitleTextAttributes:attrDic2 forState:UIControlStateNormal];
-}
-
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:ZLLanguageTypeChange_Notificaiton object:nil];
@@ -45,7 +30,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [[UITabBar appearance] setTranslucent:NO];
     [self setupAllChildViewController];
     [self setupTabBarItems];
     
@@ -73,25 +58,46 @@
 }
 
 - (void)setupTabBarItems {
-    ZLBaseNavigationController *newsNavigationController = self.childViewControllers[0];
-    newsNavigationController.tabBarItem.title = ZLLocalizedString(@"news", @"动态");
-    newsNavigationController.tabBarItem.image = [UIImage imageOriginalName:@"tabBar_new_icon"];
-    newsNavigationController.tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_new_click_icon"];
+        
+    for(int i = 0; i < self.childViewControllers.count; i++){
+        UITabBarItem *tabBarItem = self.childViewControllers[i].tabBarItem;
+        switch(i){
+            case 0:{
+                tabBarItem.title = ZLLocalizedString(@"news", @"动态");
+                tabBarItem.image = [UIImage imageOriginalName:@"tabBar_new_icon"];
+                tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_new_click_icon"];
+            }
+                break;
+            case 1:{
+                tabBarItem.title =  ZLLocalizedString(@"star", "标星");
+                tabBarItem.image = [UIImage imageOriginalName:@"tabBar_me_icon"];
+                tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_me_click_icon"];
+            }
+                break;
+            case 2:{
+                tabBarItem.title = ZLLocalizedString(@"explore", @"搜索");
+                tabBarItem.image = [UIImage imageOriginalName:@"tabBar_friendTrends_icon"];
+                tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_friendTrends_click_icon"];
+            }
+                break;
+            case 3:{
+                tabBarItem.title = ZLLocalizedString(@"profile", @"我");
+                tabBarItem.image = [UIImage imageOriginalName:@"tabBar_essence_icon"];
+                tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_essence_click_icon"];
+            }
+                break;
+        }
+    }
     
-    ZLBaseNavigationController *repositoriesNavigationController = self.childViewControllers[1];
-    repositoriesNavigationController.tabBarItem.title =  ZLLocalizedString(@"star", "标星");
-    repositoriesNavigationController.tabBarItem.image = [UIImage imageOriginalName:@"tabBar_essence_icon"];
-    repositoriesNavigationController.tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_essence_click_icon"];
+    if(@available(iOS 13.0, *)){
+        self.tabBar.tintColor = [UIColor blackColor];
+    }else{
+        //设置title的颜色
+        NSMutableDictionary *attrDic = [NSMutableDictionary dictionary];
+        attrDic[NSForegroundColorAttributeName] = [UIColor blackColor];
+        [[UITabBarItem appearance] setTitleTextAttributes:attrDic forState:UIControlStateSelected];
+    }
     
-    ZLBaseNavigationController *exploreNavigationController = self.childViewControllers[2];
-    exploreNavigationController.tabBarItem.title = ZLLocalizedString(@"explore", @"搜索");
-    exploreNavigationController.tabBarItem.image = [UIImage imageOriginalName:@"tabBar_me_icon"];
-    exploreNavigationController.tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_me_click_icon"];
-    
-    ZLBaseNavigationController *profileNavigationController = self.childViewControllers[3];
-    profileNavigationController.tabBarItem.title = ZLLocalizedString(@"profile", @"我");
-    profileNavigationController.tabBarItem.image = [UIImage imageOriginalName:@"tabBar_friendTrends_icon"];
-    profileNavigationController.tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_friendTrends_click_icon"];
 }
 
 - (void) justReloadView

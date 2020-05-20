@@ -22,7 +22,20 @@ NS_ASSUME_NONNULL_BEGIN
  * @param serialNumber 流水号
  **/
 - (void) getRepoInfoWithFullName:(NSString *) fullName
-                     serialNumber:(NSString *) serialNumber;
+                    serialNumber:(NSString *) serialNumber;
+
+
+
+/**
+ * @brief 根据repo full name 获取仓库信息
+ * @param fullName octocat/Hello-World
+ * @param serialNumber 流水号
+ **/
+
+- (void) getRepoInfoWithFullName:(NSString *) fullName
+                    serialNumber:(NSString *) serialNumber
+                  completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
 
 /**
  * @brief 根据repo full name 获取仓库信息
@@ -32,17 +45,108 @@ NS_ASSUME_NONNULL_BEGIN
  **/
 - (void) getRepoInfoWithOwnerName:(NSString *) ownerName
                      withrepoName:(NSString *) repoName
-                    serialNumber:(NSString *) serialNumber;
+                     serialNumber:(NSString *) serialNumber;
 
 
 /**
-* @brief 根据repo readMe 地址
-* @param fullName octocat/Hello-World
-* @param serialNumber 流水号
-**/
+ * @brief 根据repo readMe 地址
+ * @param fullName octocat/Hello-World
+ * @param serialNumber 流水号
+ **/
 - (void) getRepoReadMeInfoWithFullName:(NSString *) fullName
                           serialNumber:(NSString *) serialNumber
                         completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+
+/**
+ * @brief 根据repo 获取pullrequest
+ * @param fullName octocat/Hello-World
+ * @param serialNumber 流水号
+ **/
+
+- (void) getRepoPullRequestWithFullName:(NSString *) fullName
+                                  state:(NSString *) state
+                           serialNumber:(NSString *) serialNumber
+                         completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+
+/**
+ * @brief 根据repo 获取commit
+ * @param fullName octocat/Hello-World
+ * @param serialNumber 流水号
+ **/
+
+- (void) getRepoCommitWithFullName:(NSString *) fullName
+                             until:(NSDate * __nullable) untilDate
+                             since:(NSDate * __nullable) sinceDate
+                      serialNumber:(NSString *) serialNumber
+                    completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+
+/**
+ * @brief 根据repo 获取branch
+ * @param fullName octocat/Hello-World
+ * @param serialNumber 流水号
+ **/
+- (void) getRepositoryBranchesInfoWithFullName:(NSString *) fullName
+                                  serialNumber:(NSString *) serialNumber
+                                completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+
+/**
+ * @brief 根据repo fullname获取 内容
+ * @param fullName octocat/Hello-World
+ * @param serialNumber 流水号
+ **/
+- (void) getRepositoryContentsInfoWithFullName:(NSString *) fullName
+                                          path:(NSString *) path
+                                        branch:(NSString *) branch
+                                  serialNumber:(NSString *) serialNumber
+                                completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+
+- (void) getRepositoryFileInfoWithFullName:(NSString *) fullName
+                                      path:(NSString *) path
+                                    branch:(NSString *) branch
+                              serialNumber:(NSString *) serialNumber
+                            completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+
+/**
+ * @brief 根据repo fullname获取 贡献者
+ * @param fullName octocat/Hello-World
+ * @param serialNumber 流水号
+ **/
+- (void) getRepositoryContributorsWithFullName:(NSString *) fullName
+                                  serialNumber:(NSString *) serialNumber
+                                completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+
+#pragma mark - Issues
+
+/**
+ * @brief 根据repo fullname获取 issues
+ * @param fullName octocat/Hello-World
+ * @param serialNumber 流水号
+ **/
+- (void) getRepositoryIssuesWithFullName:(NSString *) fullName
+                            serialNumber:(NSString *) serialNumber
+                          completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+
+
+/**
+ * @brief 根据repo fullname 创建 issues
+ * @param fullName octocat/Hello-World
+ * @param serialNumber 流水号
+ **/
+- (void) createIssueWithFullName:(NSString *) fullName
+                           title:(NSString *) title
+                            body:(NSString * __nullable) body
+                          labels:(NSArray * __nullable) labels
+                       assignees:(NSArray * __nullable) assignees
+                    serialNumber:(NSString *) serialNumber
+                  completeHandle:(void(^)(ZLOperationResultModel *)) handle;
 
 
 

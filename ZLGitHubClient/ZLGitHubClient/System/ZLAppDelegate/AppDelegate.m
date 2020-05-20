@@ -11,12 +11,15 @@
 #import "ZLBuglyManager.h"
 #import "ZLSharedDataManager.h"
 
+#import <JJException/JJException.h>
 #ifdef DEBUG
 #import <DoraemonKit/DoraemonManager.h>
 #endif
 
+#import <UserNotifications/UserNotifications.h>
 
-@interface AppDelegate ()
+
+@interface AppDelegate () <UNUserNotificationCenterDelegate>
 
 @end
 
@@ -27,10 +30,13 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    [self setUpJJException];
+    
     [self setUpDoraemonKit];
     
     [self setUpBugly];
     
+   // [self registerPush];
     /**
      *
      *  初始化中间件
@@ -187,6 +193,85 @@
 - (void) setUpBugly
 {
     [[ZLBuglyManager sharedManager] setUp];
+}
+
+#pragma mark - JJException
+- (void) setUpJJException
+{
+    [JJException configExceptionCategory:JJExceptionGuardAll];
+    [JJException startGuardException];
+}
+
+
+#pragma mark -
+
+#pragma mark - Notification Push
+
+- (void)registerPush {
+    // Push组件基本功能配置
+    
+   // [[UIApplication sharedApplication] registerForRemoteNotifications];
+    
+    [UNUserNotificationCenter currentNotificationCenter].delegate = self;
+    [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:UNAuthorizationOptionBadge|UNAuthorizationOptionSound|UNAuthorizationOptionAlert completionHandler:^(BOOL granted, NSError * _Nullable error) {
+        if(granted)
+        {
+            
+        }
+    }];
+}
+
+
+//- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(nonnull NSData *)deviceToken {
+//
+//    if (![deviceToken isKindOfClass:[NSData class]]) return;
+//    const unsigned *tokenBytes = [deviceToken bytes];
+//    NSString *hexToken = [NSString stringWithFormat:@"%08x%08x%08x%08x%08x%08x%08x%08x",
+//                          ntohl(tokenBytes[0]), ntohl(tokenBytes[1]), ntohl(tokenBytes[2]),
+//                          ntohl(tokenBytes[3]), ntohl(tokenBytes[4]), ntohl(tokenBytes[5]),
+//                          ntohl(tokenBytes[6]), ntohl(tokenBytes[7])];
+//
+//
+//    NSLog(@"deviceToken: %@",hexToken);
+//
+//
+//}
+//
+//- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+//{
+//   NSLog(@"register for remote notification failed :%@", error.localizedDescription);
+//}
+
+
+#pragma mark  UNUserNotificationCenterDelegate
+
+//iOS10新增：处理前台收到通知的代理方法，在后台调用
+-(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler API_AVAILABLE(ios(10.0)) {
+    
+    /**
+     * 如果应用在前台，不显示通知
+     */
+    completionHandler(UNNotificationPresentationOptionNone);
+}
+
+//iOS10新增：处理后台点击通知的代理方法
+-(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler API_AVAILABLE(ios(10.0)){
+    
+    if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]])
+    {
+        // 如果点击的时远程推送
+    }
+    else
+    {
+        //应用处于后台时的本地推送接受
+    }
+    completionHandler();
+}
+
+// 后台静默推送
+-(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)info fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
+ 
 }
 
  

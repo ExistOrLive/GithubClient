@@ -34,7 +34,7 @@
 #define currenUserUrl           @"/user"                            // 当前登陆用户的信息
 #define searchUserUrl           @"/search/users"
 
-#define userInfo                @"/users/"
+#define githubUserInfo                @"/users/"
 #define orgInfo                 @"/orgs/"
 
 #pragma mark event
@@ -52,6 +52,16 @@
 #define reposUrl                @"/repos"                            // 获取某个Repo的信息
 
 #define reposReadMeUrl          @"/repos/%@/readme"                  // 获取某个repo的readme信息
+
+#define repoPullRequestUrl      @"/repos/%@/pulls"                   // 获取pullrequest
+
+#define repoCommitsUrl          @"/repos/%@/commits"                 // 获取commits
+
+#define repoBranchedUrl         @"/repos/%@/branches"                // 获取branch
+
+#define repoContentsUrl         @"/repos/%@/contents/%@"                // 获取代码内容
+
+#define repoContributorsUrl         @"/repos/%@/contributors"           // 获取repo的贡献者
 
 
 #pragma mark starred
@@ -74,6 +84,15 @@
 
 #define followersUrl                 @"/user/followers"                       // 当前用户的followers
 #define userfollowersUrl             @"/users/%@/followers"                   // 某用户的followers
+
+
+#pragma mark issues
+
+#define repoIssuesUrl              @"/repos/%@/issues"                  // get 获取repos的issues
+
+#define createIssueUrl                @"/repos/%@/issues"                  // post 获取repos的issues
+
+#define updateIssueUrl                 @"/repos/%@/issues/%@"               // patch
 
 
 
