@@ -265,11 +265,15 @@
             NSArray *articles = doc.Query(@"article");
             for(OCGumboElement *article in articles){
                 OCGumboElement *h1 =  article.Query(@"h1").firstObject;
+                OCGumboElement *p =  article.Query(@"p").firstObject;
                 OCGumboElement *a = h1.Query(@"a").firstObject;
                 NSString * fullName = a.attr(@"href");
+                NSCharacterSet * set = [NSCharacterSet characterSetWithCharactersInString:@"\n"];
+                NSString * desc = [p.text() stringByTrimmingCharactersInSet:set];
                 if([fullName length] > 0){
                     ZLGithubRepositoryModel * model = [ZLGithubRepositoryModel new];
                     model.full_name = [fullName substringFromIndex:1];
+                    model.desc_Repo = desc;
                     [repoArray addObject:model];
                 }
             }
