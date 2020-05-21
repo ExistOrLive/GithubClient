@@ -101,3 +101,6 @@
 "daily" = "今天";
 "weekly" = "近一周";
 "monthly" = "近一月";
+
+"Star" = "标星";
+"Unstar" = "解决标星";

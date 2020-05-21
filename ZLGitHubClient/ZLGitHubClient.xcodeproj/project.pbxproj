@@ -16,6 +16,7 @@
 		360F4FBD2421F3F80066A7EA /* ZLGithubRepositoryBranchModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 360F4FBC2421F3F80066A7EA /* ZLGithubRepositoryBranchModel.m */; };
 		361B8B7B239FD1C000F725B8 /* ZLStarReposBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 361B8B7A239FD1C000F725B8 /* ZLStarReposBaseView.m */; };
 		361B8B7F239FD35000F725B8 /* ZLStarReposBaseViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 361B8B7E239FD35000F725B8 /* ZLStarReposBaseViewModel.m */; };
+		36247A332476743F001E8CFD /* ZLBaseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 36247A322476743F001E8CFD /* ZLBaseButton.m */; };
 		3624C4D0246EC6B4002E23B8 /* string_buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 3624C4AD246EC6B4002E23B8 /* string_buffer.c */; };
 		3624C4D1246EC6B4002E23B8 /* util.c in Sources */ = {isa = PBXBuildFile; fileRef = 3624C4B0246EC6B4002E23B8 /* util.c */; };
 		3624C4D2246EC6B4002E23B8 /* char_ref.rl in Resources */ = {isa = PBXBuildFile; fileRef = 3624C4B1246EC6B4002E23B8 /* char_ref.rl */; };
@@ -290,6 +291,8 @@
 		361B8B7A239FD1C000F725B8 /* ZLStarReposBaseView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLStarReposBaseView.m; sourceTree = "<group>"; };
 		361B8B7D239FD35000F725B8 /* ZLStarReposBaseViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLStarReposBaseViewModel.h; sourceTree = "<group>"; };
 		361B8B7E239FD35000F725B8 /* ZLStarReposBaseViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLStarReposBaseViewModel.m; sourceTree = "<group>"; };
+		36247A312476743F001E8CFD /* ZLBaseButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLBaseButton.h; sourceTree = "<group>"; };
+		36247A322476743F001E8CFD /* ZLBaseButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLBaseButton.m; sourceTree = "<group>"; };
 		3624C4AD246EC6B4002E23B8 /* string_buffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = string_buffer.c; sourceTree = "<group>"; };
 		3624C4AE246EC6B4002E23B8 /* error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = error.h; sourceTree = "<group>"; };
 		3624C4AF246EC6B4002E23B8 /* tag_enum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tag_enum.h; sourceTree = "<group>"; };
@@ -2129,6 +2132,8 @@
 				7451993A236F068700A050A4 /* ZLRoundRectTextField.m */,
 				74FF4C212381970300D88704 /* ZLBaseNavigationBar.h */,
 				74FF4C222381970300D88704 /* ZLBaseNavigationBar.m */,
+				36247A312476743F001E8CFD /* ZLBaseButton.h */,
+				36247A322476743F001E8CFD /* ZLBaseButton.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3096,6 +3101,7 @@
 				7436A0AE236DCDA700AF554C /* CYPopoverCollectionViewCell.m in Sources */,
 				74C1920E239D31CE00636F24 /* ZLMyEventBaseViewModel.swift in Sources */,
 				74D34931231BD01900A949B2 /* ZLLoginProcessModel.m in Sources */,
+				36247A332476743F001E8CFD /* ZLBaseButton.m in Sources */,
 				7439072E23E8776900EEA197 /* ZLToastView.m in Sources */,
 				7436A0A6236DCDA700AF554C /* CYPopoverTableViewCell.m in Sources */,
 				7436A0AA236DCDA700AF554C /* CYSinglePickerPopoverView.m in Sources */,
@@ -3293,7 +3299,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 24LG5QVBPR;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
@@ -3325,7 +3331,7 @@
 				CODE_SIGN_IDENTITY = "Apple Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 24LG5QVBPR;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
