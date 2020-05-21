@@ -98,6 +98,12 @@
 
 #define languageUrl              @"/languages"
 
+
+#pragma mark subscription / watch
+
+#define repoSubscription      @"/repos/%@/subscription"            // get 是否订阅某个repo put订阅 delete 解除订阅
+
+
 static const NSNotificationName ZLGithubTokenInvalid_Notification = @"ZLGithubTokenInvalid_Notification";
 
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -171,27 +171,86 @@
                                 <constraint firstAttribute="height" constant="50" id="DzG-eB-iZn"/>
                             </constraints>
                         </stackView>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lUX-Cu-cV3">
-                            <rect key="frame" x="117" y="27" width="46" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Button"/>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eSt-45-NMA">
-                            <rect key="frame" x="191" y="24" width="46" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Button"/>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7RF-pb-66b">
-                            <rect key="frame" x="258" y="27" width="46" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Button"/>
-                        </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="updated at" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GvF-MU-KfX" userLabel="timeLabel">
                             <rect key="frame" x="15" y="109" width="60.5" height="17"/>
                             <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="12"/>
                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Xez-sK-vV9">
+                            <rect key="frame" x="238" y="32.5" width="200" height="25"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lUX-Cu-cV3">
+                                    <rect key="frame" x="0.0" y="0.0" width="60" height="25"/>
+                                    <color key="backgroundColor" red="0.76862745098039209" green="0.78431372549019607" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="60" id="ql9-lB-nXB"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="10"/>
+                                    <state key="normal" title="Unwatch">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                            <color key="value" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                            <real key="value" value="1"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="4"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fgm-NJ-u1v">
+                                    <rect key="frame" x="70" y="0.0" width="60" height="25"/>
+                                    <color key="backgroundColor" red="0.76862745099999996" green="0.7843137255" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="60" id="pRU-c7-1M1"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="11"/>
+                                    <state key="normal" title="Unstar">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                            <color key="value" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                            <real key="value" value="1"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="4"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EsE-Am-tsE">
+                                    <rect key="frame" x="140" y="0.0" width="60" height="25"/>
+                                    <color key="backgroundColor" red="0.76862745099999996" green="0.7843137255" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="60" id="tIT-vr-zqy"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="11"/>
+                                    <state key="normal" title="Fork">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="4"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                            <real key="value" value="2"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                            <color key="value" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="25" id="32u-lU-Btc"/>
+                            </constraints>
+                        </stackView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
@@ -202,9 +261,11 @@
                         <constraint firstItem="5Ns-sz-mkf" firstAttribute="top" secondItem="15a-27-hPs" secondAttribute="top" constant="15" id="GCo-xY-ixB"/>
                         <constraint firstItem="NcN-SZ-3x3" firstAttribute="leading" secondItem="15a-27-hPs" secondAttribute="leading" constant="15" id="JQd-Rs-a2w"/>
                         <constraint firstItem="djF-Bw-mnc" firstAttribute="leading" secondItem="15a-27-hPs" secondAttribute="leading" constant="30" id="Nn8-VJ-hMB"/>
+                        <constraint firstItem="Xez-sK-vV9" firstAttribute="centerY" secondItem="5Ns-sz-mkf" secondAttribute="centerY" id="TY0-lD-8eY"/>
                         <constraint firstItem="5Ns-sz-mkf" firstAttribute="leading" secondItem="15a-27-hPs" secondAttribute="leading" constant="15" id="ToW-gU-PvM"/>
                         <constraint firstAttribute="bottom" secondItem="hta-JP-ru7" secondAttribute="bottom" constant="10" id="Uhj-z1-t7B"/>
                         <constraint firstItem="GvF-MU-KfX" firstAttribute="top" secondItem="NcN-SZ-3x3" secondAttribute="bottom" constant="5" id="WHs-7U-lTw"/>
+                        <constraint firstAttribute="trailing" secondItem="Xez-sK-vV9" secondAttribute="trailing" constant="15" id="ZOW-JC-uZ9"/>
                         <constraint firstItem="djF-Bw-mnc" firstAttribute="top" secondItem="5Ns-sz-mkf" secondAttribute="bottom" constant="60" id="ZSw-q5-rvl"/>
                         <constraint firstAttribute="trailing" secondItem="hta-JP-ru7" secondAttribute="trailing" constant="10" id="kVp-Pu-pMH"/>
                         <constraint firstItem="GvF-MU-KfX" firstAttribute="leading" secondItem="15a-27-hPs" secondAttribute="leading" constant="15" id="oHu-Jl-eqM"/>
@@ -221,15 +282,18 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="descLabel" destination="djF-Bw-mnc" id="gDT-tZ-OvQ"/>
+                <outlet property="forkButton" destination="EsE-Am-tsE" id="g8p-Th-brT"/>
                 <outlet property="forksButton" destination="3tb-Z8-UmR" id="s7t-XW-t2O"/>
                 <outlet property="forksNumLabel" destination="N0I-Bq-pj2" id="fh4-hR-NkT"/>
                 <outlet property="headImageView" destination="5Ns-sz-mkf" id="YyK-30-Fxs"/>
                 <outlet property="issuesButton" destination="qPd-WJ-q4h" id="9gM-YM-h3N"/>
                 <outlet property="issuesNumLabel" destination="z5v-Mb-fHj" id="zUH-VZ-Niq"/>
                 <outlet property="repoNameLabel" destination="NcN-SZ-3x3" id="2Rc-Up-ctz"/>
+                <outlet property="starButton" destination="fgm-NJ-u1v" id="1Pr-Cm-46a"/>
                 <outlet property="starsButton" destination="8Hf-vF-Fne" id="nb0-if-pAM"/>
                 <outlet property="starsNumLabel" destination="txi-46-3nR" id="VQA-Ek-cam"/>
                 <outlet property="timeLabel" destination="GvF-MU-KfX" id="IM1-57-1M5"/>
+                <outlet property="watchButton" destination="lUX-Cu-cV3" id="KWk-lf-hit"/>
                 <outlet property="watchersButton" destination="MXN-MP-Z9K" id="Xh8-I6-co4"/>
                 <outlet property="watchersNumLabel" destination="vm1-aD-NI2" id="lHZ-ZO-cSy"/>
             </connections>

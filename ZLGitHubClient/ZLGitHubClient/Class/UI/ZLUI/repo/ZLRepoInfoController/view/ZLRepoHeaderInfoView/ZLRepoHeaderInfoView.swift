@@ -37,6 +37,11 @@ class ZLRepoHeaderInfoView: ZLBaseView {
     @IBOutlet weak var forksNumLabel: UILabel!
     @IBOutlet weak var watchersNumLabel: UILabel!
     
+    @IBOutlet weak var watchButton: UIButton!
+    @IBOutlet weak var starButton: UIButton!
+    @IBOutlet weak var forkButton: UIButton!
+    
+    
     weak var delegate : ZLRepoHeaderInfoViewDelegate?
     
     override func awakeFromNib() {
