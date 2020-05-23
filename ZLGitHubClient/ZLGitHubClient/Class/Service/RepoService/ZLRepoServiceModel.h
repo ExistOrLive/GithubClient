@@ -77,6 +77,7 @@ NS_ASSUME_NONNULL_BEGIN
  **/
 
 - (void) getRepoCommitWithFullName:(NSString *) fullName
+                            branch:(NSString * __nullable) branch
                              until:(NSDate * __nullable) untilDate
                              since:(NSDate * __nullable) sinceDate
                       serialNumber:(NSString *) serialNumber
@@ -147,6 +148,35 @@ NS_ASSUME_NONNULL_BEGIN
                        assignees:(NSArray * __nullable) assignees
                     serialNumber:(NSString *) serialNumber
                   completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+
+#pragma mark - subscription
+
+- (void) watchRepoWithFullName:(NSString *) fullName
+                  serialNumber:(NSString *) serialNumber
+                completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+- (void) unwatchRepoWithFullName:(NSString *) fullName
+                    serialNumber:(NSString *) serialNumber
+                  completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+- (void) getRepoWatchStatusWithFullName:(NSString *) fullName
+                           serialNumber:(NSString *) serialNumber
+                         completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+#pragma mark - star repo
+
+- (void) starRepoWithFullName:(NSString *) fullName
+                  serialNumber:(NSString *) serialNumber
+                completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+- (void) unstarRepoWithFullName:(NSString *) fullName
+                    serialNumber:(NSString *) serialNumber
+                  completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+- (void) getRepoStarStatusWithFullName:(NSString *) fullName
+                           serialNumber:(NSString *) serialNumber
+                         completeHandle:(void(^)(ZLOperationResultModel *)) handle;
 
 
 

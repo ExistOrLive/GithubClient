@@ -229,6 +229,7 @@ NS_ASSUME_NONNULL_BEGIN
  **/
 - (void) getRepositoryCommitsInfo:(GithubResponse) block
                          fullName:(NSString *) fullName
+                           branch:(NSString *) branch
                             until:(NSDate *) untilDate
                             since:(NSDate *) sinceDate
                      serialNumber:(NSString *) serialNumber;
@@ -268,6 +269,43 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) getRepositoryContributors:(GithubResponse) block
                           fullName:(NSString *) fullName
                       serialNumber:(NSString *) serialNumber;
+
+
+#pragma mark - star repo
+
+- (void) getStarRepositoryStatus:(GithubResponse) block
+                        fullName:(NSString *) fullName
+                    serialNumber:(NSString *) serialNumber;
+
+- (void) starRepository:(GithubResponse) block
+               fullName:(NSString *) fullName
+           serialNumber:(NSString *) serialNumber;
+
+- (void) unstarRepository:(GithubResponse) block
+                 fullName:(NSString *) fullName
+             serialNumber:(NSString *) serialNumber;
+
+
+#pragma mark - watch repo
+
+- (void) getWatchRepositoryStatus:(GithubResponse) block
+                         fullName:(NSString *) fullName
+                     serialNumber:(NSString *) serialNumber;
+
+- (void) watchRepository:(GithubResponse) block
+                fullName:(NSString *) fullName
+            serialNumber:(NSString *) serialNumber;
+
+- (void) unwatchRepository:(GithubResponse) block
+                  fullName:(NSString *) fullName
+              serialNumber:(NSString *) serialNumber;
+
+
+#pragma mark - fork repo
+
+- (void) forkRepository:(GithubResponse) block
+                    org:(NSString * __nullable) org
+           serialNumber:(NSString *) serialNumber;
 
 
 

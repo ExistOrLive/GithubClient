@@ -103,4 +103,17 @@
 "monthly" = "近一月";
 
 "Star" = "标星";
-"Unstar" = "解决标星";
+"Unstar" = "取消标星";
+"Star Success" = "标星成功";
+"Star Fail" = "标星失败";
+"Unstar Success" = "取消标星成功";
+"Unstar Fail" = "取消标星失败";
+
+"Watch" = "关注";
+"Unwatch" = "取消关注";
+"Watch Success" = "关注成功";
+"Watch Fail" = "关注失败";
+"Unwatch Success" = "取消关注成功";
+"Unwatch Fail" = "取消关注失败";
+
+"Fork" = "拷贝";

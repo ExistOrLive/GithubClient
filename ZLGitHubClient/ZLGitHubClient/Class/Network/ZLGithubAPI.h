@@ -103,6 +103,16 @@
 
 #define repoSubscription      @"/repos/%@/subscription"            // get 是否订阅某个repo put订阅 delete 解除订阅
 
+#pragma mark star
+
+#define repoStarred     @"/user/starred/%@"            // get 是否标星某个repo put标星 delete 解除标星
+
+
+#pragma mark fork
+
+#define repoForks @"/repos/%@/forks"      //  fork repo 
+
+
 
 static const NSNotificationName ZLGithubTokenInvalid_Notification = @"ZLGithubTokenInvalid_Notification";
 

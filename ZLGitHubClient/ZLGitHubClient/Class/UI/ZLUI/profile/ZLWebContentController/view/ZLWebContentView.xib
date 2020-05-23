@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -68,20 +67,19 @@
                     </constraints>
                 </progressView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aKa-5W-o6U">
-                    <rect key="frame" x="0.0" y="62" width="471" height="633"/>
+                    <rect key="frame" x="0.0" y="62" width="471" height="599"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rXi-jp-Avz">
-                    <rect key="frame" x="0.0" y="695" width="471" height="50"/>
+                    <rect key="frame" x="0.0" y="661" width="471" height="50"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="50" id="Lrf-CG-ELX"/>
+                        <constraint firstAttribute="height" constant="50" id="bgI-1f-7jS"/>
                     </constraints>
                     <items/>
                 </toolbar>
             </subviews>
             <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="rXi-jp-Avz" secondAttribute="bottom" id="0tQ-XR-eA1"/>
                 <constraint firstItem="Jwj-ck-4SH" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="2kw-tG-R2a"/>
                 <constraint firstItem="rXi-jp-Avz" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="5tD-Sb-tiL"/>
                 <constraint firstItem="aKa-5W-o6U" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="AE9-6D-FWp"/>
@@ -92,10 +90,12 @@
                 <constraint firstItem="aKa-5W-o6U" firstAttribute="top" secondItem="OIy-KX-gba" secondAttribute="bottom" id="Qjf-iM-OLF"/>
                 <constraint firstAttribute="trailing" secondItem="rXi-jp-Avz" secondAttribute="trailing" id="S2g-vf-3Kb"/>
                 <constraint firstItem="Jwj-ck-4SH" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="fz5-0g-fu4"/>
+                <constraint firstItem="rXi-jp-Avz" firstAttribute="bottom" secondItem="x6y-YZ-Duo" secondAttribute="bottom" id="kLC-IB-zqW"/>
                 <constraint firstItem="OIy-KX-gba" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="nhe-Dl-3HG"/>
                 <constraint firstAttribute="trailing" secondItem="aKa-5W-o6U" secondAttribute="trailing" id="sPY-Fy-nYv"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="x6y-YZ-Duo"/>
             <connections>
                 <outlet property="additionButton" destination="kLm-nd-RMF" id="1HG-aZ-lJP"/>
                 <outlet property="containerView" destination="aKa-5W-o6U" id="Z3G-d1-Z2L"/>

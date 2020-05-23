@@ -31,9 +31,10 @@ class ZLRepoHeaderInfoViewModel: ZLBaseViewModel {
         self.repoHeaderInfoView?.delegate = self
         
         self.setViewDataForRepoHeaderInfoView()
+        
+        self.getRepoWatchStatus()
+        self.getRepoStarStatus()
     }
-    
-    
     
      func setViewDataForRepoHeaderInfoView()
      {
@@ -58,8 +59,7 @@ class ZLRepoHeaderInfoViewModel: ZLBaseViewModel {
 
 extension ZLRepoHeaderInfoViewModel : ZLRepoHeaderInfoViewDelegate
 {
-    func onZLRepoHeaderInfoViewEvent(event: ZLRepoHeaderInfoViewEvent)
-    {
+    func onZLRepoHeaderInfoViewEvent(event: ZLRepoHeaderInfoViewEvent){
         switch event{
         case .copy: break
         case .issue: do {
@@ -69,6 +69,134 @@ extension ZLRepoHeaderInfoViewModel : ZLRepoHeaderInfoViewDelegate
         }
         case .star: break
         case .watch: break
+        case .watchAction:do{
+            if self.repoHeaderInfoView?.watchButton.isSelected == true {
+                self.watchRepo(watch: false)
+            } else {
+                self.watchRepo(watch: true)
+            }
+            }
+        case .starAction:do {
+            if self.repoHeaderInfoView?.starButton.isSelected == true {
+                self.starRepo(star: false)
+            } else {
+                self.starRepo(star: true)
+            }
+        }
+        case .forkAction:do {
+            
+        }
+            
         }
     }
+}
+
+extension ZLRepoHeaderInfoViewModel{
+    func getRepoWatchStatus() -> Void {
+        weak var weakSelf = self
+        ZLRepoServiceModel.shared().getRepoWatchStatus(withFullName: self.repoInfoModel!.full_name, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+            
+            if(resultModel.result) {
+                guard let data : [String:Bool] = resultModel.data as? [String:Bool] else {
+                    return
+                }
+                weakSelf?.repoHeaderInfoView?.watchButton.isSelected = data["isWatch"] ?? false
+            } else {
+                
+            }
+            
+        })
+    }
+    
+    
+    func watchRepo(watch:Bool) -> Void {
+        weak var weakSelf = self
+        
+        if watch == true {
+            
+            SVProgressHUD.show()
+            ZLRepoServiceModel.shared().watchRepo(withFullName: self.repoInfoModel!.full_name, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+                SVProgressHUD.dismiss()
+                if resultModel.result {
+                    weakSelf?.repoHeaderInfoView?.watchButton.isSelected = true
+//                    weakSelf?.repoInfoModel?.subscribers_count += 1
+//                    weakSelf?.repoHeaderInfoView?.watchersNumLabel.text = "\(weakSelf?.repoInfoModel?.subscribers_count ?? 0)"
+                    ZLToastView.showMessage(ZLLocalizedString(string: "Watch Success", comment: ""))
+                } else {
+                    ZLToastView.showMessage(ZLLocalizedString(string: "Watch Fail", comment: ""))
+                }
+            } )
+            
+        } else {
+            SVProgressHUD.show()
+            ZLRepoServiceModel.shared().unwatchRepo(withFullName: self.repoInfoModel!.full_name, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+                SVProgressHUD.dismiss()
+                if resultModel.result {
+                    weakSelf?.repoHeaderInfoView?.watchButton.isSelected = false
+//                    weakSelf?.repoInfoModel?.subscribers_count -= 1
+//                    weakSelf?.repoHeaderInfoView?.watchersNumLabel.text = "\(weakSelf?.repoInfoModel?.subscribers_count ?? 0)"
+                    
+                     ZLToastView.showMessage(ZLLocalizedString(string: "Unwatch Success", comment: ""))
+                } else {
+                     ZLToastView.showMessage(ZLLocalizedString(string: "Unwatch Fail", comment: ""))
+                }
+            })
+            
+        }
+    }
+    
+    
+    func getRepoStarStatus() -> Void {
+        weak var weakSelf = self
+        ZLRepoServiceModel.shared().getRepoStarStatus(withFullName: self.repoInfoModel!.full_name, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+            
+            if(resultModel.result) {
+                guard let data : [String:Bool] = resultModel.data as? [String:Bool] else {
+                    return
+                }
+                weakSelf?.repoHeaderInfoView?.starButton.isSelected = data["isStar"] ?? false
+            } else {
+                
+            }
+            
+        })
+    }
+    
+    
+    func starRepo(star:Bool) -> Void {
+        weak var weakSelf = self
+        
+        if star == true {
+            
+            SVProgressHUD.show()
+            ZLRepoServiceModel.shared().starRepo(withFullName: self.repoInfoModel!.full_name, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+                SVProgressHUD.dismiss()
+                
+                if resultModel.result {
+                    weakSelf?.repoHeaderInfoView?.starButton.isSelected = true
+//                    weakSelf?.repoInfoModel?.stargazers_count += 1
+//                    weakSelf?.repoHeaderInfoView?.starsNumLabel.text = "\(weakSelf?.repoInfoModel?.stargazers_count ?? 0)"
+                    ZLToastView.showMessage(ZLLocalizedString(string: "Star Success", comment: ""))
+                } else {
+                    ZLToastView.showMessage(ZLLocalizedString(string: "Star Fail", comment: ""))
+                }
+            } )
+            
+        } else {
+            SVProgressHUD.show()
+            ZLRepoServiceModel.shared().unstarRepo(withFullName: self.repoInfoModel!.full_name, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+                SVProgressHUD.dismiss()
+                if resultModel.result {
+                    weakSelf?.repoHeaderInfoView?.starButton.isSelected = false
+//                    weakSelf?.repoInfoModel?.stargazers_count -= 1
+//                    weakSelf?.repoHeaderInfoView?.starsNumLabel.text = "\(weakSelf?.repoInfoModel?.stargazers_count ?? 0)"
+                    ZLToastView.showMessage(ZLLocalizedString(string: "Unstar Success", comment: ""))
+                } else {
+                    ZLToastView.showMessage(ZLLocalizedString(string: "Unstar Fail", comment: ""))
+                }
+            })
+            
+        }
+    }
+    
 }

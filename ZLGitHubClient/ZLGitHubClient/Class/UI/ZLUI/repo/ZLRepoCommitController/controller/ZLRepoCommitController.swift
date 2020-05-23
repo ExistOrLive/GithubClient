@@ -11,6 +11,8 @@ import UIKit
 class ZLRepoCommitController: ZLBaseViewController {
     
     var repoFullName : String?
+    
+    var branch : String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +28,7 @@ class ZLRepoCommitController: ZLBaseViewController {
         })
         
         self.viewModel = ZLRepoCommitViewModel.init(viewController: self)
-        viewModel.bindModel(repoFullName, andView: itemListView)
+        viewModel.bindModel(["fullName":repoFullName,"branch":branch], andView: itemListView)
         
     }
 }

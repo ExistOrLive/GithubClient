@@ -93,7 +93,7 @@
 "submission failed" = "Submission Failed";
 "input feedback" = "Input feedback please";
 
-"refresh" = "refresh";
+"refresh" = "Refresh";
 
 "Select a language" = "Select a language";
 "Filter languages" = "Filter languages";
@@ -106,4 +106,17 @@
 
 "Star" = "Star";
 "Unstar" = "Unstar";
+"Star Success" = "Star Successfully";
+"Star Fail" = "Star Fail";
+"Unstar Success" = "Unstar Successfully";
+"Unstar Fail" = "Unstar Fail";
+
+"Watch" = "Watch";
+"Unwatch" = "Unwatch";
+"Watch Success" = "Watch Successfully";
+"Watch Fail" = "Watch Fail";
+"Unwatch Success" = "Unwatch Successfully";
+"Unwatch Fail" = "Unwatch Fail";
+
+"Fork" = "Fork";
 

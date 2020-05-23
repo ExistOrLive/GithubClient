@@ -13,6 +13,9 @@ import UIKit
     case star = 2
     case copy = 3
     case watch = 4
+    case watchAction = 5
+    case starAction = 6
+    case forkAction = 7
 }
 
 @objc protocol ZLRepoHeaderInfoViewDelegate: NSObjectProtocol
@@ -54,6 +57,12 @@ class ZLRepoHeaderInfoView: ZLBaseView {
         self.starsButton.setTitle(ZLLocalizedString(string: "star", comment: "标星"), for: .normal)
         self.forksButton.setTitle(ZLLocalizedString(string: "fork", comment: "拷贝"), for: .normal)
         self.watchersButton.setTitle(ZLLocalizedString(string: "watcher", comment: "关注"), for:.normal)
+        
+        self.watchButton.setTitle(ZLLocalizedString(string: "Watch", comment: "关注"), for: .normal)
+        self.starButton.setTitle(ZLLocalizedString(string: "Star", comment: "标星"), for: .normal)
+        self.forkButton.setTitle(ZLLocalizedString(string: "Fork", comment: "拷贝"), for: .normal)
+        self.watchButton.setTitle(ZLLocalizedString(string: "Unwatch", comment: "取消关注"), for: .selected)
+        self.starButton.setTitle(ZLLocalizedString(string: "Unstar", comment: "取消标星"), for: .selected)
     }
     
     

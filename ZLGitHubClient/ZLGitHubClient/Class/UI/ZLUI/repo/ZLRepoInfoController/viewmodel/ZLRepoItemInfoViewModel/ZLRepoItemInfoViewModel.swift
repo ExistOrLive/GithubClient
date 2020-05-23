@@ -18,8 +18,7 @@ class ZLRepoItemInfoViewModel: ZLBaseViewModel {
     // view
     private var repoItemInfoView : ZLRepoItemInfoView?
     
-         
-
+        
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
         
         guard let repoInfoModel : ZLGithubRepositoryModel = targetModel as? ZLGithubRepositoryModel else {
@@ -129,6 +128,7 @@ extension ZLRepoItemInfoViewModel : ZLRepoItemInfoViewDelegate
         case .commit : do{
             let controller = ZLRepoCommitController.init()
             controller.repoFullName = self.repoInfoModel?.full_name
+            controller.branch = self.currentBranch ?? self.repoInfoModel!.default_branch
             self.viewController?.navigationController?.pushViewController(controller, animated: true)
             }
         case .language : do{

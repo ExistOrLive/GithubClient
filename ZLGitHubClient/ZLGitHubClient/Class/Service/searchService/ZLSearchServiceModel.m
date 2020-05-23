@@ -269,7 +269,10 @@
                 OCGumboElement *a = h1.Query(@"a").firstObject;
                 NSString * fullName = a.attr(@"href");
                 NSCharacterSet * set = [NSCharacterSet characterSetWithCharactersInString:@"\n"];
-                NSString * desc = [p.text() stringByTrimmingCharactersInSet:set];
+                NSString * desc = nil;
+                if(p){
+                    desc = [p.text() stringByTrimmingCharactersInSet:set];
+                }
                 if([fullName length] > 0){
                     ZLGithubRepositoryModel * model = [ZLGithubRepositoryModel new];
                     model.full_name = [fullName substringFromIndex:1];
