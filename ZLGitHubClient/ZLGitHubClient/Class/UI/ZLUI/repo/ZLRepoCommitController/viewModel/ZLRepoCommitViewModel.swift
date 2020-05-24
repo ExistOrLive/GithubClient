@@ -12,13 +12,19 @@ class ZLRepoCommitViewModel: ZLBaseViewModel {
     
     private var fullName : String?
     
+    private var branch : String?
+    
     private var untilDate : Date?
     
     private var itemListView : ZLGithubItemListView?
     
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
         
-        self.fullName = targetModel as? String
+        guard let model : [String:String] = targetModel as? [String:String] else {
+            return
+        }
+        self.branch = model["branch"]
+        self.fullName = model["fullName"]
         
         guard let itemListView = targetView as? ZLGithubItemListView else
         {
@@ -44,7 +50,7 @@ extension ZLRepoCommitViewModel
         
         let date = Date.init(timeInterval: -1, since: self.untilDate ?? Date.init())
         weak var weakSelf = self
-        ZLRepoServiceModel.shared().getRepoCommit(withFullName: self.fullName!, until: date, since: nil, serialNumber: NSString.generateSerialNumber(), completeHandle: { (resultModel : ZLOperationResultModel) in
+        ZLRepoServiceModel.shared().getRepoCommit(withFullName: self.fullName!, branch: self.branch, until: date, since: nil, serialNumber: NSString.generateSerialNumber(), completeHandle: { (resultModel : ZLOperationResultModel) in
             
             if resultModel.result == false
             {
@@ -85,7 +91,7 @@ extension ZLRepoCommitViewModel
         }
         
         weak var weakSelf = self
-        ZLRepoServiceModel.shared().getRepoCommit(withFullName: self.fullName!, until: Date.init(), since: nil, serialNumber: NSString.generateSerialNumber(), completeHandle: { (resultModel : ZLOperationResultModel) in
+        ZLRepoServiceModel.shared().getRepoCommit(withFullName: self.fullName!, branch: self.branch, until: Date.init(), since: nil, serialNumber: NSString.generateSerialNumber(), completeHandle: { (resultModel : ZLOperationResultModel) in
             
             if resultModel.result == false
             {

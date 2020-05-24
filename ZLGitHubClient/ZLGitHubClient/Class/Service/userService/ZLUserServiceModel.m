@@ -205,6 +205,96 @@
  }
 
 
+#pragma mark - follow
+
+/**
+ * @brief 获取user follow状态
+ * @param loginName 用户的登录名
+ **/
+- (void) getUserFollowStatusWithLoginName:(NSString *) loginName
+                             serialNumber:(NSString *) serialNumber
+                           completeHandle:(void(^)(ZLOperationResultModel *)) handle{
+    if(loginName.length <= 0){
+        ZLLog_Info(@"loginName is invalid");
+        return;
+    }
+    
+    GithubResponse response = ^(BOOL  result, id responseObject, NSString * serialNumber)
+    {
+        ZLOperationResultModel * repoResultModel = [[ZLOperationResultModel alloc] init];
+        repoResultModel.result = result;
+        repoResultModel.serialNumber = serialNumber;
+        repoResultModel.data = responseObject;
+        
+        if(handle)
+        {
+            ZLMainThreadDispatch(handle(repoResultModel);)
+        }
+    };
+    
+    [[ZLGithubHttpClient defaultClient] getUserFollowStatus:response loginName:loginName serialNumber:serialNumber];
+    
+}
+
+/**
+ * @brief follow user
+ * @param loginName 用户的登录名
+ **/
+- (void) followUserWithLoginName:(NSString *)loginName
+                    serialNumber:(NSString *) serialNumber
+                  completeHandle:(void(^)(ZLOperationResultModel *)) handle{
+    if(loginName.length <= 0){
+        ZLLog_Info(@"loginName is invalid");
+        return;
+    }
+    
+    GithubResponse response = ^(BOOL  result, id responseObject, NSString * serialNumber)
+    {
+        ZLOperationResultModel * repoResultModel = [[ZLOperationResultModel alloc] init];
+        repoResultModel.result = result;
+        repoResultModel.serialNumber = serialNumber;
+        repoResultModel.data = responseObject;
+        
+        if(handle)
+        {
+            ZLMainThreadDispatch(handle(repoResultModel);)
+        }
+    };
+    
+    [[ZLGithubHttpClient defaultClient] followUser:response loginName:loginName serialNumber:serialNumber];
+    
+}
+/**
+ * @brief unfollow user
+ * @param loginName 用户的登录名
+ **/
+- (void) unfollowUserWithLoginName:(NSString *)loginName
+                      serialNumber:(NSString *) serialNumber
+                    completeHandle:(void(^)(ZLOperationResultModel *)) handle{
+    if(loginName.length <= 0){
+        ZLLog_Info(@"loginName is invalid");
+        return;
+    }
+    
+    GithubResponse response = ^(BOOL  result, id responseObject, NSString * serialNumber)
+    {
+        ZLOperationResultModel * repoResultModel = [[ZLOperationResultModel alloc] init];
+        repoResultModel.result = result;
+        repoResultModel.serialNumber = serialNumber;
+        repoResultModel.data = responseObject;
+        
+        if(handle)
+        {
+            ZLMainThreadDispatch(handle(repoResultModel);)
+        }
+    };
+    
+    [[ZLGithubHttpClient defaultClient] unfollowUser:response loginName:loginName serialNumber:serialNumber];
+    
+}
+
+
+
 #pragma mark - onNotificationArrived:
 
 - (void) onNotificationArrived:(NSNotification *) notification

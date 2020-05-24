@@ -45,6 +45,8 @@ class ZLUserInfoViewModel: ZLBaseViewModel {
         
         ZLUserServiceModel.shared().getUserInfo(withLoginName: model.loginName, userType: model.type, serialNumber: "serialNumber")
         
+        self.getFollowStatus()
+        
     }
     
     
@@ -100,7 +102,16 @@ class ZLUserInfoViewModel: ZLBaseViewModel {
         
         let vc = ZLWebContentController.init()
         vc.requestURL = url
-   self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        self.viewController?.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    
+    @IBAction func onFollowButtonClicked(_ sender: UIButton) {
+        if(sender.isSelected){
+            self.unfollowUser()
+        } else {
+            self.followUser()
+        }
     }
 }
 
@@ -153,4 +164,49 @@ extension ZLUserInfoViewModel
         
         self.setViewDataForUserInfoView(model: userInfo, view: self.userInfoView!)
     }
+    
+    
+    func getFollowStatus() {
+        weak var weakSelf = self
+        ZLUserServiceModel.shared().getUserFollowStatus(withLoginName: self.userInfoModel!.loginName, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+            if(resultModel.result == true) {
+                guard let data : [String:Bool] = resultModel.data as? [String:Bool] else {
+                    return
+                }
+                weakSelf?.userInfoView?.followButton.isSelected = data["isFollow"] ?? false
+            } else {
+                
+            }
+        })
+    }
+    
+    func followUser() {
+        weak var weakSelf = self
+        SVProgressHUD.show()
+        ZLUserServiceModel.shared().followUser(withLoginName: self.userInfoModel!.loginName, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+            SVProgressHUD.dismiss()
+            if(resultModel.result == true){
+                weakSelf?.userInfoView?.followButton.isSelected = true
+                ZLToastView.showMessage(ZLLocalizedString(string: "Follow Success", comment: ""))
+            } else {
+                ZLToastView.showMessage(ZLLocalizedString(string: "Follow Fail", comment: ""))
+            }
+        })
+        
+    }
+    
+    func unfollowUser() {
+        weak var weakSelf = self
+        SVProgressHUD.show()
+        ZLUserServiceModel.shared().unfollowUser(withLoginName: self.userInfoModel!.loginName, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+            SVProgressHUD.dismiss()
+            if(resultModel.result == true){
+                weakSelf?.userInfoView?.followButton.isSelected = false
+                ZLToastView.showMessage(ZLLocalizedString(string: "Unfollow Success", comment: ""))
+            } else {
+                ZLToastView.showMessage(ZLLocalizedString(string: "Unfollow Fail", comment: ""))
+            }
+        })
+    }
+    
 }

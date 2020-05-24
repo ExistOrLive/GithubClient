@@ -45,6 +45,8 @@
     }
     
     NSMutableURLRequest * request =[NSMutableURLRequest requestWithURL:self.url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60];
+    NSString *token = [[ZLSharedDataManager sharedInstance] githubAccessToken];
+    [request setValue:[NSString stringWithFormat:@"token %@",token] forHTTPHeaderField:@"Authorization"];
     [self.webContentView.webView loadRequest:request];
 }
 
@@ -56,7 +58,7 @@
      [self.viewController.navigationController popViewControllerAnimated:true];
 }
 
-- (void)webView:(WKWebView * _Nonnull)webView navigationAction:(WKNavigationAction * _Nonnull)navigationAction decisionHandler:(void (^ _Nonnull)(WKNavigationActionPolicy))decisionHandler { 
+- (void)webView:(WKWebView * _Nonnull)webView navigationAction:(WKNavigationAction * _Nonnull)navigationAction decisionHandler:(void (^ _Nonnull)(WKNavigationActionPolicy))decisionHandler {
     decisionHandler(WKNavigationActionPolicyAllow);
 }
 

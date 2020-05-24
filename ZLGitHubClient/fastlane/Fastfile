@@ -167,56 +167,6 @@ platform :ios do
     )
   end
 
-  desc "build one TestFlight release on travis"
-  lane :github_action_testFlight do
-    create_keychain(
-      name: ENV['MATCH_KEYCHAIN_NAME'],
-      password: ENV['MATCH_PASSWORD'],
-      default_keychain: true,
-      unlock: true,
-      timeout: 3600,
-      add_to_search_list: true
-    ) 
-    match(type: "appstore",
-          readonly: true,
-          app_identifier: "com.zm.ZLGitHubClient",
-          keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
-          keychain_password: ENV['MATCH_PASSWORD'],
-          git_url: ENV['MATCH_GITHUB_URL'])
-    match(type: "adhoc",
-          readonly: true,
-          app_identifier: "com.zm.ZLGitHubClient",
-          keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
-          keychain_password: ENV['MATCH_PASSWORD'],
-          git_url: ENV['MATCH_GITHUB_URL'])
-    gym(workspace: "ZLGitHubClient.xcworkspace",
-        scheme: "ZLGitHubClient",
-        clean: true,
-        include_symbols: true,
-        include_bitcode: true,
-        export_method: "ad-hoc",
-        archive_path: "./fastlane/archive/ZLGitHubClient.xcarchive",
-        output_directory: "./fastlane/ipa/adhoc",
-        output_name: "ZLGitHubClient.ipa")
-    gym(workspace: "ZLGitHubClient.xcworkspace",
-        scheme: "ZLGitHubClient",
-        clean: true,
-        include_symbols: true,
-        include_bitcode: true,
-        export_method: "app-store",
-        skip_build_archive: true,
-        archive_path: "./fastlane/archive/ZLGitHubClient.xcarchive",
-        output_directory: "./fastlane/ipa/TestFlight",
-        output_name: "ZLGitHubClient.ipa")
-    pilot(
-      username: "18351927991@163.com",
-      app_identifier: "com.zm.ZLGitHubClient",
-      changelog: "release to TestFlight",
-      ipa: "./fastlane/ipa/TestFlight/ZLGitHubClient.ipa"
-    )
-  end
-
-
   desc "build one TestFlight release"
   lane :beta do
     # 配置证书和描述配置文件

@@ -12,6 +12,8 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "ZLSearchServiceHeader.h"
+
 
 @class ZLGithubUserModel;
 
@@ -25,7 +27,27 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic,strong,nullable) ZLGithubUserModel * userInfoModel;
 
+@property(nonatomic,strong,nullable) NSMutableDictionary * trendingOptions;
+
 - (void) clearGithubTokenAndUserInfo;
+
+
+#pragma mark - trend
+
+- (NSString * __nullable) lanaguageForTrendingRepo;
+
+- (NSString * __nullable) lanaguageForTrendingUser;
+
+- (void) setLanguageForTrendingRepo:(NSString * __nullable) language;
+
+- (void) setLanguageForTrendingUser:(NSString * __nullable) language;
+
+- (ZLDateRange) dateRangeForTrendingRepo ;
+- (ZLDateRange) dateRangeForTrendingUser;
+
+- (void) setDateRangeForTrendingRepo:(ZLDateRange) range;
+
+- (void) setDateRangeForTrendingUser:(ZLDateRange) range;
 
 @end
 

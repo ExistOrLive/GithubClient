@@ -21,9 +21,9 @@ typedef NS_ENUM(NSUInteger, ZLSearchType) {
 };
 
 typedef enum {
-    ZLDateRangeDaily,
-    ZLDateRangeWeakly,
-    ZLDateRangeMonthly,
+    ZLDateRangeDaily = 0,
+    ZLDateRangeWeakly = 1,
+    ZLDateRangeMonthly = 2,
 } ZLDateRange;
 
 #pragma mark - NotificationName

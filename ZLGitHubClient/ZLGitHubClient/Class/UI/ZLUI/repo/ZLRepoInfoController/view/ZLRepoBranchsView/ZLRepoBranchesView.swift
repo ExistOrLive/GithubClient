@@ -27,8 +27,7 @@ class ZLRepoBranchesView: ZLBaseView {
            
             SVProgressHUD.dismiss()
             
-            if model.result == false
-            {
+            if model.result == false{
                 guard let errorModel : ZLGithubRequestErrorModel = model.data as?  ZLGithubRequestErrorModel else
                 {
                     return
@@ -37,19 +36,15 @@ class ZLRepoBranchesView: ZLBaseView {
                 return
             }
             
-            guard let branches : [ZLGithubRepositoryBranchModel] = model.data as? [ZLGithubRepositoryBranchModel] else
-            {
+            guard let branches : [ZLGithubRepositoryBranchModel] = model.data as? [ZLGithubRepositoryBranchModel] else{
                 return
             }
             
-            guard let view : ZLRepoBranchesView = Bundle.main.loadNibNamed("ZLRepoBranchesView", owner: nil, options: nil)?.first as? ZLRepoBranchesView else
-            {
+            guard let view : ZLRepoBranchesView = Bundle.main.loadNibNamed("ZLRepoBranchesView", owner: nil, options: nil)?.first as? ZLRepoBranchesView else{
                 return;
             }
-            
+
             view.showWith(repoFullName: repoFullName, currentBranch: currentBranch, branches: branches, handle: handle)
-            
-            
         })
     }
     
@@ -71,13 +66,11 @@ class ZLRepoBranchesView: ZLBaseView {
     {
         super.awakeFromNib()
         
-        self.layer.cornerRadius = 8.0
-        
         self.titleLabel.text = ZLLocalizedString(string: "branch", comment: "分支")
         
         self.tableView.backgroundColor = UIColor.clear
         self.tableView.register(ZLRepoBranchTableViewCell.self, forCellReuseIdentifier: "ZLRepoBranchTableViewCell")
-        self.tableView.separatorStyle = .singleLine
+        self.tableView.separatorStyle = .none
         self.tableView.showsVerticalScrollIndicator = false
         self.tableView.delegate = self
         self.tableView.dataSource = self;
@@ -95,7 +88,7 @@ extension ZLRepoBranchesView : UITableViewDelegate,UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 40
+        return 50
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -107,16 +100,7 @@ extension ZLRepoBranchesView : UITableViewDelegate,UITableViewDataSource
         }
         
         cell.branchNameLabel?.text = self.branches?[indexPath.row].name
-        
-        if (self.branches?[indexPath.row].name)! == self.currentBranch!
-        {
-            cell.currentBranchTag?.isHidden = false
-        }
-        else
-        {
-            cell.currentBranchTag?.isHidden = true
-        }
-        
+        cell.isSelected = ((self.branches?[indexPath.row].name)! == self.currentBranch!)
         return cell
     }
     

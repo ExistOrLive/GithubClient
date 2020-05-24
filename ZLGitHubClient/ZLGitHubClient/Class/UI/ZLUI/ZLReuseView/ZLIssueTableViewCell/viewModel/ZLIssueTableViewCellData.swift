@@ -30,6 +30,7 @@ class ZLIssueTableViewCellData: ZLGithubItemTableViewCellData {
             return
         }
         cell.fillWithData(cellData: self)
+        cell.delegate = self
     }
     
 }
@@ -67,6 +68,13 @@ extension ZLIssueTableViewCellData{
         
         return labelArray
     }
-    
-    
+}
+
+
+extension ZLIssueTableViewCellData : ZLIssueTableViewCellDelegate {
+    func onCellClicked() -> Void {
+        let vc = ZLWebContentController.init()
+        vc.requestURL = URL.init(string: self.issueModel.html_url)
+        self.viewController?.navigationController?.pushViewController(vc, animated: true)
+    }
 }

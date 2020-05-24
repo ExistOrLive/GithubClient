@@ -265,11 +265,21 @@
             NSArray *articles = doc.Query(@"article");
             for(OCGumboElement *article in articles){
                 OCGumboElement *h1 =  article.Query(@"h1").firstObject;
+                OCGumboElement *p =  article.Query(@"p").firstObject;
                 OCGumboElement *a = h1.Query(@"a").firstObject;
                 NSString * fullName = a.attr(@"href");
+                NSCharacterSet * set = [NSCharacterSet characterSetWithCharactersInString:@"\n"];
+                NSString * desc = nil;
+                if(p){
+                    desc = [p.text() stringByTrimmingCharactersInSet:set];
+                }
                 if([fullName length] > 0){
                     ZLGithubRepositoryModel * model = [ZLGithubRepositoryModel new];
                     model.full_name = [fullName substringFromIndex:1];
+                    model.owner = [ZLGithubUserBriefModel new];
+                    model.owner.loginName = [fullName componentsSeparatedByString:@"/"].firstObject;
+                    model.name = [fullName componentsSeparatedByString:@"/"].lastObject;
+                    model.desc_Repo = desc;
                     [repoArray addObject:model];
                 }
             }

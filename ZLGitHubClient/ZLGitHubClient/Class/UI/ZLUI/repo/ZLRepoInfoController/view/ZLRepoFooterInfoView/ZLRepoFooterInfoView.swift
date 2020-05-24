@@ -35,9 +35,6 @@ class ZLRepoFooterInfoView: ZLBaseView {
         super.awakeFromNib()
         
         self.refreshButton.setTitle(ZLLocalizedString(string: "refresh", comment: "刷新"), for: .normal)
-        self.refreshButton.layer.cornerRadius = 5.0
-        self.refreshButton.layer.borderColor = UIColor.lightGray.cgColor
-        self.refreshButton.layer.borderWidth = 1.0
         
         self.markdownView?.isScrollEnabled = true
         self.addSubview(self.markdownView)

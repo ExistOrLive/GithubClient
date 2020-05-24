@@ -26,6 +26,7 @@
 #import "ZLKeyChainManager.h"
 #import "ZLToastView.h"
 #import "ZLDeviceInfo.h"
+#import "ZLSharedDataManager.h"
 
 // Service
 #import "ZLLoginServiceModel.h"
