@@ -164,6 +164,11 @@ NS_ASSUME_NONNULL_BEGIN
                            serialNumber:(NSString *) serialNumber
                          completeHandle:(void(^)(ZLOperationResultModel *)) handle;
 
+- (void) getRepoWatchersWithFullName:(NSString *) fullName
+                        serialNumber:(NSString *) serialNumber
+                      completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+
 #pragma mark - star repo
 
 - (void) starRepoWithFullName:(NSString *) fullName
@@ -178,6 +183,22 @@ NS_ASSUME_NONNULL_BEGIN
                            serialNumber:(NSString *) serialNumber
                          completeHandle:(void(^)(ZLOperationResultModel *)) handle;
 
+- (void) getRepoStargazersWithFullName:(NSString *) fullName
+                          serialNumber:(NSString *) serialNumber
+                        completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+
+
+#pragma mark - fork
+
+- (void) forkRepositoryWithFullName:(NSString *) fullName
+                                org:(NSString * __nullable) org
+                       serialNumber:(NSString *) serialNumber
+                     completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+- (void) getRepoForksWithFullName:(NSString *) fullName
+                     serialNumber:(NSString *) serialNumber
+                   completeHandle:(void(^)(ZLOperationResultModel *)) handle;
 
 
 @end

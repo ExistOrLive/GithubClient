@@ -61,14 +61,26 @@ extension ZLRepoHeaderInfoViewModel : ZLRepoHeaderInfoViewDelegate
 {
     func onZLRepoHeaderInfoViewEvent(event: ZLRepoHeaderInfoViewEvent){
         switch event{
-        case .copy: break
+        case .copy: do {
+            let vc : ZLRepoForkedReposController = ZLRepoForkedReposController.init()
+            vc.repoFullName = self.repoInfoModel?.full_name
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            }
         case .issue: do {
             let vc : ZLRepoIssuesController = ZLRepoIssuesController.init()
             vc.repoFullName = self.repoInfoModel?.full_name
             self.viewController?.navigationController?.pushViewController(vc, animated: true)
         }
-        case .star: break
-        case .watch: break
+        case .star: do {
+            let vc : ZLRepoStargazersController = ZLRepoStargazersController.init()
+            vc.repoFullName = self.repoInfoModel?.full_name
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            }
+        case .watch: do {
+            let vc : ZLRepoWatchedUsersController = ZLRepoWatchedUsersController.init()
+            vc.repoFullName = self.repoInfoModel?.full_name
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            }
         case .watchAction:do{
             if self.repoHeaderInfoView?.watchButton.isSelected == true {
                 self.watchRepo(watch: false)
@@ -84,7 +96,7 @@ extension ZLRepoHeaderInfoViewModel : ZLRepoHeaderInfoViewDelegate
             }
         }
         case .forkAction:do {
-            
+            self.forkRepo()
         }
             
         }
@@ -197,6 +209,22 @@ extension ZLRepoHeaderInfoViewModel{
             })
             
         }
+    }
+    
+    
+    func forkRepo() {
+        SVProgressHUD.show()
+        
+        ZLRepoServiceModel.shared().forkRepository(withFullName: self.repoInfoModel!.full_name, org: nil, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+            SVProgressHUD.dismiss()
+            
+            if(resultModel.result) {
+                ZLToastView.showMessage(ZLLocalizedString(string: "Fork Success", comment: "拷贝成功"))
+            } else {
+                ZLToastView.showMessage(ZLLocalizedString(string: "Fork Fail", comment: "拷贝失败"))
+            }
+            
+        })
     }
     
 }

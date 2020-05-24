@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -26,8 +26,8 @@
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="circle" value="YES"/>
                             </userDefinedRuntimeAttributes>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dasdas" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NcN-SZ-3x3" userLabel="nameLabel">
-                            <rect key="frame" x="30" y="85" width="54.5" height="22.5"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dasdas" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NcN-SZ-3x3" userLabel="nameLabel">
+                            <rect key="frame" x="30" y="85" width="393" height="22.5"/>
                             <fontDescription key="fontDescription" name="PingFangSC-Semibold" family="PingFang SC" pointSize="16"/>
                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -272,6 +272,7 @@
                         <constraint firstItem="NcN-SZ-3x3" firstAttribute="top" secondItem="5Ns-sz-mkf" secondAttribute="bottom" constant="10" id="G7q-o1-txj"/>
                         <constraint firstItem="5Ns-sz-mkf" firstAttribute="top" secondItem="15a-27-hPs" secondAttribute="top" constant="15" id="GCo-xY-ixB"/>
                         <constraint firstItem="NcN-SZ-3x3" firstAttribute="leading" secondItem="15a-27-hPs" secondAttribute="leading" constant="30" id="JQd-Rs-a2w"/>
+                        <constraint firstAttribute="trailing" secondItem="NcN-SZ-3x3" secondAttribute="trailing" constant="30" id="MbT-17-h8h"/>
                         <constraint firstItem="djF-Bw-mnc" firstAttribute="leading" secondItem="15a-27-hPs" secondAttribute="leading" constant="30" id="Nn8-VJ-hMB"/>
                         <constraint firstItem="5Ns-sz-mkf" firstAttribute="leading" secondItem="15a-27-hPs" secondAttribute="leading" constant="30" id="ToW-gU-PvM"/>
                         <constraint firstAttribute="bottom" secondItem="hta-JP-ru7" secondAttribute="bottom" constant="10" id="Uhj-z1-t7B"/>

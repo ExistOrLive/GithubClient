@@ -117,3 +117,18 @@
 "Unwatch Fail" = "取消关注失败";
 
 "Fork" = "拷贝";
+"Fork Success" = "拷贝成功";
+"Fork Fail" = "拷贝失败";
+
+"Follow" = "关注";
+"Unfollow" = "取消关注";
+"Follow Success" = "关注成功";
+"Follow Fail" = "关注失败";
+"Unfollow Success" = "取消关注成功";
+"Unfollow Fail" = "取消关注失败";
+
+"DateRange" = "时间范围";
+"Today" = "今天";
+"This Week" = "近一周";
+"This Month" = "近一月";
+

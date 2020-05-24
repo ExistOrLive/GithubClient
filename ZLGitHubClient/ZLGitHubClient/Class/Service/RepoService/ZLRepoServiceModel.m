@@ -490,29 +490,61 @@
                          completeHandle:(void(^)(ZLOperationResultModel *)) handle{
     
     if(fullName.length == 0 || ![fullName containsString:@"/"])
-      {
-          ZLLog_Info(@"fullName is not valid");
-          return;
-      }
-      
-      GithubResponse response = ^(BOOL  result, id responseObject, NSString * serialNumber)
-      {
-          ZLOperationResultModel * repoResultModel = [[ZLOperationResultModel alloc] init];
-          repoResultModel.result = result;
-          repoResultModel.serialNumber = serialNumber;
-          repoResultModel.data = responseObject;
-          
-          if(handle)
-          {
-              ZLMainThreadDispatch(handle(repoResultModel);)
-          }
-      };
-      
-      
-      [[ZLGithubHttpClient defaultClient] getWatchRepositoryStatus:response
-                                                          fullName:fullName
-                                                      serialNumber:serialNumber];
+    {
+        ZLLog_Info(@"fullName is not valid");
+        return;
+    }
+    
+    GithubResponse response = ^(BOOL  result, id responseObject, NSString * serialNumber)
+    {
+        ZLOperationResultModel * repoResultModel = [[ZLOperationResultModel alloc] init];
+        repoResultModel.result = result;
+        repoResultModel.serialNumber = serialNumber;
+        repoResultModel.data = responseObject;
+        
+        if(handle)
+        {
+            ZLMainThreadDispatch(handle(repoResultModel);)
+        }
+    };
+    
+    
+    [[ZLGithubHttpClient defaultClient] getWatchRepositoryStatus:response
+                                                        fullName:fullName
+                                                    serialNumber:serialNumber];
 }
+
+
+
+- (void) getRepoWatchersWithFullName:(NSString *) fullName
+                        serialNumber:(NSString *) serialNumber
+                      completeHandle:(void(^)(ZLOperationResultModel *)) handle{
+    
+    if(fullName.length == 0 || ![fullName containsString:@"/"])
+    {
+        ZLLog_Info(@"fullName is not valid");
+        return;
+    }
+    
+    GithubResponse response = ^(BOOL  result, id responseObject, NSString * serialNumber)
+    {
+        ZLOperationResultModel * repoResultModel = [[ZLOperationResultModel alloc] init];
+        repoResultModel.result = result;
+        repoResultModel.serialNumber = serialNumber;
+        repoResultModel.data = responseObject;
+        
+        if(handle)
+        {
+            ZLMainThreadDispatch(handle(repoResultModel);)
+        }
+    };
+    
+    [[ZLGithubHttpClient defaultClient] getRepoWatchers:response
+                                               fullName:fullName
+                                           serialNumber:serialNumber];
+}
+
+
 
 
 #pragma mark - star repo
@@ -599,6 +631,99 @@
                                                          fullName:fullName
                                                      serialNumber:serialNumber];
 }
+
+- (void) getRepoStargazersWithFullName:(NSString *) fullName
+                       serialNumber:(NSString *) serialNumber
+                        completeHandle:(void(^)(ZLOperationResultModel *)) handle{
+    
+    if(fullName.length == 0 || ![fullName containsString:@"/"])
+    {
+        ZLLog_Info(@"fullName is not valid");
+        return;
+    }
+    
+    GithubResponse response = ^(BOOL  result, id responseObject, NSString * serialNumber)
+    {
+        ZLOperationResultModel * repoResultModel = [[ZLOperationResultModel alloc] init];
+        repoResultModel.result = result;
+        repoResultModel.serialNumber = serialNumber;
+        repoResultModel.data = responseObject;
+        
+        if(handle)
+        {
+            ZLMainThreadDispatch(handle(repoResultModel);)
+        }
+    };
+    
+    
+    [[ZLGithubHttpClient defaultClient] getRepoStargazers:response
+                                                 fullName:fullName
+                                             serialNumber:serialNumber];
+    
+    
+}
+
+
+#pragma mark - fork
+
+- (void) forkRepositoryWithFullName:(NSString *) fullName
+                                org:(NSString * __nullable) org
+                       serialNumber:(NSString *) serialNumber
+                     completeHandle:(void(^)(ZLOperationResultModel *)) handle{
+    
+    if(fullName.length == 0 || ![fullName containsString:@"/"])
+        {
+            ZLLog_Info(@"fullName is not valid");
+            return;
+        }
+        
+        GithubResponse response = ^(BOOL  result, id responseObject, NSString * serialNumber)
+        {
+            ZLOperationResultModel * repoResultModel = [[ZLOperationResultModel alloc] init];
+            repoResultModel.result = result;
+            repoResultModel.serialNumber = serialNumber;
+            repoResultModel.data = responseObject;
+            
+            if(handle)
+            {
+                ZLMainThreadDispatch(handle(repoResultModel);)
+            }
+        };
+        
+        
+        [[ZLGithubHttpClient defaultClient] forkRepository:response
+                                                  fullName:fullName
+                                                       org:org
+                                              serialNumber:serialNumber];
+}
+
+
+- (void) getRepoForksWithFullName:(NSString *) fullName
+                     serialNumber:(NSString *) serialNumber
+                   completeHandle:(void(^)(ZLOperationResultModel *)) handle{
+    
+    if(fullName.length == 0 || ![fullName containsString:@"/"])
+    {
+        ZLLog_Info(@"fullName is not valid");
+        return;
+    }
+    
+    GithubResponse response = ^(BOOL  result, id responseObject, NSString * serialNumber)
+    {
+        ZLOperationResultModel * repoResultModel = [[ZLOperationResultModel alloc] init];
+        repoResultModel.result = result;
+        repoResultModel.serialNumber = serialNumber;
+        repoResultModel.data = responseObject;
+        
+        if(handle)
+        {
+            ZLMainThreadDispatch(handle(repoResultModel);)
+        }
+    };
+    
+    [[ZLGithubHttpClient defaultClient] getRepoForks:response fullName:fullName serialNumber:serialNumber];
+}
+
 
 
 @end

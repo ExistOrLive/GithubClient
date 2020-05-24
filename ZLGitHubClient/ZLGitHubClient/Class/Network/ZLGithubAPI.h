@@ -77,6 +77,8 @@
 
 #pragma mark following
 
+#define userFollowing             @"/user/following/%@"                // get 是否follow PUT follow delete unfollow
+
 #define followingUrl                 @"/user/following"                       // 当前用户的following
 #define userfollowingUrl             @"/users/%@/following"                   // 某用户的following
 
@@ -103,14 +105,19 @@
 
 #define repoSubscription      @"/repos/%@/subscription"            // get 是否订阅某个repo put订阅 delete 解除订阅
 
+#define repoSubscribers       @"/repos/%@/subscribers"            // repo 的 订阅者
+
 #pragma mark star
 
 #define repoStarred     @"/user/starred/%@"            // get 是否标星某个repo put标星 delete 解除标星
 
 
+#define repoStargazers  @"/repos/%@/stargazers"       // repo的 标星用户
+
+
 #pragma mark fork
 
-#define repoForks @"/repos/%@/forks"      //  fork repo 
+#define repoForks @"/repos/%@/forks"      //  get 获取repo的 forks / post fork repo
 
 
 

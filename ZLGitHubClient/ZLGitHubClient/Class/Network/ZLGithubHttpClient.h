@@ -285,6 +285,10 @@ NS_ASSUME_NONNULL_BEGIN
                  fullName:(NSString *) fullName
              serialNumber:(NSString *) serialNumber;
 
+- (void) getRepoStargazers:(GithubResponse) block
+                  fullName:(NSString *) fullName
+              serialNumber:(NSString *) serialNumber;
+
 
 #pragma mark - watch repo
 
@@ -300,13 +304,30 @@ NS_ASSUME_NONNULL_BEGIN
                   fullName:(NSString *) fullName
               serialNumber:(NSString *) serialNumber;
 
+- (void) getRepoWatchers:(GithubResponse) block
+                fullName:(NSString *) fullName
+            serialNumber:(NSString *) serialNumber;
+
 
 #pragma mark - fork repo
 
+
+/**
+ * @brief fork repo
+ * @param block 请求回调
+ * @param fullName octocat/Hello-World
+ * @param org 组织名  nil 默认fork至当前用户   非nil fork至org
+ **/
+
 - (void) forkRepository:(GithubResponse) block
+               fullName:(NSString *) fullName
                     org:(NSString * __nullable) org
            serialNumber:(NSString *) serialNumber;
 
+
+- (void) getRepoForks:(GithubResponse) block
+             fullName:(NSString *) fullName
+         serialNumber:(NSString *) serialNumber;
 
 
 
@@ -325,12 +346,24 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - followers
 
-
 - (void) getFollowersForUser:(GithubResponse) block
                    loginName:(NSString*) loginName
                         page:(NSUInteger) page
                     per_page:(NSUInteger) per_page
                 serialNumber:(NSString *) serialNumber;
+
+- (void) getUserFollowStatus: (GithubResponse) block
+                   loginName: (NSString *) loginName
+                serialNumber:(NSString *) serialNumber;
+
+- (void) followUser: (GithubResponse) block
+          loginName: (NSString *) loginName
+       serialNumber: (NSString *) serialNumber;
+
+- (void) unfollowUser: (GithubResponse) block
+            loginName: (NSString *) loginName
+         serialNumber: (NSString *) serialNumber;
+
 
 #pragma mark - following
 

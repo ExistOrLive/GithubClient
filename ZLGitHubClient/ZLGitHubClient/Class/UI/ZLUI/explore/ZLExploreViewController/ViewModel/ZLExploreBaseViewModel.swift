@@ -50,13 +50,13 @@ class ZLExploreBaseViewModel: ZLBaseViewModel {
     }
     
     func titleForDateRange(dateRange : ZLDateRange) -> String {
-        var title = "daily"
+        var title = ZLLocalizedString(string: "Today", comment: "")
         switch dateRange {
-        case ZLDateRangeDaily : title = "daily"
+        case ZLDateRangeDaily : title = ZLLocalizedString(string: "Today", comment: "")
             break
-        case ZLDateRangeWeakly : title = "weekly"
+        case ZLDateRangeWeakly : title = ZLLocalizedString(string: "This Week", comment: "")
             break
-        case ZLDateRangeMonthly : title = "monthly"
+        case ZLDateRangeMonthly : title = ZLLocalizedString(string: "This Month", comment: "")
             break
         default:
             break
@@ -196,6 +196,23 @@ extension ZLExploreBaseViewModel : ZLExploreBaseViewDelegate{
       
     func onDateRangeButtonClicked() -> Void {
         
+        switch self.baseView!.segmentedView.selectedIndex {
+        case 0:do{
+            ZLTrendingDateRangeSelectView.showTrendingDateRangeSelectView(initDateRange: ZLSharedDataManager.sharedInstance().dateRangeForTrendingRepo(), resultBlock: {(dateRange : ZLDateRange) in
+                self.baseView?.dateRangeButton.setTitle(self.titleForDateRange(dateRange: dateRange), for: .normal)
+                ZLSharedDataManager.sharedInstance().setDateRangeForTrendingRepo(dateRange)
+                self.baseView?.githubItemListViewArray[0].beginRefresh()
+            })
+            }
+        case 1:do{
+            ZLTrendingDateRangeSelectView.showTrendingDateRangeSelectView(initDateRange: ZLSharedDataManager.sharedInstance().dateRangeForTrendingUser(), resultBlock: {(dateRange : ZLDateRange) in
+                self.baseView?.dateRangeButton.setTitle(self.titleForDateRange(dateRange: dateRange), for: .normal)
+                ZLSharedDataManager.sharedInstance().setDateRangeForTrendingUser(dateRange)
+                self.baseView?.githubItemListViewArray[1].beginRefresh()
+            })
+            }
+        default:break
+        }
     }
     
     func onSegmentViewSelectedIndex(segmentView: JXSegmentedView, index : Int) -> Void {

@@ -9,6 +9,7 @@
 #import "ZLBaseServiceModel.h"
 #import "ZLUserServiceHeader.h"
 #import "ZLGithubUserModel.h"
+@class ZLOperationResultModel;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -56,6 +57,33 @@ NS_ASSUME_NONNULL_BEGIN
                                  location:(NSString * _Nullable) location
                                       bio:(NSString * _Nullable) bio
                              serialNumber:(NSString *) serialNumber;
+
+#pragma mark - follow
+
+/**
+ * @brief 获取user follow状态
+ * @param loginName 用户的登录名
+ **/
+- (void) getUserFollowStatusWithLoginName:(NSString *)loginName
+                             serialNumber:(NSString *) serialNumber
+                           completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+
+/**
+* @brief follow user
+* @param loginName 用户的登录名
+**/
+- (void) followUserWithLoginName:(NSString *)loginName
+                    serialNumber:(NSString *) serialNumber
+                  completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+/**
+* @brief unfollow user
+* @param loginName 用户的登录名
+**/
+- (void) unfollowUserWithLoginName:(NSString *)loginName
+                      serialNumber:(NSString *) serialNumber
+                    completeHandle:(void(^)(ZLOperationResultModel *)) handle;
 
 
 
