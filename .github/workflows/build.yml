@@ -39,7 +39,7 @@ jobs:
 
       run: |
         pwd 
-        bundle exec fastlane github_action_testFlight
+        bundle exec fastlane github_action_adhoc
         echo "ipa build success"
     - name: upload github artifact
       if: success()
