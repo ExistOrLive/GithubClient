@@ -198,8 +198,10 @@
 #pragma mark - JJException
 - (void) setUpJJException
 {
+#ifndef DEBUG
     [JJException configExceptionCategory:JJExceptionGuardAll];
     [JJException startGuardException];
+#endif
 }
 
 

@@ -38,14 +38,14 @@ class ZLFeedbackViewModel: ZLBaseViewModel {
         }
         
         let feedback = self.targetView?.feedbackTextView.text
-        let title = "Feedback: \(feedback!.prefix(10))"
+        let title = "Feedback: \(feedback!)"
         let body = "\(feedback!) \n >\(self.context ?? "")"
         let serialNumber = NSString.generateSerialNumber()
         
         weak var weakself = self
-        
+        SVProgressHUD.show()
         ZLRepoServiceModel.shared().createIssue(withFullName: "MengAndJie/GithubClient", title: title, body: body, labels: nil, assignees: nil, serialNumber:serialNumber, completeHandle: { (resultModel : ZLOperationResultModel) in
-            
+            SVProgressHUD.dismiss()
             if resultModel.result == true {
                 
                 ZLToastView .showMessage(ZLLocalizedString(string: "thanks for your feedback", comment: ""))

@@ -9,9 +9,15 @@
 import UIKit
 
 class ZLRepoBranchTableViewCell: UITableViewCell {
+    
+    override var isSelected: Bool {
+        didSet{
+            self.selectedTag?.isHidden = !self.isSelected
+        }
+    }
 
     var branchNameLabel : UILabel?
-    var currentBranchTag : UILabel?
+    var selectedTag : UIImageView?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,29 +30,31 @@ class ZLRepoBranchTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        self.selectedTag = UIImageView.init()
+        self.selectedTag?.image = UIImage.init(named: "selected")
+        self.contentView.addSubview(self.selectedTag!)
+        self.selectedTag?.snp.makeConstraints({ (make) in
+            make.left.equalToSuperview().offset(20)
+            make.size.equalTo(CGSize.init(width: 20, height: 20))
+            make.centerY.equalToSuperview()
+        })
+        
         self.branchNameLabel = UILabel.init()
-        self.branchNameLabel?.font = UIFont.init(name: Font_PingFangSCMedium, size: 14)
+        self.branchNameLabel?.textColor = ZLRGBValue_H(colorValue: 0x586069)
+        self.branchNameLabel?.font = UIFont.init(name: Font_PingFangSCRegular, size: 14)
         self.contentView.addSubview(self.branchNameLabel!)
         self.branchNameLabel!.snp.makeConstraints ({ (make) in
-            make.left.equalToSuperview().offset(15)
+            make.left.equalTo(self.selectedTag!.snp_right).offset(20)
             make.centerY.equalToSuperview()
         })
         
-        self.currentBranchTag = UILabel.init()
-        self.currentBranchTag?.textAlignment = .center
-        self.currentBranchTag?.font = UIFont.init(name: Font_PingFangSCMedium, size: 12)
-        self.currentBranchTag?.backgroundColor = ZLRGBValue_H(colorValue: 0x999999)
-        self.currentBranchTag?.textColor = ZLRGBValue_H(colorValue: 0x666666)
-        self.currentBranchTag?.text = ZLLocalizedString(string: "current", comment: "当前")
-        self.contentView.addSubview(self.currentBranchTag!)
-        self.currentBranchTag?.snp.makeConstraints({ (make) in
-            make.centerY.equalToSuperview()
-            make.right.equalToSuperview().offset(-20)
-            make.width.equalTo(40)
-          //  make.left.equalTo(self.branchNameLabel!.snp_right).offset(20)
-        })
-        self.currentBranchTag?.isHidden = true
-        
+        let view = UIView.init()
+        view.backgroundColor = ZLRGBValue_H(colorValue: 0xEAECEF)
+        self.contentView.addSubview(view)
+        view.snp.makeConstraints { (make) in
+            make.right.left.bottom.equalToSuperview()
+            make.height.equalTo(1)
+        }
     }
     
     required init?(coder: NSCoder) {

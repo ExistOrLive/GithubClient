@@ -77,6 +77,7 @@ NS_ASSUME_NONNULL_BEGIN
  **/
 
 - (void) getRepoCommitWithFullName:(NSString *) fullName
+                            branch:(NSString * __nullable) branch
                              until:(NSDate * __nullable) untilDate
                              since:(NSDate * __nullable) sinceDate
                       serialNumber:(NSString *) serialNumber
@@ -148,6 +149,56 @@ NS_ASSUME_NONNULL_BEGIN
                     serialNumber:(NSString *) serialNumber
                   completeHandle:(void(^)(ZLOperationResultModel *)) handle;
 
+
+#pragma mark - subscription
+
+- (void) watchRepoWithFullName:(NSString *) fullName
+                  serialNumber:(NSString *) serialNumber
+                completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+- (void) unwatchRepoWithFullName:(NSString *) fullName
+                    serialNumber:(NSString *) serialNumber
+                  completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+- (void) getRepoWatchStatusWithFullName:(NSString *) fullName
+                           serialNumber:(NSString *) serialNumber
+                         completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+- (void) getRepoWatchersWithFullName:(NSString *) fullName
+                        serialNumber:(NSString *) serialNumber
+                      completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+
+#pragma mark - star repo
+
+- (void) starRepoWithFullName:(NSString *) fullName
+                  serialNumber:(NSString *) serialNumber
+                completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+- (void) unstarRepoWithFullName:(NSString *) fullName
+                    serialNumber:(NSString *) serialNumber
+                  completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+- (void) getRepoStarStatusWithFullName:(NSString *) fullName
+                           serialNumber:(NSString *) serialNumber
+                         completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+- (void) getRepoStargazersWithFullName:(NSString *) fullName
+                          serialNumber:(NSString *) serialNumber
+                        completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+
+
+#pragma mark - fork
+
+- (void) forkRepositoryWithFullName:(NSString *) fullName
+                                org:(NSString * __nullable) org
+                       serialNumber:(NSString *) serialNumber
+                     completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+- (void) getRepoForksWithFullName:(NSString *) fullName
+                     serialNumber:(NSString *) serialNumber
+                   completeHandle:(void(^)(ZLOperationResultModel *)) handle;
 
 
 @end
