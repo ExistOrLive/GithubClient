@@ -22,8 +22,7 @@
 @synthesize githubAccessToken = _githubAccessToken;
 @synthesize trendingOptions = _trendingOptions;
 
-+ (instancetype) sharedInstance
-{
++ (instancetype) sharedInstance{
     static ZLSharedDataManager * manager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -35,27 +34,21 @@
 
 #pragma mark -
 
-- (void) setUserInfoModel:(ZLGithubUserModel * _Nullable)userInfoModel
-{
-    if(userInfoModel)
-    {
+- (void) setUserInfoModel:(ZLGithubUserModel * _Nullable)userInfoModel{
+    if(userInfoModel){
         _userInfoModel = userInfoModel;
         NSData * data = [NSKeyedArchiver archivedDataWithRootObject:userInfoModel];
         [[NSUserDefaults standardUserDefaults] setObject:data forKey:@"userInfoModel"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
-    else
-    {
+    else{
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userInfoModel"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
-    
 }
 
-- (ZLGithubUserModel *) userInfoModel
-{
-    if(!_userInfoModel)
-    {
+- (ZLGithubUserModel *) userInfoModel{
+    if(!_userInfoModel){
         _userInfoModel = [NSKeyedUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults] objectForKey:@"userInfoModel"]];
     }
     return _userInfoModel;
@@ -66,37 +59,17 @@
 
 #pragma mark -
 
-- (void) setGithubAccessToken:(NSString * _Nullable)githubAccessToken
-{
+- (void) setGithubAccessToken:(NSString * _Nullable)githubAccessToken{
     _githubAccessToken = githubAccessToken;
-    
-    NSMutableDictionary * keychainInfo = [ZLKeyChainManager load:ZLKeyChainService];
-    if(!keychainInfo)
-    {
-        keychainInfo = [[NSMutableDictionary alloc] init];
-    }
-    
-    if(githubAccessToken)
-    {
-        [keychainInfo setObject:githubAccessToken forKey:ZLAccessTokenKey];
-    }
-    else
-    {
-        [keychainInfo removeObjectForKey:ZLAccessTokenKey];
-    }
-    [ZLKeyChainManager save:ZLKeyChainService data:keychainInfo];
-    
+    [[NSUserDefaults standardUserDefaults] setObject:githubAccessToken forKey:ZLAccessTokenKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-- (NSString *) githubAccessToken
-{
-    if(!_githubAccessToken)
-    {
-        NSMutableDictionary * keychainInfo = [ZLKeyChainManager load:ZLKeyChainService];
-        _githubAccessToken = [keychainInfo objectForKey:ZLAccessTokenKey];
+- (NSString *) githubAccessToken{
+    if(!_githubAccessToken){
+        _githubAccessToken = [[NSUserDefaults standardUserDefaults] objectForKey:ZLAccessTokenKey];
     }
     return _githubAccessToken;
-    
 }
 
 #pragma mark -
@@ -182,10 +155,7 @@
 
 #pragma mark -
 
-
-
-- (void) clearGithubTokenAndUserInfo
-{
+- (void) clearGithubTokenAndUserInfo{
     [self setUserInfoModel:nil];
     [self setGithubAccessToken:nil];
 }

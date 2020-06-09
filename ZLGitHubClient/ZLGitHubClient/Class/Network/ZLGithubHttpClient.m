@@ -303,6 +303,25 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 }
 
 
+- (void) checkTokenIsValid:(GithubResponse) block
+                     token:(NSString *) token
+              serialNumber:(NSString *) serialNumber{
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,currenUserUrl];
+    
+    [self.sessionManager GET:url
+                  parameters:@{}
+                    progress:nil
+                     success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        
+    }
+                     failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+    }];
+}
+
+
 
 - (void) logout:(GithubResponse) block
    serialNumber:(NSString *) serialNumber

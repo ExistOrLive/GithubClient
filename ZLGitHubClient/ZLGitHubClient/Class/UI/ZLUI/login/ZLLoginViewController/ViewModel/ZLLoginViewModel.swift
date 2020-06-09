@@ -87,8 +87,22 @@ class ZLLoginViewModel: ZLBaseViewModel,ZLLoginBaseViewDelegate {
         ZLLoginServiceModel.shared().startOAuth(self.loginSerialNumber!)
         
         self.reloadView()
-       
     }
+    
+    func onAccessTokenButtonClicked() {
+        
+        ZLInputAccessTokenView.showInputAccessTokenViewWithResultBlock(resultBlock: {(token : String?) in
+            if token == nil {
+                ZLToastView.showMessage(ZLLocalizedString(string: "token is nil", comment: ""))
+                return
+            }
+            
+            
+            
+            
+        })
+    }
+    
     
     
     // MARK: onNotificationArrived

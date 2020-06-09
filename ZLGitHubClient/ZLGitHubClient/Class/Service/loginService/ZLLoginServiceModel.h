@@ -45,6 +45,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) getAccessToken:(NSString *) queryString
            serialNumber:(NSString *) serialNumber;
 
+
+
+
 @end
 
 NS_ASSUME_NONNULL_END
