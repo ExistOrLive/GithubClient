@@ -121,7 +121,10 @@ extension ZLRepoItemInfoViewModel : ZLRepoItemInfoViewDelegate
             self.viewController?.navigationController?.pushViewController(controller, animated: true)
             }
         case .code : do{
-            let controller = ZLRepoContentController.init(repoFullName: self.repoInfoModel!.full_name, branch : self.currentBranch ?? self.repoInfoModel!.default_branch)
+            let subContentController = ZLRepoSubContentController.init(repoFullName: self.repoInfoModel!.full_name,
+                                                                       path: "",
+                                                                       branch: self.currentBranch ?? self.repoInfoModel!.default_branch)
+            let controller = ZLBaseNavigationController.init(rootViewController: subContentController);
             controller.modalPresentationStyle = .fullScreen
             self.viewController?.present(controller, animated: true, completion: nil)
             }
