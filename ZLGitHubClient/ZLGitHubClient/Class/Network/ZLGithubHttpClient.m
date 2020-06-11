@@ -309,16 +309,42 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     
     NSString *url = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,currenUserUrl];
     
-    [self.sessionManager GET:url
-                  parameters:@{}
-                    progress:nil
-                     success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    __weak typeof(self) weakSelf = self;
+    void(^successBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
+    ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+    {
+        weakSelf.token = token;
+        [[ZLSharedDataManager sharedInstance] setGithubAccessToken:weakSelf.token];
         
-        
-    }
-                     failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
-    }];
+        ZLLoginProcessModel * processModel = [[ZLLoginProcessModel alloc] init];
+        processModel.result = YES;
+        processModel.loginStep = ZLLoginStep_Success;
+        processModel.serialNumber = serialNumber;
+        block(YES,processModel,serialNumber);
+    };
+    
+    void(^failedBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
+    ^(NSURLSessionDataTask * _Nonnull task, NSError *  error)
+    {
+        ZLLoginProcessModel * processModel = [[ZLLoginProcessModel alloc] init];
+        processModel.result = false;
+        processModel.loginStep = ZLLoginStep_init;
+        processModel.serialNumber = serialNumber;
+        block(NO,processModel,serialNumber);
+    };
+    
+    NSURLSessionConfiguration *httpConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+    AFHTTPSessionManager *sessionManager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:httpConfig];
+    sessionManager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [sessionManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [sessionManager.requestSerializer setValue:[NSString stringWithFormat:@"token %@",token] forHTTPHeaderField:@"Authorization"];
+    sessionManager.completionQueue = self.sessionManager.completionQueue;
+    
+    [sessionManager GET:url
+             parameters:@{}
+               progress:nil
+                success:successBlock
+                failure:failedBlock];
 }
 
 

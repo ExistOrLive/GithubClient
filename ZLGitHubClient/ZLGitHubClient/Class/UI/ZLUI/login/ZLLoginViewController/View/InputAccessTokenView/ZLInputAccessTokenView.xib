@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -17,19 +17,19 @@
                     <rect key="frame" x="0.0" y="0.0" width="562" height="200"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Input Access Token" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MnR-cR-PDU">
-                            <rect key="frame" x="10" y="10" width="140" height="21"/>
+                            <rect key="frame" x="10" y="20" width="140" height="21"/>
                             <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="15"/>
                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Access Token" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b0l-nh-u8a">
-                            <rect key="frame" x="10" y="51" width="542" height="40"/>
+                            <rect key="frame" x="10" y="61" width="542" height="40"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="V1h-6k-8z0"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits" returnKeyType="search"/>
+                            <textInputTraits key="textInputTraits" returnKeyType="done"/>
                         </textField>
                         <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pov-vI-gca">
                             <rect key="frame" x="156" y="140" width="250" height="40"/>
@@ -51,7 +51,10 @@
                                     <real key="value" value="0.5"/>
                                 </userDefinedRuntimeAttribute>
                                 <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                    <color key="value" red="0.76862745099999996" green="0.7843137255" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="5"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                             <connections>
@@ -62,7 +65,7 @@
                     <color key="backgroundColor" red="0.96470588239999999" green="0.97254901959999995" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="pov-vI-gca" firstAttribute="centerX" secondItem="OJJ-nQ-SaN" secondAttribute="centerX" id="7Ug-7p-8Hu"/>
-                        <constraint firstItem="MnR-cR-PDU" firstAttribute="top" secondItem="OJJ-nQ-SaN" secondAttribute="top" constant="10" id="SUb-4w-N3D"/>
+                        <constraint firstItem="MnR-cR-PDU" firstAttribute="top" secondItem="OJJ-nQ-SaN" secondAttribute="top" constant="20" id="SUb-4w-N3D"/>
                         <constraint firstAttribute="bottom" secondItem="pov-vI-gca" secondAttribute="bottom" constant="20" id="UV8-Ch-umG"/>
                         <constraint firstItem="b0l-nh-u8a" firstAttribute="leading" secondItem="OJJ-nQ-SaN" secondAttribute="leading" constant="10" id="Z61-TI-a7r"/>
                         <constraint firstAttribute="trailing" secondItem="b0l-nh-u8a" secondAttribute="trailing" constant="10" id="aaj-18-jeJ"/>
@@ -79,6 +82,11 @@
                 <constraint firstItem="OJJ-nQ-SaN" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="lkg-r7-cJR"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                    <real key="value" value="8"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="confirmButton" destination="pov-vI-gca" id="jR8-A4-Hdc"/>
                 <outlet property="textField" destination="b0l-nh-u8a" id="3Uc-lT-bej"/>

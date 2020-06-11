@@ -14,6 +14,7 @@ typedef enum : NSUInteger {
     ZLLoginStep_checkIsLogined,
     ZLLoginStep_logining,
     ZLLoginStep_getToken,
+    ZLLoginStep_checkToken,
     ZLLoginStep_Success,
 } ZLLoginStep;
 

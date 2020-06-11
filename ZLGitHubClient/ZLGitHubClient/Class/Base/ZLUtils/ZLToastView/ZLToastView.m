@@ -11,21 +11,18 @@
 
 @implementation ZLToastView
 
-+ (void) showMessage:(NSString *) message
-{
++ (void) showMessage:(NSString *) message{
     UIWindow * keyWindow = [UIApplication sharedApplication].keyWindow;
-    [keyWindow makeToast:message];
+    [keyWindow makeToast:message duration:3.0 position:CSToastPositionCenter];
 }
 
-+ (void) showMessage:(NSString *)message duration:(NSTimeInterval) duration;
-{
++ (void) showMessage:(NSString *)message duration:(NSTimeInterval) duration;{
     UIWindow * keyWindow = [UIApplication sharedApplication].keyWindow;
-    [keyWindow makeToast:message duration:duration position:CSToastPositionBottom];
+    [keyWindow makeToast:message duration:duration position:CSToastPositionCenter];
 }
 
-+ (void) showMessage:(NSString *)message duration:(NSTimeInterval) duration sourceView:(UIView *) view
-{
-    [view makeToast:message duration:duration position:CSToastPositionBottom];
++ (void) showMessage:(NSString *)message duration:(NSTimeInterval) duration sourceView:(UIView *) view{
+    [view makeToast:message duration:duration position:CSToastPositionCenter];
 }
 
 @end

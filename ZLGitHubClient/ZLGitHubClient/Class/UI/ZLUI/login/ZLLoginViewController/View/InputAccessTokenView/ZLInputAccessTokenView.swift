@@ -23,10 +23,13 @@ class ZLInputAccessTokenView: ZLBaseView {
          }
          view.resultBlock = resultBlock
          
-         view.frame = CGRect.init(x: 0, y: 0, width: ZLScreenWidth - 300, height: 200)
+         view.frame = CGRect.init(x: 0, y: 0, width: ZLScreenWidth - 80, height: 190)
          let popup = FFPopup.popup(contetnView: view, showType: .bounceIn, dismissType: .bounceOut, maskType: FFPopup.MaskType.dimmed, dismissOnBackgroundTouch: true, dismissOnContentTouch: false)
          view.popup = popup
-         popup.show(layout: .Center)
+        let layout = FFPopupLayout.init(horizontal: .center, vertical: .aboveCenter)
+        popup.show(layout:layout)
+        
+        view.textField.becomeFirstResponder()
     }
     
     
@@ -47,6 +50,11 @@ class ZLInputAccessTokenView: ZLBaseView {
 extension ZLInputAccessTokenView: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if string == "\n" {
+            textField.resignFirstResponder()
+            return false
+        }
         
         let textStr : NSString? = self.textField.text as NSString?
         let text : String = textStr?.replacingCharacters(in: range, with: string) ?? ""
