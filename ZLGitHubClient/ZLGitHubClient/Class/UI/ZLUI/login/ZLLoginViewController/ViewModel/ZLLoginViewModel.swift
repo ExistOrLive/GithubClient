@@ -152,7 +152,7 @@ class ZLLoginViewModel: ZLBaseViewModel,ZLLoginBaseViewDelegate {
                 {
                     self.baseView?.activityIndicator.isHidden = true;
                     let appDelegate:AppDelegate  = UIApplication.shared.delegate! as! AppDelegate;
-                    appDelegate.switchToMainController();
+                    appDelegate.switch(toMainController: true);
                 }
             }
             

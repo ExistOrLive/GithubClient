@@ -14,7 +14,7 @@
 
 - (void) drawRect:(CGRect)rect
 {
-    UIImage * image = [UIImage imageNamed:@"timg"];
+    UIImage * image = [UIImage imageNamed:@"icon"];
 
     NSMutableAttributedString * attributedString = [[NSMutableAttributedString alloc] initWithString:@"Github"];
     
