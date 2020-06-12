@@ -36,7 +36,7 @@
 "lastest update" = "lastest update";
 "all update" = "all update";
 
-"login" = "login";
+"login" = "Login";
 "logout" = "Logout";
 
 "fork :" = "fork :";
@@ -133,3 +133,14 @@
 "Today" = "Today";
 "This Week" = "This Week";
 "This Month" = "This Month";
+
+"Input Access Token" = "Input Access Token";
+
+
+// login
+
+"ZLLoginStep_checkIsLogined" = "Checking if is Logined";
+"ZLLoginStep_logining" = "Logining";
+"ZLLoginStep_getToken" = "Getting Token";
+"ZLLoginStep_checkToken" = "Checking if Token is valid";
+"ZLLoginStep_Success" = "Login successFully";

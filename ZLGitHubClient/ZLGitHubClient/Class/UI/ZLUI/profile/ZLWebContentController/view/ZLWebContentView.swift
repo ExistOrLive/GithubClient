@@ -102,16 +102,20 @@ class ZLWebContentView: ZLBaseView {
     
     func setUpToolBar()
     {
-        let backBarButtonItem : UIBarButtonItem = UIBarButtonItem.init(title: "上一页", style: .plain, target: self, action: #selector(onGoBackButtonClicked))
+        let backBarButtonItem : UIBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "back"), style: .plain, target: self, action: #selector(onGoBackButtonClicked))
         backBarButtonItem.isEnabled = false
+        backBarButtonItem.width = 60
         self.backBarButtonItem = backBarButtonItem
         
-        let forwardBarButtonItem : UIBarButtonItem = UIBarButtonItem.init(title: "下一页", style: .plain, target: self, action: #selector(onGoForwardButtonClicked))
+        let forwardBarButtonItem : UIBarButtonItem =  UIBarButtonItem.init(image: UIImage.init(named: "next"), style: .plain, target: self, action: #selector(onGoForwardButtonClicked))
         forwardBarButtonItem.isEnabled = false
+        forwardBarButtonItem.width = 60
         self.forwardBarButtonItem = forwardBarButtonItem
         
-        let reloadOrStoploadBarButtonItem : UIBarButtonItem = UIBarButtonItem.init(title: "停止加载", style:.plain, target: self, action: #selector(onReloadOrStopLoadButtonCicked))
+        let reloadOrStoploadBarButtonItem : UIBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "close"), style: .plain, target: self, action: #selector(onReloadOrStopLoadButtonCicked))
+        reloadOrStoploadBarButtonItem.width = 60
         self.reloadOrStoploadBarButtonItem = reloadOrStoploadBarButtonItem
+        
         
         let barButtonItems = [backBarButtonItem,forwardBarButtonItem,reloadOrStoploadBarButtonItem]
         
@@ -186,7 +190,7 @@ extension ZLWebContentView
     {
         self.progressView.isHidden = false
         self.progressView.progress = ZLWebContentProgress.sendRequest.rawValue
-        self.reloadOrStoploadBarButtonItem?.title = "停止加载"
+        self.reloadOrStoploadBarButtonItem?.image = UIImage.init(named: "close")
         self.isLoading = true
     }
     
@@ -200,7 +204,7 @@ extension ZLWebContentView
     {
         self.progressView.isHidden = true
         self.progressView.progress = ZLWebContentProgress.getResponse.rawValue
-        self.reloadOrStoploadBarButtonItem?.title = "重新加载"
+        self.reloadOrStoploadBarButtonItem?.image = UIImage.init(named: "reload")
         self.isLoading = false
     }
     
@@ -214,7 +218,7 @@ extension ZLWebContentView
     {
         self.progressView.isHidden = true
         self.progressView.progress = ZLWebContentProgress.endLoad.rawValue
-        self.reloadOrStoploadBarButtonItem?.title = "重新加载"
+        self.reloadOrStoploadBarButtonItem?.image = UIImage.init(named: "reload")
         self.isLoading = false
     }
 }

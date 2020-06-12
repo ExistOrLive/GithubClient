@@ -41,6 +41,15 @@ NS_ASSUME_NONNULL_BEGIN
    serialNumber:(NSString *) serialNumber;
 
 
+/**
+ * 检查token是否有效；用于直接输入token
+*
+ */
+- (void) checkTokenIsValid:(GithubResponse) block
+                     token:(NSString *) token
+              serialNumber:(NSString *) serialNumber;
+
+
 #pragma mark - users
 
 /**

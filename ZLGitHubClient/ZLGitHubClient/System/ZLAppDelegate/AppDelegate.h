@@ -15,9 +15,9 @@
 
 #pragma mark -
 
-- (void) switchToMainController;
+- (void) switchToMainController:(BOOL) animated;
 
-- (void) switchToLoginController;
+- (void) switchToLoginController:(BOOL) animated;
 
 
 @end
