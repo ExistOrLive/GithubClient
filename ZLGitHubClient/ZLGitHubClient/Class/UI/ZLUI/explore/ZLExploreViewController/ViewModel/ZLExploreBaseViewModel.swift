@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import JXSegmentedView
 
 class ZLExploreBaseViewModel: ZLBaseViewModel {
     
+    // view
     var baseView : ZLExploreBaseView?
     
     deinit {
@@ -31,25 +33,58 @@ class ZLExploreBaseViewModel: ZLBaseViewModel {
         for itemListView in self.baseView!.githubItemListViewArray{
             itemListView.beginRefresh()
         }
+        
+        switch self.baseView!.segmentedView.selectedIndex {
+        case 0:do{
+            self.baseView!.languageLabel.text = ZLSharedDataManager.sharedInstance().lanaguageForTrendingRepo() ?? "Any"
+            let title = self.titleForDateRange(dateRange: ZLSharedDataManager.sharedInstance().dateRangeForTrendingRepo())
+            self.baseView!.dateRangeButton.setTitle(ZLLocalizedString(string: title, comment: ""), for: .normal)
+            }
+        case 1:do{
+            self.baseView!.languageLabel.text = ZLSharedDataManager.sharedInstance().lanaguageForTrendingUser() ?? "Any"
+            let title = self.titleForDateRange(dateRange: ZLSharedDataManager.sharedInstance().dateRangeForTrendingUser())
+            self.baseView!.dateRangeButton.setTitle(ZLLocalizedString(string: title, comment: ""), for: .normal)
+            }
+        default:break
+        }
     }
     
-
-    @IBAction func onSearchButtonClicked(_ sender: Any) {
-       let vc = ZLSearchController()
-       vc.hidesBottomBarWhenPushed = true
-       self.viewController?.navigationController?.pushViewController(vc, animated: true)
+    func titleForDateRange(dateRange : ZLDateRange) -> String {
+        var title = ZLLocalizedString(string: "Today", comment: "")
+        switch dateRange {
+        case ZLDateRangeDaily : title = ZLLocalizedString(string: "Today", comment: "")
+            break
+        case ZLDateRangeWeakly : title = ZLLocalizedString(string: "This Week", comment: "")
+            break
+        case ZLDateRangeMonthly : title = ZLLocalizedString(string: "This Month", comment: "")
+            break
+        default:
+            break
+        }
+        return title
     }
     
-
     @objc func onNotificationArrived(notication: Notification)
     {
         ZLLog_Info("notificaition[\(notication) arrived]")
         
         switch notication.name
         {
-        case ZLLanguageTypeChange_Notificaiton:do
-        {
+        case ZLLanguageTypeChange_Notificaiton:do{
             self.baseView?.justReloadView()
+            
+            switch self.baseView!.segmentedView.selectedIndex {
+            case 0:do{
+                let dateRange =  ZLSharedDataManager.sharedInstance().dateRangeForTrendingRepo()
+                self.baseView!.dateRangeButton.setTitle(self.titleForDateRange(dateRange: dateRange), for: .normal)
+                }
+            case 1:do{
+                let dateRange = ZLSharedDataManager.sharedInstance().dateRangeForTrendingUser()
+                self.baseView!.dateRangeButton.setTitle(self.titleForDateRange(dateRange: dateRange), for: .normal)
+                }
+            default:break
+            }
+            
             }
         default:
             break;
@@ -62,7 +97,9 @@ extension ZLExploreBaseViewModel{
     func getTrendRepo() -> Void {
         weak var weakSelf = self
         
-        ZLSearchServiceModel.shared().trending(with:.repositories, language: nil, dateRange: ZLDateRangeDaily, serialNumber: NSString.generateSerialNumber(), completeHandle: { (model:ZLOperationResultModel) in
+        let dateRange = ZLSharedDataManager.sharedInstance().dateRangeForTrendingRepo()
+        let language = ZLSharedDataManager.sharedInstance().lanaguageForTrendingRepo()
+        ZLSearchServiceModel.shared().trending(with:.repositories, language: language, dateRange: dateRange, serialNumber: NSString.generateSerialNumber(), completeHandle: { (model:ZLOperationResultModel) in
     
             if model.result == true {
                 guard let repoArray : [ZLGithubRepositoryModel] = model.data as?  [ZLGithubRepositoryModel] else {
@@ -90,7 +127,9 @@ extension ZLExploreBaseViewModel{
     func getTrendUser() -> Void {
         
         weak var weakSelf = self
-        ZLSearchServiceModel.shared().trending(with:.users, language: nil, dateRange: ZLDateRangeDaily, serialNumber: NSString.generateSerialNumber(), completeHandle: { (model:ZLOperationResultModel) in
+        let dateRange = ZLSharedDataManager.sharedInstance().dateRangeForTrendingUser()
+        let language = ZLSharedDataManager.sharedInstance().lanaguageForTrendingUser()
+        ZLSearchServiceModel.shared().trending(with:.users, language: language, dateRange: dateRange, serialNumber: NSString.generateSerialNumber(), completeHandle: { (model:ZLOperationResultModel) in
             
             if model.result == true {
                 guard let userArray : [ZLGithubUserModel] = model.data as?  [ZLGithubUserModel] else {
@@ -143,5 +182,65 @@ extension ZLExploreBaseViewModel : ZLExploreBaseViewDelegate{
         return [ZLLocalizedString(string: "repositories", comment: ""),ZLLocalizedString(string: "users", comment: "")]
     }
     
+    func onSearchButtonClicked() -> Void {
+        let vc = ZLSearchController()
+        vc.hidesBottomBarWhenPushed = true
+        self.viewController?.navigationController?.pushViewController(vc, animated: true)
+    }
+      
+    func onLanguageButtonClicked() -> Void {
+        ZLLanguageSelectView.showLanguageSelectView(resultBlock: { (language : String?) in
+           self.baseView!.languageLabel.text = language ?? "Any"
+           switch self.baseView!.segmentedView.selectedIndex {
+            case 0:do{
+                ZLSharedDataManager.sharedInstance().setLanguageForTrendingRepo(language)
+                self.baseView?.githubItemListViewArray[0].beginRefresh()
+                }
+            case 1:do{
+                ZLSharedDataManager.sharedInstance().setLanguageForTrendingUser(language)
+                self.baseView?.githubItemListViewArray[1].beginRefresh()
+                }
+            default:break
+            }
+            
+        })
+    }
+      
+    func onDateRangeButtonClicked() -> Void {
+        
+        switch self.baseView!.segmentedView.selectedIndex {
+        case 0:do{
+            ZLTrendingDateRangeSelectView.showTrendingDateRangeSelectView(initDateRange: ZLSharedDataManager.sharedInstance().dateRangeForTrendingRepo(), resultBlock: {(dateRange : ZLDateRange) in
+                self.baseView?.dateRangeButton.setTitle(self.titleForDateRange(dateRange: dateRange), for: .normal)
+                ZLSharedDataManager.sharedInstance().setDateRangeForTrendingRepo(dateRange)
+                self.baseView?.githubItemListViewArray[0].beginRefresh()
+            })
+            }
+        case 1:do{
+            ZLTrendingDateRangeSelectView.showTrendingDateRangeSelectView(initDateRange: ZLSharedDataManager.sharedInstance().dateRangeForTrendingUser(), resultBlock: {(dateRange : ZLDateRange) in
+                self.baseView?.dateRangeButton.setTitle(self.titleForDateRange(dateRange: dateRange), for: .normal)
+                ZLSharedDataManager.sharedInstance().setDateRangeForTrendingUser(dateRange)
+                self.baseView?.githubItemListViewArray[1].beginRefresh()
+            })
+            }
+        default:break
+        }
+    }
+    
+    func onSegmentViewSelectedIndex(segmentView: JXSegmentedView, index : Int) -> Void {
+        switch index {
+        case 0:do{
+            self.baseView!.languageLabel.text = ZLSharedDataManager.sharedInstance().lanaguageForTrendingRepo() ?? "Any"
+            let title = self.titleForDateRange(dateRange: ZLSharedDataManager.sharedInstance().dateRangeForTrendingRepo())
+            self.baseView!.dateRangeButton.setTitle(ZLLocalizedString(string: title, comment: ""), for: .normal)
+            }
+        case 1:do{
+            self.baseView!.languageLabel.text = ZLSharedDataManager.sharedInstance().lanaguageForTrendingUser() ?? "Any"
+            let title = self.titleForDateRange(dateRange: ZLSharedDataManager.sharedInstance().dateRangeForTrendingUser())
+            self.baseView!.dateRangeButton.setTitle(ZLLocalizedString(string: title, comment: ""), for: .normal)
+            }
+        default:break
+        }
+    }
     
 }

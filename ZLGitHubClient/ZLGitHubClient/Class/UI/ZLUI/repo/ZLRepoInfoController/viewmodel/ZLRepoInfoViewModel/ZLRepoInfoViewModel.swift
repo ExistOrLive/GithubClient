@@ -52,7 +52,7 @@ class ZLRepoInfoViewModel: ZLBaseViewModel {
         }
         self.repoInfoModel = repoInfoModel
         
-        self.setViewDataForRepoInfoView()
+        self.setViewDataForRepoInfoView() 
         
         ZLRepoServiceModel.shared().registerObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLGetSpecifiedRepoInfoResult_Notification)
         

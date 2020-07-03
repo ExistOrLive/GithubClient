@@ -34,6 +34,8 @@ class ZLUserInfoView: ZLBaseView {
     @IBOutlet weak var emailInfoLabel: UILabel!
     @IBOutlet weak var blogInfoLabel: UILabel!
     
+    @IBOutlet weak var followButton: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.headImageView.layer.cornerRadius = 30.0;
@@ -51,6 +53,11 @@ class ZLUserInfoView: ZLBaseView {
         self.addrLabel.text = ZLLocalizedString(string:"location", comment: "地址")
         self.emailLabel.text = ZLLocalizedString(string:"email", comment: "邮箱")
         self.blogLabel.text = ZLLocalizedString(string:"blog", comment: "博客")
+        
+        self.followButton.setTitle(ZLLocalizedString(string: "Follow", comment: ""), for: .normal)
+        self.followButton.setTitle(ZLLocalizedString(string: "Unfollow", comment: "Unfollow"), for: .selected)
+        
+        
     }
 
 }

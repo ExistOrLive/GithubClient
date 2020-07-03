@@ -97,6 +97,7 @@
                                 per_page:(NSUInteger)per_page
                             serialNumber:(NSString *)serialNumber
 {
+    
     __weak typeof(self) weakSelf = self;
     GithubResponse responseBlock = ^(BOOL result, id _Nullable responseObject, NSString * serialNumber) {
 

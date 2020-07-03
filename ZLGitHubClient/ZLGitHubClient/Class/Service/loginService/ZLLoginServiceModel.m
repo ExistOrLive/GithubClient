@@ -67,7 +67,7 @@
     
 }
 
-    
+
 /**
  *
  * 当前登陆的过程
@@ -83,7 +83,7 @@
     self.currentLoginSerialNumber = serialNumber;
     
     __weak typeof(self) weakSelf = self;
-   
+    
     [[ZLGithubHttpClient defaultClient] startOAuth:^(BOOL result, id _Nullable response, NSString * _Nonnull serialNumber) {
         
         ZLLoginProcessModel * processModel = (ZLLoginProcessModel *)response;
@@ -106,12 +106,12 @@
                 self.step = ZLLoginStep_init;
                 self.currentLoginSerialNumber = nil;
             }
-        
+            
             [weakSelf postNotification:ZLLoginResult_Notification withParams:processModel];
         });
-                
+        
     } serialNumber:serialNumber];
-   
+    
 }
 
 - (void) getAccessToken:(NSString *) queryString
@@ -124,11 +124,11 @@
     }
     
     self.step = ZLLoginStep_getToken;
-
+    
     __weak typeof(self) weakSelf = self;
     [[ZLGithubHttpClient defaultClient] getAccessToken:^(BOOL result, id _Nullable response, NSString * _Nonnull serialNumber) {
         
-         ZLLoginProcessModel * processModel = (ZLLoginProcessModel *)response;
+        ZLLoginProcessModel * processModel = (ZLLoginProcessModel *)response;
         
         if(![self.currentLoginSerialNumber isEqualToString:processModel.serialNumber])
         {
@@ -156,6 +156,31 @@
         
     } queryString:queryString serialNumber:serialNumber];
 }
+
+
+- (void) checkTokenIsValid:(NSString *) token
+              serialNumber:(NSString *) serialNumber{
+    self.step = ZLLoginStep_checkToken;
+    
+    __weak typeof(self) weakSelf = self;
+    GithubResponse response = ^(BOOL result, id processModel, NSString *serialNumber){
+        
+        ZLMainThreadDispatch(
+        if(result) {
+            weakSelf.step = ZLLoginStep_Success;
+        } else {
+            weakSelf.step = ZLLoginStep_init;
+        }
+        [weakSelf postNotification:ZLLoginResult_Notification withParams:processModel];
+
+                             )
+    };
+    
+    [[ZLGithubHttpClient defaultClient] checkTokenIsValid:response
+                                                    token:token
+                                             serialNumber:serialNumber];
+}
+
 
 
 @end

@@ -44,6 +44,8 @@ class ZLRepositoryTableViewCell: UITableViewCell {
         self.containerView.layer.cornerRadius = 8.0
         self.containerView.layer.masksToBounds = true
         
+        self.repostitoryNameLabel.adjustsFontSizeToFitWidth = true
+        
         self.justUpdate()
         self.headImageView.layer.cornerRadius = 25.0
         self.headImageView.layer.masksToBounds = true

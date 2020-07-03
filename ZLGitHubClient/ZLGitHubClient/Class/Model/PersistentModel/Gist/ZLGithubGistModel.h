@@ -38,9 +38,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(assign, nonatomic, getter=isPub) BOOL pub;      // 公共
 
-@property(strong, nonatomic) NSDate * created_at;
+@property(strong, nonatomic, nullable) NSDate * created_at;
 
-@property(strong, nonatomic) NSDate * updated_at;
+@property(strong, nonatomic, nullable) NSDate * updated_at;
 
 @property(strong, nonatomic) ZLGithubUserBriefModel * owner;
 

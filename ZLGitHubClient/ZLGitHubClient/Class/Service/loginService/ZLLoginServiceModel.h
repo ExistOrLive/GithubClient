@@ -45,6 +45,19 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) getAccessToken:(NSString *) queryString
            serialNumber:(NSString *) serialNumber;
 
+
+
+
+/***
+  * 检查access token是否有效
+ */
+
+- (void) checkTokenIsValid:(NSString *) token
+              serialNumber:(NSString *) serialNumber;
+
+
+
+
 @end
 
 NS_ASSUME_NONNULL_END

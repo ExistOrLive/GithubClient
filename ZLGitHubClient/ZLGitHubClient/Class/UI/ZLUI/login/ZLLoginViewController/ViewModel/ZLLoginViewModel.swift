@@ -9,7 +9,7 @@
 import UIKit
 
 class ZLLoginViewModel: ZLBaseViewModel,ZLLoginBaseViewDelegate {
-
+    
     weak var baseView: ZLLoginBaseView?
     
     // 登陆操作的流水号
@@ -20,8 +20,7 @@ class ZLLoginViewModel: ZLBaseViewModel,ZLLoginBaseViewDelegate {
     }
     
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
-        if !(targetView is ZLLoginBaseView)
-        {
+        if !(targetView is ZLLoginBaseView){
             return;
         }
         
@@ -31,47 +30,55 @@ class ZLLoginViewModel: ZLBaseViewModel,ZLLoginBaseViewDelegate {
         // 注册对于登陆结果的通知
         ZLLoginServiceModel.shared().registerObserver(self, selector: #selector(onNotificationArrived(notificaiton:)), name:ZLLoginResult_Notification)
         
-        self.loginSerialNumber = NSString.generateSerialNumber()
-        ZLLoginServiceModel.shared().startOAuth(self.loginSerialNumber!)
-        
         self.reloadView()
     }
     
     
     override func vcLifeCycle_viewWillAppear() {
-         self.reloadView()
+        self.reloadView()
     }
     
     func reloadView()
     {
-        switch(ZLLoginServiceModel.shared().currentLoginStep())
-        {
+        switch(ZLLoginServiceModel.shared().currentLoginStep()){
         case ZLLoginStep_init:do{
             self.baseView?.loginButton.isEnabled = true
+            self.baseView?.accessTokenButton.isEnabled = true
             self.baseView?.loginInfoLabel.text = nil
             self.baseView?.activityIndicator.isHidden = true
             }
         case ZLLoginStep_checkIsLogined:do{
             self.baseView?.loginButton.isEnabled = false
-            self.baseView?.loginInfoLabel.text = "ZLLoginStep_checkIsLogined"
+            self.baseView?.accessTokenButton.isEnabled = false
+            self.baseView?.loginInfoLabel.text = ZLLocalizedString(string: "ZLLoginStep_checkIsLogined", comment: "")
             self.baseView?.activityIndicator.isHidden = false
             self.baseView?.activityIndicator.startAnimating()
             }
         case ZLLoginStep_logining:do{
             self.baseView?.loginButton.isEnabled = false
-            self.baseView?.loginInfoLabel.text = "ZLLoginStep_logining"
+            self.baseView?.accessTokenButton.isEnabled = false
+            self.baseView?.loginInfoLabel.text = ZLLocalizedString(string: "ZLLoginStep_logining", comment: "")
             self.baseView?.activityIndicator.isHidden = false
             self.baseView?.activityIndicator.startAnimating()
             }
         case ZLLoginStep_getToken:do{
             self.baseView?.loginButton.isEnabled = false
-            self.baseView?.loginInfoLabel.text = "ZLLoginStep_getToken"
+            self.baseView?.accessTokenButton.isEnabled = false
+            self.baseView?.loginInfoLabel.text = ZLLocalizedString(string: "ZLLoginStep_getToken", comment: "")
+            self.baseView?.activityIndicator.isHidden = false
+            self.baseView?.activityIndicator.startAnimating()
+            }
+        case ZLLoginStep_checkToken:do{
+            self.baseView?.loginButton.isEnabled = false
+            self.baseView?.accessTokenButton.isEnabled = false
+            self.baseView?.loginInfoLabel.text = ZLLocalizedString(string: "ZLLoginStep_checkToken", comment: "")
             self.baseView?.activityIndicator.isHidden = false
             self.baseView?.activityIndicator.startAnimating()
             }
         case ZLLoginStep_Success:do{
             self.baseView?.loginButton.isEnabled = true
-            self.baseView?.loginInfoLabel.text = "ZLLoginStep_Success"
+            self.baseView?.accessTokenButton.isEnabled = true
+            self.baseView?.loginInfoLabel.text = ZLLocalizedString(string: "ZLLoginStep_Success", comment: "")
             self.baseView?.activityIndicator.isHidden = true
             self.baseView?.activityIndicator.stopAnimating()
             }
@@ -79,16 +86,31 @@ class ZLLoginViewModel: ZLBaseViewModel,ZLLoginBaseViewDelegate {
             break;
         }
     }
-
+    
     func onLoginButtonClicked() {
-
+        
         // 开始登陆认证
         self.loginSerialNumber = NSString.generateSerialNumber()
         ZLLoginServiceModel.shared().startOAuth(self.loginSerialNumber!)
         
         self.reloadView()
-       
     }
+    
+    func onAccessTokenButtonClicked() {
+        
+        ZLInputAccessTokenView.showInputAccessTokenViewWithResultBlock(resultBlock: {(token : String?) in
+            if token == nil {
+                ZLToastView.showMessage(ZLLocalizedString(string: "token is nil", comment: ""))
+                return
+            }
+            
+            self.loginSerialNumber = NSString.generateSerialNumber()
+            ZLLoginServiceModel.shared().checkTokenIsValid(token!, serialNumber:self.loginSerialNumber!)
+            
+            self.reloadView()
+        })
+    }
+    
     
     
     // MARK: onNotificationArrived
@@ -98,24 +120,21 @@ class ZLLoginViewModel: ZLBaseViewModel,ZLLoginBaseViewDelegate {
             
         case ZLLoginResult_Notification: do{
             
-            guard let loginProcess : ZLLoginProcessModel = notificaiton.params as? ZLLoginProcessModel else
-            {
+            guard let loginProcess : ZLLoginProcessModel = notificaiton.params as? ZLLoginProcessModel else{
                 return
             }
             
-            if self.loginSerialNumber! != loginProcess.serialNumber
-            {
+            if self.loginSerialNumber! != loginProcess.serialNumber{
                 ZLLog_Info("loginProcess: self.loginSerialNumber[\(self.loginSerialNumber!)] loginProcess.serialNumber[\(loginProcess.serialNumber)] not match")
                 return
             }
             
-            if loginProcess.result == false
-            {
+            if loginProcess.result == false{
                 self.baseView?.loginButton.isUserInteractionEnabled = true;
                 self.baseView?.activityIndicator.isHidden = true;
                 let controller: UIAlertController = UIAlertController.init(title: "登陆失败", message: nil, preferredStyle: UIAlertController.Style.alert);
                 let action: UIAlertAction = UIAlertAction.init(title: "确定", style: UIAlertAction.Style.default, handler: nil);
-                                controller.addAction(action);
+                controller.addAction(action);
                 self.viewController?.present(controller, animated: true, completion: nil);
                 
                 self.loginSerialNumber = nil;
@@ -133,7 +152,7 @@ class ZLLoginViewModel: ZLBaseViewModel,ZLLoginBaseViewDelegate {
                 {
                     self.baseView?.activityIndicator.isHidden = true;
                     let appDelegate:AppDelegate  = UIApplication.shared.delegate! as! AppDelegate;
-                    appDelegate.switchToMainController();
+                    appDelegate.switch(toMainController: true);
                 }
             }
             

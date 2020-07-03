@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -22,6 +22,11 @@
                                 <constraint firstAttribute="height" constant="60" id="CUG-fC-MIO"/>
                                 <constraint firstAttribute="width" constant="60" id="DWN-uU-P2A"/>
                             </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="30"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Repositories" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yIP-hg-fM2">
                             <rect key="frame" x="278" y="30.5" width="87" height="21"/>
@@ -50,27 +55,27 @@
                         <constraint firstItem="8OZ-z4-ikc" firstAttribute="centerY" secondItem="eLg-u5-rX0" secondAttribute="centerY" id="yD9-Yl-RSc"/>
                     </constraints>
                 </view>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ngL-0p-27P">
-                    <rect key="frame" x="0.0" y="100" width="518" height="944"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZSK-rB-2JG" customClass="ZLGithubItemListView" customModule="ZLGitHubClient" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="90" width="518" height="954"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
             </subviews>
             <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="ngL-0p-27P" secondAttribute="trailing" id="7pR-mZ-IR2"/>
+                <constraint firstItem="ZSK-rB-2JG" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="42W-RW-E4E"/>
                 <constraint firstItem="eLg-u5-rX0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="FLw-ex-rrK"/>
                 <constraint firstAttribute="trailing" secondItem="eLg-u5-rX0" secondAttribute="trailing" constant="5" id="QtY-LI-CAq"/>
-                <constraint firstAttribute="bottom" secondItem="ngL-0p-27P" secondAttribute="bottom" id="Yjm-sz-f18"/>
-                <constraint firstItem="ngL-0p-27P" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="aNK-2M-vRC"/>
-                <constraint firstItem="ngL-0p-27P" firstAttribute="top" secondItem="eLg-u5-rX0" secondAttribute="bottom" constant="10" id="bdn-gb-08u"/>
+                <constraint firstItem="ZSK-rB-2JG" firstAttribute="top" secondItem="eLg-u5-rX0" secondAttribute="bottom" id="RXC-Pd-LkC"/>
+                <constraint firstAttribute="trailing" secondItem="ZSK-rB-2JG" secondAttribute="trailing" id="SDr-kY-KjA"/>
                 <constraint firstItem="eLg-u5-rX0" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="5" id="oWt-16-coa"/>
+                <constraint firstAttribute="bottom" secondItem="ZSK-rB-2JG" secondAttribute="bottom" id="rXs-Ui-tdB"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="headImageView" destination="8OZ-z4-ikc" id="sde-b3-Gv3"/>
                 <outlet property="infoLabel" destination="yIP-hg-fM2" id="KIV-hH-C9f"/>
+                <outlet property="itemListView" destination="ZSK-rB-2JG" id="JnA-gP-IzO"/>
                 <outlet property="numLabel" destination="f5I-Nh-lSa" id="0dj-QP-oaY"/>
-                <outlet property="tableView" destination="ngL-0p-27P" id="NqG-K3-i0G"/>
             </connections>
             <point key="canvasLocation" x="213.04347826086959" y="145.3125"/>
         </view>

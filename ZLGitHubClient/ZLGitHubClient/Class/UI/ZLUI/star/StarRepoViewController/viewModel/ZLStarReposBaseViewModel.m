@@ -37,6 +37,7 @@
 {
     [[ZLUserServiceModel sharedServiceModel] unRegisterObserver:self name:ZLGetCurrentUserInfoResult_Notification];
     [[ZLAdditionInfoServiceModel sharedServiceModel] unRegisterObserver:self name:ZLGetStarredReposResult_Notification];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)bindModel:(id)targetModel andView:(UIView *)targetView
@@ -51,6 +52,7 @@
     
     [[ZLUserServiceModel sharedServiceModel] registerObserver:self selector:@selector(onNotificationArrived:) name:ZLGetCurrentUserInfoResult_Notification];
     [[ZLAdditionInfoServiceModel sharedServiceModel] registerObserver:self selector:@selector(onNotificationArrived:) name:ZLGetStarredReposResult_Notification];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onNotificationArrived:) name:ZLLanguageTypeChange_Notificaiton object:nil];
     
     [self.view.listView beginRefresh];
 }
@@ -167,6 +169,9 @@
             self.pageNum ++;
             [self.view.listView appendCellDatasWithCellDatas:celldatas];
         }
+    }else if([ZLLanguageTypeChange_Notificaiton isEqualToString:notification.name]){
+        self.viewController.title = ZLLocalizedString(@"star", "");
+        [self.view.listView justRefresh];
     }
 }
 

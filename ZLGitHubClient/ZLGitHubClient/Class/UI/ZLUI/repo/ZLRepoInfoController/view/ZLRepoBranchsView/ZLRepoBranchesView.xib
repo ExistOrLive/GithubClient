@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -13,27 +13,49 @@
             <rect key="frame" x="0.0" y="0.0" width="370" height="493"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Branches" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M8D-9J-weM">
-                    <rect key="frame" x="152" y="15" width="66.5" height="21"/>
-                    <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="15"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ECy-vE-qhd">
-                    <rect key="frame" x="16" y="56" width="338" height="417"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3GA-xO-Xpj">
+                    <rect key="frame" x="0.0" y="0.0" width="370" height="50"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Branches" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M8D-9J-weM">
+                            <rect key="frame" x="10" y="14.5" width="66.5" height="21"/>
+                            <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="15"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.96470588235294119" green="0.97254901960784312" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="M8D-9J-weM" firstAttribute="leading" secondItem="3GA-xO-Xpj" secondAttribute="leading" constant="10" id="Xce-3n-tuV"/>
+                        <constraint firstAttribute="height" constant="50" id="fAN-pe-dWY"/>
+                        <constraint firstItem="M8D-9J-weM" firstAttribute="centerY" secondItem="3GA-xO-Xpj" secondAttribute="centerY" id="ly5-f4-4fe"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="4"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ECy-vE-qhd">
+                    <rect key="frame" x="0.0" y="50" width="370" height="443"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                 </tableView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="ECy-vE-qhd" secondAttribute="trailing" constant="16" id="Nom-0y-IZq"/>
-                <constraint firstItem="ECy-vE-qhd" firstAttribute="top" secondItem="M8D-9J-weM" secondAttribute="bottom" constant="20" id="aoQ-PC-qb2"/>
-                <constraint firstItem="ECy-vE-qhd" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="cBR-6z-zTr"/>
-                <constraint firstItem="M8D-9J-weM" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="cdl-kP-1Ob"/>
-                <constraint firstAttribute="bottom" secondItem="ECy-vE-qhd" secondAttribute="bottom" constant="20" id="oin-DK-OvN"/>
-                <constraint firstItem="M8D-9J-weM" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="xJy-tL-1o3"/>
+                <constraint firstAttribute="trailing" secondItem="ECy-vE-qhd" secondAttribute="trailing" id="08d-fM-Hsf"/>
+                <constraint firstAttribute="trailing" secondItem="3GA-xO-Xpj" secondAttribute="trailing" id="7mi-Iw-O62"/>
+                <constraint firstItem="ECy-vE-qhd" firstAttribute="top" secondItem="3GA-xO-Xpj" secondAttribute="bottom" id="GK9-4d-06F"/>
+                <constraint firstItem="3GA-xO-Xpj" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Nhw-hO-JpL"/>
+                <constraint firstItem="ECy-vE-qhd" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Yv6-nl-tMK"/>
+                <constraint firstItem="3GA-xO-Xpj" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="eew-HX-P8S"/>
+                <constraint firstAttribute="bottom" secondItem="ECy-vE-qhd" secondAttribute="bottom" id="lVf-Sp-O0o"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                    <real key="value" value="4"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="tableView" destination="ECy-vE-qhd" id="1EX-bD-Hnt"/>
                 <outlet property="titleLabel" destination="M8D-9J-weM" id="pqe-za-hxQ"/>

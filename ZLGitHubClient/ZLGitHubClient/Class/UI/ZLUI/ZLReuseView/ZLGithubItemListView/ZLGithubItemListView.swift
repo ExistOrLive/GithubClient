@@ -9,7 +9,6 @@
 import UIKit
 @objc protocol ZLGithubItemListViewDelegate : NSObjectProtocol{
     func githubItemListViewRefreshDragDown(pullRequestListView: ZLGithubItemListView) -> Void;
-    
     func githubItemListViewRefreshDragUp(pullRequestListView: ZLGithubItemListView) -> Void;
 }
 
@@ -17,11 +16,12 @@ import UIKit
 @objcMembers class ZLGithubItemListView: ZLBaseView {
     
     var tableView : UITableView?
+    var noDataView : UIView?
     
     private var cellDatas : [ZLGithubItemTableViewCellData]?
     
     var delegate : ZLGithubItemListViewDelegate?
-    
+        
     override init(frame: CGRect) {
         super.init(frame: frame);
         self.setUpUI()
@@ -37,6 +37,12 @@ import UIKit
         self.setUpUI()
     }
     
+    override func awakeFromNib() {
+        self.tableView?.separatorStyle = .none
+        self.tableView?.backgroundColor = UIColor.clear
+    }
+    
+    
     func setUpUI()
     {
         self.tableView = UITableView.init(frame: self.bounds, style: .plain)
@@ -50,6 +56,8 @@ import UIKit
         
         self.tableView?.delegate = self
         self.tableView?.dataSource = self;
+        
+        self.setNoDataView()
     }
     
     
@@ -66,16 +74,47 @@ import UIKit
         self.tableView?.register(UINib.init(nibName: "ZLIssueTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLIssueTableViewCell")
     }
     
-    @objc func setTableViewHeader()
-    {
+    func setNoDataView() -> Void {
+        let view = UIView.init()
+        view.backgroundColor = UIColor.clear
+        
+        let imageView = UIImageView.init()
+        imageView.image = UIImage.init(named: "NoData")
+        view.addSubview(imageView)
+        imageView.snp.makeConstraints ({ (make) in
+            make.size.equalTo(CGSize.init(width: 50, height: 50))
+            make.top.left.right.equalToSuperview()
+        })
+        
+        let label = UILabel.init()
+        label.text = "No Data"
+        label.textColor = ZLRGBValue_H(colorValue: 0x999999)
+        label.font = UIFont.systemFont(ofSize: 15)
+        label.textAlignment = .center
+        view.addSubview(label)
+        label.snp.makeConstraints({(make) in
+            make.top.equalTo(imageView.snp.bottom).offset(10)
+            make.bottom.equalToSuperview()
+        })
+        
+        self.addSubview(view)
+        view.snp.makeConstraints({(make) in
+            make.center.equalToSuperview()
+        })
+        
+        noDataView = view
+        view.isHidden = true
+    }
+    
+    
+    @objc func setTableViewHeader(){
         weak var selfWeak = self
         self.tableView?.mj_header = ZLRefresh.refreshHeader(refreshingBlock: {
             selfWeak?.loadNewData()
         })
     }
     
-    @objc func setTableViewFooter()
-    {
+    @objc func setTableViewFooter(){
         weak var selfWeak = self
         self.tableView?.mj_footer = ZLRefresh.refreshFooter(refreshingBlock: {
             selfWeak?.loadMoreData()
@@ -91,7 +130,10 @@ import UIKit
 extension ZLGithubItemListView : UITableViewDelegate, UITableViewDataSource
 {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.cellDatas?.count ?? 0
+        let num =  self.cellDatas?.count ?? 0
+        self.noDataView?.isHidden = (num != 0)
+        
+        return num;
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -183,4 +225,8 @@ extension ZLGithubItemListView
         self.tableView?.mj_footer?.endRefreshing()
     }
     
+    func justRefresh(){
+        ZLRefresh.justRefreshHeader(header: self.tableView?.mj_header as? MJRefreshNormalHeader)
+        ZLRefresh.justRefreshFooter(footer: self.tableView?.mj_footer as? MJRefreshAutoStateFooter)
+    }
 }

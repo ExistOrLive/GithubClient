@@ -167,7 +167,6 @@ platform :ios do
     )
   end
 
-
   desc "build one TestFlight release"
   lane :beta do
     # 配置证书和描述配置文件

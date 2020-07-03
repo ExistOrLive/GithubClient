@@ -73,15 +73,13 @@
     [self.window makeKeyAndVisible];
     
     
-    if([[ZLSharedDataManager sharedInstance] githubAccessToken].length == 0)
-    {
+    if([[ZLSharedDataManager sharedInstance] githubAccessToken].length == 0){
         // token为空，切到登陆界面
-        [self switchToLoginController];
+        [self switchToLoginController:NO];
     }
-    else
-    {
+    else{
         // token不为空，跳到主界面
-        [self switchToMainController];
+        [self switchToMainController:NO];
     }
     
      
@@ -120,35 +118,42 @@
 
 #pragma mark -
 
-- (void) initUIConfig
-{
+- (void) initUIConfig{
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeBlack];
 }
 
-- (void) switchToMainController
-{
-    [UIView transitionWithView:self.window duration:0.5 options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
-        
+- (void) switchToMainController:(BOOL) animated{
+    void(^block)(void) = ^{
         UIViewController * rootViewController = [SYDCentralPivotUIAdapter getZLMainViewController];
         [self.window setRootViewController:rootViewController];
-        
-    } completion:^(BOOL finished) {
-        
-    }];
+    };
     
-  
+    if(animated){
+        [UIView transitionWithView:self.window
+                          duration:0.5
+                           options:UIViewAnimationOptionTransitionFlipFromLeft
+                        animations:block
+                        completion:^(BOOL finished) {}];
+    }else{
+        block();
+    }
 }
 
-- (void) switchToLoginController
-{
-    [UIView transitionWithView:self.window duration:0.5 options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
-          
+- (void) switchToLoginController:(BOOL) animated{
+    void(^block)(void) = ^{
         UIViewController * rootViewController = [[ZLLoginViewController alloc] init];
         [self.window setRootViewController:rootViewController];
-          
-      } completion:^(BOOL finished) {
-          
-      }];
+    };
+    
+    if(animated){
+        [UIView transitionWithView:self.window
+                          duration:0.5
+                           options:UIViewAnimationOptionTransitionFlipFromLeft
+                        animations:block
+                        completion:^(BOOL finished) {}];
+    }else{
+        block();
+    }
 }
 
 
@@ -171,9 +176,8 @@
 
 - (void) onGithubTokenInvalid
 {
-    if(![self.window.rootViewController isKindOfClass:[ZLLoginViewController class]])
-    {
-        [self switchToLoginController];
+    if(![self.window.rootViewController isKindOfClass:[ZLLoginViewController class]]){
+        [self switchToLoginController:YES];
     }
 }
 
@@ -198,8 +202,10 @@
 #pragma mark - JJException
 - (void) setUpJJException
 {
+#ifndef DEBUG
     [JJException configExceptionCategory:JJExceptionGuardAll];
     [JJException startGuardException];
+#endif
 }
 
 

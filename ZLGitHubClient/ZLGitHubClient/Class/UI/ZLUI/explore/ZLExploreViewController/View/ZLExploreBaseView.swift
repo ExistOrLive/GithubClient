@@ -12,20 +12,29 @@ import JXSegmentedView
 @objc protocol ZLExploreBaseViewDelegate : ZLGithubItemListViewDelegate {
     
     func exploreTypeTitles() -> [String]
+    
+    func onSearchButtonClicked() -> Void
+    
+    func onLanguageButtonClicked() -> Void
+    
+    func onDateRangeButtonClicked() -> Void
+    
+    func onSegmentViewSelectedIndex(segmentView: JXSegmentedView, index : Int) -> Void
 }
 
 
 @objcMembers class ZLExploreBaseView: UIView {
 
+    @IBOutlet weak var trendingLabel: UILabel!
     @IBOutlet weak var searchButton: UIButton!
+    @IBOutlet weak var languageButton: UIButton!
+    @IBOutlet weak var dateRangeButton: UIButton!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var segmentedView: JXSegmentedView!
+    @IBOutlet weak var languageLabel: UILabel!
     var segmentedListContainerView: JXSegmentedListContainerView?
     var githubItemListViewArray : [ZLGithubItemListView] = []
     var segmentedViewDatasource: JXSegmentedTitleDataSource = JXSegmentedTitleDataSource()
-    
-    
-    
     
     weak var delegate : ZLExploreBaseViewDelegate? {
         didSet{
@@ -80,7 +89,40 @@ import JXSegmentedView
         
     func justReloadView(){
         self.searchButton.setTitle(ZLLocalizedString(string: "Search", comment: "搜索"), for: .normal)
+        self.trendingLabel.text = ZLLocalizedString(string: "trending", comment: "趋势")
+        self.languageButton.setTitle(ZLLocalizedString(string: "Lang.", comment: ""), for: .normal)
+        
+        if self.delegate?.responds(to: #selector(ZLExploreBaseViewDelegate.exploreTypeTitles)) ?? false {
+            let titles : [String] = self.delegate!.exploreTypeTitles()
+            self.segmentedViewDatasource.titles = titles
+            self.segmentedView.reloadData()
+        }
+        
+        for githubItemListView in self.githubItemListViewArray {
+            githubItemListView.justRefresh()
+        }
     }
+    
+    @IBAction func onLanguageButtonClicked(_ sender: Any) {
+        if self.delegate?.responds(to: #selector(ZLExploreBaseViewDelegate.onLanguageButtonClicked)) ?? false {
+            self.delegate?.onLanguageButtonClicked()
+        }
+    }
+    
+    
+    @IBAction func onDateRangeButtonClicked(_ sender: Any) {
+        if self.delegate?.responds(to: #selector(ZLExploreBaseViewDelegate.onDateRangeButtonClicked)) ?? false {
+            self.delegate?.onDateRangeButtonClicked()
+        }
+    }
+    
+    
+    @IBAction func onSearchButtonClicked(_ sender: Any) {
+        if self.delegate?.responds(to: #selector(ZLExploreBaseViewDelegate.onSearchButtonClicked)) ?? false {
+            self.delegate?.onSearchButtonClicked()
+        }
+    }
+    
 }
 
 
@@ -101,7 +143,9 @@ extension ZLExploreBaseView : ZLGithubItemListViewDelegate {
 extension ZLExploreBaseView : JXSegmentedViewDelegate {
  
     func segmentedView(_ segmentedView: JXSegmentedView, didSelectedItemAt index: Int){
-        
+        if self.delegate?.responds(to: #selector(ZLExploreBaseViewDelegate.onSegmentViewSelectedIndex(segmentView:index:))) ?? false {
+            self.delegate?.onSegmentViewSelectedIndex(segmentView: segmentedView, index: index)
+        }
     }
 
     func segmentedView(_ segmentedView: JXSegmentedView, didClickSelectedItemAt index: Int){
