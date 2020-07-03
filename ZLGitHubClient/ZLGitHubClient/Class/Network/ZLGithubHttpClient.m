@@ -405,8 +405,9 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
  **/
 - (void) getUserInfo:(GithubResponse) block
            loginName:(NSString *) loginName
-        serialNumber:(NSString *) serialNumber
-{
+        serialNumber:(NSString *) serialNumber{
+    
+    loginName = [loginName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     NSString * userUrl = [NSString stringWithFormat:@"%@%@%@",GitHubAPIURL,githubUserInfo,loginName];
     
     GithubResponse newResponse = ^(BOOL result,id _Nullable responseObject,NSString * _Nonnull serailNumber){
@@ -431,8 +432,10 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
  **/
 - (void) getOrgInfo:(GithubResponse) block
           loginName:(NSString *) loginName
-       serialNumber:(NSString *) serialNumber
-{
+       serialNumber:(NSString *) serialNumber{
+    
+    loginName = [loginName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+
     NSString * userUrl = [NSString stringWithFormat:@"%@%@%@",GitHubAPIURL,orgInfo,loginName];
     
     GithubResponse newResponse = ^(BOOL result,id _Nullable responseObject,NSString * _Nonnull serailNumber){
@@ -578,6 +581,8 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                        per_page:(NSUInteger) per_page
                    serialNumber:(NSString *) serialNumber
 {
+    loginName = [loginName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+    
     NSString * urlForRepo = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,userRepoUrl];
     urlForRepo = [NSString stringWithFormat:urlForRepo,loginName];
     
@@ -635,6 +640,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                               per_page:(NSUInteger) per_page
                           serialNumber:(NSString *) serialNumber
 {
+    loginName = [loginName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     NSString * urlForRepo = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,userStarredURL];
     urlForRepo = [NSString stringWithFormat:urlForRepo,loginName];
     
@@ -703,6 +709,8 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                   fullName:(NSString *) fullName
               serialNumber:(NSString *) serialNumber
 {
+    fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+    
     NSString * urlForRepo = [NSString stringWithFormat:@"%@%@/%@",GitHubAPIURL,reposUrl,fullName];
     
     GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
@@ -733,6 +741,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                         fullName:(NSString *) fullName
                     serialNumber:(NSString *) serialNumber
 {
+    fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     NSString * urlForRepoReadMe = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,reposReadMeUrl];
     urlForRepoReadMe = [NSString stringWithFormat:urlForRepoReadMe,fullName];
     
@@ -765,8 +774,9 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                                 state:(NSString *) state
                          serialNumber:(NSString *) serialNumber
 {
+    fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     NSString * urlForRepoReadMe = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoPullRequestUrl];
-      urlForRepoReadMe = [NSString stringWithFormat:urlForRepoReadMe,fullName];
+    urlForRepoReadMe = [NSString stringWithFormat:urlForRepoReadMe,fullName];
     
     NSDictionary * params = @{@"state":state};
       
@@ -800,6 +810,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                             since:(NSDate *) sinceDate
                      serialNumber:(NSString *) serialNumber
 {
+    fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     NSString * urlForRepoCommits = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoCommitsUrl];
     urlForRepoCommits = [NSString stringWithFormat:urlForRepoCommits,fullName];
     
@@ -835,6 +846,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                           fullName:(NSString *) fullName
                       serialNumber:(NSString *) serialNumber
 {
+    fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     NSString * urlForRepoBranches = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoBranchedUrl];
     urlForRepoBranches = [NSString stringWithFormat:urlForRepoBranches,fullName];
     
@@ -860,7 +872,8 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                             branch:(NSString *) branch
                       serialNumber:(NSString *) serialNumber
 {
-    // 将非拉丁字母转义
+    // 将URL非法字符和保留字符转义
+    fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     path = [path stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     
     NSString * urlForRepoContent = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoContentsUrl];
@@ -890,6 +903,9 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                         branch:(NSString *) branch
                   serialNumber:(NSString *) serialNumber
 {
+    fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+    path = [path stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+    
     NSString * urlForRepoContent = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoContentsUrl];
     urlForRepoContent = [NSString stringWithFormat:urlForRepoContent,fullName,path];
     
@@ -915,6 +931,9 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 - (void) getRepositoryContributors:(GithubResponse) block
                           fullName:(NSString *) fullName
                       serialNumber:(NSString *) serialNumber{
+    
+    fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+    
     NSString * urlForRepoContributor = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoContributorsUrl];
     urlForRepoContributor = [NSString stringWithFormat:urlForRepoContributor,fullName];
     
@@ -939,6 +958,9 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 - (void) getStarRepositoryStatus:(GithubResponse) block
                         fullName:(NSString *) fullName
                     serialNumber:(NSString *) serialNumber{
+    
+    fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+    
     NSString * urlForRepoStar = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoStarred];
     urlForRepoStar = [NSString stringWithFormat:urlForRepoStar,fullName];
     
@@ -964,6 +986,8 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 - (void) starRepository:(GithubResponse) block
                fullName:(NSString *) fullName
            serialNumber:(NSString *) serialNumber{
+    
+    fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     NSString * urlForRepoStar = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoStarred];
     urlForRepoStar = [NSString stringWithFormat:urlForRepoStar,fullName];
     
@@ -977,6 +1001,9 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 - (void) unstarRepository:(GithubResponse) block
                 fullName:(NSString *) fullName
             serialNumber:(NSString *) serialNumber{
+    
+     fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+    
     NSString * urlForRepoStar = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoStarred];
     urlForRepoStar = [NSString stringWithFormat:urlForRepoStar,fullName];
     
@@ -992,6 +1019,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                   fullName:(NSString *) fullName
               serialNumber:(NSString *) serialNumber{
     
+     fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     NSString * urlForRepoStar = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoStargazers];
     urlForRepoStar = [NSString stringWithFormat:urlForRepoStar,fullName];
     
@@ -1018,6 +1046,8 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 - (void) getWatchRepositoryStatus:(GithubResponse) block
                          fullName:(NSString *) fullName
                      serialNumber:(NSString *) serialNumber{
+    
+     fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     NSString * urlForRepoSubscription = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoSubscription];
     urlForRepoSubscription = [NSString stringWithFormat:urlForRepoSubscription,fullName];
     
@@ -1043,6 +1073,8 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 - (void) watchRepository:(GithubResponse) block
                 fullName:(NSString *) fullName
             serialNumber:(NSString *) serialNumber{
+    
+    fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     NSString * urlForRepoSubscription = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoSubscription];
     urlForRepoSubscription = [NSString stringWithFormat:urlForRepoSubscription,fullName];
     
@@ -1056,6 +1088,8 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 - (void) unwatchRepository:(GithubResponse) block
                 fullName:(NSString *) fullName
             serialNumber:(NSString *) serialNumber{
+    
+     fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     NSString * urlForRepoSubscription = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoSubscription];
     urlForRepoSubscription = [NSString stringWithFormat:urlForRepoSubscription,fullName];
     
@@ -1071,6 +1105,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                 fullName:(NSString *) fullName
             serialNumber:(NSString *) serialNumber{
     
+     fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     NSString * urlForRepoSubscribers = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoSubscribers];
     urlForRepoSubscribers = [NSString stringWithFormat:urlForRepoSubscribers,fullName];
     
@@ -1099,6 +1134,8 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                     org:(NSString * __nullable) org
            serialNumber:(NSString *) serialNumber{
     
+     fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+    
     NSString * urlForRepoForks = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoForks];
     urlForRepoForks = [NSString stringWithFormat:urlForRepoForks,fullName];
     
@@ -1125,6 +1162,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
              fullName:(NSString *) fullName
          serialNumber:(NSString *) serialNumber{
     
+     fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     NSString * urlForRepoForks = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoForks];
     urlForRepoForks = [NSString stringWithFormat:urlForRepoForks,fullName];
     
@@ -1174,6 +1212,8 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                 per_page:(NSUInteger) per_page
             serialNumber:(NSString *) serialNumber
 {
+    
+    loginName = [loginName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     NSString * urlForGist = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,userGistUrl];
     urlForGist = [NSString stringWithFormat:urlForGist,loginName];
       
@@ -1208,6 +1248,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                     per_page:(NSUInteger) per_page
                 serialNumber:(NSString *) serialNumber{
     
+        loginName = [loginName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     NSString * urlForFollowers = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,userfollowersUrl];
     urlForFollowers = [NSString stringWithFormat:urlForFollowers,loginName];
     
@@ -1235,6 +1276,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                    loginName: (NSString *) loginName
                 serialNumber:(NSString *) serialNumber{
     
+        loginName = [loginName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     NSString * urlForFollow = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,userFollowing];
     urlForFollow = [NSString stringWithFormat:urlForFollow,loginName];
         
@@ -1264,6 +1306,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
           loginName: (NSString *) loginName
        serialNumber: (NSString *) serialNumber{
     
+        loginName = [loginName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     NSString * urlForFollow = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,userFollowing];
     urlForFollow = [NSString stringWithFormat:urlForFollow,loginName];
         
@@ -1282,7 +1325,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
             loginName: (NSString *) loginName
          serialNumber: (NSString *) serialNumber{
     
-    
+        loginName = [loginName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     NSString * urlForFollow = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,userFollowing];
     urlForFollow = [NSString stringWithFormat:urlForFollow,loginName];
     
@@ -1308,6 +1351,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                     per_page:(NSUInteger) per_page
                 serialNumber:(NSString *) serialNumber
 {
+        loginName = [loginName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     NSString * urlForFollowing = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,userfollowingUrl];
     urlForFollowing = [NSString stringWithFormat:urlForFollowing,loginName];
     
@@ -1334,14 +1378,15 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 
 #pragma mark - events
 
-- (void)getReceivedEventsForUser:(NSString *)userName
+- (void)getReceivedEventsForUser:(NSString *)loginName
                             page:(NSUInteger)page
                         per_page:(NSUInteger)per_page
                     serialNumber:(NSString *)serialNumber
                    responseBlock:(GithubResponse)block
 {
+        loginName = [loginName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     NSString * urlForReceivedEvent = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,userReceivedEventUrl];
-    urlForReceivedEvent = [NSString stringWithFormat:urlForReceivedEvent,userName];
+    urlForReceivedEvent = [NSString stringWithFormat:urlForReceivedEvent,loginName];
     
     NSDictionary * params = @{@"page":[NSNumber numberWithUnsignedInteger:page],
                               @"per_page":[NSNumber numberWithUnsignedInteger:per_page]};
@@ -1363,14 +1408,15 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 }
 
 
-- (void)getEventsForUser:(NSString *)userName
+- (void)getEventsForUser:(NSString *)loginName
                     page:(NSUInteger)page
                 per_page:(NSUInteger)per_page
             serialNumber:(NSString *)serialNumber
            responseBlock:(GithubResponse)block
 {
+      loginName = [loginName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     NSString * urlForEvent = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,userEventUrl];
-    urlForEvent = [NSString stringWithFormat:urlForEvent,userName];
+    urlForEvent = [NSString stringWithFormat:urlForEvent,loginName];
     
     NSDictionary * params = @{@"page":[NSNumber numberWithUnsignedInteger:page],
                               @"per_page":[NSNumber numberWithUnsignedInteger:per_page]};
@@ -1400,6 +1446,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                     fullName:(NSString *) fullName
                 serialNumber:(NSString *) serialNumber{
     
+      fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     NSString * urlForRepoContributor = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoIssuesUrl];
     urlForRepoContributor = [NSString stringWithFormat:urlForRepoContributor,fullName];
     
@@ -1429,6 +1476,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
            assignees:(NSArray *) assignees
         serialNumber:(NSString *) serialNumber{
     
+     fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     NSString * urlForRepoContributor = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,createIssueUrl];
     urlForRepoContributor = [NSString stringWithFormat:urlForRepoContributor,fullName];
     

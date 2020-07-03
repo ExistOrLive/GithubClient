@@ -17,8 +17,6 @@ import UIKit
 class ZLPullRequestListView: ZLBaseView {
 
     private var tableView : UITableView?
-    
-    private var refreshManager : ZMRefreshManager?
      
     private var cellDatas : [ZLPullRequestTableViewCellData]?
      

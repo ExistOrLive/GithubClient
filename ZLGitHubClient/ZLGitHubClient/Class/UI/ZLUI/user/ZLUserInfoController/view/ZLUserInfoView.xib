@@ -17,13 +17,13 @@
                     <rect key="frame" x="0.0" y="10" width="414" height="170"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default_avatar" translatesAutoresizingMaskIntoConstraints="NO" id="5Ns-sz-mkf">
-                            <rect key="frame" x="30" y="15" width="60" height="60"/>
+                            <rect key="frame" x="177" y="15" width="60" height="60"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="60" id="Dhd-jf-sF1"/>
                                 <constraint firstAttribute="width" constant="60" id="uQ5-PM-k79"/>
                             </constraints>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NcN-SZ-3x3">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NcN-SZ-3x3">
                             <rect key="frame" x="30" y="85" width="354" height="0.0"/>
                             <fontDescription key="fontDescription" name="PingFangSC-Semibold" family="PingFang SC" pointSize="16"/>
                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -191,8 +191,8 @@
                                 <action selector="onFollowButtonClicked:" destination="-1" eventType="touchUpInside" id="lg7-2a-EL1"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GvF-MU-KfX">
-                            <rect key="frame" x="30" y="90" width="0.0" height="0.0"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GvF-MU-KfX">
+                            <rect key="frame" x="30" y="90" width="354" height="0.0"/>
                             <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="12"/>
                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -206,13 +206,14 @@
                         <constraint firstItem="5Ns-sz-mkf" firstAttribute="top" secondItem="15a-27-hPs" secondAttribute="top" constant="15" id="GCo-xY-ixB"/>
                         <constraint firstAttribute="bottom" secondItem="hta-JP-ru7" secondAttribute="bottom" constant="15" id="HNM-i2-6Gc"/>
                         <constraint firstAttribute="trailing" secondItem="Sd9-Gy-euj" secondAttribute="trailing" constant="15" id="M0l-Cj-7Z9"/>
-                        <constraint firstItem="5Ns-sz-mkf" firstAttribute="leading" secondItem="15a-27-hPs" secondAttribute="leading" constant="30" id="ToW-gU-PvM"/>
+                        <constraint firstAttribute="trailing" secondItem="GvF-MU-KfX" secondAttribute="trailing" constant="30" id="MW8-Fh-UtX"/>
                         <constraint firstItem="Sd9-Gy-euj" firstAttribute="centerY" secondItem="5Ns-sz-mkf" secondAttribute="centerY" id="WCP-cf-Nlh"/>
                         <constraint firstItem="hta-JP-ru7" firstAttribute="top" secondItem="GvF-MU-KfX" secondAttribute="bottom" constant="20" id="g7C-Xi-zAk"/>
                         <constraint firstAttribute="trailing" secondItem="hta-JP-ru7" secondAttribute="trailing" constant="10" id="kVp-Pu-pMH"/>
                         <constraint firstItem="NcN-SZ-3x3" firstAttribute="top" secondItem="5Ns-sz-mkf" secondAttribute="bottom" constant="10" id="klS-dl-zku"/>
                         <constraint firstItem="NcN-SZ-3x3" firstAttribute="leading" secondItem="15a-27-hPs" secondAttribute="leading" constant="30" id="mdC-2z-gUe"/>
                         <constraint firstItem="GvF-MU-KfX" firstAttribute="top" secondItem="NcN-SZ-3x3" secondAttribute="bottom" constant="5" id="oqO-ti-uHn"/>
+                        <constraint firstItem="5Ns-sz-mkf" firstAttribute="centerX" secondItem="15a-27-hPs" secondAttribute="centerX" id="qZo-Jo-k5u"/>
                     </constraints>
                 </view>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="tHq-A4-RIt">
