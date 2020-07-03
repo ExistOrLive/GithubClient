@@ -90,8 +90,18 @@ import JXSegmentedView
     func justReloadView(){
         self.searchButton.setTitle(ZLLocalizedString(string: "Search", comment: "搜索"), for: .normal)
         self.trendingLabel.text = ZLLocalizedString(string: "trending", comment: "趋势")
+        self.languageButton.setTitle(ZLLocalizedString(string: "Lang.", comment: ""), for: .normal)
+        
+        if self.delegate?.responds(to: #selector(ZLExploreBaseViewDelegate.exploreTypeTitles)) ?? false {
+            let titles : [String] = self.delegate!.exploreTypeTitles()
+            self.segmentedViewDatasource.titles = titles
+            self.segmentedView.reloadData()
+        }
+        
+        for githubItemListView in self.githubItemListViewArray {
+            githubItemListView.justRefresh()
+        }
     }
-    
     
     @IBAction func onLanguageButtonClicked(_ sender: Any) {
         if self.delegate?.responds(to: #selector(ZLExploreBaseViewDelegate.onLanguageButtonClicked)) ?? false {

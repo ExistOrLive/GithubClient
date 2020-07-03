@@ -71,6 +71,19 @@ class ZLSettingViewModel: ZLBaseViewModel {
         {
             var title : String? = nil
             let handle : ((UIAlertAction) -> Void) = {(action: UIAlertAction) in ZLLANMODULE?.setLanguageType(ZLLanguageType.init(rawValue: rawValue)!, error: nil)
+        
+                switch ZLLanguageType.init(rawValue: rawValue)!
+                {
+                case .english:do{
+                    MJRefreshConfig.default().languageCode = "en"
+                    }
+                case .simpleChinese:do{
+                    MJRefreshConfig.default().languageCode = "zh-Hans"
+                    }
+                @unknown default:do {
+                    }
+                }
+                
             }
             
             switch ZLLanguageType.init(rawValue: rawValue)!

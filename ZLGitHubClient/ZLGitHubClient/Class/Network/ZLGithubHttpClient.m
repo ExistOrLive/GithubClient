@@ -130,7 +130,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
             
         }
     };
-    
+        
     if([@"POST" isEqualToString:method]) {
         [self.sessionManager POST:URL
                        parameters:params
@@ -860,6 +860,9 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                             branch:(NSString *) branch
                       serialNumber:(NSString *) serialNumber
 {
+    // 将非拉丁字母转义
+    path = [path stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+    
     NSString * urlForRepoContent = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoContentsUrl];
     urlForRepoContent = [NSString stringWithFormat:urlForRepoContent,fullName,path];
     

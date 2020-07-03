@@ -129,12 +129,12 @@
 "Unfollow Success" = "Unfollow Successfully";
 "Unfollow Fail" = "Unfollow Fail";
 
+// explore
+"Lang." = "Lang.";
 "DateRange" = "DateRange";
 "Today" = "Today";
 "This Week" = "This Week";
 "This Month" = "This Month";
-
-"Input Access Token" = "Input Access Token";
 
 
 // login
@@ -144,3 +144,14 @@
 "ZLLoginStep_getToken" = "Getting Token";
 "ZLLoginStep_checkToken" = "Checking if Token is valid";
 "ZLLoginStep_Success" = "Login successFully";
+"Input Access Token" = "Input Access Token";
+
+
+// refresh
+"MJRefreshHeaderIdleText" = "Pull down to refresh";
+"MJRefreshHeaderPullingText" = "Release to refresh";
+"MJRefreshHeaderRefreshingText" = "Loading...";
+
+"MJRefreshAutoFooterIdleText" = "Tap or pull up to load more";
+"MJRefreshAutoFooterRefreshingText" = "Loading...";
+"MJRefreshAutoFooterNoMoreDataText" = "No more data";

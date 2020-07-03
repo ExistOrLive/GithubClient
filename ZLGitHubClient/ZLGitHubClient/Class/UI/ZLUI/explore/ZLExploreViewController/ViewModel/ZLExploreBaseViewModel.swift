@@ -70,9 +70,21 @@ class ZLExploreBaseViewModel: ZLBaseViewModel {
         
         switch notication.name
         {
-        case ZLLanguageTypeChange_Notificaiton:do
-        {
+        case ZLLanguageTypeChange_Notificaiton:do{
             self.baseView?.justReloadView()
+            
+            switch self.baseView!.segmentedView.selectedIndex {
+            case 0:do{
+                let dateRange =  ZLSharedDataManager.sharedInstance().dateRangeForTrendingRepo()
+                self.baseView!.dateRangeButton.setTitle(self.titleForDateRange(dateRange: dateRange), for: .normal)
+                }
+            case 1:do{
+                let dateRange = ZLSharedDataManager.sharedInstance().dateRangeForTrendingUser()
+                self.baseView!.dateRangeButton.setTitle(self.titleForDateRange(dateRange: dateRange), for: .normal)
+                }
+            default:break
+            }
+            
             }
         default:
             break;

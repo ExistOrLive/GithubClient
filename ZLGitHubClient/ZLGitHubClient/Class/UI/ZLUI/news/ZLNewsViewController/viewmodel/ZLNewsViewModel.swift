@@ -35,6 +35,7 @@ class ZLNewsViewModel: ZLBaseViewModel {
         ZLEventServiceModel.shareInstance().registerObserver(self, selector: #selector(onNotificationArrived(notification:)), name:ZLGetUserReceivedEventResult_Notification)
         ZLUserServiceModel.shared().registerObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLGetCurrentUserInfoResult_Notification)
         ZLUserServiceModel.shared().registerObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLGetSpecifiedUserInfoResult_Notification)
+        NotificationCenter.default.addObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLLanguageTypeChange_Notificaiton, object: nil)
         
         //每次界面将要展示时，更新数据
         self.userInfo = ZLUserServiceModel.shared().currentUserInfo()
@@ -50,13 +51,14 @@ class ZLNewsViewModel: ZLBaseViewModel {
         ZLEventServiceModel.shareInstance().unRegisterObserver(self, name: ZLGetUserReceivedEventResult_Notification)
         ZLUserServiceModel.shared().unRegisterObserver(self, name: ZLGetCurrentUserInfoResult_Notification)
         ZLUserServiceModel.shared().unRegisterObserver(self, name: ZLGetSpecifiedUserInfoResult_Notification)
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func vcLifeCycle_viewWillAppear() {
         
         super.vcLifeCycle_viewWillAppear()
         
-        if self.itemListView?.itemCount() == 0
+        if self.itemListView?.itemCount() == 0 && self.userInfo != nil
         {
             self.itemListView?.beginRefresh()
         }
@@ -179,6 +181,10 @@ extension ZLNewsViewModel
                 let vc = ZLUserInfoController.init(userInfoModel: userInfo)
                 vc.hidesBottomBarWhenPushed = true
                 self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            }
+            case ZLLanguageTypeChange_Notificaiton: do{
+                self.viewController?.title = ZLLocalizedString(string: "News", comment: "")
+                self.itemListView?.justRefresh()
             }
             default:
                 ZLLog_Info("event have no deal")
