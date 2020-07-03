@@ -35,7 +35,7 @@
 
 - (instancetype) initWithViewController:(UIViewController *) controller
 {
-    if(self = [super init])
+    if(self = [self init])
     {
         _realViewController = controller;
         _realSubViewModels = [[NSMutableSet alloc] init];

@@ -41,7 +41,7 @@ extension ZLGithubItemTableViewCellData {
         } else if data! is ZLGithubPullRequestModel {
             return ZLPullRequestTableViewCellData.init(eventModel: data! as! ZLGithubPullRequestModel)
         } else if data! is ZLGithubEventModel {
-            return ZLEventTableViewCellData.init(eventModel: data! as! ZLGithubEventModel)
+            return ZLEventTableViewCellData.getCellDataWithEventModel(eventModel: data! as! ZLGithubEventModel)
         } else if data! is ZLGithubGistModel {
             return ZLGistTableViewCellData.init(data: data! as! ZLGithubGistModel)
         } else if data! is ZLGithubCommitModel {

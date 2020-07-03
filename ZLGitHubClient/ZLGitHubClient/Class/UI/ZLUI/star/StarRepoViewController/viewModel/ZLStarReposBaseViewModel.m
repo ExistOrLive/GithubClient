@@ -19,19 +19,29 @@
 #import "ZLAdditionInfoServiceModel.h"
 #import "ZLUserServiceModel.h"
 
+#define ZLQueryMoreStarRequestKey @"ZLQueryMoreMyEventRequestKey"
+#define ZLQueryNewStarRequestKey @"ZLQueryNewMyEventRequestKey"
+
 @interface ZLStarReposBaseViewModel() <ZLGithubItemListViewDelegate>
 
 @property(nonatomic, weak) ZLStarReposBaseView * view;
 
 @property(nonatomic, assign) int pageNum;
 
-@property(nonatomic, strong) NSString * serialNumber;      // 流水号
-
 @property(nonatomic, assign) BOOL isFreshNew;
+
+@property(nonatomic, strong) NSMutableDictionary * serialNumerDic;
 
 @end
 
 @implementation ZLStarReposBaseViewModel
+
+- (instancetype) init {
+    if(self = [super init]){
+        self.serialNumerDic = [NSMutableDictionary new];
+    }
+    return self;
+}
 
 - (void) dealloc
 {
@@ -87,13 +97,13 @@
     
     if([loginName length] > 0)
     {
-        self.serialNumber = [NSString generateSerialNumber];
-        self.isFreshNew = NO;
+        NSString *serialNumer = [NSString generateSerialNumber];
+        [self.serialNumerDic setObject:serialNumer forKey:ZLQueryMoreStarRequestKey];
         [[ZLAdditionInfoServiceModel sharedServiceModel] getAdditionInfoForUser:loginName
                                                                        infoType:ZLUserAdditionInfoTypeStarredRepos
                                                                            page:self.pageNum
                                                                        per_page:10
-                                                                   serialNumber:self.serialNumber];
+                                                                   serialNumber:serialNumer];
     }
     else
     {
@@ -107,13 +117,13 @@
     
     if([loginName length] > 0)
     {
-        self.serialNumber = [NSString generateSerialNumber];
-        self.isFreshNew = YES;
+        NSString *serialNumber = [NSString generateSerialNumber];
+        [self.serialNumerDic setObject:serialNumber forKey:ZLQueryNewStarRequestKey];
         [[ZLAdditionInfoServiceModel sharedServiceModel] getAdditionInfoForUser:loginName
                                                                        infoType:ZLUserAdditionInfoTypeStarredRepos
                                                                            page:1
                                                                        per_page:10
-                                                                   serialNumber:self.serialNumber];
+                                                                   serialNumber:serialNumber];
     }
     else
     {
@@ -135,16 +145,14 @@
     {
         ZLOperationResultModel * resultModel = (ZLOperationResultModel *)notification.params;
         
-        if(![resultModel.serialNumber isEqualToString:self.serialNumber])
-        {
+        if(![self.serialNumerDic.allValues containsObject:resultModel.serialNumber]){
             return;
         }
-        
-        self.serialNumber = nil;
         
         if(!resultModel.result)
         {
             ZLLog_Warning(@"error");
+            [self.view.listView endRefreshWithError];
             ZLGithubRequestErrorModel * model = resultModel.data;
             [ZLToastView showMessage:[NSString stringWithFormat:@"%@(%ld)",model.message,(long)model.statusCode]];
             return;
@@ -159,12 +167,12 @@
             [celldatas addObject:cellData];
         }
         
-        if(self.isFreshNew)
+        if([resultModel.serialNumber isEqualToString:self.serialNumerDic[ZLQueryNewStarRequestKey]])
         {
             self.pageNum = 2;
             [self.view.listView resetCellDatasWithCellDatas:celldatas];
         }
-        else
+        else if([resultModel.serialNumber isEqualToString:self.serialNumerDic[ZLQueryMoreStarRequestKey]])
         {
             self.pageNum ++;
             [self.view.listView appendCellDatasWithCellDatas:celldatas];
