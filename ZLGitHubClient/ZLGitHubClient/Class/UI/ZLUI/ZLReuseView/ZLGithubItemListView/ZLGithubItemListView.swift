@@ -154,21 +154,14 @@ extension ZLGithubItemListView : UITableViewDelegate, UITableViewDataSource
 
 extension ZLGithubItemListView
 {
-    func loadNewData()
-    {
-        
-        if
-            self.delegate?.responds(to:#selector(ZLGithubItemListViewDelegate.githubItemListViewRefreshDragDown(pullRequestListView:))) ?? false
-        {
+    func loadNewData(){
+        if self.delegate?.responds(to:#selector(ZLGithubItemListViewDelegate.githubItemListViewRefreshDragDown(pullRequestListView:))) ?? false{
             self.delegate?.githubItemListViewRefreshDragDown(pullRequestListView: self)
         }
-        
     }
     
-    func loadMoreData()
-    {
-        if self.delegate?.responds(to:#selector(ZLGithubItemListViewDelegate.githubItemListViewRefreshDragUp(pullRequestListView:))) ?? false
-        {
+    func loadMoreData(){
+        if self.delegate?.responds(to:#selector(ZLGithubItemListViewDelegate.githubItemListViewRefreshDragUp(pullRequestListView:))) ?? false{
             self.delegate?.githubItemListViewRefreshDragUp(pullRequestListView: self)
         }
     }
@@ -182,10 +175,8 @@ extension ZLGithubItemListView
         self.tableView?.mj_header?.endRefreshing()
         self.tableView?.mj_footer?.endRefreshing()
         
-        if self.cellDatas != nil
-        {
-            for cellData in self.cellDatas!
-            {
+        if self.cellDatas != nil{
+            for cellData in self.cellDatas!{
                 cellData.removeFromSuperViewModel()
             }
         }
@@ -210,6 +201,10 @@ extension ZLGithubItemListView
         }
         self.cellDatas?.append(contentsOf: cellDatas!)
         self.tableView?.reloadData()
+    }
+    
+    func resetContentOffset(){
+        self.tableView?.setContentOffset(CGPoint.zero, animated: false)
     }
     
     

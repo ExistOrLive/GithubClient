@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -30,6 +31,11 @@
                     <state key="normal" title="Best Match">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                     </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="3"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="onOrderButtonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="pZw-Z5-cz7"/>
                     </connections>
@@ -48,9 +54,14 @@
                         <constraint firstAttribute="width" constant="200" id="tpe-is-mLs"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="PingFangSC-Light" family="PingFang SC" pointSize="14"/>
-                    <state key="normal" title="All Language">
+                    <state key="normal" title="Any">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                     </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="3"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="onLanguageButtonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="D1V-Pu-0Bt"/>
                     </connections>
@@ -61,7 +72,7 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DhD-8b-sCY">
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DhD-8b-sCY">
                     <rect key="frame" x="20" y="216.5" width="100" height="30"/>
                     <color key="backgroundColor" red="0.79215686269999996" green="0.82352941180000006" blue="0.89411764709999997" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
@@ -71,8 +82,20 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <fontDescription key="fontDescription" name="PingFangSC-Light" family="PingFang SC" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="3"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                 </textField>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rha-I3-dyp">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hm6-hD-fkD">
+                    <rect key="frame" x="132" y="231" width="26" height="1"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.26294948630136988" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="OGT-Uq-6rv"/>
+                    </constraints>
+                </view>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rha-I3-dyp">
                     <rect key="frame" x="170" y="216.5" width="100" height="30"/>
                     <color key="backgroundColor" red="0.79215686269999996" green="0.82352941180000006" blue="0.89411764709999997" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
@@ -82,6 +105,11 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <fontDescription key="fontDescription" name="PingFangSC-Light" family="PingFang SC" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="3"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                 </textField>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stars" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J7r-xn-8M3">
                     <rect key="frame" x="20" y="256.5" width="44.5" height="25.5"/>
@@ -89,20 +117,30 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kN5-gC-l0s">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kN5-gC-l0s">
                     <rect key="frame" x="130" y="625" width="150" height="40"/>
-                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" red="0.94117647059999998" green="0.95686274510000002" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="150" id="gV3-Yk-iSk"/>
                         <constraint firstAttribute="height" constant="40" id="tbi-FO-2iS"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="14"/>
-                    <state key="normal" title="Finish"/>
+                    <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="14"/>
+                    <state key="normal" title="Finish">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                            <color key="value" red="0.76862745099999996" green="0.7843137255" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                            <real key="value" value="0.29999999999999999"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                     <connections>
-                        <action selector="onFinishButtonClicked:" destination="-1" eventType="touchUpInside" id="66z-pA-B9I"/>
+                        <action selector="onFinishButtonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="BSO-cb-pbr"/>
                     </connections>
                 </button>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Afx-gM-QLi" userLabel="Star Mini Value">
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Afx-gM-QLi" userLabel="Star Mini Value">
                     <rect key="frame" x="20" y="292" width="100" height="30"/>
                     <color key="backgroundColor" red="0.79215686269999996" green="0.82352941180000006" blue="0.89411764709999997" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
@@ -112,8 +150,13 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <fontDescription key="fontDescription" name="PingFangSC-Light" family="PingFang SC" pointSize="14"/>
                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="3"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                 </textField>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uxw-qZ-ZmL" userLabel="Star Max Value">
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uxw-qZ-ZmL" userLabel="Star Max Value">
                     <rect key="frame" x="170" y="292" width="100" height="30"/>
                     <color key="backgroundColor" red="0.79215686269999996" green="0.82352941180000006" blue="0.89411764709999997" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
@@ -123,6 +166,11 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <fontDescription key="fontDescription" name="PingFangSC-Light" family="PingFang SC" pointSize="14"/>
                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="3"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                 </textField>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forks" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eap-3W-qEi">
                     <rect key="frame" x="20" y="332" width="48" height="26"/>
@@ -130,7 +178,7 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fNN-r6-IfM" userLabel="Fork Mini Value">
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fNN-r6-IfM" userLabel="Fork Mini Value">
                     <rect key="frame" x="20" y="368" width="100" height="30"/>
                     <color key="backgroundColor" red="0.79215686269999996" green="0.82352941180000006" blue="0.89411764709999997" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
@@ -139,8 +187,13 @@
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="0.29999999999999999"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                 </textField>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tps-i3-vFp" userLabel="Fork Max Value">
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tps-i3-vFp" userLabel="Fork Max Value">
                     <rect key="frame" x="170" y="368" width="100" height="30"/>
                     <color key="backgroundColor" red="0.79215686269999996" green="0.82352941180000006" blue="0.89411764709999997" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
@@ -149,62 +202,70 @@
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="0.29999999999999999"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                 </textField>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Size" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uJH-78-ajd">
-                    <rect key="frame" x="20" y="408" width="36" height="25.5"/>
-                    <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="18"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5PZ-Ho-2DY" userLabel="Size">
-                    <rect key="frame" x="20" y="443.5" width="100" height="30"/>
-                    <color key="backgroundColor" red="0.79215686269999996" green="0.82352941180000006" blue="0.89411764709999997" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NdZ-OP-7Hc">
+                    <rect key="frame" x="132" y="306.5" width="26" height="1"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.26294948629999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="100" id="KAR-cN-g5e"/>
-                        <constraint firstAttribute="height" constant="30" id="pIG-TG-MFV"/>
+                        <constraint firstAttribute="height" constant="1" id="xjx-fM-yto"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
-                </textField>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vz0-zv-q3d">
+                    <rect key="frame" x="132" y="382.5" width="26" height="1"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.26294948629999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="Eso-xs-QmT"/>
+                    </constraints>
+                </view>
             </subviews>
-            <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="5PZ-Ho-2DY" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="0i7-qD-Xes"/>
+                <constraint firstItem="vz0-zv-q3d" firstAttribute="leading" secondItem="fNN-r6-IfM" secondAttribute="trailing" constant="12" id="0gH-de-6L4"/>
                 <constraint firstItem="uBr-iK-Znc" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="0x4-pW-Twp"/>
                 <constraint firstItem="UgM-z0-1xd" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="4dN-ab-6lC"/>
                 <constraint firstItem="J7r-xn-8M3" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="695-qX-Tco"/>
+                <constraint firstItem="rha-I3-dyp" firstAttribute="leading" secondItem="hm6-hD-fkD" secondAttribute="trailing" constant="12" id="85o-4i-Y2S"/>
                 <constraint firstItem="zpJ-Wx-q3P" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="ApS-Qi-ICg"/>
                 <constraint firstItem="Afx-gM-QLi" firstAttribute="top" secondItem="J7r-xn-8M3" secondAttribute="bottom" constant="10" id="Aw3-GP-Y0U"/>
-                <constraint firstAttribute="bottom" secondItem="kN5-gC-l0s" secondAttribute="bottom" constant="20" id="B8K-it-jGN"/>
                 <constraint firstItem="uBr-iK-Znc" firstAttribute="top" secondItem="T74-jr-f83" secondAttribute="bottom" constant="10" id="Byn-aZ-Y8E"/>
                 <constraint firstItem="tps-i3-vFp" firstAttribute="centerY" secondItem="fNN-r6-IfM" secondAttribute="centerY" id="DHV-Bl-Mqw"/>
                 <constraint firstItem="Eap-3W-qEi" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="IlC-RN-EoL"/>
-                <constraint firstItem="uJH-78-ajd" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="Lu7-EQ-AgE"/>
-                <constraint firstItem="UgM-z0-1xd" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="Lx1-FT-gfC"/>
                 <constraint firstItem="J7r-xn-8M3" firstAttribute="top" secondItem="DhD-8b-sCY" secondAttribute="bottom" constant="10" id="MbX-FV-4eq"/>
+                <constraint firstItem="NdZ-OP-7Hc" firstAttribute="leading" secondItem="Afx-gM-QLi" secondAttribute="trailing" constant="12" id="PZu-eE-YdZ"/>
                 <constraint firstItem="rha-I3-dyp" firstAttribute="leading" secondItem="DhD-8b-sCY" secondAttribute="trailing" constant="50" id="Q7l-01-iOl"/>
                 <constraint firstItem="zpJ-Wx-q3P" firstAttribute="top" secondItem="uBr-iK-Znc" secondAttribute="bottom" constant="10" id="SWr-x9-OBN"/>
                 <constraint firstItem="Afx-gM-QLi" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="Thg-ig-KuC"/>
-                <constraint firstItem="5PZ-Ho-2DY" firstAttribute="top" secondItem="uJH-78-ajd" secondAttribute="bottom" constant="10" id="ULa-w5-6pu"/>
+                <constraint firstItem="vz0-zv-q3d" firstAttribute="centerY" secondItem="fNN-r6-IfM" secondAttribute="centerY" id="XpM-Md-WOD"/>
+                <constraint firstItem="hm6-hD-fkD" firstAttribute="centerY" secondItem="DhD-8b-sCY" secondAttribute="centerY" id="Zyr-73-T6B"/>
                 <constraint firstItem="fNN-r6-IfM" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="b4W-43-gC1"/>
                 <constraint firstItem="rha-I3-dyp" firstAttribute="centerY" secondItem="DhD-8b-sCY" secondAttribute="centerY" id="bNO-R6-5S8"/>
                 <constraint firstItem="Eap-3W-qEi" firstAttribute="top" secondItem="Afx-gM-QLi" secondAttribute="bottom" constant="10" id="bOH-Ps-dt6"/>
                 <constraint firstItem="uxw-qZ-ZmL" firstAttribute="leading" secondItem="Afx-gM-QLi" secondAttribute="trailing" constant="50" id="bs0-15-5fS"/>
                 <constraint firstItem="DhD-8b-sCY" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="cIh-ao-aq5"/>
-                <constraint firstItem="uJH-78-ajd" firstAttribute="top" secondItem="fNN-r6-IfM" secondAttribute="bottom" constant="10" id="hVX-XK-5jU"/>
+                <constraint firstItem="tps-i3-vFp" firstAttribute="leading" secondItem="vz0-zv-q3d" secondAttribute="trailing" constant="12" id="gjd-No-TTf"/>
+                <constraint firstItem="uxw-qZ-ZmL" firstAttribute="leading" secondItem="NdZ-OP-7Hc" secondAttribute="trailing" constant="12" id="iTe-ii-hfb"/>
+                <constraint firstItem="hm6-hD-fkD" firstAttribute="leading" secondItem="DhD-8b-sCY" secondAttribute="trailing" constant="12" id="inf-EZ-PTH"/>
                 <constraint firstItem="T74-jr-f83" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="j90-zT-Xxn"/>
                 <constraint firstItem="FPu-MM-yEK" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="lME-6n-aDP"/>
                 <constraint firstItem="T74-jr-f83" firstAttribute="top" secondItem="FPu-MM-yEK" secondAttribute="bottom" constant="10" id="mYg-yA-Vmr"/>
+                <constraint firstItem="NdZ-OP-7Hc" firstAttribute="centerY" secondItem="Afx-gM-QLi" secondAttribute="centerY" id="nEz-X2-Kls"/>
                 <constraint firstItem="uxw-qZ-ZmL" firstAttribute="centerY" secondItem="Afx-gM-QLi" secondAttribute="centerY" id="nRy-Mk-VgF"/>
                 <constraint firstItem="fNN-r6-IfM" firstAttribute="top" secondItem="Eap-3W-qEi" secondAttribute="bottom" constant="10" id="qTB-NF-xDj"/>
                 <constraint firstItem="tps-i3-vFp" firstAttribute="leading" secondItem="fNN-r6-IfM" secondAttribute="trailing" constant="50" id="tlc-6i-91e"/>
                 <constraint firstItem="FPu-MM-yEK" firstAttribute="top" secondItem="UgM-z0-1xd" secondAttribute="bottom" constant="10" id="txg-dq-Tsg"/>
+                <constraint firstItem="nvY-UB-OO7" firstAttribute="bottom" secondItem="kN5-gC-l0s" secondAttribute="bottom" constant="20" id="uzJ-l6-DyG"/>
                 <constraint firstItem="DhD-8b-sCY" firstAttribute="top" secondItem="zpJ-Wx-q3P" secondAttribute="bottom" constant="10" id="w7K-JN-qgm"/>
                 <constraint firstAttribute="trailing" secondItem="kN5-gC-l0s" secondAttribute="trailing" constant="20" id="yF6-xf-Jkd"/>
+                <constraint firstItem="UgM-z0-1xd" firstAttribute="top" secondItem="nvY-UB-OO7" secondAttribute="top" constant="20" id="zld-zx-XQN"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="nvY-UB-OO7"/>
             <connections>
-                <outlet property="bottomConstraint" destination="B8K-it-jGN" id="PRy-ao-Fym"/>
                 <outlet property="createTimeLabel" destination="zpJ-Wx-q3P" id="9lO-oT-jgt"/>
                 <outlet property="finishButton" destination="kN5-gC-l0s" id="dA8-Mf-YNb"/>
                 <outlet property="firstForkNumField" destination="fNN-r6-IfM" id="GgL-QD-b0L"/>
@@ -218,10 +279,7 @@
                 <outlet property="secondForkNumField" destination="tps-i3-vFp" id="lAa-ob-tkx"/>
                 <outlet property="secondStarNumField" destination="uxw-qZ-ZmL" id="yIs-66-k5q"/>
                 <outlet property="secondTimeField" destination="rha-I3-dyp" id="a5v-f0-50S"/>
-                <outlet property="sizeFiled" destination="5PZ-Ho-2DY" id="4Zo-wK-skR"/>
-                <outlet property="sizeLabel" destination="uJH-78-ajd" id="IuD-M8-abo"/>
                 <outlet property="starLabel" destination="J7r-xn-8M3" id="N25-gq-9Kp"/>
-                <outlet property="topConstraint" destination="Lx1-FT-gfC" id="Uho-l5-9IH"/>
             </connections>
             <point key="canvasLocation" x="-196.80000000000001" y="65.217391304347828"/>
         </view>

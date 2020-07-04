@@ -65,7 +65,7 @@
         _isAsc = YES;
     }
     
-    if(self.language && [self.language length] > 0)
+    if(self.language && [self.language length] > 0 && ![self.language isEqualToString:@"Any"])
     {
         [finalKeyWord appendFormat:@" language:%@",self.language];
     }
@@ -125,7 +125,7 @@
         _isAsc = YES;
     }
     
-    if(self.language && [self.language length] > 0)
+    if(self.language && [self.language length] > 0 && ![self.language isEqualToString:@"Any"])
     {
         [finalKeyWord appendFormat:@" language:%@",self.language];
     }

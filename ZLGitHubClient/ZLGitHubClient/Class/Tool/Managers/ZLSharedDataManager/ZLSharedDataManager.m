@@ -10,17 +10,20 @@
 #import "ZLSharedDataManager.h"
 #import "ZLKeyChainManager.h"
 #import "ZLTrendingFilterInfoModel.h"
+#import "ZLSearchRecordModel.h"
 
 #define ZLKeyChainService @"com.zm.fbd34c5a34be72f66c35.ZLGitHubClient"
 #define ZLAccessTokenKey @"ZLAccessTokenKey"
 #define ZLUserAccountKey @"ZLUserAccountKey"
 #define ZLUserHeadImageKey @"ZLUserHeadImageKey"
-
+#define ZLSearchRecordKey @"ZLSearchRecordKey"
+ 
 @implementation ZLSharedDataManager
 
 @synthesize userInfoModel = _userInfoModel;
 @synthesize githubAccessToken = _githubAccessToken;
 @synthesize trendingOptions = _trendingOptions;
+@synthesize searchRecordArray = _searchRecordArray;
 
 + (instancetype) sharedInstance{
     static ZLSharedDataManager * manager = nil;
@@ -152,12 +155,29 @@
     self.trendingOptions = options;
 }
 
+#pragma mark - search
+
+- (void)setSearchRecordArray:(NSArray<NSString *> *)searchRecordArray{
+    _searchRecordArray = [searchRecordArray copy];
+    [[NSUserDefaults standardUserDefaults] setObject:_searchRecordArray forKey:ZLSearchRecordKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSArray<NSString *> *)searchRecordArray {
+    if(!_searchRecordArray) {
+        _searchRecordArray = [[NSUserDefaults standardUserDefaults] objectForKey:ZLSearchRecordKey];
+    }
+    return _searchRecordArray;
+}
+
 
 #pragma mark -
 
 - (void) clearGithubTokenAndUserInfo{
     [self setUserInfoModel:nil];
     [self setGithubAccessToken:nil];
+    [self setTrendingOptions:nil];
+    [self setSearchRecordArray:nil];
 }
 
 @end

@@ -37,6 +37,13 @@ class ZLSearchViewModel: ZLBaseViewModel {
         
         let searchRecordViewModel = ZLSearchRecordViewModel.init()
         searchRecordViewModel.bindModel(nil, andView: self.searchView!.searchRecordView!)
+        searchRecordViewModel.resultBlock = {(searchKey : String) in
+            self.searchView?.setUnEditStatus()
+            self.searchView?.searchTextField.text = searchKey
+            self.searchView?.searchTextField.resignFirstResponder()
+            self.searchItemsViewModel?.startSearch(keyWord: searchKey)
+            self.searchRecordViewModel?.onSearhKeyConfirmed(searchKey: searchKey)
+        }
         self.addSubViewModel(searchRecordViewModel)
         self.searchRecordViewModel = searchRecordViewModel;
         
@@ -81,8 +88,7 @@ class ZLSearchViewModel: ZLBaseViewModel {
 extension ZLSearchViewModel: UITextFieldDelegate
 {
     @available(iOS 2.0, *)
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool
-    {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool{
         return true
     }
 
@@ -91,17 +97,34 @@ extension ZLSearchViewModel: UITextFieldDelegate
     {
         self.preSearchKeyWord  = self.searchView?.searchTextField.text
         self.searchView?.setEditStatus()
+        self.searchItemsViewModel?.startInput()
+        self.searchRecordViewModel?.onSearchKeyChanged(searchKey: textField.text)
     }
+    
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let textStr : NSString? = textField.text as NSString?
+        let text : String = textStr?.replacingCharacters(in: range, with: string) ?? ""
+        self.searchRecordViewModel?.onSearchKeyChanged(searchKey: text)
+        return true
+    }
+    
 
     func textFieldDidEndEditing(_ textField: UITextField)
     {
 
     }
     
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        self.searchRecordViewModel?.onSearchKeyChanged(searchKey: "")
+        return true
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.searchView?.setUnEditStatus()
         textField.resignFirstResponder()
         self.searchItemsViewModel?.startSearch(keyWord: self.searchView?.searchTextField.text)
+        self.searchRecordViewModel?.onSearhKeyConfirmed(searchKey: self.searchView?.searchTextField.text)
         return false
      }
 

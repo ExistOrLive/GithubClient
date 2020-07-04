@@ -37,12 +37,20 @@ class ZLSearchView: ZLBaseView {
         
         self.topViewHeightConstraint.constant = self.topViewHeightConstraint.constant + ZLStatusBarHeight
         
+        let placeHolder = ZLLocalizedString(string: "Search", comment: "")
+        self.searchTextField.attributedPlaceholder = NSAttributedString.init(string: placeHolder, attributes: [NSAttributedString.Key.foregroundColor:ZLRGBValue_H(colorValue: 0x999999),NSAttributedString.Key.font:UIFont.systemFont(ofSize: 12)])
+        let leftView = UIView.init(frame: CGRect(x: 0, y: 0, width: 20, height: 40))
+        leftView.backgroundColor = UIColor.clear
+        self.searchTextField.leftView = leftView
+        self.searchTextField.leftViewMode = .always
+        
+        self.cancelButton.setTitle(ZLLocalizedString(string: "Cancel", comment: ""), for: .normal)
+        
         // ZLSearchItemsView
         self.searchItemsView = Bundle.main.loadNibNamed("ZLSearchItemsView", owner: self, options: nil)?.first as? ZLSearchItemsView
         self.searchItemsView?.frame = self.contentView.bounds
         self.searchItemsView?.autoresizingMask = UIView.AutoresizingMask.init(rawValue: UIView.AutoresizingMask.flexibleHeight.rawValue | UIView.AutoresizingMask.flexibleWidth.rawValue)
-        if self.searchItemsView != nil
-        {
+        if self.searchItemsView != nil{
             self.contentView.addSubview(self.searchItemsView!)
         }
         
@@ -50,8 +58,7 @@ class ZLSearchView: ZLBaseView {
         self.searchRecordView = Bundle.main.loadNibNamed("ZLSearchRecordView", owner: self, options: nil)?.first as? ZLSearchRecordView
         self.searchRecordView?.frame = self.contentView.bounds
         self.searchRecordView?.autoresizingMask = UIView.AutoresizingMask.init(rawValue: UIView.AutoresizingMask.flexibleHeight.rawValue | UIView.AutoresizingMask.flexibleWidth.rawValue)
-        if self.searchRecordView != nil
-        {
+        if self.searchRecordView != nil{
             self.contentView.addSubview(self.searchRecordView!)
         }
         self.searchRecordView?.isHidden = true
@@ -62,7 +69,7 @@ class ZLSearchView: ZLBaseView {
     func setEditStatus()
     {
         self.backButtonWidthConstraint.constant = 0.0
-        self.cancelButtonWidthConstraint.constant = 40.0
+        self.cancelButtonWidthConstraint.constant = 60.0
         self.searchRecordView?.isHidden = false
     }
     

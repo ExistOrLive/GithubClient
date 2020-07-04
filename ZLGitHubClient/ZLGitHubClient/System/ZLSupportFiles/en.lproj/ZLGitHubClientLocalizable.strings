@@ -155,3 +155,17 @@
 "MJRefreshAutoFooterIdleText" = "Tap or pull up to load more";
 "MJRefreshAutoFooterRefreshingText" = "Loading...";
 "MJRefreshAutoFooterNoMoreDataText" = "No more data";
+
+
+// search filter
+"Order" = "Order";
+"CreateTime" = "Create at";
+"StarNum" = "Star";
+"ForkNum" = "Fork";
+"FollowersNum" = "Followers";
+"PubReposNum" = "Pub Repos";
+
+"SearchRecord" = "Record";
+"ClearSearchRecord" = "Clear";
+"Filter" = "Filter";
+
