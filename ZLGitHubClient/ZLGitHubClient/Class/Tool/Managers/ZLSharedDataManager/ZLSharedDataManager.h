@@ -16,7 +16,6 @@
 
 
 @class ZLGithubUserModel;
-@class ZLSearchRecordModel;
  
 NS_ASSUME_NONNULL_BEGIN
 

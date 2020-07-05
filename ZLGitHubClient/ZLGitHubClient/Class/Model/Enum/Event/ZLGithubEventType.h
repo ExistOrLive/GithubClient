@@ -9,11 +9,12 @@
 #ifndef ZLGithbEventType_h
 #define ZLGithbEventType_h
 
+// https://docs.github.com/en/developers/webhooks-and-events/github-event-types
 typedef NS_ENUM(NSInteger, ZLGithubEventType)
 {
     ZLGithubEventType_CheckRunEvent,
     ZLGithubEventType_CheckSuiteEvent,
-    ZLGithubEventType_CommitCommentEvent,
+    ZLGithubEventType_CommitCommentEvent,                  // 对某次提交评论 #commitcommentevent
     ZLGithubEventType_ContentReferenceEvent,
     ZLGithubEventType_CreateEvent,
     ZLGithubEventType_DeleteEvent,

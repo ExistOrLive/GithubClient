@@ -59,9 +59,42 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@interface ZLCommitCommentBriefInfoModel : ZLBaseObject
+
+@property (nonatomic, strong) NSString *id_CommitComment;
+@property (nonatomic, strong, nullable) NSString *body;                           // 评论的内容
+@property (nonatomic, strong) NSString *html_url;
+@property (nonatomic, strong) NSString *url;
+@property (nonatomic, strong) NSString *node_id;
+@property (nonatomic, strong, nullable) NSString *path;
+@property (nonatomic, strong, nullable) id position;
+@property (nonatomic, strong, nullable) id line;
+
+@property (nonatomic, strong) NSDate *updated_at;
+@property (nonatomic, strong) NSDate *created_at;
+
+@property (nonatomic, strong) NSString *commit_id;
+@property (nonatomic, strong) NSString *author_association;             // OWNER
+
+@property (nonatomic, strong) ZLGithubUserBriefModel*user;
+
+@end
+
+
 
 #pragma mark - Event Payloads
 
+// 评论某次commit
+@interface ZLCommitCommentEventPayloadModel : ZLBaseObject
+
+@property (nonatomic, strong) NSString *action;     //!  created
+
+@property (nonatomic, strong) id comment;           // 评论内容
+
+@end
+
+
+// Push 事件
 @interface ZLPushEventPayloadModel : ZLBaseObject
 
 @property (nonatomic, assign) NSInteger push_id;
@@ -97,8 +130,8 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - EventModel
 
 /**
- *  ref  https://developer.github.com/v3/activity/events/
- *  ref  https://developer.github.com/v3/activity/events/types/
+ *  ref  https://docs.github.com/en/developers/webhooks-and-events/github-event-types
+ * 
  */
 @interface ZLGithubEventModel : ZLBaseObject
 

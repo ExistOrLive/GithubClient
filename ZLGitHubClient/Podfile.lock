@@ -32,6 +32,7 @@ PODS:
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
+  - IQKeyboardManager (6.5.5)
   - JJException (0.2.7):
     - JJException/All (= 0.2.7)
   - JJException/All (0.2.7):
@@ -78,6 +79,7 @@ DEPENDENCIES:
   - DoraemonKit/WithMLeaksFinder (= 2.0.0)
   - FFPopup
   - FMDB
+  - IQKeyboardManager
   - JJException
   - JXSegmentedView
   - LookinServer
@@ -103,6 +105,7 @@ SPEC REPOS:
     - FFPopup
     - fishhook
     - FMDB
+    - IQKeyboardManager
     - JJException
     - JXSegmentedView
     - LookinServer
@@ -127,6 +130,7 @@ SPEC CHECKSUMS:
   FFPopup: 408e38711f4fe2fddd3c8612c045cf0df6da2e4e
   fishhook: ea19933abfe8f2f52c55fd8b6e2718467d3ebc89
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  IQKeyboardManager: 3a8b9e603f8b0eeaf5f096a1f2b2cfcf121992ef
   JJException: 6d987840193b7ef59e778d41bca463401a80a79b
   JXSegmentedView: ceb6fb3a12716408bcd5c4210b93d947d079de25
   LookinServer: 0002891cd3cec5e082a910e897dfe71b4f06b89e
@@ -141,6 +145,6 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": d7b0c400921f66523f3a85d74f774512e14f6502
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: 36ae0fd0b9f396a955b69c5f7e1ff418d62b3d37
+PODFILE CHECKSUM: f0958e7fda5a13c06d5d2763cf744c169b78cc43
 
 COCOAPODS: 1.9.1

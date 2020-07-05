@@ -25,10 +25,7 @@
 "owner" = "Owner";
 "submit" = "Submit";
 
-"company" = "Company";
-"location" = "Location";
-"email" = "Email";
-"blog" = "Blog";
+
 "setting" = "Setting";
 "about" = "About";
 "feedback" = "Feedback";
@@ -64,7 +61,6 @@
 "minute later" = " minute later";
 
 "update at" = "update at ";
-"news" = "News";
 "explore" = "Explore";
 "profile" = "Profile";
 
@@ -169,3 +165,9 @@
 "ClearSearchRecord" = "Clear";
 "Filter" = "Filter";
 
+// profile
+"company" = "Company";
+"location" = "Location";
+"email" = "Email";
+"blog" = "Blog";
+"bio" = "Bio";

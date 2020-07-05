@@ -10,7 +10,6 @@
 #import "ZLSharedDataManager.h"
 #import "ZLKeyChainManager.h"
 #import "ZLTrendingFilterInfoModel.h"
-#import "ZLSearchRecordModel.h"
 
 #define ZLKeyChainService @"com.zm.fbd34c5a34be72f66c35.ZLGitHubClient"
 #define ZLAccessTokenKey @"ZLAccessTokenKey"

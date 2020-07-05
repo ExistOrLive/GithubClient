@@ -24,10 +24,7 @@
 "owner" = "作者";
 "watcher" = "关注";
 
-"company" = "公司";
-"location" = "地址";
-"email" = "邮箱";
-"blog" = "博客";
+
 "setting" = "设置";
 "about" = "关于";
 "feedback" = "反馈";
@@ -163,3 +160,10 @@
 "SearchRecord" = "搜索记录";
 "ClearSearchRecord" = "清空记录";
 "Filter" = "过滤";
+
+// profile
+"company" = "公司";
+"location" = "地址";
+"email" = "邮箱";
+"blog" = "博客";
+"bio" = "个人描述";

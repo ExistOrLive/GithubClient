@@ -75,6 +75,38 @@
 
 @end
 
+
+@implementation ZLCommitCommentBriefInfoModel
+
++ (NSDictionary *)mj_replacedKeyFromPropertyName{
+    return @{@"id_CommitComment":@"id"};
+}
+
+- (id)mj_newValueFromOldValue:(id)oldValue property:(MJProperty *)property
+{
+    if([property.name isEqualToString:@"created_at"] ||
+       [property.name isEqualToString:@"updated_at"] ||
+       property.type.typeClass == [NSDate class])
+    {
+        // String 转为 Date
+        NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+        [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+        
+        return [dateFormatter dateFromString:oldValue];
+    }    
+    return oldValue;
+}
+
+@end
+
+#pragma mark - Event Payload
+
+//CommitCommentEvent
+@implementation ZLCommitCommentEventPayloadModel
+
+@end
+
 //PullEventPayload
 @implementation ZLPushEventPayloadModel
 
@@ -223,6 +255,11 @@ static NSArray * ZLGithubEventTypeArray = nil;
     
     switch(self.type)
     {
+        case ZLGithubEventType_CommitCommentEvent:{
+            ZLCommitCommentEventPayloadModel *payload = [ZLCommitCommentEventPayloadModel mj_objectWithKeyValues:dic];
+            self.payload = payload;
+        }
+            break;
         case ZLGithubEventType_CreateEvent:
         {
             ZLCreateEventPayloadModel *createEventPayload = [ZLCreateEventPayloadModel mj_objectWithKeyValues:dic];

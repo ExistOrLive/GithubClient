@@ -183,7 +183,7 @@ extension ZLNewsViewModel
                 self.viewController?.navigationController?.pushViewController(vc, animated: true)
             }
             case ZLLanguageTypeChange_Notificaiton: do{
-                self.viewController?.title = ZLLocalizedString(string: "News", comment: "")
+                self.viewController?.title = ZLLocalizedString(string: "news", comment: "")
                 self.itemListView?.justRefresh()
             }
             default:
