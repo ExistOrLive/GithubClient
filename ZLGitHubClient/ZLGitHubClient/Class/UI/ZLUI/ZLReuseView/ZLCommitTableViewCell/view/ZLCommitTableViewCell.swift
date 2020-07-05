@@ -8,9 +8,7 @@
 
 import UIKit
 
-@objc protocol ZLCommitTableViewCellDelegate : NSObjectProtocol
-{
-    func onCellClicked() -> Void
+@objc protocol ZLCommitTableViewCellDelegate : NSObjectProtocol{
 }
 
 class ZLCommitTableViewCell: UITableViewCell {
@@ -28,9 +26,6 @@ class ZLCommitTableViewCell: UITableViewCell {
         self.containerView.layer.cornerRadius = 8.0
         self.avatarImageView.layer.cornerRadius = 15
         self.avatarImageView.layer.masksToBounds = true
-              
-        let gestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(self.onCellClicked(gestureRecognizer:)))
-        self.containerView.addGestureRecognizer(gestureRecognizer)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -50,13 +45,3 @@ class ZLCommitTableViewCell: UITableViewCell {
     
 }
 
-extension ZLCommitTableViewCell
-{
-    @objc func onCellClicked(gestureRecognizer: UITapGestureRecognizer)
-    {
-        if self.delegate?.responds(to: #selector(ZLCommitTableViewCellDelegate.onCellClicked)) ?? false
-        {
-            self.delegate?.onCellClicked()
-        }
-    }
-}

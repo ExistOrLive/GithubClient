@@ -12,8 +12,6 @@ import UIKit
 @objc protocol ZLRepositoryTableViewCellDelegate : NSObjectProtocol
 {
     func onRepoAvaterClicked() -> Void
-    
-    func onRepoContainerViewClicked() -> Void
 }
 
 class ZLRepositoryTableViewCell: UITableViewCell {
@@ -57,8 +55,6 @@ class ZLRepositoryTableViewCell: UITableViewCell {
         let avatarImageTapGesture = UITapGestureRecognizer.init(target: self, action: #selector(onAvatarSingleTapAction))
         self.headImageView.addGestureRecognizer(avatarImageTapGesture)
         
-        let containerTapGesture = UITapGestureRecognizer.init(target: self, action: #selector(onContainerTapAction))
-        self.containerView.addGestureRecognizer(containerTapGesture)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -97,14 +93,6 @@ extension ZLRepositoryTableViewCell
         if self.delegate?.responds(to: #selector(ZLRepositoryTableViewCellDelegate.onRepoAvaterClicked)) ?? false
         {
             self.delegate?.onRepoAvaterClicked()
-        }
-    }
-    
-    @objc func onContainerTapAction()
-    {
-        if self.delegate?.responds(to: #selector(ZLRepositoryTableViewCellDelegate.onRepoContainerViewClicked)) ??  false
-        {
-            self.delegate?.onRepoContainerViewClicked()
         }
     }
 }

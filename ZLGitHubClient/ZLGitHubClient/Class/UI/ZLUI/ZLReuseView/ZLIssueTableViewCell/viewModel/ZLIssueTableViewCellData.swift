@@ -25,12 +25,19 @@ class ZLIssueTableViewCellData: ZLGithubItemTableViewCellData {
         return UITableView.automaticDimension
     }
     
+    override func onCellSingleTap() {
+        let vc = ZLWebContentController.init()
+        vc.requestURL = URL.init(string: self.issueModel.html_url)
+        self.viewController?.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
         guard let cell : ZLIssueTableViewCell = targetView as? ZLIssueTableViewCell else{
             return
         }
         cell.fillWithData(cellData: self)
-        cell.delegate = self
+       // cell.delegate = self
     }
     
 }
@@ -67,14 +74,5 @@ extension ZLIssueTableViewCellData{
         }
         
         return labelArray
-    }
-}
-
-
-extension ZLIssueTableViewCellData : ZLIssueTableViewCellDelegate {
-    func onCellClicked() -> Void {
-        let vc = ZLWebContentController.init()
-        vc.requestURL = URL.init(string: self.issueModel.html_url)
-        self.viewController?.navigationController?.pushViewController(vc, animated: true)
     }
 }

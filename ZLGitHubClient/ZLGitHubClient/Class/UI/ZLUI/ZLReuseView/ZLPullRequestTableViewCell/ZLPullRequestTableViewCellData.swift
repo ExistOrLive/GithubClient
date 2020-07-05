@@ -24,7 +24,7 @@ class ZLPullRequestTableViewCellData: ZLGithubItemTableViewCellData {
             return
         }
         cell.fillWithData(data: self)
-        cell.delegate = self
+       // cell.delegate = self
     }
     
     override func getCellHeight() -> CGFloat
@@ -35,6 +35,12 @@ class ZLPullRequestTableViewCellData: ZLGithubItemTableViewCellData {
     override func getCellReuseIdentifier() -> String
     {
         return "ZLPullRequestTableViewCell"
+    }
+    
+    override func onCellSingleTap() {
+        let vc = ZLWebContentController.init()
+        vc.requestURL = URL.init(string: self.pullRequestModel.html_url)
+        self.viewController?.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -89,13 +95,4 @@ extension ZLPullRequestTableViewCellData
     
 }
 
-
-extension ZLPullRequestTableViewCellData : ZLPullRequestTableViewCellDelegate
-{
-    func onCellClicked() {
-        let vc = ZLWebContentController.init()
-        vc.requestURL = URL.init(string: self.pullRequestModel.html_url)
-        self.viewController?.navigationController?.pushViewController(vc, animated: true)
-    }
-}
 

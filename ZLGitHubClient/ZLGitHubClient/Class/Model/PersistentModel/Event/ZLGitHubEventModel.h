@@ -12,8 +12,10 @@
 
 typedef NS_ENUM(NSInteger, ZLReferenceType)
 {
+    ZLReferenceType_unknown,
     ZLReferenceType_Repository,
-    ZLReferenceType_Tag
+    ZLReferenceType_Tag,
+    ZLReferenceType_Branch,
 };
 
 
@@ -80,6 +82,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@interface ZLWikiPageBriefInfoModel : ZLBaseObject
+
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *page_name;
+@property (nonatomic, strong) NSString *action;                      // created / edited
+@property (nonatomic, strong) NSString *sha;
+@property (nonatomic, strong) NSString *html_url;
+
+@end
+
 
 
 #pragma mark - Event Payloads
@@ -89,7 +101,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSString *action;     //!  created
 
-@property (nonatomic, strong) id comment;           // 评论内容
+@property (nonatomic, strong) ZLCommitCommentBriefInfoModel *comment;           // 评论内容
 
 @end
 
@@ -114,16 +126,42 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-//CreateEventPayload
+//CreateEventPayload 创建 tag 或者 repository
 @interface ZLCreateEventPayloadModel : ZLBaseObject
 
-@property (nonatomic, strong) NSString * ref;             //! 提交的sha
-@property (nonatomic, assign) ZLReferenceType ref_type;  //! 目前有两种类型：repository、tag
+@property (nonatomic, strong) NSString * ref;             //!
+@property (nonatomic, assign) ZLReferenceType ref_type;  //! 目前有两种类型：repository、tag branch
 @property (nonatomic, strong) NSString * master_branch;   //! 默认是master
 @property (nonatomic, strong) NSString * desc;
 @property (nonatomic, strong) NSString * pusher_type;
 
 @end
+
+
+// DeleteEvent 删除 branch 或者 tag
+@interface ZLDeleteEventPayloadModel : ZLBaseObject
+
+@property (nonatomic, strong) NSString * ref;             //! 提交的sha
+@property (nonatomic, assign) ZLReferenceType ref_type;  //! 目前有两种类型：repository、tag
+
+@end
+
+
+// ForkEventPaylod
+@interface ZLForkEventPayloadModel : ZLBaseObject
+
+@property (nonatomic, strong) ZLGithubRepositoryModel *forkee;    // fork 创建的仓库
+
+@end
+
+
+// GollumEvent
+@interface ZLGollumEventPayloadModel : ZLBaseObject
+
+@property (nonatomic, strong) NSArray<ZLWikiPageBriefInfoModel *> *pages;
+
+@end
+
 
 
 

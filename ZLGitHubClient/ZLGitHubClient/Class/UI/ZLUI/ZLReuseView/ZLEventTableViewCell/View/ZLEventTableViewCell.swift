@@ -27,7 +27,7 @@ class ZLEventTableViewCell: UITableViewCell {
     
     var timeLabel : UILabel?
     
-    var eventDesLabel : UILabel?
+    var eventDesLabel : YYLabel?
     
     var assistInfoView : UIView?
     
@@ -55,8 +55,6 @@ class ZLEventTableViewCell: UITableViewCell {
             make.edges.equalTo(self.contentView).inset(UIEdgeInsets.init(top: 5, left: 10, bottom: 5, right: 10))
         })
         self.containerView = view
-        let singleTagGesture = UITapGestureRecognizer.init(target: self, action: #selector(self.onCellSingleTap(gestureRecognizer:)))
-        self.containerView?.addGestureRecognizer(singleTagGesture)
         
         // headImageButton
         let headImageButton = UIButton.init(type: .custom)
@@ -92,10 +90,10 @@ class ZLEventTableViewCell: UITableViewCell {
         })
         self.timeLabel = timeLabel
         
-        let eventDesLabel = UILabel.init()
+        
+        let eventDesLabel = YYLabel.init()
         eventDesLabel.numberOfLines = 0
-        eventDesLabel.textColor = UIColor.init(hexString: "#333333", alpha: 1.0)
-        eventDesLabel.font = UIFont.init(name: Font_PingFangSCRegular, size: 15.0)
+        eventDesLabel.preferredMaxLayoutWidth = ZLScreenWidth - 50
         self.containerView?.addSubview(eventDesLabel)
         eventDesLabel.snp.makeConstraints({(make) -> Void in
             make.left.equalTo(self.containerView!.snp_left).offset(15)
@@ -126,7 +124,7 @@ class ZLEventTableViewCell: UITableViewCell {
         self.headImageButton?.sd_setBackgroundImage(with: URL.init(string: cellData.getActorAvaterURL()), for: .normal, placeholderImage: UIImage.init(named: "default_avatar"), options: .refreshCached, context: nil)
         self.actorNameLabel?.text = cellData.getActorName()
         self.timeLabel?.text = cellData.getTimeStr()
-        self.eventDesLabel?.text = cellData.getEventDescrption()
+        self.eventDesLabel?.attributedText = cellData.getEventDescrption()
     }
 }
 
@@ -142,7 +140,7 @@ extension ZLEventTableViewCell
         }
     }
     
-    @objc func onCellSingleTap(gestureRecognizer : UITapGestureRecognizer)
+    @objc func onCellSingleTap()
     {
         if self.delegate?.responds(to: #selector(ZLEventTableViewCellDelegate.onCellSingleTap)) ?? false
         {
@@ -150,3 +148,4 @@ extension ZLEventTableViewCell
         }
     }
 }
+

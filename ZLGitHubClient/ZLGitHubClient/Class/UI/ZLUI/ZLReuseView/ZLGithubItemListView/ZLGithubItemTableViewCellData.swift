@@ -14,6 +14,8 @@ import Foundation
     func getCellReuseIdentifier() -> String;
      
     func getCellHeight() -> CGFloat;
+    
+    func onCellSingleTap()
 }
 
 
@@ -26,6 +28,11 @@ class ZLGithubItemTableViewCellData : ZLBaseViewModel,ZLGithubItemTableViewCellD
     func getCellHeight() -> CGFloat {
         return 0;
     }
+    
+    func onCellSingleTap() {
+        
+    }
+    
 }
 
 extension ZLGithubItemTableViewCellData {

@@ -36,13 +36,13 @@ class ZLMyEventBaseViewModel: ZLBaseViewModel {
         self.baseView?.delegate = self;
         
         self.addObservers()
+        
+        self.baseView?.beginRefresh()
     }
     
     override func vcLifeCycle_viewWillAppear()
     {
-        super.vcLifeCycle_viewWillAppear()
-        
-        self.baseView?.beginRefresh()
+        super.vcLifeCycle_viewWillAppear()        
     }
 }
 
@@ -133,7 +133,7 @@ extension ZLMyEventBaseViewModel
             else if responseObject.serialNumber == self.serialNumberDic[ZLMyEventBaseViewModel.ZLQueryNewMyEventRequestKey]{
                 self.serialNumberDic.removeValue(forKey: ZLMyEventBaseViewModel.ZLQueryNewMyEventRequestKey)
                 self.baseView?.resetCellDatas(cellDatas: cellDataArray)
-                self.pageNum = 0
+                self.pageNum = 1
             }
             
             }
