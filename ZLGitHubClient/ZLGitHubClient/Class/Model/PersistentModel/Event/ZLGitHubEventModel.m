@@ -75,6 +75,53 @@
 
 @end
 
+
+
+@implementation ZLCommitCommentBriefInfoModel
+
++ (NSDictionary *)mj_replacedKeyFromPropertyName{
+    return @{@"id_CommitComment":@"id"};
+}
+
+- (id)mj_newValueFromOldValue:(id)oldValue property:(MJProperty *)property
+{
+    if([property.name isEqualToString:@"created_at"] ||
+       [property.name isEqualToString:@"updated_at"] ||
+       property.type.typeClass == [NSDate class])
+    {
+        // String 转为 Date
+        NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+        [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+        
+        return [dateFormatter dateFromString:oldValue];
+    }    
+    return oldValue;
+}
+
+@end
+
+
+@implementation ZLWikiPageBriefInfoModel
+
+@end
+
+@implementation ZLGitHubOrgModel
+
++ (NSDictionary *)mj_replacedKeyFromPropertyName
+{
+    return @{@"id_org":@"id"};
+}
+
+@end
+
+#pragma mark - Event Payload
+
+//CommitCommentEvent
+@implementation ZLCommitCommentEventPayloadModel
+
+@end
+
 //PullEventPayload
 @implementation ZLPushEventPayloadModel
 
@@ -103,13 +150,14 @@
 {
     if([property.name isEqualToString:@"ref_type"])
     {
-        if([oldValue isEqualToString:@"repository"])
-        {
+        if([oldValue isEqualToString:@"repository"]){
             return [NSNumber numberWithInteger:ZLReferenceType_Repository];
-        }
-        else
-        {
+        } else if([oldValue isEqualToString:@"tag"]){
             return [NSNumber numberWithInteger:ZLReferenceType_Tag];
+        } else if([oldValue isEqualToString:@"branch"]) {
+            return [NSNumber numberWithInteger:ZLReferenceType_Branch];
+        } else {
+            return [NSNumber numberWithInteger:ZLReferenceType_unknown];
         }
     }
     return oldValue;
@@ -117,11 +165,40 @@
 
 @end
 
-@implementation ZLGitHubOrgModel
+@implementation ZLDeleteEventPayloadModel
 
-+ (NSDictionary *)mj_replacedKeyFromPropertyName
+- (id)mj_newValueFromOldValue:(id)oldValue property:(MJProperty *)property
 {
-    return @{@"id_org":@"id"};
+    if([property.name isEqualToString:@"ref_type"])
+    {
+        if([oldValue isEqualToString:@"repository"]){
+            return [NSNumber numberWithInteger:ZLReferenceType_Repository];
+        } else if([oldValue isEqualToString:@"tag"]){
+            return [NSNumber numberWithInteger:ZLReferenceType_Tag];
+        } else if([oldValue isEqualToString:@"branch"]) {
+            return [NSNumber numberWithInteger:ZLReferenceType_Branch];
+        } else {
+            return [NSNumber numberWithInteger:ZLReferenceType_unknown];
+        }
+    }
+    return oldValue;
+}
+
+
+@end
+
+
+// ForkEventPaylod
+@implementation ZLForkEventPayloadModel
+
+
+@end
+
+
+@implementation ZLGollumEventPayloadModel
+
++ (NSDictionary *)mj_objectClassInArray{
+    return @{@"pages":[ZLWikiPageBriefInfoModel class]};
 }
 
 @end
@@ -223,16 +300,37 @@ static NSArray * ZLGithubEventTypeArray = nil;
     
     switch(self.type)
     {
+        case ZLGithubEventType_CommitCommentEvent:{
+            ZLCommitCommentEventPayloadModel *payload = [ZLCommitCommentEventPayloadModel mj_objectWithKeyValues:dic];
+            self.payload = payload;
+        }
+            break;
         case ZLGithubEventType_CreateEvent:
         {
-            ZLCreateEventPayloadModel *createEventPayload = [ZLCreateEventPayloadModel mj_objectWithKeyValues:dic];
-            self.payload = createEventPayload;
+            ZLCreateEventPayloadModel *payload = [ZLCreateEventPayloadModel mj_objectWithKeyValues:dic];
+            self.payload = payload;
+        }
+            break;
+        case ZLGithubEventType_DeleteEvent:
+        {
+            ZLDeleteEventPayloadModel * payload = [ZLDeleteEventPayloadModel mj_objectWithKeyValues:dic];
+            self.payload = payload;
+        }
+            break;
+        case ZLGithubEventType_ForkEvent:
+        {
+            self.payload = [ZLForkEventPayloadModel mj_objectWithKeyValues:dic];
         }
             break;
         case ZLGithubEventType_PushEvent:
         {
-            ZLPushEventPayloadModel *tempPayloadModel = [ZLPushEventPayloadModel mj_objectWithKeyValues:dic];
-            self.payload = tempPayloadModel;
+            ZLPushEventPayloadModel *payload = [ZLPushEventPayloadModel mj_objectWithKeyValues:dic];
+            self.payload = payload;
+        }
+            break;
+        case ZLGithubEventType_GollumEvent:
+        {
+            self.payload = [ZLGollumEventPayloadModel mj_objectWithKeyValues:dic];
         }
             break;
         case ZLGithubEventType_PullRequestEvent:

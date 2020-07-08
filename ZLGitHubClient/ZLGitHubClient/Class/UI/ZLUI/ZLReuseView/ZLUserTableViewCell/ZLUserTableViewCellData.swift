@@ -38,6 +38,12 @@ class ZLUserTableViewCellData: ZLGithubItemTableViewCellData {
     override func getCellReuseIdentifier() -> String {
         return "ZLUserTableViewCell"
     }
+    
+    override func onCellSingleTap() {
+        let userInfoVC : ZLUserInfoController = ZLUserInfoController.init(loginName: self.userModel.loginName, type: self.userModel.type)
+        userInfoVC.hidesBottomBarWhenPushed = true
+        self.viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
+    }
 }
 
 extension ZLUserTableViewCellData{
@@ -65,10 +71,4 @@ extension ZLUserTableViewCellData{
 
 
 extension ZLUserTableViewCellData: ZLUserTableViewCellDelegate{
-  
-    func onUserContainerViewClicked() {
-        let userInfoVC : ZLUserInfoController = ZLUserInfoController.init(loginName: self.userModel.loginName, type: self.userModel.type)
-        userInfoVC.hidesBottomBarWhenPushed = true
-        self.viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
-    }
 }

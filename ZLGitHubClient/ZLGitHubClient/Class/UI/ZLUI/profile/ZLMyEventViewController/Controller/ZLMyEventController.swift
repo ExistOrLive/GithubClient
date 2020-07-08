@@ -15,7 +15,9 @@ class ZLMyEventController: ZLBaseViewController {
         
         self.title = ZLLocalizedString(string: "My Events", comment: "")
         
-        let baseView: ZLMyEventBaseView = ZLMyEventBaseView()
+        let baseView: ZLGithubItemListView = ZLGithubItemListView()
+        baseView.setTableViewHeader()
+        baseView.setTableViewFooter()
         self.contentView.addSubview(baseView)
         baseView.snp.makeConstraints({ (make) in
             make.edges.equalToSuperview()
@@ -24,8 +26,4 @@ class ZLMyEventController: ZLBaseViewController {
         self.viewModel = ZLMyEventBaseViewModel(viewController: self)
         self.viewModel.bindModel(nil, andView: baseView)
     }
-    
-
-   
-
 }

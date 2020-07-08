@@ -13,9 +13,6 @@ import UIKit
 class ZLSearchFilterViewForUser: UIView {
     
     static let minWidth : CGFloat = 300.0
-
-    @IBOutlet weak var topConstraint: NSLayoutConstraint!
-    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
     @IBOutlet private weak var orderLabel: UILabel!
     @IBOutlet private weak var languageLabel: UILabel!
@@ -33,33 +30,42 @@ class ZLSearchFilterViewForUser: UIView {
     @IBOutlet weak var secondFollowerNumField: UITextField!
     @IBOutlet weak var firstPubRepoNumField: UITextField!
     @IBOutlet weak var secondPubRepoNumField: UITextField!
-
+    
+    weak var popup : FFPopup?
+    
+    var resultBlock : ((ZLSearchFilterInfoModel) -> Void)?
+    
+    static func showSearchFilterViewForUser(filterInfo:ZLSearchFilterInfoModel?, resultBlock:((ZLSearchFilterInfoModel) -> Void)?){
+        guard  let view : ZLSearchFilterViewForUser = Bundle.main.loadNibNamed("ZLSearchFilterViewForUser", owner: nil, options: nil)?.first as? ZLSearchFilterViewForUser else {
+            return
+        }
+        view.frame = CGRect.init(x: 0, y: 0, width: ZLSearchFilterViewForUser.minWidth, height: ZLSCreenHeight)
+        view.setViewDataForSearchFilterViewForUser(searchFilterModel: filterInfo)
+        view.resultBlock = resultBlock
+        
+        let popup = FFPopup.popup(contetnView: view, showType: .slideInFromRight, dismissType: .slideOutToRight, maskType: FFPopup.MaskType.dimmed, dismissOnBackgroundTouch: true, dismissOnContentTouch: false)
+        view.popup = popup
+        popup.show(layout: FFPopupLayout.init(horizontal: FFPopup.HorizontalLayout.right, vertical: FFPopup.VerticalLayout.center))
+    }
+    
     
     override func awakeFromNib() {
         
         super.awakeFromNib()
         
-        self.topConstraint.constant = self.topConstraint.constant + ZLStatusBarHeight
-        self.bottomConstraint.constant = self.bottomConstraint.constant + AreaInsetHeightBottom
-        
-        self.orderLabel.text = ZLLocalizedString(string: "order", comment: "排序")
-        self.languageLabel.text = ZLLocalizedString(string: "language", comment: "语言")
-        self.createTimeLabel.text = ZLLocalizedString(string: "create at", comment: "创建于")
-        self.followerLabel.text = ZLLocalizedString(string: "Followers", comment: "粉丝")
-        self.pubReposLabel.text = ZLLocalizedString(string: "Pub Repos", comment: "公共仓库")
-        
-        
-        self.orderButton.layer.cornerRadius = 17.5
-        self.languageButton.layer.cornerRadius = 17.5
-        self.finishButton.layer.cornerRadius = 20.0
+        self.orderLabel.text = ZLLocalizedString(string: "Order", comment: "排序")
+        self.languageLabel.text = ZLLocalizedString(string: "Language", comment: "语言")
+        self.createTimeLabel.text = ZLLocalizedString(string: "CreateTime", comment: "创建于")
+        self.followerLabel.text = ZLLocalizedString(string: "FollowersNum", comment: "粉丝")
+        self.pubReposLabel.text = ZLLocalizedString(string: "PubReposNum", comment: "公共仓库")
         
         self.firstTimeFileld.delegate = self;
         self.secondTimeField.delegate = self;
         self.firstFollowerNumField.delegate = self;
         self.secondFollowerNumField.delegate = self;
-        self.secondFollowerNumField.delegate = self;
+        self.firstPubRepoNumField.delegate = self;
         self.secondPubRepoNumField.delegate = self;
-       
+        
         let gestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(resignAllResponder))
         self.addGestureRecognizer(gestureRecognizer)
     }
@@ -72,61 +78,87 @@ class ZLSearchFilterViewForUser: UIView {
     
     
     @IBAction func onLanguageButtonClicked(_ sender: UIButton) {
-        
-        ZLSearchFilterPickerView.showLanguagePickerView(initTitle:sender.titleLabel?.text, resultBlock:{ (result: String) in
-
-            sender.setTitle(result, for: .normal)
-        })
+        ZLLanguageSelectView.showLanguageSelectView { (result : String?) in
+            sender.setTitle(result ?? "Any", for: .normal)
+        }
     }
     
     @objc func resignAllResponder()
     {
-        self.firstTimeFileld.resignFirstResponder()
-        self.secondTimeField.resignFirstResponder()
-        self.firstFollowerNumField.resignFirstResponder()
-        self.secondFollowerNumField.resignFirstResponder()
-        self.firstPubRepoNumField.resignFirstResponder()
-        self.secondPubRepoNumField.resignFirstResponder()
+        self.endEditing(true)
     }
-
+    
+    func setViewDataForSearchFilterViewForUser(searchFilterModel:ZLSearchFilterInfoModel?)
+    {
+        if searchFilterModel == nil {
+            return
+        }
+        
+        if searchFilterModel?.order != ""{
+            self.orderButton.setTitle(searchFilterModel?.order, for: .normal)
+        }
+        if searchFilterModel?.language != ""{
+            self.languageButton.setTitle(searchFilterModel?.language, for:.normal)
+        }
+        
+        self.firstTimeFileld.text = searchFilterModel?.firstCreatedTimeStr
+        self.secondTimeField.text = searchFilterModel?.secondCreatedTimeStr
+        self.firstFollowerNumField.text = searchFilterModel!.firstFollowersNum == 0 ? nil : String(searchFilterModel!.firstFollowersNum)
+        self.secondFollowerNumField.text = searchFilterModel!.secondFollowersNum == 0 ? nil : String(searchFilterModel!.secondFollowersNum)
+        self.firstPubRepoNumField.text = searchFilterModel!.firstPubReposNum == 0 ? nil : String(searchFilterModel!.firstPubReposNum)
+        self.secondPubRepoNumField.text = searchFilterModel!.secondPubReposNum == 0 ? nil :  String(searchFilterModel!.secondPubReposNum)
+    }
+    
+    
+    @IBAction func onFinishButtonClicked(_ sender: Any) {
+        
+        let searchFilterModel = ZLSearchFilterInfoModel()
+        searchFilterModel.order = self.orderButton.title(for: .normal) ?? ""
+        searchFilterModel.language = self.languageButton.title(for: .normal) ?? ""
+        searchFilterModel.firstCreatedTimeStr = self.firstTimeFileld.text ?? ""
+        searchFilterModel.secondCreatedTimeStr = self.secondTimeField.text ?? ""
+        searchFilterModel.firstFollowersNum = UInt(self.firstFollowerNumField.text ?? "0") ?? 0
+        searchFilterModel.secondFollowersNum = UInt(self.secondFollowerNumField.text ?? "0") ?? 0
+        searchFilterModel.firstPubReposNum = UInt(self.firstPubRepoNumField.text ?? "0") ?? 0
+        searchFilterModel.secondPubReposNum = UInt(self.secondPubRepoNumField.text ?? "0") ?? 0
+        
+        if self.resultBlock != nil {
+            self.resultBlock?(searchFilterModel)
+        }
+        
+        self.popup?.dismiss(animated: true)
+    }
+    
+    
 }
 
 
 extension ZLSearchFilterViewForUser: UITextFieldDelegate
 {
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool
-        {
-
-           if textField == self.firstTimeFileld || textField == self.secondTimeField
-           {
-                self.firstTimeFileld.resignFirstResponder()
-                self.secondTimeField.resignFirstResponder()
-                self.firstFollowerNumField.resignFirstResponder()
-                self.secondFollowerNumField.resignFirstResponder()
-                self.firstPubRepoNumField.resignFirstResponder()
-                self.secondPubRepoNumField.resignFirstResponder()
-               
-               ZLSearchFilterPickerView.showDatePickerView(resultBlock: {(dateStr:String) in
-                   textField.text = dateStr
-               })
-               return false
-           }
-           return true
-        }
-       
-       func textFieldDidBeginEditing(_ textField: UITextField) {
-          
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool{
         
-           
-       }
-       
-       func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-           textField.resignFirstResponder()
-           return true
-       }
-       
-       func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-           textField.resignFirstResponder()
-           return true;
-       }
+        if textField == self.firstTimeFileld || textField == self.secondTimeField{
+            self.endEditing(true)
+            
+            ZLSearchFilterPickerView.showDatePickerView(resultBlock: {(dateStr:String) in
+                textField.text = dateStr
+            })
+            return false
+        }
+        return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+    }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true;
+    }
 }

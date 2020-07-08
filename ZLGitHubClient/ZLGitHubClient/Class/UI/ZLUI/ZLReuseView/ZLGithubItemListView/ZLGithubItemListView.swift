@@ -69,6 +69,7 @@ import UIKit
         self.tableView?.register(UINib.init(nibName: "ZLGistTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLGistTableViewCell")
         self.tableView?.register(ZLEventTableViewCell.self, forCellReuseIdentifier: "ZLEventTableViewCell")
         self.tableView?.register(ZLPushEventTableViewCell.self, forCellReuseIdentifier: "ZLPushEventTableViewCell")
+        self.tableView?.register(ZLCommitCommentEventTableViewCell.self, forCellReuseIdentifier: "ZLCommitCommentEventTableViewCell")
         self.tableView?.register(UINib.init(nibName: "ZLRepositoryTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLRepositoryTableViewCell")
         self.tableView?.register(UINib.init(nibName: "ZLUserTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLUserTableViewCell")
         self.tableView?.register(UINib.init(nibName: "ZLIssueTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLIssueTableViewCell")
@@ -150,25 +151,23 @@ extension ZLGithubItemListView : UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return self.cellDatas?[indexPath.row].getCellHeight() ?? 0.0
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let tableViewCellData = self.cellDatas?[indexPath.row]
+        tableViewCellData?.onCellSingleTap()
+    }
 }
 
 extension ZLGithubItemListView
 {
-    func loadNewData()
-    {
-        
-        if
-            self.delegate?.responds(to:#selector(ZLGithubItemListViewDelegate.githubItemListViewRefreshDragDown(pullRequestListView:))) ?? false
-        {
+    func loadNewData(){
+        if self.delegate?.responds(to:#selector(ZLGithubItemListViewDelegate.githubItemListViewRefreshDragDown(pullRequestListView:))) ?? false{
             self.delegate?.githubItemListViewRefreshDragDown(pullRequestListView: self)
         }
-        
     }
     
-    func loadMoreData()
-    {
-        if self.delegate?.responds(to:#selector(ZLGithubItemListViewDelegate.githubItemListViewRefreshDragUp(pullRequestListView:))) ?? false
-        {
+    func loadMoreData(){
+        if self.delegate?.responds(to:#selector(ZLGithubItemListViewDelegate.githubItemListViewRefreshDragUp(pullRequestListView:))) ?? false{
             self.delegate?.githubItemListViewRefreshDragUp(pullRequestListView: self)
         }
     }
@@ -182,10 +181,8 @@ extension ZLGithubItemListView
         self.tableView?.mj_header?.endRefreshing()
         self.tableView?.mj_footer?.endRefreshing()
         
-        if self.cellDatas != nil
-        {
-            for cellData in self.cellDatas!
-            {
+        if self.cellDatas != nil{
+            for cellData in self.cellDatas!{
                 cellData.removeFromSuperViewModel()
             }
         }
@@ -210,6 +207,10 @@ extension ZLGithubItemListView
         }
         self.cellDatas?.append(contentsOf: cellDatas!)
         self.tableView?.reloadData()
+    }
+    
+    func resetContentOffset(){
+        self.tableView?.setContentOffset(CGPoint.zero, animated: false)
     }
     
     

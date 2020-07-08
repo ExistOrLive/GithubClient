@@ -7,6 +7,7 @@
 #import <MJRefresh/MJRefresh.h>
 #import <FFPopup/FFPopup.h>
 #import <UITextView_Placeholder/UITextView+Placeholder.h>
+#import <YYText/YYText.h>
 
 #import "ZLBaseUIHeader.h"
 #import "ZLBaseObject.h"

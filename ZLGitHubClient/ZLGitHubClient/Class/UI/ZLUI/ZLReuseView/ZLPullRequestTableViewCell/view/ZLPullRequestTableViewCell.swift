@@ -9,7 +9,6 @@
 import UIKit
 
 @objc protocol ZLPullRequestTableViewCellDelegate : NSObjectProtocol {
-    func onCellClicked();
 }
 
 class ZLPullRequestTableViewCell: UITableViewCell {
@@ -24,9 +23,6 @@ class ZLPullRequestTableViewCell: UITableViewCell {
         super.awakeFromNib()
         self.selectionStyle = .none
         self.containerView.layer.cornerRadius = 8.0
-        
-        let gestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(self.onCellClicked(gestureRecognizer:)))
-        self.containerView.addGestureRecognizer(gestureRecognizer)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -38,15 +34,6 @@ class ZLPullRequestTableViewCell: UITableViewCell {
     {
         self.titleLabel.text = data.getTitle()
         self.assitInfoLabel.text = data.getAssistInfo() 
-    }
-    
-    
-    @objc func onCellClicked(gestureRecognizer : UITapGestureRecognizer)
-    {
-        if self.delegate?.responds(to: #selector(ZLPullRequestTableViewCellDelegate.onCellClicked)) ?? false
-        {
-            self.delegate?.onCellClicked()
-        }
     }
     
 }

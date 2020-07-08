@@ -60,7 +60,6 @@
     [super awakeFromNib];
         
     self.containerView.layer.cornerRadius = 8.0;
-    self.confirmButton.layer.cornerRadius = 20.0;
     
     [self.pickerView setBackgroundColor:[UIColor clearColor]];
 

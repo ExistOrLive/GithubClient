@@ -48,6 +48,13 @@ import UIKit
         return "ZLRepositoryTableViewCell"
     }
     
+    override func onCellSingleTap() {
+        let repoInfoVC = ZLRepoInfoController.init(repoInfoModel: self.data)
+        repoInfoVC.hidesBottomBarWhenPushed = true
+        self.viewController?.navigationController?.pushViewController(repoInfoVC, animated: true)
+    }
+    
+    
     
     func getRepoInfoFromServer() {
         weak var weakSelf = self
@@ -125,12 +132,5 @@ extension ZLRepositoryTableViewCellData : ZLRepositoryTableViewCellDelegate
         let userInfoVC = ZLUserInfoController.init(loginName: self.data.owner.loginName, type: self.data.owner.type)
         userInfoVC.hidesBottomBarWhenPushed = true
         self.viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
-    }
-        
-    func onRepoContainerViewClicked()
-    {
-        let repoInfoVC = ZLRepoInfoController.init(repoInfoModel: self.data)
-        repoInfoVC.hidesBottomBarWhenPushed = true
-        self.viewController?.navigationController?.pushViewController(repoInfoVC, animated: true)
     }
 }

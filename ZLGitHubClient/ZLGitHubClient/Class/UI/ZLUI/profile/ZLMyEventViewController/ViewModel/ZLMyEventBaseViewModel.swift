@@ -14,13 +14,12 @@ class ZLMyEventBaseViewModel: ZLBaseViewModel {
     private var serialNumberDic:[String:String] = [:]
     
     // view
-    private weak var baseView : ZLMyEventBaseView?
+    private weak var baseView : ZLGithubItemListView?
     
     // model
     private var data : [ZLGithubEventModel] = []
     
-    var pageNum = 1
-    
+    var pageNum = 0
     
     deinit {
         self.removeObservers()
@@ -28,36 +27,33 @@ class ZLMyEventBaseViewModel: ZLBaseViewModel {
     
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
         
-        guard let baseView : ZLMyEventBaseView = targetView as? ZLMyEventBaseView else
+        guard let baseView : ZLGithubItemListView = targetView as? ZLGithubItemListView else
         {
             return;
         }
         
         self.baseView = baseView
-        self.baseView?.eventListView.delegate = self;
+        self.baseView?.delegate = self;
         
         self.addObservers()
+        
+        self.baseView?.beginRefresh()
     }
     
     override func vcLifeCycle_viewWillAppear()
     {
-        super.vcLifeCycle_viewWillAppear()
-        
-        self.baseView?.eventListView.beginRefresh()
+        super.vcLifeCycle_viewWillAppear()        
     }
 }
 
 // MARK: ZLEventListViewDelegate
-extension ZLMyEventBaseViewModel : ZLEventListViewDelegate
+extension ZLMyEventBaseViewModel : ZLGithubItemListViewDelegate
 {
-    func eventListViewRefreshDragUp(eventListView: ZLEventListView) -> Void
-    {
-        self.queryMoreMyEventRequest(pageNum: self.pageNum, pageSize: 10)
-    }
-    
-    func eventListViewRefreshDragDown(eventListView: ZLEventListView) -> Void
-    {
+    func githubItemListViewRefreshDragDown(pullRequestListView: ZLGithubItemListView) -> Void{
         self.queryNewMyEventRequest(pageNum: 1, pageSize: 10)
+    }
+    func githubItemListViewRefreshDragUp(pullRequestListView: ZLGithubItemListView) -> Void{
+        self.queryMoreMyEventRequest(pageNum: self.pageNum + 1, pageSize: 10)
     }
 }
 
@@ -89,13 +85,11 @@ extension ZLMyEventBaseViewModel
 
 extension ZLMyEventBaseViewModel
 {
-    func addObservers()
-    {
+    func addObservers(){
         ZLEventServiceModel.shareInstance()?.registerObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLGetMyEventResult_Notification)
     }
     
-    func removeObservers()
-    {
+    func removeObservers(){
         ZLEventServiceModel.shareInstance()?.unRegisterObserver(self, name: ZLGetMyEventResult_Notification)
     }
     
@@ -104,50 +98,43 @@ extension ZLMyEventBaseViewModel
         switch(notification.name)
         {
         case ZLGetMyEventResult_Notification:do{
-            guard let responseObject: ZLOperationResultModel = notification.params as? ZLOperationResultModel else
-            {
+            guard let responseObject: ZLOperationResultModel = notification.params as? ZLOperationResultModel else{
                 return
             }
             
-            if !self.serialNumberDic.values.contains(responseObject.serialNumber)
-            {
+            if !self.serialNumberDic.values.contains(responseObject.serialNumber){
                 return
             }
             
-            if !responseObject.result
-            {
-                self.baseView?.eventListView.endRefreshWithError()
-                guard let errorModel : ZLGithubRequestErrorModel = responseObject.data as? ZLGithubRequestErrorModel else
-                {
-                    return;
+            if !responseObject.result{
+                self.baseView?.endRefreshWithError()
+                guard let errorModel : ZLGithubRequestErrorModel = responseObject.data as? ZLGithubRequestErrorModel else{
+                    ZLLog_Warn("get received event failed")
+                    ZLToastView.showMessage("get received event failed")
+                    return
                 }
-                
                 ZLLog_Warn("get received event failed statusCode[\(errorModel.statusCode)] message[\(errorModel.message)]")
-                
+                ZLToastView.showMessage("get received event failed statusCode[\(errorModel.statusCode)] message[\(errorModel.message)]")
                 return
             }
             
             var cellDataArray : [ZLEventTableViewCellData] = [];
-            for eventModel in responseObject.data as! [ZLGithubEventModel]
-            {
-               let cellData = ZLEventTableViewCellData.getCellDataWithEventModel(eventModel: eventModel)
+            for eventModel in responseObject.data as! [ZLGithubEventModel]{
+                let cellData = ZLEventTableViewCellData.getCellDataWithEventModel(eventModel: eventModel)
                 self.addSubViewModel(cellData)
                 cellDataArray.append(cellData)
             }
                             
-            if responseObject.serialNumber == self.serialNumberDic[ZLMyEventBaseViewModel.ZLQueryMoreMyEventRequestKey]
-            {
+            if responseObject.serialNumber == self.serialNumberDic[ZLMyEventBaseViewModel.ZLQueryMoreMyEventRequestKey]{
                 self.serialNumberDic.removeValue(forKey: ZLMyEventBaseViewModel.ZLQueryMoreMyEventRequestKey)
-                self.baseView?.eventListView.apppendCellDatas(cellDatas: cellDataArray)
+                self.baseView?.appendCellDatas(cellDatas: cellDataArray)
                 self.pageNum = self.pageNum + 1
             }
-            else if responseObject.serialNumber == self.serialNumberDic[ZLMyEventBaseViewModel.ZLQueryNewMyEventRequestKey]
-            {
+            else if responseObject.serialNumber == self.serialNumberDic[ZLMyEventBaseViewModel.ZLQueryNewMyEventRequestKey]{
                 self.serialNumberDic.removeValue(forKey: ZLMyEventBaseViewModel.ZLQueryNewMyEventRequestKey)
-                self.baseView?.eventListView.resetCellDatas(cellDatas: cellDataArray)
-                self.pageNum = 2
+                self.baseView?.resetCellDatas(cellDatas: cellDataArray)
+                self.pageNum = 1
             }
-            
             
             }
         default:

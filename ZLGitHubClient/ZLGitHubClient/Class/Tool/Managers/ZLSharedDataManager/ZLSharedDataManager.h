@@ -16,7 +16,7 @@
 
 
 @class ZLGithubUserModel;
-
+ 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZLSharedDataManager : NSObject
@@ -28,6 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong,nullable) ZLGithubUserModel * userInfoModel;
 
 @property(nonatomic,strong,nullable) NSMutableDictionary * trendingOptions;
+
+@property(nonatomic,strong,nullable) NSArray<NSString *> *searchRecordArray;
 
 - (void) clearGithubTokenAndUserInfo;
 

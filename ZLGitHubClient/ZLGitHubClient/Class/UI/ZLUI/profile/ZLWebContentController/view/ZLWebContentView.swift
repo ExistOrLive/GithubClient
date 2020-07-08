@@ -20,6 +20,8 @@ enum ZLWebContentProgress : Float {
 {
     @objc func onBackButtonClick(button: UIButton)
     
+    @objc func onAdditionButtonClick(button: UIButton)
+    
     @objc func webView(_ webView: WKWebView, navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void)
     
     @objc func webView(_ webView: WKWebView, navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void)
@@ -132,6 +134,16 @@ class ZLWebContentView: ZLBaseView {
         }
         
     }
+    
+    @IBAction func onAdditionButtonClicked(_ sender: Any) {
+        if self.delegate?.responds(to: #selector(ZLWebContentViewDelegate.onAdditionButtonClick(button:))) ?? false {
+            self.delegate?.onAdditionButtonClick(button: sender as! UIButton)
+        }
+        
+    }
+    
+    
+    
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         

@@ -9,7 +9,7 @@
 import UIKit
 
 @objc protocol ZLGistTableViewCellDelegate : NSObjectProtocol {
-    func onCellSingleTap() -> Void
+   
 }
 
 
@@ -41,10 +41,6 @@ class ZLGistTableViewCell: UITableViewCell {
         self.privateLabel.layer.cornerRadius = 2.0
         self.privateLabel.layer.borderColor = UIColor.lightGray.cgColor
         self.privateLabel.layer.borderWidth = 1.0
-        
-        let singleTagGesture = UITapGestureRecognizer.init(target: self, action: #selector(self.onCellSingleTap(gestureRecognizer:)))
-        self.containerView?.addGestureRecognizer(singleTagGesture)
-        
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -72,15 +68,3 @@ class ZLGistTableViewCell: UITableViewCell {
     }
 }
 
-
-// MARK : action
-extension ZLGistTableViewCell
-{
-    @objc func onCellSingleTap(gestureRecognizer : UITapGestureRecognizer)
-    {
-        if self.delegate?.responds(to: #selector(ZLGistTableViewCellDelegate.onCellSingleTap)) ?? false
-        {
-            self.delegate?.onCellSingleTap()
-        }
-    }
-}

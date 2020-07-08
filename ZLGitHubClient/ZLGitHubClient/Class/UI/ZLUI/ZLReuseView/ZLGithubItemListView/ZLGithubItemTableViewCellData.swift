@@ -14,6 +14,8 @@ import Foundation
     func getCellReuseIdentifier() -> String;
      
     func getCellHeight() -> CGFloat;
+    
+    func onCellSingleTap()
 }
 
 
@@ -26,6 +28,11 @@ class ZLGithubItemTableViewCellData : ZLBaseViewModel,ZLGithubItemTableViewCellD
     func getCellHeight() -> CGFloat {
         return 0;
     }
+    
+    func onCellSingleTap() {
+        
+    }
+    
 }
 
 extension ZLGithubItemTableViewCellData {
@@ -41,7 +48,7 @@ extension ZLGithubItemTableViewCellData {
         } else if data! is ZLGithubPullRequestModel {
             return ZLPullRequestTableViewCellData.init(eventModel: data! as! ZLGithubPullRequestModel)
         } else if data! is ZLGithubEventModel {
-            return ZLEventTableViewCellData.init(eventModel: data! as! ZLGithubEventModel)
+            return ZLEventTableViewCellData.getCellDataWithEventModel(eventModel: data! as! ZLGithubEventModel)
         } else if data! is ZLGithubGistModel {
             return ZLGistTableViewCellData.init(data: data! as! ZLGithubGistModel)
         } else if data! is ZLGithubCommitModel {

@@ -25,10 +25,7 @@
 "owner" = "Owner";
 "submit" = "Submit";
 
-"company" = "Company";
-"location" = "Location";
-"email" = "Email";
-"blog" = "Blog";
+
 "setting" = "Setting";
 "about" = "About";
 "feedback" = "Feedback";
@@ -64,7 +61,6 @@
 "minute later" = " minute later";
 
 "update at" = "update at ";
-"news" = "News";
 "explore" = "Explore";
 "profile" = "Profile";
 
@@ -155,3 +151,23 @@
 "MJRefreshAutoFooterIdleText" = "Tap or pull up to load more";
 "MJRefreshAutoFooterRefreshingText" = "Loading...";
 "MJRefreshAutoFooterNoMoreDataText" = "No more data";
+
+
+// search filter
+"Order" = "Order";
+"CreateTime" = "Create at";
+"StarNum" = "Star";
+"ForkNum" = "Fork";
+"FollowersNum" = "Followers";
+"PubReposNum" = "Pub Repos";
+
+"SearchRecord" = "Record";
+"ClearSearchRecord" = "Clear";
+"Filter" = "Filter";
+
+// profile
+"company" = "Company";
+"location" = "Location";
+"email" = "Email";
+"blog" = "Blog";
+"bio" = "Bio";

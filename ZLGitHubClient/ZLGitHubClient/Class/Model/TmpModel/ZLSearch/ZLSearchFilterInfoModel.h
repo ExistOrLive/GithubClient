@@ -21,7 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,assign) NSUInteger secondStarNum;
 @property(nonatomic,assign) NSUInteger firstForkNum;
 @property(nonatomic,assign) NSUInteger secondForkNum;
-@property(nonatomic,assign) double     size;
 
 @property(nonatomic,assign) NSUInteger firstFollowersNum;
 @property(nonatomic,assign) NSUInteger secondFollowersNum;

@@ -12,8 +12,10 @@
 
 typedef NS_ENUM(NSInteger, ZLReferenceType)
 {
+    ZLReferenceType_unknown,
     ZLReferenceType_Repository,
-    ZLReferenceType_Tag
+    ZLReferenceType_Tag,
+    ZLReferenceType_Branch,
 };
 
 
@@ -59,9 +61,52 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@interface ZLCommitCommentBriefInfoModel : ZLBaseObject
+
+@property (nonatomic, strong) NSString *id_CommitComment;
+@property (nonatomic, strong, nullable) NSString *body;                           // 评论的内容
+@property (nonatomic, strong) NSString *html_url;
+@property (nonatomic, strong) NSString *url;
+@property (nonatomic, strong) NSString *node_id;
+@property (nonatomic, strong, nullable) NSString *path;
+@property (nonatomic, strong, nullable) id position;
+@property (nonatomic, strong, nullable) id line;
+
+@property (nonatomic, strong) NSDate *updated_at;
+@property (nonatomic, strong) NSDate *created_at;
+
+@property (nonatomic, strong) NSString *commit_id;
+@property (nonatomic, strong) NSString *author_association;             // OWNER
+
+@property (nonatomic, strong) ZLGithubUserBriefModel*user;
+
+@end
+
+@interface ZLWikiPageBriefInfoModel : ZLBaseObject
+
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *page_name;
+@property (nonatomic, strong) NSString *action;                      // created / edited
+@property (nonatomic, strong) NSString *sha;
+@property (nonatomic, strong) NSString *html_url;
+
+@end
+
+
 
 #pragma mark - Event Payloads
 
+// 评论某次commit
+@interface ZLCommitCommentEventPayloadModel : ZLBaseObject
+
+@property (nonatomic, strong) NSString *action;     //!  created
+
+@property (nonatomic, strong) ZLCommitCommentBriefInfoModel *comment;           // 评论内容
+
+@end
+
+
+// Push 事件
 @interface ZLPushEventPayloadModel : ZLBaseObject
 
 @property (nonatomic, assign) NSInteger push_id;
@@ -81,11 +126,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-//CreateEventPayload
+//CreateEventPayload 创建 tag 或者 repository
 @interface ZLCreateEventPayloadModel : ZLBaseObject
 
-@property (nonatomic, strong) NSString * ref;             //! 提交的sha
-@property (nonatomic, assign) ZLReferenceType ref_type;  //! 目前有两种类型：repository、tag
+@property (nonatomic, strong) NSString * ref;             //!
+@property (nonatomic, assign) ZLReferenceType ref_type;  //! 目前有两种类型：repository、tag branch
 @property (nonatomic, strong) NSString * master_branch;   //! 默认是master
 @property (nonatomic, strong) NSString * desc;
 @property (nonatomic, strong) NSString * pusher_type;
@@ -93,12 +138,38 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
+// DeleteEvent 删除 branch 或者 tag
+@interface ZLDeleteEventPayloadModel : ZLBaseObject
+
+@property (nonatomic, strong) NSString * ref;             //! 提交的sha
+@property (nonatomic, assign) ZLReferenceType ref_type;  //! 目前有两种类型：repository、tag
+
+@end
+
+
+// ForkEventPaylod
+@interface ZLForkEventPayloadModel : ZLBaseObject
+
+@property (nonatomic, strong) ZLGithubRepositoryModel *forkee;    // fork 创建的仓库
+
+@end
+
+
+// GollumEvent
+@interface ZLGollumEventPayloadModel : ZLBaseObject
+
+@property (nonatomic, strong) NSArray<ZLWikiPageBriefInfoModel *> *pages;
+
+@end
+
+
+
 
 #pragma mark - EventModel
 
 /**
- *  ref  https://developer.github.com/v3/activity/events/
- *  ref  https://developer.github.com/v3/activity/events/types/
+ *  ref  https://docs.github.com/en/developers/webhooks-and-events/github-event-types
+ * 
  */
 @interface ZLGithubEventModel : ZLBaseObject
 

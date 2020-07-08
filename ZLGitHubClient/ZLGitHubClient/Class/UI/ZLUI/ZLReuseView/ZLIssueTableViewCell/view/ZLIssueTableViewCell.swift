@@ -9,7 +9,6 @@
 import UIKit
 
 @objc protocol ZLIssueTableViewCellDelegate : NSObjectProtocol{
-    func onCellClicked() -> Void
 }
 
 class ZLIssueTableViewCell: UITableViewCell {
@@ -26,9 +25,6 @@ class ZLIssueTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
-        
-        let gestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(self.onCellClicked(gestureRecognizer:)))
-        self.containerView.addGestureRecognizer(gestureRecognizer)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -74,13 +70,4 @@ class ZLIssueTableViewCell: UITableViewCell {
     }
     
     
-}
-
-
-extension ZLIssueTableViewCell{
-    @objc func onCellClicked(gestureRecognizer: UITapGestureRecognizer){
-        if self.delegate?.responds(to: #selector(ZLIssueTableViewCellDelegate.onCellClicked)) ?? false{
-            self.delegate?.onCellClicked()
-        }
-    }
 }

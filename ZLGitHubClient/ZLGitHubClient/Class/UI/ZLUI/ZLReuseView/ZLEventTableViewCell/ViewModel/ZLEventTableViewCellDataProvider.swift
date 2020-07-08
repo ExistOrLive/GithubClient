@@ -15,9 +15,20 @@ extension ZLEventTableViewCellData
     {
         switch eventModel.type
         {
-        case .pushEvent: do
-        {
+        case .pushEvent: do{
             return ZLPushEventTableViewCellData(eventModel: eventModel)
+            }
+        case .commitCommentEvent:do{
+            return ZLCommitCommentEventTableViewCellData(eventModel: eventModel)
+            }
+        case .createEvent:do{
+            return ZLCreateEventTableViewCellData(eventModel: eventModel)
+            }
+        case .deleteEvent:do{
+            return ZLDeleteEventTableViewCellData(eventModel: eventModel)
+            }
+        case .forkEvent:do{
+            return ZLForkEventTableViewCellData(eventModel: eventModel)
             }
         default : do
         {

@@ -36,6 +36,12 @@ class ZLCommitTableViewCellData: ZLGithubItemTableViewCellData {
      {
          return "ZLCommitTableViewCell"
      }
+    
+    override func onCellSingleTap() {
+        let vc = ZLWebContentController.init()
+        vc.requestURL = URL.init(string: self.commitModel.html_url)
+        self.viewController?.navigationController?.pushViewController(vc, animated: true)
+    }
 
 }
 
@@ -65,13 +71,5 @@ extension ZLCommitTableViewCellData
     
 }
 
-extension ZLCommitTableViewCellData : ZLCommitTableViewCellDelegate
-{
-    func onCellClicked() {
-        let vc = ZLWebContentController.init()
-        vc.requestURL = URL.init(string: self.commitModel.html_url)
-        self.viewController?.navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    
+extension ZLCommitTableViewCellData : ZLCommitTableViewCellDelegate{
 }

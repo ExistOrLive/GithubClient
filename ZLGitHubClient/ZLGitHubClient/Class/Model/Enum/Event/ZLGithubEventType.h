@@ -9,14 +9,15 @@
 #ifndef ZLGithbEventType_h
 #define ZLGithbEventType_h
 
+// https://docs.github.com/en/developers/webhooks-and-events/github-event-types
 typedef NS_ENUM(NSInteger, ZLGithubEventType)
 {
     ZLGithubEventType_CheckRunEvent,
     ZLGithubEventType_CheckSuiteEvent,
-    ZLGithubEventType_CommitCommentEvent,
+    ZLGithubEventType_CommitCommentEvent,                  // 对某次提交评论 #commitcommentevent
     ZLGithubEventType_ContentReferenceEvent,
-    ZLGithubEventType_CreateEvent,
-    ZLGithubEventType_DeleteEvent,
+    ZLGithubEventType_CreateEvent,                         // 创建tag 或者 repo
+    ZLGithubEventType_DeleteEvent,                         // 删除tag 或者 branch
     ZLGithubEventType_DeployKeyEvent,
     ZLGithubEventType_DeploymentEvent,
     ZLGithubEventType_DeploymentStatusEvent,
@@ -26,7 +27,7 @@ typedef NS_ENUM(NSInteger, ZLGithubEventType)
     ZLGithubEventType_ForkApplyEvent,
     ZLGithubEventType_GitHubAppAuthorizationEvent,
     ZLGithubEventType_GistEvent,
-    ZLGithubEventType_GollumEvent,
+    ZLGithubEventType_GollumEvent,                         // 创建或者更新wiki
     ZLGithubEventType_InstallationEvent,
     ZLGithubEventType_InstallationRepositoriesEvent,
     ZLGithubEventType_IssueCommentEvent,

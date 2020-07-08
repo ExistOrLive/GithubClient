@@ -85,6 +85,10 @@ extension ZLOAuthBaseViewModel: ZLWebContentViewDelegate
         self.viewController?.dismiss(animated: true, completion: nil);
     }
     
+    func onAdditionButtonClick(button: UIButton) {
+         
+    }
+    
     
     func clearCookiesForWkWebView()
     {

@@ -27,23 +27,23 @@ class ZLEventTableViewCellData: ZLGithubItemTableViewCellData {
         cell.delegate = self
     }
     
-    override func getCellReuseIdentifier() -> String
-    {
-        switch(self.eventModel.type)
-        {
-        case .pushEvent: do {
-            return "ZLPushEventTableViewCell"
-            }
-        default: do{
-            return "ZLEventTableViewCell"
-            }
-        }
+    override func getCellReuseIdentifier() -> String{
+        return "ZLEventTableViewCell"
     }
     
     override func getCellHeight() -> CGFloat
     {
         return UITableView.automaticDimension
     }
+    
+    override  func onCellSingleTap() {
+        let repoModel = ZLGithubRepositoryModel.init()
+        repoModel.full_name = self.eventModel.repo.name;
+        let vc = ZLRepoInfoController.init(repoInfoModel: repoModel)
+        vc.hidesBottomBarWhenPushed = true
+        self.viewController?.navigationController?.pushViewController(vc, animated: true)
+    }
+    
 }
 
 // MARK : cellData
@@ -65,9 +65,8 @@ extension ZLEventTableViewCellData
         return timeStr as String
     }
     
-    @objc func getEventDescrption() -> String
-    {
-        return self.eventModel.eventDescription
+    @objc func getEventDescrption() -> NSAttributedString{
+        return NSAttributedString.init(string: self.eventModel.eventDescription , attributes: [NSAttributedString.Key.foregroundColor:UIColor.init(hexString: "#333333", alpha: 1.0)!,NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 15.0)!])
     }
 }
 
@@ -79,12 +78,6 @@ extension ZLEventTableViewCellData : ZLEventTableViewCellDelegate
         vc.hidesBottomBarWhenPushed = true
         self.viewController?.navigationController?.pushViewController(vc, animated: true)
     }
-    
-    func onCellSingleTap() {
-        let repoModel = ZLGithubRepositoryModel.init()
-        repoModel.full_name = self.eventModel.repo.name;
-        let vc = ZLRepoInfoController.init(repoInfoModel: repoModel)
-        vc.hidesBottomBarWhenPushed = true
-        self.viewController?.navigationController?.pushViewController(vc, animated: true)
-    }
+
+
 }

@@ -24,10 +24,7 @@
 "owner" = "作者";
 "watcher" = "关注";
 
-"company" = "公司";
-"location" = "地址";
-"email" = "邮箱";
-"blog" = "博客";
+
 "setting" = "设置";
 "about" = "关于";
 "feedback" = "反馈";
@@ -151,3 +148,22 @@
 "MJRefreshAutoFooterIdleText" = "点击或上拉加载更多";
 "MJRefreshAutoFooterRefreshingText" = "正在加载更多的数据...";
 "MJRefreshAutoFooterNoMoreDataText" = "已经全部加载完毕";
+
+// search filter
+"Order" = "排序";
+"CreateTime" = "创建时间";
+"StarNum" = "标星";
+"ForkNum" = "拷贝";
+"FollowersNum" = "粉丝数";
+"PubReposNum" = "仓库数";
+
+"SearchRecord" = "搜索记录";
+"ClearSearchRecord" = "清空记录";
+"Filter" = "过滤";
+
+// profile
+"company" = "公司";
+"location" = "地址";
+"email" = "邮箱";
+"blog" = "博客";
+"bio" = "个人描述";

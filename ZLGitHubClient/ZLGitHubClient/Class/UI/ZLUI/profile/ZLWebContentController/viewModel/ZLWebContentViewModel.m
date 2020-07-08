@@ -58,6 +58,22 @@
      [self.viewController.navigationController popViewControllerAnimated:true];
 }
 
+- (void) onAdditionButtonClickWithButton:(UIButton *) button {
+    
+    NSURL *url = self.webContentView.webView.URL;
+    
+    UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:@[url] applicationActivities:nil];
+    activityVC.excludedActivityTypes = @[UIActivityTypeMessage,UIActivityTypeMail,UIActivityTypeOpenInIBooks,UIActivityTypeMarkupAsPDF];
+
+    activityVC.completionWithItemsHandler = ^(UIActivityType  _Nullable activityType, BOOL completed, NSArray * _Nullable returnedItems, NSError * _Nullable activityError) {
+        if (completed) {
+        }else {
+        }
+    };
+    [self.viewController presentViewController:activityVC animated:YES completion:nil];
+    
+}
+
 - (void)webView:(WKWebView * _Nonnull)webView navigationAction:(WKNavigationAction * _Nonnull)navigationAction decisionHandler:(void (^ _Nonnull)(WKNavigationActionPolicy))decisionHandler {
     decisionHandler(WKNavigationActionPolicyAllow);
 }

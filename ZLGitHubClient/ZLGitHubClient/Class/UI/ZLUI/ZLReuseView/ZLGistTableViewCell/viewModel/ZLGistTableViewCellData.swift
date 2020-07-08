@@ -25,6 +25,12 @@ class ZLGistTableViewCellData: ZLGithubItemTableViewCellData {
         return 180;
     }
     
+    override func onCellSingleTap() -> Void {
+           let vc = ZLWebContentController.init()
+           vc.requestURL = URL.init(string: self.gistModel.html_url)
+           self.viewController?.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
         guard let cell : ZLGistTableViewCell = targetView as? ZLGistTableViewCell else{
             return
@@ -78,9 +84,5 @@ extension ZLGistTableViewCellData {
 
 
 extension ZLGistTableViewCellData : ZLGistTableViewCellDelegate {
-    func onCellSingleTap() -> Void {
-        let vc = ZLWebContentController.init()
-        vc.requestURL = URL.init(string: self.gistModel.html_url)
-        self.viewController?.navigationController?.pushViewController(vc, animated: true)
-    }
+   
 }
