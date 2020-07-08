@@ -60,35 +60,37 @@ extension ZLPullRequestTableViewCellData
         }
         else 
         {
+            if self.pullRequestModel.merged_at != nil{
+                let assitInfo = "#\(self.pullRequestModel.number) \(self.pullRequestModel.user.loginName) \(ZLLocalizedString(string: "merged at", comment: "合并于")) \((self.pullRequestModel.merged_at! as NSDate).dateLocalStrSinceCurrentTime())"
+                return assitInfo
+            }
+            
             var date : Date? = nil
             
-            if self.pullRequestModel.merged_at != nil
-            {
-                date = self.pullRequestModel.merged_at
-            }
-            else if self.pullRequestModel.closed_at != nil
-            {
+            if self.pullRequestModel.closed_at != nil{
                 date = self.pullRequestModel.closed_at
             }
-            else if self.pullRequestModel.updated_at != nil
-            {
+            else if self.pullRequestModel.updated_at != nil{
                 date = self.pullRequestModel.updated_at
             }
             
-            if date != nil
-            {
+            if date != nil{
                 let assitInfo = "#\(self.pullRequestModel.number) \(self.pullRequestModel.user.loginName) \(ZLLocalizedString(string: "closed at", comment: "关闭于")) \((date! as NSDate).dateLocalStrSinceCurrentTime())"
                            return assitInfo
             }
-            else
-            {
+            else{
                 return ""
             }
-            
-          
         }
     }
     
+    func getState() -> String {
+        return self.pullRequestModel.state
+    }
+    
+    func isMerged() -> Bool {
+        return self.pullRequestModel.merged_at != nil
+    }
    
     
     

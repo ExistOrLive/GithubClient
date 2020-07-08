@@ -16,6 +16,7 @@
 #define ZLUserAccountKey @"ZLUserAccountKey"
 #define ZLUserHeadImageKey @"ZLUserHeadImageKey"
 #define ZLSearchRecordKey @"ZLSearchRecordKey"
+#define ZLShowAllNotificationsKey @"ZLShowAllNotificationsKey"
  
 @implementation ZLSharedDataManager
 
@@ -23,6 +24,7 @@
 @synthesize githubAccessToken = _githubAccessToken;
 @synthesize trendingOptions = _trendingOptions;
 @synthesize searchRecordArray = _searchRecordArray;
+@dynamic  showAllNotifications;
 
 + (instancetype) sharedInstance{
     static ZLSharedDataManager * manager = nil;
@@ -169,6 +171,18 @@
     return _searchRecordArray;
 }
 
+#pragma mark -
+
+- (void)setShowAllNotifications:(BOOL)showAllNotifications{
+    [[NSUserDefaults standardUserDefaults] setBool:showAllNotifications forKey:ZLShowAllNotificationsKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (BOOL) showAllNotifications{
+    return [[NSUserDefaults standardUserDefaults] boolForKey:ZLShowAllNotificationsKey];
+}
+
+
 
 #pragma mark -
 
@@ -177,6 +191,7 @@
     [self setGithubAccessToken:nil];
     [self setTrendingOptions:nil];
     [self setSearchRecordArray:nil];
+    [self setShowAllNotifications:NO];
 }
 
 @end

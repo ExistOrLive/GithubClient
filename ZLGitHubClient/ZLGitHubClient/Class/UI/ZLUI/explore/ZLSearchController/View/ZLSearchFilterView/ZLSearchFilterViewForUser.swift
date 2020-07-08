@@ -58,6 +58,7 @@ class ZLSearchFilterViewForUser: UIView {
         self.createTimeLabel.text = ZLLocalizedString(string: "CreateTime", comment: "创建于")
         self.followerLabel.text = ZLLocalizedString(string: "FollowersNum", comment: "粉丝")
         self.pubReposLabel.text = ZLLocalizedString(string: "PubReposNum", comment: "公共仓库")
+        self.finishButton.setTitle(ZLLocalizedString(string: "FilterFinish", comment: ""), for: .normal)
         
         self.firstTimeFileld.delegate = self;
         self.secondTimeField.delegate = self;

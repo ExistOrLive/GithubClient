@@ -16,6 +16,8 @@ import Foundation
     func getCellHeight() -> CGFloat;
     
     func onCellSingleTap()
+    
+    func getCellSwipeActions() -> UISwipeActionsConfiguration?
 }
 
 
@@ -31,6 +33,10 @@ class ZLGithubItemTableViewCellData : ZLBaseViewModel,ZLGithubItemTableViewCellD
     
     func onCellSingleTap() {
         
+    }
+    
+    func getCellSwipeActions() -> UISwipeActionsConfiguration?{
+        return nil
     }
     
 }
@@ -55,6 +61,8 @@ extension ZLGithubItemTableViewCellData {
             return ZLCommitTableViewCellData.init(commitModel: data! as! ZLGithubCommitModel)
         } else if data! is ZLGithubIssueModel {
             return ZLIssueTableViewCellData.init(issueModel: data! as! ZLGithubIssueModel)
+        } else if data! is ZLGithubNotificationModel {
+            return ZLNotificationTableViewCellData.init(data: data! as! ZLGithubNotificationModel)
         } else {
             return nil
         }

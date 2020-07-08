@@ -58,6 +58,7 @@ typedef NS_ENUM(NSInteger, ZLGithubEventType)
     ZLGithubEventType_SecurityAdvisoryEvent,
     ZLGithubEventType_StarEvent,
     ZLGithubEventType_StatusEvent,
+    ZLGithubEventType_SponsorshipEvent,
     ZLGithubEventType_TeamEvent,
     ZLGithubEventType_TeamAddEvent,
     ZLGithubEventType_WatchEvent,

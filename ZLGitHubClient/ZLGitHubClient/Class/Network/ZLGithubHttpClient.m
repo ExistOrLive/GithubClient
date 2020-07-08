@@ -34,9 +34,9 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 
 @interface ZLGithubHttpClient()
 
-@property (nonatomic, strong) AFHTTPSessionManager * sessionManager;
-
 @property (nonatomic, strong) NSURLSessionConfiguration * httpConfig;
+
+@property (nonatomic, strong) dispatch_queue_t completeQueue;
 
 @property (nonatomic, strong) NSString * token;
 
@@ -63,16 +63,10 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     if(self = [super init])
     {
         _httpConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
-        _sessionManager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:_httpConfig];
-        // 通知github返回的数据是json格式
-        _sessionManager.requestSerializer = [AFJSONRequestSerializer serializer];
-        [_sessionManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-
-        // 处理success，failed的队列,不要抛到主线程
-        _sessionManager.completionQueue = dispatch_queue_create("AFURLSessionManagerCompleteQueue", DISPATCH_QUEUE_SERIAL);
-        
         // 获取用户token
         _token = [[ZLSharedDataManager sharedInstance] githubAccessToken];
+        
+        _completeQueue = dispatch_queue_create("AFURLSessionManagerCompleteQueue", DISPATCH_QUEUE_SERIAL);
         
     }
     return self;
@@ -81,31 +75,47 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 
 #pragma mark -
 
-- (void) GETRequestWithURL:(NSString *) URL WithParams:(NSDictionary *) params WithResponseBlock:(GithubResponse) block serialNumber:(NSString *) serialNumber{
+- (void) GETRequestWithURL:(NSString *) URL
+               WithHeaders:(NSDictionary *) headers
+                WithParams:(NSDictionary *) params
+         WithResponseBlock:(GithubResponse) block
+          WithSerialNumber:(NSString *) serialNumber{
     [self requestWithMethod:@"GET"
-                    withURL:URL
+                    WithURL:URL
+                WithHeaders:headers
                  WithParams:params
           WithResponseBlock:block
-               serialNumber:serialNumber];
+           WithSerialNumber:serialNumber];
 }
 
 
-- (void) POSTRequestWithURL:(NSString *) URL WithParams:(NSDictionary *) params WithResponseBlock:(GithubResponse) block serialNumber:(NSString *) serialNumber{
+- (void) POSTRequestWithURL:(NSString *) URL
+                WithHeaders:(NSDictionary *) headers
+                 WithParams:(NSDictionary *) params
+          WithResponseBlock:(GithubResponse) block
+           WithSerialNumber:(NSString *) serialNumber{
     [self requestWithMethod:@"POST"
-                    withURL:URL
+                    WithURL:URL
+                WithHeaders:headers
                  WithParams:params
           WithResponseBlock:block
-               serialNumber:serialNumber];
+           WithSerialNumber:serialNumber];
 }
 
 
 - (void) requestWithMethod:(NSString *)method
-                   withURL:(NSString *) URL
+                   WithURL:(NSString *) URL
+               WithHeaders:(NSDictionary *) headers
                 WithParams:(NSDictionary *) params
          WithResponseBlock:(GithubResponse) block
-              serialNumber:(NSString *) serialNumber{
+          WithSerialNumber:(NSString *) serialNumber{
     
-    [self.sessionManager.requestSerializer setValue:[NSString stringWithFormat:@"token %@",self.token] forHTTPHeaderField:@"Authorization"];
+    AFHTTPSessionManager *sessionManager = [self getDefaultSessionManager];
+    
+    [sessionManager.requestSerializer setValue:[NSString stringWithFormat:@"token %@",self.token] forHTTPHeaderField:@"Authorization"];
+    for(NSString *header in headers.allValues){
+        [sessionManager.requestSerializer setValue:headers[header] forHTTPHeaderField:header];
+    }
     
     void(^successBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
     ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
@@ -130,36 +140,56 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
             
         }
     };
-        
+    
     if([@"POST" isEqualToString:method]) {
-        [self.sessionManager POST:URL
-                       parameters:params
-                         progress:nil
-                          success:successBlock
-                          failure:failedBlock];
+        
+        [sessionManager POST:URL
+                  parameters:params
+                    progress:nil
+                     success:successBlock
+                     failure:failedBlock];
+        
     } else if([@"GET" isEqualToString:method]) {
         
-        [self.sessionManager GET:URL
-                      parameters:params
-                        progress:nil
-                         success:successBlock
-                         failure:failedBlock];
+        [sessionManager GET:URL
+                 parameters:params
+                   progress:nil
+                    success:successBlock
+                    failure:failedBlock];
         
     } else if([@"DELETE" isEqualToString:method]) {
         
-        [self.sessionManager DELETE:URL
-                         parameters:params
-                            success:successBlock
-                            failure:failedBlock];
+        [sessionManager DELETE:URL
+                    parameters:params
+                       success:successBlock
+                       failure:failedBlock];
         
     } else if([@"PUT" isEqualToString:method]) {
         
-        [self.sessionManager PUT:URL
-                      parameters:params
-                         success:successBlock
-                         failure:failedBlock];
+        [sessionManager PUT:URL
+                 parameters:params
+                    success:successBlock
+                    failure:failedBlock];
         
+    } else if([@"PATCH" isEqualToString:method]) {
+        [sessionManager PATCH:URL parameters:params success:successBlock failure:failedBlock];
     }
+}
+
+- (AFHTTPSessionManager *) getDefaultSessionManager {
+    AFHTTPSessionManager *sessionManager =  [[AFHTTPSessionManager alloc] initWithSessionConfiguration:_httpConfig];
+    
+    // 处理success，failed的队列,不要抛到主线程
+    sessionManager.completionQueue = _completeQueue;
+    
+    // 通知github返回的数据是json格式 requestSerializer
+    sessionManager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [sessionManager.requestSerializer setValue:@"application/vnd.github.v3+json" forHTTPHeaderField:@"Accept"];
+    
+    // responseSerializer
+    sessionManager.responseSerializer = [AFJSONResponseSerializer serializer];
+    
+    return sessionManager;
 }
 
 
@@ -174,8 +204,10 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 {
     NSString * urlStr = [NSString stringWithFormat:@"%@?client_id=%@&scope=%@&state=%@",OAuthAuthorizeURL,MyClientID,OAuthScope,OAuthState];
     
+    AFHTTPSessionManager *sessionManager =  [self getDefaultSessionManager];
+    
     __weak typeof(self) weakSelf = self;
-    [self.sessionManager setTaskWillPerformHTTPRedirectionBlock:^NSURLRequest * _Nullable(NSURLSession * _Nonnull session, NSURLSessionTask * _Nonnull task, NSURLResponse * _Nonnull response, NSURLRequest * _Nonnull request) {
+    [sessionManager setTaskWillPerformHTTPRedirectionBlock:^NSURLRequest * _Nullable(NSURLSession * _Nonnull session, NSURLSessionTask * _Nonnull task, NSURLResponse * _Nonnull response, NSURLRequest * _Nonnull request) {
         
         if(![task.originalRequest.URL.absoluteString isEqualToString:urlStr])
         {
@@ -210,13 +242,12 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         return request;
     }];
     
-
-        
-    [self.sessionManager GET:urlStr
-                  parameters:nil
-                    progress:nil
-                     success:nil
-                     failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+    
+    [sessionManager GET:urlStr
+             parameters:nil
+               progress:nil
+                success:nil
+                failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
         NSHTTPURLResponse * response = (NSHTTPURLResponse*)task.response;
         if(!NSLocationInRange(response.statusCode, NSMakeRange(100, 300)))
@@ -294,11 +325,14 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         block(NO,processModel,serialNumber);
     };
     
-    [self.sessionManager POST:OAuthAccessTokenURL
-                   parameters:params
-                     progress:nil
-                      success:successBlock
-                      failure:failedBlock];
+    AFHTTPSessionManager *sessionManager =  [self getDefaultSessionManager];
+    [sessionManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    
+    [sessionManager POST:OAuthAccessTokenURL
+              parameters:params
+                progress:nil
+                 success:successBlock
+                 failure:failedBlock];
     
 }
 
@@ -333,12 +367,10 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         block(NO,processModel,serialNumber);
     };
     
-    NSURLSessionConfiguration *httpConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
-    AFHTTPSessionManager *sessionManager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:httpConfig];
+    
+    AFHTTPSessionManager *sessionManager = [self getDefaultSessionManager];
     sessionManager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [sessionManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [sessionManager.requestSerializer setValue:[NSString stringWithFormat:@"token %@",token] forHTTPHeaderField:@"Authorization"];
-    sessionManager.completionQueue = self.sessionManager.completionQueue;
     
     [sessionManager GET:url
              parameters:@{}
@@ -354,16 +386,16 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 {
     NSArray * types = @[WKWebsiteDataTypeCookies,WKWebsiteDataTypeSessionStorage];
     NSSet * set = [NSSet setWithArray:types];
-
+    
     NSDate * date = [NSDate dateWithTimeIntervalSince1970:0];
     [[WKWebsiteDataStore defaultDataStore] removeDataOfTypes:set modifiedSince:date completionHandler:^{}];
-
+    
     NSArray * cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:GitHubMainURL]];
     for(NSHTTPCookie * cookie in cookies)
     {
         [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
     }
-
+    
     // 注销成功，清空用户token和信息
     self.token = nil;
     [[ZLSharedDataManager sharedInstance] clearGithubTokenAndUserInfo];
@@ -394,9 +426,11 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     };
     
     [self GETRequestWithURL:userUrl
+                WithHeaders:nil
                  WithParams:nil
           WithResponseBlock:newResponse
-               serialNumber:serialNumber];
+           WithSerialNumber:serialNumber];
+    
 }
 
 /**
@@ -420,9 +454,10 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     };
     
     [self GETRequestWithURL:userUrl
+                WithHeaders:nil
                  WithParams:nil
           WithResponseBlock:newResponse
-               serialNumber:serialNumber];
+           WithSerialNumber:serialNumber];
 }
 
 
@@ -435,7 +470,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
        serialNumber:(NSString *) serialNumber{
     
     loginName = [loginName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
-
+    
     NSString * userUrl = [NSString stringWithFormat:@"%@%@%@",GitHubAPIURL,orgInfo,loginName];
     
     GithubResponse newResponse = ^(BOOL result,id _Nullable responseObject,NSString * _Nonnull serailNumber){
@@ -448,9 +483,10 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     };
     
     [self GETRequestWithURL:userUrl
+                WithHeaders:nil
                  WithParams:nil
           WithResponseBlock:newResponse
-               serialNumber:serialNumber];
+           WithSerialNumber:serialNumber];
 }
 
 
@@ -487,9 +523,10 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     };
     
     [self GETRequestWithURL:urlForSearchUser
+                WithHeaders:nil
                  WithParams:params
           WithResponseBlock:newResponse
-               serialNumber:serialNumber];
+           WithSerialNumber:serialNumber];
 }
 
 - (void) updateUserPublicProfile:(GithubResponse) block
@@ -522,7 +559,6 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
             [params setObject:bio forKey:@"bio"];
     }
     
-    [self.sessionManager.requestSerializer setValue:[NSString stringWithFormat:@"token %@",self.token] forHTTPHeaderField:@"Authorization"];
     
     void(^successBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
     ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
@@ -537,7 +573,10 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         block(NO,nil,serialNumber);
     };
     
-    [self.sessionManager PATCH:userUrl
+    AFHTTPSessionManager *sessionManager = [self getDefaultSessionManager];
+    [sessionManager.requestSerializer setValue:[NSString stringWithFormat:@"token %@",self.token] forHTTPHeaderField:@"Authorization"];
+    
+    [sessionManager      PATCH:userUrl
                     parameters:params
                        success:successBlock
                        failure:failedBlock];
@@ -565,10 +604,10 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     };
     
     [self GETRequestWithURL:urlForRepo
+                WithHeaders:nil
                  WithParams:params
           WithResponseBlock:newBlock
-               serialNumber:serialNumber];
-    
+           WithSerialNumber:serialNumber];
 }
 
 
@@ -600,9 +639,10 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     };
     
     [self GETRequestWithURL:urlForRepo
+                WithHeaders:nil
                  WithParams:params
           WithResponseBlock:newBlock
-               serialNumber:serialNumber];
+           WithSerialNumber:serialNumber];
 }
 
 
@@ -627,10 +667,10 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     };
     
     [self GETRequestWithURL:urlForRepo
+                WithHeaders:nil
                  WithParams:params
           WithResponseBlock:newBlock
-               serialNumber:serialNumber];
-    
+           WithSerialNumber:serialNumber];
 }
 
 
@@ -658,9 +698,10 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     };
     
     [self GETRequestWithURL:urlForRepo
+                WithHeaders:nil
                  WithParams:params
           WithResponseBlock:newBlock
-               serialNumber:serialNumber];
+           WithSerialNumber:serialNumber];
     
 }
 
@@ -673,7 +714,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
             per_page:(NSUInteger) per_page
         serialNumber:(NSString *) serialNumber
 {
-    NSString * urlForSearchUser = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,searchRepoUrl];
+    NSString * urlForSearchRepo = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,searchRepoUrl];
     
     NSMutableDictionary * params = [@{@"q":keyword,
                                       @"page":[NSNumber numberWithUnsignedInteger:page],
@@ -698,10 +739,11 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         block(result,responseObject,serialNumber);
     };
     
-    [self GETRequestWithURL:urlForSearchUser
+    [self GETRequestWithURL:urlForSearchRepo
+                WithHeaders:nil
                  WithParams:params
           WithResponseBlock:newBlock
-               serialNumber:serialNumber];
+           WithSerialNumber:serialNumber];
 }
 
 
@@ -723,20 +765,21 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         block(result,responseObject,serialNumber);
     };
     
+    
     [self GETRequestWithURL:urlForRepo
+                WithHeaders:nil
                  WithParams:nil
           WithResponseBlock:newBlock
-               serialNumber:serialNumber];
-    
+           WithSerialNumber:serialNumber];
 }
 
 
 /**
-* @brief 根据fullName直接获取Repo readme 信息
-* @param block 请求回调
-* @param fullName octocat/Hello-World
-* @param serialNumber 流水号 通过block回调原样返回
-**/
+ * @brief 根据fullName直接获取Repo readme 信息
+ * @param block 请求回调
+ * @param fullName octocat/Hello-World
+ * @param serialNumber 流水号 通过block回调原样返回
+ **/
 - (void) getRepositoryReadMeInfo:(GithubResponse) block
                         fullName:(NSString *) fullName
                     serialNumber:(NSString *) serialNumber
@@ -756,53 +799,55 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     };
     
     [self GETRequestWithURL:urlForRepoReadMe
+                WithHeaders:nil
                  WithParams:nil
           WithResponseBlock:newBlock
-               serialNumber:serialNumber];
+           WithSerialNumber:serialNumber];
 }
 
 
 
 /**
-* @brief 根据fullName直接获取Repo readme 信息
-* @param block 请求回调
-* @param fullName octocat/Hello-World
-* @param serialNumber 流水号 通过block回调原样返回
-**/
+ * @brief 根据fullName直接获取Repo readme 信息
+ * @param block 请求回调
+ * @param fullName octocat/Hello-World
+ * @param serialNumber 流水号 通过block回调原样返回
+ **/
 - (void) getRepositoryPullRequestInfo:(GithubResponse) block
                              fullName:(NSString *) fullName
                                 state:(NSString *) state
                          serialNumber:(NSString *) serialNumber
 {
     fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
-    NSString * urlForRepoReadMe = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoPullRequestUrl];
-    urlForRepoReadMe = [NSString stringWithFormat:urlForRepoReadMe,fullName];
+    NSString * urlForRepoPR = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoPullRequestUrl];
+    urlForRepoPR = [NSString stringWithFormat:urlForRepoPR,fullName];
     
     NSDictionary * params = @{@"state":state};
-      
-      GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
-          
-          if(result)
-          {
-              NSArray<ZLGithubPullRequestModel *> * model = [ZLGithubPullRequestModel mj_objectArrayWithKeyValuesArray:responseObject];
-              responseObject = model;
-          }
-          block(result,responseObject,serialNumber);
-      };
-      
-      [self GETRequestWithURL:urlForRepoReadMe
-                   WithParams:params
-            WithResponseBlock:newBlock
-                 serialNumber:serialNumber];
+    
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
+        
+        if(result)
+        {
+            NSArray<ZLGithubPullRequestModel *> * model = [ZLGithubPullRequestModel mj_objectArrayWithKeyValuesArray:responseObject];
+            responseObject = model;
+        }
+        block(result,responseObject,serialNumber);
+    };
+    
+    [self GETRequestWithURL:urlForRepoPR
+                WithHeaders:nil
+                 WithParams:params
+          WithResponseBlock:newBlock
+           WithSerialNumber:serialNumber];
 }
 
 
 /**
-* @brief 根据fullName直接获取Repo readme 信息
-* @param block 请求回调
-* @param fullName octocat/Hello-World
-* @param serialNumber 流水号 通过block回调原样返回
-**/
+ * @brief 根据fullName直接获取Repo readme 信息
+ * @param block 请求回调
+ * @param fullName octocat/Hello-World
+ * @param serialNumber 流水号 通过block回调原样返回
+ **/
 - (void) getRepositoryCommitsInfo:(GithubResponse) block
                          fullName:(NSString *) fullName
                            branch:(NSString *) branch
@@ -836,9 +881,10 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     };
     
     [self GETRequestWithURL:urlForRepoCommits
+                WithHeaders:nil
                  WithParams:params
           WithResponseBlock:newBlock
-               serialNumber:serialNumber];
+           WithSerialNumber:serialNumber];
 }
 
 
@@ -861,9 +907,10 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     };
     
     [self GETRequestWithURL:urlForRepoBranches
+                WithHeaders:nil
                  WithParams:nil
           WithResponseBlock:newBlock
-               serialNumber:serialNumber];
+           WithSerialNumber:serialNumber];
 }
 
 - (void) getRepositoryContentsInfo:(GithubResponse) block
@@ -892,9 +939,10 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     };
     
     [self GETRequestWithURL:urlForRepoContent
+                WithHeaders:nil
                  WithParams:params
           WithResponseBlock:newBlock
-               serialNumber:serialNumber];
+           WithSerialNumber:serialNumber];
 }
 
 - (void) getRepositoryFileInfo:(GithubResponse) block
@@ -922,9 +970,10 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     };
     
     [self GETRequestWithURL:urlForRepoContent
+                WithHeaders:nil
                  WithParams:params
           WithResponseBlock:newBlock
-               serialNumber:serialNumber];
+           WithSerialNumber:serialNumber];
 }
 
 
@@ -948,9 +997,10 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     };
     
     [self GETRequestWithURL:urlForRepoContributor
+                WithHeaders:nil
                  WithParams:@{}
           WithResponseBlock:newBlock
-               serialNumber:serialNumber];
+           WithSerialNumber:serialNumber];
 }
 
 #pragma mark - star repo
@@ -978,9 +1028,11 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     };
     
     [self GETRequestWithURL:urlForRepoStar
+                WithHeaders:nil
                  WithParams:@{}
           WithResponseBlock:newBlock
-               serialNumber:serialNumber];
+           WithSerialNumber:serialNumber];
+    
 }
 
 - (void) starRepository:(GithubResponse) block
@@ -995,14 +1047,19 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         block(result,responseObject,serialNumber);
     };
     
-    [self requestWithMethod:@"PUT" withURL:urlForRepoStar WithParams:@{} WithResponseBlock:newBlock serialNumber:serialNumber];
+    [self requestWithMethod:@"PUT"
+                    WithURL:urlForRepoStar
+                WithHeaders:nil
+                 WithParams:@{}
+          WithResponseBlock:newBlock
+           WithSerialNumber:serialNumber];
 }
 
 - (void) unstarRepository:(GithubResponse) block
-                fullName:(NSString *) fullName
-            serialNumber:(NSString *) serialNumber{
+                 fullName:(NSString *) fullName
+             serialNumber:(NSString *) serialNumber{
     
-     fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+    fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     
     NSString * urlForRepoStar = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoStarred];
     urlForRepoStar = [NSString stringWithFormat:urlForRepoStar,fullName];
@@ -1011,7 +1068,12 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         block(result,responseObject,serialNumber);
     };
     
-    [self requestWithMethod:@"DELETE" withURL:urlForRepoStar WithParams:@{} WithResponseBlock:newBlock serialNumber:serialNumber];
+    [self requestWithMethod:@"DELETE"
+                    WithURL:urlForRepoStar
+                WithHeaders:nil
+                 WithParams:@{}
+          WithResponseBlock:newBlock
+           WithSerialNumber:serialNumber];
 }
 
 
@@ -1019,7 +1081,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                   fullName:(NSString *) fullName
               serialNumber:(NSString *) serialNumber{
     
-     fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+    fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     NSString * urlForRepoStar = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoStargazers];
     urlForRepoStar = [NSString stringWithFormat:urlForRepoStar,fullName];
     
@@ -1034,10 +1096,12 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         block(result,responseObject,serialNumber);
     };
     
+    
     [self GETRequestWithURL:urlForRepoStar
+                WithHeaders:nil
                  WithParams:@{}
           WithResponseBlock:newBlock
-               serialNumber:serialNumber];
+           WithSerialNumber:serialNumber];
 }
 
 
@@ -1047,7 +1111,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                          fullName:(NSString *) fullName
                      serialNumber:(NSString *) serialNumber{
     
-     fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+    fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     NSString * urlForRepoSubscription = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoSubscription];
     urlForRepoSubscription = [NSString stringWithFormat:urlForRepoSubscription,fullName];
     
@@ -1065,9 +1129,10 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     };
     
     [self GETRequestWithURL:urlForRepoSubscription
+                WithHeaders:nil
                  WithParams:@{}
           WithResponseBlock:newBlock
-               serialNumber:serialNumber];
+           WithSerialNumber:serialNumber];
 }
 
 - (void) watchRepository:(GithubResponse) block
@@ -1082,14 +1147,20 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         block(result,responseObject,serialNumber);
     };
     
-    [self requestWithMethod:@"PUT" withURL:urlForRepoSubscription WithParams:@{} WithResponseBlock:newBlock serialNumber:serialNumber];
+    
+    [self requestWithMethod:@"PUT"
+                    WithURL:urlForRepoSubscription
+                WithHeaders:nil
+                 WithParams:@{}
+          WithResponseBlock:newBlock
+           WithSerialNumber:serialNumber];
 }
 
 - (void) unwatchRepository:(GithubResponse) block
-                fullName:(NSString *) fullName
-            serialNumber:(NSString *) serialNumber{
+                  fullName:(NSString *) fullName
+              serialNumber:(NSString *) serialNumber{
     
-     fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+    fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     NSString * urlForRepoSubscription = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoSubscription];
     urlForRepoSubscription = [NSString stringWithFormat:urlForRepoSubscription,fullName];
     
@@ -1097,7 +1168,12 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         block(result,responseObject,serialNumber);
     };
     
-    [self requestWithMethod:@"DELETE" withURL:urlForRepoSubscription WithParams:@{} WithResponseBlock:newBlock serialNumber:serialNumber];
+    [self requestWithMethod:@"DELETE"
+                    WithURL:urlForRepoSubscription
+                WithHeaders:nil
+                 WithParams:@{}
+          WithResponseBlock:newBlock
+           WithSerialNumber:serialNumber];
 }
 
 
@@ -1105,7 +1181,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                 fullName:(NSString *) fullName
             serialNumber:(NSString *) serialNumber{
     
-     fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+    fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     NSString * urlForRepoSubscribers = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoSubscribers];
     urlForRepoSubscribers = [NSString stringWithFormat:urlForRepoSubscribers,fullName];
     
@@ -1119,10 +1195,12 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         block(result,responseObject,serialNumber);
     };
     
+    
     [self GETRequestWithURL:urlForRepoSubscribers
+                WithHeaders:nil
                  WithParams:@{}
           WithResponseBlock:newBlock
-               serialNumber:serialNumber];
+           WithSerialNumber:serialNumber];
 }
 
 
@@ -1134,7 +1212,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                     org:(NSString * __nullable) org
            serialNumber:(NSString *) serialNumber{
     
-     fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+    fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     
     NSString * urlForRepoForks = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoForks];
     urlForRepoForks = [NSString stringWithFormat:urlForRepoForks,fullName];
@@ -1153,7 +1231,11 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         [params setObject:org forKey:@"organization"];
     }
     
-    [self POSTRequestWithURL:urlForRepoForks WithParams:params WithResponseBlock:newBlock serialNumber:serialNumber];
+    [self POSTRequestWithURL:urlForRepoForks
+                 WithHeaders:nil
+                  WithParams:params
+           WithResponseBlock:newBlock
+            WithSerialNumber:serialNumber];
 }
 
 
@@ -1162,7 +1244,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
              fullName:(NSString *) fullName
          serialNumber:(NSString *) serialNumber{
     
-     fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+    fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     NSString * urlForRepoForks = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoForks];
     urlForRepoForks = [NSString stringWithFormat:urlForRepoForks,fullName];
     
@@ -1173,8 +1255,16 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         block(result,responseObject,serialNumber);
     };
     
-    [self GETRequestWithURL:urlForRepoForks WithParams:@{} WithResponseBlock:newBlock serialNumber:serialNumber];
+    
+    [self GETRequestWithURL:urlForRepoForks
+                WithHeaders:nil
+                 WithParams:@{}
+          WithResponseBlock:newBlock
+           WithSerialNumber:serialNumber];
 }
+
+
+
 
 
 
@@ -1201,9 +1291,10 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     };
     
     [self GETRequestWithURL:urlForGist
+                WithHeaders:nil
                  WithParams:params
           WithResponseBlock:newBlock
-               serialNumber:serialNumber];
+           WithSerialNumber:serialNumber];
 }
 
 - (void) getGistsForUser:(GithubResponse) block
@@ -1216,24 +1307,25 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     loginName = [loginName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     NSString * urlForGist = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,userGistUrl];
     urlForGist = [NSString stringWithFormat:urlForGist,loginName];
-      
+    
     NSDictionary * params = @{@"page":[NSNumber numberWithUnsignedInteger:page],
-                                @"per_page":[NSNumber numberWithUnsignedInteger:per_page]};
-      
-      
+                              @"per_page":[NSNumber numberWithUnsignedInteger:per_page]};
+    
+    
     GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
-          
-          if(result)
-          {
-              responseObject = [[ZLGithubGistModel mj_objectArrayWithKeyValuesArray:responseObject] copy];
-          }
-          block(result,responseObject,serialNumber);
+        
+        if(result)
+        {
+            responseObject = [[ZLGithubGistModel mj_objectArrayWithKeyValuesArray:responseObject] copy];
+        }
+        block(result,responseObject,serialNumber);
     };
-      
+    
     [self GETRequestWithURL:urlForGist
-                   WithParams:params
-            WithResponseBlock:newBlock
-                 serialNumber:serialNumber];
+                WithHeaders:nil
+                 WithParams:params
+          WithResponseBlock:newBlock
+           WithSerialNumber:serialNumber];
 }
 
 
@@ -1248,7 +1340,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                     per_page:(NSUInteger) per_page
                 serialNumber:(NSString *) serialNumber{
     
-        loginName = [loginName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+    loginName = [loginName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     NSString * urlForFollowers = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,userfollowersUrl];
     urlForFollowers = [NSString stringWithFormat:urlForFollowers,loginName];
     
@@ -1266,9 +1358,10 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     };
     
     [self GETRequestWithURL:urlForFollowers
+                WithHeaders:nil
                  WithParams:params
           WithResponseBlock:newBlock
-               serialNumber:serialNumber];
+           WithSerialNumber:serialNumber];
 }
 
 
@@ -1276,10 +1369,10 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                    loginName: (NSString *) loginName
                 serialNumber:(NSString *) serialNumber{
     
-        loginName = [loginName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+    loginName = [loginName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     NSString * urlForFollow = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,userFollowing];
     urlForFollow = [NSString stringWithFormat:urlForFollow,loginName];
-        
+    
     GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
         
         if(result){
@@ -1295,10 +1388,12 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         
     };
     
+    
     [self GETRequestWithURL:urlForFollow
+                WithHeaders:nil
                  WithParams:@{}
           WithResponseBlock:newBlock
-               serialNumber:serialNumber];
+           WithSerialNumber:serialNumber];
 }
 
 
@@ -1306,26 +1401,27 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
           loginName: (NSString *) loginName
        serialNumber: (NSString *) serialNumber{
     
-        loginName = [loginName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+    loginName = [loginName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     NSString * urlForFollow = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,userFollowing];
     urlForFollow = [NSString stringWithFormat:urlForFollow,loginName];
-        
+    
     GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
         block(result,responseObject,serialNumber);
     };
     
     [self requestWithMethod:@"PUT"
-                    withURL:urlForFollow
+                    WithURL:urlForFollow
+                WithHeaders:nil
                  WithParams:@{}
           WithResponseBlock:newBlock
-               serialNumber:serialNumber];
+           WithSerialNumber:serialNumber];
 }
 
 - (void) unfollowUser: (GithubResponse) block
             loginName: (NSString *) loginName
          serialNumber: (NSString *) serialNumber{
     
-        loginName = [loginName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+    loginName = [loginName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     NSString * urlForFollow = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,userFollowing];
     urlForFollow = [NSString stringWithFormat:urlForFollow,loginName];
     
@@ -1334,10 +1430,11 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     };
     
     [self requestWithMethod:@"DELETE"
-                    withURL:urlForFollow
+                    WithURL:urlForFollow
+                WithHeaders:nil
                  WithParams:@{}
           WithResponseBlock:newBlock
-               serialNumber:serialNumber];
+           WithSerialNumber:serialNumber];
 }
 
 
@@ -1351,7 +1448,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                     per_page:(NSUInteger) per_page
                 serialNumber:(NSString *) serialNumber
 {
-        loginName = [loginName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+    loginName = [loginName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     NSString * urlForFollowing = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,userfollowingUrl];
     urlForFollowing = [NSString stringWithFormat:urlForFollowing,loginName];
     
@@ -1370,9 +1467,10 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     };
     
     [self GETRequestWithURL:urlForFollowing
+                WithHeaders:nil
                  WithParams:params
           WithResponseBlock:newBlock
-               serialNumber:serialNumber];
+           WithSerialNumber:serialNumber];
     
 }
 
@@ -1384,7 +1482,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                     serialNumber:(NSString *)serialNumber
                    responseBlock:(GithubResponse)block
 {
-        loginName = [loginName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+    loginName = [loginName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     NSString * urlForReceivedEvent = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,userReceivedEventUrl];
     urlForReceivedEvent = [NSString stringWithFormat:urlForReceivedEvent,loginName];
     
@@ -1402,9 +1500,10 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     
     
     [self GETRequestWithURL:urlForReceivedEvent
+                WithHeaders:nil
                  WithParams:params
           WithResponseBlock:newBlock
-               serialNumber:serialNumber];
+           WithSerialNumber:serialNumber];
 }
 
 
@@ -1414,7 +1513,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
             serialNumber:(NSString *)serialNumber
            responseBlock:(GithubResponse)block
 {
-      loginName = [loginName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+    loginName = [loginName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     NSString * urlForEvent = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,userEventUrl];
     urlForEvent = [NSString stringWithFormat:urlForEvent,loginName];
     
@@ -1432,9 +1531,10 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     
     
     [self GETRequestWithURL:urlForEvent
+                WithHeaders:nil
                  WithParams:params
           WithResponseBlock:newBlock
-               serialNumber:serialNumber];
+           WithSerialNumber:serialNumber];
 }
 
 
@@ -1446,7 +1546,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                     fullName:(NSString *) fullName
                 serialNumber:(NSString *) serialNumber{
     
-      fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+    fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     NSString * urlForRepoContributor = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoIssuesUrl];
     urlForRepoContributor = [NSString stringWithFormat:urlForRepoContributor,fullName];
     
@@ -1461,11 +1561,10 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     };
     
     [self GETRequestWithURL:urlForRepoContributor
+                WithHeaders:nil
                  WithParams:@{}
           WithResponseBlock:newBlock
-               serialNumber:serialNumber];
-    
-    
+           WithSerialNumber:serialNumber];
 }
 
 - (void) createIssue:(GithubResponse) block
@@ -1476,7 +1575,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
            assignees:(NSArray *) assignees
         serialNumber:(NSString *) serialNumber{
     
-     fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+    fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     NSString * urlForRepoContributor = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,createIssueUrl];
     urlForRepoContributor = [NSString stringWithFormat:urlForRepoContributor,fullName];
     
@@ -1503,11 +1602,58 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     }
     
     [self POSTRequestWithURL:urlForRepoContributor
+                 WithHeaders:nil
                   WithParams:params
            WithResponseBlock:newBlock
-                serialNumber:serialNumber];
-    
+            WithSerialNumber:serialNumber];
 }
+
+
+#pragma mark - notification
+
+- (void) getNotification:(GithubResponse) block
+                 showAll:(BOOL) showAll
+                    page:(NSUInteger)page
+                per_page:(NSUInteger)per_page
+            serialNumber:(NSString *) serialNumer {
+    NSString * urlForNotificaitons = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,NotificationsURL];
+    
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
+        
+        if(result)
+        {
+            NSArray* model = [ZLGithubNotificationModel mj_objectArrayWithKeyValuesArray:responseObject];
+            responseObject = model;
+        }
+        block(result,responseObject,serialNumber);
+    };
+    
+    NSDictionary * params = @{@"page":[NSNumber numberWithUnsignedInteger:page],
+                              @"per_page":[NSNumber numberWithUnsignedInteger:per_page],
+                              @"all":[NSNumber numberWithBool:showAll]};
+    
+    [self GETRequestWithURL:urlForNotificaitons
+                WithHeaders:nil
+                 WithParams:params
+          WithResponseBlock:newBlock
+           WithSerialNumber:serialNumer];
+}
+
+
+- (void) markNotificationRead:(GithubResponse) block
+               notificationId:(NSString *) notificationId
+                 serialNumber:(NSString *) serialNumer {
+    
+    NSString * urlForNotificaitons = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,NotificationThreadsURL];
+    urlForNotificaitons = [NSString stringWithFormat:urlForNotificaitons,notificationId];
+    
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
+        block(result,responseObject,serialNumber);
+    };
+    
+    [self requestWithMethod:@"PATCH" WithURL:urlForNotificaitons WithHeaders:nil WithParams:@{@"thread_id":notificationId} WithResponseBlock:newBlock WithSerialNumber:serialNumer];
+}
+
 
 
 #pragma mark - languages
@@ -1527,9 +1673,32 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     };
     
     [self GETRequestWithURL:urlForLanguages
+                WithHeaders:nil
                  WithParams:@{}
           WithResponseBlock:newBlock
-               serialNumber:serialNumber];
+           WithSerialNumber:serialNumber];
+    
+}
+
+
+- (void) getRepoLanguages:(GithubResponse) block
+                 fullName:(NSString *) fullName
+             serialNumber:(NSString *) serialNumber{
+    
+    fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+    NSString * urlForRepoLanguages = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoLanguages];
+    urlForRepoLanguages = [NSString stringWithFormat:urlForRepoLanguages,fullName];
+    
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
+        block(result,responseObject,serialNumber);
+    };
+    
+    
+    [self GETRequestWithURL:urlForRepoLanguages
+                WithHeaders:nil
+                 WithParams:@{}
+          WithResponseBlock:newBlock
+           WithSerialNumber:serialNumber];
 }
 
 

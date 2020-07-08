@@ -14,6 +14,7 @@ import SnapKit
 import MJRefresh
 import Toast_Swift
 import JXSegmentedView
+import Charts
 
 
 // MARK: 界面常用参数

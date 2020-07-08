@@ -8,6 +8,9 @@ PODS:
   - AFNetworking/Serialization (3.2.1)
   - BSBacktraceLogger (0.0.1)
   - Bugly (2.5.2)
+  - Charts (3.4.0):
+    - Charts/Core (= 3.4.0)
+  - Charts/Core (3.4.0)
   - CocoaLumberjack (3.6.1):
     - CocoaLumberjack/Core (= 3.6.1)
   - CocoaLumberjack/Core (3.6.1)
@@ -72,6 +75,7 @@ DEPENDENCIES:
   - AFNetworking/Security
   - AFNetworking/Serialization
   - Bugly
+  - Charts
   - CocoaLumberjack
   - CocoaLumberjack/Swift
   - DoraemonKit/Core (~> 2.0.0)
@@ -99,6 +103,7 @@ SPEC REPOS:
     - AFNetworking
     - BSBacktraceLogger
     - Bugly
+    - Charts
     - CocoaLumberjack
     - DoraemonKit
     - FBRetainCycleDetector
@@ -124,6 +129,7 @@ SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   BSBacktraceLogger: 06b983ee93a9f87d957960e9c73d660d5966b447
   Bugly: dbac48b55ad469a97cc4321045cd50df8f63d44f
+  Charts: 74c9f256eaf0460c0c416522d1cf8c634ea6b286
   CocoaLumberjack: b17ae15142558d08bbacf69775fa10c4abbebcc9
   DoraemonKit: 9e923599e28d0b61f1c6de4aef2c2d669b30abb7
   FBRetainCycleDetector: 46f8179bbb1c587deee3ea838a1a3ee02acf5015
@@ -145,6 +151,6 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": d7b0c400921f66523f3a85d74f774512e14f6502
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: f0958e7fda5a13c06d5d2763cf744c169b78cc43
+PODFILE CHECKSUM: a798694e6e8c307104f1bee7be8d45e59277a4d4
 
 COCOAPODS: 1.9.1

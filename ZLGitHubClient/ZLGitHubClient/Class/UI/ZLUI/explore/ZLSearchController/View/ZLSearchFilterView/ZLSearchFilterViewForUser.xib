@@ -133,7 +133,6 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <action selector="onFinishButtonClicked:" destination="-1" eventType="touchUpInside" id="66z-pA-B9I"/>
                         <action selector="onFinishButtonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="dwd-Ky-f3n"/>
                     </connections>
                 </button>

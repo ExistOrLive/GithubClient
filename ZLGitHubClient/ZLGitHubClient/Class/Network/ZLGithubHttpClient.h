@@ -415,9 +415,27 @@ NS_ASSUME_NONNULL_BEGIN
         serialNumber:(NSString *) serialNumber;
 
 
+#pragma mark - notification
+
+- (void) getNotification:(GithubResponse) block
+                 showAll:(BOOL) showAll
+                    page:(NSUInteger)page
+                per_page:(NSUInteger)per_page
+            serialNumber:(NSString *) serialNumer;
+
+- (void) markNotificationRead:(GithubResponse) block
+               notificationId:(NSString *) notificationId
+                 serialNumber:(NSString *) serialNumer;
+
+
 #pragma mark - languages
 
 - (void) getLanguagesList:(GithubResponse) block
+             serialNumber:(NSString *) serialNumber;
+
+
+- (void) getRepoLanguages:(GithubResponse) block
+                 fullName:(NSString *) fullName
              serialNumber:(NSString *) serialNumber;
 
 @end

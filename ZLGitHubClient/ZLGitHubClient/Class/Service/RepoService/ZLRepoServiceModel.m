@@ -322,6 +322,42 @@
 }
 
 
+
+- (void) getRepositoryFileHTMLInfoWithFullName:(NSString *) fullName
+                                          path:(NSString *) path
+                                        branch:(NSString *) branch
+                                  serialNumber:(NSString *) serialNumber
+                                completeHandle:(void(^)(ZLOperationResultModel *)) handle
+{
+    if(fullName.length == 0 || ![fullName containsString:@"/"])
+    {
+        ZLLog_Info(@"fullName is not valid");
+        return;
+    }
+    
+    GithubResponse response = ^(BOOL  result, id responseObject, NSString * serialNumber)
+    {
+        ZLOperationResultModel * repoResultModel = [[ZLOperationResultModel alloc] init];
+        repoResultModel.result = result;
+        repoResultModel.serialNumber = serialNumber;
+        repoResultModel.data = responseObject;
+        
+        if(handle)
+        {
+            ZLMainThreadDispatch(handle(repoResultModel);)
+        }
+    };
+    
+    
+    [[ZLGithubHttpClient defaultClient] getRepositoryFileInfo:response
+                                                     fullName:fullName
+                                                         path:path
+                                                       branch:branch
+                                                 serialNumber:serialNumber];
+}
+
+
+
 /**
  * @brief 根据repo fullname获取 贡献者
  * @param fullName octocat/Hello-World
@@ -724,6 +760,28 @@
     [[ZLGithubHttpClient defaultClient] getRepoForks:response fullName:fullName serialNumber:serialNumber];
 }
 
+#pragma mark - languages
+
+- (void) getRepoLanguagesWithFullName:(NSString *) fullName
+                     serialNumber:(NSString *) serialNumber
+                   completeHandle:(void(^)(ZLOperationResultModel *)) handle{
+
+    
+    GithubResponse response = ^(BOOL  result, id responseObject, NSString * serialNumber)
+    {
+        ZLOperationResultModel * repoResultModel = [[ZLOperationResultModel alloc] init];
+        repoResultModel.result = result;
+        repoResultModel.serialNumber = serialNumber;
+        repoResultModel.data = responseObject;
+        
+        if(handle)
+        {
+            ZLMainThreadDispatch(handle(repoResultModel);)
+        }
+    };
+
+    [[ZLGithubHttpClient defaultClient] getRepoLanguages:response fullName:fullName serialNumber:serialNumber];
+}
 
 
 @end

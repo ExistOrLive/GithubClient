@@ -280,9 +280,8 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cwe-Dx-ksY">
-                                    <rect key="frame" x="364" y="0.0" width="30" height="50"/>
+                                    <rect key="frame" x="72" y="0.0" width="322" height="50"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="30" id="lCP-Jj-uOD"/>
                                         <constraint firstAttribute="height" constant="50" id="pAw-N6-Y1L"/>
                                     </constraints>
                                     <state key="normal" image="itemnext_MyProfile"/>
@@ -290,6 +289,7 @@
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
+                                <constraint firstItem="cwe-Dx-ksY" firstAttribute="leading" secondItem="zgk-NI-7Ps" secondAttribute="trailing" constant="20" id="3kE-ma-vyx"/>
                                 <constraint firstItem="zgk-NI-7Ps" firstAttribute="centerY" secondItem="Qki-qh-EIq" secondAttribute="centerY" id="Gq3-dI-PP5"/>
                                 <constraint firstAttribute="trailing" secondItem="cwe-Dx-ksY" secondAttribute="trailing" constant="20" id="P6O-rQ-W0b"/>
                                 <constraint firstItem="zgk-NI-7Ps" firstAttribute="leading" secondItem="Qki-qh-EIq" secondAttribute="leading" constant="20" id="WTc-dD-aS2"/>
@@ -313,10 +313,9 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cwS-Eb-EgY">
-                                    <rect key="frame" x="364" y="0.0" width="30" height="50"/>
+                                    <rect key="frame" x="72" y="0.0" width="322" height="50"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="50" id="kWX-Vz-zwi"/>
-                                        <constraint firstAttribute="width" constant="30" id="pBQ-7X-T9X"/>
                                     </constraints>
                                     <state key="normal" image="itemnext_MyProfile"/>
                                     <connections>
@@ -331,6 +330,7 @@
                                 <constraint firstAttribute="trailing" secondItem="2FO-b0-HLe" secondAttribute="trailing" constant="50" id="Mgd-sV-enh"/>
                                 <constraint firstItem="cwS-Eb-EgY" firstAttribute="centerY" secondItem="ga6-Wt-ORw" secondAttribute="centerY" id="T5v-Uo-l2c"/>
                                 <constraint firstItem="F4q-vB-EiM" firstAttribute="leading" secondItem="ga6-Wt-ORw" secondAttribute="leading" constant="20" id="YFu-hO-tkY"/>
+                                <constraint firstItem="cwS-Eb-EgY" firstAttribute="leading" secondItem="F4q-vB-EiM" secondAttribute="trailing" constant="20" id="bka-Q5-XF6"/>
                                 <constraint firstItem="F4q-vB-EiM" firstAttribute="centerY" secondItem="ga6-Wt-ORw" secondAttribute="centerY" id="phx-j5-P4f"/>
                             </constraints>
                         </view>

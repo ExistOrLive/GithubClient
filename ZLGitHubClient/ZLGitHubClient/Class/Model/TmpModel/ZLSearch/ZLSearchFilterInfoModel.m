@@ -77,7 +77,7 @@
     
     if(self.firstForkNum > 0 || self.secondForkNum > 0)
     {
-        [finalKeyWord appendFormat:@" fork:%@..%@",self.firstForkNum > 0 ? @(self.firstForkNum) : @"*",self.secondForkNum > 0 ? @(self.secondForkNum) : @"*" ];
+        [finalKeyWord appendFormat:@" forks:%@..%@",self.firstForkNum > 0 ? @(self.firstForkNum) : @"*",self.secondForkNum > 0 ? @(self.secondForkNum) : @"*" ];
     }
     
     if(self.firstStarNum > 0 || self.secondStarNum > 0)

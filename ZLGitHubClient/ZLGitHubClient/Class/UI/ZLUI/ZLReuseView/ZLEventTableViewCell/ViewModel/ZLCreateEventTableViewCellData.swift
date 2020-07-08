@@ -60,7 +60,7 @@ class ZLCreateEventTableViewCellData: ZLEventTableViewCellData {
             
         } else if payload.ref_type == .tag {
             
-            let str =  "created tag \(payload.ref) in \(self.eventModel.repo.name)"
+            let str =  "created tag \(payload.ref)\n\nin \(self.eventModel.repo.name)"
             let attributedString = NSMutableAttributedString.init(string: str , attributes: [NSAttributedString.Key.foregroundColor:UIColor.init(hexString: "#333333", alpha: 1.0)!,NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 15.0)!])
             
             let refRange = (str as NSString).range(of: payload.ref)
@@ -91,7 +91,7 @@ class ZLCreateEventTableViewCellData: ZLEventTableViewCellData {
             
         } else if payload.ref_type == .branch {
             
-            let str =  "created branch \(payload.ref)  in \(self.eventModel.repo.name)"
+            let str =  "created branch \(payload.ref)\n\nin \(self.eventModel.repo.name)"
             let attributedString = NSMutableAttributedString.init(string: str , attributes: [NSAttributedString.Key.foregroundColor:UIColor.init(hexString: "#333333", alpha: 1.0)!,NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 15.0)!])
             
             let refRange = (str as NSString).range(of: payload.ref)

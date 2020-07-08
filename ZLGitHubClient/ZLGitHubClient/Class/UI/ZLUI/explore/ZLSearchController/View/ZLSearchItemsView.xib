@@ -16,13 +16,13 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rfd-VZ-8Mp">
                     <rect key="frame" x="0.0" y="0.0" width="411" height="60"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ACg-FI-Jfh">
-                            <rect key="frame" x="341" y="10" width="60" height="40"/>
+                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ACg-FI-Jfh">
+                            <rect key="frame" x="361" y="10" width="50" height="40"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="60" id="SJK-rm-WO6"/>
+                                <constraint firstAttribute="width" constant="50" id="SJK-rm-WO6"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="PingFangSC-Semibold" family="PingFang SC" pointSize="12"/>
-                            <state key="normal" title="过滤">
+                            <state key="normal" image="filter">
                                 <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
@@ -44,7 +44,7 @@
                         <constraint firstAttribute="bottom" secondItem="boA-NQ-RJO" secondAttribute="bottom" constant="10" id="Q4g-RA-lLI"/>
                         <constraint firstItem="boA-NQ-RJO" firstAttribute="leading" secondItem="rfd-VZ-8Mp" secondAttribute="leading" id="WtC-H9-fOc"/>
                         <constraint firstItem="boA-NQ-RJO" firstAttribute="top" secondItem="rfd-VZ-8Mp" secondAttribute="top" constant="10" id="ajO-AM-gjr"/>
-                        <constraint firstAttribute="trailing" secondItem="ACg-FI-Jfh" secondAttribute="trailing" constant="10" id="htI-41-Pst"/>
+                        <constraint firstAttribute="trailing" secondItem="ACg-FI-Jfh" secondAttribute="trailing" id="htI-41-Pst"/>
                         <constraint firstAttribute="height" constant="60" id="uJE-y4-Hgy"/>
                     </constraints>
                 </view>
@@ -72,4 +72,7 @@
             <point key="canvasLocation" x="458.69565217391306" y="-26.450892857142858"/>
         </view>
     </objects>
+    <resources>
+        <image name="filter" width="12" height="12"/>
+    </resources>
 </document>

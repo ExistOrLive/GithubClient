@@ -61,6 +61,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZLGithubIssueModel : ZLBaseObject
 
+@property(nonatomic, strong) NSString * id_issue;
+
 @property(nonatomic, strong) NSString * html_url;
 
 @property(nonatomic, strong) NSString * repository_url;
@@ -70,6 +72,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, strong) NSString * labels_url;
 
 @property(nonatomic, strong) NSString * url;
+
+@property(nonatomic, strong) NSString * node_id;
 
 
 @property(nonatomic, assign) NSUInteger number;                       // 编号

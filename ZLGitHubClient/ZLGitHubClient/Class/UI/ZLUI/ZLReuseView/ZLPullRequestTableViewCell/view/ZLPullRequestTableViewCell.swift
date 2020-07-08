@@ -15,6 +15,8 @@ class ZLPullRequestTableViewCell: UITableViewCell {
     
     weak var  delegate : ZLPullRequestTableViewCellDelegate?
     
+    @IBOutlet weak var typeImageView: UIImageView!
+    
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var assitInfoLabel: UILabel!
@@ -33,7 +35,16 @@ class ZLPullRequestTableViewCell: UITableViewCell {
     func fillWithData(data : ZLPullRequestTableViewCellData)
     {
         self.titleLabel.text = data.getTitle()
-        self.assitInfoLabel.text = data.getAssistInfo() 
+        self.assitInfoLabel.text = data.getAssistInfo()
+        
+        if "open" == data.getState() {
+            self.typeImageView?.image = UIImage.init(named: "pr_opened")
+        } else if data.isMerged() {
+            self.typeImageView?.image = UIImage.init(named: "pr_merged")
+        } else {
+            self.typeImageView?.image = UIImage.init(named: "pr_closed")
+        }
+        
     }
     
 }

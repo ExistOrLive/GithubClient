@@ -201,6 +201,13 @@ NS_ASSUME_NONNULL_BEGIN
                    completeHandle:(void(^)(ZLOperationResultModel *)) handle;
 
 
+#pragma mark - languages
+
+- (void) getRepoLanguagesWithFullName:(NSString *) fullName
+                     serialNumber:(NSString *) serialNumber
+                       completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -135,7 +135,7 @@ extension ZLRepoItemInfoViewModel : ZLRepoItemInfoViewDelegate
             self.viewController?.navigationController?.pushViewController(controller, animated: true)
             }
         case .language : do{
-            
+            ZLRepoLanguagesPercentView.showRepoLanguagesPercentView(fullName: self.repoInfoModel?.full_name ?? "")
             }
         }
     }

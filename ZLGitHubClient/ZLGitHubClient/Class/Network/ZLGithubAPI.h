@@ -119,6 +119,17 @@
 
 #define repoForks @"/repos/%@/forks"      //  get 获取repo的 forks / post fork repo
 
+#pragma mark repoLanguages
+
+#define repoLanguages @"/repos/%@/languages"    
+
+
+#pragma mark notification
+
+#define NotificationsURL @"/notifications"
+
+#define NotificationThreadsURL @"/notifications/threads/%@"    
+
 
 
 static const NSNotificationName ZLGithubTokenInvalid_Notification = @"ZLGithubTokenInvalid_Notification";

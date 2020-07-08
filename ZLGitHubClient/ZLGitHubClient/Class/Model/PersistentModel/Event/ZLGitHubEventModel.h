@@ -9,6 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "ZLGithubEventType.h"
 
+@class ZLGithubIssueModel;
+@class ZLGithubLabelModel;
+@class ZLGithubPullRequestModel;
+
 
 typedef NS_ENUM(NSInteger, ZLReferenceType)
 {
@@ -93,6 +97,49 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
+@interface ZLIssueCommentBriefInfoModel : ZLBaseObject
+
+@property (nonatomic, strong) NSString *id_IssueComment;
+@property (nonatomic, strong, nullable) NSString *body;                           // 评论的内容
+@property (nonatomic, strong) NSString *html_url;
+@property (nonatomic, strong) NSString *url;
+@property (nonatomic, strong) NSString *issue_url;
+@property (nonatomic, strong) NSString *node_id;
+
+@property (nonatomic, strong) NSDate *updated_at;
+@property (nonatomic, strong) NSDate *created_at;
+
+@property (nonatomic, strong) NSString *author_association;                     // OWNER NONE
+
+@property (nonatomic, strong) ZLGithubUserBriefModel*user;
+
+@end
+
+
+@interface ZLReleaseBriefInfoModel : ZLBaseObject
+
+@property (nonatomic, strong) NSString *id_Release;
+@property (nonatomic, strong) NSString *node_id;
+@property (nonatomic, strong) NSString *html_url;
+@property (nonatomic, strong) NSString *url;
+@property (nonatomic, strong) NSString *zipball_url;
+@property (nonatomic, strong) NSString *tarball_url;
+@property (nonatomic, strong) NSString *assets_url;
+@property (nonatomic, strong) NSString *upload_url;
+
+@property (nonatomic, strong) NSString *tag_name;
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *body;
+@property (nonatomic, strong) NSString *target_commitish;
+
+@property (nonatomic, strong) NSDate *created_at;
+@property (nonatomic, strong) NSDate *published_at;
+
+@property (nonatomic, strong) ZLGithubUserBriefModel*auhtor;
+
+@end
+
+
 
 #pragma mark - Event Payloads
 
@@ -162,7 +209,66 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+// issueCommentEvent
+@interface ZLIssueCommentEventPayloadModel : ZLBaseObject
 
+@property (nonatomic, strong) NSString *action;                                 // created edited deleted
+@property (nonatomic, strong, nullable) id changes;
+@property (nonatomic, strong) ZLIssueCommentBriefInfoModel *comment;
+@property (nonatomic, strong) ZLGithubIssueModel *issue;
+
+@end
+
+
+// issueEvent
+@interface ZLIssueEventPayloadModel : ZLBaseObject
+
+@property (nonatomic, strong) NSString *action;                                 //  opened, closed, reopened, assigned, unassigned, labeled, unlabeled
+@property (nonatomic, strong, nullable) id changes;
+@property (nonatomic, strong) ZLGithubIssueModel *issue;
+@property (nonatomic, strong, nullable) ZLGithubUserBriefModel *assignee;
+@property (nonatomic, strong, nullable) ZLGithubLabelModel *label;
+
+@end
+
+
+// MemberEvent
+@interface ZLMemberEventPayloadModel : ZLBaseObject
+
+@property (nonatomic, strong) NSString *action;                                 //  added
+@property (nonatomic, strong) ZLGithubUserBriefModel *member;                   //  collaborator
+@property (nonatomic, strong, nullable) id changes;
+
+@end
+
+
+@interface ZLPullRequestEventPayloadModel : ZLBaseObject
+
+@property (nonatomic, strong) NSString *action;                                 //   opened, closed, reopened, assigned, unassigned, review_requested, review_request_removed, labeled, unlabeled,synchronize
+@property (nonatomic, assign) NSInteger number;                                 //   pr number
+@property (nonatomic, strong, nullable) id changes;
+@property (nonatomic, strong) ZLGithubPullRequestModel *pull_request;
+
+
+@end
+
+@interface ZLPullRequestReviewCommentEventPayloadModel : ZLBaseObject
+
+@property (nonatomic, strong) NSString *action;                                 //   created
+@property (nonatomic, strong, nullable) id changes;
+@property (nonatomic, strong) ZLGithubPullRequestModel *pull_request;
+@property (nonatomic, strong) id comment;
+
+@end
+
+
+@interface ZLReleaseEventPayloadModel : ZLBaseObject
+
+@property (nonatomic, strong) NSString *action;                                 //   published
+@property (nonatomic, strong, nullable) id changes;
+@property (nonatomic, strong) ZLReleaseBriefInfoModel *releaseModel;
+
+@end
 
 
 #pragma mark - EventModel
