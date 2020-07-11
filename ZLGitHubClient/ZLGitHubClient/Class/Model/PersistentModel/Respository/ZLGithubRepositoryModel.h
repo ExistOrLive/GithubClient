@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(strong, nonatomic) NSString * default_branch;                         //！默认分支
 @property(assign, nonatomic) NSUInteger score;                                  //! 得分
 
-@property(assign, nonatomic) NSUInteger open_issues_count;                      //！issue公开问题数
+@property(assign, nonatomic) NSUInteger open_issues_count;                      //！issue公开问题数  (issue 数 + pr 数)
 @property(assign, nonatomic) NSUInteger stargazers_count;                       //! star订阅数
 @property(assign, nonatomic) NSUInteger subscribers_count;                      //! watchers订阅数
 @property(assign, nonatomic) NSUInteger forks_count;                            //! fork拷贝数         

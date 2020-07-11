@@ -15,6 +15,7 @@ import MJRefresh
 import Toast_Swift
 import JXSegmentedView
 import Charts
+import FWPopupView
 
 
 // MARK: 界面常用参数

@@ -33,12 +33,13 @@ class ZLNotificationViewModel: ZLBaseViewModel {
     
     @IBAction func onFilterButtonClicked(_ sender: Any) {
         
-        CYSinglePickerPopoverView.showCYSinglePickerPopover(withTitle: ZLLocalizedString(string: "filter", comment: ""), withInitIndex: self.showAllNotification ? 0 : 1, withDataArray: ["all","unread"], withResultBlock: {(result : UInt) in
+        CYSinglePickerPopoverView.showCYSinglePickerPopover(withTitle: ZLLocalizedString(string: "Filter", comment: ""), withInitIndex: self.showAllNotification ? 0 : 1, withDataArray: ["all","unread"], withResultBlock: {(result : UInt) in
             self.showAllNotification = result == 0 ? true : false
             ZLSharedDataManager.sharedInstance().showAllNotifications = self.showAllNotification
             self.baseView?.filterLabel.text = self.showAllNotification ? "all" : "unread"
-            SVProgressHUD.show()
+            
             self.baseView?.githubItemListView.clearListView()
+            SVProgressHUD.show()
             self.loadNewData()
         })
     }

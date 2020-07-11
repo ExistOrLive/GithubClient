@@ -66,6 +66,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) getRepoPullRequestWithFullName:(NSString *) fullName
                                   state:(NSString *) state
+                               per_page:(NSInteger)per_page
+                                   page:(NSInteger)page
                            serialNumber:(NSString *) serialNumber
                          completeHandle:(void(^)(ZLOperationResultModel *)) handle;
 
@@ -131,6 +133,9 @@ NS_ASSUME_NONNULL_BEGIN
  * @param serialNumber 流水号
  **/
 - (void) getRepositoryIssuesWithFullName:(NSString *) fullName
+                                   state:(NSString *) state
+                                per_page:(NSInteger) per_page
+                                    page:(NSInteger) page
                             serialNumber:(NSString *) serialNumber
                           completeHandle:(void(^)(ZLOperationResultModel *)) handle;
 
@@ -166,6 +171,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) getRepoWatchersWithFullName:(NSString *) fullName
                         serialNumber:(NSString *) serialNumber
+                            per_page:(NSInteger) per_page
+                                page:(NSInteger) page
                       completeHandle:(void(^)(ZLOperationResultModel *)) handle;
 
 
@@ -185,6 +192,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) getRepoStargazersWithFullName:(NSString *) fullName
                           serialNumber:(NSString *) serialNumber
+                              per_page:(NSInteger) per_page
+                                  page:(NSInteger) page
                         completeHandle:(void(^)(ZLOperationResultModel *)) handle;
 
 
@@ -198,6 +207,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) getRepoForksWithFullName:(NSString *) fullName
                      serialNumber:(NSString *) serialNumber
+                         per_page:(NSInteger) per_page
+                             page:(NSInteger) page
                    completeHandle:(void(^)(ZLOperationResultModel *)) handle;
 
 
@@ -206,6 +217,40 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) getRepoLanguagesWithFullName:(NSString *) fullName
                      serialNumber:(NSString *) serialNumber
                        completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+
+#pragma mark - actions
+
+- (void) getRepoWorkflowsWithFullName:(NSString *) fullName
+                             per_page:(NSInteger) per_page
+                                 page:(NSInteger) page
+                         serialNumber:(NSString *) serialNumber
+                       completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+
+
+- (void) getRepoWorkflowRunsWithFullName:(NSString *) fullName
+                              workflowId:(NSString *) workflowId
+                                per_page:(NSInteger) per_page
+                                    page:(NSInteger) page
+                            serialNumber:(NSString *) serialNumber
+                          completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+- (void) rerunRepoWorkflowRunWithFullName:(NSString *) fullName
+                            workflowRunId:(NSString *) workflowRunId
+                             serialNumber:(NSString *) serialNumber
+                           completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+- (void) cancelRepoWorkflowRunWithFullName:(NSString *) fullName
+                             workflowRunId:(NSString *) workflowRunId
+                              serialNumber:(NSString *) serialNumber
+                            completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+- (void) getRepoWorkflowRunLogWithFullName:(NSString *) fullName
+                             workflowRunId:(NSString *) workflowRunId
+                              serialNumber:(NSString *) serialNumber
+                            completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
 
 
 @end

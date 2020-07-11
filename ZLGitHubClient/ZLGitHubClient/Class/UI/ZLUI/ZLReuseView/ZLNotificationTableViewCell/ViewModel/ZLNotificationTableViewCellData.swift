@@ -10,9 +10,10 @@ import UIKit
 
 class ZLNotificationTableViewCellData: ZLGithubItemTableViewCellData {
     
+    // model
     var data : ZLGithubNotificationModel
     
-    var showAllNotification : Bool = false
+    var attributedNotificationTitle : NSAttributedString?
     
     init(data : ZLGithubNotificationModel){
         self.data = data;
@@ -98,6 +99,10 @@ extension ZLNotificationTableViewCellData {
     
     func getNotificationTitle() -> NSAttributedString {
         
+        if attributedNotificationTitle != nil {
+            return attributedNotificationTitle!
+        }
+        
         let url = URL.init(string: self.data.subject?.url ?? "")
         let notificationNumber = url?.lastPathComponent ?? ""
         
@@ -108,6 +113,12 @@ extension ZLNotificationTableViewCellData {
             let numStr : NSAttributedString = NSMutableAttributedString.init(string: " #\(notificationNumber)", attributes: [NSAttributedString.Key.foregroundColor:ZLRGBValue_H(colorValue: 0x586069),NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCSemiBold, size: 16) ?? UIFont.systemFont(ofSize: 16)])
             
             attributedStr.append(numStr)
+        }
+        
+        attributedStr.yy_setTextHighlight(NSRange.init(location: 0, length:attributedStr.length), color: nil , backgroundColor: ZLRGBValue_H(colorValue: 0x0666D6)) {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
+            let vc = ZLRepoInfoController.init(repoFullName: self.data.repository?.full_name ?? "")
+            vc.hidesBottomBarWhenPushed = true
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
         }
         
         return attributedStr

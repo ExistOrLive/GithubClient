@@ -16,6 +16,7 @@ class ZLRepoPullRequestViewModel: ZLBaseViewModel {
     //model
     var fullName : String?
     var filterOpen : Bool = true
+    var currentPage : Int = 0
     
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
     
@@ -41,8 +42,9 @@ class ZLRepoPullRequestViewModel: ZLBaseViewModel {
             self.filterOpen = result == 0 ? true : false
             
             if self.fullName != nil {
+                self.pullRequestView?.githubItemListView.clearListView()
                 SVProgressHUD.show()
-                self.sendPullRequestListRequest()
+                self.loadNewData()
             }
             
         })
@@ -55,26 +57,28 @@ class ZLRepoPullRequestViewModel: ZLBaseViewModel {
 extension ZLRepoPullRequestViewModel : ZLGithubItemListViewDelegate
 {
     func githubItemListViewRefreshDragDown(pullRequestListView: ZLGithubItemListView) -> Void{
-        self .sendPullRequestListRequest()
+        self.loadNewData()
     }
     func githubItemListViewRefreshDragUp(pullRequestListView: ZLGithubItemListView) -> Void{
-        
+        self.loadMoreData()
     }
 }
 
 
 extension ZLRepoPullRequestViewModel
 {
-    func sendPullRequestListRequest()
+    func loadNewData()
     {
         if self.fullName == nil
         {
             ZLToastView.showMessage("Repo fullName is nil")
+            SVProgressHUD.dismiss()
+            self.pullRequestView?.githubItemListView.endRefreshWithError()
             return
         }
 
         weak var weakSelf = self
-        ZLRepoServiceModel.shared().getRepoPullRequest(withFullName: self.fullName!, state: self.filterOpen ? "open" : "closed", serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+        ZLRepoServiceModel.shared().getRepoPullRequest(withFullName: self.fullName!, state: self.filterOpen ? "open" : "closed", per_page: 10 , page : 1 ,serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
             
             SVProgressHUD.dismiss()
             
@@ -101,7 +105,52 @@ extension ZLRepoPullRequestViewModel
                 cellDatas.append(cellData)
             }
             weakSelf?.pullRequestView?.githubItemListView.resetCellDatas(cellDatas: cellDatas)
+            weakSelf?.currentPage = 1
+        })
+    }
+    
+    
+    
+    func loadMoreData()
+    {
+        if self.fullName == nil
+        {
+            ZLToastView.showMessage("Repo fullName is nil")
+            SVProgressHUD.dismiss()
+            self.pullRequestView?.githubItemListView.endRefreshWithError()
+            return
+        }
+        
+        weak var weakSelf = self
+        ZLRepoServiceModel.shared().getRepoPullRequest(withFullName: self.fullName!, state: self.filterOpen ? "open" : "closed",  per_page: 10 , page : self.currentPage + 1 , serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+            
+            if resultModel.result == false
+            {
+                weakSelf?.pullRequestView?.githubItemListView.endRefreshWithError()
+                let errorModel = resultModel.data as? ZLGithubRequestErrorModel
+                ZLToastView.showMessage("Query Pull Request Failed Code [\(errorModel?.statusCode ?? 0)] Message[\(errorModel?.message ?? "")]")
+                return
+            }
+            
+            guard let data : [ZLGithubPullRequestModel] = resultModel.data as? [ZLGithubPullRequestModel] else
+            {
+                weakSelf?.pullRequestView?.githubItemListView.endRefreshWithError()
+                ZLToastView.showMessage("ZLGithubPullRequestModel transfer error")
+                return;
+            }
+            
+            var cellDatas : [ZLPullRequestTableViewCellData] = []
+            for pullRequestModel in data
+            {
+                let cellData = ZLPullRequestTableViewCellData.init(eventModel: pullRequestModel)
+                self.addSubViewModel(cellData)
+                cellDatas.append(cellData)
+            }
+            weakSelf?.pullRequestView?.githubItemListView.appendCellDatas(cellDatas: cellDatas)
+            weakSelf?.currentPage = weakSelf!.currentPage + 1
             
         })
     }
+    
+    
 }

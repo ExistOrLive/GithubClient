@@ -816,13 +816,15 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 - (void) getRepositoryPullRequestInfo:(GithubResponse) block
                              fullName:(NSString *) fullName
                                 state:(NSString *) state
+                             per_page:(NSInteger) per_page
+                                 page:(NSInteger) page
                          serialNumber:(NSString *) serialNumber
 {
     fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     NSString * urlForRepoPR = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,repoPullRequestUrl];
     urlForRepoPR = [NSString stringWithFormat:urlForRepoPR,fullName];
     
-    NSDictionary * params = @{@"state":state};
+    NSDictionary * params = @{@"state":state,@"per_page":@(per_page),@"page":@(page)};
     
     GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
         
@@ -1079,6 +1081,8 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 
 - (void) getRepoStargazers:(GithubResponse) block
                   fullName:(NSString *) fullName
+                  per_page:(NSInteger) per_page
+                      page:(NSInteger) page
               serialNumber:(NSString *) serialNumber{
     
     fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
@@ -1096,10 +1100,11 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         block(result,responseObject,serialNumber);
     };
     
+    NSDictionary * params = @{@"per_page":@(per_page),@"page":@(page)};
     
     [self GETRequestWithURL:urlForRepoStar
                 WithHeaders:nil
-                 WithParams:@{}
+                 WithParams:params
           WithResponseBlock:newBlock
            WithSerialNumber:serialNumber];
 }
@@ -1179,6 +1184,8 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 
 - (void) getRepoWatchers:(GithubResponse) block
                 fullName:(NSString *) fullName
+                per_page:(NSInteger) per_page
+                    page:(NSInteger) page
             serialNumber:(NSString *) serialNumber{
     
     fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
@@ -1195,10 +1202,11 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         block(result,responseObject,serialNumber);
     };
     
+    NSDictionary * params = @{@"per_page":@(per_page),@"page":@(page)};
     
     [self GETRequestWithURL:urlForRepoSubscribers
                 WithHeaders:nil
-                 WithParams:@{}
+                 WithParams:params
           WithResponseBlock:newBlock
            WithSerialNumber:serialNumber];
 }
@@ -1242,6 +1250,8 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 
 - (void) getRepoForks:(GithubResponse) block
              fullName:(NSString *) fullName
+             per_page:(NSInteger) per_page
+                 page:(NSInteger) page
          serialNumber:(NSString *) serialNumber{
     
     fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
@@ -1255,10 +1265,11 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         block(result,responseObject,serialNumber);
     };
     
+    NSDictionary * params = @{@"per_page":@(per_page),@"page":@(page)};
     
     [self GETRequestWithURL:urlForRepoForks
                 WithHeaders:nil
-                 WithParams:@{}
+                 WithParams:params
           WithResponseBlock:newBlock
            WithSerialNumber:serialNumber];
 }
@@ -1544,6 +1555,9 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 
 - (void) getRepositoryIssues:(GithubResponse) block
                     fullName:(NSString *) fullName
+                       state:(NSString *) state
+                    per_page:(NSInteger) per_page
+                        page:(NSInteger) page
                 serialNumber:(NSString *) serialNumber{
     
     fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
@@ -1560,9 +1574,11 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         block(result,responseObject,serialNumber);
     };
     
+    NSDictionary *params = @{@"state":state,@"per_page":@(per_page),@"page":@(page)};
+    
     [self GETRequestWithURL:urlForRepoContributor
                 WithHeaders:nil
-                 WithParams:@{}
+                 WithParams:params
           WithResponseBlock:newBlock
            WithSerialNumber:serialNumber];
 }
@@ -1701,5 +1717,127 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
            WithSerialNumber:serialNumber];
 }
 
+
+#pragma mark - action
+
+- (void) getRepoWorkflows:(GithubResponse) block
+                 fullName:(NSString *) fullName
+                 per_page:(NSInteger) per_page
+                     page:(NSInteger) page
+             serialNumber:(NSString *) serialNumber{
+    
+    fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+    NSString * urlForRepoWorkflows = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,workflowURL];
+    urlForRepoWorkflows = [NSString stringWithFormat:urlForRepoWorkflows,fullName];
+    
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
+        if(result) {
+            id workflows = [responseObject objectForKey:@"workflows"];
+            responseObject = [ZLGithubRepoWorkflowModel mj_objectArrayWithKeyValuesArray:workflows];
+        }
+        block(result,responseObject,serialNumber);
+    };
+    
+    NSDictionary * params = @{@"page":[NSNumber numberWithUnsignedInteger:page],
+                              @"per_page":[NSNumber numberWithUnsignedInteger:per_page]};
+    
+    [self GETRequestWithURL:urlForRepoWorkflows
+                WithHeaders:nil
+                 WithParams:params
+          WithResponseBlock:newBlock
+           WithSerialNumber:serialNumber];
+}
+
+
+
+- (void) getRepoWorkflowRuns:(GithubResponse) block
+                    fullName:(NSString *) fullName
+                  workflowId:(NSString *) workflowId
+                    per_page:(NSInteger) per_page
+                        page:(NSInteger) page
+                serialNumber:(NSString *) serialNumber{
+    
+    fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+    NSString * urlForRepoWorkflowRuns = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,workflowRunsURL];
+    urlForRepoWorkflowRuns = [NSString stringWithFormat:urlForRepoWorkflowRuns,fullName,workflowId];
+    
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
+        if(result) {
+            id workflows = [responseObject objectForKey:@"workflow_runs"];
+            responseObject = [ZLGithubRepoWorkflowRunModel mj_objectArrayWithKeyValuesArray:workflows];
+        }
+        block(result,responseObject,serialNumber);
+    };
+    
+    NSDictionary * params = @{@"page":[NSNumber numberWithUnsignedInteger:page],
+                              @"per_page":[NSNumber numberWithUnsignedInteger:per_page]};
+    
+    [self GETRequestWithURL:urlForRepoWorkflowRuns
+                WithHeaders:nil
+                 WithParams:params
+          WithResponseBlock:newBlock
+           WithSerialNumber:serialNumber];
+}
+
+
+- (void) rerunRepoWorkflowRun:(GithubResponse) block
+                     fullName:(NSString *) fullName
+                workflowRunId:(NSString *) workflowRunId
+                 serialNumber:(NSString *) serialNumber{
+    
+    fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+    NSString * urlForRepoWorkflowRuns = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,rerunworkflowRunsURL];
+    urlForRepoWorkflowRuns = [NSString stringWithFormat:urlForRepoWorkflowRuns,fullName,workflowRunId];
+    
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
+        block(result,responseObject,serialNumber);
+    };
+    
+    [self POSTRequestWithURL:urlForRepoWorkflowRuns
+                 WithHeaders:nil
+                  WithParams:nil
+           WithResponseBlock:newBlock
+            WithSerialNumber:serialNumber];
+}
+
+- (void) cancelRepoWorkflowRun:(GithubResponse) block
+                      fullName:(NSString *) fullName
+                 workflowRunId:(NSString *) workflowRunId
+                  serialNumber:(NSString *) serialNumber{
+    
+    fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+    NSString * urlForRepoWorkflowRuns = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,cancelworkflowRunsURL];
+    urlForRepoWorkflowRuns = [NSString stringWithFormat:urlForRepoWorkflowRuns,fullName,workflowRunId];
+    
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
+        block(result,responseObject,serialNumber);
+    };
+    
+    [self POSTRequestWithURL:urlForRepoWorkflowRuns
+                 WithHeaders:nil
+                  WithParams:nil
+           WithResponseBlock:newBlock
+            WithSerialNumber:serialNumber];
+}
+
+- (void) getRepoWorkflowRunLog:(GithubResponse) block
+                      fullName:(NSString *) fullName
+                 workflowRunId:(NSString *) workflowRunId
+                  serialNumber:(NSString *) serialNumber{
+    fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+    NSString * urlForRepoWorkflowRuns = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,workflowRunsLogsURL];
+    urlForRepoWorkflowRuns = [NSString stringWithFormat:urlForRepoWorkflowRuns,fullName,workflowRunId];
+    
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
+        block(result,responseObject,serialNumber);
+    };
+    
+    [self GETRequestWithURL:urlForRepoWorkflowRuns
+                WithHeaders:nil
+                 WithParams:nil
+          WithResponseBlock:newBlock
+           WithSerialNumber:serialNumber];
+    
+}
 
 @end

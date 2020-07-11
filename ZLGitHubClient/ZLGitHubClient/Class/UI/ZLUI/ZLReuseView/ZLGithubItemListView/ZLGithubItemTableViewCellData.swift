@@ -63,6 +63,10 @@ extension ZLGithubItemTableViewCellData {
             return ZLIssueTableViewCellData.init(issueModel: data! as! ZLGithubIssueModel)
         } else if data! is ZLGithubNotificationModel {
             return ZLNotificationTableViewCellData.init(data: data! as! ZLGithubNotificationModel)
+        } else if data! is ZLGithubRepoWorkflowModel {
+            return ZLWorkflowTableViewCellData.init(data: data! as! ZLGithubRepoWorkflowModel)
+        } else if data! is ZLGithubRepoWorkflowRunModel {
+            return ZLWorkflowRunTableViewCellData.init(data: data! as! ZLGithubRepoWorkflowRunModel)
         } else {
             return nil
         }

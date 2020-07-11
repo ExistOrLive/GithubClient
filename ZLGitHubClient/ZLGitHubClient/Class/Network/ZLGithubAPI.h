@@ -128,9 +128,16 @@
 
 #define NotificationsURL @"/notifications"
 
-#define NotificationThreadsURL @"/notifications/threads/%@"    
+#define NotificationThreadsURL @"/notifications/threads/%@"
 
 
+#pragma mark action
+
+#define workflowURL          @"/repos/%@/actions/workflows"
+#define workflowRunsURL      @"/repos/%@/actions/workflows/%@/runs"
+#define rerunworkflowRunsURL       @"/repos/%@/actions/runs/%@/rerun"
+#define cancelworkflowRunsURL      @"/repos/%@/actions/runs/%@/cancel"
+#define workflowRunsLogsURL      @"/repos/%@/actions/runs/%@/logs"
 
 static const NSNotificationName ZLGithubTokenInvalid_Notification = @"ZLGithubTokenInvalid_Notification";
 

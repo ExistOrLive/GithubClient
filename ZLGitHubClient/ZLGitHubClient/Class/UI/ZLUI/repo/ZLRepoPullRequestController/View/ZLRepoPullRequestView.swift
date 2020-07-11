@@ -15,6 +15,7 @@ class ZLRepoPullRequestView: ZLBaseView {
     
     override func awakeFromNib() {
         self.githubItemListView.setTableViewHeader()
+        self.githubItemListView.setTableViewFooter()
     }
     
 }

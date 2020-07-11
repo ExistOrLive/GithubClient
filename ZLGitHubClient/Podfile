@@ -33,6 +33,8 @@ pod 'IQKeyboardManager'
 # 图表
 #pod 'ChartsRealm'
 pod 'Charts'
+# 弹出菜单
+pod 'FWPopupView'
 
 
 #下载图片

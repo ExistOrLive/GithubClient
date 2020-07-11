@@ -6,9 +6,7 @@
 //  Copyright © 2020 ZM. All rights reserved.
 //
 
-import UIKit
-
-@objcMembers class ZLGithubNotificationSubjectModel: ZLBaseViewModel{
+@objcMembers class ZLGithubNotificationSubjectModel: ZLBaseObject{
     var title : String?
     var url : String?
     var lasted_comment_url : String?
@@ -24,7 +22,7 @@ import UIKit
    
  */
 
-@objcMembers class ZLGithubNotificationModel: ZLBaseViewModel {
+@objcMembers class ZLGithubNotificationModel: ZLBaseObject {
     
     var id_Notification: String?
     var unread : Bool = false

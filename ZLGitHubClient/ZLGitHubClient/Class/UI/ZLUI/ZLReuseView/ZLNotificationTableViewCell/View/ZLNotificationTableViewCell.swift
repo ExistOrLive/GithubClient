@@ -16,7 +16,8 @@ import UIKit
 class ZLNotificationTableViewCell: UITableViewCell {
     
     @IBOutlet weak var notificationTypeImageView: UIImageView!
-    @IBOutlet weak var notificationTitleLabel: UILabel!
+    
+    @IBOutlet weak var notificationTitleLabel: YYLabel!
     @IBOutlet weak var notificationDescLabel: UILabel!
     @IBOutlet weak var notificationReasonLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
@@ -26,10 +27,6 @@ class ZLNotificationTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        let gestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(onNotificationTitleClicked))
-        self.notificationTitleLabel.addGestureRecognizer(gestureRecognizer)
-        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -52,12 +49,5 @@ class ZLNotificationTableViewCell: UITableViewCell {
            self.notificationTypeImageView.image = nil
         }
     }
-    
-    @objc func onNotificationTitleClicked() -> Void {
-        if self.delegate?.responds(to: #selector(ZLNotificationTableViewCellDelegate.onNotificationTitleClicked)) ?? false {
-            self.delegate?.onNotificationTitleClicked()
-        }
-    }
-    
     
 }
