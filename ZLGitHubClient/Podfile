@@ -30,6 +30,11 @@ pod 'Toast'
 pod 'JXSegmentedView'
 # 键盘 https://github.com/hackiftekhar/IQKeyboardManager
 pod 'IQKeyboardManager'
+# 图表
+#pod 'ChartsRealm'
+pod 'Charts'
+# 弹出菜单
+pod 'FWPopupView'
 
 
 #下载图片
@@ -62,6 +67,8 @@ pod 'JJException'
 
 # 扩展
 pod 'UITextView+Placeholder'
+
+
 
 
 ## fix oclint issue : one compiler command contains multiple jobs

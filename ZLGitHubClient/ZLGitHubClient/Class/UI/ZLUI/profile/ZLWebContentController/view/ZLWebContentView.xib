@@ -74,11 +74,8 @@
                     <rect key="frame" x="0.0" y="62" width="471" height="599"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
-                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rXi-jp-Avz">
-                    <rect key="frame" x="0.0" y="661" width="471" height="50"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="50" id="bgI-1f-7jS"/>
-                    </constraints>
+                <toolbar autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rXi-jp-Avz">
+                    <rect key="frame" x="0.0" y="661" width="471" height="84"/>
                     <items/>
                 </toolbar>
             </subviews>
@@ -93,8 +90,9 @@
                 <constraint firstAttribute="trailing" secondItem="Jwj-ck-4SH" secondAttribute="trailing" id="PvP-EE-2fo"/>
                 <constraint firstItem="aKa-5W-o6U" firstAttribute="top" secondItem="OIy-KX-gba" secondAttribute="bottom" id="Qjf-iM-OLF"/>
                 <constraint firstAttribute="trailing" secondItem="rXi-jp-Avz" secondAttribute="trailing" id="S2g-vf-3Kb"/>
+                <constraint firstItem="rXi-jp-Avz" firstAttribute="top" secondItem="x6y-YZ-Duo" secondAttribute="bottom" constant="-50" id="aAo-oL-dN4"/>
                 <constraint firstItem="Jwj-ck-4SH" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="fz5-0g-fu4"/>
-                <constraint firstItem="rXi-jp-Avz" firstAttribute="bottom" secondItem="x6y-YZ-Duo" secondAttribute="bottom" id="kLC-IB-zqW"/>
+                <constraint firstItem="rXi-jp-Avz" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" id="kLC-IB-zqW"/>
                 <constraint firstItem="OIy-KX-gba" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="nhe-Dl-3HG"/>
                 <constraint firstAttribute="trailing" secondItem="aKa-5W-o6U" secondAttribute="trailing" id="sPY-Fy-nYv"/>
             </constraints>

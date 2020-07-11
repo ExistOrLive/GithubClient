@@ -61,6 +61,15 @@
 
 @end
 
+@implementation ZLGitHubOrgModel
+
++ (NSDictionary *)mj_replacedKeyFromPropertyName
+{
+    return @{@"id_org":@"id"};
+}
+
+@end
+
 
 @implementation ZLRepoBriefInfoModel
 
@@ -106,14 +115,58 @@
 
 @end
 
-@implementation ZLGitHubOrgModel
+@implementation ZLIssueCommentBriefInfoModel
 
-+ (NSDictionary *)mj_replacedKeyFromPropertyName
++ (NSDictionary *)mj_replacedKeyFromPropertyName{
+    return @{@"id_IssueComment":@"id"};
+}
+
+- (id)mj_newValueFromOldValue:(id)oldValue property:(MJProperty *)property
 {
-    return @{@"id_org":@"id"};
+    if([property.name isEqualToString:@"created_at"] ||
+       [property.name isEqualToString:@"updated_at"] ||
+       property.type.typeClass == [NSDate class])
+    {
+        // String 转为 Date
+        NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+        [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+        
+        return [dateFormatter dateFromString:oldValue];
+    }
+    return oldValue;
+}
+
+
+@end
+
+
+@implementation ZLReleaseBriefInfoModel
+
++ (NSDictionary *)mj_replacedKeyFromPropertyName{
+    return @{@"id_Release":@"id"};
+}
+
+- (id)mj_newValueFromOldValue:(id)oldValue property:(MJProperty *)property
+{
+    if([property.name isEqualToString:@"created_at"] ||
+       [property.name isEqualToString:@"published_at"] ||
+       property.type.typeClass == [NSDate class])
+    {
+        // String 转为 Date
+        NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+        [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+        
+        return [dateFormatter dateFromString:oldValue];
+    }
+    return oldValue;
 }
 
 @end
+
+
+
 
 #pragma mark - Event Payload
 
@@ -203,6 +256,36 @@
 
 @end
 
+@implementation ZLIssueCommentEventPayloadModel
+
+@end
+
+@implementation ZLIssueEventPayloadModel
+
+@end
+
+@implementation ZLMemberEventPayloadModel
+
+@end
+
+
+@implementation ZLPullRequestEventPayloadModel
+
+@end
+
+@implementation ZLPullRequestReviewCommentEventPayloadModel
+
+@end
+
+@implementation ZLReleaseEventPayloadModel
+
++ (NSDictionary *)mj_replacedKeyFromPropertyName
+{
+    return @{@"releaseModel":@"release"};
+}
+
+@end
+
 #pragma mark -
 
 static NSArray * ZLGithubEventTypeArray = nil;
@@ -258,6 +341,7 @@ static NSArray * ZLGithubEventTypeArray = nil;
             @"SecurityAdvisoryEvent",
             @"StarEvent",
             @"StatusEvent",
+            @"SponsorshipEvent",
             @"TeamEvent",
             @"TeamAddEvent",
             @"WatchEvent",
@@ -301,20 +385,17 @@ static NSArray * ZLGithubEventTypeArray = nil;
     switch(self.type)
     {
         case ZLGithubEventType_CommitCommentEvent:{
-            ZLCommitCommentEventPayloadModel *payload = [ZLCommitCommentEventPayloadModel mj_objectWithKeyValues:dic];
-            self.payload = payload;
+            self.payload = [ZLCommitCommentEventPayloadModel mj_objectWithKeyValues:dic];
         }
             break;
         case ZLGithubEventType_CreateEvent:
         {
-            ZLCreateEventPayloadModel *payload = [ZLCreateEventPayloadModel mj_objectWithKeyValues:dic];
-            self.payload = payload;
+            self.payload = [ZLCreateEventPayloadModel mj_objectWithKeyValues:dic];
         }
             break;
         case ZLGithubEventType_DeleteEvent:
         {
-            ZLDeleteEventPayloadModel * payload = [ZLDeleteEventPayloadModel mj_objectWithKeyValues:dic];
-            self.payload = payload;
+            self.payload = [ZLDeleteEventPayloadModel mj_objectWithKeyValues:dic];
         }
             break;
         case ZLGithubEventType_ForkEvent:
@@ -324,8 +405,7 @@ static NSArray * ZLGithubEventTypeArray = nil;
             break;
         case ZLGithubEventType_PushEvent:
         {
-            ZLPushEventPayloadModel *payload = [ZLPushEventPayloadModel mj_objectWithKeyValues:dic];
-            self.payload = payload;
+            self.payload = [ZLPushEventPayloadModel mj_objectWithKeyValues:dic];
         }
             break;
         case ZLGithubEventType_GollumEvent:
@@ -333,7 +413,42 @@ static NSArray * ZLGithubEventTypeArray = nil;
             self.payload = [ZLGollumEventPayloadModel mj_objectWithKeyValues:dic];
         }
             break;
+        case ZLGithubEventType_IssueCommentEvent:
+        {
+            self.payload = [ZLIssueCommentEventPayloadModel mj_objectWithKeyValues:dic];
+        }
+            break;
+        case ZLGithubEventType_IssuesEvent:
+        {
+            self.payload = [ZLIssueEventPayloadModel mj_objectWithKeyValues:dic];
+        }
+            break;
+        case ZLGithubEventType_MemberEvent:
+        {
+            self.payload = [ZLMemberEventPayloadModel mj_objectWithKeyValues:dic];
+        }
+            break;
+        case ZLGithubEventType_PublicEvent:
+        {
+            
+        }
+            break;
+        case ZLGithubEventType_PullRequestReviewCommentEvent:
+        {
+            self.payload = [ZLPullRequestReviewCommentEventPayloadModel mj_objectWithKeyValues:dic];
+        }
+            break;
         case ZLGithubEventType_PullRequestEvent:
+        {
+            self.payload = [ZLPullRequestEventPayloadModel mj_objectWithKeyValues:dic];
+        }
+            break;
+        case ZLGithubEventType_ReleaseEvent:
+        {
+            self.payload = [ZLReleaseEventPayloadModel mj_objectWithKeyValues:dic];
+        }
+            break;
+        case ZLGithubEventType_SponsorshipEvent:
         {
             
         }

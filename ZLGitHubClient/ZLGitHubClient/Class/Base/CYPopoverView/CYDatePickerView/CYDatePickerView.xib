@@ -78,6 +78,11 @@
                         <constraint firstItem="Q89-b0-o2j" firstAttribute="top" secondItem="8sS-TP-bVK" secondAttribute="bottom" constant="24" id="xBd-oh-ph8"/>
                         <constraint firstItem="8sS-TP-bVK" firstAttribute="leading" secondItem="pJp-tI-hkd" secondAttribute="leading" id="zrt-p0-P8w"/>
                     </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                 </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

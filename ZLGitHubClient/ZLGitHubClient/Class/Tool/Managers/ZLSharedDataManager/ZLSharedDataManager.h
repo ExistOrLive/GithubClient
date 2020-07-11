@@ -31,6 +31,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic,strong,nullable) NSArray<NSString *> *searchRecordArray;
 
+@property(nonatomic,assign) BOOL showAllNotifications;   // 是否展示所有notification
+
+
 - (void) clearGithubTokenAndUserInfo;
 
 

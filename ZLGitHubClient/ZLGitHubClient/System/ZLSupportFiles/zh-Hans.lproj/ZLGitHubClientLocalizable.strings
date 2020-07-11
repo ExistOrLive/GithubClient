@@ -19,6 +19,7 @@
 "created at" = "创建于";
 "closed at" = "关闭于";
 "opened at" = "打开于";
+"merged at" = "合并于";
 "fork" = "拷贝";
 "star" = "标星";
 "owner" = "作者";
@@ -30,8 +31,8 @@
 "feedback" = "反馈";
 "submit" = "提交";
 
-"lastest update" = "最近修改";
-"all update" = "查看全部修改";
+"lastest update" = "最近动态";
+"all update" = "查看全部动态";
 
 "login" = "登录";
 "logout" = "注销";
@@ -65,6 +66,7 @@
 "repositories" = "仓库";
 "explore" = "搜索";
 "profile" = "我";
+"Notification" = "通知";
 
 "Language" = "语言";
 "SimpleChinese" = "简体中文";
@@ -75,6 +77,8 @@
 "Cancel" = "取消";
 "Confirm" = "确认";
 "AreYouSureToLogout" = "您确定要退出吗？";
+"EditProfile" = "编辑主页";
+"Save" = "保存";
 
 "User" = "用户";
 
@@ -160,6 +164,8 @@
 "SearchRecord" = "搜索记录";
 "ClearSearchRecord" = "清空记录";
 "Filter" = "过滤";
+
+"FilterFinish" = "完成";
 
 // profile
 "company" = "公司";

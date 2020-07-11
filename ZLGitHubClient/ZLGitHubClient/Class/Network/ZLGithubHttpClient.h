@@ -226,6 +226,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) getRepositoryPullRequestInfo:(GithubResponse) block
                              fullName:(NSString *) fullName
                                 state:(NSString *) state
+                             per_page:(NSInteger) per_page
+                                 page:(NSInteger) page
                          serialNumber:(NSString *) serialNumber;
 
 /**
@@ -296,6 +298,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) getRepoStargazers:(GithubResponse) block
                   fullName:(NSString *) fullName
+                  per_page:(NSInteger) per_page
+                      page:(NSInteger) page
               serialNumber:(NSString *) serialNumber;
 
 
@@ -315,6 +319,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) getRepoWatchers:(GithubResponse) block
                 fullName:(NSString *) fullName
+                per_page:(NSInteger) per_page
+                    page:(NSInteger) page
             serialNumber:(NSString *) serialNumber;
 
 
@@ -336,6 +342,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) getRepoForks:(GithubResponse) block
              fullName:(NSString *) fullName
+             per_page:(NSInteger) per_page
+                 page:(NSInteger) page
          serialNumber:(NSString *) serialNumber;
 
 
@@ -403,6 +411,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) getRepositoryIssues:(GithubResponse) block
                     fullName:(NSString *) fullName
+                       state:(NSString *) state
+                    per_page:(NSInteger) per_page
+                        page:(NSInteger) page
                 serialNumber:(NSString *) serialNumber;
 
 
@@ -415,12 +426,65 @@ NS_ASSUME_NONNULL_BEGIN
         serialNumber:(NSString *) serialNumber;
 
 
+#pragma mark - notification
+
+- (void) getNotification:(GithubResponse) block
+                 showAll:(BOOL) showAll
+                    page:(NSUInteger)page
+                per_page:(NSUInteger)per_page
+            serialNumber:(NSString *) serialNumer;
+
+- (void) markNotificationRead:(GithubResponse) block
+               notificationId:(NSString *) notificationId
+                 serialNumber:(NSString *) serialNumer;
+
+
 #pragma mark - languages
 
 - (void) getLanguagesList:(GithubResponse) block
              serialNumber:(NSString *) serialNumber;
 
+
+- (void) getRepoLanguages:(GithubResponse) block
+                 fullName:(NSString *) fullName
+             serialNumber:(NSString *) serialNumber;
+
+
+#pragma mark - action
+
+- (void) getRepoWorkflows:(GithubResponse) block
+                 fullName:(NSString *) fullName
+                 per_page:(NSInteger) per_page
+                     page:(NSInteger) page
+             serialNumber:(NSString *) serialNumer;
+
+
+
+- (void) getRepoWorkflowRuns:(GithubResponse) block
+                    fullName:(NSString *) fullName
+                  workflowId:(NSString *) workflowId
+                    per_page:(NSInteger) per_page
+                        page:(NSInteger) page
+                serialNumber:(NSString *) serialNumer;
+
+
+- (void) rerunRepoWorkflowRun:(GithubResponse) block
+                     fullName:(NSString *) fullName
+                workflowRunId:(NSString *) workflowRunId
+                 serialNumber:(NSString *) serialNumer;
+
+- (void) cancelRepoWorkflowRun:(GithubResponse) block
+                      fullName:(NSString *) fullName
+                 workflowRunId:(NSString *) workflowRunId
+                  serialNumber:(NSString *) serialNumer;
+
+- (void) getRepoWorkflowRunLog:(GithubResponse) block
+                      fullName:(NSString *) fullName
+                 workflowRunId:(NSString *) workflowRunId
+                  serialNumber:(NSString *) serialNumer;
+
 @end
+
 
 
 

@@ -33,7 +33,7 @@ class ZLForkEventTableViewCellData: ZLEventTableViewCellData {
         }
         
         
-        let str = "forked \(payload.forkee.full_name) from \(self.eventModel.repo.name)"
+        let str = "forked \(payload.forkee.full_name)\n\nfrom \(self.eventModel.repo.name)"
         
         let attributedString = NSMutableAttributedString.init(string: str , attributes: [NSAttributedString.Key.foregroundColor:UIColor.init(hexString: "#333333", alpha: 1.0)!,NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 15.0)!])
         

@@ -34,7 +34,7 @@ class ZLSearchItemsView: ZLBaseView {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        self.filterButton.setTitle(ZLLocalizedString(string: "Filter", comment: ""), for: .normal)
+//        self.filterButton.setTitle(ZLLocalizedString(string: "Filter", comment: ""), for: .normal)
         
         self.segmentedView.delegate = self
         

@@ -36,7 +36,7 @@ class ZLIssueTableViewCell: UITableViewCell {
     func fillWithData(cellData : ZLIssueTableViewCellData){
         self.titleLabel.text = cellData.getIssueTitleStr()
         self.assitLabel.text = cellData.getAssistStr()
-        self.statusTag.image = cellData.isIssueClosed() ? UIImage.init(named: "closed_issue") : UIImage.init(named: "opened_issue")
+        self.statusTag.image = cellData.isIssueClosed() ? UIImage.init(named: "issue_closed") : UIImage.init(named: "issue_opened")
         
         for view in self.labelStackView.subviews{
             view.removeFromSuperview()

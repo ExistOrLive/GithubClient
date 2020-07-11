@@ -58,9 +58,7 @@
 - (void) awakeFromNib
 {
     [super awakeFromNib];
-        
-    self.containerView.layer.cornerRadius = 8.0;
-    
+            
     [self.pickerView setBackgroundColor:[UIColor clearColor]];
 
     self.pickerView.delegate = self;

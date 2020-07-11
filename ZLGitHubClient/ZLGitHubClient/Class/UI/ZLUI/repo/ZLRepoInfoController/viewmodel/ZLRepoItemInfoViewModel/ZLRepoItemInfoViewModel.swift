@@ -44,9 +44,6 @@ class ZLRepoItemInfoViewModel: ZLBaseViewModel {
         self.repoItemInfoView?.languageInfoLabel.text = self.repoInfoModel?.language
         
         self.setCodeInfo()
-        
-        self.setPullRequestInfo()
-        
     }
     
     
@@ -74,23 +71,6 @@ class ZLRepoItemInfoViewModel: ZLBaseViewModel {
             
         }
     }
-    
-    func setPullRequestInfo()
-    {
-        ZLRepoServiceModel.shared().getRepoPullRequest(withFullName: self.repoInfoModel?.full_name ?? "", state:"open", serialNumber: NSString.generateSerialNumber() as String, completeHandle: {( resultModel : ZLOperationResultModel) in
-            
-            if resultModel.result == true
-            {
-                guard let data : [Any] = resultModel.data as? [Any] else
-                {
-                    return;
-                }
-                
-                self.repoItemInfoView?.pullRequestInfoLabel.text = "\(data.count)"
-            }
-        })
-    }
-    
 }
 
 
@@ -106,7 +86,9 @@ extension ZLRepoItemInfoViewModel : ZLRepoItemInfoViewDelegate
         switch(type)
         {
         case .action : do{
-            
+            let workflowVC = ZLRepoWorkflowsController.init()
+            workflowVC.repoFullName = self.repoInfoModel?.full_name
+            self.viewController?.navigationController?.pushViewController(workflowVC, animated: true)
             }
         case .branch :do{
             ZLRepoBranchesView.showRepoBranchedView(repoFullName: self.repoInfoModel!.full_name,currentBranch: self.currentBranch ?? self.repoInfoModel!.default_branch , handle: {(branch: String) in
@@ -135,7 +117,7 @@ extension ZLRepoItemInfoViewModel : ZLRepoItemInfoViewDelegate
             self.viewController?.navigationController?.pushViewController(controller, animated: true)
             }
         case .language : do{
-            
+            ZLRepoLanguagesPercentView.showRepoLanguagesPercentView(fullName: self.repoInfoModel?.full_name ?? "")
             }
         }
     }

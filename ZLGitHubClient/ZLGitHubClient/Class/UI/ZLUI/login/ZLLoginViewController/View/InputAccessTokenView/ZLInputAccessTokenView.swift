@@ -36,6 +36,7 @@ class ZLInputAccessTokenView: ZLBaseView {
     
     override func awakeFromNib() {
         self.titleLabel.text = ZLLocalizedString(string: "Input Access Token", comment: "Input Access Token")
+        self.confirmButton.setTitle(ZLLocalizedString(string: "Confirm", comment: ""), for: .normal)
         self.textField.delegate = self
     }
 

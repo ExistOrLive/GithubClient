@@ -27,7 +27,7 @@ class ZLCommitCommentEventTableViewCellData: ZLEventTableViewCellData {
         let loginName = payload.comment.user.loginName
         let commit_id = String(payload.comment.commit_id.prefix(7))
         let repoFullName = self.eventModel.repo.name
-        let str =  "\(loginName) commented on commit \(commit_id) in \(repoFullName)"
+        let str =  "\(loginName) commented on commit \(commit_id)\n\nin \(repoFullName)"
         
         let attributedString = NSMutableAttributedString.init(string: str , attributes: [NSAttributedString.Key.foregroundColor:UIColor.init(hexString: "#333333", alpha: 1.0)!,NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 15.0)!])
         

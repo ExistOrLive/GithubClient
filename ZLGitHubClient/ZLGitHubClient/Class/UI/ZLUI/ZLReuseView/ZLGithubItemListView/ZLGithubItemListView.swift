@@ -70,9 +70,16 @@ import UIKit
         self.tableView?.register(ZLEventTableViewCell.self, forCellReuseIdentifier: "ZLEventTableViewCell")
         self.tableView?.register(ZLPushEventTableViewCell.self, forCellReuseIdentifier: "ZLPushEventTableViewCell")
         self.tableView?.register(ZLCommitCommentEventTableViewCell.self, forCellReuseIdentifier: "ZLCommitCommentEventTableViewCell")
+        self.tableView?.register(ZLIssueCommentEventTableViewCell.self, forCellReuseIdentifier: "ZLIssueCommentEventTableViewCell")
+        self.tableView?.register(ZLIssueEventTableViewCell.self, forCellReuseIdentifier: "ZLIssueEventTableViewCell")
+        self.tableView?.register(ZLCommitCommentEventTableViewCell.self, forCellReuseIdentifier: "ZLCommitCommentEventTableViewCell")
+        self.tableView?.register(ZLPullRequestEventTableViewCell.self, forCellReuseIdentifier: "ZLPullRequestEventTableViewCell")
         self.tableView?.register(UINib.init(nibName: "ZLRepositoryTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLRepositoryTableViewCell")
         self.tableView?.register(UINib.init(nibName: "ZLUserTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLUserTableViewCell")
         self.tableView?.register(UINib.init(nibName: "ZLIssueTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLIssueTableViewCell")
+        self.tableView?.register(UINib.init(nibName: "ZLNotificationTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLNotificationTableViewCell")
+        self.tableView?.register(UINib.init(nibName: "ZLWorkflowTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLWorkflowTableViewCell")
+        self.tableView?.register(UINib.init(nibName: "ZLWorkflowRunTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLWorkflowRunTableViewCell")
     }
     
     func setNoDataView() -> Void {
@@ -122,6 +129,16 @@ import UIKit
         })
     }
     
+    func deleteGithubItem(cellData : ZLGithubItemTableViewCellData) {
+        cellData.removeFromSuperViewModel()
+        let index = cellDatas?.firstIndex(of: cellData)
+        if index != nil {
+            cellDatas?.remove(at: index!)
+            self.tableView?.deleteRows(at: [IndexPath.init(row: index!, section: 0)], with: UITableView.RowAnimation.fade)
+        }
+    }
+    
+    
     func itemCount() -> Int
     {
         return self.cellDatas?.count ?? 0
@@ -155,6 +172,11 @@ extension ZLGithubItemListView : UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let tableViewCellData = self.cellDatas?[indexPath.row]
         tableViewCellData?.onCellSingleTap()
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let tableViewCellData = self.cellDatas?[indexPath.row]
+        return tableViewCellData?.getCellSwipeActions()
     }
 }
 
@@ -211,6 +233,18 @@ extension ZLGithubItemListView
     
     func resetContentOffset(){
         self.tableView?.setContentOffset(CGPoint.zero, animated: false)
+    }
+    
+    func clearListView(){
+        
+        self.tableView?.mj_header?.endRefreshing()
+        self.tableView?.mj_footer?.endRefreshing()
+        
+        for cellData in self.cellDatas!{
+            cellData.removeFromSuperViewModel()
+        }
+        self.cellDatas?.removeAll()
+        self.tableView?.reloadData()
     }
     
     

@@ -8,6 +8,9 @@ PODS:
   - AFNetworking/Serialization (3.2.1)
   - BSBacktraceLogger (0.0.1)
   - Bugly (2.5.2)
+  - Charts (3.4.0):
+    - Charts/Core (= 3.4.0)
+  - Charts/Core (3.4.0)
   - CocoaLumberjack (3.6.1):
     - CocoaLumberjack/Core (= 3.6.1)
   - CocoaLumberjack/Core (3.6.1)
@@ -32,6 +35,8 @@ PODS:
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
+  - FWPopupView (4.1.4):
+    - SnapKit
   - IQKeyboardManager (6.5.5)
   - JJException (0.2.7):
     - JJException/All (= 0.2.7)
@@ -72,6 +77,7 @@ DEPENDENCIES:
   - AFNetworking/Security
   - AFNetworking/Serialization
   - Bugly
+  - Charts
   - CocoaLumberjack
   - CocoaLumberjack/Swift
   - DoraemonKit/Core (~> 2.0.0)
@@ -79,6 +85,7 @@ DEPENDENCIES:
   - DoraemonKit/WithMLeaksFinder (= 2.0.0)
   - FFPopup
   - FMDB
+  - FWPopupView
   - IQKeyboardManager
   - JJException
   - JXSegmentedView
@@ -99,12 +106,14 @@ SPEC REPOS:
     - AFNetworking
     - BSBacktraceLogger
     - Bugly
+    - Charts
     - CocoaLumberjack
     - DoraemonKit
     - FBRetainCycleDetector
     - FFPopup
     - fishhook
     - FMDB
+    - FWPopupView
     - IQKeyboardManager
     - JJException
     - JXSegmentedView
@@ -124,12 +133,14 @@ SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   BSBacktraceLogger: 06b983ee93a9f87d957960e9c73d660d5966b447
   Bugly: dbac48b55ad469a97cc4321045cd50df8f63d44f
+  Charts: 74c9f256eaf0460c0c416522d1cf8c634ea6b286
   CocoaLumberjack: b17ae15142558d08bbacf69775fa10c4abbebcc9
   DoraemonKit: 9e923599e28d0b61f1c6de4aef2c2d669b30abb7
   FBRetainCycleDetector: 46f8179bbb1c587deee3ea838a1a3ee02acf5015
   FFPopup: 408e38711f4fe2fddd3c8612c045cf0df6da2e4e
   fishhook: ea19933abfe8f2f52c55fd8b6e2718467d3ebc89
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  FWPopupView: 8efc8fd8b620fc75756165cdc5163f69b71a7adc
   IQKeyboardManager: 3a8b9e603f8b0eeaf5f096a1f2b2cfcf121992ef
   JJException: 6d987840193b7ef59e778d41bca463401a80a79b
   JXSegmentedView: ceb6fb3a12716408bcd5c4210b93d947d079de25
@@ -145,6 +156,6 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": d7b0c400921f66523f3a85d74f774512e14f6502
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: f0958e7fda5a13c06d5d2763cf744c169b78cc43
+PODFILE CHECKSUM: 5eba889f08ed67e43e2fdbe527673ae6fd7a3282
 
 COCOAPODS: 1.9.1

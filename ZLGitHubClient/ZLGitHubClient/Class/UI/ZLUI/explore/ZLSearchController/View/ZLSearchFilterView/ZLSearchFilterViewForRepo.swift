@@ -57,6 +57,7 @@ class ZLSearchFilterViewForRepo: ZLBaseView {
         self.createTimeLabel.text = ZLLocalizedString(string: "CreateTime", comment: "创建于")
         self.starLabel.text = ZLLocalizedString(string: "StarNum", comment: "标星")
         self.forkLabel.text = ZLLocalizedString(string: "ForkNum", comment: "复制")
+        self.finishButton.setTitle(ZLLocalizedString(string: "FilterFinish", comment: ""), for: .normal)
         
         
         self.firstTimeFileld.delegate = self;

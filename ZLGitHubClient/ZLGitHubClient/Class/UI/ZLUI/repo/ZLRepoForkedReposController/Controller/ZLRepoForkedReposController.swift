@@ -19,6 +19,7 @@ class ZLRepoForkedReposController: ZLBaseViewController {
         
         let itemListView = ZLGithubItemListView.init()
         itemListView.setTableViewHeader()
+        itemListView.setTableViewFooter()
         self.contentView.addSubview(itemListView)
         itemListView.snp.makeConstraints ({ (make) in
             make.edges.equalToSuperview()

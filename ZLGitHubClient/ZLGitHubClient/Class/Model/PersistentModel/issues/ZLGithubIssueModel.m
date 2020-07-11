@@ -56,6 +56,12 @@
 
 @implementation ZLGithubIssueModel
 
++ (NSDictionary *)mj_replacedKeyFromPropertyName
+{
+    return @{@"id_issue":@"id"};
+}
+
+
 - (id)mj_newValueFromOldValue:(id)oldValue property:(MJProperty *)property
 {
    if(([property.name isEqualToString:@"updated_at"]||

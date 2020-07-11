@@ -19,12 +19,12 @@
 "created at" = "Created at";
 "closed at" = "Closed at";
 "opened at" = "Opened at";
+"merged at" = "Merged at";
 "fork" = "Forks";
 "star" = "Stars";
 "watcher" = "Watchers";
 "owner" = "Owner";
 "submit" = "Submit";
-
 
 "setting" = "Setting";
 "about" = "About";
@@ -63,7 +63,6 @@
 "update at" = "update at ";
 "explore" = "Explore";
 "profile" = "Profile";
-
 
 "Language" = "Language";
 "SimpleChinese" = "Simple Chineses";
@@ -165,9 +164,17 @@
 "ClearSearchRecord" = "Clear";
 "Filter" = "Filter";
 
+"FilterFinish" = "Finish";
+
 // profile
 "company" = "Company";
 "location" = "Location";
 "email" = "Email";
 "blog" = "Blog";
 "bio" = "Bio";
+
+// tab
+"news" = "News";
+"explore" = "Explore";
+"profile" = "Profile";
+"Notification" = "Notification";
