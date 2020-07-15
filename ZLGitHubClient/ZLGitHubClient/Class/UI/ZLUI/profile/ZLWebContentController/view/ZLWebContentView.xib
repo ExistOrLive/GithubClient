@@ -45,7 +45,7 @@
                                 <constraint firstAttribute="height" constant="60" id="eb2-fh-MGX"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="PingFangSC-Semibold" family="PingFang SC" pointSize="25"/>
-                            <state key="normal" title="...">
+                            <state key="normal" image="run_more">
                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                             <connections>
@@ -111,5 +111,6 @@
     </objects>
     <resources>
         <image name="back_Common" width="11.5" height="18.5"/>
+        <image name="run_more" width="30" height="30"/>
     </resources>
 </document>

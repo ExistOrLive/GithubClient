@@ -237,12 +237,12 @@ extension ZLGithubItemListView
     
     func clearListView(){
         
-        self.tableView?.mj_header?.endRefreshing()
-        self.tableView?.mj_footer?.endRefreshing()
-        
-        for cellData in self.cellDatas!{
-            cellData.removeFromSuperViewModel()
+        if self.cellDatas != nil{
+            for cellData in self.cellDatas!{
+                cellData.removeFromSuperViewModel()
+            }
         }
+      
         self.cellDatas?.removeAll()
         self.tableView?.reloadData()
     }

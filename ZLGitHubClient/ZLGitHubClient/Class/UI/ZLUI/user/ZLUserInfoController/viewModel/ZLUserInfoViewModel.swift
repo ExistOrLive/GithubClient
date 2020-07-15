@@ -16,6 +16,8 @@ class ZLUserInfoViewModel: ZLBaseViewModel {
     //
     private var userInfoModel : ZLGithubUserModel?              //
     
+    private var serialNumber : String = ""
+    
     
     deinit {
         // 注销监听
@@ -43,9 +45,12 @@ class ZLUserInfoViewModel: ZLBaseViewModel {
         // 注册监听
         ZLUserServiceModel.shared().registerObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLGetSpecifiedUserInfoResult_Notification)
         
-        ZLUserServiceModel.shared().getUserInfo(withLoginName: model.loginName, userType: model.type, serialNumber: "serialNumber")
+        self.serialNumber = NSString.generateSerialNumber()
+        ZLUserServiceModel.shared().getUserInfo(withLoginName: model.loginName, userType: model.type, serialNumber: self.serialNumber)
         
         self.getFollowStatus()
+        
+        SVProgressHUD.show()
         
     }
     
@@ -156,13 +161,27 @@ extension ZLUserInfoViewModel
     {
         let operationResultModel : ZLOperationResultModel = notification.params as! ZLOperationResultModel
         
-        guard let userInfo : ZLGithubUserModel = operationResultModel.data as? ZLGithubUserModel else
-        {
-            ZLLog_Warn("data of operationResultModel is not ZLGithubUserModel,so return")
+        if operationResultModel.serialNumber != self.serialNumber {
             return
         }
         
-        self.setViewDataForUserInfoView(model: userInfo, view: self.userInfoView!)
+        SVProgressHUD.dismiss()
+        
+        if operationResultModel.result == true {
+            guard let userInfo : ZLGithubUserModel = operationResultModel.data as? ZLGithubUserModel else
+            {
+                ZLLog_Warn("data of operationResultModel is not ZLGithubUserModel,so return")
+                return
+            }
+            self.setViewDataForUserInfoView(model: userInfo, view: self.userInfoView!)
+            
+        } else {
+            guard let errorModel : ZLGithubRequestErrorModel = operationResultModel.data as? ZLGithubRequestErrorModel else {
+                ZLToastView.showMessage("Query User Info Failed")
+                return
+            }
+            ZLToastView.showMessage("Query User Info Failed statusCode[\(errorModel.statusCode)] message[\(errorModel.message)]")
+        }
     }
     
     

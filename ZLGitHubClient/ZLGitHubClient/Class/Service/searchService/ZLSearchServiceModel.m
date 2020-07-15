@@ -176,7 +176,7 @@
             break;
     }
 
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
 
         NSError *error = nil;
         NSString *html = [NSString stringWithContentsOfURL:[NSURL URLWithString:url]
@@ -246,7 +246,7 @@
             break;
     }
 
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
 
         NSError *error = nil;
         NSString *html = [NSString stringWithContentsOfURL:[NSURL URLWithString:url]

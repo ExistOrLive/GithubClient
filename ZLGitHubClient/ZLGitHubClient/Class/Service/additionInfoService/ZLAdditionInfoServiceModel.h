@@ -37,6 +37,17 @@ NS_ASSUME_NONNULL_BEGIN
                        completeHandle:(void(^)(ZLOperationResultModel *)) handle;
 
 
+
+/**
+* @brief 将代码渲染为markdown
+*
+**/
+
+- (void) renderCodeToMarkdownWithCode:(NSString *) code
+                         serialNumber:(NSString *) serialNumber
+                       completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

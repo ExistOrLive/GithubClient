@@ -321,6 +321,7 @@
                                                      fullName:fullName
                                                          path:path
                                                        branch:branch
+                                                   acceptType:nil
                                                  serialNumber:serialNumber];
 }
 
@@ -356,8 +357,45 @@
                                                      fullName:fullName
                                                          path:path
                                                        branch:branch
+                                                   acceptType:@"application/vnd.github.v3.html+json"
                                                  serialNumber:serialNumber];
 }
+
+
+- (void) getRepositoryFileRawInfoWithFullName:(NSString *) fullName
+                                          path:(NSString *) path
+                                        branch:(NSString *) branch
+                                  serialNumber:(NSString *) serialNumber
+                                completeHandle:(void(^)(ZLOperationResultModel *)) handle
+{
+    if(fullName.length == 0 || ![fullName containsString:@"/"])
+    {
+        ZLLog_Info(@"fullName is not valid");
+        return;
+    }
+    
+    GithubResponse response = ^(BOOL  result, id responseObject, NSString * serialNumber)
+    {
+        ZLOperationResultModel * repoResultModel = [[ZLOperationResultModel alloc] init];
+        repoResultModel.result = result;
+        repoResultModel.serialNumber = serialNumber;
+        repoResultModel.data = responseObject;
+        
+        if(handle)
+        {
+            ZLMainThreadDispatch(handle(repoResultModel);)
+        }
+    };
+    
+    
+    [[ZLGithubHttpClient defaultClient] getRepositoryFileInfo:response
+                                                     fullName:fullName
+                                                         path:path
+                                                       branch:branch
+                                                   acceptType:@"application/vnd.github.v3.raw+json"
+                                                 serialNumber:serialNumber];
+}
+
 
 
 

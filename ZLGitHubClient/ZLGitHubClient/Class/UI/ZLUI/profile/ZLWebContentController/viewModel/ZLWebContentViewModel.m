@@ -38,10 +38,15 @@
     
     self.url = (NSURL *) targetModel;
     
-    if(!self.url)
-    {
+    if(!self.url || !self.url.resourceSpecifier){
         ZLLog_Warning(@"targetModel is not a valid URL,so return");
+        [ZLToastView showMessage:@"Invalid URL"];
         return;
+    }
+    
+    if(!self.url.scheme){
+        NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://%@",self.url.resourceSpecifier]];
+        self.url = url;
     }
     
     NSMutableURLRequest * request =[NSMutableURLRequest requestWithURL:self.url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60];

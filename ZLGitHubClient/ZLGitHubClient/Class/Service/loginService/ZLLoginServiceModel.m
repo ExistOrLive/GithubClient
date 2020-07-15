@@ -34,10 +34,11 @@
     return serviceModel;
 }
 
-- (void) stopLogin
+- (void) stopLogin:(NSString *) serialNumber
 {
     if(self.step != ZLLoginStep_init)
     {
+        ZLLog_Info(@"ZLLoginProcess: stopLogin[%@]",serialNumber);
         self.step = ZLLoginStep_init;
         self.currentLoginSerialNumber = nil;
     }
@@ -49,12 +50,14 @@
  **/
 - (void) logout:(NSString *) serialNumber
 {
+    
+    ZLLog_Info(@"ZLLogoutProcess: logout[%@]",serialNumber);
     self.step = ZLLoginStep_init;
     self.currentLoginSerialNumber = nil;
     
     GithubResponse  response = ^(BOOL result,id _Nullable responseObject,NSString * serialNumber)
     {
-        ZLLog_Info(@"ZLLoginResult: result[%d] serialNumber[%@]",result,serialNumber);
+        ZLLog_Info(@"ZLLogoutProcess: result[%d] serialNumber[%@]",result,serialNumber);
         
         ZLOperationResultModel * resultModel = [ZLOperationResultModel new];
         resultModel.result = result;
@@ -77,12 +80,19 @@
     return self.step;
 }
 
+- (void) setStep:(ZLLoginStep)step{
+    ZLLog_Info(@"ZLLoginProcess: enter step[%d]",step);
+    _step = step;
+}
+
 - (void) startOAuth:(NSString *) serialNumber 
 {
     self.step = ZLLoginStep_checkIsLogined;
     self.currentLoginSerialNumber = serialNumber;
     
     __weak typeof(self) weakSelf = self;
+    
+    ZLLog_Info(@"ZLLoginProcess: startOAuth[%@]",serialNumber);
     
     [[ZLGithubHttpClient defaultClient] startOAuth:^(BOOL result, id _Nullable response, NSString * _Nonnull serialNumber) {
         
@@ -93,7 +103,7 @@
             return;
         }
         
-        ZLLog_Info(@"ZLLoginResult: result[%d] response[%d] serialNumber[%@]",result,response,serialNumber);
+        ZLLog_Info(@"ZLLoginProcess: result[%d] response[%d] serialNumber[%@]",result,response,serialNumber);
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -117,6 +127,8 @@
 - (void) getAccessToken:(NSString *) queryString
            serialNumber:(NSString *) serialNumber
 {
+    ZLLog_Info(@"ZLLoginProcess: getAccessToken[%@]",serialNumber);
+    
     if(![serialNumber isEqualToString:self.currentLoginSerialNumber])
     {
         ZLLog_Info(@"getAccessToken serialNumber not match,so  return");
@@ -160,10 +172,14 @@
 
 - (void) checkTokenIsValid:(NSString *) token
               serialNumber:(NSString *) serialNumber{
+    
+    ZLLog_Info(@"ZLLoginProcess: checkTokenIsValid[%@]",serialNumber);
     self.step = ZLLoginStep_checkToken;
     
     __weak typeof(self) weakSelf = self;
     GithubResponse response = ^(BOOL result, id processModel, NSString *serialNumber){
+        
+        ZLLog_Info(@"ZLLoginResult: result[%d] response[%d] serialNumber[%@]",result,processModel,serialNumber);
         
         ZLMainThreadDispatch(
         if(result) {

@@ -139,6 +139,10 @@
 #define cancelworkflowRunsURL      @"/repos/%@/actions/runs/%@/cancel"
 #define workflowRunsLogsURL      @"/repos/%@/actions/runs/%@/logs"
 
+#pragma mark markdown
+
+#define markdownURL @"/markdown"
+
 static const NSNotificationName ZLGithubTokenInvalid_Notification = @"ZLGithubTokenInvalid_Notification";
 
 

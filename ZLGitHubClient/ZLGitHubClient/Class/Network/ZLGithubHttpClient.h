@@ -274,6 +274,7 @@ NS_ASSUME_NONNULL_BEGIN
                       fullName:(NSString *) fullName
                           path:(NSString *) path
                         branch:(NSString *) branch
+                    acceptType:(NSString * __nullable) acceptType
                   serialNumber:(NSString *) serialNumber;
 
 
@@ -482,6 +483,13 @@ NS_ASSUME_NONNULL_BEGIN
                       fullName:(NSString *) fullName
                  workflowRunId:(NSString *) workflowRunId
                   serialNumber:(NSString *) serialNumer;
+
+
+#pragma mark - markdown
+
+- (void) renderCodeToMarkdown:(GithubResponse) block
+                          code:(NSString *) code
+                 serialNumber:(NSString *) serialNumber;
 
 @end
 

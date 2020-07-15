@@ -118,7 +118,10 @@ extension ZLExploreBaseViewModel{
                 weakSelf?.baseView?.githubItemListViewArray[0].resetCellDatas(cellDatas: repoCellDatas)
             } else {
                 weakSelf?.baseView?.githubItemListViewArray[0].endRefreshWithError()
-                ZLLog_Info("Query trending repo failed")
+                guard let errorModel : ZLGithubRequestErrorModel = model.data as? ZLGithubRequestErrorModel else {
+                    return
+                }
+                ZLToastView.showMessage("Query Trending Repo Failed errorMessage[\(errorModel.message)]")
             }
             
         })
@@ -147,8 +150,11 @@ extension ZLExploreBaseViewModel{
                 
                 weakSelf?.baseView?.githubItemListViewArray[1].resetCellDatas(cellDatas: userCellDatas)
             } else {
-                ZLLog_Info("Query trending user failed")
                 weakSelf?.baseView?.githubItemListViewArray[1].endRefreshWithError()
+                guard let errorModel : ZLGithubRequestErrorModel = model.data as? ZLGithubRequestErrorModel else {
+                                   return
+                               }
+                ZLToastView.showMessage("Query Trending user Failed errorMessage[\(errorModel.message)]")
             }
             
         })

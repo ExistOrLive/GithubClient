@@ -46,6 +46,13 @@ class ZLRepoSubContentController: ZLBaseViewController {
         self.title = self.path == "" ? "/" : self.path
         
         self.zlNavigationBar.backButton.isHidden = false
+        let button = UIButton.init(type: .custom)
+        button.setImage(UIImage.init(named: "close"), for: .normal)
+        button.frame = CGRect.init(x: 0, y: 0, width: 60, height: 60)
+        button.addTarget(self, action: #selector(onCloseButtonClicked(_button:)), for: .touchUpInside)
+        
+        self.zlNavigationBar.rightButton = button
+        
         
         let tableView = UITableView.init(frame: CGRect.init(), style: .plain)
         tableView.backgroundColor = UIColor.clear
@@ -62,6 +69,7 @@ class ZLRepoSubContentController: ZLBaseViewController {
         })
         self.tableView = tableView
     }
+    
     
     func setQueryContentRequest()
     {
@@ -100,6 +108,11 @@ class ZLRepoSubContentController: ZLBaseViewController {
             super.onBackButtonClicked(button)
         }
     }
+    
+    
+    @objc func onCloseButtonClicked(_button: UIButton) {
+        self.navigationController?.dismiss(animated: true, completion: nil)
+    }
 
 }
 
@@ -136,18 +149,8 @@ extension ZLRepoSubContentController : UITableViewDelegate,UITableViewDataSource
         }
         else if "file" == contentModel.type
         {
-            let url = URL.init(string: contentModel.name)
-            if NSString.isTextFile(forExtension:(url?.pathExtension ?? "")) == true
-            {
-                let controller = ZLRepoCodePreview2Controller.init(repoFullName: self.repoFullName, path: contentModel.path, branch: self.branch)
-                self.navigationController?.pushViewController(controller, animated: true)
-                
-            }else{
-                let webController = ZLWebContentController.init()
-                webController.requestURL = URL.init(string: contentModel.html_url)
-                self.navigationController?.pushViewController(webController, animated: true)
-            }
-          
+            let controller = ZLRepoCodePreview3Controller.init(repoFullName: self.repoFullName, contentModel: contentModel, branch: self.branch)
+            self.navigationController?.pushViewController(controller, animated: true)
         }
     }
     

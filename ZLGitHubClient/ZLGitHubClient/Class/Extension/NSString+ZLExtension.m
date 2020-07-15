@@ -93,13 +93,13 @@
 -(NSString *)htmlEntityEncode{
     
     NSString *string = [self mutableCopy];
-//    string = [string stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
-//    string = [string stringByReplacingOccurrencesOfString:@"'" withString:@"&apos;"];
+    string = [string stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
+    string = [string stringByReplacingOccurrencesOfString:@"'" withString:@"&apos;"];
     string = [string stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"];
     string = [string stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"];
     string = [string stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"];
-//    string = [string stringByReplacingOccurrencesOfString:@"\n" withString:@"&lt;br&gt;"];
-//    string = [string stringByReplacingOccurrencesOfString:@" " withString:@"&nbsp;"];
+    string = [string stringByReplacingOccurrencesOfString:@"\n" withString:@"&lt;br&gt;"];
+    string = [string stringByReplacingOccurrencesOfString:@" " withString:@"&nbsp;"];
     return string;
 
 }

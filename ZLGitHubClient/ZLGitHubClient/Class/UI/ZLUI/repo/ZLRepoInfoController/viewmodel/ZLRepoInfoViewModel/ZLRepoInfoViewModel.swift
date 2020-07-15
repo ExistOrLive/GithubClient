@@ -58,7 +58,7 @@ class ZLRepoInfoViewModel: ZLBaseViewModel {
         
         // 获取仓库的详细信息
         SVProgressHUD.show()
-        self.serialNumber = NSString.generateSerialNumber() as String
+        self.serialNumber = NSString.generateSerialNumber()
         ZLRepoServiceModel.shared().getRepoInfo(withFullName: repoInfoModel.full_name, serialNumber: self.serialNumber!)
     }
 }
@@ -110,15 +110,24 @@ extension ZLRepoInfoViewModel
             
             SVProgressHUD.dismiss()
             
-            guard let repoInfo : ZLGithubRepositoryModel = operationResultModel.data as? ZLGithubRepositoryModel else
-            {
-                ZLLog_Warn("data of operationResultModel is not ZLGithubRepositoryModel,so return")
-                return
+            if operationResultModel.result == true {
+                guard let repoInfo : ZLGithubRepositoryModel = operationResultModel.data as? ZLGithubRepositoryModel else
+                {
+                    ZLLog_Warn("data of operationResultModel is not ZLGithubRepositoryModel,so return")
+                    return
+                }
+                self.repoInfoModel = repoInfo
+                self.setViewDataForRepoInfoView()
+            } else {
+                guard let errorInfo : ZLGithubRequestErrorModel = operationResultModel.data as? ZLGithubRequestErrorModel else
+                {
+                    ZLToastView.showMessage("query repo info failed")
+                    return
+                }
+                ZLToastView.showMessage("query repo info failed statusCode[\(errorInfo.statusCode)] errorMessage[\(errorInfo.message)]")
             }
             
-            self.repoInfoModel = repoInfo
-            
-            self.setViewDataForRepoInfoView()
+        
             }
         default:
             break;
