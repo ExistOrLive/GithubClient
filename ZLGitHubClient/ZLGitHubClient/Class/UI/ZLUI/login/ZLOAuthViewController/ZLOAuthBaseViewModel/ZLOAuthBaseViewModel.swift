@@ -80,7 +80,7 @@ extension ZLOAuthBaseViewModel: ZLWebContentViewDelegate
     
     func onBackButtonClick(button: UIButton)
     {
-        ZLLoginServiceModel.shared().stopLogin()
+        ZLLoginServiceModel.shared().stopLogin(self.loginProcess?.serialNumber ?? "")
         self.baseView?.webView?.stopLoading();
         self.viewController?.dismiss(animated: true, completion: nil);
     }

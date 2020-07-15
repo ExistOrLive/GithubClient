@@ -53,11 +53,13 @@ class ZLSearchGithubItemListViewModel: ZLBaseViewModel {
     
     func searchWithKeyStr(searchKey : String?) {
         self.searchKey = searchKey
+        self.githubItemListView?.clearListView()
         self.githubItemListView?.beginRefresh()
     }
     
     func searchWithFilerInfo(searchFilterInfo: ZLSearchFilterInfoModel?) {
         self.searchFilterInfo = searchFilterInfo
+        self.githubItemListView?.clearListView()
         self.githubItemListView?.beginRefresh()
     }
     

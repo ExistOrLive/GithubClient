@@ -136,13 +136,13 @@
         
         ZLLog_Info(@"result = %d, model = %@",result,responseObject);
        
-        ZLOperationResultModel * repoResultModel = [[ZLOperationResultModel alloc] init];
-        repoResultModel.result = result;
-        repoResultModel.serialNumber = serialNumber;
-        repoResultModel.data = responseObject;
+        ZLOperationResultModel * userResultModel = [[ZLOperationResultModel alloc] init];
+        userResultModel.result = result;
+        userResultModel.serialNumber = serialNumber;
+        userResultModel.data = responseObject;
         
         // 在UI线程发出通知
-        ZLMainThreadDispatch([weakSelf postNotification:ZLGetSpecifiedUserInfoResult_Notification withParams:repoResultModel];
+        ZLMainThreadDispatch([weakSelf postNotification:ZLGetSpecifiedUserInfoResult_Notification withParams:userResultModel];
 )
     };
     

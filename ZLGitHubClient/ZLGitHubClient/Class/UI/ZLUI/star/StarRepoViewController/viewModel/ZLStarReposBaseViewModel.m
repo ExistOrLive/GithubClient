@@ -149,12 +149,10 @@
             return;
         }
         
-        if(!resultModel.result)
-        {
-            ZLLog_Warning(@"error");
+        if(!resultModel.result){
             [self.view.listView endRefreshWithError];
             ZLGithubRequestErrorModel * model = resultModel.data;
-            [ZLToastView showMessage:[NSString stringWithFormat:@"%@(%ld)",model.message,(long)model.statusCode]];
+            [ZLToastView showMessage:[NSString stringWithFormat:@"query stars failed statusCode[%ld] errorMessage[%@]",(long)model.statusCode,model.message]];
             return;
         }
         

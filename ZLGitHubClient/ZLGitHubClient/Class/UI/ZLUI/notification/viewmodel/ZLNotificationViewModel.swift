@@ -52,10 +52,10 @@ class ZLNotificationViewModel: ZLBaseViewModel {
             
             if resultModel.result == false {
                 guard let errorModel : ZLGithubRequestErrorModel = resultModel.data as? ZLGithubRequestErrorModel else {
-                    ZLToastView.showMessage("load Notification failed")
+                    ZLToastView.showMessage("query Notifications failed")
                     return
                 }
-                ZLToastView.showMessage("load Notification failed statusCode[\(errorModel.statusCode)] errorMessage[\(errorModel.message)]")
+                ZLToastView.showMessage("query Notifications failed statusCode[\(errorModel.statusCode)] errorMessage[\(errorModel.message)]")
                 weakSelf?.baseView?.githubItemListView.endRefreshWithError()
             } else {
                 
@@ -86,10 +86,10 @@ class ZLNotificationViewModel: ZLBaseViewModel {
             SVProgressHUD.dismiss()
             if resultModel.result == false {
                 guard let errorModel : ZLGithubRequestErrorModel = resultModel.data as? ZLGithubRequestErrorModel else {
-                    ZLToastView.showMessage("load Notification failed")
+                    ZLToastView.showMessage("query Notification failed")
                     return
                 }
-                ZLToastView.showMessage("load Notification failed statusCode[\(errorModel.statusCode)] errorMessage[\(errorModel.message)]")
+                ZLToastView.showMessage("query Notification failed statusCode[\(errorModel.statusCode)] errorMessage[\(errorModel.message)]")
                 weakSelf?.baseView?.githubItemListView.endRefreshWithError()
             } else {
                 

@@ -93,7 +93,7 @@ extension ZLNewsViewModel
             {
                 guard let resultModel: ZLOperationResultModel = notification.params as? ZLOperationResultModel else
                 {
-                    ZLToastView.showMessage("ZLOperationResultModel transfer error")
+                    ZLToastView.showMessage("Query Events failed")
                     return
                 }
                 
@@ -110,17 +110,14 @@ extension ZLNewsViewModel
                     {
                         return;
                     }
-                    
-                    ZLToastView.showMessage("get received event failed statusCode[\(errorModel.statusCode)] message[\(errorModel.message)]")
-                    ZLLog_Warn("get received event failed statusCode[\(errorModel.statusCode)] message[\(errorModel.message)]")
-                    
+                     
+                    ZLToastView.showMessage("Query Events failed statusCode[\(errorModel.statusCode)] message[\(errorModel.message)]")
                     return
                 }
                 
                 guard let itemArray: [ZLGithubEventModel] = resultModel.data as? [ZLGithubEventModel] else
                 {
                     self.itemListView?.endRefreshWithError()
-                    ZLToastView.showMessage("ZLGithubEventModel transfer error")
                     return
                 }
                 

@@ -109,17 +109,35 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                 WithParams:(NSDictionary *) params
          WithResponseBlock:(GithubResponse) block
           WithSerialNumber:(NSString *) serialNumber{
-    
+        
     AFHTTPSessionManager *sessionManager = [self getDefaultSessionManager];
     
     [sessionManager.requestSerializer setValue:[NSString stringWithFormat:@"token %@",self.token] forHTTPHeaderField:@"Authorization"];
-    for(NSString *header in headers.allValues){
+    for(NSString *header in headers.allKeys){
         [sessionManager.requestSerializer setValue:headers[header] forHTTPHeaderField:header];
     }
+    
+    [self requestWithSessionManager:sessionManager
+                         withMethod:method
+                            withURL:URL
+                         WithParams:params
+                  WithResponseBlock:block
+                   WithSerialNumber:serialNumber];
+}
+
+- (void) requestWithSessionManager:(AFHTTPSessionManager *) sessionManager
+                        withMethod:(NSString *)method
+                           withURL:(NSString *) URL
+                        WithParams:(NSDictionary *) params
+                 WithResponseBlock:(GithubResponse) block
+                  WithSerialNumber:(NSString *) serialNumber{
+    
+    ZLLog_Info(@"Http Request(method[%@] url[%@] params[%@] serialNumber[%@])",method,URL,params,serialNumber);
     
     void(^successBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
     ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
     {
+        ZLLog_Info(@"Http response(result[%d] serialNumber[%@])",YES,serialNumber);
         block(YES,responseObject,serialNumber);
     };
     
@@ -129,12 +147,10 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         ZLGithubRequestErrorModel * model = [[ZLGithubRequestErrorModel alloc] init];
         model.statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
         model.message = error.localizedDescription;
-        ZLLog_Warning(@"response error [%@]",model);
-        
+        ZLLog_Info(@"Http response(result[%d] statusCode[%d] message[%@] serialNumber[%@])",NO,model.statusCode,model.message,serialNumber);
         block(NO,model,serialNumber);
         
-        if(model.statusCode == 401)
-        {
+        if(model.statusCode == 401){
             // token 过期失效
             ZLMainThreadDispatch([[NSNotificationCenter defaultCenter] postNotificationName:ZLGithubTokenInvalid_Notification object:nil];)
             
@@ -175,6 +191,10 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         [sessionManager PATCH:URL parameters:params success:successBlock failure:failedBlock];
     }
 }
+
+
+
+
 
 - (AFHTTPSessionManager *) getDefaultSessionManager {
     AFHTTPSessionManager *sessionManager =  [[AFHTTPSessionManager alloc] initWithSessionConfiguration:_httpConfig];
@@ -951,6 +971,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                       fullName:(NSString *) fullName
                           path:(NSString *) path
                         branch:(NSString *) branch
+                    acceptType:(NSString *) acceptType
                   serialNumber:(NSString *) serialNumber
 {
     fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
@@ -961,21 +982,37 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     
     NSDictionary * params = @{@"ref":branch};
     
+
     GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
-        
         if(result)
         {
-            ZLGithubContentModel * model = [ZLGithubContentModel mj_objectWithKeyValues:responseObject];
-            responseObject = model;
+            if(acceptType == nil ){
+                ZLGithubContentModel * model = [ZLGithubContentModel mj_objectWithKeyValues:responseObject];
+                responseObject = model;
+            } else {
+                NSString * str = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+                responseObject = str;
+            }
         }
         block(result,responseObject,serialNumber);
     };
     
-    [self GETRequestWithURL:urlForRepoContent
-                WithHeaders:nil
-                 WithParams:params
-          WithResponseBlock:newBlock
-           WithSerialNumber:serialNumber];
+    AFHTTPSessionManager *sessionManager = [self getDefaultSessionManager];
+    
+    [sessionManager.requestSerializer setValue:[NSString stringWithFormat:@"token %@",self.token] forHTTPHeaderField:@"Authorization"];
+    
+    if(acceptType) {
+        [sessionManager.requestSerializer setValue:acceptType forHTTPHeaderField:@"Accept"];
+        sessionManager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    }
+    
+    
+    [self requestWithSessionManager:sessionManager
+                         withMethod:@"GET"
+                            withURL:urlForRepoContent
+                         WithParams:params
+                  WithResponseBlock:newBlock
+                   WithSerialNumber:serialNumber];
 }
 
 
@@ -1839,5 +1876,39 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
            WithSerialNumber:serialNumber];
     
 }
+
+
+#pragma mark - markdown
+
+- (void) renderCodeToMarkdown:(GithubResponse) block
+                          code:(NSString *) code
+                 serialNumber:(NSString *) serialNumber{
+    NSString * markdownurl = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,markdownURL];
+    
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
+        if(result)
+        {
+            NSString * str = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+            responseObject = str;
+        }
+        block(result,responseObject,serialNumber);
+    };
+    
+  
+    AFHTTPSessionManager *sessionManager = [self getDefaultSessionManager];
+    
+    [sessionManager.requestSerializer setValue:[NSString stringWithFormat:@"token %@",self.token] forHTTPHeaderField:@"Authorization"];
+    sessionManager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    
+    
+    [self requestWithSessionManager:sessionManager
+                         withMethod:@"POST"
+                            withURL:markdownurl
+                         WithParams:@{@"text":code}
+                  WithResponseBlock:newBlock
+                   WithSerialNumber:serialNumber];
+}
+
 
 @end

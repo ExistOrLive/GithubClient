@@ -43,7 +43,7 @@ class ZLRepoItemInfoViewModel: ZLBaseViewModel {
         
         self.repoItemInfoView?.languageInfoLabel.text = self.repoInfoModel?.language
         
-        self.setCodeInfo()
+       // self.setCodeInfo()
     }
     
     

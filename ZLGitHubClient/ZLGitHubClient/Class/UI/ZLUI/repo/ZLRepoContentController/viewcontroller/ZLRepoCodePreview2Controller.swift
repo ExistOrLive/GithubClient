@@ -64,6 +64,7 @@ class ZLRepoCodePreview2Controller: ZLBaseViewController {
             {
                 let errorModel = resultModel.data as? ZLGithubRequestErrorModel
                 ZLToastView.showMessage("Query content Failed Code [\(errorModel?.statusCode ?? 0)] Message[\(errorModel?.message ?? "")]")
+                SVProgressHUD.dismiss()
                 return
             }
         

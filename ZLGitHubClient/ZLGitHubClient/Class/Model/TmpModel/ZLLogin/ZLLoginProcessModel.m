@@ -11,4 +11,10 @@
 
 @implementation ZLLoginProcessModel
 
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"LoginProcessModel(result[%d],loginStep[%lu],error[%@])", self.result,(unsigned long)self.loginStep,self.errorModel];
+}
+
 @end

@@ -56,6 +56,8 @@ class ZLWebContentView: ZLBaseView {
     
     @objc var webView : WKWebView?
     
+    var promptLabel : UILabel = UILabel.init()
+    
 
     // toolbarbutton
     private var backBarButtonItem : UIBarButtonItem?
@@ -94,6 +96,15 @@ class ZLWebContentView: ZLBaseView {
         self.webView?.uiDelegate = self
         self.webView?.navigationDelegate = self
         
+        self.containerView.addSubview(self.promptLabel)
+        self.promptLabel.preferredMaxLayoutWidth = ZLScreenWidth - 150
+        self.promptLabel.numberOfLines = 0
+        self.promptLabel.textColor = UIColor.lightGray
+        self.promptLabel.font = UIFont.init(name: Font_PingFangSCMedium, size: 15)
+        self.promptLabel.snp.makeConstraints { (make) in
+            make.center.equalToSuperview()
+        }
+        
         self.setUpToolBar()
         
         self.webView?.addObserver(self, forKeyPath: "title", options: NSKeyValueObservingOptions.new, context: nil)
@@ -106,20 +117,22 @@ class ZLWebContentView: ZLBaseView {
     {
         let backBarButtonItem : UIBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "back"), style: .plain, target: self, action: #selector(onGoBackButtonClicked))
         backBarButtonItem.isEnabled = false
-        backBarButtonItem.width = 60
+        backBarButtonItem.width = ZLScreenWidth / 4
         self.backBarButtonItem = backBarButtonItem
         
         let forwardBarButtonItem : UIBarButtonItem =  UIBarButtonItem.init(image: UIImage.init(named: "next"), style: .plain, target: self, action: #selector(onGoForwardButtonClicked))
         forwardBarButtonItem.isEnabled = false
-        forwardBarButtonItem.width = 60
+        forwardBarButtonItem.width = ZLScreenWidth / 4
         self.forwardBarButtonItem = forwardBarButtonItem
         
         let reloadOrStoploadBarButtonItem : UIBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "close"), style: .plain, target: self, action: #selector(onReloadOrStopLoadButtonCicked))
-        reloadOrStoploadBarButtonItem.width = 60
+        reloadOrStoploadBarButtonItem.width = ZLScreenWidth / 4
         self.reloadOrStoploadBarButtonItem = reloadOrStoploadBarButtonItem
         
+        let safariBarButtonItem : UIBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "safari"), style: .plain, target: self, action: #selector(openInSafari))
+        safariBarButtonItem.width = ZLScreenWidth / 4
         
-        let barButtonItems = [backBarButtonItem,forwardBarButtonItem,reloadOrStoploadBarButtonItem]
+        let barButtonItems = [backBarButtonItem,forwardBarButtonItem,reloadOrStoploadBarButtonItem,safariBarButtonItem]
         
         self.toolBar.setItems(barButtonItems, animated: false)
     }
@@ -202,6 +215,7 @@ extension ZLWebContentView
     {
         self.progressView.isHidden = false
         self.progressView.progress = ZLWebContentProgress.sendRequest.rawValue
+        self.promptLabel.text = nil
         self.reloadOrStoploadBarButtonItem?.image = UIImage.init(named: "close")
         self.isLoading = true
     }
@@ -212,12 +226,13 @@ extension ZLWebContentView
         self.progressView.progress = ZLWebContentProgress.getResponse.rawValue
     }
     
-    func setFaildRequestStatus()
+    func setFaildRequestStatus(text : String)
     {
         self.progressView.isHidden = true
         self.progressView.progress = ZLWebContentProgress.getResponse.rawValue
         self.reloadOrStoploadBarButtonItem?.image = UIImage.init(named: "reload")
         self.isLoading = false
+        self.promptLabel.text = text
     }
     
     func setStartLoadStatus()
@@ -266,6 +281,16 @@ extension ZLWebContentView
         }
         
     }
+    
+    
+    @objc func openInSafari() {
+        if self.webView?.url != nil {
+            UIApplication.shared.open(self.webView!.url!, options: [:], completionHandler: {(result : Bool) in
+                
+            })
+        }
+    }
+    
 }
 
 // MARK: WKUIDelegate,WKNavigationDelegate
@@ -322,7 +347,7 @@ extension ZLWebContentView : WKUIDelegate,WKNavigationDelegate
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         ZLLog_Debug("ZLWebContentView: webView:didFailProvisionalNavigation navigation[\(String(describing: navigation))] error[\(error.localizedDescription)]")
         
-        self.setFaildRequestStatus()
+        self.setFaildRequestStatus(text: error.localizedDescription)
     }
     
     

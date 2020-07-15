@@ -313,4 +313,27 @@
                                             serialNumber:serialNumber];
 }
 
+
+
+- (void) renderCodeToMarkdownWithCode:(NSString *) code
+                         serialNumber:(NSString *) serialNumber
+                       completeHandle:(void(^)(ZLOperationResultModel *)) handle{
+    
+    GithubResponse responseBlock = ^(BOOL result, id _Nullable responseObject, NSString * serialNumber) {
+        
+        ZLOperationResultModel * resultModel = [[ZLOperationResultModel alloc] init];
+        resultModel.result = result;
+        resultModel.serialNumber = serialNumber;
+        resultModel.data = responseObject;
+        
+        if(handle){
+            ZLMainThreadDispatch(handle(resultModel);)
+        }
+    };
+    
+    [[ZLGithubHttpClient defaultClient] renderCodeToMarkdown:responseBlock code:code serialNumber:serialNumber];
+    
+    
+}
+
 @end

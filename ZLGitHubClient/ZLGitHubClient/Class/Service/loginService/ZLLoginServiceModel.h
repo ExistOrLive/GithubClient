@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (ZLLoginStep) currentLoginStep;
 
 
-- (void) stopLogin;
+- (void) stopLogin:(NSString *) serialNumber;
     
 
 /**

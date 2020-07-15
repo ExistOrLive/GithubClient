@@ -9,6 +9,8 @@
 #import <UITextView_Placeholder/UITextView+Placeholder.h>
 #import <YYText/YYText.h>
 #import <MJExtension/MJExtension.h>
+#import "OCGumbo.h"
+#import "OCGumbo+Query.h"
 
 #import "ZLBaseUIHeader.h"
 #import "ZLBaseObject.h"
