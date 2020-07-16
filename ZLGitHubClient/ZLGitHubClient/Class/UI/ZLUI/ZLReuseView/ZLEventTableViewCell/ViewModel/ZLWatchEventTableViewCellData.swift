@@ -17,11 +17,11 @@ class ZLWatchEventTableViewCellData: ZLEventTableViewCellData {
             return _eventDescription!
         }
         
-        guard let payload : ZLWatchEventPayloadModel = self.eventModel.payload as? ZLWatchEventPayloadModel else {
-            return super.getEventDescrption()
-        }
+//        guard let payload : ZLWatchEventPayloadModel = self.eventModel.payload as? ZLWatchEventPayloadModel else {
+//            return super.getEventDescrption()
+//        }
         
-        let str = "\(payload.action) \(self.eventModel.repo.name)"
+        let str = "starred \(self.eventModel.repo.name)"
         let attributedStr =  NSMutableAttributedString.init(string: str , attributes: [NSAttributedString.Key.foregroundColor:UIColor.init(hexString: "#333333", alpha: 1.0)!,NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 15.0)!])
                 
         let repoNameRange = (str as NSString).range(of: self.eventModel.repo.name)

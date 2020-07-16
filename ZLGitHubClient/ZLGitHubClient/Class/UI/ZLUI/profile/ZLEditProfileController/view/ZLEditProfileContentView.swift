@@ -15,7 +15,6 @@ class ZLEditProfileContentView: ZLBaseView,UITextFieldDelegate,UITextViewDelegat
     @IBOutlet weak var descLabel: UILabel!
     @IBOutlet weak var companyLabel: UILabel!
     @IBOutlet weak var addrLabel: UILabel!
-    @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var blogLabel: UILabel!
     
     
@@ -24,8 +23,6 @@ class ZLEditProfileContentView: ZLBaseView,UITextFieldDelegate,UITextViewDelegat
     @IBOutlet weak var companyTextField: UITextField!
     
     @IBOutlet weak var addressTextField: UITextField!
-    
-    @IBOutlet weak var emailTextField: UITextField!
     
     @IBOutlet weak var blogTextField: UITextField!
     
@@ -36,11 +33,9 @@ class ZLEditProfileContentView: ZLBaseView,UITextFieldDelegate,UITextViewDelegat
         self.personalDescTextView.delegate = self
         self.companyTextField.delegate = self
         self.addressTextField.delegate = self
-        self.emailTextField.delegate = self
         
         self.descLabel.text = ZLLocalizedString(string: "bio", comment: "")
         self.companyLabel.text = ZLLocalizedString(string: "company", comment: "")
-        self.emailLabel.text = ZLLocalizedString(string: "email", comment: "")
         self.blogLabel.text = ZLLocalizedString(string: "blog", comment: "")
         self.addrLabel.text = ZLLocalizedString(string: "location", comment: "")
         

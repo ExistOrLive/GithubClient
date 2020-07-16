@@ -22,7 +22,6 @@ class ZLCommitTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.selectionStyle = .none
         self.containerView.layer.cornerRadius = 8.0
         self.avatarImageView.layer.cornerRadius = 15
         self.avatarImageView.layer.masksToBounds = true

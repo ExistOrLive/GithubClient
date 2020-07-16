@@ -34,7 +34,6 @@ class ZLNewsViewModel: ZLBaseViewModel {
         // 注册事件监听
         ZLEventServiceModel.shareInstance().registerObserver(self, selector: #selector(onNotificationArrived(notification:)), name:ZLGetUserReceivedEventResult_Notification)
         ZLUserServiceModel.shared().registerObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLGetCurrentUserInfoResult_Notification)
-        ZLUserServiceModel.shared().registerObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLGetSpecifiedUserInfoResult_Notification)
         NotificationCenter.default.addObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLLanguageTypeChange_Notificaiton, object: nil)
         
         //每次界面将要展示时，更新数据
@@ -50,7 +49,6 @@ class ZLNewsViewModel: ZLBaseViewModel {
     deinit {
         ZLEventServiceModel.shareInstance().unRegisterObserver(self, name: ZLGetUserReceivedEventResult_Notification)
         ZLUserServiceModel.shared().unRegisterObserver(self, name: ZLGetCurrentUserInfoResult_Notification)
-        ZLUserServiceModel.shared().unRegisterObserver(self, name: ZLGetSpecifiedUserInfoResult_Notification)
         NotificationCenter.default.removeObserver(self)
     }
     
@@ -158,26 +156,6 @@ extension ZLNewsViewModel
                 {
                     self.itemListView?.beginRefresh()
                 }
-            }
-            case ZLGetSpecifiedUserInfoResult_Notification: do
-            {
-                let operationResultModel : ZLOperationResultModel = notification.params as! ZLOperationResultModel
-                
-                guard self.serialNumber == operationResultModel.serialNumber else
-                {
-                    ZLLog_Warn("serialNumber is not equal, this response will discard")
-                    return
-                }
-                
-                guard let userInfo : ZLGithubUserModel = operationResultModel.data as? ZLGithubUserModel else
-                {
-                    ZLLog_Warn("data of operationResultModel is not ZLGithubUserModel,so return")
-                    return
-                }
-
-                let vc = ZLUserInfoController.init(userInfoModel: userInfo)
-                vc.hidesBottomBarWhenPushed = true
-                self.viewController?.navigationController?.pushViewController(vc, animated: true)
             }
             case ZLLanguageTypeChange_Notificaiton: do{
                 self.viewController?.title = ZLLocalizedString(string: "news", comment: "")

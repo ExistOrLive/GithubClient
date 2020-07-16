@@ -49,10 +49,9 @@ class ZLEditProfileViewModel: ZLBaseViewModel {
         let bio = self.editProfileView?.contentView?.personalDescTextView.text
         let company = self.editProfileView?.contentView?.companyTextField.text
         let location = self.editProfileView?.contentView?.addressTextField.text
-        let email = self.editProfileView?.contentView?.emailTextField.text
         let blog = self.editProfileView?.contentView?.blogTextField.text
         
-        ZLUserServiceModel.shared().updateUserPublicProfileWithemail(email, blog: blog, company: company, location: location, bio: bio, serialNumber: "da")
+        ZLUserServiceModel.shared().updateUserPublicProfileWithemail(nil, blog: blog, company: company, location: location, bio: bio, serialNumber: NSString.generateSerialNumber())
         
         SVProgressHUD.show();
     }
@@ -96,7 +95,6 @@ extension ZLEditProfileViewModel{
         self.editProfileView?.contentView?.personalDescTextView.text = model.bio
         self.editProfileView?.contentView?.companyTextField.text = model.company
         self.editProfileView?.contentView?.addressTextField.text = model.location
-        self.editProfileView?.contentView?.emailTextField.text = model.email
         self.editProfileView?.contentView?.blogTextField.text = model.blog
     }
     
