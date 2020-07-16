@@ -24,7 +24,7 @@ class ZLEventListView: UIView {
     
     var cellDatas : [ZLEventTableViewCellData]?
     
-    var delegate : ZLEventListViewDelegate?
+    weak var delegate : ZLEventListViewDelegate?
     
     override init(frame: CGRect) {
         

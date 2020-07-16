@@ -19,20 +19,21 @@ class ZLPushEventTableViewCellData: ZLEventTableViewCellData {
         let attributedString = NSMutableAttributedString.init(string: str , attributes: [NSAttributedString.Key.foregroundColor:UIColor.init(hexString: "#333333", alpha: 1.0)!,NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 15.0)!])
         
         let loginNameRange = (str as NSString).range(of: self.eventModel.actor.display_login)
+        weak var weakSelf = self
         attributedString.yy_setTextHighlight(loginNameRange, color: ZLRGBValue_H(colorValue: 0x0666D6), backgroundColor: UIColor.clear, tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
-            let vc = ZLUserInfoController.init(loginName: self.eventModel.actor.login, type: ZLGithubUserType_User)
+            let vc = ZLUserInfoController.init(loginName: weakSelf?.eventModel.actor.login ?? "", type: ZLGithubUserType_User)
             vc.hidesBottomBarWhenPushed = true
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            weakSelf?.viewController?.navigationController?.pushViewController(vc, animated: true)
         })
         
         let repoNameRange = (str as NSString).range(of: self.eventModel.repo.name)
         attributedString.yy_setTextHighlight(repoNameRange, color: ZLRGBValue_H(colorValue: 0x0666D6), backgroundColor: UIColor.clear , tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
                
             let repoModel = ZLGithubRepositoryModel.init()
-            repoModel.full_name = self.eventModel.repo.name;
+            repoModel.full_name = weakSelf?.eventModel.repo.name ?? "";
             let vc = ZLRepoInfoController.init(repoInfoModel: repoModel)
             vc.hidesBottomBarWhenPushed = true
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            weakSelf?.viewController?.navigationController?.pushViewController(vc, animated: true)
             
         })
         

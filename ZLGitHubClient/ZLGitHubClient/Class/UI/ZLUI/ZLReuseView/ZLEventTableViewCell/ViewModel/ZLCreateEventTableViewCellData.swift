@@ -39,6 +39,8 @@ class ZLCreateEventTableViewCellData: ZLEventTableViewCellData {
             return super.getEventDescrption()
         }
         
+        weak var weakSelf = self
+        
         if payload.ref_type == .repository {
             
             let str =  "created repository \(self.eventModel.repo.name)"
@@ -48,10 +50,10 @@ class ZLCreateEventTableViewCellData: ZLEventTableViewCellData {
             attributedString.yy_setTextHighlight(repoNameRange, color: ZLRGBValue_H(colorValue: 0x0666D6), backgroundColor: UIColor.clear , tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
                 
                 let repoModel = ZLGithubRepositoryModel.init()
-                repoModel.full_name = self.eventModel.repo.name;
+                repoModel.full_name = weakSelf?.eventModel.repo.name ?? "";
                 let vc = ZLRepoInfoController.init(repoInfoModel: repoModel)
                 vc.hidesBottomBarWhenPushed = true
-                self.viewController?.navigationController?.pushViewController(vc, animated: true)
+                weakSelf?.viewController?.navigationController?.pushViewController(vc, animated: true)
                 
             })
             
@@ -66,11 +68,11 @@ class ZLCreateEventTableViewCellData: ZLEventTableViewCellData {
             let refRange = (str as NSString).range(of: payload.ref)
             attributedString.yy_setTextHighlight(refRange, color: ZLRGBValue_H(colorValue: 0x0666D6), backgroundColor: UIColor.clear , tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
                 
-                let url = "https://github.com/\(self.eventModel.repo.name)/releases/tag/\(payload.ref)"
+                let url = "https://github.com/\(weakSelf?.eventModel.repo.name ?? "")/releases/tag/\(payload.ref)"
                 let vc = ZLWebContentController.init()
                 vc.hidesBottomBarWhenPushed = true
                 vc.requestURL = URL.init(string: url)
-                self.viewController?.navigationController?.pushViewController(vc, animated: true)
+                weakSelf?.viewController?.navigationController?.pushViewController(vc, animated: true)
                 
             })
             
@@ -78,10 +80,10 @@ class ZLCreateEventTableViewCellData: ZLEventTableViewCellData {
             attributedString.yy_setTextHighlight(repoNameRange, color: ZLRGBValue_H(colorValue: 0x0666D6), backgroundColor: UIColor.clear , tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
                 
                 let repoModel = ZLGithubRepositoryModel.init()
-                repoModel.full_name = self.eventModel.repo.name;
+                repoModel.full_name = weakSelf?.eventModel.repo.name ?? "";
                 let vc = ZLRepoInfoController.init(repoInfoModel: repoModel)
                 vc.hidesBottomBarWhenPushed = true
-                self.viewController?.navigationController?.pushViewController(vc, animated: true)
+                weakSelf?.viewController?.navigationController?.pushViewController(vc, animated: true)
                 
             })
             
@@ -102,10 +104,10 @@ class ZLCreateEventTableViewCellData: ZLEventTableViewCellData {
             attributedString.yy_setTextHighlight(repoNameRange, color: ZLRGBValue_H(colorValue: 0x0666D6), backgroundColor: UIColor.clear , tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
                 
                 let repoModel = ZLGithubRepositoryModel.init()
-                repoModel.full_name = self.eventModel.repo.name;
+                repoModel.full_name = weakSelf?.eventModel.repo.name ?? "";
                 let vc = ZLRepoInfoController.init(repoInfoModel: repoModel)
                 vc.hidesBottomBarWhenPushed = true
-                self.viewController?.navigationController?.pushViewController(vc, animated: true)
+                weakSelf?.viewController?.navigationController?.pushViewController(vc, animated: true)
                 
             })
             

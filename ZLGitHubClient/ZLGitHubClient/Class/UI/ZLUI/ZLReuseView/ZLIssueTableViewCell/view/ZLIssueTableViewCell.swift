@@ -19,7 +19,7 @@ class ZLIssueTableViewCell: UITableViewCell {
     @IBOutlet weak var labelStackView: UIStackView!
     @IBOutlet weak var containerView: UIView!
     
-    var delegate : ZLIssueTableViewCellDelegate?
+    weak var delegate : ZLIssueTableViewCellDelegate?
     
 
     override func awakeFromNib() {

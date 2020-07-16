@@ -115,10 +115,12 @@ extension ZLNotificationTableViewCellData {
             attributedStr.append(numStr)
         }
         
+        weak var weakSelf = self
+        
         attributedStr.yy_setTextHighlight(NSRange.init(location: 0, length:attributedStr.length), color: nil , backgroundColor: ZLRGBValue_H(colorValue: 0x0666D6)) {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
-            let vc = ZLRepoInfoController.init(repoFullName: self.data.repository?.full_name ?? "")
+            let vc = ZLRepoInfoController.init(repoFullName: weakSelf?.data.repository?.full_name ?? "")
             vc.hidesBottomBarWhenPushed = true
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            weakSelf?.viewController?.navigationController?.pushViewController(vc, animated: true)
         }
         
         return attributedStr

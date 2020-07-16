@@ -21,7 +21,7 @@ class ZLWorkflowRunTableViewCell: UITableViewCell {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var branchLabel: YYLabel!
     
-    var delegate : ZLWorkflowRunTableViewCellDelegate?
+    weak var delegate : ZLWorkflowRunTableViewCellDelegate?
     
     
     

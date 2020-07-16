@@ -37,12 +37,13 @@ class ZLSearchViewModel: ZLBaseViewModel {
         
         let searchRecordViewModel = ZLSearchRecordViewModel.init()
         searchRecordViewModel.bindModel(nil, andView: self.searchView!.searchRecordView!)
+        weak var weakSelf = self
         searchRecordViewModel.resultBlock = {(searchKey : String) in
-            self.searchView?.setUnEditStatus()
-            self.searchView?.searchTextField.text = searchKey
-            self.searchView?.searchTextField.resignFirstResponder()
-            self.searchItemsViewModel?.startSearch(keyWord: searchKey)
-            self.searchRecordViewModel?.onSearhKeyConfirmed(searchKey: searchKey)
+            weakSelf?.searchView?.setUnEditStatus()
+            weakSelf?.searchView?.searchTextField.text = searchKey
+            weakSelf?.searchView?.searchTextField.resignFirstResponder()
+            weakSelf?.searchItemsViewModel?.startSearch(keyWord: searchKey)
+            weakSelf?.searchRecordViewModel?.onSearhKeyConfirmed(searchKey: searchKey)
         }
         self.addSubViewModel(searchRecordViewModel)
         self.searchRecordViewModel = searchRecordViewModel;

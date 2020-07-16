@@ -60,8 +60,10 @@ class ZLRepoSubContentController: ZLBaseViewController {
         tableView.dataSource = self
         tableView.separatorStyle = .none
         tableView.register(UINib.init(nibName: "ZLRepoContentTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLRepoContentTableViewCell")
+        
+        weak var weakSelf = self
         tableView.mj_header = ZLRefresh.refreshHeader(refreshingBlock: {
-            self.setQueryContentRequest()
+            weakSelf?.setQueryContentRequest()
         })
         self.contentView.addSubview(tableView)
         tableView.snp.makeConstraints ({ (make) in

@@ -25,7 +25,7 @@ class ZLGistTableViewCell: UITableViewCell {
     @IBOutlet weak var descLabel: UILabel!
     @IBOutlet weak var privateLabel: UILabel!
     
-    var delegate : ZLGistTableViewCellDelegate?
+    weak var delegate : ZLGistTableViewCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()

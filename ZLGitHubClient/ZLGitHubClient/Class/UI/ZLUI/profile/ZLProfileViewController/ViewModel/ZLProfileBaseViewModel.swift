@@ -37,9 +37,10 @@ class ZLProfileBaseViewModel: ZLBaseViewModel {
         self.profileBaseView?.tableView.dataSource = self;
         self.profileBaseView?.tableHeaderView?.delegate = self;
         
+        weak var weakSelf = self
         self.profileBaseView?.tableView.mj_header = ZLRefresh.refreshHeader {
             ZLUserServiceModel.shared().currentUserInfo()
-            self.profileBaseView?.tableView.mj_header?.endRefreshing()
+            weakSelf?.profileBaseView?.tableView.mj_header?.endRefreshing()
         }
         
         // 注册监听
