@@ -67,7 +67,7 @@ class ZLWebContentView: ZLBaseView {
     
     private(set) var isLoading : Bool = false               // 是否在加载请求
     
-    @objc var delegate : ZLWebContentViewDelegate?
+    @objc weak var delegate : ZLWebContentViewDelegate?
     @objc var title : String?                               // 预置title
     {
         didSet{

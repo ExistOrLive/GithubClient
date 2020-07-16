@@ -43,7 +43,7 @@
                     </constraints>
                 </view>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="tHq-A4-RIt">
-                    <rect key="frame" x="0.0" y="260" width="468" height="200"/>
+                    <rect key="frame" x="0.0" y="260" width="468" height="150"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h5x-aY-esc">
                             <rect key="frame" x="0.0" y="0.0" width="468" height="50"/>
@@ -99,35 +99,8 @@
                                 <constraint firstItem="inh-ja-OOD" firstAttribute="leading" secondItem="HKh-QC-CAs" secondAttribute="leading" constant="20" id="rL8-Mr-o11"/>
                             </constraints>
                         </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qki-qh-EIq">
-                            <rect key="frame" x="0.0" y="100" width="468" height="50"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="邮箱" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zgk-NI-7Ps">
-                                    <rect key="frame" x="20" y="13" width="80" height="24"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="80" id="CZ0-99-iJY"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" name="PingFangSC-Semibold" family="PingFang SC" pointSize="17"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入邮箱" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YlO-Jt-HHH">
-                                    <rect key="frame" x="110" y="5" width="338" height="40"/>
-                                    <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="15"/>
-                                    <textInputTraits key="textInputTraits" returnKeyType="done"/>
-                                </textField>
-                            </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <constraints>
-                                <constraint firstItem="zgk-NI-7Ps" firstAttribute="centerY" secondItem="Qki-qh-EIq" secondAttribute="centerY" id="Gq3-dI-PP5"/>
-                                <constraint firstAttribute="trailing" secondItem="YlO-Jt-HHH" secondAttribute="trailing" constant="20" id="Swg-cf-XqC"/>
-                                <constraint firstItem="zgk-NI-7Ps" firstAttribute="leading" secondItem="Qki-qh-EIq" secondAttribute="leading" constant="20" id="WTc-dD-aS2"/>
-                                <constraint firstItem="YlO-Jt-HHH" firstAttribute="leading" secondItem="zgk-NI-7Ps" secondAttribute="trailing" constant="10" id="dHZ-En-Qkz"/>
-                                <constraint firstItem="YlO-Jt-HHH" firstAttribute="top" secondItem="Qki-qh-EIq" secondAttribute="top" constant="5" id="kdk-mu-SdL"/>
-                                <constraint firstAttribute="bottom" secondItem="YlO-Jt-HHH" secondAttribute="bottom" constant="5" id="nOW-FO-sTj"/>
-                            </constraints>
-                        </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ga6-Wt-ORw">
-                            <rect key="frame" x="0.0" y="150" width="468" height="50"/>
+                            <rect key="frame" x="0.0" y="100" width="468" height="50"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="博客" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F4q-vB-EiM">
                                     <rect key="frame" x="20" y="13" width="80" height="24"/>
@@ -155,7 +128,7 @@
                         </view>
                     </subviews>
                     <constraints>
-                        <constraint firstAttribute="height" constant="200" id="uDQ-TX-THd"/>
+                        <constraint firstAttribute="height" constant="150" id="uDQ-TX-THd"/>
                     </constraints>
                 </stackView>
             </subviews>
@@ -177,8 +150,6 @@
                 <outlet property="companyLabel" destination="rK7-TJ-tFx" id="22s-xn-kFG"/>
                 <outlet property="companyTextField" destination="SPh-9J-oOv" id="8Fe-sv-ngZ"/>
                 <outlet property="descLabel" destination="jJA-04-VEy" id="rFV-Py-im8"/>
-                <outlet property="emailLabel" destination="zgk-NI-7Ps" id="i2H-ew-Glh"/>
-                <outlet property="emailTextField" destination="YlO-Jt-HHH" id="xqK-AW-CM5"/>
                 <outlet property="personalDescTextView" destination="E5h-xc-GES" id="O7O-ei-7Dy"/>
             </connections>
             <point key="canvasLocation" x="176.81159420289856" y="146.65178571428569"/>

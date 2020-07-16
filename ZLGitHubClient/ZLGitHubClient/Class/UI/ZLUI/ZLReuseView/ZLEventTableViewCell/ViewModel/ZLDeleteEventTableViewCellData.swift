@@ -32,6 +32,7 @@ class ZLDeleteEventTableViewCellData: ZLEventTableViewCellData {
             return super.getEventDescrption()
         }
         
+        weak var weakSelf = self
         if payload.ref_type == .repository {
             
             let str =  "deleted repository \(self.eventModel.repo.name)"
@@ -41,10 +42,10 @@ class ZLDeleteEventTableViewCellData: ZLEventTableViewCellData {
             attributedString.yy_setTextHighlight(repoNameRange, color: ZLRGBValue_H(colorValue: 0x0666D6), backgroundColor: UIColor.clear , tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
                 
                 let repoModel = ZLGithubRepositoryModel.init()
-                repoModel.full_name = self.eventModel.repo.name;
+                repoModel.full_name = weakSelf?.eventModel.repo.name ?? "";
                 let vc = ZLRepoInfoController.init(repoInfoModel: repoModel)
                 vc.hidesBottomBarWhenPushed = true
-                self.viewController?.navigationController?.pushViewController(vc, animated: true)
+                weakSelf?.viewController?.navigationController?.pushViewController(vc, animated: true)
                 
             })
             
@@ -64,10 +65,10 @@ class ZLDeleteEventTableViewCellData: ZLEventTableViewCellData {
             attributedString.yy_setTextHighlight(repoNameRange, color: ZLRGBValue_H(colorValue: 0x0666D6), backgroundColor: UIColor.clear , tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
                 
                 let repoModel = ZLGithubRepositoryModel.init()
-                repoModel.full_name = self.eventModel.repo.name;
+                repoModel.full_name = weakSelf?.eventModel.repo.name ?? "";
                 let vc = ZLRepoInfoController.init(repoInfoModel: repoModel)
                 vc.hidesBottomBarWhenPushed = true
-                self.viewController?.navigationController?.pushViewController(vc, animated: true)
+                weakSelf?.viewController?.navigationController?.pushViewController(vc, animated: true)
                 
             })
             
@@ -88,10 +89,10 @@ class ZLDeleteEventTableViewCellData: ZLEventTableViewCellData {
             attributedString.yy_setTextHighlight(repoNameRange, color: ZLRGBValue_H(colorValue: 0x0666D6), backgroundColor: UIColor.clear , tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
                 
                 let repoModel = ZLGithubRepositoryModel.init()
-                repoModel.full_name = self.eventModel.repo.name;
+                repoModel.full_name = weakSelf?.eventModel.repo.name ?? "";
                 let vc = ZLRepoInfoController.init(repoInfoModel: repoModel)
                 vc.hidesBottomBarWhenPushed = true
-                self.viewController?.navigationController?.pushViewController(vc, animated: true)
+                weakSelf?.viewController?.navigationController?.pushViewController(vc, animated: true)
                 
             })
             

@@ -318,7 +318,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         return;
     }
     
-    NSDictionary * params = @{@"client_id":MyClientID,@"client_secret":MyClientSecret,@"code":code,@"state":state};
+    NSDictionary * params = @{@"client_id":MyClientID,@"client_secret":MyClientSecret,@"code":code == nil ? @"" : code,@"state":state == nil ? @"" : state};
     
     __weak typeof(self) weakSelf = self;
     void(^successBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
@@ -573,7 +573,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
             [params setObject:company forKey:@"company"];
         if(location)
             [params setObject:location forKey:@"location"];
-        if(hireable)
+        if(hireable != nil)
             [params setObject:hireable forKey:@"hireable"];
         if(bio)
             [params setObject:bio forKey:@"bio"];

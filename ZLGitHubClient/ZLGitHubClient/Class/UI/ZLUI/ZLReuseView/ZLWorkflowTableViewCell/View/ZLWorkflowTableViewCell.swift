@@ -18,7 +18,7 @@ class ZLWorkflowTableViewCell: UITableViewCell {
     @IBOutlet weak var workflowStateLabel: UILabel!
     @IBOutlet weak var configButton: UIButton!
     
-    var delegate : ZLWorkflowTableViewCellDelegate?
+    weak var delegate : ZLWorkflowTableViewCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()

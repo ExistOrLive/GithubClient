@@ -20,7 +20,7 @@ class ZLSearchItemsView: ZLBaseView {
     
     static let ZLSearchItemsTypes : [ZLSearchType] = [.repositories,.users]
     
-    var delegate : ZLSearchItemsViewDelegate?
+    weak var delegate : ZLSearchItemsViewDelegate?
     
     @IBOutlet weak var filterButton: UIButton!
     @IBOutlet weak var containerView: UIView!

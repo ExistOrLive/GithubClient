@@ -40,22 +40,23 @@ class ZLRepoFooterInfoViewModel: ZLBaseViewModel {
             return;
         }
         
+        weak var weakSelf = self
         ZLRepoServiceModel.shared().getRepoReadMeInfo(withFullName:fullName , serialNumber: NSString.generateSerialNumber(), completeHandle: { (resultModel : ZLOperationResultModel) in
             
             if resultModel.result == false {
                 let errorModel : ZLGithubRequestErrorModel = resultModel.data as! ZLGithubRequestErrorModel
-                self.repoFooterInfoView?.loadMarkdown(markDown: errorModel.message, baseUrl: nil)
+                weakSelf?.repoFooterInfoView?.loadMarkdown(markDown: errorModel.message, baseUrl: nil)
             } else {
                 let readModel : ZLGithubContentModel = resultModel.data as! ZLGithubContentModel
                 guard let data : Data = Data.init(base64Encoded: readModel.content!, options: .ignoreUnknownCharacters) else{
-                    self.repoFooterInfoView?.loadMarkdown(markDown: "parse error",baseUrl: nil)
+                    weakSelf?.repoFooterInfoView?.loadMarkdown(markDown: "parse error",baseUrl: nil)
                     return
                 }
                 
                 let readMeStr = String.init(data: data, encoding: .utf8)
                 let url = URL.init(string: readModel.download_url!)! as NSURL
                 
-                self.repoFooterInfoView?.loadMarkdown(markDown: readMeStr ?? "", baseUrl:url.deletingLastPathComponent?.absoluteString)
+                weakSelf?.repoFooterInfoView?.loadMarkdown(markDown: readMeStr ?? "", baseUrl:url.deletingLastPathComponent?.absoluteString)
             }
         })
     }

@@ -20,7 +20,7 @@ import UIKit
     
     private var cellDatas : [ZLGithubItemTableViewCellData]?
     
-    var delegate : ZLGithubItemListViewDelegate?
+    weak var delegate : ZLGithubItemListViewDelegate?
         
     override init(frame: CGRect) {
         super.init(frame: frame);

@@ -37,7 +37,6 @@ class ZLEventTableViewCell: UITableViewCell {
      
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style,reuseIdentifier: reuseIdentifier)
-        self.selectionStyle = .none
         self.backgroundColor = UIColor.clear
         self.setUpUI()
     }
@@ -116,7 +115,7 @@ class ZLEventTableViewCell: UITableViewCell {
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+        super.setSelected(false, animated: animated)
     }
     
     func fillWithData(cellData : ZLEventTableViewCellData)

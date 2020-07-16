@@ -25,12 +25,10 @@ class ZLGistTableViewCell: UITableViewCell {
     @IBOutlet weak var descLabel: UILabel!
     @IBOutlet weak var privateLabel: UILabel!
     
-    var delegate : ZLGistTableViewCellDelegate?
+    weak var delegate : ZLGistTableViewCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        self.selectionStyle = .none
         
         self.containerView.layer.cornerRadius = 8.0;
         self.containerView.layer.masksToBounds = true

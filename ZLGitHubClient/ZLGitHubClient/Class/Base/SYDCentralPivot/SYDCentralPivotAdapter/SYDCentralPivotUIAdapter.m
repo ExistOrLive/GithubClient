@@ -24,13 +24,7 @@ static const NSString * AboutViewController = @"ZLAboutViewController";
 
 + (UIViewController *)getZLNewsViewController
 {
-    static UIViewController * profileViewController = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        profileViewController = [[SYDCentralFactory sharedInstance] getOneUIViewController:NewsViewController];
-    });
-    
-    return profileViewController;
+    return [[SYDCentralFactory sharedInstance] getOneUIViewController:NewsViewController];
 }
 
 + (UIViewController *)getZLStarRepoViewController

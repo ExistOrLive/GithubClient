@@ -38,7 +38,7 @@ class ZLRepoCodePreview3Controller: ZLBaseViewController {
         
         self.setUpUI()
         
-        let fileExtension = (URL.init(string: self.contentModel.name) as NSURL?)?.pathExtension ?? ""
+        let fileExtension = (URL.init(string: self.contentModel.name.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed) ?? "") as NSURL?)?.pathExtension ?? ""
         if(fileExtension.lowercased() == "md" || fileExtension.lowercased() == "markdown") {
             self.sendQueryContentRequest()
         } else {

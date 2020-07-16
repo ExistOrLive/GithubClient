@@ -22,6 +22,7 @@ class ZLGollumEventTableViewCellData: ZLEventTableViewCellData {
         }
         
         let attributedStr : NSMutableAttributedString  = NSMutableAttributedString()
+        weak var weakSelf = self
         for pageModel in payload.pages {
             
             let str = "\(pageModel.action) wiki page \(pageModel.page_name)\n"
@@ -32,7 +33,7 @@ class ZLGollumEventTableViewCellData: ZLEventTableViewCellData {
                 let vc = ZLWebContentController.init()
                 vc.hidesBottomBarWhenPushed = true
                 vc.requestURL = URL.init(string: pageModel.html_url)
-                self.viewController?.navigationController?.pushViewController(vc, animated: true)
+                weakSelf?.viewController?.navigationController?.pushViewController(vc, animated: true)
             })
             attributedStr.append(tmpAttributedStr)
         }
@@ -43,10 +44,10 @@ class ZLGollumEventTableViewCellData: ZLEventTableViewCellData {
         let repoRange = (str as NSString).range(of: self.eventModel.repo.name)
         tmpAttributedStr.yy_setTextHighlight(repoRange, color: ZLRGBValue_H(colorValue: 0x0666D6), backgroundColor: UIColor.clear , tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
             let repoModel = ZLGithubRepositoryModel.init()
-            repoModel.full_name = self.eventModel.repo.name;
+            repoModel.full_name = weakSelf?.eventModel.repo.name ?? "";
             let vc = ZLRepoInfoController.init(repoInfoModel: repoModel)
             vc.hidesBottomBarWhenPushed = true
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            weakSelf?.viewController?.navigationController?.pushViewController(vc, animated: true)
         })
         attributedStr.append(tmpAttributedStr)
         

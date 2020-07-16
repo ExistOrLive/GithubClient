@@ -22,14 +22,13 @@ class ZLCommitTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.selectionStyle = .none
         self.containerView.layer.cornerRadius = 8.0
         self.avatarImageView.layer.cornerRadius = 15
         self.avatarImageView.layer.masksToBounds = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+        super.setSelected(false, animated: animated)
 
         // Configure the view for the selected state
     }

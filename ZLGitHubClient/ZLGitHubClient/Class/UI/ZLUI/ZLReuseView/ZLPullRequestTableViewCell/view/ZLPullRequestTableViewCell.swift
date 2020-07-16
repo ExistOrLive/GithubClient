@@ -23,7 +23,6 @@ class ZLPullRequestTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.selectionStyle = .none
         self.containerView.layer.cornerRadius = 8.0
     }
 

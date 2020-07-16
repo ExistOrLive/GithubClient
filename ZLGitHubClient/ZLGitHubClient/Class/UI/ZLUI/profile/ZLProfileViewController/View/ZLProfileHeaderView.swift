@@ -27,7 +27,7 @@ enum ZLProfileHeaderViewButtonType: Int {
 
 class ZLProfileHeaderView: ZLBaseView {
     
-    var delegate : ZLProfileHeaderViewDelegate?
+    weak var delegate : ZLProfileHeaderViewDelegate?
 
     @IBOutlet weak var headImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!

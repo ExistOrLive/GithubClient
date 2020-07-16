@@ -46,6 +46,7 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     else{
+        _userInfoModel = nil;
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userInfoModel"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }

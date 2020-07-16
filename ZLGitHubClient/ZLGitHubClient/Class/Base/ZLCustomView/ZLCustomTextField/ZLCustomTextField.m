@@ -128,6 +128,6 @@
 
 - (BOOL)resignFirstResponder
 {
-   return [self.textField resignFirstResponder];
+    return [self endEditing:true];
 }
 @end
