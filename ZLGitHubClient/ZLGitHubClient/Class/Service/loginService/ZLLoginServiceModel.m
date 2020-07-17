@@ -8,6 +8,8 @@
 
 #import "ZLLoginServiceModel.h"
 
+#import "ZLGithubAPI.h"
+
 // network
 #import "ZLGithubHttpClient.h"
 
@@ -23,6 +25,14 @@
 @end
 
 @implementation ZLLoginServiceModel
+
+- (instancetype) init {
+    if(self = [super init]) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onGithubTokenInvalid) name:ZLGithubTokenInvalid_Notification object:nil];
+    }
+    return self;
+}
+
 
 + (instancetype) sharedServiceModel
 {
@@ -195,6 +205,16 @@
     [[ZLGithubHttpClient defaultClient] checkTokenIsValid:response
                                                     token:token
                                              serialNumber:serialNumber];
+}
+
+
+- (void) onGithubTokenInvalid {
+    
+    ZLLog_Info(@"ZLLogoutProcess: onGithubTokenInvliad");
+    self.step = ZLLoginStep_init;
+    self.currentLoginSerialNumber = nil;
+        
+    [[ZLGithubHttpClient defaultClient] logout:nil serialNumber:nil];
 }
 
 

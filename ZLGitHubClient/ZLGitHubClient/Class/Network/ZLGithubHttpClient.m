@@ -420,8 +420,9 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     self.token = nil;
     [[ZLSharedDataManager sharedInstance] clearGithubTokenAndUserInfo];
     
-    block(YES,nil,serialNumber);
-    
+    if(block) {
+        block(YES,nil,serialNumber);
+    }
 }
 
 
