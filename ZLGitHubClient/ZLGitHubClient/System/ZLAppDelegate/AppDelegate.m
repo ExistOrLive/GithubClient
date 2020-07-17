@@ -177,6 +177,7 @@
 - (void) onGithubTokenInvalid
 {
     if(![self.window.rootViewController isKindOfClass:[ZLLoginViewController class]]){
+        [ZLToastView showMessage:@"Token is not valid,login please"];
         [self switchToLoginController:YES];
     }
 }

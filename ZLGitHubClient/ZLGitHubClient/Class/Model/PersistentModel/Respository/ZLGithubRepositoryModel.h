@@ -41,6 +41,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(strong, nonatomic) ZLGithubUserBriefModel * owner;                    //! 仓库拥有者
 
+@property(strong, nonatomic, nullable) NSString * sourceRepoFullName;           // fork 的 仓库名
+
 
 @end
 

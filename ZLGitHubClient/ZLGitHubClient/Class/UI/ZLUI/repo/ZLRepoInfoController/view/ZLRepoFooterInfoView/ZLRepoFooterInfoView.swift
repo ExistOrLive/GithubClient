@@ -54,17 +54,17 @@ class ZLRepoFooterInfoView: ZLBaseView {
         
         self.markdownView.load(markdown: markDown,baseUrl:baseUrl, enableImage: true)
         
+        weak var weakSelf = self
         self.markdownView.onRendered = { (height:CGFloat) in
             
-            self.markdownView.snp.updateConstraints { (make) in
+            weakSelf?.markdownView.snp.updateConstraints { (make) in
                     make.height.equalTo(height + 40)
             }
-            self.markdownView.webView?.scrollView.removeObserver(self, forKeyPath: "contentSize")
             
             UIView.animate(withDuration: 0.3, animations: { () in
-                self.progressView.setProgress(1.0, animated: false) }, completion:
+                weakSelf?.progressView.setProgress(1.0, animated: false) }, completion:
                 { (result : Bool) in
-                    self.progressView.isHidden = true
+                    weakSelf?.progressView.isHidden = true
             })
             
         }
@@ -74,11 +74,9 @@ class ZLRepoFooterInfoView: ZLBaseView {
     
     func stopLoad()
     {
-        if self.markdownView.webView?.isLoading ?? false
-        {
-            self.markdownView.webView?.stopLoading()
-            self.markdownView.webView?.scrollView.removeObserver(self, forKeyPath: "contentSize")
-        }
+        self.markdownView.webView?.stopLoading()
+        self.markdownView.webView?.scrollView.removeObserver(self, forKeyPath: "contentSize")
+        
         self.markdownView.webView?.removeFromSuperview()
         self.markdownView.webView = nil
     }

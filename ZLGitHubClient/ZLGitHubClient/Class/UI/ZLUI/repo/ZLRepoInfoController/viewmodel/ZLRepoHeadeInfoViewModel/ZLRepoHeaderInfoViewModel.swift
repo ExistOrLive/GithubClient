@@ -39,12 +39,33 @@ class ZLRepoHeaderInfoViewModel: ZLBaseViewModel {
      func setViewDataForRepoHeaderInfoView()
      {
         self.repoHeaderInfoView?.headImageView.sd_setImage(with: URL.init(string: self.repoInfoModel?.owner.avatar_url ?? ""), placeholderImage: UIImage.init(named: "default_avatar"));
+        
         self.repoHeaderInfoView?.repoNameLabel.text = self.repoInfoModel?.full_name
         self.repoHeaderInfoView?.descLabel.text = self.repoInfoModel?.desc_Repo
         self.repoHeaderInfoView?.issuesNumLabel.text = "\(self.repoInfoModel?.open_issues_count ?? 0)"
         self.repoHeaderInfoView?.watchersNumLabel.text = "\(self.repoInfoModel?.subscribers_count ?? 0)"
         self.repoHeaderInfoView?.starsNumLabel.text = "\(self.repoInfoModel?.stargazers_count ?? 0)"
         self.repoHeaderInfoView?.forksNumLabel.text = "\(self.repoInfoModel?.forks_count ?? 0)"
+        
+        if self.repoInfoModel?.sourceRepoFullName?.count ?? 0 != 0 {
+            let attributedStr = NSMutableAttributedString.init(string: self.repoInfoModel?.full_name ?? "", attributes: [NSAttributedString.Key.foregroundColor:ZLRGBValue_H(colorValue: 0x333333),NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCMedium, size: 16) ?? UIFont.systemFont(ofSize: 16)])
+            
+            let forkStr = NSMutableAttributedString.init(string: "\nforked from ", attributes: [NSAttributedString.Key.foregroundColor:ZLRGBValue_H(colorValue: 0x666666),NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCMedium, size: 13) ?? UIFont.systemFont(ofSize: 13)])
+            
+            attributedStr.append(forkStr)
+            
+            let sourceRepoStr = NSMutableAttributedString.init(string: self.repoInfoModel?.sourceRepoFullName ?? "", attributes: [NSAttributedString.Key.foregroundColor:ZLRGBValue_H(colorValue: 0x333333),NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCMedium, size: 13) ?? UIFont.systemFont(ofSize: 13)])
+            
+            weak var weakSelf = self
+            sourceRepoStr.yy_setTextHighlight(NSRange.init(location: 0, length: self.repoInfoModel?.sourceRepoFullName?.count ?? 0), color: ZLRGBValue_H(colorValue: 0x0666D6), backgroundColor: ZLRGBValue_H(colorValue: 0x0666D6), tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
+                let repoVC = ZLRepoInfoController.init(repoFullName: weakSelf?.repoInfoModel?.sourceRepoFullName ?? "")
+                weakSelf?.viewController?.navigationController?.pushViewController(repoVC, animated: true)
+            })
+            attributedStr.append(sourceRepoStr)
+            
+            self.repoHeaderInfoView?.repoNameLabel.attributedText = attributedStr
+        }
+        
              
         guard let date : NSDate = self.repoInfoModel?.updated_at as NSDate? else
         {

@@ -37,8 +37,8 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * 注销
  **/
-- (void) logout:(GithubResponse) block
-   serialNumber:(NSString *) serialNumber;
+- (void) logout:(GithubResponse __nullable) block
+   serialNumber:(NSString * __nullable) serialNumber;
 
 
 /**

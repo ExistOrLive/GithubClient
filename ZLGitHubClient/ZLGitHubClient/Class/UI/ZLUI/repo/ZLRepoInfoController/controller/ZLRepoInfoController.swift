@@ -12,7 +12,7 @@ class ZLRepoInfoController: ZLBaseViewController {
 
     private var repoInfoModel: ZLGithubRepositoryModel?
     
-    private var baseView : ZLRepoInfoView?
+    private weak var baseView : ZLRepoInfoView?
     
     required init() {
         self.repoInfoModel = nil;

@@ -103,7 +103,7 @@ extension ZLRepoInfoViewModel
         {
             let operationResultModel : ZLOperationResultModel = notification.params as! ZLOperationResultModel
             
-            if operationResultModel.serialNumber != operationResultModel.serialNumber
+            if operationResultModel.serialNumber != self.serialNumber
             {
                 return;
             }
