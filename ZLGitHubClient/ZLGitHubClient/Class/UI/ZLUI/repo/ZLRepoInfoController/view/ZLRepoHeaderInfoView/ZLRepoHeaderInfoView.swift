@@ -26,7 +26,7 @@ import UIKit
 class ZLRepoHeaderInfoView: ZLBaseView {
 
     @IBOutlet  weak var headImageView: UIImageView!
-    @IBOutlet  weak var repoNameLabel: UILabel!
+    @IBOutlet weak var repoNameLabel: YYLabel!
     @IBOutlet  weak var timeLabel: UILabel!
     @IBOutlet  weak var descLabel: UILabel!
     
@@ -52,6 +52,8 @@ class ZLRepoHeaderInfoView: ZLBaseView {
         
         self.headImageView.layer.cornerRadius = 30.0
         self.headImageView.layer.masksToBounds = true
+        
+        self.repoNameLabel.preferredMaxLayoutWidth = ZLScreenWidth - 60
         
         self.issuesButton.setTitle(ZLLocalizedString(string: "issues", comment: "问题"), for: .normal)
         self.starsButton.setTitle(ZLLocalizedString(string: "star", comment: "标星"), for: .normal)

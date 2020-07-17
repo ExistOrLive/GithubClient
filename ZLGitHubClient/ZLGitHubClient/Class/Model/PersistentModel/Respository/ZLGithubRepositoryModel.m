@@ -17,7 +17,8 @@
 {
     return @{@"id_Repo":@"id",
              @"desc_Repo":@"description",
-             @"priva":@"private"
+             @"priva":@"private",
+             @"sourceRepoFullName":@"source.full_name"
              };
 }
 
