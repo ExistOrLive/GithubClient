@@ -1,20 +1,21 @@
 //
-//  ZLRepoCodePreview3Controller.swift
+//  ZLRepoCodePreview4Controller.swift
 //  ZLGitHubClient
 //
-//  Created by 朱猛 on 2020/7/14.
+//  Created by 朱猛 on 2020/10/15.
 //  Copyright © 2020 ZM. All rights reserved.
 //
 
 import UIKit
+
+import UIKit
 import WebKit
 
-
 /**
-  *  利用 REST API 获取 md 内容 ； 代码使用markdown接口渲染
+ *  从 GitHub 网页代码部分显示
  */
 
-class ZLRepoCodePreview3Controller: ZLBaseViewController {
+class ZLRepoCodePreview4Controller: ZLBaseViewController {
     
     // model
     let contentModel : ZLGithubContentModel
@@ -43,12 +44,8 @@ class ZLRepoCodePreview3Controller: ZLBaseViewController {
         
         self.setUpUI()
         
-        let fileExtension = (URL.init(string: self.contentModel.name.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed) ?? "") as NSURL?)?.pathExtension ?? ""
-        if(fileExtension.lowercased() == "md" || fileExtension.lowercased() == "markdown") {
-            self.sendQueryContentRequest()
-        } else {
-            self.sendRenderMakrdownRequest()
-        }
+        self.sendQueryContentRequest()
+
     }
     
     func setUpUI(){
@@ -62,35 +59,21 @@ class ZLRepoCodePreview3Controller: ZLBaseViewController {
         
         self.zlNavigationBar.rightButton = button
         
-        
-        let wv = WKWebView(frame: CGRect.init())
-        
-        self.contentView.addSubview(wv)
-        wv.snp.makeConstraints({(make) in
-            make.edges.equalToSuperview()
-        })
-        wv.uiDelegate = self
-        wv.navigationDelegate = self
-        
-        self.webView = wv;
     }
     
     
     func switchToWebVC() {
+        self.switchToWebVc(urlString: self.contentModel.html_url)
+    }
+    
+    func switchToWebVc(urlString : String){
         let webContentVC = ZLWebContentController.init()
-        webContentVC.requestURL = URL.init(string: self.contentModel.html_url)
+        webContentVC.requestURL = URL.init(string: urlString)
         var viewControllers = self.navigationController?.viewControllers
         if viewControllers != nil {
             viewControllers![viewControllers!.count - 1] = webContentVC
             self.navigationController?.setViewControllers(viewControllers!, animated: false)
         }
-        
-    }
-    
-    func openURL(url : URL?){
-        let webContentVC = ZLWebContentController.init()
-        webContentVC.requestURL = url
-        self.navigationController?.pushViewController(webContentVC, animated: true)
     }
     
     @objc func onMoreButtonClick(button : UIButton) {
@@ -132,14 +115,14 @@ class ZLRepoCodePreview3Controller: ZLBaseViewController {
 
 
 
-extension ZLRepoCodePreview3Controller {
+extension ZLRepoCodePreview4Controller {
     
     func sendQueryContentRequest(){
         
         SVProgressHUD.show()
         weak var weakSelf = self
         
-        ZLRepoServiceModel.shared().getRepositoryFileHTMLInfo(withFullName: weakSelf!.repoFullName,path: weakSelf!.contentModel.path,branch:weakSelf!.branch,serialNumber: NSString.generateSerialNumber(),completeHandle: {(resultModel : ZLOperationResultModel) in
+        ZLRepoServiceModel.shared().getRepositoryFileContent(withHTMLURL: self.contentModel.html_url, branch: self.branch, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
             
             if resultModel.result == false
             {
@@ -147,15 +130,17 @@ extension ZLRepoCodePreview3Controller {
                 weakSelf?.switchToWebVC()
                 return
             }
-            
+
             guard let data : String = resultModel.data as? String else
             {
                 SVProgressHUD.dismiss()
                 weakSelf?.switchToWebVC()
                 return;
             }
+
+            let code = "<article class=\"markdown-body entry-content container-lg\" itemprop=\"text\">\(data)</article>"
             
-            weakSelf?.startLoadCode(codeHtml: data)
+            weakSelf?.startLoadCode(codeHtml: code)
         })
     }
     
@@ -220,7 +205,19 @@ extension ZLRepoCodePreview3Controller {
                     newHtmlStr.insert(codeHtml, at: range.location)
                 }
                 
-                self.webView?.loadHTMLString(newHtmlStr as String, baseURL: nil)
+                let controller = WKUserContentController()
+                let configuration = WKWebViewConfiguration()
+                configuration.userContentController = controller
+                
+                let wv = WKWebView(frame: CGRect.init(), configuration: configuration)
+                
+                self.contentView.addSubview(wv)
+                wv.snp.makeConstraints({(make) in
+                    make.edges.equalToSuperview()
+                })
+                wv.uiDelegate = self
+                wv.navigationDelegate = self
+                wv.loadHTMLString(newHtmlStr as String, baseURL: nil)
                 
             }catch{
                 ZLToastView.showMessage("load Code index html failed");
@@ -243,7 +240,7 @@ extension ZLRepoCodePreview3Controller {
 }
 
 
-extension ZLRepoCodePreview3Controller : WKUIDelegate,WKNavigationDelegate
+extension ZLRepoCodePreview4Controller : WKUIDelegate,WKNavigationDelegate
 {
     func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void)
     {
@@ -262,25 +259,6 @@ extension ZLRepoCodePreview3Controller : WKUIDelegate,WKNavigationDelegate
     
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        let urlStr = navigationAction.request.url?.absoluteString;
-        
-        if navigationAction.navigationType == .linkActivated {
-            decisionHandler(.cancel)
-
-            var url : URL? = nil
-            
-            if urlStr?.count ?? 0 > 0  {
-                url = URL.init(string: urlStr!)
-                if url?.host == nil {               // 如果是相对路径，组装baseurl
-                    url = (URL.init(string: self.contentModel.html_url) as NSURL?)?.deletingLastPathComponent
-                    url?.appendPathComponent(urlStr!)
-                }
-            }
-            
-            self.openURL(url: url)
-        } else {
-            decisionHandler(.allow)
-        }
     }
        
     
@@ -303,4 +281,3 @@ extension ZLRepoCodePreview3Controller : WKUIDelegate,WKNavigationDelegate
     
     
 }
-

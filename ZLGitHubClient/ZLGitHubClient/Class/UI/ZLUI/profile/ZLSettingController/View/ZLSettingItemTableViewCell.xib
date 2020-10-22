@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,7 +13,7 @@
             <rect key="frame" x="0.0" y="0.0" width="523" height="56"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="523" height="55.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="523" height="56"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pf0-7G-Jkb">
@@ -36,13 +34,23 @@
                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mc4-Ko-Lfs">
+                        <rect key="frame" x="26" y="55" width="497" height="1"/>
+                        <color key="backgroundColor" white="0.67000000000000004" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="L5J-sV-oct"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="Mc4-Ko-Lfs" secondAttribute="trailing" id="2fH-6C-AHI"/>
+                    <constraint firstItem="Mc4-Ko-Lfs" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="26" id="4K3-iF-aYX"/>
                     <constraint firstItem="nv9-0H-e9l" firstAttribute="leading" secondItem="SZv-WF-ZcS" secondAttribute="trailing" constant="10" id="7Jc-u3-iqy"/>
                     <constraint firstItem="nv9-0H-e9l" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="GoU-P6-ING"/>
                     <constraint firstItem="SZv-WF-ZcS" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="N9L-8f-hOZ"/>
                     <constraint firstItem="Pf0-7G-Jkb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="Xfb-dT-bcJ"/>
                     <constraint firstAttribute="trailing" secondItem="nv9-0H-e9l" secondAttribute="trailing" constant="20" id="q41-Xh-p8e"/>
+                    <constraint firstAttribute="bottom" secondItem="Mc4-Ko-Lfs" secondAttribute="bottom" id="wHn-YL-XsB"/>
                     <constraint firstItem="Pf0-7G-Jkb" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="zxb-c0-aCd"/>
                 </constraints>
             </tableViewCellContentView>

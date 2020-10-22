@@ -124,6 +124,16 @@
 "Unfollow Success" = "Unfollow Successfully";
 "Unfollow Fail" = "Unfollow Fail";
 
+"Block" = "Block";
+"Unblock" = "Unblock";
+"Block Success" = "Block Successfully";
+"Block Fail" = "Block Fail";
+"Unblock Success" = "Unblock Successfully";
+"Unblock Fail" = "Unblock Fail";
+"Blocked User" = "Blocked User";
+
+"My Events" = "My Events";
+
 // explore
 "Lang." = "Lang.";
 "DateRange" = "DateRange";
@@ -177,4 +187,4 @@
 "news" = "News";
 "explore" = "Explore";
 "profile" = "Profile";
-"Notification" = "Notification";
+"Notification" = "Notifications";

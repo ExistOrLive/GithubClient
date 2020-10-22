@@ -14,7 +14,7 @@ class ZLRepoInfoView: ZLBaseView {
     
     var headerView : ZLRepoHeaderInfoView?
     var itemView : ZLRepoItemInfoView?
-    var footerView : ZLRepoFooterInfoView?
+    var readMeView : ZLReadMeView?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -53,18 +53,18 @@ class ZLRepoInfoView: ZLBaseView {
         });
         self.itemView = itemView
         
-        guard let footView : ZLRepoFooterInfoView = Bundle.main.loadNibNamed("ZLRepoFooterInfoView", owner: nil, options: nil)?.first as? ZLRepoFooterInfoView else
+        guard let readMeView : ZLReadMeView = Bundle.main.loadNibNamed("ZLReadMeView", owner: nil, options: nil)?.first as? ZLReadMeView else
         {
             return
         }
         
-        self.scrollView?.addSubview(footView)
-        footView.snp.makeConstraints { (make) in
+        self.scrollView?.addSubview(readMeView)
+        readMeView.snp.makeConstraints { (make) in
             make.top.equalTo(self.itemView!.snp_bottom).offset(10)
             make.left.bottom.equalToSuperview()
             make.width.equalTo(self.snp_width)
         }
-        self.footerView = footView
+        self.readMeView = readMeView
     }
     
     required init?(coder: NSCoder) {

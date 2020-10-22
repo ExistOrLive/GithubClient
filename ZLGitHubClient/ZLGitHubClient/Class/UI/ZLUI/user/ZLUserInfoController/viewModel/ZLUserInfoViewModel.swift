@@ -49,19 +49,13 @@ class ZLUserInfoViewModel: ZLBaseViewModel {
         ZLUserServiceModel.shared().getUserInfo(withLoginName: model.loginName, userType: model.type, serialNumber: self.serialNumber)
         
         self.getFollowStatus()
+        self.getBlockStatus()
         
         SVProgressHUD.show()
         
     }
     
-    
-    
-    
-    @IBAction func onBackButtonClicked(_ sender: Any) {
-        self.viewController?.navigationController?.popViewController(animated: true)
-    }
-    
-    
+
     @IBAction func onRepoButtonClicked(_ sender: Any) {
         let vc = ZLUserAdditionInfoController.init()
         vc.userInfo = self.userInfoModel
@@ -118,6 +112,15 @@ class ZLUserInfoViewModel: ZLBaseViewModel {
             self.followUser()
         }
     }
+    
+    @IBAction func onBlockButtonClicked(_ sender: UIButton) {
+        if(sender.isSelected){
+            self.unBlockUser();
+        } else {
+            self.BlockUser();
+        }
+    }
+    
 }
 
 
@@ -227,5 +230,50 @@ extension ZLUserInfoViewModel
             }
         })
     }
+    
+    
+    func getBlockStatus() {
+        weak var weakSelf = self
+        ZLUserServiceModel.shared().getUserBlockStatus(withLoginName: self.userInfoModel!.loginName, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+            if(resultModel.result == true) {
+                guard let data : [String:Bool] = resultModel.data as? [String:Bool] else {
+                    return
+                }
+                weakSelf?.userInfoView?.blockButton.isSelected = data["isBlock"] ?? false
+            } else {
+                
+            }
+        })
+    }
+    
+    func BlockUser() {
+        weak var weakSelf = self
+        SVProgressHUD.show()
+        ZLUserServiceModel.shared().blockUser(withLoginName: self.userInfoModel!.loginName, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+            SVProgressHUD.dismiss()
+            if(resultModel.result == true){
+                weakSelf?.userInfoView?.blockButton.isSelected = true
+                ZLToastView.showMessage(ZLLocalizedString(string: "Block Success", comment: ""))
+            } else {
+                ZLToastView.showMessage(ZLLocalizedString(string: "Block Fail", comment: ""))
+            }
+        })
+        
+    }
+    
+    func unBlockUser() {
+        weak var weakSelf = self
+        SVProgressHUD.show()
+        ZLUserServiceModel.shared().unBlockUser(withLoginName: self.userInfoModel!.loginName, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+            SVProgressHUD.dismiss()
+            if(resultModel.result == true){
+                weakSelf?.userInfoView?.blockButton.isSelected = false
+                ZLToastView.showMessage(ZLLocalizedString(string: "Unblock Success", comment: ""))
+            } else {
+                ZLToastView.showMessage(ZLLocalizedString(string: "Unblock Fail", comment: ""))
+            }
+        })
+    }
+    
     
 }

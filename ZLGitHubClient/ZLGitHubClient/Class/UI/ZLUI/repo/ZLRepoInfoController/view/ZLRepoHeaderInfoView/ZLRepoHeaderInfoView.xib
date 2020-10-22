@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,19 +17,9 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="15a-27-hPs">
                     <rect key="frame" x="0.0" y="0.0" width="453" height="271"/>
                     <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default_avatar" translatesAutoresizingMaskIntoConstraints="NO" id="5Ns-sz-mkf">
-                            <rect key="frame" x="30" y="15" width="60" height="60"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="60" id="Dhd-jf-sF1"/>
-                                <constraint firstAttribute="width" constant="60" id="uQ5-PM-k79"/>
-                            </constraints>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="boolean" keyPath="circle" value="YES"/>
-                            </userDefinedRuntimeAttributes>
-                        </imageView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Ef-2k-niW" customClass="YYLabel">
                             <rect key="frame" x="30" y="90" width="393" height="23.5"/>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="text" value="RepoName"/>
                                 <userDefinedRuntimeAttribute type="number" keyPath="numberOfLines">
@@ -275,25 +266,42 @@
                                 <constraint firstAttribute="height" constant="25" id="32u-lU-Btc"/>
                             </constraints>
                         </stackView>
+                        <button opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HGW-P0-r5Q">
+                            <rect key="frame" x="30" y="15" width="60" height="60"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="60" id="ET9-N2-XAW"/>
+                                <constraint firstAttribute="width" constant="60" id="rVL-du-0Mw"/>
+                            </constraints>
+                            <state key="normal" image="default_avatar"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="circle" value="YES"/>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="30"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="onButtonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="aAi-e3-OIs"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
+                        <constraint firstItem="HGW-P0-r5Q" firstAttribute="leading" secondItem="15a-27-hPs" secondAttribute="leading" constant="30" id="2pg-c0-A0c"/>
                         <constraint firstAttribute="trailing" secondItem="djF-Bw-mnc" secondAttribute="trailing" constant="30" id="3b8-Lp-V3v"/>
                         <constraint firstItem="hta-JP-ru7" firstAttribute="leading" secondItem="15a-27-hPs" secondAttribute="leading" constant="10" id="7sj-EI-iDj"/>
+                        <constraint firstItem="HGW-P0-r5Q" firstAttribute="top" secondItem="15a-27-hPs" secondAttribute="top" constant="15" id="8pe-Zp-XhN"/>
                         <constraint firstAttribute="trailing" secondItem="2Ef-2k-niW" secondAttribute="trailing" constant="30" id="92c-3Y-tVb"/>
                         <constraint firstItem="djF-Bw-mnc" firstAttribute="top" secondItem="GvF-MU-KfX" secondAttribute="bottom" constant="25" id="ER2-pb-jjp"/>
                         <constraint firstItem="hta-JP-ru7" firstAttribute="top" secondItem="djF-Bw-mnc" secondAttribute="bottom" constant="25" id="G7Q-l9-G5e"/>
-                        <constraint firstItem="5Ns-sz-mkf" firstAttribute="top" secondItem="15a-27-hPs" secondAttribute="top" constant="15" id="GCo-xY-ixB"/>
                         <constraint firstItem="2Ef-2k-niW" firstAttribute="leading" secondItem="15a-27-hPs" secondAttribute="leading" constant="30" id="IXw-Mg-mTz"/>
                         <constraint firstItem="djF-Bw-mnc" firstAttribute="leading" secondItem="15a-27-hPs" secondAttribute="leading" constant="30" id="Nn8-VJ-hMB"/>
-                        <constraint firstItem="5Ns-sz-mkf" firstAttribute="leading" secondItem="15a-27-hPs" secondAttribute="leading" constant="30" id="ToW-gU-PvM"/>
                         <constraint firstAttribute="bottom" secondItem="hta-JP-ru7" secondAttribute="bottom" constant="10" id="Uhj-z1-t7B"/>
                         <constraint firstAttribute="trailing" secondItem="Xez-sK-vV9" secondAttribute="trailing" constant="15" id="ZOW-JC-uZ9"/>
+                        <constraint firstItem="Xez-sK-vV9" firstAttribute="centerY" secondItem="HGW-P0-r5Q" secondAttribute="centerY" id="d62-vy-rkZ"/>
                         <constraint firstAttribute="trailing" secondItem="hta-JP-ru7" secondAttribute="trailing" constant="10" id="kVp-Pu-pMH"/>
-                        <constraint firstItem="Xez-sK-vV9" firstAttribute="centerY" secondItem="5Ns-sz-mkf" secondAttribute="centerY" id="mWI-Sg-wt4"/>
-                        <constraint firstItem="2Ef-2k-niW" firstAttribute="top" secondItem="5Ns-sz-mkf" secondAttribute="bottom" constant="15" id="nmv-Wn-zAd"/>
                         <constraint firstItem="GvF-MU-KfX" firstAttribute="leading" secondItem="15a-27-hPs" secondAttribute="leading" constant="30" id="oHu-Jl-eqM"/>
                         <constraint firstItem="GvF-MU-KfX" firstAttribute="top" secondItem="2Ef-2k-niW" secondAttribute="bottom" constant="15" id="qC7-fL-lnE"/>
+                        <constraint firstItem="2Ef-2k-niW" firstAttribute="top" secondItem="HGW-P0-r5Q" secondAttribute="bottom" constant="15" id="wY0-Xw-m7Z"/>
                     </constraints>
                 </view>
             </subviews>
@@ -310,7 +318,7 @@
                 <outlet property="forkButton" destination="EsE-Am-tsE" id="g8p-Th-brT"/>
                 <outlet property="forksButton" destination="3tb-Z8-UmR" id="s7t-XW-t2O"/>
                 <outlet property="forksNumLabel" destination="N0I-Bq-pj2" id="fh4-hR-NkT"/>
-                <outlet property="headImageView" destination="5Ns-sz-mkf" id="YyK-30-Fxs"/>
+                <outlet property="headImageButton" destination="HGW-P0-r5Q" id="KIU-Od-47i"/>
                 <outlet property="issuesButton" destination="qPd-WJ-q4h" id="9gM-YM-h3N"/>
                 <outlet property="issuesNumLabel" destination="z5v-Mb-fHj" id="zUH-VZ-Niq"/>
                 <outlet property="repoNameLabel" destination="2Ef-2k-niW" id="8FG-c0-Fnt"/>
@@ -325,7 +333,15 @@
             <point key="canvasLocation" x="-197.82608695652175" y="-40.513392857142854"/>
         </view>
     </objects>
+    <designables>
+        <designable name="2Ef-2k-niW">
+            <size key="intrinsicContentSize" width="84" height="23"/>
+        </designable>
+    </designables>
     <resources>
         <image name="default_avatar" width="143" height="143"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

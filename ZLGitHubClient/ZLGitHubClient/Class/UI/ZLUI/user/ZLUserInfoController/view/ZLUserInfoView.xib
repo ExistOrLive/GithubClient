@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -165,38 +165,54 @@
                                 <constraint firstAttribute="height" constant="45" id="DzG-eB-iZn"/>
                             </constraints>
                         </stackView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sd9-Gy-euj">
-                            <rect key="frame" x="339" y="32.5" width="60" height="25"/>
-                            <color key="backgroundColor" red="0.94117647059999998" green="0.95686274510000002" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="25" id="Zml-Lz-Kuh"/>
-                                <constraint firstAttribute="width" constant="60" id="iO0-q8-B5a"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="11"/>
-                            <state key="normal" title="Follow">
-                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </state>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                    <color key="value" red="0.76862745099999996" green="0.7843137255" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                    <real key="value" value="0.5"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                    <real key="value" value="4"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="onFollowButtonClicked:" destination="-1" eventType="touchUpInside" id="lg7-2a-EL1"/>
-                            </connections>
-                        </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GvF-MU-KfX">
                             <rect key="frame" x="30" y="90" width="354" height="0.0"/>
                             <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="12"/>
                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="wBR-tl-ciI">
+                            <rect key="frame" x="339" y="15" width="60" height="60"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sd9-Gy-euj">
+                                    <rect key="frame" x="0.0" y="0.0" width="60" height="25"/>
+                                    <color key="backgroundColor" red="0.94117647059999998" green="0.95686274510000002" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="25" id="Zml-Lz-Kuh"/>
+                                        <constraint firstAttribute="width" constant="60" id="iO0-q8-B5a"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="11"/>
+                                    <state key="normal" title="Follow">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                            <color key="value" red="0.76862745099999996" green="0.7843137255" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                            <real key="value" value="0.5"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="4"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="onFollowButtonClicked:" destination="-1" eventType="touchUpInside" id="lg7-2a-EL1"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Khp-A9-F0R" customClass="ZLBaseButton">
+                                    <rect key="frame" x="0.0" y="35" width="60" height="25"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="25" id="Gu6-4R-Fkp"/>
+                                        <constraint firstAttribute="width" constant="60" id="guB-P7-0uX"/>
+                                    </constraints>
+                                    <state key="normal" title="block"/>
+                                    <connections>
+                                        <action selector="onBlockButtonClicked:" destination="-1" eventType="touchUpInside" id="1s9-tZ-lA5"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
@@ -205,14 +221,14 @@
                         <constraint firstAttribute="trailing" secondItem="NcN-SZ-3x3" secondAttribute="trailing" constant="30" id="Acl-hu-FGe"/>
                         <constraint firstItem="5Ns-sz-mkf" firstAttribute="top" secondItem="15a-27-hPs" secondAttribute="top" constant="15" id="GCo-xY-ixB"/>
                         <constraint firstAttribute="bottom" secondItem="hta-JP-ru7" secondAttribute="bottom" constant="15" id="HNM-i2-6Gc"/>
-                        <constraint firstAttribute="trailing" secondItem="Sd9-Gy-euj" secondAttribute="trailing" constant="15" id="M0l-Cj-7Z9"/>
                         <constraint firstAttribute="trailing" secondItem="GvF-MU-KfX" secondAttribute="trailing" constant="30" id="MW8-Fh-UtX"/>
-                        <constraint firstItem="Sd9-Gy-euj" firstAttribute="centerY" secondItem="5Ns-sz-mkf" secondAttribute="centerY" id="WCP-cf-Nlh"/>
+                        <constraint firstAttribute="trailing" secondItem="wBR-tl-ciI" secondAttribute="trailing" constant="15" id="QUC-uY-bCl"/>
                         <constraint firstItem="hta-JP-ru7" firstAttribute="top" secondItem="GvF-MU-KfX" secondAttribute="bottom" constant="20" id="g7C-Xi-zAk"/>
                         <constraint firstAttribute="trailing" secondItem="hta-JP-ru7" secondAttribute="trailing" constant="10" id="kVp-Pu-pMH"/>
                         <constraint firstItem="NcN-SZ-3x3" firstAttribute="top" secondItem="5Ns-sz-mkf" secondAttribute="bottom" constant="10" id="klS-dl-zku"/>
                         <constraint firstItem="NcN-SZ-3x3" firstAttribute="leading" secondItem="15a-27-hPs" secondAttribute="leading" constant="30" id="mdC-2z-gUe"/>
                         <constraint firstItem="GvF-MU-KfX" firstAttribute="top" secondItem="NcN-SZ-3x3" secondAttribute="bottom" constant="5" id="oqO-ti-uHn"/>
+                        <constraint firstItem="wBR-tl-ciI" firstAttribute="centerY" secondItem="5Ns-sz-mkf" secondAttribute="centerY" id="q8P-AA-htK"/>
                         <constraint firstItem="5Ns-sz-mkf" firstAttribute="centerX" secondItem="15a-27-hPs" secondAttribute="centerX" id="qZo-Jo-k5u"/>
                     </constraints>
                 </view>
@@ -228,7 +244,10 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gz2-dI-kd4">
-                                    <rect key="frame" x="364" y="25" width="0.0" height="0.0"/>
+                                    <rect key="frame" x="-36" y="25" width="400" height="0.0"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="400" id="ISW-tr-4yO"/>
+                                    </constraints>
                                     <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="13"/>
                                     <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
@@ -353,6 +372,7 @@
             <connections>
                 <outlet property="addrLabel" destination="inh-ja-OOD" id="tPd-vn-Ynq"/>
                 <outlet property="addressInfoLabel" destination="ssg-0R-N5A" id="Yz9-gb-DmA"/>
+                <outlet property="blockButton" destination="Khp-A9-F0R" id="hx7-QA-BBx"/>
                 <outlet property="blogInfoLabel" destination="2FO-b0-HLe" id="UNX-dd-Edi"/>
                 <outlet property="blogLabel" destination="F4q-vB-EiM" id="pGE-DA-HIT"/>
                 <outlet property="companyInfoLabel" destination="Gz2-dI-kd4" id="N18-Zd-2GA"/>

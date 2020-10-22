@@ -188,7 +188,7 @@
 {
     #ifdef DEBUG
            //默认
-           [[DoraemonManager shareInstance] install];
+         //  [[DoraemonManager shareInstance] install];
            // 或者使用传入位置,解决遮挡关键区域,减少频繁移动
            //[[DoraemonManager shareInstance] installWithStartingPosition:CGPointMake(66, 66)];
        #endif

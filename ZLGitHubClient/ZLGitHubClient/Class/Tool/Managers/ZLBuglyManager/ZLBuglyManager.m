@@ -9,8 +9,8 @@
 #import "ZLBuglyManager.h"
 #import <Bugly/Bugly.h>
 #import "ZLAppInfo.h"
+#import "ZLGithubAppKey.h"
 
-#define ZLBuyglyAppId @"ff723a2926"
  
 @interface ZLBuglyManager() <BuglyDelegate>
 

@@ -13,6 +13,7 @@ enum ZLSettingItemType: Int
     case language
     case logout
     case monitor
+    case blockedUser
 }
 
 class ZLSettingViewModel: ZLBaseViewModel {
@@ -151,9 +152,9 @@ extension ZLSettingViewModel
 extension ZLSettingViewModel: UITableViewDataSource,UITableViewDelegate
 {
     #if debug
-    static let settingItemTypes : [[ZLSettingItemType]] = [[.language,.monitor],[.logout]]
+    static let settingItemTypes : [[ZLSettingItemType]] = [[.language,.monitor,.blockedUser],[.logout]]
     #else
-    static let settingItemTypes : [[ZLSettingItemType]] = [[.language],[.logout]]
+    static let settingItemTypes : [[ZLSettingItemType]] = [[.language,.blockedUser],[.logout]]
     #endif
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -173,6 +174,7 @@ extension ZLSettingViewModel: UITableViewDataSource,UITableViewDelegate
         switch settingItemType
         {
         case .language:do{
+            
             guard let tableViewCell: ZLSettingItemTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLSettingItemTableViewCell", for: indexPath) as? ZLSettingItemTableViewCell else
             {
                 let cell = UITableViewCell.init()
@@ -191,6 +193,7 @@ extension ZLSettingViewModel: UITableViewDataSource,UITableViewDelegate
             @unknown default:do {
             }
             }
+            
             return tableViewCell
             
             }
@@ -216,9 +219,16 @@ extension ZLSettingViewModel: UITableViewDataSource,UITableViewDelegate
             tableViewCell.titleLabel.text = ZLLocalizedString(string: "logout", comment: "注销")
             return tableViewCell
             }
-          
+        case .blockedUser:do{
+            guard let tableViewCell: ZLSettingItemTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLSettingItemTableViewCell", for: indexPath) as? ZLSettingItemTableViewCell else{
+                let cell = UITableViewCell.init();
+                return cell
+            }
+            tableViewCell.itemTypeLabel.text = ZLLocalizedString(string: "Blocked User", comment: "屏蔽的用户")
+            return tableViewCell
         }
-        
+        }
+       
         
     }
     
@@ -243,6 +253,10 @@ extension ZLSettingViewModel: UITableViewDataSource,UITableViewDelegate
         case .monitor:do{
             self.onMonitor()
             }
+        case .blockedUser:do{
+            let vc = ZLBlockedUserController()
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        }
         }
         
     }

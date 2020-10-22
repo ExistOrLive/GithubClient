@@ -54,7 +54,6 @@ class ZLRepoInfoController: ZLBaseViewController {
     }
     
     override func onBackButtonClicked(_ button: UIButton!) {
-        self.baseView?.footerView?.stopLoad()
         super.onBackButtonClicked(button)
     }
     

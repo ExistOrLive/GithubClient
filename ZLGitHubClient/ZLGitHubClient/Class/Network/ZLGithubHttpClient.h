@@ -213,6 +213,8 @@ NS_ASSUME_NONNULL_BEGIN
 **/
 - (void) getRepositoryReadMeInfo:(GithubResponse) block
                         fullName:(NSString *) fullName
+                          branch:(NSString * __nullable)branch
+                          isHTML:(BOOL) isHTML
                     serialNumber:(NSString *) serialNumber;
 
 
@@ -490,6 +492,25 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) renderCodeToMarkdown:(GithubResponse) block
                           code:(NSString *) code
                  serialNumber:(NSString *) serialNumber;
+
+
+
+#pragma mark - Blocks
+
+- (void) getBlocks:(GithubResponse) block
+      serialNumber:(NSString *) serialNumber;
+
+- (void) getUserBlockStatus: (GithubResponse) block
+                  loginName: (NSString *) loginName
+               serialNumber:(NSString *) serialNumber;
+
+- (void) blockUser: (GithubResponse) block
+         loginName: (NSString *) loginName
+      serialNumber: (NSString *) serialNumber;
+
+- (void) unBlockUser: (GithubResponse) block
+           loginName: (NSString *) loginName
+        serialNumber: (NSString *) serialNumber;
 
 @end
 

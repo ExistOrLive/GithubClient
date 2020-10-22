@@ -16,6 +16,7 @@ import UIKit
     case watchAction = 5
     case starAction = 6
     case forkAction = 7
+    case imageAction = 8
 }
 
 @objc protocol ZLRepoHeaderInfoViewDelegate: NSObjectProtocol
@@ -25,7 +26,8 @@ import UIKit
 
 class ZLRepoHeaderInfoView: ZLBaseView {
 
-    @IBOutlet  weak var headImageView: UIImageView!
+
+    @IBOutlet weak var headImageButton: UIButton!
     @IBOutlet weak var repoNameLabel: YYLabel!
     @IBOutlet  weak var timeLabel: UILabel!
     @IBOutlet  weak var descLabel: UILabel!
@@ -50,9 +52,7 @@ class ZLRepoHeaderInfoView: ZLBaseView {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        self.headImageView.layer.cornerRadius = 30.0
-        self.headImageView.layer.masksToBounds = true
-        
+    
         self.repoNameLabel.preferredMaxLayoutWidth = ZLScreenWidth - 60
         
         self.issuesButton.setTitle(ZLLocalizedString(string: "issues", comment: "问题"), for: .normal)

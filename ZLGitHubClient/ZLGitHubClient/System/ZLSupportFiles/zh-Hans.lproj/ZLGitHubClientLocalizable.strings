@@ -128,6 +128,16 @@
 "Unfollow Success" = "取消关注成功";
 "Unfollow Fail" = "取消关注失败";
 
+"Block" = "屏蔽";
+"Unblock" = "取消屏蔽";
+"Block Success" = "屏蔽成功";
+"Block Fail" = "屏蔽失败";
+"Unblock Success" = "取消屏蔽成功";
+"Unblock Fail" = "取消屏蔽失败";
+"Blocked User" = "屏蔽的用户";
+
+"My Events" = "我的动态";
+
 // explore
 "DateRange" = "时间范围";
 "Today" = "今天";

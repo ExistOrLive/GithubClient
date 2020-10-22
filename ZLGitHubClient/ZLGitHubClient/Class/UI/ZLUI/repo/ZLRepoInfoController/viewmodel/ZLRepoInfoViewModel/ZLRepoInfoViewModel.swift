@@ -26,7 +26,6 @@ class ZLRepoInfoViewModel: ZLBaseViewModel {
     // subViewModel
     private var repoHeaderInfoViewModel : ZLRepoHeaderInfoViewModel?
     private var repoItemInfoViewModel : ZLRepoItemInfoViewModel?
-    private var repoFooterInfoViewModel: ZLRepoFooterInfoViewModel?
     
     // 当前repo请求流水号
     private var serialNumber: String?
@@ -52,7 +51,9 @@ class ZLRepoInfoViewModel: ZLBaseViewModel {
         }
         self.repoInfoModel = repoInfoModel
         
-        self.setViewDataForRepoInfoView() 
+        self.setViewDataForRepoInfoView()
+        
+        self.repoInfoView!.readMeView?.startLoad(fullName: self.repoInfoModel!.full_name, branch: nil)
         
         ZLRepoServiceModel.shared().registerObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLGetSpecifiedRepoInfoResult_Notification)
         
@@ -82,14 +83,7 @@ extension ZLRepoInfoViewModel
         }
         self.repoItemInfoViewModel?.bindModel(self.repoInfoModel,andView:self.repoInfoView!.itemView!)
         
-        if self.repoFooterInfoViewModel == nil{
-            self.repoFooterInfoViewModel = ZLRepoFooterInfoViewModel()
-            self.addSubViewModel(self.repoFooterInfoViewModel!)
-        }
-        self.repoFooterInfoViewModel?.bindModel(self.repoInfoModel,andView:self.repoInfoView!.footerView!)
-        
-        
-        
+        self.repoInfoView?.readMeView?.delegate = self
     }
 }
 
@@ -135,4 +129,16 @@ extension ZLRepoInfoViewModel
         
       
     }
+}
+
+extension ZLRepoInfoViewModel : ZLReadMeViewDelegate{
+    
+    func onLinkClicked(url : URL?) -> Void{
+        if url != nil {
+            let vc = ZLWebContentController.init()
+            vc.requestURL = url
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
 }

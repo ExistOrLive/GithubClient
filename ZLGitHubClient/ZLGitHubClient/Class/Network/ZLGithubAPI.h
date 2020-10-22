@@ -9,10 +9,17 @@
 #ifndef ZLGithubAPI_h
 #define ZLGithubAPI_h
 
-#define MyClientID          @"fbd34c5a34be72f66c35"
-#define MyClientSecret      @"02e5eb8a2805f6492d3d1ff7c5a618d73e1edb35"
 #define OAuthState          @"31415"
 #define OAuthScope          @"user,repo,gist"
+
+
+#pragma mark - media type
+
+#define MediaTypeJson @"application/vnd.github.v3+json"
+#define MediaTypeTextJson @"application/vnd.github.v3.text+json"
+#define MediaTypeHTMLJson @"application/vnd.github.v3.html+json"            // html
+#define MediaTypeFullJson @"application/vnd.github.v3.full+json"
+#define MediaTypeRawJson @"application/vnd.github.v3.raw+json"              // 元二进制数据
 
 #pragma mark - OAuth 相关接口
 
@@ -24,6 +31,7 @@
 #define OAuthHomePageURL        @"https://github.com/organizations/MengAndJie/Home"
 #define OAuthCallBackURL        @"https://github.com/organizations/MengAndJie/CallBack"
 #define OAuthAccessTokenURL     @"https://github.com/login/oauth/access_token"
+
 
 #pragma mark - github业务接口
 
@@ -143,7 +151,17 @@
 
 #define markdownURL @"/markdown"
 
+#pragma mark block
+
+#define blockedUsersURL        @"/user/blocks"                        // 屏蔽的用户列表
+#define blockUserURL        @"/user/blocks/%@"                     // PUT 屏蔽某用户/ get 检查是否屏蔽某用户 取消屏蔽
+
+
 static const NSNotificationName ZLGithubTokenInvalid_Notification = @"ZLGithubTokenInvalid_Notification";
+
+
+
+
 
 
 

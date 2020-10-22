@@ -58,5 +58,17 @@ class ZLReleaseEventTableViewCellData: ZLEventTableViewCellData {
         return UITableView.automaticDimension
     }
     
+    override func onCellSingleTap() {
+        
+        guard let payload : ZLReleaseEventPayloadModel = self.eventModel.payload as? ZLReleaseEventPayloadModel else {
+            return
+        }
+        
+        let vc = ZLWebContentController.init()
+        vc.requestURL = URL.init(string: payload.releaseModel.html_url)
+        vc.hidesBottomBarWhenPushed = true
+        self.viewController?.navigationController?.pushViewController(vc, animated: true)
+    }
+    
 
 }

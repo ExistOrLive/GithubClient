@@ -64,7 +64,4 @@ class ZLGollumEventTableViewCellData: ZLEventTableViewCellData {
     override func getCellHeight() -> CGFloat {
         return UITableView.automaticDimension
     }
-    
-    
-
 }

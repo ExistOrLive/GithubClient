@@ -46,6 +46,10 @@
 	<string>摄像头权限</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>麦克风权限</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string></string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>相册权限</string>
 	<key>UIBackgroundModes</key>
 	<array/>
 	<key>UILaunchStoryboardName</key>
