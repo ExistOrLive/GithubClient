@@ -129,3 +129,5 @@ ZLGitHubClient/Pods
 
 .idea
 
+# ignore ZLGithubAppKey.h
+ZLGitHubClient/ZLGitHubClient/System/ZLSupportFiles/ZLGithubAppKey.h
