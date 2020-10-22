@@ -9,9 +9,9 @@
 #ifndef ZLGithubAppKey_h
 #define ZLGithubAppKey_h
 
-#define MyClientID          @"fbd34c5a34be72f66c35"
-#define MyClientSecret      @"02e5eb8a2805f6492d3d1ff7c5a618d73e1edb35"
+#define MyClientID          @""
+#define MyClientSecret      @""
 
-#define ZLBuyglyAppId       @"ff723a2926"
+#define ZLBuyglyAppId       @""
 
 #endif /* ZLGithubAppKey_h */
