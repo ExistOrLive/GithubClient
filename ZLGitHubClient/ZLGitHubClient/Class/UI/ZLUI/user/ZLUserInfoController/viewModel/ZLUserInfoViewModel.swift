@@ -112,6 +112,18 @@ class ZLUserInfoViewModel: ZLBaseViewModel {
     }
     
     
+    @IBAction func onEmailButtonClicked(_ sender: Any) {
+        if self.userInfoModel?.email.count == 0 {
+            return
+        }
+        
+        let url : URL? = URL.init(string: "mailto:\(self.userInfoModel!.email)")
+        if url != nil  {
+            UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+        }
+    }
+    
+    
     @IBAction func onFollowButtonClicked(_ sender: UIButton) {
         if(sender.isSelected){
             self.unfollowUser()

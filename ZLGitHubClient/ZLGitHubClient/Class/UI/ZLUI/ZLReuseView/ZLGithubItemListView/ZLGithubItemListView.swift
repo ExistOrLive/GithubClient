@@ -102,6 +102,7 @@ import UIKit
         view.addSubview(label)
         label.snp.makeConstraints({(make) in
             make.top.equalTo(imageView.snp.bottom).offset(10)
+            make.centerX.equalToSuperview()
             make.bottom.equalToSuperview()
         })
         

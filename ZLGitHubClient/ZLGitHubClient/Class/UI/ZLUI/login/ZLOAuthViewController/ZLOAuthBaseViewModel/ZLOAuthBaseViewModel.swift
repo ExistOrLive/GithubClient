@@ -18,7 +18,7 @@ class ZLOAuthBaseViewModel: ZLBaseViewModel {
     var loginProcess :ZLLoginProcessModel?
     
     deinit {
-        self.clearCookiesForWkWebView()
+      //  self.clearCookiesForWkWebView()
     }
     
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
@@ -27,6 +27,12 @@ class ZLOAuthBaseViewModel: ZLBaseViewModel {
         {
             return;
         }
+        
+        guard let vc : ZLBaseViewController = self.viewController as? ZLBaseViewController else {
+            return;
+        }
+        vc.zlNavigationBar.backButton.removeTarget(vc, action: #selector(ZLBaseViewController.onBackButtonClicked(_:)), for: .touchUpInside)
+        vc.zlNavigationBar.backButton.addTarget(self, action: #selector(ZLOAuthBaseViewModel.onBackButtonClick(button:)), for: .touchUpInside)
         
         self.baseView = targetView as? ZLWebContentView
         self.baseView?.delegate = self;
@@ -78,17 +84,12 @@ extension ZLOAuthBaseViewModel: ZLWebContentViewDelegate
     
 
     
-    func onBackButtonClick(button: UIButton)
+    @objc func onBackButtonClick(button: UIButton)
     {
         ZLLoginServiceModel.shared().stopLogin(self.loginProcess?.serialNumber ?? "")
         self.baseView?.webView?.stopLoading();
         self.viewController?.dismiss(animated: true, completion: nil);
     }
-    
-    func onAdditionButtonClick(button: UIButton) {
-         
-    }
-    
     
     func clearCookiesForWkWebView()
     {

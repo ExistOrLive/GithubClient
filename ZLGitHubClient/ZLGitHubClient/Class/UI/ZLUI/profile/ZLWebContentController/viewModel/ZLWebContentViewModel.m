@@ -22,7 +22,7 @@
 
 - (void) dealloc
 {
-    [self clearCookiesForWkWebView];
+    //[self clearCookiesForWkWebView];
 }
 
 - (void) bindModel:(id _Nullable) targetModel andView:(UIView *) targetView
@@ -32,6 +32,13 @@
         ZLLog_Warning(@"targetView is not ZLWebContentView,so return");
         return;
     }
+    
+    UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [rightButton setImage:[UIImage imageNamed:@"run_more"] forState:UIControlStateNormal];
+    [rightButton setFrame:CGRectMake(0, 0, 60, 60)];
+    [rightButton addTarget:self action:@selector(onAdditionButtonClickWithButton:) forControlEvents:UIControlEventTouchUpInside];
+    ZLBaseViewController *vc = (ZLBaseViewController *)self.viewController;
+    vc.zlNavigationBar.rightButton = rightButton;
     
     self.webContentView = (ZLWebContentView *)targetView;
     self.webContentView.delegate = self;
@@ -61,12 +68,6 @@
 }
 
 
-#pragma mark - ZLWebContentViewDelegate
-
-- (void) onBackButtonClickWithButton:(UIButton *)button
-{
-     [self.viewController.navigationController popViewControllerAnimated:true];
-}
 
 - (void) onAdditionButtonClickWithButton:(UIButton *) button {
     
@@ -83,6 +84,8 @@
     [self.viewController presentViewController:activityVC animated:YES completion:nil];
     
 }
+
+#pragma mark - ZLWebContentViewDelegate
 
 - (void)webView:(WKWebView * _Nonnull)webView navigationAction:(WKNavigationAction * _Nonnull)navigationAction decisionHandler:(void (^ _Nonnull)(WKNavigationActionPolicy))decisionHandler {
     decisionHandler(WKNavigationActionPolicyAllow);
@@ -104,6 +107,15 @@
     }
     
 }
+
+- (void) onTitleChangeWithTitle:(NSString *) title{
+    if(title){
+        self.viewController.title = title;
+    }
+}
+
+
+#pragma mark - 清除cookie
 
 -(void) clearCookiesForWkWebView
 {

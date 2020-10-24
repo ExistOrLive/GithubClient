@@ -8,9 +8,21 @@
 
 #import "ZLBaseNavigationBar.h"
 
-
+static CGFloat ZLBaseNavigationBarStatusBarHeight = 0;
 
 @implementation ZLBaseNavigationBar
+
++ (void) initialize{
+    [super initialize];
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        ZLBaseNavigationBarStatusBarHeight = ZLStatusBarHeight;            // 一般默认竖屏，记录竖屏时的ZLStatusBarHeight
+    });
+    
+}
+
+
 
 - (instancetype) initWithCoder:(NSCoder *)coder
 {
@@ -33,7 +45,7 @@
 
 - (instancetype) init
 {
-    return [self initWithFrame:CGRectMake(0, 0, ZLScreenWidth, ZLStatusBarHeight + ZLBaseNavigationBarHeight)];
+    return [self initWithFrame:CGRectMake(0, 0, ZLScreenWidth, ZLBaseNavigationBarHeight)];
 }
 
 
@@ -45,20 +57,22 @@
 }
 
 
-- (void) updateConstraints
-{
+- (void) updateConstraints{
+    
     [super updateConstraints];
     
-    if(self.hidden)
-    {
+    if(self.hidden){
         [self mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(@0);
         }];
     }
-    else
-    {
+    else{
         [self mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.height.equalTo(@(ZLStatusBarHeight + ZLBaseNavigationBarHeight));
+            if(self.isLandScape) {
+                make.height.equalTo(@(ZLBaseNavigationBarHeight));
+            } else {
+                make.height.equalTo(@(ZLBaseNavigationBarStatusBarHeight+ZLBaseNavigationBarHeight));
+            }
         }];
     }
 }
@@ -70,6 +84,14 @@
     [self setBackgroundColor:[UIColor whiteColor]];
     self.layer.shadowRadius = 0.3;
     
+    // 确定横竖屏
+    if(ZLScreenWidth > ZLScreenHeight) {
+        self.isLandScape = YES;
+    } else {
+        self.isLandScape = NO;
+    }
+    
+    
     // 创建返回按钮
     [self setUpBackButton];
     
@@ -78,7 +100,11 @@
 
     // 约束高度
     [self mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@(ZLStatusBarHeight + ZLBaseNavigationBarHeight));
+        if(self.isLandScape) {
+            make.height.equalTo(@(ZLBaseNavigationBarHeight));
+        } else {
+            make.height.equalTo(@(ZLBaseNavigationBarStatusBarHeight+ZLBaseNavigationBarHeight));
+        }
     }];
 }
 

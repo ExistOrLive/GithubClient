@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,64 +14,14 @@
             <rect key="frame" x="0.0" y="0.0" width="471" height="745"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jwj-ck-4SH">
-                    <rect key="frame" x="0.0" y="0.0" width="471" height="60"/>
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="webview" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A9v-qA-5mc">
-                            <rect key="frame" x="135.5" y="0.0" width="200" height="60"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="200" id="L8y-JM-WPA"/>
-                                <constraint firstAttribute="height" constant="60" id="SBd-Bl-j5H"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" name="PingFangSC-Semibold" family="PingFang SC" pointSize="18"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ngq-gP-BDb">
-                            <rect key="frame" x="10" y="0.0" width="30" height="60"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="60" id="2Yh-Xg-lZq"/>
-                                <constraint firstAttribute="width" constant="30" id="EDN-tJ-tWa"/>
-                            </constraints>
-                            <state key="normal" image="back_Common"/>
-                            <connections>
-                                <action selector="onBackButtonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="0jt-hU-bgh"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kLm-nd-RMF">
-                            <rect key="frame" x="406" y="0.0" width="45" height="60"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="45" id="33y-yx-DSk"/>
-                                <constraint firstAttribute="height" constant="60" id="eb2-fh-MGX"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" name="PingFangSC-Semibold" family="PingFang SC" pointSize="25"/>
-                            <state key="normal" image="run_more">
-                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </state>
-                            <connections>
-                                <action selector="onAdditionButtonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="Nb9-7e-tDl"/>
-                            </connections>
-                        </button>
-                    </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <constraints>
-                        <constraint firstAttribute="bottom" secondItem="A9v-qA-5mc" secondAttribute="bottom" id="1hB-Ei-aEd"/>
-                        <constraint firstItem="ngq-gP-BDb" firstAttribute="centerY" secondItem="A9v-qA-5mc" secondAttribute="centerY" id="2cR-Qh-wo0"/>
-                        <constraint firstItem="ngq-gP-BDb" firstAttribute="leading" secondItem="Jwj-ck-4SH" secondAttribute="leading" constant="10" id="DIb-v6-bh6"/>
-                        <constraint firstItem="A9v-qA-5mc" firstAttribute="centerX" secondItem="Jwj-ck-4SH" secondAttribute="centerX" id="NbU-OP-xLn"/>
-                        <constraint firstAttribute="trailing" secondItem="kLm-nd-RMF" secondAttribute="trailing" constant="20" id="Ov8-EI-H5v"/>
-                        <constraint firstItem="kLm-nd-RMF" firstAttribute="centerY" secondItem="A9v-qA-5mc" secondAttribute="centerY" id="etL-89-84Q"/>
-                        <constraint firstAttribute="height" constant="60" id="jcX-45-l2c"/>
-                    </constraints>
-                </view>
                 <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OIy-KX-gba">
-                    <rect key="frame" x="0.0" y="60" width="471" height="2"/>
+                    <rect key="frame" x="0.0" y="0.0" width="471" height="2"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="2" id="gR7-YN-ekD"/>
                     </constraints>
                 </progressView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aKa-5W-o6U">
-                    <rect key="frame" x="0.0" y="62" width="471" height="599"/>
+                    <rect key="frame" x="0.0" y="2" width="471" height="659"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <toolbar autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rXi-jp-Avz">
@@ -79,38 +29,28 @@
                     <items/>
                 </toolbar>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="x6y-YZ-Duo"/>
             <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="Jwj-ck-4SH" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="2kw-tG-R2a"/>
                 <constraint firstItem="rXi-jp-Avz" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="5tD-Sb-tiL"/>
                 <constraint firstItem="aKa-5W-o6U" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="AE9-6D-FWp"/>
-                <constraint firstItem="OIy-KX-gba" firstAttribute="top" secondItem="Jwj-ck-4SH" secondAttribute="bottom" id="Iux-eU-DLe"/>
                 <constraint firstItem="rXi-jp-Avz" firstAttribute="top" secondItem="aKa-5W-o6U" secondAttribute="bottom" id="Mh7-SA-wyz"/>
                 <constraint firstAttribute="trailing" secondItem="OIy-KX-gba" secondAttribute="trailing" id="NLT-qP-uza"/>
-                <constraint firstAttribute="trailing" secondItem="Jwj-ck-4SH" secondAttribute="trailing" id="PvP-EE-2fo"/>
                 <constraint firstItem="aKa-5W-o6U" firstAttribute="top" secondItem="OIy-KX-gba" secondAttribute="bottom" id="Qjf-iM-OLF"/>
                 <constraint firstAttribute="trailing" secondItem="rXi-jp-Avz" secondAttribute="trailing" id="S2g-vf-3Kb"/>
+                <constraint firstItem="OIy-KX-gba" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Z2u-9c-NWq"/>
                 <constraint firstItem="rXi-jp-Avz" firstAttribute="top" secondItem="x6y-YZ-Duo" secondAttribute="bottom" constant="-50" id="aAo-oL-dN4"/>
-                <constraint firstItem="Jwj-ck-4SH" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="fz5-0g-fu4"/>
                 <constraint firstItem="rXi-jp-Avz" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" id="kLC-IB-zqW"/>
                 <constraint firstItem="OIy-KX-gba" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="nhe-Dl-3HG"/>
                 <constraint firstAttribute="trailing" secondItem="aKa-5W-o6U" secondAttribute="trailing" id="sPY-Fy-nYv"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="x6y-YZ-Duo"/>
             <connections>
-                <outlet property="additionButton" destination="kLm-nd-RMF" id="1HG-aZ-lJP"/>
                 <outlet property="containerView" destination="aKa-5W-o6U" id="Z3G-d1-Z2L"/>
                 <outlet property="progressView" destination="OIy-KX-gba" id="bqR-71-UwU"/>
-                <outlet property="titleLabel" destination="A9v-qA-5mc" id="1ww-wq-TNl"/>
                 <outlet property="toolBar" destination="rXi-jp-Avz" id="xQ3-bc-cy0"/>
-                <outlet property="topViewHeightConstraint" destination="jcX-45-l2c" id="eyM-cU-aWD"/>
             </connections>
             <point key="canvasLocation" x="92.028985507246389" y="-31.138392857142854"/>
         </view>
     </objects>
-    <resources>
-        <image name="back_Common" width="11.5" height="18.5"/>
-        <image name="run_more" width="30" height="30"/>
-    </resources>
 </document>

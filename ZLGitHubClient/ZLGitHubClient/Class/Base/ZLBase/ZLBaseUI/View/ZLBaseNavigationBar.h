@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZLBaseNavigationBar : UIView
 
+@property(nonatomic, assign) BOOL isLandScape;       // 是否横屏
+
 @property(nonatomic, readonly) UIButton * backButton;
 
 @property(nonatomic, readonly) UILabel * titleLabel;

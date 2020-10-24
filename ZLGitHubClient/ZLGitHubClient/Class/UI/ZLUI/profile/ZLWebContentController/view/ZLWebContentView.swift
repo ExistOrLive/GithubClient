@@ -18,15 +18,14 @@ enum ZLWebContentProgress : Float {
 
 @objc protocol ZLWebContentViewDelegate : NSObjectProtocol
 {
-    @objc func onBackButtonClick(button: UIButton)
-    
-    @objc func onAdditionButtonClick(button: UIButton)
-    
     @objc func webView(_ webView: WKWebView, navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void)
     
     @objc func webView(_ webView: WKWebView, navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void)
     
     @objc optional func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!);
+    
+    
+    @objc optional func onTitleChange(title: String?) -> Void;
 }
 
 extension ZLWebContentViewDelegate
@@ -43,12 +42,6 @@ extension ZLWebContentViewDelegate
 }
 
 class ZLWebContentView: ZLBaseView {
-
-    @objc @IBOutlet private weak var topViewHeightConstraint: NSLayoutConstraint!
-    
-    @objc @IBOutlet private weak var titleLabel: UILabel!
-    
-    @IBOutlet weak var additionButton: UIButton!
     
     @objc @IBOutlet private weak var progressView: UIProgressView!
     
@@ -70,12 +63,6 @@ class ZLWebContentView: ZLBaseView {
     private(set) var isLoading : Bool = false               // 是否在加载请求
     
     @objc weak var delegate : ZLWebContentViewDelegate?
-    @objc var title : String?                               // 预置title
-    {
-        didSet{
-            self.titleLabel.text = self.title as String?
-        }
-    }
     
     
     deinit {
@@ -87,9 +74,7 @@ class ZLWebContentView: ZLBaseView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        self.topViewHeightConstraint.constant = self.topViewHeightConstraint.constant + ZLStatusBarHeight
-        
+                
         let webViewConfig = WKWebViewConfiguration.init()
         let webView : WKWebView = WKWebView.init(frame: self.containerView.bounds,configuration: webViewConfig)
         webView.autoresizingMask = UIView.AutoresizingMask.init(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
@@ -139,38 +124,15 @@ class ZLWebContentView: ZLBaseView {
         self.toolBar.setItems(barButtonItems, animated: false)
     }
     
-    
-    
-    @IBAction func onBackButtonClicked(_ sender: Any) {
-        
-        if self.delegate != nil && self.delegate!.responds(to: #selector(ZLWebContentViewDelegate.onBackButtonClick(button:)))
-        {
-            self.delegate?.onBackButtonClick(button: sender as! UIButton)
-        }
-        
-    }
-    
-    @IBAction func onAdditionButtonClicked(_ sender: Any) {
-        if self.delegate?.responds(to: #selector(ZLWebContentViewDelegate.onAdditionButtonClick(button:))) ?? false {
-            self.delegate?.onAdditionButtonClick(button: sender as! UIButton)
-        }
-        
-    }
-    
-    
-    
-    
+
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
         if("title" == keyPath)
         {
-            if self.title != nil
-            {
-                return
-            }
-            
             let newTitle = change?[NSKeyValueChangeKey.newKey] as? String
-            self.titleLabel.text = newTitle
+            if self.delegate?.responds(to: #selector(ZLWebContentViewDelegate.onTitleChange(title:))) ?? false {
+                self.delegate?.onTitleChange?(title: newTitle)
+            }
         }
         else if "canGoBack" == keyPath
         {

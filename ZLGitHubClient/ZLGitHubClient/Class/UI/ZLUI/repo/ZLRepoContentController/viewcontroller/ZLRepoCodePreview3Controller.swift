@@ -60,8 +60,8 @@ class ZLRepoCodePreview3Controller: ZLBaseViewController {
         appdelegate.allowRotation = true
     }
 
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
 
         guard let appdelegate : AppDelegate = UIApplication.shared.delegate as? AppDelegate else{
             return
@@ -309,6 +309,11 @@ extension ZLRepoCodePreview3Controller : WKUIDelegate,WKNavigationDelegate
                     url?.appendPathComponent(urlStr!)
                 }
             }
+            
+            guard let appdelegate : AppDelegate = UIApplication.shared.delegate as? AppDelegate else{
+                return
+            }
+            appdelegate.allowRotation = false
             
             self.openURL(url: url)
         } else {
