@@ -37,21 +37,26 @@
     self.webContentView.delegate = self;
     
     self.url = (NSURL *) targetModel;
-    
+        
     if(!self.url || !self.url.resourceSpecifier){
         ZLLog_Warning(@"targetModel is not a valid URL,so return");
         [ZLToastView showMessage:@"Invalid URL"];
         return;
     }
     
-    if(!self.url.scheme){
+    if(!self.url.scheme || (![@"https" isEqualToString:self.url.scheme] && ![@"http" isEqualToString:self.url.scheme] )){
+        if([[UIApplication sharedApplication] canOpenURL:self.url]){
+            [[UIApplication sharedApplication] openURL:self.url options:@{} completionHandler:nil];
+            return;
+        }
+    }
+    
+    if(!self.url.scheme ){
         NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://%@",self.url.resourceSpecifier]];
         self.url = url;
     }
     
     NSMutableURLRequest * request =[NSMutableURLRequest requestWithURL:self.url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60];
-    NSString *token = [[ZLSharedDataManager sharedInstance] githubAccessToken];
-    [request setValue:[NSString stringWithFormat:@"token %@",token] forHTTPHeaderField:@"Authorization"];
     [self.webContentView.webView loadRequest:request];
 }
 
@@ -88,6 +93,17 @@
     decisionHandler(WKNavigationResponsePolicyAllow);
 }
 
+
+- (void)webView:(WKWebView *)webView didReceiveServerRedirectForProvisionalNavigation:(null_unspecified WKNavigation *)navigation{
+    NSURL *url = webView.URL;
+    if(!url.scheme || (![@"https" isEqualToString:url.scheme] && ![@"http" isEqualToString:url.scheme] )){
+        if([[UIApplication sharedApplication] canOpenURL:url]){
+            [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+            return;
+        }
+    }
+    
+}
 
 -(void) clearCookiesForWkWebView
 {

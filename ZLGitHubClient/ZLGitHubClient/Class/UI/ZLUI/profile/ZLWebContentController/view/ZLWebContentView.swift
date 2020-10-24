@@ -25,6 +25,8 @@ enum ZLWebContentProgress : Float {
     @objc func webView(_ webView: WKWebView, navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void)
     
     @objc func webView(_ webView: WKWebView, navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void)
+    
+    @objc optional func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!);
 }
 
 extension ZLWebContentViewDelegate
@@ -338,6 +340,10 @@ extension ZLWebContentView : WKUIDelegate,WKNavigationDelegate
     
     func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
         ZLLog_Debug("ZLWebContentView: webView:didReceiveServerRedirectForProvisionalNavigation navigation[\(String(describing: navigation))]")
+        if self.delegate != nil && self.delegate!.responds(to: #selector(ZLWebContentViewDelegate.webView(_:didReceiveServerRedirectForProvisionalNavigation:)))
+        {
+            self.delegate?.webView?(webView, didReceiveServerRedirectForProvisionalNavigation: navigation)
+        }
     }
     
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {

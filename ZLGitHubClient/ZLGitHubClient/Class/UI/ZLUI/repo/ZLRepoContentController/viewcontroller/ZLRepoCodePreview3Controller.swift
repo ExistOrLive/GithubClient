@@ -51,6 +51,39 @@ class ZLRepoCodePreview3Controller: ZLBaseViewController {
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        guard let appdelegate : AppDelegate = UIApplication.shared.delegate as? AppDelegate else{
+            return
+        }
+        appdelegate.allowRotation = true
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        guard let appdelegate : AppDelegate = UIApplication.shared.delegate as? AppDelegate else{
+            return
+        }
+        appdelegate.allowRotation = false
+    }
+
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        guard let navigationVC : ZLBaseNavigationController = self.navigationController as? ZLBaseNavigationController else {
+            return
+        }
+        if size.height > size.width {
+            // 横屏变竖屏
+            self.setZLNavigationBarHidden(false)
+            navigationVC.forbidGestureBack = false
+        } else {
+            self.setZLNavigationBarHidden(true)
+            navigationVC.forbidGestureBack = true
+        }
+    }
+    
     func setUpUI(){
         self.title = self.contentModel.path
         

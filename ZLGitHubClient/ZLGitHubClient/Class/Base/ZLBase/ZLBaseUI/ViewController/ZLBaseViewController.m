@@ -86,6 +86,7 @@
     [self.viewModel VCLifeCycle_didReceiveMemoryWarning];
 }
 
+
 #pragma mark - 初始化UI
 
 - (void) setUpUI

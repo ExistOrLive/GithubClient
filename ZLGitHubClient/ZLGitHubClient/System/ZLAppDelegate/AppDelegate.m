@@ -116,6 +116,16 @@
     [self removeObserver];
 }
 
+#pragma mark -
+
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window{
+    if (_allowRotation) {
+          return UIInterfaceOrientationMaskAll;
+      }else{
+          return UIInterfaceOrientationMaskPortrait;
+      }
+}
+
 
 #pragma mark -
 

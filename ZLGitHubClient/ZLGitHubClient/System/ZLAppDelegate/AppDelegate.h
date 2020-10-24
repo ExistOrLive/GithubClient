@@ -13,6 +13,8 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
+@property (assign, nonatomic) BOOL allowRotation;
+
 #pragma mark -
 
 - (void) switchToMainController:(BOOL) animated;

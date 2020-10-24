@@ -41,15 +41,23 @@
    
     UIScreenEdgePanGestureRecognizer * recognizer = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self.interactivePopGestureRecognizer.delegate action:@selector(handleNavigationTransition:)];
     recognizer.edges = UIRectEdgeLeft;
-    recognizer.delegate = self.interactivePopGestureRecognizer.delegate;
+    // 当NavigationController只有一个childVC，右滑会卡住整个应用
+    // recognizer.delegate = self.interactivePopGestureRecognizer.delegate;
+    recognizer.delegate = self;
     [self.view addGestureRecognizer:recognizer];
     [[super interactivePopGestureRecognizer] setEnabled:NO];
     
     _ScreenEdgePanGestureRecognizer = recognizer;
 }
 
+#pragma mark -
 
-
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
+    if(self.forbidGestureBack){
+        return NO;
+    }
+    return self.childViewControllers.count == 1 ? NO : YES;
+}
 
 /*
 #pragma mark - Navigation
