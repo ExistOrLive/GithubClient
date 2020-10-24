@@ -2030,4 +2030,31 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     
 }
 
+#pragma mark - config
+
+- (void) getGithubClientConfig:(GithubResponse)block
+                  serialNumber:(NSString *) serialNumber{
+    NSString *url = @"https://www.existorlive.cn/ZLGithubConfig/ZLGithubConfig.json";
+    
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
+        if(result){
+            ZLGithubConfigModel *configModel = [ZLGithubConfigModel mj_objectWithKeyValues:responseObject];
+            responseObject = configModel;
+        }
+        block(result,responseObject,serialNumber);
+    };
+    
+    AFHTTPSessionManager *sessionManager =  [[AFHTTPSessionManager alloc] initWithSessionConfiguration:_httpConfig];
+    sessionManager.completionQueue = _completeQueue;
+    sessionManager.requestSerializer = [AFJSONRequestSerializer serializer];
+    sessionManager.responseSerializer = [AFJSONResponseSerializer serializer];
+            
+    [self requestWithSessionManager:sessionManager
+                         withMethod:@"GET"
+                            withURL:url
+                         WithParams:nil
+                  WithResponseBlock:newBlock
+                   WithSerialNumber:serialNumber];
+}
+
 @end

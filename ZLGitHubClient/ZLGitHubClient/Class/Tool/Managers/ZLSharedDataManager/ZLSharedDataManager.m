@@ -17,6 +17,7 @@
 #define ZLUserHeadImageKey @"ZLUserHeadImageKey"
 #define ZLSearchRecordKey @"ZLSearchRecordKey"
 #define ZLShowAllNotificationsKey @"ZLShowAllNotificationsKey"
+#define ZLGithubConfigKey @"ZLGithubConfigKey"
  
 @implementation ZLSharedDataManager
 
@@ -24,6 +25,7 @@
 @synthesize githubAccessToken = _githubAccessToken;
 @synthesize trendingOptions = _trendingOptions;
 @synthesize searchRecordArray = _searchRecordArray;
+@synthesize configModel = _configModel;
 @dynamic  showAllNotifications;
 
 + (instancetype) sharedInstance{
@@ -184,6 +186,22 @@
 }
 
 
+#pragma mark - config
+
+- (void) setConfigModel:(ZLGithubConfigModel *)configModel{
+    _configModel = configModel;
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:configModel];
+    [[NSUserDefaults standardUserDefaults] setValue:data forKey:ZLGithubConfigKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (ZLGithubConfigModel *)configModel{
+    if(!_configModel){
+        NSData *data = [[NSUserDefaults standardUserDefaults] valueForKey:ZLGithubConfigKey];
+        _configModel = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    }
+    return _configModel;
+}
 
 #pragma mark -
 
@@ -194,5 +212,7 @@
     [self setSearchRecordArray:nil];
     [self setShowAllNotifications:NO];
 }
+
+
 
 @end

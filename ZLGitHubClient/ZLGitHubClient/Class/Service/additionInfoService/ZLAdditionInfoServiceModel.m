@@ -336,4 +336,28 @@
     
 }
 
+
+#pragma mark - config
+
+/**
+ * @brief 获取功能配置
+ *
+ **/
+
+- (void) getGithubClientConfig:(NSString *) serialNumber{
+    
+    GithubResponse responseBlock = ^(BOOL result, id _Nullable responseObject, NSString * serialNumber) {
+        
+        if(result){
+            ZLMainThreadDispatch({
+                ZLGithubConfigModel *model = responseObject;
+                [[ZLSharedDataManager sharedInstance] setConfigModel:model];
+                [[NSNotificationCenter defaultCenter] postNotificationName:ZLGithubConfigUpdate_Notification object:nil];
+            })
+        }
+    };
+    
+    [[ZLGithubHttpClient defaultClient] getGithubClientConfig:responseBlock serialNumber:serialNumber];
+}
+
 @end

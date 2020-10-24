@@ -512,7 +512,16 @@ NS_ASSUME_NONNULL_BEGIN
            loginName: (NSString *) loginName
         serialNumber: (NSString *) serialNumber;
 
+
+#pragma mark - config
+
+- (void) getGithubClientConfig:(GithubResponse)block
+                  serialNumber:(NSString *) serialNumber;
+
 @end
+
+
+
 
 
 

@@ -51,6 +51,7 @@
     
     [ZLLoginServiceModel sharedServiceModel];
     [ZLUserServiceModel sharedServiceModel];
+    [[ZLAdditionInfoServiceModel sharedServiceModel] getGithubClientConfig:[NSString generateSerialNumber]];
     
     ZLLog_Info(@"中间件，工具模块初始化完毕");
     

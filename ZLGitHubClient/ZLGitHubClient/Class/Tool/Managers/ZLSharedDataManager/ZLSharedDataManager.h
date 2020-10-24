@@ -16,6 +16,7 @@
 
 
 @class ZLGithubUserModel;
+@class ZLGithubConfigModel;
  
 NS_ASSUME_NONNULL_BEGIN
 
@@ -32,6 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong,nullable) NSArray<NSString *> *searchRecordArray;
 
 @property(nonatomic,assign) BOOL showAllNotifications;   // 是否展示所有notification
+
+@property(nonatomic,strong,nullable) ZLGithubConfigModel *configModel;
 
 
 - (void) clearGithubTokenAndUserInfo;
@@ -53,6 +56,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) setDateRangeForTrendingRepo:(ZLDateRange) range;
 
 - (void) setDateRangeForTrendingUser:(ZLDateRange) range;
+
+
+
 
 @end
 

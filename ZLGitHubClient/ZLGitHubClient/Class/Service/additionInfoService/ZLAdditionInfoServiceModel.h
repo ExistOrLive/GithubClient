@@ -48,6 +48,15 @@ NS_ASSUME_NONNULL_BEGIN
                        completeHandle:(void(^)(ZLOperationResultModel *)) handle;
 
 
+/**
+ * @brief 获取功能配置
+ *
+ **/
+
+- (void) getGithubClientConfig:(NSString *) serialNumber;
+       
+
+
 @end
 
 NS_ASSUME_NONNULL_END

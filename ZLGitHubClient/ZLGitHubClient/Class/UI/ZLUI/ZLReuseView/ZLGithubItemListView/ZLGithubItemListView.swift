@@ -263,5 +263,6 @@ extension ZLGithubItemListView
     func justRefresh(){
         ZLRefresh.justRefreshHeader(header: self.tableView?.mj_header as? MJRefreshNormalHeader)
         ZLRefresh.justRefreshFooter(footer: self.tableView?.mj_footer as? MJRefreshAutoStateFooter)
+        self.tableView?.reloadData();
     }
 }

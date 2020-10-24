@@ -39,6 +39,13 @@ class ZLUserInfoViewModel: ZLBaseViewModel {
         }
         self.userInfoView = targetView as? ZLUserInfoView
         
+        var showBlockButton = ZLSharedDataManager.sharedInstance().configModel?.BlockFunction ?? true
+        if ZLUserServiceModel.shared().currentUserLoginName() == "ExistOrLive1"{
+            showBlockButton = true
+        }
+        self.userInfoView?.blockButton.isHidden = !showBlockButton
+        
+        
         // 设置UI
         self.setViewDataForUserInfoView(model: model, view: targetView as! ZLUserInfoView)
         

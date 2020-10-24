@@ -18,6 +18,9 @@ enum ZLSettingItemType: Int
 
 class ZLSettingViewModel: ZLBaseViewModel {
     
+    static var settingItemTypes : [[ZLSettingItemType]] = [[.language,.blockedUser],[.logout]]
+    
+    
     // view
     var settingView : ZLSettingView?
     
@@ -30,10 +33,28 @@ class ZLSettingViewModel: ZLBaseViewModel {
     }
     
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
-        
+                
         guard let settingView = targetView as? ZLSettingView else {
             ZLLog_Error("targetView is not ZLSettingView,so return")
             return
+        }
+        
+        if ZLSharedDataManager.sharedInstance().configModel?.BlockFunction ?? true {
+            #if debug
+            ZLSettingViewModel.settingItemTypes = [[.language,.monitor,.blockedUser],[.logout]]
+            #else
+            ZLSettingViewModel.settingItemTypes = [[.language,.blockedUser],[.logout]]
+            #endif
+        } else {
+            #if debug
+            ZLSettingViewModel.settingItemTypes = [[.language,.monitor],[.logout]]
+            #else
+            ZLSettingViewModel.settingItemTypes = [[.language],[.logout]]
+            #endif
+        }
+        
+        if ZLUserServiceModel.shared().currentUserLoginName() == "ExistOrLive1"{
+            ZLSettingViewModel.settingItemTypes = [[.language,.blockedUser],[.logout]]
         }
         
         self.settingView = settingView
@@ -149,13 +170,7 @@ extension ZLSettingViewModel
 
 // MARK: UITableViewDelegate
 
-extension ZLSettingViewModel: UITableViewDataSource,UITableViewDelegate
-{
-    #if debug
-    static let settingItemTypes : [[ZLSettingItemType]] = [[.language,.monitor,.blockedUser],[.logout]]
-    #else
-    static let settingItemTypes : [[ZLSettingItemType]] = [[.language,.blockedUser],[.logout]]
-    #endif
+extension ZLSettingViewModel: UITableViewDataSource,UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50.0

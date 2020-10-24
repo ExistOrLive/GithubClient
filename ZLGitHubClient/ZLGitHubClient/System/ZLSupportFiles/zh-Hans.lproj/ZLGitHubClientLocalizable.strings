@@ -78,6 +78,9 @@
 "Confirm" = "确认";
 "AreYouSureToLogout" = "您确定要退出吗？";
 "EditProfile" = "编辑主页";
+"Input Company" = "请填写公司";
+"Input Address" = "请填写地址";
+"Input Blog" = "请填写博客地址";
 "Save" = "保存";
 
 "User" = "用户";
