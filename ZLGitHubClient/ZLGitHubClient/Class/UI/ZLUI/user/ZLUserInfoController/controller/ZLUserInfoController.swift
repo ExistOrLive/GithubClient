@@ -49,9 +49,19 @@ class ZLUserInfoController: ZLBaseViewController {
         {
             return
         }
-        self.contentView.addSubview(baseView)
-        baseView.snp.makeConstraints { (make) in
+        
+        let scrollView = UIScrollView.init()
+        scrollView.backgroundColor = UIColor.clear
+        self.contentView.addSubview(scrollView)
+        scrollView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
+        }
+        
+        scrollView.addSubview(baseView)
+        scrollView.isScrollEnabled = true
+        baseView.snp.makeConstraints { (make) in
+            make.edges.equalTo(scrollView)
+            make.width.equalTo(self.contentView.snp_width)
         }
         
         // bind view and viewModel

@@ -37,10 +37,24 @@ class ZLUserInfoView: ZLBaseView {
     @IBOutlet weak var followButton: UIButton!
     @IBOutlet weak var blockButton: UIButton!
     
+    @IBOutlet weak var itemStackView: UIStackView!
+    
+    var readMeView : ZLReadMeView?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.headImageView.layer.cornerRadius = 30.0;
+        
         self.justUpdate();
+        
+        guard let readMeView : ZLReadMeView = Bundle.main.loadNibNamed("ZLReadMeView", owner: nil, options: nil)?.first as? ZLReadMeView else {
+            return
+        }
+        self.addSubview(readMeView)
+        readMeView.snp.makeConstraints { (make) in
+            make.left.right.bottom.equalToSuperview()
+            make.top.equalTo(self.itemStackView.snp_bottom).offset(10)
+        }
+        self.readMeView = readMeView
         
     }
     
