@@ -39,6 +39,7 @@ open class MarkdownView: UIView {
   public required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
   }
+    
 
   open override var intrinsicContentSize: CGSize {
     if let height = self.intrinsicContentHeight {
@@ -67,8 +68,6 @@ open class MarkdownView: UIView {
                 self.webView?.removeFromSuperview()
                 self.webView = nil
             }
-            
-            let templateRequest = URLRequest(url: url)
             
             let controller = WKUserContentController()
             
@@ -100,7 +99,17 @@ open class MarkdownView: UIView {
             wv.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
             wv.backgroundColor = self.backgroundColor
             self.webView = wv
-            self.webView?.load(templateRequest)
+            
+            do {
+                let htmlStr = try String.init(contentsOf: url)
+                self.webView?.loadHTMLString(htmlStr as String, baseURL: nil)
+                
+            }catch{
+                self.webView?.loadHTMLString("Error", baseURL: nil)
+            }
+            
+            
+
         } else {
             // TODO: raise error
         }

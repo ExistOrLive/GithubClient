@@ -13,9 +13,13 @@ enum ZLSettingItemType: Int
     case language
     case logout
     case monitor
+    case blockedUser
 }
 
 class ZLSettingViewModel: ZLBaseViewModel {
+    
+    static var settingItemTypes : [[ZLSettingItemType]] = [[.language,.blockedUser],[.logout]]
+    
     
     // view
     var settingView : ZLSettingView?
@@ -29,10 +33,28 @@ class ZLSettingViewModel: ZLBaseViewModel {
     }
     
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
-        
+                
         guard let settingView = targetView as? ZLSettingView else {
             ZLLog_Error("targetView is not ZLSettingView,so return")
             return
+        }
+        
+        if ZLSharedDataManager.sharedInstance().configModel?.BlockFunction ?? true {
+            #if debug
+            ZLSettingViewModel.settingItemTypes = [[.language,.monitor,.blockedUser],[.logout]]
+            #else
+            ZLSettingViewModel.settingItemTypes = [[.language,.blockedUser],[.logout]]
+            #endif
+        } else {
+            #if debug
+            ZLSettingViewModel.settingItemTypes = [[.language,.monitor],[.logout]]
+            #else
+            ZLSettingViewModel.settingItemTypes = [[.language],[.logout]]
+            #endif
+        }
+        
+        if ZLUserServiceModel.shared().currentUserLoginName() == "ExistOrLive1"{
+            ZLSettingViewModel.settingItemTypes = [[.language,.blockedUser],[.logout]]
         }
         
         self.settingView = settingView
@@ -148,13 +170,7 @@ extension ZLSettingViewModel
 
 // MARK: UITableViewDelegate
 
-extension ZLSettingViewModel: UITableViewDataSource,UITableViewDelegate
-{
-    #if debug
-    static let settingItemTypes : [[ZLSettingItemType]] = [[.language,.monitor],[.logout]]
-    #else
-    static let settingItemTypes : [[ZLSettingItemType]] = [[.language],[.logout]]
-    #endif
+extension ZLSettingViewModel: UITableViewDataSource,UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50.0
@@ -173,6 +189,7 @@ extension ZLSettingViewModel: UITableViewDataSource,UITableViewDelegate
         switch settingItemType
         {
         case .language:do{
+            
             guard let tableViewCell: ZLSettingItemTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLSettingItemTableViewCell", for: indexPath) as? ZLSettingItemTableViewCell else
             {
                 let cell = UITableViewCell.init()
@@ -191,6 +208,7 @@ extension ZLSettingViewModel: UITableViewDataSource,UITableViewDelegate
             @unknown default:do {
             }
             }
+            
             return tableViewCell
             
             }
@@ -216,9 +234,16 @@ extension ZLSettingViewModel: UITableViewDataSource,UITableViewDelegate
             tableViewCell.titleLabel.text = ZLLocalizedString(string: "logout", comment: "注销")
             return tableViewCell
             }
-          
+        case .blockedUser:do{
+            guard let tableViewCell: ZLSettingItemTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLSettingItemTableViewCell", for: indexPath) as? ZLSettingItemTableViewCell else{
+                let cell = UITableViewCell.init();
+                return cell
+            }
+            tableViewCell.itemTypeLabel.text = ZLLocalizedString(string: "Blocked User", comment: "屏蔽的用户")
+            return tableViewCell
         }
-        
+        }
+       
         
     }
     
@@ -243,6 +268,10 @@ extension ZLSettingViewModel: UITableViewDataSource,UITableViewDelegate
         case .monitor:do{
             self.onMonitor()
             }
+        case .blockedUser:do{
+            let vc = ZLBlockedUserController()
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        }
         }
         
     }

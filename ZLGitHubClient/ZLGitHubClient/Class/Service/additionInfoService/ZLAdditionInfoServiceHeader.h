@@ -30,6 +30,7 @@ static const NSNotificationName ZLGetFollowersResult_Notification = @"ZLGetFollo
 static const NSNotificationName ZLGetFollowingResult_Notification = @"ZLGetFollowingResult_Notification";
 static const NSNotificationName ZLGetGistsResult_Notification = @"ZLGetGistsResult_Notification";
 static const NSNotificationName ZLGetStarredReposResult_Notification = @"ZLGetStarredReposResult_Notification";
+static const NSNotificationName ZLGithubConfigUpdate_Notification = @"ZLGithubConfigUpdate_Notification";
 
 
 #endif /* ZLAdditionInfoServiceHeader_h */

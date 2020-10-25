@@ -16,6 +16,10 @@ class ZLNotificationViewModel: ZLBaseViewModel {
     
     var showAllNotification : Bool = false
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
         
         guard let view : ZLNotificationView = targetView as? ZLNotificationView else {
@@ -28,6 +32,8 @@ class ZLNotificationViewModel: ZLBaseViewModel {
         self.baseView?.filterLabel.text = self.showAllNotification ? "all" : "unread"
         
         self.baseView?.githubItemListView.beginRefresh()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(onNotificationArrived(notifcation:)), name: ZLLanguageTypeChange_Notificaiton, object: nil)
     }
     
     
@@ -116,6 +122,13 @@ class ZLNotificationViewModel: ZLBaseViewModel {
     func deleteCellData(cellData : ZLNotificationTableViewCellData) {
         if self.showAllNotification == false {
             self.baseView?.githubItemListView.deleteGithubItem(cellData: cellData)
+        }
+    }
+    
+    
+    @objc func onNotificationArrived(notifcation : Notification) -> Void {
+        if notifcation.name == ZLLanguageTypeChange_Notificaiton {
+            self.viewController?.title = ZLLocalizedString(string: "Notification", comment: "")
         }
     }
     

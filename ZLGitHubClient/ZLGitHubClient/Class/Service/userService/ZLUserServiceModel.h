@@ -86,6 +86,45 @@ NS_ASSUME_NONNULL_BEGIN
                     completeHandle:(void(^)(ZLOperationResultModel *)) handle;
 
 
+#pragma mark - block
+
+/**
+ * @brief 获取当前屏蔽的用户列表
+ **/
+
+- (void) getBlockedUsersWithSerialNumber:(NSString *) serialNumber
+                          completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+
+
+/**
+ * @brief 获取当前用户的屏蔽状态
+ * @param loginName 用户的登录名
+ **/
+
+- (void) getUserBlockStatusWithLoginName: (NSString *) loginName
+                            serialNumber:(NSString *) serialNumber
+                          completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+/**
+ * @brief 屏蔽当前用户
+ * @param loginName 用户的登录名
+ **/
+
+- (void) blockUserWithLoginName: (NSString *) loginName
+                   serialNumber: (NSString *) serialNumber
+                 completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+/**
+ * @brief 取消屏蔽当前用户
+ * @param loginName 用户的登录名
+ **/
+
+- (void) unBlockUserWithLoginName: (NSString *) loginName
+                     serialNumber: (NSString *) serialNumber
+                   completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+
 
 @end
 

@@ -10,4 +10,6 @@
 
 @interface ZLBaseNavigationController : UINavigationController
 
+@property(nonatomic, assign) BOOL forbidGestureBack;
+
 @end

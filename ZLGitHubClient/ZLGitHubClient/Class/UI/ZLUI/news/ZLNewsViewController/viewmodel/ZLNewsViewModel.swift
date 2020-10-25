@@ -35,6 +35,8 @@ class ZLNewsViewModel: ZLBaseViewModel {
         ZLEventServiceModel.shareInstance().registerObserver(self, selector: #selector(onNotificationArrived(notification:)), name:ZLGetUserReceivedEventResult_Notification)
         ZLUserServiceModel.shared().registerObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLGetCurrentUserInfoResult_Notification)
         NotificationCenter.default.addObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLLanguageTypeChange_Notificaiton, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLGithubConfigUpdate_Notification, object: nil)
+        
         
         //每次界面将要展示时，更新数据
         self.userInfo = ZLUserServiceModel.shared().currentUserInfo()
@@ -160,6 +162,9 @@ extension ZLNewsViewModel
             case ZLLanguageTypeChange_Notificaiton: do{
                 self.viewController?.title = ZLLocalizedString(string: "news", comment: "")
                 self.itemListView?.justRefresh()
+            }
+            case ZLGithubConfigUpdate_Notification: do{
+                self.itemListView?.tableView?.reloadData()
             }
             default:
                 ZLLog_Info("event have no deal")

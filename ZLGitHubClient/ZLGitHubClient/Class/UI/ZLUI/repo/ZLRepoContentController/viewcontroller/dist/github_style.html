@@ -3,7 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width" />
-            
+
+<!-- 设置baseUrl -->
+<!-- <base href="https://github.com" /> -->
+ 
 <style>
  .markdown-body .octicon {
    display: inline-block;
@@ -767,16 +770,16 @@
  .markdown-body table td,
  .markdown-body table th {
    padding: 6px 13px;
-   border: 1px solid #dfe2e5;
+   border: 0px solid #dfe2e5;
  }
 
  .markdown-body table tr {
    background-color: #fff;
-   border-top: 1px solid #c6cbd1;
+   border-top: 0px solid #c6cbd1;
  }
 
  .markdown-body table tr:nth-child(2n) {
-   background-color: #f6f8fa;
+   background-color: #fff;
  }
 
  .markdown-body img {
@@ -801,6 +804,11 @@
    border-radius: 3px;
  }
 
+/*
+ markdown 代码换行 word-wrap: break-word
+ 
+取消换行 ： word-wrap: normal
+ */
  .markdown-body pre {
    word-wrap: normal;
  }

@@ -15,6 +15,8 @@ class ZLWebContentController: ZLBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = "WebView";
+        
         self.viewModel = ZLWebContentViewModel.init(viewController: self)
         
         guard let baseView = Bundle.main.loadNibNamed("ZLWebContentView", owner: self.viewModel, options: nil)?.first as? ZLWebContentView else
@@ -24,7 +26,10 @@ class ZLWebContentController: ZLBaseViewController {
         }
         
         baseView.frame = ZLScreenBounds
-        self.view.addSubview(baseView)
+        self.contentView.addSubview(baseView)
+        baseView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
         
         self.viewModel.bindModel(self.requestURL, andView: baseView)
     }

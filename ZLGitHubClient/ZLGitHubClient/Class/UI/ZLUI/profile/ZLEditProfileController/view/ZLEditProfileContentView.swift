@@ -39,7 +39,9 @@ class ZLEditProfileContentView: ZLBaseView,UITextFieldDelegate,UITextViewDelegat
         self.blogLabel.text = ZLLocalizedString(string: "blog", comment: "")
         self.addrLabel.text = ZLLocalizedString(string: "location", comment: "")
         
-        
+        self.companyTextField.attributedPlaceholder = NSAttributedString.init(string: ZLLocalizedString(string: "Input Company", comment: ""), attributes: [NSAttributedString.Key.foregroundColor:ZLRGBValue_H(colorValue: 0xCED1D6),NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 12) ?? UIFont.systemFont(ofSize: 12)])
+        self.addressTextField.attributedPlaceholder = NSAttributedString.init(string: ZLLocalizedString(string: "Input Address", comment: ""), attributes: [NSAttributedString.Key.foregroundColor:ZLRGBValue_H(colorValue: 0xCED1D6),NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 12) ?? UIFont.systemFont(ofSize: 12)])
+        self.blogTextField.attributedPlaceholder = NSAttributedString.init(string:  ZLLocalizedString(string: "Input Blog", comment: ""), attributes: [NSAttributedString.Key.foregroundColor:ZLRGBValue_H(colorValue: 0xCED1D6),NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 12) ?? UIFont.systemFont(ofSize: 12)])        
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool

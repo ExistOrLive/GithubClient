@@ -7,6 +7,7 @@
 ![commit](https://img.shields.io/github/last-commit/mengandjie/githubclient)
 
 ## Github iOS 客户端  by Existorlive
+<div><a href="https://apps.apple.com/cn/app/zlgithubclient/id1498787032"><img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/appstoredownload.png" width=150></a></div>
 
 - Objective-c 2.0
 - Swift 5 
@@ -75,7 +76,7 @@
 
 1. 在使用源码前，需要Github的账户下创建一个OAuth Application，具体请参考官方文档[Creating an OAuth App](https://docs.github.com/en/developers/apps/creating-an-oauth-app)
 
-2. 创建OAuth Application后，获得`Client ID` 和 `Client Secret`。打开工程下`ZLGithubAPI.h`文件，替换宏`MyClientID` 和 `MyClientSecret`
+2. 创建OAuth Application后，获得`Client ID` 和 `Client Secret`。打开工程下`ZLGithubAppKey.h`文件，替换宏`MyClientID` 和 `MyClientSecret`
 
 3. 在工程ZLGithubClient目录下，执行`pod install` 安装工程依赖的库
 

@@ -9,6 +9,11 @@
 import UIKit
 import WebKit
 
+
+/**
+  *  利用 REST API 获取 md 内容 ； 代码使用markdown接口渲染
+ */
+
 class ZLRepoCodePreview3Controller: ZLBaseViewController {
     
     // model
@@ -46,6 +51,39 @@ class ZLRepoCodePreview3Controller: ZLBaseViewController {
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        guard let appdelegate : AppDelegate = UIApplication.shared.delegate as? AppDelegate else{
+            return
+        }
+        appdelegate.allowRotation = true
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        guard let appdelegate : AppDelegate = UIApplication.shared.delegate as? AppDelegate else{
+            return
+        }
+        appdelegate.allowRotation = false
+    }
+
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        guard let navigationVC : ZLBaseNavigationController = self.navigationController as? ZLBaseNavigationController else {
+            return
+        }
+        if size.height > size.width {
+            // 横屏变竖屏
+            self.setZLNavigationBarHidden(false)
+            navigationVC.forbidGestureBack = false
+        } else {
+            self.setZLNavigationBarHidden(true)
+            navigationVC.forbidGestureBack = true
+        }
+    }
+    
     func setUpUI(){
         self.title = self.contentModel.path
         
@@ -57,6 +95,17 @@ class ZLRepoCodePreview3Controller: ZLBaseViewController {
         
         self.zlNavigationBar.rightButton = button
         
+        
+        let wv = WKWebView(frame: CGRect.init())
+        
+        self.contentView.addSubview(wv)
+        wv.snp.makeConstraints({(make) in
+            make.edges.equalToSuperview()
+        })
+        wv.uiDelegate = self
+        wv.navigationDelegate = self
+        
+        self.webView = wv;
     }
     
     
@@ -68,6 +117,13 @@ class ZLRepoCodePreview3Controller: ZLBaseViewController {
             viewControllers![viewControllers!.count - 1] = webContentVC
             self.navigationController?.setViewControllers(viewControllers!, animated: false)
         }
+        
+    }
+    
+    func openURL(url : URL?){
+        let webContentVC = ZLWebContentController.init()
+        webContentVC.requestURL = url
+        self.navigationController?.pushViewController(webContentVC, animated: true)
     }
     
     @objc func onMoreButtonClick(button : UIButton) {
@@ -197,19 +253,7 @@ extension ZLRepoCodePreview3Controller {
                     newHtmlStr.insert(codeHtml, at: range.location)
                 }
                 
-                let controller = WKUserContentController()
-                let configuration = WKWebViewConfiguration()
-                configuration.userContentController = controller
-                
-                let wv = WKWebView(frame: CGRect.init(), configuration: configuration)
-                
-                self.contentView.addSubview(wv)
-                wv.snp.makeConstraints({(make) in
-                    make.edges.equalToSuperview()
-                })
-                wv.uiDelegate = self
-                wv.navigationDelegate = self
-                wv.loadHTMLString(newHtmlStr as String, baseURL: nil)
+                self.webView?.loadHTMLString(newHtmlStr as String, baseURL: nil)
                 
             }catch{
                 ZLToastView.showMessage("load Code index html failed");
@@ -250,6 +294,36 @@ extension ZLRepoCodePreview3Controller : WKUIDelegate,WKNavigationDelegate
     }
     
     
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        let urlStr = navigationAction.request.url?.absoluteString;
+        
+        if navigationAction.navigationType == .linkActivated {
+            decisionHandler(.cancel)
+
+            var url : URL? = nil
+            
+            if urlStr?.count ?? 0 > 0  {
+                url = URL.init(string: urlStr!)
+                if url?.host == nil {               // 如果是相对路径，组装baseurl
+                    url = (URL.init(string: self.contentModel.html_url) as NSURL?)?.deletingLastPathComponent
+                    url?.appendPathComponent(urlStr!)
+                }
+            }
+            
+            guard let appdelegate : AppDelegate = UIApplication.shared.delegate as? AppDelegate else{
+                return
+            }
+            appdelegate.allowRotation = false
+            
+            self.openURL(url: url)
+        } else {
+            decisionHandler(.allow)
+        }
+    }
+       
+    
+    
+    
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!)
     {
         if self.contentModel.download_url != nil {
@@ -264,5 +338,7 @@ extension ZLRepoCodePreview3Controller : WKUIDelegate,WKNavigationDelegate
         SVProgressHUD.dismiss()
         
     }
+    
+    
 }
 

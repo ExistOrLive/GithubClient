@@ -43,7 +43,7 @@ class ZLProfileBaseView: ZLBaseView {
             self.tableHeaderView = tableViewHeader;
         }
         
-        let view = UIView.init(frame: CGRect.init(x: 0, y: 0 - ZLSCreenHeight, width: ZLScreenWidth, height: ZLSCreenHeight))
+        let view = UIView.init(frame: CGRect.init(x: 0, y: 0 - 4 * ZLScreenWidth, width:  4 * ZLScreenWidth, height: 4 * ZLScreenWidth))
         view.backgroundColor = UIColor.black
         self.tableView.addSubview(view)
     

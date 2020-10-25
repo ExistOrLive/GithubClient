@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZLBaseTabBarController.h"
 
-@interface ZLMainViewController : UITabBarController
+@interface ZLMainViewController : ZLBaseTabBarController
 
 
 

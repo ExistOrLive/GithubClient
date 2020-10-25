@@ -13,6 +13,7 @@ import UIKit
     
     func onCellSingleTap() -> Void;
     
+    func onReportClicked() -> Void;
 }
 
 class ZLEventTableViewCell: UITableViewCell {
@@ -30,6 +31,8 @@ class ZLEventTableViewCell: UITableViewCell {
     var eventDesLabel : YYLabel?
     
     var assistInfoView : UIView?
+    
+    var reportMoreButton : UIButton?
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -107,11 +110,22 @@ class ZLEventTableViewCell: UITableViewCell {
             make.top.equalTo(self.eventDesLabel!.snp_bottom).offset(20)
             make.left.equalTo(self.containerView!.snp_left).offset(10)
             make.right.equalTo(self.containerView!.snp_right).offset(-10)
-            make.bottom.equalTo(self.containerView!.snp_bottom).offset(-10)
             make.height.equalTo(20).priority(.medium)
         }
         self.assistInfoView = assistInfoView
         
+        let button = UIButton.init(type: .custom)
+        button.addTarget(self, action: #selector(ZLEventTableViewCell.onReportButtonClicked), for: .touchUpInside)
+        button.setImage(UIImage.init(named: "run_more"), for: .normal)
+        self.containerView?.addSubview(button)
+        button.snp.makeConstraints { (make) in
+            make.width.equalTo(45)
+            make.height.equalTo(30)
+            make.right.equalTo(self.containerView!.snp_right).offset(-10)
+            make.bottom.equalTo(self.containerView!.snp_bottom).offset(-10)
+            make.top.equalTo(self.assistInfoView!.snp_bottom).offset(0)
+        }
+        self.reportMoreButton = button
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -124,6 +138,21 @@ class ZLEventTableViewCell: UITableViewCell {
         self.actorNameLabel?.text = cellData.getActorName()
         self.timeLabel?.text = cellData.getTimeStr()
         self.eventDesLabel?.attributedText = cellData.getEventDescrption()
+    }
+    
+    
+    
+    func hiddenReportButton(hidden:Bool) {
+        self.reportMoreButton?.isHidden = hidden
+        if hidden{
+            self.reportMoreButton!.snp.updateConstraints { (make) in
+                make.height.equalTo(0)
+            }
+        } else {
+            self.reportMoreButton!.snp.updateConstraints { (make) in
+                make.height.equalTo(30)
+            }
+        }
     }
 }
 
@@ -144,6 +173,14 @@ extension ZLEventTableViewCell
         if self.delegate?.responds(to: #selector(ZLEventTableViewCellDelegate.onCellSingleTap)) ?? false
         {
             self.delegate?.onCellSingleTap()
+        }
+    }
+    
+    @objc func onReportButtonClicked()
+    {
+        if self.delegate?.responds(to: #selector(ZLEventTableViewCellDelegate.onReportClicked)) ?? false
+        {
+            self.delegate?.onReportClicked()
         }
     }
 }

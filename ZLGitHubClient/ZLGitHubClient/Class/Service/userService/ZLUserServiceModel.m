@@ -293,6 +293,102 @@
     
 }
 
+#pragma mark - block
+
+/**
+ * @brief 获取当前屏蔽的用户
+ **/
+
+- (void) getBlockedUsersWithSerialNumber:(NSString *) serialNumber
+                          completeHandle:(void(^)(ZLOperationResultModel *)) handle{
+    
+    GithubResponse response = ^(BOOL  result, id responseObject, NSString * serialNumber)
+    {
+        ZLOperationResultModel * blockedUsersResultModel = [[ZLOperationResultModel alloc] init];
+        blockedUsersResultModel.result = result;
+        blockedUsersResultModel.serialNumber = serialNumber;
+        blockedUsersResultModel.data = responseObject;
+        
+        if(handle)
+        {
+            ZLMainThreadDispatch(handle(blockedUsersResultModel);)
+        }
+    };
+    
+    [[ZLGithubHttpClient defaultClient] getBlocks:response serialNumber:serialNumber];
+}
+
+
+
+- (void) getUserBlockStatusWithLoginName: (NSString *) loginName
+                            serialNumber:(NSString *) serialNumber
+                          completeHandle:(void(^)(ZLOperationResultModel *)) handle{
+    
+    GithubResponse response = ^(BOOL  result, id responseObject, NSString * serialNumber)
+    {
+        ZLOperationResultModel * blockedUsersResultModel = [[ZLOperationResultModel alloc] init];
+        blockedUsersResultModel.result = result;
+        blockedUsersResultModel.serialNumber = serialNumber;
+        blockedUsersResultModel.data = responseObject;
+        
+        if(handle)
+        {
+            ZLMainThreadDispatch(handle(blockedUsersResultModel);)
+        }
+    };
+    
+    [[ZLGithubHttpClient defaultClient] getUserBlockStatus:response
+                                                 loginName:loginName
+                                              serialNumber:serialNumber];
+}
+
+- (void) blockUserWithLoginName: (NSString *) loginName
+                   serialNumber: (NSString *) serialNumber
+                 completeHandle:(void(^)(ZLOperationResultModel *)) handle{
+    
+    GithubResponse response = ^(BOOL  result, id responseObject, NSString * serialNumber)
+    {
+        ZLOperationResultModel * blockedUsersResultModel = [[ZLOperationResultModel alloc] init];
+        blockedUsersResultModel.result = result;
+        blockedUsersResultModel.serialNumber = serialNumber;
+        blockedUsersResultModel.data = responseObject;
+        
+        if(handle)
+        {
+            ZLMainThreadDispatch(handle(blockedUsersResultModel);)
+        }
+    };
+    
+    [[ZLGithubHttpClient defaultClient] blockUser:response
+                                        loginName:loginName
+                                     serialNumber:serialNumber];
+    
+}
+
+- (void) unBlockUserWithLoginName: (NSString *) loginName
+                     serialNumber: (NSString *) serialNumber
+                   completeHandle:(void(^)(ZLOperationResultModel *)) handle{
+    
+    GithubResponse response = ^(BOOL  result, id responseObject, NSString * serialNumber)
+    {
+        ZLOperationResultModel * blockedUsersResultModel = [[ZLOperationResultModel alloc] init];
+        blockedUsersResultModel.result = result;
+        blockedUsersResultModel.serialNumber = serialNumber;
+        blockedUsersResultModel.data = responseObject;
+        
+        if(handle)
+        {
+            ZLMainThreadDispatch(handle(blockedUsersResultModel);)
+        }
+    };
+    
+    [[ZLGithubHttpClient defaultClient] unBlockUser:response
+                                         loginName:loginName
+                                      serialNumber:serialNumber];
+}
+
+
+
 
 
 #pragma mark - onNotificationArrived:

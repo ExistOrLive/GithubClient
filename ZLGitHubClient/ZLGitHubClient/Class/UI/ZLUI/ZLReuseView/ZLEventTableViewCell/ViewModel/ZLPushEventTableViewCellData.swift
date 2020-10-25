@@ -47,6 +47,7 @@ class ZLPushEventTableViewCellData: ZLEventTableViewCellData {
     override func getCellReuseIdentifier() -> String {
         return "ZLPushEventTableViewCell"
     }
+    
 }
 
 extension ZLPushEventTableViewCellData {

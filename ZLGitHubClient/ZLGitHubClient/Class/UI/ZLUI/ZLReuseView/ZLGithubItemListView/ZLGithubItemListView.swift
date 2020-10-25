@@ -102,6 +102,7 @@ import UIKit
         view.addSubview(label)
         label.snp.makeConstraints({(make) in
             make.top.equalTo(imageView.snp.bottom).offset(10)
+            make.centerX.equalToSuperview()
             make.bottom.equalToSuperview()
         })
         
@@ -263,5 +264,6 @@ extension ZLGithubItemListView
     func justRefresh(){
         ZLRefresh.justRefreshHeader(header: self.tableView?.mj_header as? MJRefreshNormalHeader)
         ZLRefresh.justRefreshFooter(footer: self.tableView?.mj_footer as? MJRefreshAutoStateFooter)
+        self.tableView?.reloadData();
     }
 }

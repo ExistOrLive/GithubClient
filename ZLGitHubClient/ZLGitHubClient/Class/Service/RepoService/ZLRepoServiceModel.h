@@ -54,9 +54,10 @@ NS_ASSUME_NONNULL_BEGIN
  * @param serialNumber 流水号
  **/
 - (void) getRepoReadMeInfoWithFullName:(NSString *) fullName
+                                branch:(NSString * __nullable) branch
+                                isHTML:(BOOL) isHTML
                           serialNumber:(NSString *) serialNumber
                         completeHandle:(void(^)(ZLOperationResultModel *)) handle;
-
 
 /**
  * @brief 根据repo 获取pullrequest
@@ -96,37 +97,7 @@ NS_ASSUME_NONNULL_BEGIN
                                 completeHandle:(void(^)(ZLOperationResultModel *)) handle;
 
 
-/**
- * @brief 根据repo fullname获取 内容
- * @param fullName octocat/Hello-World
- * @param serialNumber 流水号
- **/
-- (void) getRepositoryContentsInfoWithFullName:(NSString *) fullName
-                                          path:(NSString *) path
-                                        branch:(NSString *) branch
-                                  serialNumber:(NSString *) serialNumber
-                                completeHandle:(void(^)(ZLOperationResultModel *)) handle;
 
-
-- (void) getRepositoryFileInfoWithFullName:(NSString *) fullName
-                                      path:(NSString *) path
-                                    branch:(NSString *) branch
-                              serialNumber:(NSString *) serialNumber
-                            completeHandle:(void(^)(ZLOperationResultModel *)) handle;
-
-
-- (void) getRepositoryFileHTMLInfoWithFullName:(NSString *) fullName
-                                          path:(NSString *) path
-                                        branch:(NSString *) branch
-                                  serialNumber:(NSString *) serialNumber
-                                completeHandle:(void(^)(ZLOperationResultModel *)) handle;
-
-
-- (void) getRepositoryFileRawInfoWithFullName:(NSString *) fullName
-                                         path:(NSString *) path
-                                       branch:(NSString *) branch
-                                 serialNumber:(NSString *) serialNumber
-                               completeHandle:(void(^)(ZLOperationResultModel *)) handle;
 
 
 /**
@@ -265,6 +236,47 @@ NS_ASSUME_NONNULL_BEGIN
                               serialNumber:(NSString *) serialNumber
                             completeHandle:(void(^)(ZLOperationResultModel *)) handle;
 
+
+#pragma mark - FileContent
+
+
+/**
+ * @brief 根据repo fullname获取 内容
+ * @param fullName octocat/Hello-World
+ * @param serialNumber 流水号
+ **/
+- (void) getRepositoryContentsInfoWithFullName:(NSString *) fullName
+                                          path:(NSString *) path
+                                        branch:(NSString *) branch
+                                  serialNumber:(NSString *) serialNumber
+                                completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+
+- (void) getRepositoryFileInfoWithFullName:(NSString *) fullName
+                                      path:(NSString *) path
+                                    branch:(NSString *) branch
+                              serialNumber:(NSString *) serialNumber
+                            completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+
+- (void) getRepositoryFileHTMLInfoWithFullName:(NSString *) fullName
+                                          path:(NSString *) path
+                                        branch:(NSString *) branch
+                                  serialNumber:(NSString *) serialNumber
+                                completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+
+- (void) getRepositoryFileRawInfoWithFullName:(NSString *) fullName
+                                         path:(NSString *) path
+                                       branch:(NSString *) branch
+                                 serialNumber:(NSString *) serialNumber
+                               completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+
+- (void) getRepositoryFileContentWithHTMLURL:(NSString *) htmlURL
+                                      branch:(NSString *) branch
+                                serialNumber:(NSString *) serialNumber
+                              completeHandle:(void(^)(ZLOperationResultModel *)) handle;
 
 
 @end

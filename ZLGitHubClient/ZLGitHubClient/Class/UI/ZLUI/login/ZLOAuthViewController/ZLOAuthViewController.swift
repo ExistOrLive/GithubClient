@@ -15,15 +15,18 @@ class ZLOAuthViewController: ZLBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad();
         
+        self.setZLNavigationBarHidden(false)
+        
         let baseView: ZLWebContentView? = Bundle.main.loadNibNamed("ZLWebContentView", owner: nil, options: nil)?.first as? ZLWebContentView;
-        baseView?.title = ZLLocalizedString(string: "login", comment: "登陆")
-        baseView?.additionButton.isHidden = true
+        self.title = ZLLocalizedString(string: "login", comment: "登陆")
+
         
         if baseView != nil
         {
-            baseView!.frame = ZLScreenBounds;
-            self.view.addSubview(baseView!);
-            
+            self.contentView.addSubview(baseView!)
+            baseView?.snp.makeConstraints({ (make) in
+                make.edges.equalToSuperview()
+            })
             self.viewModel = ZLOAuthBaseViewModel.init(viewController: self);
             self.viewModel.bindModel(self.loginProcessModel, andView: baseView!);
         }

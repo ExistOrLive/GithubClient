@@ -22,7 +22,7 @@
 
 - (void) dealloc
 {
-    [self clearCookiesForWkWebView];
+    //[self clearCookiesForWkWebView];
 }
 
 - (void) bindModel:(id _Nullable) targetModel andView:(UIView *) targetView
@@ -33,35 +33,41 @@
         return;
     }
     
+    UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [rightButton setImage:[UIImage imageNamed:@"run_more"] forState:UIControlStateNormal];
+    [rightButton setFrame:CGRectMake(0, 0, 60, 60)];
+    [rightButton addTarget:self action:@selector(onAdditionButtonClickWithButton:) forControlEvents:UIControlEventTouchUpInside];
+    ZLBaseViewController *vc = (ZLBaseViewController *)self.viewController;
+    vc.zlNavigationBar.rightButton = rightButton;
+    
     self.webContentView = (ZLWebContentView *)targetView;
     self.webContentView.delegate = self;
     
     self.url = (NSURL *) targetModel;
-    
+        
     if(!self.url || !self.url.resourceSpecifier){
         ZLLog_Warning(@"targetModel is not a valid URL,so return");
         [ZLToastView showMessage:@"Invalid URL"];
         return;
     }
     
-    if(!self.url.scheme){
+    if(!self.url.scheme || (![@"https" isEqualToString:self.url.scheme] && ![@"http" isEqualToString:self.url.scheme] )){
+        if([[UIApplication sharedApplication] canOpenURL:self.url]){
+            [[UIApplication sharedApplication] openURL:self.url options:@{} completionHandler:nil];
+            return;
+        }
+    }
+    
+    if(!self.url.scheme ){
         NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://%@",self.url.resourceSpecifier]];
         self.url = url;
     }
     
     NSMutableURLRequest * request =[NSMutableURLRequest requestWithURL:self.url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60];
-    NSString *token = [[ZLSharedDataManager sharedInstance] githubAccessToken];
-    [request setValue:[NSString stringWithFormat:@"token %@",token] forHTTPHeaderField:@"Authorization"];
     [self.webContentView.webView loadRequest:request];
 }
 
 
-#pragma mark - ZLWebContentViewDelegate
-
-- (void) onBackButtonClickWithButton:(UIButton *)button
-{
-     [self.viewController.navigationController popViewControllerAnimated:true];
-}
 
 - (void) onAdditionButtonClickWithButton:(UIButton *) button {
     
@@ -79,6 +85,8 @@
     
 }
 
+#pragma mark - ZLWebContentViewDelegate
+
 - (void)webView:(WKWebView * _Nonnull)webView navigationAction:(WKNavigationAction * _Nonnull)navigationAction decisionHandler:(void (^ _Nonnull)(WKNavigationActionPolicy))decisionHandler {
     decisionHandler(WKNavigationActionPolicyAllow);
 }
@@ -88,6 +96,26 @@
     decisionHandler(WKNavigationResponsePolicyAllow);
 }
 
+
+- (void)webView:(WKWebView *)webView didReceiveServerRedirectForProvisionalNavigation:(null_unspecified WKNavigation *)navigation{
+    NSURL *url = webView.URL;
+    if(!url.scheme || (![@"https" isEqualToString:url.scheme] && ![@"http" isEqualToString:url.scheme] )){
+        if([[UIApplication sharedApplication] canOpenURL:url]){
+            [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+            return;
+        }
+    }
+    
+}
+
+- (void) onTitleChangeWithTitle:(NSString *) title{
+    if(title){
+        self.viewController.title = title;
+    }
+}
+
+
+#pragma mark - 清除cookie
 
 -(void) clearCookiesForWkWebView
 {

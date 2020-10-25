@@ -8,6 +8,7 @@
 
 #import "ZLGithubHttpClient.h"
 #import "ZLGithubAPI.h"
+#import "ZLGithubAppKey.h"
 #import <AFNetworking/AFHTTPSessionManager.h>
 #import <MJExtension/MJExtension.h>
 
@@ -115,6 +116,13 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     [sessionManager.requestSerializer setValue:[NSString stringWithFormat:@"token %@",self.token] forHTTPHeaderField:@"Authorization"];
     for(NSString *header in headers.allKeys){
         [sessionManager.requestSerializer setValue:headers[header] forHTTPHeaderField:header];
+        if([header isEqualToString:@"Accept"]){
+            if([MediaTypeJson isEqualToString:headers[header]]){
+                sessionManager.responseSerializer = [AFJSONResponseSerializer serializer];
+            } else {
+                sessionManager.responseSerializer = [AFHTTPResponseSerializer serializer];
+            }
+        }
     }
     
     [self requestWithSessionManager:sessionManager
@@ -803,6 +811,8 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
  **/
 - (void) getRepositoryReadMeInfo:(GithubResponse) block
                         fullName:(NSString *) fullName
+                          branch:(NSString * __nullable)branch
+                          isHTML:(BOOL) isHTML
                     serialNumber:(NSString *) serialNumber
 {
     fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
@@ -813,15 +823,26 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         
         if(result)
         {
-            ZLGithubContentModel * model = [ZLGithubContentModel mj_objectWithKeyValues:responseObject];
-            responseObject = model;
+            if(isHTML) {
+                NSString *htmlStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+                responseObject = htmlStr;
+            } else {
+                ZLGithubContentModel * model = [ZLGithubContentModel mj_objectWithKeyValues:responseObject];
+                responseObject = model;
+            }
+            
         }
         block(result,responseObject,serialNumber);
     };
     
+    NSDictionary *params = nil;
+    if(branch != nil){
+        params = @{@"ref":branch};
+    }
+    
     [self GETRequestWithURL:urlForRepoReadMe
-                WithHeaders:nil
-                 WithParams:nil
+                WithHeaders:isHTML ? @{@"Accept":@"application/vnd.github.v3.html+json"} : nil
+                 WithParams:params
           WithResponseBlock:newBlock
            WithSerialNumber:serialNumber];
 }
@@ -1911,5 +1932,129 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                    WithSerialNumber:serialNumber];
 }
 
+
+#pragma mark - Blocks
+
+- (void) getBlocks:(GithubResponse) block
+      serialNumber:(NSString *) serialNumber{
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,blockedUsersURL];
+    
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
+        if(result){
+            NSArray * array = [[ZLGithubUserModel mj_objectArrayWithKeyValuesArray:responseObject] copy];
+            responseObject = array;
+        }
+        block(result,responseObject,serialNumber);
+    };
+    
+    [self GETRequestWithURL:url
+                WithHeaders:@{@"Accept":@"application/vnd.github.giant-sentry-fist-preview+json"}
+                 WithParams:nil
+          WithResponseBlock:newBlock
+           WithSerialNumber:serialNumber];
+    
+}
+
+- (void) getUserBlockStatus: (GithubResponse) block
+                  loginName: (NSString *) loginName
+               serialNumber:(NSString *) serialNumber{
+    
+    loginName = [loginName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,blockUserURL];
+    url = [NSString stringWithFormat:url,loginName];
+    
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
+        if(result) {
+            responseObject = @{@"isBlock":@(YES)};
+        } else {
+            ZLGithubRequestErrorModel *errModel = responseObject;
+            if(errModel.statusCode == 404){
+                result = YES;
+                responseObject = @{@"isBlock":@(NO)};
+            }
+        }
+        block(result,responseObject,serialNumber);
+    };
+    
+    [self GETRequestWithURL:url
+                WithHeaders:@{@"Accept":@"application/vnd.github.giant-sentry-fist-preview+json"}
+                 WithParams:nil
+          WithResponseBlock:newBlock
+           WithSerialNumber:serialNumber];
+    
+    
+}
+
+- (void) blockUser: (GithubResponse) block
+         loginName: (NSString *) loginName
+      serialNumber: (NSString *) serialNumber{
+    
+    loginName = [loginName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,blockUserURL];
+    url = [NSString stringWithFormat:url,loginName];
+    
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
+        block(result,responseObject,serialNumber);
+    };
+    
+    [self requestWithMethod:@"PUT"
+                    WithURL:url
+                WithHeaders:@{@"Accept":@"application/vnd.github.giant-sentry-fist-preview+json"}
+                 WithParams:nil
+          WithResponseBlock:newBlock WithSerialNumber:serialNumber];
+    
+    
+}
+
+- (void) unBlockUser: (GithubResponse) block
+           loginName: (NSString *) loginName
+        serialNumber: (NSString *) serialNumber{
+    
+    loginName = [loginName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,blockUserURL];
+    url = [NSString stringWithFormat:url,loginName];
+    
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
+        block(result,responseObject,serialNumber);
+    };
+    
+    [self requestWithMethod:@"DELETE"
+                    WithURL:url
+                WithHeaders:@{@"Accept":@"application/vnd.github.giant-sentry-fist-preview+json"}
+                 WithParams:nil
+          WithResponseBlock:newBlock WithSerialNumber:serialNumber];
+    
+}
+
+#pragma mark - config
+
+- (void) getGithubClientConfig:(GithubResponse)block
+                  serialNumber:(NSString *) serialNumber{
+    NSString *url = @"https://www.existorlive.cn/ZLGithubConfig/ZLGithubConfig.json";
+    
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
+        if(result){
+            ZLGithubConfigModel *configModel = [ZLGithubConfigModel mj_objectWithKeyValues:responseObject];
+            responseObject = configModel;
+        }
+        block(result,responseObject,serialNumber);
+    };
+    
+    AFHTTPSessionManager *sessionManager =  [[AFHTTPSessionManager alloc] initWithSessionConfiguration:_httpConfig];
+    sessionManager.completionQueue = _completeQueue;
+    sessionManager.requestSerializer = [AFJSONRequestSerializer serializer];
+    sessionManager.responseSerializer = [AFJSONResponseSerializer serializer];
+            
+    [self requestWithSessionManager:sessionManager
+                         withMethod:@"GET"
+                            withURL:url
+                         WithParams:nil
+                  WithResponseBlock:newBlock
+                   WithSerialNumber:serialNumber];
+}
 
 @end

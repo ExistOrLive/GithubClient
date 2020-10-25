@@ -59,6 +59,19 @@ class ZLIssueCommentEventTableViewCellData: ZLEventTableViewCellData {
     override func getCellHeight() -> CGFloat {
         return UITableView.automaticDimension
     }
+    
+    override func onCellSingleTap() {
+        
+        guard let payload : ZLIssueCommentEventPayloadModel = self.eventModel.payload as? ZLIssueCommentEventPayloadModel else {
+            return
+        }
+        
+        let vc = ZLWebContentController.init()
+        vc.hidesBottomBarWhenPushed = true
+        vc.requestURL = URL.init(string: payload.issue.html_url)
+        self.viewController?.navigationController?.pushViewController(vc, animated: true)
+    }
+    
 }
 
 extension ZLIssueCommentEventTableViewCellData{

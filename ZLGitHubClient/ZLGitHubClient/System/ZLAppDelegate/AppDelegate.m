@@ -51,6 +51,7 @@
     
     [ZLLoginServiceModel sharedServiceModel];
     [ZLUserServiceModel sharedServiceModel];
+    [[ZLAdditionInfoServiceModel sharedServiceModel] getGithubClientConfig:[NSString generateSerialNumber]];
     
     ZLLog_Info(@"中间件，工具模块初始化完毕");
     
@@ -113,6 +114,16 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     [self removeObserver];
+}
+
+#pragma mark -
+
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window{
+    if (_allowRotation) {
+          return UIInterfaceOrientationMaskAll;
+      }else{
+          return UIInterfaceOrientationMaskPortrait;
+      }
 }
 
 
@@ -188,7 +199,7 @@
 {
     #ifdef DEBUG
            //默认
-           [[DoraemonManager shareInstance] install];
+         //  [[DoraemonManager shareInstance] install];
            // 或者使用传入位置,解决遮挡关键区域,减少频繁移动
            //[[DoraemonManager shareInstance] installWithStartingPosition:CGPointMake(66, 66)];
        #endif

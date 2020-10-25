@@ -23,6 +23,17 @@ class ZLEventTableViewCellData: ZLGithubItemTableViewCellData {
         guard let cell : ZLEventTableViewCell = targetView as? ZLEventTableViewCell else {
             return
         }
+        
+        var  showReportButton = ZLSharedDataManager.sharedInstance().configModel?.ReportFunction ?? true
+        if ZLUserServiceModel.shared().currentUserLoginName() == "ExistOrLive1"{
+            showReportButton = true
+        }
+        if ZLUserServiceModel.shared().currentUserLoginName() == self.eventModel.actor.login {
+            showReportButton = false
+        }
+        
+        cell.hiddenReportButton(hidden: !showReportButton)
+    
         cell.fillWithData(cellData: self)
         cell.delegate = self
     }
@@ -43,6 +54,8 @@ class ZLEventTableViewCellData: ZLGithubItemTableViewCellData {
         vc.hidesBottomBarWhenPushed = true
         self.viewController?.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    
     
 }
 
@@ -75,6 +88,13 @@ extension ZLEventTableViewCellData : ZLEventTableViewCellDelegate
 {
     func onAvatarClicked() {
         let vc = ZLUserInfoController.init(loginName: self.eventModel.actor.login, type: ZLGithubUserType_User)
+        vc.hidesBottomBarWhenPushed = true
+        self.viewController?.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func onReportClicked() {
+        let vc = ZLReportController.init()
+        vc.loginName = self.eventModel.actor.login
         vc.hidesBottomBarWhenPushed = true
         self.viewController?.navigationController?.pushViewController(vc, animated: true)
     }

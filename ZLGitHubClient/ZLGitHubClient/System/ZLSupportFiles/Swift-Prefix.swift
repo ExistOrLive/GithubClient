@@ -70,6 +70,8 @@ let ZLGetMyEventResult_Notification = Notification.Name(rawValue: "ZLGetMyEventR
 
 let ZLLanguageTypeChange_Notificaiton = Notification.Name(rawValue: "ZLLanguageTypeChange_Notificaiton")
 
+let ZLGithubConfigUpdate_Notification = Notification.Name(rawValue: "ZLGithubConfigUpdate_Notification")
+
 
 extension Notification
 {

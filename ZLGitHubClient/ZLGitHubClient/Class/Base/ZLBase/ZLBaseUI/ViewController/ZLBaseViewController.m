@@ -19,7 +19,6 @@
 @interface ZLBaseViewController ()
 
 
-
 @end
 
 @implementation ZLBaseViewController
@@ -86,6 +85,17 @@
     [self.viewModel VCLifeCycle_didReceiveMemoryWarning];
 }
 
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator{
+    
+    if(size.height > size.width) {
+        self.zlNavigationBar.isLandScape = false;
+    } else {
+        self.zlNavigationBar.isLandScape = true;
+    }
+    [self.zlNavigationBar updateConstraints];
+}
+
+
 #pragma mark - 初始化UI
 
 - (void) setUpUI
@@ -100,8 +110,8 @@
 
 #pragma mark - 设置Navigation Bar
 // 这里不使用系统的UINavigationBar，自定义导航栏
-- (void) setUpCustomNavigationbar
-{
+- (void) setUpCustomNavigationbar{
+    
     self.zlNavigationBar = [[ZLBaseNavigationBar alloc] init];
     [self.view addSubview:self.zlNavigationBar];
     [self.zlNavigationBar.backButton addTarget:self action:@selector(onBackButtonClicked:) forControlEvents:UIControlEventTouchUpInside];

@@ -40,6 +40,11 @@ class ZLAboutViewModel: ZLBaseViewModel {
     
     
     @IBAction func onAppStoreButtonClicked(_ sender: Any) {
+        let url = URL.init(string: "https://apps.apple.com/cn/app/zlgithubclient/id1498787032")
+        if UIApplication.shared.canOpenURL(url!) {
+            UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+        }
+        
     }
     
     

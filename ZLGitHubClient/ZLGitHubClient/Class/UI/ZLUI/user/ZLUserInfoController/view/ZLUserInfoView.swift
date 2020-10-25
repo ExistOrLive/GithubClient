@@ -35,6 +35,7 @@ class ZLUserInfoView: ZLBaseView {
     @IBOutlet weak var blogInfoLabel: UILabel!
     
     @IBOutlet weak var followButton: UIButton!
+    @IBOutlet weak var blockButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -56,6 +57,10 @@ class ZLUserInfoView: ZLBaseView {
         
         self.followButton.setTitle(ZLLocalizedString(string: "Follow", comment: ""), for: .normal)
         self.followButton.setTitle(ZLLocalizedString(string: "Unfollow", comment: "Unfollow"), for: .selected)
+        
+        
+        self.blockButton.setTitle(ZLLocalizedString(string: "Block", comment: ""), for: .normal)
+        self.blockButton.setTitle(ZLLocalizedString(string: "Unblock", comment: "Unblock"), for: .selected)
         
         
     }
