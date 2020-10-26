@@ -26,50 +26,76 @@
 - 支持简单查阅repository的代码
 - 支持查阅Notification
 
+## 寻求志同道合的合作开发者，若有意请联系[2068531506@qq.com](2068531506@qq.com)
 
 #### Github OAuth login and Access Token login
 
 <div align="left">
-<img src="Document/readme_pic/oauth_login.gif" width="200"/>
+<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_3796.JPG" width="200"/>
 
-<img src="Document/readme_pic/access_login.gif" width="200"/>
-</div>
-
-#### Main page
+#### News
 
 <div align="left">
-<img src="Document/readme_pic/main.gif" width="200"/>
+<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_3782.JPG" width="200"/>
 </div>
 
-#### Search repositories and users
+#### Notification
 
 <div align="left">
-<img src="Document/readme_pic/search.gif" width="200"/>
+<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_3783.JPG" width="200"/>
 </div>
 
-#### Repository
+#### Starred Repositories
 
 <div align="left">
-<img src="Document/readme_pic/repo.gif" width="200"/>
+<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_3784.JPG" width="200"/>
 </div>
 
 #### Trending 
 
 <div align="left">
-<img src="Document/readme_pic/trending.gif" width="200"/>
+<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_3785.JPG" width="200"/>
 </div>
 
-#### Events for the followings and repos watched
+#### Profile
 
 <div align="left">
-<img src="Document/readme_pic/event.gif" width="200"/>
+<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_3787.JPG" width="200"/>
 </div>
+
+#### Search
+
+<div align="left">
+<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_3786.JPG" width="200"/>
+</div>
+
+#### User Info
+
+<div align="left">
+<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_3788.JPG" width="200"/>
+</div>
+
+
+#### Repository Info
+
+<div align="left">
+<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_3789.JPG" width="200"/>
+<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_3790.JPG" width="200"/>
+</div>
+
 
 
 #### View markdown and code 
 
 <div align="left">
-<img src="Document/readme_pic/viewCode.gif" width="200"/>
+<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_3792.JPG" width="200"/>
+
+<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_3791.JPG" width="400"/>
+</div>
+
+<div align="left">
+<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_3794.JPG" width="200"/>
+<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_3793.JPG" width="400"/>
 </div>
 
 ## 如何使用GithubClient源码
