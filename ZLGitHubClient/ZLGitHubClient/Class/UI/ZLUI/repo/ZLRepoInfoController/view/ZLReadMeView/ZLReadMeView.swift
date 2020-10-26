@@ -10,7 +10,12 @@ import UIKit
 import WebKit
 
 @objc protocol ZLReadMeViewDelegate : NSObjectProtocol {
-    func onLinkClicked(url : URL?) -> Void
+    
+    @objc optional func onLinkClicked(url : URL?) -> Void
+    
+    @objc optional func getReadMeContent(result : Bool) -> Void
+    
+    @objc optional func loadEnd(result : Bool) -> Void
 }
 
 
@@ -31,7 +36,7 @@ class ZLReadMeView: ZLBaseView {
     // model
     private var fullName : String?
     private var branch: String?
-    
+        
     private var readMeModel : ZLGithubContentModel?
     private var htmlStr : String?
     private var serialNumber : String?
@@ -50,6 +55,11 @@ class ZLReadMeView: ZLBaseView {
         self.webView.scrollView.addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
     }
     
+    @IBAction func onRefreshButtonClicked(_ sender: Any) {
+        if self.fullName != nil {
+            self.startLoad(fullName: self.fullName!, branch: self.branch)
+        }
+    }
     
     
     func startLoad(fullName: String, branch: String?){
@@ -79,6 +89,11 @@ class ZLReadMeView: ZLBaseView {
                 weakSelf?.startRender(codeHtml: "Some Error Happened")
                 return
             }
+            
+            if weakSelf?.delegate?.responds(to: #selector(ZLReadMeViewDelegate.getReadMeContent(result:))) ?? false {
+                weakSelf?.delegate?.getReadMeContent?(result: true)
+            }
+            
             
             weakSelf?.htmlStr = data
             weakSelf?.startRender(codeHtml: data)
@@ -144,12 +159,7 @@ class ZLReadMeView: ZLBaseView {
     }
     
 
-    @IBAction func onRefreshButtonClicked(_ sender: Any) {
-        if self.fullName != nil {
-            self.startLoad(fullName: self.fullName!, branch: self.branch)
-        }
-    }
-    
+
     
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -164,7 +174,6 @@ class ZLReadMeView: ZLBaseView {
         }
         
     }
-    
     
     deinit {
         self.webView.scrollView.removeObserver(self, forKeyPath: "contentSize")
@@ -206,7 +215,7 @@ extension ZLReadMeView : WKNavigationDelegate,WKUIDelegate{
                     url?.appendPathComponent(urlStr!)
                 }
                 if self.delegate?.responds(to: #selector(ZLReadMeViewDelegate.onLinkClicked(url:))) ?? false {
-                    self.delegate?.onLinkClicked(url: url)
+                    self.delegate?.onLinkClicked?(url: url)
                 }
             }
             
@@ -222,6 +231,9 @@ extension ZLReadMeView : WKNavigationDelegate,WKUIDelegate{
         self.progressView.progress = 1.0
         self.progressView.isHidden = true
         self.fixPicture()
+        if self.delegate?.responds(to: #selector(ZLReadMeViewDelegate.loadEnd(result:))) ?? false {
+            self.delegate?.loadEnd?(result: self.htmlStr != nil)
+        }
     }
     
     

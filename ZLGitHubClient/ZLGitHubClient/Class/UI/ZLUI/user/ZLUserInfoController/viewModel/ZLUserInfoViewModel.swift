@@ -26,18 +26,20 @@ class ZLUserInfoViewModel: ZLBaseViewModel {
     
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
         
-        if !(targetView is ZLUserInfoView)
-        {
+        if !(targetView is ZLUserInfoView){
             ZLLog_Warn("targetView is not ZLUserInfoView");
             return
         }
+        self.userInfoView = targetView as? ZLUserInfoView
         
-        guard let model : ZLGithubUserModel = targetModel as? ZLGithubUserModel else
-        {
+        guard let model : ZLGithubUserModel = targetModel as? ZLGithubUserModel else{
             ZLLog_Warn("model is not ZLGithubUserModel");
             return
         }
-        self.userInfoView = targetView as? ZLUserInfoView
+        
+        self.userInfoView?.readMeView?.isHidden = true
+        self.userInfoView?.readMeView?.delegate = self
+        self.userInfoView?.readMeView?.startLoad(fullName: "\(model.loginName)/\(model.loginName)", branch: nil)
         
         var showBlockButton = ZLSharedDataManager.sharedInstance().configModel?.BlockFunction ?? true
         if ZLUserServiceModel.shared().currentUserLoginName() == "ExistOrLive1"{
@@ -95,14 +97,12 @@ class ZLUserInfoViewModel: ZLBaseViewModel {
     
     @IBAction func onBlogButtonClicked(_ sender: Any) {
         
-        if self.userInfoModel?.blog == nil
-        {
+        if self.userInfoModel?.blog == nil{
             return
         }
         
         let url:URL? = URL.init(string:self.userInfoModel!.blog)
-        if url == nil
-        {
+        if url == nil{
             return;
         }
         
@@ -145,8 +145,8 @@ class ZLUserInfoViewModel: ZLBaseViewModel {
 
 extension ZLUserInfoViewModel
 {
-    func setViewDataForUserInfoView(model:ZLGithubUserModel, view:ZLUserInfoView)
-    {
+    func setViewDataForUserInfoView(model:ZLGithubUserModel, view:ZLUserInfoView){
+        
         self.userInfoModel = model;
         
         self.viewController?.title = model.loginName
@@ -293,6 +293,20 @@ extension ZLUserInfoViewModel
             }
         })
     }
-    
-    
+}
+
+extension ZLUserInfoViewModel : ZLReadMeViewDelegate{
+    func onLinkClicked(url : URL?) -> Void {
+        if url != nil {
+            let vc = ZLWebContentController.init()
+            vc.requestURL = url
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+        
+    func getReadMeContent(result: Bool) {
+        if result == true {
+            self.userInfoView?.readMeView?.isHidden = false
+        }
+    }
 }
