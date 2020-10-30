@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "back3.png",
+      "filename" : "选中.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "back3@2x.png",
+      "filename" : "选中@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "back3@3x.png",
+      "filename" : "选中@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

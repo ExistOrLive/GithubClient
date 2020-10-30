@@ -49,7 +49,7 @@ class ZLEventTableViewCell: UITableViewCell {
     {
         // containerView
         let view = UIView.init()
-        view.backgroundColor = UIColor.white
+        view.backgroundColor = UIColor.init(named: "ZLCellBack")
         view.layer.masksToBounds = true
         view.layer.cornerRadius = 8.0
         self.contentView.addSubview(view)

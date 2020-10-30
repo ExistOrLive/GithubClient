@@ -12,6 +12,7 @@ class ZLSettingItemTableViewCell: UITableViewCell {
     
     @IBOutlet weak var itemTypeLabel: UILabel!
     @IBOutlet weak var itemValueLabel: UILabel!
+    @IBOutlet weak var singleIineView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

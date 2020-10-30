@@ -191,3 +191,9 @@
 "explore" = "Explore";
 "profile" = "Profile";
 "Notification" = "Notifications";
+
+// Appearance
+"Appearance" = "Appearance";
+"FollowSystemSetting" = "Automic";
+"Dark Mode" = "Dark Mode";
+"Light Mode" = "Light Mode";

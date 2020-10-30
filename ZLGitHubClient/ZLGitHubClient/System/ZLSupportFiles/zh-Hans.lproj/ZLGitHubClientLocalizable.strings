@@ -186,3 +186,10 @@
 "email" = "邮箱";
 "blog" = "博客";
 "bio" = "个人描述";
+
+// Appearance
+"Appearance" = "外观";
+"FollowSystemSetting" = "跟随系统";
+"Dark Mode" = "深色模式";
+"Light Mode" = "浅色模式";
+

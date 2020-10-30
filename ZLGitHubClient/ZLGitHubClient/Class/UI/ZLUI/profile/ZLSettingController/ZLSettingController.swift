@@ -13,18 +13,21 @@ class ZLSettingController: ZLBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.title = ZLLocalizedString(string: "setting", comment: "设置")
+        
         self.viewModel = ZLSettingViewModel.init(viewController: self)
         
-        guard let baseView : ZLSettingView = Bundle.main.loadNibNamed("ZLSettingView", owner:self.viewModel , options: nil)?.first as? ZLSettingView else
-        {
-            ZLLog_Error("ZLSettingView load failed")
-            return
+        let tableView = UITableView.init(frame: CGRect.init(), style: .grouped)
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = .clear
+        tableView.register(UINib.init(nibName: "ZLSettingItemTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLSettingItemTableViewCell")
+        tableView.register(UINib.init(nibName: "ZLSettingLogoutTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLSettingLogoutTableViewCell")
+        self.contentView.addSubview(tableView)
+        tableView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
         }
         
-        baseView.frame = ZLScreenBounds
-        self.view.addSubview(baseView)
-        
-        self.viewModel.bindModel(nil, andView: baseView)
+        self.viewModel.bindModel(nil, andView:tableView)
     }
     
 
