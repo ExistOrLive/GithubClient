@@ -61,7 +61,6 @@ class ZLProfileHeaderView: ZLBaseView {
         self.collectionView.dataSource = self;
         self.collectionView.contentInset = UIEdgeInsets.init(top: 10, left: 10, bottom: 10, right: 10)
         self.collectionView.register(UINib.init(nibName: "ZLProfileEventCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "ZLProfileEventCollectionViewCell")
-        self.collectionView.backgroundColor = UIColor.init(hexString: "F6F6F6", alpha: 1.0)
         
        
         

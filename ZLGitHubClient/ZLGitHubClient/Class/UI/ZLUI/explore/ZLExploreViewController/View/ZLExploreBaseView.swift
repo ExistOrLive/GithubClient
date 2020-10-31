@@ -63,15 +63,15 @@ import JXSegmentedView
        
         self.segmentedViewDatasource.titles = []
         self.segmentedViewDatasource.itemWidthIncrement = 10
-        self.segmentedViewDatasource.titleNormalColor = ZLRGBValue_H(colorValue: 0x999999)
-        self.segmentedViewDatasource.titleSelectedColor = UIColor.black
+        self.segmentedViewDatasource.titleNormalColor = UIColor.init(named: "ZLLabelColor2") ?? ZLRGBValue_H(colorValue: 0x999999)
+        self.segmentedViewDatasource.titleSelectedColor = UIColor.init(named: "ZLLabelColor1") ?? UIColor.black
         self.segmentedViewDatasource.titleNormalFont =  UIFont.init(name: Font_PingFangSCRegular, size:14.0) ?? UIFont.systemFont(ofSize: 15)
         self.segmentedViewDatasource.titleSelectedFont = UIFont.init(name: Font_PingFangSCSemiBold, size:16.0)
  
         self.segmentedView.dataSource = self.segmentedViewDatasource
 
         let indicator = JXSegmentedIndicatorLineView()
-        indicator.indicatorColor = UIColor.black
+        indicator.indicatorColor = UIColor.init(named: "ZLExploreUnderlineColor") ?? UIColor.black
         indicator.indicatorHeight = 1.0
         self.segmentedView.indicators = [indicator]
         
