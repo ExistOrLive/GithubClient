@@ -52,6 +52,15 @@ func ZLRGBAValue_H(colorValue: UInt, alphaValue: CGFloat) -> UIColor
     return UIColor.init(rgb: colorValue, alpha: alphaValue)
 }
 
+func ZLRawColor(name: String) -> UIColor?{
+    
+    if let color = UIColor.init(named: name) {
+        return UIColor.init(cgColor: color.cgColor)
+    } else {
+        return nil
+    }
+}
+
 // MARK: NotificationName
 
 let ZLLoginResult_Notification = Notification.Name(rawValue: "ZLLoginResult_Notification")

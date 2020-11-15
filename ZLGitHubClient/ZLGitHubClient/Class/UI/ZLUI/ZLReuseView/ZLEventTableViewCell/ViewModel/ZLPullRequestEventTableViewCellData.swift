@@ -23,12 +23,12 @@ class ZLPullRequestEventTableViewCellData: ZLEventTableViewCellData {
         }
         
         let str = "\(payload.action) pull request #\(payload.number)\n\n  \(payload.pull_request.title)\n\nin \(self.eventModel.repo.name)"
-        let attributedStr =  NSMutableAttributedString.init(string: str , attributes: [NSAttributedString.Key.foregroundColor:UIColor.init(hexString: "#333333", alpha: 1.0)!,NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 15.0)!])
+        let attributedStr =  NSMutableAttributedString.init(string: str , attributes: [NSAttributedString.Key.foregroundColor:UIColor.init(cgColor: UIColor.init(named: "ZLLabelColor3")!.cgColor),NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 15.0)!])
 
         weak var weakSelf = self
         
         let prNumberRange = (str as NSString).range(of: "#\(payload.number)")
-        attributedStr.yy_setTextHighlight(prNumberRange, color: ZLRGBValue_H(colorValue: 0x0666D6), backgroundColor: UIColor.clear , tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
+        attributedStr.yy_setTextHighlight(prNumberRange, color: UIColor.init(cgColor: UIColor.init(named: "ZLLinkLabelColor1")!.cgColor), backgroundColor: UIColor.clear , tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
             let vc = ZLWebContentController.init()
             vc.hidesBottomBarWhenPushed = true
             vc.requestURL = URL.init(string: payload.pull_request.html_url)
@@ -36,7 +36,7 @@ class ZLPullRequestEventTableViewCellData: ZLEventTableViewCellData {
         })
 
         let repoNameRange = (str as NSString).range(of: self.eventModel.repo.name)
-        attributedStr.yy_setTextHighlight(repoNameRange, color: ZLRGBValue_H(colorValue: 0x0666D6), backgroundColor: UIColor.clear , tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
+        attributedStr.yy_setTextHighlight(repoNameRange, color: UIColor.init(cgColor: UIColor.init(named: "ZLLinkLabelColor1")!.cgColor), backgroundColor: UIColor.clear , tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
 
             let repoModel = ZLGithubRepositoryModel.init()
             repoModel.full_name = weakSelf?.eventModel.repo.name ?? "";
@@ -72,6 +72,12 @@ class ZLPullRequestEventTableViewCellData: ZLEventTableViewCellData {
         vc.requestURL = URL.init(string: payload.pull_request.html_url)
         self.viewController?.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    override func clearCache(){
+        self._eventDescription = nil
+        self._pullRequestBody = nil
+    }
+    
 }
 
 extension ZLPullRequestEventTableViewCellData{

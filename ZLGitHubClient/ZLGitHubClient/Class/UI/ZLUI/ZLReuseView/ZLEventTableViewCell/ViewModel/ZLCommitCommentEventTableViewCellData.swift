@@ -29,11 +29,12 @@ class ZLCommitCommentEventTableViewCellData: ZLEventTableViewCellData {
         let repoFullName = self.eventModel.repo.name
         let str =  "\(loginName) commented on commit \(commit_id)\n\nin \(repoFullName)"
         
-        let attributedString = NSMutableAttributedString.init(string: str , attributes: [NSAttributedString.Key.foregroundColor:UIColor.init(hexString: "#333333", alpha: 1.0)!,NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 15.0)!])
+        let attributedString = NSMutableAttributedString.init(string: str , attributes: [NSAttributedString.Key.foregroundColor:UIColor.init(cgColor: UIColor.init(named: "ZLLabelColor3")!.cgColor),NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 15.0)!])
+        
         
         weak var weakSelf = self
         let loginNameRange = (str as NSString).range(of: loginName)
-        attributedString.yy_setTextHighlight(loginNameRange, color: ZLRGBValue_H(colorValue: 0x0666D6), backgroundColor: UIColor.clear, tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
+        attributedString.yy_setTextHighlight(loginNameRange, color: UIColor.init(cgColor: UIColor.init(named: "ZLLinkLabelColor1")!.cgColor), backgroundColor: UIColor.clear, tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
            let vc = ZLUserInfoController.init(loginName: payload.comment.user.loginName, type: payload.comment.user.type)
            vc.hidesBottomBarWhenPushed = true
            weakSelf?.viewController?.navigationController?.pushViewController(vc, animated: true)
@@ -41,7 +42,7 @@ class ZLCommitCommentEventTableViewCellData: ZLEventTableViewCellData {
         
         
         let commitRange = (str as NSString).range(of: commit_id)
-        attributedString.yy_setTextHighlight(commitRange, color: ZLRGBValue_H(colorValue: 0x0666D6), backgroundColor: UIColor.clear, tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
+        attributedString.yy_setTextHighlight(commitRange, color: UIColor.init(cgColor: UIColor.init(named: "ZLLinkLabelColor1")!.cgColor), backgroundColor: UIColor.clear, tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
              let url = "https://github.com/\(repoFullName)/commit/\(payload.comment.commit_id)"
              let vc = ZLWebContentController.init()
              vc.hidesBottomBarWhenPushed = true
@@ -51,7 +52,7 @@ class ZLCommitCommentEventTableViewCellData: ZLEventTableViewCellData {
         
     
         let repoNameRange = (str as NSString).range(of: repoFullName)
-        attributedString.yy_setTextHighlight(repoNameRange, color: ZLRGBValue_H(colorValue: 0x0666D6), backgroundColor: UIColor.clear , tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
+        attributedString.yy_setTextHighlight(repoNameRange, color: UIColor.init(cgColor: UIColor.init(named: "ZLLinkLabelColor1")!.cgColor), backgroundColor: UIColor.clear , tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
             let repoModel = ZLGithubRepositoryModel.init()
             repoModel.full_name = weakSelf?.eventModel.repo.name ?? "";
             let vc = ZLRepoInfoController.init(repoInfoModel: repoModel)
@@ -82,6 +83,12 @@ class ZLCommitCommentEventTableViewCellData: ZLEventTableViewCellData {
         vc.requestURL = URL.init(string: payload.comment.html_url)
         self.viewController?.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    override func clearCache(){
+        self._eventDescription = nil
+        self._commitBody = nil
+    }
+    
 }
 
 
@@ -94,7 +101,7 @@ extension ZLCommitCommentEventTableViewCellData {
                 return NSAttributedString.init()
             }
             
-            self._commitBody = NSAttributedString.init(string: payload.comment.body ?? "", attributes: [NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 14)!,NSAttributedString.Key.foregroundColor:UIColor.lightGray])
+            self._commitBody = NSAttributedString.init(string: payload.comment.body ?? "", attributes: [NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 14)!,NSAttributedString.Key.foregroundColor:UIColor.init(cgColor: UIColor.init(named: "ZLLabelColor2")!.cgColor)])
         }
         
         return self._commitBody ?? NSAttributedString.init()

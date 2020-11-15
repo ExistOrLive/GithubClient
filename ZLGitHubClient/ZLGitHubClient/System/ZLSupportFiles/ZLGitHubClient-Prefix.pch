@@ -53,6 +53,7 @@
 #define ZLRGBValue_H(colorValue) [UIColor colorWithRGB:colorValue alpha:1.0]
 #define ZLRGBAValue_H(colorValue,alphaValue) [UIColor colorWithRGB:colorValue alpha:alphaValue]
 #define ZLRGBStr_H(colorStr) [UIColor colorWithHexString:colorStr alpha:1.0]
+#define ZLRawColor(colorName) [UIColor colorWithCGColor:[UIColor colorNamed:colorName].CGColor]
 
 
 #pragma mark - font

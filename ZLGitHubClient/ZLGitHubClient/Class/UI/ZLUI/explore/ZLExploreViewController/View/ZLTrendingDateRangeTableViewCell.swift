@@ -27,7 +27,7 @@ class ZLTrendingDateRangeTableViewCell: UITableViewCell {
             self.titleLabel.textColor = UIColor.black
         } else {
             self.selectedTag.isHidden = true
-            self.titleLabel.textColor = ZLRGBValue_H(colorValue: 0x586069)
+            self.titleLabel.textColor = UIColor.init(named: "ZLLabelColor4")
         }
     }
     

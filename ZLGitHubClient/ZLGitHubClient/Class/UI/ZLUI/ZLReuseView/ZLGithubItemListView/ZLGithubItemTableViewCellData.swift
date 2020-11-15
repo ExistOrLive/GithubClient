@@ -39,6 +39,10 @@ class ZLGithubItemTableViewCellData : ZLBaseViewModel,ZLGithubItemTableViewCellD
         return nil
     }
     
+    func clearCache(){
+        
+    }
+    
 }
 
 extension ZLGithubItemTableViewCellData {

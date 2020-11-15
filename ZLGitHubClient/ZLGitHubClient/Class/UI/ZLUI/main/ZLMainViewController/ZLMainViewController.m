@@ -113,13 +113,13 @@
     
     if(@available(iOS 13.0, *)){
         self.tabBar.tintColor = [UIColor colorNamed:@"ZLTabBarTintColor"];
-
     }else{
         //设置title的颜色
         NSMutableDictionary *attrDic = [NSMutableDictionary dictionary];
-        attrDic[NSForegroundColorAttributeName] = [UIColor blackColor];
+        attrDic[NSForegroundColorAttributeName] = [UIColor colorNamed:@"ZLTabBarTintColor"];
         [[UITabBarItem appearance] setTitleTextAttributes:attrDic forState:UIControlStateSelected];
     }
+    [[UITabBar appearance] setBarTintColor:[UIColor colorNamed:@"ZLTabBarBackColor"]];
     
 }
 
