@@ -177,6 +177,10 @@
 "ClearSearchRecord" = "Clear";
 "Filter" = "Filter";
 
+"DateRange" = "Date Range";
+
+"OrderSelect" = "Order";
+
 "FilterFinish" = "Finish";
 
 // profile

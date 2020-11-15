@@ -178,6 +178,11 @@
 "ClearSearchRecord" = "清空记录";
 "Filter" = "过滤";
 
+"DateRange" = "选择日期";
+
+"OrderSelect" = "排序规则";
+
+
 "FilterFinish" = "完成";
 
 // profile

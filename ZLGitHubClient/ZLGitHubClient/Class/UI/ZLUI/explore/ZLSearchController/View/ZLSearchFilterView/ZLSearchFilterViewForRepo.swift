@@ -69,6 +69,8 @@ class ZLSearchFilterViewForRepo: ZLBaseView {
         
         let gestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(resignAllResponder))
         self.addGestureRecognizer(gestureRecognizer)
+        
+        self.finishButton.titleLabel?.font = UIFont.init(name: Font_PingFangSCSemiBold, size: 14)
     }
     
     @IBAction func onOrderButtonClicked(_ sender: UIButton) {
