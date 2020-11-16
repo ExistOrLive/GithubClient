@@ -61,6 +61,25 @@ func ZLRawColor(name: String) -> UIColor?{
     }
 }
 
+@available(iOS 12.0, *)
+func getRealUserInterfaceStyle() -> UIUserInterfaceStyle {
+    if ZLSharedDataManager.sharedInstance().currentUserInterfaceStyle == .unspecified {
+        if  let color = UIColor.init(named: "TestColor") {
+            if color.cgColor.components?[0] ?? 1.0 == 1.0 {
+                return .light
+            } else {
+                return .dark
+            }
+        } else {
+            return .light
+        }
+    } else {
+        return ZLSharedDataManager.sharedInstance().currentUserInterfaceStyle
+    }
+    
+   
+}
+
 // MARK: NotificationName
 
 let ZLLoginResult_Notification = Notification.Name(rawValue: "ZLLoginResult_Notification")

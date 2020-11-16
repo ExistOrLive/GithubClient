@@ -62,6 +62,17 @@ class ZLUserInfoViewModel: ZLBaseViewModel {
         
         SVProgressHUD.show()
         
+        if let vc = self.viewController as? ZLBaseViewController {
+            vc.zlNavigationBar.backButton.isHidden = false
+            let button = UIButton.init(type: .custom)
+            button.setImage(UIImage.init(named: "run_more"), for: .normal)
+            button.frame = CGRect.init(x: 0, y: 0, width: 60, height: 60)
+            button.addTarget(self, action: #selector(onMoreButtonClick(button:)), for: .touchUpInside)
+            
+            vc.zlNavigationBar.rightButton = button
+        }
+        
+        
     }
     
 
@@ -138,6 +149,45 @@ class ZLUserInfoViewModel: ZLBaseViewModel {
         } else {
             self.BlockUser();
         }
+    }
+    
+    @objc func onMoreButtonClick(button : UIButton) {
+        
+        if self.userInfoModel?.html_url == nil {
+            return
+        }
+        
+        let alertVC = UIAlertController.init(title: self.userInfoModel?.loginName, message: nil, preferredStyle: .actionSheet)
+        let alertAction1 = UIAlertAction.init(title: ZLLocalizedString(string: "View in Github", comment: ""), style: UIAlertAction.Style.default) { (action : UIAlertAction) in
+            let webContentVC = ZLWebContentController.init()
+            webContentVC.requestURL = URL.init(string: self.userInfoModel!.html_url)
+            self.viewController?.navigationController?.pushViewController(webContentVC, animated: true)
+        }
+        let alertAction2 = UIAlertAction.init(title: ZLLocalizedString(string: "Open in Safari", comment: ""), style: UIAlertAction.Style.default) { (action : UIAlertAction) in
+            let url =  URL.init(string: self.userInfoModel!.html_url)
+            if url != nil {
+                UIApplication.shared.open(url!, options: [:], completionHandler: {(result : Bool) in})
+            }
+        }
+        
+        let alertAction3 = UIAlertAction.init(title: ZLLocalizedString(string: "Share", comment: ""), style: UIAlertAction.Style.default) { (action : UIAlertAction) in
+            let url =  URL.init(string: self.userInfoModel!.html_url)
+            if url != nil {
+                let activityVC = UIActivityViewController.init(activityItems: [url!], applicationActivities: nil)
+                activityVC.excludedActivityTypes = [.message,.mail,.openInIBooks,.markupAsPDF]
+                self.viewController?.present(activityVC, animated: true, completion: nil)
+            }
+        }
+        
+        let alertAction4 = UIAlertAction.init(title: ZLLocalizedString(string: "Cancel", comment: ""), style: UIAlertAction.Style.cancel, handler: nil)
+        
+        alertVC.addAction(alertAction1)
+        alertVC.addAction(alertAction2)
+        alertVC.addAction(alertAction3)
+        alertVC.addAction(alertAction4)
+        
+        self.viewController?.present(alertVC, animated: true, completion: nil)
+        
     }
     
 }

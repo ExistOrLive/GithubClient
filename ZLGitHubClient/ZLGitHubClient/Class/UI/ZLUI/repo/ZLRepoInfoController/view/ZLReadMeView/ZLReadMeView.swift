@@ -46,6 +46,7 @@ class ZLReadMeView: ZLBaseView {
         
         self.refreshButton.setTitle(ZLLocalizedString(string: "refresh", comment: "刷新"), for: .normal)
         
+        self.webView.scrollView.backgroundColor = UIColor.clear
         self.webView.scrollView.isScrollEnabled = false
         self.webView.contentScaleFactor = 1.0
         self.webView.backgroundColor = UIColor.clear
@@ -137,18 +138,39 @@ class ZLReadMeView: ZLBaseView {
     // 开始渲染页面
     private func startRender(codeHtml : String){
         
-        let htmlURL: URL? = Bundle.main.url(forResource: "github_style_1", withExtension: "html")
+        let htmlURL: URL? = Bundle.main.url(forResource: "github_style", withExtension: "html")
+        
+        let cssURL : URL?
+        
+        if #available(iOS 12.0, *) {
+            if getRealUserInterfaceStyle() == .light{
+                cssURL = Bundle.main.url(forResource: "github_style", withExtension: "css")
+            } else {
+                cssURL = Bundle.main.url(forResource: "github_style_dark", withExtension: "css")
+            }
+        } else {
+            cssURL = Bundle.main.url(forResource: "github_style", withExtension: "css")
+        }
         
         if let url = htmlURL {
             
             do {
                 let htmlStr = try String.init(contentsOf: url)
                 let newHtmlStr = NSMutableString.init(string: htmlStr)
+                
+                if cssURL != nil {
+                    let cssStr = try String.init(contentsOf: cssURL!)
+                    let range = (newHtmlStr as NSString).range(of:"</style>")
+                    if  range.location != NSNotFound{
+                        newHtmlStr.insert(cssStr, at: range.location)
+                    }
+                }
+            
                 let range = (newHtmlStr as NSString).range(of:"</body>")
                 if  range.location != NSNotFound{
                     newHtmlStr.insert(codeHtml, at: range.location)
                 }
-                
+            
                 self.webView?.loadHTMLString(newHtmlStr as String, baseURL: nil)
                 
             }catch{
@@ -159,9 +181,6 @@ class ZLReadMeView: ZLBaseView {
     }
     
 
-
-    
-    
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
         if keyPath == "contentSize"{

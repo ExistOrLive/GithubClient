@@ -151,11 +151,30 @@
     profileNavigationController.tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_essence_click_icon"];
 }
 
+- (void) justReloadLanguage
+{
+    ZLBaseNavigationController *newsNavigationController = self.childViewControllers[0];
+    newsNavigationController.tabBarItem.title = ZLLocalizedString(@"news", @"动态");
+    
+    ZLBaseNavigationController *notificaitonNavigationController = self.childViewControllers[1];
+    notificaitonNavigationController.tabBarItem.title = ZLLocalizedString(@"Notification", @"通知");
+    
+    ZLBaseNavigationController *repositoriesNavigationController = self.childViewControllers[2];
+    repositoriesNavigationController.tabBarItem.title = ZLLocalizedString(@"star", @"标星");
+    
+    ZLBaseNavigationController *exploreNavigationController = self.childViewControllers[3];
+    exploreNavigationController.tabBarItem.title = ZLLocalizedString(@"explore", @"搜索");
+
+    ZLBaseNavigationController *profileNavigationController = self.childViewControllers[4];
+    profileNavigationController.tabBarItem.title = ZLLocalizedString(@"profile", @"我");
+}
+
+
 - (void) onNotificationArrived:(NSNotification *) notification
 {
     if([ZLLanguageTypeChange_Notificaiton isEqualToString:notification.name])
     {
-        [self justReloadView];
+        [self justReloadLanguage];
     }
 }
 

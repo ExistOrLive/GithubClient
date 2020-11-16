@@ -73,7 +73,7 @@
     if (@available(iOS 13.0, *)) {
         self.window.overrideUserInterfaceStyle = [ZLSharedDataManager sharedInstance].currentUserInterfaceStyle;
     }
-    [self.window setBackgroundColor:[UIColor whiteColor]];
+    [self.window setBackgroundColor:[UIColor colorNamed:@"ZLVCBackColor"]];
     [self.window makeKeyAndVisible];
     
     
