@@ -16,6 +16,11 @@ or alternatively using `brew cask install fastlane`
 
 # Available Actions
 ## iOS
+### ios increase
+```
+fastlane ios increase
+```
+
 ### ios adhoc
 ```
 fastlane ios adhoc
@@ -30,7 +35,7 @@ build one adhoc release local
 ```
 fastlane ios github_action_adhoc
 ```
-build one adhoc release on travis
+build one adhoc release on github actions
 ### ios travis_adhoc
 ```
 fastlane ios travis_adhoc
@@ -40,7 +45,7 @@ build one adhoc release on travis
 ```
 fastlane ios github_action_testFlight
 ```
-build one TestFlight release on travis
+build one TestFlight release on github action
 ### ios beta
 ```
 fastlane ios beta
