@@ -1,5 +1,5 @@
 # ZLGithubClient
-![build](https://github.com/MengAndJie/GithubClient/workflows/ZLGithub%20Build/badge.svg)
+![ZLGithub TestFlight](https://github.com/MengAndJie/GithubClient/workflows/ZLGithub%20TestFlight/badge.svg)
 ![language](https://img.shields.io/github/languages/top/mengandjie/githubclient)
 ![CodeSize](https://img.shields.io/github/languages/code-size/mengandjie/GitHubClient)
 ![release](https://img.shields.io/github/downloads/mengandjie/githubclient/total)
