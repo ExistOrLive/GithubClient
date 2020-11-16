@@ -33,7 +33,6 @@ jobs:
         MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
         MATCH_GITHUB_URL: ${{ secrets.MATCH_GITHUB_URL }}
-        FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.apple_pwd }}   # pwd for upload to testflight 
         FASTLANE_USER: ${{ secrets.FASTLANE_USER }}                                    
         FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }} 
         APPSTOREAPIISSUERID: ${{ secrets.APPSTOREAPIISSUERID }} 
