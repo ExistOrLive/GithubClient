@@ -24,7 +24,19 @@ platform :ios do
 
 
   lane :increase do
-    increment_build_number
+          gym(workspace: "ZLGitHubClient.xcworkspace",
+        scheme: "ZLGitHubClient",
+        clean: true,
+        include_symbols: true,
+        include_bitcode: true,
+        output_directory: "./fastlane/ipa/TestFlight",
+        output_name: "ZLGitHubClient.ipa",
+        export_options: {
+          method: "app-store",
+          provisioningProfiles: {
+            "com.zm.ZLGitHubClient" => "*** AppStore com.zm.ZLGitHubClient"
+            }
+            })
   end
 
   desc "build one adhoc release local"
@@ -149,19 +161,12 @@ platform :ios do
     
     gym(workspace: "ZLGitHubClient.xcworkspace",
         scheme: "ZLGitHubClient",
+        export_method: "app-store",
         clean: true,
         include_symbols: true,
         include_bitcode: true,
-        skip_build_archive: true,
-        archive_path: "./fastlane/archive/ZLGitHubClient.xcarchive",
         output_directory: "./fastlane/ipa/TestFlight",
-        output_name: "ZLGitHubClient.ipa",
-        export_options: {
-          method: "app-store",
-          provisioningProfiles: {
-            "com.zm.ZLGitHubClient" => "*** AppStore com.zm.ZLGitHubClient"
-            }
-            })
+        output_name: "ZLGitHubClient.ipa")
     
     pilot(
       api_key: api_key,

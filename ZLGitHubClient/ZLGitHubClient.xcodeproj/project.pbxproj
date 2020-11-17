@@ -3879,7 +3879,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.zm.ZLGitHubClient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc com.zm.ZLGitHubClient";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.zm.ZLGitHubClient";
 				SWIFT_OBJC_BRIDGING_HEADER = "ZLGitHubClient/System/ZLSupportFiles/ZLGitHubClient-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
