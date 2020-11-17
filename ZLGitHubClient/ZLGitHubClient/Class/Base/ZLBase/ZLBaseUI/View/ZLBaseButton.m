@@ -33,15 +33,30 @@
 
 
 - (void) setUpUI {
-    [self.layer setBorderColor:ZLRGBValue_H(0xC4C8CC).CGColor];
+    [self.layer setBorderColor:[UIColor colorNamed:@"ZLBaseButtonBorderColor"].CGColor];
     [self.layer setBorderWidth:1/[UIScreen mainScreen].scale];
     [self.layer setCornerRadius:4.0];
-    [self.layer setBackgroundColor:ZLRGBValue_H(0xF0F4F6).CGColor];
+    [self.layer setBackgroundColor:[UIColor colorNamed:@"ZLBaseButtonBackColor"].CGColor];
     
-    self.titleLabel.textColor = UIColor.blackColor;
-    self.titleLabel.font = [UIFont fontWithName:Font_PingFangSCSemiBold size:11];
+    self.titleLabel.textColor = [UIColor colorNamed:@"ZLBaseButtonTitleColor"];
+  //  self.titleLabel.font = [UIFont fontWithName:Font_PingFangSCSemiBold size:11];
     
-    [self setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
-    [self setTitleColor:UIColor.blackColor forState:UIControlStateSelected];
+    [self setTitleColor:[UIColor colorNamed:@"ZLBaseButtonTitleColor"] forState:UIControlStateNormal];
+    [self setTitleColor:[UIColor colorNamed:@"ZLBaseButtonTitleColor"] forState:UIControlStateSelected];
 }
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
+    [super traitCollectionDidChange:previousTraitCollection];
+    if (@available(iOS 13.0, *)) {
+        if(self.traitCollection.userInterfaceStyle != previousTraitCollection.userInterfaceStyle) {
+            [self.layer setBorderColor:[UIColor colorNamed:@"ZLBaseButtonBorderColor"].CGColor];
+            [self.layer setBackgroundColor:[UIColor colorNamed:@"ZLBaseButtonBackColor"].CGColor];
+            self.titleLabel.textColor = [UIColor colorNamed:@"ZLBaseButtonTitleColor"];
+            self.titleLabel.font = [UIFont fontWithName:Font_PingFangSCSemiBold size:11];
+            [self setTitleColor:[UIColor colorNamed:@"ZLBaseButtonTitleColor"] forState:UIControlStateNormal];
+            [self setTitleColor:[UIColor colorNamed:@"ZLBaseButtonTitleColor"] forState:UIControlStateSelected];
+        }
+    }
+}
+
 @end

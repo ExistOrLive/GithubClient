@@ -39,7 +39,7 @@ class ZLSearchFilterPickerView: ZLBaseView {
                  initIndex = index ?? 0;
              }
         
-        CYSinglePickerPopoverView.showCYSinglePickerPopover(withTitle: "排序规则",withInitIndex: UInt(initIndex), withDataArray: repoOrderArray, withResultBlock: {(result:UInt) in
+        CYSinglePickerPopoverView.showCYSinglePickerPopover(withTitle: ZLLocalizedString(string: "OrderSelect", comment: ""),withInitIndex: UInt(initIndex), withDataArray: repoOrderArray, withResultBlock: {(result:UInt) in
             resultBlock?(repoOrderArray[Int(result)])
         })
     }
@@ -55,14 +55,14 @@ class ZLSearchFilterPickerView: ZLBaseView {
             initIndex = index ?? 0;
         }
         
-        CYSinglePickerPopoverView.showCYSinglePickerPopover(withTitle: "排序规则", withInitIndex: UInt(initIndex), withDataArray: userOrderArray, withResultBlock: {(result:UInt) in
+        CYSinglePickerPopoverView.showCYSinglePickerPopover(withTitle: ZLLocalizedString(string: "OrderSelect", comment: ""), withInitIndex: UInt(initIndex), withDataArray: userOrderArray, withResultBlock: {(result:UInt) in
             resultBlock?(userOrderArray[Int(result)])
         })
     }
     
     static func showDatePickerView(resultBlock:((String)->Void)?)
     {
-        CYDatePickerView.showCYDatePickerPopover(withTitle: "选择日期", withYearRange: NSRange.init(location: 2008, length: 50), withResultBlock: {(date:Date) in
+        CYDatePickerView.showCYDatePickerPopover(withTitle: ZLLocalizedString(string: "DateRange", comment: ""), withYearRange: NSRange.init(location: 2008, length: 50), withResultBlock: {(date:Date) in
             
             let dateFormatter = DateFormatter();
             dateFormatter.dateFormat = "yyyy-MM-dd";

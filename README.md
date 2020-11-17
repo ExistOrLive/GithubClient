@@ -1,5 +1,5 @@
 # ZLGithubClient
-![build](https://github.com/MengAndJie/GithubClient/workflows/ZLGithub%20Build/badge.svg)
+![ZLGithub TestFlight](https://github.com/MengAndJie/GithubClient/workflows/ZLGithub%20TestFlight/badge.svg)
 ![language](https://img.shields.io/github/languages/top/mengandjie/githubclient)
 ![CodeSize](https://img.shields.io/github/languages/code-size/mengandjie/GitHubClient)
 ![release](https://img.shields.io/github/downloads/mengandjie/githubclient/total)
@@ -32,47 +32,57 @@
 
 <div align="left">
 <img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_3796.JPG" width="200"/>
+<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_4084.PNG" width="200"/>
+</div>
 
 #### News
 
 <div align="left">
 <img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_3782.JPG" width="200"/>
+<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_4069.PNG" width="200"/>
 </div>
 
 #### Notification
 
 <div align="left">
 <img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_3783.JPG" width="200"/>
+<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_4070.PNG" width="200"/>
+
 </div>
 
 #### Starred Repositories
 
 <div align="left">
 <img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_3784.JPG" width="200"/>
+<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_4071.PNG" width="200"/>
 </div>
 
 #### Trending 
 
 <div align="left">
 <img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_3785.JPG" width="200"/>
+<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_4072.PNG" width="200"/>
 </div>
 
 #### Profile
 
 <div align="left">
 <img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_3787.JPG" width="200"/>
+<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_4073.PNG" width="200"/>
 </div>
 
 #### Search
 
 <div align="left">
 <img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_3786.JPG" width="200"/>
+<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_4074.PNG" width="200"/>
 </div>
 
 #### User Info
 
 <div align="left">
 <img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_3788.JPG" width="200"/>
+<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_4083.PNG" width="200"/>
 </div>
 
 
@@ -80,8 +90,16 @@
 
 <div align="left">
 <img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_3789.JPG" width="200"/>
-<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_3790.JPG" width="200"/>
+<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_4075.PNG" width="200"/>
+
 </div>
+
+<div align="left">
+<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_3790.JPG" width="200"/>
+<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_4077.PNG" width="200"/>
+</div>
+
+
 
 
 
@@ -94,8 +112,18 @@
 </div>
 
 <div align="left">
+<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_4080.PNG" width="200"/>
+<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_4082.PNG" width="400"/>
+</div>
+
+<div align="left">
 <img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_3794.JPG" width="200"/>
 <img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_3793.JPG" width="400"/>
+</div>
+
+<div align="left">
+<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_4078.PNG" width="200"/>
+<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_4079.PNG" width="400"/>
 </div>
 
 ## 如何使用GithubClient源码

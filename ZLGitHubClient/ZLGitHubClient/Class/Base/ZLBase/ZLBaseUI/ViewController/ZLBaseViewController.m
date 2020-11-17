@@ -98,9 +98,9 @@
 
 #pragma mark - 初始化UI
 
-- (void) setUpUI
-{
-    self.view.backgroundColor = ZLRGBStr_H(@"F6F6F6");
+- (void) setUpUI{
+    
+    self.view.backgroundColor = [UIColor colorNamed:@"ZLVCBackColor"];
     
     [self setUpCustomNavigationbar];
     

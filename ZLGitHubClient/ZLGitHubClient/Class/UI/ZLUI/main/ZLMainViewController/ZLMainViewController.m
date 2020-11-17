@@ -38,6 +38,18 @@
     
 }
 
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
+    // 外观模式切换
+    [super traitCollectionDidChange:previousTraitCollection];
+    
+    if (@available(iOS 13.0, *)) {
+        if(self.traitCollection.userInterfaceStyle != previousTraitCollection.userInterfaceStyle){
+            [self justReloadView];
+        }
+    }
+}
+
+
 - (void)setupAllChildViewController {
     UIViewController *newsViewController = [SYDCentralPivotUIAdapter getZLNewsViewController];
     ZLBaseNavigationController *newsNavigationController = [[ZLBaseNavigationController alloc] initWithRootViewController:newsViewController];
@@ -100,17 +112,46 @@
     }
     
     if(@available(iOS 13.0, *)){
-        self.tabBar.tintColor = [UIColor blackColor];
+        self.tabBar.tintColor = [UIColor colorNamed:@"ZLTabBarTintColor"];
     }else{
         //设置title的颜色
         NSMutableDictionary *attrDic = [NSMutableDictionary dictionary];
-        attrDic[NSForegroundColorAttributeName] = [UIColor blackColor];
+        attrDic[NSForegroundColorAttributeName] = [UIColor colorNamed:@"ZLTabBarTintColor"];
         [[UITabBarItem appearance] setTitleTextAttributes:attrDic forState:UIControlStateSelected];
     }
+    [[UITabBar appearance] setBarTintColor:[UIColor colorNamed:@"ZLTabBarBackColor"]];
     
 }
 
 - (void) justReloadView
+{
+    ZLBaseNavigationController *newsNavigationController = self.childViewControllers[0];
+    newsNavigationController.tabBarItem.title = ZLLocalizedString(@"news", @"动态");
+    newsNavigationController.tabBarItem.image = [UIImage imageOriginalName:@"tabBar_new_icon"];
+    newsNavigationController.tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_new_click_icon"];
+    
+    ZLBaseNavigationController *notificaitonNavigationController = self.childViewControllers[1];
+    notificaitonNavigationController.tabBarItem.title = ZLLocalizedString(@"Notification", @"通知");
+    notificaitonNavigationController.tabBarItem.image = [UIImage imageOriginalName:@"tabBar_Notification"];
+    notificaitonNavigationController.tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_Notification_click"];
+    
+    ZLBaseNavigationController *repositoriesNavigationController = self.childViewControllers[2];
+    repositoriesNavigationController.tabBarItem.title = ZLLocalizedString(@"star", @"标星");
+    repositoriesNavigationController.tabBarItem.image = [UIImage imageOriginalName:@"tabBar_me_icon"];
+    repositoriesNavigationController.tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_me_click_icon"];
+    
+    ZLBaseNavigationController *exploreNavigationController = self.childViewControllers[3];
+    exploreNavigationController.tabBarItem.title = ZLLocalizedString(@"explore", @"搜索");
+    exploreNavigationController.tabBarItem.image = [UIImage imageOriginalName:@"tabBar_friendTrends_icon"];
+    exploreNavigationController.tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_friendTrends_click_icon"];
+
+    ZLBaseNavigationController *profileNavigationController = self.childViewControllers[4];
+    profileNavigationController.tabBarItem.title = ZLLocalizedString(@"profile", @"我");
+    profileNavigationController.tabBarItem.image = [UIImage imageOriginalName:@"tabBar_essence_icon"];
+    profileNavigationController.tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_essence_click_icon"];
+}
+
+- (void) justReloadLanguage
 {
     ZLBaseNavigationController *newsNavigationController = self.childViewControllers[0];
     newsNavigationController.tabBarItem.title = ZLLocalizedString(@"news", @"动态");
@@ -128,11 +169,12 @@
     profileNavigationController.tabBarItem.title = ZLLocalizedString(@"profile", @"我");
 }
 
+
 - (void) onNotificationArrived:(NSNotification *) notification
 {
     if([ZLLanguageTypeChange_Notificaiton isEqualToString:notification.name])
     {
-        [self justReloadView];
+        [self justReloadLanguage];
     }
 }
 

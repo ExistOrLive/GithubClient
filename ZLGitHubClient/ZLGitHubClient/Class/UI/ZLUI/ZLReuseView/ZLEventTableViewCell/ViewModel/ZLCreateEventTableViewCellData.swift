@@ -28,6 +28,10 @@ class ZLCreateEventTableViewCellData: ZLEventTableViewCellData {
         return UITableView.automaticDimension
     }
     
+    override func clearCache(){
+        self._eventDescription = nil
+    }
+    
     
     override func getEventDescrption() -> NSAttributedString {
         
@@ -44,10 +48,10 @@ class ZLCreateEventTableViewCellData: ZLEventTableViewCellData {
         if payload.ref_type == .repository {
             
             let str =  "created repository \(self.eventModel.repo.name)"
-            let attributedString = NSMutableAttributedString.init(string: str , attributes: [NSAttributedString.Key.foregroundColor:UIColor.init(hexString: "#333333", alpha: 1.0)!,NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 15.0)!])
+            let attributedString = NSMutableAttributedString.init(string: str , attributes: [NSAttributedString.Key.foregroundColor:UIColor.init(cgColor: UIColor.init(named: "ZLLabelColor3")!.cgColor),NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 15.0)!])
             
             let repoNameRange = (str as NSString).range(of: self.eventModel.repo.name)
-            attributedString.yy_setTextHighlight(repoNameRange, color: ZLRGBValue_H(colorValue: 0x0666D6), backgroundColor: UIColor.clear , tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
+            attributedString.yy_setTextHighlight(repoNameRange, color: UIColor.init(cgColor: UIColor.init(named: "ZLLinkLabelColor1")!.cgColor), backgroundColor: UIColor.clear , tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
                 
                 let repoModel = ZLGithubRepositoryModel.init()
                 repoModel.full_name = weakSelf?.eventModel.repo.name ?? "";
@@ -63,10 +67,10 @@ class ZLCreateEventTableViewCellData: ZLEventTableViewCellData {
         } else if payload.ref_type == .tag {
             
             let str =  "created tag \(payload.ref)\n\nin \(self.eventModel.repo.name)"
-            let attributedString = NSMutableAttributedString.init(string: str , attributes: [NSAttributedString.Key.foregroundColor:UIColor.init(hexString: "#333333", alpha: 1.0)!,NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 15.0)!])
+            let attributedString = NSMutableAttributedString.init(string: str , attributes: [NSAttributedString.Key.foregroundColor:UIColor.init(cgColor: UIColor.init(named: "ZLLabelColor3")!.cgColor),NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 15.0)!])
             
             let refRange = (str as NSString).range(of: payload.ref)
-            attributedString.yy_setTextHighlight(refRange, color: ZLRGBValue_H(colorValue: 0x0666D6), backgroundColor: UIColor.clear , tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
+            attributedString.yy_setTextHighlight(refRange, color: UIColor.init(cgColor: UIColor.init(named: "ZLLinkLabelColor1")!.cgColor), backgroundColor: UIColor.clear , tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
                 
                 let url = "https://github.com/\(weakSelf?.eventModel.repo.name ?? "")/releases/tag/\(payload.ref)"
                 let vc = ZLWebContentController.init()
@@ -77,7 +81,7 @@ class ZLCreateEventTableViewCellData: ZLEventTableViewCellData {
             })
             
             let repoNameRange = (str as NSString).range(of: self.eventModel.repo.name)
-            attributedString.yy_setTextHighlight(repoNameRange, color: ZLRGBValue_H(colorValue: 0x0666D6), backgroundColor: UIColor.clear , tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
+            attributedString.yy_setTextHighlight(repoNameRange, color: UIColor.init(cgColor: UIColor.init(named: "ZLLinkLabelColor1")!.cgColor), backgroundColor: UIColor.clear , tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
                 
                 let repoModel = ZLGithubRepositoryModel.init()
                 repoModel.full_name = weakSelf?.eventModel.repo.name ?? "";
@@ -94,14 +98,14 @@ class ZLCreateEventTableViewCellData: ZLEventTableViewCellData {
         } else if payload.ref_type == .branch {
             
             let str =  "created branch \(payload.ref)\n\nin \(self.eventModel.repo.name)"
-            let attributedString = NSMutableAttributedString.init(string: str , attributes: [NSAttributedString.Key.foregroundColor:UIColor.init(hexString: "#333333", alpha: 1.0)!,NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 15.0)!])
+            let attributedString = NSMutableAttributedString.init(string: str , attributes: [NSAttributedString.Key.foregroundColor:UIColor.init(cgColor: UIColor.init(named: "ZLLabelColor3")!.cgColor),NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 15.0)!])
             
             let refRange = (str as NSString).range(of: payload.ref)
-            attributedString.yy_setTextHighlight(refRange, color: ZLRGBValue_H(colorValue: 0x0666D6), backgroundColor: UIColor.clear , tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
+            attributedString.yy_setTextHighlight(refRange, color: UIColor.init(cgColor: UIColor.init(named: "ZLLinkLabelColor1")!.cgColor), backgroundColor: UIColor.clear , tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
             })
             
             let repoNameRange = (str as NSString).range(of: self.eventModel.repo.name)
-            attributedString.yy_setTextHighlight(repoNameRange, color: ZLRGBValue_H(colorValue: 0x0666D6), backgroundColor: UIColor.clear , tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
+            attributedString.yy_setTextHighlight(repoNameRange, color: UIColor.init(cgColor: UIColor.init(named: "ZLLinkLabelColor1")!.cgColor), backgroundColor: UIColor.clear , tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
                 
                 let repoModel = ZLGithubRepositoryModel.init()
                 repoModel.full_name = weakSelf?.eventModel.repo.name ?? "";

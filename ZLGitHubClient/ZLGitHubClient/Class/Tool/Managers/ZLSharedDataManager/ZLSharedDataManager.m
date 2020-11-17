@@ -18,6 +18,7 @@
 #define ZLSearchRecordKey @"ZLSearchRecordKey"
 #define ZLShowAllNotificationsKey @"ZLShowAllNotificationsKey"
 #define ZLGithubConfigKey @"ZLGithubConfigKey"
+#define ZLCurrentUserInterfaceStyleKey @"ZLCurrentUserInterfaceStyleKey"
  
 @implementation ZLSharedDataManager
 
@@ -26,7 +27,8 @@
 @synthesize trendingOptions = _trendingOptions;
 @synthesize searchRecordArray = _searchRecordArray;
 @synthesize configModel = _configModel;
-@dynamic  showAllNotifications;
+@dynamic showAllNotifications;
+@dynamic currentUserInterfaceStyle;
 
 + (instancetype) sharedInstance{
     static ZLSharedDataManager * manager = nil;
@@ -201,6 +203,18 @@
         _configModel = [NSKeyedUnarchiver unarchiveObjectWithData:data];
     }
     return _configModel;
+}
+
+
+#pragma mark - UIInterfaceStyle
+
+- (void) setCurrentUserInterfaceStyle:(UIUserInterfaceStyle)currentUserInterfaceStyle{
+    [[NSUserDefaults standardUserDefaults] setInteger:currentUserInterfaceStyle forKey:ZLCurrentUserInterfaceStyleKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (UIUserInterfaceStyle) currentUserInterfaceStyle{
+    return (UIUserInterfaceStyle)[[NSUserDefaults standardUserDefaults] integerForKey:ZLCurrentUserInterfaceStyleKey];
 }
 
 #pragma mark -

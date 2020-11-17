@@ -106,18 +106,18 @@ extension ZLNotificationTableViewCellData {
         let url = URL.init(string: self.data.subject?.url ?? "")
         let notificationNumber = url?.lastPathComponent ?? ""
         
-        let attributedStr : NSMutableAttributedString = NSMutableAttributedString.init(string: self.data.repository?.full_name ?? "", attributes: [NSAttributedString.Key.foregroundColor:ZLRGBValue_H(colorValue: 0x333333),NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCSemiBold, size: 16) ?? UIFont.systemFont(ofSize: 16)])
+        let attributedStr : NSMutableAttributedString = NSMutableAttributedString.init(string: self.data.repository?.full_name ?? "", attributes: [NSAttributedString.Key.foregroundColor:UIColor.init(cgColor: UIColor.init(named: "ZLLabelColor3")!.cgColor),NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCSemiBold, size: 16) ?? UIFont.systemFont(ofSize: 16)])
         
         if "Issue" == self.data.subject?.type ||
             "PullRequest" == self.data.subject?.type{
-            let numStr : NSAttributedString = NSMutableAttributedString.init(string: " #\(notificationNumber)", attributes: [NSAttributedString.Key.foregroundColor:ZLRGBValue_H(colorValue: 0x586069),NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCSemiBold, size: 16) ?? UIFont.systemFont(ofSize: 16)])
+            let numStr : NSAttributedString = NSMutableAttributedString.init(string: " #\(notificationNumber)", attributes: [NSAttributedString.Key.foregroundColor:UIColor.init(cgColor: UIColor.init(named: "ZLLabelColor4")!.cgColor),NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCSemiBold, size: 16) ?? UIFont.systemFont(ofSize: 16)])
             
             attributedStr.append(numStr)
         }
         
         weak var weakSelf = self
         
-        attributedStr.yy_setTextHighlight(NSRange.init(location: 0, length:attributedStr.length), color: nil , backgroundColor: ZLRGBValue_H(colorValue: 0x0666D6)) {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
+        attributedStr.yy_setTextHighlight(NSRange.init(location: 0, length:attributedStr.length), color: nil , backgroundColor: UIColor.init(cgColor: UIColor.init(named: "ZLLinkLabelColor1")!.cgColor)) {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
             let vc = ZLRepoInfoController.init(repoFullName: weakSelf?.data.repository?.full_name ?? "")
             vc.hidesBottomBarWhenPushed = true
             weakSelf?.viewController?.navigationController?.pushViewController(vc, animated: true)

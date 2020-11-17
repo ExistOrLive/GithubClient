@@ -81,7 +81,7 @@ static CGFloat ZLBaseNavigationBarStatusBarHeight = 0;
 
 - (void) setUPUI
 {
-    [self setBackgroundColor:[UIColor whiteColor]];
+    [self setBackgroundColor:[UIColor colorNamed:@"ZLNavigationBarBackColor"]];
     self.layer.shadowRadius = 0.3;
     
     // 确定横竖屏
@@ -124,7 +124,7 @@ static CGFloat ZLBaseNavigationBarStatusBarHeight = 0;
 - (void) setUpTitleLabel
 {
     _titleLabel = [UILabel new];
-    [self.titleLabel setTextColor:[UIColor blackColor]];
+    [self.titleLabel setTextColor:[UIColor colorNamed:@"ZLNavigationBarTitleColor"]];
     [self.titleLabel setFont:[UIFont fontWithName:Font_PingFangSCMedium size:18]];
     [self.titleLabel setTextAlignment:NSTextAlignmentCenter];
     self.titleLabel.adjustsFontSizeToFitWidth = true;

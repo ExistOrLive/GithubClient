@@ -26,10 +26,10 @@ class ZLGollumEventTableViewCellData: ZLEventTableViewCellData {
         for pageModel in payload.pages {
             
             let str = "\(pageModel.action) wiki page \(pageModel.page_name)\n"
-            let tmpAttributedStr =  NSMutableAttributedString.init(string: str , attributes: [NSAttributedString.Key.foregroundColor:UIColor.init(hexString: "#333333", alpha: 1.0)!,NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 15.0)!])
+            let tmpAttributedStr =  NSMutableAttributedString.init(string: str , attributes: [NSAttributedString.Key.foregroundColor:UIColor.init(cgColor: UIColor.init(named: "ZLLabelColor3")!.cgColor),NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 15.0)!])
             
             let pageNameRange = (str as NSString).range(of: pageModel.page_name)
-            tmpAttributedStr.yy_setTextHighlight(pageNameRange, color: ZLRGBValue_H(colorValue: 0x0666D6), backgroundColor: UIColor.clear , tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
+            tmpAttributedStr.yy_setTextHighlight(pageNameRange, color: UIColor.init(cgColor: UIColor.init(named: "ZLLinkLabelColor1")!.cgColor), backgroundColor: UIColor.clear , tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
                 let vc = ZLWebContentController.init()
                 vc.hidesBottomBarWhenPushed = true
                 vc.requestURL = URL.init(string: pageModel.html_url)
@@ -39,10 +39,10 @@ class ZLGollumEventTableViewCellData: ZLEventTableViewCellData {
         }
         
         let str = "\nin \(self.eventModel.repo.name)"
-        let tmpAttributedStr =  NSMutableAttributedString.init(string: str , attributes: [NSAttributedString.Key.foregroundColor:UIColor.init(hexString: "#333333", alpha: 1.0)!,NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 15.0)!])
+        let tmpAttributedStr =  NSMutableAttributedString.init(string: str , attributes: [NSAttributedString.Key.foregroundColor:UIColor.init(cgColor: UIColor.init(named: "ZLLabelColor3")!.cgColor),NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 15.0)!])
         
         let repoRange = (str as NSString).range(of: self.eventModel.repo.name)
-        tmpAttributedStr.yy_setTextHighlight(repoRange, color: ZLRGBValue_H(colorValue: 0x0666D6), backgroundColor: UIColor.clear , tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
+        tmpAttributedStr.yy_setTextHighlight(repoRange, color: UIColor.init(cgColor: UIColor.init(named: "ZLLinkLabelColor1")!.cgColor), backgroundColor: UIColor.clear , tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
             let repoModel = ZLGithubRepositoryModel.init()
             repoModel.full_name = weakSelf?.eventModel.repo.name ?? "";
             let vc = ZLRepoInfoController.init(repoInfoModel: repoModel)
@@ -63,5 +63,9 @@ class ZLGollumEventTableViewCellData: ZLEventTableViewCellData {
     
     override func getCellHeight() -> CGFloat {
         return UITableView.automaticDimension
+    }
+    
+    override func clearCache(){
+        self._eventDescription = nil
     }
 }

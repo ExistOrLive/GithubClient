@@ -58,6 +58,9 @@
 - (void) awakeFromNib
 {
     [super awakeFromNib];
+    
+    self.confirmButton.titleLabel.font = [UIFont fontWithName:Font_PingFangSCRegular size:15];
+    [self.confirmButton setTitle:ZLLocalizedString(@"Confirm", "") forState:UIControlStateNormal];
             
     [self.pickerView setBackgroundColor:[UIColor clearColor]];
 

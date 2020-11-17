@@ -1,0 +1,53 @@
+# action 语法 https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions
+name: ZLGithub TestFlight
+
+on:                               # 触发条件
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: build
+    runs-on: macos-latest # runner 系统 
+    steps:
+    - name: checkout
+      uses: actions/checkout@v2.0.0
+      with: 
+        ref: master 
+    - name: construct build enviroment
+      working-directory: ./ZLGitHubClient          # 指定run 的工作目录
+      run: |
+        gem cleanup
+        gem install bundler
+        bundle install
+        pod repo update
+        pod install
+        echo "construct build enviroment success"
+    - name: archive and upload app
+      working-directory: ./ZLGitHubClient          # 指定run 的工作目录
+      env: 
+        MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
+        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+        MATCH_GITHUB_URL: ${{ secrets.MATCH_GITHUB_URL }}
+        FASTLANE_USER: ${{ secrets.FASTLANE_USER }}                                    
+        FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }} 
+        APPSTOREAPIISSUERID: ${{ secrets.APPSTOREAPIISSUERID }} 
+        APPSTOREAPIKEY: ${{ secrets.APPSTOREAPIKEY }} 
+        APPSTOREAPIKEYID: ${{ secrets.APPSTOREAPIKEYID }} 
+
+      run: |
+        pwd 
+        bundle exec fastlane github_action_testFlight
+        echo "ipa build and upload success"
+    - name: upload github artifact
+      if: success()
+      uses: actions/upload-artifact@v1.0.0
+      with:
+          # Artifact name
+          name: ZLGitHubClient
+          # Directory containing files to upload
+          path: ./ZLGitHubClient/fastlane/ipa/TestFlight

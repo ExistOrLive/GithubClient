@@ -97,6 +97,8 @@ class ZLRepoCodePreview3Controller: ZLBaseViewController {
         
         
         let wv = WKWebView(frame: CGRect.init())
+        wv.backgroundColor = UIColor.clear
+        wv.scrollView.backgroundColor = UIColor.clear
         
         self.contentView.addSubview(wv)
         wv.snp.makeConstraints({(make) in
@@ -128,19 +130,19 @@ class ZLRepoCodePreview3Controller: ZLBaseViewController {
     
     @objc func onMoreButtonClick(button : UIButton) {
         let alertVC = UIAlertController.init(title: self.contentModel.path, message: nil, preferredStyle: .actionSheet)
-        let alertAction1 = UIAlertAction.init(title: "View in Github", style: UIAlertAction.Style.default) { (action : UIAlertAction) in
+        let alertAction1 = UIAlertAction.init(title: ZLLocalizedString(string: "View in Github", comment: ""), style: UIAlertAction.Style.default) { (action : UIAlertAction) in
             let webContentVC = ZLWebContentController.init()
             webContentVC.requestURL = URL.init(string: self.contentModel.html_url)
             self.navigationController?.pushViewController(webContentVC, animated: true)
         }
-        let alertAction2 = UIAlertAction.init(title: "Open in Safari", style: UIAlertAction.Style.default) { (action : UIAlertAction) in
+        let alertAction2 = UIAlertAction.init(title:ZLLocalizedString(string:  "Open in Safari", comment: ""), style: UIAlertAction.Style.default) { (action : UIAlertAction) in
             let url =  URL.init(string: self.contentModel.html_url)
             if url != nil {
                 UIApplication.shared.open(url!, options: [:], completionHandler: {(result : Bool) in})
             }
         }
         
-        let alertAction3 = UIAlertAction.init(title: "Share", style: UIAlertAction.Style.default) { (action : UIAlertAction) in
+        let alertAction3 = UIAlertAction.init(title: ZLLocalizedString(string: "Share", comment: ""), style: UIAlertAction.Style.default) { (action : UIAlertAction) in
             let url =  URL.init(string: self.contentModel.html_url)
             if url != nil {
                 let activityVC = UIActivityViewController.init(activityItems: [url!], applicationActivities: nil)
@@ -149,7 +151,7 @@ class ZLRepoCodePreview3Controller: ZLBaseViewController {
             }
         }
         
-        let alertAction4 = UIAlertAction.init(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil)
+        let alertAction4 = UIAlertAction.init(title: ZLLocalizedString(string: "Cancel", comment: ""), style: UIAlertAction.Style.cancel, handler: nil)
         
         alertVC.addAction(alertAction1)
         alertVC.addAction(alertAction2)
@@ -243,11 +245,32 @@ extension ZLRepoCodePreview3Controller {
         
         let htmlURL: URL? = Bundle.main.url(forResource: "github_style", withExtension: "html")
         
+        let cssURL : URL?
+        
+        if #available(iOS 12.0, *) {
+            if getRealUserInterfaceStyle() == .light{
+                cssURL = Bundle.main.url(forResource: "github_style", withExtension: "css")
+            } else {
+                cssURL = Bundle.main.url(forResource: "github_style_dark", withExtension: "css")
+            }
+        } else {
+            cssURL = Bundle.main.url(forResource: "github_style", withExtension: "css")
+        }
+        
         if let url = htmlURL {
             
             do {
                 let htmlStr = try String.init(contentsOf: url)
                 let newHtmlStr = NSMutableString.init(string: htmlStr)
+                
+                if cssURL != nil {
+                    let cssStr = try String.init(contentsOf: cssURL!)
+                    let range = (newHtmlStr as NSString).range(of:"</style>")
+                    if  range.location != NSNotFound{
+                        newHtmlStr.insert(cssStr, at: range.location)
+                    }
+                }
+            
                 let range = (newHtmlStr as NSString).range(of:"</body>")
                 if  range.location != NSNotFound{
                     newHtmlStr.insert(codeHtml, at: range.location)

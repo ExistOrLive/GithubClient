@@ -27,7 +27,7 @@ class ZLLanguageTableViewCell: UITableViewCell {
             self.languageLabel.textColor = UIColor.black
         } else {
             self.selectedTag.isHidden = true
-            self.languageLabel.textColor = ZLRGBValue_H(colorValue: 0x586069)
+            self.languageLabel.textColor = UIColor.init(named: "ZLLabelColor4")
         }
     }
     

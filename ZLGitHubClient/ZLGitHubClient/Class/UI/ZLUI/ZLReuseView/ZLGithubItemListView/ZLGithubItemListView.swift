@@ -42,6 +42,17 @@ import UIKit
         self.tableView?.backgroundColor = UIColor.clear
     }
     
+    override func tintColorDidChange() {
+        // appearence mode 改变
+        if let tmpCellDatas = self.cellDatas{
+            for cellData in tmpCellDatas{
+                cellData.clearCache()
+            }
+        }
+        self.tableView?.reloadData()
+    }
+    
+    
     
     func setUpUI()
     {

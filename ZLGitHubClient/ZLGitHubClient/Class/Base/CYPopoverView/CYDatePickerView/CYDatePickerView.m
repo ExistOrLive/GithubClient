@@ -61,6 +61,7 @@
 {
     [super awakeFromNib];
     
+    [self.confirmButton setTitle:ZLLocalizedString(@"Confirm", "") forState:UIControlStateNormal];
     self.containerView.layer.cornerRadius = 8.0;
     
     [self.pickerView setBackgroundColor:[UIColor clearColor]];
@@ -112,12 +113,8 @@
 }
 
 // returns the # of rows in each component..
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-{
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
  
-  
-   
-    
     if(component == 0)
     {
         return self.yearRange.length;

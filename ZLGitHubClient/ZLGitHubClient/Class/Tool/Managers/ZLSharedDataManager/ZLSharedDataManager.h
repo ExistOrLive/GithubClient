@@ -20,6 +20,7 @@
  
 NS_ASSUME_NONNULL_BEGIN
 
+
 @interface ZLSharedDataManager : NSObject
 
 + (instancetype) sharedInstance;
@@ -30,11 +31,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic,strong,nullable) NSMutableDictionary * trendingOptions;
 
+// 搜索记录
 @property(nonatomic,strong,nullable) NSArray<NSString *> *searchRecordArray;
 
-@property(nonatomic,assign) BOOL showAllNotifications;   // 是否展示所有notification
+// 是否展示所有notification
+@property(nonatomic,assign) BOOL showAllNotifications;
 
+// 应用动态配置
 @property(nonatomic,strong,nullable) ZLGithubConfigModel *configModel;
+
+// 用户界面外观选项
+@property(nonatomic,assign) UIUserInterfaceStyle currentUserInterfaceStyle API_AVAILABLE(ios(12.0));
 
 
 - (void) clearGithubTokenAndUserInfo;

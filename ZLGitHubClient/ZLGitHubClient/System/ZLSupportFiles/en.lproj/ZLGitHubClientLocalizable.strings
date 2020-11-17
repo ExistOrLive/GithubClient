@@ -30,8 +30,8 @@
 "about" = "About";
 "feedback" = "Feedback";
 
-"lastest update" = "lastest update";
-"all update" = "all update";
+"lastest update" = "Lastest update";
+"all update" = "All update";
 
 "login" = "Login";
 "logout" = "Logout";
@@ -177,6 +177,10 @@
 "ClearSearchRecord" = "Clear";
 "Filter" = "Filter";
 
+"DateRange" = "Date Range";
+
+"OrderSelect" = "Order";
+
 "FilterFinish" = "Finish";
 
 // profile
@@ -191,3 +195,15 @@
 "explore" = "Explore";
 "profile" = "Profile";
 "Notification" = "Notifications";
+
+// Appearance
+"Appearance" = "Appearance";
+"FollowSystemSetting" = "Automic";
+"Dark Mode" = "Dark Mode";
+"Light Mode" = "Light Mode";
+
+
+// share
+"Share" = "Share";
+
+

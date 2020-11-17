@@ -120,13 +120,13 @@ extension ZLWorkflowRunTableViewCellData {
     }
     
     func getWorkflowRunDesc() -> NSAttributedString {
-        let str = NSAttributedString.init(string: "\(self.workFlowTitle) #\(self.data.run_number)", attributes: [NSAttributedString.Key.foregroundColor: ZLRGBValue_H(colorValue: 0x6A737D),NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 14) ?? UIFont.systemFont(ofSize: 14)])
+        let str = NSAttributedString.init(string: "\(self.workFlowTitle) #\(self.data.run_number)", attributes: [NSAttributedString.Key.foregroundColor: ZLRawColor(name: "ZLLabelColor4") ?? UIColor.lightGray,NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 14) ?? UIFont.systemFont(ofSize: 14)])
         return str
     }
     
     func getBranchStr() -> NSAttributedString {
-        let str = NSMutableAttributedString.init(string: "\(self.data.head_repository?.full_name ?? "" ):\(self.data.head_branch ?? "")", attributes: [NSAttributedString.Key.foregroundColor: ZLRGBValue_H(colorValue: 0x6A737D),NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 13) ?? UIFont.systemFont(ofSize: 12)])
-        str.yy_setTextHighlight(NSRange.init(location: 0, length: str.length), color: ZLRGBValue_H(colorValue: 0x0266D6), backgroundColor: nil) {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
+        let str = NSMutableAttributedString.init(string: "\(self.data.head_repository?.full_name ?? "" ):\(self.data.head_branch ?? "")", attributes: [NSAttributedString.Key.foregroundColor:ZLRawColor(name: "ZLLinkLabelColor1") ?? UIColor.blue,NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 13) ?? UIFont.systemFont(ofSize: 12)])
+        str.yy_setTextHighlight(NSRange.init(location: 0, length: str.length), color: ZLRawColor(name: "ZLLinkLabelColor1") ?? UIColor.blue, backgroundColor: UIColor.clear) {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
              
             let vc = ZLRepoInfoController.init(repoFullName: self.data.head_repository?.full_name ?? "")
              vc.hidesBottomBarWhenPushed = true

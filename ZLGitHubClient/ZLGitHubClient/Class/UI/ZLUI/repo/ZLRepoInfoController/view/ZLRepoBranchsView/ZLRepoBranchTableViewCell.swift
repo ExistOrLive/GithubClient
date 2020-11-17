@@ -30,6 +30,8 @@ class ZLRepoBranchTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        self.contentView.backgroundColor = UIColor.init(named: "ZLPopUpCellBack")
+        
         self.selectedTag = UIImageView.init()
         self.selectedTag?.image = UIImage.init(named: "selected")
         self.contentView.addSubview(self.selectedTag!)
@@ -40,7 +42,7 @@ class ZLRepoBranchTableViewCell: UITableViewCell {
         })
         
         self.branchNameLabel = UILabel.init()
-        self.branchNameLabel?.textColor = ZLRGBValue_H(colorValue: 0x586069)
+        self.branchNameLabel?.textColor = UIColor.init(named: "ZLLabelColor4")
         self.branchNameLabel?.font = UIFont.init(name: Font_PingFangSCRegular, size: 14)
         self.contentView.addSubview(self.branchNameLabel!)
         self.branchNameLabel!.snp.makeConstraints ({ (make) in
@@ -49,11 +51,11 @@ class ZLRepoBranchTableViewCell: UITableViewCell {
         })
         
         let view = UIView.init()
-        view.backgroundColor = ZLRGBValue_H(colorValue: 0xEAECEF)
+        view.backgroundColor = UIColor.init(named: "ZLSeperatorLineColor")
         self.contentView.addSubview(view)
         view.snp.makeConstraints { (make) in
             make.right.left.bottom.equalToSuperview()
-            make.height.equalTo(1)
+            make.height.equalTo(0.3)
         }
     }
     

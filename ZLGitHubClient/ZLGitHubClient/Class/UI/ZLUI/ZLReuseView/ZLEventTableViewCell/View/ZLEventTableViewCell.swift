@@ -49,7 +49,7 @@ class ZLEventTableViewCell: UITableViewCell {
     {
         // containerView
         let view = UIView.init()
-        view.backgroundColor = UIColor.white
+        view.backgroundColor = UIColor.init(named: "ZLCellBack")
         view.layer.masksToBounds = true
         view.layer.cornerRadius = 8.0
         self.contentView.addSubview(view)
@@ -73,7 +73,7 @@ class ZLEventTableViewCell: UITableViewCell {
         self.headImageButton?.addTarget(self, action: #selector(self.onAvatarButtonClicked(button:)), for: .touchUpInside)
         
         let actorNameLabel = UILabel.init()
-        actorNameLabel.textColor = UIColor.black
+        actorNameLabel.textColor = UIColor.init(named: "ZLLabelColor1") ?? UIColor.black
         actorNameLabel.font = UIFont.init(name: Font_PingFangSCMedium, size: 16.0)
         self.containerView?.addSubview(actorNameLabel)
         actorNameLabel.snp.makeConstraints({(make) -> Void in
@@ -83,7 +83,7 @@ class ZLEventTableViewCell: UITableViewCell {
         self.actorNameLabel = actorNameLabel
         
         let timeLabel = UILabel.init()
-        timeLabel.textColor = UIColor.init(hexString: "#878787", alpha: 1.0)
+        timeLabel.textColor = UIColor.init(named: "ZLLabelColor2") ?? UIColor.init(hexString: "#878787", alpha: 1.0)
         timeLabel.font = UIFont.init(name: Font_PingFangSCMedium, size: 15.0)
         self.containerView?.addSubview(timeLabel)
         timeLabel.snp.makeConstraints({(make) -> Void in

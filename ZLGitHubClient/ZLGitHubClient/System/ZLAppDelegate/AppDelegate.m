@@ -70,7 +70,10 @@
        *  初始化window
        **/
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    [self.window setBackgroundColor:[UIColor whiteColor]];
+    if (@available(iOS 13.0, *)) {
+        self.window.overrideUserInterfaceStyle = [ZLSharedDataManager sharedInstance].currentUserInterfaceStyle;
+    }
+    [self.window setBackgroundColor:[UIColor colorNamed:@"ZLVCBackColor"]];
     [self.window makeKeyAndVisible];
     
     
@@ -199,9 +202,9 @@
 {
     #ifdef DEBUG
            //默认
-         //  [[DoraemonManager shareInstance] install];
+           [[DoraemonManager shareInstance] install];
            // 或者使用传入位置,解决遮挡关键区域,减少频繁移动
-           //[[DoraemonManager shareInstance] installWithStartingPosition:CGPointMake(66, 66)];
+           [[DoraemonManager shareInstance] installWithStartingPosition:CGPointMake(66, 66)];
        #endif
 }
 

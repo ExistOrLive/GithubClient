@@ -178,6 +178,11 @@
 "ClearSearchRecord" = "清空记录";
 "Filter" = "过滤";
 
+"DateRange" = "选择日期";
+
+"OrderSelect" = "排序规则";
+
+
 "FilterFinish" = "完成";
 
 // profile
@@ -186,3 +191,12 @@
 "email" = "邮箱";
 "blog" = "博客";
 "bio" = "个人描述";
+
+// Appearance
+"Appearance" = "外观";
+"FollowSystemSetting" = "跟随系统";
+"Dark Mode" = "深色模式";
+"Light Mode" = "浅色模式";
+
+// share
+"Share" = "分享";
