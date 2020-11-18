@@ -38,9 +38,7 @@
     [self.layer setCornerRadius:4.0];
     [self.layer setBackgroundColor:[UIColor colorNamed:@"ZLBaseButtonBackColor"].CGColor];
     
-    self.titleLabel.textColor = [UIColor colorNamed:@"ZLBaseButtonTitleColor"];
-  //  self.titleLabel.font = [UIFont fontWithName:Font_PingFangSCSemiBold size:11];
-    
+    self.titleLabel.textColor = [UIColor colorNamed:@"ZLBaseButtonTitleColor"];    
     [self setTitleColor:[UIColor colorNamed:@"ZLBaseButtonTitleColor"] forState:UIControlStateNormal];
     [self setTitleColor:[UIColor colorNamed:@"ZLBaseButtonTitleColor"] forState:UIControlStateSelected];
 }
@@ -52,7 +50,6 @@
             [self.layer setBorderColor:[UIColor colorNamed:@"ZLBaseButtonBorderColor"].CGColor];
             [self.layer setBackgroundColor:[UIColor colorNamed:@"ZLBaseButtonBackColor"].CGColor];
             self.titleLabel.textColor = [UIColor colorNamed:@"ZLBaseButtonTitleColor"];
-            self.titleLabel.font = [UIFont fontWithName:Font_PingFangSCSemiBold size:11];
             [self setTitleColor:[UIColor colorNamed:@"ZLBaseButtonTitleColor"] forState:UIControlStateNormal];
             [self setTitleColor:[UIColor colorNamed:@"ZLBaseButtonTitleColor"] forState:UIControlStateSelected];
         }
