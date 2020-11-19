@@ -1,0 +1,16 @@
+# https://www.apollographql.com/docs/ios/installation/
+
+query RepoOwner{
+  repository(owner:"ExistOrLive", name:"GithubClient"){
+    url
+    name
+  }
+}
+
+query RepoOwner1{
+  repository(owner:"ExistOrLive1", name:"GithubClient"){
+    url
+    name
+  }
+}
+

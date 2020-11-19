@@ -148,6 +148,8 @@
 		746FAFD12316AC42006A0288 /* ZLWebContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746FAFD02316AC42006A0288 /* ZLWebContentView.swift */; };
 		746FAFD32316AC73006A0288 /* ZLWebContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 746FAFD22316AC73006A0288 /* ZLWebContentView.xib */; };
 		746FAFD92316B586006A0288 /* ZLWebContentViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 746FAFD82316B586006A0288 /* ZLWebContentViewModel.m */; };
+		7485EE9C256644D100ED4D82 /* github.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 7485EE9B256644D100ED4D82 /* github.graphql */; };
+		7485EEA62566498D00ED4D82 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7485EEA52566498D00ED4D82 /* API.swift */; };
 		748905C0222EBA16003562E1 /* ZLTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 748905BD222EB9E8003562E1 /* ZLTextView.m */; };
 		748905C1222EBA16003562E1 /* ZLTextViewCoreData.m in Sources */ = {isa = PBXBuildFile; fileRef = 748905BF222EB9E8003562E1 /* ZLTextViewCoreData.m */; };
 		748905C4222EBBBA003562E1 /* NSMutableAttributedString+ZLTextEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 748905C3222EBBBA003562E1 /* NSMutableAttributedString+ZLTextEngine.m */; };
@@ -525,6 +527,8 @@
 		746FAFD22316AC73006A0288 /* ZLWebContentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZLWebContentView.xib; sourceTree = "<group>"; };
 		746FAFD72316B586006A0288 /* ZLWebContentViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLWebContentViewModel.h; sourceTree = "<group>"; };
 		746FAFD82316B586006A0288 /* ZLWebContentViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLWebContentViewModel.m; sourceTree = "<group>"; };
+		7485EE9B256644D100ED4D82 /* github.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = github.graphql; sourceTree = "<group>"; };
+		7485EEA52566498D00ED4D82 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		748905BC222EB9E8003562E1 /* ZLTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLTextView.h; sourceTree = "<group>"; };
 		748905BD222EB9E8003562E1 /* ZLTextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLTextView.m; sourceTree = "<group>"; };
 		748905BE222EB9E8003562E1 /* ZLTextViewCoreData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLTextViewCoreData.h; sourceTree = "<group>"; };
@@ -789,6 +793,7 @@
 		0ADF902C21D4B01900BF86CD /* ZLGitHubClient */ = {
 			isa = PBXGroup;
 			children = (
+				7485EE9A2566449600ED4D82 /* Graphql */,
 				366488532420B73100EC8FC7 /* ZLGitHubClient.entitlements */,
 				74C3F8C522D1DE360086A3F9 /* Class */,
 				74C3F8C422D1DE220086A3F9 /* System */,
@@ -1801,6 +1806,15 @@
 				74FE776D22EEF09600DAEAC4 /* ZLGithubAPI.h */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		7485EE9A2566449600ED4D82 /* Graphql */ = {
+			isa = PBXGroup;
+			children = (
+				7485EEA52566498D00ED4D82 /* API.swift */,
+				7485EE9B256644D100ED4D82 /* github.graphql */,
+			);
+			path = Graphql;
 			sourceTree = "<group>";
 		};
 		748905BA222EB9E8003562E1 /* ZLCustomView */ = {
@@ -3160,6 +3174,7 @@
 			buildConfigurationList = 0ADF904021D4B01900BF86CD /* Build configuration list for PBXNativeTarget "ZLGitHubClient" */;
 			buildPhases = (
 				BBD773204C4E643DC8C6C6DA /* [CP] Check Pods Manifest.lock */,
+				7485EE9F256645D200ED4D82 /* Generate Apollo GraphQL API */,
 				0ADF902621D4B01900BF86CD /* Sources */,
 				0ADF902721D4B01900BF86CD /* Frameworks */,
 				0ADF902821D4B01900BF86CD /* Resources */,
@@ -3269,6 +3284,7 @@
 				74CDA6842409833C00049EF8 /* LICENSE in Resources */,
 				7456A2EE2416A31200222D6C /* ZLPullRequestTableViewCell.xib in Resources */,
 				749BA38D2472E88C004F8F15 /* ZLLanguageSelectView.xib in Resources */,
+				7485EE9C256644D100ED4D82 /* github.graphql in Resources */,
 				74F0ABE72365971900D1B954 /* ZLSearchFilterViewForUser.xib in Resources */,
 				7436A0AC236DCDA700AF554C /* CYRangePickerPopoverView.xib in Resources */,
 				74D55DED22FB183E004114BC /* ZLSearchRecordTableViewCell.xib in Resources */,
@@ -3353,6 +3369,26 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ZLGitHubClient/Pods-ZLGitHubClient-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		7485EE9F256645D200ED4D82 /* Generate Apollo GraphQL API */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/${TARGET_NAME}/Graphql/**/*.graphql",
+			);
+			name = "Generate Apollo GraphQL API";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${SRCROOT}/${TARGET_NAME}/Graphql/API.swift",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nSCRIPT_PATH=\"${PODS_ROOT}/Apollo/scripts\"\ncd \"${SRCROOT}/${TARGET_NAME}/Graphql\"\n\"${SCRIPT_PATH}\"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile=\"schema.json\" \"${SRCROOT}/${TARGET_NAME}/Graphql/API.swift.new\"\nif ! diff -q \"${SRCROOT}/${TARGET_NAME}/Graphql/API.swift.new\" \"${SRCROOT}/${TARGET_NAME}/Graphql/API.swift\"; then\n  mv \"${SRCROOT}/${TARGET_NAME}/Graphql/API.swift.new\" \"${SRCROOT}/${TARGET_NAME}/Graphql/API.swift\"\nelse\n  rm \"${SRCROOT}/${TARGET_NAME}/Graphql/API.swift.new\"\nfi\n";
+		};
 		BBD773204C4E643DC8C6C6DA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3400,6 +3436,7 @@
 				74DFD9DB2427B515005825D3 /* ZLRepoContentTableViewCell.swift in Sources */,
 				7436AC8D21EB869C00F03276 /* SYDCentralFactory.m in Sources */,
 				74CF8F5F2543107A006F51A5 /* ZLReportController.swift in Sources */,
+				7485EEA62566498D00ED4D82 /* API.swift in Sources */,
 				74CC6031246C3E590076EE3C /* ZLIssueTableViewCell.swift in Sources */,
 				366DB83D241F31A3002A0896 /* ZLCommitTableViewCell.swift in Sources */,
 				74B87A5A2468562400C8EB6B /* ZLFeedbackController.swift in Sources */,
