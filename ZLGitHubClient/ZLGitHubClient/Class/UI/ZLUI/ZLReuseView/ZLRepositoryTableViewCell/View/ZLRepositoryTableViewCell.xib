@@ -28,7 +28,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3GF-Ag-vyy">
-                                <rect key="frame" x="70" y="10" width="0.0" height="0.0"/>
+                                <rect key="frame" x="70" y="10" width="347" height="0.0"/>
                                 <fontDescription key="fontDescription" name="PingFangSC-Semibold" family="PingFang SC" pointSize="17"/>
                                 <color key="textColor" name="ZLLabelColor1"/>
                                 <nil key="highlightedColor"/>
@@ -129,6 +129,7 @@
                             <constraint firstAttribute="trailing" secondItem="ZiQ-OK-JWW" secondAttribute="trailing" constant="20" id="KXN-95-NDz"/>
                             <constraint firstAttribute="bottom" secondItem="ZiQ-OK-JWW" secondAttribute="bottom" constant="10" id="LLj-oR-Q5a"/>
                             <constraint firstItem="qKq-QH-jHp" firstAttribute="top" secondItem="3GF-Ag-vyy" secondAttribute="bottom" constant="10" id="OIh-c7-ui9"/>
+                            <constraint firstAttribute="trailing" secondItem="3GF-Ag-vyy" secondAttribute="trailing" constant="15" id="RGR-Zx-Abq"/>
                             <constraint firstItem="ZiQ-OK-JWW" firstAttribute="leading" secondItem="Kig-ZQ-9qc" secondAttribute="leading" constant="10" id="Tq2-UR-QqR"/>
                             <constraint firstItem="qKq-QH-jHp" firstAttribute="leading" secondItem="Ijs-LI-Str" secondAttribute="trailing" constant="20" id="WWD-JI-trr"/>
                             <constraint firstItem="1Bl-Od-eiX" firstAttribute="leading" secondItem="Kig-ZQ-9qc" secondAttribute="trailing" constant="10" id="WjA-6M-JEh"/>
