@@ -80,6 +80,7 @@ extension ZLRepositoryTableViewCell
         self.forkNumLabel.text = "\(data.forkNum())"
         self.starNumLabel.text = "\(data.starNum())"
         self.ownerNameLabel.text = data.getOwnerName()
+        self.privateLabel.isHidden = !data.isPriva()
     }
 }
 
