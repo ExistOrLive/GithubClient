@@ -37,9 +37,6 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 
 @property (nonatomic, strong) NSURLSessionConfiguration * httpConfig;
 
-@property (nonatomic, strong) dispatch_queue_t completeQueue;
-
-@property (nonatomic, strong) NSString * token;
 
 @property (nonatomic, copy) void(^ loginBlock)(NSURLRequest * _Nullable request,BOOL isNeedContinuedLogin,BOOL success);
 
@@ -161,7 +158,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         if(model.statusCode == 401){
             // token 过期失效
             ZLMainThreadDispatch([[NSNotificationCenter defaultCenter] postNotificationName:ZLGithubTokenInvalid_Notification object:nil];)
-            
+
         }
     };
     
@@ -332,9 +329,10 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     void(^successBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
     ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
     {
+        ZLGithubHttpClient *strongSelf = weakSelf;
         NSDictionary * dic = (NSDictionary *) responseObject;
-        weakSelf.token = [dic objectForKey:@"access_token"];
-        [[ZLSharedDataManager sharedInstance] setGithubAccessToken:weakSelf.token];
+        strongSelf->_token = [dic objectForKey:@"access_token"];
+        [[ZLSharedDataManager sharedInstance] setGithubAccessToken:strongSelf->_token];
         
         ZLLoginProcessModel * processModel = [[ZLLoginProcessModel alloc] init];
         processModel.result = YES;
@@ -375,8 +373,9 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     void(^successBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
     ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
     {
-        weakSelf.token = token;
-        [[ZLSharedDataManager sharedInstance] setGithubAccessToken:weakSelf.token];
+        ZLGithubHttpClient *strongSelf= weakSelf;
+        strongSelf->_token= token;
+        [[ZLSharedDataManager sharedInstance] setGithubAccessToken:token];
         
         ZLLoginProcessModel * processModel = [[ZLLoginProcessModel alloc] init];
         processModel.result = YES;
@@ -425,7 +424,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     }
     
     // 注销成功，清空用户token和信息
-    self.token = nil;
+    self->_token = nil;
     [[ZLSharedDataManager sharedInstance] clearGithubTokenAndUserInfo];
     
     if(block) {

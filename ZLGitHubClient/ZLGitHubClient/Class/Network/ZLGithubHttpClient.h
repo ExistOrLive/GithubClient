@@ -18,6 +18,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype) defaultClient;
 
+// github token
+@property (nonatomic, strong, readonly) NSString * token;
+
+// request callback queue
+@property (nonatomic, strong, readonly) dispatch_queue_t completeQueue;
+
 /**
  *
  * OAuth 认证

@@ -14,6 +14,7 @@ static const NSString * StarRepoViewController = @"ZLStarRepoViewController";
 static const NSString * ExploreViewController = @"ZLExploreViewController";
 static const NSString * ProfileViewController = @"ZLProfileViewController";
 static const NSString * AboutViewController = @"ZLAboutViewController";
+static const NSString * WorkboardViewController = @"ZLWorkboardViewController";
 
 @implementation SYDCentralPivotUIAdapter
 
@@ -46,6 +47,8 @@ static const NSString * AboutViewController = @"ZLAboutViewController";
     return [[SYDCentralFactory sharedInstance] getOneUIViewController:AboutViewController];
 }
 
-
++ (UIViewController *)getWorkboardViewController{
+    return [[SYDCentralFactory sharedInstance] getOneUIViewController:WorkboardViewController];
+}
 
 @end

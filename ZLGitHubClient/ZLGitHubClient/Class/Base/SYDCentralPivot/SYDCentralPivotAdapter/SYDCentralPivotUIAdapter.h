@@ -20,4 +20,5 @@
 
 + (UIViewController *)getZLAboutViewController;
 
++ (UIViewController *)getWorkboardViewController;
 @end

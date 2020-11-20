@@ -8,6 +8,8 @@
 
 "repositories" = "Repos";
 "repository" = "Repo";
+"organization" = "Organization";
+"organizations" = "Organizations";
 "users" = "Users";
 "commits" = "Commits";
 "topics" = "Topics";
@@ -48,6 +50,7 @@
 
 "commit" = "Commit";
 "pull request" = "Pull Request";
+"pull requests" = "Pull Requests";
 "branch" = "Branch";
 "action" = "Action";
 "contributor" = "Contributors";
@@ -78,6 +81,7 @@
 "Input Address" = "Input Address";
 "Input Blog" = "Input Blog";
 "Save" = "Save";
+"Edit" = "Edit";
 
 "User" = "User";
 
@@ -136,6 +140,7 @@
 "Blocked User" = "Blocked User";
 
 "My Events" = "My Events";
+"Events" = "Events";
 
 // explore
 "Lang." = "Lang.";

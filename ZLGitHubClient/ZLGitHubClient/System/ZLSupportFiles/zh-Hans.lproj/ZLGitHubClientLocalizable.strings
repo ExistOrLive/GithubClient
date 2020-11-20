@@ -8,6 +8,8 @@
 
 "repositories" = "版本库";
 "repository" = "版本库";
+"organization" = "组织";
+"organizations" = "组织";
 "users" = "用户";
 "commits" = "提交";
 "topics" = "标题";
@@ -47,6 +49,7 @@
 "LoadFinished" = "全部加载完毕";
 
 "pull request" = "合并请求";
+"pull requests" = "合并请求";
 "branch" = "分支";
 "commit" = "提交";
 "action" = "Action";
@@ -82,6 +85,7 @@
 "Input Address" = "请填写地址";
 "Input Blog" = "请填写博客地址";
 "Save" = "保存";
+"Edit" = "编辑";
 
 "User" = "用户";
 
@@ -140,6 +144,7 @@
 "Blocked User" = "屏蔽的用户";
 
 "My Events" = "我的动态";
+"Events" = "动态";
 
 // explore
 "DateRange" = "时间范围";

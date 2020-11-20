@@ -1,16 +1,42 @@
 # https://www.apollographql.com/docs/ios/installation/
 
-query RepoOwner{
-  repository(owner:"ExistOrLive", name:"GithubClient"){
-    url
-    name
-  }
-}
-
-query RepoOwner1{
-  repository(owner:"ExistOrLive1", name:"GithubClient"){
-    url
-    name
+query WorkboardInfo{
+  viewer{
+    issues(first:3,states:OPEN,orderBy:{field:UPDATED_AT,direction:DESC}){
+      totalCount
+      edges{
+        node{
+          title
+          number
+          createdAt
+          author{
+            login
+          }
+        }
+      }
+    }
+    pullRequests(first:3,states:OPEN){
+      totalCount
+      edges{
+        node{
+          title
+          number
+          author{
+            login
+          }
+          createdAt
+        }
+      }
+    }
+    topRepositories(first:3,orderBy:{field:UPDATED_AT,direction:DESC}){
+       edges{
+        node{
+          nameWithOwner
+        }
+       }
+    }
+    bio
+    websiteUrl
   }
 }
 

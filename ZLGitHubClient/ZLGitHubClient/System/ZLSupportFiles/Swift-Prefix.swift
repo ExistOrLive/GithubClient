@@ -147,6 +147,17 @@ func ZLLocalizedString(string: String, comment: String) -> String
     return ZLToolManager.sharedInstance()?.zlLANModule.localized(withKey: string) ?? string;
 }
 
+// MARK: Dispatch
+
+func ZLMainThreadDispatch(_ block : @escaping ()->Void) {
+    if Thread.isMainThread {
+        block()
+    } else {
+        DispatchQueue.main.async {
+            block()
+        }
+    }
+}
 
 
 

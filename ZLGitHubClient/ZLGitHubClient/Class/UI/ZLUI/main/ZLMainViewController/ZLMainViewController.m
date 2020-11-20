@@ -51,6 +51,10 @@
 
 
 - (void)setupAllChildViewController {
+    
+    UIViewController *workboardViewController = [SYDCentralPivotUIAdapter getWorkboardViewController];
+    ZLBaseNavigationController *workNavigationController = [[ZLBaseNavigationController alloc] initWithRootViewController:workboardViewController];
+    
     UIViewController *newsViewController = [SYDCentralPivotUIAdapter getZLNewsViewController];
     ZLBaseNavigationController *newsNavigationController = [[ZLBaseNavigationController alloc] initWithRootViewController:newsViewController];
     
@@ -66,9 +70,10 @@
     UIViewController *profileViewController = [SYDCentralPivotUIAdapter getZLProfileViewController];
     ZLBaseNavigationController *profileNavigationController = [[ZLBaseNavigationController alloc] initWithRootViewController:profileViewController];
     
-    [self addChildViewController:newsNavigationController];
+//    [self addChildViewController:newsNavigationController];
+    [self addChildViewController:workNavigationController];
     [self addChildViewController:notificationNavigationController];
-    [self addChildViewController:repositoriesNavigationController];
+//    [self addChildViewController:repositoriesNavigationController];
     [self addChildViewController:exploreNavigationController];
     [self addChildViewController:profileNavigationController];
 }
@@ -78,8 +83,14 @@
     for(int i = 0; i < self.childViewControllers.count; i++){
         UITabBarItem *tabBarItem = self.childViewControllers[i].tabBarItem;
         switch(i){
+//            case 0:{
+//                tabBarItem.title = ZLLocalizedString(@"news", @"动态");
+//                tabBarItem.image = [UIImage imageOriginalName:@"tabBar_new_icon"];
+//                tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_new_click_icon"];
+//            }
+//                break;
             case 0:{
-                tabBarItem.title = ZLLocalizedString(@"news", @"动态");
+                tabBarItem.title =  ZLLocalizedString(@"Workboard", "通知");
                 tabBarItem.image = [UIImage imageOriginalName:@"tabBar_new_icon"];
                 tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_new_click_icon"];
             }
@@ -90,19 +101,19 @@
                 tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_Notification_click"];
             }
                 break;
+//            case 2:{
+//                tabBarItem.title =  ZLLocalizedString(@"star", "标星");
+//                tabBarItem.image = [UIImage imageOriginalName:@"tabBar_me_icon"];
+//                tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_me_click_icon"];
+//            }
+//                break;
             case 2:{
-                tabBarItem.title =  ZLLocalizedString(@"star", "标星");
-                tabBarItem.image = [UIImage imageOriginalName:@"tabBar_me_icon"];
-                tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_me_click_icon"];
-            }
-                break;
-            case 3:{
                 tabBarItem.title = ZLLocalizedString(@"explore", @"搜索");
                 tabBarItem.image = [UIImage imageOriginalName:@"tabBar_friendTrends_icon"];
                 tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_friendTrends_click_icon"];
             }
                 break;
-            case 4:{
+            case 3:{
                 tabBarItem.title = ZLLocalizedString(@"profile", @"我");
                 tabBarItem.image = [UIImage imageOriginalName:@"tabBar_essence_icon"];
                 tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_essence_click_icon"];
@@ -125,27 +136,33 @@
 
 - (void) justReloadView
 {
+//    ZLBaseNavigationController *newsNavigationController = self.childViewControllers[0];
+//    newsNavigationController.tabBarItem.title = ZLLocalizedString(@"news", @"动态");
+//    newsNavigationController.tabBarItem.image = [UIImage imageOriginalName:@"tabBar_new_icon"];
+//    newsNavigationController.tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_new_click_icon"];
+    
     ZLBaseNavigationController *newsNavigationController = self.childViewControllers[0];
-    newsNavigationController.tabBarItem.title = ZLLocalizedString(@"news", @"动态");
+    newsNavigationController.tabBarItem.title = ZLLocalizedString(@"Workboard", @"动态");
     newsNavigationController.tabBarItem.image = [UIImage imageOriginalName:@"tabBar_new_icon"];
     newsNavigationController.tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_new_click_icon"];
+    
     
     ZLBaseNavigationController *notificaitonNavigationController = self.childViewControllers[1];
     notificaitonNavigationController.tabBarItem.title = ZLLocalizedString(@"Notification", @"通知");
     notificaitonNavigationController.tabBarItem.image = [UIImage imageOriginalName:@"tabBar_Notification"];
     notificaitonNavigationController.tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_Notification_click"];
     
-    ZLBaseNavigationController *repositoriesNavigationController = self.childViewControllers[2];
-    repositoriesNavigationController.tabBarItem.title = ZLLocalizedString(@"star", @"标星");
-    repositoriesNavigationController.tabBarItem.image = [UIImage imageOriginalName:@"tabBar_me_icon"];
-    repositoriesNavigationController.tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_me_click_icon"];
-    
-    ZLBaseNavigationController *exploreNavigationController = self.childViewControllers[3];
+//    ZLBaseNavigationController *repositoriesNavigationController = self.childViewControllers[2];
+//    repositoriesNavigationController.tabBarItem.title = ZLLocalizedString(@"star", @"标星");
+//    repositoriesNavigationController.tabBarItem.image = [UIImage imageOriginalName:@"tabBar_me_icon"];
+//    repositoriesNavigationController.tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_me_click_icon"];
+//
+    ZLBaseNavigationController *exploreNavigationController = self.childViewControllers[2];
     exploreNavigationController.tabBarItem.title = ZLLocalizedString(@"explore", @"搜索");
     exploreNavigationController.tabBarItem.image = [UIImage imageOriginalName:@"tabBar_friendTrends_icon"];
     exploreNavigationController.tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_friendTrends_click_icon"];
 
-    ZLBaseNavigationController *profileNavigationController = self.childViewControllers[4];
+    ZLBaseNavigationController *profileNavigationController = self.childViewControllers[3];
     profileNavigationController.tabBarItem.title = ZLLocalizedString(@"profile", @"我");
     profileNavigationController.tabBarItem.image = [UIImage imageOriginalName:@"tabBar_essence_icon"];
     profileNavigationController.tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_essence_click_icon"];
@@ -153,19 +170,22 @@
 
 - (void) justReloadLanguage
 {
+//    ZLBaseNavigationController *newsNavigationController = self.childViewControllers[0];
+//    newsNavigationController.tabBarItem.title = ZLLocalizedString(@"news", @"动态");
+    
     ZLBaseNavigationController *newsNavigationController = self.childViewControllers[0];
-    newsNavigationController.tabBarItem.title = ZLLocalizedString(@"news", @"动态");
+    newsNavigationController.tabBarItem.title = ZLLocalizedString(@"Workboard", @"动态");
     
     ZLBaseNavigationController *notificaitonNavigationController = self.childViewControllers[1];
     notificaitonNavigationController.tabBarItem.title = ZLLocalizedString(@"Notification", @"通知");
     
-    ZLBaseNavigationController *repositoriesNavigationController = self.childViewControllers[2];
-    repositoriesNavigationController.tabBarItem.title = ZLLocalizedString(@"star", @"标星");
+//    ZLBaseNavigationController *repositoriesNavigationController = self.childViewControllers[2];
+//    repositoriesNavigationController.tabBarItem.title = ZLLocalizedString(@"star", @"标星");
     
-    ZLBaseNavigationController *exploreNavigationController = self.childViewControllers[3];
+    ZLBaseNavigationController *exploreNavigationController = self.childViewControllers[2];
     exploreNavigationController.tabBarItem.title = ZLLocalizedString(@"explore", @"搜索");
 
-    ZLBaseNavigationController *profileNavigationController = self.childViewControllers[4];
+    ZLBaseNavigationController *profileNavigationController = self.childViewControllers[3];
     profileNavigationController.tabBarItem.title = ZLLocalizedString(@"profile", @"我");
 }
 
