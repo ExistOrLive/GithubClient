@@ -57,8 +57,11 @@ class ZLUserInfoViewModel: ZLBaseViewModel {
         self.serialNumber = NSString.generateSerialNumber()
         ZLUserServiceModel.shared().getUserInfo(withLoginName: model.loginName, userType: model.type, serialNumber: self.serialNumber)
         
-        self.getFollowStatus()
-        self.getBlockStatus()
+        if self.userInfoModel?.type != ZLGithubUserType_Organization {
+            self.getFollowStatus()
+            self.getBlockStatus()
+        }
+
         
         SVProgressHUD.show()
         
@@ -198,6 +201,10 @@ extension ZLUserInfoViewModel
     func setViewDataForUserInfoView(model:ZLGithubUserModel, view:ZLUserInfoView){
         
         self.userInfoModel = model;
+        
+        if self.userInfoModel?.type == ZLGithubUserType_Organization {
+            self.userInfoView?.followButton.isHidden = true
+        }
         
         self.viewController?.title = model.loginName
         

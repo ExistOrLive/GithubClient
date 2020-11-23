@@ -24,11 +24,11 @@ class ZLWorkboardTableViewSectionHeader: UITableViewHeaderFooterView {
         
         self.titleLabel = UILabel()
         self.titleLabel.textColor = UIColor(named: "ZLLabelColor1")
-        self.titleLabel.font = UIFont.init(name: Font_PingFangSCSemiBold, size: 19)
+        self.titleLabel.font = UIFont.init(name: Font_PingFangSCSemiBold, size: 20)
         self.addSubview(self.titleLabel)
         self.titleLabel.snp.makeConstraints { (make) in
             make.left.equalToSuperview().offset(20)
-            make.centerY.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-10)
         }
         
         self.button = ZLBaseButton()
@@ -37,7 +37,7 @@ class ZLWorkboardTableViewSectionHeader: UITableViewHeaderFooterView {
         self.addSubview(self.button)
         self.button.snp.makeConstraints { (make) in
             make.size.equalTo(CGSize.init(width: 60, height: 30))
-            make.centerY.equalToSuperview()
+            make.centerY.equalTo(self.titleLabel)
             make.right.equalToSuperview().offset(-20)
         }
     }

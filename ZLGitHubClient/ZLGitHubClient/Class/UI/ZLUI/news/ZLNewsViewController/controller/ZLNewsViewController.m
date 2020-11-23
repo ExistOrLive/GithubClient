@@ -25,7 +25,7 @@
     
     self.title = ZLLocalizedString(@"news",@"动态");
  
-    self.viewModel = [[ZLNewsViewModel alloc] initWithViewController:self];
+    ZLNewsViewModel *viewModel = [ZLNewsViewModel new];
     ZLGithubItemListView * baseView = [[ZLGithubItemListView alloc] init];
     [baseView setTableViewFooter];
     [baseView setTableViewHeader];
@@ -35,7 +35,8 @@
         make.edges.equalTo(self.contentView).insets(UIEdgeInsetsMake(0, 0, 0, 0));
     }];
     
-    [self.viewModel bindModel:nil andView:baseView];
+    [self addSubViewModel:viewModel];
+    [viewModel bindModel:nil andView:baseView];
     
 
 }

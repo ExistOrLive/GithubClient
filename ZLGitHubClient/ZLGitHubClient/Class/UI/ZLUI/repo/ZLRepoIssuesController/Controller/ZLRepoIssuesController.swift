@@ -18,16 +18,17 @@ class ZLRepoIssuesController: ZLBaseViewController {
         
         self.title = ZLLocalizedString(string: "issues", comment: "")
         
-        self.viewModel = ZLRepoIssuesViewModel.init(viewController: self)
+        let viewModel = ZLRepoIssuesViewModel()
         
-        guard  let repoIssuesView : ZLRepoIssuesView = Bundle.main.loadNibNamed("ZLRepoIssuesView", owner: self.viewModel, options: nil)?.first as? ZLRepoIssuesView else {
+        guard  let repoIssuesView : ZLRepoIssuesView = Bundle.main.loadNibNamed("ZLRepoIssuesView", owner: viewModel, options: nil)?.first as? ZLRepoIssuesView else {
             return
         }
         self.contentView.addSubview(repoIssuesView)
         repoIssuesView.snp.makeConstraints ({ (make) in
             make.edges.equalToSuperview()
         })
-    
+        
+        self.addSubViewModel(viewModel)
         viewModel.bindModel(repoFullName, andView: repoIssuesView)
     }
     

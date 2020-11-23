@@ -54,7 +54,20 @@ NS_ASSUME_NONNULL_BEGIN
  **/
 
 - (void) getGithubClientConfig:(NSString *) serialNumber;
-       
+
+
+
+#pragma mark - org
+
+- (void) getOrgsWithSerialNumber:(NSString *) serialNumber
+                  completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+#pragma mark - issues
+
+- (void) getMyIssuesWithType:(ZLMyIssueFilterType) type
+                       after:(NSString * _Nullable) afterCursor
+                serialNumber:(NSString *) serialNumber
+              completeHandle:(void(^)(ZLOperationResultModel *)) handle;
 
 
 @end

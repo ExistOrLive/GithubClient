@@ -32,8 +32,9 @@
         make.edges.equalTo(self.contentView);
     }];
     
-    self.viewModel = [[ZLStarReposBaseViewModel alloc] initWithViewController:self];
-    [self.viewModel bindModel:nil andView:baseView];
+    ZLStarReposBaseViewModel *viewModel = [ZLStarReposBaseViewModel new];
+    [self addSubViewModel:viewModel];
+    [viewModel bindModel:nil andView:baseView];
 }
 
 /*

@@ -1,5 +1,57 @@
 # https://www.apollographql.com/docs/ios/installation/
 
+# 查询我的issues
+query viewerIssues($assignee:String,$creator:String,$mentioned:String,$after:String){
+  viewer{
+    issues(after:$after,orderBy:{field:UPDATED_AT,direction:DESC},first:10,filterBy:{createdBy:$creator,mentioned:$mentioned,assignee:$assignee}){
+      pageInfo{
+        hasNextPage
+        endCursor
+        startCursor
+      }
+      nodes{
+        number
+        title
+        body
+        url
+        state
+        labels(first:5,orderBy:{field: CREATED_AT, direction: DESC}){
+          nodes{
+            color
+            name
+          }
+        }
+        author{
+          login
+        }
+        repository{
+          name
+          nameWithOwner
+        }
+        createdAt
+        updatedAt
+      }
+    }
+  }
+}
+
+# 查询我的组织
+query viewerOrgs{
+  viewer{
+    organizations(first:20){
+      totalCount
+      edges{
+        node{
+          login
+          avatarUrl
+          location
+        }
+      }
+    }
+  }
+}
+
+# 查询我的工作台信息
 query WorkboardInfo{
   viewer{
     issues(first:3,states:OPEN,orderBy:{field:UPDATED_AT,direction:DESC}){
@@ -39,4 +91,5 @@ query WorkboardInfo{
     websiteUrl
   }
 }
+
 

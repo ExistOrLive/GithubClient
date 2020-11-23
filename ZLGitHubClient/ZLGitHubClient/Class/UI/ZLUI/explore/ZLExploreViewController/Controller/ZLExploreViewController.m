@@ -23,14 +23,15 @@
     [super viewDidLoad];
     
     //  创建ViewModel
-    self.viewModel = [[ZLExploreBaseViewModel alloc] initWithViewController:self];
-
-    ZLExploreBaseView * baseView = [[NSBundle mainBundle] loadNibNamed:@"ZLExploreBaseView" owner:self.viewModel options:nil].firstObject;
+    ZLExploreBaseViewModel *viewModel = [ZLExploreBaseViewModel new];
+    
+    ZLExploreBaseView * baseView = [[NSBundle mainBundle] loadNibNamed:@"ZLExploreBaseView" owner:viewModel options:nil].firstObject;
     [baseView setFrame:ZLScreenBounds];
     [self.view addSubview:baseView];
     
+    [self addSubViewModel:viewModel];
     // 关联View ViewModel VC
-    [self.viewModel bindModel:nil andView:baseView];
+    [viewModel bindModel:nil andView:baseView];
     
 }
 

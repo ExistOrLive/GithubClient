@@ -9,6 +9,16 @@
 import UIKit
 
 @objc protocol ZLUserTableViewCellDelegate : NSObjectProtocol {
+    
+    func getName() -> String?
+    
+    func getLoginName() -> String?
+    
+    func getAvatarUrl() -> String?
+    
+    func getCompany() -> String?
+    
+    func getLocation() -> String?
 }
 
 
@@ -47,8 +57,10 @@ class ZLUserTableViewCell: UITableViewCell {
 
 extension ZLUserTableViewCell
 {
-    func fillWithData(data : ZLUserTableViewCellData) -> Void
+    func fillWithData(data : ZLUserTableViewCellDelegate) -> Void
     {
+        self.delegate = data
+        
         self.headImageView.sd_setImage(with: URL.init(string: data.getAvatarUrl() ?? ""), placeholderImage: UIImage.init(named: "default_avatar"))
         self.nameLabel.text = data.getName()
         self.loginNameLabel.text = data.getLoginName()

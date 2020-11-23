@@ -62,7 +62,7 @@ class ZLRepoInfoViewModel: ZLBaseViewModel {
         self.serialNumber = NSString.generateSerialNumber()
         ZLRepoServiceModel.shared().getRepoInfo(withFullName: repoInfoModel.full_name, serialNumber: self.serialNumber!)
         
-        if let vc = self.viewController as? ZLBaseViewController {
+        if let vc = self.viewController {
             vc.zlNavigationBar.backButton.isHidden = false
             let button = UIButton.init(type: .custom)
             button.setImage(UIImage.init(named: "run_more"), for: .normal)

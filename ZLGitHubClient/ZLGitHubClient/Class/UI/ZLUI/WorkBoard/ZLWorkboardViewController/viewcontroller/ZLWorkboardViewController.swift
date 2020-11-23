@@ -21,8 +21,9 @@ class ZLWorkboardViewController: ZLBaseViewController {
             make.edges.equalToSuperview()
         })
         
-        self.viewModel = ZLWorkboardBaseViewModel(viewController:self)
-        self.viewModel.bindModel(nil, andView: baseView)
+        let viewModel = ZLWorkboardBaseViewModel()
+        self.addSubViewModel(viewModel)
+        viewModel.bindModel(nil, andView: baseView)
         
         
     }

@@ -43,7 +43,7 @@ class ZLIssueTableViewCellData: ZLGithubItemTableViewCellData {
 }
 
 
-extension ZLIssueTableViewCellData{
+extension ZLIssueTableViewCellData : ZLIssueTableViewCellDelegate{
     
     func getIssueTitleStr() -> String?{
         return self.issueModel.title

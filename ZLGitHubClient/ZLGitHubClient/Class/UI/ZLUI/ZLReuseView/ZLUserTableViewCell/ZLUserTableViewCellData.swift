@@ -40,13 +40,14 @@ class ZLUserTableViewCellData: ZLGithubItemTableViewCellData {
     }
     
     override func onCellSingleTap() {
-        let userInfoVC : ZLUserInfoController = ZLUserInfoController.init(loginName: self.userModel.loginName, type: self.userModel.type)
-        userInfoVC.hidesBottomBarWhenPushed = true
-        self.viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
+        if let userInfoVC = SYDCentralPivotUIAdapter.getUserInfoViewController(withUserInfo: self.userModel){
+            userInfoVC.hidesBottomBarWhenPushed = true
+            self.viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
+        }
     }
 }
 
-extension ZLUserTableViewCellData{
+extension ZLUserTableViewCellData:ZLUserTableViewCellDelegate{
     
     func getName() -> String? {
         return self.userModel.name
@@ -69,6 +70,3 @@ extension ZLUserTableViewCellData{
     }
 }
 
-
-extension ZLUserTableViewCellData: ZLUserTableViewCellDelegate{
-}

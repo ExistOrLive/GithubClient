@@ -10,7 +10,7 @@
 #define ZLGithubAPI_h
 
 #define OAuthState          @"31415"
-#define OAuthScope          @"user,repo,gist"
+#define OAuthScope          @"user,repo,gist,notifications,read:org,workflow"
 
 
 #pragma mark - media type

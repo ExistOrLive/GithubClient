@@ -25,7 +25,8 @@ class ZLRepoWatchedUsersController: ZLBaseViewController {
             make.edges.equalToSuperview()
         })
         
-        self.viewModel = ZLRepoWatchedUsersViewModel.init(viewController: self)
+        let viewModel = ZLRepoWatchedUsersViewModel()
+        self.addSubViewModel(viewModel)
         viewModel.bindModel(repoFullName, andView: itemListView)
     }
     

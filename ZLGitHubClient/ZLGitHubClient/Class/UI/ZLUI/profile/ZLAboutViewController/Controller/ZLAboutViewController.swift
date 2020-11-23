@@ -15,15 +15,17 @@ import UIKit
         
         self.title = ZLLocalizedString(string: "about", comment: "关于")
         
-        self.viewModel = ZLAboutViewModel(viewController: self)
+        let viewModel = ZLAboutViewModel()
         
-        guard let contentView : ZLAboutContentView = Bundle.main.loadNibNamed("ZLAboutContentView", owner: self.viewModel, options: nil)?.first as? ZLAboutContentView else{
+        guard let contentView : ZLAboutContentView = Bundle.main.loadNibNamed("ZLAboutContentView", owner:viewModel, options: nil)?.first as? ZLAboutContentView else{
             return
         }
         self.contentView.addSubview(contentView);
         contentView.snp_makeConstraints({ (make) in
             make.edges.equalToSuperview()
         })
-        self.viewModel.bindModel(nil, andView: contentView)
+        
+        self.addSubViewModel(viewModel)
+        viewModel.bindModel(nil, andView: contentView)
     }
 }

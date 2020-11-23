@@ -18,16 +18,18 @@ class ZLRepoPullRequestController: ZLBaseViewController {
         
         self.title = ZLLocalizedString(string: "pull request", comment: "合并请求")
         
-        self.viewModel = ZLRepoPullRequestViewModel.init(viewController: self)
+        let viewModel = ZLRepoPullRequestViewModel()
         
-        guard let pullRequestView : ZLRepoPullRequestView = Bundle.main.loadNibNamed("ZLRepoPullRequestView", owner: self.viewModel, options: nil)?.first as? ZLRepoPullRequestView else {
+        guard let pullRequestView : ZLRepoPullRequestView = Bundle.main.loadNibNamed("ZLRepoPullRequestView", owner: viewModel, options: nil)?.first as? ZLRepoPullRequestView else {
             return
         }
         self.contentView.addSubview(pullRequestView)
         pullRequestView.snp.makeConstraints ({ (make) in
             make.edges.equalToSuperview()
         })
-        self.viewModel.bindModel(self.repoFullName, andView: pullRequestView)
+        
+        self.addSubViewModel(viewModel)
+        viewModel.bindModel(self.repoFullName, andView: pullRequestView)
     }
     
 

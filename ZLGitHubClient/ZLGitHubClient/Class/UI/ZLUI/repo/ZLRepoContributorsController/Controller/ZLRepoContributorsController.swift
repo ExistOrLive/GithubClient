@@ -24,7 +24,8 @@ class ZLRepoContributorsController: ZLBaseViewController {
             make.edges.equalToSuperview()
         })
         
-        self.viewModel = ZLRepoContributorsViewModel.init(viewController: self)
+        let viewModel = ZLRepoContributorsViewModel()
+        self.addSubViewModel(viewModel)
         viewModel.bindModel(repoFullName, andView: itemListView)
         
     }

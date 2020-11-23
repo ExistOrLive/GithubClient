@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *) dateStrForYYYYMMDDTHHMMSSZForTimeZoneCurrent;
 
-
++ (NSString *) getDateLocalStrSinceCurrentTimeWithGithubTime:(NSString *) githubDateStr;
 
 @end
 

@@ -35,9 +35,10 @@ class ZLCommitCommentEventTableViewCellData: ZLEventTableViewCellData {
         weak var weakSelf = self
         let loginNameRange = (str as NSString).range(of: loginName)
         attributedString.yy_setTextHighlight(loginNameRange, color: UIColor.init(cgColor: UIColor.init(named: "ZLLinkLabelColor1")!.cgColor), backgroundColor: UIColor.clear, tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
-           let vc = ZLUserInfoController.init(loginName: payload.comment.user.loginName, type: payload.comment.user.type)
-           vc.hidesBottomBarWhenPushed = true
-           weakSelf?.viewController?.navigationController?.pushViewController(vc, animated: true)
+            if let userInfoVC = SYDCentralPivotUIAdapter.getUserInfoViewController(withLoginName:payload.comment.user.loginName,with:payload.comment.user.type){
+                userInfoVC.hidesBottomBarWhenPushed = true
+                weakSelf?.viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
+            }
         })
         
         

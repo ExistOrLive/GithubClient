@@ -129,8 +129,9 @@ extension ZLRepositoryTableViewCellData
 extension ZLRepositoryTableViewCellData : ZLRepositoryTableViewCellDelegate
 {
     func onRepoAvaterClicked() {
-        let userInfoVC = ZLUserInfoController.init(loginName: self.data.owner.loginName, type: self.data.owner.type)
-        userInfoVC.hidesBottomBarWhenPushed = true
-        self.viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
+        if let userInfoVC = SYDCentralPivotUIAdapter.getUserInfoViewController(withLoginName:self.data.owner.loginName,with:self.data.owner.type){
+            userInfoVC.hidesBottomBarWhenPushed = true
+            self.viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
+        }
     }
 }

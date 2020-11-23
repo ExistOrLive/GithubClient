@@ -15,6 +15,8 @@ static const NSString * ExploreViewController = @"ZLExploreViewController";
 static const NSString * ProfileViewController = @"ZLProfileViewController";
 static const NSString * AboutViewController = @"ZLAboutViewController";
 static const NSString * WorkboardViewController = @"ZLWorkboardViewController";
+static const NSString * OrgsViewController = @"ZLOrgsViewController";
+
 
 @implementation SYDCentralPivotUIAdapter
 
@@ -49,6 +51,26 @@ static const NSString * WorkboardViewController = @"ZLWorkboardViewController";
 
 + (UIViewController *)getWorkboardViewController{
     return [[SYDCentralFactory sharedInstance] getOneUIViewController:WorkboardViewController];
+}
+
++ (UIViewController *)getOrgsViewController{
+    return [[SYDCentralFactory sharedInstance] getOneUIViewController:OrgsViewController];
+}
+
++ (UIViewController *)getUserInfoViewControllerWithUserInfo:(ZLGithubUserModel *)userModel;{
+    return [[SYDCentralFactory sharedInstance] getOneUIViewController:@"ZLUserInfoController" withInjectParam:@{@"userInfoModel":userModel}];
+}
+
++ (UIViewController *)getUserInfoViewControllerWithLoginName:(NSString *) loginName withUserType:(ZLGithubUserType) type{
+    ZLGithubUserModel * userModel = [ZLGithubUserModel new];
+    userModel.loginName = loginName;
+    userModel.type = type;
+    return [[SYDCentralFactory sharedInstance] getOneUIViewController:@"ZLUserInfoController" withInjectParam:@{@"userInfoModel":userModel}];
+}
+
+
++ (UIViewController *)getMyIssuesController{
+    return [[SYDCentralFactory sharedInstance] getOneUIViewController:@"ZLMyIssuesController"];
 }
 
 @end

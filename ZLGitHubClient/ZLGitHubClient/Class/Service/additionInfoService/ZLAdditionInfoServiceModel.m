@@ -360,4 +360,78 @@
     [[ZLGithubHttpClient defaultClient] getGithubClientConfig:responseBlock serialNumber:serialNumber];
 }
 
+
+#pragma mark - org
+
+
+- (void) getOrgsWithSerialNumber:(NSString *) serialNumber
+                  completeHandle:(void(^)(ZLOperationResultModel *)) handle{
+    
+    GithubResponse responseBlock = ^(BOOL result, id _Nullable responseObject, NSString * serialNumber) {
+        
+        
+            
+            ZLOperationResultModel * resultModel = [[ZLOperationResultModel alloc] init];
+            resultModel.result = result;
+            resultModel.serialNumber = serialNumber;
+            resultModel.data = responseObject;
+            
+            if(handle){
+                ZLMainThreadDispatch(handle(resultModel);)
+            }
+        
+    };
+    
+    [[ZLGithubHttpClient defaultClient] getOrgsWithSerialNumber:serialNumber
+                                                          block:responseBlock];
+}
+
+#pragma mark - issues
+
+- (void) getMyIssuesWithType:(ZLMyIssueFilterType) type
+                       after:(NSString * _Nullable) afterCursor
+                serialNumber:(NSString *) serialNumber
+              completeHandle:(void(^)(ZLOperationResultModel *)) handle{
+    
+    GithubResponse responseBlock = ^(BOOL result, id _Nullable responseObject, NSString * serialNumber) {
+        
+            ZLOperationResultModel * resultModel = [[ZLOperationResultModel alloc] init];
+            resultModel.result = result;
+            resultModel.serialNumber = serialNumber;
+            resultModel.data = responseObject;
+            
+            if(handle){
+                ZLMainThreadDispatch(handle(resultModel);)
+            }
+        
+    };
+    
+    NSString *creator = nil,*assignee = nil,*mentioned = nil;
+    NSString *loginName = [ZLUserServiceModel sharedServiceModel].currentUserLoginName;
+    
+    switch (type) {
+        case ZLMyIssueFilterTypeCreator:{
+            creator = loginName;
+        }
+            break;
+        case ZLMyIssueFilterTypeAssigned:{
+            assignee = loginName;
+        }
+            break;
+        case ZLMyIssueFilterTypeMentioned:{
+            mentioned = loginName;
+        }
+            break;
+        default:
+            break;
+    }
+    
+    [[ZLGithubHttpClient defaultClient] getMyIssuesWithAssignee:assignee
+                                                      createdBy:creator
+                                                      mentioned:mentioned
+                                                          after:afterCursor
+                                                   serialNumber:serialNumber
+                                                          block:responseBlock];
+}
+
 @end

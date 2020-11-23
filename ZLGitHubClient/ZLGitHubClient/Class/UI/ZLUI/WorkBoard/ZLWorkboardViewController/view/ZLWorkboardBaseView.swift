@@ -20,6 +20,10 @@ class ZLWorkboardBaseView: ZLBaseView, UITableViewDelegate, UITableViewDataSourc
     private var sectionArray : [ZLWorkboardClassicType]?
     private var cellDataDic : [ZLWorkboardClassicType:[ZLWorkboardTableViewCellDataProtocol]]?
     
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: ZLLanguageTypeChange_Notificaiton, object: nil)
+    }
+    
     override init(frame: CGRect){
         super.init(frame: frame)
         
@@ -40,6 +44,7 @@ class ZLWorkboardBaseView: ZLBaseView, UITableViewDelegate, UITableViewDataSourc
             make.edges.equalToSuperview()
         }
         
+        NotificationCenter.default.addObserver(self, selector:#selector(ZLWorkboardBaseView.onNotificationArrived(notification:)) , name: ZLLanguageTypeChange_Notificaiton, object: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -72,12 +77,13 @@ class ZLWorkboardBaseView: ZLBaseView, UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 80
+        return 60
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: "ZLWorkboardTableViewSectionHeader") as? ZLWorkboardTableViewSectionHeader{
             view.titleLabel.text = self.getSectionTitle(type: sectionArray![section])
+            view.button.isHidden = (sectionArray![section] != .fixRepo)
             return view
         }
         return UIView.init()
@@ -144,4 +150,13 @@ class ZLWorkboardBaseView: ZLBaseView, UITableViewDelegate, UITableViewDataSourc
         }
     }
     
+}
+
+
+extension ZLWorkboardBaseView{
+    @objc func onNotificationArrived(notification:Notification){
+        if notification.name == ZLLanguageTypeChange_Notificaiton{
+            self.tableView.reloadData()
+        }
+    }
 }

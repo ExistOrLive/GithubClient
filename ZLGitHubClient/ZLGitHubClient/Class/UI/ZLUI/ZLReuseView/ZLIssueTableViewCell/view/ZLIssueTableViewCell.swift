@@ -9,6 +9,15 @@
 import UIKit
 
 @objc protocol ZLIssueTableViewCellDelegate : NSObjectProtocol{
+    
+    func getIssueTitleStr() -> String?
+    
+    func isIssueClosed() -> Bool
+    
+    func getAssistStr() -> String?
+    
+    func getLabels() -> [String]
+    
 }
 
 class ZLIssueTableViewCell: UITableViewCell {
@@ -28,11 +37,10 @@ class ZLIssueTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(false, animated: animated)
-
-        // Configure the view for the selected state
     }
     
-    func fillWithData(cellData : ZLIssueTableViewCellData){
+    func fillWithData(cellData : ZLIssueTableViewCellDelegate){
+        
         self.titleLabel.text = cellData.getIssueTitleStr()
         self.assitLabel.text = cellData.getAssistStr()
         self.statusTag.image = cellData.isIssueClosed() ? UIImage.init(named: "issue_closed") : UIImage.init(named: "issue_opened")

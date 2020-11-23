@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ZLGithubUserModel.h"
 
 @interface SYDCentralPivotUIAdapter : NSObject
 
@@ -21,4 +22,12 @@
 + (UIViewController *)getZLAboutViewController;
 
 + (UIViewController *)getWorkboardViewController;
+
++ (UIViewController *)getOrgsViewController;
+
++ (UIViewController *)getUserInfoViewControllerWithUserInfo:(ZLGithubUserModel *)userModel;
++ (UIViewController *)getUserInfoViewControllerWithLoginName:(NSString *) loginName withUserType:(ZLGithubUserType) type;
+
++ (UIViewController *)getMyIssuesController;
+
 @end

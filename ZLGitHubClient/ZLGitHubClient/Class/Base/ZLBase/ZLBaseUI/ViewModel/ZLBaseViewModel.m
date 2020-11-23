@@ -14,8 +14,6 @@
 
 @property(nonatomic, weak) ZLBaseViewModel * realSuperViewModel;
 
-@property(nonatomic, weak) UIViewController * realViewController;
-
 @end
 
 @implementation ZLBaseViewModel
@@ -33,22 +31,13 @@
     return self;
 }
 
-- (instancetype) initWithViewController:(UIViewController *) controller
-{
-    if(self = [self init])
-    {
-        _realViewController = controller;
-        _realSubViewModels = [[NSMutableSet alloc] init];
-    }
-    return self;
+#pragma mark -
+
+- (ZLBaseViewController *) viewController{
+    return self.superViewModel.viewController;
 }
 
-- (UIViewController *) viewController
-{
-    return  _realViewController;
-}
-
-- (ZLBaseViewModel *) superViewModel
+- (id<ZLBaseViewModel>) superViewModel
 {
     return _realSuperViewModel;
 }
@@ -58,16 +47,7 @@
     return [_realSubViewModels allObjects];
 }
 
-- (void) setRealViewController:(UIViewController * _Nullable)viewController
-{
-    _realViewController = viewController;
-    for(ZLBaseViewModel * subViewModel in _realSubViewModels)
-    {
-        [subViewModel setValue:viewController forKey:@"realViewController"];
-    }
-}
 
-#pragma mark -
 
 /**
  * 添加子viewModel， 建立父子关系
@@ -79,18 +59,34 @@
     {
         return;
     }
-    [subViewModel setValue:self.viewController forKey:@"realViewController"];
-    [subViewModel setValue:self forKey:@"realSuperViewModel"];
-    [_realSubViewModels addObject:subViewModel];
+    subViewModel.realSuperViewModel = self;
+    [self.realSubViewModels addObject:subViewModel];
+}
+
+- (void) addSubViewModels:(NSArray<ZLBaseViewModel *> *) subViewModels{
+    if(!subViewModels){
+        return;
+    }
+    [subViewModels setValue:self forKey:@"realSuperViewModel"];
+    [self.realSubViewModels addObjectsFromArray:subViewModels];
+}
+
+- (void) removeSubViewModel:(ZLBaseViewModel *) subViewModel{
+    if(!subViewModel){
+        return;
+    }
+    if([self.realSubViewModels containsObject:subViewModel]){
+        subViewModel.realSuperViewModel = nil;
+        [self.realSubViewModels removeObject:subViewModel];
+    }
 }
 
 /**
  * 解除与父ViewModel之间的关系
  */
-- (void) removeFromSuperViewModel
-{
-    ZLBaseViewModel * superViewModel = [self superViewModel];
-    [superViewModel.realSubViewModels removeObject:self];
+- (void) removeFromSuperViewModel{
+    id<ZLBaseViewModel>  superViewModel = [self superViewModel];
+    [superViewModel removeSubViewModel:self];
 }
 
 /**

@@ -69,12 +69,18 @@ class ZLWorkboardTableViewCellData: ZLBaseViewModel,ZLWorkboardTableViewCellData
     func onCellClicked() {
         switch self.type {
         case .issues:
+            guard let vc = SYDCentralPivotUIAdapter.getMyIssuesController() else { return }
+            vc.hidesBottomBarWhenPushed = true
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
             break
         case .pullRequest:
             break
         case .repos:
             break
         case .orgs:
+            guard let vc = SYDCentralPivotUIAdapter.getOrgsViewController() else { return }
+            vc.hidesBottomBarWhenPushed = true
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
             break
         case .starRepos:
             guard let vc = SYDCentralPivotUIAdapter.getZLStarRepoViewController() else { return  }
