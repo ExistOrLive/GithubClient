@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ZLWorkboardBaseViewModel: ZLBaseViewModel {
+class ZLWorkboardBaseViewModel: ZLBaseViewModel,ZLWorkboardBaseViewDelegate {
     
     //
     weak var baseView : ZLWorkboardBaseView!
@@ -17,14 +17,22 @@ class ZLWorkboardBaseViewModel: ZLBaseViewModel {
     var sectionArray :  [ZLWorkboardClassicType]?
     var cellDataDic : [ZLWorkboardClassicType:[ZLWorkboardTableViewCellData]]?
     
+    deinit{
+        NotificationCenter.default.removeObserver(self, name: ZLLanguageTypeChange_Notificaiton, object: nil)
+    }
+    
+    
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
         guard let view = targetView as? ZLWorkboardBaseView else {
             return
         }
         baseView = view
+        baseView.delegate = self
         
         self.generateSubViewMode()
         self.baseView.resetData(sectionArray: self.sectionArray, cellDataDic: self.cellDataDic)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(ZLWorkboardBaseViewModel.onNotificationArrived), name: ZLLanguageTypeChange_Notificaiton, object: nil)
         
     }
     
@@ -46,5 +54,17 @@ class ZLWorkboardBaseViewModel: ZLBaseViewModel {
         self.cellDataDic = cellDataDic
     }
     
+    @objc func onNotificationArrived(notification : Notification) {
+        if ZLLanguageTypeChange_Notificaiton == notification.name {
+            self.viewController?.title = ZLLocalizedString(string: "Workboard", comment: "")
+        }
+    }
+    
+    func onEditFixedRepoButtonClicked() {
+        if let vc = SYDCentralPivotUIAdapter.getEditFixedRepoController(){
+            vc.hidesBottomBarWhenPushed = true
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
 
 }

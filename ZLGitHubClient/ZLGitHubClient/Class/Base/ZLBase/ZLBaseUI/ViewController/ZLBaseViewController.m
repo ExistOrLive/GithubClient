@@ -44,7 +44,7 @@
     [super viewDidLoad];
     
     // 初始化UI
-    [self setUpUI];
+    [self setBaseUpUI];
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -100,18 +100,20 @@
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator{
     
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    
     if(size.height > size.width) {
         self.zlNavigationBar.isLandScape = false;
     } else {
         self.zlNavigationBar.isLandScape = true;
     }
-    [self.zlNavigationBar updateConstraints];
+    [self.zlNavigationBar setNeedsUpdateConstraints];
 }
 
 
 #pragma mark - 初始化UI
 
-- (void) setUpUI{
+- (void) setBaseUpUI{
     
     self.view.backgroundColor = [UIColor colorNamed:@"ZLVCBackColor"];
     
@@ -133,11 +135,12 @@
         make.top.equalTo(self.view.mas_top);
         make.left.equalTo(self.view.mas_left);
         make.right.equalTo(self.view.mas_right);
+        make.bottom.equalTo(self.view.mas_safeAreaLayoutGuideTop).offset(ZLBaseNavigationBarHeight);
     }];
     
     if(self.navigationController == nil)   // 如果是model弹出
     {
-        [self.zlNavigationBar setHidden:YES];
+        [self.zlNavigationBar setZlNavigationBarHidden:YES];
     }
     else
     {
@@ -163,7 +166,7 @@
 
 - (void) setZLNavigationBarHidden:(BOOL)hidden
 {
-    [self.zlNavigationBar setHidden:hidden];
+    [self.zlNavigationBar setZlNavigationBarHidden:hidden];
 }
 
 - (void) onBackButtonClicked:(UIButton *) button
@@ -276,4 +279,40 @@
      * 父viewModel 处理event
      **/
 }
+@end
+
+
+@implementation ZLBaseViewController(Tool)
+
++ (UIViewController *)getCurrentVC {
+    UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    UIViewController *currentVC = [self getCurrentVCFrom:rootViewController];
+    return currentVC;
+}
+
++ (UIViewController *)getCurrentVCFrom:(UIViewController *)rootVC {
+    UIViewController *currentVC;
+    if (rootVC.presentedViewController) {
+        // 视图是被presented出来的
+        rootVC = [self getCurrentVCFrom:rootVC.presentedViewController];
+    }
+    if ([rootVC isKindOfClass:[UITabBarController class]]) {
+        // 根视图为UITabBarController
+        currentVC = [self
+            getCurrentVCFrom:[(UITabBarController *)
+                                     rootVC selectedViewController]];
+    } else if ([rootVC isKindOfClass:[UINavigationController class]]) {
+        // 根视图为UINavigationController
+        currentVC =
+            [self getCurrentVCFrom:[(UINavigationController *)
+                                                 rootVC visibleViewController]];
+    } else {
+        // 根视图为非导航类
+        currentVC = rootVC;
+    }
+
+    return currentVC;
+}
+
+
 @end

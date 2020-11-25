@@ -92,6 +92,24 @@
 		<key>isSingle</key>
 		<false/>
 	</dict>
+	<key>ZLMyRepoesController</key>
+	<dict>
+		<key>class</key>
+		<string>ZLMyRepoesController</string>
+		<key>type</key>
+		<integer>0</integer>
+		<key>isSingle</key>
+		<false/>
+	</dict>
+	<key>ZLEditFixedRepoController</key>
+	<dict>
+		<key>class</key>
+		<string>ZLEditFixedRepoController</string>
+		<key>type</key>
+		<integer>0</integer>
+		<key>isSingle</key>
+		<false/>
+	</dict>
 	<key>ZLLogModule</key>
 	<dict>
 		<key>class</key>

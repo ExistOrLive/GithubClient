@@ -25,8 +25,17 @@
 
 - (void) setZLNavigationBarHidden:(BOOL)hidden;
 
-
 - (void) onBackButtonClicked:(UIButton *) button;
 
 
 @end
+
+
+@interface ZLBaseViewController(Tool)
+
++ (UIViewController *)getCurrentVC;
+
++ (UIViewController *)getCurrentVCFrom:(UIViewController *)rootVC;
+
+@end
+

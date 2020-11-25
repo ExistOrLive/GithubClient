@@ -44,7 +44,7 @@ class ZLMyIssuesView: ZLBaseView {
         }
         
         let label = UILabel()
-        label.text = "created"
+        label.text = "Created"
         label.textColor = UIColor(named: "ZLLabelColor3")
         label.font = UIFont(name: Font_PingFangSCRegular, size: 14)
         view.addSubview(label)

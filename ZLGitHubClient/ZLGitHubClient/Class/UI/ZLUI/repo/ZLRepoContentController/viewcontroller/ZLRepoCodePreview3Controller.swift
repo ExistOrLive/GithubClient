@@ -71,6 +71,9 @@ class ZLRepoCodePreview3Controller: ZLBaseViewController {
 
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        
+        super.viewWillTransition(to: size, with: coordinator)
+        
         guard let navigationVC : ZLBaseNavigationController = self.navigationController as? ZLBaseNavigationController else {
             return
         }

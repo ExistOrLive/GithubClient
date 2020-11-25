@@ -76,43 +76,15 @@ let GithubGraphQLAPI = "https://api.github.com/graphql"
      *  查询我的组织信息
      */
     @objc func getOrgs(serialNumber: String,block: @escaping GithubResponseSwift){
-       
         let query = ViewerOrgsQuery()
-        
-        self.apolloClient.fetch(query: query){ result in
-            var resultData : Any? = nil
-            var success = false
-            switch result{
-            case .success(_):do{
-                if let data = try? result.get().data{
-                    success = true
-                    let json = data.jsonObject
-                    let serialized = try! JSONSerialization.data(withJSONObject: json, options: [])
-                    let deserialized = try! JSONSerialization.jsonObject(with: serialized, options: []) as! JSONObject
-                    let result = try! ViewerOrgsQuery.Data(jsonObject: deserialized)
-                    resultData = result
-                } else {
-                    success = false
-                    let errorModel = ZLGithubRequestErrorModel()
-                    if let error = try? result.get().errors?.first{
-                        errorModel.message = error.localizedDescription
-                    }
-                    resultData = errorModel
-                }
-            }
-                break
-            case .failure(let error):do{
-                success = false
-                let errorModel = ZLGithubRequestErrorModel()
-                errorModel.message = error.localizedDescription
-                resultData = errorModel
-            }
-                break
-            }
-            block(success,resultData,serialNumber)
-        }
+        self.baseQuery(query: query, serialNumber: serialNumber, block: block)
     }
     
+    /**
+     * @param serialNumber
+     * @param block
+     *  查询我的issue
+     */
     @objc func getMyIssues(assignee: String?,
                            createdBy: String?,
                            mentioned: String?,
@@ -121,6 +93,18 @@ let GithubGraphQLAPI = "https://api.github.com/graphql"
                            block: @escaping GithubResponseSwift){
        
         let query = ViewerIssuesQuery(assignee: assignee, creator: createdBy, mentioned: mentioned, after: after)
+        self.baseQuery(query: query, serialNumber: serialNumber, block: block)
+    }
+    
+    /**
+     * @param serialNumber
+     * @param block
+     *  查询我的repo
+     */
+    @objc func getMyTopRepo(after: String?,
+                            serialNumber: String,
+                            block: @escaping GithubResponseSwift){
+        let query = ViewerTopRepositoriesQuery(after: after)
         self.baseQuery(query: query, serialNumber: serialNumber, block: block)
     }
     

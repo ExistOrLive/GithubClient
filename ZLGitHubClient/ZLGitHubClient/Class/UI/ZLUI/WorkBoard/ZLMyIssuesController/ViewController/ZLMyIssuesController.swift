@@ -20,7 +20,7 @@ class ZLMyIssuesController: ZLBaseViewController, ZLMyIssuesViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = ZLLocalizedString(string: "Issues", comment: "")
+        self.title = ZLLocalizedString(string: "issues", comment: "")
         
         let issuesView = ZLMyIssuesView()
         self.contentView.addSubview(issuesView)

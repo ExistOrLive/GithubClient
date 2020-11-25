@@ -13,12 +13,19 @@ enum ZLWorkboardClassicType{
     case fixRepo
 }
 
+protocol ZLWorkboardBaseViewDelegate : NSObjectProtocol  {
+    func onEditFixedRepoButtonClicked() -> Void
+}
+
+
 class ZLWorkboardBaseView: ZLBaseView, UITableViewDelegate, UITableViewDataSource{
    
+    weak var delegate : ZLWorkboardBaseViewDelegate?
+    
     private var tableView : UITableView!
     
     private var sectionArray : [ZLWorkboardClassicType]?
-    private var cellDataDic : [ZLWorkboardClassicType:[ZLWorkboardTableViewCellDataProtocol]]?
+    private var cellDataDic : [ZLWorkboardClassicType:[ZLWorkboardTableViewCellDelegate]]?
     
     deinit {
         NotificationCenter.default.removeObserver(self, name: ZLLanguageTypeChange_Notificaiton, object: nil)
@@ -51,7 +58,7 @@ class ZLWorkboardBaseView: ZLBaseView, UITableViewDelegate, UITableViewDataSourc
         fatalError("init(coder:) has not been implemented")
     }
     
-    func resetData(sectionArray: [ZLWorkboardClassicType]? , cellDataDic : [ZLWorkboardClassicType:[ZLWorkboardTableViewCellDataProtocol]]?){
+    func resetData(sectionArray: [ZLWorkboardClassicType]? , cellDataDic : [ZLWorkboardClassicType:[ZLWorkboardTableViewCellDelegate]]?){
         self.sectionArray = sectionArray
         self.cellDataDic = cellDataDic
         self.tableView.reloadData()
@@ -84,6 +91,10 @@ class ZLWorkboardBaseView: ZLBaseView, UITableViewDelegate, UITableViewDataSourc
         if let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: "ZLWorkboardTableViewSectionHeader") as? ZLWorkboardTableViewSectionHeader{
             view.titleLabel.text = self.getSectionTitle(type: sectionArray![section])
             view.button.isHidden = (sectionArray![section] != .fixRepo)
+            view.button.setTitle(ZLLocalizedString(string: "Edit", comment: ""), for: .normal)
+            if !view.button.allTargets.contains(self) {
+                view.button.addTarget(self, action: #selector(ZLWorkboardBaseView.onEditButtonClicked), for: .touchUpInside)
+            }
             return view
         }
         return UIView.init()
@@ -158,5 +169,9 @@ extension ZLWorkboardBaseView{
         if notification.name == ZLLanguageTypeChange_Notificaiton{
             self.tableView.reloadData()
         }
+    }
+    
+    @objc func onEditButtonClicked(){
+        self.delegate?.onEditFixedRepoButtonClicked()
     }
 }

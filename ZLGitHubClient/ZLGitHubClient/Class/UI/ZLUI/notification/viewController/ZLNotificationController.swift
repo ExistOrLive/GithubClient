@@ -26,6 +26,7 @@ import UIKit
             make.edges.equalToSuperview()
         }
         
+        self.addSubViewModel(viewModel)
         // bind view and viewModel
         viewModel.bindModel(nil, andView: baseView)
         

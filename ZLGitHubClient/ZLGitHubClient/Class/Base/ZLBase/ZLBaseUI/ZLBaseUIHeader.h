@@ -11,6 +11,7 @@
 
 #import "ZLBaseViewController.h"
 #import "ZLBaseNavigationController.h"
+#import "ZLBaseSearchController.h"
 
 #import "ZLBaseView.h"
 #import "ZLBaseButton.h"

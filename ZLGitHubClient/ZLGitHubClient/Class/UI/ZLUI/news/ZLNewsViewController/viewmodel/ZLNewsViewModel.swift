@@ -164,7 +164,7 @@ extension ZLNewsViewModel
                 self.itemListView?.justRefresh()
             }
             case ZLGithubConfigUpdate_Notification: do{
-                self.itemListView?.tableView?.reloadData()
+                self.itemListView?.reloadData()
             }
             default:
                 ZLLog_Info("event have no deal")

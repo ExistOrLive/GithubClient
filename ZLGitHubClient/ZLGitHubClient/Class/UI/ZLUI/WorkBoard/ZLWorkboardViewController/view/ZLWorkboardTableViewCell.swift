@@ -19,7 +19,7 @@ enum ZLWorkboardType {
 }
 
 
-@objc protocol ZLWorkboardTableViewCellDataProtocol : NSObjectProtocol{
+@objc protocol ZLWorkboardTableViewCellDelegate : NSObjectProtocol{
    
     func onCellClicked() -> Void
     
@@ -46,17 +46,9 @@ class ZLWorkboardTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-//        if animated {
-//            UIView.animate(withDuration: 0.5) {
-//                self.backView.backgroundColor = selected ? UIColor.init(named: "ZLCellBackSelected") : UIColor.init(named: "ZLCellBack")
-//            }
-//        } else {
-//            self.backView.backgroundColor = selected ? UIColor.init(named: "ZLCellBackSelected") : UIColor.init(named: "ZLCellBack")
-//        }
     }
     
-    func fillWithData(cellData : ZLWorkboardTableViewCellDataProtocol){
+    func fillWithData(cellData : ZLWorkboardTableViewCellDelegate){
         
         if cellData.isGithubItem {
             self.avatarImageView.sd_setImage(with: URL.init(string: cellData.avatarURL), placeholderImage: UIImage(named:"default_avatar"))

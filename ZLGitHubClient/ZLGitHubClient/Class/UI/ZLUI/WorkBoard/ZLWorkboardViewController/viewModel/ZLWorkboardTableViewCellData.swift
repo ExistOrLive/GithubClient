@@ -9,7 +9,7 @@
 import UIKit
 
 
-class ZLWorkboardTableViewCellData: ZLBaseViewModel,ZLWorkboardTableViewCellDataProtocol {
+class ZLWorkboardTableViewCellData: ZLBaseViewModel,ZLWorkboardTableViewCellDelegate {
     
     private let celltitle : String
     private let cellavatarURL : String
@@ -17,42 +17,51 @@ class ZLWorkboardTableViewCellData: ZLBaseViewModel,ZLWorkboardTableViewCellData
     
     init(title:String = "", avatarURL :String = "", type : ZLWorkboardType){
         self.type = type
-        switch type {
-        case .issues:
-            self.celltitle = ZLLocalizedString(string: "issues", comment: "")
-            self.cellavatarURL = "issues_icon"
-        case .pullRequest:
-            self.celltitle = ZLLocalizedString(string: "pull requests", comment: "")
-            self.cellavatarURL = "pr_icon"
-        case .repos:
-            self.celltitle = ZLLocalizedString(string: "repositories", comment: "")
-            self.cellavatarURL = "repo_icon"
-        case .orgs:
-            self.celltitle = ZLLocalizedString(string: "organizations", comment: "")
-            self.cellavatarURL = "org_icon"
-        case .starRepos:
-            self.celltitle = ZLLocalizedString(string: "star", comment: "")
-            self.cellavatarURL = "star_icon"
-        case .events:
-            self.celltitle = ZLLocalizedString(string: "Events", comment: "")
-            self.cellavatarURL = "event_icon"
-        case .fixRepo:
-            self.celltitle = title
-            self.cellavatarURL = avatarURL
-        }
-            
+        self.celltitle = title
+        self.cellavatarURL = avatarURL
         super.init()
     }
     
     var title: String{
         get{
-            return self.celltitle
+            switch type {
+            case .issues:
+                return ZLLocalizedString(string: "issues", comment: "")
+            case .pullRequest:
+                return  ZLLocalizedString(string: "pull requests", comment: "")
+            case .repos:
+                return  ZLLocalizedString(string: "repositories", comment: "")
+            case .orgs:
+                return  ZLLocalizedString(string: "organizations", comment: "")
+            case .starRepos:
+                return ZLLocalizedString(string: "star", comment: "")
+            case .events:
+                return ZLLocalizedString(string: "Events", comment: "")
+            case .fixRepo:
+                return self.title
+            }
+               
         }
     }
     
     var avatarURL: String{
         get{
-            return self.cellavatarURL
+            switch type {
+            case .issues:
+                return "issues_icon"
+            case .pullRequest:
+                return "pr_icon"
+            case .repos:
+                return "repo_icon"
+            case .orgs:
+                return "org_icon"
+            case .starRepos:
+                return "star_icon"
+            case .events:
+                return "event_icon"
+            case .fixRepo:
+                return self.cellavatarURL
+            }
         }
     }
     
@@ -76,6 +85,9 @@ class ZLWorkboardTableViewCellData: ZLBaseViewModel,ZLWorkboardTableViewCellData
         case .pullRequest:
             break
         case .repos:
+            guard let vc = SYDCentralPivotUIAdapter.getMyReposController() else { return }
+            vc.hidesBottomBarWhenPushed = true
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
             break
         case .orgs:
             guard let vc = SYDCentralPivotUIAdapter.getOrgsViewController() else { return }

@@ -73,4 +73,12 @@ static const NSString * OrgsViewController = @"ZLOrgsViewController";
     return [[SYDCentralFactory sharedInstance] getOneUIViewController:@"ZLMyIssuesController"];
 }
 
++ (UIViewController *)getMyReposController{
+    return [[SYDCentralFactory sharedInstance] getOneUIViewController:@"ZLMyRepoesController"];
+}
+
++ (UIViewController *)getEditFixedRepoController{
+    return [[SYDCentralFactory sharedInstance] getOneUIViewController:@"ZLEditFixedRepoController"];
+}
+
 @end

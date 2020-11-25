@@ -492,7 +492,30 @@
                                            serialNumber:serialNumber];
 }
 
+#pragma mark - top repo
 
+- (void) getTopReposWithAfterCursor:(NSString * __nullable) after
+                       serialNumber:(NSString *) serialNumber
+                     completeHandle:(void(^)(ZLOperationResultModel *)) handle{
+    
+    GithubResponse response = ^(BOOL  result, id responseObject, NSString * serialNumber)
+    {
+        ZLOperationResultModel * repoResultModel = [[ZLOperationResultModel alloc] init];
+        repoResultModel.result = result;
+        repoResultModel.serialNumber = serialNumber;
+        repoResultModel.data = responseObject;
+        
+        if(handle)
+        {
+            ZLMainThreadDispatch(handle(repoResultModel);)
+        }
+    };
+    
+    [[ZLGithubHttpClient defaultClient] getMyTopRepoAfter:after
+                                             serialNumber:serialNumber
+                                                    block:response];
+    
+}
 
 
 #pragma mark - star repo

@@ -15,11 +15,14 @@ import UIKit
 
 @objcMembers class ZLGithubItemListView: ZLBaseView {
     
-    var tableView : UITableView?
-    var noDataView : UIView?
+    // view
+    private var tableView : UITableView?
+    private var noDataView : UIView?
     
+    // viewModel
     private var cellDatas : [ZLGithubItemTableViewCellData]?
     
+    // delegate
     weak var delegate : ZLGithubItemListViewDelegate?
         
     override init(frame: CGRect) {
@@ -54,7 +57,7 @@ import UIKit
     
     
     
-    func setUpUI()
+    private func setUpUI()
     {
         self.tableView = UITableView.init(frame: self.bounds, style: .plain)
         self.tableView?.separatorStyle = .none
@@ -93,7 +96,7 @@ import UIKit
         self.tableView?.register(UINib.init(nibName: "ZLWorkflowRunTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLWorkflowRunTableViewCell")
     }
     
-    func setNoDataView() -> Void {
+    private func setNoDataView() -> Void {
         let view = UIView.init()
         view.backgroundColor = UIColor.clear
         
@@ -276,5 +279,9 @@ extension ZLGithubItemListView
         ZLRefresh.justRefreshHeader(header: self.tableView?.mj_header as? MJRefreshNormalHeader)
         ZLRefresh.justRefreshFooter(footer: self.tableView?.mj_footer as? MJRefreshAutoStateFooter)
         self.tableView?.reloadData();
+    }
+    
+    func reloadData(){
+        self.tableView?.reloadData()
     }
 }

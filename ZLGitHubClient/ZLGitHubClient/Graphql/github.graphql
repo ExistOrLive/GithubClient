@@ -1,4 +1,50 @@
 # https://www.apollographql.com/docs/ios/installation/
+query issueInfo($owner:String!,$name:String!,$number:Int!){
+  repository(owner:$owner,name:$name){
+    nameWithOwner
+    
+    issue(number:$number){
+      title
+      number
+      body
+      bodyHTML
+      state
+      closedAt
+      createdAt
+    }
+  }
+}
+
+
+
+
+# 查询我的top repositories
+query viewerTopRepositories($after:String){
+  viewer{
+    topRepositories(first:10,orderBy:{field:UPDATED_AT,direction:DESC},after:$after){
+      pageInfo{
+        endCursor
+      }
+      nodes{
+        name
+        nameWithOwner
+        isPrivate
+        description
+        forkCount
+        stargazerCount
+        owner{
+          login
+          avatarUrl
+        }
+        primaryLanguage{
+          name
+        }
+        url
+      }
+    }
+  }
+}
+
 
 # 查询我的issues
 query viewerIssues($assignee:String,$creator:String,$mentioned:String,$after:String){
@@ -30,6 +76,7 @@ query viewerIssues($assignee:String,$creator:String,$mentioned:String,$after:Str
         }
         createdAt
         updatedAt
+        closedAt
       }
     }
   }

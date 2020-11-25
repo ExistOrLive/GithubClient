@@ -30,4 +30,8 @@
 
 + (UIViewController *)getMyIssuesController;
 
++ (UIViewController *)getMyReposController;
+
++ (UIViewController *)getEditFixedRepoController;
+
 @end
