@@ -39,14 +39,17 @@ class ZLNotificationTableViewCell: UITableViewCell {
         self.notificationReasonLabel.text = data.getNotificationReason()
         self.timeLabel.text = data.getNotificationTimeStr()
         
-        if "PullRequest" == data.getNotificationSubjectType() {
+        switch data.getNotificationSubjectType() {
+        case "PullRequest":
             self.notificationTypeImageView.image = UIImage.init(named: "pr_opened")
-        } else if "Issue" == data.getNotificationSubjectType() {
+        case "Issue":
             self.notificationTypeImageView.image = UIImage.init(named: "issue_opened")
-        } else if "RepositoryVulnerabilityAlert" == data.getNotificationSubjectType(){
+        case "RepositoryVulnerabilityAlert":
             self.notificationTypeImageView.image = UIImage.init(named: "security_alert")
-        } else {
-           self.notificationTypeImageView.image = nil
+        case "Discussion":
+            self.notificationTypeImageView.image = UIImage.init(named: "discussion")
+        default:
+            self.notificationTypeImageView.image = nil
         }
     }
     

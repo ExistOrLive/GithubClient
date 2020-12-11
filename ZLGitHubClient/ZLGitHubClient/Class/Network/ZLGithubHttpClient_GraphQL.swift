@@ -108,6 +108,20 @@ let GithubGraphQLAPI = "https://api.github.com/graphql"
         self.baseQuery(query: query, serialNumber: serialNumber, block: block)
     }
     
+    /**
+     * @param serialNumber
+     * @param block
+     *  查询我的pr
+     */
+    @objc func getMyPRs(state: ZLGithubPullRequestState,
+                        after: String?,
+                        serialNumber: String,
+                        block: @escaping GithubResponseSwift){
+        let pullRequestState : PullRequestState = (state == .opened) ? .open : .closed
+        let query = ViewerPullRequestQuery(state: [pullRequestState], after: after)
+        self.baseQuery(query: query, serialNumber: serialNumber, block: block)
+    }
+    
     
     func baseQuery<Query: GraphQLQuery>(query: Query,
                                         serialNumber: String,

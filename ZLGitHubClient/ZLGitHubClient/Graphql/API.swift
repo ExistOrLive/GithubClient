@@ -4,6 +4,55 @@
 import Apollo
 import Foundation
 
+/// The possible states of a pull request.
+public enum PullRequestState: RawRepresentable, Equatable, Hashable, CaseIterable, Apollo.JSONDecodable, Apollo.JSONEncodable {
+  public typealias RawValue = String
+  /// A pull request that is still open.
+  case `open`
+  /// A pull request that has been closed without being merged.
+  case closed
+  /// A pull request that has been closed by being merged.
+  case merged
+  /// Auto generated constant for unknown enum values
+  case __unknown(RawValue)
+
+  public init?(rawValue: RawValue) {
+    switch rawValue {
+      case "OPEN": self = .open
+      case "CLOSED": self = .closed
+      case "MERGED": self = .merged
+      default: self = .__unknown(rawValue)
+    }
+  }
+
+  public var rawValue: RawValue {
+    switch self {
+      case .open: return "OPEN"
+      case .closed: return "CLOSED"
+      case .merged: return "MERGED"
+      case .__unknown(let value): return value
+    }
+  }
+
+  public static func == (lhs: PullRequestState, rhs: PullRequestState) -> Bool {
+    switch (lhs, rhs) {
+      case (.open, .open): return true
+      case (.closed, .closed): return true
+      case (.merged, .merged): return true
+      case (.__unknown(let lhsValue), .__unknown(let rhsValue)): return lhsValue == rhsValue
+      default: return false
+    }
+  }
+
+  public static var allCases: [PullRequestState] {
+    return [
+      .open,
+      .closed,
+      .merged,
+    ]
+  }
+}
+
 /// The possible states of an issue.
 public enum IssueState: RawRepresentable, Equatable, Hashable, CaseIterable, Apollo.JSONDecodable, Apollo.JSONEncodable {
   public typealias RawValue = String
@@ -44,6 +93,387 @@ public enum IssueState: RawRepresentable, Equatable, Hashable, CaseIterable, Apo
       .open,
       .closed,
     ]
+  }
+}
+
+public final class ViewerPullRequestQuery: GraphQLQuery {
+  /// The raw GraphQL definition of this operation.
+  public let operationDefinition: String =
+    """
+    query viewerPullRequest($state: [PullRequestState!], $after: String) {
+      viewer {
+        __typename
+        pullRequests(states: $state, orderBy: {field: CREATED_AT, direction: DESC}, after: $after, first: 20) {
+          __typename
+          pageInfo {
+            __typename
+            endCursor
+            hasNextPage
+          }
+          nodes {
+            __typename
+            title
+            state
+            number
+            author {
+              __typename
+              login
+            }
+            url
+            createdAt
+            closedAt
+            mergedAt
+          }
+        }
+      }
+    }
+    """
+
+  public let operationName: String = "viewerPullRequest"
+
+  public var state: [PullRequestState]?
+  public var after: String?
+
+  public init(state: [PullRequestState]?, after: String? = nil) {
+    self.state = state
+    self.after = after
+  }
+
+  public var variables: GraphQLMap? {
+    return ["state": state, "after": after]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes: [String] = ["Query"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("viewer", type: .nonNull(.object(Viewer.selections))),
+    ]
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(viewer: Viewer) {
+      self.init(unsafeResultMap: ["__typename": "Query", "viewer": viewer.resultMap])
+    }
+
+    /// The currently authenticated user.
+    public var viewer: Viewer {
+      get {
+        return Viewer(unsafeResultMap: resultMap["viewer"]! as! ResultMap)
+      }
+      set {
+        resultMap.updateValue(newValue.resultMap, forKey: "viewer")
+      }
+    }
+
+    public struct Viewer: GraphQLSelectionSet {
+      public static let possibleTypes: [String] = ["User"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("pullRequests", arguments: ["states": GraphQLVariable("state"), "orderBy": ["field": "CREATED_AT", "direction": "DESC"], "after": GraphQLVariable("after"), "first": 20], type: .nonNull(.object(PullRequest.selections))),
+      ]
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(pullRequests: PullRequest) {
+        self.init(unsafeResultMap: ["__typename": "User", "pullRequests": pullRequests.resultMap])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      /// A list of pull requests associated with this user.
+      public var pullRequests: PullRequest {
+        get {
+          return PullRequest(unsafeResultMap: resultMap["pullRequests"]! as! ResultMap)
+        }
+        set {
+          resultMap.updateValue(newValue.resultMap, forKey: "pullRequests")
+        }
+      }
+
+      public struct PullRequest: GraphQLSelectionSet {
+        public static let possibleTypes: [String] = ["PullRequestConnection"]
+
+        public static let selections: [GraphQLSelection] = [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("pageInfo", type: .nonNull(.object(PageInfo.selections))),
+          GraphQLField("nodes", type: .list(.object(Node.selections))),
+        ]
+
+        public private(set) var resultMap: ResultMap
+
+        public init(unsafeResultMap: ResultMap) {
+          self.resultMap = unsafeResultMap
+        }
+
+        public init(pageInfo: PageInfo, nodes: [Node?]? = nil) {
+          self.init(unsafeResultMap: ["__typename": "PullRequestConnection", "pageInfo": pageInfo.resultMap, "nodes": nodes.flatMap { (value: [Node?]) -> [ResultMap?] in value.map { (value: Node?) -> ResultMap? in value.flatMap { (value: Node) -> ResultMap in value.resultMap } } }])
+        }
+
+        public var __typename: String {
+          get {
+            return resultMap["__typename"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        /// Information to aid in pagination.
+        public var pageInfo: PageInfo {
+          get {
+            return PageInfo(unsafeResultMap: resultMap["pageInfo"]! as! ResultMap)
+          }
+          set {
+            resultMap.updateValue(newValue.resultMap, forKey: "pageInfo")
+          }
+        }
+
+        /// A list of nodes.
+        public var nodes: [Node?]? {
+          get {
+            return (resultMap["nodes"] as? [ResultMap?]).flatMap { (value: [ResultMap?]) -> [Node?] in value.map { (value: ResultMap?) -> Node? in value.flatMap { (value: ResultMap) -> Node in Node(unsafeResultMap: value) } } }
+          }
+          set {
+            resultMap.updateValue(newValue.flatMap { (value: [Node?]) -> [ResultMap?] in value.map { (value: Node?) -> ResultMap? in value.flatMap { (value: Node) -> ResultMap in value.resultMap } } }, forKey: "nodes")
+          }
+        }
+
+        public struct PageInfo: GraphQLSelectionSet {
+          public static let possibleTypes: [String] = ["PageInfo"]
+
+          public static let selections: [GraphQLSelection] = [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("endCursor", type: .scalar(String.self)),
+            GraphQLField("hasNextPage", type: .nonNull(.scalar(Bool.self))),
+          ]
+
+          public private(set) var resultMap: ResultMap
+
+          public init(unsafeResultMap: ResultMap) {
+            self.resultMap = unsafeResultMap
+          }
+
+          public init(endCursor: String? = nil, hasNextPage: Bool) {
+            self.init(unsafeResultMap: ["__typename": "PageInfo", "endCursor": endCursor, "hasNextPage": hasNextPage])
+          }
+
+          public var __typename: String {
+            get {
+              return resultMap["__typename"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          /// When paginating forwards, the cursor to continue.
+          public var endCursor: String? {
+            get {
+              return resultMap["endCursor"] as? String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "endCursor")
+            }
+          }
+
+          /// When paginating forwards, are there more items?
+          public var hasNextPage: Bool {
+            get {
+              return resultMap["hasNextPage"]! as! Bool
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "hasNextPage")
+            }
+          }
+        }
+
+        public struct Node: GraphQLSelectionSet {
+          public static let possibleTypes: [String] = ["PullRequest"]
+
+          public static let selections: [GraphQLSelection] = [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("title", type: .nonNull(.scalar(String.self))),
+            GraphQLField("state", type: .nonNull(.scalar(PullRequestState.self))),
+            GraphQLField("number", type: .nonNull(.scalar(Int.self))),
+            GraphQLField("author", type: .object(Author.selections)),
+            GraphQLField("url", type: .nonNull(.scalar(String.self))),
+            GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
+            GraphQLField("closedAt", type: .scalar(String.self)),
+            GraphQLField("mergedAt", type: .scalar(String.self)),
+          ]
+
+          public private(set) var resultMap: ResultMap
+
+          public init(unsafeResultMap: ResultMap) {
+            self.resultMap = unsafeResultMap
+          }
+
+          public init(title: String, state: PullRequestState, number: Int, author: Author? = nil, url: String, createdAt: String, closedAt: String? = nil, mergedAt: String? = nil) {
+            self.init(unsafeResultMap: ["__typename": "PullRequest", "title": title, "state": state, "number": number, "author": author.flatMap { (value: Author) -> ResultMap in value.resultMap }, "url": url, "createdAt": createdAt, "closedAt": closedAt, "mergedAt": mergedAt])
+          }
+
+          public var __typename: String {
+            get {
+              return resultMap["__typename"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          /// Identifies the pull request title.
+          public var title: String {
+            get {
+              return resultMap["title"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "title")
+            }
+          }
+
+          /// Identifies the state of the pull request.
+          public var state: PullRequestState {
+            get {
+              return resultMap["state"]! as! PullRequestState
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "state")
+            }
+          }
+
+          /// Identifies the pull request number.
+          public var number: Int {
+            get {
+              return resultMap["number"]! as! Int
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "number")
+            }
+          }
+
+          /// The actor who authored the comment.
+          public var author: Author? {
+            get {
+              return (resultMap["author"] as? ResultMap).flatMap { Author(unsafeResultMap: $0) }
+            }
+            set {
+              resultMap.updateValue(newValue?.resultMap, forKey: "author")
+            }
+          }
+
+          /// The HTTP URL for this pull request.
+          public var url: String {
+            get {
+              return resultMap["url"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "url")
+            }
+          }
+
+          /// Identifies the date and time when the object was created.
+          public var createdAt: String {
+            get {
+              return resultMap["createdAt"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "createdAt")
+            }
+          }
+
+          /// Identifies the date and time when the object was closed.
+          public var closedAt: String? {
+            get {
+              return resultMap["closedAt"] as? String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "closedAt")
+            }
+          }
+
+          /// The date and time that the pull request was merged.
+          public var mergedAt: String? {
+            get {
+              return resultMap["mergedAt"] as? String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "mergedAt")
+            }
+          }
+
+          public struct Author: GraphQLSelectionSet {
+            public static let possibleTypes: [String] = ["EnterpriseUserAccount", "Organization", "User", "Mannequin", "Bot"]
+
+            public static let selections: [GraphQLSelection] = [
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("login", type: .nonNull(.scalar(String.self))),
+            ]
+
+            public private(set) var resultMap: ResultMap
+
+            public init(unsafeResultMap: ResultMap) {
+              self.resultMap = unsafeResultMap
+            }
+
+            public static func makeEnterpriseUserAccount(login: String) -> Author {
+              return Author(unsafeResultMap: ["__typename": "EnterpriseUserAccount", "login": login])
+            }
+
+            public static func makeOrganization(login: String) -> Author {
+              return Author(unsafeResultMap: ["__typename": "Organization", "login": login])
+            }
+
+            public static func makeUser(login: String) -> Author {
+              return Author(unsafeResultMap: ["__typename": "User", "login": login])
+            }
+
+            public static func makeMannequin(login: String) -> Author {
+              return Author(unsafeResultMap: ["__typename": "Mannequin", "login": login])
+            }
+
+            public static func makeBot(login: String) -> Author {
+              return Author(unsafeResultMap: ["__typename": "Bot", "login": login])
+            }
+
+            public var __typename: String {
+              get {
+                return resultMap["__typename"]! as! String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "__typename")
+              }
+            }
+
+            /// The username of the actor.
+            public var login: String {
+              get {
+                return resultMap["login"]! as! String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "login")
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }
 

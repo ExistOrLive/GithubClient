@@ -48,18 +48,23 @@ class ZLRepoHeaderInfoViewModel: ZLBaseViewModel {
         self.repoHeaderInfoView?.forksNumLabel.text = "\(self.repoInfoModel?.forks_count ?? 0)"
         
         
-        self.repoHeaderInfoView?.repoNameLabel.text = self.repoInfoModel?.full_name
-        
+        var tmpColor1 = ZLRGBValue_H(colorValue: 0x333333)
+        var tmpColor2 = ZLRGBValue_H(colorValue: 0x666666)
+        if #available(iOS 12.0, *){
+            tmpColor1 = (getRealUserInterfaceStyle() == .light) ? ZLRGBValue_H(colorValue: 0x333333) : ZLRGBValue_H(colorValue: 0xCCCCCC)
+            tmpColor2 = (getRealUserInterfaceStyle() == .light) ? ZLRGBValue_H(colorValue: 0x666666) : ZLRGBValue_H(colorValue: 0x999999)
+        }
         
         
         if self.repoInfoModel?.sourceRepoFullName?.count ?? 0 != 0 {
-            let attributedStr = NSMutableAttributedString.init(string: self.repoInfoModel?.full_name ?? "", attributes: [NSAttributedString.Key.foregroundColor:ZLRawColor(name: "ZLLabelColor3") ?? UIColor.black,NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCMedium, size: 16) ?? UIFont.systemFont(ofSize: 16)])
             
-            let forkStr = NSMutableAttributedString.init(string: "\nforked from ", attributes: [NSAttributedString.Key.foregroundColor:ZLRawColor(name: "ZLLabelColor2") ?? UIColor.lightGray,NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCMedium, size: 13) ?? UIFont.systemFont(ofSize: 13)])
+            let attributedStr = NSMutableAttributedString.init(string: self.repoInfoModel?.full_name ?? "", attributes: [NSAttributedString.Key.foregroundColor:tmpColor1,NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCMedium, size: 16) ?? UIFont.systemFont(ofSize: 16)])
+            
+            let forkStr = NSMutableAttributedString.init(string: "\nforked from ", attributes: [NSAttributedString.Key.foregroundColor:tmpColor2,NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCMedium, size: 13) ?? UIFont.systemFont(ofSize: 13)])
             
             attributedStr.append(forkStr)
             
-            let sourceRepoStr = NSMutableAttributedString.init(string: self.repoInfoModel?.sourceRepoFullName ?? "", attributes: [NSAttributedString.Key.foregroundColor:ZLRawColor(name: "ZLLabelColor3") ?? UIColor.black,NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCMedium, size: 13) ?? UIFont.systemFont(ofSize: 13)])
+            let sourceRepoStr = NSMutableAttributedString.init(string: self.repoInfoModel?.sourceRepoFullName ?? "", attributes: [NSAttributedString.Key.foregroundColor:tmpColor1,NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCMedium, size: 13) ?? UIFont.systemFont(ofSize: 13)])
             
             weak var weakSelf = self
             sourceRepoStr.yy_setTextHighlight(NSRange.init(location: 0, length: self.repoInfoModel?.sourceRepoFullName?.count ?? 0), color: ZLRawColor(name: "ZLLinkLabelColor1"), backgroundColor: ZLRawColor(name: "ZLLinkLabelColor1"), tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
@@ -68,6 +73,10 @@ class ZLRepoHeaderInfoViewModel: ZLBaseViewModel {
             })
             attributedStr.append(sourceRepoStr)
             
+            self.repoHeaderInfoView?.repoNameLabel.attributedText = attributedStr
+            
+        } else {
+            let attributedStr = NSMutableAttributedString.init(string: self.repoInfoModel?.full_name ?? "", attributes: [NSAttributedString.Key.foregroundColor:tmpColor1,NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCMedium, size: 16) ?? UIFont.systemFont(ofSize: 16)])
             self.repoHeaderInfoView?.repoNameLabel.attributedText = attributedStr
         }
         

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ZLGithubCollectedRepoModel: ZLBaseObject {
+@objcMembers class ZLGithubCollectedRepoModel: ZLBaseObject {
     var full_name : String?
     var owner_login : String?
     var owner_avatarURL : String?

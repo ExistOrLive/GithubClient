@@ -17,6 +17,7 @@
 
 @class ZLGithubUserModel;
 @class ZLGithubConfigModel;
+@class ZLGithubCollectedRepoModel;
  
 NS_ASSUME_NONNULL_BEGIN
 
@@ -46,6 +47,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) clearGithubTokenAndUserInfo;
 
+#pragma mark - fix repo
+
+- (void) setFixRepos:(NSArray<ZLGithubCollectedRepoModel *>*)repos forLoginUser:(NSString *)login;
+
+- (NSArray<ZLGithubCollectedRepoModel *>* __nullable) fixReposForLoginUser:(NSString *)login;
 
 #pragma mark - trend
 

@@ -52,6 +52,16 @@ func ZLRGBAValue_H(colorValue: UInt, alphaValue: CGFloat) -> UIColor
     return UIColor.init(rgb: colorValue, alpha: alphaValue)
 }
 
+func ZLRGBValueStr_H(colorValue: String) -> UIColor
+{
+    return UIColor.init(hexString: colorValue, alpha: 1.0)
+}
+
+func ZLRGBValueStr_H(colorValue: String, alphaValue: CGFloat) -> UIColor
+{
+    return UIColor.init(hexString: colorValue, alpha: Float(alphaValue))
+}
+
 func ZLRawColor(name: String) -> UIColor?{
     
     if let color = UIColor.init(named: name) {

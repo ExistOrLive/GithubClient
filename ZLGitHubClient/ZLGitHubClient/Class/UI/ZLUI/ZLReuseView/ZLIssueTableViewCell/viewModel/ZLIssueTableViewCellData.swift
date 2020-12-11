@@ -37,7 +37,6 @@ class ZLIssueTableViewCellData: ZLGithubItemTableViewCellData {
             return
         }
         cell.fillWithData(cellData: self)
-       // cell.delegate = self
     }
     
 }
@@ -65,12 +64,12 @@ extension ZLIssueTableViewCellData : ZLIssueTableViewCellDelegate{
         }
     }
     
-    func getLabels() -> [String] {
+    func getLabels() -> [(String,String)] {
         
-        var labelArray : [String] = []
+        var labelArray : [(String,String)] = []
         
         for label in self.issueModel.labels {
-            labelArray.append(label.name)
+            labelArray.append((label.name,label.color))
         }
         
         return labelArray

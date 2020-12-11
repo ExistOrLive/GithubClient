@@ -32,6 +32,19 @@
         return [dateFormatter dateFromString:oldValue];
     }
     
+    if([property.name isEqualToString:@"state"]){
+        if(oldValue == [NSNull null])
+        {
+            return oldValue;
+        }
+        NSString *state = oldValue;
+        if([@"open" isEqualToString:state]){
+            return [NSNumber numberWithUnsignedInteger:ZLGithubPullRequestState_Opened];
+        } else {
+            return [NSNumber numberWithUnsignedInteger:ZLGithubPullRequestState_Closed];
+        }
+    }
+    
     return oldValue;
 }
 

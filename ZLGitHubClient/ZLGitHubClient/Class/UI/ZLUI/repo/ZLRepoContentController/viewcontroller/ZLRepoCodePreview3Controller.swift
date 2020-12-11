@@ -54,19 +54,23 @@ class ZLRepoCodePreview3Controller: ZLBaseViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        guard let appdelegate : AppDelegate = UIApplication.shared.delegate as? AppDelegate else{
-            return
+        if ZLDeviceInfo.isIPhone() {
+            guard let appdelegate : AppDelegate = UIApplication.shared.delegate as? AppDelegate else{
+                return
+            }
+            appdelegate.allowRotation = true
         }
-        appdelegate.allowRotation = true
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
-        guard let appdelegate : AppDelegate = UIApplication.shared.delegate as? AppDelegate else{
-            return
+        if ZLDeviceInfo.isIPhone() {
+            guard let appdelegate : AppDelegate = UIApplication.shared.delegate as? AppDelegate else{
+                return
+            }
+            appdelegate.allowRotation = false
         }
-        appdelegate.allowRotation = false
     }
 
     
@@ -74,16 +78,18 @@ class ZLRepoCodePreview3Controller: ZLBaseViewController {
         
         super.viewWillTransition(to: size, with: coordinator)
         
-        guard let navigationVC : ZLBaseNavigationController = self.navigationController as? ZLBaseNavigationController else {
-            return
-        }
-        if size.height > size.width {
-            // 横屏变竖屏
-            self.setZLNavigationBarHidden(false)
-            navigationVC.forbidGestureBack = false
-        } else {
-            self.setZLNavigationBarHidden(true)
-            navigationVC.forbidGestureBack = true
+        if ZLDeviceInfo.isIPhone() {
+            guard let navigationVC : ZLBaseNavigationController = self.navigationController as? ZLBaseNavigationController else {
+                return
+            }
+            if size.height > size.width {
+                // 横屏变竖屏
+                self.setZLNavigationBarHidden(false)
+                navigationVC.forbidGestureBack = false
+            } else {
+                self.setZLNavigationBarHidden(true)
+                navigationVC.forbidGestureBack = true
+            }
         }
     }
     
@@ -133,6 +139,7 @@ class ZLRepoCodePreview3Controller: ZLBaseViewController {
     
     @objc func onMoreButtonClick(button : UIButton) {
         let alertVC = UIAlertController.init(title: self.contentModel.path, message: nil, preferredStyle: .actionSheet)
+        alertVC.popoverPresentationController?.sourceView = button
         let alertAction1 = UIAlertAction.init(title: ZLLocalizedString(string: "View in Github", comment: ""), style: UIAlertAction.Style.default) { (action : UIAlertAction) in
             let webContentVC = ZLWebContentController.init()
             webContentVC.requestURL = URL.init(string: self.contentModel.html_url)
@@ -149,6 +156,7 @@ class ZLRepoCodePreview3Controller: ZLBaseViewController {
             let url =  URL.init(string: self.contentModel.html_url)
             if url != nil {
                 let activityVC = UIActivityViewController.init(activityItems: [url!], applicationActivities: nil)
+                activityVC.popoverPresentationController?.sourceView = button
                 activityVC.excludedActivityTypes = [.message,.mail,.openInIBooks,.markupAsPDF]
                 self.present(activityVC, animated: true, completion: nil)
             }

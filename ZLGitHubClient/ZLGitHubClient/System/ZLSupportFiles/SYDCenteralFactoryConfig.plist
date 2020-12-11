@@ -110,6 +110,15 @@
 		<key>isSingle</key>
 		<false/>
 	</dict>
+	<key>ZLMyPullRequestsController</key>
+	<dict>
+		<key>class</key>
+		<string>ZLMyPullRequestsController</string>
+		<key>type</key>
+		<integer>0</integer>
+		<key>isSingle</key>
+		<false/>
+	</dict>
 	<key>ZLLogModule</key>
 	<dict>
 		<key>class</key>

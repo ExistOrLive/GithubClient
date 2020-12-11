@@ -96,15 +96,7 @@ static CGFloat ZLBaseNavigationBarStatusBarHeight = 0;
 {
     [self setBackgroundColor:[UIColor colorNamed:@"ZLNavigationBarBackColor"]];
     self.layer.shadowRadius = 0.3;
-    
-    // 确定横竖屏
-    if(ZLScreenWidth > ZLScreenHeight) {
-        self.isLandScape = YES;
-    } else {
-        self.isLandScape = NO;
-    }
-    
-    
+        
     // 创建返回按钮
     [self setUpBackButton];
     

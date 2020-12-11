@@ -24,7 +24,6 @@ class ZLPullRequestTableViewCellData: ZLGithubItemTableViewCellData {
             return
         }
         cell.fillWithData(data: self)
-       // cell.delegate = self
     }
     
     override func getCellHeight() -> CGFloat
@@ -44,7 +43,7 @@ class ZLPullRequestTableViewCellData: ZLGithubItemTableViewCellData {
     }
 }
 
-extension ZLPullRequestTableViewCellData
+extension ZLPullRequestTableViewCellData : ZLPullRequestTableViewCellDelegate
 {
     func getTitle() -> String?
     {
@@ -53,7 +52,7 @@ extension ZLPullRequestTableViewCellData
     
     func getAssistInfo() -> String?
     {
-        if self.pullRequestModel.state == "open"
+        if self.pullRequestModel.state == .opened
         {
             let assitInfo = "#\(self.pullRequestModel.number) \(self.pullRequestModel.user.loginName) \(ZLLocalizedString(string: "created at", comment: "创建于")) \((self.pullRequestModel.created_at as NSDate).dateLocalStrSinceCurrentTime())"
             return assitInfo
@@ -84,17 +83,13 @@ extension ZLPullRequestTableViewCellData
         }
     }
     
-    func getState() -> String {
+    func getState() -> ZLGithubPullRequestState {
         return self.pullRequestModel.state
     }
     
     func isMerged() -> Bool {
         return self.pullRequestModel.merged_at != nil
     }
-   
-    
-    
-    
 }
 
 

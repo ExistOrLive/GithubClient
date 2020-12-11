@@ -38,7 +38,7 @@ class ZLWorkboardTableViewCellData: ZLBaseViewModel,ZLWorkboardTableViewCellDele
             case .events:
                 return ZLLocalizedString(string: "Events", comment: "")
             case .fixRepo:
-                return self.title
+                return self.celltitle
             }
                
         }
@@ -83,6 +83,9 @@ class ZLWorkboardTableViewCellData: ZLBaseViewModel,ZLWorkboardTableViewCellDele
             self.viewController?.navigationController?.pushViewController(vc, animated: true)
             break
         case .pullRequest:
+            guard let vc = SYDCentralPivotUIAdapter.getMyPullRequestsController() else {return}
+            vc.hidesBottomBarWhenPushed = true
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
             break
         case .repos:
             guard let vc = SYDCentralPivotUIAdapter.getMyReposController() else { return }
@@ -105,6 +108,9 @@ class ZLWorkboardTableViewCellData: ZLBaseViewModel,ZLWorkboardTableViewCellDele
             self.viewController?.navigationController?.pushViewController(vc, animated: true)
             break
         case .fixRepo:
+            let vc = ZLRepoInfoController.init(repoFullName: self.celltitle)
+            vc.hidesBottomBarWhenPushed = true
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
             break
         }
         

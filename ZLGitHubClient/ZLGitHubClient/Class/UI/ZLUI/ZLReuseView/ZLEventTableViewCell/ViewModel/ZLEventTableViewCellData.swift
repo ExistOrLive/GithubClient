@@ -2,7 +2,7 @@
 //  ZLEventTableViewCellData.swift
 //  ZLGitHubClient
 //
-//  Created by BeeCloud on 2019/11/26.
+//  Created by ZM on 2019/11/26.
 //  Copyright © 2019 ZM. All rights reserved.
 //
 
@@ -79,7 +79,7 @@ extension ZLEventTableViewCellData
     }
     
     @objc func getEventDescrption() -> NSAttributedString{
-        return NSAttributedString.init(string: self.eventModel.eventDescription , attributes: [NSAttributedString.Key.foregroundColor:UIColor.init(named: "ZLLabelColor3")!,NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 15.0)!])
+        return NSAttributedString.init(string: self.eventModel.eventDescription , attributes: [NSAttributedString.Key.foregroundColor:ZLRawColor(name: "ZLLabelColor3")!,NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 15.0)!])
     }
 }
 

@@ -21,17 +21,8 @@
                             <rect key="frame" x="30" y="90" width="393" height="23.5"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="text" value="RepoName"/>
                                 <userDefinedRuntimeAttribute type="number" keyPath="numberOfLines">
                                     <integer key="value" value="0"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="number" keyPath="fontSize_">
-                                    <real key="value" value="16"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="boolean" keyPath="fontIsBold_" value="YES"/>
-                                <userDefinedRuntimeAttribute type="string" keyPath="fontName_" value="PingFang-SC-Medium"/>
-                                <userDefinedRuntimeAttribute type="color" keyPath="textColor">
-                                    <color key="value" name="ZLLabelColor1"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </view>
@@ -334,17 +325,12 @@
         </view>
     </objects>
     <designables>
-        <designable name="2Ef-2k-niW">
-            <size key="intrinsicContentSize" width="84" height="23"/>
-        </designable>
+        <designable name="2Ef-2k-niW"/>
     </designables>
     <resources>
         <image name="default_avatar" width="143" height="143"/>
         <namedColor name="ZLCellBack">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="ZLLabelColor1">
-            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="ZLLabelColor2">
             <color red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

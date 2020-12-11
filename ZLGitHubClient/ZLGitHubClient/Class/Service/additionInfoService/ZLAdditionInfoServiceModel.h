@@ -8,6 +8,7 @@
 
 #import "ZLBaseServiceModel.h"
 #import "ZLAdditionInfoServiceHeader.h"
+#import "ZLGithubPullRequestModel.h"
 @class ZLOperationResultModel;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -69,6 +70,13 @@ NS_ASSUME_NONNULL_BEGIN
                 serialNumber:(NSString *) serialNumber
               completeHandle:(void(^)(ZLOperationResultModel *)) handle;
 
+
+#pragma mark - PR
+
+- (void) getMyPRWithType:(ZLGithubPullRequestState) type
+                   after:(NSString * _Nullable) afterCursor
+            serialNumber:(NSString *) serialNumber
+          completeHandle:(void(^)(ZLOperationResultModel *)) handle;
 
 @end
 

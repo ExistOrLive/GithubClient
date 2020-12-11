@@ -28,7 +28,7 @@ class ZLOAuthBaseViewModel: ZLBaseViewModel {
             return;
         }
         
-        guard let vc : ZLBaseViewController = self.viewController as? ZLBaseViewController else {
+        guard let vc : ZLBaseViewController = self.viewController else {
             return;
         }
         vc.zlNavigationBar.backButton.removeTarget(vc, action: #selector(ZLBaseViewController.onBackButtonClicked(_:)), for: .touchUpInside)

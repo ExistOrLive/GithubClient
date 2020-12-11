@@ -434,4 +434,32 @@
                                                           block:responseBlock];
 }
 
+#pragma mark - pr
+
+
+- (void) getMyPRWithType:(ZLGithubPullRequestState) type
+                   after:(NSString * _Nullable) afterCursor
+            serialNumber:(NSString *) serialNumber
+          completeHandle:(void(^)(ZLOperationResultModel *)) handle{
+    
+    GithubResponse responseBlock = ^(BOOL result, id _Nullable responseObject, NSString * serialNumber) {
+        
+            ZLOperationResultModel * resultModel = [[ZLOperationResultModel alloc] init];
+            resultModel.result = result;
+            resultModel.serialNumber = serialNumber;
+            resultModel.data = responseObject;
+            
+            if(handle){
+                ZLMainThreadDispatch(handle(resultModel);)
+            }
+        
+    };
+    
+    [[ZLGithubHttpClient defaultClient] getMyPRsWithState:type
+                                                    after:afterCursor
+                                             serialNumber:serialNumber
+                                                    block:responseBlock];
+}
+
+
 @end

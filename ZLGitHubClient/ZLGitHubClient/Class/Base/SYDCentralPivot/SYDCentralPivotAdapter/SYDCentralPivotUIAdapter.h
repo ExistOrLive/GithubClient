@@ -34,4 +34,6 @@
 
 + (UIViewController *)getEditFixedRepoController;
 
++ (UIViewController *)getMyPullRequestsController;
+
 @end

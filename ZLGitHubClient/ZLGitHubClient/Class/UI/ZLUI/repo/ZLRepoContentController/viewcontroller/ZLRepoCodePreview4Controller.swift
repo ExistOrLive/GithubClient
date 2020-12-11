@@ -78,6 +78,7 @@ class ZLRepoCodePreview4Controller: ZLBaseViewController {
     
     @objc func onMoreButtonClick(button : UIButton) {
         let alertVC = UIAlertController.init(title: self.contentModel.path, message: nil, preferredStyle: .actionSheet)
+        alertVC.popoverPresentationController?.sourceView = button
         let alertAction1 = UIAlertAction.init(title: "View in Github", style: UIAlertAction.Style.default) { (action : UIAlertAction) in
             let webContentVC = ZLWebContentController.init()
             webContentVC.requestURL = URL.init(string: self.contentModel.html_url)
@@ -94,6 +95,7 @@ class ZLRepoCodePreview4Controller: ZLBaseViewController {
             let url =  URL.init(string: self.contentModel.html_url)
             if url != nil {
                 let activityVC = UIActivityViewController.init(activityItems: [url!], applicationActivities: nil)
+                activityVC.popoverPresentationController?.sourceView = button
                 activityVC.excludedActivityTypes = [.message,.mail,.openInIBooks,.markupAsPDF]
                 self.present(activityVC, animated: true, completion: nil)
             }

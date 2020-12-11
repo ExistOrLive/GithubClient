@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak, readonly) id<ZLBaseViewModel> superViewModel;      // 父亲viewModel
 
-@property (nonatomic, readonly) NSArray *subViewModels;      // 所有的子viewModel
+@property (nonatomic, readonly) NSArray<id<ZLBaseViewModel>> *subViewModels;      // 所有的子viewModel
 
 /**
  * 添加子viewModel， 建立父子关系

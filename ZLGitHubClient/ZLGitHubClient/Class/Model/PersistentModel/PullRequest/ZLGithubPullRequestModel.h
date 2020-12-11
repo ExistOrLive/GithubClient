@@ -11,6 +11,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_ENUM(NSInteger, ZLGithubPullRequestState) {
+    ZLGithubPullRequestState_Opened,
+    ZLGithubPullRequestState_Closed,
+};
+
+
 @interface ZLGithubPullRequestModel : ZLBaseObject
 
 @property(nonatomic, strong) NSString * id_PullRequest;
@@ -21,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, assign) NSUInteger number;         // pullrequest number
 
-@property(nonatomic, strong) NSString * state;          // open / closed
+@property(nonatomic, assign) ZLGithubPullRequestState state;          // open / closed
 
 @property(nonatomic, assign) BOOL locked;
 

@@ -44,7 +44,7 @@
     
     self.searchTextField = [UITextField new];
     self.searchTextField.backgroundColor = [UIColor colorNamed:@"ZLExploreTextFieldBackColor"];
-    self.searchTextField.cornerRadius = 3.0;
+    self.searchTextField.cornerRadius = 5.0;
     self.searchTextField.font = [UIFont fontWithName:Font_PingFangSCRegular size:14];
     self.searchTextField.textColor = [UIColor colorNamed:@"ZLLabelColor1"];
     self.searchTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -64,28 +64,29 @@
     self.backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.backButton setImage:[UIImage imageNamed:@"back_Common"] forState:UIControlStateNormal];
     
-   
-    [self addSubview:self.searchTextField];
-    [self addSubview:self.cancelButton];
     [self addSubview:self.backButton];
+    [self addSubview:self.cancelButton];
+    [self addSubview:self.searchTextField];
+    
     
     [self.backButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self);
-        make.left.equalTo(self).offset(10);
+        make.left.equalTo(self).offset(20);
         make.width.equalTo(@0);
     }];
     
     [self.cancelButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self);
-        make.right.equalTo(self).offset(-10);
+        make.width.equalTo(@50);
+        make.right.equalTo(self).offset(-20);
     }];
-    self.cancelButton.hidden = YES;
+    
     
     [self.searchTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.backButton.mas_right);
         make.height.equalTo(@40);
         make.centerY.equalTo(self);
-        self.textFieldLeftContraint = make.right.equalTo(self).offset(-10);
+        self.textFieldLeftContraint = make.right.equalTo(self).offset(-20);
     }];
     
     [self.cancelButton addTarget:self action:@selector(onCancelButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -102,11 +103,14 @@
         self.textFieldLeftContraint = nil;
     }
     
+    self.cancelButton.hidden = (self.status == ZLBaseSearchBarStatus_Normal);
+    
     [self.searchTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        if(self.isEditing) {
-            self.textFieldLeftContraint = make.right.equalTo(self.cancelButton.mas_left).offset(-10);
+        if(self.status == ZLBaseSearchBarStatus_CancelPossibleNoEditing ||
+           self.status == ZLBaseSearchBarStatus_Editing) {
+            self.textFieldLeftContraint = make.right.equalTo(self.cancelButton.mas_left).offset(-20);
         } else {
-            self.textFieldLeftContraint = make.right.equalTo(self).offset(-10);
+            self.textFieldLeftContraint = make.right.equalTo(self).offset(-20);
         }
     }];
     
@@ -117,31 +121,56 @@
 }
 
 
-- (void) setEditing:(BOOL)editing{
-    if(editing == _editing){
+- (BOOL) isEditing{
+    return self.status == ZLBaseSearchBarStatus_Editing;
+}
+
+- (void) startSearch{
+    if(self.status == ZLBaseSearchBarStatus_Editing){
         return;
     }
-    _editing = editing;
-    if(YES == editing){
-        if(![self.searchTextField isFirstResponder]){
-            [self.searchTextField becomeFirstResponder];
+    
+    if(![self.searchTextField isFirstResponder]){
+        [self.searchTextField becomeFirstResponder];
+    }
+    _status = ZLBaseSearchBarStatus_Editing;
+    
+    if([self.delegate respondsToSelector:@selector(searchBarStatusChange:)]){
+        [self.delegate searchBarStatusChange:self];
+    }
+    
+    [self setNeedsUpdateConstraints];
+}
+
+- (void) endSearch:(BOOL) force{
+    if(force){
+        if(self.status == ZLBaseSearchBarStatus_Normal){
+            return;
         }
-        if([self.delegate respondsToSelector:@selector(searchBarDidBecomeEdit:)]){
-            [self.delegate searchBarDidBecomeEdit:self];
+        _status = ZLBaseSearchBarStatus_Normal;
+        
+        if([self.delegate respondsToSelector:@selector(searchBarClearKeyWhenBecomeNormal:)]){
+            if([self.delegate searchBarClearKeyWhenBecomeNormal:self]){
+                self.searchTextField.text = nil;
+            }
         }
         
     } else {
-        if ([self.searchTextField isFirstResponder]){
-            [self.searchTextField resignFirstResponder];
+        if(self.status != ZLBaseSearchBarStatus_Editing){
+            return;
         }
-        if([self.delegate respondsToSelector:@selector(searchBarDidEndEdit:)]){
-            [self.delegate searchBarDidEndEdit:self];
-        }
+        _status = ZLBaseSearchBarStatus_CancelPossibleNoEditing;
     }
     
-    [self.cancelButton setHidden:!editing];
-    [self setNeedsUpdateConstraints];
+    if([self.delegate respondsToSelector:@selector(searchBarStatusChange:)]){
+        [self.delegate searchBarStatusChange:self];
+    }
     
+    if([self.searchTextField canResignFirstResponder]){
+        [self.searchTextField resignFirstResponder];
+    }
+    
+    [self setNeedsUpdateConstraints];
 }
 
 - (void) setShowBackButton:(BOOL)showBackButton {
@@ -159,14 +188,30 @@
     return YES;
 }
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
-    self.editing = true;
+    [self startSearch];
+    
+    if([self.delegate respondsToSelector:@selector(searchBarDidBecomeEdit:)]){
+        [self.delegate searchBarDidBecomeEdit:self];
+    }
 }
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField{
     return YES;
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField reason:(UITextFieldDidEndEditingReason)reason {
-    self.editing = NO;
+    if([self.delegate respondsToSelector:@selector(searchBarHiddenCancelButtonWhenEndEdit:)]){
+        if([self.delegate searchBarHiddenCancelButtonWhenEndEdit:self]) {
+            [self endSearch:YES];
+        } else {
+            [self endSearch:NO];
+        }
+    } else {
+        [self endSearch:YES];
+    }
+    
+    if([self.delegate respondsToSelector:@selector(searchBarDidEndEdit:)]){
+        [self.delegate searchBarDidEndEdit:self];
+    }
 }
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField{
@@ -174,6 +219,9 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    if([textField canResignFirstResponder]){
+        [textField resignFirstResponder];
+    }
     if([self.delegate respondsToSelector:@selector(searchBarConfirmSearch:withSearchKey:)]){
         [self.delegate searchBarConfirmSearch:self withSearchKey:self.searchTextField.text];
     }
@@ -184,7 +232,7 @@
 #pragma mark cancelButton
 
 - (void) onCancelButtonClicked:(UIButton *) button{
-    [self setEditing:NO];
+    [self endSearch:YES];
     if([self.delegate respondsToSelector:@selector(searchBarCancel:)]){
         [self.delegate searchBarCancel:self];
     }
@@ -239,6 +287,15 @@
     }
     return self;
 }
+
+- (void) startSearch{
+    [self.searchBar startSearch];
+}
+
+- (void) endSearch:(BOOL) force{
+    [self.searchBar endSearch:force];
+}
+
 
 - (void) setUpUI {
     
@@ -306,24 +363,50 @@
 
 #pragma mark ZLBaseSearchBarDelegate
 
+- (void) searchBarStatusChange:(ZLBaseSearchBar *) searchBar {
+    
+    switch (searchBar.status) {
+            
+        case ZLBaseSearchBarStatus_Editing:{
+            
+            if(self.sourceViewController && !self.presentingViewController){
+                if(![self.delegate respondsToSelector:@selector(searchControllerShouldShowResultController:)] || [self.delegate searchControllerShouldShowResultController:self]){
+                    self.modalPresentationStyle = UIModalPresentationFullScreen;
+                    self.transitioningDelegate = self;
+                    [self.sourceViewController presentViewController:self animated:YES completion:^{
+                        if([self.delegate respondsToSelector:@selector(searchControllerDidShowResultController:)]){
+                            [self.delegate searchControllerDidShowResultController:self];
+                        }
+                    }];
+                }
+            }
+            
+        }
+            break;
+        case ZLBaseSearchBarStatus_Normal:{
+            
+            if(self.presentingViewController) {
+                [self dismissViewControllerAnimated:YES completion:^{
+                    if([self.delegate respondsToSelector:@selector(searchControllerDidDismissResultController:)]){
+                        [self.delegate searchControllerDidDismissResultController:self];
+                    }
+                }];
+            }
+            
+        }
+            break;
+            
+        case ZLBaseSearchBarStatus_CancelPossibleNoEditing:{
+            
+        }
+            break;
+    }
+    
+}
+
 - (void) searchBarDidBecomeEdit:(ZLBaseSearchBar *) searchBar{
     if([self.delegate respondsToSelector:@selector(searchControllerDidBecomeEdit:)]){
         [self.delegate searchControllerDidBecomeEdit:self];
-    }
-    
-    if(self.sourceViewController && !self.presentingViewController){
-        if(![self.delegate respondsToSelector:@selector(searchControllerShouldShowResultController:)] || [self.delegate searchControllerShouldShowResultController:self]){
-            
-            searchBar.showBackButton = YES;
-            
-            self.modalPresentationStyle = UIModalPresentationFullScreen;
-            self.transitioningDelegate = self;
-            [self.sourceViewController presentViewController:self animated:YES completion:^{
-                if([self.delegate respondsToSelector:@selector(searchControllerDidShowResultController:)]){
-                    [self.delegate searchControllerDidShowResultController:self];
-                }
-            }];
-        }
     }
     
 }
@@ -338,21 +421,27 @@
     if([self.delegate respondsToSelector:@selector(searchControllerConfirmSearch:withSearchKey:)]){
         [self.delegate searchControllerConfirmSearch:self withSearchKey:searchKey];
     }
+    
+    [self.resultContoller onZLSearchKeyConfirm:searchKey];
 }
 
 - (void) searchBarCancel:(ZLBaseSearchBar *)searchBar{
-
+    [self.searchBar endSearch:YES];
+    if([self.delegate respondsToSelector:@selector(searchControllerCancel:)]){
+        [self.delegate searchControllerCancel:self];
+    }
 }
 
 - (void)searchBarBack:(ZLBaseSearchBar *)searchBar{
-    if(self.presentingViewController) {
-        searchBar.showBackButton = NO;
-        [self dismissViewControllerAnimated:YES completion:^{
-            if([self.delegate respondsToSelector:@selector(searchControllerDidDismissResultController:)]){
-                [self.delegate searchControllerDidDismissResultController:self];
-            }
-        }];
-    }
+   
+}
+
+- (BOOL) searchBarClearKeyWhenBecomeNormal:(ZLBaseSearchBar *) searchBar{
+    return YES;
+}
+
+- (BOOL) searchBarHiddenCancelButtonWhenEndEdit:(ZLBaseSearchBar *) searchBar{
+    return NO;
 }
 
 
@@ -460,8 +549,12 @@
 
 @implementation UIViewController (ZLBaseSearchVC)
 
-- (void) onZLSearchKey:(NSString *)searchKey{
+- (void) onZLSearchKeyUpdate:(NSString *)searchKey{
     // wait implemented
+}
+
+- (void) onZLSearchKeyConfirm:(NSString *)searchKey{
+    
 }
 
 @end

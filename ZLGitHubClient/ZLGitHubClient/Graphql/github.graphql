@@ -1,4 +1,30 @@
 # https://www.apollographql.com/docs/ios/installation/
+
+# 查询我待处理的PullRequest
+query viewerPullRequest($state:[PullRequestState!],$after:String) {
+  viewer{
+    pullRequests(states:$state,orderBy:{field:CREATED_AT,direction:DESC
+    },after:$after,first:20){
+      pageInfo{
+        endCursor
+        hasNextPage
+      }
+      nodes{
+        title
+        state
+        number
+        author{
+          login
+        }
+        url
+        createdAt
+        closedAt
+        mergedAt
+      }
+    }
+  }
+}
+
 query issueInfo($owner:String!,$name:String!,$number:Int!){
   repository(owner:$owner,name:$name){
     nameWithOwner

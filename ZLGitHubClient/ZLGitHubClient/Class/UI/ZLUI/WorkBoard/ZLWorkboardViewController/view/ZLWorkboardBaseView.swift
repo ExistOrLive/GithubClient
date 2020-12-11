@@ -39,6 +39,7 @@ class ZLWorkboardBaseView: ZLBaseView, UITableViewDelegate, UITableViewDataSourc
         self.tableView = UITableView.init(frame: CGRect(), style: .grouped)
         self.tableView.separatorStyle = .none
         self.tableView.backgroundColor = UIColor.clear
+        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 15, right: 0)
         
         self.tableView.register(UINib.init(nibName: "ZLWorkboardTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "ZLWorkboardTableViewCell")
         self.tableView.register(ZLWorkboardTableViewSectionHeader.self, forHeaderFooterViewReuseIdentifier: "ZLWorkboardTableViewSectionHeader")
@@ -126,7 +127,8 @@ class ZLWorkboardBaseView: ZLBaseView, UITableViewDelegate, UITableViewDataSourc
             tableViewCell.fillWithData(cellData: cellData)
             tableViewCell.backView.cornerRadius = 0
             tableViewCell.singleLineView.isHidden = false
-            if cellDataDic![sectionArray![indexPath.section]]?.count == 0 {
+            if cellDataDic![sectionArray![indexPath.section]]?.count == 1 {
+                tableViewCell.backView.cornerDirection = CornerDirection(rawValue: 15)
                 tableViewCell.backView.cornerRadius = 10
                 tableViewCell.singleLineView.isHidden = true
             } else if indexPath.row == 0{

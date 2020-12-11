@@ -9,6 +9,14 @@
 import UIKit
 
 @objc protocol ZLPullRequestTableViewCellDelegate : NSObjectProtocol {
+    
+    func getTitle() -> String?
+    
+    func getAssistInfo() -> String?
+    
+    func getState() -> ZLGithubPullRequestState
+    
+    func isMerged() -> Bool 
 }
 
 class ZLPullRequestTableViewCell: UITableViewCell {
@@ -31,12 +39,14 @@ class ZLPullRequestTableViewCell: UITableViewCell {
     }
     
     
-    func fillWithData(data : ZLPullRequestTableViewCellData)
+    func fillWithData(data : ZLPullRequestTableViewCellDelegate)
     {
+        self.delegate = data
+        
         self.titleLabel.text = data.getTitle()
         self.assitInfoLabel.text = data.getAssistInfo()
         
-        if "open" == data.getState() {
+        if data.getState() == .opened {
             self.typeImageView?.image = UIImage.init(named: "pr_opened")
         } else if data.isMerged() {
             self.typeImageView?.image = UIImage.init(named: "pr_merged")

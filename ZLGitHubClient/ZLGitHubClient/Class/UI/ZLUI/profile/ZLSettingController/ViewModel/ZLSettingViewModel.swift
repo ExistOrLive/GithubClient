@@ -83,32 +83,12 @@ class ZLSettingViewModel: ZLBaseViewModel {
         
     }
     
-    func onChangeLanguage()
-    {
-        let alertController = UIAlertController.init(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
-       
+    func onChangeLanguage(){
+        
+        var titles : [String] = []
         for rawValue in [0,ZLLanguageType.simpleChinese.rawValue]
         {
-            var title : String? = nil
-            let handle : ((UIAlertAction) -> Void) = {(action: UIAlertAction) in
-                
-                ZLLANMODULE?.setLanguageType(ZLLanguageType.init(rawValue: rawValue)!, error: nil)
-        
-                switch ZLLanguageType.init(rawValue: rawValue)!
-                {
-                case .english:do{
-                    MJRefreshConfig.default().languageCode = "en"
-                    }
-                case .simpleChinese:do{
-                    MJRefreshConfig.default().languageCode = "zh-Hans"
-                    }
-                @unknown default:do {
-                    }
-                }
-                
-                
-            }
-            
+            var title = ""
             switch ZLLanguageType.init(rawValue: rawValue)!
             {
             case .english:do{
@@ -121,14 +101,28 @@ class ZLSettingViewModel: ZLBaseViewModel {
             }
             }
             
-            let action = UIAlertAction.init(title: title, style: UIAlertAction.Style.default, handler:handle)
-            alertController.addAction(action)
+            titles.append(title)
         }
         
-        let cancelAction = UIAlertAction.init(title:ZLLocalizedString(string: "Cancel", comment: "取消") , style: UIAlertAction.Style.cancel, handler: nil)
-        alertController.addAction(cancelAction)
+        CYSinglePickerPopoverView.showCYSinglePickerPopover(withTitle: ZLLocalizedString(string: "Language", comment: ""), withInitIndex: UInt(ZLLANMODULE?.currentLanguageType().rawValue ?? 0), withDataArray: titles) { (index : UInt) in
+            
+            if let languaeType = ZLLanguageType.init(rawValue: UInt(index)) {
+                
+                ZLLANMODULE?.setLanguageType(languaeType, error: nil)
         
-        self.viewController?.present(alertController, animated: true, completion: nil)
+                switch languaeType
+                {
+                case .english:do{
+                    MJRefreshConfig.default().languageCode = "en"
+                    }
+                case .simpleChinese:do{
+                    MJRefreshConfig.default().languageCode = "zh-Hans"
+                    }
+                @unknown default:do {
+                    }
+                }
+            }
+        }
     }
     
     func onMonitor()

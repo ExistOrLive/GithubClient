@@ -20,4 +20,7 @@
  */
 +(UIColor*)colorWithRGB:(NSUInteger)hex
                   alpha:(CGFloat)alpha;
+
+
++ (BOOL) isLightColor:(UIColor*)clr;
 @end

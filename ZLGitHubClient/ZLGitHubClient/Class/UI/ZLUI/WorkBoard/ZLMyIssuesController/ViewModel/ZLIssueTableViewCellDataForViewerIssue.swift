@@ -12,7 +12,7 @@ class ZLIssueTableViewCellDataForViewerIssue: ZLGithubItemTableViewCellData {
     
     let data : ViewerIssuesQuery.Data.Viewer.Issue.Node
     
-    private var labels : [String]?
+    private var labels : [(String,String)]?
     
     
     init(data :  ViewerIssuesQuery.Data.Viewer.Issue.Node){
@@ -63,12 +63,12 @@ extension ZLIssueTableViewCellDataForViewerIssue : ZLIssueTableViewCellDelegate 
         }
     }
     
-    func getLabels() -> [String] {
+    func getLabels() -> [(String,String)] {
         if self.labels == nil {
             if data.labels?.nodes != nil {
                 self.labels = []
                 for label in data.labels!.nodes! {
-                    self.labels?.append(label?.name ?? "")
+                    self.labels?.append((label?.name ?? "",label?.color ?? ""))
                 }
             }
         }

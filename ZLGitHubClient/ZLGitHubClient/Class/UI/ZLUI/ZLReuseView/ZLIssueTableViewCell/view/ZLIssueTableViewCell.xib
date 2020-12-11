@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -57,7 +57,6 @@
                         <color key="backgroundColor" name="ZLCellBack"/>
                         <constraints>
                             <constraint firstItem="5tN-eY-mqI" firstAttribute="leading" secondItem="Z4I-L8-yVR" secondAttribute="leading" id="7LR-9a-Ojo"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="yin-On-okU" secondAttribute="trailing" constant="30" id="Dhb-5g-kzu"/>
                             <constraint firstItem="5tN-eY-mqI" firstAttribute="top" secondItem="yin-On-okU" secondAttribute="bottom" constant="8" id="TXW-jV-rjO"/>
                             <constraint firstItem="Z4I-L8-yVR" firstAttribute="leading" secondItem="Q3i-u5-k10" secondAttribute="trailing" constant="10" id="TaY-TL-8CM"/>
                             <constraint firstItem="Z4I-L8-yVR" firstAttribute="centerY" secondItem="Q3i-u5-k10" secondAttribute="centerY" id="Ts0-Cj-XxP"/>

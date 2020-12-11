@@ -14,9 +14,17 @@ NS_ASSUME_NONNULL_BEGIN
 @class ZLBaseSearchBar;
 @class ZLBaseSearchController;
 
+typedef enum : NSUInteger {
+    ZLBaseSearchBarStatus_Normal,
+    ZLBaseSearchBarStatus_Editing,
+    ZLBaseSearchBarStatus_CancelPossibleNoEditing,
+} ZLBaseSearchBarStatus;
+
 @protocol ZLBaseSearchBarDelegate<NSObject>
 
 @optional
+
+- (void) searchBarStatusChange:(ZLBaseSearchBar *) searchBar;
 
 - (void) searchBarDidBecomeEdit:(ZLBaseSearchBar *) searchBar;
 
@@ -28,16 +36,30 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) searchBarBack:(ZLBaseSearchBar *)searchBar;
 
+- (BOOL) searchBarHiddenCancelButtonWhenEndEdit:(ZLBaseSearchBar *) searchBar;
+
+- (BOOL) searchBarClearKeyWhenBecomeNormal:(ZLBaseSearchBar *) searchBar;
+
 @end
+
+
+
 
 
 @interface ZLBaseSearchBar : ZLBaseView
 
-@property(nonatomic, assign, getter=isEditing) BOOL editing;
+@property(nonatomic, readonly) ZLBaseSearchBarStatus status;
+
+@property(nonatomic, readonly, getter=isEditing) BOOL editing;
 
 @property(nonatomic, assign) BOOL showBackButton;
 
 @property(nonatomic, weak) id<ZLBaseSearchBarDelegate> delegate;
+
+- (void) startSearch;
+
+- (void) endSearch:(BOOL) force;
+
 
 @end
 
@@ -58,8 +80,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) searchControllerDidShowResultController:(ZLBaseSearchController *) searchController;
 
-
 - (void) searchControllerDidDismissResultController:(ZLBaseSearchController *) searchController;
+
+- (void) searchControllerCancel:(ZLBaseSearchController *) searchController;
 
 @end
 
@@ -74,12 +97,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype) initWithResultController:(UIViewController *)resultController;
 
+- (void) startSearch;
+
+- (void) endSearch:(BOOL) force;
+
 @end
 
 
 @interface UIViewController (ZLBaseSearchController)
 
-- (void) onZLSearchKey:(NSString *)searchKey;
+- (void) onZLSearchKeyUpdate:(NSString *)searchKey;
+
+- (void) onZLSearchKeyConfirm:(NSString *)searchKey;
 
 @end
 
