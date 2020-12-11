@@ -2,13 +2,13 @@
 //  ZLBuglyManager.m
 //  ZLGitHubClient
 //
-//  Created by BeeCloud on 2019/12/19.
+//  Created by ZM on 2019/12/19.
 //  Copyright © 2019 ZM. All rights reserved.
 //
 
 #import "ZLBuglyManager.h"
 #import <Bugly/Bugly.h>
-#import "ZLAppInfo.h"
+#import "ZLDeviceInfo.h"
 #import "ZLGithubAppKey.h"
 
  
@@ -50,7 +50,7 @@
         BuglyConfig * config = [BuglyConfig new];
         config.debugMode = YES;
         config.channel = @"ZM";
-        config.version = [ZLAppInfo version];
+        config.version = [ZLDeviceInfo getAppShortVersion];
         config.deviceIdentifier = @"zhumeng";
         
         

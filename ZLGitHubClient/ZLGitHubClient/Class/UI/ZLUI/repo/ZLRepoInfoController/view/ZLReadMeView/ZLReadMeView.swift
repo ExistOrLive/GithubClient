@@ -144,12 +144,12 @@ class ZLReadMeView: ZLBaseView {
         
         if #available(iOS 12.0, *) {
             if getRealUserInterfaceStyle() == .light{
-                cssURL = Bundle.main.url(forResource: "github_style", withExtension: "css")
+                cssURL = Bundle.main.url(forResource: "github_style_markdown", withExtension: "css")
             } else {
-                cssURL = Bundle.main.url(forResource: "github_style_dark", withExtension: "css")
+                cssURL = Bundle.main.url(forResource: "github_style_dark_markdown", withExtension: "css")
             }
         } else {
-            cssURL = Bundle.main.url(forResource: "github_style", withExtension: "css")
+            cssURL = Bundle.main.url(forResource: "github_style_markdown", withExtension: "css")
         }
         
         if let url = htmlURL {

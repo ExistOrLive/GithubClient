@@ -10,6 +10,11 @@
 
 static CGFloat ZLBaseNavigationBarStatusBarHeight = 0;
 
+@interface ZLBaseNavigationBar()
+
+@end
+
+
 @implementation ZLBaseNavigationBar
 
 + (void) initialize{
@@ -52,8 +57,20 @@ static CGFloat ZLBaseNavigationBarStatusBarHeight = 0;
 - (void) setHidden:(BOOL)hidden
 {
     [super setHidden:hidden];
+}
+
+- (void) setZlNavigationBarHidden:(BOOL)zlNavigationBarHidden{
+    if(_zlNavigationBarHidden == zlNavigationBarHidden){
+        return;
+    }
+    _zlNavigationBarHidden = zlNavigationBarHidden;
+    
+    self.titleLabel.hidden = zlNavigationBarHidden;
+    self.backButton.hidden = zlNavigationBarHidden;
+    self.rightButton.hidden = zlNavigationBarHidden;
     
     [self setNeedsUpdateConstraints];
+    
 }
 
 
@@ -61,18 +78,14 @@ static CGFloat ZLBaseNavigationBarStatusBarHeight = 0;
     
     [super updateConstraints];
     
-    if(self.hidden){
+    if(self.zlNavigationBarHidden){
         [self mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.height.equalTo(@0);
+            make.bottom.equalTo(self.superview.mas_safeAreaLayoutGuideTop).offset(0);
         }];
     }
     else{
         [self mas_updateConstraints:^(MASConstraintMaker *make) {
-            if(self.isLandScape) {
-                make.height.equalTo(@(ZLBaseNavigationBarHeight));
-            } else {
-                make.height.equalTo(@(ZLBaseNavigationBarStatusBarHeight+ZLBaseNavigationBarHeight));
-            }
+            make.bottom.equalTo(self.superview.mas_safeAreaLayoutGuideTop).offset(ZLBaseNavigationBarHeight);
         }];
     }
 }
@@ -83,29 +96,13 @@ static CGFloat ZLBaseNavigationBarStatusBarHeight = 0;
 {
     [self setBackgroundColor:[UIColor colorNamed:@"ZLNavigationBarBackColor"]];
     self.layer.shadowRadius = 0.3;
-    
-    // 确定横竖屏
-    if(ZLScreenWidth > ZLScreenHeight) {
-        self.isLandScape = YES;
-    } else {
-        self.isLandScape = NO;
-    }
-    
-    
+        
     // 创建返回按钮
     [self setUpBackButton];
     
     // 创建Title
     [self setUpTitleLabel];
 
-    // 约束高度
-    [self mas_updateConstraints:^(MASConstraintMaker *make) {
-        if(self.isLandScape) {
-            make.height.equalTo(@(ZLBaseNavigationBarHeight));
-        } else {
-            make.height.equalTo(@(ZLBaseNavigationBarStatusBarHeight+ZLBaseNavigationBarHeight));
-        }
-    }];
 }
 
 - (void) setUpBackButton

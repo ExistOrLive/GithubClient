@@ -2,7 +2,7 @@
 //  ZLEventTableViewCell.swift
 //  ZLGitHubClient
 //
-//  Created by BeeCloud on 2019/11/25.
+//  Created by ZM on 2019/11/25.
 //  Copyright © 2019 ZM. All rights reserved.
 //
 

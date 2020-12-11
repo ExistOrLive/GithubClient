@@ -23,8 +23,10 @@ class ZLBlockedUserController: ZLBaseViewController {
             make.edges.equalToSuperview();
         }
         
-        self.viewModel = ZLBlockedUserViewModel.init(viewController: self)
-        self.viewModel.bindModel(nil, andView: view)
+        
+        let viewModel = ZLBlockedUserViewModel()
+        self.addSubViewModel(viewModel)
+        viewModel.bindModel(nil, andView: view)
     }
     
 

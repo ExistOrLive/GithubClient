@@ -17,17 +17,23 @@
 #import <objc/message.h>
 
 @interface ZLBaseViewController ()
-
+    
+@property(nonatomic, strong) NSMutableSet * realSubViewModels;
 
 @end
 
 @implementation ZLBaseViewController
 
-- (instancetype) init
-{
-    if(self = [super init])
-    {
-        
+- (instancetype) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+    if(self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]){
+        self.realSubViewModels = [NSMutableSet new];
+    }
+    return self;
+}
+
+- (instancetype) initWithCoder:(NSCoder *)coder{
+    if(self = [super initWithCoder:coder]) {
+        self.realSubViewModels = [NSMutableSet new];
     }
     return self;
 }
@@ -38,9 +44,7 @@
     [super viewDidLoad];
     
     // 初始化UI
-    [self setUpUI];
-    
-    
+    [self setBaseUpUI];
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -50,7 +54,9 @@
     
     [self.navigationController setNavigationBarHidden:YES];
     
-    [self.viewModel VCLifeCycle_viewWillAppear];
+    for(ZLBaseViewModel *viewModel in self.realSubViewModels){
+        [viewModel VCLifeCycle_viewWillAppear];
+    }
 }
 
 - (void) viewDidAppear:(BOOL)animated
@@ -58,7 +64,9 @@
     ZLLog_Info(@"ZLMonitor: [%@] viewDidAppear at [%@]",self,[NSDate date]);
     [super viewDidAppear:animated];
 
-    [self.viewModel VCLifeCycle_viewDidAppear];
+    for(ZLBaseViewModel *viewModel in self.realSubViewModels){
+        [viewModel VCLifeCycle_viewDidAppear];
+    }
 }
 
 - (void) viewWillDisappear:(BOOL)animated
@@ -66,15 +74,18 @@
     ZLLog_Info(@"ZLMonitor: [%@] viewWillDisappear at [%@]",self,[NSDate date]);
     [super viewWillDisappear:animated];
     
-    [self.viewModel VCLifeCycle_viewWillDisappear];
+    for(ZLBaseViewModel *viewModel in self.realSubViewModels){
+        [viewModel VCLifeCycle_viewWillDisappear];
+    }
 }
 
 - (void) viewDidDisappear:(BOOL)animated
 {
     ZLLog_Info(@"ZLMonitor: [%@] viewDidDisappear at [%@]",self,[NSDate date]);
     [super viewDidDisappear:animated];
-    
-    [self.viewModel VCLifeCycle_viewDidDisappear];
+    for(ZLBaseViewModel *viewModel in self.realSubViewModels){
+        [viewModel VCLifeCycle_viewDidDisappear];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -82,23 +93,27 @@
     ZLLog_Info(@"ZLMonitor: [%@] didReceiveMemoryWarning at [%@]",self,[NSDate date]);
     [super didReceiveMemoryWarning];
 
-    [self.viewModel VCLifeCycle_didReceiveMemoryWarning];
+    for(ZLBaseViewModel *viewModel in self.realSubViewModels){
+        [viewModel VCLifeCycle_didReceiveMemoryWarning];
+    }
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator{
+    
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     
     if(size.height > size.width) {
         self.zlNavigationBar.isLandScape = false;
     } else {
         self.zlNavigationBar.isLandScape = true;
     }
-    [self.zlNavigationBar updateConstraints];
+    [self.zlNavigationBar setNeedsUpdateConstraints];
 }
 
 
 #pragma mark - 初始化UI
 
-- (void) setUpUI{
+- (void) setBaseUpUI{
     
     self.view.backgroundColor = [UIColor colorNamed:@"ZLVCBackColor"];
     
@@ -120,11 +135,12 @@
         make.top.equalTo(self.view.mas_top);
         make.left.equalTo(self.view.mas_left);
         make.right.equalTo(self.view.mas_right);
+        make.bottom.equalTo(self.view.mas_safeAreaLayoutGuideTop).offset(ZLBaseNavigationBarHeight);
     }];
     
     if(self.navigationController == nil)   // 如果是model弹出
     {
-        [self.zlNavigationBar setHidden:YES];
+        [self.zlNavigationBar setZlNavigationBarHidden:YES];
     }
     else
     {
@@ -150,7 +166,7 @@
 
 - (void) setZLNavigationBarHidden:(BOOL)hidden
 {
-    [self.zlNavigationBar setHidden:hidden];
+    [self.zlNavigationBar setZlNavigationBarHidden:hidden];
 }
 
 - (void) onBackButtonClicked:(UIButton *) button
@@ -178,6 +194,124 @@
         make.right.equalTo(self.view.mas_right);
         make.bottom.equalTo(self.view.mas_bottom);
     }];
+}
+
+
+#pragma mark - ZLBaseViewModel
+
+- (ZLBaseViewController *) viewController{
+    return self;
+}
+
+- (id<ZLBaseViewModel>) superViewModel{
+    return nil;
+}
+
+- (NSArray *) subViewModels{
+    return [_realSubViewModels allObjects];
+}
+
+
+
+/**
+ * 添加子viewModel， 建立父子关系
+ * @param subViewModel        子viewModel
+ **/
+- (void) addSubViewModel:(ZLBaseViewModel *) subViewModel
+{
+    if(!subViewModel){
+        return;
+    }
+    [subViewModel setValue:self forKey:@"realSuperViewModel"];
+    [self.realSubViewModels addObject:subViewModel];
+}
+
+- (void) addSubViewModels:(NSArray<ZLBaseViewModel *> *) subViewModels
+{
+    if(!subViewModels)
+    {
+        return;
+    }
+    [subViewModels setValue:self forKey:@"realSuperViewModel"];
+    [self.realSubViewModels addObjectsFromArray:subViewModels];
+}
+
+- (void) removeSubViewModel:(ZLBaseViewModel *) subViewModel{
+    if(!subViewModel){
+        return;
+    }
+    if([self.realSubViewModels containsObject:subViewModel]){
+        [subViewModel setValue:nil forKey:@"realSuperViewModel"];
+        [self.realSubViewModels removeObject:subViewModel];
+    }
+
+}
+
+/**
+ * UIViewController 不需要
+ */
+- (void) removeFromSuperViewModel{
+  
+}
+
+/**
+ * 绑定 viewModel,View,model, 由superViewModel或者VC调用
+ * @param targetModel           model
+ * @param targetView         view
+ **/
+- (void) bindModel:(id) targetModel andView:(UIView *) targetView
+{
+    /**
+     * code
+     * 绑定 viewModel,View,model
+     **/
+}
+
+/**
+ * 子ViewModel给父vViewModel上报事件
+ * @param event             事件内容
+ * @param subViewModel      子viewModel
+ **/
+- (void) getEvent:(id)event  fromSubViewModel:(ZLBaseViewModel *) subViewModel
+{
+    /**
+     * code
+     * 父viewModel 处理event
+     **/
+}
+@end
+
+
+@implementation ZLBaseViewController(Tool)
+
++ (UIViewController *)getCurrentVC {
+    UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    UIViewController *currentVC = [self getCurrentVCFrom:rootViewController];
+    return currentVC;
+}
+
++ (UIViewController *)getCurrentVCFrom:(UIViewController *)rootVC {
+    UIViewController *currentVC;
+    if (rootVC.presentedViewController) {
+        // 视图是被presented出来的
+        rootVC = [self getCurrentVCFrom:rootVC.presentedViewController];
+    }
+    if ([rootVC isKindOfClass:[UITabBarController class]]) {
+        // 根视图为UITabBarController
+        currentVC = [self
+            getCurrentVCFrom:[(UITabBarController *)
+                                     rootVC selectedViewController]];
+    } else if ([rootVC isKindOfClass:[UINavigationController class]]) {
+        // 根视图为UINavigationController
+        currentVC =
+            [self getCurrentVCFrom:[(UINavigationController *)
+                                                 rootVC visibleViewController]];
+    } else {
+        // 根视图为非导航类
+        currentVC = rootVC;
+    }
+
+    return currentVC;
 }
 
 

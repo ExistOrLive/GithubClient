@@ -20,8 +20,9 @@ class ZLLoginViewController: ZLBaseViewController {
         if loginView != nil
         {
             self.view.addSubview(loginView!);
-            self.viewModel = ZLLoginViewModel(viewController: self);
-            self.viewModel.bindModel(nil, andView: loginView!);
+            let viewModel = ZLLoginViewModel()
+            self.addSubViewModel(viewModel)
+            viewModel.bindModel(nil, andView: loginView!);
         }
         else
         {

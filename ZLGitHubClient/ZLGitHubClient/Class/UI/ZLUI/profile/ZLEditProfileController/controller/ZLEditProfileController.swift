@@ -18,9 +18,10 @@ class ZLEditProfileController: ZLBaseViewController {
         
         self.title = ZLLocalizedString(string: "EditProfile", comment: "编辑主页")
 
-        self.viewModel = ZLEditProfileViewModel.init(viewController: self)
+        let viewModel = ZLEditProfileViewModel()
+        self.addSubViewModel(viewModel)
         
-        guard let baseView: ZLEditProfileView = Bundle.main.loadNibNamed("ZLEditProfileView", owner: self.viewModel, options: nil)?.first as? ZLEditProfileView else
+        guard let baseView: ZLEditProfileView = Bundle.main.loadNibNamed("ZLEditProfileView", owner: viewModel, options: nil)?.first as? ZLEditProfileView else
         {
             ZLLog_Warn("ZLRepoInfoView can not be loaded");
             return;
@@ -30,7 +31,7 @@ class ZLEditProfileController: ZLBaseViewController {
         baseView.snp.makeConstraints({ (make) in
             make.edges.equalToSuperview()
         })
-        self.viewModel.bindModel(self.userInfoModel, andView: baseView)
+        viewModel.bindModel(self.userInfoModel, andView: baseView)
     }
     
 

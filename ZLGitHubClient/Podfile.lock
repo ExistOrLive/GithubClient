@@ -6,6 +6,9 @@ PODS:
   - AFNetworking/Reachability (3.2.1)
   - AFNetworking/Security (3.2.1)
   - AFNetworking/Serialization (3.2.1)
+  - Apollo (0.27.0):
+    - Apollo/Core (= 0.27.0)
+  - Apollo/Core (0.27.0)
   - BSBacktraceLogger (0.0.1)
   - Bugly (2.5.2)
   - Charts (3.4.0):
@@ -76,6 +79,7 @@ DEPENDENCIES:
   - AFNetworking/Reachability
   - AFNetworking/Security
   - AFNetworking/Serialization
+  - Apollo
   - Bugly
   - Charts
   - CocoaLumberjack
@@ -104,6 +108,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - AFNetworking
+    - Apollo
     - BSBacktraceLogger
     - Bugly
     - Charts
@@ -131,6 +136,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
+  Apollo: 5926be3853a34c10ef9fb7447435f0e083070b41
   BSBacktraceLogger: 06b983ee93a9f87d957960e9c73d660d5966b447
   Bugly: dbac48b55ad469a97cc4321045cd50df8f63d44f
   Charts: 74c9f256eaf0460c0c416522d1cf8c634ea6b286
@@ -156,6 +162,6 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": d7b0c400921f66523f3a85d74f774512e14f6502
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: 5eba889f08ed67e43e2fdbe527673ae6fd7a3282
+PODFILE CHECKSUM: 257ba5cc5c257edaa7b06bc495d30eadaeacd509
 
 COCOAPODS: 1.9.1

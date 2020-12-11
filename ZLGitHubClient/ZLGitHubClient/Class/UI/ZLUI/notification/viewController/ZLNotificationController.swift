@@ -15,9 +15,9 @@ import UIKit
         
         self.title = ZLLocalizedString(string: "Notification", comment: "通知")
         
-        self.viewModel = ZLNotificationViewModel.init(viewController: self)
+        let viewModel = ZLNotificationViewModel.init()
         
-        guard let baseView : ZLNotificationView = Bundle.main.loadNibNamed("ZLNotificationView", owner: self.viewModel, options: nil)?.first as? ZLNotificationView else
+        guard let baseView : ZLNotificationView = Bundle.main.loadNibNamed("ZLNotificationView", owner: viewModel, options: nil)?.first as? ZLNotificationView else
         {
             return
         }
@@ -26,8 +26,9 @@ import UIKit
             make.edges.equalToSuperview()
         }
         
+        self.addSubViewModel(viewModel)
         // bind view and viewModel
-        self.viewModel.bindModel(nil, andView: baseView)
+        viewModel.bindModel(nil, andView: baseView)
         
     }
     

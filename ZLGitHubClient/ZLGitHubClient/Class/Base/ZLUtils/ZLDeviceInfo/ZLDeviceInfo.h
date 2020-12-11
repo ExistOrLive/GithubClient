@@ -2,7 +2,7 @@
 //  ZLDeviceInfo.h
 //  ZLGitHubClient
 //
-//  Created by BeeCloud on 2019/12/19.
+//  Created by ZM on 2019/12/19.
 //  Copyright © 2019 ZM. All rights reserved.
 //
 
@@ -16,9 +16,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSString *) getDeviceModel;
 
++ (NSString *) getAppShortVersion;
+
 + (NSString *) getAppVersion;
 
 + (NSString *) getAppName;
+
++ (BOOL) isIpad;
+
++ (BOOL) isIPhone;
+
++ (UIDeviceOrientation) getDeviceOrientation;
 
 @end
 

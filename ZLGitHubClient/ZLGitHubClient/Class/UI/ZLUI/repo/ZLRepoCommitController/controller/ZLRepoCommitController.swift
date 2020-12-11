@@ -27,7 +27,8 @@ class ZLRepoCommitController: ZLBaseViewController {
             make.edges.equalToSuperview()
         })
         
-        self.viewModel = ZLRepoCommitViewModel.init(viewController: self)
+        let viewModel = ZLRepoCommitViewModel()
+        self.addSubViewModel(viewModel)
         viewModel.bindModel(["fullName":repoFullName,"branch":branch], andView: itemListView)
         
     }

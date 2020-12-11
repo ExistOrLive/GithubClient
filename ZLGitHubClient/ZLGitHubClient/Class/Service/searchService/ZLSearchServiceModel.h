@@ -27,6 +27,15 @@ NS_ASSUME_NONNULL_BEGIN
                       per_page:(NSUInteger) per_page
                   serialNumber:(NSString *) serialNumber;
 
+- (void) searchInfoWithKeyWord:(NSString *) keyWord
+                          type:(ZLSearchType) type
+                    filterInfo:(ZLSearchFilterInfoModel * __nullable) filterInfo
+                          page:(NSUInteger) page
+                      per_page:(NSUInteger) per_page
+                  serialNumber:(NSString *) serialNumber
+                completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+
 #pragma mark - trend
 
 - (void) trendingWithType:(ZLSearchType) type

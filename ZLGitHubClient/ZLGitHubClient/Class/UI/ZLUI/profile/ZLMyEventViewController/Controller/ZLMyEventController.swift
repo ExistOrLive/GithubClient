@@ -23,7 +23,8 @@ class ZLMyEventController: ZLBaseViewController {
             make.edges.equalToSuperview()
         })
         
-        self.viewModel = ZLMyEventBaseViewModel(viewController: self)
-        self.viewModel.bindModel(nil, andView: baseView)
+        let viewModel = ZLMyEventBaseViewModel()
+        self.addSubViewModel(viewModel)
+        viewModel.bindModel(nil, andView: baseView)
     }
 }

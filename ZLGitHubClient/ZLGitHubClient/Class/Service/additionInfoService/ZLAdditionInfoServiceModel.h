@@ -8,6 +8,7 @@
 
 #import "ZLBaseServiceModel.h"
 #import "ZLAdditionInfoServiceHeader.h"
+#import "ZLGithubPullRequestModel.h"
 @class ZLOperationResultModel;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -54,8 +55,28 @@ NS_ASSUME_NONNULL_BEGIN
  **/
 
 - (void) getGithubClientConfig:(NSString *) serialNumber;
-       
 
+
+
+#pragma mark - org
+
+- (void) getOrgsWithSerialNumber:(NSString *) serialNumber
+                  completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+#pragma mark - issues
+
+- (void) getMyIssuesWithType:(ZLMyIssueFilterType) type
+                       after:(NSString * _Nullable) afterCursor
+                serialNumber:(NSString *) serialNumber
+              completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+
+#pragma mark - PR
+
+- (void) getMyPRWithType:(ZLGithubPullRequestState) type
+                   after:(NSString * _Nullable) afterCursor
+            serialNumber:(NSString *) serialNumber
+          completeHandle:(void(^)(ZLOperationResultModel *)) handle;
 
 @end
 

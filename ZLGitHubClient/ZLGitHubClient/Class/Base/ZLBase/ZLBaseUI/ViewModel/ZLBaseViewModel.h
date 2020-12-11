@@ -8,27 +8,27 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+@class ZLBaseViewController;
+@class ZLBaseViewModel;
 
 NS_ASSUME_NONNULL_BEGIN
+@protocol ZLBaseViewModel <NSObject>
 
-@interface ZLBaseViewModel : NSObject
+@property (nonatomic, weak, readonly) ZLBaseViewController *viewController;     // viewModel对应View所在的VC
 
-// VC 的直接VM用这个方法初始化
-- (instancetype) initWithViewController:(UIViewController *) controller;
+@property (nonatomic, weak, readonly) id<ZLBaseViewModel> superViewModel;      // 父亲viewModel
 
-
-@property (nonatomic, weak, readonly) UIViewController * viewController;     // viewModel对应View所在的VC
-
-@property (nonatomic, weak, readonly) ZLBaseViewModel * superViewModel;      // 父亲viewModel
-
-@property (nonatomic, readonly) NSArray * subViewModels;      // 所有的子viewModel
-
+@property (nonatomic, readonly) NSArray<id<ZLBaseViewModel>> *subViewModels;      // 所有的子viewModel
 
 /**
  * 添加子viewModel， 建立父子关系
  * @param subViewModel        子viewModel
  **/
 - (void) addSubViewModel:(ZLBaseViewModel *) subViewModel;
+
+- (void) addSubViewModels:(NSArray<ZLBaseViewModel *> *) subViewModels;
+
+- (void) removeSubViewModel:(ZLBaseViewModel *) subViewModel;
 
 - (void) removeFromSuperViewModel;
 
@@ -46,6 +46,12 @@ NS_ASSUME_NONNULL_BEGIN
  * @param subViewModel      子viewModel
  **/
 - (void) getEvent:(id _Nullable)event  fromSubViewModel:(ZLBaseViewModel *) subViewModel;
+
+
+@end
+
+
+@interface ZLBaseViewModel : NSObject <ZLBaseViewModel>
 
 #pragma mark - VCLifeCycle
 

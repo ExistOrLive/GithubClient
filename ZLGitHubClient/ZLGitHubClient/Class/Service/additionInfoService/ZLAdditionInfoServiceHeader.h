@@ -23,6 +23,18 @@ typedef NS_ENUM(NSUInteger, ZLUserAdditionInfoType) {
 };
 
 
+/**
+ * github 用户附加信息类型
+ *
+ **/
+typedef NS_ENUM(NSUInteger, ZLMyIssueFilterType) {
+    ZLMyIssueFilterTypeCreator,
+    ZLMyIssueFilterTypeAssigned,
+    ZLMyIssueFilterTypeMentioned,
+    ZLMyIssueFilterTypeSubcribe,
+};
+
+
 #pragma mark - NotificationName
 
 static const NSNotificationName ZLGetReposResult_Notification = @"ZLGetReposResult_Notification";

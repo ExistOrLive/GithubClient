@@ -14,7 +14,7 @@
 - Cocoapods 1.9.1
 - iOS >= 11.0
 
-基于[Github REST API V3](https://docs.github.com/en/rest)开发的iOS客户端。目前支持以下的功能：
+基于[Github REST V3 API](https://docs.github.com/en/rest)和[Github GraphQL V4 API](https://docs.github.com/en/free-pro-team@latest/graphql)开发的iOS客户端。目前支持以下的功能：
 
 - 支持Github OAuth登录 和 Access Token 登录
 - 查询和修改登录用户的profile
@@ -35,12 +35,14 @@
 <img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_4084.PNG" width="200"/>
 </div>
 
-#### News
+#### Workboard
 
 <div align="left">
-<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_3782.JPG" width="200"/>
-<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_4069.PNG" width="200"/>
+<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_4245.PNG" width="200"/>
+<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_4244.PNG" width="200"/>
+
 </div>
+
 
 #### Notification
 
@@ -50,12 +52,6 @@
 
 </div>
 
-#### Starred Repositories
-
-<div align="left">
-<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_3784.JPG" width="200"/>
-<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_4071.PNG" width="200"/>
-</div>
 
 #### Trending 
 

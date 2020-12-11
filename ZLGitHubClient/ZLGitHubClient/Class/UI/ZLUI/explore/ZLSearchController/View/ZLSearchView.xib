@@ -28,7 +28,7 @@
                             <textInputTraits key="textInputTraits" returnKeyType="search"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                    <real key="value" value="3"/>
+                                    <real key="value" value="5"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </textField>

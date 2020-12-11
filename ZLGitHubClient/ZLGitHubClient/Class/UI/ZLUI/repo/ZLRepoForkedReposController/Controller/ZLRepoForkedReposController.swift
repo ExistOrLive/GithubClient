@@ -25,7 +25,8 @@ class ZLRepoForkedReposController: ZLBaseViewController {
             make.edges.equalToSuperview()
         })
         
-        self.viewModel = ZLRepoForkedReposViewModel.init(viewController: self)
+        let viewModel = ZLRepoForkedReposViewModel()
+        self.addSubViewModel(viewModel)
         viewModel.bindModel(repoFullName, andView: itemListView)
     }
     

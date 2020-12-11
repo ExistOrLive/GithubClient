@@ -76,7 +76,7 @@ class ZLEditProfileViewModel: ZLBaseViewModel {
         button.frame = CGRect.init(x: 0, y: 0, width: 70, height: 30)
         button.addTarget(self, action: #selector(onSaveButtonClicked), for: .touchUpInside)
         
-        let vc = self.viewController as? ZLBaseViewController
+        let vc = self.viewController
         vc?.zlNavigationBar.rightButton = button
     }
     

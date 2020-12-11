@@ -12,6 +12,24 @@ import UIKit
 @objc protocol ZLRepositoryTableViewCellDelegate : NSObjectProtocol
 {
     func onRepoAvaterClicked() -> Void
+    
+    func getOwnerAvatarURL() -> String?
+
+    func getRepoFullName() -> String?
+    
+    func getRepoName() -> String?
+    
+    func getOwnerName() -> String?
+    
+    func getRepoMainLanguage() -> String?
+    
+    func getRepoDesc() -> String?
+    
+    func isPriva() -> Bool
+    
+    func starNum() -> Int
+    
+    func forkNum() -> Int
 }
 
 class ZLRepositoryTableViewCell: UITableViewCell {
@@ -60,8 +78,7 @@ class ZLRepositoryTableViewCell: UITableViewCell {
     }
     
     
-    func justUpdate()
-    {
+    func justUpdate(){
         self.starLabel.text = ZLLocalizedString(string: "star :", comment: "标星")
         self.forkLabel.text = ZLLocalizedString(string: "fork :", comment: "拷贝");
         self.privateLabel.text = ZLLocalizedString(string: "private", comment: "私有")
@@ -71,8 +88,9 @@ class ZLRepositoryTableViewCell: UITableViewCell {
 
 extension ZLRepositoryTableViewCell
 {
-    func fillWithData(data : ZLRepositoryTableViewCellData) -> Void
+    func fillWithData(data : ZLRepositoryTableViewCellDelegate) -> Void
     {
+        self.delegate = data
         self.headImageView.sd_setImage(with: URL.init(string: data.getOwnerAvatarURL() ?? ""), placeholderImage: UIImage.init(named: "default_avatar"));
         self.repostitoryNameLabel.text = data.getRepoName()
         self.languageLabel.text = data.getRepoMainLanguage()

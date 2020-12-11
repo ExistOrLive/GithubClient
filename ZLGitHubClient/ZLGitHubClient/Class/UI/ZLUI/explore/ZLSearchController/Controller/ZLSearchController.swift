@@ -14,10 +14,11 @@ class ZLSearchController: ZLBaseViewController {
         super.viewDidLoad()
 
         // 创建ViewModel
-        self.viewModel = ZLSearchViewModel.init(viewController: self)
+        let viewModel = ZLSearchViewModel()
+        self.addSubViewModel(viewModel)
         
         // 创建ZLSearchView
-        guard let baseView: ZLSearchView = Bundle.main.loadNibNamed("ZLSearchView", owner: self.viewModel, options: nil)?.first as? ZLSearchView else
+        guard let baseView: ZLSearchView = Bundle.main.loadNibNamed("ZLSearchView", owner: viewModel, options: nil)?.first as? ZLSearchView else
         {
             ZLLog_Warn("load ZLSearchView failed")
             return
@@ -26,7 +27,7 @@ class ZLSearchController: ZLBaseViewController {
         self.view.addSubview(baseView)
         
         // 绑定view viewModel VC
-        self.viewModel.bindModel(nil, andView: baseView)
+        viewModel.bindModel(nil, andView: baseView)
     
     }
     

@@ -27,9 +27,10 @@ class ZLPushEventTableViewCellData: ZLEventTableViewCellData {
         let loginNameRange = (str as NSString).range(of: self.eventModel.actor.display_login)
         weak var weakSelf = self
         attributedString.yy_setTextHighlight(loginNameRange, color: UIColor.init(cgColor: UIColor.init(named: "ZLLinkLabelColor1")!.cgColor), backgroundColor: UIColor.clear, tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
-            let vc = ZLUserInfoController.init(loginName: weakSelf?.eventModel.actor.login ?? "", type: ZLGithubUserType_User)
-            vc.hidesBottomBarWhenPushed = true
-            weakSelf?.viewController?.navigationController?.pushViewController(vc, animated: true)
+            if let userInfoVC = SYDCentralPivotUIAdapter.getUserInfoViewController(withLoginName:weakSelf?.eventModel.actor.login ?? "",with:ZLGithubUserType_User){
+                userInfoVC.hidesBottomBarWhenPushed = true
+                weakSelf?.viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
+            }
         })
         
         let repoNameRange = (str as NSString).range(of: self.eventModel.repo.name)

@@ -25,7 +25,8 @@ class ZLRepoStargazersController: ZLBaseViewController {
             make.edges.equalToSuperview()
         })
         
-        self.viewModel = ZLRepoStargazersViewModel.init(viewController: self)
+        let viewModel = ZLRepoStargazersViewModel()
+        self.addSubViewModel(viewModel)
         viewModel.bindModel(repoFullName, andView: itemListView)
     }
 }

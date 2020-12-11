@@ -1,8 +1,8 @@
 {
   "images" : [
     {
+      "filename" : "repo_icon.png",
       "idiom" : "universal",
-      "filename" : "default_avatar.png",
       "scale" : "1x"
     },
     {
@@ -15,7 +15,7 @@
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }

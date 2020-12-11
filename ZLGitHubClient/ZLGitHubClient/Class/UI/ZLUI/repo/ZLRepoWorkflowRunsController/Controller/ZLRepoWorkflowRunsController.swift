@@ -27,8 +27,9 @@ class ZLRepoWorkflowRunsController: ZLBaseViewController {
              make.edges.equalToSuperview()
         }
         
-        self.viewModel = ZLRepoWorkflowRunsViewModel(viewController: self)
+        let viewModel = ZLRepoWorkflowRunsViewModel()
+        self.addSubViewModel(viewModel)
         
-        self.viewModel.bindModel(["fullName":fullName,"workflow_id":workflow_id,"workflowTitle":workflowTitle], andView: githubItemListView)
+        viewModel.bindModel(["fullName":fullName,"workflow_id":workflow_id,"workflowTitle":workflowTitle], andView: githubItemListView)
     }
 }

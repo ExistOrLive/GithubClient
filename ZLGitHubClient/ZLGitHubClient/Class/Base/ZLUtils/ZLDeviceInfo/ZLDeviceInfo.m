@@ -2,7 +2,7 @@
 //  ZLDeviceInfo.m
 //  ZLGitHubClient
 //
-//  Created by BeeCloud on 2019/12/19.
+//  Created by ZM on 2019/12/19.
 //  Copyright © 2019 ZM. All rights reserved.
 //
 
@@ -62,6 +62,10 @@
     if ([platform isEqualToString:@"iPhone12,3"]) return @"iPhone 11 Pro";
     if ([platform isEqualToString:@"iPhone12,5"]) return @"iPhone 11 Pro Max";
     if ([platform isEqualToString:@"iPhone12,8"]) return @"iPhone SE 2";
+    if ([platform isEqualToString:@"iPhone13,1"]) return @"iPhone 12 mini";
+    if ([platform isEqualToString:@"iPhone13,2"]) return @"iPhone 12";
+    if ([platform isEqualToString:@"iPhone13,3"]) return @"iPhone 12 Pro";
+    if ([platform isEqualToString:@"iPhone13,4"]) return @"iPhone 12 Pro Max";
     
     // iPad
     if ([platform isEqualToString:@"iPad1,1"]) return @"iPad";
@@ -81,6 +85,9 @@
     if ([platform isEqualToString:@"iPad7,6"]) return @"iPad 6";
     if ([platform isEqualToString:@"iPad7,11"]) return @"iPad 7";
     if ([platform isEqualToString:@"iPad7,12"]) return @"iPad 7";
+    if ([platform isEqualToString:@"iPad11,6"]) return @"iPad 8";
+    if ([platform isEqualToString:@"iPad11,7"]) return @"iPad 8";
+    
     if ([platform isEqualToString:@"iPad4,1"]) return @"iPad Air";
     if ([platform isEqualToString:@"iPad4,2"]) return @"iPad Air";
     if ([platform isEqualToString:@"iPad4,3"]) return @"iPad Air";
@@ -88,6 +95,9 @@
     if ([platform isEqualToString:@"iPad5,4"]) return @"iPad Air 2";
     if ([platform isEqualToString:@"iPad11,3"]) return @"iPad Air 3";
     if ([platform isEqualToString:@"iPad11,4"]) return @"iPad Air 3";
+    if ([platform isEqualToString:@"iPad13,1"]) return @"iPad Air 4";
+    if ([platform isEqualToString:@"iPad13,2"]) return @"iPad Air 4";
+    
     if ([platform isEqualToString:@"iPad2,5"]) return @"iPad Mini";
     if ([platform isEqualToString:@"iPad2,6"]) return @"iPad Mini";
     if ([platform isEqualToString:@"iPad2,7"]) return @"iPad Mini";
@@ -101,6 +111,7 @@
     if ([platform isEqualToString:@"iPad5,2"]) return @"iPad Mini 4";
     if ([platform isEqualToString:@"iPad11,1"]) return @"iPad Mini 5";
     if ([platform isEqualToString:@"iPad11,2"]) return @"iPad Mini 5";
+    
     if ([platform isEqualToString:@"iPad6,3"]) return @"iPad Pro 9.7-inch";
     if ([platform isEqualToString:@"iPad6,4"]) return @"iPad Pro 9.7-inch";
     if ([platform isEqualToString:@"iPad7,3"]) return @"iPad Pro 10.5-inch";
@@ -129,11 +140,17 @@
     return platform;
 }
 
++ (NSString *) getAppShortVersion {
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    NSString *bundleVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+    return bundleVersion;
+}
+
+
 + (NSString *) getAppVersion {
     
     NSDictionary * infoDic = [NSBundle mainBundle].infoDictionary;
     NSString * versionStr = [NSString stringWithFormat:@"%@(%@)",infoDic[@"CFBundleShortVersionString"],infoDic[@"CFBundleVersion"]];
-    
     return versionStr;
 }
 
@@ -142,5 +159,26 @@
     return infoDic[@"CFBundleName"];
 }
 
+
++ (BOOL)isIpad{
+    NSString *deviceType = [UIDevice currentDevice].model;
+    if ([deviceType isEqualToString:@"iPad"]) {
+        return YES;
+    }
+    return NO;
+}
+
++ (BOOL)isIPhone{
+    NSString *deviceType = [UIDevice currentDevice].model;
+    if ([deviceType isEqualToString:@"iPhone"]) {
+        return YES;
+    }
+    return NO;
+}
+
+
++ (UIDeviceOrientation) getDeviceOrientation{
+    return [UIDevice currentDevice].orientation;
+}
 
 @end

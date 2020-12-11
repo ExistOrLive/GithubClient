@@ -2,7 +2,7 @@
 //  ZLStarRepoViewController.m
 //  ZLGitHubClient
 //
-//  Created by BeeCloud on 2019/12/9.
+//  Created by ZM on 2019/12/9.
 //  Copyright © 2019 ZM. All rights reserved.
 //
 
@@ -32,8 +32,9 @@
         make.edges.equalTo(self.contentView);
     }];
     
-    self.viewModel = [[ZLStarReposBaseViewModel alloc] initWithViewController:self];
-    [self.viewModel bindModel:nil andView:baseView];
+    ZLStarReposBaseViewModel *viewModel = [ZLStarReposBaseViewModel new];
+    [self addSubViewModel:viewModel];
+    [viewModel bindModel:nil andView:baseView];
 }
 
 /*

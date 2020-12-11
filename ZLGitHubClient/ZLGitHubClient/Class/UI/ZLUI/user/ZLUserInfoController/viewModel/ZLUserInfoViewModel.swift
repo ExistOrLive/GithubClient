@@ -57,8 +57,11 @@ class ZLUserInfoViewModel: ZLBaseViewModel {
         self.serialNumber = NSString.generateSerialNumber()
         ZLUserServiceModel.shared().getUserInfo(withLoginName: model.loginName, userType: model.type, serialNumber: self.serialNumber)
         
-        self.getFollowStatus()
-        self.getBlockStatus()
+        if self.userInfoModel?.type != ZLGithubUserType_Organization {
+            self.getFollowStatus()
+            self.getBlockStatus()
+        }
+
         
         SVProgressHUD.show()
         
@@ -158,6 +161,7 @@ class ZLUserInfoViewModel: ZLBaseViewModel {
         }
         
         let alertVC = UIAlertController.init(title: self.userInfoModel?.loginName, message: nil, preferredStyle: .actionSheet)
+        alertVC.popoverPresentationController?.sourceView = button
         let alertAction1 = UIAlertAction.init(title: ZLLocalizedString(string: "View in Github", comment: ""), style: UIAlertAction.Style.default) { (action : UIAlertAction) in
             let webContentVC = ZLWebContentController.init()
             webContentVC.requestURL = URL.init(string: self.userInfoModel!.html_url)
@@ -174,6 +178,7 @@ class ZLUserInfoViewModel: ZLBaseViewModel {
             let url =  URL.init(string: self.userInfoModel!.html_url)
             if url != nil {
                 let activityVC = UIActivityViewController.init(activityItems: [url!], applicationActivities: nil)
+                activityVC.popoverPresentationController?.sourceView = button
                 activityVC.excludedActivityTypes = [.message,.mail,.openInIBooks,.markupAsPDF]
                 self.viewController?.present(activityVC, animated: true, completion: nil)
             }
@@ -198,6 +203,10 @@ extension ZLUserInfoViewModel
     func setViewDataForUserInfoView(model:ZLGithubUserModel, view:ZLUserInfoView){
         
         self.userInfoModel = model;
+        
+        if self.userInfoModel?.type == ZLGithubUserType_Organization {
+            self.userInfoView?.followButton.isHidden = true
+        }
         
         self.viewController?.title = model.loginName
         

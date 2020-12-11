@@ -22,6 +22,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, strong) UIButton * rightButton;
 
+@property(nonatomic, assign) BOOL zlNavigationBarHidden;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

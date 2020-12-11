@@ -161,6 +161,13 @@ NS_ASSUME_NONNULL_BEGIN
                       completeHandle:(void(^)(ZLOperationResultModel *)) handle;
 
 
+#pragma mark - top repo
+
+- (void) getTopReposWithAfterCursor:(NSString * __nullable) after
+                       serialNumber:(NSString *) serialNumber
+                     completeHandle:(void(^)(ZLOperationResultModel *)) handle;
+
+
 #pragma mark - star repo
 
 - (void) starRepoWithFullName:(NSString *) fullName

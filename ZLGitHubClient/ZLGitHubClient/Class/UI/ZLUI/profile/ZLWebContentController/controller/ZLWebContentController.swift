@@ -17,10 +17,10 @@ class ZLWebContentController: ZLBaseViewController {
         
         self.title = "WebView";
         
-        self.viewModel = ZLWebContentViewModel.init(viewController: self)
+        let viewModel = ZLWebContentViewModel()
+        self.addSubViewModel(viewModel)
         
-        guard let baseView = Bundle.main.loadNibNamed("ZLWebContentView", owner: self.viewModel, options: nil)?.first as? ZLWebContentView else
-        {
+        guard let baseView = Bundle.main.loadNibNamed("ZLWebContentView", owner: viewModel, options: nil)?.first as? ZLWebContentView else{
             ZLLog_Warn("ZLWebContentView load failed,so return")
             return
         }
@@ -31,7 +31,7 @@ class ZLWebContentController: ZLBaseViewController {
             make.edges.equalToSuperview()
         }
         
-        self.viewModel.bindModel(self.requestURL, andView: baseView)
+        viewModel.bindModel(self.requestURL, andView: baseView)
     }
     
 

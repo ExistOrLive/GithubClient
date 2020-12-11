@@ -15,9 +15,9 @@ class ZLFeedbackController: ZLBaseViewController {
         
         self.title = ZLLocalizedString(string: "feedback", comment: "反馈")
         
-        self.viewModel = ZLFeedbackViewModel.init(viewController: self)
+        let viewModel = ZLFeedbackViewModel()
         
-        guard let feedbackView : ZLFeedbackView = Bundle.main.loadNibNamed("ZLFeedbackView", owner: self.viewModel, options: nil)?.first as? ZLFeedbackView else {
+        guard let feedbackView : ZLFeedbackView = Bundle.main.loadNibNamed("ZLFeedbackView", owner: viewModel, options: nil)?.first as? ZLFeedbackView else {
             return
         }
         self.contentView.addSubview(feedbackView)
@@ -25,6 +25,7 @@ class ZLFeedbackController: ZLBaseViewController {
             make.edges.equalToSuperview()
         })
         
-        self.viewModel.bindModel(nil, andView: feedbackView)
+        self.addSubViewModel(viewModel)
+        viewModel.bindModel(nil, andView: feedbackView)
     }
 }

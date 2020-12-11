@@ -17,7 +17,7 @@ class ZLRepoWorkflowsController: ZLBaseViewController {
         
         self.title = "Workflow"
         
-        self.viewModel = ZLRepoWorkflowsViewModel.init(viewController: self)
+        let viewModel = ZLRepoWorkflowsViewModel()
         
         let githubItemListView : ZLGithubItemListView = ZLGithubItemListView.init()
         githubItemListView.setTableViewFooter()
@@ -26,6 +26,8 @@ class ZLRepoWorkflowsController: ZLBaseViewController {
         githubItemListView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
-        self.viewModel.bindModel(repoFullName, andView: githubItemListView)
+        
+        self.addSubViewModel(viewModel)
+        viewModel.bindModel(repoFullName, andView: githubItemListView)
     }
 }

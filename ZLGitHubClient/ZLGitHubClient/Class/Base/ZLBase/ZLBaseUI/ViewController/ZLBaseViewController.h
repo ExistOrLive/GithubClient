@@ -8,11 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "ZLBaseNavigationBar.h"
+#import "ZLBaseViewModel.h"
 
-@class ZLBaseViewModel;
-
-
-@interface ZLBaseViewController : UIViewController
+@interface ZLBaseViewController : UIViewController <ZLBaseViewModel>
 
 #pragma mark -
 
@@ -23,14 +21,21 @@
 @property(nonatomic, strong) UIView * contentView;
 
 
-@property (strong, nonatomic) ZLBaseViewModel * viewModel;
-
 #pragma mark - 设置Navigation Bar
 
 - (void) setZLNavigationBarHidden:(BOOL)hidden;
-
 
 - (void) onBackButtonClicked:(UIButton *) button;
 
 
 @end
+
+
+@interface ZLBaseViewController(Tool)
+
++ (UIViewController *)getCurrentVC;
+
++ (UIViewController *)getCurrentVCFrom:(UIViewController *)rootVC;
+
+@end
+

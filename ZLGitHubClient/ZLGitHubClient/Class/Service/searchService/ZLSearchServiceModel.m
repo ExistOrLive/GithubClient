@@ -130,6 +130,116 @@
 }
 
 
+
+- (void) searchInfoWithKeyWord:(NSString *) keyWord
+                          type:(ZLSearchType) type
+                    filterInfo:(ZLSearchFilterInfoModel * __nullable) filterInfo
+                          page:(NSUInteger) page
+                      per_page:(NSUInteger) per_page
+                  serialNumber:(NSString *) serialNumber
+                completeHandle:(void(^)(ZLOperationResultModel *)) handle{
+    switch(type){
+        case ZLSearchTypeUsers:{
+            [self searchUserInfoKeyWord:keyWord
+                             filterInfo:filterInfo
+                                   page:page
+                               per_page:per_page
+                           serialNumber:serialNumber
+                         completeHandle:handle];
+            break;
+        }
+        case ZLSearchTypeRepositories:{
+            [self searchRepoInfoKeyWord:keyWord
+                             filterInfo:filterInfo
+                                   page:page
+                               per_page:per_page
+                           serialNumber:serialNumber
+                         completeHandle:handle];
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+
+- (void) searchUserInfoKeyWord:(NSString *) keyWord
+                    filterInfo:(ZLSearchFilterInfoModel * __nullable) filterInfo
+                          page:(NSUInteger) page
+                      per_page:(NSUInteger) per_page
+                  serialNumber:(NSString *) serialNumber
+                completeHandle:(void(^)(ZLOperationResultModel *)) handle{
+    
+    GithubResponse response = ^(BOOL result,id responseObject,NSString * serialNumber){
+        
+        ZLOperationResultModel * repoResultModel = [[ZLOperationResultModel alloc] init];
+        repoResultModel.result = result;
+        repoResultModel.serialNumber = serialNumber;
+        repoResultModel.data = responseObject;
+        
+        ZLMainThreadDispatch(handle(repoResultModel);)
+    };
+    
+    NSString * finalKeyWord = keyWord;
+    NSString * sortFiled = nil;
+    BOOL isAsc = NO;
+    
+    if(filterInfo){
+       finalKeyWord =  [filterInfo finalKeyWordForUserFilter:keyWord];
+       sortFiled = [filterInfo getSortFiled];
+       isAsc = [filterInfo getIsAsc];
+    }
+
+    [[ZLGithubHttpClient defaultClient] searchUser:response
+                                           keyword:finalKeyWord
+                                              sort:sortFiled
+                                             order:isAsc
+                                              page:page
+                                          per_page:per_page
+                                      serialNumber:serialNumber];
+}
+
+
+- (void) searchRepoInfoKeyWord:(NSString *) keyWord
+                    filterInfo:(ZLSearchFilterInfoModel * __nullable) filterInfo
+                          page:(NSUInteger) page
+                      per_page:(NSUInteger) per_page
+                  serialNumber:(NSString *) serialNumber
+                completeHandle:(void(^)(ZLOperationResultModel *)) handle{
+    
+    GithubResponse response = ^(BOOL result,id responseObject,NSString * serialNumber){
+        
+        ZLOperationResultModel * repoResultModel = [[ZLOperationResultModel alloc] init];
+        repoResultModel.result = result;
+        repoResultModel.serialNumber = serialNumber;
+        repoResultModel.data = responseObject;
+        
+        ZLMainThreadDispatch(handle(repoResultModel);)
+    };
+    
+    
+    NSString * finalKeyWord = keyWord;
+    NSString * sortFiled = nil;
+    BOOL isAsc = NO;
+    
+    if(filterInfo){
+       finalKeyWord =  [filterInfo finalKeyWordForRepoFilter:keyWord];
+       sortFiled = [filterInfo getSortFiled];
+       isAsc = [filterInfo getIsAsc];
+    }
+  
+    
+    [[ZLGithubHttpClient defaultClient] searchRepos:response
+                                            keyword:finalKeyWord
+                                               sort:sortFiled
+                                              order:isAsc
+                                               page:page
+                                           per_page:per_page
+                                       serialNumber:serialNumber];
+}
+
+
+
 #pragma mark - trending
 
 - (void) trendingWithType:(ZLSearchType) type

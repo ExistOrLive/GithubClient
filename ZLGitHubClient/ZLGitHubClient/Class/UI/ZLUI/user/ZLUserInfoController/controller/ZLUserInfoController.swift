@@ -10,43 +10,21 @@ import UIKit
 
 class ZLUserInfoController: ZLBaseViewController {
     
-    private var userInfoModel : ZLGithubUserModel?
-
-    required init()
-    {
-        self.userInfoModel = nil;
-        super.init(nibName: nil, bundle: nil)
-    }
+    @objc var userInfoModel : ZLGithubUserModel!
     
-    convenience init(loginName: String, type : ZLGithubUserType)
-    {
-        self.init()
-        self.userInfoModel = ZLGithubUserModel()
-        self.userInfoModel?.loginName = loginName
-        self.userInfoModel?.type = type
-    }
-    
-    convenience init(userInfoModel: ZLGithubUserModel)
-    {
-        self.init()
-        self.userInfoModel = userInfoModel
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
+        if self.userInfoModel == nil {
+            ZLToastView.showMessage(ZLLocalizedString(string: "User is invalid", comment: ""))
+            return
+        }
+        
         self.title = ZLLocalizedString(string: "User", comment: "用户")
 
-        self.viewModel = ZLUserInfoViewModel.init(viewController: self)
-        
-        guard let baseView : ZLUserInfoView = Bundle.main.loadNibNamed("ZLUserInfoView", owner: self.viewModel, options: nil)?.first as? ZLUserInfoView else
-        {
+        let viewModel = ZLUserInfoViewModel()
+        guard let baseView : ZLUserInfoView = Bundle.main.loadNibNamed("ZLUserInfoView", owner: viewModel, options: nil)?.first as? ZLUserInfoView else{
             return
         }
         
@@ -64,8 +42,9 @@ class ZLUserInfoController: ZLBaseViewController {
             make.width.equalTo(self.contentView.snp_width)
         }
         
+        self.addSubViewModel(viewModel)
         // bind view and viewModel
-        self.viewModel.bindModel(self.userInfoModel, andView: baseView)
+        viewModel.bindModel(self.userInfoModel, andView: baseView)
 
     }
     

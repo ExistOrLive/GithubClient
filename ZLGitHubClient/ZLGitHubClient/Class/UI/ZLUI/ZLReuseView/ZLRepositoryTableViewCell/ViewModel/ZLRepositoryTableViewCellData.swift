@@ -12,7 +12,8 @@ import UIKit
     
     var data : ZLGithubRepositoryModel
     let needPullData : Bool
-    private var _cellHeight : CGFloat?
+    
+    // view
     weak var cell : ZLRepositoryTableViewCell?
     
     init(data : ZLGithubRepositoryModel, needPullData : Bool){
@@ -35,7 +36,6 @@ import UIKit
         }
         
         cell.fillWithData(data: self)
-        cell.delegate = self
         self.cell = cell
     }
     
@@ -63,7 +63,6 @@ import UIKit
                 guard  let model : ZLGithubRepositoryModel = resultModel.data as? ZLGithubRepositoryModel  else {
                     return
                 }
-                weakSelf?._cellHeight = nil
                 weakSelf?.data = model
                 let delegate = weakSelf?.cell?.delegate
                 if ((delegate?.isEqual(weakSelf)) != false) {
@@ -77,8 +76,15 @@ import UIKit
 }
 
 
-extension ZLRepositoryTableViewCellData
+extension ZLRepositoryTableViewCellData : ZLRepositoryTableViewCellDelegate
 {
+    func onRepoAvaterClicked() {
+        if let userInfoVC = SYDCentralPivotUIAdapter.getUserInfoViewController(withLoginName:self.data.owner.loginName,with:self.data.owner.type){
+            userInfoVC.hidesBottomBarWhenPushed = true
+            self.viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
+        }
+    }
+    
     func getOwnerAvatarURL() -> String?
     {
         return self.data.owner.avatar_url
@@ -123,14 +129,5 @@ extension ZLRepositoryTableViewCellData
     {
         return Int(self.data.forks)
     }
-}
-
-
-extension ZLRepositoryTableViewCellData : ZLRepositoryTableViewCellDelegate
-{
-    func onRepoAvaterClicked() {
-        let userInfoVC = ZLUserInfoController.init(loginName: self.data.owner.loginName, type: self.data.owner.type)
-        userInfoVC.hidesBottomBarWhenPushed = true
-        self.viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
-    }
+    
 }

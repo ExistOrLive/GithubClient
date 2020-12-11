@@ -8,7 +8,16 @@
 
 import UIKit
 
-@objc protocol ZLIssueTableViewCellDelegate : NSObjectProtocol{
+protocol ZLIssueTableViewCellDelegate : NSObjectProtocol{
+    
+    func getIssueTitleStr() -> String?
+    
+    func isIssueClosed() -> Bool
+    
+    func getAssistStr() -> String?
+    
+    func getLabels() -> [(String,String)]
+    
 }
 
 class ZLIssueTableViewCell: UITableViewCell {
@@ -28,11 +37,12 @@ class ZLIssueTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(false, animated: animated)
-
-        // Configure the view for the selected state
     }
     
-    func fillWithData(cellData : ZLIssueTableViewCellData){
+    func fillWithData(cellData : ZLIssueTableViewCellDelegate){
+        
+        self.delegate = cellData
+        
         self.titleLabel.text = cellData.getIssueTitleStr()
         self.assitLabel.text = cellData.getAssistStr()
         self.statusTag.image = cellData.isIssueClosed() ? UIImage.init(named: "issue_closed") : UIImage.init(named: "issue_opened")
@@ -42,7 +52,7 @@ class ZLIssueTableViewCell: UITableViewCell {
         }
         
         var length : CGFloat = 0.0
-        for label in cellData.getLabels(){
+        for (label,color) in cellData.getLabels(){
             let font = UIFont.init(name: Font_PingFangSCRegular, size: 11)
             let attributes : [NSAttributedString.Key : Any]  = [NSAttributedString.Key.font : font!]
             let attributedStr = NSAttributedString.init(string: label, attributes: attributes)
@@ -53,13 +63,27 @@ class ZLIssueTableViewCell: UITableViewCell {
             }
             length += 8.0 + size.width
             
+            let color = ZLRGBValueStr_H(colorValue:color)
             let labelView = UILabel.init()
             labelView.textAlignment = .center
             labelView.font = font
             labelView.text = label
             labelView.layer.cornerRadius = 8.0
             labelView.layer.masksToBounds = true
-            labelView.backgroundColor = ZLRGBValue_H(colorValue: 0xEDEDED)
+            labelView.backgroundColor = color
+            labelView.textColor = UIColor.isLightColor(color) ? ZLRGBValue_H(colorValue: 0x333333) : UIColor.white
+            
+//            let labelView = UILabel.init()
+//            labelView.textAlignment = .center
+//            labelView.font = font
+//            labelView.text = label
+//            labelView.layer.cornerRadius = 8.0
+//            labelView.layer.masksToBounds = true
+//            labelView.backgroundColor = ZLRGBValueStr_H(colorValue: color, alphaValue: 0.2)
+//            labelView.layer.borderWidth = 1.0 / labelView.layer.contentsScale;
+//            labelView.layer.borderColor = ZLRGBValueStr_H(colorValue:color, alphaValue: 0.5).cgColor
+//            labelView.textColor = ZLRGBValueStr_H(colorValue:color)
+            
             labelView.snp.makeConstraints { (make) in
                 make.width.equalTo(8.0 + size.width)
             }

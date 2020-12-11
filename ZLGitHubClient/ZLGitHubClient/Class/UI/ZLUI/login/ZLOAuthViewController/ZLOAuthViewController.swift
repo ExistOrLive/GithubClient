@@ -27,8 +27,9 @@ class ZLOAuthViewController: ZLBaseViewController {
             baseView?.snp.makeConstraints({ (make) in
                 make.edges.equalToSuperview()
             })
-            self.viewModel = ZLOAuthBaseViewModel.init(viewController: self);
-            self.viewModel.bindModel(self.loginProcessModel, andView: baseView!);
+            let viewModel = ZLOAuthBaseViewModel()
+            self.addSubViewModel(viewModel)
+            viewModel.bindModel(self.loginProcessModel, andView: baseView!);
         }
         else
         {

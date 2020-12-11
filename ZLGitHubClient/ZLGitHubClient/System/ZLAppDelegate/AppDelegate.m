@@ -123,10 +123,10 @@
 
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window{
     if (_allowRotation) {
-          return UIInterfaceOrientationMaskAll;
-      }else{
-          return UIInterfaceOrientationMaskPortrait;
-      }
+        return UIInterfaceOrientationMaskAll;
+    } else {
+        return UIInterfaceOrientationMaskPortrait;
+    }
 }
 
 
@@ -134,6 +134,10 @@
 
 - (void) initUIConfig{
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeBlack];
+    if([ZLDeviceInfo isIpad]){
+        self.allowRotation = YES;    // iPad 允许旋转
+    }
+    
 }
 
 - (void) switchToMainController:(BOOL) animated{
@@ -232,7 +236,7 @@
     // Push组件基本功能配置
     
    // [[UIApplication sharedApplication] registerForRemoteNotifications];
-    
+        
     [UNUserNotificationCenter currentNotificationCenter].delegate = self;
     [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:UNAuthorizationOptionBadge|UNAuthorizationOptionSound|UNAuthorizationOptionAlert completionHandler:^(BOOL granted, NSError * _Nullable error) {
         if(granted)

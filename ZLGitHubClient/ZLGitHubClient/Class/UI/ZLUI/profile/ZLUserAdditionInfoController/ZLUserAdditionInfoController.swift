@@ -18,10 +18,10 @@ class ZLUserAdditionInfoController: ZLBaseViewController {
         super.viewDidLoad()
         
         // viewModel
-        self.viewModel = ZLUserAdditionInfoViewModel(viewController: self)
+        let viewModel = ZLUserAdditionInfoViewModel()
         
         // view
-        guard let baseView = Bundle.main.loadNibNamed("ZLUserAdditionInfoView", owner: self.viewModel, options: nil)?.first as? ZLUserAdditionInfoView else
+        guard let baseView = Bundle.main.loadNibNamed("ZLUserAdditionInfoView", owner: viewModel, options: nil)?.first as? ZLUserAdditionInfoView else
         {
             ZLLog_Warn("ZLUserAdditionInfoView load failed")
             self.navigationController?.popViewController(animated: false)
@@ -32,14 +32,15 @@ class ZLUserAdditionInfoController: ZLBaseViewController {
             make.edges.equalToSuperview()
         }
         
+        self.addSubViewModel(viewModel)
         // bind view and viewModel
         if self.type == nil || self.userInfo == nil
         {
-            self.viewModel.bindModel(nil, andView: baseView)
+            viewModel.bindModel(nil, andView: baseView)
         }
         else
         {
-            self.viewModel.bindModel(["type":self.type!,"userInfo":self.userInfo!], andView: baseView)
+            viewModel.bindModel(["type":self.type!,"userInfo":self.userInfo!], andView: baseView)
         }
         
     }

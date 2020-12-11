@@ -41,8 +41,6 @@ class ZLRepoInfoController: ZLBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.viewModel = ZLRepoInfoViewModel.init(viewController: self)
-
         let baseView = ZLRepoInfoView.init(frame: CGRect())
         self.baseView = baseView
         self.contentView.addSubview(baseView)
@@ -50,7 +48,9 @@ class ZLRepoInfoController: ZLBaseViewController {
             make.edges.equalToSuperview()
         })
         
-        self.viewModel.bindModel(self.repoInfoModel, andView: baseView)
+        let viewModel = ZLRepoInfoViewModel()
+        self.addSubViewModel(viewModel)
+        viewModel.bindModel(self.repoInfoModel, andView: baseView)
     }
     
     override func onBackButtonClicked(_ button: UIButton!) {
