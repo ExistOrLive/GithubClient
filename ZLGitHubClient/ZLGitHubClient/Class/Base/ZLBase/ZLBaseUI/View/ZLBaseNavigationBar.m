@@ -8,25 +8,12 @@
 
 #import "ZLBaseNavigationBar.h"
 
-static CGFloat ZLBaseNavigationBarStatusBarHeight = 0;
-
 @interface ZLBaseNavigationBar()
 
 @end
 
 
 @implementation ZLBaseNavigationBar
-
-+ (void) initialize{
-    [super initialize];
-    
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        ZLBaseNavigationBarStatusBarHeight = ZLStatusBarHeight;            // 一般默认竖屏，记录竖屏时的ZLStatusBarHeight
-    });
-    
-}
-
 
 
 - (instancetype) initWithCoder:(NSCoder *)coder
@@ -131,8 +118,8 @@ static CGFloat ZLBaseNavigationBarStatusBarHeight = 0;
         make.centerX.equalTo(self.mas_centerX);
         make.bottom.equalTo(self.mas_bottom);
         make.height.equalTo(@(ZLBaseNavigationBarHeight));
-        make.left.equalTo(self.mas_left).with.offset(50);
-        make.right.equalTo(self.mas_right).with.offset(-50);
+        make.left.equalTo(self.mas_left).with.offset(80);
+        make.right.equalTo(self.mas_right).with.offset(-80);
     }];
 }
 

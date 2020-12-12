@@ -28,7 +28,7 @@ class ZLRepoLanguagesPercentView: ZLBaseView {
                 guard let view : ZLRepoLanguagesPercentView = Bundle.main.loadNibNamed("ZLRepoLanguagesPercentView", owner: nil, options: nil)?.first as? ZLRepoLanguagesPercentView else {
                            return
                        }
-                view.frame = CGRect.init(x: 0, y: 0, width: ZLScreenWidth - 80, height: 480)
+                view.frame = CGRect.init(x: 0, y: 0, width: ZLKeyWindowWidth - 80, height: 480)
                 view.repoFullName = fullName
                 view.data = result.data as! [String:Int]
                 view.startLoadData()

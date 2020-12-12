@@ -134,7 +134,6 @@ extension ZLProfileBaseViewModel: UITableViewDelegate, UITableViewDataSource
         case ZLProfileItemType.email:do {
             tableViewCell.itemTitleLabel.text = ZLLocalizedString(string:"email", comment: "邮箱")
             tableViewCell.itemContentLabel.text = self.currentUserInfo?.email
-            tableViewCell.nextImageView.isHidden = false
             }
         case ZLProfileItemType.blog:do {
             tableViewCell.itemTitleLabel.text = ZLLocalizedString(string:"blog", comment: "博客")

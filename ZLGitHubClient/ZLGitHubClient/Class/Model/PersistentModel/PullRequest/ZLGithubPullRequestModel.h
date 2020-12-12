@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef NS_ENUM(NSInteger, ZLGithubPullRequestState) {
     ZLGithubPullRequestState_Opened,
     ZLGithubPullRequestState_Closed,
+    ZLGithubPullRequestState_Merged
 };
 
 

@@ -20,18 +20,33 @@ import FWPopupView
 
 // MARK: 界面常用参数
 
-let ZLStatusBarHeight = UIApplication.shared.statusBarFrame.size.height
-let ZLSCreenHeight = UIScreen.main.bounds.size.height;
-let ZLScreenWidth  = UIScreen.main.bounds.size.width;
-let ZLScreenBounds = UIScreen.main.bounds;
-let ZLTabBarHeight: CGFloat = 49.0
+var ZLStatusBarHeight : CGFloat {
+    UIApplication.shared.statusBarFrame.size.height
+}
 
-// 竖屏(安全区域)
-let AreaInsetHeightTop: CGFloat = (UIScreen.main.bounds.height == 812 || UIScreen.main.bounds.height == 896) ? 44.0 : 0
-let AreaInsetHeightBottom: CGFloat = (UIScreen.main.bounds.height == 812 || UIScreen.main.bounds.height == 896) ? 34.0 : 0
-// 横屏(安全区域)
-let AreaInsetWidthLeft: CGFloat = (UIScreen.main.bounds.width == 812 || UIScreen.main.bounds.width == 896) ? 44.0 : 0
-let AreaInsetWidthRight: CGFloat = (UIScreen.main.bounds.width == 812 || UIScreen.main.bounds.width == 896) ? 34.0 : 0
+var ZLKeyWindowHeight : CGFloat {
+    if let window : UIWindow = UIApplication.shared.delegate!.window! {
+        return  window.frame.size.height
+    }
+    return 0
+}
+
+var ZLKeyWindowWidth : CGFloat {
+    if let window : UIWindow = UIApplication.shared.delegate!.window! {
+        return  window.frame.size.width
+    }
+    return 0
+}
+
+var ZLSCreenHeight : CGFloat {
+    UIScreen.main.bounds.size.height
+}
+var ZLScreenWidth : CGFloat {
+    UIScreen.main.bounds.size.width;
+}
+var ZLScreenBounds : CGRect {
+    UIScreen.main.bounds
+}
 
 
 //MARK: Font

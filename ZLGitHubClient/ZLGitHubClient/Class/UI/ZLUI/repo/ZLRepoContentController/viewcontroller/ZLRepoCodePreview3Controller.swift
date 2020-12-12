@@ -291,11 +291,9 @@ extension ZLRepoCodePreview3Controller {
                 
             }catch{
                 ZLToastView.showMessage("load Code index html failed");
-                SVProgressHUD.dismiss()
             }
-        } else {
-            SVProgressHUD.dismiss()
         }
+        SVProgressHUD.dismiss()
     }
     
     
@@ -369,7 +367,7 @@ extension ZLRepoCodePreview3Controller : WKUIDelegate,WKNavigationDelegate
             }
         }
         
-        SVProgressHUD.dismiss()
+        
         
     }
     

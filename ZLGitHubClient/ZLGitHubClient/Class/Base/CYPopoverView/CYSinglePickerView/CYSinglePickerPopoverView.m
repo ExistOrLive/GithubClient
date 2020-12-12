@@ -17,7 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
-@property (weak, nonatomic) IBOutlet UIButton *confirmButton;
+@property (weak, nonatomic) IBOutlet ZLBaseButton *confirmButton;
 
 @property (assign, nonatomic) NSUInteger initIndex;                     // 初始index
 @property (strong, nonatomic) NSArray<NSString *> * itemTitlesArray;    //

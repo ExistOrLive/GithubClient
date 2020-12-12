@@ -78,9 +78,9 @@ class ZLMyIssuesView: ZLBaseView {
     @objc func onFilterButtonClicked(){
         CYSinglePickerPopoverView.showCYSinglePickerPopover(withTitle: ZLLocalizedString(string: "Filter", comment: ""),
                                                             withInitIndex: self.filterIndex.rawValue,
-                                                            withDataArray: ["Created","Assigned","Mentioned","Subcribed"])
+                                                            withDataArray: ["Created","Assigned","Mentioned","Subscribed"])
         { (index : UInt) in
-            self.label.text = ["Created","Assigned","Mentioned","Subcribed"][Int(index)]
+            self.label.text = ["Created","Assigned","Mentioned","Subscribed"][Int(index)]
             self.filterIndex = ZLMyIssueFilterType.init(rawValue: index)!
             self.delegate?.onFilterTypeChange(type: self.filterIndex)
         }

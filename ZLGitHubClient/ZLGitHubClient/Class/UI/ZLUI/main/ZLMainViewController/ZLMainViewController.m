@@ -130,7 +130,12 @@
         attrDic[NSForegroundColorAttributeName] = [UIColor colorNamed:@"ZLTabBarTintColor"];
         [[UITabBarItem appearance] setTitleTextAttributes:attrDic forState:UIControlStateSelected];
     }
-    [[UITabBar appearance] setBarTintColor:[UIColor colorNamed:@"ZLTabBarBackColor"]];
+  
+    // [[UITabBar appearance] setBarTintColor:[UIColor colorNamed:@"ZLTabBarBackColor"]];
+    
+    UIImage *backImage = [UIImage imageWithColor:[UIColor colorNamed:@"ZLTabBarBackColor"]];
+    [self.tabBar setBackgroundImage:backImage];
+    [self.tabBar setShadowImage:backImage];
     
 }
 
@@ -166,6 +171,11 @@
     profileNavigationController.tabBarItem.title = ZLLocalizedString(@"profile", @"我");
     profileNavigationController.tabBarItem.image = [UIImage imageOriginalName:@"tabBar_essence_icon"];
     profileNavigationController.tabBarItem.selectedImage = [UIImage imageOriginalName:@"tabBar_essence_click_icon"];
+    
+    UIImage *backImage = [UIImage imageWithColor:[UIColor colorNamed:@"ZLTabBarBackColor"]];
+    [self.tabBar setBackgroundImage:backImage];
+    [self.tabBar setShadowImage:backImage];
+    
 }
 
 - (void) justReloadLanguage

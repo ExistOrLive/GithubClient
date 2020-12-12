@@ -220,14 +220,49 @@ extension ZLReadMeView : WKNavigationDelegate,WKUIDelegate{
     
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        let urlStr = navigationAction.request.url?.absoluteString;
+        var urlStr = navigationAction.request.url?.absoluteString;
         
         if navigationAction.navigationType == .linkActivated {
+            
             decisionHandler(.cancel)
-
+            
             var url : URL? = nil
             
-            if urlStr?.count ?? 0 > 0  {
+            if ZLCommonURLManager.isEmail(str: urlStr ?? "") {
+                if urlStr?.starts(with: "mailto:") ?? false {
+                    url = URL.init(string: urlStr ?? "")
+                } else {
+                    url = URL.init(string: "mailto:\(urlStr ?? "")")
+                }
+            } else if ZLCommonURLManager.isPhone(str: urlStr ?? "") {
+                if urlStr?.starts(with: "tel:") ?? false {
+                    url = URL.init(string: urlStr ?? "")
+                } else {
+                    url = URL.init(string: "tel:\(urlStr ?? "")")
+                }
+            } else if ZLCommonURLManager.isAppleAppLink(str: urlStr ?? "") {
+                url = URL.init(string: urlStr ?? "")
+            }
+            
+            if let tmpURL = url {
+                if UIApplication.shared.canOpenURL(tmpURL){
+                    UIApplication.shared.open(tmpURL, options: [:], completionHandler: nil)
+                    return
+                }
+            }
+        
+            if var newURLStr = urlStr {
+                if newURLStr.starts(with: "about:blank%23"){
+                    if  let range = newURLStr.range(of: "about:blank%23"){
+                        newURLStr.removeSubrange(range)
+                        url = URL.init(string: "\(self.readMeModel?.html_url ?? "")#\(newURLStr))")
+                        if self.delegate?.responds(to: #selector(ZLReadMeViewDelegate.onLinkClicked(url:))) ?? false {
+                            self.delegate?.onLinkClicked?(url: url)
+                        }
+                        return
+                    }
+                }
+                    
                 url = URL.init(string: urlStr!)
                 if url?.host == nil {               // 如果是相对路径，组装baseurl
                     url = (URL.init(string: self.readMeModel?.html_url ?? "") as NSURL?)?.deletingLastPathComponent

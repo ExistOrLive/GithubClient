@@ -27,8 +27,10 @@
     ZLProfileBaseViewModel *viewModel = [ZLProfileBaseViewModel new];
     
     self.baseView = [[NSBundle mainBundle] loadNibNamed:@"ZLProfileBaseView" owner:viewModel options:nil].firstObject;
-    [self.baseView setFrame:ZLScreenBounds];
     [self.view addSubview:self.baseView];
+    [self.baseView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
     
     [self addSubViewModel:viewModel];
     [viewModel bindModel:nil andView:self.baseView];

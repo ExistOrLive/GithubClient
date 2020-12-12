@@ -23,8 +23,10 @@ class ZLSearchController: ZLBaseViewController {
             ZLLog_Warn("load ZLSearchView failed")
             return
         }
-        baseView.frame = ZLScreenBounds
         self.view.addSubview(baseView)
+        baseView.snp_makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
         
         // 绑定view viewModel VC
         viewModel.bindModel(nil, andView: baseView)

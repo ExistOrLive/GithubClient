@@ -44,7 +44,7 @@ class ZLTrendingDateRangeSelectView: ZLBaseView {
         view.initDateRange = initDateRange
         view.tableView.reloadData()
         
-        view.frame = CGRect.init(x: 0, y: 0, width: ZLScreenWidth - 80, height: 200)
+        view.frame = CGRect.init(x: 0, y: 0, width: ZLKeyWindowWidth - 80, height: 200)
         let popup = FFPopup.popup(contetnView: view, showType: .bounceIn, dismissType: .bounceOut, maskType: FFPopup.MaskType.dimmed, dismissOnBackgroundTouch: true, dismissOnContentTouch: false)
         view.popup = popup
         popup.show(layout: .Center)

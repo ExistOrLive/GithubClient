@@ -26,8 +26,10 @@
     ZLExploreBaseViewModel *viewModel = [ZLExploreBaseViewModel new];
     
     ZLExploreBaseView * baseView = [[NSBundle mainBundle] loadNibNamed:@"ZLExploreBaseView" owner:viewModel options:nil].firstObject;
-    [baseView setFrame:ZLScreenBounds];
     [self.view addSubview:baseView];
+    [baseView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
     
     [self addSubViewModel:viewModel];
     // 关联View ViewModel VC

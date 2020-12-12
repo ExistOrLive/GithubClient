@@ -58,6 +58,7 @@ class ZLWebContentView: ZLBaseView {
     private var backBarButtonItem : UIBarButtonItem?
     private var forwardBarButtonItem : UIBarButtonItem?
     private var reloadOrStoploadBarButtonItem : UIBarButtonItem?
+    private var safariBarButtonItem : UIBarButtonItem?
     
     
     private(set) var isLoading : Bool = false               // 是否在加载请求
@@ -80,6 +81,7 @@ class ZLWebContentView: ZLBaseView {
         webView.autoresizingMask = UIView.AutoresizingMask.init(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
         self.containerView.insertSubview(webView, belowSubview: self.toolBar)
         self.webView = webView
+        self.webView?.scrollView.backgroundColor = UIColor.clear
         self.webView?.uiDelegate = self
         self.webView?.navigationDelegate = self
         
@@ -104,24 +106,34 @@ class ZLWebContentView: ZLBaseView {
     {
         let backBarButtonItem : UIBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "back"), style: .plain, target: self, action: #selector(onGoBackButtonClicked))
         backBarButtonItem.isEnabled = false
-        backBarButtonItem.width = ZLScreenWidth / 4
+        backBarButtonItem.width = ZLKeyWindowWidth / 4
         self.backBarButtonItem = backBarButtonItem
         
         let forwardBarButtonItem : UIBarButtonItem =  UIBarButtonItem.init(image: UIImage.init(named: "next"), style: .plain, target: self, action: #selector(onGoForwardButtonClicked))
         forwardBarButtonItem.isEnabled = false
-        forwardBarButtonItem.width = ZLScreenWidth / 4
+        forwardBarButtonItem.width = ZLKeyWindowWidth / 4
         self.forwardBarButtonItem = forwardBarButtonItem
         
         let reloadOrStoploadBarButtonItem : UIBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "close"), style: .plain, target: self, action: #selector(onReloadOrStopLoadButtonCicked))
-        reloadOrStoploadBarButtonItem.width = ZLScreenWidth / 4
+        reloadOrStoploadBarButtonItem.width = ZLKeyWindowWidth / 4
         self.reloadOrStoploadBarButtonItem = reloadOrStoploadBarButtonItem
         
         let safariBarButtonItem : UIBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "safari"), style: .plain, target: self, action: #selector(openInSafari))
-        safariBarButtonItem.width = ZLScreenWidth / 4
+        safariBarButtonItem.width = ZLKeyWindowWidth / 4
+        self.safariBarButtonItem = safariBarButtonItem
         
         let barButtonItems = [backBarButtonItem,forwardBarButtonItem,reloadOrStoploadBarButtonItem,safariBarButtonItem]
         
         self.toolBar.setItems(barButtonItems, animated: false)
+    }
+    
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.forwardBarButtonItem?.width = ZLKeyWindowWidth / 4
+        self.backBarButtonItem?.width =  ZLKeyWindowWidth / 4
+        self.reloadOrStoploadBarButtonItem?.width = ZLKeyWindowWidth / 4
+        self.safariBarButtonItem?.width = ZLKeyWindowWidth / 4
     }
     
 
