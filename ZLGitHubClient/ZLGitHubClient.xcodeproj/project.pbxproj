@@ -86,6 +86,13 @@
 		743425DC230AD2A30031AD7D /* ZLRepoInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743425DA230AD2A30031AD7D /* ZLRepoInfoTableViewCell.swift */; };
 		743425DD230AD2A30031AD7D /* ZLRepoInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 743425DB230AD2A30031AD7D /* ZLRepoInfoTableViewCell.xib */; };
 		743425E6230AEA400031AD7D /* ZLRepoInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743425E5230AEA400031AD7D /* ZLRepoInfoViewModel.swift */; };
+		74344A5C258B0FB600903E08 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74344A5B258B0FB600903E08 /* WidgetKit.framework */; };
+		74344A5E258B0FB600903E08 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74344A5D258B0FB600903E08 /* SwiftUI.framework */; };
+		74344A61258B0FB600903E08 /* Fixed_Repo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74344A60258B0FB600903E08 /* Fixed_Repo.swift */; };
+		74344A64258B0FB900903E08 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74344A63258B0FB900903E08 /* Assets.xcassets */; };
+		74344A66258B0FB900903E08 /* Fixed_Repo.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 74344A62258B0FB600903E08 /* Fixed_Repo.intentdefinition */; };
+		74344A67258B0FB900903E08 /* Fixed_Repo.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 74344A62258B0FB600903E08 /* Fixed_Repo.intentdefinition */; };
+		74344A6A258B0FB900903E08 /* Fixed RepoExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 74344A5A258B0FB600903E08 /* Fixed RepoExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		7434CA7F238EC05D00763220 /* ZLEventListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7434CA7E238EC05D00763220 /* ZLEventListView.swift */; };
 		7434CA812393E5CF00763220 /* ZLEventTableViewCellDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7434CA802393E5CF00763220 /* ZLEventTableViewCellDataProvider.swift */; };
 		7434CA832393E89100763220 /* ZLPushEventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7434CA822393E89100763220 /* ZLPushEventTableViewCell.swift */; };
@@ -348,6 +355,30 @@
 		D156F673231D6EBB00B9CB24 /* String+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D156F672231D6EBB00B9CB24 /* String+extension.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		74344A68258B0FB900903E08 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0ADF902221D4B01900BF86CD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 74344A59258B0FB600903E08;
+			remoteInfo = "Fixed RepoExtension";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		74344A6B258B0FB900903E08 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				74344A6A258B0FB900903E08 /* Fixed RepoExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		042F5F698DAC01847DA61C71 /* Pods-ZLGitHubClient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZLGitHubClient.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZLGitHubClient/Pods-ZLGitHubClient.release.xcconfig"; sourceTree = "<group>"; };
 		0ADF902A21D4B01900BF86CD /* ZLGitHubClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZLGitHubClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -450,6 +481,14 @@
 		743425DA230AD2A30031AD7D /* ZLRepoInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLRepoInfoTableViewCell.swift; sourceTree = "<group>"; };
 		743425DB230AD2A30031AD7D /* ZLRepoInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZLRepoInfoTableViewCell.xib; sourceTree = "<group>"; };
 		743425E5230AEA400031AD7D /* ZLRepoInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLRepoInfoViewModel.swift; sourceTree = "<group>"; };
+		74344A5A258B0FB600903E08 /* Fixed RepoExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Fixed RepoExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		74344A5B258B0FB600903E08 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		74344A5D258B0FB600903E08 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		74344A60258B0FB600903E08 /* Fixed_Repo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fixed_Repo.swift; sourceTree = "<group>"; };
+		74344A62258B0FB600903E08 /* Fixed_Repo.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = Fixed_Repo.intentdefinition; sourceTree = "<group>"; };
+		74344A63258B0FB900903E08 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		74344A65258B0FB900903E08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		74344A9E258B123300903E08 /* FixedRepo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FixedRepo-Bridging-Header.h"; sourceTree = "<group>"; };
 		7434CA7E238EC05D00763220 /* ZLEventListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLEventListView.swift; sourceTree = "<group>"; };
 		7434CA802393E5CF00763220 /* ZLEventTableViewCellDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLEventTableViewCellDataProvider.swift; sourceTree = "<group>"; };
 		7434CA822393E89100763220 /* ZLPushEventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLPushEventTableViewCell.swift; sourceTree = "<group>"; };
@@ -817,6 +856,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		74344A57258B0FB600903E08 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				74344A5E258B0FB600903E08 /* SwiftUI.framework in Frameworks */,
+				74344A5C258B0FB600903E08 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -824,6 +872,7 @@
 			isa = PBXGroup;
 			children = (
 				0ADF902C21D4B01900BF86CD /* ZLGitHubClient */,
+				74344A5F258B0FB600903E08 /* Fixed Repo */,
 				0ADF902B21D4B01900BF86CD /* Products */,
 				8AD159E421EC467DE119C80F /* Pods */,
 				3179E7A2634BDD1B4D208684 /* Frameworks */,
@@ -834,6 +883,7 @@
 			isa = PBXGroup;
 			children = (
 				0ADF902A21D4B01900BF86CD /* ZLGitHubClient.app */,
+				74344A5A258B0FB600903E08 /* Fixed RepoExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -854,6 +904,8 @@
 			children = (
 				74A5759824A1C76200A38200 /* libgumbo.a */,
 				71EC483528FF72DE8C8B1035 /* Pods_ZLGitHubClient.framework */,
+				74344A5B258B0FB600903E08 /* WidgetKit.framework */,
+				74344A5D258B0FB600903E08 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1381,6 +1433,18 @@
 				74CCC433240D527B0001AA5D /* ZLRepoInfoViewModel */,
 			);
 			path = viewmodel;
+			sourceTree = "<group>";
+		};
+		74344A5F258B0FB600903E08 /* Fixed Repo */ = {
+			isa = PBXGroup;
+			children = (
+				74344A60258B0FB600903E08 /* Fixed_Repo.swift */,
+				74344A62258B0FB600903E08 /* Fixed_Repo.intentdefinition */,
+				74344A63258B0FB900903E08 /* Assets.xcassets */,
+				74344A65258B0FB900903E08 /* Info.plist */,
+				74344A9E258B123300903E08 /* FixedRepo-Bridging-Header.h */,
+			);
+			path = "Fixed Repo";
 			sourceTree = "<group>";
 		};
 		7436A08D236DCDA700AF554C /* CYPopoverView */ = {
@@ -3395,15 +3459,34 @@
 				0ADF902721D4B01900BF86CD /* Frameworks */,
 				0ADF902821D4B01900BF86CD /* Resources */,
 				390C286527A3295B07634395 /* [CP] Embed Pods Frameworks */,
+				74344A6B258B0FB900903E08 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				74344A69258B0FB900903E08 /* PBXTargetDependency */,
 			);
 			name = ZLGitHubClient;
 			productName = ZLGitHubClient;
 			productReference = 0ADF902A21D4B01900BF86CD /* ZLGitHubClient.app */;
 			productType = "com.apple.product-type.application";
+		};
+		74344A59258B0FB600903E08 /* Fixed RepoExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 74344A6E258B0FB900903E08 /* Build configuration list for PBXNativeTarget "Fixed RepoExtension" */;
+			buildPhases = (
+				74344A56258B0FB600903E08 /* Sources */,
+				74344A57258B0FB600903E08 /* Frameworks */,
+				74344A58258B0FB600903E08 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Fixed RepoExtension";
+			productName = "Fixed RepoExtension";
+			productReference = 74344A5A258B0FB600903E08 /* Fixed RepoExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -3411,13 +3494,18 @@
 		0ADF902221D4B01900BF86CD /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				CLASSPREFIX = ZL;
+				CLASSPREFIX = "";
+				LastSwiftUpdateCheck = 1230;
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = ZM;
 				TargetAttributes = {
 					0ADF902921D4B01900BF86CD = {
 						CreatedOnToolsVersion = 9.0.1;
 						LastSwiftMigration = 0900;
+						ProvisioningStyle = Manual;
+					};
+					74344A59258B0FB600903E08 = {
+						CreatedOnToolsVersion = 12.3;
 						ProvisioningStyle = Manual;
 					};
 				};
@@ -3437,6 +3525,7 @@
 			projectRoot = "";
 			targets = (
 				0ADF902921D4B01900BF86CD /* ZLGitHubClient */,
+				74344A59258B0FB600903E08 /* Fixed RepoExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -3516,6 +3605,14 @@
 				749DBCA224B4CB2000D02B2C /* ZLNotificationView.xib in Resources */,
 				74209D5024B655B80068891E /* ZLRepoPullRequestView.xib in Resources */,
 				745D48C8257249D700E67AEE /* github_style_dark_markdown.css in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		74344A58258B0FB600903E08 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				74344A64258B0FB900903E08 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3642,6 +3739,7 @@
 				748905C1222EBA16003562E1 /* ZLTextViewCoreData.m in Sources */,
 				743425C7230AC6AD0031AD7D /* ZLRepoInfoController.swift in Sources */,
 				74209D5424B66D820068891E /* ZLRepoLanguagesPercentView.swift in Sources */,
+				74344A67258B0FB900903E08 /* Fixed_Repo.intentdefinition in Sources */,
 				366DB834241F103C002A0896 /* ZLRefresh.swift in Sources */,
 				7436AC8B21EB869C00F03276 /* SYDCentralFactory+SYDService.m in Sources */,
 				74C861D822F02F1F00A30B79 /* ZLLanguageManager.m in Sources */,
@@ -3903,7 +4001,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		74344A56258B0FB600903E08 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				74344A61258B0FB600903E08 /* Fixed_Repo.swift in Sources */,
+				74344A66258B0FB900903E08 /* Fixed_Repo.intentdefinition in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		74344A69258B0FB900903E08 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 74344A59258B0FB600903E08 /* Fixed RepoExtension */;
+			targetProxy = 74344A68258B0FB900903E08 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		0ADF903321D4B01900BF86CD /* Main.storyboard */ = {
@@ -4050,6 +4165,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CD0AEC7A0ED54B14C3F6E8C9 /* Pods-ZLGitHubClient.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ZLGitHubClient/ZLGitHubClient.entitlements;
@@ -4098,7 +4214,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.zm.ZLGitHubClient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "match Development com.zm.ZLGitHubClient";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development com.zm.*";
 				SWIFT_OBJC_BRIDGING_HEADER = "ZLGitHubClient/System/ZLSupportFiles/ZLGitHubClient-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -4111,6 +4227,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 042F5F698DAC01847DA61C71 /* Pods-ZLGitHubClient.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ZLGitHubClient/ZLGitHubClient.entitlements;
@@ -4158,8 +4275,66 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.zm.ZLGitHubClient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.zm.ZLGitHubClient";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.zm.*";
 				SWIFT_OBJC_BRIDGING_HEADER = "ZLGitHubClient/System/ZLSupportFiles/ZLGitHubClient-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		74344A6C258B0FB900903E08 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 24LG5QVBPR;
+				INFOPLIST_FILE = "Fixed Repo/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.zm.ZLGitHubClient.Fixed-Repo";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development com.zm.*";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "Fixed Repo/FixedRepo-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		74344A6D258B0FB900903E08 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_IDENTITY = "Apple Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 24LG5QVBPR;
+				INFOPLIST_FILE = "Fixed Repo/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.zm.ZLGitHubClient.Fixed-Repo";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.zm.*";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Fixed Repo/FixedRepo-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -4182,6 +4357,15 @@
 			buildConfigurations = (
 				0ADF904121D4B01900BF86CD /* Debug */,
 				0ADF904221D4B01900BF86CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		74344A6E258B0FB900903E08 /* Build configuration list for PBXNativeTarget "Fixed RepoExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				74344A6C258B0FB900903E08 /* Debug */,
+				74344A6D258B0FB900903E08 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

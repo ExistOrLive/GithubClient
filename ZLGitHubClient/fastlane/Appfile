@@ -1,4 +1,4 @@
-app_identifier("com.zm.ZLGitHubClient") # The bundle identifier of your app
+app_identifier("com.zm.*") # The bundle identifier of your app
 apple_id("18351927991@163.com") # Your Apple email address
 
 itc_team_id("121050685") # App Store Connect Team ID
