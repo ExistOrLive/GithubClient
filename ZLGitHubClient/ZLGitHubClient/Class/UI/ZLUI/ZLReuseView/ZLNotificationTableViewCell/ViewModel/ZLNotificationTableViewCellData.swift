@@ -87,6 +87,8 @@ class ZLNotificationTableViewCellData: ZLGithubItemTableViewCellData {
             url = URL.init(string: "https://github.com/\(self.data.repository?.full_name ?? "")/security")
         } else if "Discussion" == self.data.subject?.type {
             url = URL.init(string: "https://github.com/\(self.data.repository?.full_name ?? "")/discussions")
+        } else if "Release" == self.data.subject?.type {
+            url = URL.init(string: "https://github.com/\(self.data.repository?.full_name ?? "")/releases")
         }
         let webVC = ZLWebContentController.init()
         webVC.requestURL = url

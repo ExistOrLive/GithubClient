@@ -45,7 +45,29 @@ struct Fixed_RepoEntryView : View {
     var entry: Provider.Entry
 
     var body: some View {
-        Text(entry.date, style: .time)
+       
+            VStack{
+                HStack{
+                    Image("default_avatar")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(minWidth: nil, idealWidth: nil, maxWidth: 50, minHeight: nil, idealHeight: nil, maxHeight: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                        .padding(.trailing, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                       
+                    Text("existorlive/githubclient")
+                        .font(.title3)
+                }
+                .padding(EdgeInsets(top: 20, leading: 10, bottom: 10, trailing: 10))
+                .foregroundColor(Color("ZLTitleColor"))
+                
+                Text("ddahsjkdhakjshdkjahskdjhakjshdkjahsdkjhaskjdhkjashdkjhaskjdhkajshdjkahskjdhkajshdkjashdkjahskjdhaksjhdkjsah")
+                    .padding(EdgeInsets(top: 10, leading: 20, bottom: 20, trailing: 20))
+                    .font(.body)
+                    .foregroundColor(Color("ZLDescColor"))
+                    .lineLimit(4)
+                Spacer()
+            }
+        
     }
 }
 
@@ -57,9 +79,9 @@ struct Fixed_Repo: Widget {
         IntentConfiguration(kind: kind, intent: ConfigurationIntent.self, provider: Provider()) { entry in
             Fixed_RepoEntryView(entry: entry)
         }
-        .configurationDisplayName("My Widget")
-        .description("This is an example widget.")
-        .supportedFamilies([.systemLarge,.systemMedium,.systemSmall])
+        .configurationDisplayName("Trending")
+        .description("First Trending Repository")
+        .supportedFamilies([.systemLarge])
     }
 }
 
