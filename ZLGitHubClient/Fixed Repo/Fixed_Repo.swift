@@ -10,66 +10,143 @@ import WidgetKit
 import SwiftUI
 import Intents
 
+
+extension ZLSimpleRepoModel{
+    static func getSampleModel() -> ZLSimpleRepoModel{
+        let model = ZLSimpleRepoModel()
+        model.fullName = "MengAndJie/GithubClient"
+        model.language = "Swift"
+        model.desc = "Github iOS Client based on Github REST V3 API and GraphQL V4 API"
+        return model
+    }
+}
+
 struct Provider: IntentTimelineProvider {
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), configuration: ConfigurationIntent())
+        return SimpleEntry(date: Date(), model:nil,configuration: ConfigurationIntent(),color:Color.blue)
     }
 
     func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date(), configuration: configuration)
+        let entry = SimpleEntry(date: Date(),model: ZLSimpleRepoModel.getSampleModel(), configuration: configuration, color:Color.blue)
         completion(entry)
     }
 
     func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         var entries: [SimpleEntry] = []
+        
+        let colors = [Color.blue,Color.red,Color.orange,Color.yellow,Color.green,Color.purple,Color.pink]
+        
+        ZLWidgetService.trendingRepo { (result, repos) in
+            
+            // Generate a timeline consisting of five entries an hour apart, starting from the current date.
+            let currentDate = Date()
+            for hourOffset in 0 ..< repos.count {
+                let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
+                let entry = SimpleEntry(date: entryDate,model: repos[hourOffset] as? ZLSimpleRepoModel, configuration: configuration,color:colors[hourOffset % colors.count])
+                entries.append(entry)
+            }
 
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
-        let currentDate = Date()
-        for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, configuration: configuration)
-            entries.append(entry)
+            let timeline = Timeline(entries: entries, policy: .atEnd)
+            completion(timeline)
+            
         }
 
-        let timeline = Timeline(entries: entries, policy: .atEnd)
-        completion(timeline)
+
     }
 }
 
 struct SimpleEntry: TimelineEntry {
     let date: Date
+    let model : ZLSimpleRepoModel?
     let configuration: ConfigurationIntent
+    let color : Color
 }
+
 
 struct Fixed_RepoEntryView : View {
     var entry: Provider.Entry
+    @Environment(\.widgetFamily) var family: WidgetFamily
 
     var body: some View {
-       
-            VStack{
-                HStack{
-                    Image("default_avatar")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(minWidth: nil, idealWidth: nil, maxWidth: 50, minHeight: nil, idealHeight: nil, maxHeight: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        .padding(.trailing, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-                       
-                    Text("existorlive/githubclient")
-                        .font(.title3)
-                }
-                .padding(EdgeInsets(top: 20, leading: 10, bottom: 10, trailing: 10))
-                .foregroundColor(Color("ZLTitleColor"))
+        
+        HStack{
+            
+            VStack(alignment: .leading){
                 
-                Text("ddahsjkdhakjshdkjahskdjhakjshdkjahsdkjhaskjdhkjashdkjhaskjdhkajshdjkahskjdhkajshdkjashdkjahskjdhaksjhdkjsah")
-                    .padding(EdgeInsets(top: 10, leading: 20, bottom: 20, trailing: 20))
-                    .font(.body)
-                    .foregroundColor(Color("ZLDescColor"))
-                    .lineLimit(4)
-                Spacer()
+                if entry.model == nil {
+                    
+                    Text("             ")
+                        .font(.title2)
+                        .foregroundColor(Color("ZLTitleColor"))
+                        .lineLimit(1)
+                        .background(Color("ZLTitleColor"))
+                    
+                    Spacer()
+                    
+                    Text("                       ")
+                        .font(.caption)
+                        .foregroundColor(Color("ZLDescColor"))
+                        .lineLimit(2)
+                        .background(Color("ZLDescColor"))
+                    
+                    Spacer()
+                    
+                    
+                    HStack{
+                        Circle()
+                            .fill(entry.color)
+                            .frame(width: 15, height: 15, alignment: .leading)
+                        Text("     ")
+                            .font(.caption2)
+                            .foregroundColor(Color("ZLLanguageColor"))
+                            .background(Color("ZLLanguageColor"))
+                    }
+                    
+                    
+                    
+                } else {
+                    
+                    Text(entry.model?.fullName ?? "")
+                        .font(.title2)
+                        .foregroundColor(Color("ZLTitleColor"))
+                        .lineLimit(1)
+                    
+                    Spacer()
+                    
+                    Text(entry.model?.desc ?? "")
+                        .font(.caption)
+                        .foregroundColor(Color("ZLDescColor"))
+                        .lineLimit(2)
+                    
+                    Spacer()
+                    
+                    if entry.model?.language?.count ?? 0 != 0 {
+                        HStack{
+                            Circle()
+                                .fill(entry.color)
+                                .frame(width: 15, height: 15, alignment: .leading)
+                            Text(entry.model?.language ?? "")
+                                .font(.caption2)
+                                .foregroundColor(Color("ZLLanguageColor"))
+                        }
+                    }
+                    
+                    
+                }
+                
+                
             }
+            .padding(EdgeInsets(top: 20, leading: 25, bottom: 15, trailing: 0))
+            Spacer()
+        }
+        .unredacted()
+        
         
     }
 }
+
+
+
 
 @main
 struct Fixed_Repo: Widget {
@@ -81,13 +158,13 @@ struct Fixed_Repo: Widget {
         }
         .configurationDisplayName("Trending")
         .description("First Trending Repository")
-        .supportedFamilies([.systemLarge])
+        .supportedFamilies([.systemMedium])
     }
 }
 
 struct Fixed_Repo_Previews: PreviewProvider {
     static var previews: some View {
-        Fixed_RepoEntryView(entry: SimpleEntry(date: Date(), configuration: ConfigurationIntent()))
-            .previewContext(WidgetPreviewContext(family: .systemSmall))
+        Fixed_RepoEntryView(entry: SimpleEntry(date: Date(), model: ZLSimpleRepoModel.getSampleModel() ,configuration: ConfigurationIntent(),color:Color.blue))
+            .previewContext(WidgetPreviewContext(family: .systemMedium))
     }
 }

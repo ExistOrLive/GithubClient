@@ -129,6 +129,11 @@
 		7439072E23E8776900EEA197 /* ZLToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7439072D23E8776900EEA197 /* ZLToastView.m */; };
 		743F180D2311335F00E39A95 /* ZLRepoServiceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 743F180C2311335F00E39A95 /* ZLRepoServiceModel.m */; };
 		743F18122312667B00E39A95 /* NSDate+localizeStr.m in Sources */ = {isa = PBXBuildFile; fileRef = 743F18112312667B00E39A95 /* NSDate+localizeStr.m */; };
+		74438B31259777510021099C /* libgumbo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74A5759824A1C76200A38200 /* libgumbo.a */; };
+		74438B4A259787620021099C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74438B49259787620021099C /* Foundation.framework */; };
+		74438B6225978E350021099C /* OCGumbo+Query.m in Sources */ = {isa = PBXBuildFile; fileRef = 74438B2C2597770D0021099C /* OCGumbo+Query.m */; };
+		74438B6325978E350021099C /* OCGumbo.m in Sources */ = {isa = PBXBuildFile; fileRef = 74438B2E2597770D0021099C /* OCGumbo.m */; };
+		74438B6425978E350021099C /* ZLWidgetService.m in Sources */ = {isa = PBXBuildFile; fileRef = 74438B3A25977E5F0021099C /* ZLWidgetService.m */; };
 		744402982469ACC0004892A0 /* ZLGithubIssueModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 744402972469ACC0004892A0 /* ZLGithubIssueModel.m */; };
 		7444B28B25673AD000488EF0 /* ZLGithubHttpClient_GraphQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7444B28A25673AD000488EF0 /* ZLGithubHttpClient_GraphQL.swift */; };
 		7444B2912567928000488EF0 /* ZLWorkboardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7444B28F2567928000488EF0 /* ZLWorkboardTableViewCell.swift */; };
@@ -488,7 +493,6 @@
 		74344A62258B0FB600903E08 /* Fixed_Repo.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = Fixed_Repo.intentdefinition; sourceTree = "<group>"; };
 		74344A63258B0FB900903E08 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		74344A65258B0FB900903E08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		74344A9E258B123300903E08 /* FixedRepo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FixedRepo-Bridging-Header.h"; sourceTree = "<group>"; };
 		7434CA7E238EC05D00763220 /* ZLEventListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLEventListView.swift; sourceTree = "<group>"; };
 		7434CA802393E5CF00763220 /* ZLEventTableViewCellDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLEventTableViewCellDataProvider.swift; sourceTree = "<group>"; };
 		7434CA822393E89100763220 /* ZLPushEventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLPushEventTableViewCell.swift; sourceTree = "<group>"; };
@@ -534,6 +538,14 @@
 		743F180E2311366D00E39A95 /* ZLRepoServiceHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLRepoServiceHeader.h; sourceTree = "<group>"; };
 		743F18102312667B00E39A95 /* NSDate+localizeStr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDate+localizeStr.h"; sourceTree = "<group>"; };
 		743F18112312667B00E39A95 /* NSDate+localizeStr.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDate+localizeStr.m"; sourceTree = "<group>"; };
+		74438B2A2597770D0021099C /* OCGumbo+Query.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OCGumbo+Query.h"; sourceTree = "<group>"; };
+		74438B2B2597770D0021099C /* OCGumbo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OCGumbo.h; sourceTree = "<group>"; };
+		74438B2C2597770D0021099C /* OCGumbo+Query.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "OCGumbo+Query.m"; sourceTree = "<group>"; };
+		74438B2E2597770D0021099C /* OCGumbo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OCGumbo.m; sourceTree = "<group>"; };
+		74438B3925977E5F0021099C /* ZLWidgetService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLWidgetService.h; sourceTree = "<group>"; };
+		74438B3A25977E5F0021099C /* ZLWidgetService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLWidgetService.m; sourceTree = "<group>"; };
+		74438B49259787620021099C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		74438B5925978C0F0021099C /* Fixed_Repo_Bridging_Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Fixed_Repo_Bridging_Header.h; sourceTree = "<group>"; };
 		744402962469ACC0004892A0 /* ZLGithubIssueModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLGithubIssueModel.h; sourceTree = "<group>"; };
 		744402972469ACC0004892A0 /* ZLGithubIssueModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLGithubIssueModel.m; sourceTree = "<group>"; };
 		7444B28A25673AD000488EF0 /* ZLGithubHttpClient_GraphQL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLGithubHttpClient_GraphQL.swift; sourceTree = "<group>"; };
@@ -860,8 +872,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				74344A5E258B0FB600903E08 /* SwiftUI.framework in Frameworks */,
 				74344A5C258B0FB600903E08 /* WidgetKit.framework in Frameworks */,
+				74438B4A259787620021099C /* Foundation.framework in Frameworks */,
+				74344A5E258B0FB600903E08 /* SwiftUI.framework in Frameworks */,
+				74438B31259777510021099C /* libgumbo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -902,6 +916,7 @@
 		3179E7A2634BDD1B4D208684 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				74438B49259787620021099C /* Foundation.framework */,
 				74A5759824A1C76200A38200 /* libgumbo.a */,
 				71EC483528FF72DE8C8B1035 /* Pods_ZLGitHubClient.framework */,
 				74344A5B258B0FB600903E08 /* WidgetKit.framework */,
@@ -1438,11 +1453,14 @@
 		74344A5F258B0FB600903E08 /* Fixed Repo */ = {
 			isa = PBXGroup;
 			children = (
+				74438B152597770D0021099C /* OCGumbo */,
 				74344A60258B0FB600903E08 /* Fixed_Repo.swift */,
 				74344A62258B0FB600903E08 /* Fixed_Repo.intentdefinition */,
 				74344A63258B0FB900903E08 /* Assets.xcassets */,
 				74344A65258B0FB900903E08 /* Info.plist */,
-				74344A9E258B123300903E08 /* FixedRepo-Bridging-Header.h */,
+				74438B3925977E5F0021099C /* ZLWidgetService.h */,
+				74438B3A25977E5F0021099C /* ZLWidgetService.m */,
+				74438B5925978C0F0021099C /* Fixed_Repo_Bridging_Header.h */,
 			);
 			path = "Fixed Repo";
 			sourceTree = "<group>";
@@ -1626,6 +1644,18 @@
 			);
 			path = Extension;
 			sourceTree = "<group>";
+		};
+		74438B152597770D0021099C /* OCGumbo */ = {
+			isa = PBXGroup;
+			children = (
+				74438B2A2597770D0021099C /* OCGumbo+Query.h */,
+				74438B2B2597770D0021099C /* OCGumbo.h */,
+				74438B2C2597770D0021099C /* OCGumbo+Query.m */,
+				74438B2E2597770D0021099C /* OCGumbo.m */,
+			);
+			name = OCGumbo;
+			path = ZLGitHubClient/Class/Import/OCGumbo;
+			sourceTree = SOURCE_ROOT;
 		};
 		744402952469AC22004892A0 /* issues */ = {
 			isa = PBXGroup;
@@ -4005,8 +4035,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				74344A61258B0FB600903E08 /* Fixed_Repo.swift in Sources */,
 				74344A66258B0FB900903E08 /* Fixed_Repo.intentdefinition in Sources */,
+				74438B6225978E350021099C /* OCGumbo+Query.m in Sources */,
+				74438B6325978E350021099C /* OCGumbo.m in Sources */,
+				74438B6425978E350021099C /* ZLWidgetService.m in Sources */,
+				74344A61258B0FB600903E08 /* Fixed_Repo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4295,9 +4328,14 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 24LG5QVBPR;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/ZLGitHubClient/Class/Import/OCGumbo/gumbo";
 				INFOPLIST_FILE = "Fixed Repo/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ZLGitHubClient/Class/Import/OCGumbo",
+				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zm.ZLGitHubClient.Fixed-Repo";
@@ -4305,10 +4343,12 @@
 				PROVISIONING_PROFILE_SPECIFIER = "match Development com.zm.*";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OBJC_BRIDGING_HEADER = "Fixed Repo/FixedRepo-Bridging-Header.h";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Fixed Repo/Fixed_Repo_Bridging_Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 arm64e i386 x86_64";
 			};
 			name = Debug;
 		};
@@ -4325,18 +4365,25 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 24LG5QVBPR;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/ZLGitHubClient/Class/Import/OCGumbo/gumbo";
 				INFOPLIST_FILE = "Fixed Repo/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ZLGitHubClient/Class/Import/OCGumbo",
+				);
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zm.ZLGitHubClient.Fixed-Repo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.zm.*";
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "Fixed Repo/FixedRepo-Bridging-Header.h";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Fixed Repo/Fixed_Repo_Bridging_Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 arm64e i386 x86_64";
 			};
 			name = Release;
 		};
