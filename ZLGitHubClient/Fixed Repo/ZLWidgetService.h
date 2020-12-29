@@ -7,12 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "FixedRepoDateRange.h"
+#import "FixedRepoLanguage.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZLSimpleRepoModel : NSObject
 
 @property(nonatomic, strong,nullable) NSString *fullName;
+@property(nonatomic, strong,nullable) NSString *RepoName;
 @property(nonatomic, strong,nullable) NSString *ownerName;
 @property(nonatomic, strong,nullable) NSString *desc;
 @property(nonatomic, strong,nullable) NSString *language;
@@ -25,7 +28,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZLWidgetService : NSObject
 
-+ (void) trendingRepoWithCompleteHandle:(void(^)(BOOL,NSArray *)) handle;
++ (void) trendingRepoWithDateRange:(FixedRepoDateRange) dateRange
+                      withLanguage:(FixedRepoLanguage) language
+                withCompleteHandle:(void(^)(BOOL,NSArray *)) handle;
 
 @end
 

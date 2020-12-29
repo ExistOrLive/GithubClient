@@ -10,6 +10,6 @@
 #define Fixed_Repo_Bridging_Header_h
 
 #import "ZLWidgetService.h"
-#import "ConfigurationIntent.h"
+#import "FixedRepoConfigurationIntent.h"
 
 #endif /* Fixed_Repo_Bridging_Header_h */

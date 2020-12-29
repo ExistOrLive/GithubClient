@@ -50,6 +50,10 @@
 	<string></string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>相册权限</string>
+	<key>NSUserActivityTypes</key>
+	<array>
+		<string>FixedRepoConfigurationIntent</string>
+	</array>
 	<key>UIBackgroundModes</key>
 	<array/>
 	<key>UILaunchStoryboardName</key>

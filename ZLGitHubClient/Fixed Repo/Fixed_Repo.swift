@@ -23,26 +23,26 @@ extension ZLSimpleRepoModel{
 
 struct Provider: IntentTimelineProvider {
     func placeholder(in context: Context) -> SimpleEntry {
-        return SimpleEntry(date: Date(), model:nil,configuration: ConfigurationIntent(),color:Color.blue)
+        return SimpleEntry(date: Date(), model:nil,color:Color.blue)
     }
 
-    func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date(),model: ZLSimpleRepoModel.getSampleModel(), configuration: configuration, color:Color.blue)
+    func getSnapshot(for configuration: FixedRepoConfigurationIntent, in context: Context, completion: @escaping (SimpleEntry) -> ()) {
+        let entry = SimpleEntry(date: Date(),model: ZLSimpleRepoModel.getSampleModel(), color:Color.blue)
         completion(entry)
     }
 
-    func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
+    func getTimeline(for configuration: FixedRepoConfigurationIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         var entries: [SimpleEntry] = []
         
         let colors = [Color.blue,Color.red,Color.orange,Color.yellow,Color.green,Color.purple,Color.pink]
         
-        ZLWidgetService.trendingRepo { (result, repos) in
+        ZLWidgetService.trendingRepo(with: configuration.dateRange, with: configuration.language) { (result, repos) in
             
             // Generate a timeline consisting of five entries an hour apart, starting from the current date.
             let currentDate = Date()
             for hourOffset in 0 ..< repos.count {
                 let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-                let entry = SimpleEntry(date: entryDate,model: repos[hourOffset] as? ZLSimpleRepoModel, configuration: configuration,color:colors[hourOffset % colors.count])
+                let entry = SimpleEntry(date: entryDate,model: repos[hourOffset] as? ZLSimpleRepoModel,color:colors[hourOffset % colors.count])
                 entries.append(entry)
             }
 
@@ -50,33 +50,28 @@ struct Provider: IntentTimelineProvider {
             completion(timeline)
             
         }
-
-
     }
 }
 
 struct SimpleEntry: TimelineEntry {
     let date: Date
     let model : ZLSimpleRepoModel?
-    let configuration: ConfigurationIntent
     let color : Color
 }
 
 
-struct Fixed_RepoEntryView : View {
+struct FixedRepoMediumView : View {
+    
     var entry: Provider.Entry
-    @Environment(\.widgetFamily) var family: WidgetFamily
-
+    
     var body: some View {
-        
         HStack{
-            
             VStack(alignment: .leading){
                 
                 if entry.model == nil {
                     
                     Text("             ")
-                        .font(.title2)
+                        .font(.title3)
                         .foregroundColor(Color("ZLTitleColor"))
                         .lineLimit(1)
                         .background(Color("ZLTitleColor"))
@@ -86,13 +81,14 @@ struct Fixed_RepoEntryView : View {
                     Text("                       ")
                         .font(.caption)
                         .foregroundColor(Color("ZLDescColor"))
-                        .lineLimit(2)
+                        .lineLimit(3)
                         .background(Color("ZLDescColor"))
                     
                     Spacer()
                     
                     
                     HStack{
+                                                
                         Circle()
                             .fill(entry.color)
                             .frame(width: 15, height: 15, alignment: .leading)
@@ -102,12 +98,10 @@ struct Fixed_RepoEntryView : View {
                             .background(Color("ZLLanguageColor"))
                     }
                     
-                    
-                    
                 } else {
                     
                     Text(entry.model?.fullName ?? "")
-                        .font(.title2)
+                        .font(.title3)
                         .foregroundColor(Color("ZLTitleColor"))
                         .lineLimit(1)
                     
@@ -116,12 +110,14 @@ struct Fixed_RepoEntryView : View {
                     Text(entry.model?.desc ?? "")
                         .font(.caption)
                         .foregroundColor(Color("ZLDescColor"))
-                        .lineLimit(2)
+                        .lineLimit(3)
                     
                     Spacer()
                     
-                    if entry.model?.language?.count ?? 0 != 0 {
-                        HStack{
+                    
+                    HStack{
+                                            
+                        if entry.model?.language?.count ?? 0 != 0 {
                             Circle()
                                 .fill(entry.color)
                                 .frame(width: 15, height: 15, alignment: .leading)
@@ -136,12 +132,32 @@ struct Fixed_RepoEntryView : View {
                 
                 
             }
-            .padding(EdgeInsets(top: 20, leading: 25, bottom: 15, trailing: 0))
+            .padding(EdgeInsets(top: 20, leading: 25, bottom: 15, trailing: 25))
             Spacer()
         }
         .unredacted()
         
-        
+    }
+    
+}
+
+
+
+struct Fixed_RepoEntryView : View {
+    var entry: Provider.Entry
+    @Environment(\.widgetFamily) var family: WidgetFamily
+
+    var body: some View {
+        switch family{
+        case .systemSmall:
+            return FixedRepoMediumView(entry: entry)
+        case .systemMedium:
+            return FixedRepoMediumView(entry: entry)
+        case .systemLarge:
+            return FixedRepoMediumView(entry: entry)
+        @unknown default:
+            return FixedRepoMediumView(entry: entry)
+        }
     }
 }
 
@@ -153,18 +169,18 @@ struct Fixed_Repo: Widget {
     let kind: String = "Fixed_Repo"
 
     var body: some WidgetConfiguration {
-        IntentConfiguration(kind: kind, intent: ConfigurationIntent.self, provider: Provider()) { entry in
+        IntentConfiguration(kind: kind, intent: FixedRepoConfigurationIntent.self, provider: Provider()) { entry in
             Fixed_RepoEntryView(entry: entry)
         }
         .configurationDisplayName("Trending")
-        .description("First Trending Repository")
+        .description("Trending Repositories")
         .supportedFamilies([.systemMedium])
     }
 }
 
 struct Fixed_Repo_Previews: PreviewProvider {
     static var previews: some View {
-        Fixed_RepoEntryView(entry: SimpleEntry(date: Date(), model: ZLSimpleRepoModel.getSampleModel() ,configuration: ConfigurationIntent(),color:Color.blue))
+        Fixed_RepoEntryView(entry: SimpleEntry(date: Date(), model: ZLSimpleRepoModel.getSampleModel(),color:Color.blue))
             .previewContext(WidgetPreviewContext(family: .systemMedium))
     }
 }

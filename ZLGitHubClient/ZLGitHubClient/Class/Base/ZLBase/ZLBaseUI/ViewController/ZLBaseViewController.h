@@ -33,9 +33,11 @@
 
 @interface ZLBaseViewController(Tool)
 
-+ (UIViewController *)getCurrentVC;
++ (UIViewController *)getTopViewController;
 
-+ (UIViewController *)getCurrentVCFrom:(UIViewController *)rootVC;
++ (UIViewController *)getTopViewControllerFromViewController:(UIViewController *)rootVC;
+
++ (UIViewController *)getTopViewControllerFromWindow:(UIWindow *) window;
 
 @end
 

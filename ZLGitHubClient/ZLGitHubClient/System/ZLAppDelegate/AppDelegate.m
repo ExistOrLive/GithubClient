@@ -119,7 +119,17 @@
     [self removeObserver];
 }
 
+
 #pragma mark -
+
+// 处理URL
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options{
+    return YES;
+}
+
+
+
+#pragma mark - supported Interface Orientations
 
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window{
     if (_allowRotation) {
@@ -177,23 +187,18 @@
 
 #pragma mark -
 
-- (void) addObserver
-{
+- (void) addObserver{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onGithubTokenInvalid) name:ZLGithubTokenInvalid_Notification object:nil];
 }
 
-- (void) removeObserver
-{
+- (void) removeObserver{
     [[NSNotificationCenter defaultCenter] removeObserver:self name:ZLGithubTokenInvalid_Notification object:nil];
-    
-  
 }
 
 
 #pragma mark -
 
-- (void) onGithubTokenInvalid
-{
+- (void) onGithubTokenInvalid{
     if(![self.window.rootViewController isKindOfClass:[ZLLoginViewController class]]){
         [ZLToastView showMessage:@"Token is not valid,login please"];
         [self switchToLoginController:YES];
@@ -293,7 +298,7 @@
     completionHandler();
 }
 
-// 后台静默推送
+// 后台静默推送/点击通知唤醒
 -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)info fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
  
