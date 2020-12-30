@@ -8,8 +8,6 @@
 
 #import "SYDCentralFactory.h"
 
-
-
 #import <objc/runtime.h>
 
 @interface SYDCentralFactory()

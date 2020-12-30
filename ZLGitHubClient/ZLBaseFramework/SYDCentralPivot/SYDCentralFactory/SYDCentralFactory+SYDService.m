@@ -6,6 +6,7 @@
 //  Copyright © 2019年 zhumeng. All rights reserved.
 //
 
+#import "SYDCentralFactory.h"
 #import "SYDCentralFactory+SYDService.h"
 #import <objc/Runtime.h>
 #import <objc/message.h>

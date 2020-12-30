@@ -156,7 +156,12 @@
 
 + (NSString *) getAppName {
     NSDictionary * infoDic = [NSBundle mainBundle].infoDictionary;
-    return infoDic[@"CFBundleName"];
+    return infoDic[@"CFBundleDisplayName"];
+}
+
++ (NSString *) getBundleIdentifier {
+    NSDictionary * infoDic = [NSBundle mainBundle].infoDictionary;
+    return infoDic[@"CFBundleIdentifier"];
 }
 
 

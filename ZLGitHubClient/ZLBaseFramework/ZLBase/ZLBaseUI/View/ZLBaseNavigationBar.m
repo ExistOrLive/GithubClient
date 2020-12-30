@@ -7,6 +7,8 @@
 //
 
 #import "ZLBaseNavigationBar.h"
+#import "ZLBaseUIHeader.h"
+#import <Masonry/Masonry.h>
 
 @interface ZLBaseNavigationBar()
 
@@ -37,7 +39,8 @@
 
 - (instancetype) init
 {
-    return [self initWithFrame:CGRectMake(0, 0, ZLScreenWidth, ZLBaseNavigationBarHeight)];
+    
+    return [self initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [ZLBaseUIConfig sharedInstance].navigationBarHeight)];
 }
 
 
@@ -72,7 +75,7 @@
     }
     else{
         [self mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.superview.mas_safeAreaLayoutGuideTop).offset(ZLBaseNavigationBarHeight);
+            make.bottom.equalTo(self.superview.mas_safeAreaLayoutGuideTop).offset([ZLBaseUIConfig sharedInstance].navigationBarHeight);
         }];
     }
 }
@@ -81,7 +84,7 @@
 
 - (void) setUPUI
 {
-    [self setBackgroundColor:[UIColor colorNamed:@"ZLNavigationBarBackColor"]];
+    [self setBackgroundColor:[ZLBaseUIConfig sharedInstance].navigationBarBackgoundColor];
     self.layer.shadowRadius = 0.3;
         
     // 创建返回按钮
@@ -101,15 +104,15 @@
         make.left.equalTo(self.mas_left).with.offset(10);
         make.bottom.equalTo(self.mas_bottom);
         make.width.equalTo(@30);
-        make.height.equalTo(@(ZLBaseNavigationBarHeight));
+        make.height.equalTo(@([ZLBaseUIConfig sharedInstance].navigationBarHeight));
     }];
 }
 
 - (void) setUpTitleLabel
 {
     _titleLabel = [UILabel new];
-    [self.titleLabel setTextColor:[UIColor colorNamed:@"ZLNavigationBarTitleColor"]];
-    [self.titleLabel setFont:[UIFont fontWithName:Font_PingFangSCMedium size:18]];
+    [self.titleLabel setTextColor:[ZLBaseUIConfig sharedInstance].navigationBarTitleColor];
+    [self.titleLabel setFont:[ZLBaseUIConfig sharedInstance].navigationBarTitleFont];
     [self.titleLabel setTextAlignment:NSTextAlignmentCenter];
     self.titleLabel.adjustsFontSizeToFitWidth = true;
     self.titleLabel.numberOfLines = 2;
@@ -117,7 +120,7 @@
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.mas_centerX);
         make.bottom.equalTo(self.mas_bottom);
-        make.height.equalTo(@(ZLBaseNavigationBarHeight));
+        make.height.equalTo(@([ZLBaseUIConfig sharedInstance].navigationBarHeight));
         make.left.equalTo(self.mas_left).with.offset(80);
         make.right.equalTo(self.mas_right).with.offset(-80);
     }];

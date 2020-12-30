@@ -9,20 +9,17 @@
 #import <UITextView_Placeholder/UITextView+Placeholder.h>
 #import <YYText/YYText.h>
 #import <MJExtension/MJExtension.h>
+
 #import "OCGumbo.h"
 #import "OCGumbo+Query.h"
-#import "UIView+HJViewStyle.h"
 
-#import "ZLBaseUIHeader.h"
-#import "ZLBaseObject.h"
+#import <ZLBaseFramework/ZLBaseFramework.h>
 
-#import "SYDCentralPivotHeader.h"
 #import "SYDCentralPivotUIAdapter.h"
 
 // customView
-#import "ZLCustomTextField.h"
+#import "ZLBaseSearchController.h"
 #import "ZLLoginLogoView.h"
-#import "ZMRefreshManager.h"
 #import "ZLPresentContainerView.h"
 #import "CYPopoverViewHeader.h"
 #import "ZLStarRepoViewController.h"
@@ -31,7 +28,6 @@
 #import "ZLToolManager.h"
 #import "ZLKeyChainManager.h"
 #import "ZLToastView.h"
-#import "ZLDeviceInfo.h"
 #import "ZLSharedDataManager.h"
 
 // Service

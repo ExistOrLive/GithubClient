@@ -8,13 +8,16 @@
 
 #import "ZLBaseViewController.h"
 
+#import "ZLBaseUIConfig.h"
+
 #import "ZLBaseNavigationBar.h"
 
 #import "ZLBaseViewModel.h"
 
-
 #import <objc/Runtime.h>
 #import <objc/message.h>
+
+#import <Masonry/Masonry.h>
 
 @interface ZLBaseViewController ()
     
@@ -38,18 +41,14 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
-    ZLLog_Info(@"ZLMonitor: [%@] viewDidLoad at [%@]",self,[NSDate date]);
+- (void)viewDidLoad{
     [super viewDidLoad];
     
     // 初始化UI
     [self setBaseUpUI];
 }
 
-- (void) viewWillAppear:(BOOL)animated
-{
-    ZLLog_Info(@"ZLMonitor: [%@] viewWillAppear at [%@]",self,[NSDate date]);
+- (void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
     [self.navigationController setNavigationBarHidden:YES];
@@ -59,9 +58,7 @@
     }
 }
 
-- (void) viewDidAppear:(BOOL)animated
-{
-    ZLLog_Info(@"ZLMonitor: [%@] viewDidAppear at [%@]",self,[NSDate date]);
+- (void) viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
 
     for(ZLBaseViewModel *viewModel in self.realSubViewModels){
@@ -69,9 +66,7 @@
     }
 }
 
-- (void) viewWillDisappear:(BOOL)animated
-{
-    ZLLog_Info(@"ZLMonitor: [%@] viewWillDisappear at [%@]",self,[NSDate date]);
+- (void) viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     
     for(ZLBaseViewModel *viewModel in self.realSubViewModels){
@@ -79,18 +74,14 @@
     }
 }
 
-- (void) viewDidDisappear:(BOOL)animated
-{
-    ZLLog_Info(@"ZLMonitor: [%@] viewDidDisappear at [%@]",self,[NSDate date]);
+- (void) viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
     for(ZLBaseViewModel *viewModel in self.realSubViewModels){
         [viewModel VCLifeCycle_viewDidDisappear];
     }
 }
 
-- (void)didReceiveMemoryWarning
-{
-    ZLLog_Info(@"ZLMonitor: [%@] didReceiveMemoryWarning at [%@]",self,[NSDate date]);
+- (void)didReceiveMemoryWarning{
     [super didReceiveMemoryWarning];
 
     for(ZLBaseViewModel *viewModel in self.realSubViewModels){
@@ -102,11 +93,6 @@
     
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     
-    if(size.height > size.width) {
-        self.zlNavigationBar.isLandScape = false;
-    } else {
-        self.zlNavigationBar.isLandScape = true;
-    }
     [self.zlNavigationBar setNeedsUpdateConstraints];
 }
 
@@ -115,7 +101,7 @@
 
 - (void) setBaseUpUI{
     
-    self.view.backgroundColor = [UIColor colorNamed:@"ZLVCBackColor"];
+    self.view.backgroundColor = [ZLBaseUIConfig sharedInstance].viewControllerBackgoundColor;
     
     [self setUpCustomNavigationbar];
     
@@ -135,7 +121,7 @@
         make.top.equalTo(self.view.mas_top);
         make.left.equalTo(self.view.mas_left);
         make.right.equalTo(self.view.mas_right);
-        make.bottom.equalTo(self.view.mas_safeAreaLayoutGuideTop).offset(ZLBaseNavigationBarHeight);
+        make.bottom.equalTo(self.view.mas_safeAreaLayoutGuideTop).offset([ZLBaseUIConfig sharedInstance].navigationBarHeight);
     }];
     
     if(self.navigationController == nil)   // 如果是model弹出
@@ -281,6 +267,8 @@
 }
 @end
 
+
+#pragma mark - ZLBaseViewController(Tool)
 
 @implementation ZLBaseViewController(Tool)
 

@@ -6,7 +6,6 @@
 //  Copyright © 2020 ZM. All rights reserved.
 //
 
-#import "ZLBaseObject.h"
 @class ZLGithubUserBriefModel;
 
 NS_ASSUME_NONNULL_BEGIN

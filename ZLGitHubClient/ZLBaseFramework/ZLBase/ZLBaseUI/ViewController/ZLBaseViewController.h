@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ZLBaseNavigationBar.h"
 #import "ZLBaseViewModel.h"
+@class ZLBaseNavigationBar;
 
 @interface ZLBaseViewController : UIViewController <ZLBaseViewModel>
 

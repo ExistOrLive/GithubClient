@@ -8,7 +8,6 @@
 
 #import "ZLBuglyManager.h"
 #import <Bugly/Bugly.h>
-#import "ZLDeviceInfo.h"
 #import "ZLGithubAppKey.h"
 
  

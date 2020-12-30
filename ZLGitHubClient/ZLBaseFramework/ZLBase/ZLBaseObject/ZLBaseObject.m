@@ -7,6 +7,7 @@
 //
 
 #import "ZLBaseObject.h"
+#import <objc/runtime.h>
 
 @implementation ZLBaseObject
 

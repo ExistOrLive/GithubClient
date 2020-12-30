@@ -148,6 +148,18 @@
         self.allowRotation = YES;    // iPad 允许旋转
     }
     
+    [ZLBaseUIConfig sharedInstance].navigationBarTitleColor = [UIColor colorNamed:@"ZLNavigationBarTitleColor"];
+    [ZLBaseUIConfig sharedInstance].navigationBarBackgoundColor = [UIColor colorNamed:@"ZLNavigationBarBackColor"];
+    
+    [ZLBaseUIConfig sharedInstance].viewControllerBackgoundColor = [UIColor colorNamed:@"ZLVCBackColor"];
+    
+    [ZLBaseUIConfig sharedInstance].buttonTitleColor = [UIColor colorNamed:@"ZLBaseButtonTitleColor"];
+    [ZLBaseUIConfig sharedInstance].buttonBorderWidth = 1 / ZLScreenScale;
+    [ZLBaseUIConfig sharedInstance].buttonBackColor = [UIColor colorNamed:@"ZLBaseButtonBackColor"];
+    [ZLBaseUIConfig sharedInstance].buttonBorderColor = [UIColor colorNamed:@"ZLBaseButtonBorderColor"];
+    [ZLBaseUIConfig sharedInstance].buttonCornerRadius = 4.0;
+    
+    
 }
 
 - (void) switchToMainController:(BOOL) animated{
