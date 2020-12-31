@@ -379,10 +379,18 @@
                 OCGumboElement *p =  article.Query(@"p").firstObject;
                 OCGumboElement *a = h1.Query(@"a").firstObject;
                 NSString * fullName = a.attr(@"href");
-                NSCharacterSet * set = [NSCharacterSet characterSetWithCharactersInString:@"\n"];
+                NSCharacterSet * set = [NSCharacterSet characterSetWithCharactersInString:@" \n"];
                 NSString * desc = nil;
                 if(p){
                     desc = [p.text() stringByTrimmingCharactersInSet:set];
+                }
+                NSString *language = @"";
+                NSArray<OCGumboElement *>* spanElements = article.Query(@"span");
+                for(OCGumboElement *element in spanElements){
+                    if([@"programmingLanguage" isEqualToString:element.attr(@"itemprop")]){
+                        language = element.text();
+                        break;
+                    }
                 }
                 if([fullName length] > 0){
                     ZLGithubRepositoryModel * model = [ZLGithubRepositoryModel new];
@@ -391,6 +399,7 @@
                     model.owner.loginName = [fullName componentsSeparatedByString:@"/"].firstObject;
                     model.name = [fullName componentsSeparatedByString:@"/"].lastObject;
                     model.desc_Repo = desc;
+                    model.language = language;
                     [repoArray addObject:model];
                 }
             }

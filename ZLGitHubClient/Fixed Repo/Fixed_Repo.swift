@@ -9,14 +9,15 @@
 import WidgetKit
 import SwiftUI
 import Intents
+import ZLServiceFramework
 
 
-extension ZLSimpleRepoModel{
-    static func getSampleModel() -> ZLSimpleRepoModel{
-        let model = ZLSimpleRepoModel()
-        model.fullName = "MengAndJie/GithubClient"
+extension ZLGithubRepositoryModel{
+    static func getSampleModel() -> ZLGithubRepositoryModel{
+        let model = ZLGithubRepositoryModel()
+        model.full_name = "MengAndJie/GithubClient"
+        model.desc_Repo = "Github iOS Client based on Github REST V3 API and GraphQL V4 API"
         model.language = "Swift"
-        model.desc = "Github iOS Client based on Github REST V3 API and GraphQL V4 API"
         return model
     }
 }
@@ -25,37 +26,38 @@ struct Provider: IntentTimelineProvider {
     func placeholder(in context: Context) -> SimpleEntry {
         return SimpleEntry(date: Date(), model:nil,color:Color.blue)
     }
-
+    
     func getSnapshot(for configuration: FixedRepoConfigurationIntent, in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date(),model: ZLSimpleRepoModel.getSampleModel(), color:Color.blue)
+        let entry = SimpleEntry(date: Date(),model: ZLGithubRepositoryModel.getSampleModel(), color:Color.blue)
         completion(entry)
     }
-
+    
     func getTimeline(for configuration: FixedRepoConfigurationIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         var entries: [SimpleEntry] = []
         
         let colors = [Color.blue,Color.red,Color.orange,Color.yellow,Color.green,Color.purple,Color.pink]
         
-        ZLWidgetService.trendingRepo(with: configuration.dateRange, with: configuration.language) { (result, repos) in
+        ZLWidgetService.trendingRepo(dateRange: configuration.DateRange, language: configuration.Language) {(result, repos) in
             
             // Generate a timeline consisting of five entries an hour apart, starting from the current date.
             let currentDate = Date()
             for hourOffset in 0 ..< repos.count {
                 let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-                let entry = SimpleEntry(date: entryDate,model: repos[hourOffset] as? ZLSimpleRepoModel,color:colors[hourOffset % colors.count])
+                let entry = SimpleEntry(date: entryDate,model: repos[hourOffset],color:colors[hourOffset % colors.count])
                 entries.append(entry)
             }
-
+            
             let timeline = Timeline(entries: entries, policy: .atEnd)
             completion(timeline)
             
         }
+        
     }
 }
 
 struct SimpleEntry: TimelineEntry {
     let date: Date
-    let model : ZLSimpleRepoModel?
+    let model : ZLGithubRepositoryModel?
     let color : Color
 }
 
@@ -100,14 +102,14 @@ struct FixedRepoMediumView : View {
                     
                 } else {
                     
-                    Text(entry.model?.fullName ?? "")
+                    Text(entry.model?.full_name ?? "")
                         .font(.title3)
                         .foregroundColor(Color("ZLTitleColor"))
                         .lineLimit(1)
                     
                     Spacer()
                     
-                    Text(entry.model?.desc ?? "")
+                    Text(entry.model?.desc_Repo ?? "")
                         .font(.caption)
                         .foregroundColor(Color("ZLDescColor"))
                         .lineLimit(3)
@@ -180,7 +182,7 @@ struct Fixed_Repo: Widget {
 
 struct Fixed_Repo_Previews: PreviewProvider {
     static var previews: some View {
-        Fixed_RepoEntryView(entry: SimpleEntry(date: Date(), model: ZLSimpleRepoModel.getSampleModel(),color:Color.blue))
+        Fixed_RepoEntryView(entry: SimpleEntry(date: Date(), model: ZLGithubRepositoryModel.getSampleModel(),color:Color.blue))
             .previewContext(WidgetPreviewContext(family: .systemMedium))
     }
 }

@@ -89,11 +89,7 @@
 		7437978425838AF9008AFBE8 /* ZLMyPullRequestsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7437978325838AF9008AFBE8 /* ZLMyPullRequestsController.swift */; };
 		7437978825838B11008AFBE8 /* ZLMyPullRequestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7437978725838B11008AFBE8 /* ZLMyPullRequestsView.swift */; };
 		7437978B258399FD008AFBE8 /* ZLPullRequestTableViewCellDataForViewerPR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7437978A258399FD008AFBE8 /* ZLPullRequestTableViewCellDataForViewerPR.swift */; };
-		74438B31259777510021099C /* libgumbo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74A5759824A1C76200A38200 /* libgumbo.a */; };
 		74438B4A259787620021099C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74438B49259787620021099C /* Foundation.framework */; };
-		74438B6225978E350021099C /* OCGumbo+Query.m in Sources */ = {isa = PBXBuildFile; fileRef = 74438B2C2597770D0021099C /* OCGumbo+Query.m */; };
-		74438B6325978E350021099C /* OCGumbo.m in Sources */ = {isa = PBXBuildFile; fileRef = 74438B2E2597770D0021099C /* OCGumbo.m */; };
-		74438B6425978E350021099C /* ZLWidgetService.m in Sources */ = {isa = PBXBuildFile; fileRef = 74438B3A25977E5F0021099C /* ZLWidgetService.m */; };
 		7444B2912567928000488EF0 /* ZLWorkboardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7444B28F2567928000488EF0 /* ZLWorkboardTableViewCell.swift */; };
 		7444B2922567928000488EF0 /* ZLWorkboardTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7444B2902567928000488EF0 /* ZLWorkboardTableViewCell.xib */; };
 		7444B298256797C200488EF0 /* ZLWorkboardTableViewCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7444B297256797C200488EF0 /* ZLWorkboardTableViewCellData.swift */; };
@@ -378,6 +374,8 @@
 		74D3F489259CF6D00002A2D3 /* ZLServiceConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 74D3F488259CF6D00002A2D3 /* ZLServiceConfig.plist */; };
 		74D3F4D8259D27CA0002A2D3 /* ZLNotificationServiceHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D3F4D7259D27CA0002A2D3 /* ZLNotificationServiceHeader.swift */; };
 		74D3F50A259D346C0002A2D3 /* ZLServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D3F509259D346C0002A2D3 /* ZLServiceManager.swift */; };
+		74D3F604259D55970002A2D3 /* ZLServiceFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74D3F14F259C9FF90002A2D3 /* ZLServiceFramework.framework */; };
+		74D3F60B259D55E30002A2D3 /* ZLWidgetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D3F60A259D55E30002A2D3 /* ZLWidgetService.swift */; };
 		74D55DE722FB0A8B004114BC /* ZLSearchItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D55DE622FB0A8B004114BC /* ZLSearchItemsViewModel.swift */; };
 		74D55DE922FB0AAD004114BC /* ZLSearchRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D55DE822FB0AAD004114BC /* ZLSearchRecordViewModel.swift */; };
 		74D55DEC22FB183E004114BC /* ZLSearchRecordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D55DEA22FB183E004114BC /* ZLSearchRecordTableViewCell.swift */; };
@@ -458,6 +456,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 74344A59258B0FB600903E08;
 			remoteInfo = "Fixed RepoExtension";
+		};
+		74D3F605259D559C0002A2D3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0ADF902221D4B01900BF86CD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 74D3F14E259C9FF90002A2D3;
+			remoteInfo = ZLServiceFramework;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -583,14 +588,7 @@
 		7437978325838AF9008AFBE8 /* ZLMyPullRequestsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLMyPullRequestsController.swift; sourceTree = "<group>"; };
 		7437978725838B11008AFBE8 /* ZLMyPullRequestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLMyPullRequestsView.swift; sourceTree = "<group>"; };
 		7437978A258399FD008AFBE8 /* ZLPullRequestTableViewCellDataForViewerPR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLPullRequestTableViewCellDataForViewerPR.swift; sourceTree = "<group>"; };
-		74438B2A2597770D0021099C /* OCGumbo+Query.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OCGumbo+Query.h"; sourceTree = "<group>"; };
-		74438B2B2597770D0021099C /* OCGumbo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OCGumbo.h; sourceTree = "<group>"; };
-		74438B2C2597770D0021099C /* OCGumbo+Query.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "OCGumbo+Query.m"; sourceTree = "<group>"; };
-		74438B2E2597770D0021099C /* OCGumbo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OCGumbo.m; sourceTree = "<group>"; };
-		74438B3925977E5F0021099C /* ZLWidgetService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLWidgetService.h; sourceTree = "<group>"; };
-		74438B3A25977E5F0021099C /* ZLWidgetService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLWidgetService.m; sourceTree = "<group>"; };
 		74438B49259787620021099C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		74438B5925978C0F0021099C /* Fixed_Repo_Bridging_Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Fixed_Repo_Bridging_Header.h; sourceTree = "<group>"; };
 		7444B28F2567928000488EF0 /* ZLWorkboardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLWorkboardTableViewCell.swift; sourceTree = "<group>"; };
 		7444B2902567928000488EF0 /* ZLWorkboardTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZLWorkboardTableViewCell.xib; sourceTree = "<group>"; };
 		7444B297256797C200488EF0 /* ZLWorkboardTableViewCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLWorkboardTableViewCellData.swift; sourceTree = "<group>"; };
@@ -909,6 +907,7 @@
 		74D3F488259CF6D00002A2D3 /* ZLServiceConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ZLServiceConfig.plist; sourceTree = "<group>"; };
 		74D3F4D7259D27CA0002A2D3 /* ZLNotificationServiceHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLNotificationServiceHeader.swift; sourceTree = "<group>"; };
 		74D3F509259D346C0002A2D3 /* ZLServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLServiceManager.swift; sourceTree = "<group>"; };
+		74D3F60A259D55E30002A2D3 /* ZLWidgetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLWidgetService.swift; sourceTree = "<group>"; };
 		74D55DE622FB0A8B004114BC /* ZLSearchItemsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLSearchItemsViewModel.swift; sourceTree = "<group>"; };
 		74D55DE822FB0AAD004114BC /* ZLSearchRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLSearchRecordViewModel.swift; sourceTree = "<group>"; };
 		74D55DEA22FB183E004114BC /* ZLSearchRecordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLSearchRecordTableViewCell.swift; sourceTree = "<group>"; };
@@ -989,10 +988,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74D3F604259D55970002A2D3 /* ZLServiceFramework.framework in Frameworks */,
 				74344A5C258B0FB600903E08 /* WidgetKit.framework in Frameworks */,
 				74438B4A259787620021099C /* Foundation.framework in Frameworks */,
 				74344A5E258B0FB600903E08 /* SwiftUI.framework in Frameworks */,
-				74438B31259777510021099C /* libgumbo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1497,14 +1496,11 @@
 		74344A5F258B0FB600903E08 /* Fixed Repo */ = {
 			isa = PBXGroup;
 			children = (
-				74438B152597770D0021099C /* OCGumbo */,
 				74344A60258B0FB600903E08 /* Fixed_Repo.swift */,
 				74344A62258B0FB600903E08 /* Fixed_Repo.intentdefinition */,
 				74344A63258B0FB900903E08 /* Assets.xcassets */,
 				74344A65258B0FB900903E08 /* Info.plist */,
-				74438B3925977E5F0021099C /* ZLWidgetService.h */,
-				74438B3A25977E5F0021099C /* ZLWidgetService.m */,
-				74438B5925978C0F0021099C /* Fixed_Repo_Bridging_Header.h */,
+				74D3F60A259D55E30002A2D3 /* ZLWidgetService.swift */,
 			);
 			path = "Fixed Repo";
 			sourceTree = "<group>";
@@ -1550,18 +1546,6 @@
 			);
 			path = Extension;
 			sourceTree = "<group>";
-		};
-		74438B152597770D0021099C /* OCGumbo */ = {
-			isa = PBXGroup;
-			children = (
-				74438B2A2597770D0021099C /* OCGumbo+Query.h */,
-				74438B2B2597770D0021099C /* OCGumbo.h */,
-				74438B2C2597770D0021099C /* OCGumbo+Query.m */,
-				74438B2E2597770D0021099C /* OCGumbo.m */,
-			);
-			name = OCGumbo;
-			path = ZLGitHubClient/Class/Import/OCGumbo;
-			sourceTree = SOURCE_ROOT;
 		};
 		7444B28D256782B700488EF0 /* WorkBoard */ = {
 			isa = PBXGroup;
@@ -3874,6 +3858,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				74D3F606259D559C0002A2D3 /* PBXTargetDependency */,
 			);
 			name = "Fixed RepoExtension";
 			productName = "Fixed RepoExtension";
@@ -4373,10 +4358,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				74344A66258B0FB900903E08 /* Fixed_Repo.intentdefinition in Sources */,
-				74438B6225978E350021099C /* OCGumbo+Query.m in Sources */,
-				74438B6325978E350021099C /* OCGumbo.m in Sources */,
-				74438B6425978E350021099C /* ZLWidgetService.m in Sources */,
 				74344A61258B0FB600903E08 /* Fixed_Repo.swift in Sources */,
+				74D3F60B259D55E30002A2D3 /* ZLWidgetService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4475,6 +4458,11 @@
 			isa = PBXTargetDependency;
 			target = 74344A59258B0FB600903E08 /* Fixed RepoExtension */;
 			targetProxy = 74D3F599259D49F10002A2D3 /* PBXContainerItemProxy */;
+		};
+		74D3F606259D559C0002A2D3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 74D3F14E259C9FF90002A2D3 /* ZLServiceFramework */;
+			targetProxy = 74D3F605259D559C0002A2D3 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -4777,8 +4765,6 @@
 				PROVISIONING_PROFILE_SPECIFIER = "match Development com.zm.*";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_INSTALL_OBJC_HEADER = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "Fixed Repo/Fixed_Repo_Bridging_Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -4818,8 +4804,6 @@
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.zm.*";
 				SKIP_INSTALL = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_INSTALL_OBJC_HEADER = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "Fixed Repo/Fixed_Repo_Bridging_Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
