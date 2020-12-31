@@ -14,15 +14,7 @@
 #ifdef __OBJC__              // 避免C语言的头文件中引入OC代码
 
 #pragma mark - BaseFramework
-#import <ZLBaseFramework/ZLBaseFramework.h>
-
-
-#pragma mark - 工具模块（日志模块,数据库模块）
-#import "ZLToolManager.h"
-
-#pragma mark - model
-#import "ZLGithubRequestErrorModel.h"
-#import "ZLOperationResultModel.h"
+#import <ZLServiceFramework/ZLServiceFramework.h>
 
 #pragma mark -
 #import <Masonry/Masonry.h>

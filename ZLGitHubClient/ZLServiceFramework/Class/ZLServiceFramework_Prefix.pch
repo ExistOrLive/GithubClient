@@ -1,0 +1,44 @@
+//
+//  ZLServiceFramework_Prefix.h
+//  ZLGitHubClient
+//
+//  Created by 朱猛 on 2020/12/30.
+//  Copyright © 2020 ZM. All rights reserved.
+//
+
+#ifndef ZLServiceFramework_Prefix_h
+#define ZLServiceFramework_Prefix_h
+
+#define ZLMainThreadDispatch(a)     if([NSThread isMainThread]){ a }else{dispatch_async(dispatch_get_main_queue(), ^{ a });}
+
+#import <ZLBaseFramework/ZLBaseFramework.h>
+
+#import "ZLServiceFramework/ZLServiceFramework-Swift.h"
+
+#import "ZLToolManager.h"
+
+#import "ZLOperationResultModel.h"
+#import "ZLGithubRepositoryModel.h"
+#import "ZLGithubRepositoryBranchModel.h"
+#import "ZLGithubRepositoryReadMeModel.h"
+
+#import "ZLGithubCommitModel.h"
+#import "ZLGithubPullRequestModel.h"
+#import "ZLGithubContentModel.h"
+#import "ZLGithubUserModel.h"
+#import "ZLGithubGistModel.h"
+#import "ZLGithubIssueModel.h"
+#import "ZLGitHubEventModel.h"
+#import "ZLGithubEventType.h"
+#import "ZLLoginProcessModel.h"
+#import "ZLGithubRequestErrorModel.h"
+#import "ZLOperationResultModel.h"
+#import "ZLSearchFilterInfoModel.h"
+#import "ZLTrendingFilterInfoModel.h"
+#import "ZLSearchResultModel.h"
+
+#import "ZLBaseServiceModel.h"
+
+
+
+#endif /* ZLServiceFramework_Prefix_h */

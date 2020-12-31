@@ -76,7 +76,7 @@ class ZLRepoSubContentController: ZLBaseViewController {
     func setQueryContentRequest()
     {
         weak var weakSelf = self
-        ZLRepoServiceModel.shared().getRepositoryContentsInfo(withFullName: self.repoFullName,path: self.path,branch:self.branch,serialNumber: NSString.generateSerialNumber(),completeHandle: {(resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepositoryContentsInfo(withFullName: self.repoFullName,path: self.path,branch:self.branch,serialNumber: NSString.generateSerialNumber(),completeHandle: {(resultModel : ZLOperationResultModel) in
             
             weakSelf?.tableView?.mj_header?.endRefreshing()
             

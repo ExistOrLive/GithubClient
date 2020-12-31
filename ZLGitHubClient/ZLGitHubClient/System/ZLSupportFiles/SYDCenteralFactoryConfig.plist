@@ -119,38 +119,5 @@
 		<key>isSingle</key>
 		<false/>
 	</dict>
-	<key>ZLLogModule</key>
-	<dict>
-		<key>class</key>
-		<string>ZLLogManager</string>
-		<key>type</key>
-		<integer>2</integer>
-		<key>isSingle</key>
-		<true/>
-		<key>singleMethod</key>
-		<string>sharedInstance</string>
-	</dict>
-	<key>ZLDBModule</key>
-	<dict>
-		<key>class</key>
-		<string>ZLDataBaseManager</string>
-		<key>type</key>
-		<integer>2</integer>
-		<key>isSingle</key>
-		<true/>
-		<key>singleMethod</key>
-		<string>sharedInstance</string>
-	</dict>
-	<key>ZLLANModule</key>
-	<dict>
-		<key>class</key>
-		<string>ZLLanguageManager</string>
-		<key>type</key>
-		<integer>2</integer>
-		<key>isSingle</key>
-		<true/>
-		<key>singleMethod</key>
-		<string>sharedInstance</string>
-	</dict>
 </dict>
 </plist>

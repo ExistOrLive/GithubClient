@@ -32,7 +32,7 @@ class ZLRepoInfoViewModel: ZLBaseViewModel {
     
     
     deinit {
-        ZLRepoServiceModel.shared().unRegisterObserver(self, name: ZLGetSpecifiedRepoInfoResult_Notification)
+        ZLServiceManager.sharedInstance.repoServiceModel?.unRegisterObserver(self, name: ZLGetSpecifiedRepoInfoResult_Notification)
     }
     
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
@@ -55,12 +55,12 @@ class ZLRepoInfoViewModel: ZLBaseViewModel {
         
         self.repoInfoView!.readMeView?.startLoad(fullName: self.repoInfoModel!.full_name, branch: nil)
         
-        ZLRepoServiceModel.shared().registerObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLGetSpecifiedRepoInfoResult_Notification)
+        ZLServiceManager.sharedInstance.repoServiceModel?.registerObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLGetSpecifiedRepoInfoResult_Notification)
         
         // 获取仓库的详细信息
         SVProgressHUD.show()
         self.serialNumber = NSString.generateSerialNumber()
-        ZLRepoServiceModel.shared().getRepoInfo(withFullName: repoInfoModel.full_name, serialNumber: self.serialNumber!)
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoInfo(withFullName: repoInfoModel.full_name, serialNumber: self.serialNumber!)
         
         if let vc = self.viewController {
             vc.zlNavigationBar.backButton.isHidden = false

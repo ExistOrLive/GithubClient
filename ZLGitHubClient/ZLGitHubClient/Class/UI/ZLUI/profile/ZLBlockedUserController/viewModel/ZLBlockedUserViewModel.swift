@@ -29,7 +29,7 @@ extension ZLBlockedUserViewModel : ZLGithubItemListViewDelegate{
         
         weak var weakSelf = self
         
-        ZLUserServiceModel.shared().getBlockedUsers(withSerialNumber: NSString.generateSerialNumber(), completeHandle: {(model : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.userServiceModel?.getBlockedUsers(withSerialNumber: NSString.generateSerialNumber(), completeHandle: {(model : ZLOperationResultModel) in
             
             if model.result == false {
                 guard let errorModel : ZLGithubRequestErrorModel = model.data as? ZLGithubRequestErrorModel else {

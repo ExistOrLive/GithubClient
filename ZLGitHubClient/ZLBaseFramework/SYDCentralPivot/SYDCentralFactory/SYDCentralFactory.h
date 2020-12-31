@@ -23,6 +23,8 @@
 
 + (instancetype) sharedInstance;
 
+- (void) addConfigWithFilePath:(NSString *) filePath withBundle:(NSBundle *) bundle;
+
 - (SYDCentralRouterModel *) getCentralRouterModel:(const NSString *) beanKey;
 
 #pragma mark - 获取实例
@@ -32,5 +34,25 @@
 - (id) getCommonBean:(const NSString *) beanKey withInjectParam:(NSDictionary *) param;
 
 - (id) getSingleton:(const NSString *) beanKey;
+
+@end
+
+@interface SYDCentralFactory (ViewController)
+
+#pragma mark - UI跳转
+
+- (Class) getViewControllerClass:(const NSString *) viewControllerKey;
+
+- (UIViewController *) getOneUIViewController:(const NSString *) viewControllerKey;
+
+- (UIViewController *) getOneUIViewController:(const NSString *) viewControllerKey withInjectParam:(NSDictionary *) param;
+
+
+@end
+
+
+@interface SYDCentralFactory (SYDService)
+
+- (id) getSYDServiceBean:(const NSString *) serviceKey;
 
 @end

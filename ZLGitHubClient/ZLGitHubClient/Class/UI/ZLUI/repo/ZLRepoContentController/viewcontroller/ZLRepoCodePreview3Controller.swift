@@ -185,7 +185,7 @@ extension ZLRepoCodePreview3Controller {
         SVProgressHUD.show()
         weak var weakSelf = self
         
-        ZLRepoServiceModel.shared().getRepositoryFileHTMLInfo(withFullName: weakSelf!.repoFullName,path: weakSelf!.contentModel.path,branch:weakSelf!.branch,serialNumber: NSString.generateSerialNumber(),completeHandle: {(resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepositoryFileHTMLInfo(withFullName: weakSelf!.repoFullName,path: weakSelf!.contentModel.path,branch:weakSelf!.branch,serialNumber: NSString.generateSerialNumber(),completeHandle: {(resultModel : ZLOperationResultModel) in
             
             if resultModel.result == false
             {
@@ -209,7 +209,7 @@ extension ZLRepoCodePreview3Controller {
         
         weak var weakSelf = self
         SVProgressHUD.show()
-        ZLRepoServiceModel.shared().getRepositoryFileRawInfo(withFullName: weakSelf!.repoFullName,path: weakSelf!.contentModel.path,branch:weakSelf!.branch,serialNumber: NSString.generateSerialNumber(),completeHandle: {(resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepositoryFileRawInfo(withFullName: weakSelf!.repoFullName,path: weakSelf!.contentModel.path,branch:weakSelf!.branch,serialNumber: NSString.generateSerialNumber(),completeHandle: {(resultModel : ZLOperationResultModel) in
             
             if resultModel.result == false
             {
@@ -227,7 +227,7 @@ extension ZLRepoCodePreview3Controller {
             
             let code = "```\(self.getFileType(fileExtension: URL.init(string: self.contentModel.path)?.pathExtension ?? ""))\n\(data)\n```"
             
-            ZLAdditionInfoServiceModel.shared().renderCodeToMarkdown(withCode: code, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+            ZLServiceManager.sharedInstance.additionServiceModel?.renderCodeToMarkdown(withCode: code, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
                 
                 if resultModel.result == false
                 {

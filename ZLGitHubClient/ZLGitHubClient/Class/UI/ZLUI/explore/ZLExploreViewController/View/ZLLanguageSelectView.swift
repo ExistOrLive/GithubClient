@@ -38,7 +38,7 @@ class ZLLanguageSelectView: UIView {
         self.textField.delegate = self
     
         weak var weakSelf = self
-        ZLAdditionInfoServiceModel.shared().getLanguagesWithSerialNumber(NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.additionServiceModel?.getLanguagesWithSerialNumber(NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
             
             if resultModel.result == true {
                 guard let languageArray : [String] = resultModel.data as? [String] else {

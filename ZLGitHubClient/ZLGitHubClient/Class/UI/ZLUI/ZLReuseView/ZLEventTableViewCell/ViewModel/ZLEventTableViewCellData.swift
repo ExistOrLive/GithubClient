@@ -25,10 +25,10 @@ class ZLEventTableViewCellData: ZLGithubItemTableViewCellData {
         }
         
         var  showReportButton = ZLSharedDataManager.sharedInstance().configModel?.ReportFunction ?? true
-        if ZLUserServiceModel.shared().currentUserLoginName() == "ExistOrLive1"{
+        if ZLServiceManager.sharedInstance.userServiceModel?.currentUserLoginName() == "ExistOrLive1"{
             showReportButton = true
         }
-        if ZLUserServiceModel.shared().currentUserLoginName() == self.eventModel.actor.login {
+        if ZLServiceManager.sharedInstance.userServiceModel?.currentUserLoginName() == self.eventModel.actor.login {
             showReportButton = false
         }
         

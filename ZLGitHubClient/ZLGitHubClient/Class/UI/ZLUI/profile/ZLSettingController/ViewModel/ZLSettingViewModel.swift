@@ -30,7 +30,7 @@ class ZLSettingViewModel: ZLBaseViewModel {
     
     deinit {
         NotificationCenter.default.removeObserver(self, name: ZLLanguageTypeChange_Notificaiton, object: nil)
-        ZLLoginServiceModel.shared().unRegisterObserver(self, name: ZLLogoutResult_Notification)
+        ZLServiceManager.sharedInstance.loginServiceModel?.unRegisterObserver(self, name: ZLLogoutResult_Notification)
     }
     
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
@@ -47,7 +47,7 @@ class ZLSettingViewModel: ZLBaseViewModel {
         settingItemForFirstSection.append(monitor)
         #endif
         if ZLSharedDataManager.sharedInstance().configModel?.BlockFunction ?? true ||
-            ZLUserServiceModel.shared().currentUserLoginName() == "ExistOrLive1" {
+            ZLServiceManager.sharedInstance.userServiceModel?.currentUserLoginName() == "ExistOrLive1" {
             settingItemForFirstSection.append(.blockedUser)
         }
         if #available(iOS 13.0, *) {
@@ -62,7 +62,7 @@ class ZLSettingViewModel: ZLBaseViewModel {
         self.tableView?.delegate = self
         
         NotificationCenter.default.addObserver(self, selector:#selector(onNotificationArrived(notication:)) , name: ZLLanguageTypeChange_Notificaiton, object: nil)
-        ZLLoginServiceModel.shared().registerObserver(self, selector:#selector(onNotificationArrived(notication:)), name:ZLLogoutResult_Notification)
+        ZLServiceManager.sharedInstance.loginServiceModel?.registerObserver(self, selector:#selector(onNotificationArrived(notication:)), name:ZLLogoutResult_Notification)
     }
     
     
@@ -73,7 +73,7 @@ class ZLSettingViewModel: ZLBaseViewModel {
         let confirmAction = UIAlertAction.init(title: ZLLocalizedString(string: "Confirm", comment: "确认"), style: UIAlertAction.Style.destructive, handler:{ (action : UIAlertAction) in
             
             self.logoutSerialNumber = NSString.generateSerialNumber()
-            ZLLoginServiceModel.shared().logout(self.logoutSerialNumber ?? "")
+            ZLServiceManager.sharedInstance.loginServiceModel?.logout(self.logoutSerialNumber ?? "")
         })
         
         alertController.addAction(cancelAction)

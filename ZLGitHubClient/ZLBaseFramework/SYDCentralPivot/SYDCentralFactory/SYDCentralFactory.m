@@ -8,7 +8,8 @@
 
 #import "SYDCentralFactory.h"
 
-#import <objc/runtime.h>
+#import <objc/Runtime.h>
+#import <objc/message.h>
 
 @interface SYDCentralFactory()
 
@@ -34,72 +35,76 @@
 
 - (instancetype) init
 {
-    if(self = [super init])
-    {
-        NSString * centralRouterConfigPath = [[NSBundle mainBundle] pathForResource:@"SYDCenteralFactoryConfig" ofType:@"plist"];
-        NSDictionary * centralRouterConfig = [[NSDictionary alloc] initWithContentsOfFile:centralRouterConfigPath];
-        
-        if(centralRouterConfig)
-        {
-            _sydCentralModelMap = [[NSMutableDictionary alloc] init];
-            //            _viewControllerModelMapCache = [[NSMutableDictionary alloc] init];
-            //            _serviceModelMapCache = [[NSMutableDictionary alloc] init];
-            //            _otherMapCache= [[NSMutableDictionary alloc] init];
-            
-            [centralRouterConfig enumerateKeysAndObjectsUsingBlock:^(id key,id value,BOOL * stop)
-             {
-                NSString * modelKey = key;
-                NSDictionary * modelValue = value;
-                
-                NSString * classString = [modelValue objectForKey:@"class"];
-                Class cla = NSClassFromString(classString);
-                if(!cla){
-                    // 支持swift 创建的类
-                    NSString *appName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleName"];
-                    NSString *classStringName = [NSString stringWithFormat:@"_TtC%lu%@%lu%@", (unsigned long)appName.length, appName, (unsigned long)classString.length, classString];
-                    cla = NSClassFromString(classStringName);
-                }
-                
-                
-                if(cla)
-                {
-                    SYDCentralRouterModelType type = (SYDCentralRouterModelType)((NSNumber *)[modelValue objectForKey:@"type"]).intValue;
-                    SYDCentralRouterModel * model = nil;
-                    if(SYDCentralRouterModelType_Service == type)
-                    {
-                        SYDCentralRouterServiceModel * tmpModel = [[SYDCentralRouterServiceModel alloc] init];
-                        NSDictionary * queueInfo = [modelValue objectForKey:@"asyncMethods"];
-                        
-                        if(queueInfo)
-                        {
-                            [tmpModel setQueueTag:[queueInfo objectForKey:@"queueTag"]];
-                            [tmpModel setAsyncMethodArray:[queueInfo objectForKey:@"methods"]];
-                        }
-                    }
-                    else
-                    {
-                        model = [[SYDCentralRouterModel alloc] init];
-                    }
-                    
-                    [model setModelType:type];
-                    [model setModelKey:modelKey];
-                    [model setCla:cla];
-                    [model setIsSingle:[[modelValue objectForKey:@"isSingle"] boolValue]];
-                    [model setSingletonMethodStr:[modelValue objectForKey:@"singleMethod"]];
-                    [_sydCentralModelMap setObject:model forKey:modelKey];
-                    
-                }
-                else
-                {
-                    NSLog(@"SYDCentralFactory_init: class for [%@] not exist",modelKey);
-                }
-            }];
-        }
+    if(self = [super init]){
+        _sydCentralModelMap = [[NSMutableDictionary alloc] init];
     }
     
     return self;
 }
 
+
+- (void) addConfigWithFilePath:(NSString *) filePath withBundle:(NSBundle *) bundle{
+    
+    NSDictionary * centralRouterConfig = [[NSDictionary alloc] initWithContentsOfFile:filePath];
+    
+    if(centralRouterConfig){
+        
+        [centralRouterConfig enumerateKeysAndObjectsUsingBlock:^(id key,id value,BOOL * stop)
+         {
+            NSString * modelKey = key;
+            NSDictionary * modelValue = value;
+            
+            NSString * classString = [modelValue objectForKey:@"class"];
+            Class cla = NSClassFromString(classString);
+            if(!cla){
+                // 支持swift 创建的类
+                NSBundle *tmpBundle = bundle;
+                if(!tmpBundle){
+                    tmpBundle = [NSBundle mainBundle];
+                }
+                NSString *moduleName = [tmpBundle objectForInfoDictionaryKey:@"CFBundleName"];
+                NSString *classStringName = [NSString stringWithFormat:@"_TtC%lu%@%lu%@", (unsigned long)moduleName.length, moduleName, (unsigned long)classString.length, classString];
+                cla = NSClassFromString(classStringName);
+            }
+            
+            if(cla)
+            {
+                SYDCentralRouterModelType type = (SYDCentralRouterModelType)((NSNumber *)[modelValue objectForKey:@"type"]).intValue;
+                SYDCentralRouterModel * model = nil;
+                if(SYDCentralRouterModelType_Service == type)
+                {
+                    SYDCentralRouterServiceModel * tmpModel = [[SYDCentralRouterServiceModel alloc] init];
+                    NSDictionary * queueInfo = [modelValue objectForKey:@"asyncMethods"];
+                    
+                    if(queueInfo)
+                    {
+                        [tmpModel setQueueTag:[queueInfo objectForKey:@"queueTag"]];
+                        [tmpModel setAsyncMethodArray:[queueInfo objectForKey:@"methods"]];
+                    }
+                    model = tmpModel;
+                }
+                else
+                {
+                    model = [[SYDCentralRouterModel alloc] init];
+                }
+                
+                [model setModelType:type];
+                [model setModelKey:modelKey];
+                [model setCla:cla];
+                [model setIsSingle:[[modelValue objectForKey:@"isSingle"] boolValue]];
+                [model setSingletonMethodStr:[modelValue objectForKey:@"singleMethod"]];
+                [_sydCentralModelMap setObject:model forKey:modelKey];
+                
+            }
+            else
+            {
+                NSLog(@"SYDCentralFactory_init: class for [%@] not exist",modelKey);
+            }
+        }];
+    }
+    
+    
+}
 
 - (SYDCentralRouterModel *) getCentralRouterModel:(const NSString *) beanKey
 {
@@ -169,7 +174,6 @@
     return commonBean;
 }
 
-
 - (id) getSingleton:(const NSString *) beanKey
 {
     SYDCentralRouterModel * model = [self.sydCentralModelMap objectForKey:beanKey];
@@ -209,3 +213,128 @@
 
 
 @end
+
+
+
+@implementation SYDCentralFactory (ViewController)
+
+- (UIViewController *) getOneUIViewController:(const NSString *) viewControllerKey
+{
+    Class viewControllerClass = [self getViewControllerClass:viewControllerKey];
+    
+    if(!viewControllerClass)
+    {
+       NSLog(@"SYDCentralFactory_getOneUIViewController: class for [%@] is not exist",viewControllerKey);
+        return nil;
+    }
+    
+    SEL getOneViewControllerSEL = @selector(getOneViewController);
+    
+    Method getOneViewControllerMethod = class_getClassMethod(viewControllerClass,getOneViewControllerSEL);
+    
+    UIViewController *(*getOneViewController)(id,SEL) = (UIViewController * (*)(id,SEL))method_getImplementation(getOneViewControllerMethod);
+    
+    if(getOneViewController)
+    {
+        return  getOneViewController(viewControllerClass,
+                                     getOneViewControllerSEL);
+    }
+    else
+    {
+        NSLog(@"SYDCentralFactory_getOneViewController: method for [%@] not exist ",viewControllerKey);
+        return class_createInstance(viewControllerClass, 0);
+    }
+}
+
+- (UIViewController *) getOneUIViewController:(const NSString *) viewControllerKey withInjectParam:(NSDictionary *) param
+{
+    UIViewController * viewController = [self getOneUIViewController:viewControllerKey];
+    
+    if(viewController)
+    {
+        [param enumerateKeysAndObjectsUsingBlock:^(id key,id value,BOOL * stop)
+         {
+             NSString * tmpKey = key;
+             @try
+             {
+                 [viewController setValue:value forKey:tmpKey];
+             }
+             @catch(NSException * exception)
+             {
+                 NSLog(@"SYDCentralFactory_getOneUIViewControllerWithInjectParam: value for key[%@] not exist,exception[%@]",viewControllerKey,exception);
+             }
+             
+         }];
+    }
+
+    return viewController;
+}
+
+- (Class) getViewControllerClass:(const NSString *) viewControllerKey
+{
+    Class viewControllerClass = nil;
+    
+    if(!self.viewControllerModelMapCache)
+    {
+        self.viewControllerModelMapCache = [[NSMutableDictionary alloc] init];
+    }
+    else
+    {
+        viewControllerClass = [self.viewControllerModelMapCache objectForKey:viewControllerKey];
+    }
+    
+    if(!viewControllerClass)
+    {
+        SYDCentralRouterModel * model = [self getCentralRouterModel:viewControllerKey];
+        viewControllerClass = [model cla];
+        
+        if(!model || !viewControllerClass)
+        {
+            NSLog(@"SYDCentralFactory_getViewControllerClass: model for [%@] is not exist",viewControllerKey);
+            return nil;
+        }
+        
+        [self.viewControllerModelMapCache setObject:viewControllerClass forKey:viewControllerKey];
+    }
+    
+    return viewControllerClass;
+}
+
+
+@end
+
+
+@implementation SYDCentralFactory (SYDService)
+
+- (id) getSYDServiceBean:(const NSString *) serviceKey
+{
+    id serviceBean = nil;
+    
+    if(!self.serviceModelMapCache)
+    {
+        self.serviceModelMapCache = [[NSMutableDictionary alloc] init];
+    }
+    else
+    {
+        serviceBean = [self.serviceModelMapCache objectForKey:serviceKey];
+    }
+    
+    if(!serviceBean)
+    {
+        serviceBean = [self getCommonBean:serviceKey];
+        
+        if(serviceBean)
+        {
+            [self.serviceModelMapCache setObject:serviceBean forKey:serviceKey];
+        }
+        else
+        {
+            NSLog(@"SYDCentralFactory_getSYDServiceBean: serviceBean for [%@] not exist",serviceKey);
+        }
+    }
+    
+    return serviceBean;
+}
+
+@end
+

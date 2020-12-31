@@ -21,7 +21,7 @@ class ZLRepoLanguagesPercentView: ZLBaseView {
     
     class func showRepoLanguagesPercentView(fullName:String) -> Void {
         SVProgressHUD.show()
-        ZLRepoServiceModel.shared().getRepoLanguages(withFullName: fullName, serialNumber: NSString.generateSerialNumber(), completeHandle: {(result : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoLanguages(withFullName: fullName, serialNumber: NSString.generateSerialNumber(), completeHandle: {(result : ZLOperationResultModel) in
             SVProgressHUD.dismiss()
             if result.result == true {
                 

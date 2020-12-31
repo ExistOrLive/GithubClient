@@ -273,7 +273,7 @@
 @implementation ZLBaseViewController(Tool)
 
 + (UIViewController *)getTopViewController{
-    return [self getTopViewControllerFromWindow:[UIApplication sharedApplication].keyWindow];
+    return [self getTopViewControllerFromWindow:[UIApplication sharedApplication].delegate.window];
 }
 
 + (UIViewController *)getTopViewControllerFromWindow:(UIWindow *) window{

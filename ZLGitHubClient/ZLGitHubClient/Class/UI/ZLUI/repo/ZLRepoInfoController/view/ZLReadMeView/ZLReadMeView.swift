@@ -75,7 +75,7 @@ class ZLReadMeView: ZLBaseView {
         
         weak var weakSelf = self
         
-        ZLRepoServiceModel.shared().getRepoReadMeInfo(withFullName:fullName , branch: branch , isHTML: true, serialNumber:self.serialNumber!, completeHandle: { (resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoReadMeInfo(withFullName:fullName , branch: branch , isHTML: true, serialNumber:self.serialNumber!, completeHandle: { (resultModel : ZLOperationResultModel) in
             
             if weakSelf?.serialNumber ?? "" != resultModel.serialNumber {
                 return
@@ -102,7 +102,7 @@ class ZLReadMeView: ZLBaseView {
         })
         
         
-        ZLRepoServiceModel.shared().getRepoReadMeInfo(withFullName:fullName , branch: branch , isHTML: false, serialNumber:self.serialNumber!, completeHandle: { (resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoReadMeInfo(withFullName:fullName , branch: branch , isHTML: false, serialNumber:self.serialNumber!, completeHandle: { (resultModel : ZLOperationResultModel) in
             
             if weakSelf?.serialNumber ?? "" != resultModel.serialNumber {
                 return

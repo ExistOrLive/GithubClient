@@ -39,7 +39,7 @@ class ZLProfileBaseViewModel: ZLBaseViewModel {
         
         weak var weakSelf = self
         self.profileBaseView?.tableView.mj_header = ZLRefresh.refreshHeader {
-            ZLUserServiceModel.shared().currentUserInfo()
+            ZLServiceManager.sharedInstance.userServiceModel?.currentUserInfo()
             weakSelf?.profileBaseView?.tableView.mj_header?.endRefreshing()
         }
         
@@ -52,7 +52,7 @@ class ZLProfileBaseViewModel: ZLBaseViewModel {
         super.vcLifeCycle_viewWillAppear()
         
         // 每次界面将要展示时，更新数据
-        guard let currentUserInfo:ZLGithubUserModel =  ZLUserServiceModel.shared().currentUserInfo() else
+        guard let currentUserInfo:ZLGithubUserModel =  ZLServiceManager.sharedInstance.userServiceModel?.currentUserInfo() else
         {
             return;
         }
@@ -291,7 +291,7 @@ extension ZLProfileBaseViewModel
         let serialNumber = NSString.generateSerialNumber()
         self.serailNumberDic[ZLProfileBaseViewModel.queryMyEventRequestKey] = serialNumber
         
-        ZLEventServiceModel.shareInstance()?.getMyEventsWithpage(1, per_page: 10, serialNumber: serialNumber)
+        ZLServiceManager.sharedInstance.eventServiceModel?.getMyEventsWithpage(1, per_page: 10, serialNumber: serialNumber)
     }
 }
 
@@ -300,16 +300,17 @@ extension ZLProfileBaseViewModel
 {
     func addObservers()
     {
-        ZLUserServiceModel.shared().registerObserver(self, selector: #selector(onNotificationArrived(notication:)), name: ZLGetCurrentUserInfoResult_Notification)
-        ZLEventServiceModel.shareInstance()?.registerObserver(self, selector: #selector(onNotificationArrived(notication:)), name: ZLGetMyEventResult_Notification)
+        
+        ZLServiceManager.sharedInstance.userServiceModel?.registerObserver(self, selector: #selector(onNotificationArrived(notication:)), name: ZLGetCurrentUserInfoResult_Notification)
+        ZLServiceManager.sharedInstance.eventServiceModel?.registerObserver(self, selector: #selector(onNotificationArrived(notication:)), name: ZLGetMyEventResult_Notification)
         NotificationCenter.default.addObserver(self, selector: #selector(onNotificationArrived(notication:)), name: ZLLanguageTypeChange_Notificaiton, object: nil)
     }
     
     func removeObservers()
     {
         // 注销监听
-        ZLUserServiceModel.shared().unRegisterObserver(self, name: ZLGetCurrentUserInfoResult_Notification)
-        ZLEventServiceModel.shareInstance()?.unRegisterObserver(self, name: ZLGetMyEventResult_Notification)
+        ZLServiceManager.sharedInstance.userServiceModel?.unRegisterObserver(self, name: ZLGetCurrentUserInfoResult_Notification)
+        ZLServiceManager.sharedInstance.eventServiceModel?.unRegisterObserver(self, name: ZLGetMyEventResult_Notification)
         NotificationCenter.default.removeObserver(self, name: ZLLanguageTypeChange_Notificaiton, object: nil)
     }
     

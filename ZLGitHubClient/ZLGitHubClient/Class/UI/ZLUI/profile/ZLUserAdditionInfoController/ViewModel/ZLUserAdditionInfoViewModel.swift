@@ -26,10 +26,10 @@ class ZLUserAdditionInfoViewModel: ZLBaseViewModel {
     
     deinit {
         // 注销监听
-        ZLAdditionInfoServiceModel.shared().unRegisterObserver(self, name:ZLGetReposResult_Notification);
-        ZLAdditionInfoServiceModel.shared().unRegisterObserver(self, name:ZLGetFollowingResult_Notification);
-        ZLAdditionInfoServiceModel.shared().unRegisterObserver(self, name:ZLGetFollowersResult_Notification);
-        ZLAdditionInfoServiceModel.shared().unRegisterObserver(self, name: ZLGetGistsResult_Notification)
+        ZLServiceManager.sharedInstance.additionServiceModel?.unRegisterObserver(self, name:ZLGetReposResult_Notification);
+        ZLServiceManager.sharedInstance.additionServiceModel?.unRegisterObserver(self, name:ZLGetFollowingResult_Notification);
+        ZLServiceManager.sharedInstance.additionServiceModel?.unRegisterObserver(self, name:ZLGetFollowersResult_Notification);
+        ZLServiceManager.sharedInstance.additionServiceModel?.unRegisterObserver(self, name: ZLGetGistsResult_Notification)
     }
 
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
@@ -53,10 +53,10 @@ class ZLUserAdditionInfoViewModel: ZLBaseViewModel {
         self.userInfo = dic["userInfo"] as? ZLGithubUserModel
         
         // 2、 注册对于 ZLAdditionInfoServiceModel 通知的监听
-        ZLAdditionInfoServiceModel.shared().registerObserver(self, selector: #selector(self.onNotificationArrived(notification:)), name: ZLGetReposResult_Notification)
-        ZLAdditionInfoServiceModel.shared().registerObserver(self, selector: #selector(self.onNotificationArrived(notification:)), name: ZLGetFollowingResult_Notification)
-        ZLAdditionInfoServiceModel.shared().registerObserver(self, selector: #selector(self.onNotificationArrived(notification:)), name: ZLGetFollowersResult_Notification)
-        ZLAdditionInfoServiceModel.shared().registerObserver(self, selector: #selector(self.onNotificationArrived(notification:)), name: ZLGetGistsResult_Notification)
+        ZLServiceManager.sharedInstance.additionServiceModel?.registerObserver(self, selector: #selector(self.onNotificationArrived(notification:)), name: ZLGetReposResult_Notification)
+        ZLServiceManager.sharedInstance.additionServiceModel?.registerObserver(self, selector: #selector(self.onNotificationArrived(notification:)), name: ZLGetFollowingResult_Notification)
+        ZLServiceManager.sharedInstance.additionServiceModel?.registerObserver(self, selector: #selector(self.onNotificationArrived(notification:)), name: ZLGetFollowersResult_Notification)
+        ZLServiceManager.sharedInstance.additionServiceModel?.registerObserver(self, selector: #selector(self.onNotificationArrived(notification:)), name: ZLGetGistsResult_Notification)
                 
         // 根据model 更新 UI
         self.setViewDataForUserAdditionInfoView(userInfo: self.userInfo!, type: self.type!, view: self.baseView!);
@@ -191,11 +191,12 @@ extension ZLUserAdditionInfoViewModel : ZLGithubItemListViewDelegate {
     func githubItemListViewRefreshDragDown(pullRequestListView: ZLGithubItemListView) -> Void{
         self.serialNumber = NSString.generateSerialNumber()
         self.isResetData = true
-        ZLAdditionInfoServiceModel.shared().getAdditionInfo(forUser: self.userInfo!.loginName, infoType: self.type!, page:1, per_page:ZLUserAdditionInfoViewModel.per_page, serialNumber: self.serialNumber!);
+        
+        ZLServiceManager.sharedInstance.additionServiceModel?.getAdditionInfo(forUser: self.userInfo!.loginName, infoType: self.type!, page:1, per_page:ZLUserAdditionInfoViewModel.per_page, serialNumber: self.serialNumber!);
     }
     
     func githubItemListViewRefreshDragUp(pullRequestListView: ZLGithubItemListView) -> Void{
         self.serialNumber = NSString.generateSerialNumber()
-        ZLAdditionInfoServiceModel.shared().getAdditionInfo(forUser: self.userInfo!.loginName, infoType: self.type!, page:UInt(self.currentPage + 1), per_page:ZLUserAdditionInfoViewModel.per_page, serialNumber: self.serialNumber!);
+        ZLServiceManager.sharedInstance.additionServiceModel?.getAdditionInfo(forUser: self.userInfo!.loginName, infoType: self.type!, page:UInt(self.currentPage + 1), per_page:ZLUserAdditionInfoViewModel.per_page, serialNumber: self.serialNumber!);
     }
 }

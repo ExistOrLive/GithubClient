@@ -16,7 +16,7 @@ class ZLLoginViewModel: ZLBaseViewModel,ZLLoginBaseViewDelegate {
     private var loginSerialNumber : String?
     
     deinit {
-        ZLLoginServiceModel.shared().unRegisterObserver(self, name: ZLLoginResult_Notification)
+        ZLServiceManager.sharedInstance.loginServiceModel?.unRegisterObserver(self, name: ZLLoginResult_Notification)
     }
     
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
@@ -28,7 +28,7 @@ class ZLLoginViewModel: ZLBaseViewModel,ZLLoginBaseViewDelegate {
         self.baseView?.delegate = self;
         
         // 注册对于登陆结果的通知
-        ZLLoginServiceModel.shared().registerObserver(self, selector: #selector(onNotificationArrived(notificaiton:)), name:ZLLoginResult_Notification)
+        ZLServiceManager.sharedInstance.loginServiceModel?.registerObserver(self, selector: #selector(onNotificationArrived(notificaiton:)), name:ZLLoginResult_Notification)
         
         self.reloadView()
     }
@@ -40,7 +40,7 @@ class ZLLoginViewModel: ZLBaseViewModel,ZLLoginBaseViewDelegate {
     
     func reloadView()
     {
-        switch(ZLLoginServiceModel.shared().currentLoginStep()){
+        switch(ZLServiceManager.sharedInstance.loginServiceModel?.currentLoginStep()){
         case ZLLoginStep_init:do{
             self.baseView?.loginButton.isEnabled = true
             self.baseView?.accessTokenButton.isEnabled = true
@@ -91,7 +91,7 @@ class ZLLoginViewModel: ZLBaseViewModel,ZLLoginBaseViewDelegate {
         
         // 开始登陆认证
         self.loginSerialNumber = NSString.generateSerialNumber()
-        ZLLoginServiceModel.shared().startOAuth(self.loginSerialNumber!)
+        ZLServiceManager.sharedInstance.loginServiceModel?.startOAuth(self.loginSerialNumber!)
         
         self.reloadView()
     }
@@ -105,7 +105,7 @@ class ZLLoginViewModel: ZLBaseViewModel,ZLLoginBaseViewDelegate {
             }
             
             self.loginSerialNumber = NSString.generateSerialNumber()
-            ZLLoginServiceModel.shared().checkTokenIsValid(token!, serialNumber:self.loginSerialNumber!)
+            ZLServiceManager.sharedInstance.loginServiceModel?.checkTokenIsValid(token!, serialNumber:self.loginSerialNumber!)
             
             self.reloadView()
         })

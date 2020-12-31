@@ -9,8 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#import "SYDCentralFactory.h"
-
+@class SYDCentralFactory;
 
 @interface SYDCentralRouter : NSObject
 
@@ -18,4 +17,19 @@
 
 + (instancetype) sharedInstance;
 
+- (void) addConfigWithFilePath:(NSString *) filePath withBundle:(NSBundle *) bundle;
+
 @end
+
+@interface SYDCentralRouter (ViewController)
+
+- (void) enterViewController:(const NSString *) viewControllerKey withViewControllerConfig:(id) config withParam:(NSDictionary *) paramDic;
+
+@end
+
+@interface SYDCentralRouter (SYDService)
+
+- (id) sendMessageToService:(const NSString *) serviceKey withSEL:(SEL) message withPara:(NSArray *) paramArray isInstanceMessage:(BOOL) isInstanceMessage;
+
+@end
+

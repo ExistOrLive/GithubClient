@@ -47,7 +47,8 @@ class ZLNotificationTableViewCellData: ZLGithubItemTableViewCellData {
                 if self.data.id_Notification != nil {
                     SVProgressHUD.show()
                     weak var weakSelf = self
-                    ZLNotificationServiceModel.sharedInstance().markNotificationRead(notificationId: self.data.id_Notification!, serialNumber: NSString.generateSerialNumber(), completeHandle: {(result : ZLOperationResultModel) in
+                    
+                    ZLServiceManager.sharedInstance.notificationServiceModel?.markNotificationRead(notificationId: self.data.id_Notification!, serialNumber: NSString.generateSerialNumber(), completeHandle: {(result : ZLOperationResultModel) in
                         
                         block(true)
                         SVProgressHUD.dismiss()

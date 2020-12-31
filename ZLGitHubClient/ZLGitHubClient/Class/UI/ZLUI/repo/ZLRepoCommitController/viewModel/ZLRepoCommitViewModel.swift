@@ -50,7 +50,7 @@ extension ZLRepoCommitViewModel
         
         let date = Date.init(timeInterval: -1, since: self.untilDate ?? Date.init())
         weak var weakSelf = self
-        ZLRepoServiceModel.shared().getRepoCommit(withFullName: self.fullName!, branch: self.branch, until: date, since: nil, serialNumber: NSString.generateSerialNumber(), completeHandle: { (resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoCommit(withFullName: self.fullName!, branch: self.branch, until: date, since: nil, serialNumber: NSString.generateSerialNumber(), completeHandle: { (resultModel : ZLOperationResultModel) in
             
             if resultModel.result == false
             {
@@ -91,7 +91,7 @@ extension ZLRepoCommitViewModel
         }
         
         weak var weakSelf = self
-        ZLRepoServiceModel.shared().getRepoCommit(withFullName: self.fullName!, branch: self.branch, until: Date.init(), since: nil, serialNumber: NSString.generateSerialNumber(), completeHandle: { (resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoCommit(withFullName: self.fullName!, branch: self.branch, until: Date.init(), since: nil, serialNumber: NSString.generateSerialNumber(), completeHandle: { (resultModel : ZLOperationResultModel) in
             
             if resultModel.result == false
             {

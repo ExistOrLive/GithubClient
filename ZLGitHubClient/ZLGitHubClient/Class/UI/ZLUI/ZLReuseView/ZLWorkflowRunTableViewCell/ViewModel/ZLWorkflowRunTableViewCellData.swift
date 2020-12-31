@@ -65,7 +65,7 @@ extension ZLWorkflowRunTableViewCellData : ZLWorkflowRunTableViewCellDelegate {
                 
                 if index == 0 {
                     SVProgressHUD.show()
-                    ZLRepoServiceModel.shared().rerunRepoWorkflowRun(withFullName: self.repoFullName, workflowRunId: self.data.id_workflowrun ?? "", serialNumber: NSString.generateSerialNumber()) { (result : ZLOperationResultModel) in
+                    ZLServiceManager.sharedInstance.repoServiceModel?.rerunRepoWorkflowRun(withFullName: self.repoFullName, workflowRunId: self.data.id_workflowrun ?? "", serialNumber: NSString.generateSerialNumber()) { (result : ZLOperationResultModel) in
                         SVProgressHUD.dismiss()
                         if result.result == true {
                             ZLToastView.showMessage("rerun success,please refresh")
@@ -85,7 +85,7 @@ extension ZLWorkflowRunTableViewCellData : ZLWorkflowRunTableViewCellDelegate {
                 
                 if index == 0 {
                     SVProgressHUD.show()
-                    ZLRepoServiceModel.shared().cancelRepoWorkflowRun(withFullName: self.repoFullName, workflowRunId: self.data.id_workflowrun ?? "", serialNumber: NSString.generateSerialNumber()) { (result : ZLOperationResultModel) in
+                    ZLServiceManager.sharedInstance.repoServiceModel?.cancelRepoWorkflowRun(withFullName: self.repoFullName, workflowRunId: self.data.id_workflowrun ?? "", serialNumber: NSString.generateSerialNumber()) { (result : ZLOperationResultModel) in
                         SVProgressHUD.dismiss()
                         if result.result == true {
                             ZLToastView.showMessage("cancel success,please refresh")

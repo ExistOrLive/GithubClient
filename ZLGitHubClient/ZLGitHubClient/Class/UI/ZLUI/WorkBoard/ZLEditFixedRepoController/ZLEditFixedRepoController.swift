@@ -29,7 +29,7 @@ class ZLEditFixedRepoController : ZLBaseViewController,UITableViewDelegate,UITab
         
         super.viewDidLoad()
         
-        selectedRepos = ZLSharedDataManager.sharedInstance().fixRepos(forLoginUser: ZLUserServiceModel.shared().currentUserLoginName()) ?? []
+        selectedRepos = ZLSharedDataManager.sharedInstance().fixRepos(forLoginUser: ZLServiceManager.sharedInstance.userServiceModel?.currentUserLoginName() ?? "") ?? []
     
         self.title = ZLLocalizedString(string: "Repos", comment: "")
         
@@ -80,7 +80,9 @@ class ZLEditFixedRepoController : ZLBaseViewController,UITableViewDelegate,UITab
     }
     
     @objc func onSaveButtonClicked(){
-        ZLSharedDataManager.sharedInstance().setFixRepos(self.selectedRepos, forLoginUser: ZLUserServiceModel.shared().currentUserLoginName())
+        if let currentUserLoginName = ZLServiceManager.sharedInstance.userServiceModel?.currentUserLoginName() {
+            ZLSharedDataManager.sharedInstance().setFixRepos(self.selectedRepos, forLoginUser:currentUserLoginName)
+        }
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -90,7 +92,7 @@ class ZLEditFixedRepoController : ZLBaseViewController,UITableViewDelegate,UITab
         
         self.tableView.mj_footer?.resetNoMoreData()
         weak var weakSelf = self
-        ZLRepoServiceModel.shared().getTopReposWith(afterCursor: nil , serialNumber: NSString.generateSerialNumber()) { (resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.repoServiceModel?.getTopReposWith(afterCursor: nil , serialNumber: NSString.generateSerialNumber()) { (resultModel : ZLOperationResultModel) in
             
             if resultModel.result == false {
                 if let errorModel = resultModel.data as? ZLGithubRequestErrorModel{
@@ -115,7 +117,7 @@ class ZLEditFixedRepoController : ZLBaseViewController,UITableViewDelegate,UITab
     func loadMoreData(){
         
         weak var weakSelf = self
-        ZLRepoServiceModel.shared().getTopReposWith(afterCursor: after , serialNumber: NSString.generateSerialNumber()) { (resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.repoServiceModel?.getTopReposWith(afterCursor: after , serialNumber: NSString.generateSerialNumber()) { (resultModel : ZLOperationResultModel) in
             
             if resultModel.result == false {
                 if let errorModel = resultModel.data as? ZLGithubRequestErrorModel{
@@ -350,7 +352,7 @@ class ZLEditFixedRepoSearchController : ZLBaseViewController,UITableViewDelegate
         self.tableView.reloadData()
         
         weak var weakSelf = self
-        ZLSearchServiceModel.shared().searchInfo(withKeyWord: self.searchKey!,
+        ZLServiceManager.sharedInstance.searchServiceModel?.searchInfo(withKeyWord: self.searchKey!,
                                                  type: .repositories,
                                                  filterInfo: nil,
                                                  page: 0,
@@ -383,7 +385,7 @@ class ZLEditFixedRepoSearchController : ZLBaseViewController,UITableViewDelegate
     func loadMoreData(){
         
         weak var weakSelf = self
-        ZLSearchServiceModel.shared().searchInfo(withKeyWord: self.searchKey!,
+        ZLServiceManager.sharedInstance.searchServiceModel?.searchInfo(withKeyWord: self.searchKey!,
                                                  type: .repositories,
                                                  filterInfo: nil,
                                                  page: pageNum,

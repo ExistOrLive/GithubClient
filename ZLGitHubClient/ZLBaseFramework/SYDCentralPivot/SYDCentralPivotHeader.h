@@ -10,12 +10,8 @@
 #define SYDCentralPivotHead_h
 
 #import "SYDCentralFactory.h"
-#import "SYDCentralFactory+ViewController.h"
-#import "SYDCentralFactory+SYDService.h"
 
 #import "SYDCentralRouter.h"
-#import "SYDCentralRouter+ViewController.h"
-#import "SYDCentralRouter+SYDService.h"
 
 #import "SYDCentralQueuePool.h"
 

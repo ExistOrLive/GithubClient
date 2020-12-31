@@ -54,7 +54,7 @@ class ZLNotificationViewModel: ZLBaseViewModel {
     func loadMoreData(){
         
         weak var weakSelf = self
-        ZLNotificationServiceModel.sharedInstance().getNoticaitions(showAll:self.showAllNotification,page: self.pageNum + 1, per_page: 10, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.notificationServiceModel?.getNoticaitions(showAll:self.showAllNotification,page: self.pageNum + 1, per_page: 10, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
             
             if resultModel.result == false {
                 guard let errorModel : ZLGithubRequestErrorModel = resultModel.data as? ZLGithubRequestErrorModel else {
@@ -87,7 +87,7 @@ class ZLNotificationViewModel: ZLBaseViewModel {
     func loadNewData(){
         
         weak var weakSelf = self
-        ZLNotificationServiceModel.sharedInstance().getNoticaitions(showAll:self.showAllNotification, page: 1, per_page: 10, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.notificationServiceModel?.getNoticaitions(showAll:self.showAllNotification, page: 1, per_page: 10, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
             
             SVProgressHUD.dismiss()
             if resultModel.result == false {

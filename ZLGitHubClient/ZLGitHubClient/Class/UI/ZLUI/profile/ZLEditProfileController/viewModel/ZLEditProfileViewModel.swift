@@ -51,7 +51,7 @@ class ZLEditProfileViewModel: ZLBaseViewModel {
         let location = self.editProfileView?.contentView?.addressTextField.text
         let blog = self.editProfileView?.contentView?.blogTextField.text
         
-        ZLUserServiceModel.shared().updateUserPublicProfileWithemail(nil, blog: blog, company: company, location: location, bio: bio, serialNumber: NSString.generateSerialNumber())
+        ZLServiceManager.sharedInstance.userServiceModel?.updateUserPublicProfileWithemail(nil, blog: blog, company: company, location: location, bio: bio, serialNumber: NSString.generateSerialNumber())
         
         SVProgressHUD.show();
     }
@@ -59,12 +59,12 @@ class ZLEditProfileViewModel: ZLBaseViewModel {
     
     func addObservers()
     {
-        ZLUserServiceModel.shared().registerObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLUpdateUserPublicProfileInfoResult_Notification)
+        ZLServiceManager.sharedInstance.userServiceModel?.registerObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLUpdateUserPublicProfileInfoResult_Notification)
     }
     
     func removeObservers()
     {
-        ZLUserServiceModel.shared().unRegisterObserver(self, name: ZLUpdateUserPublicProfileInfoResult_Notification)
+        ZLServiceManager.sharedInstance.userServiceModel?.unRegisterObserver(self, name: ZLUpdateUserPublicProfileInfoResult_Notification)
     }
     
     func setUpSaveButton()

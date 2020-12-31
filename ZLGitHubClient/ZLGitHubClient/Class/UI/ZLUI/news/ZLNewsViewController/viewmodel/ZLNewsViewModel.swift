@@ -32,14 +32,14 @@ class ZLNewsViewModel: ZLBaseViewModel {
         
         
         // 注册事件监听
-        ZLEventServiceModel.shareInstance().registerObserver(self, selector: #selector(onNotificationArrived(notification:)), name:ZLGetUserReceivedEventResult_Notification)
-        ZLUserServiceModel.shared().registerObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLGetCurrentUserInfoResult_Notification)
+        ZLServiceManager.sharedInstance.eventServiceModel?.registerObserver(self, selector: #selector(onNotificationArrived(notification:)), name:ZLGetUserReceivedEventResult_Notification)
+        ZLServiceManager.sharedInstance.userServiceModel?.registerObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLGetCurrentUserInfoResult_Notification)
         NotificationCenter.default.addObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLLanguageTypeChange_Notificaiton, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLGithubConfigUpdate_Notification, object: nil)
         
         
         //每次界面将要展示时，更新数据
-        self.userInfo = ZLUserServiceModel.shared().currentUserInfo()
+        self.userInfo = ZLServiceManager.sharedInstance.userServiceModel?.currentUserInfo()
         guard self.userInfo != nil else
         {
             return;
@@ -49,8 +49,8 @@ class ZLNewsViewModel: ZLBaseViewModel {
     }
     
     deinit {
-        ZLEventServiceModel.shareInstance().unRegisterObserver(self, name: ZLGetUserReceivedEventResult_Notification)
-        ZLUserServiceModel.shared().unRegisterObserver(self, name: ZLGetCurrentUserInfoResult_Notification)
+        ZLServiceManager.sharedInstance.eventServiceModel?.unRegisterObserver(self, name: ZLGetUserReceivedEventResult_Notification)
+        ZLServiceManager.sharedInstance.userServiceModel?.unRegisterObserver(self, name: ZLGetCurrentUserInfoResult_Notification)
         NotificationCenter.default.removeObserver(self)
     }
     
@@ -71,7 +71,7 @@ extension ZLNewsViewModel
     func loadMoreData()
     {
         self.serialNumber = NSString.generateSerialNumber()
-        ZLEventServiceModel.shareInstance().getReceivedEvents(forUser: userInfo?.loginName, page: UInt(self.currentPage + 1), per_page: UInt(self.per_page), serialNumber: self.serialNumber)
+        ZLServiceManager.sharedInstance.eventServiceModel?.getReceivedEvents(forUser: userInfo?.loginName, page: UInt(self.currentPage + 1), per_page: UInt(self.per_page), serialNumber: self.serialNumber)
     }
     
     
@@ -79,7 +79,7 @@ extension ZLNewsViewModel
     {
         self.isRefreshNew = true;
         self.serialNumber = NSString.generateSerialNumber()
-        ZLEventServiceModel.shareInstance().getReceivedEvents(forUser: userInfo?.loginName, page: 1, per_page: UInt(self.per_page), serialNumber: self.serialNumber)
+        ZLServiceManager.sharedInstance.eventServiceModel?.getReceivedEvents(forUser: userInfo?.loginName, page: 1, per_page: UInt(self.per_page), serialNumber: self.serialNumber)
     }
     
     

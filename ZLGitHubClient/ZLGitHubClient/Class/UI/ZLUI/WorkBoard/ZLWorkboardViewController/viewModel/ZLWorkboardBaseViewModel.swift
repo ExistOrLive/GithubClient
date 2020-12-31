@@ -33,7 +33,7 @@ class ZLWorkboardBaseViewModel: ZLBaseViewModel,ZLWorkboardBaseViewDelegate {
  
         
         NotificationCenter.default.addObserver(self, selector: #selector(ZLWorkboardBaseViewModel.onNotificationArrived), name: ZLLanguageTypeChange_Notificaiton, object: nil)
-        ZLUserServiceModel.shared().registerObserver(self, selector: #selector(ZLWorkboardBaseViewModel.onNotificationArrived), name: ZLGetCurrentUserInfoResult_Notification)
+        ZLServiceManager.sharedInstance.userServiceModel?.registerObserver(self, selector: #selector(ZLWorkboardBaseViewModel.onNotificationArrived), name: ZLGetCurrentUserInfoResult_Notification)
     }
     
     
@@ -50,7 +50,10 @@ class ZLWorkboardBaseViewModel: ZLBaseViewModel,ZLWorkboardBaseViewDelegate {
         
         let sectionArray : [ZLWorkboardClassicType] = [.work,.fixRepo]
         
-        self.fixedRepos = ZLSharedDataManager.sharedInstance().fixRepos(forLoginUser: ZLUserServiceModel.shared().currentUserLoginName()) ?? []
+        if let currentUserLoginName = ZLServiceManager.sharedInstance.userServiceModel?.currentUserLoginName() {
+            self.fixedRepos = ZLSharedDataManager.sharedInstance().fixRepos(forLoginUser:currentUserLoginName) ?? []
+        }
+
         var cellDataArray1 =  [ZLWorkboardTableViewCellData]()
         for repo in self.fixedRepos {
             cellDataArray1.append(ZLWorkboardTableViewCellData(title: repo.full_name ?? "", avatarURL: repo.owner_avatarURL ?? "", type: .fixRepo))

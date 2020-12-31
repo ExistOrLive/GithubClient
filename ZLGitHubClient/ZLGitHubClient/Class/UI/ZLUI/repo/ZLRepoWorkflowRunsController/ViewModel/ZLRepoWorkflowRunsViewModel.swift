@@ -41,7 +41,7 @@ class ZLRepoWorkflowRunsViewModel: ZLBaseViewModel {
     func loadNewData() {
         
         weak var weakSelf = self
-        ZLRepoServiceModel.shared().getRepoWorkflowRuns(withFullName: fullName, workflowId: workflow_id, per_page: 10, page: 1, serialNumber: NSString.generateSerialNumber()) { (result : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoWorkflowRuns(withFullName: fullName, workflowId: workflow_id, per_page: 10, page: 1, serialNumber: NSString.generateSerialNumber()) { (result : ZLOperationResultModel) in
             
             if result.result == false  {
                 ZLToastView.showMessage("Query failed")
@@ -71,7 +71,7 @@ class ZLRepoWorkflowRunsViewModel: ZLBaseViewModel {
     func loadMoreData(){
         
         weak var weakSelf = self
-        ZLRepoServiceModel.shared().getRepoWorkflowRuns(withFullName: fullName, workflowId: workflow_id, per_page: 10, page: self.currentPage + 1, serialNumber: NSString.generateSerialNumber()) { (result : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoWorkflowRuns(withFullName: fullName, workflowId: workflow_id, per_page: 10, page: self.currentPage + 1, serialNumber: NSString.generateSerialNumber()) { (result : ZLOperationResultModel) in
             
             if result.result == false  {
                 ZLToastView.showMessage("Query failed")

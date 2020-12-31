@@ -68,7 +68,7 @@ extension ZLMyEventBaseViewModel
         let serialNumber = NSString.generateSerialNumber()
         self.serialNumberDic.updateValue(serialNumber, forKey: ZLMyEventBaseViewModel.ZLQueryMoreMyEventRequestKey)
         
-        ZLEventServiceModel.shareInstance()?.getMyEventsWithpage(UInt(pageNum), per_page: UInt(pageSize), serialNumber: serialNumber)
+        ZLServiceManager.sharedInstance.eventServiceModel?.getMyEventsWithpage(UInt(pageNum), per_page: UInt(pageSize), serialNumber: serialNumber)
     }
     
     
@@ -77,7 +77,7 @@ extension ZLMyEventBaseViewModel
           let serialNumber = NSString.generateSerialNumber()
           self.serialNumberDic.updateValue(serialNumber, forKey: ZLMyEventBaseViewModel.ZLQueryNewMyEventRequestKey)
           
-          ZLEventServiceModel.shareInstance()?.getMyEventsWithpage(UInt(pageNum), per_page: UInt(pageSize), serialNumber: serialNumber)
+          ZLServiceManager.sharedInstance.eventServiceModel?.getMyEventsWithpage(UInt(pageNum), per_page: UInt(pageSize), serialNumber: serialNumber)
       }
 }
 
@@ -86,11 +86,11 @@ extension ZLMyEventBaseViewModel
 extension ZLMyEventBaseViewModel
 {
     func addObservers(){
-        ZLEventServiceModel.shareInstance()?.registerObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLGetMyEventResult_Notification)
+        ZLServiceManager.sharedInstance.eventServiceModel?.registerObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLGetMyEventResult_Notification)
     }
     
     func removeObservers(){
-        ZLEventServiceModel.shareInstance()?.unRegisterObserver(self, name: ZLGetMyEventResult_Notification)
+        ZLServiceManager.sharedInstance.eventServiceModel?.unRegisterObserver(self, name: ZLGetMyEventResult_Notification)
     }
     
     @objc func onNotificationArrived(notification: Notification)

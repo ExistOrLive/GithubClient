@@ -149,7 +149,7 @@ extension ZLRepoHeaderInfoViewModel : ZLRepoHeaderInfoViewDelegate
 extension ZLRepoHeaderInfoViewModel{
     func getRepoWatchStatus() -> Void {
         weak var weakSelf = self
-        ZLRepoServiceModel.shared().getRepoWatchStatus(withFullName: self.repoInfoModel!.full_name, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoWatchStatus(withFullName: self.repoInfoModel!.full_name, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
             
             if(resultModel.result) {
                 guard let data : [String:Bool] = resultModel.data as? [String:Bool] else {
@@ -170,7 +170,7 @@ extension ZLRepoHeaderInfoViewModel{
         if watch == true {
             
             SVProgressHUD.show()
-            ZLRepoServiceModel.shared().watchRepo(withFullName: self.repoInfoModel!.full_name, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+            ZLServiceManager.sharedInstance.repoServiceModel?.watchRepo(withFullName: self.repoInfoModel!.full_name, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
                 SVProgressHUD.dismiss()
                 if resultModel.result {
                     weakSelf?.repoHeaderInfoView?.watchButton.isSelected = true
@@ -184,7 +184,7 @@ extension ZLRepoHeaderInfoViewModel{
             
         } else {
             SVProgressHUD.show()
-            ZLRepoServiceModel.shared().unwatchRepo(withFullName: self.repoInfoModel!.full_name, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+            ZLServiceManager.sharedInstance.repoServiceModel?.unwatchRepo(withFullName: self.repoInfoModel!.full_name, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
                 SVProgressHUD.dismiss()
                 if resultModel.result {
                     weakSelf?.repoHeaderInfoView?.watchButton.isSelected = false
@@ -203,7 +203,7 @@ extension ZLRepoHeaderInfoViewModel{
     
     func getRepoStarStatus() -> Void {
         weak var weakSelf = self
-        ZLRepoServiceModel.shared().getRepoStarStatus(withFullName: self.repoInfoModel!.full_name, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoStarStatus(withFullName: self.repoInfoModel!.full_name, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
             
             if(resultModel.result) {
                 guard let data : [String:Bool] = resultModel.data as? [String:Bool] else {
@@ -224,7 +224,7 @@ extension ZLRepoHeaderInfoViewModel{
         if star == true {
             
             SVProgressHUD.show()
-            ZLRepoServiceModel.shared().starRepo(withFullName: self.repoInfoModel!.full_name, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+            ZLServiceManager.sharedInstance.repoServiceModel?.starRepo(withFullName: self.repoInfoModel!.full_name, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
                 SVProgressHUD.dismiss()
                 
                 if resultModel.result {
@@ -239,7 +239,7 @@ extension ZLRepoHeaderInfoViewModel{
             
         } else {
             SVProgressHUD.show()
-            ZLRepoServiceModel.shared().unstarRepo(withFullName: self.repoInfoModel!.full_name, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+            ZLServiceManager.sharedInstance.repoServiceModel?.unstarRepo(withFullName: self.repoInfoModel!.full_name, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
                 SVProgressHUD.dismiss()
                 if resultModel.result {
                     weakSelf?.repoHeaderInfoView?.starButton.isSelected = false
@@ -258,7 +258,7 @@ extension ZLRepoHeaderInfoViewModel{
     func forkRepo() {
         SVProgressHUD.show()
         
-        ZLRepoServiceModel.shared().forkRepository(withFullName: self.repoInfoModel!.full_name, org: nil, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.repoServiceModel?.forkRepository(withFullName: self.repoInfoModel!.full_name, org: nil, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
             SVProgressHUD.dismiss()
             
             if(resultModel.result) {

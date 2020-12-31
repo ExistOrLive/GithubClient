@@ -23,7 +23,7 @@ class ZLRepoBranchesView: ZLBaseView {
     class func showRepoBranchedView(repoFullName: String, currentBranch: String, handle:((String) -> Void)?)
     {
         SVProgressHUD.show()
-        ZLRepoServiceModel.shared().getRepositoryBranchesInfo(withFullName: repoFullName, serialNumber: NSString.generateSerialNumber(), completeHandle: { (model : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepositoryBranchesInfo(withFullName: repoFullName, serialNumber: NSString.generateSerialNumber(), completeHandle: { (model : ZLOperationResultModel) in
            
             SVProgressHUD.dismiss()
             

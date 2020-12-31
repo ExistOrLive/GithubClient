@@ -34,24 +34,25 @@
     
     [self setUpDoraemonKit];
     
-    [self setUpBugly];
-    
    // [self registerPush];
     /**
      *
      *  初始化中间件
      **/
-    [SYDCentralRouter sharedInstance];
-    
     /**
      *
      * 初始化工具模块
      **/
-    [ZLToolManager sharedInstance];
+    [[ZLServiceManager sharedInstance] initManager];
     
-    [ZLLoginServiceModel sharedServiceModel];
-    [ZLUserServiceModel sharedServiceModel];
-    [[ZLAdditionInfoServiceModel sharedServiceModel] getGithubClientConfig:[NSString generateSerialNumber]];
+
+    
+    NSString *configFilePath = [[NSBundle mainBundle] pathForResource:@"SYDCenteralFactoryConfig" ofType:@"plist"];
+    [[SYDCentralRouter sharedInstance] addConfigWithFilePath:configFilePath withBundle:[NSBundle mainBundle]];;
+    
+   
+    [self setUpBugly];
+    
     
     ZLLog_Info(@"中间件，工具模块初始化完毕");
     
@@ -226,6 +227,7 @@
            [[DoraemonManager shareInstance] install];
            // 或者使用传入位置,解决遮挡关键区域,减少频繁移动
            [[DoraemonManager shareInstance] installWithStartingPosition:CGPointMake(66, 66)];
+    
        #endif
 }
 

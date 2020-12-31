@@ -21,7 +21,7 @@ class ZLUserInfoViewModel: ZLBaseViewModel {
     
     deinit {
         // 注销监听
-        ZLUserServiceModel.shared().unRegisterObserver(self, name: ZLGetSpecifiedUserInfoResult_Notification)
+        ZLServiceManager.sharedInstance.userServiceModel?.unRegisterObserver(self, name: ZLGetSpecifiedUserInfoResult_Notification)
     }
     
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
@@ -42,7 +42,7 @@ class ZLUserInfoViewModel: ZLBaseViewModel {
         self.userInfoView?.readMeView?.startLoad(fullName: "\(model.loginName)/\(model.loginName)", branch: nil)
         
         var showBlockButton = ZLSharedDataManager.sharedInstance().configModel?.BlockFunction ?? true
-        if ZLUserServiceModel.shared().currentUserLoginName() == "ExistOrLive1"{
+        if ZLServiceManager.sharedInstance.userServiceModel?.currentUserLoginName() == "ExistOrLive1"{
             showBlockButton = true
         }
         self.userInfoView?.blockButton.isHidden = !showBlockButton
@@ -52,10 +52,10 @@ class ZLUserInfoViewModel: ZLBaseViewModel {
         self.setViewDataForUserInfoView(model: model, view: targetView as! ZLUserInfoView)
         
         // 注册监听
-        ZLUserServiceModel.shared().registerObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLGetSpecifiedUserInfoResult_Notification)
+        ZLServiceManager.sharedInstance.userServiceModel?.registerObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLGetSpecifiedUserInfoResult_Notification)
         
         self.serialNumber = NSString.generateSerialNumber()
-        ZLUserServiceModel.shared().getUserInfo(withLoginName: model.loginName, userType: model.type, serialNumber: self.serialNumber)
+        ZLServiceManager.sharedInstance.userServiceModel?.getUserInfo(withLoginName: model.loginName, userType: model.type, serialNumber: self.serialNumber)
         
         if self.userInfoModel?.type != ZLGithubUserType_Organization {
             self.getFollowStatus()
@@ -268,7 +268,7 @@ extension ZLUserInfoViewModel
     
     func getFollowStatus() {
         weak var weakSelf = self
-        ZLUserServiceModel.shared().getUserFollowStatus(withLoginName: self.userInfoModel!.loginName, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.userServiceModel?.getUserFollowStatus(withLoginName: self.userInfoModel!.loginName, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
             if(resultModel.result == true) {
                 guard let data : [String:Bool] = resultModel.data as? [String:Bool] else {
                     return
@@ -283,7 +283,7 @@ extension ZLUserInfoViewModel
     func followUser() {
         weak var weakSelf = self
         SVProgressHUD.show()
-        ZLUserServiceModel.shared().followUser(withLoginName: self.userInfoModel!.loginName, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.userServiceModel?.followUser(withLoginName: self.userInfoModel!.loginName, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
             SVProgressHUD.dismiss()
             if(resultModel.result == true){
                 weakSelf?.userInfoView?.followButton.isSelected = true
@@ -298,7 +298,7 @@ extension ZLUserInfoViewModel
     func unfollowUser() {
         weak var weakSelf = self
         SVProgressHUD.show()
-        ZLUserServiceModel.shared().unfollowUser(withLoginName: self.userInfoModel!.loginName, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.userServiceModel?.unfollowUser(withLoginName: self.userInfoModel!.loginName, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
             SVProgressHUD.dismiss()
             if(resultModel.result == true){
                 weakSelf?.userInfoView?.followButton.isSelected = false
@@ -312,7 +312,7 @@ extension ZLUserInfoViewModel
     
     func getBlockStatus() {
         weak var weakSelf = self
-        ZLUserServiceModel.shared().getUserBlockStatus(withLoginName: self.userInfoModel!.loginName, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.userServiceModel?.getUserBlockStatus(withLoginName: self.userInfoModel!.loginName, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
             if(resultModel.result == true) {
                 guard let data : [String:Bool] = resultModel.data as? [String:Bool] else {
                     return
@@ -327,7 +327,7 @@ extension ZLUserInfoViewModel
     func BlockUser() {
         weak var weakSelf = self
         SVProgressHUD.show()
-        ZLUserServiceModel.shared().blockUser(withLoginName: self.userInfoModel!.loginName, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.userServiceModel?.blockUser(withLoginName: self.userInfoModel!.loginName, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
             SVProgressHUD.dismiss()
             if(resultModel.result == true){
                 weakSelf?.userInfoView?.blockButton.isSelected = true
@@ -342,7 +342,7 @@ extension ZLUserInfoViewModel
     func unBlockUser() {
         weak var weakSelf = self
         SVProgressHUD.show()
-        ZLUserServiceModel.shared().unBlockUser(withLoginName: self.userInfoModel!.loginName, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.userServiceModel?.unBlockUser(withLoginName: self.userInfoModel!.loginName, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
             SVProgressHUD.dismiss()
             if(resultModel.result == true){
                 weakSelf?.userInfoView?.blockButton.isSelected = false
