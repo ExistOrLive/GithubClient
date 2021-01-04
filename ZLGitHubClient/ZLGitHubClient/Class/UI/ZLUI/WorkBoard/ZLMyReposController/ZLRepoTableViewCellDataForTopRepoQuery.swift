@@ -47,7 +47,7 @@ class ZLRepoTableViewCellDataForTopRepoQuery: ZLGithubItemTableViewCellData {
 extension ZLRepoTableViewCellDataForTopRepoQuery : ZLRepositoryTableViewCellDelegate {
     
     func onRepoAvaterClicked() -> Void{
-        if let userInfoVC = SYDCentralPivotUIAdapter.getUserInfoViewController(withLoginName:self.data.owner.login,with:ZLGithubUserType_User){
+        if let userInfoVC = ZLUIRouter.getUserInfoViewController(self.data.owner.login,type: ZLGithubUserType_User){
             userInfoVC.hidesBottomBarWhenPushed = true
             self.viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
         }

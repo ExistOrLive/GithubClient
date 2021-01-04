@@ -28,7 +28,7 @@ class ZLMemberEventTableViewCellData: ZLEventTableViewCellData {
         
         let memberRange = (str as NSString).range(of: "\(payload.member.loginName)")
         attributedStr.yy_setTextHighlight(memberRange, color: UIColor.init(cgColor: UIColor.init(named: "ZLLinkLabelColor1")!.cgColor), backgroundColor: UIColor.clear , tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
-            if let userInfoVC = SYDCentralPivotUIAdapter.getUserInfoViewController(withLoginName:payload.member.loginName,with:payload.member.type){
+            if let userInfoVC = ZLUIRouter.getUserInfoViewController(payload.member.loginName, type: payload.member.type){
                 userInfoVC.hidesBottomBarWhenPushed = true
                 weakSelf?.viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
             }

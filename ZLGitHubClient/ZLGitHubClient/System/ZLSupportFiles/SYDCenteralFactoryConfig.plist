@@ -11,6 +11,15 @@
 		<key>isSingle</key>
 		<false/>
 	</dict>
+	<key>ZLNotificationController</key>
+	<dict>
+		<key>class</key>
+		<string>ZLNotificationController</string>
+		<key>type</key>
+		<integer>0</integer>
+		<key>isSingle</key>
+		<false/>
+	</dict>
 	<key>ZLNewsViewController</key>
 	<dict>
 		<key>class</key>

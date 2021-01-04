@@ -135,7 +135,7 @@ extension ZLRepoHeaderInfoViewModel : ZLRepoHeaderInfoViewDelegate
         }
         case .imageAction:do{
             if self.repoInfoModel?.owner.loginName != nil {
-                if let userInfoVC = SYDCentralPivotUIAdapter.getUserInfoViewController(withLoginName:self.repoInfoModel!.owner.loginName , with:self.repoInfoModel!.owner.type ){
+                if let userInfoVC = ZLUIRouter.getUserInfoViewController(self.repoInfoModel!.owner.loginName, type: self.repoInfoModel!.owner.type) {
                     userInfoVC.hidesBottomBarWhenPushed = true
                     self.viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
                 }

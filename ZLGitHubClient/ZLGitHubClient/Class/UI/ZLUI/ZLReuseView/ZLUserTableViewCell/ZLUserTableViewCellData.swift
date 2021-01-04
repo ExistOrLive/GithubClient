@@ -40,7 +40,7 @@ class ZLUserTableViewCellData: ZLGithubItemTableViewCellData {
     }
     
     override func onCellSingleTap() {
-        if let userInfoVC = SYDCentralPivotUIAdapter.getUserInfoViewController(withUserInfo: self.userModel){
+        if let userInfoVC = ZLUIRouter.getUserInfoViewController(self.userModel){
             userInfoVC.hidesBottomBarWhenPushed = true
             self.viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
         }

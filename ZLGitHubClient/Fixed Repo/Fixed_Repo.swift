@@ -105,7 +105,7 @@ struct FixedRepoMediumView : View {
                     Text(entry.model?.full_name ?? "")
                         .font(.title3)
                         .foregroundColor(Color("ZLTitleColor"))
-                        .lineLimit(1)
+                        .lineLimit(2)
                     
                     Spacer()
                     
@@ -127,6 +127,24 @@ struct FixedRepoMediumView : View {
                                 .font(.caption2)
                                 .foregroundColor(Color("ZLLanguageColor"))
                         }
+                        
+                        Image("star")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(minWidth: 15, idealWidth: nil, maxWidth: 15, minHeight: nil, idealHeight: nil, maxHeight: nil, alignment:.center)
+                            .padding(.leading, 20)
+                        Text(String(entry.model?.stargazers_count ?? 0))
+                            .font(.caption2)
+                            .foregroundColor(Color("ZLLanguageColor"))
+                        
+                        Image("fork")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(minWidth: 15.5, idealWidth: nil, maxWidth: 15.5, minHeight: nil, idealHeight: nil, maxHeight: nil, alignment:.center)
+                            .padding(.leading, 20)
+                        Text(String(entry.model?.forks ?? 0))
+                            .font(.caption2)
+                            .foregroundColor(Color("ZLLanguageColor"))
                     }
                     
                     
@@ -138,6 +156,7 @@ struct FixedRepoMediumView : View {
             Spacer()
         }
         .unredacted()
+        .widgetURL(URL(string: "https://github.com/\(entry.model?.full_name ?? "")"))
         
     }
     

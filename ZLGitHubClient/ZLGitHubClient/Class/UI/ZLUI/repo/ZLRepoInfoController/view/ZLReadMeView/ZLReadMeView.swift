@@ -220,7 +220,7 @@ extension ZLReadMeView : WKNavigationDelegate,WKUIDelegate{
     
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        var urlStr = navigationAction.request.url?.absoluteString;
+        let urlStr = navigationAction.request.url?.absoluteString;
         
         if navigationAction.navigationType == .linkActivated {
             

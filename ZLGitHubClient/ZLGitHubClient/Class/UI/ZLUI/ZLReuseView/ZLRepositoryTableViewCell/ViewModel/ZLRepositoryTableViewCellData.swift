@@ -79,7 +79,7 @@ import UIKit
 extension ZLRepositoryTableViewCellData : ZLRepositoryTableViewCellDelegate
 {
     func onRepoAvaterClicked() {
-        if let userInfoVC = SYDCentralPivotUIAdapter.getUserInfoViewController(withLoginName:self.data.owner.loginName,with:self.data.owner.type){
+        if let userInfoVC = ZLUIRouter.getUserInfoViewController(self.data.owner.loginName, type: self.data.owner.type){
             userInfoVC.hidesBottomBarWhenPushed = true
             self.viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
         }

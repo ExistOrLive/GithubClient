@@ -392,14 +392,33 @@
                         break;
                     }
                 }
+                
+                int forkNum = 0;
+                int starNum = 0;
+                NSArray<OCGumboElement *>* svgElements = article.Query(@"svg");
+                for(OCGumboElement *element in svgElements){
+                    if([@"star" isEqualToString:element.attr(@"aria-label")]){
+                        NSString *starNumStr = [element.parentNode.text() stringByTrimmingCharactersInSet:set];
+                        starNumStr = [starNumStr stringByReplacingOccurrencesOfString:@"," withString:@""];
+                        starNum = [starNumStr intValue];
+                    } else if ([@"fork" isEqualToString:element.attr(@"aria-label")]){
+                        NSString *forkNumStr = [element.parentNode.text() stringByTrimmingCharactersInSet:set];
+                        forkNumStr = [forkNumStr stringByReplacingOccurrencesOfString:@"," withString:@""];
+                        forkNum = [forkNumStr intValue];
+                    }
+                }
+                
+                
                 if([fullName length] > 0){
                     ZLGithubRepositoryModel * model = [ZLGithubRepositoryModel new];
                     model.full_name = [fullName substringFromIndex:1];
                     model.owner = [ZLGithubUserBriefModel new];
-                    model.owner.loginName = [fullName componentsSeparatedByString:@"/"].firstObject;
-                    model.name = [fullName componentsSeparatedByString:@"/"].lastObject;
+                    model.owner.loginName = [model.full_name componentsSeparatedByString:@"/"].firstObject;
+                    model.name = [model.full_name componentsSeparatedByString:@"/"].lastObject;
                     model.desc_Repo = desc;
                     model.language = language;
+                    model.forks = forkNum;
+                    model.stargazers_count = starNum;
                     [repoArray addObject:model];
                 }
             }

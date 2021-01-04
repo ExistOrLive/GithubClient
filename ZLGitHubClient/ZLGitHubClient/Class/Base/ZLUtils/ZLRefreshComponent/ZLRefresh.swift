@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MJRefresh
 
 @objcMembers class ZLRefresh: NSObject {
     

@@ -165,7 +165,7 @@
 
 - (void) switchToMainController:(BOOL) animated{
     void(^block)(void) = ^{
-        UIViewController * rootViewController = [SYDCentralPivotUIAdapter getZLMainViewController];
+        UIViewController * rootViewController = [ZLUIRouter getMainViewController];
         [self.window setRootViewController:rootViewController];
     };
     

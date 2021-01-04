@@ -92,7 +92,7 @@
 - (void) setMyInfoModel:(ZLGithubUserModel *) model
 {
     dispatch_barrier_async(self.concurrentQueue, ^{
-        _myInfoModel = model;
+        self->_myInfoModel = model;
     });
 }
 

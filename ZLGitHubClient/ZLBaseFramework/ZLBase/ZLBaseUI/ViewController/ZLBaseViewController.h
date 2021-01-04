@@ -31,13 +31,3 @@
 @end
 
 
-@interface ZLBaseViewController(Tool)
-
-+ (UIViewController *)getTopViewController;
-
-+ (UIViewController *)getTopViewControllerFromViewController:(UIViewController *)rootVC;
-
-+ (UIViewController *)getTopViewControllerFromWindow:(UIWindow *) window;
-
-@end
-

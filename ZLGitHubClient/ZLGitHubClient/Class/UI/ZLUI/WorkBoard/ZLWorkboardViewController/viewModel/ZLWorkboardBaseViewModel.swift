@@ -87,7 +87,7 @@ class ZLWorkboardBaseViewModel: ZLBaseViewModel,ZLWorkboardBaseViewDelegate {
     }
     
     func onEditFixedRepoButtonClicked() {
-        if let vc = SYDCentralPivotUIAdapter.getEditFixedRepoController(){
+        if let vc = ZLUIRouter.getEditFixedRepoController(){
             vc.hidesBottomBarWhenPushed = true
             self.viewController?.navigationController?.pushViewController(vc, animated: true)
         }

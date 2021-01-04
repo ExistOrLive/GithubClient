@@ -87,7 +87,7 @@ extension ZLEventTableViewCellData
 extension ZLEventTableViewCellData : ZLEventTableViewCellDelegate
 {
     func onAvatarClicked() {
-        if let userInfoVC = SYDCentralPivotUIAdapter.getUserInfoViewController(withLoginName:self.eventModel.actor.login,with:ZLGithubUserType_User){
+        if let userInfoVC = ZLUIRouter.getUserInfoViewController(self.eventModel.actor.login, type: ZLGithubUserType_User){
             userInfoVC.hidesBottomBarWhenPushed = true
             self.viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
         }

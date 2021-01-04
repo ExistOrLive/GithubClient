@@ -378,7 +378,7 @@ static NSArray * ZLGithubEventTypeArray = nil;
     return oldValue;
 }
 
-- (void)mj_keyValuesDidFinishConvertingToObject:(NSDictionary *)keyValues
+- (void)mj_didConvertToObjectWithKeyValues:(NSDictionary *)keyValues
 {
     NSDictionary *dic = self.payload;
     
