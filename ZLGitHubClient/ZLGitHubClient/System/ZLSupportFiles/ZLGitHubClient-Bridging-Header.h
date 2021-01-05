@@ -11,6 +11,7 @@
 #import "ZLLoginLogoView.h"
 #import "ZLPresentContainerView.h"
 #import "CYPopoverViewHeader.h"
+#import "ZLFloatView.h"
 
 #import "ZLToastView.h"
 

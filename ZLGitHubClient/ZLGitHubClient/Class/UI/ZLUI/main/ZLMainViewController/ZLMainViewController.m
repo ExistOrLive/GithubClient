@@ -9,6 +9,11 @@
 #import "ZLMainViewController.h"
 #import "ZLBaseNavigationController.h"
 #import "UIImage+Image.h"
+@interface ZLMainViewController()
+
+@property(nonatomic, strong) ZLAssistButtonManager * assistManager;
+
+@end
 
 @implementation ZLMainViewController
 
@@ -20,6 +25,7 @@
 
 - (void)dealloc
 {
+    [self.assistManager setHidden:YES];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:ZLLanguageTypeChange_Notificaiton object:nil];
 }
 
@@ -36,6 +42,20 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onNotificationArrived:) name:ZLLanguageTypeChange_Notificaiton object:nil];
     
+    self.assistManager = [[ZLAssistButtonManager alloc] init];
+}
+
+- (void) viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+}
+
+- (void) viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+}
+
+- (void) viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+
 }
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{

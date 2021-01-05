@@ -43,5 +43,15 @@
             return false
         }
     }
+    
+    
+    static func isGithubURL(str:String) -> Bool {
+        let url = URL(string: str)
+        if url?.host == "www.github.com" ||
+            url?.host == "github.com" {
+            return true
+        }
+        return false
+    }
 
 }

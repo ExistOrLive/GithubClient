@@ -108,7 +108,7 @@ class ZLWorkboardTableViewCellData: ZLBaseViewModel,ZLWorkboardTableViewCellDele
             self.viewController?.navigationController?.pushViewController(vc, animated: true)
             break
         case .fixRepo:
-            let vc = ZLRepoInfoController.init(repoFullName: self.celltitle)
+            guard let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: self.celltitle) else { return } 
             vc.hidesBottomBarWhenPushed = true
             self.viewController?.navigationController?.pushViewController(vc, animated: true)
             break

@@ -66,10 +66,12 @@ class ZLRepoHeaderInfoViewModel: ZLBaseViewModel {
             
             let sourceRepoStr = NSMutableAttributedString.init(string: self.repoInfoModel?.sourceRepoFullName ?? "", attributes: [NSAttributedString.Key.foregroundColor:tmpColor1,NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCMedium, size: 13) ?? UIFont.systemFont(ofSize: 13)])
             
-            weak var weakSelf = self
-            sourceRepoStr.yy_setTextHighlight(NSRange.init(location: 0, length: self.repoInfoModel?.sourceRepoFullName?.count ?? 0), color: ZLRawColor(name: "ZLLinkLabelColor1"), backgroundColor: ZLRawColor(name: "ZLLinkLabelColor1"), tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
-                let repoVC = ZLRepoInfoController.init(repoFullName: weakSelf?.repoInfoModel?.sourceRepoFullName ?? "")
-                weakSelf?.viewController?.navigationController?.pushViewController(repoVC, animated: true)
+            sourceRepoStr.yy_setTextHighlight(NSRange.init(location: 0, length: self.repoInfoModel?.sourceRepoFullName?.count ?? 0), color: ZLRawColor(name: "ZLLinkLabelColor1"), backgroundColor: ZLRawColor(name: "ZLLinkLabelColor1"), tapAction: {[weak weakSelf = self](containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
+                
+                if let repoFullName = weakSelf?.repoInfoModel?.sourceRepoFullName,let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: repoFullName) {
+                    vc.hidesBottomBarWhenPushed = true
+                    weakSelf?.viewController?.navigationController?.pushViewController(vc, animated: true)
+                }
             })
             attributedStr.append(sourceRepoStr)
             

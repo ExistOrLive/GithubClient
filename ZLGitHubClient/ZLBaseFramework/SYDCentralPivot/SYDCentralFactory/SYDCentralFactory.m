@@ -112,6 +112,11 @@
 }
 
 
+- (Class) getBeanClass:(const NSString *) beanKey{
+    SYDCentralRouterModel * model = [self.sydCentralModelMap objectForKey:beanKey];
+    return model.cla;
+}
+
 - (id) getCommonBean:(const NSString *) beanKey
 {
     SYDCentralRouterModel * model = [self.sydCentralModelMap objectForKey:beanKey];

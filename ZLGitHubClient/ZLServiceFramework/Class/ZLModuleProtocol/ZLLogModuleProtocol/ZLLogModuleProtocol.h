@@ -37,6 +37,33 @@
                 line:(NSUInteger)line
               format:(NSString *)format, ...;
 
+
+
+- (void)ZLLogError:(NSString *)function
+              file:(NSString *)file
+              line:(NSUInteger)line
+               str:(NSString *)str;
+
+- (void)ZLLogWarning:(NSString *)function
+                file:(NSString *)file
+                line:(NSUInteger)line
+                 str:(NSString *)str;
+
+- (void)ZLLogInfo:(NSString *)function
+             file:(NSString *)file
+             line:(NSUInteger)line
+              str:(NSString *)str;
+
+- (void)ZLLogDebug:(NSString *)function
+              file:(NSString *)file
+              line:(NSUInteger)line
+               str:(NSString *)str;
+
+- (void)ZLLogVerbose:(NSString *)function
+                file:(NSString *)file
+                line:(NSUInteger)line
+                 str:(NSString *)str;
+
 @end
 
 

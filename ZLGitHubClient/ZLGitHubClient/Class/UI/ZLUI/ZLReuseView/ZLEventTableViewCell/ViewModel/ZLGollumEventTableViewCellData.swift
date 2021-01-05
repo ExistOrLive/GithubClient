@@ -42,12 +42,13 @@ class ZLGollumEventTableViewCellData: ZLEventTableViewCellData {
         let tmpAttributedStr =  NSMutableAttributedString.init(string: str , attributes: [NSAttributedString.Key.foregroundColor:UIColor.init(cgColor: UIColor.init(named: "ZLLabelColor3")!.cgColor),NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 15.0)!])
         
         let repoRange = (str as NSString).range(of: self.eventModel.repo.name)
-        tmpAttributedStr.yy_setTextHighlight(repoRange, color: UIColor.init(cgColor: UIColor.init(named: "ZLLinkLabelColor1")!.cgColor), backgroundColor: UIColor.clear , tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
-            let repoModel = ZLGithubRepositoryModel.init()
-            repoModel.full_name = weakSelf?.eventModel.repo.name ?? "";
-            let vc = ZLRepoInfoController.init(repoInfoModel: repoModel)
-            vc.hidesBottomBarWhenPushed = true
-            weakSelf?.viewController?.navigationController?.pushViewController(vc, animated: true)
+        tmpAttributedStr.yy_setTextHighlight(repoRange, color: UIColor.init(cgColor: UIColor.init(named: "ZLLinkLabelColor1")!.cgColor), backgroundColor: UIColor.clear , tapAction: {[weak weakSelf = self](containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
+            
+            if let repoFullName = weakSelf?.eventModel.repo.name,let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: repoFullName) {
+                vc.hidesBottomBarWhenPushed = true
+                weakSelf?.viewController?.navigationController?.pushViewController(vc, animated: true)
+            }
+            
         })
         attributedStr.append(tmpAttributedStr)
         

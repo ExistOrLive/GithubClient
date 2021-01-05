@@ -12,28 +12,30 @@
 
 @interface SYDCentralFactory : NSObject
 
-@property(nonatomic,strong) NSMutableDictionary * viewControllerModelMapCache;
+@property(nonatomic,strong) NSMutableDictionary * _Nullable viewControllerModelMapCache;
 
-@property(nonatomic,strong) NSMutableDictionary * serviceModelMapCache;
+@property(nonatomic,strong) NSMutableDictionary * _Nullable serviceModelMapCache;
 
-@property(nonatomic,strong) NSMutableDictionary * otherMapCache;
+@property(nonatomic,strong) NSMutableDictionary * _Nullable otherMapCache;
 
 
 #pragma mark - SYDCentralFactory 单例
 
-+ (instancetype) sharedInstance;
++ (instancetype _Nonnull) sharedInstance;
 
-- (void) addConfigWithFilePath:(NSString *) filePath withBundle:(NSBundle *) bundle;
+- (void) addConfigWithFilePath:(NSString * _Nonnull) filePath withBundle:(NSBundle * _Nullable) bundle;
 
-- (SYDCentralRouterModel *) getCentralRouterModel:(const NSString *) beanKey;
+- (SYDCentralRouterModel * _Nullable) getCentralRouterModel:(const NSString * _Nonnull) beanKey;
+
+- (Class _Nullable) getBeanClass:(const NSString * _Nonnull) beanKey;
 
 #pragma mark - 获取实例
 
-- (id) getCommonBean:(const NSString *) beanKey;
+- (id _Nullable) getCommonBean:(const NSString * _Nonnull) beanKey;
 
-- (id) getCommonBean:(const NSString *) beanKey withInjectParam:(NSDictionary *) param;
+- (id _Nullable) getCommonBean:(const NSString * _Nonnull) beanKey withInjectParam:(NSDictionary * _Nonnull) param;
 
-- (id) getSingleton:(const NSString *) beanKey;
+- (id _Nullable) getSingleton:(const NSString * _Nonnull) beanKey;
 
 @end
 
@@ -41,11 +43,11 @@
 
 #pragma mark - UI跳转
 
-- (Class) getViewControllerClass:(const NSString *) viewControllerKey;
+- (Class _Nullable) getViewControllerClass:(const NSString * _Nonnull) viewControllerKey;
 
-- (UIViewController *) getOneUIViewController:(const NSString *) viewControllerKey;
+- (UIViewController * _Nullable) getOneUIViewController:(const NSString * _Nonnull) viewControllerKey;
 
-- (UIViewController *) getOneUIViewController:(const NSString *) viewControllerKey withInjectParam:(NSDictionary *) param;
+- (UIViewController * _Nullable) getOneUIViewController:(const NSString * _Nonnull) viewControllerKey withInjectParam:(NSDictionary * _Nonnull) param;
 
 
 @end
@@ -53,6 +55,6 @@
 
 @interface SYDCentralFactory (SYDService)
 
-- (id) getSYDServiceBean:(const NSString *) serviceKey;
+- (id _Nullable) getSYDServiceBean:(const NSString * _Nonnull) serviceKey;
 
 @end

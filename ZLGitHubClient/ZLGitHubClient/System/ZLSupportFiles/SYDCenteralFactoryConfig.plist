@@ -128,5 +128,25 @@
 		<key>isSingle</key>
 		<false/>
 	</dict>
+	<key>ZLRepoInfoController</key>
+	<dict>
+		<key>class</key>
+		<string>ZLRepoInfoController</string>
+		<key>type</key>
+		<integer>0</integer>
+		<key>isSingle</key>
+		<false/>
+	</dict>
+	<key>ZLUrlNotifcaitonModule</key>
+	<dict>
+		<key>class</key>
+		<string>ZLURLNotificationDealManager</string>
+		<key>type</key>
+		<integer>2</integer>
+		<key>isSingle</key>
+		<true/>
+		<key>singleMethod</key>
+		<string>sharedInstance</string>
+	</dict>
 </dict>
 </plist>

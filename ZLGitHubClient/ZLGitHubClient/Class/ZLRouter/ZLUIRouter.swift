@@ -13,11 +13,11 @@ import UIKit
     typealias ZLUIKey = String
 
     static func getVC(key: ZLUIKey, params: [AnyHashable : Any] = [:]) -> UIViewController?{
-        SYDCentralFactory.sharedInstance()?.getOneUIViewController(key, withInjectParam: params)
+        SYDCentralFactory.sharedInstance().getOneUIViewController(key, withInjectParam: params)
     }
     
     static func openVC(key: ZLUIKey, params: [AnyHashable : Any] = [:], enterConfig: SYDCentralRouterViewControllerConfig){
-        SYDCentralRouter.sharedInstance()?.enterViewController(key, withViewControllerConfig: enterConfig, withParam: params)
+        SYDCentralRouter.sharedInstance().enterViewController(key, withViewControllerConfig: enterConfig, withParam: params)
     }
     
     static func openVC(key: ZLUIKey, params: [AnyHashable : Any] = [:]) {
@@ -51,6 +51,7 @@ extension ZLUIRouter{
     static let AboutViewController : ZLUIKey = "ZLAboutViewController"
     
     static let UserInfoController : ZLUIKey = "ZLUserInfoController"
+    static let RepoInfoController : ZLUIKey = "ZLRepoInfoController"
     
 }
 
@@ -121,4 +122,38 @@ extension ZLUIRouter{
         return  self.getUserInfoViewController(userModel)
     }
     
+    
+    static func getRepoInfoViewController(_ repoInfo: ZLGithubRepositoryModel) -> UIViewController?{
+        let params = ["repoInfoModel":repoInfo]
+        return self.getVC(key: RepoInfoController, params: params)
+    }
+    
+    static func getRepoInfoViewController(repoFullName: String)  -> UIViewController?{
+        let repoModel = ZLGithubRepositoryModel()
+        repoModel.full_name = repoFullName
+        return  self.getRepoInfoViewController(repoModel)
+    }
+    
+}
+
+
+extension ZLUIRouter{
+    static func openURL(url:URL){
+        // github url
+        if url.host == "github.com" ||
+            url.host == "www.github.com" {
+            let pathComponents = url.pathComponents
+            if pathComponents.count == 2 {
+                let userModel = ZLGithubUserModel()
+                userModel.loginName = pathComponents[1]
+                self.openVC(key: UserInfoController, params: ["userInfoModel":userModel])
+                return
+            } else if pathComponents.count > 2 {
+                let repoModel = ZLGithubRepositoryModel()
+                repoModel.full_name = "\(pathComponents[1])/\(pathComponents[2])"
+                self.openVC(key: RepoInfoController, params: ["repoInfoModel":repoModel])
+                return
+            }
+        }
+    }
 }

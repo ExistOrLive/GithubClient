@@ -42,30 +42,24 @@ public extension Notification
 
 // MARK: ZLLog
 
-#if DEBUG
-public let ZLLogLevel = DDLogLevel.debug
-#else
-public let ZLLogLevel = DDLogLevel.info
-#endif
-
-public func ZLLog_Debug(_ message: @autoclosure () -> String, level: DDLogLevel = ZLLogLevel, context: Int = 0, file: StaticString = #file, function: StaticString = #function, line: UInt = #line, tag: Any? = nil, asynchronous async: Bool = true, ddlog: DDLog = DDLog.sharedInstance) {
-    _DDLogMessage(message(), level: level, flag: .debug, context: context, file: file, function: function, line: line, tag: tag, asynchronous: async, ddlog: ddlog)
+public func ZLLog_Debug(_ message: @autoclosure () -> String, file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
+    ZLToolManager.sharedInstance()?.zlLogModule.zlLogDebug("\(function)", file: "\(file)", line: line, str: message())
 }
 
-public func ZLLog_Info(_ message: @autoclosure () -> String, level: DDLogLevel = ZLLogLevel, context: Int = 0, file: StaticString = #file, function: StaticString = #function, line: UInt = #line, tag: Any? = nil, asynchronous async: Bool = true, ddlog: DDLog = DDLog.sharedInstance) {
-    _DDLogMessage(message(), level: level, flag: .info, context: context, file: file, function: function, line: line, tag: tag, asynchronous: async, ddlog: ddlog)
+public func ZLLog_Info(_ message: @autoclosure () -> String, file: StaticString = #file, function: StaticString = #function, line: UInt = #line, tag: Any? = nil, asynchronous async: Bool = true, ddlog: DDLog = DDLog.sharedInstance) {
+    ZLToolManager.sharedInstance()?.zlLogModule.zlLogInfo("\(function)", file: "\(file)", line: line, str: message())
 }
 
-public func ZLLog_Warn(_ message: @autoclosure () -> String, level: DDLogLevel = ZLLogLevel, context: Int = 0, file: StaticString = #file, function: StaticString = #function, line: UInt = #line, tag: Any? = nil, asynchronous async: Bool = true, ddlog: DDLog = DDLog.sharedInstance) {
-    _DDLogMessage(message(), level: level, flag: .warning, context: context, file: file, function: function, line: line, tag: tag, asynchronous: async, ddlog: ddlog)
+public func ZLLog_Warn(_ message: @autoclosure () -> String, file: StaticString = #file, function: StaticString = #function, line: UInt = #line, tag: Any? = nil, asynchronous async: Bool = true, ddlog: DDLog = DDLog.sharedInstance) {
+    ZLToolManager.sharedInstance()?.zlLogModule.zlLogWarning("\(function)", file: "\(file)", line: line, str: message())
 }
 
-public func ZLLog_Verbose(_ message: @autoclosure () -> String, level: DDLogLevel = ZLLogLevel, context: Int = 0, file: StaticString = #file, function: StaticString = #function, line: UInt = #line, tag: Any? = nil, asynchronous async: Bool = true, ddlog: DDLog = DDLog.sharedInstance) {
-    _DDLogMessage(message(), level: level, flag: .verbose, context: context, file: file, function: function, line: line, tag: tag, asynchronous: async, ddlog: ddlog)
+public func ZLLog_Verbose(_ message: @autoclosure () -> String, file: StaticString = #file, function: StaticString = #function, line: UInt = #line, tag: Any? = nil, asynchronous async: Bool = true, ddlog: DDLog = DDLog.sharedInstance) {
+    ZLToolManager.sharedInstance()?.zlLogModule.zlLogVerbose("\(function)", file: "\(file)", line: line, str: message())
 }
 
-public func ZLLog_Error(_ message: @autoclosure () -> String, level: DDLogLevel = ZLLogLevel, context: Int = 0, file: StaticString = #file, function: StaticString = #function, line: UInt = #line, tag: Any? = nil, asynchronous async: Bool = false, ddlog: DDLog = DDLog.sharedInstance) {
-    _DDLogMessage(message(), level: level, flag: .error, context: context, file: file, function: function, line: line, tag: tag, asynchronous: async, ddlog: ddlog)
+public func ZLLog_Error(_ message: @autoclosure () -> String, file: StaticString = #file, function: StaticString = #function, line: UInt = #line, tag: Any? = nil, asynchronous async: Bool = false, ddlog: DDLog = DDLog.sharedInstance) {
+    ZLToolManager.sharedInstance()?.zlLogModule.zlLogError("\(function)", file: "\(file)", line: line, str: message())
 }
 
 // MARK: ZLLANModule

@@ -48,11 +48,10 @@ class ZLEventTableViewCellData: ZLGithubItemTableViewCellData {
     }
     
     override  func onCellSingleTap() {
-        let repoModel = ZLGithubRepositoryModel.init()
-        repoModel.full_name = self.eventModel.repo.name;
-        let vc = ZLRepoInfoController.init(repoInfoModel: repoModel)
-        vc.hidesBottomBarWhenPushed = true
-        self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        if let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: self.eventModel.repo.name) {
+            vc.hidesBottomBarWhenPushed = true
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     

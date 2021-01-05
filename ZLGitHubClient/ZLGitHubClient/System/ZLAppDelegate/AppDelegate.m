@@ -125,6 +125,7 @@
 
 // 处理URL
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options{
+    [[ZLToolManager sharedInstance].zlurlNotifcaitonModule addURLFromOtherAppOrWidgetWithUrl:url];
     return YES;
 }
 
@@ -251,19 +252,19 @@
 
 #pragma mark - Notification Push
 
-- (void)registerPush {
-    // Push组件基本功能配置
-    
-   // [[UIApplication sharedApplication] registerForRemoteNotifications];
-        
-    [UNUserNotificationCenter currentNotificationCenter].delegate = self;
-    [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:UNAuthorizationOptionBadge|UNAuthorizationOptionSound|UNAuthorizationOptionAlert completionHandler:^(BOOL granted, NSError * _Nullable error) {
-        if(granted)
-        {
-            
-        }
-    }];
-}
+//- (void)registerPush {
+//    // Push组件基本功能配置
+//
+//   // [[UIApplication sharedApplication] registerForRemoteNotifications];
+//
+//    [UNUserNotificationCenter currentNotificationCenter].delegate = self;
+//    [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:UNAuthorizationOptionBadge|UNAuthorizationOptionSound|UNAuthorizationOptionAlert completionHandler:^(BOOL granted, NSError * _Nullable error) {
+//        if(granted)
+//        {
+//
+//        }
+//    }];
+//}
 
 
 //- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(nonnull NSData *)deviceToken {
@@ -289,34 +290,34 @@
 
 #pragma mark  UNUserNotificationCenterDelegate
 
-//iOS10新增：处理前台收到通知的代理方法，在后台调用
--(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler API_AVAILABLE(ios(10.0)) {
-    
-    /**
-     * 如果应用在前台，不显示通知
-     */
-    completionHandler(UNNotificationPresentationOptionNone);
-}
-
-//iOS10新增：处理后台点击通知的代理方法
--(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler API_AVAILABLE(ios(10.0)){
-    
-    if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]])
-    {
-        // 如果点击的时远程推送
-    }
-    else
-    {
-        //应用处于后台时的本地推送接受
-    }
-    completionHandler();
-}
-
-// 后台静默推送/点击通知唤醒
--(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)info fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
-{
- 
-}
+////iOS10新增：处理前台收到通知的代理方法，在后台调用
+//-(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler API_AVAILABLE(ios(10.0)) {
+//    
+//    /**
+//     * 如果应用在前台，不显示通知
+//     */
+//    completionHandler(UNNotificationPresentationOptionNone);
+//}
+//
+////iOS10新增：处理后台点击通知的代理方法
+//-(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler API_AVAILABLE(ios(10.0)){
+//    
+//    if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]])
+//    {
+//        // 如果点击的时远程推送
+//    }
+//    else
+//    {
+//        //应用处于后台时的本地推送接受
+//    }
+//    completionHandler();
+//}
+//
+//// 后台静默推送/点击通知唤醒
+//-(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)info fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+//{
+// 
+//}
 
  
 @end

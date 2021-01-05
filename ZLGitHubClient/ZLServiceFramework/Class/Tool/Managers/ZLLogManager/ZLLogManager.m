@@ -160,4 +160,57 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 }
 
 
+- (void)ZLLogError:(NSString *)function
+              file:(NSString *)file
+              line:(NSUInteger)line
+               str:(NSString *)str{
+    if(!(LOG_LEVEL_DEF & DDLogFlagError)){
+        return;
+    }
+    
+    [DDLog log:NO level:LOG_LEVEL_DEF flag:DDLogFlagError context:0 file:[file UTF8String] function:[function UTF8String] line:line tag:nil format:@"%@", str];
+    
+}
+
+- (void)ZLLogWarning:(NSString *)function
+                file:(NSString *)file
+                line:(NSUInteger)line
+                 str:(NSString *)str{
+    if(!(LOG_LEVEL_DEF & DDLogFlagWarning)){
+        return;
+    }
+    [DDLog log:LOG_ASYNC_ENABLED level:LOG_LEVEL_DEF flag:DDLogFlagWarning context:0 file:[file UTF8String] function:[function UTF8String] line:line tag:nil format:@"%@", str];
+}
+
+- (void)ZLLogInfo:(NSString *)function
+             file:(NSString *)file
+             line:(NSUInteger)line
+              str:(NSString *)str{
+    if(!(LOG_LEVEL_DEF & DDLogFlagInfo)){
+        return;
+    }
+    [DDLog log:LOG_ASYNC_ENABLED level:LOG_LEVEL_DEF flag:DDLogFlagInfo context:0 file:[file UTF8String] function:[function UTF8String] line:line tag:nil format:@"%@", str];
+}
+
+- (void)ZLLogDebug:(NSString *)function
+              file:(NSString *)file
+              line:(NSUInteger)line
+               str:(NSString *)str{
+    if(!(LOG_LEVEL_DEF & DDLogFlagDebug))
+    {
+        return;
+    }
+    [DDLog log:LOG_ASYNC_ENABLED level:LOG_LEVEL_DEF flag:DDLogFlagDebug context:0 file:[file UTF8String] function:[function UTF8String] line:line tag:nil format:@"%@", str];
+}
+
+- (void)ZLLogVerbose:(NSString *)function
+                file:(NSString *)file
+                line:(NSUInteger)line
+                 str:(NSString *)str{
+    if(!(LOG_LEVEL_DEF & DDLogFlagVerbose)){
+        return;
+    }
+    [DDLog log:LOG_ASYNC_ENABLED level:LOG_LEVEL_DEF flag:DDLogFlagVerbose context:0 file:[file UTF8String] function:[function UTF8String] line:line tag:nil format:@"%@", str];
+}
+
 @end
