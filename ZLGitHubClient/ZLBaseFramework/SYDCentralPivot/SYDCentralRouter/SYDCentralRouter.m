@@ -62,7 +62,13 @@
         return;
     }
     
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Wundeclared-selector"
+    
     SEL enterViewControllerSEL = @selector(enterViewControllerWithViewControllerConfig:withParam:);
+
+    #pragma clang diagnostic pop
+    
     
     Method enterViewControllerMethod = class_getClassMethod(viewControllerClass,enterViewControllerSEL);
     

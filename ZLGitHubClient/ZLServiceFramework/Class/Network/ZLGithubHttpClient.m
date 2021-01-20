@@ -163,9 +163,10 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     };
     
     if([@"POST" isEqualToString:method]) {
-        
+       
         [sessionManager POST:URL
                   parameters:params
+                     headers:nil
                     progress:nil
                      success:successBlock
                      failure:failedBlock];
@@ -174,6 +175,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         
         [sessionManager GET:URL
                  parameters:params
+                    headers:nil
                    progress:nil
                     success:successBlock
                     failure:failedBlock];
@@ -182,6 +184,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         
         [sessionManager DELETE:URL
                     parameters:params
+                       headers:nil
                        success:successBlock
                        failure:failedBlock];
         
@@ -189,11 +192,16 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         
         [sessionManager PUT:URL
                  parameters:params
+                    headers:nil
                     success:successBlock
                     failure:failedBlock];
         
     } else if([@"PATCH" isEqualToString:method]) {
-        [sessionManager PATCH:URL parameters:params success:successBlock failure:failedBlock];
+        [sessionManager PATCH:URL
+                   parameters:params
+                      headers:nil
+                      success:successBlock
+                      failure:failedBlock];
     }
 }
 
@@ -270,6 +278,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     
     [sessionManager GET:urlStr
              parameters:nil
+                headers:nil
                progress:nil
                 success:nil
                 failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -356,6 +365,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     
     [sessionManager POST:OAuthAccessTokenURL
               parameters:params
+                 headers:nil
                 progress:nil
                  success:successBlock
                  failure:failedBlock];
@@ -401,6 +411,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     
     [sessionManager GET:url
              parameters:@{}
+                headers:nil
                progress:nil
                 success:successBlock
                 failure:failedBlock];
@@ -604,10 +615,13 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     AFHTTPSessionManager *sessionManager = [self getDefaultSessionManager];
     [sessionManager.requestSerializer setValue:[NSString stringWithFormat:@"token %@",self.token] forHTTPHeaderField:@"Authorization"];
     
-    [sessionManager      PATCH:userUrl
-                    parameters:params
-                       success:successBlock
-                       failure:failedBlock];
+    
+    
+    [sessionManager PATCH:userUrl
+               parameters:params
+                   headers:nil
+                  success:successBlock
+                  failure:failedBlock];
 }
 
 #pragma mark - repositories

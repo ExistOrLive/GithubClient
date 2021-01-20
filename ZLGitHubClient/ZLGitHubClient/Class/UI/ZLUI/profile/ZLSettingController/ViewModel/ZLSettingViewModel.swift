@@ -286,8 +286,9 @@ extension ZLSettingViewModel: UITableViewDataSource,UITableViewDelegate{
             self.viewController?.navigationController?.pushViewController(vc, animated: true)
         }
         case .interfaceStyle:do{
-            let vc = ZLAppearanceController()
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            if let vc = ZLUIRouter.getVC(key: ZLUIRouter.AppearanceController) {
+                self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            }            
         }
         }
         

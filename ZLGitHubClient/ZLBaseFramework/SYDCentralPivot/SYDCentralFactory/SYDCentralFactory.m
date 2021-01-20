@@ -233,19 +233,28 @@
         return nil;
     }
     
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+    
     SEL getOneViewControllerSEL = @selector(getOneViewController);
+    SEL setVCKEYSEL = @selector(setVCKey:);
+    
+#pragma clang diagnostic pop
     
     Method getOneViewControllerMethod = class_getClassMethod(viewControllerClass,getOneViewControllerSEL);
+    Method setVCKEYMethod = class_getInstanceMethod(viewControllerClass,setVCKEYSEL);
     
     UIViewController *(*getOneViewController)(id,SEL) = (UIViewController * (*)(id,SEL))method_getImplementation(getOneViewControllerMethod);
+    void (*setVCKey)(id,SEL,const NSString *) = (void (*)(id,SEL,const NSString *))method_getImplementation(setVCKEYMethod);
     
-    if(getOneViewController)
-    {
-        return  getOneViewController(viewControllerClass,
-                                     getOneViewControllerSEL);
+    
+    if(getOneViewController){
+        UIViewController *controller  = getOneViewController(viewControllerClass,
+                                                             getOneViewControllerSEL);
+        setVCKey(controller,setVCKEYSEL,viewControllerKey);
+        return controller;
     }
-    else
-    {
+    else{
         NSLog(@"SYDCentralFactory_getOneViewController: method for [%@] not exist ",viewControllerKey);
         return class_createInstance(viewControllerClass, 0);
     }

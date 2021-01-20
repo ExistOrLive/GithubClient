@@ -57,6 +57,9 @@ NS_INLINE const char *oc_gumbo_get_attribute(GumboNode *node, const char *name) 
     return NULL;
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-function"
+
 NS_INLINE int oc_gumbo_get_attribute_count(GumboNode *node) {
     if (node->type == GUMBO_NODE_ELEMENT) {
         return node->v.element.attributes.length;
@@ -75,6 +78,8 @@ NS_INLINE GumboNode *oc_gumbo_get_firstchild(GumboNode *node) {
     }
     return NULL;
 }
+
+#pragma clang diagnostic pop
 
 NS_INLINE GumboNode *oc_gumbo_get_first_element_by_tag(GumboNode *node, GumboTag tag) {
     GumboNode *root = node;

@@ -24,7 +24,7 @@ class ZLInputAccessTokenView: ZLBaseView {
          view.resultBlock = resultBlock
          
          view.frame = CGRect.init(x: 0, y: 0, width: ZLKeyWindowWidth - 80, height: 190)
-         let popup = FFPopup.popup(contetnView: view, showType: .bounceIn, dismissType: .bounceOut, maskType: FFPopup.MaskType.dimmed, dismissOnBackgroundTouch: true, dismissOnContentTouch: false)
+         let popup = FFPopup(contetnView: view, showType: .bounceIn, dismissType: .bounceOut, maskType: FFPopup.MaskType.dimmed, dismissOnBackgroundTouch: true, dismissOnContentTouch: false)
          view.popup = popup
         let layout = FFPopupLayout.init(horizontal: .center, vertical: .aboveCenter)
         popup.show(layout:layout)

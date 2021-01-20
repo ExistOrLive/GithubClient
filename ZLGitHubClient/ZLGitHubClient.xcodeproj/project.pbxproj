@@ -132,6 +132,9 @@
 		74876F2C256AADDB0063A93A /* ZLOrgsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74876F2B256AADDB0063A93A /* ZLOrgsViewController.swift */; };
 		74876F31256AB3F60063A93A /* ZLUserTableViewCellDataForViewerOrgs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74876F30256AB3F60063A93A /* ZLUserTableViewCellDataForViewerOrgs.swift */; };
 		748905D322300B46003562E1 /* ZLLoginLogoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 748905D222300B46003562E1 /* ZLLoginLogoView.m */; };
+		7495232525A598FD00C77DE1 /* ZLBaseFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74D3EEB1259BC2120002A2D3 /* ZLBaseFramework.framework */; };
+		7495232725A598FF00C77DE1 /* ZLServiceFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74D3F14F259C9FF90002A2D3 /* ZLServiceFramework.framework */; };
+		7495232825A598FF00C77DE1 /* ZLServiceFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 74D3F14F259C9FF90002A2D3 /* ZLServiceFramework.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		749BA38B2472E7AD004F8F15 /* ZLLanguageSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749BA38A2472E7AD004F8F15 /* ZLLanguageSelectView.swift */; };
 		749BA38D2472E88C004F8F15 /* ZLLanguageSelectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 749BA38C2472E88C004F8F15 /* ZLLanguageSelectView.xib */; };
 		749BA3902472EFAC004F8F15 /* ZLLanguageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749BA38E2472EFAC004F8F15 /* ZLLanguageTableViewCell.swift */; };
@@ -209,7 +212,6 @@
 		74CF8F5F2543107A006F51A5 /* ZLReportController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CF8F5E2543107A006F51A5 /* ZLReportController.swift */; };
 		74CF8F6325431351006F51A5 /* ZLReportBaseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74CF8F6225431351006F51A5 /* ZLReportBaseView.xib */; };
 		74D3EEB5259BC2120002A2D3 /* ZLBaseFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 74D3EEB3259BC2120002A2D3 /* ZLBaseFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		74D3EEB9259BC2120002A2D3 /* ZLBaseFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 74D3EEB1259BC2120002A2D3 /* ZLBaseFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		74D3EEF9259BC25D0002A2D3 /* SYDCentralQueuePool.h in Headers */ = {isa = PBXBuildFile; fileRef = 74D3EEC4259BC25D0002A2D3 /* SYDCentralQueuePool.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		74D3EEFA259BC25D0002A2D3 /* SYDCentralQueuePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3EEC5259BC25D0002A2D3 /* SYDCentralQueuePool.m */; };
 		74D3EEFB259BC25D0002A2D3 /* SYDCentralRouterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3EEC6259BC25D0002A2D3 /* SYDCentralRouterModel.m */; };
@@ -277,8 +279,6 @@
 		74D3F06A259BD6D60002A2D3 /* ZLDeviceInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 74D3F068259BD6D60002A2D3 /* ZLDeviceInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		74D3F070259BD73E0002A2D3 /* ZLBaseToolHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 74D3F06D259BD7060002A2D3 /* ZLBaseToolHeader.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		74D3F153259C9FF90002A2D3 /* ZLServiceFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 74D3F151259C9FF90002A2D3 /* ZLServiceFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		74D3F156259C9FF90002A2D3 /* ZLServiceFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74D3F14F259C9FF90002A2D3 /* ZLServiceFramework.framework */; };
-		74D3F157259C9FF90002A2D3 /* ZLServiceFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 74D3F14F259C9FF90002A2D3 /* ZLServiceFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		74D3F163259CA0460002A2D3 /* ZLBaseFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74D3EEB1259BC2120002A2D3 /* ZLBaseFramework.framework */; };
 		74D3F20A259CA23C0002A2D3 /* NSString+ZLExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 74D3F166259CA23A0002A2D3 /* NSString+ZLExtension.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		74D3F20B259CA23C0002A2D3 /* NSDate+localizeStr.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3F167259CA23A0002A2D3 /* NSDate+localizeStr.m */; };
@@ -371,7 +371,6 @@
 		74D3F27E259CA23D0002A2D3 /* ZLLanguageModuleProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 74D3F209259CA23C0002A2D3 /* ZLLanguageModuleProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		74D3F375259CCCD50002A2D3 /* ZLServiceFramework_SwiftPrefix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D3F374259CCCD50002A2D3 /* ZLServiceFramework_SwiftPrefix.swift */; };
 		74D3F383259CD3A40002A2D3 /* ZLServiceFramework_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 74D3F37F259CD3590002A2D3 /* ZLServiceFramework_Prefix.pch */; };
-		74D3F483259CEFDE0002A2D3 /* ZLBaseFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74D3EEB1259BC2120002A2D3 /* ZLBaseFramework.framework */; };
 		74D3F487259CF4DD0002A2D3 /* libgumbo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74D3F32E259CBE040002A2D3 /* libgumbo.a */; };
 		74D3F489259CF6D00002A2D3 /* ZLServiceConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 74D3F488259CF6D00002A2D3 /* ZLServiceConfig.plist */; };
 		74D3F4D8259D27CA0002A2D3 /* ZLNotificationServiceHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D3F4D7259D27CA0002A2D3 /* ZLNotificationServiceHeader.swift */; };
@@ -422,6 +421,7 @@
 		74F02CDD22DD75E600AE153F /* ZLProfileBaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F02CDC22DD75E600AE153F /* ZLProfileBaseViewModel.swift */; };
 		74F0ABE5236596F100D1B954 /* ZLSearchFilterViewForUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F0ABE4236596F100D1B954 /* ZLSearchFilterViewForUser.swift */; };
 		74F0ABE72365971900D1B954 /* ZLSearchFilterViewForUser.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74F0ABE62365971900D1B954 /* ZLSearchFilterViewForUser.xib */; };
+		74F5AF6225B78CF00053764F /* ZLAssistController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F5AF6125B78CF00053764F /* ZLAssistController.swift */; };
 		74FCBD9B23141FE000DDE46A /* ZLEditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74FCBD9A23141FE000DDE46A /* ZLEditProfileView.swift */; };
 		74FCBD9D2314204600DDE46A /* ZLEditProfileView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74FCBD9C2314204600DDE46A /* ZLEditProfileView.xib */; };
 		74FCBD9F231423A800DDE46A /* ZLEditProfileContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74FCBD9E231423A800DDE46A /* ZLEditProfileContentView.swift */; };
@@ -486,8 +486,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				74D3EEB9259BC2120002A2D3 /* ZLBaseFramework.framework in Embed Frameworks */,
-				74D3F157259C9FF90002A2D3 /* ZLServiceFramework.framework in Embed Frameworks */,
+				7495232825A598FF00C77DE1 /* ZLServiceFramework.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -958,6 +957,7 @@
 		74F02CDC22DD75E600AE153F /* ZLProfileBaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLProfileBaseViewModel.swift; sourceTree = "<group>"; };
 		74F0ABE4236596F100D1B954 /* ZLSearchFilterViewForUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLSearchFilterViewForUser.swift; sourceTree = "<group>"; };
 		74F0ABE62365971900D1B954 /* ZLSearchFilterViewForUser.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZLSearchFilterViewForUser.xib; sourceTree = "<group>"; };
+		74F5AF6125B78CF00053764F /* ZLAssistController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLAssistController.swift; sourceTree = "<group>"; };
 		74FCBD9A23141FE000DDE46A /* ZLEditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLEditProfileView.swift; sourceTree = "<group>"; };
 		74FCBD9C2314204600DDE46A /* ZLEditProfileView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZLEditProfileView.xib; sourceTree = "<group>"; };
 		74FCBD9E231423A800DDE46A /* ZLEditProfileContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLEditProfileContentView.swift; sourceTree = "<group>"; };
@@ -984,9 +984,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				74D3F483259CEFDE0002A2D3 /* ZLBaseFramework.framework in Frameworks */,
-				74D3F156259C9FF90002A2D3 /* ZLServiceFramework.framework in Frameworks */,
+				7495232525A598FD00C77DE1 /* ZLBaseFramework.framework in Frameworks */,
 				A6389CC5113B9E045DD7D154 /* Pods_ZLGitHubClient.framework in Frameworks */,
+				7495232725A598FF00C77DE1 /* ZLServiceFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1833,6 +1833,7 @@
 			isa = PBXGroup;
 			children = (
 				7486E05025A3A98400EE38CB /* ZLAssistButtonManager.swift */,
+				74F5AF6125B78CF00053764F /* ZLAssistController.swift */,
 			);
 			path = AssistantButton;
 			sourceTree = "<group>";
@@ -4304,6 +4305,7 @@
 				749DBC8624B39F3C00D02B2C /* ZLIssueEventTableViewCell.swift in Sources */,
 				749DBC9E24B4CAC900D02B2C /* ZLNotificationController.swift in Sources */,
 				74C639EA24B916EE00457F94 /* ZLRepoWorkflowRunsController.swift in Sources */,
+				74F5AF6225B78CF00053764F /* ZLAssistController.swift in Sources */,
 				74835FC6256B8D760083BE10 /* ZLMyIssuesController.swift in Sources */,
 				74D3EFE7259BC6060002A2D3 /* ZLPageTabViewController.swift in Sources */,
 				74C5B20C2479361A00D941DF /* ZLRepoStargazersViewModel.swift in Sources */,
@@ -4864,6 +4866,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AA68B4BC8FFF87762D625908 /* Pods-ZLBaseFramework.debug.xcconfig */;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
@@ -4903,6 +4906,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9DB8CADD643B3AEB70C63C51 /* Pods-ZLBaseFramework.release.xcconfig */;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
@@ -4943,6 +4947,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 60A321F2ADD6DAF97FEEDF94 /* Pods-ZLServiceFramework.debug.xcconfig */;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
@@ -5000,6 +5005,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2A1C1E9B223917862FB53386 /* Pods-ZLServiceFramework.release.xcconfig */;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;

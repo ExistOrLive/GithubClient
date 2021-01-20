@@ -189,9 +189,10 @@ extension ZLExploreBaseViewModel : ZLExploreBaseViewDelegate{
     }
     
     func onSearchButtonClicked() -> Void {
-        let vc = ZLSearchController()
-        vc.hidesBottomBarWhenPushed = true
-        self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        if let vc = ZLUIRouter.getVC(key: ZLUIRouter.SearchController){
+            vc.hidesBottomBarWhenPushed = true
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        }
     }
       
     func onLanguageButtonClicked() -> Void {

@@ -25,7 +25,7 @@
 
 - (void)dealloc
 {
-    [self.assistManager setHidden:YES];
+    [[ZLAssistButtonManager sharedInstance] setHidden:YES];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:ZLLanguageTypeChange_Notificaiton object:nil];
 }
 
@@ -42,7 +42,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onNotificationArrived:) name:ZLLanguageTypeChange_Notificaiton object:nil];
     
-    self.assistManager = [[ZLAssistButtonManager alloc] init];
+    [ZLAssistButtonManager sharedInstance];
 }
 
 - (void) viewWillAppear:(BOOL)animated{

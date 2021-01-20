@@ -14,21 +14,86 @@ public typealias GithubResponseSwift = (Bool,Any?,String) -> Void
 let GithubGraphQLAPI = "https://api.github.com/graphql"
 
 
+private class ZLTokenIntercetor : ApolloInterceptor {
+    
+    func interceptAsync<Operation: GraphQLOperation>(
+        chain: RequestChain,
+        request: HTTPRequest<Operation>,
+        response: HTTPResponse<Operation>?,
+        completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void){
+        request.addHeader(name:"Authorization", value: "token \(ZLGithubHttpClient.default().token)")
+        chain.proceedAsync(request: request, response: response, completion: completion)
+    }
+}
+
+private class ZLTokenInvalidDealIntercetor : ApolloInterceptor {
+    
+    func interceptAsync<Operation: GraphQLOperation>(
+        chain: RequestChain,
+        request: HTTPRequest<Operation>,
+        response: HTTPResponse<Operation>?,
+        completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void){
+       
+        if let httpResponse = response?.httpResponse{
+            if httpResponse.statusCode == 401 {
+                ZLMainThreadDispatch({
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ZLGithubTokenInvalid_Notification"), object: nil)
+                })
+            }
+        }
+        chain.proceedAsync(request: request, response: response, completion: completion)
+    }
+}
+
+private struct ZLNetworkInterceptorProvider: InterceptorProvider {
+    
+    // These properties will remain the same throughout the life of the `InterceptorProvider`, even though they
+    // will be handed to different interceptors.
+    private let store: ApolloStore
+    private let client: URLSessionClient
+    
+    init(store: ApolloStore,
+         client: URLSessionClient) {
+        self.store = store
+        self.client = client
+    }
+    
+    func interceptors<Operation: GraphQLOperation>(for operation: Operation) -> [ApolloInterceptor] {
+        return [
+            ZLTokenIntercetor(),
+            MaxRetryInterceptor(),
+            LegacyCacheReadInterceptor(store: self.store),
+            NetworkFetchInterceptor(client: self.client),
+            ZLTokenInvalidDealIntercetor(),
+            ResponseCodeInterceptor(),
+            LegacyParsingInterceptor(cacheKeyForObject: self.store.cacheKeyForObject),
+            AutomaticPersistedQueryInterceptor(),
+            LegacyCacheWriteInterceptor(store: self.store)
+        ]
+    }
+}
+
+
+
+
 public extension ZLGithubHttpClient{
     
-    fileprivate static var realApolloCilent : ApolloClient?
+    fileprivate static var realApolloCilent : ApolloClient = {
+        
+        let cache = InMemoryNormalizedCache()
+        let store = ApolloStore(cache: cache)
+        
+        let client = URLSessionClient()
+        let provider = ZLNetworkInterceptorProvider(store: store, client: client)
+            
+        let networkTransport = RequestChainNetworkTransport(interceptorProvider: provider, endpointURL: URL.init(string: GithubGraphQLAPI)!)
+        
+        return ApolloClient.init(networkTransport:networkTransport, store: store)
+    }()
+    
     
     fileprivate var apolloClient: ApolloClient!{
-        get{
-            if  ZLGithubHttpClient.realApolloCilent != nil{
-                return ZLGithubHttpClient.realApolloCilent
-            }
-            
-            let httpTransport = HTTPNetworkTransport(url:URL.init(string: GithubGraphQLAPI)!)
-            httpTransport.delegate = self
-            ZLGithubHttpClient.realApolloCilent = ApolloClient.init(networkTransport: httpTransport)
-            return ZLGithubHttpClient.realApolloCilent
-        }
+        ZLGithubHttpClient.realApolloCilent
     }
     
     
@@ -39,35 +104,7 @@ public extension ZLGithubHttpClient{
      */
     @objc func getWorkBoardInfo(serialNumber: String,block: @escaping GithubResponseSwift){
         let query = WorkboardInfoQuery()
-        
-        self.apolloClient.fetch(query: query){ result in
-            var resultData : Any? = nil
-            var success = false
-            switch result{
-            case .success(_):do{
-                if let data = try? result.get().data{
-                    success = true
-                    let json = data.jsonObject
-                    let serialized = try! JSONSerialization.data(withJSONObject: json, options: [])
-                    let deserialized = try! JSONSerialization.jsonObject(with: serialized, options: []) as! JSONObject
-                    let result = try! WorkboardInfoQuery.Data(jsonObject: deserialized)
-                    resultData = result
-                } else {
-                    success = false
-                    resultData = ZLGithubRequestErrorModel()
-                }
-            }
-                break
-            case .failure(let error):do{
-                success = false
-                let errorModel = ZLGithubRequestErrorModel()
-                errorModel.message = error.localizedDescription
-                resultData = errorModel
-            }
-                break
-            }
-            block(success,resultData,serialNumber)
-        }
+        self.baseQuery(query: query, serialNumber: serialNumber, block: block)
     }
     
     /**
@@ -174,28 +211,5 @@ public extension ZLGithubHttpClient{
     
 }
 
-extension ZLGithubHttpClient : HTTPNetworkTransportPreflightDelegate, HTTPNetworkTransportTaskCompletedDelegate{
-    public func networkTransport(_ networkTransport: HTTPNetworkTransport, shouldSend request: URLRequest) -> Bool {
-        return true
-    }
-    
-    public func networkTransport(_ networkTransport: HTTPNetworkTransport, willSend request: inout URLRequest) {
-        request.addValue("token \(self.token)", forHTTPHeaderField: "Authorization")
-    }
-    
-    public func networkTransport(_ networkTransport: HTTPNetworkTransport,
-                          didCompleteRawTaskForRequest request: URLRequest,
-                          withData data: Data?,
-                          response: URLResponse?,
-                          error: Error?){
-        if let httpResponse = response as? HTTPURLResponse{
-            if httpResponse.statusCode == 401 {
-                ZLMainThreadDispatch({
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ZLGithubTokenInvalid_Notification"), object: nil)
-                })
-            }
-        }
-    }
-    
-    
-}
+
+

@@ -56,7 +56,7 @@ class ZLRepoBranchesView: ZLBaseView {
         self.tableView.reloadData()
         
         self.frame = CGRect.init(x: 0, y: 0, width: ZLKeyWindowWidth - 80, height: 320)
-        let popup = FFPopup.popup(contetnView: self, showType: .bounceIn, dismissType: .bounceOut, maskType: FFPopup.MaskType.dimmed, dismissOnBackgroundTouch: true, dismissOnContentTouch: false)
+        let popup = FFPopup(contetnView: self, showType: .bounceIn, dismissType: .bounceOut, maskType: FFPopup.MaskType.dimmed, dismissOnBackgroundTouch: true, dismissOnContentTouch: false)
         self.popup = popup
         popup.show(layout: .Center)
     }

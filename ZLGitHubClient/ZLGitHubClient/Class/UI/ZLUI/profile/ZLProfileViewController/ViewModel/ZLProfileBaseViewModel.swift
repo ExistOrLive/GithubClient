@@ -195,9 +195,10 @@ extension ZLProfileBaseViewModel: UITableViewDelegate, UITableViewDataSource
             self.viewController?.navigationController?.pushViewController(vc, animated: true)
         }
         case ZLProfileItemType.setting:do{
-            let vc = ZLSettingController.init()
-            vc.hidesBottomBarWhenPushed = true
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            if let vc = ZLUIRouter.getVC(key: ZLUIRouter.SettingController){
+                vc.hidesBottomBarWhenPushed = true
+                self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            }
         }
         case ZLProfileItemType.aboutMe:
             if let vc = ZLUIRouter.getZLAboutViewController() {

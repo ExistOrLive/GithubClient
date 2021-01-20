@@ -33,7 +33,7 @@ class ZLRepoLanguagesPercentView: ZLBaseView {
                 view.data = result.data as! [String:Int]
                 view.startLoadData()
 
-                let popup : FFPopup = FFPopup.popup(contetnView: view, showType: .bounceIn, dismissType: .bounceOut, maskType: FFPopup.MaskType.dimmed, dismissOnBackgroundTouch: true, dismissOnContentTouch: false)
+                let popup : FFPopup = FFPopup(contetnView: view, showType: .bounceIn, dismissType: .bounceOut, maskType: FFPopup.MaskType.dimmed, dismissOnBackgroundTouch: true, dismissOnContentTouch: false)
                 popup.show(layout: .Center)
                 
         

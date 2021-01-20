@@ -10,7 +10,21 @@
 #import "UIViewController+SYDRouter.h"
 #import <objc/runtime.h>
 
+
 @implementation UIViewController (SYDRouter)
+
+- (void) setVCKey:(NSString *)VCKey {
+    objc_setAssociatedObject(self, "VCKey", VCKey, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
+- (NSString *) VCKey{
+    NSString *key = objc_getAssociatedObject(self, "VCKey");
+    if(!key){
+        key = @"UIViewController";
+    }
+    return key;
+}
+
 
 
 + (void) enterViewControllerWithViewControllerConfig:(id) pConfig withParam:(NSDictionary *) paramDic

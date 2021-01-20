@@ -59,28 +59,28 @@ let Font_PingFangSCRegular = "PingFang-SC-Regular"
 
 func ZLRGBValue_H(colorValue: UInt) -> UIColor
 {
-    return UIColor.init(rgb: colorValue, alpha: 1.0)
+    return UIColor(rgb: colorValue, alpha: 1.0)
 }
 
 func ZLRGBAValue_H(colorValue: UInt, alphaValue: CGFloat) -> UIColor
 {
-    return UIColor.init(rgb: colorValue, alpha: alphaValue)
+    return UIColor(rgb: colorValue, alpha: alphaValue)
 }
 
 func ZLRGBValueStr_H(colorValue: String) -> UIColor
 {
-    return UIColor.init(hexString: colorValue, alpha: 1.0)
+    return UIColor(hexString: colorValue, alpha: 1.0)
 }
 
 func ZLRGBValueStr_H(colorValue: String, alphaValue: CGFloat) -> UIColor
 {
-    return UIColor.init(hexString: colorValue, alpha: Float(alphaValue))
+    return UIColor(hexString: colorValue, alpha: Float(alphaValue))
 }
 
 func ZLRawColor(name: String) -> UIColor?{
     
-    if let color = UIColor.init(named: name) {
-        return UIColor.init(cgColor: color.cgColor)
+    if let color = UIColor(named: name) {
+        return UIColor(cgColor: color.cgColor)
     } else {
         return nil
     }
@@ -89,7 +89,7 @@ func ZLRawColor(name: String) -> UIColor?{
 @available(iOS 12.0, *)
 func getRealUserInterfaceStyle() -> UIUserInterfaceStyle {
     if ZLSharedDataManager.sharedInstance().currentUserInterfaceStyle == .unspecified {
-        if  let color = UIColor.init(named: "TestColor") {
+        if  let color = UIColor(named: "TestColor") {
             if color.cgColor.components?[0] ?? 1.0 == 1.0 {
                 return .light
             } else {

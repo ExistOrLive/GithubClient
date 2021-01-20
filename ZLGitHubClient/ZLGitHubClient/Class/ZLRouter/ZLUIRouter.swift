@@ -48,6 +48,10 @@ extension ZLUIRouter{
     static let MyRepoesController : ZLUIKey = "ZLMyRepoesController"
     static let MyIssuesController : ZLUIKey = "ZLMyIssuesController"
     
+    static let SearchController : ZLUIKey = "ZLSearchController"
+    
+    static let SettingController : ZLUIKey = "ZLSettingController"
+    static let AppearanceController : ZLUIKey = "ZLAppearanceController"
     static let AboutViewController : ZLUIKey = "ZLAboutViewController"
     
     static let UserInfoController : ZLUIKey = "ZLUserInfoController"

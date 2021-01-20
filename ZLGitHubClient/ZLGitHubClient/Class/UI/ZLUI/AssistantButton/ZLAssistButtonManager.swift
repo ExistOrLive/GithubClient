@@ -8,12 +8,6 @@
 
 import UIKit
 import CircleMenu
-enum ZLAssistButtonType{
-    case home
-    case search
-    case setting
-    case pasteboard
-}
 
 
 
@@ -24,8 +18,13 @@ enum ZLAssistButtonType{
     
     private var floatCircleWindow : ZLFloatWindow?
     
-    private var buttonTypes : [ZLAssistButtonType]?
+    static let shared = ZLAssistButtonManager()
     
+    static public func sharedInstance() ->ZLAssistButtonManager{
+        return shared
+    }
+    
+        
     override init() {
         floatButtonView = ZLFloatView.init()
         assistButton = UIButton.init(type: .custom)
@@ -33,6 +32,7 @@ enum ZLAssistButtonType{
         
         let config = ZLFloatViewConfig()
         config.bounces = true
+        config.canPan = true
         floatButtonView.config = config
         floatButtonView.frame = CGRect(x: 0, y: ZLKeyWindowHeight / 2, width: 60, height: 60)
         
@@ -49,6 +49,13 @@ enum ZLAssistButtonType{
     }
     
     
+    func dismissAssistDetailView() {
+        self.floatButtonView.isHidden = false
+        self.floatCircleWindow?.isHidden = true
+        self.floatCircleWindow = nil
+    }
+    
+    
     deinit {
         self.floatButtonView.isHidden = true
         self.floatButtonView.removeFromSuperview()
@@ -61,76 +68,19 @@ enum ZLAssistButtonType{
             
             self.floatButtonView.isHidden = true
             
-            let topVC = UIViewController.getTop()
-            if topVC?.isKind(of: UITabBarController.self) ?? false {
-                self.buttonTypes = [.pasteboard,.search,.setting]
-            } else if topVC?.isKind(of: ZLSettingController.self) ?? false {
-                self.buttonTypes = [.home,.search,.pasteboard]
-            } else if topVC?.isKind(of: ZLSearchController.self) ?? false {
-                self.buttonTypes = [.home,]
-            }
-            
-            
             self.floatCircleWindow = ZLFloatWindow()
-            self.floatCircleWindow?.backgroundColor = ZLRGBValueStr_H(colorValue: "000000", alphaValue: 0.2)
+            if #available(iOS 13.0, *) {
+                self.floatCircleWindow?.overrideUserInterfaceStyle = ZLSharedDataManager.sharedInstance().currentUserInterfaceStyle
+            }
             self.floatCircleWindow?.frame = UIApplication.shared.delegate?.window??.bounds ?? UIScreen.main.bounds
+            self.floatCircleWindow?.backgroundColor = UIColor(named: "ZLVCBackColor")
             
-            let width = self.floatCircleWindow!.frame.size.width
-            let height = self.floatCircleWindow!.frame.size.height
-            let frame = CGRect(x: width / 2 - 25, y: height / 2 - 25, width: 50, height: 50)
-            let circlrMenu = CircleMenu(frame: frame, normalIcon: nil, selectedIcon: "assist-close", buttonsCount: 4, duration: 0.3, distance: 100)
-            circlrMenu.delegate = self
-            self.floatCircleWindow?.rootViewController?.view.addSubview(circlrMenu)
-
+            self.floatCircleWindow?.rootViewController = ZLAssistController()
+    
             self.floatCircleWindow?.isHidden = false
             
-            circlrMenu.sendActions(for: .touchUpInside)
         }
     }
     
     
-}
-
-extension ZLAssistButtonManager : CircleMenuDelegate {
-    
-    func circleMenu(_ circleMenu: CircleMenu, willDisplay button: UIButton, atIndex: Int){
-        button.backgroundColor = UIColor.red
-    }
-
-    func circleMenu(_ circleMenu: CircleMenu, buttonWillSelected button: UIButton, atIndex: Int){
-        
-    }
-
-    /**
-     Tells the delegate that the specified index is now selected.
-
-     - parameter circleMenu: A circle menu object informing the delegate about the new index selection.
-     - parameter button:     A selected circle menu button. Don't change button.tag
-     - parameter atIndex:    Selected button index
-     */
-    func circleMenu(_ circleMenu: CircleMenu, buttonDidSelected button: UIButton, atIndex: Int){
-        self.floatButtonView.isHidden = false
-        self.floatCircleWindow?.isHidden = true
-        self.floatCircleWindow = nil
-    }
-
-    /**
-     Tells the delegate that the menu was collapsed - the cancel action. Fires immediately on button press
-
-     - parameter circleMenu: A circle menu object informing the delegate about the new index selection.
-     */
-    func menuCollapsed(_ circleMenu: CircleMenu){
-        self.floatButtonView.isHidden = false
-        self.floatCircleWindow?.isHidden = true
-        self.floatCircleWindow = nil
-    }
-
-    /**
-     Tells the delegate that the menu was opened. Fires immediately on button press
-
-     - parameter circleMenu: A circle menu object informing the delegate about the new index selection.
-     */
-    func menuOpened(_ circleMenu: CircleMenu){
-
-    }
 }
