@@ -44,14 +44,17 @@ NS_ASSUME_NONNULL_BEGIN
 // 用户界面外观选项
 @property(nonatomic,assign) UIUserInterfaceStyle currentUserInterfaceStyle API_AVAILABLE(ios(12.0));
 
+// 辅助按钮
+@property(nonatomic,assign,getter=isAssistButtonHidden) BOOL assistButtonHidden;
+
 
 - (void) clearGithubTokenAndUserInfo;
 
 #pragma mark - fix repo
 
-- (void) setFixRepos:(NSArray<ZLGithubCollectedRepoModel *>*)repos forLoginUser:(NSString *)login;
+- (void) setFixRepos:(NSArray *)repos forLoginUser:(NSString *)login;
 
-- (NSArray<ZLGithubCollectedRepoModel *>* __nullable) fixReposForLoginUser:(NSString *)login;
+- (NSArray* __nullable) fixReposForLoginUser:(NSString *)login;
 
 #pragma mark - trend
 

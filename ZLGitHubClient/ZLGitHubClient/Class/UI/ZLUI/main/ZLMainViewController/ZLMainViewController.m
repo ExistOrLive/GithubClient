@@ -42,7 +42,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onNotificationArrived:) name:ZLLanguageTypeChange_Notificaiton object:nil];
     
-    [ZLAssistButtonManager sharedInstance];
+    [[ZLAssistButtonManager sharedInstance] setHidden:[ZLSharedDataManager sharedInstance].assistButtonHidden];
 }
 
 - (void) viewWillAppear:(BOOL)animated{

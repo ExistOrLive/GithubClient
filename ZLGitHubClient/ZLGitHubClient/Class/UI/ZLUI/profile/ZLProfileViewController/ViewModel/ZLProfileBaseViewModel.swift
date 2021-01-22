@@ -18,7 +18,6 @@ class ZLProfileBaseViewModel: ZLBaseViewModel {
 
     // model
     private var currentUserInfo: ZLGithubUserModel?
-    private var myEventModel:[ZLGithubEventModel] = []
     
     deinit {
         self.removeObservers()
@@ -59,8 +58,6 @@ class ZLProfileBaseViewModel: ZLBaseViewModel {
         
         // 设置data
         self.setViewDataForProfileBaseView(model: currentUserInfo, view: self.profileBaseView!)
-        
-        self.queryMyEventRequest()
     }
 }
 
@@ -72,6 +69,7 @@ extension ZLProfileBaseViewModel
         
         view.tableHeaderView?.headImageView.sd_setImage(with: URL.init(string: model.avatar_url), placeholderImage: UIImage.init(named: "default_avatar"));
         view.tableHeaderView?.nameLabel.text = String("\(model.name)(\(model.loginName))")
+        view.tableHeaderView?.contributionView.startLoad(loginName:model.loginName)
         
         var dateStr = model.created_at
         if let date: Date = model.createdDate()
@@ -219,16 +217,7 @@ extension ZLProfileBaseViewModel: UITableViewDelegate, UITableViewDataSource
 
 // MARK: ZLProfileHeaderViewDelegate
 extension ZLProfileBaseViewModel : ZLProfileHeaderViewDelegate
-{
-    func numberOfEvent() -> Int {
-        return self.myEventModel.count
-    }
-    
-    func cellDataForEventAtIndex(index: Int) -> ZLProfileEventCollectionViewCellData {
-        let eventModel = self.myEventModel[index]
-        return ZLProfileEventCollectionViewCellData(data:eventModel)
-    }
-    
+{    
     func onProfileHeaderViewButtonClicked(button: UIButton) {
        
         let type = ZLProfileHeaderViewButtonType.init(rawValue: button.tag)
@@ -279,29 +268,12 @@ extension ZLProfileBaseViewModel : ZLProfileHeaderViewDelegate
     }
 }
 
-// MARK: request
-
-extension ZLProfileBaseViewModel
-{
-    static let queryMyEventRequestKey = "queryMyEventRequestKey"
-    
-    func queryMyEventRequest()
-    {
-        let serialNumber = NSString.generateSerialNumber()
-        self.serailNumberDic[ZLProfileBaseViewModel.queryMyEventRequestKey] = serialNumber
-        
-        ZLServiceManager.sharedInstance.eventServiceModel?.getMyEventsWithpage(1, per_page: 10, serialNumber: serialNumber)
-    }
-}
 
 // MARK: onNotificationArrived
 extension ZLProfileBaseViewModel
 {
-    func addObservers()
-    {
-        
+    func addObservers(){
         ZLServiceManager.sharedInstance.userServiceModel?.registerObserver(self, selector: #selector(onNotificationArrived(notication:)), name: ZLGetCurrentUserInfoResult_Notification)
-        ZLServiceManager.sharedInstance.eventServiceModel?.registerObserver(self, selector: #selector(onNotificationArrived(notication:)), name: ZLGetMyEventResult_Notification)
         NotificationCenter.default.addObserver(self, selector: #selector(onNotificationArrived(notication:)), name: ZLLanguageTypeChange_Notificaiton, object: nil)
     }
     
@@ -309,7 +281,6 @@ extension ZLProfileBaseViewModel
     {
         // 注销监听
         ZLServiceManager.sharedInstance.userServiceModel?.unRegisterObserver(self, name: ZLGetCurrentUserInfoResult_Notification)
-        ZLServiceManager.sharedInstance.eventServiceModel?.unRegisterObserver(self, name: ZLGetMyEventResult_Notification)
         NotificationCenter.default.removeObserver(self, name: ZLLanguageTypeChange_Notificaiton, object: nil)
     }
     
@@ -337,26 +308,6 @@ extension ZLProfileBaseViewModel
             // 更新UI
             self.setViewDataForProfileBaseView(model: model, view: self.profileBaseView!);
             
-            }
-        case ZLGetMyEventResult_Notification: do
-        {
-            guard let resultModel: ZLOperationResultModel = notication.params as? ZLOperationResultModel else
-            {
-                ZLLog_Info("notificaition.params is nil]")
-                return;
-            }
-            
-            let serailNumber = self.serailNumberDic[ZLProfileBaseViewModel.queryMyEventRequestKey]
-            if serailNumber != resultModel.serialNumber
-            {
-                return;
-            }
-            self.serailNumberDic.removeValue(forKey: ZLProfileBaseViewModel.queryMyEventRequestKey)
-            
-            self.myEventModel.append(contentsOf: resultModel.data as? [ZLGithubEventModel] ?? [])
-            
-            self.profileBaseView?.tableHeaderView?.reloadViewWithData()
-        
             }
         case ZLLanguageTypeChange_Notificaiton:do
         {

@@ -16,6 +16,7 @@ enum ZLSettingItemType: Int
     case monitor
     case blockedUser
     case interfaceStyle
+    case assistButton
 }
 
 class ZLSettingViewModel: ZLBaseViewModel {
@@ -55,15 +56,21 @@ class ZLSettingViewModel: ZLBaseViewModel {
             settingItemForFirstSection.append(.interfaceStyle)
         }
         
+        settingItemForFirstSection.append(.assistButton)
+        
         ZLSettingViewModel.settingItemTypes = [settingItemForFirstSection,[.logout]]
         
-        
-        
+    
         self.tableView?.dataSource = self
         self.tableView?.delegate = self
         
         NotificationCenter.default.addObserver(self, selector:#selector(onNotificationArrived(notication:)) , name: ZLLanguageTypeChange_Notificaiton, object: nil)
         ZLServiceManager.sharedInstance.loginServiceModel?.registerObserver(self, selector:#selector(onNotificationArrived(notication:)), name:ZLLogoutResult_Notification)
+    }
+    
+    override func vcLifeCycle_viewWillAppear() {
+        super.vcLifeCycle_viewWillAppear()
+        self.tableView?.reloadData()
     }
     
     
@@ -84,57 +91,10 @@ class ZLSettingViewModel: ZLBaseViewModel {
         
     }
     
-    func onChangeLanguage(){
-        
-        var titles : [String] = []
-        for rawValue in [0,ZLLanguageType.simpleChinese.rawValue]
-        {
-            var title = ""
-            switch ZLLanguageType.init(rawValue: rawValue)!
-            {
-            case .english:do{
-                title = ZLLocalizedString(string: "English", comment: "英文")
-                }
-            case .simpleChinese:do{
-                title = ZLLocalizedString(string: "SimpleChinese", comment: "简体中文")
-                }
-            @unknown default:do {
-            }
-            }
-            
-            titles.append(title)
-        }
-        
-        CYSinglePickerPopoverView.showCYSinglePickerPopover(withTitle: ZLLocalizedString(string: "Language", comment: ""), withInitIndex: UInt(ZLLANMODULE?.currentLanguageType().rawValue ?? 0), withDataArray: titles) { (index : UInt) in
-            
-            if let languaeType = ZLLanguageType.init(rawValue: UInt(index)) {
-                
-                ZLLANMODULE?.setLanguageType(languaeType, error: nil)
-        
-                switch languaeType
-                {
-                case .english:do{
-                    MJRefreshConfig.default().languageCode = "en"
-                    }
-                case .simpleChinese:do{
-                    MJRefreshConfig.default().languageCode = "zh-Hans"
-                    }
-                @unknown default:do {
-                    }
-                }
-            }
-        }
-    }
-    
-    func onMonitor()
-    {
+    func onMonitor(){
         
     }
     
-
-    @IBAction func onBackButtonClicked(_ sender: Any) {
-        self.viewController?.navigationController?.popViewController(animated: true)
-    }
 }
 
 
@@ -189,15 +149,17 @@ extension ZLSettingViewModel: UITableViewDataSource,UITableViewDelegate{
         {
         case .language:do{
             
-            guard let tableViewCell: ZLSettingItemTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLSettingItemTableViewCell", for: indexPath) as? ZLSettingItemTableViewCell else
-            {
+            guard let tableViewCell: ZLSettingItemTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLSettingItemTableViewCell", for: indexPath) as? ZLSettingItemTableViewCell else{
                 let cell = UITableViewCell.init()
                 return cell
             }
             
             tableViewCell.itemTypeLabel.text = ZLLocalizedString(string: "Language", comment: "语言")
-            switch ZLLANMODULE?.currentLanguageType() ?? ZLLanguageType.english
+            switch ZLLANMODULE?.currentLanguageType() ?? ZLLanguageType.auto
             {
+            case .auto:do{
+                tableViewCell.itemValueLabel.text = ZLLocalizedString(string: "FollowSystemSetting", comment: "跟随系统")
+            }
             case .english:do{
                 tableViewCell.itemValueLabel.text = ZLLocalizedString(string: "English", comment: "英文")
                 }
@@ -247,12 +209,41 @@ extension ZLSettingViewModel: UITableViewDataSource,UITableViewDelegate{
                 return cell
             }
             tableViewCell.itemTypeLabel.text = ZLLocalizedString(string: "Appearance", comment: "外观")
+            if #available(iOS 12.0, *) {
+                switch ZLSharedDataManager.sharedInstance().currentUserInterfaceStyle {
+                case .unspecified:
+                    tableViewCell.itemValueLabel.text = ZLLocalizedString(string: "FollowSystemSetting", comment: "")
+                case .dark:
+                    tableViewCell.itemValueLabel.text = ZLLocalizedString(string: "Dark Mode", comment: "")
+                case .light:
+                    tableViewCell.itemValueLabel.text = ZLLocalizedString(string: "Light Mode", comment: "")
+                @unknown default:do{
+                }
+                }
+            }
+            cell = tableViewCell
+        }
+        case .assistButton:do{
+            guard let tableViewCell: ZLSettingItemTableViewCell1 = tableView.dequeueReusableCell(withIdentifier: "ZLSettingItemTableViewCell1", for: indexPath) as? ZLSettingItemTableViewCell1 else{
+                let cell = UITableViewCell.init();
+                return cell
+            }
+            tableViewCell.itemTypeLabel.text = ZLLocalizedString(string: "AssistButton", comment: "辅助按钮")
+            tableViewCell.switchView.isOn = !ZLSharedDataManager.sharedInstance().isAssistButtonHidden
+            if !tableViewCell.switchView.allTargets.contains(self) {
+                tableViewCell.switchView.addTarget(self, action: #selector(ZLSettingViewModel.onAssistButtonSwitch(switchView:)), for: .touchUpInside)
+            }
             cell = tableViewCell
         }
         }
         
         if cell is ZLSettingItemTableViewCell {
             let tmpCell = cell as! ZLSettingItemTableViewCell
+            tmpCell.singleIineView.isHidden = (indexPath.row == ZLSettingViewModel.settingItemTypes[indexPath.section].count - 1)
+        }
+        
+        if cell is ZLSettingItemTableViewCell1 {
+            let tmpCell = cell as! ZLSettingItemTableViewCell1
             tmpCell.singleIineView.isHidden = (indexPath.row == ZLSettingViewModel.settingItemTypes[indexPath.section].count - 1)
         }
     
@@ -273,7 +264,8 @@ extension ZLSettingViewModel: UITableViewDataSource,UITableViewDelegate{
         switch settingItemType
         {
         case .language:do{
-            self.onChangeLanguage()
+            let vc = ZLLanguageController()
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
             }
         case .logout:do{
             self.onLogout()
@@ -290,7 +282,17 @@ extension ZLSettingViewModel: UITableViewDataSource,UITableViewDelegate{
                 self.viewController?.navigationController?.pushViewController(vc, animated: true)
             }            
         }
+        case .assistButton:do{
+            
+        }
         }
         
     }
+    
+    
+    @objc func onAssistButtonSwitch(switchView : UISwitch) {
+        ZLSharedDataManager.sharedInstance().isAssistButtonHidden = !switchView.isOn
+        ZLAssistButtonManager.shared.setHidden(!switchView.isOn)
+    }
+    
 }

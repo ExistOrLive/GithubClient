@@ -29,7 +29,7 @@ class ZLEditFixedRepoController : ZLBaseViewController,UITableViewDelegate,UITab
         
         super.viewDidLoad()
         
-        selectedRepos = ZLSharedDataManager.sharedInstance().fixRepos(forLoginUser: ZLServiceManager.sharedInstance.userServiceModel?.currentUserLoginName() ?? "") ?? []
+        selectedRepos = ZLSharedDataManager.sharedInstance().fixRepos(forLoginUser: ZLServiceManager.sharedInstance.userServiceModel?.currentUserLoginName() ?? "") as? [ZLGithubCollectedRepoModel] ?? []
     
         self.title = ZLLocalizedString(string: "Repos", comment: "")
         

@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ZLAppearanceController" customModule="ZLGitHubClient" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ZLLanguageController" customModule="ZLGitHubClient" customModuleProvider="target">
             <connections>
                 <outletCollection property="buttons" destination="iPT-75-rba" collectionClass="NSMutableArray" id="rBj-w2-qLb"/>
                 <outletCollection property="buttons" destination="l21-yI-JEh" collectionClass="NSMutableArray" id="EsG-GB-fBx"/>
@@ -52,7 +52,7 @@
                                 <constraint firstAttribute="height" constant="60" id="ZRh-Nz-0uM"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="PingFangSC-Semibold" family="PingFang SC" pointSize="16"/>
-                            <state key="normal" title="Light Mode">
+                            <state key="normal" title="English">
                                 <color key="titleColor" name="ZLLabelColor1"/>
                             </state>
                             <connections>
@@ -69,7 +69,7 @@
                         <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qqN-id-ldB">
                             <rect key="frame" x="20" y="121" width="392" height="59"/>
                             <fontDescription key="fontDescription" name="PingFangSC-Semibold" family="PingFang SC" pointSize="16"/>
-                            <state key="normal" title="Dark Mode">
+                            <state key="normal" title="Simple Chinese">
                                 <color key="titleColor" name="ZLLabelColor1"/>
                             </state>
                             <connections>

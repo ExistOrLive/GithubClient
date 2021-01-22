@@ -11,7 +11,8 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSUInteger,ZLLanguageType) {
+typedef NS_ENUM(NSInteger,ZLLanguageType) {
+    ZLLanguageType_Auto = -1,
     ZLLanguageType_English = 0,
     ZLLanguageType_SimpleChinese
 };

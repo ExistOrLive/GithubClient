@@ -51,7 +51,7 @@ class ZLWorkboardBaseViewModel: ZLBaseViewModel,ZLWorkboardBaseViewDelegate {
         let sectionArray : [ZLWorkboardClassicType] = [.work,.fixRepo]
         
         if let currentUserLoginName = ZLServiceManager.sharedInstance.userServiceModel?.currentUserLoginName() {
-            self.fixedRepos = ZLSharedDataManager.sharedInstance().fixRepos(forLoginUser:currentUserLoginName) ?? []
+            self.fixedRepos = ZLSharedDataManager.sharedInstance().fixRepos(forLoginUser:currentUserLoginName) as? [ZLGithubCollectedRepoModel] ?? []
         }
 
         var cellDataArray1 =  [ZLWorkboardTableViewCellData]()

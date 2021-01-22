@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -203,7 +203,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rsj-dY-eGJ">
-                    <rect key="frame" x="10" y="160" width="382" height="180"/>
+                    <rect key="frame" x="10" y="160" width="382" height="155"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="最近修改" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EY7-Hj-YAT">
                             <rect key="frame" x="15" y="15" width="56" height="20"/>
@@ -211,16 +211,6 @@
                             <color key="textColor" name="ZLLabelColor1"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Trh-pY-wi0">
-                            <rect key="frame" x="15" y="45" width="352" height="125"/>
-                            <color key="backgroundColor" name="ZLVCBackColor"/>
-                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ZqF-AV-M3c">
-                                <size key="itemSize" width="50" height="50"/>
-                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                            </collectionViewFlowLayout>
-                        </collectionView>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Next_MyProfile" translatesAutoresizingMaskIntoConstraints="NO" id="doq-bf-sT3">
                             <rect key="frame" x="362" y="20.5" width="5" height="9"/>
                             <constraints>
@@ -238,20 +228,29 @@
                                 <action selector="onProfileHeaderViewButtonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="Kbi-CY-OkR"/>
                             </connections>
                         </button>
+                        <view alpha="0.84999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="buL-Rc-oyY" customClass="ZLUserContributionsView" customModule="ZLGitHubClient" customModuleProvider="target">
+                            <rect key="frame" x="15" y="45" width="352" height="100"/>
+                            <color key="backgroundColor" name="ZLContributionBackColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="5"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" name="ZLCellBack"/>
                     <constraints>
-                        <constraint firstAttribute="trailing" secondItem="Trh-pY-wi0" secondAttribute="trailing" constant="15" id="0Da-dY-T5q"/>
-                        <constraint firstAttribute="height" constant="180" id="44i-0e-jTi"/>
+                        <constraint firstAttribute="height" constant="155" id="44i-0e-jTi"/>
                         <constraint firstItem="doq-bf-sT3" firstAttribute="leading" secondItem="tI7-p3-DgD" secondAttribute="trailing" constant="5" id="D71-LE-2bo"/>
                         <constraint firstAttribute="trailing" secondItem="doq-bf-sT3" secondAttribute="trailing" constant="15" id="E6Y-eR-QSK"/>
+                        <constraint firstItem="buL-Rc-oyY" firstAttribute="top" secondItem="EY7-Hj-YAT" secondAttribute="bottom" constant="10" id="Nym-6p-qnt"/>
+                        <constraint firstItem="buL-Rc-oyY" firstAttribute="leading" secondItem="Rsj-dY-eGJ" secondAttribute="leading" constant="15" id="PSr-TB-CZE"/>
                         <constraint firstItem="EY7-Hj-YAT" firstAttribute="leading" secondItem="Rsj-dY-eGJ" secondAttribute="leading" constant="15" id="Seb-AC-PyI"/>
                         <constraint firstItem="EY7-Hj-YAT" firstAttribute="top" secondItem="Rsj-dY-eGJ" secondAttribute="top" constant="15" id="UOp-Ce-Hgo"/>
                         <constraint firstItem="tI7-p3-DgD" firstAttribute="centerY" secondItem="EY7-Hj-YAT" secondAttribute="centerY" id="Ulm-lS-aI0"/>
                         <constraint firstItem="EY7-Hj-YAT" firstAttribute="centerY" secondItem="doq-bf-sT3" secondAttribute="centerY" id="XQz-oe-wiy"/>
-                        <constraint firstItem="Trh-pY-wi0" firstAttribute="leading" secondItem="Rsj-dY-eGJ" secondAttribute="leading" constant="15" id="dhb-M1-B0I"/>
-                        <constraint firstItem="Trh-pY-wi0" firstAttribute="top" secondItem="EY7-Hj-YAT" secondAttribute="bottom" constant="10" id="siU-nP-OjE"/>
-                        <constraint firstAttribute="bottom" secondItem="Trh-pY-wi0" secondAttribute="bottom" constant="10" id="yfP-fz-18e"/>
+                        <constraint firstAttribute="trailing" secondItem="buL-Rc-oyY" secondAttribute="trailing" constant="15" id="Y5h-ui-KdM"/>
+                        <constraint firstAttribute="bottom" secondItem="buL-Rc-oyY" secondAttribute="bottom" constant="10" id="frB-5f-Fsp"/>
                     </constraints>
                 </view>
             </subviews>
@@ -267,8 +266,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="allUpdateButton" destination="tI7-p3-DgD" id="WiM-5n-mVW"/>
-                <outlet property="collectionView" destination="Trh-pY-wi0" id="WP0-2g-YhC"/>
-                <outlet property="collectionViewLayout" destination="ZqF-AV-M3c" id="5Hl-uq-If1"/>
+                <outlet property="contributionView" destination="buL-Rc-oyY" id="8Rv-n4-1We"/>
                 <outlet property="createTimeLabel" destination="GvF-MU-KfX" id="Jnr-t9-dsH"/>
                 <outlet property="followersButton" destination="3tb-Z8-UmR" id="fom-96-cBG"/>
                 <outlet property="followersNumLabel" destination="N0I-Bq-pj2" id="QwA-ll-PXx"/>
@@ -293,14 +291,14 @@
         <namedColor name="ZLCellBack">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <namedColor name="ZLContributionBackColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="ZLLabelColor1">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="ZLLabelColor2">
             <color red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="ZLVCBackColor">
-            <color red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

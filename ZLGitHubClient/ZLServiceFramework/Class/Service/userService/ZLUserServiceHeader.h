@@ -129,6 +129,14 @@ static const NSNotificationName _Nonnull ZLUpdateUserPublicProfileInfoResult_Not
                      serialNumber: (NSString * _Nonnull) serialNumber
                    completeHandle:(void(^ _Nonnull)(ZLOperationResultModel *  _Nonnull)) handle;
 
+/**
+ * @brief 查询用户的contributions
+ * @param loginName 用户的登录名
+ **/
+- (void) getUserContributionsDataWithLoginName: (NSString * _Nonnull) loginName
+                                  serialNumber: (NSString * _Nonnull) serialNumber
+                                completeHandle: (void(^ _Nonnull)(ZLOperationResultModel * _Nonnull)) handle;
+
 
 @end
 

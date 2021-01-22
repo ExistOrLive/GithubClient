@@ -50,6 +50,7 @@ class ZLAppearanceController: ZLBaseViewController {
                 seletedTag.isHidden = (seletedTag.tag != interfaceStyle.rawValue)
             }
         }
+        self.navigationController?.popViewController(animated: true)
     }
     
 }

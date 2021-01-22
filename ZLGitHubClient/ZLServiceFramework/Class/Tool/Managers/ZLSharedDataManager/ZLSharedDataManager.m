@@ -13,6 +13,8 @@
 
 #define ZLKeyChainService @"com.zm.fbd34c5a34be72f66c35.ZLGitHubClient"
 #define ZLKeyChainServiceFixRepos @"com.zm.fbd34c5a34be72f66c35.ZLGitHubClient.fixrepo"
+
+#define ZLAssistButtonKey @"ZLAssistButtonKey"
 #define ZLAccessTokenKey @"ZLAccessTokenKey"
 #define ZLUserAccountKey @"ZLUserAccountKey"
 #define ZLUserHeadImageKey @"ZLUserHeadImageKey"
@@ -82,10 +84,22 @@
     return _githubAccessToken;
 }
 
+#pragma mark - Assist Button
+
+- (void)setAssistButtonHidden:(BOOL)assistButtonHidden{
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:assistButtonHidden] forKey:ZLAssistButtonKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (BOOL)isAssistButtonHidden{
+    NSNumber *result = [[NSUserDefaults standardUserDefaults] objectForKey:ZLAssistButtonKey];
+    return result.boolValue;
+}
+
 
 #pragma mark - fix repo
 
-- (void) setFixRepos:(NSArray<ZLGithubCollectedRepoModel *>*)repos forLoginUser:(NSString *)login{
+- (void) setFixRepos:(NSArray *)repos forLoginUser:(NSString *)login{
     if(!repos || !login){
         return;
     }
@@ -98,7 +112,7 @@
     [ZLKeyChainManager save:ZLKeyChainServiceFixRepos data:reposDic];
 }
 
-- (NSArray<ZLGithubCollectedRepoModel *>* __nullable) fixReposForLoginUser:(NSString *)login{
+- (NSArray * __nullable) fixReposForLoginUser:(NSString *)login{
     NSMutableDictionary *reposDic =  [ZLKeyChainManager load:ZLKeyChainServiceFixRepos];
     return [reposDic objectForKey:login];
 }

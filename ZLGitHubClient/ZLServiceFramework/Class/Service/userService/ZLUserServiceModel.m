@@ -16,6 +16,8 @@
 
 // tool
 #import "ZLSharedDataManager.h"
+#import "OCGumbo.h"
+#import "OCGumbo+Query.h"
 
 @interface ZLUserServiceModel()
 {
@@ -422,6 +424,55 @@
         }
     }
 }
+
+
+#pragma mark - contributions
+
+/**
+ * @brief 查询用户的contributions
+ * @param loginName 用户的登录名
+ **/
+- (void) getUserContributionsDataWithLoginName: (NSString * _Nonnull) loginName
+                                 serialNumber: (NSString * _Nonnull) serialNumber
+                                completeHandle: (void(^ _Nonnull)(ZLOperationResultModel * _Nonnull)) handle{
+    NSString *contributionsUrl = [NSString stringWithFormat:@"https://github.com/users/%@/contributions",loginName];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        
+        NSError *error = nil;
+        
+        ZLOperationResultModel *resultModel = [ZLOperationResultModel new];
+        resultModel.serialNumber = serialNumber;
+        
+        NSString *html = [NSString stringWithContentsOfURL:[NSURL URLWithString:contributionsUrl] encoding:NSUTF8StringEncoding error:&error];
+        
+        if(error) {
+            resultModel.result = false;
+            ZLGithubRequestErrorModel *errorModel =  [ZLGithubRequestErrorModel new];
+            errorModel.message = error.localizedDescription;
+            resultModel.data = errorModel;
+        } else {
+            OCGumboDocument *doc = [[OCGumboDocument alloc] initWithHTMLString:html];
+            OCQueryObject *queryResult = doc.Query(@".day");
+            
+            NSMutableArray *contributionsArray = [NSMutableArray new];
+            
+            for(OCGumboElement *gumboNode in queryResult) {
+                ZLGithubUserContributionData *data = [ZLGithubUserContributionData new];
+                data.contributionsNumber = [[gumboNode getAttribute:@"data-count"] intValue];
+                data.contributionsDate =  [gumboNode getAttribute:@"data-date"];
+                [contributionsArray addObject:data];
+            }
+            resultModel.result = true;
+            resultModel.data = contributionsArray;
+        }
+        
+        ZLMainThreadDispatch({
+            handle(resultModel);
+        })
+    });
+}
+
 
 @end
 

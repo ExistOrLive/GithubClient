@@ -32,7 +32,8 @@ class ZLAssistController: ZLBaseViewController {
         
         if let url = URL(string: UIPasteboard.general.string ?? "") {
             if url.host != "www.github.com" &&
-                url.host != "github.com" {
+                url.host != "github.com" &&
+                url.pathComponents.count <= 1{
                 return
             }
             self.pasteURL = url
@@ -103,14 +104,14 @@ class ZLAssistController: ZLBaseViewController {
             topVC?.vcKey == ZLUIRouter.NotificationViewController ||
             topVC?.vcKey == ZLUIRouter.ExploreViewController ||
             topVC?.vcKey == ZLUIRouter.ProfileViewController  {
-            self.buttonTypes = [.pasteboard,.search,.setting]
+            self.buttonTypes = [.search,.setting]
         } else if topVC?.vcKey == ZLUIRouter.SettingController ||
                     topVC?.vcKey == ZLUIRouter.AppearanceController  {
-            self.buttonTypes = [.home,.search,.pasteboard]
+            self.buttonTypes = [.home,.search]
         } else if topVC?.vcKey == ZLUIRouter.SearchController  {
-            self.buttonTypes = [.home,.pasteboard,.setting]
+            self.buttonTypes = [.home,.setting]
         } else {
-            self.buttonTypes = [.home,.search,.pasteboard,.setting]
+            self.buttonTypes = [.home,.search,.setting]
         }
         
         
@@ -175,15 +176,30 @@ extension ZLAssistController : CircleMenuDelegate {
         
         ZLAssistButtonManager.shared.dismissAssistDetailView()
         
+     
+        self.tmpfunc(index: atIndex)
+      
+    }
+    
+    
+    func tmpfunc(index : Int) {
+        
         let topVC = UIViewController.getTop()
-        switch self.buttonTypes?[atIndex] {
+        if topVC != nil  && topVC?.navigationController == nil {
+            topVC?.dismiss(animated: true, completion: { [self] in
+                self.tmpfunc(index: index)
+            })
+            return
+        }
+        
+        switch self.buttonTypes?[index] {
         case .home:
             topVC?.navigationController?.popToRootViewController(animated: true)
             break
         case .search:
             if let searchVC = ZLUIRouter.getVC(key: ZLUIRouter.SearchController){
                 searchVC.hidesBottomBarWhenPushed = true
-                topVC?.navigationController?.pushViewController(searchVC, animated: true)
+                topVC?.navigationController?.pushViewController(searchVC, animated: false)
             }
             break
         case .pasteboard:
@@ -191,12 +207,13 @@ extension ZLAssistController : CircleMenuDelegate {
         case .setting:
             if let settingVC = ZLUIRouter.getVC(key: ZLUIRouter.SettingController){
                 settingVC.hidesBottomBarWhenPushed = true
-                topVC?.navigationController?.pushViewController(settingVC, animated: true)
+                topVC?.navigationController?.pushViewController(settingVC, animated: false)
             }
             break
         case .none:
             break
         }
+        
     }
 
     /**
