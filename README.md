@@ -31,8 +31,8 @@
 #### Github OAuth login and Access Token login
 
 <div align="left">
-<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_3796.JPG" width="200"/>
-<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_4084.PNG" width="200"/>
+<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_4548.PNG" width="200"/>
+<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_4549.PNG" width="200"/>
 </div>
 
 #### Workboard
