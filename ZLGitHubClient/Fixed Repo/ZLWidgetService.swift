@@ -113,4 +113,33 @@ struct ZLWidgetService {
         })
         
     }
+    
+    
+    static func contributions(loginName : String, completeHandler: @escaping (Bool,[ZLGithubUserContributionData],Int) -> Void) {
+        
+        ZLServiceManager.sharedInstance.userServiceModel?.getUserContributionsData(withLoginName: loginName, serialNumber: NSString.generateSerialNumber(), completeHandle: { (resutModel) in
+            if resutModel.result == false {
+                completeHandler(false,[],0)
+            } else {
+                if let data = resutModel.data as? [ZLGithubUserContributionData] {
+                    var count = 0
+                    for tmpdata in data {
+                        count += tmpdata.contributionsNumber
+                    }
+                    let showCount = data.count % 7 == 0 ? 140 : data.count % 7 + 133
+                    var resultArray = data
+                    
+                    if data.count > showCount {
+                        let startIndex = data.count - showCount
+                        resultArray = Array(data[startIndex...])
+                    }
+                    completeHandler(true,resultArray,count)
+                    
+                } else {
+                    completeHandler(false,[],0)
+                }
+            }
+        })
+    
+    }
 }

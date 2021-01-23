@@ -22,7 +22,7 @@ extension ZLGithubRepositoryModel{
     }
 }
 
-struct Provider: IntentTimelineProvider {
+struct TrendingRepoProvider: IntentTimelineProvider {
     func placeholder(in context: Context) -> SimpleEntry {
         return SimpleEntry(date: Date(), model:nil,color:Color.blue)
     }
@@ -64,7 +64,7 @@ struct SimpleEntry: TimelineEntry {
 
 struct FixedRepoMediumView : View {
     
-    var entry: Provider.Entry
+    var entry: TrendingRepoProvider.Entry
     
     var body: some View {
         HStack{
@@ -164,8 +164,8 @@ struct FixedRepoMediumView : View {
 
 
 
-struct Fixed_RepoEntryView : View {
-    var entry: Provider.Entry
+struct TrendingRepoEntryView : View {
+    var entry: TrendingRepoProvider.Entry
     @Environment(\.widgetFamily) var family: WidgetFamily
 
     var body: some View {
@@ -183,15 +183,12 @@ struct Fixed_RepoEntryView : View {
 }
 
 
-
-
-@main
-struct Fixed_Repo: Widget {
+struct TrendingRepoWidget: Widget {
     let kind: String = "Fixed_Repo"
 
     var body: some WidgetConfiguration {
-        IntentConfiguration(kind: kind, intent: FixedRepoConfigurationIntent.self, provider: Provider()) { entry in
-            Fixed_RepoEntryView(entry: entry)
+        IntentConfiguration(kind: kind, intent: FixedRepoConfigurationIntent.self, provider: TrendingRepoProvider()) { entry in
+            TrendingRepoEntryView(entry: entry)
         }
         .configurationDisplayName("Trending")
         .description("Trending Repositories")
@@ -201,7 +198,11 @@ struct Fixed_Repo: Widget {
 
 struct Fixed_Repo_Previews: PreviewProvider {
     static var previews: some View {
-        Fixed_RepoEntryView(entry: SimpleEntry(date: Date(), model: ZLGithubRepositoryModel.getSampleModel(),color:Color.blue))
+        TrendingRepoEntryView(entry: SimpleEntry(date: Date(), model: ZLGithubRepositoryModel.getSampleModel(),color:Color.blue))
             .previewContext(WidgetPreviewContext(family: .systemMedium))
     }
 }
+
+
+
+

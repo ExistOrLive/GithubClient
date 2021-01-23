@@ -54,6 +54,7 @@
 	<string>相册权限</string>
 	<key>NSUserActivityTypes</key>
 	<array>
+		<string>ContributionConfigurationIntent</string>
 		<string>FixedRepoConfigurationIntent</string>
 	</array>
 	<key>UIBackgroundModes</key>
