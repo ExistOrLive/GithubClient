@@ -76,7 +76,7 @@ extension ZLProfileBaseViewModel
         {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
-            dateFormatter.timeZone = TimeZone.init(secondsFromGMT: 8 * 60 * 60) // 北京时区
+            dateFormatter.timeZone = TimeZone.current
             dateStr = dateFormatter.string(from: date)
         }
         let createdAtStr = ZLLocalizedString(string:"created at", comment: "创建于")

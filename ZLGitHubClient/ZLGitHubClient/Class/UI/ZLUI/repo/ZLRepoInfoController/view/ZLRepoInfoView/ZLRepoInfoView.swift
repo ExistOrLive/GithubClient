@@ -72,5 +72,11 @@ class ZLRepoInfoView: ZLBaseView {
     }
     
     
+    func justUpdate() {
+        self.headerView?.justUpdate()
+        self.itemView?.justUpdate()
+        self.readMeView?.justUpdate()
+    }
+    
 
 }

@@ -38,8 +38,14 @@ class ZLRepoCodePreview3Controller: ZLBaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: ZLUserInterfaceStyleChange_Notification, object: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLUserInterfaceStyleChange_Notification, object: nil)
         
         self.setUpUI()
         
@@ -176,6 +182,13 @@ class ZLRepoCodePreview3Controller: ZLBaseViewController {
     
 }
 
+extension ZLRepoCodePreview3Controller {
+    @objc func onNotificationArrived(notification : Notification) {
+        if let html = self.htmlStr {
+            self.startLoadCode(codeHtml: html)
+        }
+    }
+}
 
 
 extension ZLRepoCodePreview3Controller {
@@ -183,69 +196,69 @@ extension ZLRepoCodePreview3Controller {
     func sendQueryContentRequest(){
         
         SVProgressHUD.show()
-        weak var weakSelf = self
         
-        ZLServiceManager.sharedInstance.repoServiceModel?.getRepositoryFileHTMLInfo(withFullName: weakSelf!.repoFullName,path: weakSelf!.contentModel.path,branch:weakSelf!.branch,serialNumber: NSString.generateSerialNumber(),completeHandle: {(resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepositoryFileHTMLInfo(withFullName: self.repoFullName,path: self.contentModel.path,branch:self.branch,serialNumber: NSString.generateSerialNumber(),completeHandle: { [weak self] (resultModel : ZLOperationResultModel) in
             
             if resultModel.result == false
             {
                 SVProgressHUD.dismiss()
-                weakSelf?.switchToWebVC()
+                self?.switchToWebVC()
                 return
             }
             
             guard let data : String = resultModel.data as? String else
             {
                 SVProgressHUD.dismiss()
-                weakSelf?.switchToWebVC()
+                self?.switchToWebVC()
                 return;
             }
             
-            weakSelf?.startLoadCode(codeHtml: data)
+            self?.htmlStr = data
+            self?.startLoadCode(codeHtml: data)
         })
     }
     
     func sendRenderMakrdownRequest(){
         
-        weak var weakSelf = self
         SVProgressHUD.show()
-        ZLServiceManager.sharedInstance.repoServiceModel?.getRepositoryFileRawInfo(withFullName: weakSelf!.repoFullName,path: weakSelf!.contentModel.path,branch:weakSelf!.branch,serialNumber: NSString.generateSerialNumber(),completeHandle: {(resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepositoryFileRawInfo(withFullName: self.repoFullName,path: self.contentModel.path,branch:self.branch,serialNumber: NSString.generateSerialNumber(),completeHandle: {[weak self](resultModel : ZLOperationResultModel) in
             
             if resultModel.result == false
             {
                 SVProgressHUD.dismiss()
-                weakSelf?.switchToWebVC()
+                self?.switchToWebVC()
                 return
             }
             
             guard let data : String = resultModel.data as? String else
             {
                 SVProgressHUD.dismiss()
-                weakSelf?.switchToWebVC()
+                self?.switchToWebVC()
                 return;
             }
             
-            let code = "```\(self.getFileType(fileExtension: URL.init(string: self.contentModel.path)?.pathExtension ?? ""))\n\(data)\n```"
+            let code = "```\(self?.getFileType(fileExtension: URL.init(string: self?.contentModel.path ?? "")?.pathExtension ?? "") ?? "")\n\(data)\n```"
             
             ZLServiceManager.sharedInstance.additionServiceModel?.renderCodeToMarkdown(withCode: code, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
                 
                 if resultModel.result == false
                 {
                     SVProgressHUD.dismiss()
-                    weakSelf?.switchToWebVC()
+                    self?.switchToWebVC()
                     return
                 }
                 
                 guard let data : String = resultModel.data as? String else
                 {
                     SVProgressHUD.dismiss()
-                    weakSelf?.switchToWebVC()
+                    self?.switchToWebVC()
                     return;
                 }
                 
                 let code = "<article class=\"markdown-body entry-content container-lg\" itemprop=\"text\">\(data)</article>"
                 
-                weakSelf?.startLoadCode(codeHtml: code)
+                self?.htmlStr = code
+                self?.startLoadCode(codeHtml: code)
                 
             })
         })

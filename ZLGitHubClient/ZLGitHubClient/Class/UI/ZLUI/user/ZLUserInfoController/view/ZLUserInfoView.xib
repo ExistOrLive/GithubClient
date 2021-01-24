@@ -5,6 +5,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -238,7 +239,7 @@
                     </constraints>
                 </view>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="tHq-A4-RIt">
-                    <rect key="frame" x="0.0" y="190" width="503" height="200"/>
+                    <rect key="frame" x="0.0" y="320" width="503" height="200"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h5x-aY-esc">
                             <rect key="frame" x="0.0" y="0.0" width="503" height="50"/>
@@ -370,14 +371,39 @@
                         <constraint firstAttribute="height" constant="200" id="uDQ-TX-THd"/>
                     </constraints>
                 </stackView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HO2-kR-vH7">
+                    <rect key="frame" x="0.0" y="190" width="503" height="120"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NKg-k9-h7I" customClass="ZLUserContributionsView" customModule="ZLGitHubClient" customModuleProvider="target">
+                            <rect key="frame" x="20" y="10" width="463" height="100"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="5"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" name="ZLCellBack"/>
+                    <constraints>
+                        <constraint firstItem="NKg-k9-h7I" firstAttribute="leading" secondItem="HO2-kR-vH7" secondAttribute="leading" constant="20" id="DUk-89-IyB"/>
+                        <constraint firstAttribute="bottom" secondItem="NKg-k9-h7I" secondAttribute="bottom" constant="10" id="GYb-6q-wc1"/>
+                        <constraint firstItem="NKg-k9-h7I" firstAttribute="top" secondItem="HO2-kR-vH7" secondAttribute="top" constant="10" id="H5O-oY-0Mc"/>
+                        <constraint firstAttribute="trailing" secondItem="NKg-k9-h7I" secondAttribute="trailing" constant="20" id="JRe-tG-18X"/>
+                        <constraint firstAttribute="height" constant="120" id="vJ4-Vz-8qP"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="tHq-A4-RIt" firstAttribute="top" secondItem="15a-27-hPs" secondAttribute="bottom" constant="10" id="MqP-cL-11k"/>
+                <constraint firstItem="tHq-A4-RIt" firstAttribute="top" secondItem="HO2-kR-vH7" secondAttribute="bottom" constant="10" id="1Ct-no-nAJ"/>
+                <constraint firstItem="HO2-kR-vH7" firstAttribute="top" secondItem="15a-27-hPs" secondAttribute="bottom" constant="10" id="KxR-L2-s17"/>
                 <constraint firstItem="15a-27-hPs" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="PHo-2I-P7G"/>
                 <constraint firstItem="15a-27-hPs" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="XPa-Xn-SsT"/>
+                <constraint firstAttribute="trailing" secondItem="HO2-kR-vH7" secondAttribute="trailing" id="ccD-Q5-jdE"/>
                 <constraint firstItem="tHq-A4-RIt" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="kEw-Dh-klQ"/>
                 <constraint firstAttribute="trailing" secondItem="15a-27-hPs" secondAttribute="trailing" id="kht-0p-OOX"/>
+                <constraint firstItem="HO2-kR-vH7" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="mmA-me-ccp"/>
                 <constraint firstAttribute="trailing" secondItem="tHq-A4-RIt" secondAttribute="trailing" id="uSX-pt-9i1"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -389,6 +415,7 @@
                 <outlet property="blogLabel" destination="F4q-vB-EiM" id="pGE-DA-HIT"/>
                 <outlet property="companyInfoLabel" destination="Gz2-dI-kd4" id="N18-Zd-2GA"/>
                 <outlet property="companyLabel" destination="rK7-TJ-tFx" id="B9j-6G-QT4"/>
+                <outlet property="contributionsView" destination="NKg-k9-h7I" id="2Ku-EX-xCF"/>
                 <outlet property="createTimeLabel" destination="GvF-MU-KfX" id="D0H-aJ-cn3"/>
                 <outlet property="emailInfoLabel" destination="hLH-U0-MVV" id="QT9-kp-NK6"/>
                 <outlet property="emailLabel" destination="zgk-NI-7Ps" id="yOc-Kg-Rli"/>
@@ -423,5 +450,8 @@
         <namedColor name="ZLLabelColor3">
             <color red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

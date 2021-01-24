@@ -57,9 +57,7 @@ class ZLReadMeView: ZLBaseView {
     }
     
     @IBAction func onRefreshButtonClicked(_ sender: Any) {
-        if self.fullName != nil {
-            self.startLoad(fullName: self.fullName!, branch: self.branch)
-        }
+        self.reload()
     }
     
     
@@ -132,6 +130,22 @@ class ZLReadMeView: ZLBaseView {
         self.progressView.progress = 0.0
         self.progressView.isHidden = false
         self.webView.stopLoading()
+    }
+    
+    func reRender(){
+        if let html = self.htmlStr {
+            self.startRender(codeHtml: html)
+        }
+    }
+    
+    func reload() {
+        if let fullName = self.fullName{
+            self.startLoad(fullName: fullName, branch: self.branch)
+        }
+    }
+    
+    func justUpdate(){
+        self.refreshButton.setTitle(ZLLocalizedString(string: "refresh", comment: "刷新"), for: .normal)
     }
     
     

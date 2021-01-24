@@ -14,7 +14,7 @@ import ZLServiceFramework
 extension ZLGithubUserContributionData {
     static func getSampleContributionData() -> [ZLGithubUserContributionData] {
         var datas = [ZLGithubUserContributionData]()
-        for i in 1...140 {
+        for i in 1...154 {
             let data = ZLGithubUserContributionData()
             data.contributionsNumber = i % 30
             datas.append(data)
@@ -23,7 +23,7 @@ extension ZLGithubUserContributionData {
     }
     static func getPlaceHolderContributionData() -> [ZLGithubUserContributionData] {
         var datas = [ZLGithubUserContributionData]()
-        for _ in 1...140 {
+        for _ in 1...154 {
             let data = ZLGithubUserContributionData()
             data.contributionsNumber = 0
             datas.append(data)
@@ -98,7 +98,7 @@ struct ContributionMeidumView : View {
                 Spacer()
                 
                 HStack(alignment: .top, spacing: 3){
-                    ForEach(Range(0...19)) { column in
+                    ForEach(Range(0...21)) { column in
                         VStack(alignment: .leading, spacing: 3){
                             ForEach(Range(0...6)) { row in
                                 let index = column * 7 + row
@@ -142,7 +142,7 @@ struct ContributionMeidumView : View {
                 } else {
                     
                     HStack(alignment: .top, spacing: 3){
-                        ForEach(Range(0...19)) { column in
+                        ForEach(Range(0...21)) { column in
                             VStack(alignment: .leading, spacing: 3){
                                 ForEach(Range(0...6)) { row in
                                     let index = column * 7 + row
@@ -160,7 +160,7 @@ struct ContributionMeidumView : View {
             }
             
         }
-        .padding(EdgeInsets(top: 20, leading: 25, bottom: 20, trailing: 25))
+        .padding(EdgeInsets(top: 20, leading: 35, bottom: 20, trailing: 25))
         .widgetURL(URL(string: "https://github.com/\(entry.loginName ?? "")"))
         
     }

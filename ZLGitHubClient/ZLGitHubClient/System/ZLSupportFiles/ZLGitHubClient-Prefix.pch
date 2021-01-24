@@ -25,6 +25,8 @@
 
 #define ZLMainThreadDispatch(a)     if([NSThread isMainThread]){ a }else{dispatch_async(dispatch_get_main_queue(), ^{ a });}
 
+static const NSNotificationName ZLUserInterfaceStyleChange_Notification = @"ZLUserInterfaceStyleChange_Notification";
+
 #endif
 
 #endif /* ZLGitHubClient_prefix_pch */

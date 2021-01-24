@@ -126,7 +126,7 @@ struct ZLWidgetService {
                     for tmpdata in data {
                         count += tmpdata.contributionsNumber
                     }
-                    let showCount = data.count % 7 == 0 ? 140 : data.count % 7 + 133
+                    let showCount = data.count % 7 == 0 ? 154 : data.count % 7 + 147
                     var resultArray = data
                     
                     if data.count > showCount {

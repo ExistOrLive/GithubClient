@@ -52,19 +52,8 @@ class ZLRepoHeaderInfoView: ZLBaseView {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-    
         self.repoNameLabel.preferredMaxLayoutWidth = ZLKeyWindowWidth - 60
-        
-        self.issuesButton.setTitle(ZLLocalizedString(string: "issues", comment: "问题"), for: .normal)
-        self.starsButton.setTitle(ZLLocalizedString(string: "star", comment: "标星"), for: .normal)
-        self.forksButton.setTitle(ZLLocalizedString(string: "fork", comment: "拷贝"), for: .normal)
-        self.watchersButton.setTitle(ZLLocalizedString(string: "watcher", comment: "关注"), for:.normal)
-        
-        self.watchButton.setTitle(ZLLocalizedString(string: "Watch", comment: "关注"), for: .normal)
-        self.starButton.setTitle(ZLLocalizedString(string: "Star", comment: "标星"), for: .normal)
-        self.forkButton.setTitle(ZLLocalizedString(string: "Fork", comment: "拷贝"), for: .normal)
-        self.watchButton.setTitle(ZLLocalizedString(string: "Unwatch", comment: "取消关注"), for: .selected)
-        self.starButton.setTitle(ZLLocalizedString(string: "Unstar", comment: "取消标星"), for: .selected)
+        self.justUpdate()
     }
     
     
@@ -76,6 +65,20 @@ class ZLRepoHeaderInfoView: ZLBaseView {
             self.delegate?.onZLRepoHeaderInfoViewEvent(event: ZLRepoHeaderInfoViewEvent.init(rawValue: sender.tag) ?? .issue)
         }
         
+    }
+    
+    
+    func justUpdate() {
+        self.issuesButton.setTitle(ZLLocalizedString(string: "issues", comment: "问题"), for: .normal)
+        self.starsButton.setTitle(ZLLocalizedString(string: "star", comment: "标星"), for: .normal)
+        self.forksButton.setTitle(ZLLocalizedString(string: "fork", comment: "拷贝"), for: .normal)
+        self.watchersButton.setTitle(ZLLocalizedString(string: "watcher", comment: "关注"), for:.normal)
+        
+        self.watchButton.setTitle(ZLLocalizedString(string: "Watch", comment: "关注"), for: .normal)
+        self.starButton.setTitle(ZLLocalizedString(string: "Star", comment: "标星"), for: .normal)
+        self.forkButton.setTitle(ZLLocalizedString(string: "Fork", comment: "拷贝"), for: .normal)
+        self.watchButton.setTitle(ZLLocalizedString(string: "Unwatch", comment: "取消关注"), for: .selected)
+        self.starButton.setTitle(ZLLocalizedString(string: "Unstar", comment: "取消标星"), for: .selected)
     }
     
 }

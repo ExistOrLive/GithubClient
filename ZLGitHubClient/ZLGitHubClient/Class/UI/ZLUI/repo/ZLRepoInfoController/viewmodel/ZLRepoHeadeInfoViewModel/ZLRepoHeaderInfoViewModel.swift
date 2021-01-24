@@ -15,6 +15,10 @@ class ZLRepoHeaderInfoViewModel: ZLBaseViewModel {
     
     // view
     private var repoHeaderInfoView : ZLRepoHeaderInfoView?
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: ZLLanguageTypeChange_Notificaiton, object: nil)
+    }
 
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
         
@@ -29,6 +33,8 @@ class ZLRepoHeaderInfoViewModel: ZLBaseViewModel {
         }
         self.repoHeaderInfoView = repoHeaderInfoView
         self.repoHeaderInfoView?.delegate = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(ZLRepoHeaderInfoViewModel.onNotificaitonArrived(notification:)), name: ZLLanguageTypeChange_Notificaiton, object: nil)
         
         self.setViewDataForRepoHeaderInfoView()
         
@@ -83,15 +89,29 @@ class ZLRepoHeaderInfoViewModel: ZLBaseViewModel {
         }
         
              
-        guard let date : NSDate = self.repoInfoModel?.updated_at as NSDate? else
-        {
-                 return
+        guard let date : NSDate = self.repoInfoModel?.updated_at as NSDate? else{
+            return
         }
              
         let timeStr = NSString.init(format: "%@%@", ZLLocalizedString(string: "update at", comment: "更新于"),date.dateLocalStrSinceCurrentTime())
         self.repoHeaderInfoView?.timeLabel.text = timeStr as String
      }
 }
+
+extension ZLRepoHeaderInfoViewModel {
+    @objc func onNotificaitonArrived(notification:Notification) {
+        switch notification.name{
+        case .ZLLanguageTypeChange_Notificaiton:do{
+            guard let date : NSDate = self.repoInfoModel?.updated_at as NSDate? else{ return }
+            let timeStr = NSString.init(format: "%@%@", ZLLocalizedString(string: "update at", comment: "更新于"),date.dateLocalStrSinceCurrentTime())
+            self.repoHeaderInfoView?.timeLabel.text = timeStr as String
+        }
+        default:
+            break
+        }
+    }
+}
+
 
 
 extension ZLRepoHeaderInfoViewModel : ZLRepoHeaderInfoViewDelegate

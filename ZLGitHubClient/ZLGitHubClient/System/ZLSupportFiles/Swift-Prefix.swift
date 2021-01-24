@@ -18,6 +18,9 @@ import Charts
 import FWPopupView
 import ZLServiceFramework
 
+// notification
+let ZLUserInterfaceStyleChange_Notification = Notification.Name("ZLUserInterfaceStyleChange_Notification")
+
 // MARK: 界面常用参数
 
 var ZLStatusBarHeight : CGFloat {

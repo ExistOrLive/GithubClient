@@ -33,6 +33,8 @@ class ZLRepoInfoViewModel: ZLBaseViewModel {
     
     deinit {
         ZLServiceManager.sharedInstance.repoServiceModel?.unRegisterObserver(self, name: ZLGetSpecifiedRepoInfoResult_Notification)
+        NotificationCenter.default.removeObserver(self, name: ZLLanguageTypeChange_Notificaiton, object: nil)
+        NotificationCenter.default.removeObserver(self, name: ZLUserInterfaceStyleChange_Notification, object: nil)
     }
     
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
@@ -51,11 +53,14 @@ class ZLRepoInfoViewModel: ZLBaseViewModel {
         }
         self.repoInfoModel = repoInfoModel
         
+        ZLServiceManager.sharedInstance.repoServiceModel?.registerObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLGetSpecifiedRepoInfoResult_Notification)
+        NotificationCenter.default.addObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLLanguageTypeChange_Notificaiton, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLUserInterfaceStyleChange_Notification, object: nil)
+        
+    
         self.setViewDataForRepoInfoView()
         
         self.repoInfoView!.readMeView?.startLoad(fullName: self.repoInfoModel!.full_name, branch: nil)
-        
-        ZLServiceManager.sharedInstance.repoServiceModel?.registerObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLGetSpecifiedRepoInfoResult_Notification)
         
         // 获取仓库的详细信息
         SVProgressHUD.show()
@@ -133,6 +138,12 @@ extension ZLRepoInfoViewModel
             
         
             }
+        case ZLLanguageTypeChange_Notificaiton:do{
+            self.repoInfoView?.justUpdate()
+        }
+        case ZLUserInterfaceStyleChange_Notification:do{
+            self.repoInfoView?.readMeView?.reRender()
+        }
         default:
             break;
         }

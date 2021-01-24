@@ -29,7 +29,22 @@ class ZLUserContributionsView: ZLBaseView,UICollectionViewDataSource,UICollectio
         self.setUpUI()
     }
     
+    override func updateConstraints() {
+        super.updateConstraints()
+        collectionView.snp.updateConstraints { (make) in
+            make.width.equalTo(collectionView.contentSize.width).priority(.high)
+        }
+    }
+    
+    
+    deinit {
+        collectionView.removeObserver(self, forKeyPath: "contentSize")
+    }
+    
+    
     private func setUpUI() {
+        
+        self.backgroundColor = UIColor(named: "ZLContributionBackColor")
        
         let collectionViewLayout = UICollectionViewFlowLayout()
         collectionViewLayout.scrollDirection = .horizontal
@@ -45,10 +60,14 @@ class ZLUserContributionsView: ZLBaseView,UICollectionViewDataSource,UICollectio
         self.collectionView.dataSource = self
 
         
-        self.addSubview(self.collectionView)
+        self.addSubview(collectionView)
         collectionView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
+            make.top.bottom.centerX.equalToSuperview()
+            make.left.greaterThanOrEqualToSuperview()
+            make.right.lessThanOrEqualToSuperview()
+            make.width.equalTo(collectionView.contentSize.width).priority(.high)
         }
+        collectionView.addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
         
         label = UILabel()
         label.font = UIFont(name: Font_PingFangSCSemiBold, size: 12)
@@ -107,5 +126,10 @@ class ZLUserContributionsView: ZLBaseView,UICollectionViewDataSource,UICollectio
         
         
         return collectionViewCell
+    }
+    
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        self.setNeedsUpdateConstraints()
     }
 }
