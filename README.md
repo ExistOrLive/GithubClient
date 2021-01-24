@@ -124,7 +124,11 @@
 
 ## Trend Repositories Widget
 
-<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_4547.PNG" width="400"/>
+<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_4547.PNG" width="300"/>
+
+## Contributions Widget
+
+<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_4552.PNG" width="300"/>
 
 
 ## 如何使用GithubClient源码
