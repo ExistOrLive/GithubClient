@@ -78,7 +78,7 @@ extension ZLRepoPullRequestViewModel
         }
 
         weak var weakSelf = self
-        ZLRepoServiceModel.shared().getRepoPullRequest(withFullName: self.fullName!, state: self.filterOpen ? "open" : "closed", per_page: 10 , page : 1 ,serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoPullRequest(withFullName: self.fullName!, state: self.filterOpen ? "open" : "closed", per_page: 10 , page : 1 ,serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
             
             SVProgressHUD.dismiss()
             
@@ -122,7 +122,7 @@ extension ZLRepoPullRequestViewModel
         }
         
         weak var weakSelf = self
-        ZLRepoServiceModel.shared().getRepoPullRequest(withFullName: self.fullName!, state: self.filterOpen ? "open" : "closed",  per_page: 10 , page : self.currentPage + 1 , serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoPullRequest(withFullName: self.fullName!, state: self.filterOpen ? "open" : "closed",  per_page: 10 , page : self.currentPage + 1 , serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
             
             if resultModel.result == false
             {

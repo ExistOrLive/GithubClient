@@ -15,6 +15,10 @@ class ZLRepoHeaderInfoViewModel: ZLBaseViewModel {
     
     // view
     private var repoHeaderInfoView : ZLRepoHeaderInfoView?
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: ZLLanguageTypeChange_Notificaiton, object: nil)
+    }
 
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
         
@@ -29,6 +33,8 @@ class ZLRepoHeaderInfoViewModel: ZLBaseViewModel {
         }
         self.repoHeaderInfoView = repoHeaderInfoView
         self.repoHeaderInfoView?.delegate = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(ZLRepoHeaderInfoViewModel.onNotificaitonArrived(notification:)), name: ZLLanguageTypeChange_Notificaiton, object: nil)
         
         self.setViewDataForRepoHeaderInfoView()
         
@@ -66,10 +72,12 @@ class ZLRepoHeaderInfoViewModel: ZLBaseViewModel {
             
             let sourceRepoStr = NSMutableAttributedString.init(string: self.repoInfoModel?.sourceRepoFullName ?? "", attributes: [NSAttributedString.Key.foregroundColor:tmpColor1,NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCMedium, size: 13) ?? UIFont.systemFont(ofSize: 13)])
             
-            weak var weakSelf = self
-            sourceRepoStr.yy_setTextHighlight(NSRange.init(location: 0, length: self.repoInfoModel?.sourceRepoFullName?.count ?? 0), color: ZLRawColor(name: "ZLLinkLabelColor1"), backgroundColor: ZLRawColor(name: "ZLLinkLabelColor1"), tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
-                let repoVC = ZLRepoInfoController.init(repoFullName: weakSelf?.repoInfoModel?.sourceRepoFullName ?? "")
-                weakSelf?.viewController?.navigationController?.pushViewController(repoVC, animated: true)
+            sourceRepoStr.yy_setTextHighlight(NSRange.init(location: 0, length: self.repoInfoModel?.sourceRepoFullName?.count ?? 0), color: ZLRawColor(name: "ZLLinkLabelColor1"), backgroundColor: ZLRawColor(name: "ZLLinkLabelColor1"), tapAction: {[weak weakSelf = self](containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
+                
+                if let repoFullName = weakSelf?.repoInfoModel?.sourceRepoFullName,let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: repoFullName) {
+                    vc.hidesBottomBarWhenPushed = true
+                    weakSelf?.viewController?.navigationController?.pushViewController(vc, animated: true)
+                }
             })
             attributedStr.append(sourceRepoStr)
             
@@ -81,15 +89,29 @@ class ZLRepoHeaderInfoViewModel: ZLBaseViewModel {
         }
         
              
-        guard let date : NSDate = self.repoInfoModel?.updated_at as NSDate? else
-        {
-                 return
+        guard let date : NSDate = self.repoInfoModel?.updated_at as NSDate? else{
+            return
         }
              
         let timeStr = NSString.init(format: "%@%@", ZLLocalizedString(string: "update at", comment: "更新于"),date.dateLocalStrSinceCurrentTime())
         self.repoHeaderInfoView?.timeLabel.text = timeStr as String
      }
 }
+
+extension ZLRepoHeaderInfoViewModel {
+    @objc func onNotificaitonArrived(notification:Notification) {
+        switch notification.name{
+        case .ZLLanguageTypeChange_Notificaiton:do{
+            guard let date : NSDate = self.repoInfoModel?.updated_at as NSDate? else{ return }
+            let timeStr = NSString.init(format: "%@%@", ZLLocalizedString(string: "update at", comment: "更新于"),date.dateLocalStrSinceCurrentTime())
+            self.repoHeaderInfoView?.timeLabel.text = timeStr as String
+        }
+        default:
+            break
+        }
+    }
+}
+
 
 
 extension ZLRepoHeaderInfoViewModel : ZLRepoHeaderInfoViewDelegate
@@ -135,7 +157,7 @@ extension ZLRepoHeaderInfoViewModel : ZLRepoHeaderInfoViewDelegate
         }
         case .imageAction:do{
             if self.repoInfoModel?.owner.loginName != nil {
-                if let userInfoVC = SYDCentralPivotUIAdapter.getUserInfoViewController(withLoginName:self.repoInfoModel!.owner.loginName , with:self.repoInfoModel!.owner.type ){
+                if let userInfoVC = ZLUIRouter.getUserInfoViewController(self.repoInfoModel!.owner.loginName, type: self.repoInfoModel!.owner.type) {
                     userInfoVC.hidesBottomBarWhenPushed = true
                     self.viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
                 }
@@ -149,7 +171,7 @@ extension ZLRepoHeaderInfoViewModel : ZLRepoHeaderInfoViewDelegate
 extension ZLRepoHeaderInfoViewModel{
     func getRepoWatchStatus() -> Void {
         weak var weakSelf = self
-        ZLRepoServiceModel.shared().getRepoWatchStatus(withFullName: self.repoInfoModel!.full_name, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoWatchStatus(withFullName: self.repoInfoModel!.full_name, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
             
             if(resultModel.result) {
                 guard let data : [String:Bool] = resultModel.data as? [String:Bool] else {
@@ -170,7 +192,7 @@ extension ZLRepoHeaderInfoViewModel{
         if watch == true {
             
             SVProgressHUD.show()
-            ZLRepoServiceModel.shared().watchRepo(withFullName: self.repoInfoModel!.full_name, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+            ZLServiceManager.sharedInstance.repoServiceModel?.watchRepo(withFullName: self.repoInfoModel!.full_name, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
                 SVProgressHUD.dismiss()
                 if resultModel.result {
                     weakSelf?.repoHeaderInfoView?.watchButton.isSelected = true
@@ -184,7 +206,7 @@ extension ZLRepoHeaderInfoViewModel{
             
         } else {
             SVProgressHUD.show()
-            ZLRepoServiceModel.shared().unwatchRepo(withFullName: self.repoInfoModel!.full_name, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+            ZLServiceManager.sharedInstance.repoServiceModel?.unwatchRepo(withFullName: self.repoInfoModel!.full_name, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
                 SVProgressHUD.dismiss()
                 if resultModel.result {
                     weakSelf?.repoHeaderInfoView?.watchButton.isSelected = false
@@ -203,7 +225,7 @@ extension ZLRepoHeaderInfoViewModel{
     
     func getRepoStarStatus() -> Void {
         weak var weakSelf = self
-        ZLRepoServiceModel.shared().getRepoStarStatus(withFullName: self.repoInfoModel!.full_name, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoStarStatus(withFullName: self.repoInfoModel!.full_name, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
             
             if(resultModel.result) {
                 guard let data : [String:Bool] = resultModel.data as? [String:Bool] else {
@@ -224,7 +246,7 @@ extension ZLRepoHeaderInfoViewModel{
         if star == true {
             
             SVProgressHUD.show()
-            ZLRepoServiceModel.shared().starRepo(withFullName: self.repoInfoModel!.full_name, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+            ZLServiceManager.sharedInstance.repoServiceModel?.starRepo(withFullName: self.repoInfoModel!.full_name, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
                 SVProgressHUD.dismiss()
                 
                 if resultModel.result {
@@ -239,7 +261,7 @@ extension ZLRepoHeaderInfoViewModel{
             
         } else {
             SVProgressHUD.show()
-            ZLRepoServiceModel.shared().unstarRepo(withFullName: self.repoInfoModel!.full_name, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+            ZLServiceManager.sharedInstance.repoServiceModel?.unstarRepo(withFullName: self.repoInfoModel!.full_name, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
                 SVProgressHUD.dismiss()
                 if resultModel.result {
                     weakSelf?.repoHeaderInfoView?.starButton.isSelected = false
@@ -258,7 +280,7 @@ extension ZLRepoHeaderInfoViewModel{
     func forkRepo() {
         SVProgressHUD.show()
         
-        ZLRepoServiceModel.shared().forkRepository(withFullName: self.repoInfoModel!.full_name, org: nil, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.repoServiceModel?.forkRepository(withFullName: self.repoInfoModel!.full_name, org: nil, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
             SVProgressHUD.dismiss()
             
             if(resultModel.result) {

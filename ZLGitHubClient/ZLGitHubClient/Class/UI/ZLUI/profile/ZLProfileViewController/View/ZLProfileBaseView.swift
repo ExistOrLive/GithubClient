@@ -38,7 +38,7 @@ class ZLProfileBaseView: ZLBaseView {
         if tableViewHeader != nil
         {
             tableViewHeader!.autoresizingMask = UIView.AutoresizingMask.init(rawValue: 0);
-            tableViewHeader!.frame = CGRect.init(x: 0, y: 0, width: ZLScreenWidth, height: 350);
+            tableViewHeader!.frame = CGRect.init(x: 0, y: 0, width: ZLScreenWidth, height: 330);
             tableView.tableHeaderView = tableViewHeader;
             self.tableHeaderView = tableViewHeader;
         }

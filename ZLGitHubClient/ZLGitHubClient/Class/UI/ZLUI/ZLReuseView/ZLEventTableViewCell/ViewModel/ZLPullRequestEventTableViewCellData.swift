@@ -25,10 +25,8 @@ class ZLPullRequestEventTableViewCellData: ZLEventTableViewCellData {
         let str = "\(payload.action) pull request #\(payload.number)\n\n  \(payload.pull_request.title)\n\nin \(self.eventModel.repo.name)"
         let attributedStr =  NSMutableAttributedString.init(string: str , attributes: [NSAttributedString.Key.foregroundColor:UIColor.init(cgColor: UIColor.init(named: "ZLLabelColor3")!.cgColor),NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 15.0)!])
 
-        weak var weakSelf = self
-        
         let prNumberRange = (str as NSString).range(of: "#\(payload.number)")
-        attributedStr.yy_setTextHighlight(prNumberRange, color: UIColor.init(cgColor: UIColor.init(named: "ZLLinkLabelColor1")!.cgColor), backgroundColor: UIColor.clear , tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
+        attributedStr.yy_setTextHighlight(prNumberRange, color: UIColor.init(cgColor: UIColor.init(named: "ZLLinkLabelColor1")!.cgColor), backgroundColor: UIColor.clear , tapAction: {[weak weakSelf = self](containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
             let vc = ZLWebContentController.init()
             vc.hidesBottomBarWhenPushed = true
             vc.requestURL = URL.init(string: payload.pull_request.html_url)
@@ -36,13 +34,12 @@ class ZLPullRequestEventTableViewCellData: ZLEventTableViewCellData {
         })
 
         let repoNameRange = (str as NSString).range(of: self.eventModel.repo.name)
-        attributedStr.yy_setTextHighlight(repoNameRange, color: UIColor.init(cgColor: UIColor.init(named: "ZLLinkLabelColor1")!.cgColor), backgroundColor: UIColor.clear , tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
+        attributedStr.yy_setTextHighlight(repoNameRange, color: UIColor.init(cgColor: UIColor.init(named: "ZLLinkLabelColor1")!.cgColor), backgroundColor: UIColor.clear , tapAction: {[weak weakSelf = self](containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
 
-            let repoModel = ZLGithubRepositoryModel.init()
-            repoModel.full_name = weakSelf?.eventModel.repo.name ?? "";
-            let vc = ZLRepoInfoController.init(repoInfoModel: repoModel)
-            vc.hidesBottomBarWhenPushed = true
-            weakSelf?.viewController?.navigationController?.pushViewController(vc, animated: true)
+            if let repoFullName = weakSelf?.eventModel.repo.name,let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: repoFullName) {
+                vc.hidesBottomBarWhenPushed = true
+                weakSelf?.viewController?.navigationController?.pushViewController(vc, animated: true)
+            }
 
         })
 

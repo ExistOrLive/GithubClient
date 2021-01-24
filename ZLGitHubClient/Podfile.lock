@@ -1,24 +1,23 @@
 PODS:
-  - AFNetworking/NSURLSession (3.2.1):
+  - AFNetworking/NSURLSession (4.0.1):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (3.2.1)
-  - AFNetworking/Security (3.2.1)
-  - AFNetworking/Serialization (3.2.1)
-  - Apollo (0.27.0):
-    - Apollo/Core (= 0.27.0)
-  - Apollo/Core (0.27.0)
+  - AFNetworking/Reachability (4.0.1)
+  - AFNetworking/Security (4.0.1)
+  - AFNetworking/Serialization (4.0.1)
+  - Apollo (0.39.0):
+    - Apollo/Core (= 0.39.0)
+  - Apollo/Core (0.39.0)
   - BSBacktraceLogger (0.0.1)
-  - Bugly (2.5.2)
-  - Charts (3.4.0):
-    - Charts/Core (= 3.4.0)
-  - Charts/Core (3.4.0)
-  - CocoaLumberjack (3.6.1):
-    - CocoaLumberjack/Core (= 3.6.1)
-  - CocoaLumberjack/Core (3.6.1)
-  - CocoaLumberjack/Swift (3.6.1):
-    - CocoaLumberjack/Core
+  - Bugly (2.5.71)
+  - Charts (3.6.0):
+    - Charts/Core (= 3.6.0)
+  - Charts/Core (3.6.0)
+  - CircleMenu (4.1.0)
+  - CocoaLumberjack (3.7.0):
+    - CocoaLumberjack/Core (= 3.7.0)
+  - CocoaLumberjack/Core (3.7.0)
   - DoraemonKit/Core (2.0.0):
     - BSBacktraceLogger
     - fishhook
@@ -33,37 +32,37 @@ PODS:
     - FBRetainCycleDetector
     - fishhook
   - FBRetainCycleDetector (0.1.4)
-  - FFPopup (1.1.0)
+  - FFPopup (1.1.4)
   - fishhook (0.2)
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
-  - FWPopupView (4.1.4):
+  - FWPopupView (4.1.5):
     - SnapKit
-  - IQKeyboardManager (6.5.5)
-  - JJException (0.2.7):
-    - JJException/All (= 0.2.7)
-  - JJException/All (0.2.7):
+  - IQKeyboardManager (6.5.6)
+  - JJException (0.2.9):
+    - JJException/All (= 0.2.9)
+  - JJException/All (0.2.9):
     - JJException/ARC
     - JJException/DeallocBlock
     - JJException/Main
     - JJException/MRC
     - JJException/Swizzle
-  - JJException/ARC (0.2.7):
+  - JJException/ARC (0.2.9):
     - JJException/DeallocBlock
     - JJException/Main
     - JJException/Swizzle
-  - JJException/DeallocBlock (0.2.7)
-  - JJException/Main (0.2.7)
-  - JJException/MRC (0.2.7):
+  - JJException/DeallocBlock (0.2.9)
+  - JJException/Main (0.2.9)
+  - JJException/MRC (0.2.9):
     - JJException/Main
     - JJException/Swizzle
-  - JJException/Swizzle (0.2.7)
-  - JXSegmentedView (1.0.6)
+  - JJException/Swizzle (0.2.9)
+  - JXSegmentedView (1.2.7)
   - LookinServer (1.0.0)
   - Masonry (1.1.0)
-  - MJExtension (3.2.1)
-  - MJRefresh (3.3.1)
+  - MJExtension (3.2.2)
+  - MJRefresh (3.5.0)
   - SDWebImage (5.0.6):
     - SDWebImage/Core (= 5.0.6)
   - SDWebImage/Core (5.0.6)
@@ -82,8 +81,8 @@ DEPENDENCIES:
   - Apollo
   - Bugly
   - Charts
+  - CircleMenu
   - CocoaLumberjack
-  - CocoaLumberjack/Swift
   - DoraemonKit/Core (~> 2.0.0)
   - DoraemonKit/WithLogger (~> 2.0.0)
   - DoraemonKit/WithMLeaksFinder (= 2.0.0)
@@ -106,12 +105,13 @@ DEPENDENCIES:
   - YYText
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git:
     - AFNetworking
     - Apollo
     - BSBacktraceLogger
     - Bugly
     - Charts
+    - CircleMenu
     - CocoaLumberjack
     - DoraemonKit
     - FBRetainCycleDetector
@@ -135,25 +135,26 @@ SPEC REPOS:
     - YYText
 
 SPEC CHECKSUMS:
-  AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
-  Apollo: 5926be3853a34c10ef9fb7447435f0e083070b41
+  AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
+  Apollo: f6c6410ebee82dd5846be87b81cedc8bc7754a82
   BSBacktraceLogger: 06b983ee93a9f87d957960e9c73d660d5966b447
-  Bugly: dbac48b55ad469a97cc4321045cd50df8f63d44f
-  Charts: 74c9f256eaf0460c0c416522d1cf8c634ea6b286
-  CocoaLumberjack: b17ae15142558d08bbacf69775fa10c4abbebcc9
+  Bugly: fd066c75c4a0eca1440f9b6a84bd37d51bfc85ac
+  Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
+  CircleMenu: a66095199a5e26f19acbb212f077010257767fe5
+  CocoaLumberjack: e8955b9d337ac307103b0a34fd141c32f27e53c5
   DoraemonKit: 9e923599e28d0b61f1c6de4aef2c2d669b30abb7
   FBRetainCycleDetector: 46f8179bbb1c587deee3ea838a1a3ee02acf5015
-  FFPopup: 408e38711f4fe2fddd3c8612c045cf0df6da2e4e
+  FFPopup: 3bec8070665b892d8f54f2acaca447fdccc7f30b
   fishhook: ea19933abfe8f2f52c55fd8b6e2718467d3ebc89
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
-  FWPopupView: 8efc8fd8b620fc75756165cdc5163f69b71a7adc
-  IQKeyboardManager: 3a8b9e603f8b0eeaf5f096a1f2b2cfcf121992ef
-  JJException: 6d987840193b7ef59e778d41bca463401a80a79b
-  JXSegmentedView: ceb6fb3a12716408bcd5c4210b93d947d079de25
+  FWPopupView: 367cc1aca505ca83e2dbe8567c52afdbdd916d8d
+  IQKeyboardManager: 2a6e97afdafc7becf0cb17a9a8d795e3a980717f
+  JJException: da7c64ccf29d9938a4075378a7e9a29db7383c37
+  JXSegmentedView: eb1cad21f57c2543c00c3e08b8fd3c7ca54f5acd
   LookinServer: 0002891cd3cec5e082a910e897dfe71b4f06b89e
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  MJExtension: 635f2c663dcb1bf76fa4b715b2570a5710aec545
-  MJRefresh: eeda70fbf0ad277f3178cef1cd0c3532591d6237
+  MJExtension: d9b9c74cbdeb724c1e9ecbb157b318276e62e876
+  MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
   SDWebImage: 920f1a2ff1ca8296ad34f6e0510a1ef1d70ac965
   SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
@@ -162,6 +163,6 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": d7b0c400921f66523f3a85d74f774512e14f6502
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: 257ba5cc5c257edaa7b06bc495d30eadaeacd509
+PODFILE CHECKSUM: fd498415cece058f452af0f1a7869af2373c81b9
 
 COCOAPODS: 1.9.1

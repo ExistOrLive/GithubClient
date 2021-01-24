@@ -24,8 +24,6 @@ class ZLWebContentController: ZLBaseViewController {
             ZLLog_Warn("ZLWebContentView load failed,so return")
             return
         }
-        
-        baseView.frame = ZLScreenBounds
         self.contentView.addSubview(baseView)
         baseView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
@@ -35,6 +33,11 @@ class ZLWebContentController: ZLBaseViewController {
     }
     
 
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+    }
+    
     /*
     // MARK: - Navigation
 

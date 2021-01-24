@@ -42,7 +42,7 @@ extension ZLMyRepoesController : ZLGithubItemListViewDelegate {
     func githubItemListViewRefreshDragDown(pullRequestListView: ZLGithubItemListView) {
         
         weak var weakSelf = self
-        ZLRepoServiceModel.shared().getTopReposWith(afterCursor: nil , serialNumber: NSString.generateSerialNumber()) { (resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.repoServiceModel?.getTopReposWith(afterCursor: nil , serialNumber: NSString.generateSerialNumber()) { (resultModel : ZLOperationResultModel) in
             
             if resultModel.result == false {
                 if let errorModel = resultModel.data as? ZLGithubRequestErrorModel{
@@ -70,7 +70,7 @@ extension ZLMyRepoesController : ZLGithubItemListViewDelegate {
     func githubItemListViewRefreshDragUp(pullRequestListView: ZLGithubItemListView) {
         
         weak var weakSelf = self
-        ZLRepoServiceModel.shared().getTopReposWith(afterCursor: self.after , serialNumber: NSString.generateSerialNumber()) { (resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.repoServiceModel?.getTopReposWith(afterCursor: self.after , serialNumber: NSString.generateSerialNumber()) { (resultModel : ZLOperationResultModel) in
             if resultModel.result == false {
                 if let errorModel = resultModel.data as? ZLGithubRequestErrorModel{
                     ZLToastView.showMessage(errorModel.message)

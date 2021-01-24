@@ -42,6 +42,13 @@ class ZLAppearanceController: ZLBaseViewController {
     
     
     @IBAction func onButtonClicked(_ sender: UIButton) {
+        
+        for seletedTag in seletedTags{
+            if seletedTag.isHidden == false && seletedTag.tag == sender.tag {
+                return
+            }
+        }
+        
         if #available(iOS 13.0, *){
             let interfaceStyle : UIUserInterfaceStyle  = UIUserInterfaceStyle.init(rawValue: sender.tag) ?? UIUserInterfaceStyle.unspecified
             UIApplication.shared.delegate?.window??.overrideUserInterfaceStyle = interfaceStyle
@@ -50,6 +57,10 @@ class ZLAppearanceController: ZLBaseViewController {
                 seletedTag.isHidden = (seletedTag.tag != interfaceStyle.rawValue)
             }
         }
+        
+        NotificationCenter.default.post(name: ZLUserInterfaceStyleChange_Notification, object: nil)
+        
+        self.navigationController?.popViewController(animated: true)
     }
     
 }

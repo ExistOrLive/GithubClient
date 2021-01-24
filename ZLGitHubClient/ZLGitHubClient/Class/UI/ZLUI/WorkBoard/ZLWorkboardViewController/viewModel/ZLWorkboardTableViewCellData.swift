@@ -78,37 +78,37 @@ class ZLWorkboardTableViewCellData: ZLBaseViewModel,ZLWorkboardTableViewCellDele
     func onCellClicked() {
         switch self.type {
         case .issues:
-            guard let vc = SYDCentralPivotUIAdapter.getMyIssuesController() else { return }
+            guard let vc = ZLUIRouter.getMyIssuesController() else { return }
             vc.hidesBottomBarWhenPushed = true
             self.viewController?.navigationController?.pushViewController(vc, animated: true)
             break
         case .pullRequest:
-            guard let vc = SYDCentralPivotUIAdapter.getMyPullRequestsController() else {return}
+            guard let vc = ZLUIRouter.getMyPullRequestsController() else {return}
             vc.hidesBottomBarWhenPushed = true
             self.viewController?.navigationController?.pushViewController(vc, animated: true)
             break
         case .repos:
-            guard let vc = SYDCentralPivotUIAdapter.getMyReposController() else { return }
+            guard let vc = ZLUIRouter.getMyReposController() else { return }
             vc.hidesBottomBarWhenPushed = true
             self.viewController?.navigationController?.pushViewController(vc, animated: true)
             break
         case .orgs:
-            guard let vc = SYDCentralPivotUIAdapter.getOrgsViewController() else { return }
+            guard let vc = ZLUIRouter.getOrgsViewController() else { return }
             vc.hidesBottomBarWhenPushed = true
             self.viewController?.navigationController?.pushViewController(vc, animated: true)
             break
         case .starRepos:
-            guard let vc = SYDCentralPivotUIAdapter.getZLStarRepoViewController() else { return  }
+            guard let vc = ZLUIRouter.getStarRepoViewController() else { return  }
             vc.hidesBottomBarWhenPushed = true
             self.viewController?.navigationController?.pushViewController(vc, animated: true)
             break
         case .events:
-            guard let vc = SYDCentralPivotUIAdapter.getZLNewsViewController() else { return  }
+            guard let vc = ZLUIRouter.getZLNewsViewController() else { return  }
             vc.hidesBottomBarWhenPushed = true
             self.viewController?.navigationController?.pushViewController(vc, animated: true)
             break
         case .fixRepo:
-            let vc = ZLRepoInfoController.init(repoFullName: self.celltitle)
+            guard let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: self.celltitle) else { return } 
             vc.hidesBottomBarWhenPushed = true
             self.viewController?.navigationController?.pushViewController(vc, animated: true)
             break

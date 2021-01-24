@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import MJRefresh
+
 @objc protocol ZLGithubItemListViewDelegate : NSObjectProtocol{
     func githubItemListViewRefreshDragDown(pullRequestListView: ZLGithubItemListView) -> Void;
     func githubItemListViewRefreshDragUp(pullRequestListView: ZLGithubItemListView) -> Void;

@@ -47,7 +47,8 @@ class ZLNotificationTableViewCellData: ZLGithubItemTableViewCellData {
                 if self.data.id_Notification != nil {
                     SVProgressHUD.show()
                     weak var weakSelf = self
-                    ZLNotificationServiceModel.sharedInstance().markNotificationRead(notificationId: self.data.id_Notification!, serialNumber: NSString.generateSerialNumber(), completeHandle: {(result : ZLOperationResultModel) in
+                    
+                    ZLServiceManager.sharedInstance.notificationServiceModel?.markNotificationRead(notificationId: self.data.id_Notification!, serialNumber: NSString.generateSerialNumber(), completeHandle: {(result : ZLOperationResultModel) in
                         
                         block(true)
                         SVProgressHUD.dismiss()
@@ -87,6 +88,8 @@ class ZLNotificationTableViewCellData: ZLGithubItemTableViewCellData {
             url = URL.init(string: "https://github.com/\(self.data.repository?.full_name ?? "")/security")
         } else if "Discussion" == self.data.subject?.type {
             url = URL.init(string: "https://github.com/\(self.data.repository?.full_name ?? "")/discussions")
+        } else if "Release" == self.data.subject?.type {
+            url = URL.init(string: "https://github.com/\(self.data.repository?.full_name ?? "")/releases")
         }
         let webVC = ZLWebContentController.init()
         webVC.requestURL = url
@@ -120,9 +123,11 @@ extension ZLNotificationTableViewCellData {
         weak var weakSelf = self
         
         attributedStr.yy_setTextHighlight(NSRange.init(location: 0, length:attributedStr.length), color: nil , backgroundColor: UIColor.init(cgColor: UIColor.init(named: "ZLLinkLabelColor1")!.cgColor)) {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
-            let vc = ZLRepoInfoController.init(repoFullName: weakSelf?.data.repository?.full_name ?? "")
-            vc.hidesBottomBarWhenPushed = true
-            weakSelf?.viewController?.navigationController?.pushViewController(vc, animated: true)
+            
+            if let repoFullName = weakSelf?.data.repository?.full_name,let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: repoFullName) {
+                vc.hidesBottomBarWhenPushed = true
+                weakSelf?.viewController?.navigationController?.pushViewController(vc, animated: true)
+            }
         }
         
         return attributedStr
@@ -148,8 +153,9 @@ extension ZLNotificationTableViewCellData {
 
 extension ZLNotificationTableViewCellData : ZLNotificationTableViewCellDelegate {
     func onNotificationTitleClicked() {
-        let repovc = ZLRepoInfoController.init(repoFullName: self.data.repository?.full_name ?? "")
-        repovc.hidesBottomBarWhenPushed = true
-        self.viewController?.navigationController?.pushViewController(repovc, animated: true)
+        if let repoFullName = self.data.repository?.full_name,let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: repoFullName) {
+            vc.hidesBottomBarWhenPushed = true
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }

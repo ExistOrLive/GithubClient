@@ -48,7 +48,7 @@ extension ZLMyIssuesController : ZLGithubItemListViewDelegate {
     func githubItemListViewRefreshDragDown(pullRequestListView: ZLGithubItemListView) -> Void{
         
         weak var weakSelf = self
-        ZLAdditionInfoServiceModel.shared().getMyIssues(with: self.filterType,
+        ZLServiceManager.sharedInstance.additionServiceModel?.getMyIssues(with: self.filterType,
                                                         after: nil,
                                                         serialNumber: NSString.generateSerialNumber())
         { (resultModel : ZLOperationResultModel) in
@@ -82,7 +82,7 @@ extension ZLMyIssuesController : ZLGithubItemListViewDelegate {
     
     func githubItemListViewRefreshDragUp(pullRequestListView: ZLGithubItemListView) -> Void{
         weak var weakSelf = self
-        ZLAdditionInfoServiceModel.shared().getMyIssues(with: self.filterType,
+        ZLServiceManager.sharedInstance.additionServiceModel?.getMyIssues(with: self.filterType,
                                                         after: afterCursor,
                                                         serialNumber: NSString.generateSerialNumber())
         { (resultModel : ZLOperationResultModel) in

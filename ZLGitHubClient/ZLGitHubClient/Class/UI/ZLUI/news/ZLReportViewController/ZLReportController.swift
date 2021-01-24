@@ -43,7 +43,7 @@ class ZLReportController: ZLBaseViewController {
         
         SVProgressHUD.show()
         weak var weakSelf = self
-        ZLUserServiceModel.shared().blockUser(withLoginName: self.loginName ?? "", serialNumber: NSString.generateSerialNumber()) { (model) in
+        ZLServiceManager.sharedInstance.userServiceModel?.blockUser(withLoginName: self.loginName ?? "", serialNumber: NSString.generateSerialNumber()) { (model) in
             
             SVProgressHUD.dismiss()
             

@@ -99,7 +99,7 @@ extension ZLExploreBaseViewModel{
         
         let dateRange = ZLSharedDataManager.sharedInstance().dateRangeForTrendingRepo()
         let language = ZLSharedDataManager.sharedInstance().lanaguageForTrendingRepo()
-        ZLSearchServiceModel.shared().trending(with:.repositories, language: language, dateRange: dateRange, serialNumber: NSString.generateSerialNumber(), completeHandle: { (model:ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.searchServiceModel?.trending(with:.repositories, language: language, dateRange: dateRange, serialNumber: NSString.generateSerialNumber(), completeHandle: { (model:ZLOperationResultModel) in
     
             if model.result == true {
                 guard let repoArray : [ZLGithubRepositoryModel] = model.data as?  [ZLGithubRepositoryModel] else {
@@ -132,7 +132,7 @@ extension ZLExploreBaseViewModel{
         weak var weakSelf = self
         let dateRange = ZLSharedDataManager.sharedInstance().dateRangeForTrendingUser()
         let language = ZLSharedDataManager.sharedInstance().lanaguageForTrendingUser()
-        ZLSearchServiceModel.shared().trending(with:.users, language: language, dateRange: dateRange, serialNumber: NSString.generateSerialNumber(), completeHandle: { (model:ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.searchServiceModel?.trending(with:.users, language: language, dateRange: dateRange, serialNumber: NSString.generateSerialNumber(), completeHandle: { (model:ZLOperationResultModel) in
             
             if model.result == true {
                 guard let userArray : [ZLGithubUserModel] = model.data as?  [ZLGithubUserModel] else {
@@ -189,9 +189,10 @@ extension ZLExploreBaseViewModel : ZLExploreBaseViewDelegate{
     }
     
     func onSearchButtonClicked() -> Void {
-        let vc = ZLSearchController()
-        vc.hidesBottomBarWhenPushed = true
-        self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        if let vc = ZLUIRouter.getVC(key: ZLUIRouter.SearchController){
+            vc.hidesBottomBarWhenPushed = true
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        }
     }
       
     func onLanguageButtonClicked() -> Void {

@@ -38,16 +38,17 @@ class ZLRepoTableViewCellDataForTopRepoQuery: ZLGithubItemTableViewCellData {
     }
     
     override func onCellSingleTap() {
-        let repoInfoVC = ZLRepoInfoController(repoFullName: data.nameWithOwner)
-        repoInfoVC.hidesBottomBarWhenPushed = true
-        self.viewController?.navigationController?.pushViewController(repoInfoVC, animated: true)
+        if let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: data.nameWithOwner) {
+            vc.hidesBottomBarWhenPushed = true
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }
 
 extension ZLRepoTableViewCellDataForTopRepoQuery : ZLRepositoryTableViewCellDelegate {
     
     func onRepoAvaterClicked() -> Void{
-        if let userInfoVC = SYDCentralPivotUIAdapter.getUserInfoViewController(withLoginName:self.data.owner.login,with:ZLGithubUserType_User){
+        if let userInfoVC = ZLUIRouter.getUserInfoViewController(self.data.owner.login,type: ZLGithubUserType_User){
             userInfoVC.hidesBottomBarWhenPushed = true
             self.viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
         }

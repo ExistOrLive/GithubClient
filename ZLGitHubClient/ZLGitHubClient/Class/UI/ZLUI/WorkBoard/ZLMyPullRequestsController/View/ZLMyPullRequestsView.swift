@@ -79,9 +79,9 @@ class ZLMyPullRequestsView: ZLBaseView {
     @objc func onFilterButtonClicked(){
         CYSinglePickerPopoverView.showCYSinglePickerPopover(withTitle: ZLLocalizedString(string: "Filter", comment: ""),
                                                             withInitIndex: UInt(self.filterIndex.rawValue),
-                                                            withDataArray: ["open","closed"])
+                                                            withDataArray: ["open","closed","merged"])
         { (index : UInt) in
-            self.label.text = ["open","closed"][Int(index)]
+            self.label.text = ["open","closed","merged"][Int(index)]
             self.filterIndex = ZLGithubPullRequestState.init(rawValue: Int(index))!
             self.delegate?.onFilterTypeChange(type: self.filterIndex)
         }

@@ -32,7 +32,9 @@ class ZLRepoInfoViewModel: ZLBaseViewModel {
     
     
     deinit {
-        ZLRepoServiceModel.shared().unRegisterObserver(self, name: ZLGetSpecifiedRepoInfoResult_Notification)
+        ZLServiceManager.sharedInstance.repoServiceModel?.unRegisterObserver(self, name: ZLGetSpecifiedRepoInfoResult_Notification)
+        NotificationCenter.default.removeObserver(self, name: ZLLanguageTypeChange_Notificaiton, object: nil)
+        NotificationCenter.default.removeObserver(self, name: ZLUserInterfaceStyleChange_Notification, object: nil)
     }
     
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
@@ -51,16 +53,19 @@ class ZLRepoInfoViewModel: ZLBaseViewModel {
         }
         self.repoInfoModel = repoInfoModel
         
+        ZLServiceManager.sharedInstance.repoServiceModel?.registerObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLGetSpecifiedRepoInfoResult_Notification)
+        NotificationCenter.default.addObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLLanguageTypeChange_Notificaiton, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLUserInterfaceStyleChange_Notification, object: nil)
+        
+    
         self.setViewDataForRepoInfoView()
         
         self.repoInfoView!.readMeView?.startLoad(fullName: self.repoInfoModel!.full_name, branch: nil)
         
-        ZLRepoServiceModel.shared().registerObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLGetSpecifiedRepoInfoResult_Notification)
-        
         // 获取仓库的详细信息
         SVProgressHUD.show()
         self.serialNumber = NSString.generateSerialNumber()
-        ZLRepoServiceModel.shared().getRepoInfo(withFullName: repoInfoModel.full_name, serialNumber: self.serialNumber!)
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoInfo(withFullName: repoInfoModel.full_name, serialNumber: self.serialNumber!)
         
         if let vc = self.viewController {
             vc.zlNavigationBar.backButton.isHidden = false
@@ -133,6 +138,12 @@ extension ZLRepoInfoViewModel
             
         
             }
+        case ZLLanguageTypeChange_Notificaiton:do{
+            self.repoInfoView?.justUpdate()
+        }
+        case ZLUserInterfaceStyleChange_Notification:do{
+            self.repoInfoView?.readMeView?.reRender()
+        }
         default:
             break;
         }

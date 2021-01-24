@@ -39,12 +39,13 @@ class ZLUserInfoView: ZLBaseView {
     
     @IBOutlet weak var itemStackView: UIStackView!
     
+    @IBOutlet weak var contributionsView: ZLUserContributionsView!
+    
+    
     var readMeView : ZLReadMeView?
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        self.justUpdate();
         
         guard let readMeView : ZLReadMeView = Bundle.main.loadNibNamed("ZLReadMeView", owner: nil, options: nil)?.first as? ZLReadMeView else {
             return
@@ -55,6 +56,8 @@ class ZLUserInfoView: ZLBaseView {
             make.top.equalTo(self.itemStackView.snp_bottom).offset(10)
         }
         self.readMeView = readMeView
+        
+        self.justUpdate();
         
     }
     
@@ -76,6 +79,7 @@ class ZLUserInfoView: ZLBaseView {
         self.blockButton.setTitle(ZLLocalizedString(string: "Block", comment: ""), for: .normal)
         self.blockButton.setTitle(ZLLocalizedString(string: "Unblock", comment: "Unblock"), for: .selected)
         
+        self.readMeView?.justUpdate()
         
     }
 

@@ -13,57 +13,19 @@
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 #ifdef __OBJC__              // 避免C语言的头文件中引入OC代码
 
-#define ZLScreenHeight      [UIScreen mainScreen].bounds.size.height
-#define ZLScreenWidth       [UIScreen mainScreen].bounds.size.width
-#define ZLScreenBounds      [UIScreen mainScreen].bounds
-
-#define ZLStatusBarHeight CGRectGetHeight([UIApplication sharedApplication].statusBarFrame)
-
-#define ZLCustomNavigationBarHeight (60 + ZLStatusBarHeight)    // 设置自定义导航栏高度包括导航栏高度
-
-#pragma mark - swift module
-#import "ZLGitHubClient-Swift.h"
-
-#pragma mark - 组件化的中间件
-#import "SYDCentralPivotHeader.h"
-#import "SYDCentralPivotUIAdapter.h"
-
-#pragma mark - 工具模块（日志模块,数据库模块）
-#import "ZLToolManager.h"
-
-#pragma mark - baseView
-#import "ZLBaseView.h"
-#import "ZLBaseViewController.h"
-
-#pragma mark - model
-#import "ZLBaseObject.h"
-#import "ZLGithubRequestErrorModel.h"
-#import "ZLOperationResultModel.h"
+#pragma mark - BaseFramework
+#import <ZLServiceFramework/ZLServiceFramework.h>
 
 #pragma mark -
 #import <Masonry/Masonry.h>
 
-#pragma mark -
-#import "UIColor+HexColor.h"
-
-#pragma mark -
-
-#define ZLBackgroundColor [UIColor colorWithRGB:@"F6F6F6" alpha:1.0]
-
-#define ZLRGBValue_H(colorValue) [UIColor colorWithRGB:colorValue alpha:1.0]
-#define ZLRGBAValue_H(colorValue,alphaValue) [UIColor colorWithRGB:colorValue alpha:alphaValue]
-#define ZLRGBStr_H(colorStr) [UIColor colorWithHexString:colorStr alpha:1.0]
-#define ZLRawColor(colorName) [UIColor colorWithCGColor:[UIColor colorNamed:colorName].CGColor]
-
-
-#pragma mark - font
-
-#define Font_PingFangSCMedium @"PingFang-SC-Medium"
-#define Font_PingFangSCSemiBold @"PingFang-SC-SemiBold"
-#define Font_PingFangSCRegular @"PingFang-SC-Regular"
+#pragma mark - swift module
+#import "ZLGitHubClient-Swift.h"
 
 
 #define ZLMainThreadDispatch(a)     if([NSThread isMainThread]){ a }else{dispatch_async(dispatch_get_main_queue(), ^{ a });}
+
+static const NSNotificationName ZLUserInterfaceStyleChange_Notification = @"ZLUserInterfaceStyleChange_Notification";
 
 #endif
 

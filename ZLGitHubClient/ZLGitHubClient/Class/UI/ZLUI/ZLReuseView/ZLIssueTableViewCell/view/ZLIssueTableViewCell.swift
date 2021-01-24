@@ -52,7 +52,7 @@ class ZLIssueTableViewCell: UITableViewCell {
         }
         
         var length : CGFloat = 0.0
-        for (label,color) in cellData.getLabels(){
+        for (label,colorStr) in cellData.getLabels(){
             let font = UIFont.init(name: Font_PingFangSCRegular, size: 11)
             let attributes : [NSAttributedString.Key : Any]  = [NSAttributedString.Key.font : font!]
             let attributedStr = NSAttributedString.init(string: label, attributes: attributes)
@@ -63,7 +63,7 @@ class ZLIssueTableViewCell: UITableViewCell {
             }
             length += 8.0 + size.width
             
-            let color = ZLRGBValueStr_H(colorValue:color)
+            let color = ZLRGBValueStr_H(colorValue:colorStr)
             let labelView = UILabel.init()
             labelView.textAlignment = .center
             labelView.font = font
@@ -73,17 +73,15 @@ class ZLIssueTableViewCell: UITableViewCell {
             labelView.backgroundColor = color
             labelView.textColor = UIColor.isLightColor(color) ? ZLRGBValue_H(colorValue: 0x333333) : UIColor.white
             
-//            let labelView = UILabel.init()
-//            labelView.textAlignment = .center
-//            labelView.font = font
-//            labelView.text = label
-//            labelView.layer.cornerRadius = 8.0
-//            labelView.layer.masksToBounds = true
-//            labelView.backgroundColor = ZLRGBValueStr_H(colorValue: color, alphaValue: 0.2)
-//            labelView.layer.borderWidth = 1.0 / labelView.layer.contentsScale;
-//            labelView.layer.borderColor = ZLRGBValueStr_H(colorValue:color, alphaValue: 0.5).cgColor
-//            labelView.textColor = ZLRGBValueStr_H(colorValue:color)
-            
+            if #available(iOS 12.0, *) {
+                if getRealUserInterfaceStyle() == .dark {
+                    labelView.backgroundColor = ZLRGBValueStr_H(colorValue: colorStr, alphaValue: 0.2)
+                    labelView.layer.borderWidth = 1.0 / labelView.layer.contentsScale;
+                    labelView.layer.borderColor = ZLRGBValueStr_H(colorValue:colorStr, alphaValue: 0.5).cgColor
+                    labelView.textColor = ZLRGBValueStr_H(colorValue:colorStr)
+                }
+            }
+
             labelView.snp.makeConstraints { (make) in
                 make.width.equalTo(8.0 + size.width)
             }

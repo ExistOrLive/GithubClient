@@ -65,7 +65,7 @@ extension ZLWorkflowRunTableViewCellData : ZLWorkflowRunTableViewCellDelegate {
                 
                 if index == 0 {
                     SVProgressHUD.show()
-                    ZLRepoServiceModel.shared().rerunRepoWorkflowRun(withFullName: self.repoFullName, workflowRunId: self.data.id_workflowrun ?? "", serialNumber: NSString.generateSerialNumber()) { (result : ZLOperationResultModel) in
+                    ZLServiceManager.sharedInstance.repoServiceModel?.rerunRepoWorkflowRun(withFullName: self.repoFullName, workflowRunId: self.data.id_workflowrun ?? "", serialNumber: NSString.generateSerialNumber()) { (result : ZLOperationResultModel) in
                         SVProgressHUD.dismiss()
                         if result.result == true {
                             ZLToastView.showMessage("rerun success,please refresh")
@@ -85,7 +85,7 @@ extension ZLWorkflowRunTableViewCellData : ZLWorkflowRunTableViewCellDelegate {
                 
                 if index == 0 {
                     SVProgressHUD.show()
-                    ZLRepoServiceModel.shared().cancelRepoWorkflowRun(withFullName: self.repoFullName, workflowRunId: self.data.id_workflowrun ?? "", serialNumber: NSString.generateSerialNumber()) { (result : ZLOperationResultModel) in
+                    ZLServiceManager.sharedInstance.repoServiceModel?.cancelRepoWorkflowRun(withFullName: self.repoFullName, workflowRunId: self.data.id_workflowrun ?? "", serialNumber: NSString.generateSerialNumber()) { (result : ZLOperationResultModel) in
                         SVProgressHUD.dismiss()
                         if result.result == true {
                             ZLToastView.showMessage("cancel success,please refresh")
@@ -126,11 +126,12 @@ extension ZLWorkflowRunTableViewCellData {
     
     func getBranchStr() -> NSAttributedString {
         let str = NSMutableAttributedString.init(string: "\(self.data.head_repository?.full_name ?? "" ):\(self.data.head_branch ?? "")", attributes: [NSAttributedString.Key.foregroundColor:ZLRawColor(name: "ZLLinkLabelColor1") ?? UIColor.blue,NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 13) ?? UIFont.systemFont(ofSize: 12)])
-        str.yy_setTextHighlight(NSRange.init(location: 0, length: str.length), color: ZLRawColor(name: "ZLLinkLabelColor1") ?? UIColor.blue, backgroundColor: UIColor.clear) {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
-             
-            let vc = ZLRepoInfoController.init(repoFullName: self.data.head_repository?.full_name ?? "")
-             vc.hidesBottomBarWhenPushed = true
-             self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        str.yy_setTextHighlight(NSRange.init(location: 0, length: str.length), color: ZLRawColor(name: "ZLLinkLabelColor1") ?? UIColor.blue, backgroundColor: UIColor.clear) {[weak weakSelf = self](containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
+            
+            if let repoFullName = weakSelf?.data.head_repository?.full_name,let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: repoFullName) {
+                vc.hidesBottomBarWhenPushed = true
+                weakSelf?.viewController?.navigationController?.pushViewController(vc, animated: true)
+            }
         }
         return str
     }

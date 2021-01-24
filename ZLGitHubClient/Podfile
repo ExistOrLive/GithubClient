@@ -2,19 +2,38 @@ platform :ios, '9.0'
 use_frameworks!
 inhibit_all_warnings!     # 屏蔽pod中告警
 
-source 'https://github.com/CocoaPods/Specs.git'
+source 'https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git'
 
-target 'ZLGitHubClient' do
 
-# 日志打印
-pod 'CocoaLumberjack'
-pod 'CocoaLumberjack/Swift'
+target 'ZLBaseFramework' do
+  
+# AutoLayout
+pod 'Masonry'
+  
+end
 
+
+target 'ZLServiceFramework' do
+  
 # Http
 pod 'AFNetworking', :subspecs => ['Reachability', 'Serialization', 'Security', 'NSURLSession']
 
 # 数据库
 pod 'FMDB'
+
+# 日志打印
+pod 'CocoaLumberjack'
+
+# Json Model 转换
+pod 'MJExtension'
+
+# graphql client
+pod "Apollo"
+
+  
+end
+
+target 'ZLGitHubClient' do
 
 # Json Model 转换
 pod 'MJExtension'
@@ -35,7 +54,8 @@ pod 'IQKeyboardManager'
 pod 'Charts'
 # 弹出菜单
 pod 'FWPopupView'
-
+# 圆形菜单
+pod 'CircleMenu'
 
 #下载图片
 pod 'SDWebImage', '~> 5.0.0'
@@ -68,11 +88,6 @@ pod 'JJException'
 # 扩展
 pod 'UITextView+Placeholder'
 
-# graphql client
-pod "Apollo"
-
-
-
 
 ## fix oclint issue : one compiler command contains multiple jobs
 
@@ -80,6 +95,9 @@ post_install do |installer|
     installer.pods_project.targets.each do |target|
         target.build_configurations.each do |config|
             config.build_settings['COMPILER_INDEX_STORE_ENABLE'] = "NO"
+            if config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'].to_f < 9.0
+              config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '9.0'
+            end
         end
     end
 end

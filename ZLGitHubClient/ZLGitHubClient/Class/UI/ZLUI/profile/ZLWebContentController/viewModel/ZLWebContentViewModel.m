@@ -50,15 +50,8 @@
         [ZLToastView showMessage:@"Invalid URL"];
         return;
     }
-    
-    if(!self.url.scheme || (![@"https" isEqualToString:self.url.scheme] && ![@"http" isEqualToString:self.url.scheme] )){
-        if([[UIApplication sharedApplication] canOpenURL:self.url]){
-            [[UIApplication sharedApplication] openURL:self.url options:@{} completionHandler:nil];
-            return;
-        }
-    }
-    
-    if(!self.url.scheme ){
+        
+    if(!self.url.scheme){
         NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://%@",self.url.resourceSpecifier]];
         self.url = url;
     }
@@ -89,6 +82,36 @@
 #pragma mark - ZLWebContentViewDelegate
 
 - (void)webView:(WKWebView * _Nonnull)webView navigationAction:(WKNavigationAction * _Nonnull)navigationAction decisionHandler:(void (^ _Nonnull)(WKNavigationActionPolicy))decisionHandler {
+    NSString *url = navigationAction.request.URL.absoluteString;
+    NSString *newUrl = nil;
+    if([ZLCommonURLManager isEmailWithStr:url]){
+        if([newUrl hasPrefix:@"mailto:"]){
+            newUrl = url;
+        } else {
+            newUrl = [@"mailto:" stringByAppendingString:url];
+        }
+    } else if ([ZLCommonURLManager isPhoneWithStr:url]) {
+        if([newUrl hasPrefix:@"tel:"]){
+            newUrl = url;
+        } else {
+            newUrl = [@"tel:" stringByAppendingString:url];
+        }
+    } else if ([ZLCommonURLManager isAppleAppLinkWithStr:url]) {
+        newUrl = url;
+    }
+
+    if(newUrl && [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:newUrl]]){
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:newUrl] options:@{} completionHandler:^(BOOL success) {
+            if(success){
+                if([url isEqualToString:self.url.absoluteString]) {
+                    [self.viewController.navigationController popViewControllerAnimated:NO];
+                }
+            }
+        }];
+        decisionHandler(WKNavigationActionPolicyCancel);
+        return;
+    }
+    
     decisionHandler(WKNavigationActionPolicyAllow);
 }
 
@@ -106,7 +129,6 @@
             return;
         }
     }
-    
 }
 
 - (void) onTitleChangeWithTitle:(NSString *) title{

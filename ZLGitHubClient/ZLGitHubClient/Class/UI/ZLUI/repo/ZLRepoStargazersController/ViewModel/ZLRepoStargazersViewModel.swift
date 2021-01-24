@@ -42,7 +42,7 @@ extension ZLRepoStargazersViewModel
         
         weak var weakSelf = self
         
-        ZLRepoServiceModel.shared().getRepoStargazers(withFullName: self.fullName!, serialNumber: NSString.generateSerialNumber() ,per_page: 10, page: 1) { (resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoStargazers(withFullName: self.fullName!, serialNumber: NSString.generateSerialNumber() ,per_page: 10, page: 1) { (resultModel : ZLOperationResultModel) in
             
             if resultModel.result == false
             {
@@ -82,7 +82,7 @@ extension ZLRepoStargazersViewModel
         
         weak var weakSelf = self
         
-        ZLRepoServiceModel.shared().getRepoStargazers(withFullName: self.fullName!, serialNumber: NSString.generateSerialNumber(),per_page: 10, page: self.currentPage + 1 ) { (resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoStargazers(withFullName: self.fullName!, serialNumber: NSString.generateSerialNumber(),per_page: 10, page: self.currentPage + 1 ) { (resultModel : ZLOperationResultModel) in
             
             if resultModel.result == false
             {

@@ -25,10 +25,10 @@ class ZLEventTableViewCellData: ZLGithubItemTableViewCellData {
         }
         
         var  showReportButton = ZLSharedDataManager.sharedInstance().configModel?.ReportFunction ?? true
-        if ZLUserServiceModel.shared().currentUserLoginName() == "ExistOrLive1"{
+        if ZLServiceManager.sharedInstance.userServiceModel?.currentUserLoginName() == "ExistOrLive1"{
             showReportButton = true
         }
-        if ZLUserServiceModel.shared().currentUserLoginName() == self.eventModel.actor.login {
+        if ZLServiceManager.sharedInstance.userServiceModel?.currentUserLoginName() == self.eventModel.actor.login {
             showReportButton = false
         }
         
@@ -48,11 +48,10 @@ class ZLEventTableViewCellData: ZLGithubItemTableViewCellData {
     }
     
     override  func onCellSingleTap() {
-        let repoModel = ZLGithubRepositoryModel.init()
-        repoModel.full_name = self.eventModel.repo.name;
-        let vc = ZLRepoInfoController.init(repoInfoModel: repoModel)
-        vc.hidesBottomBarWhenPushed = true
-        self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        if let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: self.eventModel.repo.name) {
+            vc.hidesBottomBarWhenPushed = true
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     
@@ -87,7 +86,7 @@ extension ZLEventTableViewCellData
 extension ZLEventTableViewCellData : ZLEventTableViewCellDelegate
 {
     func onAvatarClicked() {
-        if let userInfoVC = SYDCentralPivotUIAdapter.getUserInfoViewController(withLoginName:self.eventModel.actor.login,with:ZLGithubUserType_User){
+        if let userInfoVC = ZLUIRouter.getUserInfoViewController(self.eventModel.actor.login, type: ZLGithubUserType_User){
             userInfoVC.hidesBottomBarWhenPushed = true
             self.viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
         }

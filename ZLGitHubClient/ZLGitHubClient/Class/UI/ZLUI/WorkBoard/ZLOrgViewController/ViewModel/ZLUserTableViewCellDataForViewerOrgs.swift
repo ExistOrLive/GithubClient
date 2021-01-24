@@ -37,7 +37,7 @@ class ZLUserTableViewCellDataForViewerOrgs: ZLGithubItemTableViewCellData {
     }
     
     override func onCellSingleTap() {
-        if let userInfoVC = SYDCentralPivotUIAdapter.getUserInfoViewController(withLoginName:self.data.login,with:ZLGithubUserType_Organization){
+        if let userInfoVC = ZLUIRouter.getUserInfoViewController(self.data.login, type: ZLGithubUserType_Organization){
             userInfoVC.hidesBottomBarWhenPushed = true
             self.viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
         }

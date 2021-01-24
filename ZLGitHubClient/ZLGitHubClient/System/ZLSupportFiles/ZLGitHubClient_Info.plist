@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>GitWorld</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -27,7 +29,7 @@
 			<string>com.zm.ZLGitHubClient</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>ZLGithub</string>
+				<string>GitWorld</string>
 			</array>
 		</dict>
 	</array>
@@ -50,6 +52,11 @@
 	<string></string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>相册权限</string>
+	<key>NSUserActivityTypes</key>
+	<array>
+		<string>ContributionConfigurationIntent</string>
+		<string>FixedRepoConfigurationIntent</string>
+	</array>
 	<key>UIBackgroundModes</key>
 	<array/>
 	<key>UILaunchStoryboardName</key>

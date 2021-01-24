@@ -117,7 +117,17 @@ let GithubGraphQLAPI = "https://api.github.com/graphql"
                         after: String?,
                         serialNumber: String,
                         block: @escaping GithubResponseSwift){
-        let pullRequestState : PullRequestState = (state == .opened) ? .open : .closed
+        var pullRequestState : PullRequestState
+        switch state {
+        case .opened:
+            pullRequestState = .open
+        case .closed:
+            pullRequestState = .closed
+        case .merged:
+            pullRequestState = .merged
+        @unknown default:
+            pullRequestState = .open
+        }
         let query = ViewerPullRequestQuery(state: [pullRequestState], after: after)
         self.baseQuery(query: query, serialNumber: serialNumber, block: block)
     }

@@ -2,10 +2,46 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>ZLProfileViewController</key>
+	<dict>
+		<key>class</key>
+		<string>ZLProfileViewController</string>
+		<key>type</key>
+		<integer>0</integer>
+		<key>isSingle</key>
+		<false/>
+	</dict>
 	<key>ZLMainViewController</key>
 	<dict>
 		<key>class</key>
 		<string>ZLMainViewController</string>
+		<key>type</key>
+		<integer>0</integer>
+		<key>isSingle</key>
+		<false/>
+	</dict>
+	<key>ZLWorkboardViewController</key>
+	<dict>
+		<key>class</key>
+		<string>ZLWorkboardViewController</string>
+		<key>type</key>
+		<integer>0</integer>
+		<key>isSingle</key>
+		<false/>
+	</dict>
+	<key>ZLExploreViewController</key>
+	<dict>
+		<key>class</key>
+		<string>ZLExploreViewController</string>
+		<key>type</key>
+		<integer>0</integer>
+		<key>isSingle</key>
+		<false/>
+	</dict>
+	<key>ZLNotificationController</key>
+	<dict>
+		<key>class</key>
+		<string>ZLNotificationController</string>
 		<key>type</key>
 		<integer>0</integer>
 		<key>isSingle</key>
@@ -29,37 +65,10 @@
 		<key>isSingle</key>
 		<false/>
 	</dict>
-	<key>ZLExploreViewController</key>
-	<dict>
-		<key>class</key>
-		<string>ZLExploreViewController</string>
-		<key>type</key>
-		<integer>0</integer>
-		<key>isSingle</key>
-		<false/>
-	</dict>
-	<key>ZLProfileViewController</key>
-	<dict>
-		<key>class</key>
-		<string>ZLProfileViewController</string>
-		<key>type</key>
-		<integer>0</integer>
-		<key>isSingle</key>
-		<false/>
-	</dict>
 	<key>ZLAboutViewController</key>
 	<dict>
 		<key>class</key>
 		<string>ZLAboutViewController</string>
-		<key>type</key>
-		<integer>0</integer>
-		<key>isSingle</key>
-		<false/>
-	</dict>
-	<key>ZLWorkboardViewController</key>
-	<dict>
-		<key>class</key>
-		<string>ZLWorkboardViewController</string>
 		<key>type</key>
 		<integer>0</integer>
 		<key>isSingle</key>
@@ -119,32 +128,46 @@
 		<key>isSingle</key>
 		<false/>
 	</dict>
-	<key>ZLLogModule</key>
+	<key>ZLRepoInfoController</key>
 	<dict>
 		<key>class</key>
-		<string>ZLLogManager</string>
+		<string>ZLRepoInfoController</string>
 		<key>type</key>
-		<integer>2</integer>
+		<integer>0</integer>
 		<key>isSingle</key>
-		<true/>
-		<key>singleMethod</key>
-		<string>sharedInstance</string>
+		<false/>
 	</dict>
-	<key>ZLDBModule</key>
+	<key>ZLAppearanceController</key>
 	<dict>
 		<key>class</key>
-		<string>ZLDataBaseManager</string>
+		<string>ZLAppearanceController</string>
 		<key>type</key>
-		<integer>2</integer>
+		<integer>0</integer>
 		<key>isSingle</key>
-		<true/>
-		<key>singleMethod</key>
-		<string>sharedInstance</string>
+		<false/>
 	</dict>
-	<key>ZLLANModule</key>
+	<key>ZLSettingController</key>
 	<dict>
 		<key>class</key>
-		<string>ZLLanguageManager</string>
+		<string>ZLSettingController</string>
+		<key>type</key>
+		<integer>0</integer>
+		<key>isSingle</key>
+		<false/>
+	</dict>
+	<key>ZLSearchController</key>
+	<dict>
+		<key>class</key>
+		<string>ZLSearchController</string>
+		<key>type</key>
+		<integer>0</integer>
+		<key>isSingle</key>
+		<false/>
+	</dict>
+	<key>ZLUrlNotifcaitonModule</key>
+	<dict>
+		<key>class</key>
+		<string>ZLURLNotificationDealManager</string>
 		<key>type</key>
 		<integer>2</integer>
 		<key>isSingle</key>

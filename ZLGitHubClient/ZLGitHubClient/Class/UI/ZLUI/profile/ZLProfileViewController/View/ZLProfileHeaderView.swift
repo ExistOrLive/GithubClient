@@ -19,10 +19,6 @@ enum ZLProfileHeaderViewButtonType: Int {
 
 @objc protocol ZLProfileHeaderViewDelegate: NSObjectProtocol {
     func onProfileHeaderViewButtonClicked(button: UIButton)
-    
-    func numberOfEvent() -> Int
-    
-    func cellDataForEventAtIndex(index: Int) -> ZLProfileEventCollectionViewCellData
 }
 
 class ZLProfileHeaderView: ZLBaseView {
@@ -46,23 +42,12 @@ class ZLProfileHeaderView: ZLBaseView {
     @IBOutlet weak var latestUpdateLabel: UILabel!
     @IBOutlet weak var allUpdateButton: UIButton!
     
-    
-    @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var collectionViewLayout: UICollectionViewFlowLayout!
+    @IBOutlet weak var contributionView: ZLUserContributionsView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         self.headImageView.layer.cornerRadius = 30.0;
         self.latestModifiedView.layer.cornerRadius = 10.0
-        
-        self.collectionViewLayout.minimumInteritemSpacing = 10
-        self.collectionViewLayout.itemSize = CGSize.init(width: 200, height: 105)
-        self.collectionView.delegate = self;
-        self.collectionView.dataSource = self;
-        self.collectionView.contentInset = UIEdgeInsets.init(top: 10, left: 10, bottom: 10, right: 10)
-        self.collectionView.register(UINib.init(nibName: "ZLProfileEventCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "ZLProfileEventCollectionViewCell")
-        
-       
         
         self.justReloadView();
     }
@@ -78,13 +63,7 @@ class ZLProfileHeaderView: ZLBaseView {
         
     }
     
-    
-    
-    func reloadViewWithData()
-    {
-        self.collectionView .reloadData()
-    }
-    
+        
     func justReloadView()
     {
         self.repositoriesButton.setTitle(ZLLocalizedString(string: "repositories",comment: "仓库"), for: UIControl.State.normal);
@@ -95,35 +74,4 @@ class ZLProfileHeaderView: ZLBaseView {
         self.latestUpdateLabel.text = ZLLocalizedString(string: "lastest update", comment: "最近修改")
         self.allUpdateButton.setTitle(ZLLocalizedString(string: "all update", comment: "查看全部修改"), for: .normal)
     }
-}
-
-
-extension ZLProfileHeaderView : UICollectionViewDelegate, UICollectionViewDataSource
-{
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        if self.delegate?.responds(to: #selector(ZLProfileHeaderViewDelegate.numberOfEvent)) ?? false
-        {
-            return self.delegate?.numberOfEvent() ?? 0
-        }
-        else
-        {
-            return 0
-        }
-        
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let collectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ZLProfileEventCollectionViewCell", for: indexPath) as? ZLProfileEventCollectionViewCell
-        
-        if self.delegate?.responds(to: #selector(ZLProfileHeaderViewDelegate.cellDataForEventAtIndex(index:))) ?? false
-        {
-            let cellData = self.delegate?.cellDataForEventAtIndex(index: indexPath.row)
-            collectionCell?.fillWithData(data: cellData)
-        }
-        
-        return collectionCell!
-    }
-    
-    
 }

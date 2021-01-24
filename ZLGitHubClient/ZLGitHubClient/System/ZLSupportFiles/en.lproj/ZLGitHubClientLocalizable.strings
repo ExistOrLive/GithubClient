@@ -68,7 +68,7 @@
 "profile" = "Profile";
 
 "Language" = "Language";
-"SimpleChinese" = "Simple Chineses";
+"SimpleChinese" = "Simple Chinese";
 "English" = "English";
 
 "Search" = "Search";
@@ -218,4 +218,8 @@
 "Fixed Repos" = "Fixed Repos";
 "Add Fixed Repo" = "Add Fixed Repo";
 "My Repos" = "My Repos";
+
+"ClipBoard" = "ClipBoard";
+"AssistButton" = "Assist Button";
+
 

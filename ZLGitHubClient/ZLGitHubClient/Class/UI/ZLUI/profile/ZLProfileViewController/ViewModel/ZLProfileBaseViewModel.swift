@@ -18,7 +18,6 @@ class ZLProfileBaseViewModel: ZLBaseViewModel {
 
     // model
     private var currentUserInfo: ZLGithubUserModel?
-    private var myEventModel:[ZLGithubEventModel] = []
     
     deinit {
         self.removeObservers()
@@ -39,7 +38,7 @@ class ZLProfileBaseViewModel: ZLBaseViewModel {
         
         weak var weakSelf = self
         self.profileBaseView?.tableView.mj_header = ZLRefresh.refreshHeader {
-            ZLUserServiceModel.shared().currentUserInfo()
+            ZLServiceManager.sharedInstance.userServiceModel?.currentUserInfo()
             weakSelf?.profileBaseView?.tableView.mj_header?.endRefreshing()
         }
         
@@ -52,15 +51,13 @@ class ZLProfileBaseViewModel: ZLBaseViewModel {
         super.vcLifeCycle_viewWillAppear()
         
         // 每次界面将要展示时，更新数据
-        guard let currentUserInfo:ZLGithubUserModel =  ZLUserServiceModel.shared().currentUserInfo() else
+        guard let currentUserInfo:ZLGithubUserModel =  ZLServiceManager.sharedInstance.userServiceModel?.currentUserInfo() else
         {
             return;
         }
         
         // 设置data
         self.setViewDataForProfileBaseView(model: currentUserInfo, view: self.profileBaseView!)
-        
-        self.queryMyEventRequest()
     }
 }
 
@@ -72,13 +69,14 @@ extension ZLProfileBaseViewModel
         
         view.tableHeaderView?.headImageView.sd_setImage(with: URL.init(string: model.avatar_url), placeholderImage: UIImage.init(named: "default_avatar"));
         view.tableHeaderView?.nameLabel.text = String("\(model.name)(\(model.loginName))")
+        view.tableHeaderView?.contributionView.startLoad(loginName:model.loginName)
         
         var dateStr = model.created_at
         if let date: Date = model.createdDate()
         {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
-            dateFormatter.timeZone = TimeZone.init(secondsFromGMT: 8 * 60 * 60) // 北京时区
+            dateFormatter.timeZone = TimeZone.current
             dateStr = dateFormatter.string(from: date)
         }
         let createdAtStr = ZLLocalizedString(string:"created at", comment: "创建于")
@@ -134,7 +132,6 @@ extension ZLProfileBaseViewModel: UITableViewDelegate, UITableViewDataSource
         case ZLProfileItemType.email:do {
             tableViewCell.itemTitleLabel.text = ZLLocalizedString(string:"email", comment: "邮箱")
             tableViewCell.itemContentLabel.text = self.currentUserInfo?.email
-            tableViewCell.nextImageView.isHidden = false
             }
         case ZLProfileItemType.blog:do {
             tableViewCell.itemTitleLabel.text = ZLLocalizedString(string:"blog", comment: "博客")
@@ -196,17 +193,16 @@ extension ZLProfileBaseViewModel: UITableViewDelegate, UITableViewDataSource
             self.viewController?.navigationController?.pushViewController(vc, animated: true)
         }
         case ZLProfileItemType.setting:do{
-            let vc = ZLSettingController.init()
-            vc.hidesBottomBarWhenPushed = true
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            if let vc = ZLUIRouter.getVC(key: ZLUIRouter.SettingController){
+                vc.hidesBottomBarWhenPushed = true
+                self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            }
         }
         case ZLProfileItemType.aboutMe:
-            let vc = SYDCentralPivotUIAdapter.getZLAboutViewController()
-            if vc != nil{
-                vc!.hidesBottomBarWhenPushed = true
-                self.viewController?.navigationController?.pushViewController(vc!, animated: true)
+            if let vc = ZLUIRouter.getZLAboutViewController() {
+                vc.hidesBottomBarWhenPushed = true
+                self.viewController?.navigationController?.pushViewController(vc, animated: true)
             }
-            
             break;
         case ZLProfileItemType.feedback: do{
             let vc = ZLFeedbackController.init()
@@ -221,16 +217,7 @@ extension ZLProfileBaseViewModel: UITableViewDelegate, UITableViewDataSource
 
 // MARK: ZLProfileHeaderViewDelegate
 extension ZLProfileBaseViewModel : ZLProfileHeaderViewDelegate
-{
-    func numberOfEvent() -> Int {
-        return self.myEventModel.count
-    }
-    
-    func cellDataForEventAtIndex(index: Int) -> ZLProfileEventCollectionViewCellData {
-        let eventModel = self.myEventModel[index]
-        return ZLProfileEventCollectionViewCellData(data:eventModel)
-    }
-    
+{    
     func onProfileHeaderViewButtonClicked(button: UIButton) {
        
         let type = ZLProfileHeaderViewButtonType.init(rawValue: button.tag)
@@ -281,36 +268,19 @@ extension ZLProfileBaseViewModel : ZLProfileHeaderViewDelegate
     }
 }
 
-// MARK: request
-
-extension ZLProfileBaseViewModel
-{
-    static let queryMyEventRequestKey = "queryMyEventRequestKey"
-    
-    func queryMyEventRequest()
-    {
-        let serialNumber = NSString.generateSerialNumber()
-        self.serailNumberDic[ZLProfileBaseViewModel.queryMyEventRequestKey] = serialNumber
-        
-        ZLEventServiceModel.shareInstance()?.getMyEventsWithpage(1, per_page: 10, serialNumber: serialNumber)
-    }
-}
 
 // MARK: onNotificationArrived
 extension ZLProfileBaseViewModel
 {
-    func addObservers()
-    {
-        ZLUserServiceModel.shared().registerObserver(self, selector: #selector(onNotificationArrived(notication:)), name: ZLGetCurrentUserInfoResult_Notification)
-        ZLEventServiceModel.shareInstance()?.registerObserver(self, selector: #selector(onNotificationArrived(notication:)), name: ZLGetMyEventResult_Notification)
+    func addObservers(){
+        ZLServiceManager.sharedInstance.userServiceModel?.registerObserver(self, selector: #selector(onNotificationArrived(notication:)), name: ZLGetCurrentUserInfoResult_Notification)
         NotificationCenter.default.addObserver(self, selector: #selector(onNotificationArrived(notication:)), name: ZLLanguageTypeChange_Notificaiton, object: nil)
     }
     
     func removeObservers()
     {
         // 注销监听
-        ZLUserServiceModel.shared().unRegisterObserver(self, name: ZLGetCurrentUserInfoResult_Notification)
-        ZLEventServiceModel.shareInstance()?.unRegisterObserver(self, name: ZLGetMyEventResult_Notification)
+        ZLServiceManager.sharedInstance.userServiceModel?.unRegisterObserver(self, name: ZLGetCurrentUserInfoResult_Notification)
         NotificationCenter.default.removeObserver(self, name: ZLLanguageTypeChange_Notificaiton, object: nil)
     }
     
@@ -338,26 +308,6 @@ extension ZLProfileBaseViewModel
             // 更新UI
             self.setViewDataForProfileBaseView(model: model, view: self.profileBaseView!);
             
-            }
-        case ZLGetMyEventResult_Notification: do
-        {
-            guard let resultModel: ZLOperationResultModel = notication.params as? ZLOperationResultModel else
-            {
-                ZLLog_Info("notificaition.params is nil]")
-                return;
-            }
-            
-            let serailNumber = self.serailNumberDic[ZLProfileBaseViewModel.queryMyEventRequestKey]
-            if serailNumber != resultModel.serialNumber
-            {
-                return;
-            }
-            self.serailNumberDic.removeValue(forKey: ZLProfileBaseViewModel.queryMyEventRequestKey)
-            
-            self.myEventModel.append(contentsOf: resultModel.data as? [ZLGithubEventModel] ?? [])
-            
-            self.profileBaseView?.tableHeaderView?.reloadViewWithData()
-        
             }
         case ZLLanguageTypeChange_Notificaiton:do
         {

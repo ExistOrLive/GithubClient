@@ -45,13 +45,7 @@ class ZLRepoItemInfoView: ZLBaseView {
     
     override func awakeFromNib(){
         super.awakeFromNib()
-
-        self.commitLabel.text = ZLLocalizedString(string: "commit", comment: "提交")
-        self.codeLabel.text = ZLLocalizedString(string:"code", comment: "代码")
-        self.pullRequestLabel.text = ZLLocalizedString(string:"pull request", comment: "合并请求")
-        self.branchLabel.text = ZLLocalizedString(string:"branch", comment: "分支")
-        self.languageLabel.text = ZLLocalizedString(string: "Language", comment: "语言")
-        self.actionLabel.text = ZLLocalizedString(string: "action", comment: "action")
+        self.justUpdate()
     }
     
     
@@ -67,6 +61,16 @@ class ZLRepoItemInfoView: ZLBaseView {
             }
             
         }
+    }
+    
+    func justUpdate() {
+        
+        self.commitLabel.text = ZLLocalizedString(string: "commit", comment: "提交")
+        self.codeLabel.text = ZLLocalizedString(string:"code", comment: "代码")
+        self.pullRequestLabel.text = ZLLocalizedString(string:"pull request", comment: "合并请求")
+        self.branchLabel.text = ZLLocalizedString(string:"branch", comment: "分支")
+        self.languageLabel.text = ZLLocalizedString(string: "Language", comment: "语言")
+        self.actionLabel.text = ZLLocalizedString(string: "action", comment: "action")
     }
     
 }

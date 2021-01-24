@@ -23,7 +23,7 @@ class ZLRepoBranchesView: ZLBaseView {
     class func showRepoBranchedView(repoFullName: String, currentBranch: String, handle:((String) -> Void)?)
     {
         SVProgressHUD.show()
-        ZLRepoServiceModel.shared().getRepositoryBranchesInfo(withFullName: repoFullName, serialNumber: NSString.generateSerialNumber(), completeHandle: { (model : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepositoryBranchesInfo(withFullName: repoFullName, serialNumber: NSString.generateSerialNumber(), completeHandle: { (model : ZLOperationResultModel) in
            
             SVProgressHUD.dismiss()
             
@@ -55,8 +55,8 @@ class ZLRepoBranchesView: ZLBaseView {
         self.currentBranch = currentBranch
         self.tableView.reloadData()
         
-        self.frame = CGRect.init(x: 0, y: 0, width: ZLScreenWidth - 80, height: 320)
-        let popup = FFPopup.popup(contetnView: self, showType: .bounceIn, dismissType: .bounceOut, maskType: FFPopup.MaskType.dimmed, dismissOnBackgroundTouch: true, dismissOnContentTouch: false)
+        self.frame = CGRect.init(x: 0, y: 0, width: ZLKeyWindowWidth - 80, height: 320)
+        let popup = FFPopup(contetnView: self, showType: .bounceIn, dismissType: .bounceOut, maskType: FFPopup.MaskType.dimmed, dismissOnBackgroundTouch: true, dismissOnContentTouch: false)
         self.popup = popup
         popup.show(layout: .Center)
     }

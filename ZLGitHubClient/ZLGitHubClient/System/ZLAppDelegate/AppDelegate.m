@@ -34,24 +34,25 @@
     
     [self setUpDoraemonKit];
     
-    [self setUpBugly];
-    
    // [self registerPush];
     /**
      *
      *  初始化中间件
      **/
-    [SYDCentralRouter sharedInstance];
-    
     /**
      *
      * 初始化工具模块
      **/
-    [ZLToolManager sharedInstance];
+    [[ZLServiceManager sharedInstance] initManager];
     
-    [ZLLoginServiceModel sharedServiceModel];
-    [ZLUserServiceModel sharedServiceModel];
-    [[ZLAdditionInfoServiceModel sharedServiceModel] getGithubClientConfig:[NSString generateSerialNumber]];
+
+    
+    NSString *configFilePath = [[NSBundle mainBundle] pathForResource:@"SYDCenteralFactoryConfig" ofType:@"plist"];
+    [[SYDCentralRouter sharedInstance] addConfigWithFilePath:configFilePath withBundle:[NSBundle mainBundle]];;
+    
+   
+    [self setUpBugly];
+    
     
     ZLLog_Info(@"中间件，工具模块初始化完毕");
     
@@ -119,7 +120,18 @@
     [self removeObserver];
 }
 
+
 #pragma mark -
+
+// 处理URL
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options{
+    [[ZLToolManager sharedInstance].zlurlNotifcaitonModule addURLFromOtherAppOrWidgetWithUrl:url];
+    return YES;
+}
+
+
+
+#pragma mark - supported Interface Orientations
 
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window{
     if (_allowRotation) {
@@ -138,11 +150,23 @@
         self.allowRotation = YES;    // iPad 允许旋转
     }
     
+    [ZLBaseUIConfig sharedInstance].navigationBarTitleColor = [UIColor colorNamed:@"ZLNavigationBarTitleColor"];
+    [ZLBaseUIConfig sharedInstance].navigationBarBackgoundColor = [UIColor colorNamed:@"ZLNavigationBarBackColor"];
+    
+    [ZLBaseUIConfig sharedInstance].viewControllerBackgoundColor = [UIColor colorNamed:@"ZLVCBackColor"];
+    
+    [ZLBaseUIConfig sharedInstance].buttonTitleColor = [UIColor colorNamed:@"ZLBaseButtonTitleColor"];
+    [ZLBaseUIConfig sharedInstance].buttonBorderWidth = 1 / ZLScreenScale;
+    [ZLBaseUIConfig sharedInstance].buttonBackColor = [UIColor colorNamed:@"ZLBaseButtonBackColor"];
+    [ZLBaseUIConfig sharedInstance].buttonBorderColor = [UIColor colorNamed:@"ZLBaseButtonBorderColor"];
+    [ZLBaseUIConfig sharedInstance].buttonCornerRadius = 4.0;
+    
+    
 }
 
 - (void) switchToMainController:(BOOL) animated{
     void(^block)(void) = ^{
-        UIViewController * rootViewController = [SYDCentralPivotUIAdapter getZLMainViewController];
+        UIViewController * rootViewController = [ZLUIRouter getMainViewController];
         [self.window setRootViewController:rootViewController];
     };
     
@@ -177,23 +201,18 @@
 
 #pragma mark -
 
-- (void) addObserver
-{
+- (void) addObserver{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onGithubTokenInvalid) name:ZLGithubTokenInvalid_Notification object:nil];
 }
 
-- (void) removeObserver
-{
+- (void) removeObserver{
     [[NSNotificationCenter defaultCenter] removeObserver:self name:ZLGithubTokenInvalid_Notification object:nil];
-    
-  
 }
 
 
 #pragma mark -
 
-- (void) onGithubTokenInvalid
-{
+- (void) onGithubTokenInvalid{
     if(![self.window.rootViewController isKindOfClass:[ZLLoginViewController class]]){
         [ZLToastView showMessage:@"Token is not valid,login please"];
         [self switchToLoginController:YES];
@@ -209,6 +228,7 @@
            [[DoraemonManager shareInstance] install];
            // 或者使用传入位置,解决遮挡关键区域,减少频繁移动
            [[DoraemonManager shareInstance] installWithStartingPosition:CGPointMake(66, 66)];
+    
        #endif
 }
 
@@ -232,19 +252,19 @@
 
 #pragma mark - Notification Push
 
-- (void)registerPush {
-    // Push组件基本功能配置
-    
-   // [[UIApplication sharedApplication] registerForRemoteNotifications];
-        
-    [UNUserNotificationCenter currentNotificationCenter].delegate = self;
-    [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:UNAuthorizationOptionBadge|UNAuthorizationOptionSound|UNAuthorizationOptionAlert completionHandler:^(BOOL granted, NSError * _Nullable error) {
-        if(granted)
-        {
-            
-        }
-    }];
-}
+//- (void)registerPush {
+//    // Push组件基本功能配置
+//
+//   // [[UIApplication sharedApplication] registerForRemoteNotifications];
+//
+//    [UNUserNotificationCenter currentNotificationCenter].delegate = self;
+//    [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:UNAuthorizationOptionBadge|UNAuthorizationOptionSound|UNAuthorizationOptionAlert completionHandler:^(BOOL granted, NSError * _Nullable error) {
+//        if(granted)
+//        {
+//
+//        }
+//    }];
+//}
 
 
 //- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(nonnull NSData *)deviceToken {
@@ -270,34 +290,34 @@
 
 #pragma mark  UNUserNotificationCenterDelegate
 
-//iOS10新增：处理前台收到通知的代理方法，在后台调用
--(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler API_AVAILABLE(ios(10.0)) {
-    
-    /**
-     * 如果应用在前台，不显示通知
-     */
-    completionHandler(UNNotificationPresentationOptionNone);
-}
-
-//iOS10新增：处理后台点击通知的代理方法
--(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler API_AVAILABLE(ios(10.0)){
-    
-    if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]])
-    {
-        // 如果点击的时远程推送
-    }
-    else
-    {
-        //应用处于后台时的本地推送接受
-    }
-    completionHandler();
-}
-
-// 后台静默推送
--(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)info fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
-{
- 
-}
+////iOS10新增：处理前台收到通知的代理方法，在后台调用
+//-(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler API_AVAILABLE(ios(10.0)) {
+//    
+//    /**
+//     * 如果应用在前台，不显示通知
+//     */
+//    completionHandler(UNNotificationPresentationOptionNone);
+//}
+//
+////iOS10新增：处理后台点击通知的代理方法
+//-(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler API_AVAILABLE(ios(10.0)){
+//    
+//    if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]])
+//    {
+//        // 如果点击的时远程推送
+//    }
+//    else
+//    {
+//        //应用处于后台时的本地推送接受
+//    }
+//    completionHandler();
+//}
+//
+//// 后台静默推送/点击通知唤醒
+//-(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)info fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+//{
+// 
+//}
 
  
 @end

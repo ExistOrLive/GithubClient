@@ -26,7 +26,7 @@
 
     self.title = ZLLocalizedString(@"star", "标星");
     
-    ZLStarReposBaseView * baseView = [[ZLStarReposBaseView alloc] initWithFrame:ZLScreenBounds];
+    ZLStarReposBaseView * baseView = [ZLStarReposBaseView new];
     [self.contentView addSubview:baseView];
     [baseView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.contentView);

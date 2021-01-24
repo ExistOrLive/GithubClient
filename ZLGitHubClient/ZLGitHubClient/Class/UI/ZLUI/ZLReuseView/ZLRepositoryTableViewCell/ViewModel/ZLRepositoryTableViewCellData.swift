@@ -49,16 +49,17 @@ import UIKit
     }
     
     override func onCellSingleTap() {
-        let repoInfoVC = ZLRepoInfoController.init(repoInfoModel: self.data)
-        repoInfoVC.hidesBottomBarWhenPushed = true
-        self.viewController?.navigationController?.pushViewController(repoInfoVC, animated: true)
+        if let vc = ZLUIRouter.getRepoInfoViewController(self.data) {
+            vc.hidesBottomBarWhenPushed = true
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     
     
     func getRepoInfoFromServer() {
         weak var weakSelf = self
-        ZLRepoServiceModel.shared().getRepoInfo(withFullName: self.data.full_name, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoInfo(withFullName: self.data.full_name, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
             if resultModel.result == true {
                 guard  let model : ZLGithubRepositoryModel = resultModel.data as? ZLGithubRepositoryModel  else {
                     return
@@ -79,7 +80,7 @@ import UIKit
 extension ZLRepositoryTableViewCellData : ZLRepositoryTableViewCellDelegate
 {
     func onRepoAvaterClicked() {
-        if let userInfoVC = SYDCentralPivotUIAdapter.getUserInfoViewController(withLoginName:self.data.owner.loginName,with:self.data.owner.type){
+        if let userInfoVC = ZLUIRouter.getUserInfoViewController(self.data.owner.loginName, type: self.data.owner.type){
             userInfoVC.hidesBottomBarWhenPushed = true
             self.viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
         }

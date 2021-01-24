@@ -51,7 +51,7 @@ class ZLRepoCodePreviewController: ZLBaseViewController {
         SVProgressHUD.show()
         weak var weakSelf = self
         
-        ZLRepoServiceModel.shared().getRepositoryFileInfo(withFullName: self.repoFullName,path: self.path,branch:self.branch,serialNumber: NSString.generateSerialNumber(),completeHandle: {(resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepositoryFileInfo(withFullName: self.repoFullName,path: self.path,branch:self.branch,serialNumber: NSString.generateSerialNumber(),completeHandle: {(resultModel : ZLOperationResultModel) in
             SVProgressHUD.dismiss()
             
             if resultModel.result == false

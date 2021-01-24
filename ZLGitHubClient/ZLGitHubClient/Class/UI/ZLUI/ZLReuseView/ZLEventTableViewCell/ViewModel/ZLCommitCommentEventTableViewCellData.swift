@@ -35,7 +35,7 @@ class ZLCommitCommentEventTableViewCellData: ZLEventTableViewCellData {
         weak var weakSelf = self
         let loginNameRange = (str as NSString).range(of: loginName)
         attributedString.yy_setTextHighlight(loginNameRange, color: UIColor.init(cgColor: UIColor.init(named: "ZLLinkLabelColor1")!.cgColor), backgroundColor: UIColor.clear, tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
-            if let userInfoVC = SYDCentralPivotUIAdapter.getUserInfoViewController(withLoginName:payload.comment.user.loginName,with:payload.comment.user.type){
+            if let userInfoVC = ZLUIRouter.getUserInfoViewController(payload.comment.user.loginName, type: payload.comment.user.type){
                 userInfoVC.hidesBottomBarWhenPushed = true
                 weakSelf?.viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
             }
@@ -53,12 +53,12 @@ class ZLCommitCommentEventTableViewCellData: ZLEventTableViewCellData {
         
     
         let repoNameRange = (str as NSString).range(of: repoFullName)
-        attributedString.yy_setTextHighlight(repoNameRange, color: UIColor.init(cgColor: UIColor.init(named: "ZLLinkLabelColor1")!.cgColor), backgroundColor: UIColor.clear , tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
-            let repoModel = ZLGithubRepositoryModel.init()
-            repoModel.full_name = weakSelf?.eventModel.repo.name ?? "";
-            let vc = ZLRepoInfoController.init(repoInfoModel: repoModel)
-            vc.hidesBottomBarWhenPushed = true
-            weakSelf?.viewController?.navigationController?.pushViewController(vc, animated: true)
+        attributedString.yy_setTextHighlight(repoNameRange, color: UIColor.init(cgColor: UIColor.init(named: "ZLLinkLabelColor1")!.cgColor), backgroundColor: UIColor.clear , tapAction: {[weak weakSelf = self](containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
+            
+            if let repoFullName = weakSelf?.eventModel.repo.name,let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: repoFullName) {
+                vc.hidesBottomBarWhenPushed = true
+                weakSelf?.viewController?.navigationController?.pushViewController(vc, animated: true)
+            }
         })
         
         self._eventDescription = attributedString

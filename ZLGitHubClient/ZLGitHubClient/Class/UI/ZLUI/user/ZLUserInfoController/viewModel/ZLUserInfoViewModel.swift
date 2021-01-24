@@ -21,7 +21,9 @@ class ZLUserInfoViewModel: ZLBaseViewModel {
     
     deinit {
         // 注销监听
-        ZLUserServiceModel.shared().unRegisterObserver(self, name: ZLGetSpecifiedUserInfoResult_Notification)
+        ZLServiceManager.sharedInstance.userServiceModel?.unRegisterObserver(self, name: ZLGetSpecifiedUserInfoResult_Notification)
+        NotificationCenter.default.removeObserver(self, name: ZLLanguageTypeChange_Notificaiton, object: nil)
+        NotificationCenter.default.removeObserver(self, name: ZLUserInterfaceStyleChange_Notification, object: nil)
     }
     
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
@@ -39,10 +41,9 @@ class ZLUserInfoViewModel: ZLBaseViewModel {
         
         self.userInfoView?.readMeView?.isHidden = true
         self.userInfoView?.readMeView?.delegate = self
-        self.userInfoView?.readMeView?.startLoad(fullName: "\(model.loginName)/\(model.loginName)", branch: nil)
-        
+   
         var showBlockButton = ZLSharedDataManager.sharedInstance().configModel?.BlockFunction ?? true
-        if ZLUserServiceModel.shared().currentUserLoginName() == "ExistOrLive1"{
+        if ZLServiceManager.sharedInstance.userServiceModel?.currentUserLoginName() == "ExistOrLive1"{
             showBlockButton = true
         }
         self.userInfoView?.blockButton.isHidden = !showBlockButton
@@ -50,12 +51,15 @@ class ZLUserInfoViewModel: ZLBaseViewModel {
         
         // 设置UI
         self.setViewDataForUserInfoView(model: model, view: targetView as! ZLUserInfoView)
+        self.userInfoView?.readMeView?.startLoad(fullName: "\(model.loginName)/\(model.loginName)", branch: nil)
         
         // 注册监听
-        ZLUserServiceModel.shared().registerObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLGetSpecifiedUserInfoResult_Notification)
+        NotificationCenter.default.addObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLLanguageTypeChange_Notificaiton, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLUserInterfaceStyleChange_Notification, object: nil)
+        ZLServiceManager.sharedInstance.userServiceModel?.registerObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLGetSpecifiedUserInfoResult_Notification)
         
         self.serialNumber = NSString.generateSerialNumber()
-        ZLUserServiceModel.shared().getUserInfo(withLoginName: model.loginName, userType: model.type, serialNumber: self.serialNumber)
+        ZLServiceManager.sharedInstance.userServiceModel?.getUserInfo(withLoginName: model.loginName, userType: model.type, serialNumber: self.serialNumber)
         
         if self.userInfoModel?.type != ZLGithubUserType_Organization {
             self.getFollowStatus()
@@ -65,7 +69,7 @@ class ZLUserInfoViewModel: ZLBaseViewModel {
         
         SVProgressHUD.show()
         
-        if let vc = self.viewController as? ZLBaseViewController {
+        if let vc = self.viewController {
             vc.zlNavigationBar.backButton.isHidden = false
             let button = UIButton.init(type: .custom)
             button.setImage(UIImage.init(named: "run_more"), for: .normal)
@@ -213,12 +217,14 @@ extension ZLUserInfoViewModel
         view.headImageView.sd_setImage(with: URL.init(string: model.avatar_url), placeholderImage: UIImage.init(named: "default_avatar"));
         view.nameLabel.text = String("\(model.name)(\(model.loginName))")
         
+        view.contributionsView.startLoad(loginName: model.loginName)
+        
         var dateStr = model.created_at
         if let date: Date = model.createdDate()
         {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
-            dateFormatter.timeZone = TimeZone.init(secondsFromGMT: 8 * 60 * 60) // 北京时区
+            dateFormatter.timeZone = TimeZone.current
             dateStr = dateFormatter.string(from: date)
         }
         let createdAtStr = ZLLocalizedString(string:"created at", comment: "创建于")
@@ -240,35 +246,60 @@ extension ZLUserInfoViewModel
 {
     @objc func onNotificationArrived(notification: Notification)
     {
-        let operationResultModel : ZLOperationResultModel = notification.params as! ZLOperationResultModel
-        
-        if operationResultModel.serialNumber != self.serialNumber {
-            return
-        }
-        
-        SVProgressHUD.dismiss()
-        
-        if operationResultModel.result == true {
-            guard let userInfo : ZLGithubUserModel = operationResultModel.data as? ZLGithubUserModel else
-            {
-                ZLLog_Warn("data of operationResultModel is not ZLGithubUserModel,so return")
-                return
-            }
-            self.setViewDataForUserInfoView(model: userInfo, view: self.userInfoView!)
+        switch notification.name {
+        case ZLGetSpecifiedUserInfoResult_Notification:do{
+            let operationResultModel : ZLOperationResultModel = notification.params as! ZLOperationResultModel
             
-        } else {
-            guard let errorModel : ZLGithubRequestErrorModel = operationResultModel.data as? ZLGithubRequestErrorModel else {
-                ZLToastView.showMessage("Query User Info Failed")
+            if operationResultModel.serialNumber != self.serialNumber {
                 return
             }
-            ZLToastView.showMessage("Query User Info Failed statusCode[\(errorModel.statusCode)] message[\(errorModel.message)]")
+            
+            SVProgressHUD.dismiss()
+            
+            if operationResultModel.result == true {
+                guard let userInfo : ZLGithubUserModel = operationResultModel.data as? ZLGithubUserModel else
+                {
+                    ZLLog_Warn("data of operationResultModel is not ZLGithubUserModel,so return")
+                    return
+                }
+                self.setViewDataForUserInfoView(model: userInfo, view: self.userInfoView!)
+                
+            } else {
+                guard let errorModel : ZLGithubRequestErrorModel = operationResultModel.data as? ZLGithubRequestErrorModel else {
+                    ZLToastView.showMessage("Query User Info Failed")
+                    return
+                }
+                ZLToastView.showMessage("Query User Info Failed statusCode[\(errorModel.statusCode)] message[\(errorModel.message)]")
+            }
+        }
+        case ZLLanguageTypeChange_Notificaiton:do{
+            self.userInfoView?.justUpdate()
+            
+            if let model = self.userInfoModel {
+                var dateStr = model.created_at
+                if let date: Date = model.createdDate()
+                {
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd"
+                    dateFormatter.timeZone = TimeZone.current
+                    dateStr = dateFormatter.string(from: date)
+                }
+                let createdAtStr = ZLLocalizedString(string:"created at", comment: "创建于")
+                self.userInfoView?.createTimeLabel.text = String("\(createdAtStr) \(dateStr)")
+            }
+        }
+        case ZLUserInterfaceStyleChange_Notification:do{
+            self.userInfoView?.readMeView?.reRender()
+        }
+        default:
+            break
         }
     }
     
     
     func getFollowStatus() {
         weak var weakSelf = self
-        ZLUserServiceModel.shared().getUserFollowStatus(withLoginName: self.userInfoModel!.loginName, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.userServiceModel?.getUserFollowStatus(withLoginName: self.userInfoModel!.loginName, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
             if(resultModel.result == true) {
                 guard let data : [String:Bool] = resultModel.data as? [String:Bool] else {
                     return
@@ -283,7 +314,7 @@ extension ZLUserInfoViewModel
     func followUser() {
         weak var weakSelf = self
         SVProgressHUD.show()
-        ZLUserServiceModel.shared().followUser(withLoginName: self.userInfoModel!.loginName, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.userServiceModel?.followUser(withLoginName: self.userInfoModel!.loginName, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
             SVProgressHUD.dismiss()
             if(resultModel.result == true){
                 weakSelf?.userInfoView?.followButton.isSelected = true
@@ -298,7 +329,7 @@ extension ZLUserInfoViewModel
     func unfollowUser() {
         weak var weakSelf = self
         SVProgressHUD.show()
-        ZLUserServiceModel.shared().unfollowUser(withLoginName: self.userInfoModel!.loginName, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.userServiceModel?.unfollowUser(withLoginName: self.userInfoModel!.loginName, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
             SVProgressHUD.dismiss()
             if(resultModel.result == true){
                 weakSelf?.userInfoView?.followButton.isSelected = false
@@ -312,7 +343,7 @@ extension ZLUserInfoViewModel
     
     func getBlockStatus() {
         weak var weakSelf = self
-        ZLUserServiceModel.shared().getUserBlockStatus(withLoginName: self.userInfoModel!.loginName, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.userServiceModel?.getUserBlockStatus(withLoginName: self.userInfoModel!.loginName, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
             if(resultModel.result == true) {
                 guard let data : [String:Bool] = resultModel.data as? [String:Bool] else {
                     return
@@ -327,7 +358,7 @@ extension ZLUserInfoViewModel
     func BlockUser() {
         weak var weakSelf = self
         SVProgressHUD.show()
-        ZLUserServiceModel.shared().blockUser(withLoginName: self.userInfoModel!.loginName, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.userServiceModel?.blockUser(withLoginName: self.userInfoModel!.loginName, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
             SVProgressHUD.dismiss()
             if(resultModel.result == true){
                 weakSelf?.userInfoView?.blockButton.isSelected = true
@@ -342,7 +373,7 @@ extension ZLUserInfoViewModel
     func unBlockUser() {
         weak var weakSelf = self
         SVProgressHUD.show()
-        ZLUserServiceModel.shared().unBlockUser(withLoginName: self.userInfoModel!.loginName, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.userServiceModel?.unBlockUser(withLoginName: self.userInfoModel!.loginName, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
             SVProgressHUD.dismiss()
             if(resultModel.result == true){
                 weakSelf?.userInfoView?.blockButton.isSelected = false

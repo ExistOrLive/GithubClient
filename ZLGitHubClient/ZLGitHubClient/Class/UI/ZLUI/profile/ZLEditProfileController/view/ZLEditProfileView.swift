@@ -23,10 +23,12 @@ class ZLEditProfileView: ZLBaseView {
             ZLLog_Warn("ZLEditProfileContentView load failed")
             return
         }
-        contentView.frame = CGRect.init(x: 0, y: 10, width: self.scrollView.frame.size.width, height: ZLEditProfileContentView.minHeight)
-        contentView.autoresizingMask = UIView.AutoresizingMask.flexibleWidth
+        
         self.scrollView.addSubview(contentView)
-        self.scrollView.contentSize = CGSize.init(width: ZLScreenWidth, height:ZLEditProfileContentView.minHeight)
+        contentView.snp_makeConstraints { (make) in
+            make.edges.equalToSuperview()
+            make.width.equalToSuperview()
+        }
         self.contentView = contentView
     }
     

@@ -34,10 +34,11 @@ class ZLAboutViewModel: ZLBaseViewModel {
     
     
     @IBAction func onRepoButtonClicked(_ sender: Any) {
-        let repoInfoVc = ZLRepoInfoController.init(repoFullName: "MengAndJie/GithubClient")
-        self.viewController?.navigationController?.pushViewController(repoInfoVc, animated: true)
+        if let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: "MengAndJie/GithubClient") {
+            vc.hidesBottomBarWhenPushed = true
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        }
     }
-    
     
     @IBAction func onAppStoreButtonClicked(_ sender: Any) {
         let url = URL.init(string: "https://apps.apple.com/cn/app/zlgithubclient/id1498787032")

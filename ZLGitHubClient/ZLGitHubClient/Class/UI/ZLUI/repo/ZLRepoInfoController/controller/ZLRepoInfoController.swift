@@ -8,49 +8,27 @@
 
 import UIKit
 
-class ZLRepoInfoController: ZLBaseViewController {
+ class ZLRepoInfoController: ZLBaseViewController {
 
-    private var repoInfoModel: ZLGithubRepositoryModel?
+    @objc var repoInfoModel: ZLGithubRepositoryModel?
     
     private weak var baseView : ZLRepoInfoView?
-    
-    required init() {
-        self.repoInfoModel = nil;
-        super.init(nibName: nil, bundle: nil);
-    }
-    
-    convenience  init(repoInfoModel:ZLGithubRepositoryModel)
-    {
-        self.init()
-        self.repoInfoModel = repoInfoModel;
-    }
-    
-    convenience init(repoFullName: String)
-    {
-        self.init()
-        let repoInfoModel = ZLGithubRepositoryModel.init()
-        repoInfoModel.full_name = repoFullName
-        self.repoInfoModel = repoInfoModel
-    }
-    
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let baseView = ZLRepoInfoView.init(frame: CGRect())
-        self.baseView = baseView
-        self.contentView.addSubview(baseView)
-        baseView.snp.makeConstraints({ (make) in
-            make.edges.equalToSuperview()
-        })
-        
-        let viewModel = ZLRepoInfoViewModel()
-        self.addSubViewModel(viewModel)
-        viewModel.bindModel(self.repoInfoModel, andView: baseView)
+        if let repoInfoModel = self.repoInfoModel {
+            let baseView = ZLRepoInfoView.init(frame: CGRect())
+            self.baseView = baseView
+            self.contentView.addSubview(baseView)
+            baseView.snp.makeConstraints({ (make) in
+                make.edges.equalToSuperview()
+            })
+            
+            let viewModel = ZLRepoInfoViewModel()
+            self.addSubViewModel(viewModel)
+            viewModel.bindModel(repoInfoModel, andView: baseView)
+        }
     }
     
     override func onBackButtonClicked(_ button: UIButton!) {

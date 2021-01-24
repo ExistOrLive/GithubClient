@@ -64,7 +64,7 @@ extension ZLOAuthBaseViewModel: ZLWebContentViewDelegate
             // 登陆成功获取token
             decisionHandler(.allow)
             self.viewController?.dismiss(animated: true, completion: nil);
-         ZLLoginServiceModel.shared().getAccessToken(navigationAction.request.url!.query!, serialNumber: self.loginProcess!.serialNumber)
+         ZLServiceManager.sharedInstance.loginServiceModel?.getAccessToken(navigationAction.request.url!.query!, serialNumber: self.loginProcess!.serialNumber)
         }
         else
         {
@@ -86,7 +86,7 @@ extension ZLOAuthBaseViewModel: ZLWebContentViewDelegate
     
     @objc func onBackButtonClick(button: UIButton)
     {
-        ZLLoginServiceModel.shared().stopLogin(self.loginProcess?.serialNumber ?? "")
+        ZLServiceManager.sharedInstance.loginServiceModel?.stopLogin(self.loginProcess?.serialNumber ?? "")
         self.baseView?.webView?.stopLoading();
         self.viewController?.dismiss(animated: true, completion: nil);
     }

@@ -39,7 +39,7 @@ extension ZLRepoContributorsViewModel
         
         weak var weakSelf = self
         
-        ZLRepoServiceModel.shared().getRepositoryContributors(withFullName: self.fullName!, serialNumber: NSString.generateSerialNumber()) { (resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepositoryContributors(withFullName: self.fullName!, serialNumber: NSString.generateSerialNumber()) { (resultModel : ZLOperationResultModel) in
             if resultModel.result == false
             {
                 weakSelf?.itemListView?.endRefreshWithError()

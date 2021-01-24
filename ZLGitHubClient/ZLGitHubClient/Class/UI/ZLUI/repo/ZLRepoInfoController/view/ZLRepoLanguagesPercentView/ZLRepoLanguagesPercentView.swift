@@ -21,19 +21,19 @@ class ZLRepoLanguagesPercentView: ZLBaseView {
     
     class func showRepoLanguagesPercentView(fullName:String) -> Void {
         SVProgressHUD.show()
-        ZLRepoServiceModel.shared().getRepoLanguages(withFullName: fullName, serialNumber: NSString.generateSerialNumber(), completeHandle: {(result : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoLanguages(withFullName: fullName, serialNumber: NSString.generateSerialNumber(), completeHandle: {(result : ZLOperationResultModel) in
             SVProgressHUD.dismiss()
             if result.result == true {
                 
                 guard let view : ZLRepoLanguagesPercentView = Bundle.main.loadNibNamed("ZLRepoLanguagesPercentView", owner: nil, options: nil)?.first as? ZLRepoLanguagesPercentView else {
                            return
                        }
-                view.frame = CGRect.init(x: 0, y: 0, width: ZLScreenWidth - 80, height: 480)
+                view.frame = CGRect.init(x: 0, y: 0, width: ZLKeyWindowWidth - 80, height: 480)
                 view.repoFullName = fullName
                 view.data = result.data as! [String:Int]
                 view.startLoadData()
 
-                let popup : FFPopup = FFPopup.popup(contetnView: view, showType: .bounceIn, dismissType: .bounceOut, maskType: FFPopup.MaskType.dimmed, dismissOnBackgroundTouch: true, dismissOnContentTouch: false)
+                let popup : FFPopup = FFPopup(contetnView: view, showType: .bounceIn, dismissType: .bounceOut, maskType: FFPopup.MaskType.dimmed, dismissOnBackgroundTouch: true, dismissOnContentTouch: false)
                 popup.show(layout: .Center)
                 
         

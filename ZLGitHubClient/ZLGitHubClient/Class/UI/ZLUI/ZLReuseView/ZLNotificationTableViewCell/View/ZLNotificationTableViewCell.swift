@@ -27,8 +27,16 @@ class ZLNotificationTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        self.notificationTitleLabel.numberOfLines = 0
+        self.notificationTitleLabel.preferredMaxLayoutWidth = ZLKeyWindowWidth - 90
     }
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.notificationTitleLabel.preferredMaxLayoutWidth = ZLKeyWindowWidth - 90
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(false, animated: animated)
     }
@@ -48,6 +56,8 @@ class ZLNotificationTableViewCell: UITableViewCell {
             self.notificationTypeImageView.image = UIImage.init(named: "security_alert")
         case "Discussion":
             self.notificationTypeImageView.image = UIImage.init(named: "discussion")
+        case "Release":
+            self.notificationTypeImageView.image = UIImage.init(named: "release_tag")
         default:
             self.notificationTypeImageView.image = nil
         }
