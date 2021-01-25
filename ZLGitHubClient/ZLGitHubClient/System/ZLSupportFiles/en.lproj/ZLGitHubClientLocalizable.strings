@@ -221,5 +221,6 @@
 
 "ClipBoard" = "ClipBoard";
 "AssistButton" = "Assist Button";
-
+"Hide Assist Button" = "Hide Assist Button";
+"ReShow Assist Button" = "You can relaunch assist button in setting";
 

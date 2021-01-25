@@ -34,14 +34,17 @@
 
 
 - (void) setUpUI {
+   
     [self.layer setBorderColor:[ZLBaseUIConfig sharedInstance].buttonBorderColor.CGColor];
     [self.layer setBorderWidth:[ZLBaseUIConfig sharedInstance].buttonBorderWidth];
     [self.layer setCornerRadius:[ZLBaseUIConfig sharedInstance].buttonCornerRadius];
-    [self.layer setBackgroundColor:[ZLBaseUIConfig sharedInstance].buttonBackColor.CGColor];
+    [self setBackgroundColor:[ZLBaseUIConfig sharedInstance].buttonBackColor];
     
     self.titleLabel.textColor = [ZLBaseUIConfig sharedInstance].buttonTitleColor;
     [self setTitleColor:[ZLBaseUIConfig sharedInstance].buttonTitleColor forState:UIControlStateNormal];
     [self setTitleColor:[ZLBaseUIConfig sharedInstance].buttonTitleColor forState:UIControlStateSelected];
+    
+
 }
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
@@ -49,7 +52,6 @@
     if (@available(iOS 13.0, *)) {
         if(self.traitCollection.userInterfaceStyle != previousTraitCollection.userInterfaceStyle) {
             [self.layer setBorderColor:[ZLBaseUIConfig sharedInstance].buttonBorderColor.CGColor];
-            [self.layer setBackgroundColor:[ZLBaseUIConfig sharedInstance].buttonBackColor.CGColor];
             
             self.titleLabel.textColor = [ZLBaseUIConfig sharedInstance].buttonTitleColor;
             [self setTitleColor:[ZLBaseUIConfig sharedInstance].buttonTitleColor forState:UIControlStateNormal];

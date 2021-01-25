@@ -48,6 +48,12 @@ class ZLSearchViewModel: ZLBaseViewModel {
         self.addSubViewModel(searchRecordViewModel)
         self.searchRecordViewModel = searchRecordViewModel;
         
+        if let searchKey = targetModel as? String {
+            self.searchView?.searchTextField.text = searchKey
+            self.searchItemsViewModel?.startSearch(keyWord: searchKey)
+            self.searchRecordViewModel?.onSearhKeyConfirmed(searchKey: searchKey)
+        }
+        
     }
     
     

@@ -55,11 +55,11 @@
     if(config.isNavigated)
     {
         UINavigationController * navigationController = [config.sourceViewController navigationController];
-        [navigationController pushViewController:controller animated:YES];
+        [navigationController pushViewController:controller animated:config.animated];
     }
     else
     {
-        [config.sourceViewController presentViewController:controller animated:YES completion:nil];
+        [config.sourceViewController presentViewController:controller animated:config.animated completion:nil];
     }
     
 }

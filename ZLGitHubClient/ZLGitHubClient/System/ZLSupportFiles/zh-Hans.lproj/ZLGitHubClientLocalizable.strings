@@ -215,3 +215,5 @@
 
 "ClipBoard" = "剪切板";
 "AssistButton" = "辅助按钮";
+"Hide Assist Button" = "隐藏辅助按钮";
+"ReShow Assist Button" = "你可以在设置中重新启动辅助按钮";
