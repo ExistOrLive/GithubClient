@@ -9,6 +9,8 @@
 import UIKit
 
 class ZLSearchController: ZLBaseViewController {
+    
+    @objc var searchKey : String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +31,7 @@ class ZLSearchController: ZLBaseViewController {
         }
         
         // 绑定view viewModel VC
-        viewModel.bindModel(nil, andView: baseView)
+        viewModel.bindModel(searchKey, andView: baseView)
     
     }
     

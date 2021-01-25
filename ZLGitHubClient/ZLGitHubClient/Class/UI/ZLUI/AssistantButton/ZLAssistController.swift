@@ -17,40 +17,108 @@ enum ZLAssistButtonType{
     case pasteboard
 }
 
+enum ZLAssistTableViewCellIndex{
+    case search
+    case clipBoard
+    case userInterface
+    case assistButon
+    case circleMenu
+}
+
+
+class ZLAssistTableViewCell : UITableViewCell {
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(false, animated: animated)
+    }
+}
+
 
 class ZLAssistController: ZLBaseViewController {
     
     private var pasteURL : URL?
     
-    private var buttonTypes : [ZLAssistButtonType]?
+    
+    private var tableView : UITableView!
+    
+    private var searchBar : ZLBaseSearchBar?
+    private var clipBoardButton : UIButton?
+    private var userInterfaceSegmentedControl : UISegmentedControl?
+    private var assistButton : UIButton?
     private var circleMenu : CircleMenu?
+    
+    private var tableViewIndexs : [ZLAssistTableViewCellIndex] = []
+    private var buttonTypes : [ZLAssistButtonType]?
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setCircleMenu()
+        self.setSearchBar()
+        self.tableViewIndexs.append(.search)
         
         if let url = URL(string: UIPasteboard.general.string ?? "") {
-            if url.host != "www.github.com" &&
-                url.host != "github.com" &&
-                url.pathComponents.count <= 1{
-                return
+            if (url.host == "www.github.com" ||
+                url.host == "github.com") &&
+                url.pathComponents.count > 1{   // 仅显示github.com的链接；链接必须包含loginName
+                self.pasteURL = url
+                self.setPasteURLButton()
+                self.tableViewIndexs.append(.clipBoard)
             }
-            self.pasteURL = url
-            self.setPasteURLView()
+        }
+        
+        if #available(iOS 13.0, *) {
+            self.tableViewIndexs.append(.userInterface)
+            self.setUpUserInterfaceSegmentControl()
+        }
+        
+        self.setAssistButton()
+        self.tableViewIndexs.append(.assistButon)
+        
+        self.setCircleMenu()
+        self.tableViewIndexs.append(.circleMenu)
+        
+        self.setUpUI()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if let window = self.view.window as? ZLFloatWindow{
+            window.forceKey = true
+            window.makeKey()
         }
     }
     
-    func setPasteURLView(){
-        let label = UILabel()
-        label.text = ZLLocalizedString(string: "ClipBoard" , comment: "")
-        label.textColor = UIColor(named: "ZLLabelColor1")
-        label.font = UIFont.init(name: Font_PingFangSCSemiBold, size: 20)
-        self.contentView.addSubview(label)
-        label.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(20)
-            make.top.equalToSuperview().offset(30)
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if let window = self.view.window as? ZLFloatWindow{
+            window.forceKey = false
+            UIApplication.shared.delegate?.window??.makeKey()
         }
+    }
+    
+    func setUpUI(){
+        tableView = UITableView(frame: CGRect(), style: .grouped)
+        tableView.backgroundColor = UIColor.clear
+        tableView.separatorStyle = .none
+        tableView.contentInset = UIEdgeInsets(top: 30, left: 0, bottom: 0, right: 0)
+        tableView.showsVerticalScrollIndicator = false
+        self.contentView.addSubview(tableView)
+        tableView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
+    
+    func setSearchBar(){
+        searchBar = ZLBaseSearchBar()
+        searchBar?.backgroundColor = UIColor.clear
+        searchBar?.delegate = self
+    }
+    
+    
+    func setPasteURLButton(){
         
         let button = UIButton(type: .custom)
         button.cornerRadius = 10
@@ -78,24 +146,37 @@ class ZLAssistController: ZLBaseViewController {
             make.right.equalToSuperview().offset(-20)
         }
                 
-        self.contentView.addSubview(button)
-        
-        button.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(20)
-            make.right.equalToSuperview().offset(-20)
-            make.top.equalTo(label.snp_bottom).offset(15)
-            make.height.equalTo(80)
-        }
-        
-        
         button.addTarget(self, action: #selector(ZLAssistController.onPasteURLButtonClicked), for: .touchUpInside)
+        
+        clipBoardButton = button
     }
     
     
     @objc func onPasteURLButtonClicked() {
         ZLAssistButtonManager.shared.dismissAssistDetailView()
-        ZLUIRouter.openURL(url: self.pasteURL!)
+        ZLUIRouter.openURL(url: self.pasteURL!, animated:false)
     }
+        
+    func setUpUserInterfaceSegmentControl() {
+        userInterfaceSegmentedControl = UISegmentedControl(items:[ZLLocalizedString(string: "FollowSystemSetting", comment: ""),ZLLocalizedString(string: "Light Mode", comment: ""),ZLLocalizedString(string: "Dark Mode", comment: "")] )
+        if #available(iOS 12.0, *) {
+            userInterfaceSegmentedControl?.selectedSegmentIndex = ZLSharedDataManager.sharedInstance().currentUserInterfaceStyle.rawValue
+        }
+        userInterfaceSegmentedControl?.addTarget(self, action: #selector(onUserInterfaceStyleChange(segmentControl:)), for: .valueChanged)
+        
+    }
+    
+    @objc func onUserInterfaceStyleChange(segmentControl : UISegmentedControl) {
+        
+        if #available(iOS 13.0, *){
+            let interfaceStyle : UIUserInterfaceStyle  = UIUserInterfaceStyle.init(rawValue: segmentControl.selectedSegmentIndex) ?? UIUserInterfaceStyle.unspecified
+            UIApplication.shared.delegate?.window??.overrideUserInterfaceStyle = interfaceStyle
+            self.view.window?.overrideUserInterfaceStyle = interfaceStyle
+            ZLSharedDataManager.sharedInstance().currentUserInterfaceStyle = interfaceStyle
+            NotificationCenter.default.post(name: ZLUserInterfaceStyleChange_Notification, object: nil)
+        }
+    }
+    
     
     func setCircleMenu() {
         
@@ -121,19 +202,36 @@ class ZLAssistController: ZLBaseViewController {
         tmpcirclrMenu.clipsToBounds = true
         tmpcirclrMenu.cornerRadius = 30
         tmpcirclrMenu.delegate = self
-        self.contentView.addSubview(tmpcirclrMenu)
-        
-        tmpcirclrMenu.snp.makeConstraints { (make) in
-            make.size.equalTo(CGSize(width: 60, height: 60))
-            make.centerX.equalToSuperview()
-            make.bottom.equalTo(self.contentView.snp_bottomMargin).offset(-180);
-        }
-        
-        tmpcirclrMenu.sendActions(for: .touchUpInside)
+                
         circleMenu = tmpcirclrMenu
     }
 
     
+    func setAssistButton() {
+        let button = ZLBaseButton(type: .custom)
+        button.setTitle(ZLLocalizedString(string: "Hide Assist Button", comment: ""), for: .normal)
+        button.addTarget(self, action: #selector(onAssitButtonClicked), for: .touchUpInside)
+        button.titleLabel?.font = UIFont.init(name: Font_PingFangSCSemiBold, size: 14)!
+        assistButton = button
+    }
+    
+    @objc func onAssitButtonClicked(){
+        ZLAssistButtonManager.shared.dismissAssistDetailView()
+        ZLAssistButtonManager.shared.setHidden(true)
+        ZLSharedDataManager.sharedInstance().isAssistButtonHidden = true
+        ZLToastView.showMessage(ZLLocalizedString(string: "ReShow Assist Button", comment: ""))
+    }
+    
+}
+
+extension ZLAssistController : ZLBaseSearchBarDelegate {
+    
+    func searchBarConfirmSearch(_ searchBar: ZLBaseSearchBar, withSearchKey searchKey: String) {
+        if searchKey.count > 0 {
+            ZLAssistButtonManager.shared.dismissAssistDetailView()
+            ZLUIRouter.navigateVC(key: ZLUIRouter.SearchController, params: ["searchKey":searchKey],animated: false)
+        }
+    }
 }
 
 
@@ -233,5 +331,231 @@ extension ZLAssistController : CircleMenuDelegate {
     func menuOpened(_ circleMenu: CircleMenu){
 
     }
+    
+}
+
+
+extension ZLAssistController : UITableViewDelegate,UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return tableViewIndexs.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        switch tableViewIndexs[section]{
+        case .search:do{
+            return 40
+        }
+        case .clipBoard:do{
+            return 40
+        }
+        case .userInterface:do{
+            return 40
+        }
+        case .assistButon:do{
+            return 40
+        }
+        case .circleMenu:do{
+            return 10
+        }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        switch tableViewIndexs[section]{
+        case .search:do{
+            let view = UIView()
+            view.backgroundColor = UIColor.clear
+            let label = UILabel()
+            label.text = ZLLocalizedString(string: "Search" , comment: "")
+            label.textColor = UIColor(named: "ZLLabelColor1")
+            label.textAlignment = .left
+            label.font = UIFont.init(name: Font_PingFangSCSemiBold, size: 20)
+            view.addSubview(label)
+            label.snp.makeConstraints { (make) in
+                make.left.equalToSuperview().offset(20)
+                make.right.equalToSuperview().offset(-20)
+                make.centerY.equalToSuperview()
+            }
+            return view
+        }
+        case .clipBoard:do{
+            let view = UIView()
+            view.backgroundColor = UIColor.clear
+            let label = UILabel()
+            label.text = ZLLocalizedString(string: "ClipBoard" , comment: "")
+            label.textColor = UIColor(named: "ZLLabelColor1")
+            label.textAlignment = .left
+            label.font = UIFont.init(name: Font_PingFangSCSemiBold, size: 20)
+            view.addSubview(label)
+            label.snp.makeConstraints { (make) in
+                make.left.equalToSuperview().offset(20)
+                make.right.equalToSuperview().offset(-20)
+                make.centerY.equalToSuperview()
+            }
+            return view
+        }
+        case .userInterface:do{
+            let view = UIView()
+            view.backgroundColor = UIColor.clear
+            let label = UILabel()
+            label.text = ZLLocalizedString(string: "Appearance" , comment: "")
+            label.textColor = UIColor(named: "ZLLabelColor1")
+            label.textAlignment = .left
+            label.font = UIFont.init(name: Font_PingFangSCSemiBold, size: 20)
+            view.addSubview(label)
+            label.snp.makeConstraints { (make) in
+                make.left.equalToSuperview().offset(20)
+                make.right.equalToSuperview().offset(-20)
+                make.centerY.equalToSuperview()
+            }
+            return view
+        }
+        case .assistButon:do{
+            let view = UIView()
+            view.backgroundColor = UIColor.clear
+            let label = UILabel()
+            label.text = ZLLocalizedString(string: "AssistButton" , comment: "")
+            label.textColor = UIColor(named: "ZLLabelColor1")
+            label.textAlignment = .left
+            label.font = UIFont.init(name: Font_PingFangSCSemiBold, size: 20)
+            view.addSubview(label)
+            label.snp.makeConstraints { (make) in
+                make.left.equalToSuperview().offset(20)
+                make.right.equalToSuperview().offset(-20)
+                make.centerY.equalToSuperview()
+            }
+            return view
+        }
+        case .circleMenu:do{
+            return nil
+        }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch tableViewIndexs[indexPath.section]{
+        case .search:do{
+            return 70
+        }
+        case .clipBoard:do{
+            return 110
+        }
+        case .userInterface:do{
+            return 70
+        }
+        case .assistButon:do{
+            return 70
+        }
+        case .circleMenu:do{
+            return 360
+        }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        switch tableViewIndexs[indexPath.section]{
+        case .search:do{
+            if let tableViewCell = tableView.dequeueReusableCell(withIdentifier: "search") {
+                return tableViewCell
+            } else {
+                let tableViewCell = ZLAssistTableViewCell(style: .default, reuseIdentifier: "search")
+                tableViewCell.backgroundColor = UIColor.clear
+                tableViewCell.selectionStyle = .none
+                tableViewCell.contentView.backgroundColor = UIColor.clear
+                tableViewCell.contentView.addSubview(searchBar!)
+                searchBar?.snp.makeConstraints({ (make) in
+                    make.right.left.equalToSuperview()
+                    make.center.equalToSuperview()
+                    make.height.equalTo(40)
+                })
+                return tableViewCell
+            }
+        }
+        case .clipBoard:do{
+            if let tableViewCell = tableView.dequeueReusableCell(withIdentifier: "clipBoard") {
+                return tableViewCell
+            } else {
+                let tableViewCell = ZLAssistTableViewCell(style: .default, reuseIdentifier: "clipBoard")
+                tableViewCell.backgroundColor = UIColor.clear
+                tableViewCell.contentView.backgroundColor = UIColor.clear
+                tableViewCell.contentView.addSubview(clipBoardButton!)
+                tableViewCell.selectionStyle = .none
+                clipBoardButton?.snp.makeConstraints({ (make) in
+                    make.left.equalToSuperview().offset(20)
+                    make.right.equalToSuperview().offset(-20)
+                    make.center.equalToSuperview()
+                    make.height.equalTo(80)
+                })
+                return tableViewCell
+            }
+        }
+        case .userInterface:do{
+            if let tableViewCell = tableView.dequeueReusableCell(withIdentifier: "userInterface") {
+                return tableViewCell
+            } else {
+                let tableViewCell = ZLAssistTableViewCell(style: .default, reuseIdentifier: "userInterface")
+                tableViewCell.backgroundColor = UIColor.clear
+                tableViewCell.selectionStyle = .none
+                tableViewCell.contentView.backgroundColor = UIColor.clear
+                tableViewCell.contentView.addSubview(userInterfaceSegmentedControl!)
+                userInterfaceSegmentedControl?.snp.makeConstraints({ (make) in
+                    make.left.equalToSuperview().offset(20)
+                    make.right.equalToSuperview().offset(-20)
+                    make.center.equalToSuperview()
+                    make.height.equalTo(40)
+                })
+                return tableViewCell
+            }
+        }
+        case .assistButon:do{
+            if let tableViewCell = tableView.dequeueReusableCell(withIdentifier: "assistButon") {
+                return tableViewCell
+            } else {
+                let tableViewCell = ZLAssistTableViewCell(style: .default, reuseIdentifier: "assistButon")
+                tableViewCell.backgroundColor = UIColor.clear
+                tableViewCell.selectionStyle = .none
+                tableViewCell.contentView.backgroundColor = UIColor.clear
+                tableViewCell.contentView.addSubview(assistButton!)
+                assistButton?.snp.makeConstraints({ (make) in
+                    make.left.greaterThanOrEqualToSuperview().offset(20)
+                    make.right.lessThanOrEqualToSuperview().offset(-20)
+                    make.width.equalTo(250).priority(.high)
+                    make.center.equalToSuperview()
+                    make.height.equalTo(40)
+                })
+                return tableViewCell
+            }
+        }
+        case .circleMenu:do{
+            if let tableViewCell = tableView.dequeueReusableCell(withIdentifier: "circleMenu") {
+                return tableViewCell
+            } else {
+                let tableViewCell = ZLAssistTableViewCell(style: .default, reuseIdentifier: "circleMenu")
+                tableViewCell.backgroundColor = UIColor.clear
+                tableViewCell.contentView.backgroundColor = UIColor.clear
+                tableViewCell.contentView.addSubview(circleMenu!)
+                tableViewCell.selectionStyle = .none
+                circleMenu?.snp.makeConstraints { (make) in
+                    make.size.equalTo(CGSize(width: 60, height: 60))
+                    make.center.equalToSuperview()
+                }
+                circleMenu?.sendActions(for: .touchUpInside)
+                
+                return tableViewCell
+            }
+        }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) {
+            cell.isSelected = false
+        }
+    }
+    
     
 }

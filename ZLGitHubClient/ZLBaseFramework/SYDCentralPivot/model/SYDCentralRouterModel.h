@@ -57,4 +57,6 @@ typedef enum
 
 @property(nonatomic,assign) BOOL hidesBottomBarWhenPushed;
 
+@property(nonatomic,assign) BOOL animated;
+
 @end

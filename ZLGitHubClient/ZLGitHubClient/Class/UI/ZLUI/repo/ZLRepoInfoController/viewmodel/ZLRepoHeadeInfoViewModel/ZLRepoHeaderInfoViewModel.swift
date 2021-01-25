@@ -18,6 +18,7 @@ class ZLRepoHeaderInfoViewModel: ZLBaseViewModel {
     
     deinit {
         NotificationCenter.default.removeObserver(self, name: ZLLanguageTypeChange_Notificaiton, object: nil)
+        NotificationCenter.default.removeObserver(self, name: ZLUserInterfaceStyleChange_Notification, object: nil)
     }
 
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
@@ -35,6 +36,7 @@ class ZLRepoHeaderInfoViewModel: ZLBaseViewModel {
         self.repoHeaderInfoView?.delegate = self
         
         NotificationCenter.default.addObserver(self, selector: #selector(ZLRepoHeaderInfoViewModel.onNotificaitonArrived(notification:)), name: ZLLanguageTypeChange_Notificaiton, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ZLRepoHeaderInfoViewModel.onNotificaitonArrived(notification:)), name: ZLUserInterfaceStyleChange_Notification, object: nil)
         
         self.setViewDataForRepoHeaderInfoView()
         
@@ -105,6 +107,9 @@ extension ZLRepoHeaderInfoViewModel {
             guard let date : NSDate = self.repoInfoModel?.updated_at as NSDate? else{ return }
             let timeStr = NSString.init(format: "%@%@", ZLLocalizedString(string: "update at", comment: "更新于"),date.dateLocalStrSinceCurrentTime())
             self.repoHeaderInfoView?.timeLabel.text = timeStr as String
+        }
+        case ZLUserInterfaceStyleChange_Notification:do{
+            self.setViewDataForRepoHeaderInfoView()
         }
         default:
             break

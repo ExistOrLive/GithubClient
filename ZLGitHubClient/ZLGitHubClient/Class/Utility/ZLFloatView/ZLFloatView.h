@@ -39,6 +39,8 @@ typedef enum {
 
 @interface ZLFloatWindow : UIWindow
 
+@property(nonatomic,assign) BOOL forceKey;
+
 @end
 
 

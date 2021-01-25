@@ -52,10 +52,12 @@
 
 }
 
-// 不能成为keywindow
+// keywindow 用来处理接收键盘输入以及非触摸事件；一般情况新建window不需要成为keywindow
 - (void)becomeKeyWindow {
-    UIWindow *appWindow = [[UIApplication sharedApplication].delegate window];
-    [appWindow makeKeyWindow];
+    if(!self.forceKey) {
+        UIWindow *appWindow = [[UIApplication sharedApplication].delegate window];
+        [appWindow makeKeyWindow];
+    }
 }
 
 

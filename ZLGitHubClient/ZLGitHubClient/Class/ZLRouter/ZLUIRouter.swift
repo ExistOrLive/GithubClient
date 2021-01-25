@@ -26,6 +26,29 @@ import UIKit
             config.sourceViewController = vc
             config.isNavigated = ( vc.navigationController != nil )
             config.hidesBottomBarWhenPushed = true
+            config.animated = true
+            SYDCentralRouter.sharedInstance()?.enterViewController(key, withViewControllerConfig: config, withParam: params)
+        }
+    }
+    
+    
+    static func navigateVC(key: ZLUIKey, params: [AnyHashable : Any] = [:],animated:Bool = true) {
+        if let topVC = UIViewController.getTop(){
+            if topVC.navigationController == nil {
+                if topVC.presentingViewController == nil {
+                    return
+                }
+                topVC.dismiss(animated: true, completion: { [self] in
+                    navigateVC(key: key, params: params)
+                })
+                return
+            }
+            
+            let config = SYDCentralRouterViewControllerConfig()
+            config.sourceViewController = topVC
+            config.isNavigated = true
+            config.hidesBottomBarWhenPushed = true
+            config.animated = animated
             SYDCentralRouter.sharedInstance()?.enterViewController(key, withViewControllerConfig: config, withParam: params)
         }
     }
@@ -142,7 +165,7 @@ extension ZLUIRouter{
 
 
 extension ZLUIRouter{
-    static func openURL(url:URL){
+    static func openURL(url:URL,animated:Bool = true){
         // github url
         if url.host == "github.com" ||
             url.host == "www.github.com" {
@@ -150,12 +173,12 @@ extension ZLUIRouter{
             if pathComponents.count == 2 {
                 let userModel = ZLGithubUserModel()
                 userModel.loginName = pathComponents[1]
-                self.openVC(key: UserInfoController, params: ["userInfoModel":userModel])
+                self.navigateVC(key: UserInfoController, params: ["userInfoModel":userModel],animated: animated)
                 return
             } else if pathComponents.count > 2 {
                 let repoModel = ZLGithubRepositoryModel()
                 repoModel.full_name = "\(pathComponents[1])/\(pathComponents[2])"
-                self.openVC(key: RepoInfoController, params: ["repoInfoModel":repoModel])
+                self.navigateVC(key: RepoInfoController, params: ["repoInfoModel":repoModel],animated: animated)
                 return
             }
         }
