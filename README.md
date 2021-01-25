@@ -1,10 +1,11 @@
 # GitWorld
 ![ZLGithub TestFlight](https://github.com/MengAndJie/GithubClient/workflows/ZLGithub%20TestFlight/badge.svg)
-![language](https://img.shields.io/github/languages/top/mengandjie/githubclient)
+![language](https://img.shields.io/github/languages/top//githubclient)
 ![CodeSize](https://img.shields.io/github/languages/code-size/mengandjie/GitHubClient)
 ![release](https://img.shields.io/github/downloads/mengandjie/githubclient/total)
 ![license](https://img.shields.io/github/license/mengandjie/githubclient)
 ![commit](https://img.shields.io/github/last-commit/mengandjie/githubclient)
+![stars](https://img.shields.io/github/stars/existorlive/githubclient?style=plastic)
 
 ## Github iOS 客户端  by Existorlive
 <div><a href="https://apps.apple.com/cn/app/zlgithubclient/id1498787032"><img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/appstoredownload.png" width=150></a></div>
