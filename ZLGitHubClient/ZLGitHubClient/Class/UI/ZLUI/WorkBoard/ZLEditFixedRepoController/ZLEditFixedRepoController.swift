@@ -192,7 +192,7 @@ class ZLEditFixedRepoController : ZLBaseViewController,UITableViewDelegate,UITab
         label.font = UIFont(name: Font_PingFangSCRegular, size: 14)
         view.addSubview(label)
         label.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(15)
+            make.left.equalTo(view.safeAreaLayoutGuide.snp.left).offset(15)
             make.bottom.equalToSuperview().offset(-5)
         }
         
@@ -383,6 +383,12 @@ class ZLEditFixedRepoSearchController : ZLBaseViewController,UITableViewDelegate
     }
     
     func loadMoreData(){
+        
+        if(self.searchKey == nil){
+            self.tableView.mj_footer?.endRefreshing()
+            return
+        }
+        
         
         weak var weakSelf = self
         ZLServiceManager.sharedInstance.searchServiceModel?.searchInfo(withKeyWord: self.searchKey!,

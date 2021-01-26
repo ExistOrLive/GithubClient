@@ -24,6 +24,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self setZLNavigationBarHidden:YES];
+    
     ZLProfileBaseViewModel *viewModel = [ZLProfileBaseViewModel new];
     
     self.baseView = [[NSBundle mainBundle] loadNibNamed:@"ZLProfileBaseView" owner:viewModel options:nil].firstObject;

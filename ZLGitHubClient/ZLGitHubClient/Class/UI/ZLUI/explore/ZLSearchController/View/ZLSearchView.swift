@@ -14,8 +14,6 @@ enum ZLSearchViewEventType : Int
 }
 
 class ZLSearchView: ZLBaseView {
-
-    @IBOutlet private weak var topViewHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet private weak var backButtonWidthConstraint: NSLayoutConstraint!
 
@@ -34,8 +32,6 @@ class ZLSearchView: ZLBaseView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        self.topViewHeightConstraint.constant = self.topViewHeightConstraint.constant + ZLStatusBarHeight
         
         let placeHolder = ZLLocalizedString(string: "Search", comment: "")
         self.searchTextField.attributedPlaceholder = NSAttributedString.init(string: placeHolder, attributes: [NSAttributedString.Key.foregroundColor:ZLRGBValue_H(colorValue: 0x999999),NSAttributedString.Key.font:UIFont.systemFont(ofSize: 12)])

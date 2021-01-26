@@ -40,6 +40,7 @@ class ZLWorkboardBaseView: ZLBaseView, UITableViewDelegate, UITableViewDataSourc
         self.tableView.separatorStyle = .none
         self.tableView.backgroundColor = UIColor.clear
         self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 15, right: 0)
+        self.tableView.showsVerticalScrollIndicator = false
         
         self.tableView.register(UINib.init(nibName: "ZLWorkboardTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "ZLWorkboardTableViewCell")
         self.tableView.register(ZLWorkboardTableViewSectionHeader.self, forHeaderFooterViewReuseIdentifier: "ZLWorkboardTableViewSectionHeader")

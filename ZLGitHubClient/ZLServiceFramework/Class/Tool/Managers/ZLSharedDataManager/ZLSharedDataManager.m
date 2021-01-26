@@ -262,6 +262,7 @@
     [self setTrendingOptions:nil];
     [self setSearchRecordArray:nil];
     [self setShowAllNotifications:NO];
+    [self setAssistButtonHidden:NO];
 }
 
 

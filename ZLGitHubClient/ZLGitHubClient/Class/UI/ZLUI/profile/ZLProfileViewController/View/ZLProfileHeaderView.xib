@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -193,12 +194,12 @@
                         <constraint firstItem="5Ns-sz-mkf" firstAttribute="top" secondItem="15a-27-hPs" secondAttribute="top" constant="30" id="GCo-xY-ixB"/>
                         <constraint firstItem="hta-JP-ru7" firstAttribute="top" secondItem="5Ns-sz-mkf" secondAttribute="bottom" constant="20" id="HIu-0w-1Wu"/>
                         <constraint firstItem="hFi-TB-MzG" firstAttribute="top" secondItem="5Ns-sz-mkf" secondAttribute="top" id="OTq-Ql-Lhr"/>
-                        <constraint firstItem="5Ns-sz-mkf" firstAttribute="leading" secondItem="15a-27-hPs" secondAttribute="leading" constant="22" id="ToW-gU-PvM"/>
+                        <constraint firstItem="5Ns-sz-mkf" firstAttribute="leading" secondItem="15a-27-hPs" secondAttribute="leadingMargin" constant="14" id="ToW-gU-PvM"/>
                         <constraint firstItem="NcN-SZ-3x3" firstAttribute="leading" secondItem="5Ns-sz-mkf" secondAttribute="trailing" constant="20" id="W7j-wY-8qJ"/>
                         <constraint firstAttribute="trailing" secondItem="hta-JP-ru7" secondAttribute="trailing" constant="10" id="kVp-Pu-pMH"/>
                         <constraint firstAttribute="height" constant="190" id="mOF-v6-5pc"/>
                         <constraint firstItem="5Ns-sz-mkf" firstAttribute="bottom" secondItem="GvF-MU-KfX" secondAttribute="bottom" constant="10" id="pzH-wD-KcL"/>
-                        <constraint firstAttribute="trailing" secondItem="hFi-TB-MzG" secondAttribute="trailing" constant="20" id="rmP-Re-ycG"/>
+                        <constraint firstAttribute="trailingMargin" secondItem="hFi-TB-MzG" secondAttribute="trailing" constant="12" id="rmP-Re-ycG"/>
                         <constraint firstItem="GvF-MU-KfX" firstAttribute="leading" secondItem="5Ns-sz-mkf" secondAttribute="trailing" constant="20" id="zQk-Ty-Wb2"/>
                     </constraints>
                 </view>
@@ -254,14 +255,15 @@
                     </constraints>
                 </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="0Iu-3k-8MC"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="15a-27-hPs" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Ape-G5-jZE"/>
                 <constraint firstItem="15a-27-hPs" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="KVT-4z-rSt"/>
-                <constraint firstAttribute="trailing" secondItem="Rsj-dY-eGJ" secondAttribute="trailing" constant="10" id="XHa-fO-66h"/>
+                <constraint firstItem="0Iu-3k-8MC" firstAttribute="trailing" secondItem="Rsj-dY-eGJ" secondAttribute="trailing" constant="10" id="XHa-fO-66h"/>
                 <constraint firstAttribute="trailing" secondItem="15a-27-hPs" secondAttribute="trailing" id="gKt-MI-YAs"/>
                 <constraint firstItem="Rsj-dY-eGJ" firstAttribute="top" secondItem="15a-27-hPs" secondAttribute="bottom" constant="-30" id="qgz-cZ-jOX"/>
-                <constraint firstItem="Rsj-dY-eGJ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="xy4-ve-SBV"/>
+                <constraint firstItem="Rsj-dY-eGJ" firstAttribute="leading" secondItem="0Iu-3k-8MC" secondAttribute="leading" constant="10" id="xy4-ve-SBV"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
@@ -292,7 +294,7 @@
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="ZLContributionBackColor">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="ZLLabelColor1">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -19,7 +19,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0iD-VE-AuT">
-                            <rect key="frame" x="95" y="10" width="265" height="40"/>
+                            <rect key="frame" x="95" y="10" width="257" height="40"/>
                             <color key="backgroundColor" name="ZLExploreTextFieldBackColor"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="cXA-BC-IIU"/>
@@ -100,7 +100,7 @@
                         <constraint firstItem="0iD-VE-AuT" firstAttribute="leading" secondItem="Zgy-nV-ciH" secondAttribute="trailing" constant="15" id="NFw-9i-LuN"/>
                         <constraint firstAttribute="trailing" secondItem="fZu-di-EvQ" secondAttribute="trailing" constant="10" id="Xqy-FS-lcy"/>
                         <constraint firstItem="DUu-dz-gfN" firstAttribute="centerX" secondItem="Sdd-9o-VKY" secondAttribute="centerX" id="Z7I-9G-PJU"/>
-                        <constraint firstAttribute="trailing" secondItem="0iD-VE-AuT" secondAttribute="trailing" constant="15" id="etR-I6-Twr"/>
+                        <constraint firstAttribute="trailing" secondItem="0iD-VE-AuT" secondAttribute="trailing" constant="23" id="etR-I6-Twr"/>
                         <constraint firstAttribute="bottom" secondItem="DUu-dz-gfN" secondAttribute="bottom" constant="30" id="ftt-IT-uTG"/>
                         <constraint firstAttribute="bottom" secondItem="Wfj-59-jv6" secondAttribute="bottom" constant="5" id="lDX-s7-PYY"/>
                         <constraint firstItem="hAo-8V-6yD" firstAttribute="leading" secondItem="Sdd-9o-VKY" secondAttribute="leading" constant="10" id="ofZ-Oc-BRB"/>

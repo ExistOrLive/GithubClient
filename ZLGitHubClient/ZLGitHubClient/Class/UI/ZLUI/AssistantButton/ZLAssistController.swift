@@ -74,8 +74,8 @@ class ZLAssistController: ZLBaseViewController {
         self.setAssistButton()
         self.tableViewIndexs.append(.assistButon)
         
-        self.setCircleMenu()
-        self.tableViewIndexs.append(.circleMenu)
+//        self.setCircleMenu()
+//        self.tableViewIndexs.append(.circleMenu)
         
         self.setUpUI()
     }
@@ -102,6 +102,24 @@ class ZLAssistController: ZLBaseViewController {
         tableView.separatorStyle = .none
         tableView.contentInset = UIEdgeInsets(top: 30, left: 0, bottom: 0, right: 0)
         tableView.showsVerticalScrollIndicator = false
+        tableView.tableHeaderView = { () -> UIView in
+            let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50))
+            view.backgroundColor = UIColor.clear
+            
+            let button = UIButton(type: .custom)
+            button.setImage(UIImage(named: "close"), for: .normal)
+            button.addTarget(self, action: #selector(onClose), for: .touchUpInside)
+            
+            view.addSubview(button)
+            button.snp.makeConstraints { (make) in
+                make.size.equalTo(CGSize(width: 40, height: 40))
+                make.centerY.equalToSuperview()
+                make.right.equalTo(view.safeAreaLayoutGuide.snp.right).offset(-20)
+            }
+            
+            return view
+            
+        }()
         self.contentView.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
@@ -110,6 +128,11 @@ class ZLAssistController: ZLBaseViewController {
         tableView.delegate = self
         tableView.dataSource = self
     }
+    
+    @objc func onClose(){
+        ZLAssistButtonManager.shared.dismissAssistDetailView()
+    }
+    
     
     func setSearchBar(){
         searchBar = ZLBaseSearchBar()
@@ -336,6 +359,7 @@ extension ZLAssistController : CircleMenuDelegate {
 
 
 extension ZLAssistController : UITableViewDelegate,UITableViewDataSource {
+        
     func numberOfSections(in tableView: UITableView) -> Int {
         return tableViewIndexs.count
     }
@@ -376,8 +400,8 @@ extension ZLAssistController : UITableViewDelegate,UITableViewDataSource {
             label.font = UIFont.init(name: Font_PingFangSCSemiBold, size: 20)
             view.addSubview(label)
             label.snp.makeConstraints { (make) in
-                make.left.equalToSuperview().offset(20)
-                make.right.equalToSuperview().offset(-20)
+                make.left.equalTo(view.safeAreaLayoutGuide.snp.left).offset(20)
+                make.right.equalTo(view.safeAreaLayoutGuide.snp.right).offset(-20)
                 make.centerY.equalToSuperview()
             }
             return view
@@ -392,8 +416,8 @@ extension ZLAssistController : UITableViewDelegate,UITableViewDataSource {
             label.font = UIFont.init(name: Font_PingFangSCSemiBold, size: 20)
             view.addSubview(label)
             label.snp.makeConstraints { (make) in
-                make.left.equalToSuperview().offset(20)
-                make.right.equalToSuperview().offset(-20)
+                make.left.equalTo(view.safeAreaLayoutGuide.snp.left).offset(20)
+                make.right.equalTo(view.safeAreaLayoutGuide.snp.right).offset(-20)
                 make.centerY.equalToSuperview()
             }
             return view
@@ -408,8 +432,8 @@ extension ZLAssistController : UITableViewDelegate,UITableViewDataSource {
             label.font = UIFont.init(name: Font_PingFangSCSemiBold, size: 20)
             view.addSubview(label)
             label.snp.makeConstraints { (make) in
-                make.left.equalToSuperview().offset(20)
-                make.right.equalToSuperview().offset(-20)
+                make.left.equalTo(view.safeAreaLayoutGuide.snp.left).offset(20)
+                make.right.equalTo(view.safeAreaLayoutGuide.snp.right).offset(-20)
                 make.centerY.equalToSuperview()
             }
             return view
@@ -424,8 +448,8 @@ extension ZLAssistController : UITableViewDelegate,UITableViewDataSource {
             label.font = UIFont.init(name: Font_PingFangSCSemiBold, size: 20)
             view.addSubview(label)
             label.snp.makeConstraints { (make) in
-                make.left.equalToSuperview().offset(20)
-                make.right.equalToSuperview().offset(-20)
+                make.left.equalTo(view.safeAreaLayoutGuide.snp.left).offset(20)
+                make.right.equalTo(view.safeAreaLayoutGuide.snp.right).offset(-20)
                 make.centerY.equalToSuperview()
             }
             return view

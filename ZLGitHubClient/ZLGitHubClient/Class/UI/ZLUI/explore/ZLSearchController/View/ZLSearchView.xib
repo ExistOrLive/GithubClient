@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,10 +16,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MRb-SK-hyF">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="104"/>
                     <subviews>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="lCu-s9-cM6">
-                            <rect key="frame" x="50" y="10" width="344" height="40"/>
+                            <rect key="frame" x="50" y="54" width="344" height="40"/>
                             <color key="backgroundColor" name="ZLExploreTextFieldBackColor"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="QS2-2E-EEC"/>
@@ -33,7 +34,7 @@
                             </userDefinedRuntimeAttributes>
                         </textField>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="45a-0H-cp8" userLabel="backButton">
-                            <rect key="frame" x="10" y="0.0" width="30" height="60"/>
+                            <rect key="frame" x="10" y="44" width="30" height="60"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="30" id="8bB-cx-MUS"/>
                                 <constraint firstAttribute="height" constant="60" id="JpD-EY-d5v"/>
@@ -44,7 +45,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ODX-4F-h1t" userLabel="cancelButton">
-                            <rect key="frame" x="404" y="0.0" width="0.0" height="60"/>
+                            <rect key="frame" x="404" y="44" width="0.0" height="60"/>
                             <constraints>
                                 <constraint firstAttribute="width" id="7lI-9I-Njm"/>
                                 <constraint firstAttribute="height" constant="60" id="ROm-Wj-3wP"/>
@@ -66,23 +67,25 @@
                         <constraint firstItem="ODX-4F-h1t" firstAttribute="leading" secondItem="lCu-s9-cM6" secondAttribute="trailing" constant="10" id="AZM-iY-DiM"/>
                         <constraint firstItem="ODX-4F-h1t" firstAttribute="centerY" secondItem="lCu-s9-cM6" secondAttribute="centerY" id="Gge-cK-YeQ"/>
                         <constraint firstAttribute="bottom" secondItem="45a-0H-cp8" secondAttribute="bottom" id="KLq-FZ-9pP"/>
-                        <constraint firstAttribute="height" constant="60" id="bet-DF-OTb"/>
                         <constraint firstItem="45a-0H-cp8" firstAttribute="leading" secondItem="MRb-SK-hyF" secondAttribute="leading" constant="10" id="wr6-LY-clf"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tR4-ZC-lgL">
-                    <rect key="frame" x="0.0" y="60" width="414" height="836"/>
+                    <rect key="frame" x="0.0" y="104" width="414" height="792"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="TzS-lE-znp"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="MRb-SK-hyF" secondAttribute="trailing" id="CC3-sA-7we"/>
+                <constraint firstItem="TzS-lE-znp" firstAttribute="top" secondItem="MRb-SK-hyF" secondAttribute="bottom" constant="-60" id="Ck6-Oe-GNE"/>
                 <constraint firstItem="MRb-SK-hyF" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="GbO-0U-6jn"/>
                 <constraint firstItem="MRb-SK-hyF" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="IL9-Jv-JrK"/>
                 <constraint firstAttribute="bottom" secondItem="tR4-ZC-lgL" secondAttribute="bottom" id="Jcn-HX-HlK"/>
                 <constraint firstItem="tR4-ZC-lgL" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="ZW4-Uw-Aca"/>
                 <constraint firstItem="tR4-ZC-lgL" firstAttribute="top" secondItem="MRb-SK-hyF" secondAttribute="bottom" id="bEo-4r-tzn"/>
+                <constraint firstItem="TzS-lE-znp" firstAttribute="top" secondItem="MRb-SK-hyF" secondAttribute="top" constant="44" id="iiS-LW-1k2"/>
                 <constraint firstAttribute="trailing" secondItem="tR4-ZC-lgL" secondAttribute="trailing" id="qNU-ZR-70i"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -92,7 +95,6 @@
                 <outlet property="cancelButtonWidthConstraint" destination="7lI-9I-Njm" id="icf-W7-a8H"/>
                 <outlet property="contentView" destination="tR4-ZC-lgL" id="z3G-DQ-IRD"/>
                 <outlet property="searchTextField" destination="lCu-s9-cM6" id="l38-qb-1OK"/>
-                <outlet property="topViewHeightConstraint" destination="bet-DF-OTb" id="Trw-hH-id9"/>
             </connections>
             <point key="canvasLocation" x="63.768115942028992" y="35.491071428571423"/>
         </view>

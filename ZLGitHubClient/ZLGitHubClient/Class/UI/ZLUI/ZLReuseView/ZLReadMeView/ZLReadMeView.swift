@@ -53,6 +53,8 @@ class ZLReadMeView: ZLBaseView {
         self.webView.uiDelegate = self
         self.webView.navigationDelegate = self
         
+        self.webView.scrollView.pinchGestureRecognizer?.isEnabled = false
+        self.webView.scrollView.panGestureRecognizer.isEnabled = false
         self.webView.scrollView.addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
     }
     

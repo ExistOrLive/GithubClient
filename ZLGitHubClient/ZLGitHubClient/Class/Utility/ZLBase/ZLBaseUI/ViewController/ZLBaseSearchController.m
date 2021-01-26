@@ -305,7 +305,9 @@
     self.searchBar = [ZLBaseSearchBar new];
     [self.searchBarContainerView addSubview:self.searchBar];
     [self.searchBar mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.searchBarContainerView);
+        make.top.bottom.equalTo(self.searchBarContainerView);
+        make.left.equalTo(self.searchBarContainerView.mas_safeAreaLayoutGuideLeft);
+        make.right.equalTo(self.searchBarContainerView.mas_safeAreaLayoutGuideRight);
     }];
     self.searchBar.delegate = self;
 }
@@ -350,14 +352,18 @@
 - (void) moveInSearchBar{
     [self.searchBarContainerView2 addSubview:self.searchBar];
     [self.searchBar mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self.searchBarContainerView2);
+        make.left.equalTo(self.searchBarContainerView2.mas_safeAreaLayoutGuideLeft);
+        make.right.equalTo(self.searchBarContainerView2.mas_safeAreaLayoutGuideRight);
+        make.top.bottom.equalTo(self.searchBarContainerView2);
     }];
 }
 
 - (void) moveOutSearchBar{
     [self.searchBarContainerView addSubview:self.searchBar];
     [self.searchBar mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self.searchBarContainerView);
+        make.left.equalTo(self.searchBarContainerView.mas_safeAreaLayoutGuideLeft);
+        make.right.equalTo(self.searchBarContainerView.mas_safeAreaLayoutGuideRight);
+        make.top.bottom.equalTo(self.searchBarContainerView);
     }];
 }
 

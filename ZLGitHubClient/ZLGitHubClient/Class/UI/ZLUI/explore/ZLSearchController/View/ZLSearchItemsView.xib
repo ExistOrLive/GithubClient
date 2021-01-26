@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -14,6 +15,13 @@
             <rect key="frame" x="0.0" y="0.0" width="411" height="675"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ihT-rW-7p6">
+                    <rect key="frame" x="0.0" y="0.0" width="411" height="60"/>
+                    <color key="backgroundColor" name="ZLCellBack"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="uoU-bQ-POF"/>
+                    </constraints>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rfd-VZ-8Mp">
                     <rect key="frame" x="0.0" y="0.0" width="411" height="60"/>
                     <subviews>
@@ -54,15 +62,19 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="iZB-ND-fFZ"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="rfd-VZ-8Mp" secondAttribute="trailing" id="GBZ-dj-xi4"/>
-                <constraint firstItem="rfd-VZ-8Mp" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="OLF-5R-gpw"/>
+                <constraint firstAttribute="trailing" secondItem="ihT-rW-7p6" secondAttribute="trailing" id="Aii-H6-5fr"/>
+                <constraint firstItem="iZB-ND-fFZ" firstAttribute="trailing" secondItem="rfd-VZ-8Mp" secondAttribute="trailing" id="GBZ-dj-xi4"/>
+                <constraint firstItem="ihT-rW-7p6" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="NXn-Aq-kzQ"/>
+                <constraint firstItem="rfd-VZ-8Mp" firstAttribute="leading" secondItem="iZB-ND-fFZ" secondAttribute="leading" id="OLF-5R-gpw"/>
                 <constraint firstItem="VA3-iR-HNa" firstAttribute="top" secondItem="rfd-VZ-8Mp" secondAttribute="bottom" id="Ru0-iq-lDu"/>
                 <constraint firstAttribute="trailing" secondItem="VA3-iR-HNa" secondAttribute="trailing" id="UFr-U1-RQc"/>
                 <constraint firstItem="VA3-iR-HNa" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="auc-ik-R2h"/>
                 <constraint firstItem="rfd-VZ-8Mp" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="ocW-tX-CtG"/>
                 <constraint firstAttribute="bottom" secondItem="VA3-iR-HNa" secondAttribute="bottom" id="tZs-dx-J48"/>
+                <constraint firstItem="ihT-rW-7p6" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="zaC-fT-wzn"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>

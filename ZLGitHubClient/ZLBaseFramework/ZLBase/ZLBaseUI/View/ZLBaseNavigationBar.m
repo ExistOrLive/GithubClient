@@ -132,7 +132,7 @@
     _rightButton = rightButton;
     [self addSubview:rightButton];
     [rightButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.mas_right).with.offset(-10);
+        make.right.equalTo(self.mas_safeAreaLayoutGuideRight).with.offset(-10);
         make.centerY.equalTo(self.titleLabel);
         make.width.equalTo(@(rightButton.frame.size.width));
         make.height.equalTo(@(rightButton.frame.size.height));

@@ -15,6 +15,9 @@ class ZLSearchController: ZLBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        self.setZLNavigationBarHidden(true)
+        
         // 创建ViewModel
         let viewModel = ZLSearchViewModel()
         self.addSubViewModel(viewModel)
