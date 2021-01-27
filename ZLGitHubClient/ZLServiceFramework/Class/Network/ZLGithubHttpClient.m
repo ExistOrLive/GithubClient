@@ -2051,7 +2051,9 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     
     GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
         if(result){
-            ZLGithubConfigModel *configModel = [ZLGithubConfigModel mj_objectWithKeyValues:responseObject];
+            NSString *appVersion = [ZLDeviceInfo getAppShortVersion];
+            
+            ZLGithubConfigModel *configModel = [ZLGithubConfigModel mj_objectWithKeyValues:[responseObject objectForKey:appVersion]];
             responseObject = configModel;
         }
         block(result,responseObject,serialNumber);

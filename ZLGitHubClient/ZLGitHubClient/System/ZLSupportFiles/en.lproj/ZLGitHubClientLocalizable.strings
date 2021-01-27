@@ -8,8 +8,8 @@
 
 "repositories" = "Repos";
 "repository" = "Repo";
-"organization" = "Organization";
 "organizations" = "Organizations";
+"organization" = "Organizations";
 "users" = "Users";
 "commits" = "Commits";
 "topics" = "Topics";
