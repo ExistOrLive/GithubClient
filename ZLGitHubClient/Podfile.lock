@@ -105,7 +105,7 @@ DEPENDENCIES:
   - YYText
 
 SPEC REPOS:
-  https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git:
+  trunk:
     - AFNetworking
     - Apollo
     - BSBacktraceLogger
@@ -163,6 +163,6 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": d7b0c400921f66523f3a85d74f774512e14f6502
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: fd498415cece058f452af0f1a7869af2373c81b9
+PODFILE CHECKSUM: d73984356dae7251d7a923451c1ef5d1b8d9012e
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.10.1
