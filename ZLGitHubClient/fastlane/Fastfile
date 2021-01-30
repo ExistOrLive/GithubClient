@@ -142,9 +142,6 @@ platform :ios do
     duration: 1200, # optional
     in_house: false, # optional but may be required if using match/sigh
     )
-
-    increment_build_number
-
     create_keychain(
       name: ENV['MATCH_KEYCHAIN_NAME'],
       password: ENV['MATCH_PASSWORD'],
@@ -161,6 +158,16 @@ platform :ios do
           keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
           keychain_password: ENV['MATCH_PASSWORD'],
           git_url: ENV['MATCH_GITHUB_URL'])
+
+    build_num = app_store_build_number(
+      app_identifier: "com.zm.ZLGitHubClient",
+      live: false,
+      api_key: api_key
+    )
+      
+    increment_build_number(
+      build_number: build_num + 1
+    )
     
     gym(workspace: "ZLGitHubClient.xcworkspace",
         scheme: "ZLGitHubClient",
