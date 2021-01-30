@@ -96,13 +96,20 @@ platform :ios do
           keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
           keychain_password: ENV['MATCH_PASSWORD'],
           git_url: ENV['MATCH_GITHUB_URL'])
+          
     gym(workspace: "ZLGitHubClient.xcworkspace",
         scheme: "ZLGitHubClient",
         clean: true,
         include_symbols: true,
         include_bitcode: true,
         output_directory: "./fastlane/ipa/adhoc",
-        output_name: "ZLGitHubClient.ipa")
+        output_name: "ZLGitHubClient.ipa",
+        export_options: {
+          method: "adhoc",
+          provisioningProfiles: {
+            "com.zm.ZLGitHubClient" => "*** AdHoc com.zm.*"
+          }
+        })
   end
 
 
@@ -123,13 +130,20 @@ platform :ios do
           keychain_name: ENV["MATCH_KEYCHAIN_NAME"],
           keychain_password: ENV["MATCH_PASSWORD"],
           git_url: ENV["MATCH_GITHUB_URL"])
+
     gym(workspace: "ZLGitHubClient.xcworkspace",
         scheme: "ZLGitHubClient",
         clean: true,
         include_symbols: true,
         include_bitcode: true,
         output_directory: "./fastlane/ipa/adhoc",
-        output_name: "ZLGitHubClient.ipa")
+        output_name: "ZLGitHubClient.ipa",
+        export_options: {
+          method: "adhoc",
+          provisioningProfiles: {
+            "com.zm.ZLGitHubClient" => "*** AdHoc com.zm.*"
+          }
+        })
   end
 
   desc "build one TestFlight release on github action"
