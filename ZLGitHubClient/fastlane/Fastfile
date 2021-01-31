@@ -22,7 +22,6 @@ platform :ios do
 #    upload_to_testflight
 #  end
 
-
   lane :increase do
           gym(workspace: "ZLGitHubClient.xcworkspace",
         scheme: "ZLGitHubClient",
@@ -76,7 +75,14 @@ platform :ios do
          include_symbols: true,
          include_bitcode: true,
          output_directory: "./fastlane/ipa",
-         output_name: "ZLGitHubClient.ipa")
+         output_name: "ZLGitHubClient.ipa",
+         export_options: {
+          method: "adhoc",
+          provisioningProfiles: {
+            "com.zm.ZLGitHubClient" => "*** AdHoc com.zm.*",
+            "com.zm.ZLGitHubClient.Fixed-Repo" => "*** AdHoc com.zm.*"
+          }
+        })
   end
 
   desc "build one adhoc release on github actions"
@@ -107,7 +113,8 @@ platform :ios do
         export_options: {
           method: "adhoc",
           provisioningProfiles: {
-            "com.zm.ZLGitHubClient" => "*** AdHoc com.zm.*"
+            "com.zm.ZLGitHubClient" => "*** AdHoc com.zm.*",
+            "com.zm.ZLGitHubClient.Fixed-Repo" => "*** AdHoc com.zm.*"
           }
         })
   end
@@ -141,7 +148,8 @@ platform :ios do
         export_options: {
           method: "adhoc",
           provisioningProfiles: {
-            "com.zm.ZLGitHubClient" => "*** AdHoc com.zm.*"
+            "com.zm.ZLGitHubClient" => "*** AdHoc com.zm.*",
+            "com.zm.ZLGitHubClient.Fixed-Repo" => "*** AdHoc com.zm.*"
           }
         })
   end
