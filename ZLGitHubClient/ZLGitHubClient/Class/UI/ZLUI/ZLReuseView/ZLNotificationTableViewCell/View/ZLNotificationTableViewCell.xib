@@ -93,6 +93,9 @@
             <point key="canvasLocation" x="381.15942028985512" y="122.20982142857142"/>
         </tableViewCell>
     </objects>
+    <designables>
+        <designable name="lby-fg-Cip"/>
+    </designables>
     <resources>
         <image name="pr_closed" width="90" height="90"/>
         <namedColor name="ZLCellBack">

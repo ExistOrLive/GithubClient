@@ -46,9 +46,8 @@ class ZLRepoHeaderInfoViewModel: ZLBaseViewModel {
     
      func setViewDataForRepoHeaderInfoView()
      {
-        self.repoHeaderInfoView?.headImageButton.sd_setImage(with: URL.init(string: self.repoInfoModel?.owner.avatar_url ?? ""), for: .normal, placeholderImage: UIImage.init(named: "default_avatar"))
-        
-        
+        self.repoHeaderInfoView?.headImageButton.sd_setBackgroundImage(with: URL.init(string: self.repoInfoModel?.owner.avatar_url ?? ""), for: .normal, placeholderImage: UIImage.init(named: "default_avatar"))
+
         self.repoHeaderInfoView?.descLabel.text = self.repoInfoModel?.desc_Repo
         self.repoHeaderInfoView?.issuesNumLabel.text = "\(self.repoInfoModel?.open_issues_count ?? 0)"
         self.repoHeaderInfoView?.watchersNumLabel.text = "\(self.repoInfoModel?.subscribers_count ?? 0)"

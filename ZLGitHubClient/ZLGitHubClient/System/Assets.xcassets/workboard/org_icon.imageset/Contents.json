@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "org_icon.png",
+      "filename" : "orga_icon.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "orga_icon@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "orga_icon@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
