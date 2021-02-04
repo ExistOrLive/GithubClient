@@ -9,8 +9,6 @@
 #ifndef ZLBaseUIHeader_h
 #define ZLBaseUIHeader_h
 
-#import "UIView+HJViewStyle.h"
-#import "UIColor+HexColor.h"
 
 #import "ZLBaseUIConfig.h"
 

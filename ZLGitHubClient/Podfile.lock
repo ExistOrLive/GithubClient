@@ -10,7 +10,6 @@ PODS:
     - Apollo/Core (= 0.39.0)
   - Apollo/Core (0.39.0)
   - BSBacktraceLogger (0.0.1)
-  - Bugly (2.5.71)
   - Charts (3.6.0):
     - Charts/Core (= 3.6.0)
   - Charts/Core (3.6.0)
@@ -79,7 +78,6 @@ DEPENDENCIES:
   - AFNetworking/Security
   - AFNetworking/Serialization
   - Apollo
-  - Bugly
   - Charts
   - CircleMenu
   - CocoaLumberjack
@@ -109,7 +107,6 @@ SPEC REPOS:
     - AFNetworking
     - Apollo
     - BSBacktraceLogger
-    - Bugly
     - Charts
     - CircleMenu
     - CocoaLumberjack
@@ -138,7 +135,6 @@ SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   Apollo: f6c6410ebee82dd5846be87b81cedc8bc7754a82
   BSBacktraceLogger: 06b983ee93a9f87d957960e9c73d660d5966b447
-  Bugly: fd066c75c4a0eca1440f9b6a84bd37d51bfc85ac
   Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
   CircleMenu: a66095199a5e26f19acbb212f077010257767fe5
   CocoaLumberjack: e8955b9d337ac307103b0a34fd141c32f27e53c5
@@ -163,6 +159,6 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": d7b0c400921f66523f3a85d74f774512e14f6502
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: d73984356dae7251d7a923451c1ef5d1b8d9012e
+PODFILE CHECKSUM: 6afa5769c8c135b6b0c49709a443f9d0f5772752
 
 COCOAPODS: 1.10.1

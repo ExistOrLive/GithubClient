@@ -79,7 +79,7 @@ pod 'DoraemonKit/WithLogger', '~> 2.0.0', :configurations => ['Debug']
 pod 'DoraemonKit/WithMLeaksFinder', '2.0.0', :configurations => ['Debug']
 
 # bugly
-pod 'Bugly'
+#pod 'Bugly'
 
 # 异常防护
 pod 'JJException'

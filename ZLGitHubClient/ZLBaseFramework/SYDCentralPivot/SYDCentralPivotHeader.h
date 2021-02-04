@@ -15,7 +15,5 @@
 
 #import "SYDCentralQueuePool.h"
 
-#import "UIViewController+SYDRouter.h"
-
 
 #endif /* SYDCentralPivotHead_h */
