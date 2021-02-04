@@ -453,15 +453,18 @@
             resultModel.data = errorModel;
         } else {
             OCGumboDocument *doc = [[OCGumboDocument alloc] initWithHTMLString:html];
-            OCQueryObject *queryResult = doc.Query(@".day");
+            OCQueryObject *queryResult = doc.Query(@".ContributionCalendar-day");
             
             NSMutableArray *contributionsArray = [NSMutableArray new];
             
             for(OCGumboElement *gumboNode in queryResult) {
-                ZLGithubUserContributionData *data = [ZLGithubUserContributionData new];
-                data.contributionsNumber = [[gumboNode getAttribute:@"data-count"] intValue];
-                data.contributionsDate =  [gumboNode getAttribute:@"data-date"];
-                [contributionsArray addObject:data];
+                if( [gumboNode hasAttribute:@"data-count"]){
+                    ZLGithubUserContributionData *data = [ZLGithubUserContributionData new];
+                    data.contributionsNumber = [[gumboNode getAttribute:@"data-count"] intValue];
+                    data.contributionsDate =  [gumboNode getAttribute:@"data-date"];
+                    data.contributionsLevel = [[gumboNode getAttribute:@"data-level"] intValue];;
+                    [contributionsArray addObject:data];
+                }
             }
             resultModel.result = true;
             resultModel.data = contributionsArray;

@@ -11,5 +11,6 @@ import UIKit
 @objcMembers open class ZLGithubUserContributionData: ZLBaseObject {
     open var contributionsNumber = 0
     open var contributionsDate = ""
+    open var contributionsLevel = 0
     
 }

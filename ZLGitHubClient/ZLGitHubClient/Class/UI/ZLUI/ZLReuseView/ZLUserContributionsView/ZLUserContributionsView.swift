@@ -112,19 +112,20 @@ class ZLUserContributionsView: ZLBaseView,UICollectionViewDataSource,UICollectio
         let collectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "UICollectionViewCell", for: indexPath)
         collectionViewCell.cornerRadius = 2.0
         let contributionData = self.dataArray[indexPath.row]
-        if contributionData.contributionsNumber == 0 {
+        switch contributionData.contributionsLevel {
+        case 0:
             collectionViewCell.backgroundColor = UIColor(named: "ZLContributionColor1")
-        } else if contributionData.contributionsNumber <= 5 {
+        case 1:
             collectionViewCell.backgroundColor = UIColor(named: "ZLContributionColor2")
-        } else if contributionData.contributionsNumber <= 10 {
+        case 2:
             collectionViewCell.backgroundColor = UIColor(named: "ZLContributionColor3")
-        } else if contributionData.contributionsNumber <= 20 {
+        case 3:
             collectionViewCell.backgroundColor = UIColor(named: "ZLContributionColor4")
-        } else {
+        case 4:
             collectionViewCell.backgroundColor = UIColor(named: "ZLContributionColor5")
+        default:
+            collectionViewCell.backgroundColor = UIColor(named: "ZLContributionColor1")
         }
-        
-        
         return collectionViewCell
     }
     
