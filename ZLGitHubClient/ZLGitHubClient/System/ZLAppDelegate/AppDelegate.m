@@ -17,6 +17,7 @@
 #endif
 
 #import <UserNotifications/UserNotifications.h>
+#import <SYDCentralPivot/SYDCentralPivotCoreHeader.h>
 
 
 @interface AppDelegate () <UNUserNotificationCenterDelegate>

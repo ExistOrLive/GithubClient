@@ -15,7 +15,7 @@ import ZLServiceFramework
 extension ZLGithubRepositoryModel{
     static func getSampleModel() -> ZLGithubRepositoryModel{
         let model = ZLGithubRepositoryModel()
-        model.full_name = "MengAndJie/GithubClient"
+        model.full_name = "ExistOrLive/GithubClient"
         model.desc_Repo = "Github iOS Client based on Github REST V3 API and GraphQL V4 API"
         model.language = "Swift"
         return model

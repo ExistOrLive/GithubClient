@@ -25,7 +25,7 @@
 
 // extension
 #import "UIColor+HexColor.h"
-#import "UIViewController+SYDRouter.h"
+#import "UIViewController+Tool.h"
 #import "UIColor+HexColor.h"
 #import "UIView+HJViewStyle.h"
 

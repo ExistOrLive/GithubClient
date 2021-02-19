@@ -67,6 +67,15 @@ PODS:
   - SDWebImage/Core (5.0.6)
   - SnapKit (4.0.1)
   - SVProgressHUD (2.2.5)
+  - SYDCentralPivot (1.2.0):
+    - SYDCentralPivot/Core (= 1.2.0)
+    - SYDCentralPivot/Service (= 1.2.0)
+    - SYDCentralPivot/VC (= 1.2.0)
+  - SYDCentralPivot/Core (1.2.0)
+  - SYDCentralPivot/Service (1.2.0):
+    - SYDCentralPivot/Core
+  - SYDCentralPivot/VC (1.2.0):
+    - SYDCentralPivot/Core
   - Toast (4.0.0)
   - Toast-Swift (5.0.1)
   - "UITextView+Placeholder (1.4.0)"
@@ -97,6 +106,7 @@ DEPENDENCIES:
   - SDWebImage (~> 5.0.0)
   - SnapKit (~> 4.0.0)
   - SVProgressHUD
+  - SYDCentralPivot (from `https://github.com/ExistOrLive/SYDCentralPivot.git`, tag `1.2.0`)
   - Toast
   - Toast-Swift
   - "UITextView+Placeholder"
@@ -131,6 +141,16 @@ SPEC REPOS:
     - "UITextView+Placeholder"
     - YYText
 
+EXTERNAL SOURCES:
+  SYDCentralPivot:
+    :git: https://github.com/ExistOrLive/SYDCentralPivot.git
+    :tag: 1.2.0
+
+CHECKOUT OPTIONS:
+  SYDCentralPivot:
+    :git: https://github.com/ExistOrLive/SYDCentralPivot.git
+    :tag: 1.2.0
+
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   Apollo: f6c6410ebee82dd5846be87b81cedc8bc7754a82
@@ -154,11 +174,12 @@ SPEC CHECKSUMS:
   SDWebImage: 920f1a2ff1ca8296ad34f6e0510a1ef1d70ac965
   SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+  SYDCentralPivot: 80dbb5ba5502b61baec5d8fd89d551e4cbdbda41
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
   "UITextView+Placeholder": d7b0c400921f66523f3a85d74f774512e14f6502
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: 6afa5769c8c135b6b0c49709a443f9d0f5772752
+PODFILE CHECKSUM: 83ab7224fbb58c2b4f797af113caf8f6b5c58c09
 
 COCOAPODS: 1.10.1

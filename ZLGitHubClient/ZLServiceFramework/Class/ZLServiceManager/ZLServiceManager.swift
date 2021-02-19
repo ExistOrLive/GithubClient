@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SYDCentralPivot
 
 @objcMembers public class ZLServiceManager: NSObject {
 
@@ -15,7 +16,7 @@ import UIKit
     private static func getSharedInstance() -> ZLServiceManager {
         let bundle = Bundle(for: ZLServiceManager.self)
         if let configPath = bundle.path(forResource: "ZLServiceConfig", ofType: "plist") {
-            SYDCentralRouter.sharedInstance()?.addConfig(withFilePath: configPath, with: bundle)
+            SYDCentralRouter.sharedInstance().addConfig(withFilePath: configPath, with: bundle)
         }
         return ZLServiceManager()
     }

@@ -7,19 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SYDCentralRouterModel.h"
-
-
-@interface UIViewController (SYDRouter)
-
-@property(nonatomic, copy, readonly) NSString *VCKey;
-
-+ (void) enterViewControllerWithViewControllerConfig:(id) config withParam:(NSDictionary *) paramDic;
-
-+ (UIViewController *) getOneViewController;
-
-@end
-
 
 @interface UIViewController (Tool)
 
