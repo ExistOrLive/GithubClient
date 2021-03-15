@@ -86,8 +86,6 @@
 		74344A5E258B0FB600903E08 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74344A5D258B0FB600903E08 /* SwiftUI.framework */; };
 		74344A61258B0FB600903E08 /* TrendingRepoWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74344A60258B0FB600903E08 /* TrendingRepoWidget.swift */; };
 		74344A64258B0FB900903E08 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74344A63258B0FB900903E08 /* Assets.xcassets */; };
-		74344A66258B0FB900903E08 /* Fixed_Repo.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 74344A62258B0FB600903E08 /* Fixed_Repo.intentdefinition */; };
-		74344A67258B0FB900903E08 /* Fixed_Repo.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 74344A62258B0FB600903E08 /* Fixed_Repo.intentdefinition */; };
 		74344A6A258B0FB900903E08 /* Fixed RepoExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 74344A5A258B0FB600903E08 /* Fixed RepoExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		7434CA812393E5CF00763220 /* ZLEventTableViewCellDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7434CA802393E5CF00763220 /* ZLEventTableViewCellDataProvider.swift */; };
 		7434CA832393E89100763220 /* ZLPushEventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7434CA822393E89100763220 /* ZLPushEventTableViewCell.swift */; };
@@ -128,6 +126,8 @@
 		746FAFD12316AC42006A0288 /* ZLWebContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746FAFD02316AC42006A0288 /* ZLWebContentView.swift */; };
 		746FAFD32316AC73006A0288 /* ZLWebContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 746FAFD22316AC73006A0288 /* ZLWebContentView.xib */; };
 		746FAFD92316B586006A0288 /* ZLWebContentViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 746FAFD82316B586006A0288 /* ZLWebContentViewModel.m */; };
+		747FCA1525FFAA2B00D2C39B /* Fixed_Repo.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 747FCA1825FFAA2B00D2C39B /* Fixed_Repo.intentdefinition */; };
+		747FCA1625FFAA2B00D2C39B /* Fixed_Repo.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 747FCA1825FFAA2B00D2C39B /* Fixed_Repo.intentdefinition */; };
 		74835FC6256B8D760083BE10 /* ZLMyIssuesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74835FC5256B8D760083BE10 /* ZLMyIssuesController.swift */; };
 		74835FE7256BA7810083BE10 /* ZLMyIssuesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74835FE6256BA7810083BE10 /* ZLMyIssuesView.swift */; };
 		74835FEB256BB7230083BE10 /* ZLIssueTableViewCellDataForViewerIssue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74835FEA256BB7230083BE10 /* ZLIssueTableViewCellDataForViewerIssue.swift */; };
@@ -580,7 +580,6 @@
 		74344A5B258B0FB600903E08 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		74344A5D258B0FB600903E08 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		74344A60258B0FB600903E08 /* TrendingRepoWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingRepoWidget.swift; sourceTree = "<group>"; };
-		74344A62258B0FB600903E08 /* Fixed_Repo.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = Fixed_Repo.intentdefinition; sourceTree = "<group>"; };
 		74344A63258B0FB900903E08 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		74344A65258B0FB900903E08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7434CA802393E5CF00763220 /* ZLEventTableViewCellDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLEventTableViewCellDataProvider.swift; sourceTree = "<group>"; };
@@ -625,6 +624,9 @@
 		746FAFD22316AC73006A0288 /* ZLWebContentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZLWebContentView.xib; sourceTree = "<group>"; };
 		746FAFD72316B586006A0288 /* ZLWebContentViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLWebContentViewModel.h; sourceTree = "<group>"; };
 		746FAFD82316B586006A0288 /* ZLWebContentViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLWebContentViewModel.m; sourceTree = "<group>"; };
+		747FCA1725FFAA2B00D2C39B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = Base; path = Base.lproj/Fixed_Repo.intentdefinition; sourceTree = "<group>"; };
+		747FCA1D25FFAA3300D2C39B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Fixed_Repo.strings; sourceTree = "<group>"; };
+		747FCA1F25FFAA3400D2C39B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Fixed_Repo.strings"; sourceTree = "<group>"; };
 		74835FC5256B8D760083BE10 /* ZLMyIssuesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLMyIssuesController.swift; sourceTree = "<group>"; };
 		74835FE6256BA7810083BE10 /* ZLMyIssuesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLMyIssuesView.swift; sourceTree = "<group>"; };
 		74835FEA256BB7230083BE10 /* ZLIssueTableViewCellDataForViewerIssue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLIssueTableViewCellDataForViewerIssue.swift; sourceTree = "<group>"; };
@@ -1521,7 +1523,7 @@
 			children = (
 				74CAB16825BBAE2A00CE26A4 /* ContributionWidget.swift */,
 				74344A60258B0FB600903E08 /* TrendingRepoWidget.swift */,
-				74344A62258B0FB600903E08 /* Fixed_Repo.intentdefinition */,
+				747FCA1825FFAA2B00D2C39B /* Fixed_Repo.intentdefinition */,
 				74344A63258B0FB900903E08 /* Assets.xcassets */,
 				74344A65258B0FB900903E08 /* Info.plist */,
 				74D3F60A259D55E30002A2D3 /* ZLWidgetService.swift */,
@@ -4201,7 +4203,7 @@
 				74D3EFD6259BC6060002A2D3 /* UIView+Frame.m in Sources */,
 				743425C7230AC6AD0031AD7D /* ZLRepoInfoController.swift in Sources */,
 				74209D5424B66D820068891E /* ZLRepoLanguagesPercentView.swift in Sources */,
-				74344A67258B0FB900903E08 /* Fixed_Repo.intentdefinition in Sources */,
+				747FCA1525FFAA2B00D2C39B /* Fixed_Repo.intentdefinition in Sources */,
 				D1259FA023195CC700C7892B /* ZLNewsViewModel.swift in Sources */,
 				7486DFFE25A2CC7C00EE38CB /* ZLURLNotificationDealManager.swift in Sources */,
 				7444B29B2567AD9700488EF0 /* ZLWorkboardTableViewSectionHeader.swift in Sources */,
@@ -4417,7 +4419,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				74344A66258B0FB900903E08 /* Fixed_Repo.intentdefinition in Sources */,
+				747FCA1625FFAA2B00D2C39B /* Fixed_Repo.intentdefinition in Sources */,
 				74344A61258B0FB600903E08 /* TrendingRepoWidget.swift in Sources */,
 				74CAB16425BBAD2E00CE26A4 /* WidgetGallary.swift in Sources */,
 				74D3F60B259D55E30002A2D3 /* ZLWidgetService.swift in Sources */,
@@ -4540,6 +4542,16 @@
 				74C861D322F02CB300A30B79 /* zh-Hans */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		747FCA1825FFAA2B00D2C39B /* Fixed_Repo.intentdefinition */ = {
+			isa = PBXVariantGroup;
+			children = (
+				747FCA1725FFAA2B00D2C39B /* Base */,
+				747FCA1D25FFAA3300D2C39B /* en */,
+				747FCA1F25FFAA3400D2C39B /* zh-Hans */,
+			);
+			name = Fixed_Repo.intentdefinition;
 			sourceTree = "<group>";
 		};
 		74C861CC22F02BED00A30B79 /* ZLGitHubClientLocalizable.strings */ = {
@@ -4673,7 +4685,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 20;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 24LG5QVBPR;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
@@ -4742,7 +4754,7 @@
 				CODE_SIGN_IDENTITY = "Apple Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 20;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 24LG5QVBPR;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
@@ -4810,7 +4822,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_TEAM = 24LG5QVBPR;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/ZLGitHubClient/Class/Import/OCGumbo/gumbo";
 				INFOPLIST_FILE = "Fixed Repo/Info.plist";
@@ -4852,7 +4864,7 @@
 				CODE_SIGN_IDENTITY = "Apple Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_TEAM = 24LG5QVBPR;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/ZLGitHubClient/Class/Import/OCGumbo/gumbo";
 				INFOPLIST_FILE = "Fixed Repo/Info.plist";
