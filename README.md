@@ -1,4 +1,4 @@
-# GitWorld
+# ZLGithubClient
 ![ZLGithub TestFlight](https://github.com/MengAndJie/GithubClient/workflows/ZLGithub%20TestFlight/badge.svg)
 ![language](https://img.shields.io/github/languages/top/existorlive/githubclient)
 ![CodeSize](https://img.shields.io/github/languages/code-size/existorlive/GitHubClient)
@@ -31,8 +31,8 @@
 #### Github OAuth login and Access Token login
 
 <div align="left">
-<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_4548.PNG" width="200"/>
-<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_4549.PNG" width="200"/>
+<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_4824.PNG" width="200"/>
+<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_4823.PNG" width="200"/>
 </div>
 
 #### Workboard

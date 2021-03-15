@@ -24,8 +24,8 @@ jobs:
         gem cleanup
         gem install bundler
         bundle install
-        pod repo update
-        pod install
+        bundle exec pod repo update
+        bundle exec pod install
         echo "construct build enviroment success"
     - name: archive app
       working-directory: ./ZLGitHubClient          # 指定run 的工作目录

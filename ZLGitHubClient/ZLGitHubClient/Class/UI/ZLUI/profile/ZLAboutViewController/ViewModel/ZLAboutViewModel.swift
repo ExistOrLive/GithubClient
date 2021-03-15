@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ZLServiceFramework
 
 class ZLAboutViewModel: ZLBaseViewModel {
     
@@ -18,23 +19,18 @@ class ZLAboutViewModel: ZLBaseViewModel {
         }
         self.aboutView = aboutView
         
-        let infoDic = Bundle.main.infoDictionary
-        if infoDic != nil{
-            let versionStr = "\(infoDic!["CFBundleShortVersionString"] ?? "0")(\(infoDic!["CFBundleVersion"] ?? "0"))"
-            self.aboutView?.versionLabel.text = versionStr
-        }
-        
+        self.aboutView?.versionLabel.text = ZLDeviceInfo.getAppVersion()
     }
     
     @IBAction func onContributorsButtonClicked(_ sender: Any) {
         let contributorsVC = ZLRepoContributorsController.init()
-        contributorsVC.repoFullName = "MengAndJie/GithubClient"
+        contributorsVC.repoFullName = "ExistOrLive/GithubClient"
         self.viewController?.navigationController?.pushViewController(contributorsVC, animated: true)
     }
     
     
     @IBAction func onRepoButtonClicked(_ sender: Any) {
-        if let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: "MengAndJie/GithubClient") {
+        if let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: "ExistOrLive/GithubClient") {
             vc.hidesBottomBarWhenPushed = true
             self.viewController?.navigationController?.pushViewController(vc, animated: true)
         }

@@ -104,7 +104,7 @@ struct ContributionMeidumView : View {
                                 let index = column * 7 + row
                                 if index < entry.data.count {
                                     RoundedRectangle(cornerRadius: 2, style: .circular)
-                                        .fill(getColor(contribution: entry.data[index].contributionsNumber))
+                                        .fill(getColor(contribution: entry.data[index].contributionsLevel))
                                         .frame(width: 10, height: 10, alignment: .center)
                                 }
                             }
@@ -148,7 +148,7 @@ struct ContributionMeidumView : View {
                                     let index = column * 7 + row
                                     if index < entry.data.count {
                                         RoundedRectangle(cornerRadius: 2, style: .circular)
-                                            .fill(getColor(contribution: entry.data[index].contributionsNumber))
+                                            .fill(getColor(contribution: entry.data[index].contributionsLevel))
                                             .frame(width: 10, height: 10, alignment: .center)
                                     }
                                 }
@@ -166,16 +166,19 @@ struct ContributionMeidumView : View {
     }
     
     func getColor(contribution : Int) -> Color {
-        if contribution == 0 {
+        switch(contribution) {
+        case 0:
             return Color("ZLContributionColor1")
-        } else if contribution <= 5 {
+        case 1:
             return Color("ZLContributionColor2")
-        } else if contribution <= 10 {
+        case 2:
             return Color("ZLContributionColor3")
-        } else if contribution <= 20 {
+        case 3:
             return Color("ZLContributionColor4")
-        } else {
+        case 4:
             return Color("ZLContributionColor5")
+        default:
+            return Color("ZLContributionColor1")
         }
     }
     
@@ -214,6 +217,7 @@ struct ContributionWidget : Widget {
             ContributionView(entry: entry)
         }
         .configurationDisplayName("Contributions")
+        .description("Recent Contributions")
         .supportedFamilies([.systemMedium])
         
     }

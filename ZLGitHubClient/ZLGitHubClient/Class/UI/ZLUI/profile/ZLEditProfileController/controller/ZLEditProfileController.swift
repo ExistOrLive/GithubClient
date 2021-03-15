@@ -29,7 +29,9 @@ class ZLEditProfileController: ZLBaseViewController {
         
         self.contentView.addSubview(baseView)
         baseView.snp.makeConstraints({ (make) in
-            make.edges.equalToSuperview()
+            make.top.bottom.equalToSuperview()
+            make.left.equalTo(self.contentView.safeAreaLayoutGuide.snp.left)
+            make.right.equalTo(self.contentView.safeAreaLayoutGuide.snp.right)
         })
         viewModel.bindModel(self.userInfoModel, andView: baseView)
     }

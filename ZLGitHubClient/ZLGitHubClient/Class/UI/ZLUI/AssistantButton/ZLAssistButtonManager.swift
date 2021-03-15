@@ -44,6 +44,12 @@ import CircleMenu
         floatButtonView.addSubview(assistButton)
     }
     
+    
+    func ajustAssistButtonPosition(){
+        floatButtonView.frame = floatButtonView.frame
+    }
+    
+    
     func setHidden(_ hidden : Bool){
         self.floatButtonView.isHidden = hidden
     }

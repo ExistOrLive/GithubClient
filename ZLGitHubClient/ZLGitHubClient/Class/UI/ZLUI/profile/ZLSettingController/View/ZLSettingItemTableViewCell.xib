@@ -57,6 +57,7 @@
                     <constraint firstItem="Pf0-7G-Jkb" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="zxb-c0-aCd"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="itemTypeLabel" destination="Pf0-7G-Jkb" id="Y6N-BX-kEI"/>
                 <outlet property="itemValueLabel" destination="SZv-WF-ZcS" id="DFv-p9-ae8"/>

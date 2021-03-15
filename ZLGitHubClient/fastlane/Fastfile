@@ -22,7 +22,6 @@ platform :ios do
 #    upload_to_testflight
 #  end
 
-
   lane :increase do
           gym(workspace: "ZLGitHubClient.xcworkspace",
         scheme: "ZLGitHubClient",
@@ -66,7 +65,7 @@ platform :ios do
     ) 
      match(type: "adhoc",
           readonly: true,
-          app_identifier: "com.zm.ZLGitHubClient",
+          app_identifier: "com.zm.*",
           keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
           keychain_password: ENV['MATCH_PASSWORD'],
           git_url: ENV['MATCH_GITHUB_URL'])
@@ -76,7 +75,14 @@ platform :ios do
          include_symbols: true,
          include_bitcode: true,
          output_directory: "./fastlane/ipa",
-         output_name: "ZLGitHubClient.ipa")
+         output_name: "ZLGitHubClient.ipa",
+         export_options: {
+          method: "adhoc",
+          provisioningProfiles: {
+            "com.zm.ZLGitHubClient" => "*** AdHoc com.zm.*",
+            "com.zm.ZLGitHubClient.Fixed-Repo" => "*** AdHoc com.zm.*"
+          }
+        })
   end
 
   desc "build one adhoc release on github actions"
@@ -91,17 +97,26 @@ platform :ios do
     ) 
     match(type: "adhoc",
           readonly: true,
-          app_identifier: "com.zm.ZLGitHubClient",
+          app_identifier: "com.zm.*",
+          profile_name: "*** AdHoc com.zm.*",
           keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
           keychain_password: ENV['MATCH_PASSWORD'],
           git_url: ENV['MATCH_GITHUB_URL'])
+          
     gym(workspace: "ZLGitHubClient.xcworkspace",
         scheme: "ZLGitHubClient",
         clean: true,
         include_symbols: true,
         include_bitcode: true,
         output_directory: "./fastlane/ipa/adhoc",
-        output_name: "ZLGitHubClient.ipa")
+        output_name: "ZLGitHubClient.ipa",
+        export_options: {
+          method: "adhoc",
+          provisioningProfiles: {
+            "com.zm.ZLGitHubClient" => "*** AdHoc com.zm.*",
+            "com.zm.ZLGitHubClient.Fixed-Repo" => "*** AdHoc com.zm.*"
+          }
+        })
   end
 
 
@@ -117,17 +132,26 @@ platform :ios do
     ) 
     match(type: "adhoc",
           readonly: true,
-          app_identifier: "com.zm.ZLGitHubClient",
+          app_identifier: "com.zm.*",
+          profile_name: "*** AdHoc com.zm.*",
           keychain_name: ENV["MATCH_KEYCHAIN_NAME"],
           keychain_password: ENV["MATCH_PASSWORD"],
           git_url: ENV["MATCH_GITHUB_URL"])
+
     gym(workspace: "ZLGitHubClient.xcworkspace",
         scheme: "ZLGitHubClient",
         clean: true,
         include_symbols: true,
         include_bitcode: true,
         output_directory: "./fastlane/ipa/adhoc",
-        output_name: "ZLGitHubClient.ipa")
+        output_name: "ZLGitHubClient.ipa",
+        export_options: {
+          method: "adhoc",
+          provisioningProfiles: {
+            "com.zm.ZLGitHubClient" => "*** AdHoc com.zm.*",
+            "com.zm.ZLGitHubClient.Fixed-Repo" => "*** AdHoc com.zm.*"
+          }
+        })
   end
 
   desc "build one TestFlight release on github action"
@@ -140,9 +164,6 @@ platform :ios do
     duration: 1200, # optional
     in_house: false, # optional but may be required if using match/sigh
     )
-
-    increment_build_number
-
     create_keychain(
       name: ENV['MATCH_KEYCHAIN_NAME'],
       password: ENV['MATCH_PASSWORD'],
@@ -154,10 +175,21 @@ platform :ios do
 
     match(type: "appstore",
           readonly: true,
-          app_identifier: "com.zm.ZLGitHubClient",
+          app_identifier: "com.zm.*",
+          profile_name: "*** AppStore com.zm.*",
           keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
           keychain_password: ENV['MATCH_PASSWORD'],
           git_url: ENV['MATCH_GITHUB_URL'])
+
+    build_num = app_store_build_number(
+      app_identifier: "com.zm.ZLGitHubClient",
+      live: false,
+      api_key: api_key
+    )
+      
+    increment_build_number(
+      build_number: build_num + 1
+    )
     
     gym(workspace: "ZLGitHubClient.xcworkspace",
         scheme: "ZLGitHubClient",

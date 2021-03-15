@@ -27,7 +27,7 @@ class ZLWorkboardTableViewSectionHeader: UITableViewHeaderFooterView {
         self.titleLabel.font = UIFont.init(name: Font_PingFangSCSemiBold, size: 20)
         self.addSubview(self.titleLabel)
         self.titleLabel.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(20)
+            make.left.equalTo(self.safeAreaLayoutGuide.snp.left).offset(20)
             make.bottom.equalToSuperview().offset(-10)
         }
         
@@ -38,7 +38,7 @@ class ZLWorkboardTableViewSectionHeader: UITableViewHeaderFooterView {
         self.button.snp.makeConstraints { (make) in
             make.size.equalTo(CGSize.init(width: 60, height: 30))
             make.centerY.equalTo(self.titleLabel)
-            make.right.equalToSuperview().offset(-20)
+            make.right.equalTo(self.safeAreaLayoutGuide.snp.right).offset(-20)
         }
     }
     

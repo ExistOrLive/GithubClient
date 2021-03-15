@@ -29,6 +29,8 @@ pod 'MJExtension'
 # graphql client
 pod "Apollo"
 
+pod "SYDCentralPivot", :git => 'https://github.com/ExistOrLive/SYDCentralPivot.git', :tag => '1.2.0'
+
   
 end
 
@@ -79,13 +81,15 @@ pod 'DoraemonKit/WithLogger', '~> 2.0.0', :configurations => ['Debug']
 pod 'DoraemonKit/WithMLeaksFinder', '2.0.0', :configurations => ['Debug']
 
 # bugly
-pod 'Bugly'
+#pod 'Bugly'
 
 # 异常防护
 pod 'JJException'
 
 # 扩展
 pod 'UITextView+Placeholder'
+
+pod "SYDCentralPivot", :git => 'https://github.com/ExistOrLive/SYDCentralPivot.git', :tag => '1.2.0'
 
 
 ## fix oclint issue : one compiler command contains multiple jobs

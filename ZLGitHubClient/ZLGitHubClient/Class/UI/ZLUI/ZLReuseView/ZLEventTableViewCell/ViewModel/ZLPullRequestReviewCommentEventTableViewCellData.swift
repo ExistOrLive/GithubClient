@@ -50,7 +50,7 @@ class ZLPullRequestReviewCommentEventTableViewCellData: ZLEventTableViewCellData
     }
     
     override func getCellReuseIdentifier() -> String {
-        return "ZLEventTableViewCellData"
+        return "ZLEventTableViewCell"
     }
     
     

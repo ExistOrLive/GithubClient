@@ -1,0 +1,252 @@
+"0cHDVx" = "Swift";
+
+"1akz6V" = "C#";
+
+"1qmhHd" = "FixedRepoDateRange";
+
+"4MIFc2" = "Groovy";
+
+"4nGuGK" = "MATLAB";
+
+"5Pc2f4" = "Ruby";
+
+"6RgBHl" = "HTML";
+
+"8fQXA4" = "Any";
+
+"AIstuO" = "GraphQL";
+
+"At9CbD" = "Pascal";
+
+"F84nWp" = "CMake";
+
+"FVd4io" = "Date Range";
+
+"GQAL1C" = "Weekly";
+
+"Ga32jM" = "Perl";
+
+"GvALBj" = "JSON";
+
+"J9aLuj" = "D";
+
+"K6biLF" = "Dockerfile";
+
+"LZMg4R-0cHDVx" = "There are ${count} options matching ‘Swift’.";
+
+"LZMg4R-1akz6V" = "There are ${count} options matching ‘C#’.";
+
+"LZMg4R-4MIFc2" = "There are ${count} options matching ‘Groovy’.";
+
+"LZMg4R-4nGuGK" = "There are ${count} options matching ‘MATLAB’.";
+
+"LZMg4R-5Pc2f4" = "There are ${count} options matching ‘Ruby’.";
+
+"LZMg4R-6RgBHl" = "There are ${count} options matching ‘HTML’.";
+
+"LZMg4R-8fQXA4" = "There are ${count} options matching ‘Any’.";
+
+"LZMg4R-AIstuO" = "There are ${count} options matching ‘GraphQL’.";
+
+"LZMg4R-At9CbD" = "There are ${count} options matching ‘Pascal’.";
+
+"LZMg4R-F84nWp" = "There are ${count} options matching ‘CMake’.";
+
+"LZMg4R-Ga32jM" = "There are ${count} options matching ‘Perl’.";
+
+"LZMg4R-GvALBj" = "There are ${count} options matching ‘JSON’.";
+
+"LZMg4R-J9aLuj" = "There are ${count} options matching ‘D’.";
+
+"LZMg4R-K6biLF" = "There are ${count} options matching ‘Dockerfile’.";
+
+"LZMg4R-LucTxh" = "There are ${count} options matching ‘Vue’.";
+
+"LZMg4R-QOMXIw" = "There are ${count} options matching ‘CSV’.";
+
+"LZMg4R-UXPRVd" = "There are ${count} options matching ‘PowerShell’.";
+
+"LZMg4R-Xd2NO7" = "There are ${count} options matching ‘Markdown’.";
+
+"LZMg4R-Z6XKD2" = "There are ${count} options matching ‘SQL’.";
+
+"LZMg4R-ZchV2G" = "There are ${count} options matching ‘C++’.";
+
+"LZMg4R-Zo9MTM" = "There are ${count} options matching ‘CSS’.";
+
+"LZMg4R-flfJNT" = "There are ${count} options matching ‘Go’.";
+
+"LZMg4R-ilikbX" = "There are ${count} options matching ‘JavaScript’.";
+
+"LZMg4R-jcE80E" = "There are ${count} options matching ‘C’.";
+
+"LZMg4R-jf7zjo" = "There are ${count} options matching ‘Shell’.";
+
+"LZMg4R-kVT2J5" = "There are ${count} options matching ‘Objective-C’.";
+
+"LZMg4R-mMS7qF" = "There are ${count} options matching ‘PHP’.";
+
+"LZMg4R-n2xFAq" = "There are ${count} options matching ‘Kotlin’.";
+
+"LZMg4R-pOXy5H" = "There are ${count} options matching ‘Dart’.";
+
+"LZMg4R-pahOtq" = "There are ${count} options matching ‘XML’.";
+
+"LZMg4R-pochJP" = "There are ${count} options matching ‘Java’.";
+
+"LZMg4R-q0hXPL" = "There are ${count} options matching ‘YAML’.";
+
+"LZMg4R-roThmv" = "There are ${count} options matching ‘Python’.";
+
+"LZMg4R-uJOdEq" = "There are ${count} options matching ‘Metal’.";
+
+"LZMg4R-xTF6ud" = "There are ${count} options matching ‘Gradle’.";
+
+"LZMg4R-zD5Q3N" = "There are ${count} options matching ‘Objective-C++’.";
+
+"LucTxh" = "Vue";
+
+"OJbIAE" = "Login Name";
+
+"QOMXIw" = "CSV";
+
+"SU1xRO-GQAL1C" = "Just to confirm, you wanted ‘Weekly’?";
+
+"SU1xRO-Y2J2hD" = "Just to confirm, you wanted ‘Monthly’?";
+
+"SU1xRO-pCVnaZ" = "Just to confirm, you wanted ‘Daily’?";
+
+"UXPRVd" = "PowerShell";
+
+"UxCkpt" = "Configuration";
+
+"XDtg7u-0cHDVx" = "Just to confirm, you wanted ‘Swift’?";
+
+"XDtg7u-1akz6V" = "Just to confirm, you wanted ‘C#’?";
+
+"XDtg7u-4MIFc2" = "Just to confirm, you wanted ‘Groovy’?";
+
+"XDtg7u-4nGuGK" = "Just to confirm, you wanted ‘MATLAB’?";
+
+"XDtg7u-5Pc2f4" = "Just to confirm, you wanted ‘Ruby’?";
+
+"XDtg7u-6RgBHl" = "Just to confirm, you wanted ‘HTML’?";
+
+"XDtg7u-8fQXA4" = "Just to confirm, you wanted ‘Any’?";
+
+"XDtg7u-AIstuO" = "Just to confirm, you wanted ‘GraphQL’?";
+
+"XDtg7u-At9CbD" = "Just to confirm, you wanted ‘Pascal’?";
+
+"XDtg7u-F84nWp" = "Just to confirm, you wanted ‘CMake’?";
+
+"XDtg7u-Ga32jM" = "Just to confirm, you wanted ‘Perl’?";
+
+"XDtg7u-GvALBj" = "Just to confirm, you wanted ‘JSON’?";
+
+"XDtg7u-J9aLuj" = "Just to confirm, you wanted ‘D’?";
+
+"XDtg7u-K6biLF" = "Just to confirm, you wanted ‘Dockerfile’?";
+
+"XDtg7u-LucTxh" = "Just to confirm, you wanted ‘Vue’?";
+
+"XDtg7u-QOMXIw" = "Just to confirm, you wanted ‘CSV’?";
+
+"XDtg7u-UXPRVd" = "Just to confirm, you wanted ‘PowerShell’?";
+
+"XDtg7u-Xd2NO7" = "Just to confirm, you wanted ‘Markdown’?";
+
+"XDtg7u-Z6XKD2" = "Just to confirm, you wanted ‘SQL’?";
+
+"XDtg7u-ZchV2G" = "Just to confirm, you wanted ‘C++’?";
+
+"XDtg7u-Zo9MTM" = "Just to confirm, you wanted ‘CSS’?";
+
+"XDtg7u-flfJNT" = "Just to confirm, you wanted ‘Go’?";
+
+"XDtg7u-ilikbX" = "Just to confirm, you wanted ‘JavaScript’?";
+
+"XDtg7u-jcE80E" = "Just to confirm, you wanted ‘C’?";
+
+"XDtg7u-jf7zjo" = "Just to confirm, you wanted ‘Shell’?";
+
+"XDtg7u-kVT2J5" = "Just to confirm, you wanted ‘Objective-C’?";
+
+"XDtg7u-mMS7qF" = "Just to confirm, you wanted ‘PHP’?";
+
+"XDtg7u-n2xFAq" = "Just to confirm, you wanted ‘Kotlin’?";
+
+"XDtg7u-pOXy5H" = "Just to confirm, you wanted ‘Dart’?";
+
+"XDtg7u-pahOtq" = "Just to confirm, you wanted ‘XML’?";
+
+"XDtg7u-pochJP" = "Just to confirm, you wanted ‘Java’?";
+
+"XDtg7u-q0hXPL" = "Just to confirm, you wanted ‘YAML’?";
+
+"XDtg7u-roThmv" = "Just to confirm, you wanted ‘Python’?";
+
+"XDtg7u-uJOdEq" = "Just to confirm, you wanted ‘Metal’?";
+
+"XDtg7u-xTF6ud" = "Just to confirm, you wanted ‘Gradle’?";
+
+"XDtg7u-zD5Q3N" = "Just to confirm, you wanted ‘Objective-C++’?";
+
+"Xd2NO7" = "Markdown";
+
+"Y2J2hD" = "Monthly";
+
+"Z6XKD2" = "SQL";
+
+"ZchV2G" = "C++";
+
+"Zo9MTM" = "CSS";
+
+"bEuFlc" = "Language";
+
+"flfJNT" = "Go";
+
+"g2nE2P" = "ContributionConfiguration";
+
+"gpCwrM" = "Fixed Repo Configuration";
+
+"hhdg8Q-GQAL1C" = "There are ${count} options matching ‘Weekly’.";
+
+"hhdg8Q-Y2J2hD" = "There are ${count} options matching ‘Monthly’.";
+
+"hhdg8Q-pCVnaZ" = "There are ${count} options matching ‘Daily’.";
+
+"ilikbX" = "JavaScript";
+
+"jcE80E" = "C";
+
+"jf7zjo" = "Shell";
+
+"kVT2J5" = "Objective-C";
+
+"mMS7qF" = "PHP";
+
+"mWI8yk" = "existorlive";
+
+"n2xFAq" = "Kotlin";
+
+"pCVnaZ" = "Daily";
+
+"pOXy5H" = "Dart";
+
+"pahOtq" = "XML";
+
+"pochJP" = "Java";
+
+"q0hXPL" = "YAML";
+
+"qFBhFj" = "FixedRepoLanguage";
+
+"roThmv" = "Python";
+
+"uJOdEq" = "Metal";
+
+"xTF6ud" = "Gradle";
+
+"zD5Q3N" = "Objective-C++";
+

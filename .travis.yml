@@ -2,20 +2,18 @@
 # https://config.travis-ci.com/ref/language
 language: objective-c         # 语言
 os: osx
-osx_image: xcode11.2          # SDK version
+osx_image: xcode12.2          # SDK version
 xcode_workspace: ZLGitHubClient.xcworkspace   
 xcode_scheme: ZLGithubClient
-podfile: ZLGithubClient/Podfile
-gemfile: ZLGitHubClient/Gemfile
 before_install:
   - cd ZLGithubClient                     # 切换到 工程目录
   - rm -rf ./fastlane/ipa                 # 清空构建结果
   - mkdir -p ./fastlane/ipa              
+install: 
   - gem install bundler                   # 安装最新的bundle
   - bundle install                        # bundle命令根据gemfile下载相应的依赖包
-  - pod repo update
-install: 
-  - pod install --no-repo-update                        # 安装工程依赖pod库
+  - bundle exec pod repo update
+  - bundle exec pod install --no-repo-update                        # 安装工程依赖pod库
 script:
   - fastlane travis_adhoc                 # fastlane 打包工程
 after_success:

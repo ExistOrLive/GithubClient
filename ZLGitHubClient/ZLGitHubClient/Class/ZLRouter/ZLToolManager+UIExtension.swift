@@ -8,6 +8,7 @@
 
 import Foundation
 import ZLServiceFramework
+import SYDCentralPivot
 
 extension ZLToolManager{
     

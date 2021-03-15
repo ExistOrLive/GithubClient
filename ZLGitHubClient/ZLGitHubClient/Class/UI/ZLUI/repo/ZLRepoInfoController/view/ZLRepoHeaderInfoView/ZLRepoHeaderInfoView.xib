@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -263,7 +263,7 @@
                                 <constraint firstAttribute="height" constant="60" id="ET9-N2-XAW"/>
                                 <constraint firstAttribute="width" constant="60" id="rVL-du-0Mw"/>
                             </constraints>
-                            <state key="normal" image="default_avatar"/>
+                            <state key="normal" backgroundImage="default_avatar"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="circle" value="YES"/>
                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -324,11 +324,8 @@
             <point key="canvasLocation" x="-197.82608695652175" y="-40.513392857142854"/>
         </view>
     </objects>
-    <designables>
-        <designable name="2Ef-2k-niW"/>
-    </designables>
     <resources>
-        <image name="default_avatar" width="143" height="143"/>
+        <image name="default_avatar" width="40" height="40"/>
         <namedColor name="ZLCellBack">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

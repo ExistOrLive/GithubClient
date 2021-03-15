@@ -86,8 +86,6 @@
 		74344A5E258B0FB600903E08 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74344A5D258B0FB600903E08 /* SwiftUI.framework */; };
 		74344A61258B0FB600903E08 /* TrendingRepoWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74344A60258B0FB600903E08 /* TrendingRepoWidget.swift */; };
 		74344A64258B0FB900903E08 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74344A63258B0FB900903E08 /* Assets.xcassets */; };
-		74344A66258B0FB900903E08 /* Fixed_Repo.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 74344A62258B0FB600903E08 /* Fixed_Repo.intentdefinition */; };
-		74344A67258B0FB900903E08 /* Fixed_Repo.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 74344A62258B0FB600903E08 /* Fixed_Repo.intentdefinition */; };
 		74344A6A258B0FB900903E08 /* Fixed RepoExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 74344A5A258B0FB600903E08 /* Fixed RepoExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		7434CA812393E5CF00763220 /* ZLEventTableViewCellDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7434CA802393E5CF00763220 /* ZLEventTableViewCellDataProvider.swift */; };
 		7434CA832393E89100763220 /* ZLPushEventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7434CA822393E89100763220 /* ZLPushEventTableViewCell.swift */; };
@@ -128,6 +126,8 @@
 		746FAFD12316AC42006A0288 /* ZLWebContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746FAFD02316AC42006A0288 /* ZLWebContentView.swift */; };
 		746FAFD32316AC73006A0288 /* ZLWebContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 746FAFD22316AC73006A0288 /* ZLWebContentView.xib */; };
 		746FAFD92316B586006A0288 /* ZLWebContentViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 746FAFD82316B586006A0288 /* ZLWebContentViewModel.m */; };
+		747FCA1525FFAA2B00D2C39B /* Fixed_Repo.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 747FCA1825FFAA2B00D2C39B /* Fixed_Repo.intentdefinition */; };
+		747FCA1625FFAA2B00D2C39B /* Fixed_Repo.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 747FCA1825FFAA2B00D2C39B /* Fixed_Repo.intentdefinition */; };
 		74835FC6256B8D760083BE10 /* ZLMyIssuesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74835FC5256B8D760083BE10 /* ZLMyIssuesController.swift */; };
 		74835FE7256BA7810083BE10 /* ZLMyIssuesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74835FE6256BA7810083BE10 /* ZLMyIssuesView.swift */; };
 		74835FEB256BB7230083BE10 /* ZLIssueTableViewCellDataForViewerIssue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74835FEA256BB7230083BE10 /* ZLIssueTableViewCellDataForViewerIssue.swift */; };
@@ -139,8 +139,6 @@
 		74876F2C256AADDB0063A93A /* ZLOrgsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74876F2B256AADDB0063A93A /* ZLOrgsViewController.swift */; };
 		74876F31256AB3F60063A93A /* ZLUserTableViewCellDataForViewerOrgs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74876F30256AB3F60063A93A /* ZLUserTableViewCellDataForViewerOrgs.swift */; };
 		748905D322300B46003562E1 /* ZLLoginLogoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 748905D222300B46003562E1 /* ZLLoginLogoView.m */; };
-		7495232525A598FD00C77DE1 /* ZLBaseFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74D3EEB1259BC2120002A2D3 /* ZLBaseFramework.framework */; };
-		7495232725A598FF00C77DE1 /* ZLServiceFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74D3F14F259C9FF90002A2D3 /* ZLServiceFramework.framework */; };
 		7495232825A598FF00C77DE1 /* ZLServiceFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 74D3F14F259C9FF90002A2D3 /* ZLServiceFramework.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		749BA38B2472E7AD004F8F15 /* ZLLanguageSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749BA38A2472E7AD004F8F15 /* ZLLanguageSelectView.swift */; };
 		749BA38D2472E88C004F8F15 /* ZLLanguageSelectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 749BA38C2472E88C004F8F15 /* ZLLanguageSelectView.xib */; };
@@ -220,22 +218,11 @@
 		74CF8ED925419D1C006F51A5 /* ZLReadMeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74CF8ED825419D1C006F51A5 /* ZLReadMeView.xib */; };
 		74CF8F5F2543107A006F51A5 /* ZLReportController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CF8F5E2543107A006F51A5 /* ZLReportController.swift */; };
 		74CF8F6325431351006F51A5 /* ZLReportBaseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74CF8F6225431351006F51A5 /* ZLReportBaseView.xib */; };
+		74D3DF8725CBEE9300BB11F2 /* UIViewController+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3DF8525CBEE9300BB11F2 /* UIViewController+Tool.m */; };
+		74D3DF8C25CBEEC800BB11F2 /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74D3DF8B25CBEEC800BB11F2 /* Bugly.framework */; };
+		74D3DF9725CBF12200BB11F2 /* UIView+HJViewStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3DF9325CBF12200BB11F2 /* UIView+HJViewStyle.m */; };
+		74D3DF9825CBF12200BB11F2 /* UIColor+HexColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3DF9525CBF12200BB11F2 /* UIColor+HexColor.m */; };
 		74D3EEB5259BC2120002A2D3 /* ZLBaseFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 74D3EEB3259BC2120002A2D3 /* ZLBaseFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		74D3EEF9259BC25D0002A2D3 /* SYDCentralQueuePool.h in Headers */ = {isa = PBXBuildFile; fileRef = 74D3EEC4259BC25D0002A2D3 /* SYDCentralQueuePool.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		74D3EEFA259BC25D0002A2D3 /* SYDCentralQueuePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3EEC5259BC25D0002A2D3 /* SYDCentralQueuePool.m */; };
-		74D3EEFB259BC25D0002A2D3 /* SYDCentralRouterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3EEC6259BC25D0002A2D3 /* SYDCentralRouterModel.m */; };
-		74D3EEFC259BC25D0002A2D3 /* SYDCentralRouter.h in Headers */ = {isa = PBXBuildFile; fileRef = 74D3EEC8259BC25D0002A2D3 /* SYDCentralRouter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		74D3EEFF259BC25D0002A2D3 /* SYDCentralRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3EECB259BC25D0002A2D3 /* SYDCentralRouter.m */; };
-		74D3EF02259BC25D0002A2D3 /* UIViewController+SYDRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3EECF259BC25D0002A2D3 /* UIViewController+SYDRouter.m */; };
-		74D3EF03259BC25D0002A2D3 /* UIViewController+SYDRouter.h in Headers */ = {isa = PBXBuildFile; fileRef = 74D3EED0259BC25D0002A2D3 /* UIViewController+SYDRouter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		74D3EF04259BC25D0002A2D3 /* SYDCentralRouterModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 74D3EED1259BC25D0002A2D3 /* SYDCentralRouterModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		74D3EF05259BC25D0002A2D3 /* SYDCentralPivotHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 74D3EED2259BC25D0002A2D3 /* SYDCentralPivotHeader.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		74D3EF07259BC25D0002A2D3 /* SYDCentralFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 74D3EED5259BC25D0002A2D3 /* SYDCentralFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		74D3EF09259BC25D0002A2D3 /* SYDCentralFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3EED7259BC25D0002A2D3 /* SYDCentralFactory.m */; };
-		74D3EF0C259BC25D0002A2D3 /* UIColor+HexColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3EEDB259BC25D0002A2D3 /* UIColor+HexColor.m */; };
-		74D3EF0D259BC25D0002A2D3 /* UIView+HJViewStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 74D3EEDC259BC25D0002A2D3 /* UIView+HJViewStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		74D3EF0E259BC25D0002A2D3 /* UIColor+HexColor.h in Headers */ = {isa = PBXBuildFile; fileRef = 74D3EEDD259BC25D0002A2D3 /* UIColor+HexColor.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		74D3EF0F259BC25D0002A2D3 /* UIView+HJViewStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3EEDE259BC25D0002A2D3 /* UIView+HJViewStyle.m */; };
 		74D3EF10259BC25D0002A2D3 /* ZLBaseViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3EEE2259BC25D0002A2D3 /* ZLBaseViewModel.m */; };
 		74D3EF11259BC25D0002A2D3 /* ZLBaseViewModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 74D3EEE3259BC25D0002A2D3 /* ZLBaseViewModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		74D3EF12259BC25D0002A2D3 /* ZLBaseUIHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 74D3EEE4259BC25D0002A2D3 /* ZLBaseUIHeader.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -593,7 +580,6 @@
 		74344A5B258B0FB600903E08 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		74344A5D258B0FB600903E08 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		74344A60258B0FB600903E08 /* TrendingRepoWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingRepoWidget.swift; sourceTree = "<group>"; };
-		74344A62258B0FB600903E08 /* Fixed_Repo.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = Fixed_Repo.intentdefinition; sourceTree = "<group>"; };
 		74344A63258B0FB900903E08 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		74344A65258B0FB900903E08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7434CA802393E5CF00763220 /* ZLEventTableViewCellDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLEventTableViewCellDataProvider.swift; sourceTree = "<group>"; };
@@ -638,6 +624,9 @@
 		746FAFD22316AC73006A0288 /* ZLWebContentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZLWebContentView.xib; sourceTree = "<group>"; };
 		746FAFD72316B586006A0288 /* ZLWebContentViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLWebContentViewModel.h; sourceTree = "<group>"; };
 		746FAFD82316B586006A0288 /* ZLWebContentViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLWebContentViewModel.m; sourceTree = "<group>"; };
+		747FCA1725FFAA2B00D2C39B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = Base; path = Base.lproj/Fixed_Repo.intentdefinition; sourceTree = "<group>"; };
+		747FCA2825FFB16400D2C39B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Fixed_Repo.strings"; sourceTree = "<group>"; };
+		747FCA2D25FFB17100D2C39B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Fixed_Repo.strings; sourceTree = "<group>"; };
 		74835FC5256B8D760083BE10 /* ZLMyIssuesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLMyIssuesController.swift; sourceTree = "<group>"; };
 		74835FE6256BA7810083BE10 /* ZLMyIssuesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLMyIssuesView.swift; sourceTree = "<group>"; };
 		74835FEA256BB7230083BE10 /* ZLIssueTableViewCellDataForViewerIssue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLIssueTableViewCellDataForViewerIssue.swift; sourceTree = "<group>"; };
@@ -735,24 +724,16 @@
 		74CF8ED825419D1C006F51A5 /* ZLReadMeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZLReadMeView.xib; sourceTree = "<group>"; };
 		74CF8F5E2543107A006F51A5 /* ZLReportController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLReportController.swift; sourceTree = "<group>"; };
 		74CF8F6225431351006F51A5 /* ZLReportBaseView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZLReportBaseView.xib; sourceTree = "<group>"; };
+		74D3DF8525CBEE9300BB11F2 /* UIViewController+Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Tool.m"; sourceTree = "<group>"; };
+		74D3DF8625CBEE9300BB11F2 /* UIViewController+Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Tool.h"; sourceTree = "<group>"; };
+		74D3DF8B25CBEEC800BB11F2 /* Bugly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bugly.framework; path = ZLGitHubClient/Framework/Bugly.framework; sourceTree = "<group>"; };
+		74D3DF9325CBF12200BB11F2 /* UIView+HJViewStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+HJViewStyle.m"; sourceTree = "<group>"; };
+		74D3DF9425CBF12200BB11F2 /* UIView+HJViewStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+HJViewStyle.h"; sourceTree = "<group>"; };
+		74D3DF9525CBF12200BB11F2 /* UIColor+HexColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HexColor.m"; sourceTree = "<group>"; };
+		74D3DF9625CBF12200BB11F2 /* UIColor+HexColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+HexColor.h"; sourceTree = "<group>"; };
 		74D3EEB1259BC2120002A2D3 /* ZLBaseFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ZLBaseFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		74D3EEB3259BC2120002A2D3 /* ZLBaseFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLBaseFramework.h; sourceTree = "<group>"; };
 		74D3EEB4259BC2120002A2D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		74D3EEC4259BC25D0002A2D3 /* SYDCentralQueuePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYDCentralQueuePool.h; sourceTree = "<group>"; };
-		74D3EEC5259BC25D0002A2D3 /* SYDCentralQueuePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYDCentralQueuePool.m; sourceTree = "<group>"; };
-		74D3EEC6259BC25D0002A2D3 /* SYDCentralRouterModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYDCentralRouterModel.m; sourceTree = "<group>"; };
-		74D3EEC8259BC25D0002A2D3 /* SYDCentralRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYDCentralRouter.h; sourceTree = "<group>"; };
-		74D3EECB259BC25D0002A2D3 /* SYDCentralRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYDCentralRouter.m; sourceTree = "<group>"; };
-		74D3EECF259BC25D0002A2D3 /* UIViewController+SYDRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+SYDRouter.m"; sourceTree = "<group>"; };
-		74D3EED0259BC25D0002A2D3 /* UIViewController+SYDRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+SYDRouter.h"; sourceTree = "<group>"; };
-		74D3EED1259BC25D0002A2D3 /* SYDCentralRouterModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYDCentralRouterModel.h; sourceTree = "<group>"; };
-		74D3EED2259BC25D0002A2D3 /* SYDCentralPivotHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYDCentralPivotHeader.h; sourceTree = "<group>"; };
-		74D3EED5259BC25D0002A2D3 /* SYDCentralFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYDCentralFactory.h; sourceTree = "<group>"; };
-		74D3EED7259BC25D0002A2D3 /* SYDCentralFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYDCentralFactory.m; sourceTree = "<group>"; };
-		74D3EEDB259BC25D0002A2D3 /* UIColor+HexColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HexColor.m"; sourceTree = "<group>"; };
-		74D3EEDC259BC25D0002A2D3 /* UIView+HJViewStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+HJViewStyle.h"; sourceTree = "<group>"; };
-		74D3EEDD259BC25D0002A2D3 /* UIColor+HexColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+HexColor.h"; sourceTree = "<group>"; };
-		74D3EEDE259BC25D0002A2D3 /* UIView+HJViewStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+HJViewStyle.m"; sourceTree = "<group>"; };
 		74D3EEE2259BC25D0002A2D3 /* ZLBaseViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLBaseViewModel.m; sourceTree = "<group>"; };
 		74D3EEE3259BC25D0002A2D3 /* ZLBaseViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLBaseViewModel.h; sourceTree = "<group>"; };
 		74D3EEE4259BC25D0002A2D3 /* ZLBaseUIHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLBaseUIHeader.h; sourceTree = "<group>"; };
@@ -998,9 +979,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7495232525A598FD00C77DE1 /* ZLBaseFramework.framework in Frameworks */,
+				74D3DF8C25CBEEC800BB11F2 /* Bugly.framework in Frameworks */,
 				A6389CC5113B9E045DD7D154 /* Pods_ZLGitHubClient.framework in Frameworks */,
-				7495232725A598FF00C77DE1 /* ZLServiceFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1073,6 +1053,7 @@
 		3179E7A2634BDD1B4D208684 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				74D3DF8B25CBEEC800BB11F2 /* Bugly.framework */,
 				74D3F32E259CBE040002A2D3 /* libgumbo.a */,
 				74438B49259787620021099C /* Foundation.framework */,
 				74A5759824A1C76200A38200 /* libgumbo.a */,
@@ -1542,7 +1523,7 @@
 			children = (
 				74CAB16825BBAE2A00CE26A4 /* ContributionWidget.swift */,
 				74344A60258B0FB600903E08 /* TrendingRepoWidget.swift */,
-				74344A62258B0FB600903E08 /* Fixed_Repo.intentdefinition */,
+				747FCA1825FFAA2B00D2C39B /* Fixed_Repo.intentdefinition */,
 				74344A63258B0FB900903E08 /* Assets.xcassets */,
 				74344A65258B0FB900903E08 /* Info.plist */,
 				74D3F60A259D55E30002A2D3 /* ZLWidgetService.swift */,
@@ -1588,6 +1569,12 @@
 		743F180F2312664C00E39A95 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				74D3DF9625CBF12200BB11F2 /* UIColor+HexColor.h */,
+				74D3DF9525CBF12200BB11F2 /* UIColor+HexColor.m */,
+				74D3DF9425CBF12200BB11F2 /* UIView+HJViewStyle.h */,
+				74D3DF9325CBF12200BB11F2 /* UIView+HJViewStyle.m */,
+				74D3DF8625CBEE9300BB11F2 /* UIViewController+Tool.h */,
+				74D3DF8525CBEE9300BB11F2 /* UIViewController+Tool.m */,
 				D1382200231E0984008AC7CC /* UIColor+extension.swift */,
 			);
 			path = Extension;
@@ -2540,73 +2527,11 @@
 			isa = PBXGroup;
 			children = (
 				74D3F065259BD6BE0002A2D3 /* Tool */,
-				74D3EEDA259BC25D0002A2D3 /* Extension */,
-				74D3EEC2259BC25D0002A2D3 /* SYDCentralPivot */,
 				74D3EEDF259BC25D0002A2D3 /* ZLBase */,
 				74D3EEB3259BC2120002A2D3 /* ZLBaseFramework.h */,
 				74D3EEB4259BC2120002A2D3 /* Info.plist */,
 			);
 			path = ZLBaseFramework;
-			sourceTree = "<group>";
-		};
-		74D3EEC2259BC25D0002A2D3 /* SYDCentralPivot */ = {
-			isa = PBXGroup;
-			children = (
-				74D3EED2259BC25D0002A2D3 /* SYDCentralPivotHeader.h */,
-				74D3F592259D48740002A2D3 /* model */,
-				74D3EEC3259BC25D0002A2D3 /* SYDCentralQueuePool */,
-				74D3EEC7259BC25D0002A2D3 /* SYDCentralRouter */,
-				74D3EECE259BC25D0002A2D3 /* UIViewController */,
-				74D3EED3259BC25D0002A2D3 /* SYDCentralFactory */,
-			);
-			path = SYDCentralPivot;
-			sourceTree = "<group>";
-		};
-		74D3EEC3259BC25D0002A2D3 /* SYDCentralQueuePool */ = {
-			isa = PBXGroup;
-			children = (
-				74D3EEC4259BC25D0002A2D3 /* SYDCentralQueuePool.h */,
-				74D3EEC5259BC25D0002A2D3 /* SYDCentralQueuePool.m */,
-			);
-			path = SYDCentralQueuePool;
-			sourceTree = "<group>";
-		};
-		74D3EEC7259BC25D0002A2D3 /* SYDCentralRouter */ = {
-			isa = PBXGroup;
-			children = (
-				74D3EEC8259BC25D0002A2D3 /* SYDCentralRouter.h */,
-				74D3EECB259BC25D0002A2D3 /* SYDCentralRouter.m */,
-			);
-			path = SYDCentralRouter;
-			sourceTree = "<group>";
-		};
-		74D3EECE259BC25D0002A2D3 /* UIViewController */ = {
-			isa = PBXGroup;
-			children = (
-				74D3EECF259BC25D0002A2D3 /* UIViewController+SYDRouter.m */,
-				74D3EED0259BC25D0002A2D3 /* UIViewController+SYDRouter.h */,
-			);
-			path = UIViewController;
-			sourceTree = "<group>";
-		};
-		74D3EED3259BC25D0002A2D3 /* SYDCentralFactory */ = {
-			isa = PBXGroup;
-			children = (
-				74D3EED5259BC25D0002A2D3 /* SYDCentralFactory.h */,
-				74D3EED7259BC25D0002A2D3 /* SYDCentralFactory.m */,
-			);
-			path = SYDCentralFactory;
-			sourceTree = "<group>";
-		};
-		74D3EEDA259BC25D0002A2D3 /* Extension */ = {
-			isa = PBXGroup;
-			children = (
-				74D3EEDC259BC25D0002A2D3 /* UIView+HJViewStyle.h */,
-				74D3EEDE259BC25D0002A2D3 /* UIView+HJViewStyle.m */,
-				74D3EEDD259BC25D0002A2D3 /* UIColor+HexColor.h */,
-				74D3EEDB259BC25D0002A2D3 /* UIColor+HexColor.m */,
-			);
-			path = Extension;
 			sourceTree = "<group>";
 		};
 		74D3EEDF259BC25D0002A2D3 /* ZLBase */ = {
@@ -3436,15 +3361,6 @@
 			path = ZLServiceManager;
 			sourceTree = "<group>";
 		};
-		74D3F592259D48740002A2D3 /* model */ = {
-			isa = PBXGroup;
-			children = (
-				74D3EED1259BC25D0002A2D3 /* SYDCentralRouterModel.h */,
-				74D3EEC6259BC25D0002A2D3 /* SYDCentralRouterModel.m */,
-			);
-			path = model;
-			sourceTree = "<group>";
-		};
 		74D7B5FB22F1393700C109CA /* ZLUserAdditionInfoController */ = {
 			isa = PBXGroup;
 			children = (
@@ -3818,22 +3734,14 @@
 				74D3EF22259BC25D0002A2D3 /* ZLBaseObject.h in Headers */,
 				74D3EF1C259BC25D0002A2D3 /* ZLBaseViewController.h in Headers */,
 				74D3EF1D259BC25D0002A2D3 /* ZLBaseTabBarController.h in Headers */,
-				74D3EF0D259BC25D0002A2D3 /* UIView+HJViewStyle.h in Headers */,
-				74D3EF0E259BC25D0002A2D3 /* UIColor+HexColor.h in Headers */,
-				74D3EF05259BC25D0002A2D3 /* SYDCentralPivotHeader.h in Headers */,
 				74D3EF16259BC25D0002A2D3 /* ZLBaseNavigationBar.h in Headers */,
 				74D3EF1B259BC25D0002A2D3 /* ZLBaseNavigationController.h in Headers */,
-				74D3EEFC259BC25D0002A2D3 /* SYDCentralRouter.h in Headers */,
 				74D3EF15259BC25D0002A2D3 /* ZLBaseView.h in Headers */,
 				74D3EF12259BC25D0002A2D3 /* ZLBaseUIHeader.h in Headers */,
-				74D3EEF9259BC25D0002A2D3 /* SYDCentralQueuePool.h in Headers */,
-				74D3EF07259BC25D0002A2D3 /* SYDCentralFactory.h in Headers */,
 				74D3EF13259BC25D0002A2D3 /* ZLBaseUIConfig.h in Headers */,
-				74D3EF04259BC25D0002A2D3 /* SYDCentralRouterModel.h in Headers */,
 				74D3EF19259BC25D0002A2D3 /* ZLBaseButton.h in Headers */,
 				74D3EF11259BC25D0002A2D3 /* ZLBaseViewModel.h in Headers */,
 				74D3F06A259BD6D60002A2D3 /* ZLDeviceInfo.h in Headers */,
-				74D3EF03259BC25D0002A2D3 /* UIViewController+SYDRouter.h in Headers */,
 				74D3F070259BD73E0002A2D3 /* ZLBaseToolHeader.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4137,12 +4045,65 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ZLGitHubClient/Pods-ZLGitHubClient-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ZLGitHubClient/Pods-ZLGitHubClient-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
+				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
+				"${BUILT_PRODUCTS_DIR}/MJExtension/MJExtension.framework",
+				"${BUILT_PRODUCTS_DIR}/SYDCentralPivot/SYDCentralPivot.framework",
+				"${BUILT_PRODUCTS_DIR}/BSBacktraceLogger/BSBacktraceLogger.framework",
+				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
+				"${BUILT_PRODUCTS_DIR}/CircleMenu/CircleMenu.framework",
+				"${BUILT_PRODUCTS_DIR}/DoraemonKit/DoraemonKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBRetainCycleDetector/FBRetainCycleDetector.framework",
+				"${BUILT_PRODUCTS_DIR}/FFPopup/FFPopup.framework",
+				"${BUILT_PRODUCTS_DIR}/FWPopupView/FWPopupView.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
+				"${BUILT_PRODUCTS_DIR}/JJException/JJException.framework",
+				"${BUILT_PRODUCTS_DIR}/JXSegmentedView/JXSegmentedView.framework",
+				"${PODS_ROOT}/LookinServer/LookinServer.framework",
+				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Toast/Toast.framework",
+				"${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework",
+				"${BUILT_PRODUCTS_DIR}/UITextView+Placeholder/UITextView_Placeholder.framework",
+				"${BUILT_PRODUCTS_DIR}/YYText/YYText.framework",
+				"${BUILT_PRODUCTS_DIR}/fishhook/fishhook.framework",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/Apollo/Apollo.framework",
+				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ZLGitHubClient/Pods-ZLGitHubClient-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJExtension.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SYDCentralPivot.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BSBacktraceLogger.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CircleMenu.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DoraemonKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBRetainCycleDetector.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FFPopup.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FWPopupView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManager.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JJException.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JXSegmentedView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LookinServer.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast_Swift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITextView_Placeholder.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYText.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/fishhook.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Apollo.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMDB.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -4242,7 +4203,7 @@
 				74D3EFD6259BC6060002A2D3 /* UIView+Frame.m in Sources */,
 				743425C7230AC6AD0031AD7D /* ZLRepoInfoController.swift in Sources */,
 				74209D5424B66D820068891E /* ZLRepoLanguagesPercentView.swift in Sources */,
-				74344A67258B0FB900903E08 /* Fixed_Repo.intentdefinition in Sources */,
+				747FCA1525FFAA2B00D2C39B /* Fixed_Repo.intentdefinition in Sources */,
 				D1259FA023195CC700C7892B /* ZLNewsViewModel.swift in Sources */,
 				7486DFFE25A2CC7C00EE38CB /* ZLURLNotificationDealManager.swift in Sources */,
 				7444B29B2567AD9700488EF0 /* ZLWorkboardTableViewSectionHeader.swift in Sources */,
@@ -4325,6 +4286,7 @@
 				74DFD9E12427BA68005825D3 /* ZLRepoContentController.swift in Sources */,
 				7431B43622F5E0510060968A /* ZLSearchViewModel.swift in Sources */,
 				7456A2F02416A4E100222D6C /* ZLPullRequestTableViewCellData.swift in Sources */,
+				74D3DF9725CBF12200BB11F2 /* UIView+HJViewStyle.m in Sources */,
 				749DBC9624B3DDF800D02B2C /* ZLMemberEventTableViewCellData.swift in Sources */,
 				7423C7EA24BD4CB700B3FDA5 /* ZLRepoCodePreview3Controller.swift in Sources */,
 				74D3F000259BC6070002A2D3 /* CYRangePickerPopoverView.m in Sources */,
@@ -4392,6 +4354,7 @@
 				743425E6230AEA400031AD7D /* ZLRepoInfoViewModel.swift in Sources */,
 				74C639DB24B7DDA500457F94 /* ZLWorkflowTableViewCell.swift in Sources */,
 				7431B42922F5DDD70060968A /* ZLExploreBaseViewModel.swift in Sources */,
+				74D3DF9825CBF12200BB11F2 /* UIColor+HexColor.m in Sources */,
 				74D3EFD8259BC6060002A2D3 /* UITextField+PlaceHolder.m in Sources */,
 				74D7B5FD22F1398F00C109CA /* ZLUserAdditionInfoController.swift in Sources */,
 				361B8B7F239FD35000F725B8 /* ZLStarReposBaseViewModel.m in Sources */,
@@ -4425,6 +4388,7 @@
 				749DBC8E24B3D61000D02B2C /* ZLPullRequestEventTableViewCell.swift in Sources */,
 				746B092E21EB7362000EE88B /* ZLMainViewController.m in Sources */,
 				74D3EFF5259BC6060002A2D3 /* ZLBaseSearchController.m in Sources */,
+				74D3DF8725CBEE9300BB11F2 /* UIViewController+Tool.m in Sources */,
 				74C639D324B7DA5700457F94 /* ZLRepoWorkflowsController.swift in Sources */,
 				74D3EFF8259BC6060002A2D3 /* CYMutiPickerPopoverView.m in Sources */,
 				36C786012407E05F001B74C9 /* ZLRepoItemInfoView.swift in Sources */,
@@ -4455,7 +4419,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				74344A66258B0FB900903E08 /* Fixed_Repo.intentdefinition in Sources */,
+				747FCA1625FFAA2B00D2C39B /* Fixed_Repo.intentdefinition in Sources */,
 				74344A61258B0FB600903E08 /* TrendingRepoWidget.swift in Sources */,
 				74CAB16425BBAD2E00CE26A4 /* WidgetGallary.swift in Sources */,
 				74D3F60B259D55E30002A2D3 /* ZLWidgetService.swift in Sources */,
@@ -4468,19 +4432,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				74D3EF20259BC25D0002A2D3 /* ZLBaseViewController.m in Sources */,
-				74D3EF02259BC25D0002A2D3 /* UIViewController+SYDRouter.m in Sources */,
-				74D3EEFA259BC25D0002A2D3 /* SYDCentralQueuePool.m in Sources */,
 				74D3EF14259BC25D0002A2D3 /* ZLBaseUIConfig.m in Sources */,
 				74D3F069259BD6D60002A2D3 /* ZLDeviceInfo.m in Sources */,
 				74D3EF1E259BC25D0002A2D3 /* ZLBaseNavigationController.m in Sources */,
 				74D3EF1A259BC25D0002A2D3 /* ZLBaseNavigationBar.m in Sources */,
-				74D3EEFB259BC25D0002A2D3 /* SYDCentralRouterModel.m in Sources */,
-				74D3EEFF259BC25D0002A2D3 /* SYDCentralRouter.m in Sources */,
-				74D3EF0C259BC25D0002A2D3 /* UIColor+HexColor.m in Sources */,
 				74D3EF17259BC25D0002A2D3 /* ZLBaseButton.m in Sources */,
 				74D3EF10259BC25D0002A2D3 /* ZLBaseViewModel.m in Sources */,
-				74D3EF0F259BC25D0002A2D3 /* UIView+HJViewStyle.m in Sources */,
-				74D3EF09259BC25D0002A2D3 /* SYDCentralFactory.m in Sources */,
 				74D3EF21259BC25D0002A2D3 /* ZLBaseObject.m in Sources */,
 				74D3EF1F259BC25D0002A2D3 /* ZLBaseTabBarController.m in Sources */,
 				74D3EF18259BC25D0002A2D3 /* ZLBaseView.m in Sources */,
@@ -4585,6 +4542,16 @@
 				74C861D322F02CB300A30B79 /* zh-Hans */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		747FCA1825FFAA2B00D2C39B /* Fixed_Repo.intentdefinition */ = {
+			isa = PBXVariantGroup;
+			children = (
+				747FCA1725FFAA2B00D2C39B /* Base */,
+				747FCA2825FFB16400D2C39B /* zh-Hans */,
+				747FCA2D25FFB17100D2C39B /* en */,
+			);
+			name = Fixed_Repo.intentdefinition;
 			sourceTree = "<group>";
 		};
 		74C861CC22F02BED00A30B79 /* ZLGitHubClientLocalizable.strings */ = {
@@ -4718,10 +4685,14 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 20;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 24LG5QVBPR;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ZLGitHubClient/Framework",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ZLGitHubClient/System/ZLSupportFiles/ZLGitHubClient-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -4783,10 +4754,14 @@
 				CODE_SIGN_IDENTITY = "Apple Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 20;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 24LG5QVBPR;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ZLGitHubClient/Framework",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ZLGitHubClient/System/ZLSupportFiles/ZLGitHubClient-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -4847,7 +4822,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_TEAM = 24LG5QVBPR;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/ZLGitHubClient/Class/Import/OCGumbo/gumbo";
 				INFOPLIST_FILE = "Fixed Repo/Info.plist";
@@ -4889,7 +4864,7 @@
 				CODE_SIGN_IDENTITY = "Apple Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_TEAM = 24LG5QVBPR;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/ZLGitHubClient/Class/Import/OCGumbo/gumbo";
 				INFOPLIST_FILE = "Fixed Repo/Info.plist";
@@ -4925,7 +4900,6 @@
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -4965,7 +4939,6 @@
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Distribution";
@@ -5006,7 +4979,6 @@
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
@@ -5042,6 +5014,22 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-l\"sqlite3\"",
+					"-framework",
+					"\"AFNetworking\"",
+					"-framework",
+					"\"Apollo\"",
+					"-framework",
+					"\"CocoaLumberjack\"",
+					"-framework",
+					"\"FMDB\"",
+					"-framework",
+					"\"MJExtension\"",
+					"-framework",
+					"\"SYDCentralPivot\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zm.ZLServiceFramework;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -5064,7 +5052,6 @@
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Distribution";
@@ -5099,6 +5086,22 @@
 					"$(PROJECT_DIR)/ZLServiceFramework/Class/Import/OCGumbo",
 				);
 				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-l\"sqlite3\"",
+					"-framework",
+					"\"AFNetworking\"",
+					"-framework",
+					"\"Apollo\"",
+					"-framework",
+					"\"CocoaLumberjack\"",
+					"-framework",
+					"\"FMDB\"",
+					"-framework",
+					"\"MJExtension\"",
+					"-framework",
+					"\"SYDCentralPivot\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zm.ZLServiceFramework;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

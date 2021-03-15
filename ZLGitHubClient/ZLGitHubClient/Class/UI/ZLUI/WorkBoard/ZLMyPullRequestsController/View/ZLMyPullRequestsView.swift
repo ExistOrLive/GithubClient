@@ -40,7 +40,9 @@ class ZLMyPullRequestsView: ZLBaseView {
         view.backgroundColor = UIColor(named: "ZLSubBarColor")
         self.addSubview(view)
         view.snp.makeConstraints { (make) in
-            make.top.left.right.equalToSuperview()
+            make.top.equalToSuperview()
+            make.left.equalTo(self.safeAreaLayoutGuide.snp.left)
+            make.right.equalTo(self.safeAreaLayoutGuide.snp.right)
             make.height.equalTo(30)
         }
         

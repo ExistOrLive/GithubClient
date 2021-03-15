@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -11,6 +11,9 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ZLReportController" customModule="ZLGitHubClient" customModuleProvider="target">
             <connections>
                 <outlet property="reasonPickerView" destination="pfn-ZB-S5P" id="RCG-3O-2iW"/>
+                <outlet property="reportReasonLabel" destination="64M-3c-QBL" id="EJy-YG-0Y8"/>
+                <outlet property="reportedUserLabel" destination="H1t-sZ-rcA" id="FZu-ww-mNH"/>
+                <outlet property="submitButton" destination="vR1-Ko-XJY" id="hmf-Cx-X4H"/>
                 <outlet property="userLabel" destination="Oy3-vf-J3t" id="D0Q-Df-CyE"/>
             </connections>
         </placeholder>

@@ -17,5 +17,4 @@ FOUNDATION_EXPORT const unsigned char ZLBaseFrameworkVersionString[];
 // In this header, you should import all the public headers of your framework using statements like #import <ZLBaseFramework/PublicHeader.h>
 
 #import "ZLBaseUIHeader.h"
-#import "SYDCentralPivotHeader.h"
 #import "ZLBaseToolHeader.h"

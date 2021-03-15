@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SYDCentralPivot
 
 @objcMembers class ZLUIRouter: NSObject {
     
@@ -27,7 +28,7 @@ import UIKit
             config.isNavigated = ( vc.navigationController != nil )
             config.hidesBottomBarWhenPushed = true
             config.animated = true
-            SYDCentralRouter.sharedInstance()?.enterViewController(key, withViewControllerConfig: config, withParam: params)
+            SYDCentralRouter.sharedInstance().enterViewController(key, withViewControllerConfig: config, withParam: params)
         }
     }
     
@@ -49,7 +50,7 @@ import UIKit
             config.isNavigated = true
             config.hidesBottomBarWhenPushed = true
             config.animated = animated
-            SYDCentralRouter.sharedInstance()?.enterViewController(key, withViewControllerConfig: config, withParam: params)
+            SYDCentralRouter.sharedInstance().enterViewController(key, withViewControllerConfig: config, withParam: params)
         }
     }
 }

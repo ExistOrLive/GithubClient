@@ -12,17 +12,24 @@ class ZLReportController: ZLBaseViewController {
     
     var loginName : String?
     
-    static let reasons = ["illegal prohibited","pornographic","advertising fraud","juvenile correlation","insults abuse","other"]
+    let reasons = [ZLLocalizedString(string: "illegal prohibited", comment: ""),
+                   ZLLocalizedString(string: "pornographic", comment: ""),
+                   ZLLocalizedString(string: "advertising fraud", comment: ""),
+                   ZLLocalizedString(string: "juvenile correlation", comment: ""),
+                   ZLLocalizedString(string: "insults abuse", comment: ""),
+                   ZLLocalizedString(string: "other", comment: "")]
     
     @IBOutlet weak var userLabel: UILabel!
-    
     @IBOutlet weak var reasonPickerView: UIPickerView!
+    @IBOutlet weak var reportedUserLabel: UILabel!
+    @IBOutlet weak var reportReasonLabel: UILabel!
+    @IBOutlet weak var submitButton: ZLBaseButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Report"
-        
+        self.title = ZLLocalizedString(string: "Report", comment: "")
+
         guard let baseView : UIView  = Bundle.main.loadNibNamed("ZLReportBaseView", owner: self, options: nil)?.first as? UIView else {
             return
         }
@@ -33,6 +40,9 @@ class ZLReportController: ZLBaseViewController {
         }
         
         self.userLabel.text = self.loginName
+        self.reportedUserLabel.text = ZLLocalizedString(string: "Reported User", comment: "")
+        self.reportReasonLabel.text = ZLLocalizedString(string: "Report Reason", comment: "")
+        self.submitButton.setTitle(ZLLocalizedString(string: "submit", comment: ""), for: .normal)
         
         self.reasonPickerView.delegate = self
         self.reasonPickerView.dataSource = self
@@ -48,10 +58,10 @@ class ZLReportController: ZLBaseViewController {
             SVProgressHUD.dismiss()
             
             if model.result == true{
-                ZLToastView.showMessage("Report Success")
+                ZLToastView.showMessage(ZLLocalizedString(string: "Report Success", comment: ""))
                 weakSelf?.navigationController?.popViewController(animated: true)
             } else {
-                ZLToastView.showMessage("Report Failed")
+                ZLToastView.showMessage(ZLLocalizedString(string: "Report Failed", comment: ""))
             }
         }
         
@@ -68,11 +78,11 @@ extension ZLReportController : UIPickerViewDelegate,UIPickerViewDataSource{
     }
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
-        return ZLReportController.reasons.count
+        return reasons.count
     }
     
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?{
-        return ZLReportController.reasons[row]
+        return reasons[row]
     }
 }

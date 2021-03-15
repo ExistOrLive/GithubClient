@@ -15,7 +15,7 @@ class ZLOrgsViewController: ZLBaseViewController, ZLGithubItemListViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = ZLLocalizedString(string: "Organizations", comment: "")
+        self.title = ZLLocalizedString(string: "organizations", comment: "")
                 
         let listView = ZLGithubItemListView()
         self.githubItemListView = listView

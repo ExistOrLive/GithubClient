@@ -44,7 +44,7 @@ class ZLFeedbackViewModel: ZLBaseViewModel {
         
         weak var weakself = self
         SVProgressHUD.show()
-        ZLServiceManager.sharedInstance.repoServiceModel?.createIssue(withFullName: "MengAndJie/GithubClient", title: title, body: body, labels: nil, assignees: nil, serialNumber:serialNumber, completeHandle: { (resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.repoServiceModel?.createIssue(withFullName: "ExistOrLive/GithubClient", title: title, body: body, labels: nil, assignees: nil, serialNumber:serialNumber, completeHandle: { (resultModel : ZLOperationResultModel) in
             SVProgressHUD.dismiss()
             if resultModel.result == true {
                 

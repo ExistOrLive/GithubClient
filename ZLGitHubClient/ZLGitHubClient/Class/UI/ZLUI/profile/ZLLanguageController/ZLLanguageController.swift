@@ -24,7 +24,9 @@ class ZLLanguageController: ZLBaseViewController {
         }
         self.contentView.addSubview(view)
         view.snp.makeConstraints { (make) in
-            make.edges.equalTo(self.contentView)
+            make.right.equalTo(self.contentView.safeAreaLayoutGuide.snp.right)
+            make.left.equalTo(self.contentView.safeAreaLayoutGuide.snp.left)
+            make.top.bottom.equalTo(self.contentView)
         }
         
         

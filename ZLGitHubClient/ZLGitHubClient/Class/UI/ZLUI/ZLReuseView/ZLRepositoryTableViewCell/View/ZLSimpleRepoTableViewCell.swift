@@ -25,6 +25,9 @@ class ZLSimpleRepoTableViewCell: UITableViewCell {
     }
     
     func setUpUI(){
+        
+        self.backgroundColor = UIColor.clear
+        
         self.contentView.backgroundColor = UIColor(named: "ZLCellBack")
         
         self.avatarImageView = UIImageView()
