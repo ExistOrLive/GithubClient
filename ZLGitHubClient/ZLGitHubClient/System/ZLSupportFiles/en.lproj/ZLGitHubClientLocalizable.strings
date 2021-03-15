@@ -224,3 +224,17 @@
 "Hide Assist Button" = "Hide Assist Button";
 "ReShow Assist Button" = "You can relaunch assist button in setting";
 
+
+// report
+"Report" = "Report";
+"Reported User" = "Reported User";
+"Report Reason" = "Report Reason";
+"Report Success" = "Report Successfully";
+"Report Failed" = "Report Failed";
+"illegal prohibited" = "illegal prohibited";
+"pornographic" = "pornographic";
+"advertising fraud" = "advertising fraud";
+"juvenile correlation" = "juvenile correlation";
+"insults abuse" = "insults abuse";
+"other" = "other";
+

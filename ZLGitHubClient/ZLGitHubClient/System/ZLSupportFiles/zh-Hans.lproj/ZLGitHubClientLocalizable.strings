@@ -217,3 +217,16 @@
 "AssistButton" = "辅助按钮";
 "Hide Assist Button" = "隐藏辅助按钮";
 "ReShow Assist Button" = "你可以在设置中重新启动辅助按钮";
+
+// report
+"Report" = "举报";
+"Reported User" = "举报对象";
+"Report Reason" = "举报理由";
+"Report Success" = "举报成功";
+"Report Failed" = "举报失败";
+"illegal prohibited" = "违法行为";
+"pornographic" = "色情相关";
+"advertising fraud" = "广告欺诈";
+"juvenile correlation" = "青少年相关";
+"insults abuse" = "侮辱虐待";
+"other" = "其他";
