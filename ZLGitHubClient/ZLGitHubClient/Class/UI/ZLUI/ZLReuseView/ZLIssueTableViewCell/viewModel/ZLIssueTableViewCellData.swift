@@ -26,9 +26,17 @@ class ZLIssueTableViewCellData: ZLGithubItemTableViewCellData {
     }
     
     override func onCellSingleTap() {
-        let vc = ZLWebContentController.init()
-        vc.requestURL = URL.init(string: self.issueModel.html_url)
-        self.viewController?.navigationController?.pushViewController(vc, animated: true)
+//        let vc = ZLWebContentController.init()
+//        vc.requestURL = URL.init(string: self.issueModel.html_url)
+        
+        // https://github.com/MengAndJie/GithubClient/issues/22
+        if let url = URL(string: issueModel.html_url) {
+            let vc = ZLIssueInfoController()
+            vc.login = url.pathComponents[1]
+            vc.repoName = url.pathComponents[2]
+            vc.number = Int(url.pathComponents[4])
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     

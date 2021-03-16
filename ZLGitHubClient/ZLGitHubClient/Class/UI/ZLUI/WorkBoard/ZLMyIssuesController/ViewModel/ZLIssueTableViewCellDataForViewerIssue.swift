@@ -30,8 +30,13 @@ class ZLIssueTableViewCellDataForViewerIssue: ZLGithubItemTableViewCellData {
     }
     
     override func onCellSingleTap() {
-        let vc = ZLWebContentController.init()
-        vc.requestURL = URL.init(string: data.url)
+//        let vc = ZLWebContentController.init()
+//        vc.requestURL = URL.init(string: data.url)
+//        self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        let vc = ZLIssueInfoController()
+        vc.login = String(data.repository.nameWithOwner.split(separator: "/").first ?? "")
+        vc.repoName = data.repository.name
+        vc.number = data.number
         self.viewController?.navigationController?.pushViewController(vc, animated: true)
     }
     

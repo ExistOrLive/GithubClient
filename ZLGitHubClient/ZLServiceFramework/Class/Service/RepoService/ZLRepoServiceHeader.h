@@ -113,6 +113,15 @@ static const NSNotificationName _Nonnull ZLGetSpecifiedRepoInfoResult_Notificati
 
 #pragma mark - Issues
 
+
+- (void) getRepositoryIssueInfoWithLoginName:(NSString * _Nonnull) loginName
+                                    repoName:(NSString * _Nonnull) repoName
+                                     number:(int) number
+                               serialNumber:(NSString * _Nonnull) serialNumber
+                             completeHandle:(void(^ _Nonnull)(ZLOperationResultModel *  _Nonnull)) handle;
+
+
+
 /**
  * @brief 根据repo fullname获取 issues
  * @param fullName octocat/Hello-World
@@ -285,6 +294,7 @@ static const NSNotificationName _Nonnull ZLGetSpecifiedRepoInfoResult_Notificati
                                       branch:(NSString * _Nonnull) branch
                                 serialNumber:(NSString * _Nonnull) serialNumber
                               completeHandle:(void(^ _Nonnull)(ZLOperationResultModel *  _Nonnull)) handle;
+
 
 
 @end
