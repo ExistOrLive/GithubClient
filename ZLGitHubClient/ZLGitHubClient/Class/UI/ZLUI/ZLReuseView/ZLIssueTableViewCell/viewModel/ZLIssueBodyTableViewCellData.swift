@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WebKit
 
 class ZLIssueBodyTableViewCellData: ZLGithubItemTableViewCellData {
 
@@ -14,9 +15,26 @@ class ZLIssueBodyTableViewCellData: ZLGithubItemTableViewCellData {
     
     let data : IssueData
     
+    let webView : WKWebView = WKWebView()
+    var webViewhasLoad : Bool = false
+    
+    deinit {
+        webView.scrollView.removeObserver(self, forKeyPath: "contentSize")
+    }
+    
     init(data : IssueData) {
         self.data = data
         super.init()
+        
+        webView.navigationDelegate = self
+        webView.isUserInteractionEnabled = false
+        webView.frame = CGRect.zero
+        webView.scrollView.backgroundColor = UIColor.clear
+        webView.backgroundColor = UIColor.clear
+        webView.scrollView.isScrollEnabled = false
+        webView.scrollView.addObserver(self, forKeyPath: "contentSize", options: [.new,.old], context: nil)
+        
+        self.loadWebView()
     }
     
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
@@ -34,10 +52,81 @@ class ZLIssueBodyTableViewCellData: ZLGithubItemTableViewCellData {
     override func getCellHeight() -> CGFloat {
         return UITableView.automaticDimension;
     }
+    
+    override func clearCache() {
+        super.clearCache()
+        self.loadWebView()
+    }
+    
+    
+    func loadWebView() {
+        
+        let htmlURL: URL? = Bundle.main.url(forResource: "github_style", withExtension: "html")
+        
+        let cssURL : URL?
+        
+        if #available(iOS 12.0, *) {
+            if getRealUserInterfaceStyle() == .light{
+                cssURL = Bundle.main.url(forResource: "github_style_markdown", withExtension: "css")
+            } else {
+                cssURL = Bundle.main.url(forResource: "github_style_dark_markdown", withExtension: "css")
+            }
+        } else {
+            cssURL = Bundle.main.url(forResource: "github_style_markdown", withExtension: "css")
+        }
+        
+        if let url = htmlURL {
+            
+            do {
+                let htmlStr = try String.init(contentsOf: url)
+                let newHtmlStr = NSMutableString.init(string: htmlStr)
+                
+                if cssURL != nil {
+                    let cssStr = try String.init(contentsOf: cssURL!)
+                    let range = (newHtmlStr as NSString).range(of:"</style>")
+                    if  range.location != NSNotFound{
+                        newHtmlStr.insert(cssStr, at: range.location)
+                    }
+                }
+                let range = (newHtmlStr as NSString).range(of:"</body>")
+                if  range.location != NSNotFound{
+                    newHtmlStr.insert("<article class=\"markdown-body entry-content container-lg\" itemprop=\"text\">\(data.bodyHtml)</article>", at: range.location)
+                }
+                webView.loadHTMLString(newHtmlStr as String, baseURL: nil)
+                
+            } catch {
+               
+            }
+        }
+    }
+    
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        
+        if keyPath == "contentSize"{
+            guard let size : CGSize = change?[NSKeyValueChangeKey.newKey] as? CGSize else{
+                return
+            }
+            
+            guard let oldSize : CGSize = change?[NSKeyValueChangeKey.oldKey] as? CGSize else {
+                return
+            }
+            
+            
+            if oldSize.height != size.height && webView.superview != nil {
+                self.super?.getEvent(nil, fromSubViewModel: self)
+            }
+        }
+        
+    }
 
 }
 
 extension ZLIssueBodyTableViewCellData : ZLIssueCommentTableViewCellDelegate {
+    func getCommentWebView() -> WKWebView {
+        return webView
+    }
+    
     
     func getActorAvatarUrl() -> String {
         return data.author?.avatarUrl ?? ""
@@ -62,3 +151,13 @@ extension ZLIssueBodyTableViewCellData : ZLIssueCommentTableViewCellDelegate {
     
 }
 
+extension ZLIssueBodyTableViewCellData : WKNavigationDelegate {
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        if navigationAction.navigationType == .other {
+            decisionHandler(.allow)
+        } else {
+            decisionHandler(.cancel)
+        }
+        
+    }
+}

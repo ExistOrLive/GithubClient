@@ -2533,6 +2533,11 @@ public final class IssueInfoQuery: GraphQLQuery {
       repository(owner: $owner, name: $name) {
         __typename
         nameWithOwner
+        owner {
+          __typename
+          login
+          avatarUrl
+        }
         issue(number: $number) {
           __typename
           title
@@ -2760,6 +2765,7 @@ public final class IssueInfoQuery: GraphQLQuery {
         return [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("nameWithOwner", type: .nonNull(.scalar(String.self))),
+          GraphQLField("owner", type: .nonNull(.object(Owner.selections))),
           GraphQLField("issue", arguments: ["number": GraphQLVariable("number")], type: .object(Issue.selections)),
         ]
       }
@@ -2770,8 +2776,8 @@ public final class IssueInfoQuery: GraphQLQuery {
         self.resultMap = unsafeResultMap
       }
 
-      public init(nameWithOwner: String, issue: Issue? = nil) {
-        self.init(unsafeResultMap: ["__typename": "Repository", "nameWithOwner": nameWithOwner, "issue": issue.flatMap { (value: Issue) -> ResultMap in value.resultMap }])
+      public init(nameWithOwner: String, owner: Owner, issue: Issue? = nil) {
+        self.init(unsafeResultMap: ["__typename": "Repository", "nameWithOwner": nameWithOwner, "owner": owner.resultMap, "issue": issue.flatMap { (value: Issue) -> ResultMap in value.resultMap }])
       }
 
       public var __typename: String {
@@ -2793,6 +2799,16 @@ public final class IssueInfoQuery: GraphQLQuery {
         }
       }
 
+      /// The User owner of the repository.
+      public var owner: Owner {
+        get {
+          return Owner(unsafeResultMap: resultMap["owner"]! as! ResultMap)
+        }
+        set {
+          resultMap.updateValue(newValue.resultMap, forKey: "owner")
+        }
+      }
+
       /// Returns a single issue from the current repository by number.
       public var issue: Issue? {
         get {
@@ -2800,6 +2816,61 @@ public final class IssueInfoQuery: GraphQLQuery {
         }
         set {
           resultMap.updateValue(newValue?.resultMap, forKey: "issue")
+        }
+      }
+
+      public struct Owner: GraphQLSelectionSet {
+        public static let possibleTypes: [String] = ["Organization", "User"]
+
+        public static var selections: [GraphQLSelection] {
+          return [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("login", type: .nonNull(.scalar(String.self))),
+            GraphQLField("avatarUrl", type: .nonNull(.scalar(String.self))),
+          ]
+        }
+
+        public private(set) var resultMap: ResultMap
+
+        public init(unsafeResultMap: ResultMap) {
+          self.resultMap = unsafeResultMap
+        }
+
+        public static func makeOrganization(login: String, avatarUrl: String) -> Owner {
+          return Owner(unsafeResultMap: ["__typename": "Organization", "login": login, "avatarUrl": avatarUrl])
+        }
+
+        public static func makeUser(login: String, avatarUrl: String) -> Owner {
+          return Owner(unsafeResultMap: ["__typename": "User", "login": login, "avatarUrl": avatarUrl])
+        }
+
+        public var __typename: String {
+          get {
+            return resultMap["__typename"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        /// The username used to login.
+        public var login: String {
+          get {
+            return resultMap["login"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "login")
+          }
+        }
+
+        /// A URL pointing to the owner's public avatar.
+        public var avatarUrl: String {
+          get {
+            return resultMap["avatarUrl"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "avatarUrl")
+          }
         }
       }
 

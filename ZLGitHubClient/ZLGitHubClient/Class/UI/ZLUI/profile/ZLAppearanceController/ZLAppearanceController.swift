@@ -53,8 +53,8 @@ class ZLAppearanceController: ZLBaseViewController {
         
         if #available(iOS 13.0, *){
             let interfaceStyle : UIUserInterfaceStyle  = UIUserInterfaceStyle.init(rawValue: sender.tag) ?? UIUserInterfaceStyle.unspecified
-            UIApplication.shared.delegate?.window??.overrideUserInterfaceStyle = interfaceStyle
             ZLSharedDataManager.sharedInstance().currentUserInterfaceStyle = interfaceStyle
+            UIApplication.shared.delegate?.window??.overrideUserInterfaceStyle = interfaceStyle
             for seletedTag in seletedTags{
                 seletedTag.isHidden = (seletedTag.tag != interfaceStyle.rawValue)
             }

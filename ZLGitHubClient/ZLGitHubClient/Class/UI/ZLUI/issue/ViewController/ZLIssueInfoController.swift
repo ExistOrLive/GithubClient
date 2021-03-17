@@ -87,6 +87,13 @@ class ZLIssueInfoController: ZLBaseViewController {
 
 }
 
+
+extension ZLIssueInfoController {
+    override func getEvent(_ event: Any?, fromSubViewModel subViewModel: ZLBaseViewModel) {
+        self.itemListView.reloadData()
+    }
+}
+
 extension ZLIssueInfoController : ZLGithubItemListViewDelegate {
     
     func githubItemListViewRefreshDragDown(pullRequestListView: ZLGithubItemListView) {

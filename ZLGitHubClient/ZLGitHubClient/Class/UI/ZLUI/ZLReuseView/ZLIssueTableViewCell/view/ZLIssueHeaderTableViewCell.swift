@@ -90,9 +90,9 @@ class ZLIssueHeaderTableViewCell: UITableViewCell {
         titleLabel = label3
         
         let label4 = UILabel()
-        label4.font = UIFont(name: Font_PingFangSCSemiBold, size: 14)
-        label4.borderWidth = 1 / 2
-        label4.cornerRadius = 5
+        label4.font = UIFont(name: Font_PingFangSCMedium, size: 12)
+        label4.borderWidth = 1 / 3
+        label4.cornerRadius = 8
         label4.textAlignment = .center
         self.contentView.addSubview(label4)
         label4.snp.makeConstraints { (make) in

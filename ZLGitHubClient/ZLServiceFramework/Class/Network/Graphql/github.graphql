@@ -150,6 +150,10 @@ query WorkboardInfo{
 query issueInfo($owner:String!,$name:String!,$number:Int!){
   repository(owner:$owner,name:$name){
     nameWithOwner
+    owner{
+      login
+      avatarUrl
+    }
     
     issue(number:$number){
       title
