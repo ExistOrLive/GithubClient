@@ -7,7 +7,7 @@
 ![stars](https://img.shields.io/github/stars/existorlive/githubclient)
 
 ## Github iOS 客户端  by Existorlive
-<div><a href="https://apps.apple.com/cn/app/zlgithubclient/id1498787032"><img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/appstoredownload.png" width=150></a></div>
+<div><a href="https://apps.apple.com/app/gorillas/id1498787032"><img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/appstoredownload.png" width=150></a></div>
 
 - Objective-c 2.0
 - Swift 5 
