@@ -10,8 +10,8 @@ import UIKit
 import MJRefresh
 
 @objc protocol ZLGithubItemListViewDelegate : NSObjectProtocol{
-    func githubItemListViewRefreshDragDown(pullRequestListView: ZLGithubItemListView) -> Void;
-    func githubItemListViewRefreshDragUp(pullRequestListView: ZLGithubItemListView) -> Void;
+    func githubItemListViewRefreshDragDown(pullRequestListView: ZLGithubItemListView) -> Void
+    func githubItemListViewRefreshDragUp(pullRequestListView: ZLGithubItemListView) -> Void
 }
 
 
@@ -96,6 +96,10 @@ import MJRefresh
         self.tableView?.register(UINib.init(nibName: "ZLNotificationTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLNotificationTableViewCell")
         self.tableView?.register(UINib.init(nibName: "ZLWorkflowTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLWorkflowTableViewCell")
         self.tableView?.register(UINib.init(nibName: "ZLWorkflowRunTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLWorkflowRunTableViewCell")
+        
+        self.tableView?.register(ZLIssueHeaderTableViewCell.self, forCellReuseIdentifier: "ZLIssueHeaderTableViewCell")
+        self.tableView?.register(ZLIssueCommentTableViewCell.self, forCellReuseIdentifier: "ZLIssueCommentTableViewCell")
+        self.tableView?.register(ZLIssueTimelineTableViewCell.self, forCellReuseIdentifier: "ZLIssueTimelineTableViewCell")
     }
     
     private func setNoDataView() -> Void {

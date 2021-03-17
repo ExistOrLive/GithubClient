@@ -25,25 +25,6 @@ query viewerPullRequest($state:[PullRequestState!],$after:String) {
   }
 }
 
-query issueInfo($owner:String!,$name:String!,$number:Int!){
-  repository(owner:$owner,name:$name){
-    nameWithOwner
-    
-    issue(number:$number){
-      title
-      number
-      body
-      bodyHTML
-      state
-      closedAt
-      createdAt
-    }
-  }
-}
-
-
-
-
 # 查询我的top repositories
 query viewerTopRepositories($after:String){
   viewer{
@@ -165,4 +146,172 @@ query WorkboardInfo{
   }
 }
 
-
+# 查询某个issue
+query issueInfo($owner:String!,$name:String!,$number:Int!){
+  repository(owner:$owner,name:$name){
+    nameWithOwner
+    owner{
+      login
+      avatarUrl
+    }
+    
+    issue(number:$number){
+      title
+      number
+      
+      author{
+        login
+        avatarUrl
+      }
+      
+      
+      bodyText
+      bodyHTML
+      state
+      
+      closed
+      closedAt
+      createdAt
+            
+      timelineItems(first:100){
+        totalCount,
+        nodes{
+          __typename
+          ... on IssueComment{
+            id
+            author{
+              login
+              avatarUrl
+            }
+            bodyText
+            bodyHTML
+            url
+            lastEditedAt
+            publishedAt
+          }
+          ... on AddedToProjectEvent{
+            id
+            actor{
+              login
+              avatarUrl
+            }
+            createdAt
+          }
+          ... on AssignedEvent{
+            id
+            actor{
+              login
+              avatarUrl
+            }
+            assignee{
+              __typename
+              ... on User{
+                login
+              }
+              ... on Bot{
+                login
+              }
+              ... on Mannequin{
+                login
+              }
+              ... on Organization{
+                login
+              }
+            }
+          }
+          ... on ClosedEvent{
+            actor{
+              login
+            }
+          }
+          ... on ReopenedEvent{
+            actor{
+              login
+            }
+          }
+          ... on CommentDeletedEvent{
+            actor{
+              login
+            }
+          }
+          ... on ConnectedEvent{
+            actor{
+              login
+            }
+            source{
+              __typename
+              ... on PullRequest{
+                repository{
+                  nameWithOwner
+                }
+                number
+              }
+              ... on Issue{
+                repository{
+                  nameWithOwner
+                }
+                number
+              }
+            }
+            subject{
+              __typename
+              ... on PullRequest{
+                repository{
+                  nameWithOwner
+                }
+                number
+              }
+              ... on Issue{
+                repository{
+                  nameWithOwner
+                }
+                number
+              }
+            }
+            
+          }
+          ... on ConvertedNoteToIssueEvent{
+            actor{
+              login
+            }
+          }
+          ... on ReferencedEvent{
+            actor{
+              login
+            }
+            commit{
+              commitUrl
+              message
+            }
+          }
+          ... on LabeledEvent{
+            actor{
+              login
+            }
+            label{
+              color
+              name
+            }
+          }
+          ... on UnlabeledEvent{
+             actor{
+              login
+            }
+            label{
+              color
+              name
+            }
+          }
+          
+          ... on SubscribedEvent{
+            actor{
+              login
+            }
+          }
+          
+          
+        }
+      }
+    }
+  }
+}

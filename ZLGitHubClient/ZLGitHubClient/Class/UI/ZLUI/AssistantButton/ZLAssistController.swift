@@ -193,9 +193,9 @@ class ZLAssistController: ZLBaseViewController {
         
         if #available(iOS 13.0, *){
             let interfaceStyle : UIUserInterfaceStyle  = UIUserInterfaceStyle.init(rawValue: segmentControl.selectedSegmentIndex) ?? UIUserInterfaceStyle.unspecified
+            ZLSharedDataManager.sharedInstance().currentUserInterfaceStyle = interfaceStyle
             UIApplication.shared.delegate?.window??.overrideUserInterfaceStyle = interfaceStyle
             self.view.window?.overrideUserInterfaceStyle = interfaceStyle
-            ZLSharedDataManager.sharedInstance().currentUserInterfaceStyle = interfaceStyle
             NotificationCenter.default.post(name: ZLUserInterfaceStyleChange_Notification, object: nil)
         }
     }
