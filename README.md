@@ -26,7 +26,7 @@
 - 支持简单查阅repository的代码
 - 支持查阅Notification
 
-## 寻求志同道合的合作开发者，若有意请联系[2068531506@qq.com](2068531506@qq.com)
+## 寻求志同道合的合作开发者，若有意请联系<a src="2068531506@qq.com">2068531506@qq.com</a>
 
 #### Github OAuth login and Access Token login
 
