@@ -34,9 +34,23 @@ class ZLPullRequestTableViewCellDataForViewerPR: ZLGithubItemTableViewCellData {
     }
     
     override func onCellSingleTap() {
-        let vc = ZLWebContentController.init()
-        vc.requestURL = URL.init(string: self.data.url)
-        self.viewController?.navigationController?.pushViewController(vc, animated: true)
+//        let vc = ZLWebContentController.init()
+//        vc.requestURL = URL.init(string: self.data.url)
+//        self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        
+        if let url = URL(string: self.data.url) {
+            if url.pathComponents.count >= 5 && url.pathComponents[3] == "pull" {
+                let vc = ZLPRInfoController()
+                vc.login = url.pathComponents[1]
+                vc.repoName = url.pathComponents[2]
+                vc.number = Int(url.pathComponents[4])
+                self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            } else {
+                let vc = ZLWebContentController.init()
+                vc.requestURL = url
+                self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
     }
 }
 

@@ -100,6 +100,9 @@ import MJRefresh
         self.tableView?.register(ZLIssueHeaderTableViewCell.self, forCellReuseIdentifier: "ZLIssueHeaderTableViewCell")
         self.tableView?.register(ZLIssueCommentTableViewCell.self, forCellReuseIdentifier: "ZLIssueCommentTableViewCell")
         self.tableView?.register(ZLIssueTimelineTableViewCell.self, forCellReuseIdentifier: "ZLIssueTimelineTableViewCell")
+        
+        
+        self.tableView?.register(ZLPullRequestHeaderTableViewCell.self, forCellReuseIdentifier: "ZLPullRequestHeaderTableViewCell")
     }
     
     private func setNoDataView() -> Void {

@@ -53,6 +53,44 @@ query viewerTopRepositories($after:String){
 }
 
 
+
+query searchIssues($after:String,$query:String!){
+  search(query:$query,first:10,type:ISSUE,after:$after){
+  issueCount
+  pageInfo{
+    hasNextPage
+    endCursor
+    startCursor
+  }
+  nodes{
+    ... on Issue{
+      number
+        title
+        body
+        url
+        state
+        labels(first:5,orderBy:{field: CREATED_AT, direction: DESC}){
+          nodes{
+            color
+            name
+          }
+        }
+        author{
+          login
+        }
+        repository{
+          name
+          nameWithOwner
+        }
+        createdAt
+        updatedAt
+        closedAt
+    }
+  }
+  }
+}
+
+
 # 查询我的issues
 query viewerIssues($assignee:String,$creator:String,$mentioned:String,$after:String){
   viewer{
@@ -310,6 +348,235 @@ query issueInfo($owner:String!,$name:String!,$number:Int!){
           }
           
           
+        }
+      }
+    }
+  }
+}
+
+# 查询pr的信息
+query prInfo($owner:String!,$name:String!,$number:Int!,$after:String){
+  repository(owner:$owner,name:$name){
+    nameWithOwner
+    owner{
+      login
+      avatarUrl
+    }
+    
+    pullRequest(number:$number){
+      
+      title
+      number
+      
+      author{
+        login
+        avatarUrl
+      }
+      
+      bodyText
+      bodyHTML
+      state
+      
+      baseRefName
+      headRefName
+      baseRepository{
+        nameWithOwner
+        owner{
+          login
+        }
+      }
+      headRepository{
+        nameWithOwner
+        owner{
+          login
+        }
+      }
+      
+      changedFiles
+      additions
+      deletions
+  
+      url
+      
+      commits{
+        totalCount
+      }
+      
+      closed
+      closedAt
+      createdAt
+      
+      
+      timelineItems(after:$after,first:10){
+        pageInfo{
+          endCursor
+          startCursor
+          hasNextPage
+        }
+        nodes{
+            __typename
+            ... on PullRequestCommit{
+              commit{
+                message
+                author{
+                  name
+                  avatarUrl
+                }
+                abbreviatedOid
+                url
+              }
+              url
+              resourcePath
+            }
+          ... on PullRequestReview{
+            author{
+              login
+              avatarUrl
+            }
+          }
+            
+            ... on MergedEvent{
+              actor{
+                login
+                avatarUrl
+              }
+              nullableName:commit{
+                abbreviatedOid
+                message
+              }
+              mergeRefName
+            }
+            ... on IssueComment{
+            id
+            author{
+              login
+              avatarUrl
+            }
+            bodyText
+            bodyHTML
+            url
+            lastEditedAt
+            publishedAt
+          }
+          ... on AddedToProjectEvent{
+            id
+            actor{
+              login
+              avatarUrl
+            }
+            createdAt
+          }
+          ... on AssignedEvent{
+            id
+            actor{
+              login
+              avatarUrl
+            }
+            assignee{
+              __typename
+              ... on User{
+                login
+              }
+              ... on Bot{
+                login
+              }
+              ... on Mannequin{
+                login
+              }
+              ... on Organization{
+                login
+              }
+            }
+          }
+          ... on ClosedEvent{
+            actor{
+              login
+            }
+          }
+          ... on ReopenedEvent{
+            actor{
+              login
+            }
+          }
+          ... on CommentDeletedEvent{
+            actor{
+              login
+            }
+          }
+          ... on ConnectedEvent{
+            actor{
+              login
+            }
+            source{
+              __typename
+              ... on PullRequest{
+                repository{
+                  nameWithOwner
+                }
+                number
+              }
+              ... on Issue{
+                repository{
+                  nameWithOwner
+                }
+                number
+              }
+            }
+            subject{
+              __typename
+              ... on PullRequest{
+                repository{
+                  nameWithOwner
+                }
+                number
+              }
+              ... on Issue{
+                repository{
+                  nameWithOwner
+                }
+                number
+              }
+            }
+            
+          }
+          ... on ConvertedNoteToIssueEvent{
+            actor{
+              login
+            }
+          }
+          ... on ReferencedEvent{
+            actor{
+              login
+            }
+            nullableName:commit{
+              commitUrl
+              message
+            }
+          }
+          ... on LabeledEvent{
+            actor{
+              login
+            }
+            label{
+              color
+              name
+            }
+          }
+          ... on UnlabeledEvent{
+             actor{
+              login
+            }
+            label{
+              color
+              name
+            }
+          }
+          
+          ... on SubscribedEvent{
+            actor{
+              login
+            }
+          }
         }
       }
     }

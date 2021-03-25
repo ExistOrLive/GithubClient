@@ -47,9 +47,9 @@ extension ZLIssueHeaderTableViewCellData : ZLIssueHeaderTableViewCellDelegate {
     func getIssueNumber() -> Int {
         return data.repository?.issue?.number ?? 0
     }
-    
-    func getIssueState() -> Bool {
-        return data.repository?.issue?.closed ?? false
+
+    func getIssueState() -> String {
+        return data.repository?.issue?.state.rawValue ?? ""
     }
     
     func getIssueTitle() -> String {

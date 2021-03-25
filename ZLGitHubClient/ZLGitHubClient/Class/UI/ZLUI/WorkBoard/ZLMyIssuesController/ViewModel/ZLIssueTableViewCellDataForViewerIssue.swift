@@ -10,12 +10,14 @@ import UIKit
 
 class ZLIssueTableViewCellDataForViewerIssue: ZLGithubItemTableViewCellData {
     
-    let data : ViewerIssuesQuery.Data.Viewer.Issue.Node
+    typealias Data = SearchIssuesQuery.Data.Search.Node.AsIssue
+    
+    let data : Data
     
     private var labels : [(String,String)]?
     
     
-    init(data :  ViewerIssuesQuery.Data.Viewer.Issue.Node){
+    init(data : Data){
         self.data = data
         super.init()
     }

@@ -28,8 +28,14 @@ class ZLIssueTableViewCellData: ZLGithubItemTableViewCellData {
     override func onCellSingleTap() {
         // https://github.com/MengAndJie/GithubClient/issues/22
         if let url = URL(string: issueModel.html_url) {
-            let vc = ZLIssueInfoController()
             if url.pathComponents.count >= 5 && url.pathComponents[3] == "issues" {
+                let vc = ZLIssueInfoController()
+                vc.login = url.pathComponents[1]
+                vc.repoName = url.pathComponents[2]
+                vc.number = Int(url.pathComponents[4])
+                self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            } else if url.pathComponents.count >= 5 && url.pathComponents[3] == "pull" {
+                let vc = ZLPRInfoController()
                 vc.login = url.pathComponents[1]
                 vc.repoName = url.pathComponents[2]
                 vc.number = Int(url.pathComponents[4])

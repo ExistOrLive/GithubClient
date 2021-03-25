@@ -173,6 +173,21 @@ public extension ZLGithubHttpClient{
         self.baseQuery(query: query, serialNumber: serialNumber, block: block)
     }
     
+    
+    /**
+     * @param query  查询条件 archived:false sort:created-desc is:open is:issue mentions:@me
+     * @param block
+     *  搜索issue
+     */
+    @objc func searchIssues(after: String?,
+                            query: String,
+                            serialNumber: String,
+                            block: @escaping GithubResponseSwift){
+        let query = SearchIssuesQuery(after: after, query: query)
+        self.baseQuery(query: query, serialNumber: serialNumber, block: block)
+    }
+    
+    
     /**
      * @param serialNumber
      * @param block
@@ -217,11 +232,30 @@ public extension ZLGithubHttpClient{
      */
     
     @objc func getIssueInfo(login : String,
-                      repoName : String,
-                      number : Int,
-                      serialNumber: String,
-                      block: @escaping GithubResponseSwift){
+                            repoName : String,
+                            number : Int,
+                            after : String?,
+                            serialNumber: String,
+                            block: @escaping GithubResponseSwift){
         let query = IssueInfoQuery(owner: login, name: repoName, number: number)
+        self.baseQuery(query: query, serialNumber: serialNumber, block: block)
+    }
+    
+    /**
+     * @param login
+     * @param repoName
+     *  @param number
+     *  查询某个pr
+     */
+
+    
+    @objc func getPRInfo(login : String,
+                   repoName : String,
+                   number : Int,
+                   after : String?,
+                   serialNumber: String,
+                   block: @escaping GithubResponseSwift) {
+        let query = PrInfoQuery(owner: login, name: repoName, number: number, after: after)
         self.baseQuery(query: query, serialNumber: serialNumber, block: block)
     }
 

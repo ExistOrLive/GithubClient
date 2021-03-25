@@ -407,32 +407,30 @@
         
     };
     
-    NSString *creator = nil,*assignee = nil,*mentioned = nil;
-    NSString *loginName = [ZLUserServiceModel sharedServiceModel].currentUserLoginName;
+    NSString *query = @"";
     
     switch (type) {
         case ZLMyIssueFilterTypeCreator:{
-            creator = loginName;
+            query = @"archived:false sort:created-desc is:open is:issue author:@me";
         }
             break;
         case ZLMyIssueFilterTypeAssigned:{
-            assignee = loginName;
+            query = @"archived:false sort:created-desc is:open is:issue assignee:@me";
         }
             break;
         case ZLMyIssueFilterTypeMentioned:{
-            mentioned = loginName;
+            query = @"archived:false sort:created-desc is:open is:issue mentions:@me";
         }
             break;
         default:
             break;
     }
     
-    [[ZLGithubHttpClient defaultClient] getMyIssuesWithAssignee:assignee
-                                                      createdBy:creator
-                                                      mentioned:mentioned
-                                                          after:afterCursor
-                                                   serialNumber:serialNumber
-                                                          block:responseBlock];
+    
+    [[ZLGithubHttpClient defaultClient] searchIssuesAfter:afterCursor
+                                                    query:query
+                                             serialNumber:serialNumber
+                                                    block:responseBlock];
 }
 
 #pragma mark - pr
@@ -460,6 +458,36 @@
                                                     after:afterCursor
                                              serialNumber:serialNumber
                                                     block:responseBlock];
+}
+
+
+
+- (void) getPRInfoWithLogin:(NSString * _Nonnull) login
+                   repoName:(NSString * _Nonnull) repoName
+                     number:(int) number
+                      after:(NSString * _Nullable) after
+               serialNumber:(NSString *_Nonnull) serialNumber
+             completeHandle:(void(^_Nonnull)(ZLOperationResultModel * _Nonnull)) handle{
+   
+    GithubResponse reposoneBlock = ^(BOOL result, id _Nullable responseObject, NSString * serialNumber) {
+        
+        ZLOperationResultModel * resultModel = [[ZLOperationResultModel alloc] init];
+        resultModel.result = result;
+        resultModel.serialNumber = serialNumber;
+        resultModel.data = responseObject;
+        
+        if(handle){
+            ZLMainThreadDispatch(handle(resultModel);)
+        }
+        
+    };
+    
+    [[ZLGithubHttpClient defaultClient] getPRInfoWithLogin:login
+                                                  repoName:repoName
+                                                    number:number
+                                                     after:after
+                                              serialNumber:serialNumber
+                                                     block:reposoneBlock];
 }
 
 

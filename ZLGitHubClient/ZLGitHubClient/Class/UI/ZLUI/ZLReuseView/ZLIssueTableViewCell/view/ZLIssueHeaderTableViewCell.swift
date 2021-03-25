@@ -12,7 +12,7 @@ protocol ZLIssueHeaderTableViewCellDelegate : NSObjectProtocol{
     func getIssueAuthorAvatarURL() -> String
     func getIssueRepoFullName() -> String
     func getIssueNumber() -> Int
-    func getIssueState() -> Bool
+    func getIssueState() -> String
     func getIssueTitle() -> String
 }
 
@@ -114,15 +114,25 @@ class ZLIssueHeaderTableViewCell: UITableViewCell {
     }
     
     func fillWithData(data : ZLIssueHeaderTableViewCellDelegate) {
+        
         avatarImageView.sd_setImage(with: URL(string: data.getIssueAuthorAvatarURL()), placeholderImage: UIImage(named: "default_avatar"))
         fullNameLabel.text = data.getIssueRepoFullName()
         numberLabel.text = "#\(data.getIssueNumber())"
         titleLabel.text = data.getIssueTitle()
-        statusLabel.text = data.getIssueState() ? "Closed" : "Opened"
-        statusLabel.textColor = data.getIssueState() ? UIColor(named: "ZLIssueClosedColor") : UIColor(named: "ZLIssueOpenedColor")
-        statusLabel.backgroundColor = data.getIssueState() ? UIColor(named: "ZLIssueClosedBackColor") : UIColor(named: "ZLIssueOpenedBackColor")
-        statusLabel.borderColor = data.getIssueState() ? UIColor(named: "ZLIssueClosedColor") : UIColor(named: "ZLIssueOpenedColor")
-     }
+        
+        
+        statusLabel.text = data.getIssueState()
+        
+        if statusLabel.text == "OPEN" {
+            statusLabel.textColor = UIColor(named: "ZLIssueOpenedColor")
+            statusLabel.backgroundColor = UIColor(named: "ZLIssueOpenedBackColor")
+            statusLabel.borderColor = UIColor(named: "ZLIssueOpenedColor")
+        } else if statusLabel.text == "CLOSED" {
+            statusLabel.textColor =  UIColor(named: "ZLIssueClosedColor")
+            statusLabel.backgroundColor = UIColor(named: "ZLIssueClosedBackColor")
+            statusLabel.borderColor = UIColor(named: "ZLIssueClosedColor")
+        }
+    }
 
 }
 

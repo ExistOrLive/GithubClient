@@ -110,6 +110,15 @@ static const NSNotificationName _Nonnull ZLGithubConfigUpdate_Notification = @"Z
             serialNumber:(NSString *_Nonnull) serialNumber
           completeHandle:(void(^_Nonnull)(ZLOperationResultModel * _Nonnull)) handle;
 
+
+- (void) getPRInfoWithLogin:(NSString * _Nonnull) login
+                   repoName:(NSString * _Nonnull) repoName
+                     number:(int) number
+                      after:(NSString * _Nullable) after
+               serialNumber:(NSString *_Nonnull) serialNumber
+             completeHandle:(void(^_Nonnull)(ZLOperationResultModel * _Nonnull)) handle;
+
+
 @end
 
 

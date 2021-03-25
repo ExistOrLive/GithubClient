@@ -323,6 +323,7 @@
     [[ZLGithubHttpClient defaultClient] getIssueInfoWithLogin:loginName
                                                      repoName:repoName
                                                        number:number
+                                                        after:nil
                                                  serialNumber:serialNumber
                                                         block:response];
     

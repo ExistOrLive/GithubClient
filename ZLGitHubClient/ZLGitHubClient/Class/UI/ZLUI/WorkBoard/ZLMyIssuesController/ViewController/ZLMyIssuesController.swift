@@ -62,15 +62,17 @@ extension ZLMyIssuesController : ZLGithubItemListViewDelegate {
                 
             } else {
                 
-                guard let data = resultModel.data as? ViewerIssuesQuery.Data else {
+                guard let data = resultModel.data as? SearchIssuesQuery.Data else {
                     weakSelf?.myIssuesView.githubItemListView.endRefreshWithError()
                     return
                 }
-                weakSelf?.afterCursor = data.viewer.issues.pageInfo.endCursor
+                weakSelf?.afterCursor = data.search.pageInfo.endCursor
                 var cellDatas : [ZLIssueTableViewCellDataForViewerIssue] = []
-                if data.viewer.issues.nodes != nil {
-                    for issue in data.viewer.issues.nodes!{
-                        cellDatas.append(ZLIssueTableViewCellDataForViewerIssue.init(data: issue!))
+                if data.search.nodes != nil {
+                    for node in data.search.nodes!{
+                        if let tmpdata = node?.asIssue {
+                            cellDatas.append(ZLIssueTableViewCellDataForViewerIssue.init(data: tmpdata))
+                        }
                     }
                     self.addSubViewModels(cellDatas)
                 }
@@ -96,15 +98,17 @@ extension ZLMyIssuesController : ZLGithubItemListViewDelegate {
                 
             } else {
                 
-                guard let data = resultModel.data as? ViewerIssuesQuery.Data else {
+                guard let data = resultModel.data as? SearchIssuesQuery.Data else {
                     weakSelf?.myIssuesView.githubItemListView.endRefreshWithError()
                     return
                 }
-                weakSelf?.afterCursor = data.viewer.issues.pageInfo.endCursor
+                weakSelf?.afterCursor = data.search.pageInfo.endCursor
                 var cellDatas : [ZLIssueTableViewCellDataForViewerIssue] = []
-                if data.viewer.issues.nodes != nil {
-                    for issue in data.viewer.issues.nodes!{
-                        cellDatas.append(ZLIssueTableViewCellDataForViewerIssue.init(data: issue!))
+                if data.search.nodes != nil {
+                    for node in data.search.nodes!{
+                        if let tmpdata = node?.asIssue {
+                            cellDatas.append(ZLIssueTableViewCellDataForViewerIssue.init(data: tmpdata))
+                        }
                     }
                     self.addSubViewModels(cellDatas)
                 }
