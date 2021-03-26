@@ -1,36 +1,36 @@
 //
-//  ZLIssueTimelineTableViewCellData.swift
+//  ZLPullRequestTimelineTableViewCellData.swift
 //  ZLGitHubClient
 //
-//  Created by 朱猛 on 2021/3/16.
+//  Created by 朱猛 on 2021/3/26.
 //  Copyright © 2021 ZM. All rights reserved.
 //
 
 import UIKit
 
-class ZLIssueTimelineTableViewCellData: ZLGithubItemTableViewCellData {
+class ZLPullRequestTimelineTableViewCellData: ZLGithubItemTableViewCellData {
     
-    typealias IssueTimelineData = IssueInfoQuery.Data.Repository.Issue.TimelineItem.Node
+    typealias TimelineData = PrInfoQuery.Data.Repository.PullRequest.TimelineItem.Node
     
-    let data : IssueTimelineData
+    let data : TimelineData
     
-    var attributedString : NSAttributedString?
+    private var attributedString : NSAttributedString?
     
-    init(data : IssueTimelineData) {
+    init(data : TimelineData) {
         self.data = data
         super.init()
     }
     
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
         super.bindModel(targetModel, andView: targetView)
-        if let cell : ZLIssueTimelineTableViewCell = targetView as? ZLIssueTimelineTableViewCell {
+        if let cell : ZLPullRequestTimelineTableViewCell = targetView as? ZLPullRequestTimelineTableViewCell {
             cell.fillWithData(data:self)
         }
     }
     
     
     override func getCellReuseIdentifier() -> String {
-        return "ZLIssueTimelineTableViewCell";
+        return "ZLPullRequestTimelineTableViewCell";
     }
     
     override func getCellHeight() -> CGFloat {
@@ -39,7 +39,7 @@ class ZLIssueTimelineTableViewCellData: ZLGithubItemTableViewCellData {
 
 }
 
-extension ZLIssueTimelineTableViewCellData : ZLIssueTimelineTableViewCellDelegate {
+extension ZLPullRequestTimelineTableViewCellData : ZLPullRequestTimelineTableViewCellDelegate {
     
     func getTimelineMessage() -> NSAttributedString {
         
@@ -172,11 +172,86 @@ extension ZLIssueTimelineTableViewCellData : ZLIssueTimelineTableViewCellDelegat
                                              attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
                                                           NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor4")!]))
             
-            string.append(NSAttributedString(string: "\(tmpdata.commit?.messageHeadline ?? "")",
+            string.append(NSAttributedString(string: "\(tmpdata.nullableName?.messageHeadline ?? "")",
                                              attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCMedium, size: 14)!,
                                                           NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor2")!]))
             
             attributedString = string
+            
+            return string
+            
+        } else if let tmpdata = data.asPullRequestCommit {
+            
+            let string = NSMutableAttributedString(string: "\(tmpdata.commit.abbreviatedOid)  ",
+                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCMedium, size: 13)!,
+                                                          NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLinkLabelColor1")!])
+            
+            string.append(NSAttributedString(string:tmpdata.commit.messageHeadline ,
+                                                   attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCMedium, size: 14)!,
+                                                                NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor2")!]))
+            
+            attributedString = string
+            
+            return string
+            
+        } else if let tmpdata = data.asMergedEvent {
+            
+            let string = NSMutableAttributedString(string:tmpdata.actor?.login ?? "",
+                                                   attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCSemiBold, size: 15)!,
+                                                                NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor1")!])
+            
+            string.append(NSAttributedString(string: " merged commit ",
+                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
+                                                          NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor4")!]))
+            
+            string.append(NSAttributedString(string: "\(tmpdata.nullableName?.abbreviatedOid ?? "")",
+                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
+                                                          NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLinkLabelColor1")!]))
+            
+            string.append(NSAttributedString(string: " into ",
+                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
+                                                          NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor4")!]))
+            
+            string.append(NSAttributedString(string: "\(tmpdata.mergeRefName)",
+                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
+                                                          NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLinkLabelColor2")!]))
+            
+            attributedString = string
+            
+            return string
+            
+        } else if let tmpdata = data.asHeadRefForcePushedEvent {
+            
+            let string = NSMutableAttributedString(string:tmpdata.actor?.login ?? "",
+                                                   attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCSemiBold, size: 15)!,
+                                                                NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor1")!])
+            
+            string.append(NSAttributedString(string: " force-pushed the branch ",
+                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
+                                                          NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor4")!]))
+            
+            string.append(NSAttributedString(string: "\(tmpdata.ref?.name ?? "")",
+                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
+                                                          NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLinkLabelColor2")!]))
+            
+            string.append(NSAttributedString(string: " from ",
+                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
+                                                          NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor4")!]))
+            
+            string.append(NSAttributedString(string: "\(tmpdata.beforeCommit?.abbreviatedOid ?? "")",
+                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
+                                                          NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLinkLabelColor1")!]))
+            
+            string.append(NSAttributedString(string: " to ",
+                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
+                                                          NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor4")!]))
+            
+            string.append(NSAttributedString(string: "\(tmpdata.afterCommit?.abbreviatedOid ?? "")",
+                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
+                                                          NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLinkLabelColor1")!]))
+            
+            attributedString = string
+        
             
             return string
             
@@ -203,6 +278,24 @@ extension ZLIssueTimelineTableViewCellData : ZLIssueTimelineTableViewCellDelegat
             
             return string
             
+        } else if let tmpdata = data.asHeadRefDeletedEvent {
+            
+            let string = NSMutableAttributedString(string:tmpdata.actor?.login ?? "",
+                                                   attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCSemiBold, size: 15)!,
+                                                                NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor1")!])
+            
+            string.append(NSAttributedString(string: " deleted branch ",
+                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
+                                                          NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor4")!]))
+                        
+            string.append(NSAttributedString(string: "\(tmpdata.headRefName)",
+                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
+                                                          NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLinkLabelColor2")!]))
+            
+            attributedString = string
+            
+            return string
+            
         }
         
         
@@ -211,3 +304,4 @@ extension ZLIssueTimelineTableViewCellData : ZLIssueTimelineTableViewCellDelegat
                                                NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor1")!])
     }
 }
+

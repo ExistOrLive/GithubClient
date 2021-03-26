@@ -1,15 +1,15 @@
 //
-//  ZLIssueCommentTableViewCell.swift
+//  ZLPullRequestCommentTableViewCell.swift
 //  ZLGitHubClient
 //
-//  Created by 朱猛 on 2021/3/16.
+//  Created by 朱猛 on 2021/3/26.
 //  Copyright © 2021 ZM. All rights reserved.
 //
 
 import UIKit
 import WebKit
 
-protocol ZLIssueCommentTableViewCellDelegate : NSObjectProtocol{
+protocol ZLPullRequestCommentTableViewCellDelegate : NSObjectProtocol{
     func getActorAvatarUrl() -> String
     func getActorName() -> String
     func getTime() -> String
@@ -18,19 +18,21 @@ protocol ZLIssueCommentTableViewCellDelegate : NSObjectProtocol{
     func getCommentWebView() -> WKWebView
 }
 
-class ZLIssueCommentTableViewCell: UITableViewCell {
+
+
+class ZLPullRequestCommentTableViewCell: UITableViewCell {
     
     var avatarButton : UIButton!
     var actorLabel : UILabel!
     var timeLabel : UILabel!
     var containerView : UIView!
     
+    var tmpHtml : String?
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setUpUI()
     }
-    
-    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -43,8 +45,6 @@ class ZLIssueCommentTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
     
@@ -103,7 +103,8 @@ class ZLIssueCommentTableViewCell: UITableViewCell {
             make.right.equalToSuperview().offset(-25)
             make.bottom.equalToSuperview().offset(-10)
         }
-                
+        
+
         let view = UIView()
         view.backgroundColor = UIColor(named: "ZLSeperatorLineColor")
         self.contentView.addSubview(view)
@@ -116,7 +117,8 @@ class ZLIssueCommentTableViewCell: UITableViewCell {
     }
     
     
-    func fillWithData(data : ZLIssueCommentTableViewCellDelegate) {
+    func fillWithData(data : ZLPullRequestCommentTableViewCellDelegate) {
+       
         avatarButton.sd_setImage(with: URL(string: data.getActorAvatarUrl()), for: .normal, placeholderImage: UIImage(named: "default_avatar"))
         actorLabel.text = data.getActorName()
         timeLabel.text = data.getTime()
@@ -133,6 +135,4 @@ class ZLIssueCommentTableViewCell: UITableViewCell {
         }
         
     }
-    
-    
 }

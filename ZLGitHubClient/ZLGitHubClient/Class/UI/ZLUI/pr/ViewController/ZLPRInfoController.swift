@@ -38,7 +38,7 @@ class ZLPRInfoController: ZLBaseViewController {
         // view
         let itemListView = ZLGithubItemListView()
         itemListView.setTableViewHeader()
-      //  itemListView.setTableViewFooter()
+        itemListView.setTableViewFooter()
         itemListView.delegate = self
         self.contentView.addSubview(itemListView)
         itemListView.snp.makeConstraints { (make) in
@@ -52,7 +52,7 @@ class ZLPRInfoController: ZLBaseViewController {
     
     @objc func onMoreButtonClick(button: UIButton) {
         
-        let path = "https://www.github.com/\(login ?? "")/\(repoName ?? "")/pr/\(number ?? 0)"
+        let path = "https://www.github.com/\(login ?? "")/\(repoName ?? "")/pull/\(number ?? 0)"
         let alertVC = UIAlertController.init(title: path, message: nil, preferredStyle: .actionSheet)
         alertVC.popoverPresentationController?.sourceView = button
         let alertAction1 = UIAlertAction.init(title: ZLLocalizedString(string: "View in Github", comment: ""), style: UIAlertAction.Style.default) { (action : UIAlertAction) in
@@ -90,10 +90,58 @@ class ZLPRInfoController: ZLBaseViewController {
 }
 
 
+extension ZLPRInfoController {
+    override func getEvent(_ event: Any?, fromSubViewModel subViewModel: ZLBaseViewModel) {
+        self.itemListView.reloadData()
+    }
+}
+
 
 extension ZLPRInfoController : ZLGithubItemListViewDelegate {
     
     func githubItemListViewRefreshDragDown(pullRequestListView: ZLGithubItemListView) {
+        
+        if login == nil ||
+            repoName == nil ||
+            number == nil {
+            self.itemListView.endRefreshWithError()
+        }
+        
+        
+        ZLServiceManager.sharedInstance.additionServiceModel?.getPRInfo(withLogin: login!,
+                                                                        repoName: repoName!,
+                                                                        number: Int32(number!),
+                                                                        after: nil,
+                                                                        serialNumber: NSString.generateSerialNumber())
+        { [weak self](resultModel : ZLOperationResultModel) in
+            
+            if resultModel.result == false {
+                if let errorModel = resultModel.data as? ZLGithubRequestErrorModel{
+                    ZLToastView.showMessage(errorModel.message)
+                }
+                self?.itemListView.endRefreshWithError()
+            } else {
+                
+                if let data = resultModel.data as? PrInfoQuery.Data {
+                  
+                    self?.title = data.repository?.pullRequest?.title
+                    
+                    let cellDatas : [ZLGithubItemTableViewCellData] = ZLPullRequestTableViewCellData.getCellDatasWithPRModel(data: data,
+                                                                                                                             firstPage: true)
+                    self?.after = data.repository?.pullRequest?.timelineItems.pageInfo.endCursor
+                    self?.addSubViewModels(cellDatas)
+                    self?.itemListView.resetCellDatas(cellDatas: cellDatas)
+                } else {
+                    self?.itemListView.endRefreshWithError()
+                }
+            }
+        }
+        
+      
+    }
+    
+  
+    func githubItemListViewRefreshDragUp(pullRequestListView: ZLGithubItemListView) -> Void{
         
         if login == nil ||
             repoName == nil ||
@@ -120,24 +168,20 @@ extension ZLPRInfoController : ZLGithubItemListViewDelegate {
                   
                     self?.title = data.repository?.pullRequest?.title
                     
-                    var cellDatas : [ZLGithubItemTableViewCellData] = []
-                   
-                    let cellData = ZLPullRequestHeaderTableViewCellData(data: data)
-                    cellDatas.append(cellData)
-         
+                    let cellDatas : [ZLGithubItemTableViewCellData] = ZLPullRequestTableViewCellData.getCellDatasWithPRModel(data: data,
+                                                                                                                             firstPage: false)
+                    
+                    self?.after = data.repository?.pullRequest?.timelineItems.pageInfo.endCursor
                     self?.addSubViewModels(cellDatas)
-                    self?.itemListView.resetCellDatas(cellDatas: cellDatas)
+                    self?.itemListView.appendCellDatas(cellDatas: cellDatas)
+                    
+                    
                 } else {
                     self?.itemListView.endRefreshWithError()
                 }
             }
         }
-        
-      
-    }
-    
-  
-    func githubItemListViewRefreshDragUp(pullRequestListView: ZLGithubItemListView) -> Void{
+
         
     }
     

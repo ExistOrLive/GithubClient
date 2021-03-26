@@ -303,8 +303,9 @@
 
 - (void) getRepositoryIssueInfoWithLoginName:(NSString * _Nonnull) loginName
                                     repoName:(NSString * _Nonnull) repoName
-                                     number:(int) number
-                               serialNumber:(NSString * _Nonnull) serialNumber
+                                      number:(int) number
+                                       after:(NSString * _Nullable) after
+                                serialNumber:(NSString * _Nonnull) serialNumber
                               completeHandle:(void(^ _Nonnull)(ZLOperationResultModel *  _Nonnull)) handle{
     
     GithubResponse response = ^(BOOL  result, id responseObject, NSString * serialNumber)
@@ -323,7 +324,7 @@
     [[ZLGithubHttpClient defaultClient] getIssueInfoWithLogin:loginName
                                                      repoName:repoName
                                                        number:number
-                                                        after:nil
+                                                        after:after
                                                  serialNumber:serialNumber
                                                         block:response];
     

@@ -20,7 +20,8 @@ protocol ZLPullRequestHeaderTableViewCellDelegate : NSObjectProtocol {
     func getFileChangedNumber() -> Int
     func getAdditionFileNumber() -> Int
     func getDeletedFileNumber() -> Int
-    func getRef() -> String
+    func getHeaderRef() -> String
+    func getBaseRef() -> String
 
 }
 
@@ -31,7 +32,8 @@ class ZLPullRequestHeaderTableViewCell: UITableViewCell {
     var numberLabel: UILabel!
     var titleLabel: UILabel!
     
-    var refLabel: UILabel!
+    var refLabel1: UILabel!
+    var refLabel2: UILabel!
     var statusLabel: UILabel!
     
     var fileChangedLabel : UILabel!
@@ -104,29 +106,60 @@ class ZLPullRequestHeaderTableViewCell: UITableViewCell {
         titleLabel = label3
         
         let scrollView = UIScrollView()
+        scrollView.showsHorizontalScrollIndicator = false
         self.contentView.addSubview(scrollView)
         scrollView.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(25)
-            make.right.equalToSuperview().offset(-25)
+            make.left.equalToSuperview().offset(20)
+            make.right.equalToSuperview().offset(-20)
             make.top.equalTo(label3.snp.bottom).offset(10)
         }
         
         
         let label4 = UILabel()
         label4.textColor = UIColor(named: "ZLPRRefColor")
-        label4.font = UIFont(name: Font_PingFangSCRegular, size: 14)
+        label4.backgroundColor = UIColor(named: "ZLPRRefBackColor")
+        label4.borderColor = UIColor(named: "ZLPRRefColor")
+        label4.borderWidth = 1.0 / 3
+        label4.cornerRadius = 5
+        label4.font = UIFont(name: Font_PingFangSCMedium, size: 12)
         scrollView.addSubview(label4)
         label4.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
+            make.left.top.bottom.equalToSuperview()
             make.height.equalToSuperview()
+            make.height.equalTo(25)
         }
-        refLabel = label4
+        refLabel1 = label4
+        
+        let arrowImageView = UIImageView()
+        arrowImageView.image = UIImage(named: "arrow_right")
+        scrollView.addSubview(arrowImageView)
+        arrowImageView.snp.makeConstraints { (make) in
+            make.left.equalTo(label4.snp.right).offset(5)
+            make.size.equalTo(CGSize(width: 20, height: 20))
+            make.centerY.equalTo(label4)
+        }
+        
+        let label6 = UILabel()
+        label6.textColor = UIColor(named: "ZLPRRefColor")
+        label6.backgroundColor = UIColor(named: "ZLPRRefBackColor")
+        label6.borderColor = UIColor(named: "ZLPRRefColor")
+        label6.borderWidth = 1.0 / 3
+        label6.cornerRadius = 5
+        label6.font = UIFont(name: Font_PingFangSCMedium, size: 12)
+        scrollView.addSubview(label6)
+        label6.snp.makeConstraints { (make) in
+            make.right.top.bottom.equalToSuperview()
+            make.left.equalTo(arrowImageView.snp.right).offset(5)
+            make.height.equalToSuperview()
+            make.height.equalTo(25)
+        }
+        refLabel2 = label6
         
         
         let label5 = UILabel()
         label5.font = UIFont(name: Font_PingFangSCMedium, size: 12)
-        label5.borderWidth = 1 / 3
-        label5.cornerRadius = 8
+        label5.borderWidth = 1.0 / 3
+        label5.cornerRadius = 5
         label5.textAlignment = .center
         self.contentView.addSubview(label5)
         label5.snp.makeConstraints { (make) in
@@ -240,19 +273,20 @@ class ZLPullRequestHeaderTableViewCell: UITableViewCell {
         
         commitLabel.text = "\(data.getCommitNumber()) commit"
         
-        refLabel.text = data.getRef()
+        refLabel1.text = data.getHeaderRef()
+        refLabel2.text = data.getBaseRef()
         
         
-        statusLabel.text = data.getPRState()
-        if statusLabel.text == "OPEN" {
+        statusLabel.text = " \(data.getPRState()) "
+        if data.getPRState() == "OPEN" {
             statusLabel.textColor = UIColor(named: "ZLPROpenedColor")
             statusLabel.backgroundColor = UIColor(named: "ZLPROpenedBackColor")
             statusLabel.borderColor = UIColor(named: "ZLPROpenedColor")
-        } else if statusLabel.text == "CLOSED" {
+        } else if data.getPRState() == "CLOSED" {
             statusLabel.textColor = UIColor(named: "ZLPRClosedColor")
             statusLabel.backgroundColor = UIColor(named: "ZLPRClosedBackColor")
             statusLabel.borderColor = UIColor(named: "ZLPRClosedColor")
-        } else if statusLabel.text == "MERGED" {
+        } else if data.getPRState() == "MERGED" {
             statusLabel.textColor = UIColor(named: "ZLPRMergedColor")
             statusLabel.backgroundColor = UIColor(named: "ZLPRMergedBackColor")
             statusLabel.borderColor = UIColor(named: "ZLPRMergedColor")

@@ -15,6 +15,7 @@ class ZLIssueInfoController: ZLBaseViewController {
     var repoName : String?
     var number : Int?
     
+    var after : String?
     
     // view
     var itemListView : ZLGithubItemListView!
@@ -37,6 +38,7 @@ class ZLIssueInfoController: ZLBaseViewController {
         // view
         let itemListView = ZLGithubItemListView()
         itemListView.setTableViewHeader()
+        itemListView.setTableViewFooter()
         itemListView.delegate = self
         self.contentView.addSubview(itemListView)
         itemListView.snp.makeConstraints { (make) in
@@ -107,6 +109,7 @@ extension ZLIssueInfoController : ZLGithubItemListViewDelegate {
         ZLServiceManager.sharedInstance.repoServiceModel?.getRepositoryIssueInfo(withLoginName: login!,
                                                                                  repoName: repoName!,
                                                                                  number: Int32(number!),
+                                                                                 after: nil,
                                                                                  serialNumber: NSString.generateSerialNumber())
         { [weak self](resultModel : ZLOperationResultModel) in
             
@@ -117,35 +120,15 @@ extension ZLIssueInfoController : ZLGithubItemListViewDelegate {
                 self?.itemListView.endRefreshWithError()
             } else {
                 if let data = resultModel.data as? IssueInfoQuery.Data {
-                    self?.title = data.repository?.issue?.title
-                    
-                    var cellDatas : [ZLGithubItemTableViewCellData] = []
                    
-                    let cellData = ZLIssueHeaderTableViewCellData(data: data)
-                    cellDatas.append(cellData)
+                    self?.title = data.repository?.issue?.title
+                    self?.after = data.repository?.issue?.timelineItems.pageInfo.endCursor
                     
-                    if let issueData = data.repository?.issue {
-                        let cellData1 = ZLIssueBodyTableViewCellData(data: issueData)
-                        cellDatas.append(cellData1)
-                    }
-                    
-                    
-                    if let timelinesArray = data.repository?.issue?.timelineItems.nodes {
-                        for tmptimeline in timelinesArray {
-                            if let timeline = tmptimeline {
-                                if timeline.asIssueComment != nil {
-                                    let cellData = ZLIssueCommentTableViewCellData(data: timeline.asIssueComment!)
-                                    cellDatas.append(cellData)
-                                } else {
-                                    let cellData = ZLIssueTimelineTableViewCellData(data: timeline)
-                                    cellDatas.append(cellData)
-                                }
-                            }
-                        }
-                    }
+                    let cellDatas : [ZLGithubItemTableViewCellData] = ZLIssueTableViewCellData.getCellDatasWithIssueModel(data: data, firstPage: true)
                     
                     self?.addSubViewModels(cellDatas)
                     self?.itemListView.resetCellDatas(cellDatas: cellDatas)
+                    
                 } else {
                     self?.itemListView.endRefreshWithError()
                 }
@@ -155,6 +138,42 @@ extension ZLIssueInfoController : ZLGithubItemListViewDelegate {
     
   
     func githubItemListViewRefreshDragUp(pullRequestListView: ZLGithubItemListView) -> Void{
+        
+        if login == nil ||
+            repoName == nil ||
+            number == nil {
+            self.itemListView.endRefreshWithError()
+        }
+        
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepositoryIssueInfo(withLoginName: login!,
+                                                                                 repoName: repoName!,
+                                                                                 number: Int32(number!),
+                                                                                 after: after,
+                                                                                 serialNumber: NSString.generateSerialNumber())
+        { [weak self](resultModel : ZLOperationResultModel) in
+            
+            if resultModel.result == false {
+                if let errorModel = resultModel.data as? ZLGithubRequestErrorModel{
+                    ZLToastView.showMessage(errorModel.message)
+                }
+                self?.itemListView.endRefreshWithError()
+            } else {
+                if let data = resultModel.data as? IssueInfoQuery.Data {
+                   
+                    self?.title = data.repository?.issue?.title
+                    self?.after = data.repository?.issue?.timelineItems.pageInfo.endCursor
+                    
+                    let cellDatas : [ZLGithubItemTableViewCellData] = ZLIssueTableViewCellData.getCellDatasWithIssueModel(data: data, firstPage: false)
+                    
+                    self?.addSubViewModels(cellDatas)
+                    self?.itemListView.appendCellDatas(cellDatas: cellDatas)
+                    
+                } else {
+                    self?.itemListView.endRefreshWithError()
+                }
+            }
+        }
+        
         
     }
     

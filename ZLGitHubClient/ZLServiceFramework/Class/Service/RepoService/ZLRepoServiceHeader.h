@@ -116,9 +116,10 @@ static const NSNotificationName _Nonnull ZLGetSpecifiedRepoInfoResult_Notificati
 
 - (void) getRepositoryIssueInfoWithLoginName:(NSString * _Nonnull) loginName
                                     repoName:(NSString * _Nonnull) repoName
-                                     number:(int) number
-                               serialNumber:(NSString * _Nonnull) serialNumber
-                             completeHandle:(void(^ _Nonnull)(ZLOperationResultModel *  _Nonnull)) handle;
+                                      number:(int) number
+                                       after:(NSString * _Nullable) after
+                                serialNumber:(NSString * _Nonnull) serialNumber
+                              completeHandle:(void(^ _Nonnull)(ZLOperationResultModel *  _Nonnull)) handle;
 
 
 

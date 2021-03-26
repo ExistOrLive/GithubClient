@@ -237,7 +237,7 @@ public extension ZLGithubHttpClient{
                             after : String?,
                             serialNumber: String,
                             block: @escaping GithubResponseSwift){
-        let query = IssueInfoQuery(owner: login, name: repoName, number: number)
+        let query = IssueInfoQuery(owner: login, name: repoName, number: number, after:after)
         self.baseQuery(query: query, serialNumber: serialNumber, block: block)
     }
     

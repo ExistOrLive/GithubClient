@@ -3163,7 +3163,7 @@ public final class IssueInfoQuery: GraphQLQuery {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition: String =
     """
-    query issueInfo($owner: String!, $name: String!, $number: Int!) {
+    query issueInfo($owner: String!, $name: String!, $number: Int!, $after: String) {
       repository(owner: $owner, name: $name) {
         __typename
         nameWithOwner
@@ -3187,9 +3187,15 @@ public final class IssueInfoQuery: GraphQLQuery {
           closed
           closedAt
           createdAt
-          timelineItems(first: 100) {
+          timelineItems(first: 10, after: $after) {
             __typename
             totalCount
+            pageInfo {
+              __typename
+              startCursor
+              endCursor
+              hasNextPage
+            }
             nodes {
               __typename
               ... on IssueComment {
@@ -3309,7 +3315,8 @@ public final class IssueInfoQuery: GraphQLQuery {
                 commit {
                   __typename
                   commitUrl
-                  message
+                  messageHeadline
+                  abbreviatedOid
                 }
               }
               ... on LabeledEvent {
@@ -3340,6 +3347,14 @@ public final class IssueInfoQuery: GraphQLQuery {
                   login
                 }
               }
+              ... on RenamedTitleEvent {
+                actor {
+                  __typename
+                  login
+                }
+                previousTitle
+                currentTitle
+              }
             }
           }
         }
@@ -3352,15 +3367,17 @@ public final class IssueInfoQuery: GraphQLQuery {
   public var owner: String
   public var name: String
   public var number: Int
+  public var after: String?
 
-  public init(owner: String, name: String, number: Int) {
+  public init(owner: String, name: String, number: Int, after: String? = nil) {
     self.owner = owner
     self.name = name
     self.number = number
+    self.after = after
   }
 
   public var variables: GraphQLMap? {
-    return ["owner": owner, "name": name, "number": number]
+    return ["owner": owner, "name": name, "number": number, "after": after]
   }
 
   public struct Data: GraphQLSelectionSet {
@@ -3523,7 +3540,7 @@ public final class IssueInfoQuery: GraphQLQuery {
             GraphQLField("closed", type: .nonNull(.scalar(Bool.self))),
             GraphQLField("closedAt", type: .scalar(String.self)),
             GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
-            GraphQLField("timelineItems", arguments: ["first": 100], type: .nonNull(.object(TimelineItem.selections))),
+            GraphQLField("timelineItems", arguments: ["first": 10, "after": GraphQLVariable("after")], type: .nonNull(.object(TimelineItem.selections))),
           ]
         }
 
@@ -3720,6 +3737,7 @@ public final class IssueInfoQuery: GraphQLQuery {
             return [
               GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
               GraphQLField("totalCount", type: .nonNull(.scalar(Int.self))),
+              GraphQLField("pageInfo", type: .nonNull(.object(PageInfo.selections))),
               GraphQLField("nodes", type: .list(.object(Node.selections))),
             ]
           }
@@ -3730,8 +3748,8 @@ public final class IssueInfoQuery: GraphQLQuery {
             self.resultMap = unsafeResultMap
           }
 
-          public init(totalCount: Int, nodes: [Node?]? = nil) {
-            self.init(unsafeResultMap: ["__typename": "IssueTimelineItemsConnection", "totalCount": totalCount, "nodes": nodes.flatMap { (value: [Node?]) -> [ResultMap?] in value.map { (value: Node?) -> ResultMap? in value.flatMap { (value: Node) -> ResultMap in value.resultMap } } }])
+          public init(totalCount: Int, pageInfo: PageInfo, nodes: [Node?]? = nil) {
+            self.init(unsafeResultMap: ["__typename": "IssueTimelineItemsConnection", "totalCount": totalCount, "pageInfo": pageInfo.resultMap, "nodes": nodes.flatMap { (value: [Node?]) -> [ResultMap?] in value.map { (value: Node?) -> ResultMap? in value.flatMap { (value: Node) -> ResultMap in value.resultMap } } }])
           }
 
           public var __typename: String {
@@ -3753,6 +3771,16 @@ public final class IssueInfoQuery: GraphQLQuery {
             }
           }
 
+          /// Information to aid in pagination.
+          public var pageInfo: PageInfo {
+            get {
+              return PageInfo(unsafeResultMap: resultMap["pageInfo"]! as! ResultMap)
+            }
+            set {
+              resultMap.updateValue(newValue.resultMap, forKey: "pageInfo")
+            }
+          }
+
           /// A list of nodes.
           public var nodes: [Node?]? {
             get {
@@ -3763,13 +3791,75 @@ public final class IssueInfoQuery: GraphQLQuery {
             }
           }
 
+          public struct PageInfo: GraphQLSelectionSet {
+            public static let possibleTypes: [String] = ["PageInfo"]
+
+            public static var selections: [GraphQLSelection] {
+              return [
+                GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                GraphQLField("startCursor", type: .scalar(String.self)),
+                GraphQLField("endCursor", type: .scalar(String.self)),
+                GraphQLField("hasNextPage", type: .nonNull(.scalar(Bool.self))),
+              ]
+            }
+
+            public private(set) var resultMap: ResultMap
+
+            public init(unsafeResultMap: ResultMap) {
+              self.resultMap = unsafeResultMap
+            }
+
+            public init(startCursor: String? = nil, endCursor: String? = nil, hasNextPage: Bool) {
+              self.init(unsafeResultMap: ["__typename": "PageInfo", "startCursor": startCursor, "endCursor": endCursor, "hasNextPage": hasNextPage])
+            }
+
+            public var __typename: String {
+              get {
+                return resultMap["__typename"]! as! String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "__typename")
+              }
+            }
+
+            /// When paginating backwards, the cursor to continue.
+            public var startCursor: String? {
+              get {
+                return resultMap["startCursor"] as? String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "startCursor")
+              }
+            }
+
+            /// When paginating forwards, the cursor to continue.
+            public var endCursor: String? {
+              get {
+                return resultMap["endCursor"] as? String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "endCursor")
+              }
+            }
+
+            /// When paginating forwards, are there more items?
+            public var hasNextPage: Bool {
+              get {
+                return resultMap["hasNextPage"]! as! Bool
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "hasNextPage")
+              }
+            }
+          }
+
           public struct Node: GraphQLSelectionSet {
             public static let possibleTypes: [String] = ["AddedToProjectEvent", "AssignedEvent", "ClosedEvent", "CommentDeletedEvent", "ConnectedEvent", "ConvertedNoteToIssueEvent", "CrossReferencedEvent", "DemilestonedEvent", "DisconnectedEvent", "IssueComment", "LabeledEvent", "LockedEvent", "MarkedAsDuplicateEvent", "MentionedEvent", "MilestonedEvent", "MovedColumnsInProjectEvent", "PinnedEvent", "ReferencedEvent", "RemovedFromProjectEvent", "RenamedTitleEvent", "ReopenedEvent", "SubscribedEvent", "TransferredEvent", "UnassignedEvent", "UnlabeledEvent", "UnlockedEvent", "UnmarkedAsDuplicateEvent", "UnpinnedEvent", "UnsubscribedEvent", "UserBlockedEvent"]
 
             public static var selections: [GraphQLSelection] {
               return [
                 GraphQLTypeCase(
-                  variants: ["IssueComment": AsIssueComment.selections, "AddedToProjectEvent": AsAddedToProjectEvent.selections, "AssignedEvent": AsAssignedEvent.selections, "ClosedEvent": AsClosedEvent.selections, "ReopenedEvent": AsReopenedEvent.selections, "CommentDeletedEvent": AsCommentDeletedEvent.selections, "ConnectedEvent": AsConnectedEvent.selections, "ConvertedNoteToIssueEvent": AsConvertedNoteToIssueEvent.selections, "ReferencedEvent": AsReferencedEvent.selections, "LabeledEvent": AsLabeledEvent.selections, "UnlabeledEvent": AsUnlabeledEvent.selections, "SubscribedEvent": AsSubscribedEvent.selections],
+                  variants: ["IssueComment": AsIssueComment.selections, "AddedToProjectEvent": AsAddedToProjectEvent.selections, "AssignedEvent": AsAssignedEvent.selections, "ClosedEvent": AsClosedEvent.selections, "ReopenedEvent": AsReopenedEvent.selections, "CommentDeletedEvent": AsCommentDeletedEvent.selections, "ConnectedEvent": AsConnectedEvent.selections, "ConvertedNoteToIssueEvent": AsConvertedNoteToIssueEvent.selections, "ReferencedEvent": AsReferencedEvent.selections, "LabeledEvent": AsLabeledEvent.selections, "UnlabeledEvent": AsUnlabeledEvent.selections, "SubscribedEvent": AsSubscribedEvent.selections, "RenamedTitleEvent": AsRenamedTitleEvent.selections],
                   default: [
                     GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                   ]
@@ -3821,10 +3911,6 @@ public final class IssueInfoQuery: GraphQLQuery {
 
             public static func makeRemovedFromProjectEvent() -> Node {
               return Node(unsafeResultMap: ["__typename": "RemovedFromProjectEvent"])
-            }
-
-            public static func makeRenamedTitleEvent() -> Node {
-              return Node(unsafeResultMap: ["__typename": "RenamedTitleEvent"])
             }
 
             public static func makeTransferredEvent() -> Node {
@@ -3901,6 +3987,10 @@ public final class IssueInfoQuery: GraphQLQuery {
 
             public static func makeSubscribedEvent(actor: AsSubscribedEvent.Actor? = nil) -> Node {
               return Node(unsafeResultMap: ["__typename": "SubscribedEvent", "actor": actor.flatMap { (value: AsSubscribedEvent.Actor) -> ResultMap in value.resultMap }])
+            }
+
+            public static func makeRenamedTitleEvent(actor: AsRenamedTitleEvent.Actor? = nil, previousTitle: String, currentTitle: String) -> Node {
+              return Node(unsafeResultMap: ["__typename": "RenamedTitleEvent", "actor": actor.flatMap { (value: AsRenamedTitleEvent.Actor) -> ResultMap in value.resultMap }, "previousTitle": previousTitle, "currentTitle": currentTitle])
             }
 
             public var __typename: String {
@@ -5788,7 +5878,8 @@ public final class IssueInfoQuery: GraphQLQuery {
                   return [
                     GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                     GraphQLField("commitUrl", type: .nonNull(.scalar(String.self))),
-                    GraphQLField("message", type: .nonNull(.scalar(String.self))),
+                    GraphQLField("messageHeadline", type: .nonNull(.scalar(String.self))),
+                    GraphQLField("abbreviatedOid", type: .nonNull(.scalar(String.self))),
                   ]
                 }
 
@@ -5798,8 +5889,8 @@ public final class IssueInfoQuery: GraphQLQuery {
                   self.resultMap = unsafeResultMap
                 }
 
-                public init(commitUrl: String, message: String) {
-                  self.init(unsafeResultMap: ["__typename": "Commit", "commitUrl": commitUrl, "message": message])
+                public init(commitUrl: String, messageHeadline: String, abbreviatedOid: String) {
+                  self.init(unsafeResultMap: ["__typename": "Commit", "commitUrl": commitUrl, "messageHeadline": messageHeadline, "abbreviatedOid": abbreviatedOid])
                 }
 
                 public var __typename: String {
@@ -5821,13 +5912,23 @@ public final class IssueInfoQuery: GraphQLQuery {
                   }
                 }
 
-                /// The Git commit message
-                public var message: String {
+                /// The Git commit message headline
+                public var messageHeadline: String {
                   get {
-                    return resultMap["message"]! as! String
+                    return resultMap["messageHeadline"]! as! String
                   }
                   set {
-                    resultMap.updateValue(newValue, forKey: "message")
+                    resultMap.updateValue(newValue, forKey: "messageHeadline")
+                  }
+                }
+
+                /// An abbreviated version of the Git object ID
+                public var abbreviatedOid: String {
+                  get {
+                    return resultMap["abbreviatedOid"]! as! String
+                  }
+                  set {
+                    resultMap.updateValue(newValue, forKey: "abbreviatedOid")
                   }
                 }
               }
@@ -6277,6 +6378,135 @@ public final class IssueInfoQuery: GraphQLQuery {
                 }
               }
             }
+
+            public var asRenamedTitleEvent: AsRenamedTitleEvent? {
+              get {
+                if !AsRenamedTitleEvent.possibleTypes.contains(__typename) { return nil }
+                return AsRenamedTitleEvent(unsafeResultMap: resultMap)
+              }
+              set {
+                guard let newValue = newValue else { return }
+                resultMap = newValue.resultMap
+              }
+            }
+
+            public struct AsRenamedTitleEvent: GraphQLSelectionSet {
+              public static let possibleTypes: [String] = ["RenamedTitleEvent"]
+
+              public static var selections: [GraphQLSelection] {
+                return [
+                  GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                  GraphQLField("actor", type: .object(Actor.selections)),
+                  GraphQLField("previousTitle", type: .nonNull(.scalar(String.self))),
+                  GraphQLField("currentTitle", type: .nonNull(.scalar(String.self))),
+                ]
+              }
+
+              public private(set) var resultMap: ResultMap
+
+              public init(unsafeResultMap: ResultMap) {
+                self.resultMap = unsafeResultMap
+              }
+
+              public init(actor: Actor? = nil, previousTitle: String, currentTitle: String) {
+                self.init(unsafeResultMap: ["__typename": "RenamedTitleEvent", "actor": actor.flatMap { (value: Actor) -> ResultMap in value.resultMap }, "previousTitle": previousTitle, "currentTitle": currentTitle])
+              }
+
+              public var __typename: String {
+                get {
+                  return resultMap["__typename"]! as! String
+                }
+                set {
+                  resultMap.updateValue(newValue, forKey: "__typename")
+                }
+              }
+
+              /// Identifies the actor who performed the event.
+              public var actor: Actor? {
+                get {
+                  return (resultMap["actor"] as? ResultMap).flatMap { Actor(unsafeResultMap: $0) }
+                }
+                set {
+                  resultMap.updateValue(newValue?.resultMap, forKey: "actor")
+                }
+              }
+
+              /// Identifies the previous title of the issue or pull request.
+              public var previousTitle: String {
+                get {
+                  return resultMap["previousTitle"]! as! String
+                }
+                set {
+                  resultMap.updateValue(newValue, forKey: "previousTitle")
+                }
+              }
+
+              /// Identifies the current title of the issue or pull request.
+              public var currentTitle: String {
+                get {
+                  return resultMap["currentTitle"]! as! String
+                }
+                set {
+                  resultMap.updateValue(newValue, forKey: "currentTitle")
+                }
+              }
+
+              public struct Actor: GraphQLSelectionSet {
+                public static let possibleTypes: [String] = ["Bot", "EnterpriseUserAccount", "Mannequin", "Organization", "User"]
+
+                public static var selections: [GraphQLSelection] {
+                  return [
+                    GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                    GraphQLField("login", type: .nonNull(.scalar(String.self))),
+                  ]
+                }
+
+                public private(set) var resultMap: ResultMap
+
+                public init(unsafeResultMap: ResultMap) {
+                  self.resultMap = unsafeResultMap
+                }
+
+                public static func makeBot(login: String) -> Actor {
+                  return Actor(unsafeResultMap: ["__typename": "Bot", "login": login])
+                }
+
+                public static func makeEnterpriseUserAccount(login: String) -> Actor {
+                  return Actor(unsafeResultMap: ["__typename": "EnterpriseUserAccount", "login": login])
+                }
+
+                public static func makeMannequin(login: String) -> Actor {
+                  return Actor(unsafeResultMap: ["__typename": "Mannequin", "login": login])
+                }
+
+                public static func makeOrganization(login: String) -> Actor {
+                  return Actor(unsafeResultMap: ["__typename": "Organization", "login": login])
+                }
+
+                public static func makeUser(login: String) -> Actor {
+                  return Actor(unsafeResultMap: ["__typename": "User", "login": login])
+                }
+
+                public var __typename: String {
+                  get {
+                    return resultMap["__typename"]! as! String
+                  }
+                  set {
+                    resultMap.updateValue(newValue, forKey: "__typename")
+                  }
+                }
+
+                /// The username of the actor.
+                public var login: String {
+                  get {
+                    return resultMap["login"]! as! String
+                  }
+                  set {
+                    resultMap.updateValue(newValue, forKey: "login")
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -6311,6 +6541,11 @@ public final class PrInfoQuery: GraphQLQuery {
           state
           baseRefName
           headRefName
+          headRepositoryOwner {
+            __typename
+            login
+            avatarUrl
+          }
           baseRepository {
             __typename
             nameWithOwner
@@ -6351,7 +6586,7 @@ public final class PrInfoQuery: GraphQLQuery {
               ... on PullRequestCommit {
                 commit {
                   __typename
-                  message
+                  messageHeadline
                   author {
                     __typename
                     name
@@ -6380,6 +6615,7 @@ public final class PrInfoQuery: GraphQLQuery {
                   __typename
                   abbreviatedOid
                   message
+                  messageHeadline
                 }
                 mergeRefName
               }
@@ -6501,6 +6737,7 @@ public final class PrInfoQuery: GraphQLQuery {
                   __typename
                   commitUrl
                   message
+                  messageHeadline
                 }
               }
               ... on LabeledEvent {
@@ -6530,6 +6767,53 @@ public final class PrInfoQuery: GraphQLQuery {
                   __typename
                   login
                 }
+              }
+              ... on RenamedTitleEvent {
+                actor {
+                  __typename
+                  login
+                }
+                previousTitle
+                currentTitle
+              }
+              ... on HeadRefForcePushedEvent {
+                actor {
+                  __typename
+                  login
+                }
+                beforeCommit {
+                  __typename
+                  messageHeadline
+                  abbreviatedOid
+                }
+                afterCommit {
+                  __typename
+                  messageHeadline
+                  abbreviatedOid
+                }
+                ref {
+                  __typename
+                  name
+                }
+              }
+              ... on MergedEvent {
+                actor {
+                  __typename
+                  login
+                }
+                nullableName: commit {
+                  __typename
+                  messageHeadline
+                  abbreviatedOid
+                }
+                mergeRefName
+              }
+              ... on HeadRefDeletedEvent {
+                actor {
+                  __typename
+                  login
+                }
+                headRefName
               }
             }
           }
@@ -6715,6 +6999,7 @@ public final class PrInfoQuery: GraphQLQuery {
             GraphQLField("state", type: .nonNull(.scalar(PullRequestState.self))),
             GraphQLField("baseRefName", type: .nonNull(.scalar(String.self))),
             GraphQLField("headRefName", type: .nonNull(.scalar(String.self))),
+            GraphQLField("headRepositoryOwner", type: .object(HeadRepositoryOwner.selections)),
             GraphQLField("baseRepository", type: .object(BaseRepository.selections)),
             GraphQLField("headRepository", type: .object(HeadRepository.selections)),
             GraphQLField("changedFiles", type: .nonNull(.scalar(Int.self))),
@@ -6735,8 +7020,8 @@ public final class PrInfoQuery: GraphQLQuery {
           self.resultMap = unsafeResultMap
         }
 
-        public init(title: String, number: Int, author: Author? = nil, bodyText: String, bodyHtml: String, state: PullRequestState, baseRefName: String, headRefName: String, baseRepository: BaseRepository? = nil, headRepository: HeadRepository? = nil, changedFiles: Int, additions: Int, deletions: Int, url: String, commits: Commit, closed: Bool, closedAt: String? = nil, createdAt: String, timelineItems: TimelineItem) {
-          self.init(unsafeResultMap: ["__typename": "PullRequest", "title": title, "number": number, "author": author.flatMap { (value: Author) -> ResultMap in value.resultMap }, "bodyText": bodyText, "bodyHTML": bodyHtml, "state": state, "baseRefName": baseRefName, "headRefName": headRefName, "baseRepository": baseRepository.flatMap { (value: BaseRepository) -> ResultMap in value.resultMap }, "headRepository": headRepository.flatMap { (value: HeadRepository) -> ResultMap in value.resultMap }, "changedFiles": changedFiles, "additions": additions, "deletions": deletions, "url": url, "commits": commits.resultMap, "closed": closed, "closedAt": closedAt, "createdAt": createdAt, "timelineItems": timelineItems.resultMap])
+        public init(title: String, number: Int, author: Author? = nil, bodyText: String, bodyHtml: String, state: PullRequestState, baseRefName: String, headRefName: String, headRepositoryOwner: HeadRepositoryOwner? = nil, baseRepository: BaseRepository? = nil, headRepository: HeadRepository? = nil, changedFiles: Int, additions: Int, deletions: Int, url: String, commits: Commit, closed: Bool, closedAt: String? = nil, createdAt: String, timelineItems: TimelineItem) {
+          self.init(unsafeResultMap: ["__typename": "PullRequest", "title": title, "number": number, "author": author.flatMap { (value: Author) -> ResultMap in value.resultMap }, "bodyText": bodyText, "bodyHTML": bodyHtml, "state": state, "baseRefName": baseRefName, "headRefName": headRefName, "headRepositoryOwner": headRepositoryOwner.flatMap { (value: HeadRepositoryOwner) -> ResultMap in value.resultMap }, "baseRepository": baseRepository.flatMap { (value: BaseRepository) -> ResultMap in value.resultMap }, "headRepository": headRepository.flatMap { (value: HeadRepository) -> ResultMap in value.resultMap }, "changedFiles": changedFiles, "additions": additions, "deletions": deletions, "url": url, "commits": commits.resultMap, "closed": closed, "closedAt": closedAt, "createdAt": createdAt, "timelineItems": timelineItems.resultMap])
         }
 
         public var __typename: String {
@@ -6825,6 +7110,16 @@ public final class PrInfoQuery: GraphQLQuery {
           }
           set {
             resultMap.updateValue(newValue, forKey: "headRefName")
+          }
+        }
+
+        /// The owner of the repository associated with this pull request's head Ref.
+        public var headRepositoryOwner: HeadRepositoryOwner? {
+          get {
+            return (resultMap["headRepositoryOwner"] as? ResultMap).flatMap { HeadRepositoryOwner(unsafeResultMap: $0) }
+          }
+          set {
+            resultMap.updateValue(newValue?.resultMap, forKey: "headRepositoryOwner")
           }
         }
 
@@ -6995,6 +7290,61 @@ public final class PrInfoQuery: GraphQLQuery {
           }
 
           /// A URL pointing to the actor's public avatar.
+          public var avatarUrl: String {
+            get {
+              return resultMap["avatarUrl"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "avatarUrl")
+            }
+          }
+        }
+
+        public struct HeadRepositoryOwner: GraphQLSelectionSet {
+          public static let possibleTypes: [String] = ["Organization", "User"]
+
+          public static var selections: [GraphQLSelection] {
+            return [
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("login", type: .nonNull(.scalar(String.self))),
+              GraphQLField("avatarUrl", type: .nonNull(.scalar(String.self))),
+            ]
+          }
+
+          public private(set) var resultMap: ResultMap
+
+          public init(unsafeResultMap: ResultMap) {
+            self.resultMap = unsafeResultMap
+          }
+
+          public static func makeOrganization(login: String, avatarUrl: String) -> HeadRepositoryOwner {
+            return HeadRepositoryOwner(unsafeResultMap: ["__typename": "Organization", "login": login, "avatarUrl": avatarUrl])
+          }
+
+          public static func makeUser(login: String, avatarUrl: String) -> HeadRepositoryOwner {
+            return HeadRepositoryOwner(unsafeResultMap: ["__typename": "User", "login": login, "avatarUrl": avatarUrl])
+          }
+
+          public var __typename: String {
+            get {
+              return resultMap["__typename"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          /// The username used to login.
+          public var login: String {
+            get {
+              return resultMap["login"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "login")
+            }
+          }
+
+          /// A URL pointing to the owner's public avatar.
           public var avatarUrl: String {
             get {
               return resultMap["avatarUrl"]! as! String
@@ -7353,7 +7703,7 @@ public final class PrInfoQuery: GraphQLQuery {
             public static var selections: [GraphQLSelection] {
               return [
                 GraphQLTypeCase(
-                  variants: ["PullRequestCommit": AsPullRequestCommit.selections, "PullRequestReview": AsPullRequestReview.selections, "MergedEvent": AsMergedEvent.selections, "IssueComment": AsIssueComment.selections, "AddedToProjectEvent": AsAddedToProjectEvent.selections, "AssignedEvent": AsAssignedEvent.selections, "ClosedEvent": AsClosedEvent.selections, "ReopenedEvent": AsReopenedEvent.selections, "CommentDeletedEvent": AsCommentDeletedEvent.selections, "ConnectedEvent": AsConnectedEvent.selections, "ConvertedNoteToIssueEvent": AsConvertedNoteToIssueEvent.selections, "ReferencedEvent": AsReferencedEvent.selections, "LabeledEvent": AsLabeledEvent.selections, "UnlabeledEvent": AsUnlabeledEvent.selections, "SubscribedEvent": AsSubscribedEvent.selections],
+                  variants: ["PullRequestCommit": AsPullRequestCommit.selections, "PullRequestReview": AsPullRequestReview.selections, "MergedEvent": AsMergedEvent.selections, "IssueComment": AsIssueComment.selections, "AddedToProjectEvent": AsAddedToProjectEvent.selections, "AssignedEvent": AsAssignedEvent.selections, "ClosedEvent": AsClosedEvent.selections, "ReopenedEvent": AsReopenedEvent.selections, "CommentDeletedEvent": AsCommentDeletedEvent.selections, "ConnectedEvent": AsConnectedEvent.selections, "ConvertedNoteToIssueEvent": AsConvertedNoteToIssueEvent.selections, "ReferencedEvent": AsReferencedEvent.selections, "LabeledEvent": AsLabeledEvent.selections, "UnlabeledEvent": AsUnlabeledEvent.selections, "SubscribedEvent": AsSubscribedEvent.selections, "RenamedTitleEvent": AsRenamedTitleEvent.selections, "HeadRefForcePushedEvent": AsHeadRefForcePushedEvent.selections, "HeadRefDeletedEvent": AsHeadRefDeletedEvent.selections],
                   default: [
                     GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                   ]
@@ -7427,14 +7777,6 @@ public final class PrInfoQuery: GraphQLQuery {
               return Node(unsafeResultMap: ["__typename": "DisconnectedEvent"])
             }
 
-            public static func makeHeadRefDeletedEvent() -> Node {
-              return Node(unsafeResultMap: ["__typename": "HeadRefDeletedEvent"])
-            }
-
-            public static func makeHeadRefForcePushedEvent() -> Node {
-              return Node(unsafeResultMap: ["__typename": "HeadRefForcePushedEvent"])
-            }
-
             public static func makeHeadRefRestoredEvent() -> Node {
               return Node(unsafeResultMap: ["__typename": "HeadRefRestoredEvent"])
             }
@@ -7481,10 +7823,6 @@ public final class PrInfoQuery: GraphQLQuery {
 
             public static func makeRemovedFromProjectEvent() -> Node {
               return Node(unsafeResultMap: ["__typename": "RemovedFromProjectEvent"])
-            }
-
-            public static func makeRenamedTitleEvent() -> Node {
-              return Node(unsafeResultMap: ["__typename": "RenamedTitleEvent"])
             }
 
             public static func makeReviewDismissedEvent() -> Node {
@@ -7587,6 +7925,18 @@ public final class PrInfoQuery: GraphQLQuery {
               return Node(unsafeResultMap: ["__typename": "SubscribedEvent", "actor": actor.flatMap { (value: AsSubscribedEvent.Actor) -> ResultMap in value.resultMap }])
             }
 
+            public static func makeRenamedTitleEvent(actor: AsRenamedTitleEvent.Actor? = nil, previousTitle: String, currentTitle: String) -> Node {
+              return Node(unsafeResultMap: ["__typename": "RenamedTitleEvent", "actor": actor.flatMap { (value: AsRenamedTitleEvent.Actor) -> ResultMap in value.resultMap }, "previousTitle": previousTitle, "currentTitle": currentTitle])
+            }
+
+            public static func makeHeadRefForcePushedEvent(actor: AsHeadRefForcePushedEvent.Actor? = nil, beforeCommit: AsHeadRefForcePushedEvent.BeforeCommit? = nil, afterCommit: AsHeadRefForcePushedEvent.AfterCommit? = nil, ref: AsHeadRefForcePushedEvent.Ref? = nil) -> Node {
+              return Node(unsafeResultMap: ["__typename": "HeadRefForcePushedEvent", "actor": actor.flatMap { (value: AsHeadRefForcePushedEvent.Actor) -> ResultMap in value.resultMap }, "beforeCommit": beforeCommit.flatMap { (value: AsHeadRefForcePushedEvent.BeforeCommit) -> ResultMap in value.resultMap }, "afterCommit": afterCommit.flatMap { (value: AsHeadRefForcePushedEvent.AfterCommit) -> ResultMap in value.resultMap }, "ref": ref.flatMap { (value: AsHeadRefForcePushedEvent.Ref) -> ResultMap in value.resultMap }])
+            }
+
+            public static func makeHeadRefDeletedEvent(actor: AsHeadRefDeletedEvent.Actor? = nil, headRefName: String) -> Node {
+              return Node(unsafeResultMap: ["__typename": "HeadRefDeletedEvent", "actor": actor.flatMap { (value: AsHeadRefDeletedEvent.Actor) -> ResultMap in value.resultMap }, "headRefName": headRefName])
+            }
+
             public var __typename: String {
               get {
                 return resultMap["__typename"]! as! String
@@ -7674,7 +8024,7 @@ public final class PrInfoQuery: GraphQLQuery {
                 public static var selections: [GraphQLSelection] {
                   return [
                     GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-                    GraphQLField("message", type: .nonNull(.scalar(String.self))),
+                    GraphQLField("messageHeadline", type: .nonNull(.scalar(String.self))),
                     GraphQLField("author", type: .object(Author.selections)),
                     GraphQLField("abbreviatedOid", type: .nonNull(.scalar(String.self))),
                     GraphQLField("url", type: .nonNull(.scalar(String.self))),
@@ -7687,8 +8037,8 @@ public final class PrInfoQuery: GraphQLQuery {
                   self.resultMap = unsafeResultMap
                 }
 
-                public init(message: String, author: Author? = nil, abbreviatedOid: String, url: String) {
-                  self.init(unsafeResultMap: ["__typename": "Commit", "message": message, "author": author.flatMap { (value: Author) -> ResultMap in value.resultMap }, "abbreviatedOid": abbreviatedOid, "url": url])
+                public init(messageHeadline: String, author: Author? = nil, abbreviatedOid: String, url: String) {
+                  self.init(unsafeResultMap: ["__typename": "Commit", "messageHeadline": messageHeadline, "author": author.flatMap { (value: Author) -> ResultMap in value.resultMap }, "abbreviatedOid": abbreviatedOid, "url": url])
                 }
 
                 public var __typename: String {
@@ -7700,13 +8050,13 @@ public final class PrInfoQuery: GraphQLQuery {
                   }
                 }
 
-                /// The Git commit message
-                public var message: String {
+                /// The Git commit message headline
+                public var messageHeadline: String {
                   get {
-                    return resultMap["message"]! as! String
+                    return resultMap["messageHeadline"]! as! String
                   }
                   set {
-                    resultMap.updateValue(newValue, forKey: "message")
+                    resultMap.updateValue(newValue, forKey: "messageHeadline")
                   }
                 }
 
@@ -7931,6 +8281,9 @@ public final class PrInfoQuery: GraphQLQuery {
                   GraphQLField("actor", type: .object(Actor.selections)),
                   GraphQLField("commit", alias: "nullableName", type: .object(NullableName.selections)),
                   GraphQLField("mergeRefName", type: .nonNull(.scalar(String.self))),
+                  GraphQLField("actor", type: .object(Actor.selections)),
+                  GraphQLField("commit", alias: "nullableName", type: .object(NullableName.selections)),
+                  GraphQLField("mergeRefName", type: .nonNull(.scalar(String.self))),
                 ]
               }
 
@@ -7991,6 +8344,8 @@ public final class PrInfoQuery: GraphQLQuery {
                     GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                     GraphQLField("login", type: .nonNull(.scalar(String.self))),
                     GraphQLField("avatarUrl", type: .nonNull(.scalar(String.self))),
+                    GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                    GraphQLField("login", type: .nonNull(.scalar(String.self))),
                   ]
                 }
 
@@ -8058,6 +8413,10 @@ public final class PrInfoQuery: GraphQLQuery {
                     GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                     GraphQLField("abbreviatedOid", type: .nonNull(.scalar(String.self))),
                     GraphQLField("message", type: .nonNull(.scalar(String.self))),
+                    GraphQLField("messageHeadline", type: .nonNull(.scalar(String.self))),
+                    GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                    GraphQLField("messageHeadline", type: .nonNull(.scalar(String.self))),
+                    GraphQLField("abbreviatedOid", type: .nonNull(.scalar(String.self))),
                   ]
                 }
 
@@ -8067,8 +8426,8 @@ public final class PrInfoQuery: GraphQLQuery {
                   self.resultMap = unsafeResultMap
                 }
 
-                public init(abbreviatedOid: String, message: String) {
-                  self.init(unsafeResultMap: ["__typename": "Commit", "abbreviatedOid": abbreviatedOid, "message": message])
+                public init(abbreviatedOid: String, message: String, messageHeadline: String) {
+                  self.init(unsafeResultMap: ["__typename": "Commit", "abbreviatedOid": abbreviatedOid, "message": message, "messageHeadline": messageHeadline])
                 }
 
                 public var __typename: String {
@@ -8097,6 +8456,16 @@ public final class PrInfoQuery: GraphQLQuery {
                   }
                   set {
                     resultMap.updateValue(newValue, forKey: "message")
+                  }
+                }
+
+                /// The Git commit message headline
+                public var messageHeadline: String {
+                  get {
+                    return resultMap["messageHeadline"]! as! String
+                  }
+                  set {
+                    resultMap.updateValue(newValue, forKey: "messageHeadline")
                   }
                 }
               }
@@ -9979,6 +10348,7 @@ public final class PrInfoQuery: GraphQLQuery {
                     GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                     GraphQLField("commitUrl", type: .nonNull(.scalar(String.self))),
                     GraphQLField("message", type: .nonNull(.scalar(String.self))),
+                    GraphQLField("messageHeadline", type: .nonNull(.scalar(String.self))),
                   ]
                 }
 
@@ -9988,8 +10358,8 @@ public final class PrInfoQuery: GraphQLQuery {
                   self.resultMap = unsafeResultMap
                 }
 
-                public init(commitUrl: String, message: String) {
-                  self.init(unsafeResultMap: ["__typename": "Commit", "commitUrl": commitUrl, "message": message])
+                public init(commitUrl: String, message: String, messageHeadline: String) {
+                  self.init(unsafeResultMap: ["__typename": "Commit", "commitUrl": commitUrl, "message": message, "messageHeadline": messageHeadline])
                 }
 
                 public var __typename: String {
@@ -10018,6 +10388,16 @@ public final class PrInfoQuery: GraphQLQuery {
                   }
                   set {
                     resultMap.updateValue(newValue, forKey: "message")
+                  }
+                }
+
+                /// The Git commit message headline
+                public var messageHeadline: String {
+                  get {
+                    return resultMap["messageHeadline"]! as! String
+                  }
+                  set {
+                    resultMap.updateValue(newValue, forKey: "messageHeadline")
                   }
                 }
               }
@@ -10408,6 +10788,535 @@ public final class PrInfoQuery: GraphQLQuery {
                 }
                 set {
                   resultMap.updateValue(newValue?.resultMap, forKey: "actor")
+                }
+              }
+
+              public struct Actor: GraphQLSelectionSet {
+                public static let possibleTypes: [String] = ["Bot", "EnterpriseUserAccount", "Mannequin", "Organization", "User"]
+
+                public static var selections: [GraphQLSelection] {
+                  return [
+                    GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                    GraphQLField("login", type: .nonNull(.scalar(String.self))),
+                  ]
+                }
+
+                public private(set) var resultMap: ResultMap
+
+                public init(unsafeResultMap: ResultMap) {
+                  self.resultMap = unsafeResultMap
+                }
+
+                public static func makeBot(login: String) -> Actor {
+                  return Actor(unsafeResultMap: ["__typename": "Bot", "login": login])
+                }
+
+                public static func makeEnterpriseUserAccount(login: String) -> Actor {
+                  return Actor(unsafeResultMap: ["__typename": "EnterpriseUserAccount", "login": login])
+                }
+
+                public static func makeMannequin(login: String) -> Actor {
+                  return Actor(unsafeResultMap: ["__typename": "Mannequin", "login": login])
+                }
+
+                public static func makeOrganization(login: String) -> Actor {
+                  return Actor(unsafeResultMap: ["__typename": "Organization", "login": login])
+                }
+
+                public static func makeUser(login: String) -> Actor {
+                  return Actor(unsafeResultMap: ["__typename": "User", "login": login])
+                }
+
+                public var __typename: String {
+                  get {
+                    return resultMap["__typename"]! as! String
+                  }
+                  set {
+                    resultMap.updateValue(newValue, forKey: "__typename")
+                  }
+                }
+
+                /// The username of the actor.
+                public var login: String {
+                  get {
+                    return resultMap["login"]! as! String
+                  }
+                  set {
+                    resultMap.updateValue(newValue, forKey: "login")
+                  }
+                }
+              }
+            }
+
+            public var asRenamedTitleEvent: AsRenamedTitleEvent? {
+              get {
+                if !AsRenamedTitleEvent.possibleTypes.contains(__typename) { return nil }
+                return AsRenamedTitleEvent(unsafeResultMap: resultMap)
+              }
+              set {
+                guard let newValue = newValue else { return }
+                resultMap = newValue.resultMap
+              }
+            }
+
+            public struct AsRenamedTitleEvent: GraphQLSelectionSet {
+              public static let possibleTypes: [String] = ["RenamedTitleEvent"]
+
+              public static var selections: [GraphQLSelection] {
+                return [
+                  GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                  GraphQLField("actor", type: .object(Actor.selections)),
+                  GraphQLField("previousTitle", type: .nonNull(.scalar(String.self))),
+                  GraphQLField("currentTitle", type: .nonNull(.scalar(String.self))),
+                ]
+              }
+
+              public private(set) var resultMap: ResultMap
+
+              public init(unsafeResultMap: ResultMap) {
+                self.resultMap = unsafeResultMap
+              }
+
+              public init(actor: Actor? = nil, previousTitle: String, currentTitle: String) {
+                self.init(unsafeResultMap: ["__typename": "RenamedTitleEvent", "actor": actor.flatMap { (value: Actor) -> ResultMap in value.resultMap }, "previousTitle": previousTitle, "currentTitle": currentTitle])
+              }
+
+              public var __typename: String {
+                get {
+                  return resultMap["__typename"]! as! String
+                }
+                set {
+                  resultMap.updateValue(newValue, forKey: "__typename")
+                }
+              }
+
+              /// Identifies the actor who performed the event.
+              public var actor: Actor? {
+                get {
+                  return (resultMap["actor"] as? ResultMap).flatMap { Actor(unsafeResultMap: $0) }
+                }
+                set {
+                  resultMap.updateValue(newValue?.resultMap, forKey: "actor")
+                }
+              }
+
+              /// Identifies the previous title of the issue or pull request.
+              public var previousTitle: String {
+                get {
+                  return resultMap["previousTitle"]! as! String
+                }
+                set {
+                  resultMap.updateValue(newValue, forKey: "previousTitle")
+                }
+              }
+
+              /// Identifies the current title of the issue or pull request.
+              public var currentTitle: String {
+                get {
+                  return resultMap["currentTitle"]! as! String
+                }
+                set {
+                  resultMap.updateValue(newValue, forKey: "currentTitle")
+                }
+              }
+
+              public struct Actor: GraphQLSelectionSet {
+                public static let possibleTypes: [String] = ["Bot", "EnterpriseUserAccount", "Mannequin", "Organization", "User"]
+
+                public static var selections: [GraphQLSelection] {
+                  return [
+                    GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                    GraphQLField("login", type: .nonNull(.scalar(String.self))),
+                  ]
+                }
+
+                public private(set) var resultMap: ResultMap
+
+                public init(unsafeResultMap: ResultMap) {
+                  self.resultMap = unsafeResultMap
+                }
+
+                public static func makeBot(login: String) -> Actor {
+                  return Actor(unsafeResultMap: ["__typename": "Bot", "login": login])
+                }
+
+                public static func makeEnterpriseUserAccount(login: String) -> Actor {
+                  return Actor(unsafeResultMap: ["__typename": "EnterpriseUserAccount", "login": login])
+                }
+
+                public static func makeMannequin(login: String) -> Actor {
+                  return Actor(unsafeResultMap: ["__typename": "Mannequin", "login": login])
+                }
+
+                public static func makeOrganization(login: String) -> Actor {
+                  return Actor(unsafeResultMap: ["__typename": "Organization", "login": login])
+                }
+
+                public static func makeUser(login: String) -> Actor {
+                  return Actor(unsafeResultMap: ["__typename": "User", "login": login])
+                }
+
+                public var __typename: String {
+                  get {
+                    return resultMap["__typename"]! as! String
+                  }
+                  set {
+                    resultMap.updateValue(newValue, forKey: "__typename")
+                  }
+                }
+
+                /// The username of the actor.
+                public var login: String {
+                  get {
+                    return resultMap["login"]! as! String
+                  }
+                  set {
+                    resultMap.updateValue(newValue, forKey: "login")
+                  }
+                }
+              }
+            }
+
+            public var asHeadRefForcePushedEvent: AsHeadRefForcePushedEvent? {
+              get {
+                if !AsHeadRefForcePushedEvent.possibleTypes.contains(__typename) { return nil }
+                return AsHeadRefForcePushedEvent(unsafeResultMap: resultMap)
+              }
+              set {
+                guard let newValue = newValue else { return }
+                resultMap = newValue.resultMap
+              }
+            }
+
+            public struct AsHeadRefForcePushedEvent: GraphQLSelectionSet {
+              public static let possibleTypes: [String] = ["HeadRefForcePushedEvent"]
+
+              public static var selections: [GraphQLSelection] {
+                return [
+                  GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                  GraphQLField("actor", type: .object(Actor.selections)),
+                  GraphQLField("beforeCommit", type: .object(BeforeCommit.selections)),
+                  GraphQLField("afterCommit", type: .object(AfterCommit.selections)),
+                  GraphQLField("ref", type: .object(Ref.selections)),
+                ]
+              }
+
+              public private(set) var resultMap: ResultMap
+
+              public init(unsafeResultMap: ResultMap) {
+                self.resultMap = unsafeResultMap
+              }
+
+              public init(actor: Actor? = nil, beforeCommit: BeforeCommit? = nil, afterCommit: AfterCommit? = nil, ref: Ref? = nil) {
+                self.init(unsafeResultMap: ["__typename": "HeadRefForcePushedEvent", "actor": actor.flatMap { (value: Actor) -> ResultMap in value.resultMap }, "beforeCommit": beforeCommit.flatMap { (value: BeforeCommit) -> ResultMap in value.resultMap }, "afterCommit": afterCommit.flatMap { (value: AfterCommit) -> ResultMap in value.resultMap }, "ref": ref.flatMap { (value: Ref) -> ResultMap in value.resultMap }])
+              }
+
+              public var __typename: String {
+                get {
+                  return resultMap["__typename"]! as! String
+                }
+                set {
+                  resultMap.updateValue(newValue, forKey: "__typename")
+                }
+              }
+
+              /// Identifies the actor who performed the event.
+              public var actor: Actor? {
+                get {
+                  return (resultMap["actor"] as? ResultMap).flatMap { Actor(unsafeResultMap: $0) }
+                }
+                set {
+                  resultMap.updateValue(newValue?.resultMap, forKey: "actor")
+                }
+              }
+
+              /// Identifies the before commit SHA for the 'head_ref_force_pushed' event.
+              public var beforeCommit: BeforeCommit? {
+                get {
+                  return (resultMap["beforeCommit"] as? ResultMap).flatMap { BeforeCommit(unsafeResultMap: $0) }
+                }
+                set {
+                  resultMap.updateValue(newValue?.resultMap, forKey: "beforeCommit")
+                }
+              }
+
+              /// Identifies the after commit SHA for the 'head_ref_force_pushed' event.
+              public var afterCommit: AfterCommit? {
+                get {
+                  return (resultMap["afterCommit"] as? ResultMap).flatMap { AfterCommit(unsafeResultMap: $0) }
+                }
+                set {
+                  resultMap.updateValue(newValue?.resultMap, forKey: "afterCommit")
+                }
+              }
+
+              /// Identifies the fully qualified ref name for the 'head_ref_force_pushed' event.
+              public var ref: Ref? {
+                get {
+                  return (resultMap["ref"] as? ResultMap).flatMap { Ref(unsafeResultMap: $0) }
+                }
+                set {
+                  resultMap.updateValue(newValue?.resultMap, forKey: "ref")
+                }
+              }
+
+              public struct Actor: GraphQLSelectionSet {
+                public static let possibleTypes: [String] = ["Bot", "EnterpriseUserAccount", "Mannequin", "Organization", "User"]
+
+                public static var selections: [GraphQLSelection] {
+                  return [
+                    GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                    GraphQLField("login", type: .nonNull(.scalar(String.self))),
+                  ]
+                }
+
+                public private(set) var resultMap: ResultMap
+
+                public init(unsafeResultMap: ResultMap) {
+                  self.resultMap = unsafeResultMap
+                }
+
+                public static func makeBot(login: String) -> Actor {
+                  return Actor(unsafeResultMap: ["__typename": "Bot", "login": login])
+                }
+
+                public static func makeEnterpriseUserAccount(login: String) -> Actor {
+                  return Actor(unsafeResultMap: ["__typename": "EnterpriseUserAccount", "login": login])
+                }
+
+                public static func makeMannequin(login: String) -> Actor {
+                  return Actor(unsafeResultMap: ["__typename": "Mannequin", "login": login])
+                }
+
+                public static func makeOrganization(login: String) -> Actor {
+                  return Actor(unsafeResultMap: ["__typename": "Organization", "login": login])
+                }
+
+                public static func makeUser(login: String) -> Actor {
+                  return Actor(unsafeResultMap: ["__typename": "User", "login": login])
+                }
+
+                public var __typename: String {
+                  get {
+                    return resultMap["__typename"]! as! String
+                  }
+                  set {
+                    resultMap.updateValue(newValue, forKey: "__typename")
+                  }
+                }
+
+                /// The username of the actor.
+                public var login: String {
+                  get {
+                    return resultMap["login"]! as! String
+                  }
+                  set {
+                    resultMap.updateValue(newValue, forKey: "login")
+                  }
+                }
+              }
+
+              public struct BeforeCommit: GraphQLSelectionSet {
+                public static let possibleTypes: [String] = ["Commit"]
+
+                public static var selections: [GraphQLSelection] {
+                  return [
+                    GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                    GraphQLField("messageHeadline", type: .nonNull(.scalar(String.self))),
+                    GraphQLField("abbreviatedOid", type: .nonNull(.scalar(String.self))),
+                  ]
+                }
+
+                public private(set) var resultMap: ResultMap
+
+                public init(unsafeResultMap: ResultMap) {
+                  self.resultMap = unsafeResultMap
+                }
+
+                public init(messageHeadline: String, abbreviatedOid: String) {
+                  self.init(unsafeResultMap: ["__typename": "Commit", "messageHeadline": messageHeadline, "abbreviatedOid": abbreviatedOid])
+                }
+
+                public var __typename: String {
+                  get {
+                    return resultMap["__typename"]! as! String
+                  }
+                  set {
+                    resultMap.updateValue(newValue, forKey: "__typename")
+                  }
+                }
+
+                /// The Git commit message headline
+                public var messageHeadline: String {
+                  get {
+                    return resultMap["messageHeadline"]! as! String
+                  }
+                  set {
+                    resultMap.updateValue(newValue, forKey: "messageHeadline")
+                  }
+                }
+
+                /// An abbreviated version of the Git object ID
+                public var abbreviatedOid: String {
+                  get {
+                    return resultMap["abbreviatedOid"]! as! String
+                  }
+                  set {
+                    resultMap.updateValue(newValue, forKey: "abbreviatedOid")
+                  }
+                }
+              }
+
+              public struct AfterCommit: GraphQLSelectionSet {
+                public static let possibleTypes: [String] = ["Commit"]
+
+                public static var selections: [GraphQLSelection] {
+                  return [
+                    GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                    GraphQLField("messageHeadline", type: .nonNull(.scalar(String.self))),
+                    GraphQLField("abbreviatedOid", type: .nonNull(.scalar(String.self))),
+                  ]
+                }
+
+                public private(set) var resultMap: ResultMap
+
+                public init(unsafeResultMap: ResultMap) {
+                  self.resultMap = unsafeResultMap
+                }
+
+                public init(messageHeadline: String, abbreviatedOid: String) {
+                  self.init(unsafeResultMap: ["__typename": "Commit", "messageHeadline": messageHeadline, "abbreviatedOid": abbreviatedOid])
+                }
+
+                public var __typename: String {
+                  get {
+                    return resultMap["__typename"]! as! String
+                  }
+                  set {
+                    resultMap.updateValue(newValue, forKey: "__typename")
+                  }
+                }
+
+                /// The Git commit message headline
+                public var messageHeadline: String {
+                  get {
+                    return resultMap["messageHeadline"]! as! String
+                  }
+                  set {
+                    resultMap.updateValue(newValue, forKey: "messageHeadline")
+                  }
+                }
+
+                /// An abbreviated version of the Git object ID
+                public var abbreviatedOid: String {
+                  get {
+                    return resultMap["abbreviatedOid"]! as! String
+                  }
+                  set {
+                    resultMap.updateValue(newValue, forKey: "abbreviatedOid")
+                  }
+                }
+              }
+
+              public struct Ref: GraphQLSelectionSet {
+                public static let possibleTypes: [String] = ["Ref"]
+
+                public static var selections: [GraphQLSelection] {
+                  return [
+                    GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                    GraphQLField("name", type: .nonNull(.scalar(String.self))),
+                  ]
+                }
+
+                public private(set) var resultMap: ResultMap
+
+                public init(unsafeResultMap: ResultMap) {
+                  self.resultMap = unsafeResultMap
+                }
+
+                public init(name: String) {
+                  self.init(unsafeResultMap: ["__typename": "Ref", "name": name])
+                }
+
+                public var __typename: String {
+                  get {
+                    return resultMap["__typename"]! as! String
+                  }
+                  set {
+                    resultMap.updateValue(newValue, forKey: "__typename")
+                  }
+                }
+
+                /// The ref name.
+                public var name: String {
+                  get {
+                    return resultMap["name"]! as! String
+                  }
+                  set {
+                    resultMap.updateValue(newValue, forKey: "name")
+                  }
+                }
+              }
+            }
+
+            public var asHeadRefDeletedEvent: AsHeadRefDeletedEvent? {
+              get {
+                if !AsHeadRefDeletedEvent.possibleTypes.contains(__typename) { return nil }
+                return AsHeadRefDeletedEvent(unsafeResultMap: resultMap)
+              }
+              set {
+                guard let newValue = newValue else { return }
+                resultMap = newValue.resultMap
+              }
+            }
+
+            public struct AsHeadRefDeletedEvent: GraphQLSelectionSet {
+              public static let possibleTypes: [String] = ["HeadRefDeletedEvent"]
+
+              public static var selections: [GraphQLSelection] {
+                return [
+                  GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                  GraphQLField("actor", type: .object(Actor.selections)),
+                  GraphQLField("headRefName", type: .nonNull(.scalar(String.self))),
+                ]
+              }
+
+              public private(set) var resultMap: ResultMap
+
+              public init(unsafeResultMap: ResultMap) {
+                self.resultMap = unsafeResultMap
+              }
+
+              public init(actor: Actor? = nil, headRefName: String) {
+                self.init(unsafeResultMap: ["__typename": "HeadRefDeletedEvent", "actor": actor.flatMap { (value: Actor) -> ResultMap in value.resultMap }, "headRefName": headRefName])
+              }
+
+              public var __typename: String {
+                get {
+                  return resultMap["__typename"]! as! String
+                }
+                set {
+                  resultMap.updateValue(newValue, forKey: "__typename")
+                }
+              }
+
+              /// Identifies the actor who performed the event.
+              public var actor: Actor? {
+                get {
+                  return (resultMap["actor"] as? ResultMap).flatMap { Actor(unsafeResultMap: $0) }
+                }
+                set {
+                  resultMap.updateValue(newValue?.resultMap, forKey: "actor")
+                }
+              }
+
+              /// Identifies the name of the Ref associated with the `head_ref_deleted` event.
+              public var headRefName: String {
+                get {
+                  return resultMap["headRefName"]! as! String
+                }
+                set {
+                  resultMap.updateValue(newValue, forKey: "headRefName")
                 }
               }
 

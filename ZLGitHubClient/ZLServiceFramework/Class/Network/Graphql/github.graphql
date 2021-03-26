@@ -185,39 +185,38 @@ query WorkboardInfo{
 }
 
 # 查询某个issue
-query issueInfo($owner:String!,$name:String!,$number:Int!){
-  repository(owner:$owner,name:$name){
+query issueInfo($owner: String!, $name: String!, $number: Int!, $after: String) {
+  repository(owner: $owner, name: $name) {
     nameWithOwner
-    owner{
+    owner {
       login
       avatarUrl
     }
-    
-    issue(number:$number){
+    issue(number: $number) {
       title
       number
-      
-      author{
+      author {
         login
         avatarUrl
       }
-      
-      
       bodyText
       bodyHTML
       state
-      
       closed
       closedAt
       createdAt
-            
-      timelineItems(first:100){
-        totalCount,
-        nodes{
+      timelineItems(first: 10, after: $after) {
+        totalCount
+        pageInfo {
+          startCursor
+          endCursor
+          hasNextPage
+        }
+        nodes {
           __typename
-          ... on IssueComment{
+          ... on IssueComment {
             id
-            author{
+            author {
               login
               avatarUrl
             }
@@ -227,228 +226,226 @@ query issueInfo($owner:String!,$name:String!,$number:Int!){
             lastEditedAt
             publishedAt
           }
-          ... on AddedToProjectEvent{
+          ... on AddedToProjectEvent {
             id
-            actor{
+            actor {
               login
               avatarUrl
             }
             createdAt
           }
-          ... on AssignedEvent{
+          ... on AssignedEvent {
             id
-            actor{
+            actor {
               login
               avatarUrl
             }
-            assignee{
+            assignee {
               __typename
-              ... on User{
+              ... on User {
                 login
               }
-              ... on Bot{
+              ... on Bot {
                 login
               }
-              ... on Mannequin{
+              ... on Mannequin {
                 login
               }
-              ... on Organization{
+              ... on Organization {
                 login
               }
             }
           }
-          ... on ClosedEvent{
-            actor{
+          ... on ClosedEvent {
+            actor {
               login
             }
           }
-          ... on ReopenedEvent{
-            actor{
+          ... on ReopenedEvent {
+            actor {
               login
             }
           }
-          ... on CommentDeletedEvent{
-            actor{
+          ... on CommentDeletedEvent {
+            actor {
               login
             }
           }
-          ... on ConnectedEvent{
-            actor{
+          ... on ConnectedEvent {
+            actor {
               login
             }
-            source{
+            source {
               __typename
-              ... on PullRequest{
-                repository{
+              ... on PullRequest {
+                repository {
                   nameWithOwner
                 }
                 number
               }
-              ... on Issue{
-                repository{
+              ... on Issue {
+                repository {
                   nameWithOwner
                 }
                 number
               }
             }
-            subject{
+            subject {
               __typename
-              ... on PullRequest{
-                repository{
+              ... on PullRequest {
+                repository {
                   nameWithOwner
                 }
                 number
               }
-              ... on Issue{
-                repository{
+              ... on Issue {
+                repository {
                   nameWithOwner
                 }
                 number
               }
             }
-            
           }
-          ... on ConvertedNoteToIssueEvent{
-            actor{
+          ... on ConvertedNoteToIssueEvent {
+            actor {
               login
             }
           }
-          ... on ReferencedEvent{
-            actor{
+          ... on ReferencedEvent {
+            actor {
               login
             }
-            commit{
+            commit {
               commitUrl
-              message
+              messageHeadline
+              abbreviatedOid
             }
           }
-          ... on LabeledEvent{
-            actor{
+          ... on LabeledEvent {
+            actor {
               login
             }
-            label{
+            label {
               color
               name
             }
           }
-          ... on UnlabeledEvent{
-             actor{
+          ... on UnlabeledEvent {
+            actor {
               login
             }
-            label{
+            label {
               color
               name
             }
           }
-          
-          ... on SubscribedEvent{
-            actor{
+          ... on SubscribedEvent {
+            actor {
               login
             }
           }
-          
-          
+          ... on RenamedTitleEvent {
+            actor {
+              login
+            }
+            previousTitle
+            currentTitle
+          }
         }
       }
     }
   }
 }
 
+
 # 查询pr的信息
-query prInfo($owner:String!,$name:String!,$number:Int!,$after:String){
-  repository(owner:$owner,name:$name){
+query prInfo($owner: String!, $name: String!, $number: Int!, $after: String) {
+  repository(owner: $owner, name: $name) {
     nameWithOwner
-    owner{
+    owner {
       login
       avatarUrl
     }
-    
-    pullRequest(number:$number){
-      
+    pullRequest(number: $number) {
       title
       number
-      
-      author{
+      author {
         login
         avatarUrl
       }
-      
       bodyText
       bodyHTML
       state
-      
       baseRefName
       headRefName
-      baseRepository{
+      headRepositoryOwner {
+        login
+        avatarUrl
+      }
+      baseRepository {
         nameWithOwner
-        owner{
+        owner {
           login
         }
       }
-      headRepository{
+      headRepository {
         nameWithOwner
-        owner{
+        owner {
           login
         }
       }
-      
       changedFiles
       additions
       deletions
-  
       url
-      
-      commits{
+      commits {
         totalCount
       }
-      
       closed
       closedAt
       createdAt
-      
-      
-      timelineItems(after:$after,first:10){
-        pageInfo{
+      timelineItems(after: $after, first: 10) {
+        pageInfo {
           endCursor
           startCursor
           hasNextPage
         }
-        nodes{
-            __typename
-            ... on PullRequestCommit{
-              commit{
-                message
-                author{
-                  name
-                  avatarUrl
-                }
-                abbreviatedOid
-                url
+        nodes {
+          __typename
+          ... on PullRequestCommit {
+            commit {
+              messageHeadline
+              author {
+                name
+                avatarUrl
               }
+              abbreviatedOid
               url
-              resourcePath
             }
-          ... on PullRequestReview{
-            author{
+            url
+            resourcePath
+          }
+          ... on PullRequestReview {
+            author {
               login
               avatarUrl
             }
           }
-            
-            ... on MergedEvent{
-              actor{
-                login
-                avatarUrl
-              }
-              nullableName:commit{
-                abbreviatedOid
-                message
-              }
-              mergeRefName
+          ... on MergedEvent {
+            actor {
+              login
+              avatarUrl
             }
-            ... on IssueComment{
+            nullableName: commit {
+              abbreviatedOid
+              message
+              messageHeadline
+            }
+            mergeRefName
+          }
+          ... on IssueComment {
             id
-            author{
+            author {
               login
               avatarUrl
             }
@@ -458,127 +455,168 @@ query prInfo($owner:String!,$name:String!,$number:Int!,$after:String){
             lastEditedAt
             publishedAt
           }
-          ... on AddedToProjectEvent{
+          ... on AddedToProjectEvent {
             id
-            actor{
+            actor {
               login
               avatarUrl
             }
             createdAt
           }
-          ... on AssignedEvent{
+          ... on AssignedEvent {
             id
-            actor{
+            actor {
               login
               avatarUrl
             }
-            assignee{
+            assignee {
               __typename
-              ... on User{
+              ... on User {
                 login
               }
-              ... on Bot{
+              ... on Bot {
                 login
               }
-              ... on Mannequin{
+              ... on Mannequin {
                 login
               }
-              ... on Organization{
+              ... on Organization {
                 login
               }
             }
           }
-          ... on ClosedEvent{
-            actor{
+          ... on ClosedEvent {
+            actor {
               login
             }
           }
-          ... on ReopenedEvent{
-            actor{
+          ... on ReopenedEvent {
+            actor {
               login
             }
           }
-          ... on CommentDeletedEvent{
-            actor{
+          ... on CommentDeletedEvent {
+            actor {
               login
             }
           }
-          ... on ConnectedEvent{
-            actor{
+          ... on ConnectedEvent {
+            actor {
               login
             }
-            source{
+            source {
               __typename
-              ... on PullRequest{
-                repository{
+              ... on PullRequest {
+                repository {
                   nameWithOwner
                 }
                 number
               }
-              ... on Issue{
-                repository{
+              ... on Issue {
+                repository {
                   nameWithOwner
                 }
                 number
               }
             }
-            subject{
+            subject {
               __typename
-              ... on PullRequest{
-                repository{
+              ... on PullRequest {
+                repository {
                   nameWithOwner
                 }
                 number
               }
-              ... on Issue{
-                repository{
+              ... on Issue {
+                repository {
                   nameWithOwner
                 }
                 number
               }
             }
-            
           }
-          ... on ConvertedNoteToIssueEvent{
-            actor{
+          ... on ConvertedNoteToIssueEvent {
+            actor {
               login
             }
           }
-          ... on ReferencedEvent{
-            actor{
+          ... on ReferencedEvent {
+            actor {
               login
             }
-            nullableName:commit{
+            nullableName: commit {
               commitUrl
               message
+              messageHeadline
             }
           }
-          ... on LabeledEvent{
-            actor{
+          ... on LabeledEvent {
+            actor {
               login
             }
-            label{
+            label {
               color
               name
             }
           }
-          ... on UnlabeledEvent{
-             actor{
+          ... on UnlabeledEvent {
+            actor {
               login
             }
-            label{
+            label {
               color
               name
             }
           }
-          
-          ... on SubscribedEvent{
-            actor{
+          ... on SubscribedEvent {
+            actor {
               login
             }
+          }
+          ... on RenamedTitleEvent {
+            actor {
+              login
+            }
+            previousTitle
+            currentTitle
+          }
+          ... on HeadRefForcePushedEvent {
+            actor {
+              login
+            }
+            beforeCommit {
+              messageHeadline
+              abbreviatedOid
+            }
+            afterCommit {
+              messageHeadline
+              abbreviatedOid
+            }
+            ref {
+              name
+            }
+          }
+          ... on MergedEvent {
+            actor {
+              login
+            }
+            nullableName: commit {
+              messageHeadline
+              abbreviatedOid
+            }
+            mergeRefName
+          }
+          ... on HeadRefDeletedEvent{
+            actor {
+              login
+            }
+            headRefName
           }
         }
       }
     }
   }
 }
+
+
+

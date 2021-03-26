@@ -44,7 +44,7 @@ class ZLPullRequestHeaderTableViewCellData: ZLGithubItemTableViewCellData {
 extension ZLPullRequestHeaderTableViewCellData : ZLPullRequestHeaderTableViewCellDelegate {
     
     func getPRAuthorAvatarURL() -> String{
-        data.repository?.pullRequest?.author?.avatarUrl ?? ""
+        data.repository?.owner.avatarUrl ?? ""
     }
     
     func getPRRepoFullName() -> String{
@@ -76,8 +76,12 @@ extension ZLPullRequestHeaderTableViewCellData : ZLPullRequestHeaderTableViewCel
     func getDeletedFileNumber() -> Int {
         data.repository?.pullRequest?.deletions ?? 0
     }
-    func getRef() -> String {
-        "\(data.repository?.pullRequest?.headRepository?.owner.login ?? "") : \(data.repository?.pullRequest?.headRefName ?? "")  -> \(data.repository?.pullRequest?.baseRepository?.owner.login ?? "") : \(data.repository?.pullRequest?.baseRefName ?? "")"
+    
+    func getHeaderRef() -> String {
+        " \(data.repository?.pullRequest?.headRepositoryOwner?.login ?? "") : \(data.repository?.pullRequest?.headRefName ?? "") "
+    }
+    func getBaseRef() -> String {
+        " \(data.repository?.pullRequest?.baseRepository?.owner.login ?? "") : \(data.repository?.pullRequest?.baseRefName ?? "") "
     }
     
 }

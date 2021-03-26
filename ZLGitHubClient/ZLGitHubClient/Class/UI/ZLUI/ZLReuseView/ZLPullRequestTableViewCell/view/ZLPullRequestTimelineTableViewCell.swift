@@ -1,18 +1,19 @@
 //
-//  ZLIssueTimelineTableViewCell.swift
+//  ZLPullRequestTimelineTableViewCell.swift
 //  ZLGitHubClient
 //
-//  Created by 朱猛 on 2021/3/16.
+//  Created by 朱猛 on 2021/3/26.
 //  Copyright © 2021 ZM. All rights reserved.
 //
 
 import UIKit
 
-protocol ZLIssueTimelineTableViewCellDelegate : NSObjectProtocol {
+protocol ZLPullRequestTimelineTableViewCellDelegate : NSObjectProtocol {
     func getTimelineMessage() -> NSAttributedString
 }
 
-class ZLIssueTimelineTableViewCell: UITableViewCell {
+
+class ZLPullRequestTimelineTableViewCell: UITableViewCell {
     
     var timelineMessageLabel : UILabel!
 
@@ -40,6 +41,8 @@ class ZLIssueTimelineTableViewCell: UITableViewCell {
         self.backgroundColor = .clear
         self.contentView.backgroundColor = .clear
         
+        
+        
         let label = UILabel()
         label.font = UIFont(name: Font_PingFangSCSemiBold, size: 15)
         label.numberOfLines = 0
@@ -62,7 +65,8 @@ class ZLIssueTimelineTableViewCell: UITableViewCell {
     }
 
     
-    func fillWithData(data : ZLIssueTimelineTableViewCellDelegate) {
+    func fillWithData(data : ZLPullRequestTimelineTableViewCellDelegate) {
         timelineMessageLabel.attributedText = data.getTimelineMessage()
     }
 }
+
