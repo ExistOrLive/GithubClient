@@ -28,9 +28,11 @@ extension ZLPullRequestTableViewCellData {
                 if let comment =  timeline?.asIssueComment {
                     let bodyCellData = ZLPullRequestCommentTableViewCellData(data: comment)
                     cellDatas.append(bodyCellData)
-                } else if timeline?.asSubscribedEvent != nil {
-                    continue
-                } else if timeline?.__typename == "MentionedEvent"{
+                } else if timeline?.asSubscribedEvent != nil ||
+                            timeline?.asUnsubscribedEvent != nil ||
+                            timeline?.asMentionedEvent != nil ||
+                            timeline?.asAddedToProjectEvent != nil ||
+                            timeline?.asRemovedFromProjectEvent != nil {
                     continue
                 } else if let timeline  = timeline{
                     let timelinedata = ZLPullRequestTimelineTableViewCellData(data: timeline)

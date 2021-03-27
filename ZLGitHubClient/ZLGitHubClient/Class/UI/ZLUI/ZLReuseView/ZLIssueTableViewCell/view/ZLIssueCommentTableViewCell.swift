@@ -16,6 +16,7 @@ protocol ZLIssueCommentTableViewCellDelegate : NSObjectProtocol{
     func getCommentHtml() -> String
     func getCommentText() -> String
     func getCommentWebView() -> WKWebView
+    func getCommentWebViewHeight() -> CGFloat
 }
 
 class ZLIssueCommentTableViewCell: UITableViewCell {
@@ -129,7 +130,7 @@ class ZLIssueCommentTableViewCell: UITableViewCell {
         webView.snp.removeConstraints()
         webView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
-            make.height.equalTo(webView.scrollView.contentSize.height)
+            make.height.equalTo(data.getCommentWebViewHeight())
         }
         
     }

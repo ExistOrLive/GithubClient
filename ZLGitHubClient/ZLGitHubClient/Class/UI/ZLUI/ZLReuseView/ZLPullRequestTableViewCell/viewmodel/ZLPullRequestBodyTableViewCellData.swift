@@ -16,10 +16,12 @@ class ZLPullRequestBodyTableViewCellData: ZLGithubItemTableViewCellData {
     let data : IssueData
     
     let webView : WKWebView = WKWebView()
-    var webViewhasLoad : Bool = false
+
+    
+    var webViewHeight : CGFloat = 0
     
     deinit {
-        webView.scrollView.removeObserver(self, forKeyPath: "contentSize")
+         webView.scrollView.removeObserver(self, forKeyPath: "contentSize")
     }
     
     init(data : IssueData) {
@@ -27,7 +29,6 @@ class ZLPullRequestBodyTableViewCellData: ZLGithubItemTableViewCellData {
         super.init()
         
         webView.navigationDelegate = self
-        webView.isUserInteractionEnabled = false
         webView.frame = CGRect.zero
         webView.scrollView.backgroundColor = UIColor.clear
         webView.backgroundColor = UIColor.clear
@@ -81,6 +82,11 @@ class ZLPullRequestBodyTableViewCellData: ZLGithubItemTableViewCellData {
                 let htmlStr = try String.init(contentsOf: url)
                 let newHtmlStr = NSMutableString.init(string: htmlStr)
                 
+                let range1 = (newHtmlStr as NSString).range(of:"<style>")
+                if  range1.location != NSNotFound{
+                    newHtmlStr.insert("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no\"/>", at: range1.location)
+                }
+                
                 if cssURL != nil {
                     let cssStr = try String.init(contentsOf: cssURL!)
                     let range = (newHtmlStr as NSString).range(of:"</style>")
@@ -107,11 +113,10 @@ class ZLPullRequestBodyTableViewCellData: ZLGithubItemTableViewCellData {
             guard let size : CGSize = change?[NSKeyValueChangeKey.newKey] as? CGSize else{
                 return
             }
-            
+            webViewHeight = size.height
             guard let oldSize : CGSize = change?[NSKeyValueChangeKey.oldKey] as? CGSize else {
                 return
             }
-            
             
             if oldSize.height != size.height && webView.superview != nil {
                 self.super?.getEvent(nil, fromSubViewModel: self)
@@ -149,6 +154,9 @@ extension ZLPullRequestBodyTableViewCellData : ZLPullRequestCommentTableViewCell
         return data.bodyText
     }
     
+    func getCommentWebViewHeight() -> CGFloat{
+        return webViewHeight
+    }
     
 }
 
@@ -161,4 +169,19 @@ extension ZLPullRequestBodyTableViewCellData : WKNavigationDelegate {
         }
         
     }
+    
+//    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+//      let script = "document.body.scrollHeight;"
+//
+//      webView.evaluateJavaScript(script) { [weak self] result, error in
+//        if let _ = error { return }
+//
+//        if let height = result as? CGFloat {
+//            self?.webViewHeight = height
+//            if webView.superview != nil {
+//                self?.super?.getEvent(nil, fromSubViewModel: self!)
+//            }
+//        }
+//      }
+//    }
 }

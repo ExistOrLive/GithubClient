@@ -16,7 +16,8 @@ class ZLIssueCommentTableViewCellData: ZLGithubItemTableViewCellData {
     let data : IssueCommentData
     
     let webView : WKWebView = WKWebView()
-    var webViewhasLoad : Bool = false
+    
+    var webViewHeight : CGFloat = 0
     
     deinit {
         webView.scrollView.removeObserver(self, forKeyPath: "contentSize")
@@ -27,11 +28,8 @@ class ZLIssueCommentTableViewCellData: ZLGithubItemTableViewCellData {
         super.init()
         
         webView.navigationDelegate = self
-        webView.isUserInteractionEnabled = false
         webView.scrollView.backgroundColor = UIColor.clear
         webView.backgroundColor = UIColor.clear
-        webView.scrollView.maximumZoomScale = 1
-        webView.scrollView.minimumZoomScale  = 1
         webView.scrollView.isScrollEnabled = false
         webView.scrollView.addObserver(self, forKeyPath: "contentSize", options: [.new,.old], context: nil)
         
@@ -82,6 +80,11 @@ class ZLIssueCommentTableViewCellData: ZLGithubItemTableViewCellData {
                 let htmlStr = try String.init(contentsOf: url)
                 let newHtmlStr = NSMutableString.init(string: htmlStr)
                 
+                let range1 = (newHtmlStr as NSString).range(of:"<style>")
+                if  range1.location != NSNotFound{
+                    newHtmlStr.insert("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no\"/>", at: range1.location)
+                }
+                
                 if cssURL != nil {
                     let cssStr = try String.init(contentsOf: cssURL!)
                     let range = (newHtmlStr as NSString).range(of:"</style>")
@@ -107,6 +110,8 @@ class ZLIssueCommentTableViewCellData: ZLGithubItemTableViewCellData {
             guard let size : CGSize = change?[NSKeyValueChangeKey.newKey] as? CGSize else{
                 return
             }
+            
+            self.webViewHeight = size.height
             
             guard let oldSize : CGSize = change?[NSKeyValueChangeKey.oldKey] as? CGSize else {
                 return
@@ -144,6 +149,10 @@ extension ZLIssueCommentTableViewCellData : ZLIssueCommentTableViewCellDelegate 
     
     func getCommentText() -> String {
         return data.bodyText
+    }
+    
+    func getCommentWebViewHeight() -> CGFloat {
+        return webViewHeight
     }
     
     

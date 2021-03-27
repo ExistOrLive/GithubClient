@@ -32,11 +32,15 @@ extension ZLIssueTableViewCellData {
                     if timeline.asIssueComment != nil {
                         let cellData = ZLIssueCommentTableViewCellData(data: timeline.asIssueComment!)
                         cellDatas.append(cellData)
-                    } else if timeline.asSubscribedEvent != nil {
+                    }
+                    else if timeline.asSubscribedEvent != nil ||
+                                timeline.asUnsubscribedEvent != nil ||
+                                timeline.asMentionedEvent != nil ||
+                                timeline.asAddedToProjectEvent != nil ||
+                                timeline.asRemovedFromProjectEvent != nil{
                         continue
-                    } else if timeline.__typename == "MentionedEvent"{
-                        continue
-                    } else {
+                    }
+                    else {
                         let cellData = ZLIssueTimelineTableViewCellData(data: timeline)
                         cellDatas.append(cellData)
                     }

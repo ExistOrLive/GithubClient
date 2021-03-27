@@ -202,6 +202,7 @@ extension ZLRepoCodePreview4Controller {
             do {
                 let htmlStr = try String.init(contentsOf: url)
                 let newHtmlStr = NSMutableString.init(string: htmlStr)
+                
                 let range = (newHtmlStr as NSString).range(of:"</body>")
                 if  range.location != NSNotFound{
                     newHtmlStr.insert(codeHtml, at: range.location)

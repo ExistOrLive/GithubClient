@@ -214,18 +214,6 @@ query issueInfo($owner: String!, $name: String!, $number: Int!, $after: String) 
         }
         nodes {
           __typename
-          ... on IssueComment {
-            id
-            author {
-              login
-              avatarUrl
-            }
-            bodyText
-            bodyHTML
-            url
-            lastEditedAt
-            publishedAt
-          }
           ... on AddedToProjectEvent {
             id
             actor {
@@ -261,11 +249,6 @@ query issueInfo($owner: String!, $name: String!, $number: Int!, $after: String) 
               login
             }
           }
-          ... on ReopenedEvent {
-            actor {
-              login
-            }
-          }
           ... on CommentDeletedEvent {
             actor {
               login
@@ -275,51 +258,62 @@ query issueInfo($owner: String!, $name: String!, $number: Int!, $after: String) 
             actor {
               login
             }
-            source {
-              __typename
-              ... on PullRequest {
-                repository {
-                  nameWithOwner
-                }
-                number
-              }
-              ... on Issue {
-                repository {
-                  nameWithOwner
-                }
-                number
-              }
-            }
-            subject {
-              __typename
-              ... on PullRequest {
-                repository {
-                  nameWithOwner
-                }
-                number
-              }
-              ... on Issue {
-                repository {
-                  nameWithOwner
-                }
-                number
-              }
-            }
           }
           ... on ConvertedNoteToIssueEvent {
             actor {
               login
             }
           }
-          ... on ReferencedEvent {
+          ... on CrossReferencedEvent {
             actor {
               login
             }
-            commit {
-              commitUrl
-              messageHeadline
-              abbreviatedOid
+            target {
+              ... on Issue {
+                url
+                title
+                number
+                repository {
+                  owner {
+                    login
+                  }
+                  name
+                }
+              }
+              ... on PullRequest {
+                url
+                title
+                number
+                repository {
+                  owner {
+                    login
+                  }
+                  name
+                }
+              }
             }
+          }
+          ... on DemilestonedEvent {
+            actor {
+              login
+            }
+          }
+          ... on DisconnectedEvent {
+            actor {
+              login
+            }
+          }
+          ... on IssueComment {
+            id
+            author {
+              login
+              avatarUrl
+            }
+            bodyText
+            bodyHTML
+            url
+            lastEditedAt
+            publishedAt
           }
           ... on LabeledEvent {
             actor {
@@ -330,16 +324,48 @@ query issueInfo($owner: String!, $name: String!, $number: Int!, $after: String) 
               name
             }
           }
-          ... on UnlabeledEvent {
+          ... on LockedEvent {
             actor {
               login
             }
-            label {
-              color
-              name
+          }
+          ... on MarkedAsDuplicateEvent {
+            actor {
+              login
             }
           }
-          ... on SubscribedEvent {
+          ... on MentionedEvent {
+            actor {
+              login
+            }
+          }
+          ... on MilestonedEvent {
+            actor {
+              login
+            }
+            milestoneTitle
+          }
+          ... on MovedColumnsInProjectEvent {
+            actor {
+              login
+            }
+          }
+          ... on PinnedEvent {
+            actor {
+              login
+            }
+          }
+          ... on ReferencedEvent {
+            actor {
+              login
+            }
+            nullableName: commit {
+              commitUrl
+              message
+              messageHeadline
+            }
+          }
+          ... on RemovedFromProjectEvent {
             actor {
               login
             }
@@ -351,12 +377,68 @@ query issueInfo($owner: String!, $name: String!, $number: Int!, $after: String) 
             previousTitle
             currentTitle
           }
+          ... on ReopenedEvent {
+            actor {
+              login
+            }
+          }
+          ... on SubscribedEvent {
+            actor {
+              login
+            }
+          }
+          ... on TransferredEvent {
+            actor {
+              login
+            }
+          }
+          ... on UnassignedEvent {
+            actor {
+              login
+            }
+          }
+          ... on UnlabeledEvent {
+            actor {
+              login
+            }
+            label {
+              color
+              name
+            }
+          }
+          ... on UnlockedEvent {
+            actor {
+              login
+            }
+          }
+          ... on UnmarkedAsDuplicateEvent {
+            actor {
+              login
+            }
+          }
+          ... on UnpinnedEvent {
+            actor {
+              login
+            }
+          }
+          ... on UnsubscribedEvent {
+            actor {
+              login
+            }
+          }
+          ... on UserBlockedEvent {
+            actor {
+              login
+            }
+            subject {
+              login
+            }
+          }
         }
       }
     }
   }
 }
-
 
 # 查询pr的信息
 query prInfo($owner: String!, $name: String!, $number: Int!, $after: String) {
@@ -404,7 +486,7 @@ query prInfo($owner: String!, $name: String!, $number: Int!, $after: String) {
       closed
       closedAt
       createdAt
-      timelineItems(after: $after, first: 10) {
+      timelineItems(after: $after, first: 15) {
         pageInfo {
           endCursor
           startCursor
@@ -412,49 +494,6 @@ query prInfo($owner: String!, $name: String!, $number: Int!, $after: String) {
         }
         nodes {
           __typename
-          ... on PullRequestCommit {
-            commit {
-              messageHeadline
-              author {
-                name
-                avatarUrl
-              }
-              abbreviatedOid
-              url
-            }
-            url
-            resourcePath
-          }
-          ... on PullRequestReview {
-            author {
-              login
-              avatarUrl
-            }
-          }
-          ... on MergedEvent {
-            actor {
-              login
-              avatarUrl
-            }
-            nullableName: commit {
-              abbreviatedOid
-              message
-              messageHeadline
-            }
-            mergeRefName
-          }
-          ... on IssueComment {
-            id
-            author {
-              login
-              avatarUrl
-            }
-            bodyText
-            bodyHTML
-            url
-            lastEditedAt
-            publishedAt
-          }
           ... on AddedToProjectEvent {
             id
             actor {
@@ -485,12 +524,60 @@ query prInfo($owner: String!, $name: String!, $number: Int!, $after: String) {
               }
             }
           }
-          ... on ClosedEvent {
+          ... on AutoMergeEnabledEvent {
             actor {
               login
             }
           }
-          ... on ReopenedEvent {
+          ... on AutoMergeDisabledEvent {
+            actor {
+              login
+            }
+          }
+          ... on AutoMergeDisabledEvent {
+            actor {
+              login
+            }
+          }
+          ... on AutoRebaseEnabledEvent {
+            actor {
+              login
+            }
+          }
+          ... on AutoSquashEnabledEvent {
+            actor {
+              login
+            }
+          }
+          ... on AutomaticBaseChangeFailedEvent {
+            actor {
+              login
+            }
+          }
+          ... on AutomaticBaseChangeSucceededEvent {
+            actor {
+              login
+            }
+          }
+          ... on BaseRefChangedEvent {
+            actor {
+              login
+            }
+            previousRefName
+            currentRefName
+          }
+          ... on BaseRefDeletedEvent {
+            actor {
+              login
+            }
+            baseRefName
+          }
+          ... on BaseRefForcePushedEvent {
+            actor {
+              login
+            }
+          }
+          ... on ClosedEvent {
             actor {
               login
             }
@@ -535,50 +622,70 @@ query prInfo($owner: String!, $name: String!, $number: Int!, $after: String) {
               }
             }
           }
+          ... on ConvertToDraftEvent {
+            actor {
+              login
+            }
+          }
           ... on ConvertedNoteToIssueEvent {
             actor {
               login
             }
           }
-          ... on ReferencedEvent {
+          ... on CrossReferencedEvent {
             actor {
               login
             }
-            nullableName: commit {
-              commitUrl
-              message
-              messageHeadline
+            target {
+              ... on Issue {
+                url
+                title
+                number
+                repository {
+                  owner {
+                    login
+                  }
+                  name
+                }
+              }
+              ... on PullRequest {
+                url
+                title
+                number
+                repository {
+                  owner {
+                    login
+                  }
+                  name
+                }
+              }
             }
           }
-          ... on LabeledEvent {
-            actor {
-              login
-            }
-            label {
-              color
-              name
-            }
-          }
-          ... on UnlabeledEvent {
-            actor {
-              login
-            }
-            label {
-              color
-              name
-            }
-          }
-          ... on SubscribedEvent {
+          ... on DemilestonedEvent {
             actor {
               login
             }
           }
-          ... on RenamedTitleEvent {
+          ... on DeployedEvent {
             actor {
               login
             }
-            previousTitle
-            currentTitle
+          }
+          ... on DeploymentEnvironmentChangedEvent {
+            actor {
+              login
+            }
+          }
+          ... on DisconnectedEvent {
+            actor {
+              login
+            }
+          }
+          ... on HeadRefDeletedEvent {
+            actor {
+              login
+            }
+            headRefName
           }
           ... on HeadRefForcePushedEvent {
             actor {
@@ -596,27 +703,223 @@ query prInfo($owner: String!, $name: String!, $number: Int!, $after: String) {
               name
             }
           }
+          ... on HeadRefRestoredEvent {
+            actor {
+              login
+            }
+          }
+          ... on IssueComment {
+            id
+            author {
+              login
+              avatarUrl
+            }
+            bodyText
+            bodyHTML
+            url
+            lastEditedAt
+            publishedAt
+          }
+          ... on LabeledEvent {
+            actor {
+              login
+            }
+            label {
+              color
+              name
+            }
+          }
+          ... on LockedEvent {
+            actor {
+              login
+            }
+          }
+          ... on MarkedAsDuplicateEvent {
+            actor {
+              login
+            }
+          }
+          ... on MentionedEvent {
+            actor {
+              login
+            }
+          }
           ... on MergedEvent {
+            actor {
+              login
+              avatarUrl
+            }
+            nullableName: commit {
+              abbreviatedOid
+              message
+              messageHeadline
+            }
+            mergeRefName
+          }
+          ... on MilestonedEvent {
+            actor {
+              login
+            }
+            milestoneTitle
+          }
+          ... on MovedColumnsInProjectEvent {
+            actor {
+              login
+            }
+          }
+          ... on PinnedEvent {
+            actor {
+              login
+            }
+          }
+          ... on PullRequestCommit {
+            commit {
+              messageHeadline
+              author {
+                name
+                avatarUrl
+              }
+              abbreviatedOid
+              url
+            }
+            url
+            resourcePath
+          }
+          ... on PullRequestCommitCommentThread {
+            commit {
+              abbreviatedOid
+            }
+          }
+          ... on PullRequestReview {
+            author {
+              login
+              avatarUrl
+            }
+          }
+          ... on PullRequestReviewThread {
+            id
+          }
+          ... on PullRequestRevisionMarker {
+            lastSeenCommit {
+              abbreviatedOid
+            }
+          }
+          ... on ReadyForReviewEvent {
+            actor {
+              login
+            }
+          }
+          ... on ReferencedEvent {
             actor {
               login
             }
             nullableName: commit {
+              commitUrl
+              message
               messageHeadline
-              abbreviatedOid
             }
-            mergeRefName
           }
-          ... on HeadRefDeletedEvent{
+          ... on RemovedFromProjectEvent {
             actor {
               login
             }
-            headRefName
+          }
+          ... on RenamedTitleEvent {
+            actor {
+              login
+            }
+            previousTitle
+            currentTitle
+          }
+          ... on ReopenedEvent {
+            actor {
+              login
+            }
+          }
+          ... on ReviewDismissedEvent {
+            actor {
+              login
+            }
+          }
+          ... on ReviewRequestRemovedEvent {
+            actor {
+              login
+            }
+          }
+          ... on ReviewRequestedEvent {
+            actor {
+              login
+            }
+            requestedReviewer {
+              ... on User {
+                login
+              }
+              ... on Mannequin {
+                login
+              }
+              ... on Team {
+                name
+              }
+            }
+          }
+          ... on SubscribedEvent {
+            actor {
+              login
+            }
+          }
+          ... on TransferredEvent {
+            actor {
+              login
+            }
+          }
+          ... on UnassignedEvent {
+            actor {
+              login
+            }
+          }
+          ... on UnlabeledEvent {
+            actor {
+              login
+            }
+            label {
+              color
+              name
+            }
+          }
+          ... on UnlockedEvent {
+            actor {
+              login
+            }
+          }
+          ... on UnmarkedAsDuplicateEvent {
+            actor {
+              login
+            }
+          }
+          ... on UnpinnedEvent {
+            actor {
+              login
+            }
+          }
+          ... on UnsubscribedEvent {
+            actor {
+              login
+            }
+          }
+          ... on UserBlockedEvent {
+            actor {
+              login
+            }
+            nullname:subject {
+              login
+            }
           }
         }
       }
     }
   }
 }
+
 
 
 

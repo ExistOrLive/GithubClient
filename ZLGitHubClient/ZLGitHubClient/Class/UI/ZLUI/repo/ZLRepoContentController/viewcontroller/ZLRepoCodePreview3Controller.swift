@@ -287,6 +287,11 @@ extension ZLRepoCodePreview3Controller {
                 let htmlStr = try String.init(contentsOf: url)
                 let newHtmlStr = NSMutableString.init(string: htmlStr)
                 
+                let range1 = (newHtmlStr as NSString).range(of:"<style>")
+                if  range1.location != NSNotFound{
+                    newHtmlStr.insert("<meta name=\"viewport\" content=\"width=device-width\"/>", at: range1.location)
+                }
+                
                 if cssURL != nil {
                     let cssStr = try String.init(contentsOf: cssURL!)
                     let range = (newHtmlStr as NSString).range(of:"</style>")
