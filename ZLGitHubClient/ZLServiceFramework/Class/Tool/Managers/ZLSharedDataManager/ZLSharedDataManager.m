@@ -13,6 +13,7 @@
 
 #define ZLKeyChainService @"com.zm.fbd34c5a34be72f66c35.ZLGitHubClient"
 #define ZLKeyChainServiceFixRepos @"com.zm.fbd34c5a34be72f66c35.ZLGitHubClient.fixrepo"
+#define ZLKeyChainServiceDeviceId @"com.zm.fbd34c5a34be72f66c35.ZLGitHubClient.deviceId"
 
 #define ZLAssistButtonKey @"ZLAssistButtonKey"
 #define ZLAccessTokenKey @"ZLAccessTokenKey"
@@ -32,6 +33,7 @@
 @synthesize configModel = _configModel;
 @dynamic showAllNotifications;
 @dynamic currentUserInterfaceStyle;
+@dynamic deviceId;
 
 + (instancetype) sharedInstance{
     static ZLSharedDataManager * manager = nil;
@@ -44,6 +46,20 @@
 }
 
 #pragma mark -
+
+- (NSString *) deviceId {
+    
+    NSString* deviceId =  [ZLKeyChainManager load:ZLKeyChainServiceDeviceId];
+    if(deviceId == nil || deviceId.length == 0) {
+        
+        NSString* idfv =  [UIDevice currentDevice].identifierForVendor.UUIDString;
+        idfv = [idfv stringByReplacingOccurrencesOfString:@"-" withString:@""];
+        idfv = [idfv lowercaseString];
+        deviceId = [[NSString alloc] initWithFormat:@"%@-%lf",idfv,NSDate.now.timeIntervalSince1970];
+        [ZLKeyChainManager save:ZLKeyChainServiceDeviceId data:deviceId];
+    }
+    return deviceId;
+}
 
 - (void) setUserInfoModel:(ZLGithubUserModel * _Nullable)userInfoModel{
     if(userInfoModel){

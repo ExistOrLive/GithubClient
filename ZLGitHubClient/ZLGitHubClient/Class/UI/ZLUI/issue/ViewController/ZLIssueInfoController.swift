@@ -11,9 +11,9 @@ import UIKit
 class ZLIssueInfoController: ZLBaseViewController {
 
     // input model
-    var login : String?
-    var repoName : String?
-    var number : Int?
+    @objc var login : String?
+    @objc var repoName : String?
+    @objc var number : Int = 0
     
     var after : String?
     
@@ -101,14 +101,13 @@ extension ZLIssueInfoController : ZLGithubItemListViewDelegate {
     func githubItemListViewRefreshDragDown(pullRequestListView: ZLGithubItemListView) {
         
         if login == nil ||
-            repoName == nil ||
-            number == nil {
+            repoName == nil  {
             self.itemListView.endRefreshWithError()
         }
         
         ZLServiceManager.sharedInstance.repoServiceModel?.getRepositoryIssueInfo(withLoginName: login!,
                                                                                  repoName: repoName!,
-                                                                                 number: Int32(number!),
+                                                                                 number: Int32(number),
                                                                                  after: nil,
                                                                                  serialNumber: NSString.generateSerialNumber())
         { [weak self](resultModel : ZLOperationResultModel) in
@@ -140,14 +139,13 @@ extension ZLIssueInfoController : ZLGithubItemListViewDelegate {
     func githubItemListViewRefreshDragUp(pullRequestListView: ZLGithubItemListView) -> Void{
         
         if login == nil ||
-            repoName == nil ||
-            number == nil {
+            repoName == nil {
             self.itemListView.endRefreshWithError()
         }
         
         ZLServiceManager.sharedInstance.repoServiceModel?.getRepositoryIssueInfo(withLoginName: login!,
                                                                                  repoName: repoName!,
-                                                                                 number: Int32(number!),
+                                                                                 number: Int32(number),
                                                                                  after: after,
                                                                                  serialNumber: NSString.generateSerialNumber())
         { [weak self](resultModel : ZLOperationResultModel) in

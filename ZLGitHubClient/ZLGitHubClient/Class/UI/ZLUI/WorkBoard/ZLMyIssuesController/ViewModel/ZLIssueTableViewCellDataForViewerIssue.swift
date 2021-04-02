@@ -35,11 +35,16 @@ class ZLIssueTableViewCellDataForViewerIssue: ZLGithubItemTableViewCellData {
 //        let vc = ZLWebContentController.init()
 //        vc.requestURL = URL.init(string: data.url)
 //        self.viewController?.navigationController?.pushViewController(vc, animated: true)
-        let vc = ZLIssueInfoController()
-        vc.login = String(data.repository.nameWithOwner.split(separator: "/").first ?? "")
-        vc.repoName = data.repository.name
-        vc.number = data.number
-        self.viewController?.navigationController?.pushViewController(vc, animated: true)
+//        let vc = ZLIssueInfoController()
+//        vc.login = String(data.repository.nameWithOwner.split(separator: "/").first ?? "")
+//        vc.repoName = data.repository.name
+//        vc.number = data.number
+//        self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        ZLUIRouter.navigateVC(key: ZLUIRouter.IssueInfoController,
+                              params: ["login":String(data.repository.nameWithOwner.split(separator: "/").first ?? ""),
+                                       "repoName":data.repository.name,
+                                       "number":data.number])
+        
     }
     
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {

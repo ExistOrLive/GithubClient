@@ -29,17 +29,15 @@ class ZLIssueTableViewCellData: ZLGithubItemTableViewCellData {
         // https://github.com/MengAndJie/GithubClient/issues/22
         if let url = URL(string: issueModel.html_url) {
             if url.pathComponents.count >= 5 && url.pathComponents[3] == "issues" {
-                let vc = ZLIssueInfoController()
-                vc.login = url.pathComponents[1]
-                vc.repoName = url.pathComponents[2]
-                vc.number = Int(url.pathComponents[4])
-                self.viewController?.navigationController?.pushViewController(vc, animated: true)
+                ZLUIRouter.navigateVC(key: ZLUIRouter.IssueInfoController,
+                                      params: ["login":url.pathComponents[1],
+                                               "repoName":url.pathComponents[2],
+                                               "number":Int(url.pathComponents[4]) ?? 0])
             } else if url.pathComponents.count >= 5 && url.pathComponents[3] == "pull" {
-                let vc = ZLPRInfoController()
-                vc.login = url.pathComponents[1]
-                vc.repoName = url.pathComponents[2]
-                vc.number = Int(url.pathComponents[4])
-                self.viewController?.navigationController?.pushViewController(vc, animated: true)
+                ZLUIRouter.navigateVC(key: ZLUIRouter.PRInfoController,
+                                      params: ["login":url.pathComponents[1],
+                                               "repoName":url.pathComponents[2],
+                                               "number":Int(url.pathComponents[4]) ?? 0])
             } else {
                 let vc = ZLWebContentController.init()
                 vc.requestURL = url

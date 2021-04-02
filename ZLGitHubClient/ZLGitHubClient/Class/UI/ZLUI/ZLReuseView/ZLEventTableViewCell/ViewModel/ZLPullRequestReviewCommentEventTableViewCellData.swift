@@ -64,10 +64,22 @@ class ZLPullRequestReviewCommentEventTableViewCellData: ZLEventTableViewCellData
             return
         }
         
-        let vc = ZLWebContentController.init()
-        vc.hidesBottomBarWhenPushed = true
-        vc.requestURL = URL.init(string: payload.pull_request.html_url)
-        self.viewController?.navigationController?.pushViewController(vc, animated: true)
+
+        if let url = URL(string: payload.pull_request.html_url) {
+            if url.pathComponents.count >= 5 && url.pathComponents[3] == "pull" {
+                ZLUIRouter.navigateVC(key: ZLUIRouter.PRInfoController,
+                                      params: ["login":url.pathComponents[1],
+                                               "repoName":url.pathComponents[2],
+                                               "number":Int(url.pathComponents[4]) ?? 0])
+            } else {
+                let vc = ZLWebContentController.init()
+                vc.hidesBottomBarWhenPushed = true
+                vc.requestURL = url
+                self.viewController?.navigationController?.pushViewController(vc, animated: true)
+                
+            }
+        }
+        
     }
     
     override func clearCache() {

@@ -164,6 +164,24 @@
 		<key>isSingle</key>
 		<false/>
 	</dict>
+	<key>ZLPRInfoController</key>
+	<dict>
+		<key>class</key>
+		<string>ZLPRInfoController</string>
+		<key>type</key>
+		<integer>0</integer>
+		<key>isSingle</key>
+		<false/>
+	</dict>
+	<key>ZLIssueInfoController</key>
+	<dict>
+		<key>class</key>
+		<string>ZLIssueInfoController</string>
+		<key>type</key>
+		<integer>0</integer>
+		<key>isSingle</key>
+		<false/>
+	</dict>
 	<key>ZLUrlNotifcaitonModule</key>
 	<dict>
 		<key>class</key>

@@ -9,7 +9,6 @@
 #import "ZLBuglyManager.h"
 #import <Bugly/Bugly.h>
 #import "ZLGithubAppKey.h"
-
  
 @interface ZLBuglyManager() <BuglyDelegate>
 
@@ -50,8 +49,12 @@
         config.debugMode = YES;
         config.channel = @"ZM";
         config.version = [ZLDeviceInfo getAppShortVersion];
-        config.deviceIdentifier = @"zhumeng";
+        config.deviceIdentifier = [ZLSharedDataManager sharedInstance].deviceId;
         
+        
+        config.unexpectedTerminatingDetectionEnable = YES;
+        config.symbolicateInProcessEnable = YES;
+        config.viewControllerTrackingEnable = YES;
         
         config.blockMonitorEnable = YES;
         config.blockMonitorTimeout = 2.0;

@@ -19,7 +19,7 @@ protocol ZLIssueHeaderTableViewCellDelegate : NSObjectProtocol{
 
 class ZLIssueHeaderTableViewCell: UITableViewCell {
     
-    var avatarImageView : UIImageView!
+    var avatarButton : UIButton!
     var fullNameLabel : UILabel!
     var numberLabel: UILabel!
     var titleLabel: UILabel!
@@ -48,22 +48,22 @@ class ZLIssueHeaderTableViewCell: UITableViewCell {
         
         self.contentView.backgroundColor = UIColor(named: "ZLIssueCommentCellColor")
         
-        let imageView = UIImageView()
-        imageView.cornerRadius = 15
-        self.contentView.addSubview(imageView)
-        imageView.snp.makeConstraints { (make) in
+        let button = UIButton(type: .custom)
+        button.cornerRadius = 15
+        self.contentView.addSubview(button)
+        button.snp.makeConstraints { (make) in
             make.top.left.equalToSuperview().offset(20)
             make.size.equalTo(CGSize(width: 30, height: 30))
         }
-        avatarImageView = imageView
+        avatarButton = button
         
         let label1 = UILabel()
         label1.textColor = UIColor(named: "ZLLabelColor1")
         label1.font = UIFont(name: Font_PingFangSCMedium, size: 14)
         self.contentView.addSubview(label1)
         label1.snp.makeConstraints { (make) in
-            make.left.equalTo(avatarImageView.snp.right).offset(10)
-            make.centerY.equalTo(avatarImageView)
+            make.left.equalTo(avatarButton.snp.right).offset(10)
+            make.centerY.equalTo(avatarButton)
         }
         fullNameLabel = label1
         
@@ -73,7 +73,7 @@ class ZLIssueHeaderTableViewCell: UITableViewCell {
         self.contentView.addSubview(label2)
         label2.snp.makeConstraints { (make) in
             make.left.equalTo(fullNameLabel.snp.right).offset(10)
-            make.centerY.equalTo(avatarImageView)
+            make.centerY.equalTo(avatarButton)
         }
         numberLabel = label2
         
@@ -85,7 +85,7 @@ class ZLIssueHeaderTableViewCell: UITableViewCell {
         label3.snp.makeConstraints { (make) in
             make.left.equalToSuperview().offset(25)
             make.right.equalToSuperview().offset(-25)
-            make.top.equalTo(avatarImageView.snp.bottom).offset(10)
+            make.top.equalTo(avatarButton.snp.bottom).offset(10)
         }
         titleLabel = label3
         
@@ -115,7 +115,7 @@ class ZLIssueHeaderTableViewCell: UITableViewCell {
     
     func fillWithData(data : ZLIssueHeaderTableViewCellDelegate) {
         
-        avatarImageView.sd_setImage(with: URL(string: data.getIssueAuthorAvatarURL()), placeholderImage: UIImage(named: "default_avatar"))
+        avatarButton.sd_setImage(with: URL(string: data.getIssueAuthorAvatarURL()), for: .normal, placeholderImage: UIImage(named: "default_avatar"))
         fullNameLabel.text = data.getIssueRepoFullName()
         numberLabel.text = "#\(data.getIssueNumber())"
         titleLabel.text = data.getIssueTitle()

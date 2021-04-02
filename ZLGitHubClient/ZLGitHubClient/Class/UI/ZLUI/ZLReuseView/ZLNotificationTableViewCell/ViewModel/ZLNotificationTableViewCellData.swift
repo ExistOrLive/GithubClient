@@ -78,12 +78,23 @@ class ZLNotificationTableViewCellData: ZLGithubItemTableViewCellData {
         var url : URL? = nil
         if "Issue" == self.data.subject?.type {
             let tmpurl = URL.init(string: self.data.subject?.url ?? "")
-            let notificationNumber = tmpurl?.lastPathComponent ?? ""
-            url = URL.init(string: "https://github.com/\(self.data.repository?.full_name ?? "")/issues/\(notificationNumber)")
+            let notificationNumber = Int(tmpurl?.lastPathComponent ?? "") ?? 0
+            
+            ZLUIRouter.navigateVC(key: ZLUIRouter.IssueInfoController,
+                                  params: ["login":self.data.repository?.owner.loginName ?? "" ,
+                                           "repoName":self.data.repository?.name ?? "",
+                                           "number": notificationNumber])
+            return
         } else if "PullRequest" == self.data.subject?.type {
+            
             let tmpurl = URL.init(string: self.data.subject?.url ?? "")
-            let notificationNumber = tmpurl?.lastPathComponent ?? ""
-            url = URL.init(string: "https://github.com/\(self.data.repository?.full_name ?? "")/pull/\(notificationNumber)")
+            let notificationNumber = Int(tmpurl?.lastPathComponent ?? "") ?? 0
+            
+            ZLUIRouter.navigateVC(key: ZLUIRouter.PRInfoController,
+                                  params: ["login":self.data.repository?.owner.loginName ?? "" ,
+                                           "repoName":self.data.repository?.name ?? "",
+                                           "number": notificationNumber])
+            return
         } else if "RepositoryVulnerabilityAlert" == self.data.subject?.type {
             url = URL.init(string: "https://github.com/\(self.data.repository?.full_name ?? "")/security")
         } else if "Discussion" == self.data.subject?.type {

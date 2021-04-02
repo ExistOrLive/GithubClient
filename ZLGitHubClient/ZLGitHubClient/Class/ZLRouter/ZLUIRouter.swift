@@ -80,6 +80,8 @@ extension ZLUIRouter{
     
     static let UserInfoController : ZLUIKey = "ZLUserInfoController"
     static let RepoInfoController : ZLUIKey = "ZLRepoInfoController"
+    static let IssueInfoController : ZLUIKey = "ZLIssueInfoController"
+    static let PRInfoController : ZLUIKey = "ZLPRInfoController"
     
 }
 

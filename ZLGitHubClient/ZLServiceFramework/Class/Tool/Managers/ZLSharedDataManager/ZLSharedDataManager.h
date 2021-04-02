@@ -26,6 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype) sharedInstance;
 
+@property(nonatomic,strong,readonly) NSString * deviceId;
+
 @property(nonatomic,strong,nullable) NSString * githubAccessToken;
 
 @property(nonatomic,strong,nullable) ZLGithubUserModel * userInfoModel;
