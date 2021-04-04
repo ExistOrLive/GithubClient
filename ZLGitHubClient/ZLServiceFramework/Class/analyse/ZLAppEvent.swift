@@ -12,7 +12,6 @@ import Umbrella
 
 public let analytics : Umbrella.Analytics<ZLAppEvent> = {
     let tmpAnalytics =  Umbrella.Analytics<ZLAppEvent>()
-    tmpAnalytics.register(provider:SegmentProvider())
     tmpAnalytics.register(provider:ZLFirebaseProvider())
     return tmpAnalytics
 }()
@@ -53,6 +52,7 @@ public enum ZLAppEvent {
     case URLUse(url:String)
     case ScreenView(screenName:String,screenClass:String)
     case SearchItem(key:String)
+    case AD(success:Bool)
 }
 
 extension ZLAppEvent : EventType {
@@ -68,7 +68,10 @@ extension ZLAppEvent : EventType {
             return AnalyticsEventScreenView
         case .SearchItem:
             return AnalyticsEventSearch
+        case .AD:
+            return "Advertisement"
         }
+        
         
 
     }
@@ -84,6 +87,8 @@ extension ZLAppEvent : EventType {
             return [AnalyticsParameterScreenName:screenName,AnalyticsParameterScreenClass:screenClass]
         case .SearchItem(let key):
             return ["key":key]
+        case .AD(let success):
+            return ["success":success]
         }
     }
 }

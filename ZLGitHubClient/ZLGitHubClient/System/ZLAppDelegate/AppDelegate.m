@@ -16,10 +16,10 @@
 #import <DoraemonKit/DoraemonManager.h>
 #endif
 
-#import <Analytics/SEGAnalytics.h>
 #import <UserNotifications/UserNotifications.h>
 #import <SYDCentralPivot/SYDCentralPivotCoreHeader.h>
 #import <Firebase/Firebase.h>
+@import GoogleMobileAds;
 
 
 
@@ -240,18 +240,10 @@
 - (void) setUpBugly
 {
     [[ZLBuglyManager sharedManager] setUp];
-    
-    SEGAnalyticsConfiguration *configuration = [SEGAnalyticsConfiguration configurationWithWriteKey:@"JG7bUGHXiZnkWAJkYG9CCcyiUiLfo9iB"];
-
-    // Enable this to record certain application events automatically!
-    configuration.trackApplicationLifecycleEvents = YES;
-
-    // Enable this to record screen views automatically!
-    configuration.recordScreenViews = YES;
-
-    [SEGAnalytics setupWithConfiguration:configuration];
-    
+        
     [FIRApp configure];
+    
+    [[GADMobileAds sharedInstance] startWithCompletionHandler:nil];
     
 }
 

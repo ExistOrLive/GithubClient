@@ -6,7 +6,6 @@ PODS:
   - AFNetworking/Reachability (4.0.1)
   - AFNetworking/Security (4.0.1)
   - AFNetworking/Serialization (4.0.1)
-  - Analytics (3.9.0)
   - Apollo (0.39.0):
     - Apollo/Core (= 0.39.0)
   - Apollo/Core (0.39.0)
@@ -69,6 +68,9 @@ PODS:
   - FMDB/standard (2.7.5)
   - FWPopupView (4.1.5):
     - SnapKit
+  - Google-Mobile-Ads-SDK (8.3.0):
+    - GoogleAppMeasurement (~> 7.0)
+    - GoogleUserMessagingPlatform (>= 1.1)
   - GoogleAppMeasurement (7.9.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 7.0)
     - GoogleUtilities/MethodSwizzler (~> 7.0)
@@ -79,6 +81,7 @@ PODS:
     - GoogleUtilities/Environment (~> 7.2)
     - nanopb (~> 2.30907.0)
     - PromisesObjC (~> 1.2)
+  - GoogleUserMessagingPlatform (2.0.0)
   - GoogleUtilities/AppDelegateSwizzler (7.3.1):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
@@ -150,8 +153,6 @@ PODS:
   - Umbrella/Core (0.12.0)
   - Umbrella/Firebase (0.12.0):
     - Umbrella/Core
-  - Umbrella/Segment (0.12.0):
-    - Umbrella/Core
   - YYText (1.0.7)
 
 DEPENDENCIES:
@@ -159,7 +160,6 @@ DEPENDENCIES:
   - AFNetworking/Reachability
   - AFNetworking/Security
   - AFNetworking/Serialization
-  - Analytics (~> 3.0)
   - Apollo
   - Charts
   - CircleMenu
@@ -171,6 +171,7 @@ DEPENDENCIES:
   - Firebase/Analytics
   - FMDB
   - FWPopupView
+  - Google-Mobile-Ads-SDK
   - IQKeyboardManager
   - JJException
   - JXSegmentedView
@@ -187,13 +188,11 @@ DEPENDENCIES:
   - "UITextView+Placeholder"
   - Umbrella
   - Umbrella/Firebase
-  - Umbrella/Segment
   - YYText
 
 SPEC REPOS:
   trunk:
     - AFNetworking
-    - Analytics
     - Apollo
     - BSBacktraceLogger
     - Charts
@@ -210,8 +209,10 @@ SPEC REPOS:
     - fishhook
     - FMDB
     - FWPopupView
+    - Google-Mobile-Ads-SDK
     - GoogleAppMeasurement
     - GoogleDataTransport
+    - GoogleUserMessagingPlatform
     - GoogleUtilities
     - IQKeyboardManager
     - JJException
@@ -243,7 +244,6 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
-  Analytics: 67cce2129e4b0df5b532bf0c043043f292b32f5f
   Apollo: f6c6410ebee82dd5846be87b81cedc8bc7754a82
   BSBacktraceLogger: 06b983ee93a9f87d957960e9c73d660d5966b447
   Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
@@ -260,8 +260,10 @@ SPEC CHECKSUMS:
   fishhook: ea19933abfe8f2f52c55fd8b6e2718467d3ebc89
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   FWPopupView: 367cc1aca505ca83e2dbe8567c52afdbdd916d8d
+  Google-Mobile-Ads-SDK: c14f5a63db1414b4ca0ee1539c9f3d700ace96c2
   GoogleAppMeasurement: 120eec8803fe65a4a7475fb3d3d59a61d0e1a866
   GoogleDataTransport: 8b0e733ea77c9218778e5a9e34ba9508b8328939
+  GoogleUserMessagingPlatform: ab890ce5f6620f293a21b6bdd82e416a2c73aeca
   GoogleUtilities: e1d9ed4e544fc32a93e00e721400cbc3f377200d
   IQKeyboardManager: 2a6e97afdafc7becf0cb17a9a8d795e3a980717f
   JJException: da7c64ccf29d9938a4075378a7e9a29db7383c37
@@ -282,6 +284,6 @@ SPEC CHECKSUMS:
   Umbrella: 4faf9786a6b29197608f6483711271104d237646
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: 7567e7b4799c81c4ec81d565040f2edb3b3c2aea
+PODFILE CHECKSUM: 4d2a5b74a22265923e39f43d557d7ffaeed06547
 
 COCOAPODS: 1.10.1

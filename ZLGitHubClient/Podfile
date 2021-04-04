@@ -14,10 +14,11 @@ end
 
 target 'ZLServiceFramework' do
   
+pod 'Google-Mobile-Ads-SDK'
 pod 'Umbrella'
-pod 'Umbrella/Segment'
+#pod 'Umbrella/Segment'
 pod 'Umbrella/Firebase'
-pod 'Analytics', '~> 3.0'
+#pod 'Analytics', '~> 3.0'
 pod 'Firebase/Analytics'
 
 
@@ -50,12 +51,12 @@ end
 
 target 'ZLGitHubClient' do
   
-#pod 'Google-Mobile-Ads-SDK'
+pod 'Google-Mobile-Ads-SDK'
   
 pod 'Umbrella'
-pod 'Umbrella/Segment'
+#pod 'Umbrella/Segment'
 pod 'Umbrella/Firebase'
-pod 'Analytics', '~> 3.0'
+#pod 'Analytics', '~> 3.0'
 pod 'Firebase/Analytics'
 
 # Json Model 转换
