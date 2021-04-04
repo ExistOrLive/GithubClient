@@ -16,8 +16,11 @@
 #import <DoraemonKit/DoraemonManager.h>
 #endif
 
+#import <Analytics/SEGAnalytics.h>
 #import <UserNotifications/UserNotifications.h>
 #import <SYDCentralPivot/SYDCentralPivotCoreHeader.h>
+#import <Firebase/Firebase.h>
+
 
 
 @interface AppDelegate () <UNUserNotificationCenterDelegate>
@@ -237,6 +240,19 @@
 - (void) setUpBugly
 {
     [[ZLBuglyManager sharedManager] setUp];
+    
+    SEGAnalyticsConfiguration *configuration = [SEGAnalyticsConfiguration configurationWithWriteKey:@"JG7bUGHXiZnkWAJkYG9CCcyiUiLfo9iB"];
+
+    // Enable this to record certain application events automatically!
+    configuration.trackApplicationLifecycleEvents = YES;
+
+    // Enable this to record screen views automatically!
+    configuration.recordScreenViews = YES;
+
+    [SEGAnalytics setupWithConfiguration:configuration];
+    
+    [FIRApp configure];
+    
 }
 
 #pragma mark - JJException

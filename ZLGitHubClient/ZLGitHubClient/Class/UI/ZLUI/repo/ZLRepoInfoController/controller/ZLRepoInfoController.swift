@@ -30,6 +30,8 @@ import UIKit
             let viewModel = ZLRepoInfoViewModel()
             self.addSubViewModel(viewModel)
             viewModel.bindModel(repoInfoModel, andView: baseView)
+            
+            analytics.log(.viewItem(name: repoInfoModel.full_name))
         }
     }
     

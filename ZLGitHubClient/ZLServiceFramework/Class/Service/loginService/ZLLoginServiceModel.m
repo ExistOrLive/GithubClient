@@ -48,6 +48,8 @@
 {
     if(self.step != ZLLoginStep_init)
     {
+        [ZLAppEventForOC loginEventWithResult:2 step:self.step way:0];
+        
         ZLLog_Info(@"ZLLoginProcess: stopLogin[%@]",serialNumber);
         self.step = ZLLoginStep_init;
         self.currentLoginSerialNumber = nil;
@@ -119,12 +121,13 @@
             
             if(result)
             {
-                self.step = processModel.loginStep;
+                weakSelf.step = processModel.loginStep;
             }
             else
             {
-                self.step = ZLLoginStep_init;
-                self.currentLoginSerialNumber = nil;
+                [ZLAppEventForOC loginEventWithResult:1 step:weakSelf.step way:0];
+                weakSelf.step = ZLLoginStep_init;
+                weakSelf.currentLoginSerialNumber = nil;
             }
             
             [weakSelf postNotification:ZLLoginResult_Notification withParams:processModel];
@@ -152,7 +155,7 @@
         
         ZLLoginProcessModel * processModel = (ZLLoginProcessModel *)response;
         
-        if(![self.currentLoginSerialNumber isEqualToString:processModel.serialNumber])
+        if(![weakSelf.currentLoginSerialNumber isEqualToString:processModel.serialNumber])
         {
             return;
         }
@@ -163,12 +166,14 @@
             
             if(result)
             {
-                self.step = processModel.loginStep;
+                [ZLAppEventForOC loginEventWithResult:0 step:weakSelf.step way:0];
+                weakSelf.step = processModel.loginStep;
             }
             else
             {
-                self.step = ZLLoginStep_init;
-                self.currentLoginSerialNumber = nil;
+                [ZLAppEventForOC loginEventWithResult:1 step:weakSelf.step way:0];
+                weakSelf.step = ZLLoginStep_init;
+                weakSelf.currentLoginSerialNumber = nil;
             }
             
             [weakSelf postNotification:ZLLoginResult_Notification withParams:processModel];
@@ -193,8 +198,10 @@
         
         ZLMainThreadDispatch(
         if(result) {
+            [ZLAppEventForOC loginEventWithResult:0 step:weakSelf.step way:1];
             weakSelf.step = ZLLoginStep_Success;
         } else {
+            [ZLAppEventForOC loginEventWithResult:1 step:weakSelf.step way:1];
             weakSelf.step = ZLLoginStep_init;
         }
         [weakSelf postNotification:ZLLoginResult_Notification withParams:processModel];

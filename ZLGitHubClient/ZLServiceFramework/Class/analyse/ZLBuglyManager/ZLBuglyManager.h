@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) setUp;
 
+- (void) log:(NSString *) eventName parameters:(NSDictionary * _Nullable) parameters;
+
 @end
 
 NS_ASSUME_NONNULL_END

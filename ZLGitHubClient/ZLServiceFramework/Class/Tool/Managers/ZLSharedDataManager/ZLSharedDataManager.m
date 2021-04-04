@@ -55,7 +55,7 @@
         NSString* idfv =  [UIDevice currentDevice].identifierForVendor.UUIDString;
         idfv = [idfv stringByReplacingOccurrencesOfString:@"-" withString:@""];
         idfv = [idfv lowercaseString];
-        deviceId = [[NSString alloc] initWithFormat:@"%@-%lf",idfv,NSDate.now.timeIntervalSince1970];
+        deviceId = [[NSString alloc] initWithFormat:@"%@-%lf",idfv,[NSDate new].timeIntervalSince1970];
         [ZLKeyChainManager save:ZLKeyChainServiceDeviceId data:deviceId];
     }
     return deviceId;

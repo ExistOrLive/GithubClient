@@ -47,6 +47,8 @@ class ZLUserInfoController: ZLBaseViewController {
         self.addSubViewModel(viewModel)
         // bind view and viewModel
         viewModel.bindModel(self.userInfoModel, andView: baseView)
+        
+        analytics.log(.viewItem(name: userInfoModel.loginName))
 
     }
     

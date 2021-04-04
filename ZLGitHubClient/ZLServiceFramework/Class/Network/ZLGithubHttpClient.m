@@ -137,6 +137,8 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                  WithResponseBlock:(GithubResponse) block
                   WithSerialNumber:(NSString *) serialNumber{
     
+    [ZLAppEventForOC urlUserWithUrl:URL];
+    
     ZLLog_Info(@"Http Request(method[%@] url[%@] params[%@] serialNumber[%@])",method,URL,params,serialNumber);
     
     void(^successBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =

@@ -30,7 +30,6 @@
 		3693D8D02465236D00779FC4 /* ZLAboutContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3693D8CE2465236D00779FC4 /* ZLAboutContentView.xib */; };
 		3693D8D12465236D00779FC4 /* ZLAboutContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3693D8CF2465236D00779FC4 /* ZLAboutContentView.swift */; };
 		3693D8D4246523A400779FC4 /* ZLAboutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3693D8D3246523A400779FC4 /* ZLAboutViewModel.swift */; };
-		36C43F9923ABAB92002DE5D6 /* ZLBuglyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C43F9823ABAB92002DE5D6 /* ZLBuglyManager.m */; };
 		36C785FC240782BA001B74C9 /* ZLRepoItemInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36C785FB240782BA001B74C9 /* ZLRepoItemInfoView.xib */; };
 		36C786012407E05F001B74C9 /* ZLRepoItemInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C786002407E05F001B74C9 /* ZLRepoItemInfoView.swift */; };
 		52AC1DE360CC31E2C7A64495 /* Pods_ZLBaseFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C158892C4674C3DD266C21BA /* Pods_ZLBaseFramework.framework */; };
@@ -121,6 +120,11 @@
 		7456A2F02416A4E100222D6C /* ZLPullRequestTableViewCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7456A2EF2416A4E100222D6C /* ZLPullRequestTableViewCellData.swift */; };
 		745D48C8257249D700E67AEE /* github_style_dark_markdown.css in Resources */ = {isa = PBXBuildFile; fileRef = 745D48C6257249D700E67AEE /* github_style_dark_markdown.css */; };
 		745D48C9257249D700E67AEE /* github_style_markdown.css in Resources */ = {isa = PBXBuildFile; fileRef = 745D48C7257249D700E67AEE /* github_style_markdown.css */; };
+		745EADE02616E38600973F86 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 745EADDF2616E38600973F86 /* GoogleService-Info.plist */; };
+		745EAED82616ED4600973F86 /* ZLAppEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745EAED72616ED4600973F86 /* ZLAppEvent.swift */; };
+		745EAEE22616FAE800973F86 /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74D3DF8B25CBEEC800BB11F2 /* Bugly.framework */; };
+		745EAEE92616FB4700973F86 /* ZLBuglyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 745EAEE72616FB4600973F86 /* ZLBuglyManager.m */; };
+		745EAEEA2616FB4700973F86 /* ZLBuglyManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 745EAEE82616FB4600973F86 /* ZLBuglyManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		746B092E21EB7362000EE88B /* ZLMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 746B092D21EB7362000EE88B /* ZLMainViewController.m */; };
 		746FAFCE2316AC25006A0288 /* ZLWebContentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746FAFCD2316AC25006A0288 /* ZLWebContentController.swift */; };
 		746FAFD12316AC42006A0288 /* ZLWebContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746FAFD02316AC42006A0288 /* ZLWebContentView.swift */; };
@@ -234,7 +238,6 @@
 		74CF8F5F2543107A006F51A5 /* ZLReportController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CF8F5E2543107A006F51A5 /* ZLReportController.swift */; };
 		74CF8F6325431351006F51A5 /* ZLReportBaseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74CF8F6225431351006F51A5 /* ZLReportBaseView.xib */; };
 		74D3DF8725CBEE9300BB11F2 /* UIViewController+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3DF8525CBEE9300BB11F2 /* UIViewController+Tool.m */; };
-		74D3DF8C25CBEEC800BB11F2 /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74D3DF8B25CBEEC800BB11F2 /* Bugly.framework */; };
 		74D3DF9725CBF12200BB11F2 /* UIView+HJViewStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3DF9325CBF12200BB11F2 /* UIView+HJViewStyle.m */; };
 		74D3DF9825CBF12200BB11F2 /* UIColor+HexColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3DF9525CBF12200BB11F2 /* UIColor+HexColor.m */; };
 		74D3EEB5259BC2120002A2D3 /* ZLBaseFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 74D3EEB3259BC2120002A2D3 /* ZLBaseFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -447,6 +450,7 @@
 		D1259FA023195CC700C7892B /* ZLNewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1259F9F23195CC700C7892B /* ZLNewsViewModel.swift */; };
 		D1382201231E0984008AC7CC /* UIColor+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1382200231E0984008AC7CC /* UIColor+extension.swift */; };
 		FE55B6774DB181170383987F /* Pods_ZLServiceFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AC44332CAA0E09B3278CC22 /* Pods_ZLServiceFramework.framework */; };
+		FF82FFB5E37C2000F52B729C /* Pods_Fixed_RepoExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32CC97A2B7228C1B1446BFCA /* Pods_Fixed_RepoExtension.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -517,6 +521,7 @@
 		0ADF903C21D4B01900BF86CD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0ADF904321D4D33D00BF86CD /* ZLGitHubClient-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZLGitHubClient-Bridging-Header.h"; sourceTree = "<group>"; };
 		2A1C1E9B223917862FB53386 /* Pods-ZLServiceFramework.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZLServiceFramework.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZLServiceFramework/Pods-ZLServiceFramework.release.xcconfig"; sourceTree = "<group>"; };
+		32CC97A2B7228C1B1446BFCA /* Pods_Fixed_RepoExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fixed_RepoExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		361B8B79239FD1C000F725B8 /* ZLStarReposBaseView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLStarReposBaseView.h; sourceTree = "<group>"; };
 		361B8B7A239FD1C000F725B8 /* ZLStarReposBaseView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLStarReposBaseView.m; sourceTree = "<group>"; };
 		361B8B7D239FD35000F725B8 /* ZLStarReposBaseViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLStarReposBaseViewModel.h; sourceTree = "<group>"; };
@@ -539,10 +544,9 @@
 		3693D8CE2465236D00779FC4 /* ZLAboutContentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZLAboutContentView.xib; sourceTree = "<group>"; };
 		3693D8CF2465236D00779FC4 /* ZLAboutContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZLAboutContentView.swift; sourceTree = "<group>"; };
 		3693D8D3246523A400779FC4 /* ZLAboutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLAboutViewModel.swift; sourceTree = "<group>"; };
-		36C43F9723ABAB92002DE5D6 /* ZLBuglyManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLBuglyManager.h; sourceTree = "<group>"; };
-		36C43F9823ABAB92002DE5D6 /* ZLBuglyManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLBuglyManager.m; sourceTree = "<group>"; };
 		36C785FB240782BA001B74C9 /* ZLRepoItemInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZLRepoItemInfoView.xib; sourceTree = "<group>"; };
 		36C786002407E05F001B74C9 /* ZLRepoItemInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLRepoItemInfoView.swift; sourceTree = "<group>"; };
+		4B452F7BFC8564E0921A68EB /* Pods-Fixed RepoExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fixed RepoExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Fixed RepoExtension/Pods-Fixed RepoExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		60A321F2ADD6DAF97FEEDF94 /* Pods-ZLServiceFramework.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZLServiceFramework.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZLServiceFramework/Pods-ZLServiceFramework.debug.xcconfig"; sourceTree = "<group>"; };
 		71EC483528FF72DE8C8B1035 /* Pods_ZLGitHubClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZLGitHubClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		740318CA22F702B7004CE52D /* ZLSearchRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLSearchRecordView.swift; sourceTree = "<group>"; };
@@ -634,6 +638,10 @@
 		7456A2EF2416A4E100222D6C /* ZLPullRequestTableViewCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLPullRequestTableViewCellData.swift; sourceTree = "<group>"; };
 		745D48C6257249D700E67AEE /* github_style_dark_markdown.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = github_style_dark_markdown.css; sourceTree = "<group>"; };
 		745D48C7257249D700E67AEE /* github_style_markdown.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = github_style_markdown.css; sourceTree = "<group>"; };
+		745EADDF2616E38600973F86 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		745EAED72616ED4600973F86 /* ZLAppEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLAppEvent.swift; sourceTree = "<group>"; };
+		745EAEE72616FB4600973F86 /* ZLBuglyManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLBuglyManager.m; sourceTree = "<group>"; };
+		745EAEE82616FB4600973F86 /* ZLBuglyManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLBuglyManager.h; sourceTree = "<group>"; };
 		746B092C21EB7362000EE88B /* ZLMainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLMainViewController.h; sourceTree = "<group>"; };
 		746B092D21EB7362000EE88B /* ZLMainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLMainViewController.m; sourceTree = "<group>"; };
 		746B093021EB74EF000EE88B /* ZLGitHubClient-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZLGitHubClient-Prefix.pch"; sourceTree = "<group>"; };
@@ -996,6 +1004,7 @@
 		74FCBDA323142E0200DDE46A /* ZLEditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLEditProfileViewModel.swift; sourceTree = "<group>"; };
 		74FCBDA523142F1300DDE46A /* ZLEditProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLEditProfileController.swift; sourceTree = "<group>"; };
 		7AC44332CAA0E09B3278CC22 /* Pods_ZLServiceFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZLServiceFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		827C09D31FC9D9456ED23E03 /* Pods-Fixed RepoExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fixed RepoExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-Fixed RepoExtension/Pods-Fixed RepoExtension.release.xcconfig"; sourceTree = "<group>"; };
 		9DB8CADD643B3AEB70C63C51 /* Pods-ZLBaseFramework.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZLBaseFramework.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZLBaseFramework/Pods-ZLBaseFramework.release.xcconfig"; sourceTree = "<group>"; };
 		AA68B4BC8FFF87762D625908 /* Pods-ZLBaseFramework.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZLBaseFramework.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZLBaseFramework/Pods-ZLBaseFramework.debug.xcconfig"; sourceTree = "<group>"; };
 		C158892C4674C3DD266C21BA /* Pods_ZLBaseFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZLBaseFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1015,7 +1024,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				74D3DF8C25CBEEC800BB11F2 /* Bugly.framework in Frameworks */,
 				A6389CC5113B9E045DD7D154 /* Pods_ZLGitHubClient.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1028,6 +1036,7 @@
 				74344A5C258B0FB600903E08 /* WidgetKit.framework in Frameworks */,
 				74438B4A259787620021099C /* Foundation.framework in Frameworks */,
 				74344A5E258B0FB600903E08 /* SwiftUI.framework in Frameworks */,
+				FF82FFB5E37C2000F52B729C /* Pods_Fixed_RepoExtension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1043,6 +1052,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				745EAEE22616FAE800973F86 /* Bugly.framework in Frameworks */,
 				74D3F487259CF4DD0002A2D3 /* libgumbo.a in Frameworks */,
 				74D3F163259CA0460002A2D3 /* ZLBaseFramework.framework in Frameworks */,
 				FE55B6774DB181170383987F /* Pods_ZLServiceFramework.framework in Frameworks */,
@@ -1079,6 +1089,7 @@
 		0ADF902C21D4B01900BF86CD /* ZLGitHubClient */ = {
 			isa = PBXGroup;
 			children = (
+				745EADDF2616E38600973F86 /* GoogleService-Info.plist */,
 				366488532420B73100EC8FC7 /* ZLGitHubClient.entitlements */,
 				74C3F8C522D1DE360086A3F9 /* Class */,
 				74C3F8C422D1DE220086A3F9 /* System */,
@@ -1098,6 +1109,7 @@
 				74344A5D258B0FB600903E08 /* SwiftUI.framework */,
 				C158892C4674C3DD266C21BA /* Pods_ZLBaseFramework.framework */,
 				7AC44332CAA0E09B3278CC22 /* Pods_ZLServiceFramework.framework */,
+				32CC97A2B7228C1B1446BFCA /* Pods_Fixed_RepoExtension.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1287,15 +1299,6 @@
 				3693D8D3246523A400779FC4 /* ZLAboutViewModel.swift */,
 			);
 			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		36C43F9623ABAB73002DE5D6 /* ZLBuglyManager */ = {
-			isa = PBXGroup;
-			children = (
-				36C43F9723ABAB92002DE5D6 /* ZLBuglyManager.h */,
-				36C43F9823ABAB92002DE5D6 /* ZLBuglyManager.m */,
-			);
-			path = ZLBuglyManager;
 			sourceTree = "<group>";
 		};
 		36C785FA24078265001B74C9 /* ZLRepoItemInfoView */ = {
@@ -1741,6 +1744,24 @@
 			path = view;
 			sourceTree = "<group>";
 		};
+		745EAED62616ED1B00973F86 /* analyse */ = {
+			isa = PBXGroup;
+			children = (
+				745EAEE62616FB4600973F86 /* ZLBuglyManager */,
+				745EAED72616ED4600973F86 /* ZLAppEvent.swift */,
+			);
+			path = analyse;
+			sourceTree = "<group>";
+		};
+		745EAEE62616FB4600973F86 /* ZLBuglyManager */ = {
+			isa = PBXGroup;
+			children = (
+				745EAEE72616FB4600973F86 /* ZLBuglyManager.m */,
+				745EAEE82616FB4600973F86 /* ZLBuglyManager.h */,
+			);
+			path = ZLBuglyManager;
+			sourceTree = "<group>";
+		};
 		746B092221EB71F7000EE88B /* ZLUI */ = {
 			isa = PBXGroup;
 			children = (
@@ -1789,7 +1810,6 @@
 			isa = PBXGroup;
 			children = (
 				7486DFFC25A2CC3F00EE38CB /* ZLURLAndNotificatonDealManager */,
-				36C43F9623ABAB73002DE5D6 /* ZLBuglyManager */,
 			);
 			path = ToolManager;
 			sourceTree = "<group>";
@@ -2959,6 +2979,7 @@
 		74D3F164259CA23A0002A2D3 /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				745EAED62616ED1B00973F86 /* analyse */,
 				74D3F374259CCCD50002A2D3 /* ZLServiceFramework_SwiftPrefix.swift */,
 				74D3F37F259CD3590002A2D3 /* ZLServiceFramework_Prefix.pch */,
 				74D3F203259CA23C0002A2D3 /* ZLModuleProtocol */,
@@ -3767,6 +3788,8 @@
 				9DB8CADD643B3AEB70C63C51 /* Pods-ZLBaseFramework.release.xcconfig */,
 				60A321F2ADD6DAF97FEEDF94 /* Pods-ZLServiceFramework.debug.xcconfig */,
 				2A1C1E9B223917862FB53386 /* Pods-ZLServiceFramework.release.xcconfig */,
+				4B452F7BFC8564E0921A68EB /* Pods-Fixed RepoExtension.debug.xcconfig */,
+				827C09D31FC9D9456ED23E03 /* Pods-Fixed RepoExtension.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -3876,6 +3899,7 @@
 				74D3F21A259CA23C0002A2D3 /* ZLGithubRepositoryBranchModel.h in Headers */,
 				74D3F24F259CA23C0002A2D3 /* ZLLoginServiceHeader.h in Headers */,
 				74D3F153259C9FF90002A2D3 /* ZLServiceFramework.h in Headers */,
+				745EAEEA2616FB4700973F86 /* ZLBuglyManager.h in Headers */,
 				74D3F278259CA23D0002A2D3 /* ZLSharedDataManager.h in Headers */,
 				74D3F210259CA23C0002A2D3 /* ZLGithubAPI.h in Headers */,
 				74D3F242259CA23C0002A2D3 /* ZLAdditionInfoServiceModel.h in Headers */,
@@ -3925,6 +3949,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 74344A6E258B0FB900903E08 /* Build configuration list for PBXNativeTarget "Fixed RepoExtension" */;
 			buildPhases = (
+				4ED0727E66FE7CDE45783884 /* [CP] Check Pods Manifest.lock */,
 				74344A56258B0FB600903E08 /* Sources */,
 				74344A57258B0FB600903E08 /* Frameworks */,
 				74344A58258B0FB600903E08 /* Resources */,
@@ -4099,6 +4124,7 @@
 				74EA4B42230065D0006D2FD3 /* ZLUserInfoView.xib in Resources */,
 				0ADF903521D4B01900BF86CD /* Main.storyboard in Resources */,
 				74C3F8C322D1DDA20086A3F9 /* ZLLoginBaseView.xib in Resources */,
+				745EADE02616E38600973F86 /* GoogleService-Info.plist in Resources */,
 				74D3EFFF259BC6070002A2D3 /* CYRangePickerPopoverView.xib in Resources */,
 				74CDA6832409833C00049EF8 /* main.js in Resources */,
 				74D3EFF9259BC6060002A2D3 /* CYMutiPickerPopoverView.xib in Resources */,
@@ -4142,9 +4168,18 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-ZLGitHubClient/Pods-ZLGitHubClient-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
+				"${BUILT_PRODUCTS_DIR}/Analytics/Analytics.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseCore/FirebaseCore.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseCoreDiagnostics/FirebaseCoreDiagnostics.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseInstallations/FirebaseInstallations.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleDataTransport/GoogleDataTransport.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/MJExtension/MJExtension.framework",
+				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
 				"${BUILT_PRODUCTS_DIR}/SYDCentralPivot/SYDCentralPivot.framework",
+				"${BUILT_PRODUCTS_DIR}/Umbrella/Umbrella.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 				"${BUILT_PRODUCTS_DIR}/BSBacktraceLogger/BSBacktraceLogger.framework",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/CircleMenu/CircleMenu.framework",
@@ -4172,9 +4207,18 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Analytics.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCoreDiagnostics.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseInstallations.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleDataTransport.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJExtension.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SYDCentralPivot.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Umbrella.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BSBacktraceLogger.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CircleMenu.framework",
@@ -4202,6 +4246,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ZLGitHubClient/Pods-ZLGitHubClient-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4ED0727E66FE7CDE45783884 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Fixed RepoExtension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		7486DF1125A2396500EE38CB /* Generate Apollo GraphQL API */ = {
@@ -4325,7 +4391,6 @@
 				7496BF4826000B1400DDD1BD /* ZLIssueInfoController.swift in Sources */,
 				74F0ABE5236596F100D1B954 /* ZLSearchFilterViewForUser.swift in Sources */,
 				749DBCA724B4CE7200D02B2C /* ZLNotificationViewModel.swift in Sources */,
-				36C43F9923ABAB92002DE5D6 /* ZLBuglyManager.m in Sources */,
 				74DEC24E256D569C007E8A17 /* ZLSimpleRepoTableViewCell.swift in Sources */,
 				74886C1C260DFD4400E3C33C /* ZLPullRequestTableViewCellDataProvider.swift in Sources */,
 				742935E225B939EF001CD142 /* ZLSettingItemTableViewCell1.swift in Sources */,
@@ -4578,6 +4643,7 @@
 				74D3F245259CA23C0002A2D3 /* ZLSearchServiceModel.m in Sources */,
 				74D3F22D259CA23C0002A2D3 /* ZLGitHubEventModel.m in Sources */,
 				74D3F221259CA23C0002A2D3 /* ZLGithubConfigModel.swift in Sources */,
+				745EAED82616ED4600973F86 /* ZLAppEvent.swift in Sources */,
 				74D3F248259CA23C0002A2D3 /* ZLRepoServiceModel.m in Sources */,
 				74D3F234259CA23C0002A2D3 /* ZLGithubRequestErrorModel.m in Sources */,
 				74D3F26A259CA23D0002A2D3 /* ZLKeyChainManager.m in Sources */,
@@ -4590,6 +4656,7 @@
 				74D3F24B259CA23C0002A2D3 /* ZLUserServiceModel.m in Sources */,
 				74D3F224259CA23C0002A2D3 /* ZLGithubContentModel.m in Sources */,
 				74D3F277259CA23D0002A2D3 /* ZLDataBaseManager.m in Sources */,
+				745EAEE92616FB4700973F86 /* ZLBuglyManager.m in Sources */,
 				74D3F23D259CA23C0002A2D3 /* ZLEventServiceModel.m in Sources */,
 				74D3F26E259CA23D0002A2D3 /* ZLLanguageManager.m in Sources */,
 				74D3F279259CA23D0002A2D3 /* ZLSharedDataManager.m in Sources */,
@@ -4801,10 +4868,7 @@
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 24LG5QVBPR;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/ZLGitHubClient/Framework",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ZLGitHubClient/System/ZLSupportFiles/ZLGitHubClient-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -4870,10 +4934,7 @@
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 24LG5QVBPR;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/ZLGitHubClient/Framework",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ZLGitHubClient/System/ZLSupportFiles/ZLGitHubClient-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -4923,6 +4984,7 @@
 		};
 		74344A6C258B0FB900903E08 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4B452F7BFC8564E0921A68EB /* Pods-Fixed RepoExtension.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
@@ -4930,13 +4992,11 @@
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 24LG5QVBPR;
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/ZLGitHubClient/Class/Import/OCGumbo/gumbo";
 				INFOPLIST_FILE = "Fixed Repo/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4965,6 +5025,7 @@
 		};
 		74344A6D258B0FB900903E08 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 827C09D31FC9D9456ED23E03 /* Pods-Fixed RepoExtension.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
@@ -4972,13 +5033,11 @@
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_IDENTITY = "Apple Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 24LG5QVBPR;
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/ZLGitHubClient/Class/Import/OCGumbo/gumbo";
 				INFOPLIST_FILE = "Fixed Repo/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5101,6 +5160,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ZLGitHubClient/Framework",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ZLServiceFramework/Class/ZLServiceFramework_Prefix.pch;
 				HEADER_SEARCH_PATHS = (
@@ -5174,6 +5237,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ZLGitHubClient/Framework",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ZLServiceFramework/Class/ZLServiceFramework_Prefix.pch;
 				HEADER_SEARCH_PATHS = (

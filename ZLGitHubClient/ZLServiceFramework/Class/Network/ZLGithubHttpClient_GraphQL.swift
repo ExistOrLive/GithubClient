@@ -100,6 +100,8 @@ public extension ZLGithubHttpClient{
                                         serialNumber: String,
                                         block: @escaping GithubResponseSwift){
         
+        analytics.log(.URLUse(url: query.operationName))
+        
         self.apolloClient.fetch(query: query){ result in
             var resultData : Any? = nil
             var success = false

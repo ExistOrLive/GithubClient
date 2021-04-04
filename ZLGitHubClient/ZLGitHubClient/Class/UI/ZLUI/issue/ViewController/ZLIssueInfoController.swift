@@ -51,7 +51,7 @@ class ZLIssueInfoController: ZLBaseViewController {
     
     @objc func onMoreButtonClick(button: UIButton) {
         
-        let path = "https://www.github.com/\(login ?? "")/\(repoName ?? "")/issues/\(number ?? 0)"
+        let path = "https://www.github.com/\(login ?? "")/\(repoName ?? "")/issues/\(number )"
         let alertVC = UIAlertController.init(title: path, message: nil, preferredStyle: .actionSheet)
         alertVC.popoverPresentationController?.sourceView = button
         let alertAction1 = UIAlertAction.init(title: ZLLocalizedString(string: "View in Github", comment: ""), style: UIAlertAction.Style.default) { (action : UIAlertAction) in

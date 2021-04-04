@@ -86,6 +86,7 @@ class ZLAssistController: ZLBaseViewController {
             window.forceKey = true
             window.makeKey()
         }
+        analytics.log(.ScreenView(screenName: "ZLAssistController", screenClass: "ZLAssistController"))
     }
     
     override func viewDidDisappear(_ animated: Bool) {

@@ -84,6 +84,12 @@
 }
 
 
+- (void) log:(NSString *) eventName parameters:(NSDictionary *) parameters{
+    NSData *data = [NSJSONSerialization dataWithJSONObject:parameters options:NSJSONWritingSortedKeys error:nil];
+    NSString *paramStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    BLYLog(BuglyLogLevelInfo, @"%@[%@]",eventName,paramStr);
+}
+
 #pragma mark - Notification
 
 - (void) addObservers

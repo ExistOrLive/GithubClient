@@ -14,7 +14,7 @@ import SYDCentralPivot
     typealias ZLUIKey = String
 
     static func getVC(key: ZLUIKey, params: [AnyHashable : Any] = [:]) -> UIViewController?{
-        SYDCentralFactory.sharedInstance().getOneUIViewController(key, withInjectParam: params)
+        return SYDCentralFactory.sharedInstance().getOneUIViewController(key, withInjectParam: params)
     }
     
     static func openVC(key: ZLUIKey, params: [AnyHashable : Any] = [:], enterConfig: SYDCentralRouterViewControllerConfig){

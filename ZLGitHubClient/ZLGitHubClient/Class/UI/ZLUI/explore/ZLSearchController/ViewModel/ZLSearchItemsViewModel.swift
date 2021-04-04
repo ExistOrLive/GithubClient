@@ -8,8 +8,6 @@
 
 import UIKit
 
-
-
 class ZLSearchTypeAttachInfo: NSObject
 {
     var searchFilterInfo : ZLSearchFilterInfoModel? = nil               // 默认为空
@@ -64,6 +62,9 @@ class ZLSearchItemsViewModel: ZLBaseViewModel {
     
     
     func startSearch(keyWord:String?){
+        if let key = keyWord {
+            analytics.log(.SearchItem(key:key))
+        }
         for githubItemListViewModel in self.searchGithubItemListViewModelArray {
             githubItemListViewModel.searchWithKeyStr(searchKey: keyWord)
         }
