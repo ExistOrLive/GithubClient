@@ -23,7 +23,6 @@ jobs:
         GITHUBTOKEN: ${{ secrets.GITHUBTOKEN }}
       run: |
         pip3 install requests
-        pip3 install sys
         python3 DownloadSecretFile DownloadSecretFile.py
         mv ZLGithubAppKey.h ZLGitHubClient/System/ZLSupportFiles/ZLGithubAppKey.h
         mv GoogleService-Info.plist ZLGitHubClient/GoogleService-Info.plist
