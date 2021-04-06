@@ -20,7 +20,7 @@ jobs:
     - name: download secret file
       working-directory: ./ZLGitHubClient          # 指定run 的工作目录
       env: 
-        GITHUBTOKEN: ${{ GITHUBTOKEN }}
+        GITHUBTOKEN: ${{ secrets.GITHUBTOKEN }}
       run: |
         pip3 install requests
         pip3 install sys
