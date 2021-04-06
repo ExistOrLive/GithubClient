@@ -22,6 +22,8 @@ jobs:
       env: 
         GITHUBTOKEN: ${{ secrets.GITHUBTOKEN }}
       run: |
+        ls
+        pwd
         pip3 install requests
         python3 DownloadSecretFile/DownloadSecretFile.py $GITHUBTOKEN
         mv ZLGithubAppKey.h ZLGitHubClient/System/ZLSupportFiles/ZLGithubAppKey.h
