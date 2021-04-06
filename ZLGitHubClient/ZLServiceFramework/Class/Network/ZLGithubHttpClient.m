@@ -8,6 +8,7 @@
 
 #import "ZLGithubHttpClient.h"
 #import "ZLGithubAPI.h"
+#import "ZLGithubAppKey.h"
 #import <AFNetworking/AFHTTPSessionManager.h>
 #import <MJExtension/MJExtension.h>
 #import <WebKit/WebKit.h>

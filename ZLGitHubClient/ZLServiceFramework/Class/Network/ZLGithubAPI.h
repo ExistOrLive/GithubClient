@@ -9,12 +9,6 @@
 #ifndef ZLGithubAPI_h
 #define ZLGithubAPI_h
 
-#define OAuthState          @"31415"
-#define OAuthScope          @"user,repo,gist,notifications,read:org,workflow"
-#define MyClientID          @"fbd34c5a34be72f66c35"
-#define MyClientSecret      @"02e5eb8a2805f6492d3d1ff7c5a618d73e1edb35"
-
-
 #pragma mark - media type
 
 #define MediaTypeJson @"application/vnd.github.v3+json"
