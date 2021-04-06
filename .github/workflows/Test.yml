@@ -25,6 +25,6 @@ jobs:
         ls
         pwd
         pip3 install requests
-        python3 DownloadSecretFile/DownloadSecretFile.py $GITHUBTOKEN
+        python3 DownloadSecretFile/DownloadSecrectFile.py $GITHUBTOKEN
         mv ZLGithubAppKey.h ZLGitHubClient/System/ZLSupportFiles/ZLGithubAppKey.h
         mv GoogleService-Info.plist ZLGitHubClient/GoogleService-Info.plist
