@@ -59,8 +59,8 @@ import MJRefresh
     
     
     
-    private func setUpUI()
-    {
+    private func setUpUI(){
+        
         self.tableView = UITableView.init(frame: self.bounds, style: .plain)
         self.tableView?.separatorStyle = .none
         self.tableView?.backgroundColor = UIColor.clear
@@ -77,10 +77,10 @@ import MJRefresh
     }
     
     
-    private func tableViewRegistereCell()
-    {
+    private func tableViewRegistereCell(){
+        
         self.tableView?.register(UITableViewCell.self, forCellReuseIdentifier: "UITableViewCell")
-        self.tableView?.register(UINib.init(nibName: "ZLPullRequestTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLPullRequestTableViewCell")
+        self.tableView?.register(ZLPullRequestTableViewCell.self, forCellReuseIdentifier: "ZLPullRequestTableViewCell")
         self.tableView?.register(UINib.init(nibName: "ZLCommitTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLCommitTableViewCell")
         self.tableView?.register(UINib.init(nibName: "ZLGistTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLGistTableViewCell")
         self.tableView?.register(ZLEventTableViewCell.self, forCellReuseIdentifier: "ZLEventTableViewCell")
@@ -92,7 +92,7 @@ import MJRefresh
         self.tableView?.register(ZLPullRequestEventTableViewCell.self, forCellReuseIdentifier: "ZLPullRequestEventTableViewCell")
         self.tableView?.register(UINib.init(nibName: "ZLRepositoryTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLRepositoryTableViewCell")
         self.tableView?.register(UINib.init(nibName: "ZLUserTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLUserTableViewCell")
-        self.tableView?.register(UINib.init(nibName: "ZLIssueTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLIssueTableViewCell")
+        self.tableView?.register(ZLIssueTableViewCell.self, forCellReuseIdentifier:  "ZLIssueTableViewCell")
         self.tableView?.register(UINib.init(nibName: "ZLNotificationTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLNotificationTableViewCell")
         self.tableView?.register(UINib.init(nibName: "ZLWorkflowTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLWorkflowTableViewCell")
         self.tableView?.register(UINib.init(nibName: "ZLWorkflowRunTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLWorkflowRunTableViewCell")

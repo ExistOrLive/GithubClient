@@ -14,7 +14,7 @@ end
 
 target 'ZLServiceFramework' do
   
-pod 'Google-Mobile-Ads-SDK'
+#pod 'Google-Mobile-Ads-SDK'
 pod 'Umbrella'
 #pod 'Umbrella/Segment'
 pod 'Umbrella/Firebase'
@@ -51,8 +51,7 @@ end
 
 target 'ZLGitHubClient' do
   
-pod 'Google-Mobile-Ads-SDK'
-  
+#pod 'Google-Mobile-Ads-SDK'
 pod 'Umbrella'
 #pod 'Umbrella/Segment'
 pod 'Umbrella/Firebase'

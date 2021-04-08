@@ -56,5 +56,11 @@ extension ZLIssueHeaderTableViewCellData : ZLIssueHeaderTableViewCellDelegate {
         return data.repository?.issue?.title ?? ""
     }
     
+    func onIssueAvatarClicked(){
+       
+    }
     
+    func onRepoNameClicked(){
+        
+    }
 }

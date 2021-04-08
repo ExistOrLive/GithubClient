@@ -9,9 +9,10 @@
 import UIKit
 
 class ZLPullRequestTableViewCellDataForViewerPR: ZLGithubItemTableViewCellData {
-    let data : ViewerPullRequestQuery.Data.Viewer.PullRequest.Node
     
-    init(data : ViewerPullRequestQuery.Data.Viewer.PullRequest.Node){
+    let data : SearchItemQuery.Data.Search.Node.AsPullRequest
+    
+    init(data : SearchItemQuery.Data.Search.Node.AsPullRequest){
         self.data = data
         super.init()
     }
@@ -25,7 +26,7 @@ class ZLPullRequestTableViewCellDataForViewerPR: ZLGithubItemTableViewCellData {
     
     override func getCellHeight() -> CGFloat
     {
-        return 100.0
+        return UITableView.automaticDimension
     }
     
     override func getCellReuseIdentifier() -> String
@@ -50,8 +51,18 @@ class ZLPullRequestTableViewCellDataForViewerPR: ZLGithubItemTableViewCellData {
     }
 }
 
-extension ZLPullRequestTableViewCellDataForViewerPR : ZLPullRequestTableViewCellDelegate
-{
+extension ZLPullRequestTableViewCellDataForViewerPR : ZLPullRequestTableViewCellDelegate{
+    
+    func onClickRepoFullName() {
+        if let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: data.repository.nameWithOwner) {
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    func getIssueRepoFullName() -> String? {
+        return data.repository.nameWithOwner
+    }
+    
     func getTitle() -> String?
     {
         return self.data.title
@@ -59,7 +70,7 @@ extension ZLPullRequestTableViewCellDataForViewerPR : ZLPullRequestTableViewCell
     
     func getAssistInfo() -> String?
     {
-        if self.data.state == .open
+        if self.data.prState == .open
         {
             let assitInfo = "#\(self.data.number) \(self.data.author?.login ?? "") \(ZLLocalizedString(string: "created at", comment: "创建于")) \(NSDate.getLocalStrSinceCurrentTime(withGithubTime:self.data.createdAt))"
             return assitInfo
@@ -81,13 +92,13 @@ extension ZLPullRequestTableViewCellDataForViewerPR : ZLPullRequestTableViewCell
     }
     
     func getState() -> ZLGithubPullRequestState {
-        switch(self.data.state){
+        switch(self.data.prState){
         case .closed:
             return .closed
         case .merged:
-            return .closed
+            return .merged
         case .open:
-            return .opened
+            return .open
         default:
             return .closed
         }

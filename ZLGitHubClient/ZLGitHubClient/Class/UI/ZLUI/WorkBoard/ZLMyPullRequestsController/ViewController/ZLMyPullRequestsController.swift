@@ -11,11 +11,12 @@ import UIKit
 class ZLMyPullRequestsController: ZLBaseViewController,ZLMyPullRequestsViewDelegate {
 
     // view
-    var myPRView : ZLMyPullRequestsView!
+    var myPRView: ZLMyPullRequestsView!
     
     // model
-    var filterType : ZLGithubPullRequestState = .opened
-    var afterCursor : String?
+    var filterType: ZLPRFilterType = .created
+    var state: ZLGithubPullRequestState = .open
+    var afterCursor: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,8 +36,21 @@ class ZLMyPullRequestsController: ZLBaseViewController,ZLMyPullRequestsViewDeleg
         self.myPRView.githubItemListView.beginRefresh()
     }
     
-    func onFilterTypeChange(type: ZLGithubPullRequestState) {
+    func onFilterTypeChange(type: ZLPRFilterType) {
         self.filterType = type
+        self.myPRView.githubItemListView.clearListView()
+        self.myPRView.githubItemListView.beginRefresh()
+    }
+    
+    func onStateChange(state: ZLGithubIssueState) {
+        switch state{
+        case .open:
+            self.state = .open
+        case .closed:
+            self.state = .closed
+        @unknown default:
+            self.state = .open
+        }
         self.myPRView.githubItemListView.clearListView()
         self.myPRView.githubItemListView.beginRefresh()
     }
@@ -47,14 +61,16 @@ extension ZLMyPullRequestsController : ZLGithubItemListViewDelegate {
     
     func githubItemListViewRefreshDragDown(pullRequestListView: ZLGithubItemListView) -> Void{
         
-        weak var weakSelf = self
-        
-        ZLServiceManager.sharedInstance.additionServiceModel?.getMyPR(withType: self.filterType, after: nil, serialNumber: NSString.generateSerialNumber())
-        { (resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.viewerServiceModel?.getMyPRs(key: nil,
+                                                                     state: state,
+                                                                     filter: filterType,
+                                                                     after: nil,
+                                                                     serialNumber: NSString.generateSerialNumber())
+        { [weak self] (resultModel) in
             
             if resultModel.result == false {
 
-                weakSelf?.myPRView.githubItemListView.endRefreshWithError()
+                self?.myPRView.githubItemListView.endRefreshWithError()
                 guard let errorModel = resultModel.data as? ZLGithubRequestErrorModel else{
                     return
                 }
@@ -62,33 +78,39 @@ extension ZLMyPullRequestsController : ZLGithubItemListViewDelegate {
 
             } else {
 
-                guard let data = resultModel.data as? ViewerPullRequestQuery.Data else {
-                    weakSelf?.myPRView.githubItemListView.endRefreshWithError()
+                guard let data = resultModel.data as? SearchItemQuery.Data else {
+                    self?.myPRView.githubItemListView.endRefreshWithError()
                     return
                 }
-                weakSelf?.afterCursor = data.viewer.pullRequests.pageInfo.endCursor
+                self?.afterCursor = data.search.pageInfo.endCursor
                 var cellDatas : [ZLPullRequestTableViewCellDataForViewerPR] = []
-                if let nodes = data.viewer.pullRequests.nodes {
+                if let nodes = data.search.nodes {
                     for pr in nodes{
-                        cellDatas.append(ZLPullRequestTableViewCellDataForViewerPR(data:pr!))
+                        if let tmpData = pr?.asPullRequest{
+                            cellDatas.append(ZLPullRequestTableViewCellDataForViewerPR(data:tmpData))
+                        }
                     }
-                    self.addSubViewModels(cellDatas)
+                    self?.addSubViewModels(cellDatas)
                 }
-                weakSelf?.myPRView.githubItemListView.resetCellDatas(cellDatas: cellDatas)
+                self?.myPRView.githubItemListView.resetCellDatas(cellDatas: cellDatas)
             }
+            
         }
         
     }
     
     func githubItemListViewRefreshDragUp(pullRequestListView: ZLGithubItemListView) -> Void{
         
-        weak var weakSelf = self
-        ZLServiceManager.sharedInstance.additionServiceModel?.getMyPR(withType: self.filterType, after: afterCursor, serialNumber: NSString.generateSerialNumber())
-        { (resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.viewerServiceModel?.getMyPRs(key: nil,
+                                                                     state: state,
+                                                                     filter: filterType,
+                                                                     after: afterCursor,
+                                                                     serialNumber: NSString.generateSerialNumber())
+        { [weak self](resultModel : ZLOperationResultModel) in
             
             if resultModel.result == false {
 
-                weakSelf?.myPRView.githubItemListView.endRefreshWithError()
+                self?.myPRView.githubItemListView.endRefreshWithError()
                 guard let errorModel = resultModel.data as? ZLGithubRequestErrorModel else{
                     return
                 }
@@ -96,19 +118,21 @@ extension ZLMyPullRequestsController : ZLGithubItemListViewDelegate {
 
             } else {
 
-                guard let data = resultModel.data as? ViewerPullRequestQuery.Data else {
-                    weakSelf?.myPRView.githubItemListView.endRefreshWithError()
+                guard let data = resultModel.data as? SearchItemQuery.Data else {
+                    self?.myPRView.githubItemListView.endRefreshWithError()
                     return
                 }
-                weakSelf?.afterCursor = data.viewer.pullRequests.pageInfo.endCursor
+                self?.afterCursor = data.search.pageInfo.endCursor
                 var cellDatas : [ZLPullRequestTableViewCellDataForViewerPR] = []
-                if let nodes = data.viewer.pullRequests.nodes {
+                if let nodes = data.search.nodes {
                     for pr in nodes{
-                        cellDatas.append(ZLPullRequestTableViewCellDataForViewerPR(data:pr!))
+                        if let tmpData = pr?.asPullRequest{
+                            cellDatas.append(ZLPullRequestTableViewCellDataForViewerPR(data:tmpData))
+                        }
                     }
-                    self.addSubViewModels(cellDatas)
+                    self?.addSubViewModels(cellDatas)
                 }
-                weakSelf?.myPRView.githubItemListView.appendCellDatas(cellDatas: cellDatas)
+                self?.myPRView.githubItemListView.appendCellDatas(cellDatas: cellDatas)
             }
         }
     }

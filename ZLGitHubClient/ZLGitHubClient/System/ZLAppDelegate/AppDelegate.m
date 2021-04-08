@@ -19,7 +19,6 @@
 #import <UserNotifications/UserNotifications.h>
 #import <SYDCentralPivot/SYDCentralPivotCoreHeader.h>
 #import <Firebase/Firebase.h>
-@import GoogleMobileAds;
 
 
 
@@ -237,14 +236,11 @@
 }
 
 #pragma mark - Bugly
-- (void) setUpBugly
-{
+- (void) setUpBugly{
+    
     [[ZLBuglyManager sharedManager] setUp];
         
     [FIRApp configure];
-    
-    [[GADMobileAds sharedInstance] startWithCompletionHandler:nil];
-    
 }
 
 #pragma mark - JJException

@@ -37,7 +37,8 @@ class ZLOrgsViewController: ZLBaseViewController, ZLGithubItemListViewDelegate {
     func githubItemListViewRefreshDragDown(pullRequestListView: ZLGithubItemListView) {
         
         weak var weakSelf = self
-        ZLServiceManager.sharedInstance.additionServiceModel?.getOrgsWithSerialNumber(NSString.generateSerialNumber()) { (resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.viewerServiceModel?.getMyOrgs(serialNumber: NSString.generateSerialNumber())
+        { (resultModel : ZLOperationResultModel) in
             if resultModel.result == false {
                 weakSelf?.githubItemListView.endRefreshWithError()
                 if let errorMessage : ZLGithubRequestErrorModel = resultModel.data as? ZLGithubRequestErrorModel{

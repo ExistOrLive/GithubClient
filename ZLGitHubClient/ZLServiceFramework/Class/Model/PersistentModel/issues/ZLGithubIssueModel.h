@@ -11,6 +11,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_ENUM(NSUInteger, ZLGithubIssueState) {
+    ZLGithubIssueState_Open,
+    ZLGithubIssueState_Closed
+};
+
 @interface ZLGithubLabelModel : ZLBaseObject
 
 @property(nonatomic, strong) NSString * url;
@@ -82,7 +87,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, strong) NSString * body;                         //  内容
 
-@property(nonatomic, strong) NSString * state;                        // open closed
+@property(nonatomic, assign) ZLGithubIssueState state;                        // open closed
 
 @property(nonatomic, strong) NSString * author_association;           // OWNER NONE
 

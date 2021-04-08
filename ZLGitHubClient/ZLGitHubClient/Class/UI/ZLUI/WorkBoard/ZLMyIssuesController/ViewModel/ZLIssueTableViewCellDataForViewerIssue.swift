@@ -10,7 +10,7 @@ import UIKit
 
 class ZLIssueTableViewCellDataForViewerIssue: ZLGithubItemTableViewCellData {
     
-    typealias Data = SearchIssuesQuery.Data.Search.Node.AsIssue
+    typealias Data = SearchItemQuery.Data.Search.Node.AsIssue
     
     let data : Data
     
@@ -58,17 +58,22 @@ class ZLIssueTableViewCellDataForViewerIssue: ZLGithubItemTableViewCellData {
 }
 
 extension ZLIssueTableViewCellDataForViewerIssue : ZLIssueTableViewCellDelegate {
+    
+    func getIssueRepoFullName() -> String? {
+        return data.repository.nameWithOwner
+    }
+    
     func getIssueTitleStr() -> String? {
         return data.title
     }
     
     func isIssueClosed() -> Bool {
-        return data.state == .closed
+        return data.issueState == .closed
     }
     
     func getAssistStr() -> String? {
         if self.isIssueClosed() {
-            return "#\(data.number) \(data.author?.login ?? "") \(ZLLocalizedString(string: "closed at", comment: "")) \(NSDate.getLocalStrSinceCurrentTime(withGithubTime: data.createdAt))"
+            return "#\(data.number) \(data.author?.login ?? "") \(ZLLocalizedString(string: "closed at", comment: "")) \(NSDate.getLocalStrSinceCurrentTime(withGithubTime: data.closedAt ?? ""))"
         } else {
             
              return "#\(data.number) \(data.author?.login ?? "")  \(ZLLocalizedString(string: "opened at", comment: "")) \(NSDate.getLocalStrSinceCurrentTime(withGithubTime: data.createdAt))"
@@ -87,5 +92,10 @@ extension ZLIssueTableViewCellDataForViewerIssue : ZLIssueTableViewCellDelegate 
         return self.labels ?? []
     }
     
+    func onClickRepoFullName() {
+        if let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: data.repository.nameWithOwner) {
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
     
 }

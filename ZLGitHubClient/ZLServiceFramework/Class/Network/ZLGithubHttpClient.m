@@ -794,8 +794,8 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 
 - (void) getRepositoryInfo:(GithubResponse) block
                   fullName:(NSString *) fullName
-              serialNumber:(NSString *) serialNumber
-{
+              serialNumber:(NSString *) serialNumber{
+    
     fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     
     NSString * urlForRepo = [NSString stringWithFormat:@"%@%@/%@",GitHubAPIURL,reposUrl,fullName];
@@ -1627,6 +1627,46 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 
 
 #pragma mark - Issues
+
+- (void) searchIssues:(GithubResponse) block
+             keyword:(NSString *) keyword
+                sort:(NSString *) sort
+               order:(BOOL) isAsc
+                page:(NSUInteger) page
+            per_page:(NSUInteger) per_page
+        serialNumber:(NSString *) serialNumber{
+    
+    NSString * urlForSearchRepo = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,searchIssueUrl];
+    
+    NSMutableDictionary * params = [@{@"q":keyword,
+                                      @"page":[NSNumber numberWithUnsignedInteger:page],
+                                      @"per_page":[NSNumber numberWithUnsignedInteger:per_page]} mutableCopy];
+    
+    if(sort && [sort length] > 0)
+    {
+        [params setObject:sort forKey:@"sort"];
+        [params setObject:isAsc ? @"asc":@"desc" forKey:@"order"];
+    }
+    
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
+        
+        if(result)
+        {
+            ZLSearchResultModel * resultModel = [[ZLSearchResultModel alloc] init];
+            resultModel.totalNumber = [[responseObject objectForKey:@"total_count"] unsignedIntegerValue];
+            resultModel.incomplete_results = [[responseObject objectForKey:@"incomplete_results"] unsignedIntegerValue];
+            resultModel.data = [ZLGithubIssueModel mj_objectArrayWithKeyValuesArray:[responseObject objectForKey:@"items"]];
+            responseObject = resultModel;
+        }
+        block(result,responseObject,serialNumber);
+    };
+    
+    [self GETRequestWithURL:urlForSearchRepo
+                WithHeaders:nil
+                 WithParams:params
+          WithResponseBlock:newBlock
+           WithSerialNumber:serialNumber];
+}
 
 - (void) getRepositoryIssues:(GithubResponse) block
                     fullName:(NSString *) fullName

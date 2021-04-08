@@ -35,6 +35,17 @@
 		<key>singleMethod</key>
 		<string>sharedInstance</string>
 	</dict>
+	<key>ZLViewerServiceModel</key>
+	<dict>
+		<key>class</key>
+		<string>ZLViewerServiceModel</string>
+		<key>type</key>
+		<integer>1</integer>
+		<key>isSingle</key>
+		<true/>
+		<key>singleMethod</key>
+		<string>sharedServiceModel</string>
+	</dict>
 	<key>ZLUserServiceModel</key>
 	<dict>
 		<key>class</key>

@@ -160,10 +160,11 @@ extension ZLIssueCommentTableViewCellData : ZLIssueCommentTableViewCellDelegate 
 
 extension ZLIssueCommentTableViewCellData : WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        if navigationAction.navigationType == .other {
-            decisionHandler(.allow)
-        } else {
-            decisionHandler(.cancel)
+        if navigationAction.navigationType == .linkActivated {
+            if let url = navigationAction.request.url{
+                ZLUIRouter.openURL(url: url)
+            }
         }
+        decisionHandler(.cancel)
     }
 }

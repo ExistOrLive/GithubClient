@@ -89,27 +89,7 @@ static const NSNotificationName _Nonnull ZLGithubConfigUpdate_Notification = @"Z
 - (void) getGithubClientConfig:(NSString * _Nonnull) serialNumber;
 
 
-
-#pragma mark - org
-
-- (void) getOrgsWithSerialNumber:(NSString * _Nonnull) serialNumber
-                  completeHandle:(void(^_Nonnull)(ZLOperationResultModel * _Nonnull)) handle;
-
-#pragma mark - issues
-
-- (void) getMyIssuesWithType:(ZLMyIssueFilterType) type
-                       after:(NSString * _Nullable) afterCursor
-                serialNumber:(NSString *_Nonnull) serialNumber
-              completeHandle:(void(^_Nonnull)(ZLOperationResultModel * _Nonnull)) handle;
-
-
 #pragma mark - PR
-
-- (void) getMyPRWithType:(ZLGithubPullRequestState) type
-                   after:(NSString * _Nullable) afterCursor
-            serialNumber:(NSString *_Nonnull) serialNumber
-          completeHandle:(void(^_Nonnull)(ZLOperationResultModel * _Nonnull)) handle;
-
 
 - (void) getPRInfoWithLogin:(NSString * _Nonnull) login
                    repoName:(NSString * _Nonnull) repoName

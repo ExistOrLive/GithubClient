@@ -59,12 +59,21 @@ class ZLIssueTableViewCellData: ZLGithubItemTableViewCellData {
 
 extension ZLIssueTableViewCellData : ZLIssueTableViewCellDelegate{
     
+    func getIssueRepoFullName() -> String? {
+        if let url = URL(string: issueModel.html_url) {
+            if url.pathComponents.count >= 5{
+                return "\(url.pathComponents[1])/\(url.pathComponents[2])"
+            }
+        }
+        return nil
+    }
+    
     func getIssueTitleStr() -> String?{
         return self.issueModel.title
     }
     
     func isIssueClosed() -> Bool{
-        return self.issueModel.state == "closed"
+        return self.issueModel.state == .closed
     }
     
     func getAssistStr() -> String?{
@@ -88,5 +97,15 @@ extension ZLIssueTableViewCellData : ZLIssueTableViewCellDelegate{
         }
         
         return labelArray
+    }
+    
+    func onClickRepoFullName() {
+        if let url = URL(string: issueModel.html_url) {
+            if url.pathComponents.count >= 5{
+                if let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: "\(url.pathComponents[1])/\(url.pathComponents[2])"){
+                    self.viewController?.navigationController?.pushViewController(vc, animated: true)
+                }
+            }
+        }
     }
 }

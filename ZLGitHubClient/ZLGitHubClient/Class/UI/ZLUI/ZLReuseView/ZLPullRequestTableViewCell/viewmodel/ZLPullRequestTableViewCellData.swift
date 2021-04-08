@@ -28,7 +28,7 @@ class ZLPullRequestTableViewCellData: ZLGithubItemTableViewCellData {
     
     override func getCellHeight() -> CGFloat
     {
-        return 100.0
+        return UITableView.automaticDimension
     }
     
     override func getCellReuseIdentifier() -> String
@@ -55,6 +55,26 @@ class ZLPullRequestTableViewCellData: ZLGithubItemTableViewCellData {
 
 extension ZLPullRequestTableViewCellData : ZLPullRequestTableViewCellDelegate
 {
+    
+    func getIssueRepoFullName() -> String?{
+        if let url = URL(string: pullRequestModel.html_url) {
+            if url.pathComponents.count >= 5 && url.pathComponents[3] == "pull" {
+                return "\(url.pathComponents[1])/\(url.pathComponents[2])"
+            }
+        }
+        return nil
+    }
+    
+    func onClickRepoFullName() {
+        if let url = URL(string: pullRequestModel.html_url) {
+            if url.pathComponents.count >= 5 && url.pathComponents[3] == "pull" {
+                if let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: "\(url.pathComponents[1])/\(url.pathComponents[2])"){
+                    self.viewController?.navigationController?.pushViewController(vc, animated: true)
+                }
+            }
+        }
+    }
+    
     func getTitle() -> String?
     {
         return self.pullRequestModel.title
@@ -62,7 +82,7 @@ extension ZLPullRequestTableViewCellData : ZLPullRequestTableViewCellDelegate
     
     func getAssistInfo() -> String?
     {
-        if self.pullRequestModel.state == .opened
+        if self.pullRequestModel.state == .open
         {
             let assitInfo = "#\(self.pullRequestModel.number) \(self.pullRequestModel.user.loginName) \(ZLLocalizedString(string: "created at", comment: "创建于")) \((self.pullRequestModel.created_at as NSDate).dateLocalStrSinceCurrentTime())"
             return assitInfo

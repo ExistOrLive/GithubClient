@@ -68,9 +68,6 @@ PODS:
   - FMDB/standard (2.7.5)
   - FWPopupView (4.1.5):
     - SnapKit
-  - Google-Mobile-Ads-SDK (8.3.0):
-    - GoogleAppMeasurement (~> 7.0)
-    - GoogleUserMessagingPlatform (>= 1.1)
   - GoogleAppMeasurement (7.9.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 7.0)
     - GoogleUtilities/MethodSwizzler (~> 7.0)
@@ -81,7 +78,6 @@ PODS:
     - GoogleUtilities/Environment (~> 7.2)
     - nanopb (~> 2.30907.0)
     - PromisesObjC (~> 1.2)
-  - GoogleUserMessagingPlatform (2.0.0)
   - GoogleUtilities/AppDelegateSwizzler (7.3.1):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
@@ -171,7 +167,6 @@ DEPENDENCIES:
   - Firebase/Analytics
   - FMDB
   - FWPopupView
-  - Google-Mobile-Ads-SDK
   - IQKeyboardManager
   - JJException
   - JXSegmentedView
@@ -209,10 +204,8 @@ SPEC REPOS:
     - fishhook
     - FMDB
     - FWPopupView
-    - Google-Mobile-Ads-SDK
     - GoogleAppMeasurement
     - GoogleDataTransport
-    - GoogleUserMessagingPlatform
     - GoogleUtilities
     - IQKeyboardManager
     - JJException
@@ -260,10 +253,8 @@ SPEC CHECKSUMS:
   fishhook: ea19933abfe8f2f52c55fd8b6e2718467d3ebc89
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   FWPopupView: 367cc1aca505ca83e2dbe8567c52afdbdd916d8d
-  Google-Mobile-Ads-SDK: c14f5a63db1414b4ca0ee1539c9f3d700ace96c2
   GoogleAppMeasurement: 120eec8803fe65a4a7475fb3d3d59a61d0e1a866
   GoogleDataTransport: 8b0e733ea77c9218778e5a9e34ba9508b8328939
-  GoogleUserMessagingPlatform: ab890ce5f6620f293a21b6bdd82e416a2c73aeca
   GoogleUtilities: e1d9ed4e544fc32a93e00e721400cbc3f377200d
   IQKeyboardManager: 2a6e97afdafc7becf0cb17a9a8d795e3a980717f
   JJException: da7c64ccf29d9938a4075378a7e9a29db7383c37
@@ -284,6 +275,6 @@ SPEC CHECKSUMS:
   Umbrella: 4faf9786a6b29197608f6483711271104d237646
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: 4d2a5b74a22265923e39f43d557d7ffaeed06547
+PODFILE CHECKSUM: ea43e5db7f60f3f9a8db5d3be2827df1d4230ab0
 
 COCOAPODS: 1.10.1

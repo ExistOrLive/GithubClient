@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ZLWebContentController: ZLBaseViewController {
+@objcMembers class ZLWebContentController: ZLBaseViewController {
     
     var requestURL: URL?
 

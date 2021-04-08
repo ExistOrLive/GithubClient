@@ -97,7 +97,7 @@
         <designable name="lby-fg-Cip"/>
     </designables>
     <resources>
-        <image name="pr_closed" width="90" height="90"/>
+        <image name="pr_closed" width="25" height="25"/>
         <namedColor name="ZLCellBack">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

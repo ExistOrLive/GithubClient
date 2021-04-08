@@ -14,10 +14,15 @@ protocol ZLIssueHeaderTableViewCellDelegate : NSObjectProtocol{
     func getIssueNumber() -> Int
     func getIssueState() -> String
     func getIssueTitle() -> String
+    
+    func onIssueAvatarClicked()
+    func onRepoNameClicked()
 }
 
 
 class ZLIssueHeaderTableViewCell: UITableViewCell {
+    
+    var delegate: ZLIssueHeaderTableViewCellDelegate?
     
     var avatarButton : UIButton!
     var fullNameLabel : UILabel!
@@ -56,6 +61,7 @@ class ZLIssueHeaderTableViewCell: UITableViewCell {
             make.size.equalTo(CGSize(width: 30, height: 30))
         }
         avatarButton = button
+        avatarButton.addTarget(self, action: #selector(onAvatarButtonClicked), for: .touchUpInside)
         
         let label1 = UILabel()
         label1.textColor = UIColor(named: "ZLLabelColor1")
@@ -66,6 +72,8 @@ class ZLIssueHeaderTableViewCell: UITableViewCell {
             make.centerY.equalTo(avatarButton)
         }
         fullNameLabel = label1
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(onRepoNameClicked))
+        fullNameLabel.addGestureRecognizer(gesture)
         
         let label2 = UILabel()
         label2.textColor = UIColor(named: "ZLLabelColor2")
@@ -103,17 +111,11 @@ class ZLIssueHeaderTableViewCell: UITableViewCell {
             make.height.equalTo(25)
         }
         statusLabel = label4
-        
-//        let view = UIView()
-//        view.backgroundColor = UIColor(named: "ZLSeperatorLineColor")
-//        self.contentView.addSubview(view)
-//        view.snp.makeConstraints { (make) in
-//            make.left.right.bottom.equalToSuperview()
-//            make.height.equalTo(1)
-//        }
     }
     
     func fillWithData(data : ZLIssueHeaderTableViewCellDelegate) {
+        
+        delegate = data
         
         avatarButton.sd_setImage(with: URL(string: data.getIssueAuthorAvatarURL()), for: .normal, placeholderImage: UIImage(named: "default_avatar"))
         fullNameLabel.text = data.getIssueRepoFullName()
@@ -133,7 +135,16 @@ class ZLIssueHeaderTableViewCell: UITableViewCell {
             statusLabel.borderColor = UIColor(named: "ZLIssueClosedColor")
         }
     }
+    
+    
+    
+    @objc func onAvatarButtonClicked(){
+        self.delegate?.onIssueAvatarClicked()
+    }
 
+    @objc func onRepoNameClicked(){
+        self.delegate?.onRepoNameClicked()
+    }
 }
 
 

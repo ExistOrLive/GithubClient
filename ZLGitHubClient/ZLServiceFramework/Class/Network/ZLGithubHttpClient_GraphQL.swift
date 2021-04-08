@@ -176,16 +176,35 @@ public extension ZLGithubHttpClient{
     }
     
     
+    @objc enum SearchTypeForOC : NSInteger{
+        case User
+        case Repo
+        case Issue
+    }
+    
     /**
      * @param query  查询条件 archived:false sort:created-desc is:open is:issue mentions:@me
      * @param block
      *  搜索issue
      */
-    @objc func searchIssues(after: String?,
-                            query: String,
-                            serialNumber: String,
-                            block: @escaping GithubResponseSwift){
-        let query = SearchIssuesQuery(after: after, query: query)
+    @objc func searchItem(after: String?,
+                          query: String,
+                          type : SearchTypeForOC,
+                          serialNumber: String,
+                          block: @escaping GithubResponseSwift){
+        var realType = SearchType.user
+        switch type {
+        case .User:
+            realType = .user
+        case .Repo:
+            realType = .repository
+        case .Issue:
+            realType = .issue
+        default:
+            realType = .user
+        }
+        
+        let query = SearchItemQuery(after: after, query: query, type: realType)
         self.baseQuery(query: query, serialNumber: serialNumber, block: block)
     }
     
@@ -213,7 +232,7 @@ public extension ZLGithubHttpClient{
                         block: @escaping GithubResponseSwift){
         var pullRequestState : PullRequestState
         switch state {
-        case .opened:
+        case .open:
             pullRequestState = .open
         case .closed:
             pullRequestState = .closed

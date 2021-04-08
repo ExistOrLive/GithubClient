@@ -8,7 +8,6 @@
 
 import UIKit
 import CircleMenu
-import GoogleMobileAds
 
 
 enum ZLAssistButtonType{
@@ -19,7 +18,6 @@ enum ZLAssistButtonType{
 }
 
 enum ZLAssistTableViewCellIndex{
-    case ad
     case search
     case clipBoard
     case userInterface
@@ -42,7 +40,6 @@ class ZLAssistController: ZLBaseViewController {
     
     private var tableView : UITableView!
     
-    private var bannerView : GADBannerView!
     private var searchBar : ZLBaseSearchBar?
     private var clipBoardButton : UIButton?
     private var userInterfaceSegmentedControl : UISegmentedControl?
@@ -82,8 +79,6 @@ class ZLAssistController: ZLBaseViewController {
 //        self.setCircleMenu()
 //        self.tableViewIndexs.append(.circleMenu)
         
-        self.setAdBanner()
-        self.tableViewIndexs.append(.ad)
         
         self.setUpUI()
     }
@@ -142,16 +137,6 @@ class ZLAssistController: ZLBaseViewController {
         ZLAssistButtonManager.shared.dismissAssistDetailView()
     }
     
-    
-    func setAdBanner(){
-        bannerView = GADBannerView(adSize: kGADAdSizeBanner)
-        bannerView.adUnitID = "ca-app-pub-9055956708026289/9311303025"
-        bannerView.rootViewController = self
-        bannerView.delegate = self
-        bannerView.load(GADRequest())
-        
-    }
-        
     func setSearchBar(){
         searchBar = ZLBaseSearchBar()
         searchBar?.backgroundColor = UIColor.clear
@@ -388,9 +373,6 @@ extension ZLAssistController : UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch tableViewIndexs[section]{
-        case .ad:do{
-            return 1
-        }
         case .search:do{
             return 40
         }
@@ -411,8 +393,6 @@ extension ZLAssistController : UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         switch tableViewIndexs[section]{
-        case .ad:
-            return nil
         case .search:do{
             let view = UIView()
             view.backgroundColor = UIColor.clear
@@ -485,8 +465,6 @@ extension ZLAssistController : UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch tableViewIndexs[indexPath.section]{
-        case .ad:
-            return UITableView.automaticDimension
         case .search:do{
             return 70
         }
@@ -507,22 +485,6 @@ extension ZLAssistController : UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch tableViewIndexs[indexPath.section]{
-        case .ad:do{
-            if let tableViewCell = tableView.dequeueReusableCell(withIdentifier: "ad") {
-                return tableViewCell
-            } else {
-                let tableViewCell = ZLAssistTableViewCell(style: .default, reuseIdentifier: "ad")
-                tableViewCell.backgroundColor = UIColor.clear
-                tableViewCell.selectionStyle = .none
-                tableViewCell.contentView.backgroundColor = UIColor.clear
-                tableViewCell.contentView.addSubview(bannerView)
-                bannerView.snp.makeConstraints({ (make) in
-                    make.centerX.equalToSuperview()
-                    make.top.bottom.equalToSuperview()
-                })
-                return tableViewCell
-            }
-        }
         case .search:do{
             if let tableViewCell = tableView.dequeueReusableCell(withIdentifier: "search") {
                 return tableViewCell
@@ -625,19 +587,3 @@ extension ZLAssistController : UITableViewDelegate,UITableViewDataSource {
     
 }
 
-extension ZLAssistController : GADBannerViewDelegate {
-    
-    /// Tells the delegate an ad request loaded an ad.
-    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        analytics.log(.AD(success:true))
-      print("adViewDidReceiveAd")
-    }
-    
-    
-    func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
-        analytics.log(.AD(success:false))
-        print("didFailToReceiveAdWithError")
-    }
-
-    
-}

@@ -94,6 +94,8 @@
 
 #pragma mark issues
 
+#define searchIssueUrl           @"/search/issues"              // 根据关键字搜索repo
+
 #define repoIssuesUrl              @"/repos/%@/issues"                  // get 获取repos的issues
 
 #define createIssueUrl                @"/repos/%@/issues"                  // post 获取repos的issues

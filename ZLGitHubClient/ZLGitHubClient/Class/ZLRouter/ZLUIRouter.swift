@@ -82,6 +82,8 @@ extension ZLUIRouter{
     static let RepoInfoController : ZLUIKey = "ZLRepoInfoController"
     static let IssueInfoController : ZLUIKey = "ZLIssueInfoController"
     static let PRInfoController : ZLUIKey = "ZLPRInfoController"
+    static let WebContentController: ZLUIKey = "ZLWebContentController"
+    
     
 }
 
@@ -184,6 +186,8 @@ extension ZLUIRouter{
                 self.navigateVC(key: RepoInfoController, params: ["repoInfoModel":repoModel],animated: animated)
                 return
             }
+        } else {
+            self.navigateVC(key: WebContentController, params: ["requestURL":url], animated: animated)
         }
     }
 }

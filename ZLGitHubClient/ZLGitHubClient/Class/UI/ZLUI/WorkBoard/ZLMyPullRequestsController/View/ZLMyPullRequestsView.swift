@@ -9,16 +9,20 @@
 import UIKit
 
 protocol ZLMyPullRequestsViewDelegate : NSObjectProtocol {
-    func onFilterTypeChange(type : ZLGithubPullRequestState)
+    func onFilterTypeChange(type : ZLPRFilterType)
+    func onStateChange(state: ZLGithubIssueState)
+    
 }
 
 
 class ZLMyPullRequestsView: ZLBaseView {
     
-    private var filterIndex : ZLGithubPullRequestState = .opened
+    private var filterIndex : ZLPRFilterType = .created
+    private var stateIndex : ZLGithubIssueState = .open
     
     var githubItemListView : ZLGithubItemListView!
-    var label : UILabel!
+    var filterButton: UIButton!
+    var stateButton: UIButton!
     
     weak var delegate : ZLMyPullRequestsViewDelegate?
     
@@ -46,25 +50,31 @@ class ZLMyPullRequestsView: ZLBaseView {
             make.height.equalTo(30)
         }
         
-        let label = UILabel()
-        label.text = "open"
-        label.textColor = UIColor(named: "ZLLabelColor3")
-        label.font = UIFont(name: Font_PingFangSCRegular, size: 14)
-        view.addSubview(label)
-        label.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(30)
-            make.centerY.equalToSuperview()
+        let button1 = UIButton(type: .custom)
+        button1.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+        button1.setAttributedTitle(NSAttributedString(string: "Created", attributes: [NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor3")!,NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 12)!]), for: .normal)
+        button1.setImage(UIImage(named: "down"), for: .normal)
+        view.addSubview(button1)
+        button1.snp.makeConstraints { (make) in
+            make.width.equalTo(100)
+            make.top.bottom.equalToSuperview()
+            make.right.equalToSuperview().offset(-10)
         }
-        self.label = label
-        
-        let button = UIButton(type: .custom)
-        button.setImage(UIImage(named: "filter"), for: .normal)
-        view.addSubview(button)
-        button.snp.makeConstraints { (make) in
-            make.width.equalTo(50)
-            make.top.bottom.right.equalToSuperview()
+        button1.addTarget(self, action: #selector(ZLMyPullRequestsView.onFilterButtonClicked), for: .touchUpInside)
+        filterButton = button1
+    
+        let button2 = UIButton(type: .custom)
+        button2.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+        button2.setAttributedTitle(NSAttributedString(string: "Open", attributes: [NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor3")!,NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 12)!]), for: .normal)
+        button2.setImage(UIImage(named: "down"), for: .normal)
+        view.addSubview(button2)
+        button2.snp.makeConstraints { (make) in
+            make.width.equalTo(80)
+            make.top.bottom.equalToSuperview()
+            make.right.equalTo(button1.snp_left).offset(-10)
         }
-        button.addTarget(self, action: #selector(ZLMyIssuesView.onFilterButtonClicked), for: .touchUpInside)
+        button2.addTarget(self, action: #selector(ZLMyPullRequestsView.onStateButtonClicked), for: .touchUpInside)
+        stateButton = button2
         
         let itemListView = ZLGithubItemListView()
         itemListView.setTableViewFooter()
@@ -81,11 +91,24 @@ class ZLMyPullRequestsView: ZLBaseView {
     @objc func onFilterButtonClicked(){
         CYSinglePickerPopoverView.showCYSinglePickerPopover(withTitle: ZLLocalizedString(string: "Filter", comment: ""),
                                                             withInitIndex: UInt(self.filterIndex.rawValue),
-                                                            withDataArray: ["open","closed","merged"])
+                                                            withDataArray: ["Created","Assigned","Mentioned","Review"])
         { (index : UInt) in
-            self.label.text = ["open","closed","merged"][Int(index)]
-            self.filterIndex = ZLGithubPullRequestState.init(rawValue: Int(index))!
+            let str = ["Created","Assigned","Mentioned","Review"][Int(index)]
+            self.filterButton.setAttributedTitle(NSAttributedString(string: str, attributes: [NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor3")!,NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 12)!]), for: .normal)
+            self.filterIndex = ZLPRFilterType.init(rawValue: Int(index))!
             self.delegate?.onFilterTypeChange(type: self.filterIndex)
+        }
+    }
+    
+    @objc func onStateButtonClicked(){
+        CYSinglePickerPopoverView.showCYSinglePickerPopover(withTitle: ZLLocalizedString(string: "Filter", comment: ""),
+                                                            withInitIndex: UInt(self.filterIndex.rawValue),
+                                                            withDataArray: ["Open","Closed"])
+        { (index : UInt) in
+            let str = ["Open","Closed"][Int(index)]
+            self.stateButton.setAttributedTitle(NSAttributedString(string: str, attributes: [NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor3")!,NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 12)!]), for: .normal)
+            self.stateIndex = ZLGithubIssueState.init(rawValue: UInt(Int(index)))!
+            self.delegate?.onStateChange(state: self.stateIndex)
         }
     }
 }

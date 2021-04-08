@@ -52,7 +52,7 @@ import UIKit
             resultModel.serialNumber = serialNumber
             
             if completeHandle != nil {
-                DispatchQueue.main.sync {
+                DispatchQueue.main.async {
                     completeHandle!(resultModel)
                 }
             }
@@ -73,7 +73,7 @@ import UIKit
             resultModel.serialNumber = serialNumber
             
             if completeHandle != nil {
-                DispatchQueue.main.sync {
+                DispatchQueue.main.async {
                     completeHandle!(resultModel)
                 }
             }

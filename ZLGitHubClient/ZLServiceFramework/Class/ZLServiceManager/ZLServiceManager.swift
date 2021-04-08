@@ -37,6 +37,10 @@ import SYDCentralPivot
         return SYDCentralFactory.sharedInstance().getSYDServiceBean("ZLUserServiceModel") as? ZLUserServiceModuleProtocol
     }
     
+    public var viewerServiceModel : ZLViewerServiceModuleProtocol? {
+        return SYDCentralFactory.sharedInstance().getSYDServiceBean("ZLViewerServiceModel") as? ZLViewerServiceModuleProtocol
+    }
+    
     public var repoServiceModel : ZLRepoServiceModuleProtocol? {
         return SYDCentralFactory.sharedInstance().getSYDServiceBean("ZLRepoServiceModel") as? ZLRepoServiceModuleProtocol
     }

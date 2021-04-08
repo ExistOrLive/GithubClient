@@ -53,40 +53,91 @@ query viewerTopRepositories($after:String){
 }
 
 
-
-query searchIssues($after:String,$query:String!){
-  search(query:$query,first:10,type:ISSUE,after:$after){
-  issueCount
-  pageInfo{
-    hasNextPage
-    endCursor
-    startCursor
-  }
-  nodes{
-    ... on Issue{
-      number
+# 搜索 issue 或者 pr
+query searchItem($after: String, $query: String!, $type: SearchType!) {
+  search(query: $query, first: 15, type: $type, after: $after) {
+    issueCount
+    pageInfo {
+      hasNextPage
+      endCursor
+      startCursor
+    }
+    nodes {
+      ... on Issue {
+        number
         title
         body
         url
-        state
-        labels(first:5,orderBy:{field: CREATED_AT, direction: DESC}){
-          nodes{
+        issueState: state
+        labels(first: 5, orderBy: {field: CREATED_AT, direction: DESC}) {
+          nodes {
             color
             name
           }
         }
-        author{
+        author {
           login
+          url
         }
-        repository{
+        repository {
           name
           nameWithOwner
+          url
         }
         createdAt
         updatedAt
         closedAt
+      }
+      ... on PullRequest {
+        number
+        title
+        url
+        prState: state
+        author {
+          login
+          url
+        }
+        repository {
+          name
+          nameWithOwner
+          url
+        }
+        createdAt
+        updatedAt
+        closedAt
+        mergedAt
+      }
+      ... on User {
+        login
+        userName: name
+        avatarUrl
+        bio
+        viewerIsFollowing
+        url
+      }
+      ... on Organization {
+        login
+        orgName: name
+        avatarUrl
+        url
+      }
+      ... on Repository {
+        repoName: name
+        nameWithOwner
+        url
+        owner {
+          login
+          url
+        }
+        description
+        stargazerCount
+        forkCount
+        primaryLanguage {
+          name
+          color
+        }
+      }
     }
-  }
   }
 }
 
