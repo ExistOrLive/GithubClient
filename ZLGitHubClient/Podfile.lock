@@ -149,6 +149,7 @@ PODS:
   - Umbrella/Core (0.12.0)
   - Umbrella/Firebase (0.12.0):
     - Umbrella/Core
+  - WoodPeckeriOS (1.2.92)
   - YYText (1.0.7)
 
 DEPENDENCIES:
@@ -183,6 +184,7 @@ DEPENDENCIES:
   - "UITextView+Placeholder"
   - Umbrella
   - Umbrella/Firebase
+  - WoodPeckeriOS
   - YYText
 
 SPEC REPOS:
@@ -223,6 +225,7 @@ SPEC REPOS:
     - Toast-Swift
     - "UITextView+Placeholder"
     - Umbrella
+    - WoodPeckeriOS
     - YYText
 
 EXTERNAL SOURCES:
@@ -273,8 +276,9 @@ SPEC CHECKSUMS:
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
   "UITextView+Placeholder": d7b0c400921f66523f3a85d74f774512e14f6502
   Umbrella: 4faf9786a6b29197608f6483711271104d237646
+  WoodPeckeriOS: 29f6fb07de24c8c8716b56a8764876a739c6e8e3
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: ea43e5db7f60f3f9a8db5d3be2827df1d4230ab0
+PODFILE CHECKSUM: f50ca860011b462faff7c8a576c7ee38cae3030b
 
 COCOAPODS: 1.10.1

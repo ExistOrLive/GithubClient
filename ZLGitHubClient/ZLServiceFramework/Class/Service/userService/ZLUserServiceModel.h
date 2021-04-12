@@ -8,12 +8,6 @@
 
 #import "ZLBaseServiceModel.h"
 #import "ZLUserServiceHeader.h"
-#import "ZLGithubUserModel.h"
-
-
-
-@class ZLGithubUserModel;
-@class ZLOperationResultModel;
 
 NS_ASSUME_NONNULL_BEGIN
 

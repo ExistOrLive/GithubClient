@@ -16,6 +16,7 @@
 "issues" = "Issues";
 "code" = "Code";
 "gists" = "Gists";
+"members" = "Members";
 "followers" = "Followers";
 "following" = "Following";
 "created at" = "Created at";
@@ -194,6 +195,7 @@
 "email" = "Email";
 "blog" = "Blog";
 "bio" = "Bio";
+"website" = "Website";
 
 // tab
 "news" = "News";

@@ -22,9 +22,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZLBaseServiceModel : NSObject <ZLBaseServiceModuleProtocol>
 
+@end
 
+
+@interface ZLBaseServiceModel(OperationQueue)
+
++ (dispatch_queue_t) serviceOperationQueue;
+
++ (void) dispatchAsyncInOperationQueue:(void(^)(void)) asyncBlock;
++ (void) dispatchSyncInOperationQueue:(void(^)(void)) asyncBlock;
 
 @end
+
 
 @interface NSNotification(ZLBaseServiceModel)
 

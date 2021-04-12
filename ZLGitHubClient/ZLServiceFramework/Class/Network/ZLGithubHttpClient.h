@@ -10,8 +10,6 @@
 
 typedef void(^GithubResponse)(BOOL,id _Nullable ,NSString * _Nonnull);
 
-@class ZLGithubUserModel;
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZLGithubHttpClient : NSObject
@@ -120,6 +118,15 @@ NS_ASSUME_NONNULL_BEGIN
                         hireable:(NSNumber * _Nullable) hireable
                              bio:(NSString * _Nullable) bio
                     serialNumber:(NSString *) serialNumber;
+
+
+/**
+ * @brief 查询用户的contributions
+ * @param loginName 用户的登录名
+ **/
+- (void) getUserContributionsData:(GithubResponse) block
+                        loginName: (NSString * _Nonnull) loginName
+                     serialNumber: (NSString * _Nonnull) serialNumber;
 
 
 #pragma mark - repositories
@@ -524,6 +531,18 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) getGithubClientConfig:(GithubResponse)block
                   serialNumber:(NSString *) serialNumber;
 
+
+#pragma mark - trending
+
+- (void) trendingUser: (GithubResponse)block
+             language:(NSString * __nullable) language
+            dateRange:(ZLDateRange) dateRange
+         serialNumber:(NSString *) serialNumber;
+
+- (void) trendingRepo:(GithubResponse)block
+             language:(NSString * __nullable) language
+            dateRange:(ZLDateRange) dateRange
+         serialNumber:(NSString *) serialNumber;
 @end
 
 

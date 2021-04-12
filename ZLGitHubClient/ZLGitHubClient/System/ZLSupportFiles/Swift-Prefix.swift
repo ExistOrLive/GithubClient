@@ -91,7 +91,7 @@ func ZLRawColor(name: String) -> UIColor?{
 
 @available(iOS 12.0, *)
 func getRealUserInterfaceStyle() -> UIUserInterfaceStyle {
-    if ZLSharedDataManager.sharedInstance().currentUserInterfaceStyle == .unspecified {
+    if ZLUISharedDataManager.currentUserInterfaceStyle == .unspecified {
         if  let color = UIColor(named: "TestColor") {
             if color.cgColor.components?[0] ?? 1.0 == 1.0 {
                 return .light
@@ -102,7 +102,7 @@ func getRealUserInterfaceStyle() -> UIUserInterfaceStyle {
             return .light
         }
     } else {
-        return ZLSharedDataManager.sharedInstance().currentUserInterfaceStyle
+        return ZLUISharedDataManager.currentUserInterfaceStyle
     }
     
    

@@ -23,7 +23,7 @@ import SYDCentralPivot
     
     public func initManager(){
         SYDCentralFactory.sharedInstance().getSYDServiceBean("ZLLoginServiceModel")
-        SYDCentralFactory.sharedInstance().getSYDServiceBean("ZLUserServiceModel")
+        SYDCentralFactory.sharedInstance().getSYDServiceBean("ZLViewerServiceModel")
         
         self.additionServiceModel?.getGithubClientConfig(NSString.generateSerialNumber())
     }
@@ -50,15 +50,11 @@ import SYDCentralPivot
     }
     
     
-    public  var additionServiceModel : ZLAdditionInfoServiceModuleProtocol? {
-        return SYDCentralFactory.sharedInstance().getSYDServiceBean("ZLAdditionInfoServiceModel") as? ZLAdditionInfoServiceModuleProtocol
+    public  var additionServiceModel : ZLAdditionServiceModuleProtocol? {
+        return SYDCentralFactory.sharedInstance().getSYDServiceBean("ZLAdditionServiceModel") as? ZLAdditionServiceModuleProtocol
     }
     
     public var eventServiceModel : ZLEventServiceModuleProtocol? {
         return SYDCentralFactory.sharedInstance().getSYDServiceBean("ZLEventServiceModel") as? ZLEventServiceModuleProtocol
-    }
-    
-    public var notificationServiceModel : ZLNotificationServiceModuleProtocol? {
-        return SYDCentralFactory.sharedInstance().getSYDServiceBean("ZLNotificationServiceModel") as? ZLNotificationServiceModuleProtocol
     }
 }

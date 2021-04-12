@@ -25,6 +25,7 @@ typedef NS_ENUM(NSUInteger, ZLSearchType) {
     ZLSearchTypeTopics
 };
 
+
 typedef enum {
     ZLDateRangeDaily = 0,
     ZLDateRangeWeakly = 1,

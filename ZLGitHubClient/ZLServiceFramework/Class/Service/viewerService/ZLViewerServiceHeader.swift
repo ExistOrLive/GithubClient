@@ -25,6 +25,25 @@ import Foundation
 
 @objc public protocol ZLViewerServiceModuleProtocol : ZLBaseServiceModuleProtocol {
     
+    
+    // MARK: ViewerInfo
+    
+    var currentUserLoginName: String? {get}
+    
+    var currentUserModel: ZLGithubUserModel? {get}
+    
+    func getCurrentUserModelFromServer() -> ZLGithubUserModel?
+    
+    
+    func updateUserProfile(blog: String?,
+                           location: String?,
+                           bio: String?,
+                           company: String?,
+                           serialNumber : String,
+                           completeHandle: ((ZLOperationResultModel) -> Void)?)
+    
+    // MARK: Viewer Issues PRS Orgs Repos
+    
     func getMyIssues(key: String?,
                      state: ZLGithubIssueState,
                      filter: ZLIssueFilterType,
@@ -41,5 +60,13 @@ import Foundation
     
     func getMyOrgs(serialNumber : String,
                    completeHandle: ((ZLOperationResultModel) -> Void)?)
+    
+    
+    func getMyTopRepos(after: String?,
+                       serialNumber : String,
+                       completeHandle: ((ZLOperationResultModel) -> Void)?)
+    
+    // MARK: Viewer Config
+    var fixedRepos: [Any] {get set}
     
 }

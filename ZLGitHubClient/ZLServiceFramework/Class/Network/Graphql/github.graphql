@@ -39,6 +39,7 @@ query viewerTopRepositories($after:String){
         description
         forkCount
         stargazerCount
+        isInOrganization
         owner{
           login
           avatarUrl
@@ -125,6 +126,7 @@ query searchItem($after: String, $query: String!, $type: SearchType!) {
         repoName: name
         nameWithOwner
         url
+        isInOrganization
         owner {
           login
           url
@@ -972,5 +974,259 @@ query prInfo($owner: String!, $name: String!, $number: Int!, $after: String) {
 }
 
 
+# 查询用户信息
+query userInfo($login: String!) {
+  user(login: $login) {
+    node_id:id
+    user_id:databaseId
+    
+    loginName:login
+    name
+    html_url:url
+    avatar_url:avatarUrl
+    
+    created_at:createdAt
+    updated_at:updatedAt
+    
+    followers{
+      totalCount
+    }
+    following{
+      totalCount
+    }
+    gists{
+      totalCount
+    }
+    repositories(ownerAffiliations:[OWNER]){
+      totalCount
+    }
+    
+    bio
+    company
+    email
+    location
+    blog:websiteUrl
+    status {
+      message
+    }
+    
+    
+    isViewer
+    viewerIsFollowing
+    isDeveloperProgramMember
+  }
+}
 
+# 查询组织信息
+query orgInfo($login: String!) {
+  organization(login:$login){
+    
+    node_id:id
+    user_id:databaseId
+    
+    loginName:login
+    name
+    html_url:url
+    avatar_url:avatarUrl
+    
+    
+    bio:description
+    email
+    location
+    blog:websiteUrl
+    
+    created_at:createdAt
+    updated_at:updatedAt
+    
+    repositories{
+      totalCount
+    }
+    
+    teams{
+      totalCount
+    }
+    
+    membersWithRole{
+      totalCount
+    }
+    
+    viewerIsAMember
+  }
+}
+
+# 查询组织信息
+query UserOrOrgInfo($login: String!) {
+  user(login: $login) {
+    node_id:id
+    user_id:databaseId
+    
+    loginName:login
+    name
+    html_url:url
+    avatar_url:avatarUrl
+    
+    created_at:createdAt
+    updated_at:updatedAt
+    
+    followers{
+      totalCount
+    }
+    following{
+      totalCount
+    }
+    gists{
+      totalCount
+    }
+    repositories(ownerAffiliations:[OWNER]){
+      totalCount
+    }
+    
+    bio
+    company
+    email
+    location
+    blog:websiteUrl
+    status {
+      message
+    }
+    
+    
+    isViewer
+    viewerIsFollowing
+    isDeveloperProgramMember
+  }
+  
+  organization(login:$login){
+    
+    node_id:id
+    user_id:databaseId
+    
+    loginName:login
+    name
+    html_url:url
+    avatar_url:avatarUrl
+    
+    
+    bio:description
+    email
+    location
+    blog:websiteUrl
+    
+    created_at:createdAt
+    updated_at:updatedAt
+    
+    repositories{
+      totalCount
+    }
+    
+    teams{
+      totalCount
+    }
+    
+    membersWithRole{
+      totalCount
+    }
+    
+    viewerIsAMember
+  }
+}
+
+
+# 查询当前用户的信息
+query viewerInfo{
+  viewer{
+    node_id:id
+    user_id:databaseId
+    
+    loginName:login
+    name
+    html_url:url
+    avatar_url:avatarUrl
+    
+    created_at:createdAt
+    updated_at:updatedAt
+    
+    followers{
+      totalCount
+    }
+    following{
+      totalCount
+    }
+    gists{
+      totalCount
+    }
+    repositories(ownerAffiliations:[OWNER]){
+      totalCount
+    }
+    
+    bio
+    company
+    email
+    location
+    blog:websiteUrl
+    status {
+      message
+    }
+    
+    
+    isViewer
+    viewerIsFollowing
+    isDeveloperProgramMember
+  }
+}
+
+# 查询仓库信息
+query repoInfo($login:String!,$name:String!){
+  repository(owner:$login,name:$name){
+   
+    node_id:id
+    repo_id:databaseId
+    
+    name
+    full_name:nameWithOwner
+    html_url:url
+    desc_Repo:description
+    homepageUrl
+    isPrivate
+    updatedAt
+    createdAt
+    pushedAt
+    primaryLanguage{
+      name
+    }
+    defaultBranchRef{
+      name
+    }
+    
+    issues(states:[OPEN]){
+      totalCount
+    }
+    stargazerCount
+    watchers{
+      totalCount
+    }
+    forkCount
+    
+    isInOrganization
+    owner{
+      node_id:id
+      login
+      html_url:url
+      avatarUrl
+    }
+    
+    parent{
+      name
+      nameWithOwner
+      
+    }
+    
+    licenseInfo{
+      node_id:id
+      name
+      spdxId
+      key
+    }
+  }
+}
 

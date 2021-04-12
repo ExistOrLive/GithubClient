@@ -83,10 +83,10 @@
 		<key>isSingle</key>
 		<false/>
 	</dict>
-	<key>ZLUserInfoController</key>
+	<key>ZLUserOrOrgInfoController</key>
 	<dict>
 		<key>class</key>
-		<string>ZLUserInfoController</string>
+		<string>ZLUserOrOrgInfoController</string>
 		<key>type</key>
 		<integer>0</integer>
 		<key>isSingle</key>

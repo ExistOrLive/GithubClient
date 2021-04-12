@@ -16,13 +16,16 @@
 
 + (instancetype) sharedInstance;
 
-// 初始化用户userId的数据库
-- (void) initialDBForUser:(NSString *) userId;
+- (ZLGithubUserBriefModel *) getUserOrOrgInfoWithLoginName:(NSString *) loginName;
+- (void) insertOrUpdateUserInfo:(ZLGithubUserBriefModel *) model;
 
-// 获取，插入，更新 userId的信息
-- (ZLGithubUserModel *) getCurrentUserInfo;
-- (ZLGithubUserModel *) getUserInfoWithUserLoginName:(NSString *) userId;
-- (void) insertOrUpdateUserInfo:(ZLGithubUserModel *) model;
+
+- (ZLGithubUserModel *) getViewerInfoWithLoginName:(NSString *) loginName;
+- (void) insertOrUpdateViewerInfo:(ZLGithubUserModel *) model;
+
+
+- (ZLGithubRepositoryModel *) getRepoInfoWithFullName:(NSString *) fullName;
+- (void) insertOrUpdateRepoInfo:(ZLGithubRepositoryModel *) model;
 
 
 @end

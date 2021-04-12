@@ -9,6 +9,7 @@
 #import "ZLGithubHttpClient.h"
 #import "ZLGithubAPI.h"
 #import "ZLGithubAppKey.h"
+#import "ZLBaseServiceModel.h"
 #import <AFNetworking/AFHTTPSessionManager.h>
 #import <MJExtension/MJExtension.h>
 #import <WebKit/WebKit.h>
@@ -16,9 +17,10 @@
 // Tool
 #import "ZLSharedDataManager.h"
 #import "NSDate+localizeStr.h"
+#import "OCGumbo.h"
+#import "OCGumbo+Query.h"
+
 // model
-#import "ZLGithubUserModel.h"
-#import "ZLGithubRepositoryModel.h"
 #import "ZLGithubRequestErrorModel.h"
 #import "ZLSearchResultModel.h"
 #import "ZLGithubEventModel.h"
@@ -31,8 +33,6 @@
 #import "ZLGithubRepositoryBranchModel.h"
 #import "ZLGithubContentModel.h"
 #import "ZLGithubIssueModel.h"
-
-static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 
 @interface ZLGithubHttpClient()
 
@@ -65,7 +65,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         // 获取用户token
         _token = [[ZLSharedDataManager sharedInstance] githubAccessToken];
         
-        _completeQueue = dispatch_queue_create("AFURLSessionManagerCompleteQueue", DISPATCH_QUEUE_SERIAL);
+        _completeQueue = [ZLBaseServiceModel serviceOperationQueue];
         
     }
     return self;
@@ -388,7 +388,6 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     {
         ZLGithubHttpClient *strongSelf= weakSelf;
         strongSelf->_token= token;
-        [[ZLSharedDataManager sharedInstance] setGithubAccessToken:token];
         
         ZLLoginProcessModel * processModel = [[ZLLoginProcessModel alloc] init];
         processModel.result = YES;
@@ -439,7 +438,6 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     
     // 注销成功，清空用户token和信息
     self->_token = nil;
-    [[ZLSharedDataManager sharedInstance] clearGithubTokenAndUserInfo];
     
     if(block) {
         block(YES,nil,serialNumber);
@@ -462,7 +460,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         
         if(result)
         {
-            responseObject = [ZLGithubUserModel getInstanceWithDic:responseObject];
+            responseObject = [ZLGithubUserModel mj_objectWithKeyValues:responseObject];
         }
         block(result,responseObject,serialNumber);
     };
@@ -490,7 +488,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         
         if(result)
         {
-            responseObject = [ZLGithubUserModel getInstanceWithDic:responseObject];
+            responseObject = [ZLGithubUserModel mj_objectWithKeyValues:responseObject];
         }
         block(result,responseObject,serialNumber);
     };
@@ -519,7 +517,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         
         if(result)
         {
-            responseObject = [ZLGithubUserModel getInstanceWithDic:responseObject];
+            responseObject = [ZLGithubOrgModel mj_objectWithKeyValues:responseObject];
         }
         block(result,responseObject,serialNumber);
     };
@@ -605,7 +603,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     void(^successBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
     ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
     {
-        ZLGithubUserModel * model = [ZLGithubUserModel getInstanceWithDic:(NSDictionary *) responseObject];
+        ZLGithubUserModel * model = [ZLGithubUserModel mj_objectWithKeyValues:(NSDictionary *) responseObject];
         block(YES,model,serialNumber);
     };
     
@@ -626,6 +624,59 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                   success:successBlock
                   failure:failedBlock];
 }
+
+
+
+
+/**
+ * @brief 查询用户的contributions
+ * @param loginName 用户的登录名
+ **/
+- (void) getUserContributionsData:(GithubResponse) block
+                        loginName: (NSString * _Nonnull) loginName
+                     serialNumber: (NSString * _Nonnull) serialNumber{
+    
+    NSString *contributionsUrl = [NSString stringWithFormat:@"https://github.com/users/%@/contributions",loginName];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        
+        NSError *error = nil;
+        
+        bool result = false;
+        id data = nil;
+        
+        NSString *html = [NSString stringWithContentsOfURL:[NSURL URLWithString:contributionsUrl] encoding:NSUTF8StringEncoding error:&error];
+        
+        if(error) {
+            result = false;
+            ZLGithubRequestErrorModel *errorModel =  [ZLGithubRequestErrorModel new];
+            errorModel.message = error.localizedDescription;
+            data = errorModel;
+        } else {
+            OCGumboDocument *doc = [[OCGumboDocument alloc] initWithHTMLString:html];
+            OCQueryObject *queryResult = doc.Query(@".ContributionCalendar-day");
+            
+            NSMutableArray *contributionsArray = [NSMutableArray new];
+            
+            for(OCGumboElement *gumboNode in queryResult) {
+                if( [gumboNode hasAttribute:@"data-count"]){
+                    ZLGithubUserContributionData *data = [ZLGithubUserContributionData new];
+                    data.contributionsNumber = [[gumboNode getAttribute:@"data-count"] intValue];
+                    data.contributionsDate =  [gumboNode getAttribute:@"data-date"];
+                    data.contributionsLevel = [[gumboNode getAttribute:@"data-level"] intValue];;
+                    [contributionsArray addObject:data];
+                }
+            }
+            result = true;
+            data = contributionsArray;
+        }
+        
+        dispatch_async(self.completeQueue, ^{
+            block(result,data,serialNumber);
+        });
+    });
+}
+
 
 #pragma mark - repositories
 
@@ -2113,6 +2164,182 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                          WithParams:nil
                   WithResponseBlock:newBlock
                    WithSerialNumber:serialNumber];
+}
+
+#pragma mark - trending
+
+- (void) trendingUser: (GithubResponse)block
+             language:(NSString *__nullable) language
+            dateRange:(ZLDateRange) dateRange
+         serialNumber:(NSString *) serialNumber{
+    
+    language = [language stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+    
+    NSString * url = @"https://github.com/trending/developers";
+    if([language length] > 0){
+        url = [url stringByAppendingPathComponent:language];
+    }
+    switch (dateRange) {
+        case ZLDateRangeDaily:
+            url = [url stringByAppendingString:@"?since=daily"];
+            break;
+        case ZLDateRangeWeakly:
+            url = [url stringByAppendingString:@"?since=weekly"];
+            break;
+        case ZLDateRangeMonthly:
+            url = [url stringByAppendingString:@"?since=monthly"];
+            break;
+        default:
+            break;
+    }
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+
+        NSError *error = nil;
+        NSString *html = [NSString stringWithContentsOfURL:[NSURL URLWithString:url]
+                                                  encoding:NSUTF8StringEncoding
+                                                     error:&error];
+        bool result = false;
+        id data = nil;
+        
+        if(error) {
+            result = false;
+            ZLGithubRequestErrorModel *model = [[ZLGithubRequestErrorModel alloc] init];
+            model.message = error.localizedDescription;
+            data = model;
+        } else {
+            OCGumboDocument *doc = [[OCGumboDocument alloc] initWithHTMLString:html];
+            NSMutableArray * userArray = [NSMutableArray new];
+
+            NSArray *articles = doc.Query(@"article");
+            for(OCGumboElement *article in articles){
+                NSString * idStr = article.attr(@"id");
+                if([idStr hasPrefix:@"pa-"]){
+                    OCGumboElement *div =  article.Query(@"div").firstObject;
+                    OCGumboElement *a = div.Query(@"a").firstObject;
+                    OCGumboElement *img = a.Query(@"img").firstObject;
+                    NSString * fullName = a.attr(@"href");
+                    NSString * avatar = img.attr(@"src");
+                    if([fullName length] > 0){
+                        ZLGithubUserModel * model = [ZLGithubUserModel new];
+                        model.loginName = [fullName substringFromIndex:1];
+                        model.avatar_url = avatar;
+                        [userArray addObject:model];
+                    }
+                }
+            }
+            data = userArray;
+            result = true;
+        }
+
+        dispatch_async(self.completeQueue, ^{
+            block(result,data,serialNumber);
+        });
+    });
+}
+
+
+- (void) trendingRepo:(GithubResponse)block
+             language:(NSString *) language
+            dateRange:(ZLDateRange) dateRange
+         serialNumber:(NSString *) serialNumber{
+    
+    language = [language stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+
+    NSString * url = @"https://github.com/trending";
+    if([language length] > 0){
+        url = [url stringByAppendingPathComponent:language];
+    }
+    switch (dateRange) {
+        case ZLDateRangeDaily:
+            url = [url stringByAppendingString:@"?since=daily"];
+            break;
+        case ZLDateRangeWeakly:
+            url = [url stringByAppendingString:@"?since=weekly"];
+            break;
+        case ZLDateRangeMonthly:
+            url = [url stringByAppendingString:@"?since=monthly"];
+            break;
+        default:
+            break;
+    }
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+
+        NSError *error = nil;
+        NSString *html = [NSString stringWithContentsOfURL:[NSURL URLWithString:url]
+                                                  encoding:NSUTF8StringEncoding
+                                                     error:&error];
+        bool result = false;
+        id data = nil;
+        
+        if(error) {
+            result = false;
+            ZLGithubRequestErrorModel *model = [[ZLGithubRequestErrorModel alloc] init];
+            model.message = error.localizedDescription;
+            data = model;
+        } else {
+            OCGumboDocument *doc = [[OCGumboDocument alloc] initWithHTMLString:html];
+            NSMutableArray * repoArray = [NSMutableArray new];
+
+            NSArray *articles = doc.Query(@"article");
+            for(OCGumboElement *article in articles){
+                OCGumboElement *h1 =  article.Query(@"h1").firstObject;
+                OCGumboElement *p =  article.Query(@"p").firstObject;
+                OCGumboElement *a = h1.Query(@"a").firstObject;
+                NSString * fullName = a.attr(@"href");
+                NSCharacterSet * set = [NSCharacterSet characterSetWithCharactersInString:@" \n"];
+                NSString * desc = nil;
+                if(p){
+                    desc = [p.text() stringByTrimmingCharactersInSet:set];
+                }
+                NSString *language = @"";
+                NSArray<OCGumboElement *>* spanElements = article.Query(@"span");
+                for(OCGumboElement *element in spanElements){
+                    if([@"programmingLanguage" isEqualToString:element.attr(@"itemprop")]){
+                        language = element.text();
+                        break;
+                    }
+                }
+                
+                int forkNum = 0;
+                int starNum = 0;
+                NSArray<OCGumboElement *>* svgElements = article.Query(@"svg");
+                for(OCGumboElement *element in svgElements){
+                    if([@"star" isEqualToString:element.attr(@"aria-label")]){
+                        NSString *starNumStr = [element.parentNode.text() stringByTrimmingCharactersInSet:set];
+                        starNumStr = [starNumStr stringByReplacingOccurrencesOfString:@"," withString:@""];
+                        starNum = [starNumStr intValue];
+                    } else if ([@"fork" isEqualToString:element.attr(@"aria-label")]){
+                        NSString *forkNumStr = [element.parentNode.text() stringByTrimmingCharactersInSet:set];
+                        forkNumStr = [forkNumStr stringByReplacingOccurrencesOfString:@"," withString:@""];
+                        forkNum = [forkNumStr intValue];
+                    }
+                }
+                
+                
+                if([fullName length] > 0){
+                    ZLGithubRepositoryModel * model = [ZLGithubRepositoryModel new];
+                    model.full_name = [fullName substringFromIndex:1];
+                    model.owner = [ZLGithubUserBriefModel new];
+                    model.owner.loginName = [model.full_name componentsSeparatedByString:@"/"].firstObject;
+                    model.name = [model.full_name componentsSeparatedByString:@"/"].lastObject;
+                    model.desc_Repo = desc;
+                    model.language = language;
+                    model.forks_count = forkNum;
+                    model.stargazers_count = starNum;
+                    [repoArray addObject:model];
+                }
+            }
+            data = repoArray;
+            result = true;
+            
+        }
+
+        dispatch_async(self.completeQueue, ^{
+            block(result,data,serialNumber);
+        });
+    });
 }
 
 @end

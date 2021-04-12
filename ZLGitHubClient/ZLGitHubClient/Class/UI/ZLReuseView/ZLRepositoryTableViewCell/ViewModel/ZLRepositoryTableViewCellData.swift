@@ -1,0 +1,143 @@
+//
+//  ZLRepositoryTableViewCellData.swift
+//  ZLGitHubClient
+//
+//  Created by 朱猛 on 2019/12/10.
+//  Copyright © 2019 ZM. All rights reserved.
+//
+
+import UIKit
+
+@objcMembers class ZLRepositoryTableViewCellData: ZLGithubItemTableViewCellData {
+    
+    var data : ZLGithubRepositoryModel
+    let needPullData : Bool
+    
+    // view
+    weak var cell : ZLRepositoryTableViewCell?
+    
+    init(data : ZLGithubRepositoryModel, needPullData : Bool){
+        self.needPullData = needPullData;
+        self.data = data;
+        super.init()
+        if self.needPullData == true {
+            self.getRepoInfoFromServer()
+        }
+    }
+    
+    convenience init(data : ZLGithubRepositoryModel){
+        self.init(data: data, needPullData: false)
+    }
+    
+    override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
+        
+        guard let cell : ZLRepositoryTableViewCell = targetView as? ZLRepositoryTableViewCell else{
+            return
+        }
+        
+        cell.fillWithData(data: self)
+        self.cell = cell
+    }
+    
+    override func getCellHeight() -> CGFloat
+    {
+        return UITableView.automaticDimension
+    }
+    
+    override func getCellReuseIdentifier() -> String {
+        return "ZLRepositoryTableViewCell"
+    }
+    
+    override func onCellSingleTap() {
+        if let vc = ZLUIRouter.getRepoInfoViewController(self.data) {
+            vc.hidesBottomBarWhenPushed = true
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    
+    
+    func getRepoInfoFromServer() {
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoInfo(withFullName: self.data.full_name ?? "",
+                                                                      serialNumber: NSString.generateSerialNumber())
+        {[weak self](resultModel : ZLOperationResultModel) in
+            if resultModel.result == true {
+                guard  let model : ZLGithubRepositoryModel = resultModel.data as? ZLGithubRepositoryModel  else {
+                    return
+                }
+                self?.data = model
+                let delegate = self?.cell?.delegate
+                if delegate === self{
+                    self?.cell?.fillWithData(data: self!)
+                }
+            }
+        }
+    }
+    
+    
+}
+
+
+extension ZLRepositoryTableViewCellData : ZLRepositoryTableViewCellDelegate
+{
+    func onRepoAvaterClicked() {
+//        if data.owner?.type == .user {
+//            if let userInfoVC = ZLUIRouter.getUserInfoViewController(loginName: data.owner?.loginName ?? ""){
+//                userInfoVC.hidesBottomBarWhenPushed = true
+//                self.viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
+//            }
+//
+//        } else {
+//            if let orgInfoVC = ZLUIRouter.getOrgInfoViewController(loginName: data.owner?.loginName ?? ""){
+//                orgInfoVC.hidesBottomBarWhenPushed = true
+//                self.viewController?.navigationController?.pushViewController(orgInfoVC, animated: true)
+//            }
+//        }
+    }
+    
+    func getOwnerAvatarURL() -> String?
+    {
+        return self.data.owner?.avatar_url
+    }
+    
+    func getRepoFullName() -> String?
+    {
+        return self.data.full_name
+    }
+    
+    func getRepoName() -> String?
+    {
+        return self.data.name
+    }
+    
+    func getOwnerName() -> String?
+    {
+        return self.data.owner?.loginName
+    }
+    
+    func getRepoMainLanguage() -> String?
+    {
+        return self.data.language
+    }
+    
+    func getRepoDesc() -> String?
+    {
+        return self.data.desc_Repo
+    }
+    
+    func isPriva() -> Bool
+    {
+        return self.data.isPriva
+    }
+    
+    func starNum() -> Int
+    {
+        return Int(self.data.stargazers_count)
+    }
+    
+    func forkNum() -> Int
+    {
+        return Int(self.data.forks_count)
+    }
+    
+}

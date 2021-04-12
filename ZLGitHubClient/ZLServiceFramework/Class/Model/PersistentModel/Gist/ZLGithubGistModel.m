@@ -7,7 +7,6 @@
 //
 
 #import "ZLGithubGistModel.h"
-#import "ZLGithubUserModel.h"
 #import <MJExtension/MJExtension.h>
 
 @implementation ZLGithubGistFileModel

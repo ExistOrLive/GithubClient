@@ -75,9 +75,9 @@
     
     [Bugly startWithAppId:ZLBuyglyAppId  developmentDevice:isDevelopmentDevice config:self.myBuglyConfig];
     
-    if([[ZLServiceManager sharedInstance].userServiceModel.currentUserLoginName length] > 0)
+    if([[ZLServiceManager sharedInstance].viewerServiceModel.currentUserLoginName length] > 0)
     {
-        [Bugly setUserIdentifier:[ZLServiceManager sharedInstance].userServiceModel.currentUserLoginName];
+        [Bugly setUserIdentifier:[ZLServiceManager sharedInstance].viewerServiceModel.currentUserLoginName];
     }
     
     ZLLog_Info(@"bugly %@ start up ------\n",[Bugly sdkVersion]);
@@ -94,13 +94,13 @@
 
 - (void) addObservers
 {
-     [[ZLServiceManager sharedInstance].userServiceModel registerObserver:self selector:@selector(onNotificationArrived:) name:ZLGetCurrentUserInfoResult_Notification];
+     [[ZLServiceManager sharedInstance].viewerServiceModel registerObserver:self selector:@selector(onNotificationArrived:) name:ZLGetCurrentUserInfoResult_Notification];
 }
 
 
 - (void) removeObservers
 {
-    [[ZLServiceManager sharedInstance].userServiceModel unRegisterObserver:self name:ZLGetCurrentUserInfoResult_Notification];
+    [[ZLServiceManager sharedInstance].viewerServiceModel unRegisterObserver:self name:ZLGetCurrentUserInfoResult_Notification];
 }
 
 - (void) onNotificationArrived:(NSNotification *) notification

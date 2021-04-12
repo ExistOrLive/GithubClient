@@ -19,8 +19,6 @@ public let ZLGetFollowersResult_Notification = Notification.Name(rawValue: "ZLGe
 public let ZLGetFollowingResult_Notification = Notification.Name(rawValue: "ZLGetFollowingResult_Notification")
 public let ZLGetGistsResult_Notification = Notification.Name(rawValue: "ZLGetGistsResult_Notification")
 public let ZLSearchResult_Notification = Notification.Name(rawValue: "ZLSearchResult_Notification")
-public let ZLGetSpecifiedUserInfoResult_Notification = Notification.Name(rawValue: "ZLGetSpecifiedUserInfoResult_Notification")
-public let ZLGetSpecifiedRepoInfoResult_Notification  = Notification.Name(rawValue: "ZLGetSpecifiedRepoInfoResult_Notification")
 public let ZLUpdateUserPublicProfileInfoResult_Notification = Notification.Name(rawValue: "ZLUpdateUserPublicProfileInfoResult_Notification")
 public let ZLGetUserReceivedEventResult_Notification = Notification.Name(rawValue: "ZLGetUserReceivedEventResult_Notification")
 public let ZLGetMyEventResult_Notification = Notification.Name(rawValue: "ZLGetMyEventResult_Notification")
@@ -76,9 +74,7 @@ public func ZLMainThreadDispatch(_ block : @escaping ()->Void) {
     if Thread.isMainThread {
         block()
     } else {
-        DispatchQueue.main.async {
-            block()
-        }
+        DispatchQueue.main.async(execute: block)
     }
 }
 

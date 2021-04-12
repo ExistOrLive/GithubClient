@@ -96,6 +96,7 @@ pod 'YYText'
 pod 'FFPopup'
 
 # 移动监控工具
+pod 'WoodPeckeriOS', :configurations => ['Debug']
 pod 'LookinServer', :configurations => ['Debug']
 pod 'DoraemonKit/Core', '~> 2.0.0', :configurations => ['Debug']
 pod 'DoraemonKit/WithLogger', '~> 2.0.0', :configurations => ['Debug']
