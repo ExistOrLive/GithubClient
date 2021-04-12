@@ -486,9 +486,12 @@
     
     GithubResponse newResponse = ^(BOOL result,id _Nullable responseObject,NSString * _Nonnull serailNumber){
         
-        if(result)
-        {
-            responseObject = [ZLGithubUserModel mj_objectWithKeyValues:responseObject];
+        if(result){
+            if([@"Organization" isEqualToString:responseObject[@"type"]]) {
+                responseObject = [ZLGithubOrgModel mj_objectWithKeyValues:responseObject];
+            } else if([@"User" isEqualToString:responseObject[@"type"]]) {
+                responseObject = [ZLGithubUserModel mj_objectWithKeyValues:responseObject];
+            }
         }
         block(result,responseObject,serialNumber);
     };

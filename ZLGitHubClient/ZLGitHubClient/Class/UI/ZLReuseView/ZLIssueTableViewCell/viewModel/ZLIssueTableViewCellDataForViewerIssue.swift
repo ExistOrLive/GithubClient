@@ -71,7 +71,7 @@ extension ZLIssueTableViewCellDataForViewerIssue : ZLIssueTableViewCellDelegate 
         return data.issueState == .closed
     }
     
-    func getAssistStr() -> String? {
+    func getIssueAssistStr() -> String? {
         if self.isIssueClosed() {
             return "#\(data.number) \(data.author?.login ?? "") \(ZLLocalizedString(string: "closed at", comment: "")) \(NSDate.getLocalStrSinceCurrentTime(withGithubTime: data.closedAt ?? ""))"
         } else {
@@ -80,7 +80,7 @@ extension ZLIssueTableViewCellDataForViewerIssue : ZLIssueTableViewCellDelegate 
         }
     }
     
-    func getLabels() -> [(String,String)] {
+    func getIssueLabels() -> [(String,String)] {
         if self.labels == nil {
             if data.labels?.nodes != nil {
                 self.labels = []
@@ -92,7 +92,7 @@ extension ZLIssueTableViewCellDataForViewerIssue : ZLIssueTableViewCellDelegate 
         return self.labels ?? []
     }
     
-    func onClickRepoFullName() {
+    func onClickIssueRepoFullName() {
         if let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: data.repository.nameWithOwner) {
             self.viewController?.navigationController?.pushViewController(vc, animated: true)
         }

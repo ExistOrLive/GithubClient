@@ -10,17 +10,17 @@ import UIKit
 
 @objc protocol ZLPullRequestTableViewCellDelegate : NSObjectProtocol {
     
-    func getIssueRepoFullName() -> String?
+    func getPullRequestRepoFullName() -> String?
     
-    func getTitle() -> String?
+    func getPullRequestTitle() -> String?
     
-    func getAssistInfo() -> String?
+    func getPullRequestAssistInfo() -> String?
     
-    func getState() -> ZLGithubPullRequestState
+    func getPullRequestState() -> ZLGithubPullRequestState
     
-    func isMerged() -> Bool
+    func isPullRequestMerged() -> Bool
     
-    func onClickRepoFullName()
+    func onClickPullRequestRepoFullName()
 }
 
 class ZLPullRequestTableViewCell: UITableViewCell {
@@ -52,7 +52,7 @@ class ZLPullRequestTableViewCell: UITableViewCell {
     }
     
     @objc func onRepoNameClick(){
-        self.delegate?.onClickRepoFullName()
+        self.delegate?.onClickPullRequestRepoFullName()
     }
     
     
@@ -120,14 +120,14 @@ class ZLPullRequestTableViewCell: UITableViewCell {
        
         self.delegate = data
         
-        self.titleLabel.text = data.getTitle()
-        self.assistLabel.text = data.getAssistInfo()
+        self.titleLabel.text = data.getPullRequestTitle()
+        self.assistLabel.text = data.getPullRequestAssistInfo()
         
-        self.repoNameButton.setAttributedTitle(NSAttributedString(string: data.getIssueRepoFullName() ?? "",attributes: [NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor1")!,NSAttributedString.Key.font:UIFont(name: Font_PingFangSCMedium, size: 15)!]), for: .normal)
+        self.repoNameButton.setAttributedTitle(NSAttributedString(string: data.getPullRequestRepoFullName() ?? "",attributes: [NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor1")!,NSAttributedString.Key.font:UIFont(name: Font_PingFangSCMedium, size: 15)!]), for: .normal)
         
-        if data.getState() == .open {
+        if data.getPullRequestState() == .open {
             self.statusTag?.image = UIImage.init(named: "pr_opened")
-        } else if data.isMerged() {
+        } else if data.isPullRequestMerged() {
             self.statusTag?.image = UIImage.init(named: "pr_merged")
         } else {
             self.statusTag?.image = UIImage.init(named: "pr_closed")

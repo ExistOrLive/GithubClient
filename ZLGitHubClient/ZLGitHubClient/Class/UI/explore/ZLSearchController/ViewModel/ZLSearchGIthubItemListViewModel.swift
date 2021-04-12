@@ -57,7 +57,7 @@ class ZLSearchGithubItemListViewModel: ZLBaseViewModel {
         self.githubItemListView?.beginRefresh()
     }
     
-    func searchWithFilerInfo(searchFilterInfo: ZLSearchFilterInfoModel?) {
+    func searchWithFilerInfo(searchFilterInfo: ZLSearchFilterInfoModel) {
         self.searchFilterInfo = searchFilterInfo
         self.githubItemListView?.clearListView()
         self.githubItemListView?.beginRefresh()

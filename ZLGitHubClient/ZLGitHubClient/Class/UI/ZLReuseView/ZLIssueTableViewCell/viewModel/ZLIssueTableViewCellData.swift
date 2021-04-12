@@ -76,7 +76,7 @@ extension ZLIssueTableViewCellData : ZLIssueTableViewCellDelegate{
         return self.issueModel.state == .closed
     }
     
-    func getAssistStr() -> String?{
+    func getIssueAssistStr() -> String?{
         
         if self.isIssueClosed() {
             
@@ -88,7 +88,7 @@ extension ZLIssueTableViewCellData : ZLIssueTableViewCellDelegate{
         }
     }
     
-    func getLabels() -> [(String,String)] {
+    func getIssueLabels() -> [(String,String)] {
         
         var labelArray : [(String,String)] = []
         
@@ -99,7 +99,7 @@ extension ZLIssueTableViewCellData : ZLIssueTableViewCellDelegate{
         return labelArray
     }
     
-    func onClickRepoFullName() {
+    func onClickIssueRepoFullName() {
         if let url = URL(string: issueModel.html_url) {
             if url.pathComponents.count >= 5{
                 if let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: "\(url.pathComponents[1])/\(url.pathComponents[2])"){

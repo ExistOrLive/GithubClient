@@ -58,9 +58,13 @@
         ZLMainThreadDispatch(if(handle){handle(userResultModel);})
     };
     
-    [[ZLGithubHttpClient defaultClient] getUserOrOrgInfoWithLogin:loginName
-                                                     serialNumber:serailNumber
-                                                            block:response];
+    [[ZLGithubHttpClient defaultClient] getUserInfo:response
+                                          loginName:loginName
+                                       serialNumber:serailNumber];
+    
+//    [[ZLGithubHttpClient defaultClient] getUserOrOrgInfoWithLogin:loginName
+//                                                     serialNumber:serailNumber
+//                                                            block:response];
     
     return [ZLDBMODULE getUserOrOrgInfoWithLoginName:loginName];
 }

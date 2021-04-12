@@ -29,6 +29,7 @@ fileprivate let ZLTrendingOptions = "trendingOptions"
         }
     }
     
+    
     static var isAssistButtonHidden: Bool {
         get{
              UserDefaults.standard.bool(forKey: ZLAssistButtonKey)

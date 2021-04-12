@@ -56,7 +56,7 @@ class ZLPullRequestTableViewCellData: ZLGithubItemTableViewCellData {
 extension ZLPullRequestTableViewCellData : ZLPullRequestTableViewCellDelegate
 {
     
-    func getIssueRepoFullName() -> String?{
+    func getPullRequestRepoFullName() -> String?{
         if let url = URL(string: pullRequestModel.html_url) {
             if url.pathComponents.count >= 5 && url.pathComponents[3] == "pull" {
                 return "\(url.pathComponents[1])/\(url.pathComponents[2])"
@@ -65,7 +65,7 @@ extension ZLPullRequestTableViewCellData : ZLPullRequestTableViewCellDelegate
         return nil
     }
     
-    func onClickRepoFullName() {
+    func onClickPullRequestRepoFullName() {
         if let url = URL(string: pullRequestModel.html_url) {
             if url.pathComponents.count >= 5 && url.pathComponents[3] == "pull" {
                 if let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: "\(url.pathComponents[1])/\(url.pathComponents[2])"){
@@ -75,12 +75,12 @@ extension ZLPullRequestTableViewCellData : ZLPullRequestTableViewCellDelegate
         }
     }
     
-    func getTitle() -> String?
+    func getPullRequestTitle() -> String?
     {
         return self.pullRequestModel.title
     }
     
-    func getAssistInfo() -> String?
+    func getPullRequestAssistInfo() -> String?
     {
         if self.pullRequestModel.state == .open
         {
@@ -113,11 +113,11 @@ extension ZLPullRequestTableViewCellData : ZLPullRequestTableViewCellDelegate
         }
     }
     
-    func getState() -> ZLGithubPullRequestState {
+    func getPullRequestState() -> ZLGithubPullRequestState {
         return self.pullRequestModel.state
     }
     
-    func isMerged() -> Bool {
+    func isPullRequestMerged() -> Bool {
         return self.pullRequestModel.merged_at != nil
     }
 }

@@ -32,7 +32,7 @@ class ZLUserTableViewCellData: ZLGithubItemTableViewCellData {
     
     override func getCellHeight() -> CGFloat
     {
-        return 100.0
+        return UITableView.automaticDimension
     }
     
     override func getCellReuseIdentifier() -> String {
@@ -67,6 +67,10 @@ extension ZLUserTableViewCellData:ZLUserTableViewCellDelegate{
     
     func getLocation() -> String? {
         return self.userModel.location
+    }
+    
+    func desc() -> String? {
+        return self.userModel.bio
     }
 }
 

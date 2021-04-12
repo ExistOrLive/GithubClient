@@ -72,7 +72,7 @@ extension ZLRepoInfoViewModel
 {
     func setViewDataForRepoInfoView(){
         
-        self.viewController?.title = self.repoInfoModel?.name == nil ? "Repo" : self.repoInfoModel?.name
+        self.viewController?.title = self.repoInfoModel?.name == nil ? ZLLocalizedString(string: "repository", comment: "") : self.repoInfoModel?.name
        
         repoHeaderInfoViewModel = ZLRepoHeaderInfoViewModel()
         self.addSubViewModel(repoHeaderInfoViewModel)
@@ -85,7 +85,7 @@ extension ZLRepoInfoViewModel
         {[weak self] (resultModel) in
             if resultModel.result == true, let repoInfoModel = resultModel.data as? ZLGithubRepositoryModel {
                
-                self?.viewController?.title = self?.repoInfoModel.name == nil ? "Repository" : self?.repoInfoModel.name
+                self?.viewController?.title = self?.repoInfoModel.name == nil ?  self?.repoInfoModel.name : "repository"
                 self?.repoInfoModel = repoInfoModel
                 self?.repoHeaderInfoViewModel.update(repoInfoModel)
                 self?.repoInfoView.reloadData()

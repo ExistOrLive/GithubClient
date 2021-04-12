@@ -79,8 +79,13 @@ query searchItem($after: String, $query: String!, $type: SearchType!) {
         author {
           login
           url
+          avatarUrl
         }
         repository {
+          owner{
+            login
+            avatarUrl
+          }
           name
           nameWithOwner
           url
@@ -97,8 +102,13 @@ query searchItem($after: String, $query: String!, $type: SearchType!) {
         author {
           login
           url
+          avatarUrl
         }
         repository {
+          owner{
+            login
+            avatarUrl
+          }
           name
           nameWithOwner
           url
@@ -121,6 +131,7 @@ query searchItem($after: String, $query: String!, $type: SearchType!) {
         orgName: name
         avatarUrl
         url
+        description
       }
       ... on Repository {
         repoName: name
@@ -130,6 +141,7 @@ query searchItem($after: String, $query: String!, $type: SearchType!) {
         owner {
           login
           url
+          avatarUrl
         }
         description
         stargazerCount
@@ -138,10 +150,12 @@ query searchItem($after: String, $query: String!, $type: SearchType!) {
           name
           color
         }
+        isPrivate
       }
     }
   }
 }
+
 
 
 # 查询我的issues
@@ -190,6 +204,8 @@ query viewerOrgs{
           login
           avatarUrl
           location
+          name
+          description
         }
       }
     }

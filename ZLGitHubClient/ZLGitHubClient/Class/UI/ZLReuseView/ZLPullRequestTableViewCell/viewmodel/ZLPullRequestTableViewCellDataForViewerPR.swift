@@ -53,22 +53,22 @@ class ZLPullRequestTableViewCellDataForViewerPR: ZLGithubItemTableViewCellData {
 
 extension ZLPullRequestTableViewCellDataForViewerPR : ZLPullRequestTableViewCellDelegate{
     
-    func onClickRepoFullName() {
+    func onClickPullRequestRepoFullName() {
         if let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: data.repository.nameWithOwner) {
             self.viewController?.navigationController?.pushViewController(vc, animated: true)
         }
     }
     
-    func getIssueRepoFullName() -> String? {
+    func getPullRequestRepoFullName() -> String? {
         return data.repository.nameWithOwner
     }
     
-    func getTitle() -> String?
+    func getPullRequestTitle() -> String?
     {
         return self.data.title
     }
     
-    func getAssistInfo() -> String?
+    func getPullRequestAssistInfo() -> String?
     {
         if self.data.prState == .open
         {
@@ -91,7 +91,7 @@ extension ZLPullRequestTableViewCellDataForViewerPR : ZLPullRequestTableViewCell
         }
     }
     
-    func getState() -> ZLGithubPullRequestState {
+    func getPullRequestState() -> ZLGithubPullRequestState {
         switch(self.data.prState){
         case .closed:
             return .closed
@@ -104,7 +104,7 @@ extension ZLPullRequestTableViewCellDataForViewerPR : ZLPullRequestTableViewCell
         }
     }
     
-    func isMerged() -> Bool {
+    func isPullRequestMerged() -> Bool {
         return self.data.mergedAt != nil
     }
 }

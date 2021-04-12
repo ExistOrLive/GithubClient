@@ -33,7 +33,7 @@ class ZLUserTableViewCellDataForViewerOrgs: ZLGithubItemTableViewCellData {
     }
     
     override func getCellHeight() -> CGFloat {
-        return 100.0;
+        return UITableView.automaticDimension
     }
     
     override func onCellSingleTap() {
@@ -56,7 +56,7 @@ class ZLUserTableViewCellDataForViewerOrgs: ZLGithubItemTableViewCellData {
 
 extension ZLUserTableViewCellDataForViewerOrgs : ZLUserTableViewCellDelegate {
     func getName() -> String? {
-        return nil
+        return data.name
     }
     
     func getLoginName() -> String? {
@@ -73,6 +73,10 @@ extension ZLUserTableViewCellDataForViewerOrgs : ZLUserTableViewCellDelegate {
     
     func getLocation() -> String? {
         return data.location
+    }
+    
+    func desc() -> String? {
+        return data.description
     }
     
     

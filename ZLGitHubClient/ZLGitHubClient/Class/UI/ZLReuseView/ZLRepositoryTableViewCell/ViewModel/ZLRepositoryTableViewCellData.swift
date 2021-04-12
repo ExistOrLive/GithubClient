@@ -81,18 +81,12 @@ import UIKit
 extension ZLRepositoryTableViewCellData : ZLRepositoryTableViewCellDelegate
 {
     func onRepoAvaterClicked() {
-//        if data.owner?.type == .user {
-//            if let userInfoVC = ZLUIRouter.getUserInfoViewController(loginName: data.owner?.loginName ?? ""){
-//                userInfoVC.hidesBottomBarWhenPushed = true
-//                self.viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
-//            }
-//
-//        } else {
-//            if let orgInfoVC = ZLUIRouter.getOrgInfoViewController(loginName: data.owner?.loginName ?? ""){
-//                orgInfoVC.hidesBottomBarWhenPushed = true
-//                self.viewController?.navigationController?.pushViewController(orgInfoVC, animated: true)
-//            }
-//        }
+        
+        if let login = data.owner?.loginName,
+           let userInfoVC = ZLUIRouter.getUserInfoViewController(loginName: login){
+            userInfoVC.hidesBottomBarWhenPushed = true
+            self.viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
+        }
     }
     
     func getOwnerAvatarURL() -> String?

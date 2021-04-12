@@ -19,6 +19,8 @@ import UIKit
     func getCompany() -> String?
     
     func getLocation() -> String?
+    
+    func desc() -> String?
 }
 
 
@@ -30,11 +32,7 @@ class ZLUserTableViewCell: UITableViewCell {
     
     @IBOutlet weak var nameLabel: UILabel!
     
-    @IBOutlet weak var loginNameLabel: UILabel!
-    
-    @IBOutlet weak var companyLabel: UILabel!
-    
-    @IBOutlet weak var locationLabel: UILabel!
+    @IBOutlet weak var descLabel: UILabel!
     
     weak var delegate : ZLUserTableViewCellDelegate?
     
@@ -62,10 +60,9 @@ extension ZLUserTableViewCell
         self.delegate = data
         
         self.headImageView.sd_setImage(with: URL.init(string: data.getAvatarUrl() ?? ""), placeholderImage: UIImage.init(named: "default_avatar"))
-        self.nameLabel.text = data.getName()
-        self.loginNameLabel.text = data.getLoginName()
-        self.companyLabel.text = data.getCompany()
-        self.locationLabel.text = data.getLocation()
+        self.nameLabel.text = "\(data.getName() ?? "")(\(data.getLoginName() ?? ""))"
+        self.descLabel.text = data.desc()
+       
     }
 }
 

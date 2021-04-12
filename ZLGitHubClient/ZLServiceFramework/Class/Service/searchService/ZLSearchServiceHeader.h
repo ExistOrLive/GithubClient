@@ -19,10 +19,9 @@
 typedef NS_ENUM(NSUInteger, ZLSearchType) {
     ZLSearchTypeRepositories,
     ZLSearchTypeUsers,
-    ZLSearchTypeCommits,
+    ZLSearchTypeOrganizations,
     ZLSearchTypeIssues,
-    ZLSearchTypeCode,
-    ZLSearchTypeTopics
+    ZLSearchTypePullRequests,
 };
 
 
@@ -56,6 +55,15 @@ static const NSNotificationName _Nonnull ZLSearchResult_Notification = @"ZLSearc
                       per_page:(NSUInteger) per_page
                   serialNumber:(NSString *_Nonnull) serialNumber
                 completeHandle:(void(^_Nonnull)(ZLOperationResultModel *_Nonnull)) handle;
+
+
+- (void) searchInfoWithKeyWord:(NSString *_Nonnull) keyWord
+                          type:(ZLSearchType) type
+                    filterInfo:(ZLSearchFilterInfoModel * __nullable) filterInfo
+                         after:(NSString * _Nullable) after
+                  serialNumber:(NSString *_Nonnull) serialNumber
+                completeHandle:(void(^_Nonnull)(ZLOperationResultModel *_Nonnull)) handle;
+
 
 
 #pragma mark - trend

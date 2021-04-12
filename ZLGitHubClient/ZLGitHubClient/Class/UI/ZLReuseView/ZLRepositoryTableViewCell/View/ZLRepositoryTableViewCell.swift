@@ -34,6 +34,7 @@ import UIKit
 
 class ZLRepositoryTableViewCell: UITableViewCell {
 
+    var avatarButton: UIButton!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var headImageView: UIImageView!
     @IBOutlet weak var repostitoryNameLabel: UILabel!
@@ -55,22 +56,27 @@ class ZLRepositoryTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        self.containerView.layer.cornerRadius = 8.0
-        self.containerView.layer.masksToBounds = true
+        self.avatarButton = UIButton(type: .custom)
+        self.avatarButton.cornerRadius = 25
+        self.containerView.addSubview(self.avatarButton)
+        self.avatarButton.snp_makeConstraints { (make) in
+            make.top.equalToSuperview().offset(10)
+            make.left.equalToSuperview().offset(10)
+            make.size.equalTo(CGSize(width: 50, height: 50))
+        }
+        self.avatarButton.addTarget(self, action: #selector(onAvatarSingleTapAction), for: .touchUpInside)
+        
+        self.containerView.cornerRadius = 8.0
         
         self.repostitoryNameLabel.adjustsFontSizeToFitWidth = true
         
         self.justUpdate()
-        self.headImageView.layer.cornerRadius = 25.0
-        self.headImageView.layer.masksToBounds = true
+        self.headImageView.cornerRadius = 25.0
         
         self.privateLabel.layer.cornerRadius = 2.0
         self.privateLabel.layer.borderColor = UIColor.lightGray.cgColor
         self.privateLabel.layer.borderWidth = 1.0
-        
-        let avatarImageTapGesture = UITapGestureRecognizer.init(target: self, action: #selector(onAvatarSingleTapAction))
-        self.headImageView.addGestureRecognizer(avatarImageTapGesture)
-        
+                
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -91,7 +97,9 @@ extension ZLRepositoryTableViewCell
     func fillWithData(data : ZLRepositoryTableViewCellDelegate) -> Void
     {
         self.delegate = data
-        self.headImageView.sd_setImage(with: URL.init(string: data.getOwnerAvatarURL() ?? ""), placeholderImage: UIImage.init(named: "default_avatar"));
+        self.avatarButton.sd_setBackgroundImage(with: URL.init(string: data.getOwnerAvatarURL() ?? ""),
+                                                for: .normal,
+                                                placeholderImage: UIImage.init(named: "default_avatar"))
         self.repostitoryNameLabel.text = data.getRepoName()
         self.languageLabel.text = data.getRepoMainLanguage()
         self.descriptionLabel.text = data.getRepoDesc()

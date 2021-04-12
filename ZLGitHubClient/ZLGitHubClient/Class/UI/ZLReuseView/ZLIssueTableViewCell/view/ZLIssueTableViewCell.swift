@@ -16,11 +16,11 @@ protocol ZLIssueTableViewCellDelegate : NSObjectProtocol{
     
     func isIssueClosed() -> Bool
     
-    func getAssistStr() -> String?
+    func getIssueAssistStr() -> String?
     
-    func getLabels() -> [(String,String)]
+    func getIssueLabels() -> [(String,String)]
 
-    func onClickRepoFullName()
+    func onClickIssueRepoFullName()
 }
 
 class ZLIssueTableViewCell: UITableViewCell {
@@ -45,7 +45,7 @@ class ZLIssueTableViewCell: UITableViewCell {
     }
     
     @objc func onRepoNameClick() {
-        self.delegate?.onClickRepoFullName()
+        self.delegate?.onClickIssueRepoFullName()
     }
     
     
@@ -130,7 +130,7 @@ class ZLIssueTableViewCell: UITableViewCell {
         self.repoNameButton.setAttributedTitle(NSAttributedString(string: cellData.getIssueRepoFullName() ?? "",attributes: [NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor1")!,NSAttributedString.Key.font:UIFont(name: Font_PingFangSCMedium, size: 15)!]), for: .normal)
         
         self.titleLabel.text = cellData.getIssueTitleStr()
-        self.assitLabel.text = cellData.getAssistStr()
+        self.assitLabel.text = cellData.getIssueAssistStr()
         self.statusTag.image = cellData.isIssueClosed() ? UIImage.init(named: "issue_closed") : UIImage.init(named: "issue_opened")
         
         
@@ -139,7 +139,7 @@ class ZLIssueTableViewCell: UITableViewCell {
         }
         
         var length : CGFloat = 0.0
-        for (label,colorStr) in cellData.getLabels(){
+        for (label,colorStr) in cellData.getIssueLabels(){
             let font = UIFont.init(name: Font_PingFangSCRegular, size: 11)
             let attributes : [NSAttributedString.Key : Any]  = [NSAttributedString.Key.font : font!]
             let attributedStr = NSAttributedString.init(string: label, attributes: attributes)
@@ -176,7 +176,7 @@ class ZLIssueTableViewCell: UITableViewCell {
         }
         
         self.labelStackView.snp.updateConstraints { (make) in
-            make.height.equalTo(cellData.getLabels().count == 0 ? 0 : 20)
+            make.height.equalTo(cellData.getIssueLabels().count == 0 ? 0 : 20)
         }
 
     }

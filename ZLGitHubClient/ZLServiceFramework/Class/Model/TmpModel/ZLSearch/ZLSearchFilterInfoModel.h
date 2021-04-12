@@ -12,10 +12,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZLSearchFilterInfoModel : NSObject
 
-@property(nonatomic,strong) NSString * order;
-@property(nonatomic,strong) NSString * language;
-@property(nonatomic,strong) NSString * firstCreatedTimeStr;
-@property(nonatomic,strong) NSString * secondCreatedTimeStr;
+// repos: stars forks updated
+// users: followers joined repositories
+// orgs:  repositories joined
+// issues: created commented updated
+// prs: created commented updated
+@property(nonatomic,strong,nullable) NSString * order;
+@property(nonatomic,assign,getter=isAsc) BOOL asc;
+@property(nonatomic,strong,nullable) NSString * language;
+@property(nonatomic,strong,nullable) NSString * firstCreatedTimeStr;
+@property(nonatomic,strong,nullable) NSString * secondCreatedTimeStr;
 
 @property(nonatomic,assign) NSUInteger firstStarNum;
 @property(nonatomic,assign) NSUInteger secondStarNum;
@@ -27,14 +33,21 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,assign) NSUInteger firstPubReposNum;
 @property(nonatomic,assign) NSUInteger secondPubReposNum;
 
+@property(nonatomic,assign) BOOL issueOrPRClosed;    // 默认open
 
 
+
+
+// For REST API
 - (NSString *) finalKeyWordForRepoFilter:(NSString *) keyWord;
 - (NSString *) finalKeyWordForUserFilter:(NSString *) keyWord;
 
-- (NSString *) getSortFiled;
-
-- (BOOL) getIsAsc;
+// For GraphQL API
+- (NSString *) GraphqlQueryForUserFilter:(NSString *) keyWord;
+- (NSString *) GraphqlQueryForOrgFilter:(NSString *) keyWord;
+- (NSString *) GraphqlQueryForRepoFilter:(NSString *) keyWord;
+- (NSString *) GraphqlQueryForIssueFilter:(NSString *) keyWord;
+- (NSString *) GraphqlQueryForPullRequestFilter:(NSString *) keyWord;
 
 @end
 

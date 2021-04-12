@@ -33,7 +33,7 @@ class ZLSearchItemsViewModel: ZLBaseViewModel {
     private var searchItemsView : ZLSearchItemsView?
     
     // subViewModel
-    private var searchGithubItemListViewModelArray : [ZLSearchGithubItemListViewModel] = []
+    private var searchGithubItemListViewModelArray : [ZLSearchGithubItemListSecondViewModel] = []
     private var searchFilterInfoDic : [ZLSearchType : ZLSearchFilterInfoModel] = [:]
 
     // model
@@ -53,7 +53,7 @@ class ZLSearchItemsViewModel: ZLBaseViewModel {
         for i in 0...(ZLSearchItemsView.ZLSearchItemsTypes.count - 1) {
             let searchType = ZLSearchItemsView.ZLSearchItemsTypes[i]
             let githubItemListView = self.searchItemsView!.githubItemListViewArray[i]
-            let githubItemListViewModel = ZLSearchGithubItemListViewModel.init()
+            let githubItemListViewModel = ZLSearchGithubItemListSecondViewModel()
             self.searchGithubItemListViewModelArray.append(githubItemListViewModel)
             self.addSubViewModel(githubItemListViewModel)
             githubItemListViewModel.bindModel(searchType, andView: githubItemListView)
@@ -108,10 +108,15 @@ extension ZLSearchItemsViewModel: ZLSearchItemsViewDelegate
                 }
             })
             }
-        case .commits: break
-        case .issues: break
-        case .code: break
-        case .topics: break
+        case .issues:do{
+            
+        }
+        case .pullRequests:do{
+            
+        }
+        case .organizations:do{
+            
+        }
         @unknown default:do {
         }
         }

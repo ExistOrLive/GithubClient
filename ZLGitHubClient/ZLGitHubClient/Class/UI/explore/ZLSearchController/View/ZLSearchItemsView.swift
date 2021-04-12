@@ -18,7 +18,7 @@ import JXSegmentedView
 
 class ZLSearchItemsView: ZLBaseView {
     
-    static let ZLSearchItemsTypes : [ZLSearchType] = [.repositories,.users]
+    static let ZLSearchItemsTypes : [ZLSearchType] = [.repositories,.users,.organizations,.issues,.pullRequests]
     
     weak var delegate : ZLSearchItemsViewDelegate?
     
@@ -37,6 +37,7 @@ class ZLSearchItemsView: ZLBaseView {
 //        self.filterButton.setTitle(ZLLocalizedString(string: "Filter", comment: ""), for: .normal)
         
         self.segmentedView.delegate = self
+        self.segmentedView.collectionView.bounces = false
         
         var titles : [String] = []
         for searchType in ZLSearchItemsView.ZLSearchItemsTypes {
@@ -48,17 +49,14 @@ class ZLSearchItemsView: ZLBaseView {
             case .users:do{
                 titles.append(ZLLocalizedString(string: "users",comment: ""))
             }
-            case .topics:do{
-                titles.append(ZLLocalizedString(string: "topics", comment: ""))
+            case .organizations:do{
+                titles.append(ZLLocalizedString(string: "organizations", comment: ""))
             }
-            case .code:do{
-                titles.append(ZLLocalizedString(string: "code", comment: ""))
+            case .pullRequests:do{
+                titles.append(ZLLocalizedString(string: "pull requests", comment: ""))
                 }
             case .issues:do{
                 titles.append(ZLLocalizedString(string: "issues", comment: ""))
-                }
-            case .commits:do{
-                titles.append(ZLLocalizedString(string: "commit", comment: ""))
                 }
             @unknown default:
                 break

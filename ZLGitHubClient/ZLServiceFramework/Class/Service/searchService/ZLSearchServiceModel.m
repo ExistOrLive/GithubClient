@@ -30,7 +30,7 @@
 }
 
 
-#pragma mark - search
+#pragma mark - search rest api
 
 
 - (void) searchInfoWithKeyWord:(NSString *) keyWord
@@ -70,19 +70,15 @@
     };
     
     NSString * finalKeyWord = keyWord;
-    NSString * sortFiled = nil;
-    BOOL isAsc = NO;
     
     if(filterInfo){
        finalKeyWord =  [filterInfo finalKeyWordForUserFilter:keyWord];
-       sortFiled = [filterInfo getSortFiled];
-       isAsc = [filterInfo getIsAsc];
     }
 
     [[ZLGithubHttpClient defaultClient] searchUser:response
                                            keyword:finalKeyWord
-                                              sort:sortFiled
-                                             order:isAsc
+                                              sort:filterInfo.order
+                                             order:filterInfo.isAsc
                                               page:page
                                           per_page:per_page
                                       serialNumber:serialNumber];
@@ -108,20 +104,16 @@
     
     
     NSString * finalKeyWord = keyWord;
-    NSString * sortFiled = nil;
-    BOOL isAsc = NO;
     
     if(filterInfo){
        finalKeyWord =  [filterInfo finalKeyWordForRepoFilter:keyWord];
-       sortFiled = [filterInfo getSortFiled];
-       isAsc = [filterInfo getIsAsc];
     }
   
     
     [[ZLGithubHttpClient defaultClient] searchRepos:response
                                             keyword:finalKeyWord
-                                               sort:sortFiled
-                                              order:isAsc
+                                               sort:filterInfo.order
+                                              order:filterInfo.isAsc
                                                page:page
                                            per_page:per_page
                                        serialNumber:serialNumber];
@@ -147,20 +139,16 @@
     
     
     NSString * finalKeyWord = keyWord;
-    NSString * sortFiled = nil;
-    BOOL isAsc = NO;
     
     if(filterInfo){
        finalKeyWord =  [filterInfo finalKeyWordForRepoFilter:keyWord];
-       sortFiled = [filterInfo getSortFiled];
-       isAsc = [filterInfo getIsAsc];
     }
   
     
     [[ZLGithubHttpClient defaultClient] searchRepos:response
                                             keyword:finalKeyWord
-                                               sort:sortFiled
-                                              order:isAsc
+                                               sort:filterInfo.order
+                                              order:filterInfo.isAsc
                                                page:page
                                            per_page:per_page
                                        serialNumber:serialNumber];
@@ -221,19 +209,15 @@
     };
     
     NSString * finalKeyWord = keyWord;
-    NSString * sortFiled = nil;
-    BOOL isAsc = NO;
     
     if(filterInfo){
        finalKeyWord =  [filterInfo finalKeyWordForUserFilter:keyWord];
-       sortFiled = [filterInfo getSortFiled];
-       isAsc = [filterInfo getIsAsc];
     }
 
     [[ZLGithubHttpClient defaultClient] searchUser:response
                                            keyword:finalKeyWord
-                                              sort:sortFiled
-                                             order:isAsc
+                                              sort:filterInfo.order
+                                             order:filterInfo.isAsc
                                               page:page
                                           per_page:per_page
                                       serialNumber:serialNumber];
@@ -259,24 +243,80 @@
     
     
     NSString * finalKeyWord = keyWord;
-    NSString * sortFiled = nil;
-    BOOL isAsc = NO;
     
     if(filterInfo){
        finalKeyWord =  [filterInfo finalKeyWordForRepoFilter:keyWord];
-       sortFiled = [filterInfo getSortFiled];
-       isAsc = [filterInfo getIsAsc];
     }
   
     
     [[ZLGithubHttpClient defaultClient] searchRepos:response
                                             keyword:finalKeyWord
-                                               sort:sortFiled
-                                              order:isAsc
+                                               sort:filterInfo.order
+                                              order:filterInfo.isAsc
                                                page:page
                                            per_page:per_page
                                        serialNumber:serialNumber];
 }
+
+#pragma mark - search graphql api
+
+- (void) searchInfoWithKeyWord:(NSString *_Nonnull) keyWord
+                          type:(ZLSearchType) type
+                    filterInfo:(ZLSearchFilterInfoModel * __nullable) filterInfo
+                         after:(NSString * _Nullable) after
+                  serialNumber:(NSString *_Nonnull) serialNumber
+                completeHandle:(void(^_Nonnull)(ZLOperationResultModel *_Nonnull)) handle{
+    
+    GithubResponse response = ^(BOOL result,id responseObject,NSString * serialNumber){
+        
+        ZLOperationResultModel * repoResultModel = [[ZLOperationResultModel alloc] init];
+        repoResultModel.result = result;
+        repoResultModel.serialNumber = serialNumber;
+        repoResultModel.data = responseObject;
+        
+        ZLMainThreadDispatch(handle(repoResultModel);)
+    };
+    
+    NSString * query = keyWord;
+    SearchTypeForOC searchType;
+    
+    switch(type){
+        case ZLSearchTypeUsers:{
+            query = filterInfo ? [filterInfo GraphqlQueryForUserFilter:keyWord] : keyWord;
+            searchType = SearchTypeForOCUser;
+        }
+            break;
+        case ZLSearchTypeOrganizations:{
+            query = filterInfo ? [filterInfo GraphqlQueryForOrgFilter:keyWord] : keyWord;
+            searchType = SearchTypeForOCUser;
+        }
+            break;
+        case ZLSearchTypeRepositories:{
+            query = filterInfo ? [filterInfo GraphqlQueryForRepoFilter:keyWord] : keyWord;
+            searchType = SearchTypeForOCRepo;
+        }
+            break;
+        case ZLSearchTypeIssues:{
+            query = filterInfo ? [filterInfo GraphqlQueryForIssueFilter:keyWord] : keyWord;
+            searchType = SearchTypeForOCIssue;
+        }
+            break;
+        case ZLSearchTypePullRequests:{
+            query = filterInfo ? [filterInfo GraphqlQueryForPullRequestFilter:keyWord] : keyWord;
+            searchType = SearchTypeForOCIssue;
+        }
+            break;
+    }
+    
+    [[ZLGithubHttpClient defaultClient] searchItemAfter:after
+                                                  query:query
+                                                   type:searchType
+                                           serialNumber:serialNumber
+                                                  block:response];
+    
+}
+
+
 
 
 
