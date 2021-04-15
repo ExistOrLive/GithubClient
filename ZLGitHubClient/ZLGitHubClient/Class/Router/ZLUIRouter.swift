@@ -78,13 +78,15 @@ extension ZLUIRouter{
     static let AppearanceController : ZLUIKey = "ZLAppearanceController"
     static let AboutViewController : ZLUIKey = "ZLAboutViewController"
     
-    static let UserInfoController : ZLUIKey = "ZLUserInfoController"
+   // static let UserInfoController : ZLUIKey = "ZLUserInfoController"
     static let RepoInfoController : ZLUIKey = "ZLRepoInfoController"
     static let UserOrOrgInfoController: ZLUIKey = "ZLUserOrOrgInfoController"
-    static let OrgInfoController : ZLUIKey = "ZLOrgInfoController"
+   // static let OrgInfoController : ZLUIKey = "ZLOrgInfoController"
     static let IssueInfoController : ZLUIKey = "ZLIssueInfoController"
     static let PRInfoController : ZLUIKey = "ZLPRInfoController"
     static let WebContentController: ZLUIKey = "ZLWebContentController"
+    
+    static let UserAdditionInfoController: ZLUIKey = "ZLUserAdditionInfoController"
 }
 
 extension ZLUIRouter{
@@ -162,25 +164,99 @@ extension ZLUIRouter{
 
 
 extension ZLUIRouter{
-    static func openURL(url:URL,animated:Bool = true){
-        // github url
+    
+    static func isGithubURL(url:URL) -> Bool{
         if url.host == "github.com" ||
             url.host == "www.github.com" {
-            let pathComponents = url.pathComponents
-            if pathComponents.count == 2 {
-                let userModel = ZLGithubUserModel()
-                userModel.loginName = pathComponents[1]
-                self.navigateVC(key: UserInfoController, params: ["userInfoModel":userModel],animated: animated)
+            return true
+        }
+        return false
+    }
+    
+    static func isParsedGithubURL(url:URL) -> Bool {
+        
+        let pathComponents = url.pathComponents
+        
+        if (url.host == "github.com" ||
+            url.host == "www.github.com") &&
+            pathComponents.count >= 2 {
+            
+            let login = pathComponents[1]
+            
+            if "issues" == login ||
+                "pulls" == login ||
+                "marketplace" == login ||
+                "explore" == login {
+                return false
+            }
+            
+            if pathComponents.count == 2 ||
+                pathComponents.count == 3 {
+                return true
+            }
+            
+            if pathComponents.count == 5 && pathComponents[3] == "pull" {
+                return true
+            }
+            
+            if pathComponents.count == 5 && pathComponents[3] == "issues" {
+                return true
+            }
+        }
+        
+        return false
+    }
+    
+    static func openURL(url:URL,animated:Bool = true){
+        
+        // github url
+        
+        let pathComponents = url.pathComponents
+        
+        if (url.host == "github.com" ||
+            url.host == "www.github.com") &&
+            pathComponents.count >= 2 {
+            
+            let login = pathComponents[1]
+            if "issues" == login ||
+                "pulls" == login ||
+                "marketplace" == login ||
+                "explore" == login {
+                self.navigateVC(key: WebContentController, params: ["requestURL":url], animated: animated)
                 return
-            } else if pathComponents.count > 2 {
+            }
+            
+            
+            if pathComponents.count == 2 {
+                
+                self.navigateVC(key: UserOrOrgInfoController, params: ["loginName":pathComponents[1]],animated: animated)
+                return
+                
+            } else if pathComponents.count == 3 {
+                
                 let repoModel = ZLGithubRepositoryModel()
                 repoModel.full_name = "\(pathComponents[1])/\(pathComponents[2])"
                 self.navigateVC(key: RepoInfoController, params: ["repoInfoModel":repoModel],animated: animated)
                 return
+                
+            } else if pathComponents.count == 5 && pathComponents[3] == "pull" {
+                
+                self.navigateVC(key: PRInfoController, params:  ["login":pathComponents[1],
+                                                                 "repoName":pathComponents[2],
+                                                                 "number":Int(pathComponents[3]) ?? 0],animated: animated)
+                return
+                
+            }  else if pathComponents.count == 5 && pathComponents[3] == "issues" {
+                
+                self.navigateVC(key: IssueInfoController, params:  ["login":pathComponents[1],
+                                                                    "repoName":pathComponents[2],
+                                                                    "number":Int(pathComponents[3]) ?? 0],animated: animated)
+                return
+                
             }
-        } else {
-            self.navigateVC(key: WebContentController, params: ["requestURL":url], animated: animated)
         }
+            
+        self.navigateVC(key: WebContentController, params: ["requestURL":url], animated: animated)
     }
 }
 

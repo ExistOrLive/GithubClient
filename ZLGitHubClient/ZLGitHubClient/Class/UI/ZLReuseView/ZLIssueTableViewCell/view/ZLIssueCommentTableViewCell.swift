@@ -17,9 +17,13 @@ protocol ZLIssueCommentTableViewCellDelegate : NSObjectProtocol{
     func getCommentText() -> String
     func getCommentWebView() -> WKWebView
     func getCommentWebViewHeight() -> CGFloat
+    
+    func onAvatarButtonClicked()
 }
 
 class ZLIssueCommentTableViewCell: UITableViewCell {
+    
+    var delegate: ZLIssueCommentTableViewCellDelegate?
     
     var avatarButton : UIButton!
     var actorLabel : UILabel!
@@ -75,6 +79,7 @@ class ZLIssueCommentTableViewCell: UITableViewCell {
             make.size.equalTo(CGSize(width: 40, height: 40))
         }
         avatarButton = tmpAvatarButton
+        avatarButton.addTarget(self, action: #selector(onAvatarButtonClicked), for: .touchUpInside)
         
         let label1 = UILabel()
         label1.textColor = UIColor(named: "ZLLabelColor1")
@@ -118,6 +123,9 @@ class ZLIssueCommentTableViewCell: UITableViewCell {
     
     
     func fillWithData(data : ZLIssueCommentTableViewCellDelegate) {
+        
+        delegate = data
+        
         avatarButton.sd_setImage(with: URL(string: data.getActorAvatarUrl()), for: .normal, placeholderImage: UIImage(named: "default_avatar"))
         actorLabel.text = data.getActorName()
         timeLabel.text = data.getTime()
@@ -133,6 +141,11 @@ class ZLIssueCommentTableViewCell: UITableViewCell {
             make.height.equalTo(data.getCommentWebViewHeight())
         }
         
+    }
+    
+    
+    @objc func onAvatarButtonClicked(){
+        self.delegate?.onAvatarButtonClicked()
     }
     
     

@@ -72,12 +72,10 @@ extension ZLRepoInfoViewModel
 {
     func setViewDataForRepoInfoView(){
         
-        self.viewController?.title = self.repoInfoModel?.name == nil ? ZLLocalizedString(string: "repository", comment: "") : self.repoInfoModel?.name
+        self.viewController?.title = self.repoInfoModel?.name ?? ZLLocalizedString(string: "repository", comment: "")
        
         repoHeaderInfoViewModel = ZLRepoHeaderInfoViewModel()
         self.addSubViewModel(repoHeaderInfoViewModel)
-
-        
         
         // 从服务器查询
         let tmpRepoInfo = ZLServiceManager.sharedInstance.repoServiceModel?.getRepoInfo(withFullName: repoInfoModel.full_name!,
@@ -85,7 +83,7 @@ extension ZLRepoInfoViewModel
         {[weak self] (resultModel) in
             if resultModel.result == true, let repoInfoModel = resultModel.data as? ZLGithubRepositoryModel {
                
-                self?.viewController?.title = self?.repoInfoModel.name == nil ?  self?.repoInfoModel.name : "repository"
+                self?.viewController?.title = repoInfoModel.name ?? ZLLocalizedString(string: "repository", comment: "")
                 self?.repoInfoModel = repoInfoModel
                 self?.repoHeaderInfoViewModel.update(repoInfoModel)
                 self?.repoInfoView.reloadData()
@@ -242,10 +240,8 @@ extension ZLRepoInfoViewModel : ZLRepoInfoViewDelegate
     
     
     func onLinkClicked(url : URL?) -> Void{
-        if url != nil {
-            let vc = ZLWebContentController.init()
-            vc.requestURL = url
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        if let realurl = url {
+            ZLUIRouter.openURL(url: realurl)
         }
     }
 }

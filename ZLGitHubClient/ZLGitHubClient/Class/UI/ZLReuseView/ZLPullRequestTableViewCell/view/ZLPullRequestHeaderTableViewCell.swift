@@ -11,7 +11,7 @@ import UIKit
 protocol ZLPullRequestHeaderTableViewCellDelegate : NSObjectProtocol {
    
     func getPRAuthorAvatarURL() -> String
-    func getPRRepoFullName() -> String
+    func getPRRepoFullName() -> NSAttributedString
     func getPRNumber() -> Int
     func getPRState() -> String
     func getPRTitle() -> String
@@ -22,13 +22,20 @@ protocol ZLPullRequestHeaderTableViewCellDelegate : NSObjectProtocol {
     func getDeletedFileNumber() -> Int
     func getHeaderRef() -> String
     func getBaseRef() -> String
+    
+    
+    func onAvatarButtonClicked() -> Void
+    func onFileButtonClicked() -> Void
+    func onCommitButtonClicked() -> Void
 
 }
 
 class ZLPullRequestHeaderTableViewCell: UITableViewCell {
     
-    var avatarImageView : UIImageView!
-    var fullNameLabel : UILabel!
+    private var delegate: ZLPullRequestHeaderTableViewCellDelegate?
+    
+    var avatarButton : UIButton!
+    var fullNameLabel : YYLabel!
     var numberLabel: UILabel!
     var titleLabel: UILabel!
     
@@ -64,22 +71,20 @@ class ZLPullRequestHeaderTableViewCell: UITableViewCell {
         
         self.contentView.backgroundColor = UIColor(named: "ZLIssueCommentCellColor")
         
-        let imageView = UIImageView()
-        imageView.cornerRadius = 15
-        self.contentView.addSubview(imageView)
-        imageView.snp.makeConstraints { (make) in
+        avatarButton = UIButton(type: .custom)
+        avatarButton.cornerRadius = 15
+        self.contentView.addSubview(avatarButton)
+        avatarButton.snp.makeConstraints { (make) in
             make.top.left.equalToSuperview().offset(20)
             make.size.equalTo(CGSize(width: 30, height: 30))
         }
-        avatarImageView = imageView
+        avatarButton.addTarget(self, action: #selector(onAvatarButtonClicked), for: .touchUpInside)
         
-        let label1 = UILabel()
-        label1.textColor = UIColor(named: "ZLLabelColor1")
-        label1.font = UIFont(name: Font_PingFangSCMedium, size: 14)
+        let label1 = YYLabel()
         self.contentView.addSubview(label1)
         label1.snp.makeConstraints { (make) in
-            make.left.equalTo(avatarImageView.snp.right).offset(10)
-            make.centerY.equalTo(avatarImageView)
+            make.left.equalTo(avatarButton.snp.right).offset(10)
+            make.centerY.equalTo(avatarButton)
         }
         fullNameLabel = label1
         
@@ -89,7 +94,7 @@ class ZLPullRequestHeaderTableViewCell: UITableViewCell {
         self.contentView.addSubview(label2)
         label2.snp.makeConstraints { (make) in
             make.left.equalTo(fullNameLabel.snp.right).offset(10)
-            make.centerY.equalTo(avatarImageView)
+            make.centerY.equalTo(avatarButton)
         }
         numberLabel = label2
         
@@ -101,7 +106,7 @@ class ZLPullRequestHeaderTableViewCell: UITableViewCell {
         label3.snp.makeConstraints { (make) in
             make.left.equalToSuperview().offset(25)
             make.right.equalToSuperview().offset(-25)
-            make.top.equalTo(avatarImageView.snp.bottom).offset(10)
+            make.top.equalTo(avatarButton.snp.bottom).offset(10)
         }
         titleLabel = label3
         
@@ -189,6 +194,7 @@ class ZLPullRequestHeaderTableViewCell: UITableViewCell {
             make.left.right.equalToSuperview()
             make.top.equalTo(lineview1.snp.bottom)
         }
+        filebutton.addTarget(self, action: #selector(onFileButtonClicked), for: .touchUpInside)
         
         let fileButtonLabel = UILabel()
         fileButtonLabel.numberOfLines = 0
@@ -227,6 +233,7 @@ class ZLPullRequestHeaderTableViewCell: UITableViewCell {
             make.height.equalTo(filebutton.snp.height)
             make.bottom.equalToSuperview()
         }
+        commitButton.addTarget(self, action: #selector(onCommitButtonClicked), for: .touchUpInside)
         
         let commitButtonLabel = UILabel()
         commitButtonLabel.numberOfLines = 0
@@ -250,9 +257,11 @@ class ZLPullRequestHeaderTableViewCell: UITableViewCell {
     }
     
     func fillWithData(data : ZLPullRequestHeaderTableViewCellDelegate) {
+        
+        self.delegate = data 
      
-        avatarImageView.sd_setImage(with: URL(string: data.getPRAuthorAvatarURL()), placeholderImage: UIImage(named: "default_avatar"))
-        fullNameLabel.text = data.getPRRepoFullName()
+        avatarButton.sd_setBackgroundImage(with: URL(string: data.getPRAuthorAvatarURL()), for: .normal, placeholderImage: UIImage(named: "default_avatar"))
+        fullNameLabel.attributedText = data.getPRRepoFullName()
         numberLabel.text = "#\(data.getPRNumber())"
         titleLabel.text = data.getPRTitle()
         
@@ -292,6 +301,21 @@ class ZLPullRequestHeaderTableViewCell: UITableViewCell {
             statusLabel.borderColor = UIColor(named: "ZLPRMergedColor")
         }
      }
+    
+    
+    
+    @objc func onAvatarButtonClicked(){
+        self.delegate?.onAvatarButtonClicked()
+    }
+    
+    @objc func onFileButtonClicked(){
+        self.delegate?.onFileButtonClicked()
+    }
+
+    @objc func onCommitButtonClicked(){
+        self.delegate?.onCommitButtonClicked()
+    }
+
 
 
 }

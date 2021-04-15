@@ -112,6 +112,7 @@
     AFHTTPSessionManager *sessionManager = [self getDefaultSessionManager];
     
     [sessionManager.requestSerializer setValue:[NSString stringWithFormat:@"token %@",self.token] forHTTPHeaderField:@"Authorization"];
+    sessionManager.requestSerializer.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
     for(NSString *header in headers.allKeys){
         [sessionManager.requestSerializer setValue:headers[header] forHTTPHeaderField:header];
         if([header isEqualToString:@"Accept"]){
@@ -2218,15 +2219,23 @@
             for(OCGumboElement *article in articles){
                 NSString * idStr = article.attr(@"id");
                 if([idStr hasPrefix:@"pa-"]){
-                    OCGumboElement *div =  article.Query(@"div").firstObject;
-                    OCGumboElement *a = div.Query(@"a").firstObject;
-                    OCGumboElement *img = a.Query(@"img").firstObject;
-                    NSString * fullName = a.attr(@"href");
+                    OCGumboElement *img =  article.Query(@"img").firstObject;
                     NSString * avatar = img.attr(@"src");
-                    if([fullName length] > 0){
+                    NSString * loginName = nil;
+                    NSString * name = nil;
+                    
+                    NSArray<OCGumboElement *>* aTagArray = article.Query(@"a");
+                    if([aTagArray count] >= 4){
+                        NSCharacterSet * set = [NSCharacterSet characterSetWithCharactersInString:@" \n"];
+                        name = [aTagArray[2].text() stringByTrimmingCharactersInSet:set];
+                        loginName = [aTagArray[3].text() stringByTrimmingCharactersInSet:set];
+                    }
+                    
+                    if([loginName length] > 0){
                         ZLGithubUserModel * model = [ZLGithubUserModel new];
-                        model.loginName = [fullName substringFromIndex:1];
+                        model.loginName = loginName;
                         model.avatar_url = avatar;
+                        model.name = name;
                         [userArray addObject:model];
                     }
                 }

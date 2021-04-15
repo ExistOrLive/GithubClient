@@ -11,11 +11,24 @@
 
 #import "ZLBaseServiceModel.h"
 #import "ZLGithubUserType.h"
+@class ZLGithubUserContributionData;
+/**
+ * github 用户附加信息类型
+ *
+ **/
+typedef NS_ENUM(NSUInteger, ZLUserAdditionInfoType) {
+    ZLUserAdditionInfoTypeRepositories,
+    ZLUserAdditionInfoTypeGists,
+    ZLUserAdditionInfoTypeFollowers,
+    ZLUserAdditionInfoTypeFollowing,
+    ZLUserAdditionInfoTypeStarredRepos,
+};
+
+
 
 // 获取到登陆用户的信息
 static const NSNotificationName _Nonnull ZLGetCurrentUserInfoResult_Notification = @"ZLGetCurrentUserInfoResult_Notification";
-
-
+//
 static const NSNotificationName _Nonnull ZLUpdateUserPublicProfileInfoResult_Notification = @"ZLUpdateUserPublicProfileInfoResult_Notification";
 
 
@@ -31,7 +44,14 @@ static const NSNotificationName _Nonnull ZLUpdateUserPublicProfileInfoResult_Not
                                                 completeHandle:(void(^ _Nonnull)(ZLOperationResultModel *  _Nonnull)) handle;
 
 
+#pragma mark - user additions info
 
+- (void) getAdditionInfoForUser:(NSString * _Nonnull) userLoginName
+                       infoType:(ZLUserAdditionInfoType) type
+                           page:(NSUInteger) page
+                       per_page:(NSUInteger) per_page
+                   serialNumber:(NSString * _Nonnull) serialNumber
+                 completeHandle:(void(^_Nonnull)(ZLOperationResultModel * _Nonnull)) handle;
 
 #pragma mark - follow
 
@@ -105,9 +125,9 @@ static const NSNotificationName _Nonnull ZLUpdateUserPublicProfileInfoResult_Not
  * @brief 查询用户的contributions
  * @param loginName 用户的登录名
  **/
-- (void) getUserContributionsDataWithLoginName: (NSString * _Nonnull) loginName
-                                  serialNumber: (NSString * _Nonnull) serialNumber
-                                completeHandle: (void(^ _Nonnull)(ZLOperationResultModel * _Nonnull)) handle;
+- (NSArray<ZLGithubUserContributionData *> * _Nullable) getUserContributionsDataWithLoginName: (NSString * _Nonnull) loginName
+                                                                                 serialNumber: (NSString * _Nonnull) serialNumber
+                                                                               completeHandle: (void(^ _Nonnull)(ZLOperationResultModel * _Nonnull)) handle;
 
 
 @end

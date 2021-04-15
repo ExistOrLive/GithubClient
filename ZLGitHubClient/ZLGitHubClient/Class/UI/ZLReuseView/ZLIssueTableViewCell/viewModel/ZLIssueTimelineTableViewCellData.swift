@@ -150,9 +150,11 @@ extension ZLIssueTimelineTableViewCellData : ZLIssueTimelineTableViewCellDelegat
                                              attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
                                                           NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor4")!]))
             
+            let color = ZLRGBValueStr_H(colorValue:tmpdata.label.color)
             string.append(NSAttributedString(string: "\(tmpdata.label.name)",
-                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCSemiBold, size: 15)!,
-                                                          NSAttributedString.Key.foregroundColor:ZLRGBValueStr_H(colorValue: tmpdata.label.color)]))
+                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCSemiBold, size: 13)!,
+                                                          NSAttributedString.Key.foregroundColor:UIColor.isLightColor(color) ? ZLRGBValue_H(colorValue: 0x333333) : UIColor.white,
+                                                          NSAttributedString.Key.backgroundColor:color]))
             
             attributedString = string
             
@@ -282,9 +284,11 @@ extension ZLIssueTimelineTableViewCellData : ZLIssueTimelineTableViewCellDelegat
                                              attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
                                                           NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor4")!]))
             
+            let color = ZLRGBValueStr_H(colorValue:tmpdata.label.color)
             string.append(NSAttributedString(string: "\(tmpdata.label.name)",
-                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCSemiBold, size: 15)!,
-                                                          NSAttributedString.Key.foregroundColor:ZLRGBValueStr_H(colorValue: tmpdata.label.color)]))
+                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCSemiBold, size: 13)!,
+                                                          NSAttributedString.Key.foregroundColor:UIColor.isLightColor(color) ? ZLRGBValue_H(colorValue: 0x333333) : UIColor.white,
+                                                          NSAttributedString.Key.backgroundColor:color]))
             
             attributedString = string
             

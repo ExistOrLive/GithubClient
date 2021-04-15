@@ -47,8 +47,16 @@ extension ZLPullRequestHeaderTableViewCellData : ZLPullRequestHeaderTableViewCel
         data.repository?.owner.avatarUrl ?? ""
     }
     
-    func getPRRepoFullName() -> String{
-        data.repository?.nameWithOwner ?? ""
+    func getPRRepoFullName() -> NSAttributedString{
+        let text = NSMutableAttributedString(string: data.repository?.nameWithOwner ?? "", attributes: [NSAttributedString.Key.foregroundColor:UIColor(cgColor: UIColor(named: "ZLLabelColor1")!.cgColor), NSAttributedString.Key.font:UIFont(name: Font_PingFangSCMedium, size: 14)!])
+        
+        text.yy_setTextHighlight(NSRange(location: 0, length: data.repository?.nameWithOwner.count ?? 0), color: UIColor(cgColor: UIColor(named: "ZLLabelColor1")!.cgColor), backgroundColor: UIColor(cgColor: UIColor(named: "ZLLabelColor1")!.cgColor)) { [weak self](view, string, range, frame) in
+            
+            if let fullName = self?.data.repository?.nameWithOwner, let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: fullName){
+                self?.viewController?.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
+        return text
     }
     func getPRNumber() -> Int {
         data.repository?.pullRequest?.number ?? 0
@@ -84,4 +92,21 @@ extension ZLPullRequestHeaderTableViewCellData : ZLPullRequestHeaderTableViewCel
         " \(data.repository?.pullRequest?.baseRepository?.owner.login ?? "") : \(data.repository?.pullRequest?.baseRefName ?? "") "
     }
     
+    func onAvatarButtonClicked() -> Void{
+        if let name = data.repository?.owner.login, let vc = ZLUIRouter.getUserInfoViewController(loginName: name){
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    func onFileButtonClicked() -> Void{
+        
+        if let url = URL(string: "\(data.repository?.pullRequest?.url ?? "")/files"),let vc = ZLUIRouter.getVC(key:ZLUIRouter.WebContentController , params: ["requestURL":url]) {
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    func onCommitButtonClicked() -> Void{
+        
+        if let url = URL(string: "\(data.repository?.pullRequest?.url ?? "")/commits"),let vc = ZLUIRouter.getVC(key:ZLUIRouter.WebContentController , params: ["requestURL":url]) {
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
 }

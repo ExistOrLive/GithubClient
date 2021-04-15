@@ -98,8 +98,20 @@ class ZLSearchFilterViewForRepo: ZLBaseView {
             return
         }
         
-        if searchFilterModel?.order != ""{
-            self.orderButton.setTitle(searchFilterModel?.order, for:.normal)
+        if searchFilterModel?.order != nil {
+            if searchFilterModel?.order == "stars" && searchFilterModel?.isAsc == false {
+                self.orderButton.setTitle("Most stars", for:.normal)
+            } else  if searchFilterModel?.order == "stars" && searchFilterModel?.isAsc == true {
+                self.orderButton.setTitle("Fewst stars", for:.normal)
+            } else  if searchFilterModel?.order == "forks" && searchFilterModel?.isAsc == false {
+                self.orderButton.setTitle("Most forks", for:.normal)
+            } else  if searchFilterModel?.order == "forks" && searchFilterModel?.isAsc == true {
+                self.orderButton.setTitle("Fewest forks", for:.normal)
+            } else  if searchFilterModel?.order == "updated" && searchFilterModel?.isAsc == false {
+                self.orderButton.setTitle("Recently updated", for:.normal)
+            } else  if searchFilterModel?.order == "updated" && searchFilterModel?.isAsc == true {
+                self.orderButton.setTitle("Least recently updated", for:.normal)
+            }
         }
         
         if searchFilterModel?.language != ""{
@@ -119,7 +131,40 @@ class ZLSearchFilterViewForRepo: ZLBaseView {
     @IBAction func onFinishButtonClicked(_ sender: Any) {
         
         let searchFilterModel = ZLSearchFilterInfoModel.init()
-        searchFilterModel.order = self.orderButton.title(for: .normal) ?? ""
+        
+        let str = self.orderButton.title(for: .normal) ?? ""
+        
+        switch str {
+        case "Most stars":do{
+            searchFilterModel.order = "stars"
+            searchFilterModel.isAsc = false
+        }
+        case "Fewst stars":do{
+            searchFilterModel.order = "stars"
+            searchFilterModel.isAsc = true
+        }
+        case "Most forks":do{
+            searchFilterModel.order = "forks"
+            searchFilterModel.isAsc = false
+        }
+        case "Fewest forks":do{
+            searchFilterModel.order = "forks"
+            searchFilterModel.isAsc = true
+        }
+        case "Recently updated":do{
+            searchFilterModel.order = "updated"
+            searchFilterModel.isAsc = false
+        }
+        case "Least recently updated":do{
+            searchFilterModel.order = "updated"
+            searchFilterModel.isAsc = true
+        }
+        default:do{
+            searchFilterModel.order = nil 
+        }
+            break
+        }
+       
         searchFilterModel.language = self.languageButton.title(for: .normal) ?? ""
         searchFilterModel.firstCreatedTimeStr = self.firstTimeFileld.text ?? ""
         searchFilterModel.secondCreatedTimeStr = self.secondTimeField.text ?? ""

@@ -97,8 +97,20 @@ class ZLSearchFilterViewForUser: UIView {
             return
         }
         
-        if searchFilterModel?.order != ""{
-            self.orderButton.setTitle(searchFilterModel?.order, for: .normal)
+        if searchFilterModel?.order != nil {
+            if searchFilterModel?.order == "followers" && searchFilterModel?.isAsc == false {
+                self.orderButton.setTitle("Most followers", for: .normal)
+            } else if searchFilterModel?.order == "followers" && searchFilterModel?.isAsc == true {
+                self.orderButton.setTitle("Fewest followers", for: .normal)
+            } else if searchFilterModel?.order == "joined" && searchFilterModel?.isAsc == false {
+                self.orderButton.setTitle("Most recently joined", for: .normal)
+            } else if searchFilterModel?.order == "joined" && searchFilterModel?.isAsc == true  {
+                self.orderButton.setTitle("Least recently joined", for: .normal)
+            } else if searchFilterModel?.order == "repositories" && searchFilterModel?.isAsc == false {
+                self.orderButton.setTitle("Most repositories", for: .normal)
+            } else if searchFilterModel?.order == "repositories" && searchFilterModel?.isAsc == true {
+                self.orderButton.setTitle("Fewest repositories", for: .normal)
+            }
         }
         if searchFilterModel?.language != ""{
             self.languageButton.setTitle(searchFilterModel?.language, for:.normal)
@@ -116,7 +128,36 @@ class ZLSearchFilterViewForUser: UIView {
     @IBAction func onFinishButtonClicked(_ sender: Any) {
         
         let searchFilterModel = ZLSearchFilterInfoModel()
-        searchFilterModel.order = self.orderButton.title(for: .normal) ?? ""
+        let str = self.orderButton.title(for: .normal) ?? ""
+        switch(str){
+        case "Most followers":do{
+            searchFilterModel.isAsc = false
+            searchFilterModel.order = "followers"
+        }
+        case "Fewest followers":do{
+            searchFilterModel.isAsc = true
+            searchFilterModel.order = "followers"
+        }
+        case "Most recently joined":do{
+            searchFilterModel.isAsc = false
+            searchFilterModel.order = "joined"
+        }
+        case "Least recently joined":do{
+            searchFilterModel.isAsc = true
+            searchFilterModel.order = "joined"
+        }
+        case "Most repositories":do{
+            searchFilterModel.isAsc = false
+            searchFilterModel.order = "repositories"
+        }
+        case "Fewest repositories":do{
+            searchFilterModel.isAsc = true
+            searchFilterModel.order = "repositories"
+        }
+        default:do{
+            
+        }
+        }
         searchFilterModel.language = self.languageButton.title(for: .normal) ?? ""
         searchFilterModel.firstCreatedTimeStr = self.firstTimeFileld.text ?? ""
         searchFilterModel.secondCreatedTimeStr = self.secondTimeField.text ?? ""

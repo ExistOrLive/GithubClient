@@ -17,8 +17,6 @@
 // service
 #import <ZLServiceFramework/ZLServiceFramework.h>
 
-#define ZLQueryMoreStarRequestKey @"ZLQueryMoreMyEventRequestKey"
-#define ZLQueryNewStarRequestKey @"ZLQueryNewMyEventRequestKey"
 
 @interface ZLStarReposBaseViewModel() <ZLGithubItemListViewDelegate>
 
@@ -26,24 +24,13 @@
 
 @property(nonatomic, assign) int pageNum;
 
-@property(nonatomic, assign) BOOL isFreshNew;
-
-@property(nonatomic, strong) NSMutableDictionary * serialNumerDic;
-
 @end
 
 @implementation ZLStarReposBaseViewModel
 
-- (instancetype) init {
-    if(self = [super init]){
-        self.serialNumerDic = [NSMutableDictionary new];
-    }
-    return self;
-}
 
 - (void) dealloc
 {
-    [[ZLServiceManager sharedInstance].additionServiceModel unRegisterObserver:self name:ZLGetStarredReposResult_Notification];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -57,21 +44,11 @@
     self.view = (ZLStarReposBaseView *) targetView;
     self.view.listView.delegate = self;
     
-    [[ZLServiceManager sharedInstance].additionServiceModel registerObserver:self selector:@selector(onNotificationArrived:) name:ZLGetStarredReposResult_Notification];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onNotificationArrived:) name:ZLLanguageTypeChange_Notificaiton object:nil];
     
     [self.view.listView beginRefresh];
 }
 
-- (void)VCLifeCycle_viewWillAppear
-{
-    [super VCLifeCycle_viewWillAppear];
-    
-    if(self.view.listView.itemCount == 0)
-    {
-       [self.view.listView beginRefresh];
-    }
-}
 
 
 #pragma mark - ZLReposListViewDelegate
@@ -91,15 +68,32 @@
 {
     NSString * loginName = [ZLServiceManager sharedInstance].viewerServiceModel.currentUserLoginName;
     
-    if([loginName length] > 0)
-    {
-        NSString *serialNumer = [NSString generateSerialNumber];
-        [self.serialNumerDic setObject:serialNumer forKey:ZLQueryMoreStarRequestKey];
-        [[ZLServiceManager sharedInstance].additionServiceModel getAdditionInfoForUser:loginName
-                                                                       infoType:ZLUserAdditionInfoTypeStarredRepos
-                                                                           page:self.pageNum
-                                                                       per_page:10
-                                                                   serialNumber:serialNumer];
+    if([loginName length] > 0){
+        
+        __weak typeof(self) weakSelf = self;
+        [[ZLServiceManager sharedInstance].userServiceModel getAdditionInfoForUser:loginName
+                                                                          infoType:ZLUserAdditionInfoTypeStarredRepos
+                                                                              page:self.pageNum + 1
+                                                                          per_page:10
+                                                                      serialNumber:NSString.generateSerialNumber completeHandle:^(ZLOperationResultModel * _Nonnull resultModel) {
+            if(resultModel.result){
+               
+                NSArray<ZLGithubRepositoryModel *> * array = (NSArray<ZLGithubRepositoryModel *> *)resultModel.data;
+                NSMutableArray<ZLGithubItemTableViewCellData *> * cellDatas = [NSMutableArray new];
+                for(ZLGithubRepositoryModel *model in array){
+                    ZLGithubItemTableViewCellData* cellData = [[ZLRepositoryTableViewCellData alloc] initWithData:model];
+                    [cellDatas addObject:cellData];
+                }
+                [weakSelf addSubViewModels:cellDatas];
+                [weakSelf.view.listView appendCellDatasWithCellDatas:cellDatas];
+                weakSelf.pageNum = weakSelf.pageNum + 1;
+                
+            } else {
+                ZLGithubRequestErrorModel *errorModel = (ZLGithubRequestErrorModel *)resultModel.data;
+                [ZLToastView showMessage:[NSString stringWithFormat:@"query star repo error [%ld](%@)",errorModel.statusCode,errorModel.message]];
+                [self.view.listView endRefreshWithError];
+            }
+        }];
     }
     else
     {
@@ -113,13 +107,30 @@
     
     if([loginName length] > 0)
     {
-        NSString *serialNumber = [NSString generateSerialNumber];
-        [self.serialNumerDic setObject:serialNumber forKey:ZLQueryNewStarRequestKey];
-        [[ZLServiceManager sharedInstance].additionServiceModel getAdditionInfoForUser:loginName
-                                                                       infoType:ZLUserAdditionInfoTypeStarredRepos
-                                                                           page:1
-                                                                       per_page:10
-                                                                   serialNumber:serialNumber];
+        __weak typeof(self) weakSelf = self;
+        [[ZLServiceManager sharedInstance].userServiceModel getAdditionInfoForUser:loginName
+                                                                          infoType:ZLUserAdditionInfoTypeStarredRepos
+                                                                              page:1
+                                                                          per_page:10
+                                                                      serialNumber:NSString.generateSerialNumber completeHandle:^(ZLOperationResultModel * _Nonnull resultModel) {
+            if(resultModel.result){
+               
+                NSArray<ZLGithubRepositoryModel *> * array = (NSArray<ZLGithubRepositoryModel *> *)resultModel.data;
+                NSMutableArray<ZLGithubItemTableViewCellData *> * cellDatas = [NSMutableArray new];
+                for(ZLGithubRepositoryModel *model in array){
+                    ZLGithubItemTableViewCellData* cellData = [[ZLRepositoryTableViewCellData alloc] initWithData:model];
+                    [cellDatas addObject:cellData];
+                }
+                [weakSelf addSubViewModels:cellDatas];
+                [weakSelf.view.listView resetCellDatasWithCellDatas:cellDatas];
+                weakSelf.pageNum = 1;
+                
+            } else {
+                ZLGithubRequestErrorModel *errorModel = (ZLGithubRequestErrorModel *)resultModel.data;
+                [ZLToastView showMessage:[NSString stringWithFormat:@"query star repo error [%ld](%@)",errorModel.statusCode,errorModel.message]];
+                [self.view.listView endRefreshWithError];
+            }
+        }];
     }
     else
     {
@@ -130,41 +141,7 @@
 
 - (void) onNotificationArrived:(NSNotification *) notification
 {
-    if([notification.name isEqualToString:ZLGetStarredReposResult_Notification])
-    {
-        ZLOperationResultModel * resultModel = (ZLOperationResultModel *)notification.params;
-        
-        if(![self.serialNumerDic.allValues containsObject:resultModel.serialNumber]){
-            return;
-        }
-        
-        if(!resultModel.result){
-            [self.view.listView endRefreshWithError];
-            ZLGithubRequestErrorModel * model = resultModel.data;
-            [ZLToastView showMessage:[NSString stringWithFormat:@"query stars failed statusCode[%ld] errorMessage[%@]",(long)model.statusCode,model.message]];
-            return;
-        }
-        
-        NSArray<ZLGithubRepositoryModel *> * repoModels = resultModel.data;
-        NSMutableArray<ZLRepositoryTableViewCellData *> * celldatas = [NSMutableArray new];
-        for(ZLGithubRepositoryModel * model in repoModels)
-        {
-            ZLRepositoryTableViewCellData * cellData = [[ZLRepositoryTableViewCellData alloc] initWithData:model];
-            [self addSubViewModel:cellData];
-            [celldatas addObject:cellData];
-        }
-        
-        if([resultModel.serialNumber isEqualToString:self.serialNumerDic[ZLQueryNewStarRequestKey]])
-        {
-            self.pageNum = 2;
-            [self.view.listView resetCellDatasWithCellDatas:celldatas];
-        }
-        else if([resultModel.serialNumber isEqualToString:self.serialNumerDic[ZLQueryMoreStarRequestKey]])
-        {
-            self.pageNum ++;
-            [self.view.listView appendCellDatasWithCellDatas:celldatas];
-        }
-    }else if([ZLLanguageTypeChange_Notificaiton isEqualToString:notification.name]){
+    if([ZLLanguageTypeChange_Notificaiton isEqualToString:notification.name]){
         self.viewController.title = ZLLocalizedString(@"star", "");
         [self.view.listView justRefresh];
     }

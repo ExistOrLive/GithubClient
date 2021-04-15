@@ -2,6 +2,15 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>ZLUserAdditionInfoController</key>
+	<dict>
+		<key>class</key>
+		<string>ZLUserAdditionInfoController</string>
+		<key>type</key>
+		<integer>0</integer>
+		<key>isSingle</key>
+		<integer>0</integer>
+	</dict>
 	<key>ZLProfileViewController</key>
 	<dict>
 		<key>class</key>

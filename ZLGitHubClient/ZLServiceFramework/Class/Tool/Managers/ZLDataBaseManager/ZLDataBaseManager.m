@@ -380,6 +380,36 @@
 
 
 
+- (NSString *) getUserContributionsWithLoginName:(NSString *) loginName{
+    
+    __block NSString* contributions = nil;
+    [self.dbQueue inDatabase:^(FMDatabase * _Nonnull db) {
+                
+        FMResultSet * resultSet = [ZLDataBaseManager queryTableInDB:db WithSql:GithubUserContributionsQueryByLogin,loginName];
+        if([resultSet next]){
+            contributions = [resultSet stringForColumn:@"contributions"];
+        }
+        [resultSet close];
+    }];
+    
+    return contributions;
+}
+
+- (void) insertOrUpdateUserContributions:(NSString *) contributions loginName:(NSString *) loginName{
+    
+    [self.dbQueue inDatabase:^(FMDatabase * _Nonnull db) {
+                
+        FMResultSet * resultSet = [ZLDataBaseManager queryTableInDB:db WithSql:GithubUserContributionsQueryByLogin,loginName];
+        if([resultSet next])
+        {
+            [ZLDataBaseManager updateTableInDB:db WithSql:GithubUserContributionsUpdate,contributions,loginName];
+        } else {
+            [ZLDataBaseManager updateTableInDB:db WithSql:GithubUserContributionsInsert,loginName,contributions];
+        }
+        [resultSet close];
+    }];
+}
+
 
 
 
@@ -409,7 +439,16 @@
                 
                 [self insertDBVersionForDB:db withVersion:ZLDBVersion];
             }
+            case 1:
+            {
+                [self updateTableInDB:db WithSql:GithubUserContributionsTableCreate];
+            
+                [self updateDBVersionForDB:db withVersion:ZLDBVersion];
+            }
             case ZLDBVersion:
+            {
+                
+            }
                 break;
             default:
                 break;

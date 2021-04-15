@@ -160,15 +160,25 @@ extension ZLPullRequestCommentTableViewCellData : ZLPullRequestCommentTableViewC
         return webViewHeight
     }
     
+    func onAvatarButtonClicked(){
+        if let login = data.author?.login , let vc = ZLUIRouter.getUserInfoViewController(loginName: login){
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
     
 }
 
 extension ZLPullRequestCommentTableViewCellData : WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        if navigationAction.navigationType == .other {
-            decisionHandler(.allow)
-        } else {
+        if navigationAction.navigationType == .linkActivated {
+            
+            if let url = navigationAction.request.url {
+                ZLUIRouter.openURL(url: url)
+            }
             decisionHandler(.cancel)
+            
+        } else {
+            decisionHandler(.allow)
         }
         
     }

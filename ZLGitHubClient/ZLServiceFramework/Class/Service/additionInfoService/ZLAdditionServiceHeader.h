@@ -13,38 +13,13 @@
 #import "ZLGithubPullRequestModel.h"
 
 #pragma mark - Enum
-/**
- * github 用户附加信息类型 
- *
- **/
-typedef NS_ENUM(NSUInteger, ZLUserAdditionInfoType) {
-    ZLUserAdditionInfoTypeRepositories,
-    ZLUserAdditionInfoTypeGists,
-    ZLUserAdditionInfoTypeFollowers,
-    ZLUserAdditionInfoTypeFollowing,
-    ZLUserAdditionInfoTypeStarredRepos,
-};
 
 
-/**
- * github 用户附加信息类型
- *
- **/
-typedef NS_ENUM(NSUInteger, ZLMyIssueFilterType) {
-    ZLMyIssueFilterTypeCreator,
-    ZLMyIssueFilterTypeAssigned,
-    ZLMyIssueFilterTypeMentioned,
-    ZLMyIssueFilterTypeSubcribe,
-};
+
 
 
 #pragma mark - NotificationName
 
-static const NSNotificationName _Nonnull ZLGetReposResult_Notification = @"ZLGetReposResult_Notification";
-static const NSNotificationName _Nonnull ZLGetFollowersResult_Notification = @"ZLGetFollowersResult_Notification";
-static const NSNotificationName _Nonnull ZLGetFollowingResult_Notification = @"ZLGetFollowingResult_Notification";
-static const NSNotificationName _Nonnull ZLGetGistsResult_Notification = @"ZLGetGistsResult_Notification";
-static const NSNotificationName _Nonnull ZLGetStarredReposResult_Notification = @"ZLGetStarredReposResult_Notification";
 static const NSNotificationName _Nonnull ZLGithubConfigUpdate_Notification = @"ZLGithubConfigUpdate_Notification";
 
 
@@ -52,17 +27,6 @@ static const NSNotificationName _Nonnull ZLGithubConfigUpdate_Notification = @"Z
 
 
 @property(nonatomic,readonly,strong) ZLGithubConfigModel* _Nullable config;
-
-
-/**
- * @brief 获取repos，gists，followers，following信息
- *
- **/
-- (void) getAdditionInfoForUser:(NSString * _Nonnull) userLoginName
-                            infoType:(ZLUserAdditionInfoType) type
-                                page:(NSUInteger) page
-                            per_page:(NSUInteger) per_page
-                        serialNumber:(NSString * _Nonnull) serialNumber;
 
 
 

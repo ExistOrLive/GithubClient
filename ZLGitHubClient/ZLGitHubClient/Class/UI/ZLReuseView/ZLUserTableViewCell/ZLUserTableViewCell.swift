@@ -30,6 +30,8 @@ class ZLUserTableViewCell: UITableViewCell {
     
     @IBOutlet weak var headImageView: UIImageView!
     
+    @IBOutlet weak var loginNameLabel: UILabel!
+    
     @IBOutlet weak var nameLabel: UILabel!
     
     @IBOutlet weak var descLabel: UILabel!
@@ -60,7 +62,8 @@ extension ZLUserTableViewCell
         self.delegate = data
         
         self.headImageView.sd_setImage(with: URL.init(string: data.getAvatarUrl() ?? ""), placeholderImage: UIImage.init(named: "default_avatar"))
-        self.nameLabel.text = "\(data.getName() ?? "")(\(data.getLoginName() ?? ""))"
+        self.loginNameLabel.text = data.getLoginName()
+        self.nameLabel.text = "\(data.getName() ?? "")"
         self.descLabel.text = data.desc()
        
     }

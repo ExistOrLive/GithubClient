@@ -8,10 +8,10 @@
 
 import UIKit
 
-class ZLUserAdditionInfoController: ZLBaseViewController {
+@objcMembers class ZLUserAdditionInfoController: ZLBaseViewController {
 
-    var type : ZLUserAdditionInfoType?                        //! 附加信息类型 仓库/代码片段等
-    var userInfo : ZLGithubUserBriefModel?                  //! 用户信息
+    @objc var type : ZLUserAdditionInfoType = .repositories                       //! 附加信息类型 仓库/代码片段等
+    @objc var login: String?                                        // login
     
     
     override func viewDidLoad() {
@@ -21,12 +21,9 @@ class ZLUserAdditionInfoController: ZLBaseViewController {
         let viewModel = ZLUserAdditionInfoViewModel()
         
         // view
-        guard let baseView = Bundle.main.loadNibNamed("ZLUserAdditionInfoView", owner: viewModel, options: nil)?.first as? ZLUserAdditionInfoView else
-        {
-            ZLLog_Warn("ZLUserAdditionInfoView load failed")
-            self.navigationController?.popViewController(animated: false)
-            return;
-        }
+        let baseView = ZLGithubItemListView()
+        baseView.setTableViewHeader()
+        baseView.setTableViewFooter()
         self.contentView.addSubview(baseView)
         baseView.snp.makeConstraints { (make) in
             make.top.bottom.equalToSuperview()
@@ -36,13 +33,11 @@ class ZLUserAdditionInfoController: ZLBaseViewController {
         
         self.addSubViewModel(viewModel)
         // bind view and viewModel
-        if self.type == nil || self.userInfo == nil
-        {
+        if self.login == nil{
             viewModel.bindModel(nil, andView: baseView)
         }
-        else
-        {
-            viewModel.bindModel(["type":self.type!,"userInfo":self.userInfo!], andView: baseView)
+        else{
+            viewModel.bindModel((self.type,self.login!), andView: baseView)
         }
         
     }

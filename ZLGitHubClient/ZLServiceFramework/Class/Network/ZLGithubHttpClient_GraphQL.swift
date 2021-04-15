@@ -104,6 +104,7 @@ public extension ZLGithubHttpClient{
         analytics.log(.URLUse(url: query.operationName))
         
         self.apolloClient.fetch(query: query,
+                                cachePolicy: .returnCacheDataAndFetch,
                                 queue: self.completeQueue)
         { result in
             var resultData : Any? = nil

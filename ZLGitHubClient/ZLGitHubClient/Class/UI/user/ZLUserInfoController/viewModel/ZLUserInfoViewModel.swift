@@ -313,31 +313,27 @@ extension ZLUserInfoViewModel : ZLUserInfoViewDelegateAndDataSource{
     }
     
     func onRepositoriesButtonClicked() {
-        let vc = ZLUserAdditionInfoController.init()
-        vc.userInfo = self.userInfoModel
-        vc.type = .repositories
-        self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        if let login = self.userInfoModel.loginName,let vc = ZLUIRouter.getVC(key: ZLUIRouter.UserAdditionInfoController, params: ["login":login,"type":ZLUserAdditionInfoType.repositories.rawValue]) {
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     func onGistsButtonClicked() {
-        let vc = ZLUserAdditionInfoController.init()
-        vc.userInfo = self.userInfoModel
-        vc.type = .gists
-        self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        if let login = self.userInfoModel.loginName,let vc = ZLUIRouter.getVC(key: ZLUIRouter.UserAdditionInfoController, params: ["login":login,"type":ZLUserAdditionInfoType.gists.rawValue]) {
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     func onFollowersButtonClicked() {
-        let vc = ZLUserAdditionInfoController.init()
-        vc.userInfo = self.userInfoModel
-        vc.type = .followers
-        self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        if let login = self.userInfoModel.loginName,let vc = ZLUIRouter.getVC(key: ZLUIRouter.UserAdditionInfoController, params: ["login":login,"type":ZLUserAdditionInfoType.followers.rawValue]) {
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     func onFollowingsButtonClicked() {
-        let vc = ZLUserAdditionInfoController.init()
-        vc.userInfo = self.userInfoModel
-        vc.type = .following
-        self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        if let login = self.userInfoModel.loginName,let vc = ZLUIRouter.getVC(key: ZLUIRouter.UserAdditionInfoController, params: ["login":login,"type":ZLUserAdditionInfoType.following.rawValue]) {
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     func onFollowActionButtonClicked(button: UIButton) {
@@ -378,10 +374,8 @@ extension ZLUserInfoViewModel : ZLUserInfoViewDelegateAndDataSource{
     // MARK: ZLReadmeViewDelegate
     
     func onLinkClicked(url : URL?) -> Void {
-        if url != nil {
-            let vc = ZLWebContentController.init()
-            vc.requestURL = url
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        if let realurl = url {
+            ZLUIRouter.openURL(url: realurl)
         }
     }
         

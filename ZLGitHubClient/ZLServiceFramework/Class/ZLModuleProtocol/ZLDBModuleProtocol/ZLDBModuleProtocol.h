@@ -14,18 +14,21 @@
 
 @protocol ZLDBModuleProtocol<NSObject>
 
-+ (instancetype) sharedInstance;
++ (instancetype _Nonnull) sharedInstance;
 
-- (ZLGithubUserBriefModel *) getUserOrOrgInfoWithLoginName:(NSString *) loginName;
-- (void) insertOrUpdateUserInfo:(ZLGithubUserBriefModel *) model;
-
-
-- (ZLGithubUserModel *) getViewerInfoWithLoginName:(NSString *) loginName;
-- (void) insertOrUpdateViewerInfo:(ZLGithubUserModel *) model;
+- (ZLGithubUserBriefModel * _Nullable) getUserOrOrgInfoWithLoginName:(NSString * _Nonnull) loginName;
+- (void) insertOrUpdateUserInfo:(ZLGithubUserBriefModel * _Nonnull) model;
 
 
-- (ZLGithubRepositoryModel *) getRepoInfoWithFullName:(NSString *) fullName;
-- (void) insertOrUpdateRepoInfo:(ZLGithubRepositoryModel *) model;
+- (ZLGithubUserModel * _Nullable) getViewerInfoWithLoginName:(NSString * _Nonnull) loginName;
+- (void) insertOrUpdateViewerInfo:(ZLGithubUserModel * _Nonnull) model;
+
+
+- (ZLGithubRepositoryModel * _Nullable) getRepoInfoWithFullName:(NSString * _Nonnull) fullName;
+- (void) insertOrUpdateRepoInfo:(ZLGithubRepositoryModel * _Nonnull) model;
+
+- (NSString * _Nullable) getUserContributionsWithLoginName:(NSString * _Nonnull) loginName;
+- (void) insertOrUpdateUserContributions:(NSString * _Nonnull) contributions loginName:(NSString * _Nonnull) loginName;
 
 
 @end

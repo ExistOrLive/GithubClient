@@ -155,17 +155,25 @@ extension ZLIssueCommentTableViewCellData : ZLIssueCommentTableViewCellDelegate 
         return webViewHeight
     }
     
+    func onAvatarButtonClicked() {
+        if let login = data.author?.login, let vc = ZLUIRouter.getUserInfoViewController(loginName: login) {
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
     
 }
 
 extension ZLIssueCommentTableViewCellData : WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        
         if navigationAction.navigationType == .linkActivated {
-            if let url = navigationAction.request.url{
+            if let url = navigationAction.request.url {
                 ZLUIRouter.openURL(url: url)
-                decisionHandler(.cancel)
             }
+            decisionHandler(.cancel)
+        } else {
+            decisionHandler(.allow)
         }
-        decisionHandler(.allow)
+        
     }
 }

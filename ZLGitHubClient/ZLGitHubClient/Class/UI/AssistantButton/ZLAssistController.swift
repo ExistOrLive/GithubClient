@@ -59,9 +59,7 @@ class ZLAssistController: ZLBaseViewController {
         self.tableViewIndexs.append(.search)
         
         if let url = URL(string: UIPasteboard.general.string ?? "") {
-            if (url.host == "www.github.com" ||
-                url.host == "github.com") &&
-                url.pathComponents.count > 1{   // 仅显示github.com的链接；链接必须包含loginName
+            if ZLUIRouter.isParsedGithubURL(url: url){   // 仅显示github.com的链接；链接必须包含loginName
                 self.pasteURL = url
                 self.setPasteURLButton()
                 self.tableViewIndexs.append(.clipBoard)

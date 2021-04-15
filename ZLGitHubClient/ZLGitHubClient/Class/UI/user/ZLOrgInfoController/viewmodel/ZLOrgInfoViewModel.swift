@@ -56,19 +56,6 @@ class ZLOrgInfoViewModel: ZLBaseViewModel {
         
         self.orgInfoView.readMeView?.isHidden = true
         orgInfoView.fillWithData(delegateAndDatasource: self)
-
-//        ZLServiceManager.sharedInstance.userServiceModel?.getUserInfo(withLoginName: orgInfoModel.loginName!,
-//                                                                      serialNumber: NSString.generateSerialNumber())
-//        {[weak self](resultModel) in
-//            if resultModel.result == true, let orgModel = resultModel.data as? ZLGithubOrgModel {
-//                self?.orgInfoModel = orgModel
-//                self?.orgInfoView.reloadData()
-//            } else if let errorModel = resultModel.data as? ZLGithubRequestErrorModel {
-//                ZLToastView.showMessage("get org info failed [\(errorModel.statusCode)](\(errorModel.message)")
-//            } else {
-//                ZLToastView.showMessage("invalid org info format")
-//            }
-//        }
     }
     
     
@@ -160,6 +147,13 @@ extension ZLOrgInfoViewModel: ZLOrgInfoViewDelegateAndDataSource{
     
     func onRepositoriesButtonClicked() {
         
+        
+        if let login = self.orgInfoModel.loginName,
+           let vc = ZLUIRouter.getVC(key: ZLUIRouter.UserAdditionInfoController, params: ["login":login,"type":ZLUserAdditionInfoType.repositories.rawValue]) {
+            vc.hidesBottomBarWhenPushed = true
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        }
+        
     }
     
     func onMembersButtonClicked() {
@@ -188,10 +182,8 @@ extension ZLOrgInfoViewModel: ZLOrgInfoViewDelegateAndDataSource{
     // MARK: ZLReadmeViewDelegate
     
     func onLinkClicked(url : URL?) -> Void {
-        if url != nil {
-            let vc = ZLWebContentController.init()
-            vc.requestURL = url
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        if let realurl = url {
+            ZLUIRouter.openURL(url: realurl)
         }
     }
         

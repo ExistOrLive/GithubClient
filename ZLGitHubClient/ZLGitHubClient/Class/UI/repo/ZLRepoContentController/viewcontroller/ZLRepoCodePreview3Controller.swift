@@ -138,9 +138,9 @@ class ZLRepoCodePreview3Controller: ZLBaseViewController {
     }
     
     func openURL(url : URL?){
-        let webContentVC = ZLWebContentController.init()
-        webContentVC.requestURL = url
-        self.navigationController?.pushViewController(webContentVC, animated: true)
+        if let realurl = url {
+            ZLUIRouter.openURL(url: realurl)
+        }
     }
     
     @objc func onMoreButtonClick(button : UIButton) {

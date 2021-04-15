@@ -10,13 +10,12 @@ import UIKit
 
 protocol ZLIssueHeaderTableViewCellDelegate : NSObjectProtocol{
     func getIssueAuthorAvatarURL() -> String
-    func getIssueRepoFullName() -> String
+    func getIssueRepoFullName() -> NSAttributedString
     func getIssueNumber() -> Int
     func getIssueState() -> String
     func getIssueTitle() -> String
     
     func onIssueAvatarClicked()
-    func onRepoNameClicked()
 }
 
 
@@ -25,7 +24,7 @@ class ZLIssueHeaderTableViewCell: UITableViewCell {
     var delegate: ZLIssueHeaderTableViewCellDelegate?
     
     var avatarButton : UIButton!
-    var fullNameLabel : UILabel!
+    var fullNameLabel : YYLabel!
     var numberLabel: UILabel!
     var titleLabel: UILabel!
     var statusLabel: UILabel!
@@ -63,17 +62,13 @@ class ZLIssueHeaderTableViewCell: UITableViewCell {
         avatarButton = button
         avatarButton.addTarget(self, action: #selector(onAvatarButtonClicked), for: .touchUpInside)
         
-        let label1 = UILabel()
-        label1.textColor = UIColor(named: "ZLLabelColor1")
-        label1.font = UIFont(name: Font_PingFangSCMedium, size: 14)
+        let label1 = YYLabel()
         self.contentView.addSubview(label1)
         label1.snp.makeConstraints { (make) in
             make.left.equalTo(avatarButton.snp.right).offset(10)
             make.centerY.equalTo(avatarButton)
         }
         fullNameLabel = label1
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(onRepoNameClicked))
-        fullNameLabel.addGestureRecognizer(gesture)
         
         let label2 = UILabel()
         label2.textColor = UIColor(named: "ZLLabelColor2")
@@ -118,7 +113,7 @@ class ZLIssueHeaderTableViewCell: UITableViewCell {
         delegate = data
         
         avatarButton.sd_setImage(with: URL(string: data.getIssueAuthorAvatarURL()), for: .normal, placeholderImage: UIImage(named: "default_avatar"))
-        fullNameLabel.text = data.getIssueRepoFullName()
+        fullNameLabel.attributedText = data.getIssueRepoFullName()
         numberLabel.text = "#\(data.getIssueNumber())"
         titleLabel.text = data.getIssueTitle()
         
@@ -142,9 +137,6 @@ class ZLIssueHeaderTableViewCell: UITableViewCell {
         self.delegate?.onIssueAvatarClicked()
     }
 
-    @objc func onRepoNameClicked(){
-        self.delegate?.onRepoNameClicked()
-    }
 }
 
 

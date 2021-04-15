@@ -84,22 +84,20 @@ class ZLUserContributionsView: ZLBaseView,UICollectionViewDataSource,UICollectio
         
         self.loginName = loginName
         
-        ZLServiceManager.sharedInstance.userServiceModel?.getUserContributionsData(withLoginName: loginName,
+        let contributionsDatas = ZLServiceManager.sharedInstance.userServiceModel?.getUserContributionsData(withLoginName: loginName,
                                                                                    serialNumber: NSString.generateSerialNumber())
         { [weak self](resultModel) in
             
             if resultModel.result == true {
                 if let array = resultModel.data as? [ZLGithubUserContributionData] {
                     self?.dataArray = array
-                } else {
-                    self?.dataArray = []
                 }
-            } else {
-                self?.dataArray = []
             }
             self?.collectionView.reloadData()
         }
         
+        self.dataArray = contributionsDatas ?? []
+        self.collectionView.reloadData()
     }
     
     

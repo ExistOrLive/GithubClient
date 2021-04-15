@@ -17,11 +17,15 @@ protocol ZLPullRequestCommentTableViewCellDelegate : NSObjectProtocol{
     func getCommentText() -> String
     func getCommentWebView() -> WKWebView
     func getCommentWebViewHeight() -> CGFloat
+    
+    func onAvatarButtonClicked() -> Void
 }
 
 
 
 class ZLPullRequestCommentTableViewCell: UITableViewCell {
+    
+    private var delegete: ZLPullRequestCommentTableViewCellDelegate?
     
     var avatarButton : UIButton!
     var actorLabel : UILabel!
@@ -75,6 +79,7 @@ class ZLPullRequestCommentTableViewCell: UITableViewCell {
             make.size.equalTo(CGSize(width: 40, height: 40))
         }
         avatarButton = tmpAvatarButton
+        avatarButton.addTarget(self, action: #selector(onAvatarButtonClicked), for: .touchUpInside)
         
         let label1 = UILabel()
         label1.textColor = UIColor(named: "ZLLabelColor1")
@@ -120,6 +125,8 @@ class ZLPullRequestCommentTableViewCell: UITableViewCell {
     
     func fillWithData(data : ZLPullRequestCommentTableViewCellDelegate) {
        
+        self.delegete = data
+        
         avatarButton.sd_setImage(with: URL(string: data.getActorAvatarUrl()), for: .normal, placeholderImage: UIImage(named: "default_avatar"))
         actorLabel.text = data.getActorName()
         timeLabel.text = data.getTime()
@@ -135,5 +142,9 @@ class ZLPullRequestCommentTableViewCell: UITableViewCell {
             make.height.equalTo(data.getCommentWebViewHeight())
         }
         
+    }
+    
+    @objc func onAvatarButtonClicked(){
+        self.delegete?.onAvatarButtonClicked()
     }
 }

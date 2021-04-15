@@ -216,33 +216,29 @@ extension ZLProfileBaseViewModel : ZLProfileHeaderViewDelegate
         switch type!
         {
         case .repositories:do{
-            let vc = ZLUserAdditionInfoController.init()
-            vc.userInfo = self.currentUserInfo
-            vc.type = .repositories
-            vc.hidesBottomBarWhenPushed = true
-            self.viewController?.navigationController?.pushViewController(vc, animated: true);
+            if let login = self.currentUserInfo?.loginName, let vc = ZLUIRouter.getVC(key: ZLUIRouter.UserAdditionInfoController, params: ["login":login,"type":ZLUserAdditionInfoType.repositories.rawValue]) {
+                vc.hidesBottomBarWhenPushed = true
+                self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            }
             }
         case .followers:do
         {
-            let vc = ZLUserAdditionInfoController.init()
-            vc.userInfo = self.currentUserInfo
-            vc.type = .followers
-            vc.hidesBottomBarWhenPushed = true
-            self.viewController?.navigationController?.pushViewController(vc, animated: true);
+            if let login = self.currentUserInfo?.loginName, let vc = ZLUIRouter.getVC(key: ZLUIRouter.UserAdditionInfoController, params: ["login":login,"type":ZLUserAdditionInfoType.followers.rawValue]) {
+                vc.hidesBottomBarWhenPushed = true
+                self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            }
             }
         case .following:do{
-            let vc = ZLUserAdditionInfoController.init()
-            vc.userInfo = self.currentUserInfo
-            vc.type = .following
-            vc.hidesBottomBarWhenPushed = true
-            self.viewController?.navigationController?.pushViewController(vc, animated: true);
+            if let login = self.currentUserInfo?.loginName,let vc = ZLUIRouter.getVC(key: ZLUIRouter.UserAdditionInfoController, params: ["login":login,"type":ZLUserAdditionInfoType.following.rawValue]) {
+                vc.hidesBottomBarWhenPushed = true
+                self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            }
             }
         case .gists:do{
-            let vc = ZLUserAdditionInfoController.init()
-            vc.userInfo = self.currentUserInfo
-            vc.type = .gists
-            vc.hidesBottomBarWhenPushed = true
-            self.viewController?.navigationController?.pushViewController(vc, animated: true);
+            if let login = self.currentUserInfo?.loginName, let vc = ZLUIRouter.getVC(key: ZLUIRouter.UserAdditionInfoController, params: ["login":login,"type":ZLUserAdditionInfoType.gists.rawValue]) {
+                vc.hidesBottomBarWhenPushed = true
+                self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            }
             }
         case .editProfile:do{
             let vc = ZLEditProfileController.init()

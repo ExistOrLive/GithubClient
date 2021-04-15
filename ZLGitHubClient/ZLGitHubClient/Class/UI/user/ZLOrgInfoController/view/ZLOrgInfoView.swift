@@ -41,16 +41,14 @@ class ZLOrgInfoView: ZLBaseView {
     @IBOutlet weak private var createTimeLabel: UILabel!
     @IBOutlet weak private var bioLabel: UILabel!
     
-    @IBOutlet weak private var repositoryNum: UILabel!
-    @IBOutlet weak private var memberNum: UILabel!
+     
     
-    @IBOutlet weak private var repositoriesButton: UIButton!
-    @IBOutlet weak private var memberButton: UIButton!
-    
+    @IBOutlet weak private var repoLabel: UILabel!
     @IBOutlet weak private var addrLabel: UILabel!
     @IBOutlet weak private var emailLabel: UILabel!
     @IBOutlet weak private var websiteLabel: UILabel!
     
+    @IBOutlet weak private var repoInfoLabel: UILabel!
     @IBOutlet weak private var addressInfoLabel: UILabel!
     @IBOutlet weak private var emailInfoLabel: UILabel!
     @IBOutlet weak private var websiteInfoLabel: UILabel!
@@ -76,10 +74,7 @@ class ZLOrgInfoView: ZLBaseView {
     }
     
     func justUpdate(){
-        
-        repositoriesButton.setTitle(ZLLocalizedString(string: "repositories",comment: "仓库"), for: .normal);
-        memberButton.setTitle(ZLLocalizedString(string: "members", comment: "成员"), for: .normal)
-        
+        repoLabel.text = ZLLocalizedString(string: "repositories",comment: "仓库")
         addrLabel.text = ZLLocalizedString(string:"location", comment: "地址")
         emailLabel.text = ZLLocalizedString(string:"email", comment: "邮箱")
         websiteLabel.text = ZLLocalizedString(string: "website", comment: "主页")
@@ -102,9 +97,8 @@ class ZLOrgInfoView: ZLBaseView {
         createTimeLabel.text = delegate?.createTimeStr
         bioLabel.text = delegate?.bio
         
-        repositoryNum.text = "\(delegate?.repositoryNum ?? 0)"
-        memberNum.text = "\(delegate?.membersNum ?? 0)"
-         
+        repoInfoLabel.text = "\(delegate?.repositoryNum ?? 0)"
+        
         addressInfoLabel.text = delegate?.address
         emailInfoLabel.text = delegate?.email
         websiteInfoLabel.text = delegate?.website
@@ -112,13 +106,6 @@ class ZLOrgInfoView: ZLBaseView {
     }
     
     
-    
-    
-    
-    
-    @IBAction func onMemberButtonClicked(_ sender: Any) {
-        delegate?.onMembersButtonClicked()
-    }
     
     @IBAction func onRepoButtonClicked(_ sender: Any) {
         delegate?.onRepositoriesButtonClicked()
