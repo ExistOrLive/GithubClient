@@ -40,6 +40,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - 与登录用户无关的设置
 
+// github 支持的开发语言列表
+@property(nonatomic,strong,nullable) NSArray<NSString *>* githubLanguageList;
+
 // 设备id
 @property(nonatomic,strong,readonly) NSString * deviceId;
 

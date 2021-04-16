@@ -35,12 +35,22 @@
 
 #pragma mark -
 
+- (NSArray<NSString *> *)githubLanguageList{
+    __block NSArray<NSString *>* languageList = nil;
+    [ZLBaseServiceModel dispatchSyncInOperationQueue:^{
+        languageList = [ZLSharedDataManager sharedInstance].githubLanguageList;
+    }];
+    return languageList;
+}
+
 /**
  * @brief 获取language列表
  *
  **/
-- (void) getLanguagesWithSerialNumber:(NSString *) serialNumber
-                       completeHandle:(void(^)(ZLOperationResultModel *)) handle{
+- (NSArray<NSString *> * _Nullable) getLanguagesWithSerialNumber:(NSString *) serialNumber
+                                                  completeHandle:(void(^)(ZLOperationResultModel *)) handle{
+    
+    NSArray<NSString *>* languageList = [self githubLanguageList];
     
     GithubResponse responseBlock = ^(BOOL result, id _Nullable responseObject, NSString * serialNumber) {
         
@@ -49,6 +59,10 @@
         resultModel.serialNumber = serialNumber;
         resultModel.data = responseObject;
         
+        if(result && [responseObject isKindOfClass:[NSArray class]]){
+            [[ZLSharedDataManager sharedInstance] setGithubLanguageList:responseObject];
+        }
+        
         if(handle){
             ZLMainThreadDispatch(handle(resultModel);)
         }
@@ -56,6 +70,8 @@
     
     [[ZLGithubHttpClient defaultClient] getLanguagesList:responseBlock
                                             serialNumber:serialNumber];
+    
+    return languageList;
 }
 
 

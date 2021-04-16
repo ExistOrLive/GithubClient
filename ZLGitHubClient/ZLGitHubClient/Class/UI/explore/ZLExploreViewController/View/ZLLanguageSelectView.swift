@@ -37,19 +37,21 @@ class ZLLanguageSelectView: UIView {
         
         self.textField.delegate = self
     
-        weak var weakSelf = self
-        ZLServiceManager.sharedInstance.additionServiceModel?.getLanguagesWithSerialNumber(NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+        
+        let languageArray = ZLServiceManager.sharedInstance.additionServiceModel?.getLanguagesWithSerialNumber(NSString.generateSerialNumber(), completeHandle: {[weak self](resultModel : ZLOperationResultModel) in
             
             if resultModel.result == true {
                 guard let languageArray : [String] = resultModel.data as? [String] else {
                     ZLToastView.showMessage("language list transfer failed", duration: 3.0)
                     return
                 }
-                var newLanguageArray = ["Any"]
-                newLanguageArray.append(contentsOf: languageArray)
-                weakSelf?.allLanguagesArray = newLanguageArray
-                weakSelf?.filterLanguagesArray = newLanguageArray
-                weakSelf?.tableView.reloadData()
+                if self?.allLanguagesArray.count ?? 0 == 0 {
+                    var newLanguageArray = ["Any"]
+                    newLanguageArray.append(contentsOf: languageArray)
+                    self?.allLanguagesArray = newLanguageArray
+                    self?.filterLanguagesArray = newLanguageArray
+                    self?.tableView.reloadData()
+                }
             }else {
                 guard let errorModel : ZLGithubRequestErrorModel = resultModel.data as? ZLGithubRequestErrorModel else {
                     ZLToastView.showMessage("query language list failed", duration: 3.0)
@@ -58,6 +60,14 @@ class ZLLanguageSelectView: UIView {
                 ZLToastView.showMessage("query language list failed statusCode[\(errorModel.statusCode) message[\(errorModel.message)]]", duration: 3.0)
             }
         })
+        
+        if let realLanguageArray = languageArray {
+            var newLanguageArray = ["Any"]
+            newLanguageArray.append(contentsOf: realLanguageArray)
+            self.allLanguagesArray = newLanguageArray
+            self.filterLanguagesArray = newLanguageArray
+            self.tableView.reloadData()
+        }
         
     }
     

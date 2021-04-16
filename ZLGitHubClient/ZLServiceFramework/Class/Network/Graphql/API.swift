@@ -572,7 +572,7 @@ public final class ViewerTopRepositoriesQuery: GraphQLQuery {
             owner {
               __typename
               login
-              avatarUrl
+              avatarUrl(size: 150)
             }
             primaryLanguage {
               __typename
@@ -900,7 +900,7 @@ public final class ViewerTopRepositoriesQuery: GraphQLQuery {
               return [
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("login", type: .nonNull(.scalar(String.self))),
-                GraphQLField("avatarUrl", type: .nonNull(.scalar(String.self))),
+                GraphQLField("avatarUrl", arguments: ["size": 150], type: .nonNull(.scalar(String.self))),
               ]
             }
 
@@ -1027,14 +1027,14 @@ public final class SearchItemQuery: GraphQLQuery {
               __typename
               login
               url
-              avatarUrl
+              avatarUrl(size: 150)
             }
             repository {
               __typename
               owner {
                 __typename
                 login
-                avatarUrl
+                avatarUrl(size: 150)
               }
               name
               nameWithOwner
@@ -1053,14 +1053,14 @@ public final class SearchItemQuery: GraphQLQuery {
               __typename
               login
               url
-              avatarUrl
+              avatarUrl(size: 150)
             }
             repository {
               __typename
               owner {
                 __typename
                 login
-                avatarUrl
+                avatarUrl(size: 150)
               }
               name
               nameWithOwner
@@ -1074,7 +1074,7 @@ public final class SearchItemQuery: GraphQLQuery {
           ... on User {
             login
             userName: name
-            avatarUrl
+            avatarUrl(size: 150)
             bio
             viewerIsFollowing
             url
@@ -1082,7 +1082,7 @@ public final class SearchItemQuery: GraphQLQuery {
           ... on Organization {
             login
             orgName: name
-            avatarUrl
+            avatarUrl(size: 150)
             url
             description
           }
@@ -1095,7 +1095,7 @@ public final class SearchItemQuery: GraphQLQuery {
               __typename
               login
               url
-              avatarUrl
+              avatarUrl(size: 150)
             }
             description
             stargazerCount
@@ -1596,7 +1596,7 @@ public final class SearchItemQuery: GraphQLQuery {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("login", type: .nonNull(.scalar(String.self))),
                 GraphQLField("url", type: .nonNull(.scalar(String.self))),
-                GraphQLField("avatarUrl", type: .nonNull(.scalar(String.self))),
+                GraphQLField("avatarUrl", arguments: ["size": 150], type: .nonNull(.scalar(String.self))),
               ]
             }
 
@@ -1745,7 +1745,7 @@ public final class SearchItemQuery: GraphQLQuery {
                 return [
                   GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                   GraphQLField("login", type: .nonNull(.scalar(String.self))),
-                  GraphQLField("avatarUrl", type: .nonNull(.scalar(String.self))),
+                  GraphQLField("avatarUrl", arguments: ["size": 150], type: .nonNull(.scalar(String.self))),
                 ]
               }
 
@@ -1952,7 +1952,7 @@ public final class SearchItemQuery: GraphQLQuery {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("login", type: .nonNull(.scalar(String.self))),
                 GraphQLField("url", type: .nonNull(.scalar(String.self))),
-                GraphQLField("avatarUrl", type: .nonNull(.scalar(String.self))),
+                GraphQLField("avatarUrl", arguments: ["size": 150], type: .nonNull(.scalar(String.self))),
               ]
             }
 
@@ -2101,7 +2101,7 @@ public final class SearchItemQuery: GraphQLQuery {
                 return [
                   GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                   GraphQLField("login", type: .nonNull(.scalar(String.self))),
-                  GraphQLField("avatarUrl", type: .nonNull(.scalar(String.self))),
+                  GraphQLField("avatarUrl", arguments: ["size": 150], type: .nonNull(.scalar(String.self))),
                 ]
               }
 
@@ -2170,7 +2170,7 @@ public final class SearchItemQuery: GraphQLQuery {
               GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
               GraphQLField("login", type: .nonNull(.scalar(String.self))),
               GraphQLField("name", alias: "userName", type: .scalar(String.self)),
-              GraphQLField("avatarUrl", type: .nonNull(.scalar(String.self))),
+              GraphQLField("avatarUrl", arguments: ["size": 150], type: .nonNull(.scalar(String.self))),
               GraphQLField("bio", type: .scalar(String.self)),
               GraphQLField("viewerIsFollowing", type: .nonNull(.scalar(Bool.self))),
               GraphQLField("url", type: .nonNull(.scalar(String.self))),
@@ -2276,7 +2276,7 @@ public final class SearchItemQuery: GraphQLQuery {
               GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
               GraphQLField("login", type: .nonNull(.scalar(String.self))),
               GraphQLField("name", alias: "orgName", type: .scalar(String.self)),
-              GraphQLField("avatarUrl", type: .nonNull(.scalar(String.self))),
+              GraphQLField("avatarUrl", arguments: ["size": 150], type: .nonNull(.scalar(String.self))),
               GraphQLField("url", type: .nonNull(.scalar(String.self))),
               GraphQLField("description", type: .scalar(String.self)),
             ]
@@ -2509,7 +2509,7 @@ public final class SearchItemQuery: GraphQLQuery {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("login", type: .nonNull(.scalar(String.self))),
                 GraphQLField("url", type: .nonNull(.scalar(String.self))),
-                GraphQLField("avatarUrl", type: .nonNull(.scalar(String.self))),
+                GraphQLField("avatarUrl", arguments: ["size": 150], type: .nonNull(.scalar(String.self))),
               ]
             }
 
@@ -3241,7 +3241,7 @@ public final class ViewerOrgsQuery: GraphQLQuery {
             node {
               __typename
               login
-              avatarUrl
+              avatarUrl(size: 150)
               location
               name
               description
@@ -3421,7 +3421,7 @@ public final class ViewerOrgsQuery: GraphQLQuery {
               return [
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("login", type: .nonNull(.scalar(String.self))),
-                GraphQLField("avatarUrl", type: .nonNull(.scalar(String.self))),
+                GraphQLField("avatarUrl", arguments: ["size": 150], type: .nonNull(.scalar(String.self))),
                 GraphQLField("location", type: .scalar(String.self)),
                 GraphQLField("name", type: .scalar(String.self)),
                 GraphQLField("description", type: .scalar(String.self)),
@@ -4251,7 +4251,7 @@ public final class IssueInfoQuery: GraphQLQuery {
         owner {
           __typename
           login
-          avatarUrl
+          avatarUrl(size: 150)
         }
         issue(number: $number) {
           __typename
@@ -4260,7 +4260,7 @@ public final class IssueInfoQuery: GraphQLQuery {
           author {
             __typename
             login
-            avatarUrl
+            avatarUrl(size: 150)
           }
           bodyText
           bodyHTML
@@ -4284,7 +4284,7 @@ public final class IssueInfoQuery: GraphQLQuery {
                 actor {
                   __typename
                   login
-                  avatarUrl
+                  avatarUrl(size: 150)
                 }
                 createdAt
               }
@@ -4293,7 +4293,7 @@ public final class IssueInfoQuery: GraphQLQuery {
                 actor {
                   __typename
                   login
-                  avatarUrl
+                  avatarUrl(size: 150)
                 }
                 assignee {
                   __typename
@@ -4387,7 +4387,7 @@ public final class IssueInfoQuery: GraphQLQuery {
                 author {
                   __typename
                   login
-                  avatarUrl
+                  avatarUrl(size: 150)
                 }
                 bodyText
                 bodyHTML
@@ -4660,7 +4660,7 @@ public final class IssueInfoQuery: GraphQLQuery {
           return [
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
             GraphQLField("login", type: .nonNull(.scalar(String.self))),
-            GraphQLField("avatarUrl", type: .nonNull(.scalar(String.self))),
+            GraphQLField("avatarUrl", arguments: ["size": 150], type: .nonNull(.scalar(String.self))),
           ]
         }
 
@@ -4853,7 +4853,7 @@ public final class IssueInfoQuery: GraphQLQuery {
             return [
               GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
               GraphQLField("login", type: .nonNull(.scalar(String.self))),
-              GraphQLField("avatarUrl", type: .nonNull(.scalar(String.self))),
+              GraphQLField("avatarUrl", arguments: ["size": 150], type: .nonNull(.scalar(String.self))),
             ]
           }
 
@@ -5263,7 +5263,7 @@ public final class IssueInfoQuery: GraphQLQuery {
                   return [
                     GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                     GraphQLField("login", type: .nonNull(.scalar(String.self))),
-                    GraphQLField("avatarUrl", type: .nonNull(.scalar(String.self))),
+                    GraphQLField("avatarUrl", arguments: ["size": 150], type: .nonNull(.scalar(String.self))),
                   ]
                 }
 
@@ -5402,7 +5402,7 @@ public final class IssueInfoQuery: GraphQLQuery {
                   return [
                     GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                     GraphQLField("login", type: .nonNull(.scalar(String.self))),
-                    GraphQLField("avatarUrl", type: .nonNull(.scalar(String.self))),
+                    GraphQLField("avatarUrl", arguments: ["size": 150], type: .nonNull(.scalar(String.self))),
                   ]
                 }
 
@@ -6991,7 +6991,7 @@ public final class IssueInfoQuery: GraphQLQuery {
                   return [
                     GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                     GraphQLField("login", type: .nonNull(.scalar(String.self))),
-                    GraphQLField("avatarUrl", type: .nonNull(.scalar(String.self))),
+                    GraphQLField("avatarUrl", arguments: ["size": 150], type: .nonNull(.scalar(String.self))),
                   ]
                 }
 
@@ -9490,7 +9490,7 @@ public final class PrInfoQuery: GraphQLQuery {
         owner {
           __typename
           login
-          avatarUrl
+          avatarUrl(size: 150)
         }
         pullRequest(number: $number) {
           __typename
@@ -9499,7 +9499,7 @@ public final class PrInfoQuery: GraphQLQuery {
           author {
             __typename
             login
-            avatarUrl
+            avatarUrl(size: 150)
           }
           bodyText
           bodyHTML
@@ -9509,7 +9509,7 @@ public final class PrInfoQuery: GraphQLQuery {
           headRepositoryOwner {
             __typename
             login
-            avatarUrl
+            avatarUrl(size: 150)
           }
           baseRepository {
             __typename
@@ -9553,7 +9553,7 @@ public final class PrInfoQuery: GraphQLQuery {
                 actor {
                   __typename
                   login
-                  avatarUrl
+                  avatarUrl(size: 150)
                 }
                 createdAt
               }
@@ -9562,7 +9562,7 @@ public final class PrInfoQuery: GraphQLQuery {
                 actor {
                   __typename
                   login
-                  avatarUrl
+                  avatarUrl(size: 150)
                 }
                 assignee {
                   __typename
@@ -9804,7 +9804,7 @@ public final class PrInfoQuery: GraphQLQuery {
                 author {
                   __typename
                   login
-                  avatarUrl
+                  avatarUrl(size: 150)
                 }
                 bodyText
                 bodyHTML
@@ -9845,7 +9845,7 @@ public final class PrInfoQuery: GraphQLQuery {
                 actor {
                   __typename
                   login
-                  avatarUrl
+                  avatarUrl(size: 150)
                 }
                 nullableName: commit {
                   __typename
@@ -9881,7 +9881,7 @@ public final class PrInfoQuery: GraphQLQuery {
                   author {
                     __typename
                     name
-                    avatarUrl
+                    avatarUrl(size: 150)
                   }
                   abbreviatedOid
                   url
@@ -9899,7 +9899,7 @@ public final class PrInfoQuery: GraphQLQuery {
                 author {
                   __typename
                   login
-                  avatarUrl
+                  avatarUrl(size: 150)
                 }
               }
               ... on PullRequestReviewThread {
@@ -10164,7 +10164,7 @@ public final class PrInfoQuery: GraphQLQuery {
           return [
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
             GraphQLField("login", type: .nonNull(.scalar(String.self))),
-            GraphQLField("avatarUrl", type: .nonNull(.scalar(String.self))),
+            GraphQLField("avatarUrl", arguments: ["size": 150], type: .nonNull(.scalar(String.self))),
           ]
         }
 
@@ -10467,7 +10467,7 @@ public final class PrInfoQuery: GraphQLQuery {
             return [
               GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
               GraphQLField("login", type: .nonNull(.scalar(String.self))),
-              GraphQLField("avatarUrl", type: .nonNull(.scalar(String.self))),
+              GraphQLField("avatarUrl", arguments: ["size": 150], type: .nonNull(.scalar(String.self))),
             ]
           }
 
@@ -10534,7 +10534,7 @@ public final class PrInfoQuery: GraphQLQuery {
             return [
               GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
               GraphQLField("login", type: .nonNull(.scalar(String.self))),
-              GraphQLField("avatarUrl", type: .nonNull(.scalar(String.self))),
+              GraphQLField("avatarUrl", arguments: ["size": 150], type: .nonNull(.scalar(String.self))),
             ]
           }
 
@@ -11251,7 +11251,7 @@ public final class PrInfoQuery: GraphQLQuery {
                   return [
                     GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                     GraphQLField("login", type: .nonNull(.scalar(String.self))),
-                    GraphQLField("avatarUrl", type: .nonNull(.scalar(String.self))),
+                    GraphQLField("avatarUrl", arguments: ["size": 150], type: .nonNull(.scalar(String.self))),
                   ]
                 }
 
@@ -11390,7 +11390,7 @@ public final class PrInfoQuery: GraphQLQuery {
                   return [
                     GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                     GraphQLField("login", type: .nonNull(.scalar(String.self))),
-                    GraphQLField("avatarUrl", type: .nonNull(.scalar(String.self))),
+                    GraphQLField("avatarUrl", arguments: ["size": 150], type: .nonNull(.scalar(String.self))),
                   ]
                 }
 
@@ -15312,7 +15312,7 @@ public final class PrInfoQuery: GraphQLQuery {
                   return [
                     GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                     GraphQLField("login", type: .nonNull(.scalar(String.self))),
-                    GraphQLField("avatarUrl", type: .nonNull(.scalar(String.self))),
+                    GraphQLField("avatarUrl", arguments: ["size": 150], type: .nonNull(.scalar(String.self))),
                   ]
                 }
 
@@ -15942,7 +15942,7 @@ public final class PrInfoQuery: GraphQLQuery {
                   return [
                     GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                     GraphQLField("login", type: .nonNull(.scalar(String.self))),
-                    GraphQLField("avatarUrl", type: .nonNull(.scalar(String.self))),
+                    GraphQLField("avatarUrl", arguments: ["size": 150], type: .nonNull(.scalar(String.self))),
                   ]
                 }
 
@@ -16548,7 +16548,7 @@ public final class PrInfoQuery: GraphQLQuery {
                     return [
                       GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                       GraphQLField("name", type: .scalar(String.self)),
-                      GraphQLField("avatarUrl", type: .nonNull(.scalar(String.self))),
+                      GraphQLField("avatarUrl", arguments: ["size": 150], type: .nonNull(.scalar(String.self))),
                     ]
                   }
 
@@ -16742,7 +16742,7 @@ public final class PrInfoQuery: GraphQLQuery {
                   return [
                     GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                     GraphQLField("login", type: .nonNull(.scalar(String.self))),
-                    GraphQLField("avatarUrl", type: .nonNull(.scalar(String.self))),
+                    GraphQLField("avatarUrl", arguments: ["size": 150], type: .nonNull(.scalar(String.self))),
                   ]
                 }
 
@@ -19195,7 +19195,7 @@ public final class UserInfoQuery: GraphQLQuery {
         loginName: login
         name
         html_url: url
-        avatar_url: avatarUrl
+        avatar_url: avatarUrl(size: 150)
         created_at: createdAt
         updated_at: updatedAt
         followers {
@@ -19282,7 +19282,7 @@ public final class UserInfoQuery: GraphQLQuery {
           GraphQLField("login", alias: "loginName", type: .nonNull(.scalar(String.self))),
           GraphQLField("name", type: .scalar(String.self)),
           GraphQLField("url", alias: "html_url", type: .nonNull(.scalar(String.self))),
-          GraphQLField("avatarUrl", alias: "avatar_url", type: .nonNull(.scalar(String.self))),
+          GraphQLField("avatarUrl", alias: "avatar_url", arguments: ["size": 150], type: .nonNull(.scalar(String.self))),
           GraphQLField("createdAt", alias: "created_at", type: .nonNull(.scalar(String.self))),
           GraphQLField("updatedAt", alias: "updated_at", type: .nonNull(.scalar(String.self))),
           GraphQLField("followers", type: .nonNull(.object(Follower.selections))),
@@ -19744,7 +19744,7 @@ public final class OrgInfoQuery: GraphQLQuery {
         loginName: login
         name
         html_url: url
-        avatar_url: avatarUrl
+        avatar_url: avatarUrl(size: 150)
         bio: description
         email
         location
@@ -19820,7 +19820,7 @@ public final class OrgInfoQuery: GraphQLQuery {
           GraphQLField("login", alias: "loginName", type: .nonNull(.scalar(String.self))),
           GraphQLField("name", type: .scalar(String.self)),
           GraphQLField("url", alias: "html_url", type: .nonNull(.scalar(String.self))),
-          GraphQLField("avatarUrl", alias: "avatar_url", type: .nonNull(.scalar(String.self))),
+          GraphQLField("avatarUrl", alias: "avatar_url", arguments: ["size": 150], type: .nonNull(.scalar(String.self))),
           GraphQLField("description", alias: "bio", type: .scalar(String.self)),
           GraphQLField("email", type: .scalar(String.self)),
           GraphQLField("location", type: .scalar(String.self)),
@@ -20147,7 +20147,7 @@ public final class UserOrOrgInfoQuery: GraphQLQuery {
         loginName: login
         name
         html_url: url
-        avatar_url: avatarUrl
+        avatar_url: avatarUrl(size: 150)
         created_at: createdAt
         updated_at: updatedAt
         followers {
@@ -20186,7 +20186,7 @@ public final class UserOrOrgInfoQuery: GraphQLQuery {
         loginName: login
         name
         html_url: url
-        avatar_url: avatarUrl
+        avatar_url: avatarUrl(size: 150)
         bio: description
         email
         location
@@ -20273,7 +20273,7 @@ public final class UserOrOrgInfoQuery: GraphQLQuery {
           GraphQLField("login", alias: "loginName", type: .nonNull(.scalar(String.self))),
           GraphQLField("name", type: .scalar(String.self)),
           GraphQLField("url", alias: "html_url", type: .nonNull(.scalar(String.self))),
-          GraphQLField("avatarUrl", alias: "avatar_url", type: .nonNull(.scalar(String.self))),
+          GraphQLField("avatarUrl", alias: "avatar_url", arguments: ["size": 150], type: .nonNull(.scalar(String.self))),
           GraphQLField("createdAt", alias: "created_at", type: .nonNull(.scalar(String.self))),
           GraphQLField("updatedAt", alias: "updated_at", type: .nonNull(.scalar(String.self))),
           GraphQLField("followers", type: .nonNull(.object(Follower.selections))),
@@ -20732,7 +20732,7 @@ public final class UserOrOrgInfoQuery: GraphQLQuery {
           GraphQLField("login", alias: "loginName", type: .nonNull(.scalar(String.self))),
           GraphQLField("name", type: .scalar(String.self)),
           GraphQLField("url", alias: "html_url", type: .nonNull(.scalar(String.self))),
-          GraphQLField("avatarUrl", alias: "avatar_url", type: .nonNull(.scalar(String.self))),
+          GraphQLField("avatarUrl", alias: "avatar_url", arguments: ["size": 150], type: .nonNull(.scalar(String.self))),
           GraphQLField("description", alias: "bio", type: .scalar(String.self)),
           GraphQLField("email", type: .scalar(String.self)),
           GraphQLField("location", type: .scalar(String.self)),
@@ -21059,7 +21059,7 @@ public final class ViewerInfoQuery: GraphQLQuery {
         loginName: login
         name
         html_url: url
-        avatar_url: avatarUrl
+        avatar_url: avatarUrl(size: 150)
         created_at: createdAt
         updated_at: updatedAt
         followers {
@@ -21139,7 +21139,7 @@ public final class ViewerInfoQuery: GraphQLQuery {
           GraphQLField("login", alias: "loginName", type: .nonNull(.scalar(String.self))),
           GraphQLField("name", type: .scalar(String.self)),
           GraphQLField("url", alias: "html_url", type: .nonNull(.scalar(String.self))),
-          GraphQLField("avatarUrl", alias: "avatar_url", type: .nonNull(.scalar(String.self))),
+          GraphQLField("avatarUrl", alias: "avatar_url", arguments: ["size": 150], type: .nonNull(.scalar(String.self))),
           GraphQLField("createdAt", alias: "created_at", type: .nonNull(.scalar(String.self))),
           GraphQLField("updatedAt", alias: "updated_at", type: .nonNull(.scalar(String.self))),
           GraphQLField("followers", type: .nonNull(.object(Follower.selections))),
@@ -21631,7 +21631,7 @@ public final class RepoInfoQuery: GraphQLQuery {
           node_id: id
           login
           html_url: url
-          avatarUrl
+          avatarUrl(size: 150)
         }
         parent {
           __typename
@@ -22119,7 +22119,7 @@ public final class RepoInfoQuery: GraphQLQuery {
             GraphQLField("id", alias: "node_id", type: .nonNull(.scalar(GraphQLID.self))),
             GraphQLField("login", type: .nonNull(.scalar(String.self))),
             GraphQLField("url", alias: "html_url", type: .nonNull(.scalar(String.self))),
-            GraphQLField("avatarUrl", type: .nonNull(.scalar(String.self))),
+            GraphQLField("avatarUrl", arguments: ["size": 150], type: .nonNull(.scalar(String.self))),
           ]
         }
 
@@ -22306,6 +22306,101 @@ public final class RepoInfoQuery: GraphQLQuery {
           set {
             resultMap.updateValue(newValue, forKey: "key")
           }
+        }
+      }
+    }
+  }
+}
+
+public final class AvatarQuery: GraphQLQuery {
+  /// The raw GraphQL definition of this operation.
+  public let operationDefinition: String =
+    """
+    query avatar($login: String!) {
+      user(login: $login) {
+        __typename
+        avatarUrl(size: 150)
+      }
+    }
+    """
+
+  public let operationName: String = "avatar"
+
+  public var login: String
+
+  public init(login: String) {
+    self.login = login
+  }
+
+  public var variables: GraphQLMap? {
+    return ["login": login]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes: [String] = ["Query"]
+
+    public static var selections: [GraphQLSelection] {
+      return [
+        GraphQLField("user", arguments: ["login": GraphQLVariable("login")], type: .object(User.selections)),
+      ]
+    }
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(user: User? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Query", "user": user.flatMap { (value: User) -> ResultMap in value.resultMap }])
+    }
+
+    /// Lookup a user by login.
+    public var user: User? {
+      get {
+        return (resultMap["user"] as? ResultMap).flatMap { User(unsafeResultMap: $0) }
+      }
+      set {
+        resultMap.updateValue(newValue?.resultMap, forKey: "user")
+      }
+    }
+
+    public struct User: GraphQLSelectionSet {
+      public static let possibleTypes: [String] = ["User"]
+
+      public static var selections: [GraphQLSelection] {
+        return [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("avatarUrl", arguments: ["size": 150], type: .nonNull(.scalar(String.self))),
+        ]
+      }
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(avatarUrl: String) {
+        self.init(unsafeResultMap: ["__typename": "User", "avatarUrl": avatarUrl])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      /// A URL pointing to the user's public avatar.
+      public var avatarUrl: String {
+        get {
+          return resultMap["avatarUrl"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "avatarUrl")
         }
       }
     }

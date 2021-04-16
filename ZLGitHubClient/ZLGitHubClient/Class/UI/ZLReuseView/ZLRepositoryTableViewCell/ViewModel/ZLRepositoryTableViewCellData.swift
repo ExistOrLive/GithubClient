@@ -56,6 +56,20 @@ import UIKit
     }
     
     
+    func getOwnerAvatarFromServer() {
+        ZLServiceManager.sharedInstance.userServiceModel?.getUserAvatar(withLoginName: self.data.owner?.loginName ?? "", serialNumber: NSString.generateSerialNumber())
+        { [weak self](resultModel) in
+            if resultModel.result == true, let avatarUrl = resultModel.data as? String {
+                self?.data.owner?.avatar_url = avatarUrl
+                let delegate = self?.cell?.delegate
+                if delegate === self{
+                    self?.cell?.fillWithData(data: self!)
+                }
+                
+            }
+        }
+    }
+    
     
     func getRepoInfoFromServer() {
         ZLServiceManager.sharedInstance.repoServiceModel?.getRepoInfo(withFullName: self.data.full_name ?? "",

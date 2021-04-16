@@ -132,7 +132,8 @@
             }
             else
             {
-                [ZLAppEventForOC loginEventWithResult:1 step:weakSelf.step way:0];
+                ZLGithubRequestErrorModel *model = (ZLGithubRequestErrorModel *)response;
+                [ZLAppEventForOC loginEventWithResult:1 step:weakSelf.step way:0 error:model.message];
                 weakSelf.step = ZLLoginStep_init;
                 weakSelf.currentLoginSerialNumber = nil;
             }
@@ -151,7 +152,7 @@
         
         if(self.step != ZLLoginStep_init)
         {
-            [ZLAppEventForOC loginEventWithResult:2 step:self.step way:0];
+            [ZLAppEventForOC loginEventWithResult:2 step:self.step way:0 error:nil];
             
             ZLLog_Info(@"ZLLoginProcess: stopLogin[%@]",serialNumber);
             self.step = ZLLoginStep_init;
@@ -211,12 +212,13 @@
             
             if(result)
             {
-                [ZLAppEventForOC loginEventWithResult:0 step:weakSelf.step way:0];
+                [ZLAppEventForOC loginEventWithResult:0 step:weakSelf.step way:0 error:nil];
                 weakSelf.step = processModel.loginStep;
             }
             else
             {
-                [ZLAppEventForOC loginEventWithResult:1 step:weakSelf.step way:0];
+                ZLGithubRequestErrorModel *model = (ZLGithubRequestErrorModel *) response;
+                [ZLAppEventForOC loginEventWithResult:1 step:weakSelf.step way:0 error:model.message];
                 weakSelf.step = ZLLoginStep_init;
                 weakSelf.currentLoginSerialNumber = nil;
             }
@@ -244,10 +246,11 @@
             
             if(result) {
                 [[ZLSharedDataManager sharedInstance] setGithubAccessToken:token];
-                [ZLAppEventForOC loginEventWithResult:0 step:weakSelf.step way:1];
+                [ZLAppEventForOC loginEventWithResult:0 step:weakSelf.step way:1 error:nil];
                 weakSelf.step = ZLLoginStep_Success;
             } else {
-                [ZLAppEventForOC loginEventWithResult:1 step:weakSelf.step way:1];
+                ZLLoginProcessModel *model = (ZLLoginProcessModel *)processModel;
+                [ZLAppEventForOC loginEventWithResult:1 step:weakSelf.step way:1 error:model.errorModel.message];
                 weakSelf.step = ZLLoginStep_init;
             }
             

@@ -50,7 +50,7 @@ extension ZLCommitTableViewCellData
 {
     func getCommiterAvaterURL() -> String?
     {
-        return self.commitModel.committer.avatar_url
+        return self.commitModel.committer?.avatar_url
     }
     
     func getCommitTitle() -> String?
@@ -66,7 +66,7 @@ extension ZLCommitTableViewCellData
     
     func getAssistInfo() -> String?
     {
-        return "\(String(describing: self.commitModel.committer.loginName ?? "") ) \(ZLLocalizedString(string: "committed", comment: "提交于")) \((self.commitModel.commit_at as NSDate? ?? NSDate.init()).dateLocalStrSinceCurrentTime() as String) "
+        return "\(String(describing: self.commitModel.committer?.loginName ?? "") ) \(ZLLocalizedString(string: "committed", comment: "提交于")) \((self.commitModel.commit_at as NSDate? ?? NSDate.init()).dateLocalStrSinceCurrentTime() as String) "
     }
     
 }

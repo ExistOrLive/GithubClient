@@ -60,6 +60,74 @@ class ZLSearchFilterPickerView: ZLBaseView {
         })
     }
     
+    
+    static func showOrgOrderPickerView(initTitle:String?, resultBlock:((String)->Void)?)
+    {
+        let userOrderArray = ["Best match","Most recently joined","Least recently joined","Most repositories","Fewest repositories"]
+        
+        var initIndex = 0;
+        if(initTitle != nil)
+        {
+            let index =  userOrderArray.firstIndex(of: initTitle!)
+            initIndex = index ?? 0;
+        }
+        
+        CYSinglePickerPopoverView.showCYSinglePickerPopover(withTitle: ZLLocalizedString(string: "OrderSelect", comment: ""), withInitIndex: UInt(initIndex), withDataArray: userOrderArray, withResultBlock: {(result:UInt) in
+            resultBlock?(userOrderArray[Int(result)])
+        })
+    }
+    
+    static func showPROrderPickerView(initTitle:String?, resultBlock:((String)->Void)?)
+    {
+        let userOrderArray = ["Best match","Newest","Oldest","Most commented","Least commented","Recently updated","Least recently updated"]
+        
+        var initIndex = 0;
+        if(initTitle != nil)
+        {
+            let index =  userOrderArray.firstIndex(of: initTitle!)
+            initIndex = index ?? 0;
+        }
+        
+        CYSinglePickerPopoverView.showCYSinglePickerPopover(withTitle: ZLLocalizedString(string: "OrderSelect", comment: ""), withInitIndex: UInt(initIndex), withDataArray: userOrderArray, withResultBlock: {(result:UInt) in
+            resultBlock?(userOrderArray[Int(result)])
+        })
+    }
+    
+    
+    static func showIssueOrderPickerView(initTitle:String?, resultBlock:((String)->Void)?)
+    {
+        let userOrderArray = ["Best match","Newest","Oldest","Most commented","Least commented","Recently updated","Least recently updated"]
+        
+        var initIndex = 0;
+        if(initTitle != nil)
+        {
+            let index =  userOrderArray.firstIndex(of: initTitle!)
+            initIndex = index ?? 0;
+        }
+        
+        CYSinglePickerPopoverView.showCYSinglePickerPopover(withTitle: ZLLocalizedString(string: "OrderSelect", comment: ""), withInitIndex: UInt(initIndex), withDataArray: userOrderArray, withResultBlock: {(result:UInt) in
+            resultBlock?(userOrderArray[Int(result)])
+        })
+    }
+    
+    
+//    static func showIssueOrPRStatePickerView(initTitle:String?, resultBlock:((String)->Void)?)
+//    {
+//        let userOrderArray = ["Open","Closed"]
+//
+//        var initIndex = 0;
+//        if(initTitle != nil)
+//        {
+//            let index =  userOrderArray.firstIndex(of: initTitle!)
+//            initIndex = index ?? 0;
+//        }
+//
+//        CYSinglePickerPopoverView.showCYSinglePickerPopover(withTitle: ZLLocalizedString(string: "State", comment: ""), withInitIndex: UInt(initIndex), withDataArray: userOrderArray, withResultBlock: {(result:UInt) in
+//            resultBlock?(userOrderArray[Int(result)])
+//        })
+//    }
+    
+    
     static func showDatePickerView(resultBlock:((String)->Void)?)
     {
         CYDatePickerView.showCYDatePickerPopover(withTitle: ZLLocalizedString(string: "DateRange", comment: ""), withYearRange: NSRange.init(location: 2008, length: 50), withResultBlock: {(date:Date) in

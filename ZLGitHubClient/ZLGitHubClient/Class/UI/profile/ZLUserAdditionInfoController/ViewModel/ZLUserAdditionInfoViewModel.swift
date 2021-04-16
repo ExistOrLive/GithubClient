@@ -16,9 +16,6 @@ class ZLUserAdditionInfoViewModel: ZLBaseViewModel {
     var type : ZLUserAdditionInfoType!             // info类型
     var login : String!                            // 用户信息
     var currentPage : Int  =  0                     // 当前页号
-    var serialNumber: String?                       // 当前请求的流水号
-    
-    var isResetData : Bool  =  false               // 是否重置数据
     
     // view
     var itemListView: ZLGithubItemListView!
@@ -135,7 +132,7 @@ extension ZLUserAdditionInfoViewModel : ZLGithubItemListViewDelegate {
                     }
                 }
                 self?.itemListView.appendCellDatas(cellDatas:cellDataArray)
-                self?.currentPage = self?.currentPage ?? 0 + 1
+                self?.currentPage = (self?.currentPage ?? 0) + 1
                
             } else if let errorModel = resultModel.data as? ZLGithubRequestErrorModel{
                 ZLToastView.showMessage(errorModel.message)

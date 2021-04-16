@@ -42,7 +42,7 @@ query viewerTopRepositories($after:String){
         isInOrganization
         owner{
           login
-          avatarUrl
+          avatarUrl(size:150)
         }
         primaryLanguage{
           name
@@ -79,12 +79,12 @@ query searchItem($after: String, $query: String!, $type: SearchType!) {
         author {
           login
           url
-          avatarUrl
+          avatarUrl(size:150)
         }
         repository {
           owner{
             login
-            avatarUrl
+            avatarUrl(size:150)
           }
           name
           nameWithOwner
@@ -102,12 +102,12 @@ query searchItem($after: String, $query: String!, $type: SearchType!) {
         author {
           login
           url
-          avatarUrl
+          avatarUrl(size:150)
         }
         repository {
           owner{
             login
-            avatarUrl
+            avatarUrl(size:150)
           }
           name
           nameWithOwner
@@ -121,7 +121,7 @@ query searchItem($after: String, $query: String!, $type: SearchType!) {
       ... on User {
         login
         userName: name
-        avatarUrl
+        avatarUrl(size:150)
         bio
         viewerIsFollowing
         url
@@ -129,7 +129,7 @@ query searchItem($after: String, $query: String!, $type: SearchType!) {
       ... on Organization {
         login
         orgName: name
-        avatarUrl
+        avatarUrl(size:150)
         url
         description
       }
@@ -141,7 +141,7 @@ query searchItem($after: String, $query: String!, $type: SearchType!) {
         owner {
           login
           url
-          avatarUrl
+          avatarUrl(size:150)
         }
         description
         stargazerCount
@@ -202,7 +202,7 @@ query viewerOrgs{
       edges{
         node{
           login
-          avatarUrl
+          avatarUrl(size:150)
           location
           name
           description
@@ -259,14 +259,14 @@ query issueInfo($owner: String!, $name: String!, $number: Int!, $after: String) 
     nameWithOwner
     owner {
       login
-      avatarUrl
+      avatarUrl(size:150)
     }
     issue(number: $number) {
       title
       number
       author {
         login
-        avatarUrl
+        avatarUrl(size:150)
       }
       bodyText
       bodyHTML
@@ -287,7 +287,7 @@ query issueInfo($owner: String!, $name: String!, $number: Int!, $after: String) 
             id
             actor {
               login
-              avatarUrl
+              avatarUrl(size:150)
             }
             createdAt
           }
@@ -295,7 +295,7 @@ query issueInfo($owner: String!, $name: String!, $number: Int!, $after: String) 
             id
             actor {
               login
-              avatarUrl
+              avatarUrl(size:150)
             }
             assignee {
               __typename
@@ -376,7 +376,7 @@ query issueInfo($owner: String!, $name: String!, $number: Int!, $after: String) 
             id
             author {
               login
-              avatarUrl
+              avatarUrl(size:150)
             }
             bodyText
             bodyHTML
@@ -515,14 +515,14 @@ query prInfo($owner: String!, $name: String!, $number: Int!, $after: String) {
     nameWithOwner
     owner {
       login
-      avatarUrl
+      avatarUrl(size:150)
     }
     pullRequest(number: $number) {
       title
       number
       author {
         login
-        avatarUrl
+        avatarUrl(size:150)
       }
       bodyText
       bodyHTML
@@ -531,7 +531,7 @@ query prInfo($owner: String!, $name: String!, $number: Int!, $after: String) {
       headRefName
       headRepositoryOwner {
         login
-        avatarUrl
+        avatarUrl(size:150)
       }
       baseRepository {
         nameWithOwner
@@ -567,7 +567,7 @@ query prInfo($owner: String!, $name: String!, $number: Int!, $after: String) {
             id
             actor {
               login
-              avatarUrl
+              avatarUrl(size:150)
             }
             createdAt
           }
@@ -575,7 +575,7 @@ query prInfo($owner: String!, $name: String!, $number: Int!, $after: String) {
             id
             actor {
               login
-              avatarUrl
+              avatarUrl(size:150)
             }
             assignee {
               __typename
@@ -781,7 +781,7 @@ query prInfo($owner: String!, $name: String!, $number: Int!, $after: String) {
             id
             author {
               login
-              avatarUrl
+              avatarUrl(size:150)
             }
             bodyText
             bodyHTML
@@ -816,7 +816,7 @@ query prInfo($owner: String!, $name: String!, $number: Int!, $after: String) {
           ... on MergedEvent {
             actor {
               login
-              avatarUrl
+              avatarUrl(size:150)
             }
             nullableName: commit {
               abbreviatedOid
@@ -846,7 +846,7 @@ query prInfo($owner: String!, $name: String!, $number: Int!, $after: String) {
               messageHeadline
               author {
                 name
-                avatarUrl
+                avatarUrl(size:150)
               }
               abbreviatedOid
               url
@@ -862,7 +862,7 @@ query prInfo($owner: String!, $name: String!, $number: Int!, $after: String) {
           ... on PullRequestReview {
             author {
               login
-              avatarUrl
+              avatarUrl(size:150)
             }
           }
           ... on PullRequestReviewThread {
@@ -999,7 +999,7 @@ query userInfo($login: String!) {
     loginName:login
     name
     html_url:url
-    avatar_url:avatarUrl
+    avatar_url:avatarUrl(size:150)
     
     created_at:createdAt
     updated_at:updatedAt
@@ -1043,7 +1043,7 @@ query orgInfo($login: String!) {
     loginName:login
     name
     html_url:url
-    avatar_url:avatarUrl
+    avatar_url:avatarUrl(size:150)
     
     
     bio:description
@@ -1079,7 +1079,7 @@ query UserOrOrgInfo($login: String!) {
     loginName:login
     name
     html_url:url
-    avatar_url:avatarUrl
+    avatar_url:avatarUrl(size:150)
     
     created_at:createdAt
     updated_at:updatedAt
@@ -1120,7 +1120,7 @@ query UserOrOrgInfo($login: String!) {
     loginName:login
     name
     html_url:url
-    avatar_url:avatarUrl
+    avatar_url:avatarUrl(size:150)
     
     
     bio:description
@@ -1157,7 +1157,7 @@ query viewerInfo{
     loginName:login
     name
     html_url:url
-    avatar_url:avatarUrl
+    avatar_url:avatarUrl(size:150)
     
     created_at:createdAt
     updated_at:updatedAt
@@ -1228,7 +1228,7 @@ query repoInfo($login:String!,$name:String!){
       node_id:id
       login
       html_url:url
-      avatarUrl
+      avatarUrl(size:150)
     }
     
     parent{
@@ -1246,3 +1246,9 @@ query repoInfo($login:String!,$name:String!){
   }
 }
 
+# user avatar
+query avatar($login:String!){
+  user(login:$login){
+    avatarUrl(size:150)
+  }
+}

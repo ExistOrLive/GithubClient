@@ -15,8 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 // repos: stars forks updated
 // users: followers joined repositories
 // orgs:  repositories joined
-// issues: created commented updated
-// prs: created commented updated
+// issues: created comments updated
+// prs: created comments updated
 @property(nonatomic,strong,nullable) NSString * order;
 @property(nonatomic,assign,getter=isAsc) BOOL asc;
 @property(nonatomic,strong,nullable) NSString * language;

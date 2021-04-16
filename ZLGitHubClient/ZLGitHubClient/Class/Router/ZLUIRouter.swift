@@ -186,7 +186,12 @@ extension ZLUIRouter{
             if "issues" == login ||
                 "pulls" == login ||
                 "marketplace" == login ||
-                "explore" == login {
+                "explore" == login ||
+                "topics" == login ||
+                "trending" == login ||
+                "collections" == login ||
+                "events" == login ||
+                "sponsors" == login{
                 return false
             }
             
@@ -221,7 +226,12 @@ extension ZLUIRouter{
             if "issues" == login ||
                 "pulls" == login ||
                 "marketplace" == login ||
-                "explore" == login {
+                "explore" == login ||
+                "topics" == login ||
+                "trending" == login ||
+                "collections" == login ||
+                "events" == login ||
+                "sponsors" == login{
                 self.navigateVC(key: WebContentController, params: ["requestURL":url], animated: animated)
                 return
             }

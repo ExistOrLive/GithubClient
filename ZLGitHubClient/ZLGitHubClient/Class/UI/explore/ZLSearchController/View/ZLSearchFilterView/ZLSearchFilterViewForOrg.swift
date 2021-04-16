@@ -1,23 +1,20 @@
 //
-//  ZLSearchFilterViewForUser.swift
+//  ZLSearchFilterViewForOrg.swift
 //  ZLGitHubClient
 //
-//  Created by 朱猛 on 2019/10/27.
-//  Copyright © 2019 ZM. All rights reserved.
+//  Created by 朱猛 on 2021/4/16.
+//  Copyright © 2021 ZM. All rights reserved.
 //
 
 import UIKit
 
+class ZLSearchFilterViewForOrg: UIView {
 
-
-class ZLSearchFilterViewForUser: UIView {
-    
     static let minWidth : CGFloat = 300.0
     
     @IBOutlet private weak var orderLabel: UILabel!
     @IBOutlet private weak var languageLabel: UILabel!
     @IBOutlet private weak var createTimeLabel: UILabel!
-    @IBOutlet private weak var followerLabel: UILabel!
     @IBOutlet private weak var pubReposLabel: UILabel!
     
     @IBOutlet weak var orderButton: UIButton!
@@ -26,8 +23,6 @@ class ZLSearchFilterViewForUser: UIView {
     
     @IBOutlet weak var firstTimeFileld: UITextField!
     @IBOutlet weak var secondTimeField: UITextField!
-    @IBOutlet weak var firstFollowerNumField: UITextField!
-    @IBOutlet weak var secondFollowerNumField: UITextField!
     @IBOutlet weak var firstPubRepoNumField: UITextField!
     @IBOutlet weak var secondPubRepoNumField: UITextField!
     
@@ -35,12 +30,12 @@ class ZLSearchFilterViewForUser: UIView {
     
     var resultBlock : ((ZLSearchFilterInfoModel) -> Void)?
     
-    static func showSearchFilterViewForUser(filterInfo:ZLSearchFilterInfoModel?, resultBlock:((ZLSearchFilterInfoModel) -> Void)?){
-        guard  let view : ZLSearchFilterViewForUser = Bundle.main.loadNibNamed("ZLSearchFilterViewForUser", owner: nil, options: nil)?.first as? ZLSearchFilterViewForUser else {
+    static func showSearchFilterViewForOrg(filterInfo:ZLSearchFilterInfoModel?, resultBlock:((ZLSearchFilterInfoModel) -> Void)?){
+        guard  let view : ZLSearchFilterViewForOrg = Bundle.main.loadNibNamed("ZLSearchFilterViewForOrg", owner: nil, options: nil)?.first as? ZLSearchFilterViewForOrg else {
             return
         }
-        view.frame = CGRect.init(x: 0, y: 0, width: ZLSearchFilterViewForUser.minWidth, height: ZLSCreenHeight)
-        view.setViewDataForSearchFilterViewForUser(searchFilterModel: filterInfo)
+        view.frame = CGRect.init(x: 0, y: 0, width: ZLSearchFilterViewForOrg.minWidth, height: ZLSCreenHeight)
+        view.setViewDataForSearchFilterViewForOrg(searchFilterModel: filterInfo)
         view.resultBlock = resultBlock
         
         let popup = FFPopup(contetnView: view, showType: .slideInFromRight, dismissType: .slideOutToRight, maskType: FFPopup.MaskType.dimmed, dismissOnBackgroundTouch: true, dismissOnContentTouch: false)
@@ -56,14 +51,11 @@ class ZLSearchFilterViewForUser: UIView {
         self.orderLabel.text = ZLLocalizedString(string: "Order", comment: "排序")
         self.languageLabel.text = ZLLocalizedString(string: "Language", comment: "语言")
         self.createTimeLabel.text = ZLLocalizedString(string: "CreateTime", comment: "创建于")
-        self.followerLabel.text = ZLLocalizedString(string: "FollowersNum", comment: "粉丝")
         self.pubReposLabel.text = ZLLocalizedString(string: "PubReposNum", comment: "公共仓库")
         self.finishButton.setTitle(ZLLocalizedString(string: "FilterFinish", comment: ""), for: .normal)
         
         self.firstTimeFileld.delegate = self;
         self.secondTimeField.delegate = self;
-        self.firstFollowerNumField.delegate = self;
-        self.secondFollowerNumField.delegate = self;
         self.firstPubRepoNumField.delegate = self;
         self.secondPubRepoNumField.delegate = self;
         
@@ -74,7 +66,7 @@ class ZLSearchFilterViewForUser: UIView {
     }
     
     @IBAction func onOrderButtonClicked(_ sender: UIButton) {
-        ZLSearchFilterPickerView.showUserOrderPickerView(initTitle:sender.titleLabel?.text, resultBlock: {(result: String) in
+        ZLSearchFilterPickerView.showOrgOrderPickerView(initTitle:sender.titleLabel?.text, resultBlock: {(result: String) in
             sender.setTitle(result, for: .normal)
         })
     }
@@ -91,18 +83,14 @@ class ZLSearchFilterViewForUser: UIView {
         self.endEditing(true)
     }
     
-    func setViewDataForSearchFilterViewForUser(searchFilterModel:ZLSearchFilterInfoModel?)
+    func setViewDataForSearchFilterViewForOrg(searchFilterModel:ZLSearchFilterInfoModel?)
     {
         if searchFilterModel == nil {
             return
         }
         
         if searchFilterModel?.order != nil {
-            if searchFilterModel?.order == "followers" && searchFilterModel?.isAsc == false {
-                self.orderButton.setTitle("Most followers", for: .normal)
-            } else if searchFilterModel?.order == "followers" && searchFilterModel?.isAsc == true {
-                self.orderButton.setTitle("Fewest followers", for: .normal)
-            } else if searchFilterModel?.order == "joined" && searchFilterModel?.isAsc == false {
+            if searchFilterModel?.order == "joined" && searchFilterModel?.isAsc == false {
                 self.orderButton.setTitle("Most recently joined", for: .normal)
             } else if searchFilterModel?.order == "joined" && searchFilterModel?.isAsc == true  {
                 self.orderButton.setTitle("Least recently joined", for: .normal)
@@ -118,8 +106,6 @@ class ZLSearchFilterViewForUser: UIView {
         
         self.firstTimeFileld.text = searchFilterModel?.firstCreatedTimeStr
         self.secondTimeField.text = searchFilterModel?.secondCreatedTimeStr
-        self.firstFollowerNumField.text = searchFilterModel!.firstFollowersNum == 0 ? nil : String(searchFilterModel!.firstFollowersNum)
-        self.secondFollowerNumField.text = searchFilterModel!.secondFollowersNum == 0 ? nil : String(searchFilterModel!.secondFollowersNum)
         self.firstPubRepoNumField.text = searchFilterModel!.firstPubReposNum == 0 ? nil : String(searchFilterModel!.firstPubReposNum)
         self.secondPubRepoNumField.text = searchFilterModel!.secondPubReposNum == 0 ? nil :  String(searchFilterModel!.secondPubReposNum)
     }
@@ -130,14 +116,6 @@ class ZLSearchFilterViewForUser: UIView {
         let searchFilterModel = ZLSearchFilterInfoModel()
         let str = self.orderButton.title(for: .normal) ?? ""
         switch(str){
-        case "Most followers":do{
-            searchFilterModel.isAsc = false
-            searchFilterModel.order = "followers"
-        }
-        case "Fewest followers":do{
-            searchFilterModel.isAsc = true
-            searchFilterModel.order = "followers"
-        }
         case "Most recently joined":do{
             searchFilterModel.isAsc = false
             searchFilterModel.order = "joined"
@@ -161,8 +139,6 @@ class ZLSearchFilterViewForUser: UIView {
         searchFilterModel.language = self.languageButton.title(for: .normal) ?? ""
         searchFilterModel.firstCreatedTimeStr = self.firstTimeFileld.text ?? ""
         searchFilterModel.secondCreatedTimeStr = self.secondTimeField.text ?? ""
-        searchFilterModel.firstFollowersNum = UInt(self.firstFollowerNumField.text ?? "0") ?? 0
-        searchFilterModel.secondFollowersNum = UInt(self.secondFollowerNumField.text ?? "0") ?? 0
         searchFilterModel.firstPubReposNum = UInt(self.firstPubRepoNumField.text ?? "0") ?? 0
         searchFilterModel.secondPubReposNum = UInt(self.secondPubRepoNumField.text ?? "0") ?? 0
         
@@ -177,7 +153,7 @@ class ZLSearchFilterViewForUser: UIView {
 }
 
 
-extension ZLSearchFilterViewForUser: UITextFieldDelegate
+extension ZLSearchFilterViewForOrg: UITextFieldDelegate
 {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool{
         

@@ -63,14 +63,35 @@
     [[ZLGithubHttpClient defaultClient] getUserInfo:response
                                           loginName:loginName
                                        serialNumber:serailNumber];
-    
-//    [[ZLGithubHttpClient defaultClient] getUserOrOrgInfoWithLogin:loginName
-//                                                     serialNumber:serailNumber
-//                                                            block:response];
-    
+        
     return [ZLDBMODULE getUserOrOrgInfoWithLoginName:loginName];
 }
 
+
+
+/**
+ * @brief 根据登陆名获取用户或者组织avatar
+ * @param loginName 登陆名
+ **/
+
+- (void) getUserAvatarWithLoginName:(NSString * _Nonnull) loginName
+                       serialNumber:(NSString * _Nonnull) serailNumber
+                     completeHandle:(void(^ _Nonnull)(ZLOperationResultModel *  _Nonnull)) handle{
+    
+    GithubResponse response = ^(BOOL result,id responseObject,NSString * serialNumber){
+        ZLOperationResultModel * userResultModel = [[ZLOperationResultModel alloc] init];
+        userResultModel.result = result;
+        userResultModel.serialNumber = serialNumber;
+        userResultModel.data = responseObject;
+        
+        ZLMainThreadDispatch(if(handle){handle(userResultModel);})
+    };
+    
+    [[ZLGithubHttpClient defaultClient] getUserAvatarWithLogin:loginName
+                                                  serialNumber:serailNumber
+                                                         block:response];
+        
+}
 
 
 #pragma mark - follow

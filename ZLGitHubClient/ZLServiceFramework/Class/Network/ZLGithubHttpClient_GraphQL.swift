@@ -125,6 +125,7 @@ public extension ZLGithubHttpClient{
                         errorModel.message = error.localizedDescription
                     }
                     resultData = errorModel
+                    analytics.log(.URLFailed(url: query.operationName, error: errorModel.message))
                 }
             }
                 break
@@ -133,6 +134,7 @@ public extension ZLGithubHttpClient{
                 let errorModel = ZLGithubRequestErrorModel()
                 errorModel.message = error.localizedDescription
                 resultData = errorModel
+                analytics.log(.URLFailed(url: query.operationName, error: errorModel.message))
             }
                 break
             }
@@ -345,6 +347,20 @@ public extension ZLGithubHttpClient{
                 block(result,data,serialNumber)
             }
            
+        }
+    }
+    
+    @objc func getUserAvatar(login: String,
+                             serialNumber: String,
+                             block: @escaping GithubResponseSwift){
+        let query = AvatarQuery(login: login)
+        self.baseQuery(query: query, serialNumber: serialNumber) { (result, data, serialNumber) in
+            if let queryData = data as? UserOrOrgInfoQuery.Data{
+                block(result,queryData.user?.avatarUrl,serialNumber)
+            } else {
+                block(result,data,serialNumber)
+            }
+            
         }
     }
     

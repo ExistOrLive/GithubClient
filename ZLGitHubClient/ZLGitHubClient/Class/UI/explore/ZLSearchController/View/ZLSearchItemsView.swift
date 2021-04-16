@@ -52,11 +52,11 @@ class ZLSearchItemsView: ZLBaseView {
             case .organizations:do{
                 titles.append(ZLLocalizedString(string: "organizations", comment: ""))
             }
-            case .pullRequests:do{
-                titles.append(ZLLocalizedString(string: "pull requests", comment: ""))
-                }
             case .issues:do{
                 titles.append(ZLLocalizedString(string: "issues", comment: ""))
+                }
+            case .pullRequests:do{
+                titles.append(ZLLocalizedString(string: "pull requests", comment: ""))
                 }
             @unknown default:
                 break

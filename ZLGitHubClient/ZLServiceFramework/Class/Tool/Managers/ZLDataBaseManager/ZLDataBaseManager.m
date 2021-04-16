@@ -598,6 +598,7 @@
     if(!result)
     {
         ZLLog_Error(@"ZLDataBase: dbUpdate Error sql=%@ error=%@ errorMessage=%@",sql,db.lastError,db.lastErrorMessage);
+        [ZLAppEventForOC dbActionFailedWithSql:sql error:db.lastErrorMessage];
     }
     
     return result;
@@ -617,6 +618,7 @@
     if(!result)
     {
         ZLLog_Error(@"ZLDataBase: dbUpdate Error sql=%@ error=%@ errorMessage=%@",sql,db.lastError,db.lastErrorMessage);
+        [ZLAppEventForOC dbActionFailedWithSql:sql error:db.lastErrorMessage];
     }
     
     return result;
@@ -631,6 +633,7 @@
     if(!resultSet)
     {
         ZLLog_Error(@"ZLDataBase: dbQuery Error sql=%@ error=%@ errorMessage=%@",sql,db.lastError,db.lastErrorMessage);
+        [ZLAppEventForOC dbActionFailedWithSql:sql error:db.lastErrorMessage];
     }
     
     return resultSet;
@@ -650,6 +653,7 @@
     if(!resultSet)
     {
         ZLLog_Error(@"ZLDataBase: dbQuery Error sql=%@ error=%@ errorMessage=%@",sql,db.lastError,db.lastErrorMessage);
+        [ZLAppEventForOC dbActionFailedWithSql:sql error:db.lastErrorMessage];
     }
     
     return resultSet;

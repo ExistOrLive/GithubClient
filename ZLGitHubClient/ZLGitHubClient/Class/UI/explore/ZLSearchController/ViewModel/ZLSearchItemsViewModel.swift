@@ -8,24 +8,6 @@
 
 import UIKit
 
-class ZLSearchTypeAttachInfo: NSObject
-{
-    var searchFilterInfo : ZLSearchFilterInfoModel? = nil               // 默认为空
-    var currentPage: Int = 0                                            // 默认为0
-    var itemsInfo : [Any]?                                              // 搜索的结果
-    var isEnd : Bool  = false                                           // 是否全部搜索完毕
-    
-    var contentOffset : CGPoint = CGPoint(x:0,y:0)            // tableView的contentSize
-    
-}
-
-enum  ZLSearchItemsViewEventType
-{
-    case userFilterResult
-    case repoFilterResult
-}
-
-
 class ZLSearchItemsViewModel: ZLBaseViewModel {
     
    
@@ -62,9 +44,6 @@ class ZLSearchItemsViewModel: ZLBaseViewModel {
     
     
     func startSearch(keyWord:String?){
-        if let key = keyWord {
-            analytics.log(.SearchItem(key:key))
-        }
         for githubItemListViewModel in self.searchGithubItemListViewModelArray {
             githubItemListViewModel.searchWithKeyStr(searchKey: keyWord)
         }
@@ -110,12 +89,34 @@ extension ZLSearchItemsViewModel: ZLSearchItemsViewDelegate
             }
         case .issues:do{
             
+            ZLSearchFilterViewForIssue.showSearchFilterViewForIssue(filterInfo: self.searchFilterInfoDic[.issues], resultBlock: {(searchFilterInfo : ZLSearchFilterInfoModel) in
+                self.searchFilterInfoDic[.issues] = searchFilterInfo
+                let index = ZLSearchItemsView.ZLSearchItemsTypes.firstIndex(of: .issues)
+                if index != nil {
+                    self.searchGithubItemListViewModelArray[index!].searchWithFilerInfo(searchFilterInfo: searchFilterInfo)
+                }
+            })
+            
         }
         case .pullRequests:do{
             
+            ZLSearchFilterViewForPR.showSearchFilterViewForPR(filterInfo: self.searchFilterInfoDic[.pullRequests], resultBlock: {(searchFilterInfo : ZLSearchFilterInfoModel) in
+                self.searchFilterInfoDic[.pullRequests] = searchFilterInfo
+                let index = ZLSearchItemsView.ZLSearchItemsTypes.firstIndex(of: .pullRequests)
+                if index != nil {
+                    self.searchGithubItemListViewModelArray[index!].searchWithFilerInfo(searchFilterInfo: searchFilterInfo)
+                }
+            })
+            
         }
         case .organizations:do{
-            
+            ZLSearchFilterViewForOrg.showSearchFilterViewForOrg(filterInfo: self.searchFilterInfoDic[.organizations], resultBlock: {(searchFilterInfo : ZLSearchFilterInfoModel) in
+                self.searchFilterInfoDic[.organizations] = searchFilterInfo
+                let index = ZLSearchItemsView.ZLSearchItemsTypes.firstIndex(of: .organizations)
+                if index != nil {
+                    self.searchGithubItemListViewModelArray[index!].searchWithFilerInfo(searchFilterInfo: searchFilterInfo)
+                }
+            })
         }
         @unknown default:do {
         }

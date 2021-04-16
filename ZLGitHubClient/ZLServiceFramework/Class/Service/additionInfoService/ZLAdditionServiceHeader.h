@@ -10,13 +10,6 @@
 #define ZLAdditionServiceHeader_h
 
 #import "ZLBaseServiceModel.h"
-#import "ZLGithubPullRequestModel.h"
-
-#pragma mark - Enum
-
-
-
-
 
 #pragma mark - NotificationName
 
@@ -28,6 +21,8 @@ static const NSNotificationName _Nonnull ZLGithubConfigUpdate_Notification = @"Z
 
 @property(nonatomic,readonly,strong) ZLGithubConfigModel* _Nullable config;
 
+@property(nonatomic,readonly,strong) NSArray<NSString *>* _Nullable githubLanguageList;
+
 
 
 
@@ -36,8 +31,8 @@ static const NSNotificationName _Nonnull ZLGithubConfigUpdate_Notification = @"Z
  * @brief 获取language列表
  *
  **/
-- (void) getLanguagesWithSerialNumber:(NSString * _Nonnull) serialNumber
-                       completeHandle:(void(^_Nonnull)(ZLOperationResultModel * _Nonnull)) handle;
+- (NSArray<NSString *> * _Nullable) getLanguagesWithSerialNumber:(NSString * _Nonnull) serialNumber
+                                                  completeHandle:(void(^_Nonnull)(ZLOperationResultModel * _Nonnull)) handle;
 
 
 

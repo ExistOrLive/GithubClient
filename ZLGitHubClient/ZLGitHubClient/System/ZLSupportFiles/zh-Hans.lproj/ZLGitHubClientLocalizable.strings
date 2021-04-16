@@ -179,6 +179,7 @@
 "ForkNum" = "拷贝";
 "FollowersNum" = "粉丝数";
 "PubReposNum" = "仓库数";
+"State" = "状态";
 
 "SearchRecord" = "搜索记录";
 "ClearSearchRecord" = "清空记录";

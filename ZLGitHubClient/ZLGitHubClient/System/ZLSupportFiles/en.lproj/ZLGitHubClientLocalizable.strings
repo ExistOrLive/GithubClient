@@ -178,6 +178,7 @@
 "ForkNum" = "Fork";
 "FollowersNum" = "Followers";
 "PubReposNum" = "Pub Repos";
+"State" = "State";
 
 "SearchRecord" = "Record";
 "ClearSearchRecord" = "Clear";

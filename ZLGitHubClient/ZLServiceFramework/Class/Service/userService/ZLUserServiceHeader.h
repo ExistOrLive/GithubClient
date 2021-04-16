@@ -44,6 +44,17 @@ static const NSNotificationName _Nonnull ZLUpdateUserPublicProfileInfoResult_Not
                                                 completeHandle:(void(^ _Nonnull)(ZLOperationResultModel *  _Nonnull)) handle;
 
 
+
+/**
+ * @brief 根据登陆名获取用户或者组织avatar
+ * @param loginName 登陆名
+ **/
+
+- (void) getUserAvatarWithLoginName:(NSString * _Nonnull) loginName
+                       serialNumber:(NSString * _Nonnull) serailNumber
+                     completeHandle:(void(^ _Nonnull)(ZLOperationResultModel *  _Nonnull)) handle;
+
+
 #pragma mark - user additions info
 
 - (void) getAdditionInfoForUser:(NSString * _Nonnull) userLoginName

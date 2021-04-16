@@ -17,6 +17,7 @@
 
 #define ZLAccessTokenKey @"ZLAccessTokenKey"
 #define ZLGithubConfigKey @"ZLGithubConfigKey"
+#define ZLGithubLanguageKey @"ZLGithubLanguagueKey"
 #define ZLCurrentUserInterfaceStyleKey @"ZLCurrentUserInterfaceStyleKey"
 
 @interface ZLSharedDataManager()
@@ -32,6 +33,7 @@
 @synthesize githubAccessToken = _githubAccessToken;
 @synthesize configModel = _configModel;
 @dynamic deviceId;
+@dynamic githubLanguageList;
 
 + (instancetype) sharedInstance{
     static ZLSharedDataManager * manager = nil;
@@ -108,6 +110,19 @@
 
 
 #pragma mark - 与用户无关的配置
+
+#pragma mark  langugaue
+
+- (NSArray<NSString *> *) githubLanguageList {
+    id array = [[NSUserDefaults standardUserDefaults] objectForKey:ZLGithubLanguageKey];
+    return array;
+}
+
+- (void)setGithubLanguageList:(NSArray<NSString *> *)githubLanguageList{
+    [[NSUserDefaults standardUserDefaults] setObject:githubLanguageList forKey:ZLGithubLanguageKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 
 #pragma mark deviceId
 

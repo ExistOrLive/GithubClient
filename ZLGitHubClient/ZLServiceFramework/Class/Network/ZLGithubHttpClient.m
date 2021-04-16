@@ -139,7 +139,7 @@
                  WithResponseBlock:(GithubResponse) block
                   WithSerialNumber:(NSString *) serialNumber{
     
-    [ZLAppEventForOC urlUserWithUrl:URL];
+    [ZLAppEventForOC urlUseWithUrl:URL];
     
     ZLLog_Info(@"Http Request(method[%@] url[%@] params[%@] serialNumber[%@])",method,URL,params,serialNumber);
     
@@ -153,6 +153,9 @@
     void(^failedBlock)(NSURLSessionDataTask * _Nonnull task, NSError *  _Nonnull error) =
     ^(NSURLSessionDataTask * _Nonnull task, NSError *  _Nonnull error)
     {
+        [ZLAppEventForOC urlFailedWithUrl:URL
+                                    error:[[NSString alloc] initWithFormat:@"statusCode[%ld] message[%@]",(long)((NSHTTPURLResponse *)task.response).statusCode, error.localizedDescription]];
+        
         ZLGithubRequestErrorModel * model = [[ZLGithubRequestErrorModel alloc] init];
         model.statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
         model.message = error.localizedDescription;
@@ -221,7 +224,8 @@
     
     // 通知github返回的数据是json格式 requestSerializer
     sessionManager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [sessionManager.requestSerializer setValue:@"application/vnd.github.v3+json" forHTTPHeaderField:@"Accept"];
+    sessionManager.requestSerializer.timeoutInterval = 30;
+    [sessionManager.requestSerializer setValue:MediaTypeJson forHTTPHeaderField:@"Accept"];
     
     // responseSerializer
     sessionManager.responseSerializer = [AFJSONResponseSerializer serializer];
@@ -242,6 +246,7 @@
     NSString * urlStr = [NSString stringWithFormat:@"%@?client_id=%@&scope=%@&state=%@",OAuthAuthorizeURL,MyClientID,OAuthScope,OAuthState];
     
     AFHTTPSessionManager *sessionManager =  [self getDefaultSessionManager];
+    sessionManager.requestSerializer.timeoutInterval = 30;
     
     __weak typeof(self) weakSelf = self;
     [sessionManager setTaskWillPerformHTTPRedirectionBlock:^NSURLRequest * _Nullable(NSURLSession * _Nonnull session, NSURLSessionTask * _Nonnull task, NSURLResponse * _Nonnull response, NSURLRequest * _Nonnull request) {
@@ -294,6 +299,8 @@
             processModel.result = false;
             processModel.loginStep = ZLLoginStep_checkIsLogined;
             processModel.serialNumber = serialNumber;
+            ZLGithubRequestErrorModel *errorModel = [ZLGithubRequestErrorModel errorModelWithStatusCode:response.statusCode message:error.localizedDescription documentation_url:nil];
+            processModel.errorModel = errorModel;
             block(NO,processModel,serialNumber);
         }
         
@@ -361,6 +368,9 @@
         processModel.result = false;
         processModel.loginStep = ZLLoginStep_getToken;
         processModel.serialNumber = serialNumber;
+        NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+        ZLGithubRequestErrorModel *errorModel = [ZLGithubRequestErrorModel errorModelWithStatusCode:response.statusCode message:error.localizedDescription documentation_url:nil];
+        processModel.errorModel = errorModel;
         block(NO,processModel,serialNumber);
     };
     
@@ -404,6 +414,9 @@
         processModel.result = false;
         processModel.loginStep = ZLLoginStep_init;
         processModel.serialNumber = serialNumber;
+        NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+        ZLGithubRequestErrorModel *errorModel = [ZLGithubRequestErrorModel errorModelWithStatusCode:response.statusCode message:error.localizedDescription documentation_url:nil];
+        processModel.errorModel = errorModel;
         block(NO,processModel,serialNumber);
     };
     
@@ -603,30 +616,23 @@
             [params setObject:bio forKey:@"bio"];
     }
     
-    
-    void(^successBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
-    ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
-    {
-        ZLGithubUserModel * model = [ZLGithubUserModel mj_objectWithKeyValues:(NSDictionary *) responseObject];
-        block(YES,model,serialNumber);
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
+        
+        if(result)
+        {
+            responseObject = [ZLGithubUserModel mj_objectWithKeyValues:(NSDictionary *) responseObject];
+        }
+        block(result,responseObject,serialNumber);
     };
     
-    void(^failedBlock)(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) =
-    ^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error)
-    {
-        block(NO,nil,serialNumber);
-    };
-    
-    AFHTTPSessionManager *sessionManager = [self getDefaultSessionManager];
-    [sessionManager.requestSerializer setValue:[NSString stringWithFormat:@"token %@",self.token] forHTTPHeaderField:@"Authorization"];
     
     
-    
-    [sessionManager PATCH:userUrl
-               parameters:params
-                   headers:nil
-                  success:successBlock
-                  failure:failedBlock];
+    [self requestWithMethod:@"PATCH"
+                    WithURL:userUrl
+                WithHeaders:nil
+                 WithParams:params
+          WithResponseBlock:newBlock
+           WithSerialNumber:serialNumber];
 }
 
 
@@ -640,23 +646,15 @@
                         loginName: (NSString * _Nonnull) loginName
                      serialNumber: (NSString * _Nonnull) serialNumber{
     
+    loginName = [loginName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     NSString *contributionsUrl = [NSString stringWithFormat:@"https://github.com/users/%@/contributions",loginName];
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         
-        NSError *error = nil;
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
         
-        bool result = false;
-        id data = nil;
-        
-        NSString *html = [NSString stringWithContentsOfURL:[NSURL URLWithString:contributionsUrl] encoding:NSUTF8StringEncoding error:&error];
-        
-        if(error) {
-            result = false;
-            ZLGithubRequestErrorModel *errorModel =  [ZLGithubRequestErrorModel new];
-            errorModel.message = error.localizedDescription;
-            data = errorModel;
-        } else {
+        if(result) {
+            
+            NSString *html = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+            
             OCGumboDocument *doc = [[OCGumboDocument alloc] initWithHTMLString:html];
             OCQueryObject *queryResult = doc.Query(@".ContributionCalendar-day");
             
@@ -671,14 +669,26 @@
                     [contributionsArray addObject:data];
                 }
             }
-            result = true;
-            data = contributionsArray;
+            responseObject = contributionsArray;
         }
-        
-        dispatch_async(self.completeQueue, ^{
-            block(result,data,serialNumber);
-        });
-    });
+        block(result,responseObject,serialNumber);
+    };
+    
+    
+    AFHTTPSessionManager *sessionManager =  [[AFHTTPSessionManager alloc] initWithSessionConfiguration:_httpConfig];
+    sessionManager.completionQueue = _completeQueue;
+    sessionManager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    sessionManager.requestSerializer.timeoutInterval = 30;
+    sessionManager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    sessionManager.responseSerializer.acceptableContentTypes = [[NSSet alloc] initWithArray:@[@"application/html",@"text/html"]];
+    
+    [self requestWithSessionManager:sessionManager
+                         withMethod:@"GET"
+                            withURL:contributionsUrl
+                         WithParams:nil
+                  WithResponseBlock:newBlock
+                   WithSerialNumber:serialNumber];
+    
 }
 
 
@@ -2196,22 +2206,13 @@
         default:
             break;
     }
-
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-
-        NSError *error = nil;
-        NSString *html = [NSString stringWithContentsOfURL:[NSURL URLWithString:url]
-                                                  encoding:NSUTF8StringEncoding
-                                                     error:&error];
-        bool result = false;
-        id data = nil;
+    
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
         
-        if(error) {
-            result = false;
-            ZLGithubRequestErrorModel *model = [[ZLGithubRequestErrorModel alloc] init];
-            model.message = error.localizedDescription;
-            data = model;
-        } else {
+        if(result) {
+            
+            NSString *html = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+            
             OCGumboDocument *doc = [[OCGumboDocument alloc] initWithHTMLString:html];
             NSMutableArray * userArray = [NSMutableArray new];
 
@@ -2240,14 +2241,25 @@
                     }
                 }
             }
-            data = userArray;
-            result = true;
+            responseObject = userArray;
         }
-
-        dispatch_async(self.completeQueue, ^{
-            block(result,data,serialNumber);
-        });
-    });
+        block(result,responseObject,serialNumber);
+    };
+    
+    
+    AFHTTPSessionManager *sessionManager =  [[AFHTTPSessionManager alloc] initWithSessionConfiguration:_httpConfig];
+    sessionManager.completionQueue = _completeQueue;
+    sessionManager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    sessionManager.requestSerializer.timeoutInterval = 30;
+    sessionManager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    sessionManager.responseSerializer.acceptableContentTypes = [[NSSet alloc] initWithArray:@[@"application/html",@"text/html"]];
+    
+    [self requestWithSessionManager:sessionManager
+                         withMethod:@"GET"
+                            withURL:url
+                         WithParams:nil
+                  WithResponseBlock:newBlock
+                   WithSerialNumber:serialNumber];
 }
 
 
@@ -2276,24 +2288,15 @@
             break;
     }
 
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-
-        NSError *error = nil;
-        NSString *html = [NSString stringWithContentsOfURL:[NSURL URLWithString:url]
-                                                  encoding:NSUTF8StringEncoding
-                                                     error:&error];
-        bool result = false;
-        id data = nil;
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
         
-        if(error) {
-            result = false;
-            ZLGithubRequestErrorModel *model = [[ZLGithubRequestErrorModel alloc] init];
-            model.message = error.localizedDescription;
-            data = model;
-        } else {
+        if(result) {
+            
+            NSString *html = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+            
             OCGumboDocument *doc = [[OCGumboDocument alloc] initWithHTMLString:html];
             NSMutableArray * repoArray = [NSMutableArray new];
-
+            
             NSArray *articles = doc.Query(@"article");
             for(OCGumboElement *article in articles){
                 OCGumboElement *h1 =  article.Query(@"h1").firstObject;
@@ -2343,15 +2346,26 @@
                     [repoArray addObject:model];
                 }
             }
-            data = repoArray;
-            result = true;
-            
+            responseObject = repoArray;
         }
-
-        dispatch_async(self.completeQueue, ^{
-            block(result,data,serialNumber);
-        });
-    });
+        block(result,responseObject,serialNumber);
+    };
+    
+    
+    AFHTTPSessionManager *sessionManager =  [[AFHTTPSessionManager alloc] initWithSessionConfiguration:_httpConfig];
+    sessionManager.completionQueue = _completeQueue;
+    sessionManager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    sessionManager.requestSerializer.timeoutInterval = 30;
+    sessionManager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    sessionManager.responseSerializer.acceptableContentTypes = [[NSSet alloc] initWithArray:@[@"application/html",@"text/html"]];
+    
+    [self requestWithSessionManager:sessionManager
+                         withMethod:@"GET"
+                            withURL:url
+                         WithParams:nil
+                  WithResponseBlock:newBlock
+                   WithSerialNumber:serialNumber];
+    
 }
 
 @end
