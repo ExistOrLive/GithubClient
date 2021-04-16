@@ -253,14 +253,14 @@ extension ZLUIRouter{
                 
                 self.navigateVC(key: PRInfoController, params:  ["login":pathComponents[1],
                                                                  "repoName":pathComponents[2],
-                                                                 "number":Int(pathComponents[3]) ?? 0],animated: animated)
+                                                                 "number":Int(pathComponents[4]) ?? 0],animated: animated)
                 return
                 
             }  else if pathComponents.count == 5 && pathComponents[3] == "issues" {
                 
                 self.navigateVC(key: IssueInfoController, params:  ["login":pathComponents[1],
                                                                     "repoName":pathComponents[2],
-                                                                    "number":Int(pathComponents[3]) ?? 0],animated: animated)
+                                                                    "number":Int(pathComponents[4]) ?? 0],animated: animated)
                 return
                 
             }
