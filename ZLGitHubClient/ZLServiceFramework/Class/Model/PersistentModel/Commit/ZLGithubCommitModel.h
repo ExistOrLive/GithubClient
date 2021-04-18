@@ -151,9 +151,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, assign) BOOL commit_verification_verified;
 
-@property(nonatomic, strong) ZLGithubUserBriefModel * author;               // 所有者
+@property(nonatomic, strong, nullable) ZLGithubUserBriefModel * author;               // 所有者
  
-@property(nonatomic, strong) ZLGithubUserBriefModel * committer;            // 提交者
+@property(nonatomic, strong, nullable) ZLGithubUserBriefModel * committer;            // 提交者
 
 @property(nonatomic, strong) NSArray<ZLGithubFileModel *> * files;          // 修改的文件
 

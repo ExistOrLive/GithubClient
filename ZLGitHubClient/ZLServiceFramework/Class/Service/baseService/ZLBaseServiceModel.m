@@ -7,6 +7,9 @@
 //
 
 #import "ZLBaseServiceModel.h"
+
+
+
 @interface ZLBaseServiceModel()
 
 @property(strong, nonatomic) NSNotificationCenter * notificationCenter;
@@ -44,12 +47,53 @@
     [self.notificationCenter postNotificationName:notificationName object:self userInfo:userInfo];
 }
 
-- (void) dealloc
-{
+- (void) dealloc{
     self.notificationCenter = nil;
 }
 
 @end
+
+
+static void* const GlobaleServiceOperationQueueIdentityKey = (void *)&GlobaleServiceOperationQueueIdentityKey;
+
+@implementation ZLBaseServiceModel(OperationQueue)
+
++ (dispatch_queue_t) serviceOperationQueue{
+    
+    static dispatch_once_t onceToken;
+    static dispatch_queue_t _serviceOperationQueue;
+    dispatch_once(&onceToken, ^{
+        _serviceOperationQueue = dispatch_queue_create("ZLBaseService Operation Queue", DISPATCH_QUEUE_SERIAL);
+        dispatch_queue_set_specific(_serviceOperationQueue, "GlobaleServiceOperationQueueIdentityKey", GlobaleServiceOperationQueueIdentityKey, NULL);
+    });
+    
+    return _serviceOperationQueue;
+}
+
++ (void) dispatchAsyncInOperationQueue:(void(^)(void)) asyncBlock{
+    
+    if(asyncBlock == nil) {
+        return;
+    }
+    
+    dispatch_async([self serviceOperationQueue], asyncBlock);
+}
+
++ (void) dispatchSyncInOperationQueue:(void(^)(void)) syncBlock{
+    
+    if(syncBlock == nil) {
+        return;
+    }
+    
+    if(dispatch_get_specific("GlobaleServiceOperationQueueIdentityKey")) {
+        syncBlock();
+    } else {
+        dispatch_sync([self serviceOperationQueue], syncBlock);
+    }
+}
+
+@end
+
 
 
 @implementation NSNotification(ZLBaseServiceModel)

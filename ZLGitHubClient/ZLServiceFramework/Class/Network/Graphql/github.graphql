@@ -39,9 +39,10 @@ query viewerTopRepositories($after:String){
         description
         forkCount
         stargazerCount
+        isInOrganization
         owner{
           login
-          avatarUrl
+          avatarUrl(size:150)
         }
         primaryLanguage{
           name
@@ -51,6 +52,110 @@ query viewerTopRepositories($after:String){
     }
   }
 }
+
+
+# 搜索 issue 或者 pr
+query searchItem($after: String, $query: String!, $type: SearchType!) {
+  search(query: $query, first: 15, type: $type, after: $after) {
+    issueCount
+    pageInfo {
+      hasNextPage
+      endCursor
+      startCursor
+    }
+    nodes {
+      ... on Issue {
+        number
+        title
+        body
+        url
+        issueState: state
+        labels(first: 5, orderBy: {field: CREATED_AT, direction: DESC}) {
+          nodes {
+            color
+            name
+          }
+        }
+        author {
+          login
+          url
+          avatarUrl(size:150)
+        }
+        repository {
+          owner{
+            login
+            avatarUrl(size:150)
+          }
+          name
+          nameWithOwner
+          url
+        }
+        createdAt
+        updatedAt
+        closedAt
+      }
+      ... on PullRequest {
+        number
+        title
+        url
+        prState: state
+        author {
+          login
+          url
+          avatarUrl(size:150)
+        }
+        repository {
+          owner{
+            login
+            avatarUrl(size:150)
+          }
+          name
+          nameWithOwner
+          url
+        }
+        createdAt
+        updatedAt
+        closedAt
+        mergedAt
+      }
+      ... on User {
+        login
+        userName: name
+        avatarUrl(size:150)
+        bio
+        viewerIsFollowing
+        url
+      }
+      ... on Organization {
+        login
+        orgName: name
+        avatarUrl(size:150)
+        url
+        description
+      }
+      ... on Repository {
+        repoName: name
+        nameWithOwner
+        url
+        isInOrganization
+        owner {
+          login
+          url
+          avatarUrl(size:150)
+        }
+        description
+        stargazerCount
+        forkCount
+        primaryLanguage {
+          name
+          color
+        }
+        isPrivate
+      }
+    }
+  }
+}
+
 
 
 # 查询我的issues
@@ -97,8 +202,10 @@ query viewerOrgs{
       edges{
         node{
           login
-          avatarUrl
+          avatarUrl(size:150)
           location
+          name
+          description
         }
       }
     }
@@ -147,41 +254,129 @@ query WorkboardInfo{
 }
 
 # 查询某个issue
-query issueInfo($owner:String!,$name:String!,$number:Int!){
-  repository(owner:$owner,name:$name){
+query issueInfo($owner: String!, $name: String!, $number: Int!, $after: String) {
+  repository(owner: $owner, name: $name) {
     nameWithOwner
-    owner{
+    owner {
       login
-      avatarUrl
+      avatarUrl(size:150)
     }
-    
-    issue(number:$number){
+    issue(number: $number) {
       title
       number
-      
-      author{
+      author {
         login
-        avatarUrl
+        avatarUrl(size:150)
       }
-      
-      
       bodyText
       bodyHTML
       state
-      
       closed
       closedAt
       createdAt
-            
-      timelineItems(first:100){
-        totalCount,
-        nodes{
+      timelineItems(first: 10, after: $after) {
+        totalCount
+        pageInfo {
+          startCursor
+          endCursor
+          hasNextPage
+        }
+        nodes {
           __typename
-          ... on IssueComment{
+          ... on AddedToProjectEvent {
             id
-            author{
+            actor {
               login
-              avatarUrl
+              avatarUrl(size:150)
+            }
+            createdAt
+          }
+          ... on AssignedEvent {
+            id
+            actor {
+              login
+              avatarUrl(size:150)
+            }
+            assignee {
+              __typename
+              ... on User {
+                login
+              }
+              ... on Bot {
+                login
+              }
+              ... on Mannequin {
+                login
+              }
+              ... on Organization {
+                login
+              }
+            }
+          }
+          ... on ClosedEvent {
+            actor {
+              login
+            }
+          }
+          ... on CommentDeletedEvent {
+            actor {
+              login
+            }
+          }
+          ... on ConnectedEvent {
+            actor {
+              login
+            }
+          }
+          ... on ConvertedNoteToIssueEvent {
+            actor {
+              login
+            }
+          }
+          ... on CrossReferencedEvent {
+            actor {
+              login
+            }
+            target {
+              ... on Issue {
+                url
+                title
+                number
+                repository {
+                  owner {
+                    login
+                  }
+                  name
+                }
+              }
+              ... on PullRequest {
+                url
+                title
+                number
+                repository {
+                  owner {
+                    login
+                  }
+                  name
+                }
+              }
+            }
+          }
+          ... on DemilestonedEvent {
+            actor {
+              login
+            }
+          }
+          ... on DisconnectedEvent {
+            actor {
+              login
+            }
+          }
+          ... on IssueComment {
+            id
+            author {
+              login
+              avatarUrl(size:150)
             }
             bodyText
             bodyHTML
@@ -189,129 +384,871 @@ query issueInfo($owner:String!,$name:String!,$number:Int!){
             lastEditedAt
             publishedAt
           }
-          ... on AddedToProjectEvent{
-            id
-            actor{
+          ... on LabeledEvent {
+            actor {
               login
-              avatarUrl
             }
-            createdAt
-          }
-          ... on AssignedEvent{
-            id
-            actor{
-              login
-              avatarUrl
-            }
-            assignee{
-              __typename
-              ... on User{
-                login
-              }
-              ... on Bot{
-                login
-              }
-              ... on Mannequin{
-                login
-              }
-              ... on Organization{
-                login
-              }
+            label {
+              color
+              name
             }
           }
-          ... on ClosedEvent{
-            actor{
+          ... on LockedEvent {
+            actor {
               login
             }
           }
-          ... on ReopenedEvent{
-            actor{
+          ... on MarkedAsDuplicateEvent {
+            actor {
               login
             }
           }
-          ... on CommentDeletedEvent{
-            actor{
+          ... on MentionedEvent {
+            actor {
               login
             }
           }
-          ... on ConnectedEvent{
-            actor{
+          ... on MilestonedEvent {
+            actor {
               login
             }
-            source{
-              __typename
-              ... on PullRequest{
-                repository{
-                  nameWithOwner
-                }
-                number
-              }
-              ... on Issue{
-                repository{
-                  nameWithOwner
-                }
-                number
-              }
-            }
-            subject{
-              __typename
-              ... on PullRequest{
-                repository{
-                  nameWithOwner
-                }
-                number
-              }
-              ... on Issue{
-                repository{
-                  nameWithOwner
-                }
-                number
-              }
-            }
-            
+            milestoneTitle
           }
-          ... on ConvertedNoteToIssueEvent{
-            actor{
+          ... on MovedColumnsInProjectEvent {
+            actor {
               login
             }
           }
-          ... on ReferencedEvent{
-            actor{
+          ... on PinnedEvent {
+            actor {
               login
             }
-            commit{
+          }
+          ... on ReferencedEvent {
+            actor {
+              login
+            }
+            nullableName: commit {
               commitUrl
               message
+              messageHeadline
             }
           }
-          ... on LabeledEvent{
-            actor{
+          ... on RemovedFromProjectEvent {
+            actor {
               login
             }
-            label{
+          }
+          ... on RenamedTitleEvent {
+            actor {
+              login
+            }
+            previousTitle
+            currentTitle
+          }
+          ... on ReopenedEvent {
+            actor {
+              login
+            }
+          }
+          ... on SubscribedEvent {
+            actor {
+              login
+            }
+          }
+          ... on TransferredEvent {
+            actor {
+              login
+            }
+          }
+          ... on UnassignedEvent {
+            actor {
+              login
+            }
+          }
+          ... on UnlabeledEvent {
+            actor {
+              login
+            }
+            label {
               color
               name
             }
           }
-          ... on UnlabeledEvent{
-             actor{
-              login
-            }
-            label{
-              color
-              name
-            }
-          }
-          
-          ... on SubscribedEvent{
-            actor{
+          ... on UnlockedEvent {
+            actor {
               login
             }
           }
-          
-          
+          ... on UnmarkedAsDuplicateEvent {
+            actor {
+              login
+            }
+          }
+          ... on UnpinnedEvent {
+            actor {
+              login
+            }
+          }
+          ... on UnsubscribedEvent {
+            actor {
+              login
+            }
+          }
+          ... on UserBlockedEvent {
+            actor {
+              login
+            }
+            subject {
+              login
+            }
+          }
         }
       }
     }
+  }
+}
+
+# 查询pr的信息
+query prInfo($owner: String!, $name: String!, $number: Int!, $after: String) {
+  repository(owner: $owner, name: $name) {
+    nameWithOwner
+    owner {
+      login
+      avatarUrl(size:150)
+    }
+    pullRequest(number: $number) {
+      title
+      number
+      author {
+        login
+        avatarUrl(size:150)
+      }
+      bodyText
+      bodyHTML
+      state
+      baseRefName
+      headRefName
+      headRepositoryOwner {
+        login
+        avatarUrl(size:150)
+      }
+      baseRepository {
+        nameWithOwner
+        owner {
+          login
+        }
+      }
+      headRepository {
+        nameWithOwner
+        owner {
+          login
+        }
+      }
+      changedFiles
+      additions
+      deletions
+      url
+      commits {
+        totalCount
+      }
+      closed
+      closedAt
+      createdAt
+      timelineItems(after: $after, first: 15) {
+        pageInfo {
+          endCursor
+          startCursor
+          hasNextPage
+        }
+        nodes {
+          __typename
+          ... on AddedToProjectEvent {
+            id
+            actor {
+              login
+              avatarUrl(size:150)
+            }
+            createdAt
+          }
+          ... on AssignedEvent {
+            id
+            actor {
+              login
+              avatarUrl(size:150)
+            }
+            assignee {
+              __typename
+              ... on User {
+                login
+              }
+              ... on Bot {
+                login
+              }
+              ... on Mannequin {
+                login
+              }
+              ... on Organization {
+                login
+              }
+            }
+          }
+          ... on AutoMergeEnabledEvent {
+            actor {
+              login
+            }
+          }
+          ... on AutoMergeDisabledEvent {
+            actor {
+              login
+            }
+          }
+          ... on AutoMergeDisabledEvent {
+            actor {
+              login
+            }
+          }
+          ... on AutoRebaseEnabledEvent {
+            actor {
+              login
+            }
+          }
+          ... on AutoSquashEnabledEvent {
+            actor {
+              login
+            }
+          }
+          ... on AutomaticBaseChangeFailedEvent {
+            actor {
+              login
+            }
+          }
+          ... on AutomaticBaseChangeSucceededEvent {
+            actor {
+              login
+            }
+          }
+          ... on BaseRefChangedEvent {
+            actor {
+              login
+            }
+            previousRefName
+            currentRefName
+          }
+          ... on BaseRefDeletedEvent {
+            actor {
+              login
+            }
+            baseRefName
+          }
+          ... on BaseRefForcePushedEvent {
+            actor {
+              login
+            }
+          }
+          ... on ClosedEvent {
+            actor {
+              login
+            }
+          }
+          ... on CommentDeletedEvent {
+            actor {
+              login
+            }
+          }
+          ... on ConnectedEvent {
+            actor {
+              login
+            }
+            source {
+              __typename
+              ... on PullRequest {
+                repository {
+                  nameWithOwner
+                }
+                number
+              }
+              ... on Issue {
+                repository {
+                  nameWithOwner
+                }
+                number
+              }
+            }
+            subject {
+              __typename
+              ... on PullRequest {
+                repository {
+                  nameWithOwner
+                }
+                number
+              }
+              ... on Issue {
+                repository {
+                  nameWithOwner
+                }
+                number
+              }
+            }
+          }
+          ... on ConvertToDraftEvent {
+            actor {
+              login
+            }
+          }
+          ... on ConvertedNoteToIssueEvent {
+            actor {
+              login
+            }
+          }
+          ... on CrossReferencedEvent {
+            actor {
+              login
+            }
+            target {
+              ... on Issue {
+                url
+                title
+                number
+                repository {
+                  owner {
+                    login
+                  }
+                  name
+                }
+              }
+              ... on PullRequest {
+                url
+                title
+                number
+                repository {
+                  owner {
+                    login
+                  }
+                  name
+                }
+              }
+            }
+          }
+          ... on DemilestonedEvent {
+            actor {
+              login
+            }
+          }
+          ... on DeployedEvent {
+            actor {
+              login
+            }
+          }
+          ... on DeploymentEnvironmentChangedEvent {
+            actor {
+              login
+            }
+          }
+          ... on DisconnectedEvent {
+            actor {
+              login
+            }
+          }
+          ... on HeadRefDeletedEvent {
+            actor {
+              login
+            }
+            headRefName
+          }
+          ... on HeadRefForcePushedEvent {
+            actor {
+              login
+            }
+            beforeCommit {
+              messageHeadline
+              abbreviatedOid
+            }
+            afterCommit {
+              messageHeadline
+              abbreviatedOid
+            }
+            ref {
+              name
+            }
+          }
+          ... on HeadRefRestoredEvent {
+            actor {
+              login
+            }
+          }
+          ... on IssueComment {
+            id
+            author {
+              login
+              avatarUrl(size:150)
+            }
+            bodyText
+            bodyHTML
+            url
+            lastEditedAt
+            publishedAt
+          }
+          ... on LabeledEvent {
+            actor {
+              login
+            }
+            label {
+              color
+              name
+            }
+          }
+          ... on LockedEvent {
+            actor {
+              login
+            }
+          }
+          ... on MarkedAsDuplicateEvent {
+            actor {
+              login
+            }
+          }
+          ... on MentionedEvent {
+            actor {
+              login
+            }
+          }
+          ... on MergedEvent {
+            actor {
+              login
+              avatarUrl(size:150)
+            }
+            nullableName: commit {
+              abbreviatedOid
+              message
+              messageHeadline
+            }
+            mergeRefName
+          }
+          ... on MilestonedEvent {
+            actor {
+              login
+            }
+            milestoneTitle
+          }
+          ... on MovedColumnsInProjectEvent {
+            actor {
+              login
+            }
+          }
+          ... on PinnedEvent {
+            actor {
+              login
+            }
+          }
+          ... on PullRequestCommit {
+            commit {
+              messageHeadline
+              author {
+                name
+                avatarUrl(size:150)
+              }
+              abbreviatedOid
+              url
+            }
+            url
+            resourcePath
+          }
+          ... on PullRequestCommitCommentThread {
+            commit {
+              abbreviatedOid
+            }
+          }
+          ... on PullRequestReview {
+            author {
+              login
+              avatarUrl(size:150)
+            }
+          }
+          ... on PullRequestReviewThread {
+            id
+          }
+          ... on PullRequestRevisionMarker {
+            lastSeenCommit {
+              abbreviatedOid
+            }
+          }
+          ... on ReadyForReviewEvent {
+            actor {
+              login
+            }
+          }
+          ... on ReferencedEvent {
+            actor {
+              login
+            }
+            nullableName: commit {
+              commitUrl
+              message
+              messageHeadline
+            }
+          }
+          ... on RemovedFromProjectEvent {
+            actor {
+              login
+            }
+          }
+          ... on RenamedTitleEvent {
+            actor {
+              login
+            }
+            previousTitle
+            currentTitle
+          }
+          ... on ReopenedEvent {
+            actor {
+              login
+            }
+          }
+          ... on ReviewDismissedEvent {
+            actor {
+              login
+            }
+          }
+          ... on ReviewRequestRemovedEvent {
+            actor {
+              login
+            }
+          }
+          ... on ReviewRequestedEvent {
+            actor {
+              login
+            }
+            requestedReviewer {
+              ... on User {
+                login
+              }
+              ... on Mannequin {
+                login
+              }
+              ... on Team {
+                name
+              }
+            }
+          }
+          ... on SubscribedEvent {
+            actor {
+              login
+            }
+          }
+          ... on TransferredEvent {
+            actor {
+              login
+            }
+          }
+          ... on UnassignedEvent {
+            actor {
+              login
+            }
+          }
+          ... on UnlabeledEvent {
+            actor {
+              login
+            }
+            label {
+              color
+              name
+            }
+          }
+          ... on UnlockedEvent {
+            actor {
+              login
+            }
+          }
+          ... on UnmarkedAsDuplicateEvent {
+            actor {
+              login
+            }
+          }
+          ... on UnpinnedEvent {
+            actor {
+              login
+            }
+          }
+          ... on UnsubscribedEvent {
+            actor {
+              login
+            }
+          }
+          ... on UserBlockedEvent {
+            actor {
+              login
+            }
+            nullname:subject {
+              login
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+# 查询用户信息
+query userInfo($login: String!) {
+  user(login: $login) {
+    node_id:id
+    user_id:databaseId
+    
+    loginName:login
+    name
+    html_url:url
+    avatar_url:avatarUrl(size:150)
+    
+    created_at:createdAt
+    updated_at:updatedAt
+    
+    followers{
+      totalCount
+    }
+    following{
+      totalCount
+    }
+    gists{
+      totalCount
+    }
+    repositories(ownerAffiliations:[OWNER]){
+      totalCount
+    }
+    
+    bio
+    company
+    email
+    location
+    blog:websiteUrl
+    status {
+      message
+    }
+    
+    
+    isViewer
+    viewerIsFollowing
+    isDeveloperProgramMember
+  }
+}
+
+# 查询组织信息
+query orgInfo($login: String!) {
+  organization(login:$login){
+    
+    node_id:id
+    user_id:databaseId
+    
+    loginName:login
+    name
+    html_url:url
+    avatar_url:avatarUrl(size:150)
+    
+    
+    bio:description
+    email
+    location
+    blog:websiteUrl
+    
+    created_at:createdAt
+    updated_at:updatedAt
+    
+    repositories{
+      totalCount
+    }
+    
+    teams{
+      totalCount
+    }
+    
+    membersWithRole{
+      totalCount
+    }
+    
+    viewerIsAMember
+  }
+}
+
+# 查询组织信息
+query UserOrOrgInfo($login: String!) {
+  user(login: $login) {
+    node_id:id
+    user_id:databaseId
+    
+    loginName:login
+    name
+    html_url:url
+    avatar_url:avatarUrl(size:150)
+    
+    created_at:createdAt
+    updated_at:updatedAt
+    
+    followers{
+      totalCount
+    }
+    following{
+      totalCount
+    }
+    gists{
+      totalCount
+    }
+    repositories(ownerAffiliations:[OWNER]){
+      totalCount
+    }
+    
+    bio
+    company
+    email
+    location
+    blog:websiteUrl
+    status {
+      message
+    }
+    
+    
+    isViewer
+    viewerIsFollowing
+    isDeveloperProgramMember
+  }
+  
+  organization(login:$login){
+    
+    node_id:id
+    user_id:databaseId
+    
+    loginName:login
+    name
+    html_url:url
+    avatar_url:avatarUrl(size:150)
+    
+    
+    bio:description
+    email
+    location
+    blog:websiteUrl
+    
+    created_at:createdAt
+    updated_at:updatedAt
+    
+    repositories{
+      totalCount
+    }
+    
+    teams{
+      totalCount
+    }
+    
+    membersWithRole{
+      totalCount
+    }
+    
+    viewerIsAMember
+  }
+}
+
+
+# 查询当前用户的信息
+query viewerInfo{
+  viewer{
+    node_id:id
+    user_id:databaseId
+    
+    loginName:login
+    name
+    html_url:url
+    avatar_url:avatarUrl(size:150)
+    
+    created_at:createdAt
+    updated_at:updatedAt
+    
+    followers{
+      totalCount
+    }
+    following{
+      totalCount
+    }
+    gists{
+      totalCount
+    }
+    repositories(ownerAffiliations:[OWNER]){
+      totalCount
+    }
+    
+    bio
+    company
+    email
+    location
+    blog:websiteUrl
+    status {
+      message
+    }
+    
+    
+    isViewer
+    viewerIsFollowing
+    isDeveloperProgramMember
+  }
+}
+
+# 查询仓库信息
+query repoInfo($login:String!,$name:String!){
+  repository(owner:$login,name:$name){
+   
+    node_id:id
+    repo_id:databaseId
+    
+    name
+    full_name:nameWithOwner
+    html_url:url
+    desc_Repo:description
+    homepageUrl
+    isPrivate
+    updatedAt
+    createdAt
+    pushedAt
+    primaryLanguage{
+      name
+    }
+    defaultBranchRef{
+      name
+    }
+    
+    issues(states:[OPEN]){
+      totalCount
+    }
+    stargazerCount
+    watchers{
+      totalCount
+    }
+    forkCount
+    
+    isInOrganization
+    owner{
+      node_id:id
+      login
+      html_url:url
+      avatarUrl(size:150)
+    }
+    
+    parent{
+      name
+      nameWithOwner
+      
+    }
+    
+    licenseInfo{
+      node_id:id
+      name
+      spdxId
+      key
+    }
+  }
+}
+
+# user avatar
+query avatar($login:String!){
+  user(login:$login){
+    avatarUrl(size:150)
   }
 }

@@ -39,9 +39,11 @@
         }
         NSString *state = oldValue;
         if([@"open" isEqualToString:state]){
-            return [NSNumber numberWithUnsignedInteger:ZLGithubPullRequestState_Opened];
-        } else {
+            return [NSNumber numberWithUnsignedInteger:ZLGithubPullRequestState_Open];
+        } else if ([@"closed" isEqualToString:state]) {
             return [NSNumber numberWithUnsignedInteger:ZLGithubPullRequestState_Closed];
+        } else {
+            return [NSNumber numberWithUnsignedInteger:ZLGithubPullRequestState_Merged];
         }
     }
     

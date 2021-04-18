@@ -35,7 +35,7 @@ import Foundation
     
 
     func onApplicationDidBecomeActive(){
-        if ZLSharedDataManager.sharedInstance().githubAccessToken?.count != 0, let url = self.urlForDeal {
+        if ZLServiceManager.sharedInstance.loginServiceModel?.accessToken?.count ?? 0 > 0, let url = self.urlForDeal {
             ZLUIRouter.openURL(url: url)
             self.urlForDeal = nil
         }

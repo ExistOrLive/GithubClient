@@ -142,7 +142,7 @@ struct FixedRepoMediumView : View {
                             .scaledToFit()
                             .frame(minWidth: 15.5, idealWidth: nil, maxWidth: 15.5, minHeight: nil, idealHeight: nil, maxHeight: nil, alignment:.center)
                             .padding(.leading, 20)
-                        Text(String(entry.model?.forks ?? 0))
+                        Text(String(entry.model?.forks_count ?? 0))
                             .font(.caption2)
                             .foregroundColor(Color("ZLLanguageColor"))
                     }

@@ -47,7 +47,7 @@ import MJExtension
     open override func mj_newValue(fromOldValue oldValue: Any!, property: MJProperty!) -> Any! {
         if((property.name == "updated_at" ||
             property.name == "last_read_at") &&
-            property.type.typeClass == NSDate.self) {
+            property.type.typeClass == Date.self) {
                 
             guard let dateStr : String =  oldValue as? String else {
                 return nil

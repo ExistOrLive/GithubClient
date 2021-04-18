@@ -14,15 +14,21 @@
 
 @protocol ZLDBModuleProtocol<NSObject>
 
-+ (instancetype) sharedInstance;
++ (instancetype _Nonnull) sharedInstance;
 
-// 初始化用户userId的数据库
-- (void) initialDBForUser:(NSString *) userId;
+- (ZLGithubUserBriefModel * _Nullable) getUserOrOrgInfoWithLoginName:(NSString * _Nonnull) loginName;
+- (void) insertOrUpdateUserInfo:(ZLGithubUserBriefModel * _Nonnull) model;
 
-// 获取，插入，更新 userId的信息
-- (ZLGithubUserModel *) getCurrentUserInfo;
-- (ZLGithubUserModel *) getUserInfoWithUserLoginName:(NSString *) userId;
-- (void) insertOrUpdateUserInfo:(ZLGithubUserModel *) model;
+
+- (ZLGithubUserModel * _Nullable) getViewerInfoWithLoginName:(NSString * _Nonnull) loginName;
+- (void) insertOrUpdateViewerInfo:(ZLGithubUserModel * _Nonnull) model;
+
+
+- (ZLGithubRepositoryModel * _Nullable) getRepoInfoWithFullName:(NSString * _Nonnull) fullName;
+- (void) insertOrUpdateRepoInfo:(ZLGithubRepositoryModel * _Nonnull) model;
+
+- (NSString * _Nullable) getUserContributionsWithLoginName:(NSString * _Nonnull) loginName;
+- (void) insertOrUpdateUserContributions:(NSString * _Nonnull) contributions loginName:(NSString * _Nonnull) loginName;
 
 
 @end

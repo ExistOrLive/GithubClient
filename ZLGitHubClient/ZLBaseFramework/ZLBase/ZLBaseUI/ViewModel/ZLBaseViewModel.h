@@ -39,6 +39,13 @@ NS_ASSUME_NONNULL_BEGIN
  **/
 - (void) bindModel:(id _Nullable) targetModel andView:(UIView *) targetView;
 
+/**
+ * 更新viewmodel 中绑定的model
+ * @param targetModel        model
+ * @param targetView         view
+ **/
+- (void) updateModel:(id _Nullable) targetModel;
+
 
 /**
  * 子ViewModel给父vViewModel上报事件

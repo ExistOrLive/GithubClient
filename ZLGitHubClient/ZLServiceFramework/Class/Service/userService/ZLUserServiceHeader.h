@@ -10,58 +10,59 @@
 #define ZLUserServiceHeader_h
 
 #import "ZLBaseServiceModel.h"
-#import "ZLGithubUserModel.h"
+#import "ZLGithubUserType.h"
+@class ZLGithubUserContributionData;
+/**
+ * github 用户附加信息类型
+ *
+ **/
+typedef NS_ENUM(NSUInteger, ZLUserAdditionInfoType) {
+    ZLUserAdditionInfoTypeRepositories,
+    ZLUserAdditionInfoTypeGists,
+    ZLUserAdditionInfoTypeFollowers,
+    ZLUserAdditionInfoTypeFollowing,
+    ZLUserAdditionInfoTypeStarredRepos,
+};
+
+
 
 // 获取到登陆用户的信息
 static const NSNotificationName _Nonnull ZLGetCurrentUserInfoResult_Notification = @"ZLGetCurrentUserInfoResult_Notification";
-
-static const NSNotificationName _Nonnull ZLGetSpecifiedUserInfoResult_Notification = @"ZLGetSpecifiedUserInfoResult_Notification";
-
+//
 static const NSNotificationName _Nonnull ZLUpdateUserPublicProfileInfoResult_Notification = @"ZLUpdateUserPublicProfileInfoResult_Notification";
 
 
 @protocol ZLUserServiceModuleProtocol <ZLBaseServiceModuleProtocol>
 
-# pragma mark - outer
 
 /**
- * @brief 当前用户的登陆名
- * @return string
- **/
-- (NSString * __nullable) currentUserLoginName;
-
-/**
- * @brief 获取当前登陆用户的详细信息，会先返回内存中的用户信息，并从服务器拉取最新的用户信息
- * @return ZLGithubUserModel
- **/
-- (ZLGithubUserModel * __nullable) currentUserInfo;
-
-
-/**
- * @brief 根据登陆名和用户类型获取用户信息
+ * @brief 根据登陆名获取用户或者组织信息
  * @param loginName 登陆名
- * @param userType 用户类型 ZLGithubUserType_User，ZLGithubUserType_Origanzation
  **/
-- (void) getUserInfoWithLoginName:(NSString * _Nonnull) loginName
-                         userType:(ZLGithubUserType) userType
-                     serialNumber:(NSString * _Nonnull) serailNumber;
+- (ZLGithubUserBriefModel *_Nullable) getUserInfoWithLoginName:(NSString * _Nonnull) loginName
+                                                  serialNumber:(NSString * _Nonnull) serailNumber
+                                                completeHandle:(void(^ _Nonnull)(ZLOperationResultModel *  _Nonnull)) handle;
 
 
 
 /**
- * @brief 更新用户的public Profile info
- * @param email 邮箱
- * @param blog 博客 nil时不更新
- * @param company 公司 nil时不更新
- * @param location 地址 nil时不更新
- * @param bio 自我描述 nil时不更新
+ * @brief 根据登陆名获取用户或者组织avatar
+ * @param loginName 登陆名
  **/
-- (void) updateUserPublicProfileWithemail:(NSString * _Nullable) email
-                                     blog:(NSString * _Nullable) blog
-                                  company:(NSString * _Nullable) company
-                                 location:(NSString * _Nullable) location
-                                      bio:(NSString * _Nullable) bio
-                             serialNumber:(NSString * _Nonnull) serialNumber;
+
+- (void) getUserAvatarWithLoginName:(NSString * _Nonnull) loginName
+                       serialNumber:(NSString * _Nonnull) serailNumber
+                     completeHandle:(void(^ _Nonnull)(ZLOperationResultModel *  _Nonnull)) handle;
+
+
+#pragma mark - user additions info
+
+- (void) getAdditionInfoForUser:(NSString * _Nonnull) userLoginName
+                       infoType:(ZLUserAdditionInfoType) type
+                           page:(NSUInteger) page
+                       per_page:(NSUInteger) per_page
+                   serialNumber:(NSString * _Nonnull) serialNumber
+                 completeHandle:(void(^_Nonnull)(ZLOperationResultModel * _Nonnull)) handle;
 
 #pragma mark - follow
 
@@ -129,13 +130,15 @@ static const NSNotificationName _Nonnull ZLUpdateUserPublicProfileInfoResult_Not
                      serialNumber: (NSString * _Nonnull) serialNumber
                    completeHandle:(void(^ _Nonnull)(ZLOperationResultModel *  _Nonnull)) handle;
 
+#pragma mark - contributions
+
 /**
  * @brief 查询用户的contributions
  * @param loginName 用户的登录名
  **/
-- (void) getUserContributionsDataWithLoginName: (NSString * _Nonnull) loginName
-                                  serialNumber: (NSString * _Nonnull) serialNumber
-                                completeHandle: (void(^ _Nonnull)(ZLOperationResultModel * _Nonnull)) handle;
+- (NSArray<ZLGithubUserContributionData *> * _Nullable) getUserContributionsDataWithLoginName: (NSString * _Nonnull) loginName
+                                                                                 serialNumber: (NSString * _Nonnull) serialNumber
+                                                                               completeHandle: (void(^ _Nonnull)(ZLOperationResultModel * _Nonnull)) handle;
 
 
 @end

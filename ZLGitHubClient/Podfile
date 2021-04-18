@@ -14,6 +14,15 @@ end
 
 target 'ZLServiceFramework' do
   
+#pod 'Google-Mobile-Ads-SDK'
+pod 'Umbrella'
+#pod 'Umbrella/Segment'
+pod 'Umbrella/Firebase'
+#pod 'Analytics', '~> 3.0'
+pod 'Firebase/Analytics'
+
+
+  
 # Http
 pod 'AFNetworking', :subspecs => ['Reachability', 'Serialization', 'Security', 'NSURLSession']
 
@@ -34,7 +43,20 @@ pod "SYDCentralPivot", :git => 'https://github.com/ExistOrLive/SYDCentralPivot.g
   
 end
 
+target 'Fixed RepoExtension' do
+  
+pod 'Firebase/Analytics'
+
+end
+
 target 'ZLGitHubClient' do
+  
+#pod 'Google-Mobile-Ads-SDK'
+pod 'Umbrella'
+#pod 'Umbrella/Segment'
+pod 'Umbrella/Firebase'
+#pod 'Analytics', '~> 3.0'
+pod 'Firebase/Analytics'
 
 # Json Model 转换
 pod 'MJExtension'
@@ -74,6 +96,7 @@ pod 'YYText'
 pod 'FFPopup'
 
 # 移动监控工具
+pod 'WoodPeckeriOS', :configurations => ['Debug']
 pod 'LookinServer', :configurations => ['Debug']
 pod 'DoraemonKit/Core', '~> 2.0.0', :configurations => ['Debug']
 pod 'DoraemonKit/WithLogger', '~> 2.0.0', :configurations => ['Debug']

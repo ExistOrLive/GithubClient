@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZLTrendingFilterInfoModel : ZLBaseObject
 
-@property(nonatomic, strong) NSString * language;
+@property(nonatomic, strong, nullable) NSString * language;
 
 @property(nonatomic, assign) ZLDateRange dateRange;
 

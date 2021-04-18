@@ -16,6 +16,7 @@
 "issues" = "问题";
 "code" = "代码";
 "gists" = "代码片段";
+"members" = "成员";
 "followers" = "粉丝";
 "following" = "关注";
 "created at" = "创建于";
@@ -178,6 +179,7 @@
 "ForkNum" = "拷贝";
 "FollowersNum" = "粉丝数";
 "PubReposNum" = "仓库数";
+"State" = "状态";
 
 "SearchRecord" = "搜索记录";
 "ClearSearchRecord" = "清空记录";
@@ -195,6 +197,7 @@
 "location" = "地址";
 "email" = "邮箱";
 "blog" = "博客";
+"website" = "主页";
 "bio" = "个人描述";
 
 // Appearance

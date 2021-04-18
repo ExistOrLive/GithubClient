@@ -1,0 +1,30 @@
+name: ZLGithub Test
+
+on:                               # 触发条件
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: build
+    runs-on: macos-latest # runner 系统 
+    steps:
+    - name: checkout
+      uses: actions/checkout@v2.0.0
+      with: 
+        ref: master 
+    - name: download secret file
+      working-directory: ./ZLGitHubClient          # 指定run 的工作目录
+      env: 
+        GITHUBTOKEN: ${{ secrets.GITHUBTOKEN }}
+      run: |
+        ls
+        pwd
+        pip3 install requests
+        python3 DownloadSecretFile/DownloadSecrectFile.py $GITHUBTOKEN
+        mv ZLGithubAppKey.h ZLGitHubClient/System/ZLSupportFiles/ZLGithubAppKey.h
+        mv GoogleService-Info.plist ZLGitHubClient/GoogleService-Info.plist

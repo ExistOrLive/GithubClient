@@ -26,55 +26,34 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype) sharedInstance;
 
+
+#pragma mark - 登录用户有关的设置
+
+@property(nonatomic,strong,nullable) NSString * currentLoginName;
+
 @property(nonatomic,strong,nullable) NSString * githubAccessToken;
-
-@property(nonatomic,strong,nullable) ZLGithubUserModel * userInfoModel;
-
-@property(nonatomic,strong,nullable) NSMutableDictionary * trendingOptions;
-
-// 搜索记录
-@property(nonatomic,strong,nullable) NSArray<NSString *> *searchRecordArray;
-
-// 是否展示所有notification
-@property(nonatomic,assign) BOOL showAllNotifications;
-
-// 应用动态配置
-@property(nonatomic,strong,nullable) ZLGithubConfigModel *configModel;
-
-// 用户界面外观选项
-@property(nonatomic,assign) UIUserInterfaceStyle currentUserInterfaceStyle API_AVAILABLE(ios(12.0));
-
-// 辅助按钮
-@property(nonatomic,assign,getter=isAssistButtonHidden) BOOL assistButtonHidden;
 
 
 - (void) clearGithubTokenAndUserInfo;
 
-#pragma mark - fix repo
+
+
+#pragma mark - 与登录用户无关的设置
+
+// github 支持的开发语言列表
+@property(nonatomic,strong,nullable) NSArray<NSString *>* githubLanguageList;
+
+// 设备id
+@property(nonatomic,strong,readonly) NSString * deviceId;
+
+// 应用动态配置
+@property(nonatomic,strong,nullable) ZLGithubConfigModel *configModel;
+
+// fix repo
 
 - (void) setFixRepos:(NSArray *)repos forLoginUser:(NSString *)login;
 
 - (NSArray* __nullable) fixReposForLoginUser:(NSString *)login;
-
-#pragma mark - trend
-
-- (NSString * __nullable) lanaguageForTrendingRepo;
-
-- (NSString * __nullable) lanaguageForTrendingUser;
-
-- (void) setLanguageForTrendingRepo:(NSString * __nullable) language;
-
-- (void) setLanguageForTrendingUser:(NSString * __nullable) language;
-
-- (ZLDateRange) dateRangeForTrendingRepo ;
-- (ZLDateRange) dateRangeForTrendingUser;
-
-- (void) setDateRangeForTrendingRepo:(ZLDateRange) range;
-
-- (void) setDateRangeForTrendingUser:(ZLDateRange) range;
-
-
-
 
 @end
 

@@ -16,6 +16,7 @@
 "issues" = "Issues";
 "code" = "Code";
 "gists" = "Gists";
+"members" = "Members";
 "followers" = "Followers";
 "following" = "Following";
 "created at" = "Created at";
@@ -177,6 +178,7 @@
 "ForkNum" = "Fork";
 "FollowersNum" = "Followers";
 "PubReposNum" = "Pub Repos";
+"State" = "State";
 
 "SearchRecord" = "Record";
 "ClearSearchRecord" = "Clear";
@@ -194,6 +196,7 @@
 "email" = "Email";
 "blog" = "Blog";
 "bio" = "Bio";
+"website" = "Website";
 
 // tab
 "news" = "News";

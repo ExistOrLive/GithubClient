@@ -100,6 +100,21 @@
      * code
      * 绑定 viewModel,View,model
      **/
+    // MARK: To do
+    
+    // [targetView fillWithData:self];
+}
+
+
+/**
+ * 更新viewmodel 中绑定的model
+ * @param targetModel        model
+ * @param targetView         view
+ **/
+- (void) updateModel:(id _Nullable) targetModel{
+    // MARK: To do
+    // updateModel
+    // [targetView reloadData];
 }
 
 /**

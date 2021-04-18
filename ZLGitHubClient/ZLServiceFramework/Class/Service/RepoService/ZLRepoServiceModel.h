@@ -8,7 +8,6 @@
 
 #import "ZLBaseServiceModel.h"
 #import "ZLRepoServiceHeader.h"
-@class ZLOperationResultModel;
 
 NS_ASSUME_NONNULL_BEGIN
 

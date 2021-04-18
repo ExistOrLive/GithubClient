@@ -13,19 +13,10 @@
 
 #pragma mark - NotificationName
 
-static const NSNotificationName _Nonnull ZLGetSpecifiedRepoInfoResult_Notification = @"ZLGetSpecifiedRepoInfoResult_Notification";
-
 @protocol ZLRepoServiceModuleProtocol <ZLBaseServiceModuleProtocol>
 
-/**
- * @brief 根据repo full name 获取仓库信息
- * @param fullName octocat/Hello-World
- * @param serialNumber 流水号
- **/
-- (void) getRepoInfoWithFullName:(NSString * _Nonnull) fullName
-                    serialNumber:(NSString * _Nonnull) serialNumber;
 
-
+#pragma mark - Repo Info
 
 /**
  * @brief 根据repo full name 获取仓库信息
@@ -33,10 +24,9 @@ static const NSNotificationName _Nonnull ZLGetSpecifiedRepoInfoResult_Notificati
  * @param serialNumber 流水号
  **/
 
-- (void) getRepoInfoWithFullName:(NSString * _Nonnull) fullName
-                    serialNumber:(NSString * _Nonnull) serialNumber
-                  completeHandle:(void(^ _Nonnull)(ZLOperationResultModel *  _Nonnull)) handle;
-
+- (ZLGithubRepositoryModel *_Nullable) getRepoInfoWithFullName:(NSString * _Nonnull) fullName
+                                         serialNumber:(NSString * _Nonnull) serialNumber
+                                       completeHandle:(void(^ _Nonnull)(ZLOperationResultModel *  _Nonnull)) handle;
 
 /**
  * @brief 根据repo full name 获取仓库信息
@@ -44,10 +34,14 @@ static const NSNotificationName _Nonnull ZLGetSpecifiedRepoInfoResult_Notificati
  * @param repoName Hello-World
  * @param serialNumber 流水号
  **/
-- (void) getRepoInfoWithOwnerName:(NSString * _Nonnull) ownerName
-                     withrepoName:(NSString * _Nonnull) repoName
-                     serialNumber:(NSString * _Nonnull) serialNumber;
+- (ZLGithubRepositoryModel *_Nullable) getRepoInfoWithOwnerName:(NSString * _Nonnull) ownerName
+                                              repoName:(NSString * _Nonnull) repoName
+                                          serialNumber:(NSString * _Nonnull) serialNumber
+                                        completeHandle:(void(^ _Nonnull)(ZLOperationResultModel *  _Nonnull)) handle;
 
+
+
+#pragma mark - Repo ReadMe PullRequest Commit Branch
 
 /**
  * @brief 根据repo readMe 地址
@@ -111,17 +105,6 @@ static const NSNotificationName _Nonnull ZLGetSpecifiedRepoInfoResult_Notificati
                                 completeHandle:(void(^ _Nonnull)(ZLOperationResultModel *  _Nonnull)) handle;
 
 
-#pragma mark - Issues
-
-
-- (void) getRepositoryIssueInfoWithLoginName:(NSString * _Nonnull) loginName
-                                    repoName:(NSString * _Nonnull) repoName
-                                     number:(int) number
-                               serialNumber:(NSString * _Nonnull) serialNumber
-                             completeHandle:(void(^ _Nonnull)(ZLOperationResultModel *  _Nonnull)) handle;
-
-
-
 /**
  * @brief 根据repo fullname获取 issues
  * @param fullName octocat/Hello-World
@@ -133,21 +116,6 @@ static const NSNotificationName _Nonnull ZLGetSpecifiedRepoInfoResult_Notificati
                                     page:(NSInteger) page
                             serialNumber:(NSString * _Nonnull) serialNumber
                           completeHandle:(void(^ _Nonnull)(ZLOperationResultModel *  _Nonnull)) handle;
-
-
-
-/**
- * @brief 根据repo fullname 创建 issues
- * @param fullName octocat/Hello-World
- * @param serialNumber 流水号
- **/
-- (void) createIssueWithFullName:(NSString * _Nonnull) fullName
-                           title:(NSString * _Nonnull) title
-                            body:(NSString * __nullable) body
-                          labels:(NSArray * __nullable) labels
-                       assignees:(NSArray * __nullable) assignees
-                    serialNumber:(NSString * _Nonnull) serialNumber
-                  completeHandle:(void(^ _Nonnull)(ZLOperationResultModel *  _Nonnull)) handle;
 
 
 #pragma mark - subscription
@@ -171,11 +139,7 @@ static const NSNotificationName _Nonnull ZLGetSpecifiedRepoInfoResult_Notificati
                       completeHandle:(void(^ _Nonnull)(ZLOperationResultModel *  _Nonnull)) handle;
 
 
-#pragma mark - top repo
 
-- (void) getTopReposWithAfterCursor:(NSString * __nullable) after
-                       serialNumber:(NSString * _Nonnull) serialNumber
-                     completeHandle:(void(^ _Nonnull)(ZLOperationResultModel *  _Nonnull)) handle;
 
 
 #pragma mark - star repo
@@ -254,7 +218,7 @@ static const NSNotificationName _Nonnull ZLGetSpecifiedRepoInfoResult_Notificati
                             completeHandle:(void(^ _Nonnull)(ZLOperationResultModel *  _Nonnull)) handle;
 
 
-#pragma mark - FileContent
+#pragma mark - Repo Content
 
 
 /**

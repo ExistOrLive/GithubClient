@@ -80,6 +80,15 @@
         [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
         
         return [dateFormatter dateFromString:oldValue];
+    } else if ([property.name isEqualToString:@"state"]) {
+        
+        NSString *oldStr = (NSString *)oldValue;
+        if([oldStr isEqualToString:@"open"]){
+            return [NSNumber numberWithInteger:ZLGithubIssueState_Open];
+        } else if([oldStr isEqualToString:@"closed"]){
+            return [NSNumber numberWithInteger:ZLGithubIssueState_Closed];
+        }
+        return [NSNumber numberWithInteger:ZLGithubIssueState_Open];
     }
     
     return oldValue;

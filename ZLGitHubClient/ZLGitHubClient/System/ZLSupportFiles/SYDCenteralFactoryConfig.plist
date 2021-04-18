@@ -2,6 +2,15 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>ZLUserAdditionInfoController</key>
+	<dict>
+		<key>class</key>
+		<string>ZLUserAdditionInfoController</string>
+		<key>type</key>
+		<integer>0</integer>
+		<key>isSingle</key>
+		<integer>0</integer>
+	</dict>
 	<key>ZLProfileViewController</key>
 	<dict>
 		<key>class</key>
@@ -83,10 +92,10 @@
 		<key>isSingle</key>
 		<false/>
 	</dict>
-	<key>ZLUserInfoController</key>
+	<key>ZLUserOrOrgInfoController</key>
 	<dict>
 		<key>class</key>
-		<string>ZLUserInfoController</string>
+		<string>ZLUserOrOrgInfoController</string>
 		<key>type</key>
 		<integer>0</integer>
 		<key>isSingle</key>
@@ -159,6 +168,33 @@
 	<dict>
 		<key>class</key>
 		<string>ZLSearchController</string>
+		<key>type</key>
+		<integer>0</integer>
+		<key>isSingle</key>
+		<false/>
+	</dict>
+	<key>ZLPRInfoController</key>
+	<dict>
+		<key>class</key>
+		<string>ZLPRInfoController</string>
+		<key>type</key>
+		<integer>0</integer>
+		<key>isSingle</key>
+		<false/>
+	</dict>
+	<key>ZLIssueInfoController</key>
+	<dict>
+		<key>class</key>
+		<string>ZLIssueInfoController</string>
+		<key>type</key>
+		<integer>0</integer>
+		<key>isSingle</key>
+		<false/>
+	</dict>
+	<key>ZLWebContentController</key>
+	<dict>
+		<key>class</key>
+		<string>ZLWebContentController</string>
 		<key>type</key>
 		<integer>0</integer>
 		<key>isSingle</key>

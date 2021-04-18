@@ -20,13 +20,11 @@ FOUNDATION_EXPORT const unsigned char ZLServiceFrameworkVersionString[];
 
 
 // model
-#import "ZLGithubRepositoryModel.h"
 #import "ZLGithubRepositoryBranchModel.h"
 #import "ZLGithubRepositoryReadMeModel.h"
 #import "ZLGithubCommitModel.h"
 #import "ZLGithubPullRequestModel.h"
 #import "ZLGithubContentModel.h"
-#import "ZLGithubUserModel.h"
 #import "ZLGithubGistModel.h"
 #import "ZLGithubIssueModel.h"
 #import "ZLGitHubEventModel.h"
@@ -44,10 +42,11 @@ FOUNDATION_EXPORT const unsigned char ZLServiceFrameworkVersionString[];
 #import "ZLLanguageModuleProtocol.h"
 #import "ZLToolManager.h"
 #import "ZLSharedDataManager.h"
+#import "ZLBuglyManager.h"
 
 #import "ZLBaseServiceModel.h"
 #import "ZLEventServiceHeader.h"
-#import "ZLAdditionInfoServiceHeader.h"
+#import "ZLAdditionServiceHeader.h"
 #import "ZLSearchServiceHeader.h"
 #import "ZLRepoServiceHeader.h"
 #import "ZLUserServiceHeader.h"

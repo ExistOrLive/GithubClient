@@ -253,6 +253,10 @@
      **/
 }
 
+- (void) updateModel:(id)targetModel{
+    
+}
+
 /**
  * 子ViewModel给父vViewModel上报事件
  * @param event             事件内容

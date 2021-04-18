@@ -12,6 +12,7 @@
 @class ZLGithubIssueModel;
 @class ZLGithubLabelModel;
 @class ZLGithubPullRequestModel;
+@class ZLGithubRepositoryModel;
 
 
 typedef NS_ENUM(NSInteger, ZLReferenceType)

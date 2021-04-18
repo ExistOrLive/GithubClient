@@ -13,10 +13,12 @@
 
 #pragma mark - NotificationName
 
-static const NSNotificationName ZLGetUserReceivedEventResult_Notification = @"ZLGetUserReceivedEventResult_Notification";
-static const NSNotificationName ZLGetMyEventResult_Notification = @"ZLGetMyEventResult_Notification";
+static NSNotificationName const _Nonnull ZLGetUserReceivedEventResult_Notification = @"ZLGetUserReceivedEventResult_Notification";
+static NSNotificationName const _Nonnull ZLGetMyEventResult_Notification = @"ZLGetMyEventResult_Notification";
 
 @protocol ZLEventServiceModuleProtocol <ZLBaseServiceModuleProtocol>
+
+#pragma mark - event
 
 /**
  *  @brief 请求当前用户的event
@@ -24,16 +26,16 @@ static const NSNotificationName ZLGetMyEventResult_Notification = @"ZLGetMyEvent
  **/
 - (void) getMyEventsWithpage:(NSUInteger)page
                     per_page:(NSUInteger)per_page
-                serialNumber:(NSString *)serialNumber;
+                serialNumber:(NSString * _Nonnull)serialNumber;
 
 /**
  *  @brief 请求用户的event
  *
  **/
-- (void) getEventsForUser:(NSString *) userName
+- (void) getEventsForUser:(NSString * _Nonnull) userName
                      page:(NSUInteger)page
                  per_page:(NSUInteger)per_page
-             serialNumber:(NSString *)serialNumber;
+             serialNumber:(NSString * _Nonnull)serialNumber;
 
 
 
@@ -41,12 +43,59 @@ static const NSNotificationName ZLGetMyEventResult_Notification = @"ZLGetMyEvent
  * @brief 请求某个用户的receive_events
  *
  **/
-- (void)getReceivedEventsForUser:(NSString *)userName
+- (void)getReceivedEventsForUser:(NSString * _Nonnull)userName
                             page:(NSUInteger)page
                         per_page:(NSUInteger)per_page
-                    serialNumber:(NSString *)serialNumber;
+                    serialNumber:(NSString * _Nonnull)serialNumber;
 
 
+
+#pragma mark - notification
+
+- (void) getNotificationsWithShowAll:(bool) showAll
+                                page:(int) page
+                            per_page:(int) page
+                        serialNumber:(NSString * _Nonnull)serialNumber
+                      completeHandle:(void(^_Nonnull)(ZLOperationResultModel * _Nonnull)) handle;
+
+
+- (void) markNotificationReadedWithNotificationId:(NSString * _Nonnull) notificationId
+                                     serialNumber:(NSString * _Nonnull)serialNumber
+                                   completeHandle:(void(^_Nonnull)(ZLOperationResultModel * _Nonnull)) handle;
+
+
+#pragma mark - PR
+
+- (void) getPRInfoWithLogin:(NSString * _Nonnull) login
+                   repoName:(NSString * _Nonnull) repoName
+                     number:(int) number
+                      after:(NSString * _Nullable) after
+               serialNumber:(NSString *_Nonnull) serialNumber
+             completeHandle:(void(^_Nonnull)(ZLOperationResultModel * _Nonnull)) handle;
+
+
+#pragma mark - issues
+
+- (void) getRepositoryIssueInfoWithLoginName:(NSString * _Nonnull) loginName
+                                    repoName:(NSString * _Nonnull) repoName
+                                      number:(int) number
+                                       after:(NSString * _Nullable) after
+                                serialNumber:(NSString * _Nonnull) serialNumber
+                              completeHandle:(void(^ _Nonnull)(ZLOperationResultModel *  _Nonnull)) handle;
+
+
+/**
+ * @brief 根据repo fullname 创建 issues
+ * @param fullName octocat/Hello-World
+ * @param serialNumber 流水号
+ **/
+- (void) createIssueWithFullName:(NSString * _Nonnull) fullName
+                           title:(NSString * _Nonnull) title
+                            body:(NSString * __nullable) body
+                          labels:(NSArray * __nullable) labels
+                       assignees:(NSArray * __nullable) assignees
+                    serialNumber:(NSString * _Nonnull) serialNumber
+                  completeHandle:(void(^ _Nonnull)(ZLOperationResultModel *  _Nonnull)) handle;
 @end
 
 #endif /* ZLEventServiceHeader_h */

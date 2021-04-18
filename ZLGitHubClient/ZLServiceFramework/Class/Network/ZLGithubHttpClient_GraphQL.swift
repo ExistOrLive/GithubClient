@@ -14,6 +14,7 @@ public typealias GithubResponseSwift = (Bool,Any?,String) -> Void
 let GithubGraphQLAPI = "https://api.github.com/graphql"
 
 
+
 private class ZLTokenIntercetor : ApolloInterceptor {
     
     func interceptAsync<Operation: GraphQLOperation>(
@@ -100,7 +101,12 @@ public extension ZLGithubHttpClient{
                                         serialNumber: String,
                                         block: @escaping GithubResponseSwift){
         
-        self.apolloClient.fetch(query: query){ result in
+        analytics.log(.URLUse(url: query.operationName))
+        
+        self.apolloClient.fetch(query: query,
+                                cachePolicy: .returnCacheDataAndFetch,
+                                queue: self.completeQueue)
+        { result in
             var resultData : Any? = nil
             var success = false
             switch result{
@@ -119,6 +125,7 @@ public extension ZLGithubHttpClient{
                         errorModel.message = error.localizedDescription
                     }
                     resultData = errorModel
+                    analytics.log(.URLFailed(url: query.operationName, error: errorModel.message))
                 }
             }
                 break
@@ -127,6 +134,7 @@ public extension ZLGithubHttpClient{
                 let errorModel = ZLGithubRequestErrorModel()
                 errorModel.message = error.localizedDescription
                 resultData = errorModel
+                analytics.log(.URLFailed(url: query.operationName, error: errorModel.message))
             }
                 break
             }
@@ -173,6 +181,43 @@ public extension ZLGithubHttpClient{
         self.baseQuery(query: query, serialNumber: serialNumber, block: block)
     }
     
+    
+
+    
+    /**
+     * @param query  查询条件 archived:false sort:created-desc is:open is:issue mentions:@me
+     * @param block
+     *  搜索issue
+     */
+    @objc enum SearchTypeForOC : NSInteger{
+        case User
+        case Repo
+        case Issue
+    }
+
+    
+    @objc func searchItem(after: String?,
+                          query: String,
+                          type : SearchTypeForOC,
+                          serialNumber: String,
+                          block: @escaping GithubResponseSwift){
+        var realType = SearchType.user
+        switch type {
+        case .User:
+            realType = .user
+        case .Repo:
+            realType = .repository
+        case .Issue:
+            realType = .issue
+        default:
+            realType = .user
+        }
+        
+        let query = SearchItemQuery(after: after, query: query, type: realType)
+        self.baseQuery(query: query, serialNumber: serialNumber, block: block)
+    }
+    
+    
     /**
      * @param serialNumber
      * @param block
@@ -196,7 +241,7 @@ public extension ZLGithubHttpClient{
                         block: @escaping GithubResponseSwift){
         var pullRequestState : PullRequestState
         switch state {
-        case .opened:
+        case .open:
             pullRequestState = .open
         case .closed:
             pullRequestState = .closed
@@ -217,14 +262,122 @@ public extension ZLGithubHttpClient{
      */
     
     @objc func getIssueInfo(login : String,
-                      repoName : String,
-                      number : Int,
-                      serialNumber: String,
-                      block: @escaping GithubResponseSwift){
-        let query = IssueInfoQuery(owner: login, name: repoName, number: number)
+                            repoName : String,
+                            number : Int,
+                            after : String?,
+                            serialNumber: String,
+                            block: @escaping GithubResponseSwift){
+        let query = IssueInfoQuery(owner: login, name: repoName, number: number, after:after)
+        self.baseQuery(query: query, serialNumber: serialNumber, block: block)
+    }
+    
+    /**
+     * @param login
+     * @param repoName
+     *  @param number
+     *  查询某个pr
+     */
+    @objc func getPRInfo(login : String,
+                         repoName : String,
+                         number : Int,
+                         after : String?,
+                         serialNumber: String,
+                         block: @escaping GithubResponseSwift) {
+        let query = PrInfoQuery(owner: login, name: repoName, number: number, after: after)
         self.baseQuery(query: query, serialNumber: serialNumber, block: block)
     }
 
+    
+    //MARK: userinfo
+    
+    @objc func getCurrentUserInfo(serialNumber: String,
+                                  block: @escaping GithubResponseSwift){
+        let query = ViewerInfoQuery()
+        self.baseQuery(query: query, serialNumber: serialNumber) { (result, data, serialNumber) in
+            if let queryData = data as? ViewerInfoQuery.Data {
+                block(result,ZLGithubUserModel(viewerQueryData:queryData),serialNumber)
+            } else {
+                block(result,data,serialNumber)
+            }
+        }
+    }
+    
+    @objc func getUserInfo(login: String,
+                           serialNumber: String,
+                           block: @escaping GithubResponseSwift){
+        let query = UserInfoQuery(login: login)
+        self.baseQuery(query: query, serialNumber: serialNumber) { (result, data, serialNumber) in
+            if let queryData = data as? UserInfoQuery.Data {
+                block(result,ZLGithubUserModel(queryData: queryData),serialNumber)
+            } else {
+                block(result,data,serialNumber)
+            }
+        }
+        
+    }
+    
+    @objc func getOrgInfo(login: String,
+                          serialNumber: String,
+                          block: @escaping GithubResponseSwift){
+        
+        let query = OrgInfoQuery(login: login)
+        self.baseQuery(query: query, serialNumber: serialNumber) { (result, data, serialNumber) in
+            if let queryData = data as? OrgInfoQuery.Data {
+                block(result,ZLGithubOrgModel(queryData: queryData),serialNumber)
+            } else {
+                block(result,data,serialNumber)
+            }
+        }
+   }
+    
+    @objc func getUserOrOrgInfo(login: String,
+                                serialNumber: String,
+                                block: @escaping GithubResponseSwift){
+        let query = UserOrOrgInfoQuery(login: login)
+        self.baseQuery(query: query, serialNumber: serialNumber) { (result, data, serialNumber) in
+            if let queryData = data as? UserOrOrgInfoQuery.Data{
+                if queryData.user != nil {
+                    block(result,ZLGithubUserModel(UserOrOrgQueryData: queryData),serialNumber)
+                } else if queryData.organization != nil{
+                    block(result,ZLGithubOrgModel(UserOrOrgQueryData: queryData),serialNumber)
+                } else {
+                    block(result,data,serialNumber)
+                }
+            } else {
+                block(result,data,serialNumber)
+            }
+           
+        }
+    }
+    
+    @objc func getUserAvatar(login: String,
+                             serialNumber: String,
+                             block: @escaping GithubResponseSwift){
+        let query = AvatarQuery(login: login)
+        self.baseQuery(query: query, serialNumber: serialNumber) { (result, data, serialNumber) in
+            if let queryData = data as? UserOrOrgInfoQuery.Data{
+                block(result,queryData.user?.avatarUrl,serialNumber)
+            } else {
+                block(result,data,serialNumber)
+            }
+            
+        }
+    }
+    
+   // MARK: 仓库信息
+    @objc func getRepoInfo(login: String,
+                           name: String,
+                           serialNumber: String,
+                           block: @escaping GithubResponseSwift){
+        let query = RepoInfoQuery(login: login, name: name)
+        self.baseQuery(query: query, serialNumber: serialNumber) { (result, data, serialNumber) in
+            if let queryData = data as? RepoInfoQuery.Data {
+                block(result,ZLGithubRepositoryModel(queryData: queryData),serialNumber)
+            } else {
+                block(result,data,serialNumber)
+            }
+        }
+    }
     
 }
 

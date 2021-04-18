@@ -8,6 +8,8 @@
 
 #import "ZLGithubHttpClient.h"
 #import "ZLGithubAPI.h"
+#import "ZLGithubAppKey.h"
+#import "ZLBaseServiceModel.h"
 #import <AFNetworking/AFHTTPSessionManager.h>
 #import <MJExtension/MJExtension.h>
 #import <WebKit/WebKit.h>
@@ -15,9 +17,10 @@
 // Tool
 #import "ZLSharedDataManager.h"
 #import "NSDate+localizeStr.h"
+#import "OCGumbo.h"
+#import "OCGumbo+Query.h"
+
 // model
-#import "ZLGithubUserModel.h"
-#import "ZLGithubRepositoryModel.h"
 #import "ZLGithubRequestErrorModel.h"
 #import "ZLSearchResultModel.h"
 #import "ZLGithubEventModel.h"
@@ -30,8 +33,6 @@
 #import "ZLGithubRepositoryBranchModel.h"
 #import "ZLGithubContentModel.h"
 #import "ZLGithubIssueModel.h"
-
-static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 
 @interface ZLGithubHttpClient()
 
@@ -64,7 +65,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         // 获取用户token
         _token = [[ZLSharedDataManager sharedInstance] githubAccessToken];
         
-        _completeQueue = dispatch_queue_create("AFURLSessionManagerCompleteQueue", DISPATCH_QUEUE_SERIAL);
+        _completeQueue = [ZLBaseServiceModel serviceOperationQueue];
         
     }
     return self;
@@ -111,6 +112,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     AFHTTPSessionManager *sessionManager = [self getDefaultSessionManager];
     
     [sessionManager.requestSerializer setValue:[NSString stringWithFormat:@"token %@",self.token] forHTTPHeaderField:@"Authorization"];
+    sessionManager.requestSerializer.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
     for(NSString *header in headers.allKeys){
         [sessionManager.requestSerializer setValue:headers[header] forHTTPHeaderField:header];
         if([header isEqualToString:@"Accept"]){
@@ -137,6 +139,8 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                  WithResponseBlock:(GithubResponse) block
                   WithSerialNumber:(NSString *) serialNumber{
     
+    [ZLAppEventForOC urlUseWithUrl:URL];
+    
     ZLLog_Info(@"Http Request(method[%@] url[%@] params[%@] serialNumber[%@])",method,URL,params,serialNumber);
     
     void(^successBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
@@ -149,6 +153,9 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     void(^failedBlock)(NSURLSessionDataTask * _Nonnull task, NSError *  _Nonnull error) =
     ^(NSURLSessionDataTask * _Nonnull task, NSError *  _Nonnull error)
     {
+        [ZLAppEventForOC urlFailedWithUrl:URL
+                                    error:[[NSString alloc] initWithFormat:@"statusCode[%ld] message[%@]",(long)((NSHTTPURLResponse *)task.response).statusCode, error.localizedDescription]];
+        
         ZLGithubRequestErrorModel * model = [[ZLGithubRequestErrorModel alloc] init];
         model.statusCode = ((NSHTTPURLResponse *)task.response).statusCode;
         model.message = error.localizedDescription;
@@ -217,7 +224,8 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     
     // 通知github返回的数据是json格式 requestSerializer
     sessionManager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [sessionManager.requestSerializer setValue:@"application/vnd.github.v3+json" forHTTPHeaderField:@"Accept"];
+    sessionManager.requestSerializer.timeoutInterval = 30;
+    [sessionManager.requestSerializer setValue:MediaTypeJson forHTTPHeaderField:@"Accept"];
     
     // responseSerializer
     sessionManager.responseSerializer = [AFJSONResponseSerializer serializer];
@@ -238,6 +246,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     NSString * urlStr = [NSString stringWithFormat:@"%@?client_id=%@&scope=%@&state=%@",OAuthAuthorizeURL,MyClientID,OAuthScope,OAuthState];
     
     AFHTTPSessionManager *sessionManager =  [self getDefaultSessionManager];
+    sessionManager.requestSerializer.timeoutInterval = 30;
     
     __weak typeof(self) weakSelf = self;
     [sessionManager setTaskWillPerformHTTPRedirectionBlock:^NSURLRequest * _Nullable(NSURLSession * _Nonnull session, NSURLSessionTask * _Nonnull task, NSURLResponse * _Nonnull response, NSURLRequest * _Nonnull request) {
@@ -290,6 +299,8 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
             processModel.result = false;
             processModel.loginStep = ZLLoginStep_checkIsLogined;
             processModel.serialNumber = serialNumber;
+            ZLGithubRequestErrorModel *errorModel = [ZLGithubRequestErrorModel errorModelWithStatusCode:response.statusCode message:error.localizedDescription documentation_url:nil];
+            processModel.errorModel = errorModel;
             block(NO,processModel,serialNumber);
         }
         
@@ -357,6 +368,9 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         processModel.result = false;
         processModel.loginStep = ZLLoginStep_getToken;
         processModel.serialNumber = serialNumber;
+        NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+        ZLGithubRequestErrorModel *errorModel = [ZLGithubRequestErrorModel errorModelWithStatusCode:response.statusCode message:error.localizedDescription documentation_url:nil];
+        processModel.errorModel = errorModel;
         block(NO,processModel,serialNumber);
     };
     
@@ -385,7 +399,6 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     {
         ZLGithubHttpClient *strongSelf= weakSelf;
         strongSelf->_token= token;
-        [[ZLSharedDataManager sharedInstance] setGithubAccessToken:token];
         
         ZLLoginProcessModel * processModel = [[ZLLoginProcessModel alloc] init];
         processModel.result = YES;
@@ -401,6 +414,9 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         processModel.result = false;
         processModel.loginStep = ZLLoginStep_init;
         processModel.serialNumber = serialNumber;
+        NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+        ZLGithubRequestErrorModel *errorModel = [ZLGithubRequestErrorModel errorModelWithStatusCode:response.statusCode message:error.localizedDescription documentation_url:nil];
+        processModel.errorModel = errorModel;
         block(NO,processModel,serialNumber);
     };
     
@@ -436,7 +452,6 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     
     // 注销成功，清空用户token和信息
     self->_token = nil;
-    [[ZLSharedDataManager sharedInstance] clearGithubTokenAndUserInfo];
     
     if(block) {
         block(YES,nil,serialNumber);
@@ -459,7 +474,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         
         if(result)
         {
-            responseObject = [ZLGithubUserModel getInstanceWithDic:responseObject];
+            responseObject = [ZLGithubUserModel mj_objectWithKeyValues:responseObject];
         }
         block(result,responseObject,serialNumber);
     };
@@ -485,9 +500,12 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
     
     GithubResponse newResponse = ^(BOOL result,id _Nullable responseObject,NSString * _Nonnull serailNumber){
         
-        if(result)
-        {
-            responseObject = [ZLGithubUserModel getInstanceWithDic:responseObject];
+        if(result){
+            if([@"Organization" isEqualToString:responseObject[@"type"]]) {
+                responseObject = [ZLGithubOrgModel mj_objectWithKeyValues:responseObject];
+            } else if([@"User" isEqualToString:responseObject[@"type"]]) {
+                responseObject = [ZLGithubUserModel mj_objectWithKeyValues:responseObject];
+            }
         }
         block(result,responseObject,serialNumber);
     };
@@ -516,7 +534,7 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
         
         if(result)
         {
-            responseObject = [ZLGithubUserModel getInstanceWithDic:responseObject];
+            responseObject = [ZLGithubOrgModel mj_objectWithKeyValues:responseObject];
         }
         block(result,responseObject,serialNumber);
     };
@@ -598,31 +616,81 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
             [params setObject:bio forKey:@"bio"];
     }
     
-    
-    void(^successBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) =
-    ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
-    {
-        ZLGithubUserModel * model = [ZLGithubUserModel getInstanceWithDic:(NSDictionary *) responseObject];
-        block(YES,model,serialNumber);
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
+        
+        if(result)
+        {
+            responseObject = [ZLGithubUserModel mj_objectWithKeyValues:(NSDictionary *) responseObject];
+        }
+        block(result,responseObject,serialNumber);
     };
     
-    void(^failedBlock)(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) =
-    ^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error)
-    {
-        block(NO,nil,serialNumber);
-    };
-    
-    AFHTTPSessionManager *sessionManager = [self getDefaultSessionManager];
-    [sessionManager.requestSerializer setValue:[NSString stringWithFormat:@"token %@",self.token] forHTTPHeaderField:@"Authorization"];
     
     
-    
-    [sessionManager PATCH:userUrl
-               parameters:params
-                   headers:nil
-                  success:successBlock
-                  failure:failedBlock];
+    [self requestWithMethod:@"PATCH"
+                    WithURL:userUrl
+                WithHeaders:nil
+                 WithParams:params
+          WithResponseBlock:newBlock
+           WithSerialNumber:serialNumber];
 }
+
+
+
+
+/**
+ * @brief 查询用户的contributions
+ * @param loginName 用户的登录名
+ **/
+- (void) getUserContributionsData:(GithubResponse) block
+                        loginName: (NSString * _Nonnull) loginName
+                     serialNumber: (NSString * _Nonnull) serialNumber{
+    
+    loginName = [loginName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+    NSString *contributionsUrl = [NSString stringWithFormat:@"https://github.com/users/%@/contributions",loginName];
+        
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
+        
+        if(result) {
+            
+            NSString *html = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+            
+            OCGumboDocument *doc = [[OCGumboDocument alloc] initWithHTMLString:html];
+            OCQueryObject *queryResult = doc.Query(@".ContributionCalendar-day");
+            
+            NSMutableArray *contributionsArray = [NSMutableArray new];
+            
+            for(OCGumboElement *gumboNode in queryResult) {
+                if( [gumboNode hasAttribute:@"data-count"]){
+                    ZLGithubUserContributionData *data = [ZLGithubUserContributionData new];
+                    data.contributionsNumber = [[gumboNode getAttribute:@"data-count"] intValue];
+                    data.contributionsDate =  [gumboNode getAttribute:@"data-date"];
+                    data.contributionsLevel = [[gumboNode getAttribute:@"data-level"] intValue];;
+                    [contributionsArray addObject:data];
+                }
+            }
+            responseObject = contributionsArray;
+        }
+        block(result,responseObject,serialNumber);
+    };
+    
+    
+    AFHTTPSessionManager *sessionManager =  [[AFHTTPSessionManager alloc] initWithSessionConfiguration:_httpConfig];
+    sessionManager.completionQueue = _completeQueue;
+    sessionManager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    sessionManager.requestSerializer.timeoutInterval = 30;
+    sessionManager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    sessionManager.responseSerializer.acceptableContentTypes = [[NSSet alloc] initWithArray:@[@"application/html",@"text/html"]];
+    
+    [self requestWithSessionManager:sessionManager
+                         withMethod:@"GET"
+                            withURL:contributionsUrl
+                         WithParams:nil
+                  WithResponseBlock:newBlock
+                   WithSerialNumber:serialNumber];
+    
+}
+
 
 #pragma mark - repositories
 
@@ -791,8 +859,8 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 
 - (void) getRepositoryInfo:(GithubResponse) block
                   fullName:(NSString *) fullName
-              serialNumber:(NSString *) serialNumber
-{
+              serialNumber:(NSString *) serialNumber{
+    
     fullName = [fullName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     
     NSString * urlForRepo = [NSString stringWithFormat:@"%@%@/%@",GitHubAPIURL,reposUrl,fullName];
@@ -1625,6 +1693,46 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
 
 #pragma mark - Issues
 
+- (void) searchIssues:(GithubResponse) block
+             keyword:(NSString *) keyword
+                sort:(NSString *) sort
+               order:(BOOL) isAsc
+                page:(NSUInteger) page
+            per_page:(NSUInteger) per_page
+        serialNumber:(NSString *) serialNumber{
+    
+    NSString * urlForSearchRepo = [NSString stringWithFormat:@"%@%@",GitHubAPIURL,searchIssueUrl];
+    
+    NSMutableDictionary * params = [@{@"q":keyword,
+                                      @"page":[NSNumber numberWithUnsignedInteger:page],
+                                      @"per_page":[NSNumber numberWithUnsignedInteger:per_page]} mutableCopy];
+    
+    if(sort && [sort length] > 0)
+    {
+        [params setObject:sort forKey:@"sort"];
+        [params setObject:isAsc ? @"asc":@"desc" forKey:@"order"];
+    }
+    
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
+        
+        if(result)
+        {
+            ZLSearchResultModel * resultModel = [[ZLSearchResultModel alloc] init];
+            resultModel.totalNumber = [[responseObject objectForKey:@"total_count"] unsignedIntegerValue];
+            resultModel.incomplete_results = [[responseObject objectForKey:@"incomplete_results"] unsignedIntegerValue];
+            resultModel.data = [ZLGithubIssueModel mj_objectArrayWithKeyValuesArray:[responseObject objectForKey:@"items"]];
+            responseObject = resultModel;
+        }
+        block(result,responseObject,serialNumber);
+    };
+    
+    [self GETRequestWithURL:urlForSearchRepo
+                WithHeaders:nil
+                 WithParams:params
+          WithResponseBlock:newBlock
+           WithSerialNumber:serialNumber];
+}
+
 - (void) getRepositoryIssues:(GithubResponse) block
                     fullName:(NSString *) fullName
                        state:(NSString *) state
@@ -2070,6 +2178,194 @@ static NSString * ZLGithubLoginCookiesKey = @"ZLGithubLoginCookiesKey";
                          WithParams:nil
                   WithResponseBlock:newBlock
                    WithSerialNumber:serialNumber];
+}
+
+#pragma mark - trending
+
+- (void) trendingUser: (GithubResponse)block
+             language:(NSString *__nullable) language
+            dateRange:(ZLDateRange) dateRange
+         serialNumber:(NSString *) serialNumber{
+    
+    language = [language stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+    
+    NSString * url = @"https://github.com/trending/developers";
+    if([language length] > 0){
+        url = [url stringByAppendingPathComponent:language];
+    }
+    switch (dateRange) {
+        case ZLDateRangeDaily:
+            url = [url stringByAppendingString:@"?since=daily"];
+            break;
+        case ZLDateRangeWeakly:
+            url = [url stringByAppendingString:@"?since=weekly"];
+            break;
+        case ZLDateRangeMonthly:
+            url = [url stringByAppendingString:@"?since=monthly"];
+            break;
+        default:
+            break;
+    }
+    
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
+        
+        if(result) {
+            
+            NSString *html = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+            
+            OCGumboDocument *doc = [[OCGumboDocument alloc] initWithHTMLString:html];
+            NSMutableArray * userArray = [NSMutableArray new];
+
+            NSArray *articles = doc.Query(@"article");
+            for(OCGumboElement *article in articles){
+                NSString * idStr = article.attr(@"id");
+                if([idStr hasPrefix:@"pa-"]){
+                    OCGumboElement *img =  article.Query(@"img").firstObject;
+                    NSString * avatar = img.attr(@"src");
+                    NSString * loginName = nil;
+                    NSString * name = nil;
+                    
+                    NSArray<OCGumboElement *>* aTagArray = article.Query(@"a");
+                    if([aTagArray count] >= 4){
+                        NSCharacterSet * set = [NSCharacterSet characterSetWithCharactersInString:@" \n"];
+                        name = [aTagArray[2].text() stringByTrimmingCharactersInSet:set];
+                        loginName = [aTagArray[3].text() stringByTrimmingCharactersInSet:set];
+                    }
+                    
+                    if([loginName length] > 0){
+                        ZLGithubUserModel * model = [ZLGithubUserModel new];
+                        model.loginName = loginName;
+                        model.avatar_url = avatar;
+                        model.name = name;
+                        [userArray addObject:model];
+                    }
+                }
+            }
+            responseObject = userArray;
+        }
+        block(result,responseObject,serialNumber);
+    };
+    
+    
+    AFHTTPSessionManager *sessionManager =  [[AFHTTPSessionManager alloc] initWithSessionConfiguration:_httpConfig];
+    sessionManager.completionQueue = _completeQueue;
+    sessionManager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    sessionManager.requestSerializer.timeoutInterval = 30;
+    sessionManager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    sessionManager.responseSerializer.acceptableContentTypes = [[NSSet alloc] initWithArray:@[@"application/html",@"text/html"]];
+    
+    [self requestWithSessionManager:sessionManager
+                         withMethod:@"GET"
+                            withURL:url
+                         WithParams:nil
+                  WithResponseBlock:newBlock
+                   WithSerialNumber:serialNumber];
+}
+
+
+- (void) trendingRepo:(GithubResponse)block
+             language:(NSString *) language
+            dateRange:(ZLDateRange) dateRange
+         serialNumber:(NSString *) serialNumber{
+    
+    language = [language stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+
+    NSString * url = @"https://github.com/trending";
+    if([language length] > 0){
+        url = [url stringByAppendingPathComponent:language];
+    }
+    switch (dateRange) {
+        case ZLDateRangeDaily:
+            url = [url stringByAppendingString:@"?since=daily"];
+            break;
+        case ZLDateRangeWeakly:
+            url = [url stringByAppendingString:@"?since=weekly"];
+            break;
+        case ZLDateRangeMonthly:
+            url = [url stringByAppendingString:@"?since=monthly"];
+            break;
+        default:
+            break;
+    }
+
+    GithubResponse newBlock = ^(BOOL result, id _Nullable responseObject, NSString * _Nonnull serialNumber) {
+        
+        if(result) {
+            
+            NSString *html = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+            
+            OCGumboDocument *doc = [[OCGumboDocument alloc] initWithHTMLString:html];
+            NSMutableArray * repoArray = [NSMutableArray new];
+            
+            NSArray *articles = doc.Query(@"article");
+            for(OCGumboElement *article in articles){
+                OCGumboElement *h1 =  article.Query(@"h1").firstObject;
+                OCGumboElement *p =  article.Query(@"p").firstObject;
+                OCGumboElement *a = h1.Query(@"a").firstObject;
+                NSString * fullName = a.attr(@"href");
+                NSCharacterSet * set = [NSCharacterSet characterSetWithCharactersInString:@" \n"];
+                NSString * desc = nil;
+                if(p){
+                    desc = [p.text() stringByTrimmingCharactersInSet:set];
+                }
+                NSString *language = @"";
+                NSArray<OCGumboElement *>* spanElements = article.Query(@"span");
+                for(OCGumboElement *element in spanElements){
+                    if([@"programmingLanguage" isEqualToString:element.attr(@"itemprop")]){
+                        language = element.text();
+                        break;
+                    }
+                }
+                
+                int forkNum = 0;
+                int starNum = 0;
+                NSArray<OCGumboElement *>* svgElements = article.Query(@"svg");
+                for(OCGumboElement *element in svgElements){
+                    if([@"star" isEqualToString:element.attr(@"aria-label")]){
+                        NSString *starNumStr = [element.parentNode.text() stringByTrimmingCharactersInSet:set];
+                        starNumStr = [starNumStr stringByReplacingOccurrencesOfString:@"," withString:@""];
+                        starNum = [starNumStr intValue];
+                    } else if ([@"fork" isEqualToString:element.attr(@"aria-label")]){
+                        NSString *forkNumStr = [element.parentNode.text() stringByTrimmingCharactersInSet:set];
+                        forkNumStr = [forkNumStr stringByReplacingOccurrencesOfString:@"," withString:@""];
+                        forkNum = [forkNumStr intValue];
+                    }
+                }
+                
+                
+                if([fullName length] > 0){
+                    ZLGithubRepositoryModel * model = [ZLGithubRepositoryModel new];
+                    model.full_name = [fullName substringFromIndex:1];
+                    model.owner = [ZLGithubUserBriefModel new];
+                    model.owner.loginName = [model.full_name componentsSeparatedByString:@"/"].firstObject;
+                    model.name = [model.full_name componentsSeparatedByString:@"/"].lastObject;
+                    model.desc_Repo = desc;
+                    model.language = language;
+                    model.forks_count = forkNum;
+                    model.stargazers_count = starNum;
+                    [repoArray addObject:model];
+                }
+            }
+            responseObject = repoArray;
+        }
+        block(result,responseObject,serialNumber);
+    };
+    
+    
+    AFHTTPSessionManager *sessionManager =  [[AFHTTPSessionManager alloc] initWithSessionConfiguration:_httpConfig];
+    sessionManager.completionQueue = _completeQueue;
+    sessionManager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    sessionManager.requestSerializer.timeoutInterval = 30;
+    sessionManager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    sessionManager.responseSerializer.acceptableContentTypes = [[NSSet alloc] initWithArray:@[@"application/html",@"text/html"]];
+    
+    [self requestWithSessionManager:sessionManager
+                         withMethod:@"GET"
+                            withURL:url
+                         WithParams:nil
+                  WithResponseBlock:newBlock
+                   WithSerialNumber:serialNumber];
+    
 }
 
 @end

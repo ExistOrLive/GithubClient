@@ -18,6 +18,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) NSString * documentation_url;
 
++ (ZLGithubRequestErrorModel *) errorModelWithStatusCode:(NSInteger) statusCode
+                                                 message:(NSString * _Nonnull) message
+                                       documentation_url:(NSString * _Nullable) url;
+
 @end
 
 NS_ASSUME_NONNULL_END

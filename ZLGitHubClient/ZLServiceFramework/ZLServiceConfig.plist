@@ -35,6 +35,17 @@
 		<key>singleMethod</key>
 		<string>sharedInstance</string>
 	</dict>
+	<key>ZLViewerServiceModel</key>
+	<dict>
+		<key>class</key>
+		<string>ZLViewerServiceModel</string>
+		<key>type</key>
+		<integer>1</integer>
+		<key>isSingle</key>
+		<true/>
+		<key>singleMethod</key>
+		<string>sharedServiceModel</string>
+	</dict>
 	<key>ZLUserServiceModel</key>
 	<dict>
 		<key>class</key>
@@ -79,27 +90,16 @@
 		<key>singleMethod</key>
 		<string>sharedServiceModel</string>
 	</dict>
-	<key>ZLAdditionInfoServiceModel</key>
+	<key>ZLAdditionServiceModel</key>
 	<dict>
 		<key>class</key>
-		<string>ZLAdditionInfoServiceModel</string>
+		<string>ZLAdditionServiceModel</string>
 		<key>type</key>
 		<integer>1</integer>
 		<key>isSingle</key>
 		<true/>
 		<key>singleMethod</key>
 		<string>sharedServiceModel</string>
-	</dict>
-	<key>ZLNotificationServiceModel</key>
-	<dict>
-		<key>class</key>
-		<string>ZLNotificationServiceModel</string>
-		<key>type</key>
-		<integer>1</integer>
-		<key>isSingle</key>
-		<true/>
-		<key>singleMethod</key>
-		<string>sharedInstance</string>
 	</dict>
 	<key>ZLEventServiceModel</key>
 	<dict>

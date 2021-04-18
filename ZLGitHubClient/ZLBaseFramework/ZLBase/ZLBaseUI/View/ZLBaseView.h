@@ -10,4 +10,8 @@
 
 @interface ZLBaseView : UIView
 
+// -(void) fillWithData:(id) viewModel;
+
+// - (void) reloadData;
+
 @end

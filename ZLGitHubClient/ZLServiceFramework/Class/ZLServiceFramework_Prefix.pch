@@ -20,14 +20,12 @@
 #import "ZLToolManager.h"
 
 #import "ZLOperationResultModel.h"
-#import "ZLGithubRepositoryModel.h"
 #import "ZLGithubRepositoryBranchModel.h"
 #import "ZLGithubRepositoryReadMeModel.h"
 
 #import "ZLGithubCommitModel.h"
 #import "ZLGithubPullRequestModel.h"
 #import "ZLGithubContentModel.h"
-#import "ZLGithubUserModel.h"
 #import "ZLGithubGistModel.h"
 #import "ZLGithubIssueModel.h"
 #import "ZLGitHubEventModel.h"
