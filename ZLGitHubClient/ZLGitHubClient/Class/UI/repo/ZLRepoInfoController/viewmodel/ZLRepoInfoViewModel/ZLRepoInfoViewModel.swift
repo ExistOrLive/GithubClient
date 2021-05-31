@@ -194,6 +194,11 @@ extension ZLRepoInfoViewModel : ZLRepoInfoViewDelegate
     
      func onZLRepoItemInfoViewEvent(type : ZLRepoItemType){
         
+        if self.repoInfoModel == nil ||
+            self.repoInfoModel.full_name == nil {
+            return
+        }
+        
         switch(type)
         {
         case .action : do{
@@ -221,7 +226,7 @@ extension ZLRepoInfoViewModel : ZLRepoInfoViewDelegate
             }
         case .code : do{
             let controller = ZLRepoContentController()
-            controller.branch = self.currentBranch ?? self.repoInfoModel!.default_branch
+            controller.branch = self.currentBranch ?? self.repoInfoModel?.default_branch
             controller.repoFullName = self.repoInfoModel?.full_name
             controller.path = ""
             self.viewController?.navigationController?.pushViewController(controller, animated: true)

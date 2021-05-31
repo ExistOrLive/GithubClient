@@ -154,6 +154,11 @@ extension ZLRepoHeaderInfoViewModel : ZLRepoHeaderInfoViewDelegate
     }
     
     func onZLRepoHeaderInfoViewEvent(event: ZLRepoHeaderInfoViewEvent){
+        
+        if self.repoInfoModel?.full_name == nil {
+            return 
+        }
+        
         switch event{
         case .copy: do {
             let vc : ZLRepoForkedReposController = ZLRepoForkedReposController.init()

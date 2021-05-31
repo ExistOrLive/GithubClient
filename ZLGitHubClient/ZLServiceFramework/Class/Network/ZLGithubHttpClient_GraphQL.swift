@@ -372,7 +372,11 @@ public extension ZLGithubHttpClient{
         let query = RepoInfoQuery(login: login, name: name)
         self.baseQuery(query: query, serialNumber: serialNumber) { (result, data, serialNumber) in
             if let queryData = data as? RepoInfoQuery.Data {
-                block(result,ZLGithubRepositoryModel(queryData: queryData),serialNumber)
+                if queryData.repository == nil {
+                    block(result,nil,serialNumber)
+                } else {
+                    block(result,ZLGithubRepositoryModel(queryData: queryData),serialNumber)
+                }
             } else {
                 block(result,data,serialNumber)
             }

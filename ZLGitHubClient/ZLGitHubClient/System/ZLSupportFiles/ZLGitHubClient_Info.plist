@@ -48,12 +48,8 @@
 	<array>
 		<string>_adhp._tcp</string>
 	</array>
-	<key>NSCameraUsageDescription</key>
-	<string>摄像头权限</string>
 	<key>NSLocalNetworkUsageDescription</key>
-	<string>本地网络</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>麦克风权限</string>
+	<string>使用WoodPecker调试应用</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string></string>
 	<key>NSPhotoLibraryUsageDescription</key>

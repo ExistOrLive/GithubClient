@@ -35,7 +35,7 @@ class ZLRepoContentController: ZLBaseViewController {
        
         super.viewDidLoad()
         
-        guard repoFullName != nil || path != nil else {
+        guard repoFullName != nil && path != nil else {
             return
         }
         
