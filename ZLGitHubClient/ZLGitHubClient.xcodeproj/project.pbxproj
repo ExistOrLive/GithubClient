@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -32,7 +32,6 @@
 		3693D8D4246523A400779FC4 /* ZLAboutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3693D8D3246523A400779FC4 /* ZLAboutViewModel.swift */; };
 		36C785FC240782BA001B74C9 /* ZLRepoItemInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36C785FB240782BA001B74C9 /* ZLRepoItemInfoView.xib */; };
 		36C786012407E05F001B74C9 /* ZLRepoItemInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C786002407E05F001B74C9 /* ZLRepoItemInfoView.swift */; };
-		52AC1DE360CC31E2C7A64495 /* Pods_ZLBaseFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C158892C4674C3DD266C21BA /* Pods_ZLBaseFramework.framework */; };
 		740318CB22F702B7004CE52D /* ZLSearchRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740318CA22F702B7004CE52D /* ZLSearchRecordView.swift */; };
 		740318CD22F702D1004CE52D /* ZLSearchRecordView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 740318CC22F702D1004CE52D /* ZLSearchRecordView.xib */; };
 		740318CF22F702E6004CE52D /* ZLSearchItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740318CE22F702E6004CE52D /* ZLSearchItemsView.swift */; };
@@ -132,6 +131,8 @@
 		7451F153247AD3FA0047A186 /* ZLTrendingDateRangeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7451F151247AD3FA0047A186 /* ZLTrendingDateRangeTableViewCell.xib */; };
 		7456A2ED2416A31200222D6C /* ZLPullRequestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7456A2EB2416A31200222D6C /* ZLPullRequestTableViewCell.swift */; };
 		7456A2F02416A4E100222D6C /* ZLPullRequestTableViewCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7456A2EF2416A4E100222D6C /* ZLPullRequestTableViewCellData.swift */; };
+		745987AF26EEF2730050C7F7 /* ZLBaseObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 74D3EEF8259BC25D0002A2D3 /* ZLBaseObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		745987B026EEF27A0050C7F7 /* ZLBaseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3EEF7259BC25D0002A2D3 /* ZLBaseObject.m */; };
 		745D48C8257249D700E67AEE /* github_style_dark_markdown.css in Resources */ = {isa = PBXBuildFile; fileRef = 745D48C6257249D700E67AEE /* github_style_dark_markdown.css */; };
 		745D48C9257249D700E67AEE /* github_style_markdown.css in Resources */ = {isa = PBXBuildFile; fileRef = 745D48C7257249D700E67AEE /* github_style_markdown.css */; };
 		745EADE02616E38600973F86 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 745EADDF2616E38600973F86 /* GoogleService-Info.plist */; };
@@ -207,6 +208,8 @@
 		74B87A5E2468566A00C8EB6B /* ZLFeedbackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74B87A5D2468566A00C8EB6B /* ZLFeedbackView.xib */; };
 		74BEF59F22F2D75900FD1738 /* ZLUserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BEF59D22F2D75900FD1738 /* ZLUserTableViewCell.swift */; };
 		74BEF5A022F2D75900FD1738 /* ZLUserTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74BEF59E22F2D75900FD1738 /* ZLUserTableViewCell.xib */; };
+		74C021C126EC532D008F593B /* ZLDeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3F067259BD6D60002A2D3 /* ZLDeviceInfo.m */; };
+		74C021C226EC5333008F593B /* ZLDeviceInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 74D3F068259BD6D60002A2D3 /* ZLDeviceInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		74C191FA23956E2B00636F24 /* ZLProfileEventCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C191F823956E2B00636F24 /* ZLProfileEventCollectionViewCell.swift */; };
 		74C191FB23956E2B00636F24 /* ZLProfileEventCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74C191F923956E2B00636F24 /* ZLProfileEventCollectionViewCell.xib */; };
 		74C191FD239CCC2100636F24 /* ZLProfileEventCollectionViewCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C191FC239CCC2100636F24 /* ZLProfileEventCollectionViewCellData.swift */; };
@@ -255,26 +258,6 @@
 		74D3DF8725CBEE9300BB11F2 /* UIViewController+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3DF8525CBEE9300BB11F2 /* UIViewController+Tool.m */; };
 		74D3DF9725CBF12200BB11F2 /* UIView+HJViewStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3DF9325CBF12200BB11F2 /* UIView+HJViewStyle.m */; };
 		74D3DF9825CBF12200BB11F2 /* UIColor+HexColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3DF9525CBF12200BB11F2 /* UIColor+HexColor.m */; };
-		74D3EEB5259BC2120002A2D3 /* ZLBaseFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 74D3EEB3259BC2120002A2D3 /* ZLBaseFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		74D3EF10259BC25D0002A2D3 /* ZLBaseViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3EEE2259BC25D0002A2D3 /* ZLBaseViewModel.m */; };
-		74D3EF11259BC25D0002A2D3 /* ZLBaseViewModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 74D3EEE3259BC25D0002A2D3 /* ZLBaseViewModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		74D3EF12259BC25D0002A2D3 /* ZLBaseUIHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 74D3EEE4259BC25D0002A2D3 /* ZLBaseUIHeader.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		74D3EF13259BC25D0002A2D3 /* ZLBaseUIConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 74D3EEE6259BC25D0002A2D3 /* ZLBaseUIConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		74D3EF14259BC25D0002A2D3 /* ZLBaseUIConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3EEE7259BC25D0002A2D3 /* ZLBaseUIConfig.m */; };
-		74D3EF15259BC25D0002A2D3 /* ZLBaseView.h in Headers */ = {isa = PBXBuildFile; fileRef = 74D3EEE9259BC25D0002A2D3 /* ZLBaseView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		74D3EF16259BC25D0002A2D3 /* ZLBaseNavigationBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 74D3EEEA259BC25D0002A2D3 /* ZLBaseNavigationBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		74D3EF17259BC25D0002A2D3 /* ZLBaseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3EEEB259BC25D0002A2D3 /* ZLBaseButton.m */; };
-		74D3EF18259BC25D0002A2D3 /* ZLBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3EEEC259BC25D0002A2D3 /* ZLBaseView.m */; };
-		74D3EF19259BC25D0002A2D3 /* ZLBaseButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 74D3EEED259BC25D0002A2D3 /* ZLBaseButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		74D3EF1A259BC25D0002A2D3 /* ZLBaseNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3EEEE259BC25D0002A2D3 /* ZLBaseNavigationBar.m */; };
-		74D3EF1B259BC25D0002A2D3 /* ZLBaseNavigationController.h in Headers */ = {isa = PBXBuildFile; fileRef = 74D3EEF0259BC25D0002A2D3 /* ZLBaseNavigationController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		74D3EF1C259BC25D0002A2D3 /* ZLBaseViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 74D3EEF1259BC25D0002A2D3 /* ZLBaseViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		74D3EF1D259BC25D0002A2D3 /* ZLBaseTabBarController.h in Headers */ = {isa = PBXBuildFile; fileRef = 74D3EEF2259BC25D0002A2D3 /* ZLBaseTabBarController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		74D3EF1E259BC25D0002A2D3 /* ZLBaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3EEF3259BC25D0002A2D3 /* ZLBaseNavigationController.m */; };
-		74D3EF1F259BC25D0002A2D3 /* ZLBaseTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3EEF4259BC25D0002A2D3 /* ZLBaseTabBarController.m */; };
-		74D3EF20259BC25D0002A2D3 /* ZLBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3EEF5259BC25D0002A2D3 /* ZLBaseViewController.m */; };
-		74D3EF21259BC25D0002A2D3 /* ZLBaseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3EEF7259BC25D0002A2D3 /* ZLBaseObject.m */; };
-		74D3EF22259BC25D0002A2D3 /* ZLBaseObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 74D3EEF8259BC25D0002A2D3 /* ZLBaseObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		74D3EFD2259BC6060002A2D3 /* ZLRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D3EF55259BC6050002A2D3 /* ZLRefresh.swift */; };
 		74D3EFD3259BC6060002A2D3 /* ZMRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3EF57259BC6050002A2D3 /* ZMRefreshView.m */; };
 		74D3EFD4259BC6060002A2D3 /* ZMRefreshManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3EF5B259BC6050002A2D3 /* ZMRefreshManager.m */; };
@@ -304,11 +287,7 @@
 		74D3F000259BC6070002A2D3 /* CYRangePickerPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3EFCA259BC6060002A2D3 /* CYRangePickerPopoverView.m */; };
 		74D3F001259BC6070002A2D3 /* CYPopoverCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3EFCC259BC6060002A2D3 /* CYPopoverCollectionViewCell.m */; };
 		74D3F002259BC6070002A2D3 /* CYInputPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3EFCF259BC6060002A2D3 /* CYInputPopoverView.m */; };
-		74D3F069259BD6D60002A2D3 /* ZLDeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3F067259BD6D60002A2D3 /* ZLDeviceInfo.m */; };
-		74D3F06A259BD6D60002A2D3 /* ZLDeviceInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 74D3F068259BD6D60002A2D3 /* ZLDeviceInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		74D3F070259BD73E0002A2D3 /* ZLBaseToolHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 74D3F06D259BD7060002A2D3 /* ZLBaseToolHeader.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		74D3F153259C9FF90002A2D3 /* ZLServiceFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 74D3F151259C9FF90002A2D3 /* ZLServiceFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		74D3F163259CA0460002A2D3 /* ZLBaseFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74D3EEB1259BC2120002A2D3 /* ZLBaseFramework.framework */; };
 		74D3F20A259CA23C0002A2D3 /* NSString+ZLExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 74D3F166259CA23A0002A2D3 /* NSString+ZLExtension.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		74D3F20B259CA23C0002A2D3 /* NSDate+localizeStr.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3F167259CA23A0002A2D3 /* NSDate+localizeStr.m */; };
 		74D3F20C259CA23C0002A2D3 /* String+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D3F168259CA23A0002A2D3 /* String+extension.swift */; };
@@ -467,13 +446,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 74D3F14E259C9FF90002A2D3;
 			remoteInfo = ZLServiceFramework;
-		};
-		74D3F161259CA0090002A2D3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0ADF902221D4B01900BF86CD /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 74D3EEB0259BC2120002A2D3;
-			remoteInfo = ZLBaseFramework;
 		};
 		74D3F599259D49F10002A2D3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -794,26 +766,6 @@
 		74D3DF9425CBF12200BB11F2 /* UIView+HJViewStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+HJViewStyle.h"; sourceTree = "<group>"; };
 		74D3DF9525CBF12200BB11F2 /* UIColor+HexColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HexColor.m"; sourceTree = "<group>"; };
 		74D3DF9625CBF12200BB11F2 /* UIColor+HexColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+HexColor.h"; sourceTree = "<group>"; };
-		74D3EEB1259BC2120002A2D3 /* ZLBaseFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ZLBaseFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		74D3EEB3259BC2120002A2D3 /* ZLBaseFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLBaseFramework.h; sourceTree = "<group>"; };
-		74D3EEB4259BC2120002A2D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		74D3EEE2259BC25D0002A2D3 /* ZLBaseViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLBaseViewModel.m; sourceTree = "<group>"; };
-		74D3EEE3259BC25D0002A2D3 /* ZLBaseViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLBaseViewModel.h; sourceTree = "<group>"; };
-		74D3EEE4259BC25D0002A2D3 /* ZLBaseUIHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLBaseUIHeader.h; sourceTree = "<group>"; };
-		74D3EEE6259BC25D0002A2D3 /* ZLBaseUIConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLBaseUIConfig.h; sourceTree = "<group>"; };
-		74D3EEE7259BC25D0002A2D3 /* ZLBaseUIConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLBaseUIConfig.m; sourceTree = "<group>"; };
-		74D3EEE9259BC25D0002A2D3 /* ZLBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLBaseView.h; sourceTree = "<group>"; };
-		74D3EEEA259BC25D0002A2D3 /* ZLBaseNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLBaseNavigationBar.h; sourceTree = "<group>"; };
-		74D3EEEB259BC25D0002A2D3 /* ZLBaseButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLBaseButton.m; sourceTree = "<group>"; };
-		74D3EEEC259BC25D0002A2D3 /* ZLBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLBaseView.m; sourceTree = "<group>"; };
-		74D3EEED259BC25D0002A2D3 /* ZLBaseButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLBaseButton.h; sourceTree = "<group>"; };
-		74D3EEEE259BC25D0002A2D3 /* ZLBaseNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLBaseNavigationBar.m; sourceTree = "<group>"; };
-		74D3EEF0259BC25D0002A2D3 /* ZLBaseNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLBaseNavigationController.h; sourceTree = "<group>"; };
-		74D3EEF1259BC25D0002A2D3 /* ZLBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLBaseViewController.h; sourceTree = "<group>"; };
-		74D3EEF2259BC25D0002A2D3 /* ZLBaseTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLBaseTabBarController.h; sourceTree = "<group>"; };
-		74D3EEF3259BC25D0002A2D3 /* ZLBaseNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLBaseNavigationController.m; sourceTree = "<group>"; };
-		74D3EEF4259BC25D0002A2D3 /* ZLBaseTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLBaseTabBarController.m; sourceTree = "<group>"; };
-		74D3EEF5259BC25D0002A2D3 /* ZLBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLBaseViewController.m; sourceTree = "<group>"; };
 		74D3EEF7259BC25D0002A2D3 /* ZLBaseObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLBaseObject.m; sourceTree = "<group>"; };
 		74D3EEF8259BC25D0002A2D3 /* ZLBaseObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLBaseObject.h; sourceTree = "<group>"; };
 		74D3EF55259BC6050002A2D3 /* ZLRefresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZLRefresh.swift; sourceTree = "<group>"; };
@@ -871,7 +823,6 @@
 		74D3EFD1259BC6060002A2D3 /* CYPopoverViewHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYPopoverViewHeader.h; sourceTree = "<group>"; };
 		74D3F067259BD6D60002A2D3 /* ZLDeviceInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLDeviceInfo.m; sourceTree = "<group>"; };
 		74D3F068259BD6D60002A2D3 /* ZLDeviceInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLDeviceInfo.h; sourceTree = "<group>"; };
-		74D3F06D259BD7060002A2D3 /* ZLBaseToolHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLBaseToolHeader.h; sourceTree = "<group>"; };
 		74D3F14F259C9FF90002A2D3 /* ZLServiceFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ZLServiceFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		74D3F151259C9FF90002A2D3 /* ZLServiceFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLServiceFramework.h; sourceTree = "<group>"; };
 		74D3F152259C9FF90002A2D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1054,21 +1005,12 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		74D3EEAE259BC2120002A2D3 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				52AC1DE360CC31E2C7A64495 /* Pods_ZLBaseFramework.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		74D3F14C259C9FF90002A2D3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				745EAEE22616FAE800973F86 /* Bugly.framework in Frameworks */,
 				74D3F487259CF4DD0002A2D3 /* libgumbo.a in Frameworks */,
-				74D3F163259CA0460002A2D3 /* ZLBaseFramework.framework in Frameworks */,
 				FE55B6774DB181170383987F /* Pods_ZLServiceFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1079,7 +1021,6 @@
 		0ADF902121D4B01900BF86CD = {
 			isa = PBXGroup;
 			children = (
-				74D3EEB2259BC2120002A2D3 /* ZLBaseFramework */,
 				74D3F150259C9FF90002A2D3 /* ZLServiceFramework */,
 				0ADF902C21D4B01900BF86CD /* ZLGitHubClient */,
 				74344A5F258B0FB600903E08 /* Fixed Repo */,
@@ -1094,7 +1035,6 @@
 			children = (
 				0ADF902A21D4B01900BF86CD /* ZLGitHubClient.app */,
 				74344A5A258B0FB600903E08 /* Fixed RepoExtension.appex */,
-				74D3EEB1259BC2120002A2D3 /* ZLBaseFramework.framework */,
 				74D3F14F259C9FF90002A2D3 /* ZLServiceFramework.framework */,
 			);
 			name = Products;
@@ -2655,91 +2595,6 @@
 			path = view;
 			sourceTree = "<group>";
 		};
-		74D3EEB2259BC2120002A2D3 /* ZLBaseFramework */ = {
-			isa = PBXGroup;
-			children = (
-				74D3F065259BD6BE0002A2D3 /* Tool */,
-				74D3EEDF259BC25D0002A2D3 /* ZLBase */,
-				74D3EEB3259BC2120002A2D3 /* ZLBaseFramework.h */,
-				74D3EEB4259BC2120002A2D3 /* Info.plist */,
-			);
-			path = ZLBaseFramework;
-			sourceTree = "<group>";
-		};
-		74D3EEDF259BC25D0002A2D3 /* ZLBase */ = {
-			isa = PBXGroup;
-			children = (
-				74D3EEE0259BC25D0002A2D3 /* ZLBaseUI */,
-				74D3EEF6259BC25D0002A2D3 /* ZLBaseObject */,
-			);
-			path = ZLBase;
-			sourceTree = "<group>";
-		};
-		74D3EEE0259BC25D0002A2D3 /* ZLBaseUI */ = {
-			isa = PBXGroup;
-			children = (
-				74D3EEE4259BC25D0002A2D3 /* ZLBaseUIHeader.h */,
-				74D3EEE1259BC25D0002A2D3 /* ViewModel */,
-				74D3EEE5259BC25D0002A2D3 /* UIConfig */,
-				74D3EEE8259BC25D0002A2D3 /* View */,
-				74D3EEEF259BC25D0002A2D3 /* ViewController */,
-			);
-			path = ZLBaseUI;
-			sourceTree = "<group>";
-		};
-		74D3EEE1259BC25D0002A2D3 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				74D3EEE2259BC25D0002A2D3 /* ZLBaseViewModel.m */,
-				74D3EEE3259BC25D0002A2D3 /* ZLBaseViewModel.h */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		74D3EEE5259BC25D0002A2D3 /* UIConfig */ = {
-			isa = PBXGroup;
-			children = (
-				74D3EEE6259BC25D0002A2D3 /* ZLBaseUIConfig.h */,
-				74D3EEE7259BC25D0002A2D3 /* ZLBaseUIConfig.m */,
-			);
-			path = UIConfig;
-			sourceTree = "<group>";
-		};
-		74D3EEE8259BC25D0002A2D3 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				74D3EEE9259BC25D0002A2D3 /* ZLBaseView.h */,
-				74D3EEEA259BC25D0002A2D3 /* ZLBaseNavigationBar.h */,
-				74D3EEEB259BC25D0002A2D3 /* ZLBaseButton.m */,
-				74D3EEEC259BC25D0002A2D3 /* ZLBaseView.m */,
-				74D3EEED259BC25D0002A2D3 /* ZLBaseButton.h */,
-				74D3EEEE259BC25D0002A2D3 /* ZLBaseNavigationBar.m */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		74D3EEEF259BC25D0002A2D3 /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				74D3EEF0259BC25D0002A2D3 /* ZLBaseNavigationController.h */,
-				74D3EEF1259BC25D0002A2D3 /* ZLBaseViewController.h */,
-				74D3EEF2259BC25D0002A2D3 /* ZLBaseTabBarController.h */,
-				74D3EEF3259BC25D0002A2D3 /* ZLBaseNavigationController.m */,
-				74D3EEF4259BC25D0002A2D3 /* ZLBaseTabBarController.m */,
-				74D3EEF5259BC25D0002A2D3 /* ZLBaseViewController.m */,
-			);
-			path = ViewController;
-			sourceTree = "<group>";
-		};
-		74D3EEF6259BC25D0002A2D3 /* ZLBaseObject */ = {
-			isa = PBXGroup;
-			children = (
-				74D3EEF7259BC25D0002A2D3 /* ZLBaseObject.m */,
-				74D3EEF8259BC25D0002A2D3 /* ZLBaseObject.h */,
-			);
-			path = ZLBaseObject;
-			sourceTree = "<group>";
-		};
 		74D3EF52259BC6050002A2D3 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
@@ -2993,15 +2848,6 @@
 			path = Router;
 			sourceTree = "<group>";
 		};
-		74D3F065259BD6BE0002A2D3 /* Tool */ = {
-			isa = PBXGroup;
-			children = (
-				74D3F06D259BD7060002A2D3 /* ZLBaseToolHeader.h */,
-				74D3F066259BD6D60002A2D3 /* ZLDeviceInfo */,
-			);
-			path = Tool;
-			sourceTree = "<group>";
-		};
 		74D3F066259BD6D60002A2D3 /* ZLDeviceInfo */ = {
 			isa = PBXGroup;
 			children = (
@@ -3078,6 +2924,8 @@
 		74D3F174259CA23A0002A2D3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				74D3EEF8259BC25D0002A2D3 /* ZLBaseObject.h */,
+				74D3EEF7259BC25D0002A2D3 /* ZLBaseObject.m */,
 				74D3F175259CA23A0002A2D3 /* PersistentModel */,
 				74D3F19A259CA23B0002A2D3 /* Enum */,
 				74D3F19D259CA23B0002A2D3 /* TmpModel */,
@@ -3369,6 +3217,7 @@
 		74D3F1E6259CA23C0002A2D3 /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				74D3F066259BD6D60002A2D3 /* ZLDeviceInfo */,
 				74D3F1E7259CA23C0002A2D3 /* Managers */,
 			);
 			path = Tool;
@@ -3880,26 +3729,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		74D3EEAC259BC2120002A2D3 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				74D3EEB5259BC2120002A2D3 /* ZLBaseFramework.h in Headers */,
-				74D3EF22259BC25D0002A2D3 /* ZLBaseObject.h in Headers */,
-				74D3EF1C259BC25D0002A2D3 /* ZLBaseViewController.h in Headers */,
-				74D3EF1D259BC25D0002A2D3 /* ZLBaseTabBarController.h in Headers */,
-				74D3EF16259BC25D0002A2D3 /* ZLBaseNavigationBar.h in Headers */,
-				74D3EF1B259BC25D0002A2D3 /* ZLBaseNavigationController.h in Headers */,
-				74D3EF15259BC25D0002A2D3 /* ZLBaseView.h in Headers */,
-				74D3EF12259BC25D0002A2D3 /* ZLBaseUIHeader.h in Headers */,
-				74D3EF13259BC25D0002A2D3 /* ZLBaseUIConfig.h in Headers */,
-				74D3EF19259BC25D0002A2D3 /* ZLBaseButton.h in Headers */,
-				74D3EF11259BC25D0002A2D3 /* ZLBaseViewModel.h in Headers */,
-				74D3F06A259BD6D60002A2D3 /* ZLDeviceInfo.h in Headers */,
-				74D3F070259BD73E0002A2D3 /* ZLBaseToolHeader.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		74D3F14A259C9FF90002A2D3 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -3935,6 +3764,7 @@
 				74D3F153259C9FF90002A2D3 /* ZLServiceFramework.h in Headers */,
 				74369461261F0183001F92FE /* ZLGithubUserType.h in Headers */,
 				745EAEEA2616FB4700973F86 /* ZLBuglyManager.h in Headers */,
+				74C021C226EC5333008F593B /* ZLDeviceInfo.h in Headers */,
 				74D3F278259CA23D0002A2D3 /* ZLSharedDataManager.h in Headers */,
 				74D3F20F259CA23C0002A2D3 /* ZLGithubHttpClient.h in Headers */,
 				74D3F242259CA23C0002A2D3 /* ZLAdditionServiceModel.h in Headers */,
@@ -3945,6 +3775,7 @@
 				74D3F23C259CA23C0002A2D3 /* ZLEventServiceModel.h in Headers */,
 				74D3F210259CA23C0002A2D3 /* ZLGithubAPI.h in Headers */,
 				74D3F26D259CA23D0002A2D3 /* ZLLanguageManager.h in Headers */,
+				745987AF26EEF2730050C7F7 /* ZLBaseObject.h in Headers */,
 				74D3F276259CA23D0002A2D3 /* ZLDataBaseSql.h in Headers */,
 				74D3F275259CA23D0002A2D3 /* ZLDataBaseManager.h in Headers */,
 				74D3F26B259CA23D0002A2D3 /* ZLLogManager.h in Headers */,
@@ -4000,25 +3831,6 @@
 			productReference = 74344A5A258B0FB600903E08 /* Fixed RepoExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		74D3EEB0259BC2120002A2D3 /* ZLBaseFramework */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 74D3EEBD259BC2120002A2D3 /* Build configuration list for PBXNativeTarget "ZLBaseFramework" */;
-			buildPhases = (
-				E064C5F14551A3D6A289AACC /* [CP] Check Pods Manifest.lock */,
-				74D3EEAC259BC2120002A2D3 /* Headers */,
-				74D3EEAD259BC2120002A2D3 /* Sources */,
-				74D3EEAE259BC2120002A2D3 /* Frameworks */,
-				74D3EEAF259BC2120002A2D3 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = ZLBaseFramework;
-			productName = ZLBaseFramework;
-			productReference = 74D3EEB1259BC2120002A2D3 /* ZLBaseFramework.framework */;
-			productType = "com.apple.product-type.framework";
-		};
 		74D3F14E259C9FF90002A2D3 /* ZLServiceFramework */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 74D3F158259C9FF90002A2D3 /* Build configuration list for PBXNativeTarget "ZLServiceFramework" */;
@@ -4033,7 +3845,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				74D3F162259CA0090002A2D3 /* PBXTargetDependency */,
 			);
 			name = ZLServiceFramework;
 			productName = ZLServiceFramework;
@@ -4060,11 +3871,9 @@
 						CreatedOnToolsVersion = 12.3;
 						ProvisioningStyle = Manual;
 					};
-					74D3EEB0259BC2120002A2D3 = {
-						CreatedOnToolsVersion = 12.3;
-					};
 					74D3F14E259C9FF90002A2D3 = {
 						CreatedOnToolsVersion = 12.3;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -4084,7 +3893,6 @@
 			targets = (
 				0ADF902921D4B01900BF86CD /* ZLGitHubClient */,
 				74344A59258B0FB600903E08 /* Fixed RepoExtension */,
-				74D3EEB0259BC2120002A2D3 /* ZLBaseFramework */,
 				74D3F14E259C9FF90002A2D3 /* ZLServiceFramework */,
 			);
 		};
@@ -4178,13 +3986,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		74D3EEAF259BC2120002A2D3 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		74D3F14D259C9FF90002A2D3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -4203,7 +4004,6 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-ZLGitHubClient/Pods-ZLGitHubClient-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
 				"${BUILT_PRODUCTS_DIR}/FirebaseCore/FirebaseCore.framework",
 				"${BUILT_PRODUCTS_DIR}/FirebaseCoreDiagnostics/FirebaseCoreDiagnostics.framework",
@@ -4227,6 +4027,7 @@
 				"${BUILT_PRODUCTS_DIR}/JXSegmentedView/JXSegmentedView.framework",
 				"${PODS_ROOT}/LookinServer/LookinServer.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
+				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
@@ -4234,6 +4035,7 @@
 				"${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework",
 				"${BUILT_PRODUCTS_DIR}/UITextView+Placeholder/UITextView_Placeholder.framework",
 				"${BUILT_PRODUCTS_DIR}/YYText/YYText.framework",
+				"${BUILT_PRODUCTS_DIR}/ZLBaseUI/ZLBaseUI.framework",
 				"${BUILT_PRODUCTS_DIR}/fishhook/fishhook.framework",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/Apollo/Apollo.framework",
@@ -4242,7 +4044,6 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCoreDiagnostics.framework",
@@ -4266,6 +4067,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JXSegmentedView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LookinServer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
@@ -4273,6 +4075,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast_Swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITextView_Placeholder.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYText.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZLBaseUI.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/fishhook.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Apollo.framework",
@@ -4358,28 +4161,6 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-ZLServiceFramework-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E064C5F14551A3D6A289AACC /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ZLBaseFramework-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -4648,23 +4429,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		74D3EEAD259BC2120002A2D3 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				74D3EF20259BC25D0002A2D3 /* ZLBaseViewController.m in Sources */,
-				74D3EF14259BC25D0002A2D3 /* ZLBaseUIConfig.m in Sources */,
-				74D3F069259BD6D60002A2D3 /* ZLDeviceInfo.m in Sources */,
-				74D3EF1E259BC25D0002A2D3 /* ZLBaseNavigationController.m in Sources */,
-				74D3EF1A259BC25D0002A2D3 /* ZLBaseNavigationBar.m in Sources */,
-				74D3EF17259BC25D0002A2D3 /* ZLBaseButton.m in Sources */,
-				74D3EF10259BC25D0002A2D3 /* ZLBaseViewModel.m in Sources */,
-				74D3EF21259BC25D0002A2D3 /* ZLBaseObject.m in Sources */,
-				74D3EF1F259BC25D0002A2D3 /* ZLBaseTabBarController.m in Sources */,
-				74D3EF18259BC25D0002A2D3 /* ZLBaseView.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		74D3F14B259C9FF90002A2D3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -4675,6 +4439,7 @@
 				74D3F20C259CA23C0002A2D3 /* String+extension.swift in Sources */,
 				742935F825BA5250001CD142 /* ZLGithubUserContributionData.swift in Sources */,
 				74D3F222259CA23C0002A2D3 /* ZLGithubNotificationModel.swift in Sources */,
+				74C021C126EC532D008F593B /* ZLDeviceInfo.m in Sources */,
 				74D3F21B259CA23C0002A2D3 /* ZLGithubRepositoryReadMeModel.m in Sources */,
 				74D3F20E259CA23C0002A2D3 /* NSString+ZLExtension.m in Sources */,
 				74D3F266259CA23D0002A2D3 /* OCGumbo+Query.m in Sources */,
@@ -4685,6 +4450,7 @@
 				74D3F245259CA23C0002A2D3 /* ZLSearchServiceModel.m in Sources */,
 				74D3F22D259CA23C0002A2D3 /* ZLGitHubEventModel.m in Sources */,
 				74D3F221259CA23C0002A2D3 /* ZLGithubConfigModel.swift in Sources */,
+				745987B026EEF27A0050C7F7 /* ZLBaseObject.m in Sources */,
 				745EAED82616ED4600973F86 /* ZLAppEvent.swift in Sources */,
 				74D3F248259CA23C0002A2D3 /* ZLRepoServiceModel.m in Sources */,
 				743693FA261EDBB3001F92FE /* ZLGithubUserModel.swift in Sources */,
@@ -4727,12 +4493,6 @@
 			isa = PBXTargetDependency;
 			target = 74D3F14E259C9FF90002A2D3 /* ZLServiceFramework */;
 			targetProxy = 74D3F154259C9FF90002A2D3 /* PBXContainerItemProxy */;
-		};
-		74D3F162259CA0090002A2D3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			platformFilter = ios;
-			target = 74D3EEB0259BC2120002A2D3 /* ZLBaseFramework */;
-			targetProxy = 74D3F161259CA0090002A2D3 /* PBXContainerItemProxy */;
 		};
 		74D3F59A259D49F10002A2D3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -4940,11 +4700,8 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/fishhook/fishhook.framework/Headers\"",
 				);
 				INFOPLIST_FILE = ZLGitHubClient/System/ZLSupportFiles/ZLGitHubClient_Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ZLGitHubClient/Class/Import/OCGumbo",
@@ -5005,11 +4762,8 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/fishhook/fishhook.framework/Headers\"",
 				);
 				INFOPLIST_FILE = ZLGitHubClient/System/ZLSupportFiles/ZLGitHubClient_Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ZLGitHubClient/Class/Import/OCGumbo",
@@ -5043,11 +4797,7 @@
 				DEVELOPMENT_TEAM = 24LG5QVBPR;
 				INFOPLIST_FILE = "Fixed Repo/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ZLGitHubClient/Class/Import/OCGumbo",
@@ -5084,11 +4834,7 @@
 				DEVELOPMENT_TEAM = 24LG5QVBPR;
 				INFOPLIST_FILE = "Fixed Repo/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ZLGitHubClient/Class/Import/OCGumbo",
@@ -5099,89 +4845,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.zm.*";
 				SKIP_INSTALL = YES;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		74D3EEBB259BC2120002A2D3 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = AA68B4BC8FFF87762D625908 /* Pods-ZLBaseFramework.debug.xcconfig */;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = NO;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 24LG5QVBPR;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = ZLBaseFramework/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MACH_O_TYPE = staticlib;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.zm.ZLBaseFramework;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "arm64 arm64e i386 x86_64";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		74D3EEBC259BC2120002A2D3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9DB8CADD643B3AEB70C63C51 /* Pods-ZLBaseFramework.release.xcconfig */;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = NO;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Distribution";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 24LG5QVBPR;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = ZLBaseFramework/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MACH_O_TYPE = staticlib;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.zm.ZLBaseFramework;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
@@ -5221,12 +4887,8 @@
 				);
 				INFOPLIST_FILE = ZLServiceFramework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ZLServiceFramework/Class/Import/OCGumbo",
@@ -5298,12 +4960,8 @@
 				);
 				INFOPLIST_FILE = ZLServiceFramework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ZLServiceFramework/Class/Import/OCGumbo",
@@ -5363,15 +5021,6 @@
 			buildConfigurations = (
 				74344A6C258B0FB900903E08 /* Debug */,
 				74344A6D258B0FB900903E08 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		74D3EEBD259BC2120002A2D3 /* Build configuration list for PBXNativeTarget "ZLBaseFramework" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				74D3EEBB259BC2120002A2D3 /* Debug */,
-				74D3EEBC259BC2120002A2D3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

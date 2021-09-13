@@ -1,15 +1,7 @@
-platform :ios, '11.0'
+platform :ios, '12.0'
 use_frameworks!
 inhibit_all_warnings!     # 屏蔽pod中告警
 require "fileutils"
-
-
-target 'ZLBaseFramework' do
-  
-# AutoLayout
-pod 'Masonry'
-  
-end
 
 
 target 'ZLServiceFramework' do
@@ -21,8 +13,6 @@ pod 'Umbrella/Firebase'
 #pod 'Analytics', '~> 3.0'
 pod 'Firebase/Analytics'
 
-
-  
 # Http
 pod 'AFNetworking', :subspecs => ['Reachability', 'Serialization', 'Security', 'NSURLSession']
 
@@ -38,7 +28,7 @@ pod 'MJExtension'
 # graphql client
 pod "Apollo"
 
-pod "SYDCentralPivot", :git => 'https://github.com/ExistOrLive/SYDCentralPivot.git', :tag => '1.2.0'
+pod "SYDCentralPivot", :git => 'https://github.com/ExistOrLive/SYDCentralPivot.git', :tag => '1.3.0'
 
   
 end
@@ -112,7 +102,8 @@ pod 'JJException'
 # 扩展
 pod 'UITextView+Placeholder'
 
-pod "SYDCentralPivot", :git => 'https://github.com/ExistOrLive/SYDCentralPivot.git', :tag => '1.2.0'
+pod "SYDCentralPivot", :git => 'https://github.com/ExistOrLive/SYDCentralPivot.git', :tag => '1.3.0'
+pod 'ZLBaseUI', :git => 'https://github.com/ExistOrLive/ZLBaseUI.git', :tag => '1.2.0'
 
 
 

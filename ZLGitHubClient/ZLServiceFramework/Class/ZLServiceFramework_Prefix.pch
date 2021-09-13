@@ -11,11 +11,9 @@
 
 #define ZLMainThreadDispatch(a)     if([NSThread isMainThread]){ a }else{dispatch_async(dispatch_get_main_queue(), ^{ a });}
 
-#import <ZLBaseFramework/ZLBaseFramework.h>
-
 #import "ZLServiceFramework/ZLServiceFramework-Swift.h"
 
-#import <SYDCentralPivot/SYDCentralPivotCoreHeader.h>
+#import <SYDCentralPivot/SYDCentralFactory.h>
 
 #import "ZLToolManager.h"
 

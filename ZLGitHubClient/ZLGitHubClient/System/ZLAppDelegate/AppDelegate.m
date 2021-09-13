@@ -16,7 +16,7 @@
 #endif
 
 #import <UserNotifications/UserNotifications.h>
-#import <SYDCentralPivot/SYDCentralPivotCoreHeader.h>
+#import <SYDCentralPivot/SYDCentralRouter.h>
 #import <Firebase/Firebase.h>
 
 

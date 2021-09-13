@@ -6,10 +6,7 @@
 #import <UITextView_Placeholder/UITextView+Placeholder.h>
 #import <YYText/YYText.h>
 #import <ZLServiceFramework/ZLServiceFramework.h>
-
-// ZLExploreViewController
-#import "ZLExploreViewController.h"
-#import "ZLProfileViewController.h"
+#import <ZLBaseUI/ZLBaseUIHeader.h>
 
 // customView
 #import "ZLBaseSearchController.h"

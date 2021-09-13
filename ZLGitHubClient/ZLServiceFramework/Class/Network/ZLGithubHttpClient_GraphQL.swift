@@ -63,13 +63,13 @@ private struct ZLNetworkInterceptorProvider: InterceptorProvider {
         return [
             ZLTokenIntercetor(),
             MaxRetryInterceptor(),
-            LegacyCacheReadInterceptor(store: self.store),
+            CacheReadInterceptor(store: self.store),
             NetworkFetchInterceptor(client: self.client),
             ZLTokenInvalidDealIntercetor(),
             ResponseCodeInterceptor(),
-            LegacyParsingInterceptor(cacheKeyForObject: self.store.cacheKeyForObject),
+            JSONResponseParsingInterceptor(cacheKeyForObject: self.store.cacheKeyForObject),
             AutomaticPersistedQueryInterceptor(),
-            LegacyCacheWriteInterceptor(store: self.store)
+            CacheWriteInterceptor(store: self.store)
         ]
     }
 }

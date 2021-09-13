@@ -8,6 +8,7 @@
 
 import UIKit
 import CircleMenu
+import SYDCentralPivot
 
 
 enum ZLAssistButtonType{

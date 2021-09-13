@@ -6,7 +6,6 @@
 //  Copyright © 2020 ZM. All rights reserved.
 //
 
-import ZLBaseFramework
 import MJExtension
 
 @objcMembers open class ZLGithubNotificationSubjectModel: ZLBaseObject{

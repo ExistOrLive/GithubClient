@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import FirebaseAnalytics
 import Umbrella
 
 public let analytics : Umbrella.Analytics<ZLAppEvent> = {
@@ -25,7 +26,7 @@ final class BuglyProvider: ProviderType {
 
 final class ZLFirebaseProvider : ProviderType {
     func log(_ eventName: String, parameters: [String : Any]?) {
-        Firebase.Analytics.logEvent(eventName, parameters: parameters)
+        FirebaseAnalytics.Analytics.logEvent(eventName, parameters: parameters)
     }
 }
 

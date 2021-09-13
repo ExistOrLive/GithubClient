@@ -16,10 +16,8 @@ FOUNDATION_EXPORT const unsigned char ZLServiceFrameworkVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <ZLServiceFramework/PublicHeader.h>
 
-#import <ZLBaseFramework/ZLBaseFramework.h>
-
-
 // model
+#import "ZLBaseObject.h"
 #import "ZLGithubRepositoryBranchModel.h"
 #import "ZLGithubRepositoryReadMeModel.h"
 #import "ZLGithubCommitModel.h"
@@ -43,6 +41,7 @@ FOUNDATION_EXPORT const unsigned char ZLServiceFrameworkVersionString[];
 #import "ZLToolManager.h"
 #import "ZLSharedDataManager.h"
 #import "ZLBuglyManager.h"
+#import "ZLDeviceInfo.h"
 
 #import "ZLBaseServiceModel.h"
 #import "ZLEventServiceHeader.h"

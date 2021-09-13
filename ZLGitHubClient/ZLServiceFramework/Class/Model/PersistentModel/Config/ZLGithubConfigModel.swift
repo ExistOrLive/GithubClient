@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import ZLBaseFramework
 
 @objcMembers open class ZLGithubConfigModel: ZLBaseObject {
     open var BlockFunction : Bool = true

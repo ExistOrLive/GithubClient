@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import ZLBaseFramework
 import MJExtension
 
 @objcMembers open class  ZLGithubRepoWorkflowCommit : ZLBaseObject {

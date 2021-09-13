@@ -5,7 +5,6 @@
 //  Created by 朱猛 on 2020/7/10.
 //  Copyright © 2020 ZM. All rights reserved.
 //
-import ZLBaseFramework
 import MJExtension
 
 @objcMembers open class ZLGithubRepoWorkflowModel: ZLBaseObject {

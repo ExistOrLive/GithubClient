@@ -6,9 +6,9 @@ PODS:
   - AFNetworking/Reachability (4.0.1)
   - AFNetworking/Security (4.0.1)
   - AFNetworking/Serialization (4.0.1)
-  - Apollo (0.39.0):
-    - Apollo/Core (= 0.39.0)
-  - Apollo/Core (0.39.0)
+  - Apollo (0.48.0):
+    - Apollo/Core (= 0.48.0)
+  - Apollo/Core (0.48.0)
   - BSBacktraceLogger (0.0.1)
   - Charts (3.6.0):
     - Charts/Core (= 3.6.0)
@@ -132,14 +132,14 @@ PODS:
   - SDWebImage/Core (5.0.6)
   - SnapKit (4.0.1)
   - SVProgressHUD (2.2.5)
-  - SYDCentralPivot (1.2.0):
-    - SYDCentralPivot/Core (= 1.2.0)
-    - SYDCentralPivot/Service (= 1.2.0)
-    - SYDCentralPivot/VC (= 1.2.0)
-  - SYDCentralPivot/Core (1.2.0)
-  - SYDCentralPivot/Service (1.2.0):
+  - SYDCentralPivot (1.3.0):
+    - SYDCentralPivot/Core (= 1.3.0)
+    - SYDCentralPivot/Service (= 1.3.0)
+    - SYDCentralPivot/VC (= 1.3.0)
+  - SYDCentralPivot/Core (1.3.0)
+  - SYDCentralPivot/Service (1.3.0):
     - SYDCentralPivot/Core
-  - SYDCentralPivot/VC (1.2.0):
+  - SYDCentralPivot/VC (1.3.0):
     - SYDCentralPivot/Core
   - Toast (4.0.0)
   - Toast-Swift (5.0.1)
@@ -151,6 +151,8 @@ PODS:
     - Umbrella/Core
   - WoodPeckeriOS (1.2.92)
   - YYText (1.0.7)
+  - ZLBaseUI (1.2.0):
+    - Masonry
 
 DEPENDENCIES:
   - AFNetworking/NSURLSession
@@ -178,7 +180,7 @@ DEPENDENCIES:
   - SDWebImage (~> 5.0.0)
   - SnapKit (~> 4.0.0)
   - SVProgressHUD
-  - SYDCentralPivot (from `https://github.com/ExistOrLive/SYDCentralPivot.git`, tag `1.2.0`)
+  - SYDCentralPivot (from `https://github.com/ExistOrLive/SYDCentralPivot.git`, tag `1.3.0`)
   - Toast
   - Toast-Swift
   - "UITextView+Placeholder"
@@ -186,6 +188,7 @@ DEPENDENCIES:
   - Umbrella/Firebase
   - WoodPeckeriOS
   - YYText
+  - ZLBaseUI (from `https://github.com/ExistOrLive/ZLBaseUI.git`, tag `1.2.0`)
 
 SPEC REPOS:
   trunk:
@@ -231,16 +234,22 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   SYDCentralPivot:
     :git: https://github.com/ExistOrLive/SYDCentralPivot.git
+    :tag: 1.3.0
+  ZLBaseUI:
+    :git: https://github.com/ExistOrLive/ZLBaseUI.git
     :tag: 1.2.0
 
 CHECKOUT OPTIONS:
   SYDCentralPivot:
     :git: https://github.com/ExistOrLive/SYDCentralPivot.git
+    :tag: 1.3.0
+  ZLBaseUI:
+    :git: https://github.com/ExistOrLive/ZLBaseUI.git
     :tag: 1.2.0
 
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
-  Apollo: f6c6410ebee82dd5846be87b81cedc8bc7754a82
+  Apollo: 29f3277549f743e2d4ac1e43ecf1b62880d175df
   BSBacktraceLogger: 06b983ee93a9f87d957960e9c73d660d5966b447
   Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
   CircleMenu: a66095199a5e26f19acbb212f077010257767fe5
@@ -271,14 +280,15 @@ SPEC CHECKSUMS:
   SDWebImage: 920f1a2ff1ca8296ad34f6e0510a1ef1d70ac965
   SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
-  SYDCentralPivot: 80dbb5ba5502b61baec5d8fd89d551e4cbdbda41
+  SYDCentralPivot: f4ec6fca1046a8ef1ee6014fa06a4e1006498702
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
   "UITextView+Placeholder": d7b0c400921f66523f3a85d74f774512e14f6502
   Umbrella: 4faf9786a6b29197608f6483711271104d237646
   WoodPeckeriOS: 29f6fb07de24c8c8716b56a8764876a739c6e8e3
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
+  ZLBaseUI: 068453e9b04f010e4453191929c5242e832d0d46
 
-PODFILE CHECKSUM: d000124288d7be6b21c2c18e5e835e3886212edc
+PODFILE CHECKSUM: 858a95ffa69886a95810ff923028703285cacdfd
 
 COCOAPODS: 1.11.0
