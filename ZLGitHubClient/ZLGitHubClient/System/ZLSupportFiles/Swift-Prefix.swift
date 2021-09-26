@@ -16,9 +16,22 @@ import Toast_Swift
 import JXSegmentedView
 import Charts
 import FWPopupView
-import ZLServiceFramework
+import ZLGitRemoteService
+import SYDCentralPivot
 
-// notification
+// MARK: ZLLANModule
+public var LANMODULE : ZLLanguageModuleProtocol?{
+    SYDCentralFactory.sharedInstance().getCommonBean("ZLLANModule") as? ZLLanguageModuleProtocol
+}
+
+public func ZLLocalizedString(string: String, comment: String) -> String{
+    return LANMODULE?.localized(withKey: string) ?? comment
+}
+
+public let ZLLanguageTypeChange_Notificaiton = Notification.Name(rawValue: "ZLLanguageTypeChange_Notificaiton")
+
+
+// MARK: notification
 let ZLUserInterfaceStyleChange_Notification = Notification.Name("ZLUserInterfaceStyleChange_Notification")
 
 // MARK: 界面常用参数

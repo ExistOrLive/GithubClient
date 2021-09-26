@@ -6,7 +6,7 @@
 //  Copyright © 2020 ZM. All rights reserved.
 //
 
-import ZLServiceFramework
+import ZLGitRemoteService
 
 @objcMembers open class ZLGithubCollectedRepoModel: ZLBaseObject {
     open var full_name : String?

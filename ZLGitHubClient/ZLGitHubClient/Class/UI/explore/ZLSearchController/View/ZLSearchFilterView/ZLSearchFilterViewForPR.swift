@@ -36,7 +36,7 @@ class ZLSearchFilterViewForPR: UIView {
         view.setViewDataForSearchFilterViewForPR(searchFilterModel: filterInfo)
         view.resultBlock = resultBlock
         
-        let popup = FFPopup(contetnView: view, showType: .slideInFromRight, dismissType: .slideOutToRight, maskType: FFPopup.MaskType.dimmed, dismissOnBackgroundTouch: true, dismissOnContentTouch: false)
+        let popup = FFPopup(contentView: view, showType: .slideInFromRight, dismissType: .slideOutToRight, maskType: FFPopup.MaskType.dimmed, dismissOnBackgroundTouch: true, dismissOnContentTouch: false)
         view.popup = popup
         popup.show(layout: FFPopupLayout.init(horizontal: FFPopup.HorizontalLayout.right, vertical: FFPopup.VerticalLayout.center))
     }

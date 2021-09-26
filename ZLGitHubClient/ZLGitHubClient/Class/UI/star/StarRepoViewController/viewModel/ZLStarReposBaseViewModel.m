@@ -15,7 +15,7 @@
 // m
 
 // service
-#import <ZLServiceFramework/ZLServiceFramework.h>
+#import <ZLGitRemoteService/ZLGitRemoteService.h>
 
 
 @interface ZLStarReposBaseViewModel() <ZLGithubItemListViewDelegate>

@@ -14,17 +14,23 @@
 #ifdef __OBJC__              // 避免C语言的头文件中引入OC代码
 
 #pragma mark - BaseFramework
-#import <ZLServiceFramework/ZLServiceFramework.h>
+#import <ZLGitRemoteService/ZLGitRemoteService.h>
 #import <ZLBaseUI/ZLBaseViewController.h>
+#import <SYDCentralPivot/SYDCentralPivot.h>
 
 #pragma mark -
 #import <Masonry/Masonry.h>
+#import "ZLLanguageModuleProtocol.h"
 
 #pragma mark - swift module
 #import "ZLGitHubClient-Swift.h"
 
+#pragma mark - 国际化模块
 
-#define ZLMainThreadDispatch(a)     if([NSThread isMainThread]){ a }else{dispatch_async(dispatch_get_main_queue(), ^{ a });}
+#define LANMODULE [[SYDCentralFactory sharedInstance] getCommonBean:@"ZLLANModule"]
+#define ZLLocalizedString(string,comment) [LANMODULE localizedWithKey:string]
+
+static const NSNotificationName ZLLanguageTypeChange_Notificaiton = @"ZLLanguageTypeChange_Notificaiton";
 
 static const NSNotificationName ZLUserInterfaceStyleChange_Notification = @"ZLUserInterfaceStyleChange_Notification";
 

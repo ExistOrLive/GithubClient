@@ -1,4 +1,10 @@
 PODS:
+  - AFNetworking (4.0.1):
+    - AFNetworking/NSURLSession (= 4.0.1)
+    - AFNetworking/Reachability (= 4.0.1)
+    - AFNetworking/Security (= 4.0.1)
+    - AFNetworking/Serialization (= 4.0.1)
+    - AFNetworking/UIKit (= 4.0.1)
   - AFNetworking/NSURLSession (4.0.1):
     - AFNetworking/Reachability
     - AFNetworking/Security
@@ -6,17 +12,20 @@ PODS:
   - AFNetworking/Reachability (4.0.1)
   - AFNetworking/Security (4.0.1)
   - AFNetworking/Serialization (4.0.1)
+  - AFNetworking/UIKit (4.0.1):
+    - AFNetworking/NSURLSession
   - Apollo (0.48.0):
     - Apollo/Core (= 0.48.0)
   - Apollo/Core (0.48.0)
   - BSBacktraceLogger (0.0.1)
+  - Bugly (2.5.90)
   - Charts (3.6.0):
     - Charts/Core (= 3.6.0)
   - Charts/Core (3.6.0)
   - CircleMenu (4.1.0)
-  - CocoaLumberjack (3.7.0):
-    - CocoaLumberjack/Core (= 3.7.0)
-  - CocoaLumberjack/Core (3.7.0)
+  - CocoaLumberjack (3.7.2):
+    - CocoaLumberjack/Core (= 3.7.2)
+  - CocoaLumberjack/Core (3.7.2)
   - DoraemonKit/Core (2.0.0):
     - BSBacktraceLogger
     - fishhook
@@ -31,115 +40,128 @@ PODS:
     - FBRetainCycleDetector
     - fishhook
   - FBRetainCycleDetector (0.1.4)
-  - FFPopup (1.1.4)
-  - Firebase/Analytics (7.9.0):
+  - FFPopup (1.1.5)
+  - Firebase/Analytics (8.7.0):
     - Firebase/Core
-  - Firebase/Core (7.9.0):
+  - Firebase/Core (8.7.0):
     - Firebase/CoreOnly
-    - FirebaseAnalytics (~> 7.9.0)
-  - Firebase/CoreOnly (7.9.0):
-    - FirebaseCore (= 7.9.0)
-  - FirebaseAnalytics (7.9.0):
-    - FirebaseCore (~> 7.0)
-    - FirebaseInstallations (~> 7.0)
-    - GoogleAppMeasurement (= 7.9.0)
-    - GoogleUtilities/AppDelegateSwizzler (~> 7.0)
-    - GoogleUtilities/MethodSwizzler (~> 7.0)
-    - GoogleUtilities/Network (~> 7.0)
-    - "GoogleUtilities/NSData+zlib (~> 7.0)"
-    - nanopb (~> 2.30907.0)
-  - FirebaseCore (7.9.0):
-    - FirebaseCoreDiagnostics (~> 7.4)
-    - GoogleUtilities/Environment (~> 7.0)
-    - GoogleUtilities/Logger (~> 7.0)
-  - FirebaseCoreDiagnostics (7.9.0):
-    - GoogleDataTransport (~> 8.0)
-    - GoogleUtilities/Environment (~> 7.0)
-    - GoogleUtilities/Logger (~> 7.0)
-    - nanopb (~> 2.30907.0)
-  - FirebaseInstallations (7.9.0):
-    - FirebaseCore (~> 7.0)
-    - GoogleUtilities/Environment (~> 7.0)
-    - GoogleUtilities/UserDefaults (~> 7.0)
-    - PromisesObjC (~> 1.2)
+    - FirebaseAnalytics (~> 8.7.0)
+  - Firebase/CoreOnly (8.7.0):
+    - FirebaseCore (= 8.7.0)
+  - FirebaseAnalytics (8.7.0):
+    - FirebaseAnalytics/AdIdSupport (= 8.7.0)
+    - FirebaseCore (~> 8.0)
+    - FirebaseInstallations (~> 8.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
+    - GoogleUtilities/MethodSwizzler (~> 7.4)
+    - GoogleUtilities/Network (~> 7.4)
+    - "GoogleUtilities/NSData+zlib (~> 7.4)"
+    - nanopb (~> 2.30908.0)
+  - FirebaseAnalytics/AdIdSupport (8.7.0):
+    - FirebaseCore (~> 8.0)
+    - FirebaseInstallations (~> 8.0)
+    - GoogleAppMeasurement (= 8.7.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
+    - GoogleUtilities/MethodSwizzler (~> 7.4)
+    - GoogleUtilities/Network (~> 7.4)
+    - "GoogleUtilities/NSData+zlib (~> 7.4)"
+    - nanopb (~> 2.30908.0)
+  - FirebaseCore (8.7.0):
+    - FirebaseCoreDiagnostics (~> 8.0)
+    - GoogleUtilities/Environment (~> 7.4)
+    - GoogleUtilities/Logger (~> 7.4)
+  - FirebaseCoreDiagnostics (8.7.0):
+    - GoogleDataTransport (~> 9.0)
+    - GoogleUtilities/Environment (~> 7.4)
+    - GoogleUtilities/Logger (~> 7.4)
+    - nanopb (~> 2.30908.0)
+  - FirebaseInstallations (8.7.0):
+    - FirebaseCore (~> 8.0)
+    - GoogleUtilities/Environment (~> 7.4)
+    - GoogleUtilities/UserDefaults (~> 7.4)
+    - PromisesObjC (< 3.0, >= 1.2)
   - fishhook (0.2)
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
-  - FWPopupView (4.1.5):
+  - FWPopupView (4.2.1):
     - SnapKit
-  - GoogleAppMeasurement (7.9.0):
-    - GoogleUtilities/AppDelegateSwizzler (~> 7.0)
-    - GoogleUtilities/MethodSwizzler (~> 7.0)
-    - GoogleUtilities/Network (~> 7.0)
-    - "GoogleUtilities/NSData+zlib (~> 7.0)"
-    - nanopb (~> 2.30907.0)
-  - GoogleDataTransport (8.3.1):
+  - GoogleAppMeasurement (8.7.0):
+    - GoogleAppMeasurement/AdIdSupport (= 8.7.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
+    - GoogleUtilities/MethodSwizzler (~> 7.4)
+    - GoogleUtilities/Network (~> 7.4)
+    - "GoogleUtilities/NSData+zlib (~> 7.4)"
+    - nanopb (~> 2.30908.0)
+  - GoogleAppMeasurement/AdIdSupport (8.7.0):
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
+    - GoogleUtilities/MethodSwizzler (~> 7.4)
+    - GoogleUtilities/Network (~> 7.4)
+    - "GoogleUtilities/NSData+zlib (~> 7.4)"
+    - nanopb (~> 2.30908.0)
+  - GoogleDataTransport (9.1.0):
     - GoogleUtilities/Environment (~> 7.2)
-    - nanopb (~> 2.30907.0)
-    - PromisesObjC (~> 1.2)
-  - GoogleUtilities/AppDelegateSwizzler (7.3.1):
+    - nanopb (~> 2.30908.0)
+    - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleUtilities/AppDelegateSwizzler (7.5.2):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
     - GoogleUtilities/Network
-  - GoogleUtilities/Environment (7.3.1):
-    - PromisesObjC (~> 1.2)
-  - GoogleUtilities/Logger (7.3.1):
+  - GoogleUtilities/Environment (7.5.2):
+    - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleUtilities/Logger (7.5.2):
     - GoogleUtilities/Environment
-  - GoogleUtilities/MethodSwizzler (7.3.1):
+  - GoogleUtilities/MethodSwizzler (7.5.2):
     - GoogleUtilities/Logger
-  - GoogleUtilities/Network (7.3.1):
+  - GoogleUtilities/Network (7.5.2):
     - GoogleUtilities/Logger
     - "GoogleUtilities/NSData+zlib"
     - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (7.3.1)"
-  - GoogleUtilities/Reachability (7.3.1):
+  - "GoogleUtilities/NSData+zlib (7.5.2)"
+  - GoogleUtilities/Reachability (7.5.2):
     - GoogleUtilities/Logger
-  - GoogleUtilities/UserDefaults (7.3.1):
+  - GoogleUtilities/UserDefaults (7.5.2):
     - GoogleUtilities/Logger
   - IQKeyboardManager (6.5.6)
-  - JJException (0.2.9):
-    - JJException/All (= 0.2.9)
-  - JJException/All (0.2.9):
+  - JJException (0.2.10):
+    - JJException/All (= 0.2.10)
+  - JJException/All (0.2.10):
     - JJException/ARC
     - JJException/DeallocBlock
     - JJException/Main
     - JJException/MRC
     - JJException/Swizzle
-  - JJException/ARC (0.2.9):
+  - JJException/ARC (0.2.10):
     - JJException/DeallocBlock
     - JJException/Main
     - JJException/Swizzle
-  - JJException/DeallocBlock (0.2.9)
-  - JJException/Main (0.2.9)
-  - JJException/MRC (0.2.9):
+  - JJException/DeallocBlock (0.2.10)
+  - JJException/Main (0.2.10)
+  - JJException/MRC (0.2.10):
     - JJException/Main
     - JJException/Swizzle
-  - JJException/Swizzle (0.2.9)
+  - JJException/Swizzle (0.2.10)
   - JXSegmentedView (1.2.7)
-  - LookinServer (1.0.0)
+  - LookinServer (1.0.4)
   - Masonry (1.1.0)
-  - MJExtension (3.2.2)
-  - MJRefresh (3.5.0)
-  - nanopb (2.30907.0):
-    - nanopb/decode (= 2.30907.0)
-    - nanopb/encode (= 2.30907.0)
-  - nanopb/decode (2.30907.0)
-  - nanopb/encode (2.30907.0)
-  - PromisesObjC (1.2.12)
+  - MJExtension (3.3.0)
+  - MJRefresh (3.7.2)
+  - nanopb (2.30908.0):
+    - nanopb/decode (= 2.30908.0)
+    - nanopb/encode (= 2.30908.0)
+  - nanopb/decode (2.30908.0)
+  - nanopb/encode (2.30908.0)
+  - PromisesObjC (2.0.0)
   - SDWebImage (5.0.6):
     - SDWebImage/Core (= 5.0.6)
   - SDWebImage/Core (5.0.6)
   - SnapKit (4.0.1)
   - SVProgressHUD (2.2.5)
-  - SYDCentralPivot (1.3.0):
-    - SYDCentralPivot/Core (= 1.3.0)
-    - SYDCentralPivot/Service (= 1.3.0)
-    - SYDCentralPivot/VC (= 1.3.0)
-  - SYDCentralPivot/Core (1.3.0)
-  - SYDCentralPivot/Service (1.3.0):
-    - SYDCentralPivot/Core
-  - SYDCentralPivot/VC (1.3.0):
+  - SYDCentralPivot (1.4.1):
+    - SYDCentralPivot/Core (= 1.4.1)
+    - SYDCentralPivot/VC (= 1.4.1)
+  - SYDCentralPivot/Core (1.4.1)
+  - SYDCentralPivot/VC (1.4.1):
     - SYDCentralPivot/Core
   - Toast (4.0.0)
   - Toast-Swift (5.0.1)
@@ -149,26 +171,30 @@ PODS:
   - Umbrella/Core (0.12.0)
   - Umbrella/Firebase (0.12.0):
     - Umbrella/Core
-  - WoodPeckeriOS (1.2.92)
+  - WoodPeckeriOS (1.2.93)
   - YYText (1.0.7)
   - ZLBaseUI (1.2.0):
     - Masonry
+  - ZLGitRemoteService (1.1.1):
+    - AFNetworking
+    - Apollo (~> 0.48.0)
+    - Bugly
+    - CocoaLumberjack
+    - Firebase/Analytics
+    - FMDB
+    - MJExtension
+    - SYDCentralPivot
+    - Umbrella
+    - Umbrella/Firebase
 
 DEPENDENCIES:
-  - AFNetworking/NSURLSession
-  - AFNetworking/Reachability
-  - AFNetworking/Security
-  - AFNetworking/Serialization
-  - Apollo
   - Charts
   - CircleMenu
-  - CocoaLumberjack
   - DoraemonKit/Core (~> 2.0.0)
   - DoraemonKit/WithLogger (~> 2.0.0)
   - DoraemonKit/WithMLeaksFinder (= 2.0.0)
   - FFPopup
   - Firebase/Analytics
-  - FMDB
   - FWPopupView
   - IQKeyboardManager
   - JJException
@@ -180,7 +206,7 @@ DEPENDENCIES:
   - SDWebImage (~> 5.0.0)
   - SnapKit (~> 4.0.0)
   - SVProgressHUD
-  - SYDCentralPivot (from `https://github.com/ExistOrLive/SYDCentralPivot.git`, tag `1.3.0`)
+  - SYDCentralPivot
   - Toast
   - Toast-Swift
   - "UITextView+Placeholder"
@@ -189,12 +215,14 @@ DEPENDENCIES:
   - WoodPeckeriOS
   - YYText
   - ZLBaseUI (from `https://github.com/ExistOrLive/ZLBaseUI.git`, tag `1.2.0`)
+  - ZLGitRemoteService (from `../../ZLGitRemoteService`)
 
 SPEC REPOS:
   trunk:
     - AFNetworking
     - Apollo
     - BSBacktraceLogger
+    - Bugly
     - Charts
     - CircleMenu
     - CocoaLumberjack
@@ -224,6 +252,7 @@ SPEC REPOS:
     - SDWebImage
     - SnapKit
     - SVProgressHUD
+    - SYDCentralPivot
     - Toast
     - Toast-Swift
     - "UITextView+Placeholder"
@@ -232,17 +261,13 @@ SPEC REPOS:
     - YYText
 
 EXTERNAL SOURCES:
-  SYDCentralPivot:
-    :git: https://github.com/ExistOrLive/SYDCentralPivot.git
-    :tag: 1.3.0
   ZLBaseUI:
     :git: https://github.com/ExistOrLive/ZLBaseUI.git
     :tag: 1.2.0
+  ZLGitRemoteService:
+    :path: "../../ZLGitRemoteService"
 
 CHECKOUT OPTIONS:
-  SYDCentralPivot:
-    :git: https://github.com/ExistOrLive/SYDCentralPivot.git
-    :tag: 1.3.0
   ZLBaseUI:
     :git: https://github.com/ExistOrLive/ZLBaseUI.git
     :tag: 1.2.0
@@ -251,44 +276,46 @@ SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   Apollo: 29f3277549f743e2d4ac1e43ecf1b62880d175df
   BSBacktraceLogger: 06b983ee93a9f87d957960e9c73d660d5966b447
+  Bugly: 88bc32c0acc6fef7b74d610f0319ee7560d6b9fe
   Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
   CircleMenu: a66095199a5e26f19acbb212f077010257767fe5
-  CocoaLumberjack: e8955b9d337ac307103b0a34fd141c32f27e53c5
+  CocoaLumberjack: b7e05132ff94f6ae4dfa9d5bce9141893a21d9da
   DoraemonKit: 9e923599e28d0b61f1c6de4aef2c2d669b30abb7
   FBRetainCycleDetector: 46f8179bbb1c587deee3ea838a1a3ee02acf5015
-  FFPopup: 3bec8070665b892d8f54f2acaca447fdccc7f30b
-  Firebase: d8bd6bd34b4c7ed57bfdd056c66ff5adcdde53ab
-  FirebaseAnalytics: 31b1269830dfe16687db3c60b76082c12bd6d527
-  FirebaseCore: 0798738ad1ae0fda67e17c7b9081241c431c6859
-  FirebaseCoreDiagnostics: 3d36e05da74cb8b7ce30e6594a8f201b982c725c
-  FirebaseInstallations: 5e777e6640fa060405cc7632447b6c5ca5af4742
+  FFPopup: a208dcee8db3e54ec4a88fcd6481f6f5d85b7a83
+  Firebase: bc9325d5ee2041524bac78a5213d0e530c651309
+  FirebaseAnalytics: 52768800c2add1d84b751420cb4caaf8195f2c41
+  FirebaseCore: f4804c1d3f4bbbefc88904d15653038f2c99ddf7
+  FirebaseCoreDiagnostics: b63732f581a1c6a453ec7241f9ab60b3a5bd3450
+  FirebaseInstallations: ede6fb72bb6337914e5888b399271259d0c4910c
   fishhook: ea19933abfe8f2f52c55fd8b6e2718467d3ebc89
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
-  FWPopupView: 367cc1aca505ca83e2dbe8567c52afdbdd916d8d
-  GoogleAppMeasurement: 120eec8803fe65a4a7475fb3d3d59a61d0e1a866
-  GoogleDataTransport: 8b0e733ea77c9218778e5a9e34ba9508b8328939
-  GoogleUtilities: e1d9ed4e544fc32a93e00e721400cbc3f377200d
+  FWPopupView: eea10388d25444fbe69b9222a5b5f317bb049395
+  GoogleAppMeasurement: 2be61ce546ad074dbe4dd545f222ac6033bb1d9e
+  GoogleDataTransport: 85fd18ff3019bb85d3f2c551d04c481dedf71fc9
+  GoogleUtilities: 8de2a97a17e15b6b98e38e8770e2d129a57c0040
   IQKeyboardManager: 2a6e97afdafc7becf0cb17a9a8d795e3a980717f
-  JJException: da7c64ccf29d9938a4075378a7e9a29db7383c37
+  JJException: 2fbbd9c97313862134fbd6e5ca8e6a297baeaac0
   JXSegmentedView: eb1cad21f57c2543c00c3e08b8fd3c7ca54f5acd
-  LookinServer: 0002891cd3cec5e082a910e897dfe71b4f06b89e
+  LookinServer: 743c1681771d0a8dcc38825325a080c3186404a5
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  MJExtension: d9b9c74cbdeb724c1e9ecbb157b318276e62e876
-  MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
-  nanopb: 59221d7f958fb711001e6a449489542d92ae113e
-  PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
+  MJExtension: 01704cca2b60a214c10761b6491eab74069d68a9
+  MJRefresh: 30997d30b347c8e9508a4db11e3a690da0c9b85a
+  nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
+  PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   SDWebImage: 920f1a2ff1ca8296ad34f6e0510a1ef1d70ac965
   SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
-  SYDCentralPivot: f4ec6fca1046a8ef1ee6014fa06a4e1006498702
+  SYDCentralPivot: 744303ae0997af1b829fab7ef9772bba692222bd
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
   "UITextView+Placeholder": d7b0c400921f66523f3a85d74f774512e14f6502
   Umbrella: 4faf9786a6b29197608f6483711271104d237646
-  WoodPeckeriOS: 29f6fb07de24c8c8716b56a8764876a739c6e8e3
+  WoodPeckeriOS: 12ec7f38c695e51cd94a476228888dfe85d9d916
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZLBaseUI: 068453e9b04f010e4453191929c5242e832d0d46
+  ZLGitRemoteService: 7418b76e50da0cb212322b891cb2567ffb25de05
 
-PODFILE CHECKSUM: 858a95ffa69886a95810ff923028703285cacdfd
+PODFILE CHECKSUM: e1d93028866f42278c74634c056c206aa0e8573c
 
 COCOAPODS: 1.11.0

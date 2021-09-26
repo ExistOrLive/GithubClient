@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import ZLServiceFramework
+import ZLGitRemoteService
 
 class ZLUserInfoViewModel: ZLBaseViewModel {
     

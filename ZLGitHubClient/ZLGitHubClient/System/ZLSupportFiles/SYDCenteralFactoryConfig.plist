@@ -4,205 +4,249 @@
 <dict>
 	<key>ZLUserAdditionInfoController</key>
 	<dict>
-		<key>class</key>
+		<key>claStr</key>
 		<string>ZLUserAdditionInfoController</string>
 		<key>type</key>
 		<integer>0</integer>
 		<key>isSingle</key>
 		<integer>0</integer>
+		<key>moduleName</key>
+		<string>ZLGitHubClient</string>
 	</dict>
 	<key>ZLProfileViewController</key>
 	<dict>
-		<key>class</key>
+		<key>claStr</key>
 		<string>ZLProfileViewController</string>
 		<key>type</key>
 		<integer>0</integer>
 		<key>isSingle</key>
 		<false/>
+		<key>moduleName</key>
+		<string>ZLGitHubClient</string>
 	</dict>
 	<key>ZLMainViewController</key>
 	<dict>
-		<key>class</key>
+		<key>claStr</key>
 		<string>ZLMainViewController</string>
 		<key>type</key>
 		<integer>0</integer>
 		<key>isSingle</key>
 		<false/>
+		<key>moduleName</key>
+		<string>ZLGitHubClient</string>
 	</dict>
 	<key>ZLWorkboardViewController</key>
 	<dict>
-		<key>class</key>
+		<key>claStr</key>
 		<string>ZLWorkboardViewController</string>
 		<key>type</key>
 		<integer>0</integer>
 		<key>isSingle</key>
 		<false/>
+		<key>moduleName</key>
+		<string>ZLGitHubClient</string>
 	</dict>
 	<key>ZLExploreViewController</key>
 	<dict>
-		<key>class</key>
+		<key>claStr</key>
 		<string>ZLExploreViewController</string>
 		<key>type</key>
 		<integer>0</integer>
 		<key>isSingle</key>
 		<false/>
+		<key>moduleName</key>
+		<string>ZLGitHubClient</string>
 	</dict>
 	<key>ZLNotificationController</key>
 	<dict>
-		<key>class</key>
+		<key>claStr</key>
 		<string>ZLNotificationController</string>
 		<key>type</key>
 		<integer>0</integer>
 		<key>isSingle</key>
 		<false/>
+		<key>moduleName</key>
+		<string>ZLGitHubClient</string>
 	</dict>
 	<key>ZLNewsViewController</key>
 	<dict>
-		<key>class</key>
+		<key>claStr</key>
 		<string>ZLNewsViewController</string>
 		<key>type</key>
 		<integer>0</integer>
 		<key>isSingle</key>
 		<false/>
+		<key>moduleName</key>
+		<string>ZLGitHubClient</string>
 	</dict>
 	<key>ZLStarRepoViewController</key>
 	<dict>
-		<key>class</key>
+		<key>claStr</key>
 		<string>ZLStarRepoViewController</string>
 		<key>type</key>
 		<integer>0</integer>
 		<key>isSingle</key>
 		<false/>
+		<key>moduleName</key>
+		<string>ZLGitHubClient</string>
 	</dict>
 	<key>ZLAboutViewController</key>
 	<dict>
-		<key>class</key>
+		<key>claStr</key>
 		<string>ZLAboutViewController</string>
 		<key>type</key>
 		<integer>0</integer>
 		<key>isSingle</key>
 		<false/>
+		<key> moduleName</key>
+		<string>ZLGitHubClient</string>
 	</dict>
 	<key>ZLOrgsViewController</key>
 	<dict>
-		<key>class</key>
+		<key>claStr</key>
 		<string>ZLOrgsViewController</string>
 		<key>type</key>
 		<integer>0</integer>
 		<key>isSingle</key>
 		<false/>
+		<key>moduleName</key>
+		<string>ZLGitHubClient</string>
 	</dict>
 	<key>ZLUserOrOrgInfoController</key>
 	<dict>
-		<key>class</key>
+		<key>claStr</key>
 		<string>ZLUserOrOrgInfoController</string>
 		<key>type</key>
 		<integer>0</integer>
 		<key>isSingle</key>
 		<false/>
+		<key>moduleName</key>
+		<string>ZLGitHubClient</string>
 	</dict>
 	<key>ZLMyIssuesController</key>
 	<dict>
-		<key>class</key>
+		<key>claStr</key>
 		<string>ZLMyIssuesController</string>
 		<key>type</key>
 		<integer>0</integer>
 		<key>isSingle</key>
 		<false/>
+		<key>moduleName</key>
+		<string>ZLGitHubClient</string>
 	</dict>
 	<key>ZLMyRepoesController</key>
 	<dict>
-		<key>class</key>
+		<key>claStr</key>
 		<string>ZLMyRepoesController</string>
 		<key>type</key>
 		<integer>0</integer>
 		<key>isSingle</key>
 		<false/>
+		<key>moduleName</key>
+		<string>ZLGitHubClient</string>
 	</dict>
 	<key>ZLEditFixedRepoController</key>
 	<dict>
-		<key>class</key>
+		<key>claStr</key>
 		<string>ZLEditFixedRepoController</string>
 		<key>type</key>
 		<integer>0</integer>
 		<key>isSingle</key>
 		<false/>
+		<key>moduleName</key>
+		<string>ZLGitHubClient</string>
 	</dict>
 	<key>ZLMyPullRequestsController</key>
 	<dict>
-		<key>class</key>
+		<key>claStr</key>
 		<string>ZLMyPullRequestsController</string>
 		<key>type</key>
 		<integer>0</integer>
 		<key>isSingle</key>
 		<false/>
+		<key>moduleName</key>
+		<string>ZLGitHubClient</string>
 	</dict>
 	<key>ZLRepoInfoController</key>
 	<dict>
-		<key>class</key>
+		<key>claStr</key>
 		<string>ZLRepoInfoController</string>
 		<key>type</key>
 		<integer>0</integer>
 		<key>isSingle</key>
 		<false/>
+		<key>moduleName</key>
+		<string>ZLGitHubClient</string>
 	</dict>
 	<key>ZLAppearanceController</key>
 	<dict>
-		<key>class</key>
+		<key>claStr</key>
 		<string>ZLAppearanceController</string>
 		<key>type</key>
 		<integer>0</integer>
 		<key>isSingle</key>
 		<false/>
+		<key>moduleName</key>
+		<string>ZLGitHubClient</string>
 	</dict>
 	<key>ZLSettingController</key>
 	<dict>
-		<key>class</key>
+		<key>claStr</key>
 		<string>ZLSettingController</string>
 		<key>type</key>
 		<integer>0</integer>
 		<key>isSingle</key>
 		<false/>
+		<key>moduleName</key>
+		<string>ZLGitHubClient</string>
 	</dict>
 	<key>ZLSearchController</key>
 	<dict>
-		<key>class</key>
+		<key>claStr</key>
 		<string>ZLSearchController</string>
 		<key>type</key>
 		<integer>0</integer>
 		<key>isSingle</key>
 		<false/>
+		<key>moduleName</key>
+		<string>ZLGitHubClient</string>
 	</dict>
 	<key>ZLPRInfoController</key>
 	<dict>
-		<key>class</key>
+		<key>claStr</key>
 		<string>ZLPRInfoController</string>
 		<key>type</key>
 		<integer>0</integer>
 		<key>isSingle</key>
 		<false/>
+		<key>moduleName</key>
+		<string>ZLGitHubClient</string>
 	</dict>
 	<key>ZLIssueInfoController</key>
 	<dict>
-		<key>class</key>
+		<key>claStr</key>
 		<string>ZLIssueInfoController</string>
 		<key>type</key>
 		<integer>0</integer>
 		<key>isSingle</key>
 		<false/>
+		<key>moduleName</key>
+		<string>ZLGitHubClient</string>
 	</dict>
 	<key>ZLWebContentController</key>
 	<dict>
-		<key>class</key>
+		<key>claStr</key>
 		<string>ZLWebContentController</string>
 		<key>type</key>
 		<integer>0</integer>
 		<key>isSingle</key>
 		<false/>
+		<key>moduleName</key>
+		<string>ZLGitHubClient</string>
 	</dict>
 	<key>ZLUrlNotifcaitonModule</key>
 	<dict>
-		<key>class</key>
+		<key>claStr</key>
 		<string>ZLURLNotificationDealManager</string>
 		<key>type</key>
 		<integer>2</integer>
@@ -210,6 +254,21 @@
 		<true/>
 		<key>singleMethod</key>
 		<string>sharedInstance</string>
+		<key>moduleName</key>
+		<string>ZLGitHubClient</string>
+	</dict>
+	<key>ZLLANModule</key>
+	<dict>
+		<key>claStr</key>
+		<string>ZLLanguageManager</string>
+		<key>type</key>
+		<integer>2</integer>
+		<key>isSingle</key>
+		<true/>
+		<key>singleMethod</key>
+		<string>sharedInstance</string>
+		<key>moduleName</key>
+		<string>ZLGitHubClient</string>
 	</dict>
 </dict>
 </plist>

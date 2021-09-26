@@ -34,7 +34,7 @@ class ZLLanguageController: ZLBaseViewController {
         buttons[1].setTitle(ZLLocalizedString(string: "English", comment: ""), for: .normal)
         buttons[2].setTitle(ZLLocalizedString(string: "SimpleChinese", comment: ""), for: .normal)
         
-        let languageChoice = ZLLANMODULE?.currentLanguageType() ?? ZLLanguageType.auto
+        let languageChoice = LANMODULE?.currentLanguageType() ?? ZLLanguageType.auto
         
         for seletedTag in seletedTags{
             seletedTag.isHidden = (languageChoice.rawValue + 1 != seletedTag.tag)
@@ -49,7 +49,7 @@ class ZLLanguageController: ZLBaseViewController {
         for seletedTag in seletedTags{
             seletedTag.isHidden =  (seletedTag.tag != sender.tag)
         }
-        ZLLANMODULE?.setLanguageType(languageChoice!, error: nil)
+        LANMODULE?.setLanguageType(languageChoice!, error: nil)
 
         self.title = ZLLocalizedString(string: "Language", comment: "")
         buttons[0].setTitle(ZLLocalizedString(string: "FollowSystemSetting", comment: ""), for: .normal)

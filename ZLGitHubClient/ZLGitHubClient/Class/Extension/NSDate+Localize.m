@@ -1,14 +1,14 @@
 //
-//  NSDate+localizeStr.m
+//  NSDate+Localize.m
 //  ZLGitHubClient
 //
-//  Created by 朱猛 on 2019/8/25.
-//  Copyright © 2019 ZM. All rights reserved.
+//  Created by 朱猛 on 2021/9/27.
+//  Copyright © 2021 ZM. All rights reserved.
 //
 
-#import "NSDate+localizeStr.h"
+#import "NSDate+Localize.h"
 
-@implementation NSDate (localizeStr)
+@implementation NSDate (Localize)
 
 - (NSString *) dateLocalStrSinceCurrentTime
 {
@@ -83,32 +83,6 @@
         }
     }
 }
-
-- (NSString *) dateStrForYYYYMMdd
-{
-    NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"YYYY-MM-dd"];
-    
-    return [dateFormatter stringFromDate:self];
-}
-
-
-- (NSString *) dateStrForYYYYMMDDTHHMMSSZForTimeZone0
-{
-    NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
-    return [dateFormatter stringFromDate:self];
-}
-
-- (NSString *) dateStrForYYYYMMDDTHHMMSSZForTimeZoneCurrent
-{
-    NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
-    return [dateFormatter stringFromDate:self];
-}
-
-
 
 + (NSString *) getDateLocalStrSinceCurrentTimeWithGithubTime:(NSString *) githubDateStr; {
     NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];

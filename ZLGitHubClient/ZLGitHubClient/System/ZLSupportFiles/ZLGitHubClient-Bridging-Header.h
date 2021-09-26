@@ -5,7 +5,7 @@
 #import <FFPopup/FFPopup.h>
 #import <UITextView_Placeholder/UITextView+Placeholder.h>
 #import <YYText/YYText.h>
-#import <ZLServiceFramework/ZLServiceFramework.h>
+#import <ZLGitRemoteService/ZLGitRemoteService.h>
 #import <ZLBaseUI/ZLBaseUIHeader.h>
 
 // customView
@@ -25,5 +25,8 @@
 #import "UIViewController+Tool.h"
 #import "UIColor+HexColor.h"
 #import "UIView+HJViewStyle.h"
+#import "NSDate+Localize.h"
+
+#import "ZLLanguageModuleProtocol.h"
 
 #import "AppDelegate.h"
