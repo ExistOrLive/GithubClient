@@ -7,7 +7,8 @@ require "fileutils"
 
 target 'Fixed RepoExtension' do
   
-pod "ZLGitRemoteService", :git => 'https://github.com/ExistOrLive/ZLGitRemoteService.git', :tag => '1.1.2'
+pod "ZLGitRemoteService", :git => 'https://github.com/ExistOrLive/ZLGitRemoteService.git'
+#pod "ZLGitRemoteService", :path => '../../ZLGitRemoteService'
 pod 'Firebase/Analytics'
 
 end
@@ -75,10 +76,11 @@ pod 'JJException'
 # 扩展
 pod 'UITextView+Placeholder'
 
-pod "ZLGitRemoteService", :git => 'https://github.com/ExistOrLive/ZLGitRemoteService.git', :tag => '1.1.2'
+
 pod "SYDCentralPivot"
 pod 'ZLBaseUI', :git => 'https://github.com/ExistOrLive/ZLBaseUI.git', :tag => '1.2.0'
-
+pod "ZLGitRemoteService", :git => 'https://github.com/ExistOrLive/ZLGitRemoteService.git'
+#pod "ZLGitRemoteService", :path => '../../ZLGitRemoteService'
 
 
 post_install do |installer|
