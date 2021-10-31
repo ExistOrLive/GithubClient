@@ -3,13 +3,13 @@ use_frameworks!
 inhibit_all_warnings!     # 屏蔽pod中告警
 require "fileutils"
 
+abstract_target 'GithubClient' do
 
+#pod "ZLGitRemoteService", :path => '../../ZLGitRemoteService'
+pod 'ZLGitRemoteService', :git => 'https://github.com/ExistOrLive/ZLGitRemoteService.git'
+pod 'Firebase/Analytics'
 
 target 'Fixed RepoExtension' do
-  
-pod "ZLGitRemoteService", :git => 'https://github.com/ExistOrLive/ZLGitRemoteService.git'
-#pod "ZLGitRemoteService", :path => '../../ZLGitRemoteService'
-pod 'Firebase/Analytics'
 
 end
 
@@ -20,7 +20,6 @@ pod 'Umbrella'
 #pod 'Umbrella/Segment'
 pod 'Umbrella/Firebase'
 #pod 'Analytics', '~> 3.0'
-pod 'Firebase/Analytics'
 
 # Json Model 转换
 pod 'MJExtension'
@@ -76,11 +75,10 @@ pod 'JJException'
 # 扩展
 pod 'UITextView+Placeholder'
 
-
 pod "SYDCentralPivot"
 pod 'ZLBaseUI', :git => 'https://github.com/ExistOrLive/ZLBaseUI.git', :tag => '1.2.0'
-pod "ZLGitRemoteService", :git => 'https://github.com/ExistOrLive/ZLGitRemoteService.git'
-#pod "ZLGitRemoteService", :path => '../../ZLGitRemoteService'
+
+end
 
 
 post_install do |installer|

@@ -52,7 +52,7 @@ class ZLRepoContentController: ZLBaseViewController {
         self.rootContentNode = ZLRepoContentNode()
         self.currentContentNode = rootContentNode
  
-        let nameArray : [Substring] =  path!.split(separator: "/")
+        let nameArray : [Substring] =  path?.split(separator: "/") ?? []
         
         var tmpPath = ""
         for name in nameArray{
@@ -86,9 +86,8 @@ class ZLRepoContentController: ZLBaseViewController {
         tableView.separatorStyle = .none
         tableView.register(UINib.init(nibName: "ZLRepoContentTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLRepoContentTableViewCell")
         
-        weak var weakSelf = self
-        tableView.mj_header = ZLRefresh.refreshHeader(refreshingBlock: {
-            weakSelf?.setQueryContentRequest()
+        tableView.mj_header = ZLRefresh.refreshHeader(refreshingBlock: { [weak self] in
+            self?.setQueryContentRequest()
         })
         self.contentView.addSubview(tableView)
         tableView.snp.makeConstraints ({ (make) in
@@ -100,7 +99,12 @@ class ZLRepoContentController: ZLBaseViewController {
     
     func setQueryContentRequest()
     {
-        ZLServiceManager.sharedInstance.repoServiceModel?.getRepositoryContentsInfo(withFullName: self.repoFullName!,path: self.currentContentNode!.path,branch:self.branch!,serialNumber: NSString.generateSerialNumber(),completeHandle: {[weak weakSelf = self](resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepositoryContentsInfo(withFullName: self.repoFullName ?? "",
+                                                                                    path: self.currentContentNode?.path ?? "",
+                                                                                    branch:self.branch ?? "",
+                                                                                    serialNumber: NSString.generateSerialNumber())
+        {
+            [weak weakSelf = self](resultModel : ZLOperationResultModel) in
             
             weakSelf?.tableView?.mj_header?.endRefreshing()
             
@@ -129,7 +133,7 @@ class ZLRepoContentController: ZLBaseViewController {
             weakSelf?.currentContentNode?.subNodes = nodeArray
     
             weakSelf?.tableView?.reloadData()
-        })
+        }
     }
     
     
@@ -201,7 +205,7 @@ extension ZLRepoContentController : UITableViewDelegate,UITableViewDataSource
         }
         else if "file" == contentModel.type
         {
-            let controller = ZLRepoCodePreview3Controller.init(repoFullName: self.repoFullName!, contentModel: contentModel, branch: self.branch!)
+            let controller = ZLRepoCodePreview3Controller.init(repoFullName: self.repoFullName ?? "", contentModel: contentModel, branch: self.branch ?? "")
             self.navigationController?.pushViewController(controller, animated: true)
         }
     }

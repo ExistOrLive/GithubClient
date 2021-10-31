@@ -32,6 +32,8 @@
 		3693D8D4246523A400779FC4 /* ZLAboutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3693D8D3246523A400779FC4 /* ZLAboutViewModel.swift */; };
 		36C785FC240782BA001B74C9 /* ZLRepoItemInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36C785FB240782BA001B74C9 /* ZLRepoItemInfoView.xib */; };
 		36C786012407E05F001B74C9 /* ZLRepoItemInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C786002407E05F001B74C9 /* ZLRepoItemInfoView.swift */; };
+		413D64DB9C8C3F4634D1FCCC /* Pods_GithubClient_ZLGitHubClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90BFC8E04356478503620E94 /* Pods_GithubClient_ZLGitHubClient.framework */; };
+		5358B6A0DBC5021339019507 /* Pods_GithubClient_Fixed_RepoExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8BEEB21079EB71C2E3D48F3 /* Pods_GithubClient_Fixed_RepoExtension.framework */; };
 		740318CB22F702B7004CE52D /* ZLSearchRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740318CA22F702B7004CE52D /* ZLSearchRecordView.swift */; };
 		740318CD22F702D1004CE52D /* ZLSearchRecordView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 740318CC22F702D1004CE52D /* ZLSearchRecordView.xib */; };
 		740318CF22F702E6004CE52D /* ZLSearchItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740318CE22F702E6004CE52D /* ZLSearchItemsView.swift */; };
@@ -325,13 +327,11 @@
 		74FCBDA1231423C100DDE46A /* ZLEditProfileContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74FCBDA0231423C100DDE46A /* ZLEditProfileContentView.xib */; };
 		74FCBDA423142E0200DDE46A /* ZLEditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74FCBDA323142E0200DDE46A /* ZLEditProfileViewModel.swift */; };
 		74FCBDA623142F1300DDE46A /* ZLEditProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74FCBDA523142F1300DDE46A /* ZLEditProfileController.swift */; };
-		A6389CC5113B9E045DD7D154 /* Pods_ZLGitHubClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71EC483528FF72DE8C8B1035 /* Pods_ZLGitHubClient.framework */; };
 		D1135F7021ECD09D003A26C1 /* ZLProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1135F6F21ECD09D003A26C1 /* ZLProfileViewController.m */; };
 		D1135F8421ECD502003A26C1 /* ZLExploreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1135F8321ECD502003A26C1 /* ZLExploreViewController.m */; };
 		D1135F8721ECD513003A26C1 /* ZLNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1135F8621ECD513003A26C1 /* ZLNewsViewController.m */; };
 		D1259FA023195CC700C7892B /* ZLNewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1259F9F23195CC700C7892B /* ZLNewsViewModel.swift */; };
 		D1382201231E0984008AC7CC /* UIColor+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1382200231E0984008AC7CC /* UIColor+extension.swift */; };
-		FF82FFB5E37C2000F52B729C /* Pods_Fixed_RepoExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32CC97A2B7228C1B1446BFCA /* Pods_Fixed_RepoExtension.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -380,7 +380,6 @@
 		0ADF903C21D4B01900BF86CD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0ADF904321D4D33D00BF86CD /* ZLGitHubClient-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZLGitHubClient-Bridging-Header.h"; sourceTree = "<group>"; };
 		2A1C1E9B223917862FB53386 /* Pods-ZLServiceFramework.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZLServiceFramework.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZLServiceFramework/Pods-ZLServiceFramework.release.xcconfig"; sourceTree = "<group>"; };
-		32CC97A2B7228C1B1446BFCA /* Pods_Fixed_RepoExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fixed_RepoExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		361B8B79239FD1C000F725B8 /* ZLStarReposBaseView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLStarReposBaseView.h; sourceTree = "<group>"; };
 		361B8B7A239FD1C000F725B8 /* ZLStarReposBaseView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLStarReposBaseView.m; sourceTree = "<group>"; };
 		361B8B7D239FD35000F725B8 /* ZLStarReposBaseViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLStarReposBaseViewModel.h; sourceTree = "<group>"; };
@@ -405,9 +404,9 @@
 		3693D8D3246523A400779FC4 /* ZLAboutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLAboutViewModel.swift; sourceTree = "<group>"; };
 		36C785FB240782BA001B74C9 /* ZLRepoItemInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZLRepoItemInfoView.xib; sourceTree = "<group>"; };
 		36C786002407E05F001B74C9 /* ZLRepoItemInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLRepoItemInfoView.swift; sourceTree = "<group>"; };
+		3AC1DAD9E26567E70156CD78 /* Pods-GithubClient-Fixed RepoExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GithubClient-Fixed RepoExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-GithubClient-Fixed RepoExtension/Pods-GithubClient-Fixed RepoExtension.release.xcconfig"; sourceTree = "<group>"; };
 		4B452F7BFC8564E0921A68EB /* Pods-Fixed RepoExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fixed RepoExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Fixed RepoExtension/Pods-Fixed RepoExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		60A321F2ADD6DAF97FEEDF94 /* Pods-ZLServiceFramework.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZLServiceFramework.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZLServiceFramework/Pods-ZLServiceFramework.debug.xcconfig"; sourceTree = "<group>"; };
-		71EC483528FF72DE8C8B1035 /* Pods_ZLGitHubClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZLGitHubClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		740318CA22F702B7004CE52D /* ZLSearchRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLSearchRecordView.swift; sourceTree = "<group>"; };
 		740318CC22F702D1004CE52D /* ZLSearchRecordView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZLSearchRecordView.xib; sourceTree = "<group>"; };
 		740318CE22F702E6004CE52D /* ZLSearchItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLSearchItemsView.swift; sourceTree = "<group>"; };
@@ -749,7 +748,10 @@
 		74FCBDA523142F1300DDE46A /* ZLEditProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLEditProfileController.swift; sourceTree = "<group>"; };
 		7AC44332CAA0E09B3278CC22 /* Pods_ZLServiceFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZLServiceFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		827C09D31FC9D9456ED23E03 /* Pods-Fixed RepoExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fixed RepoExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-Fixed RepoExtension/Pods-Fixed RepoExtension.release.xcconfig"; sourceTree = "<group>"; };
+		90BFC8E04356478503620E94 /* Pods_GithubClient_ZLGitHubClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GithubClient_ZLGitHubClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		932B11E0D85DEDD8045AEB4E /* Pods-GithubClient-ZLGitHubClient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GithubClient-ZLGitHubClient.release.xcconfig"; path = "Pods/Target Support Files/Pods-GithubClient-ZLGitHubClient/Pods-GithubClient-ZLGitHubClient.release.xcconfig"; sourceTree = "<group>"; };
 		9DB8CADD643B3AEB70C63C51 /* Pods-ZLBaseFramework.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZLBaseFramework.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZLBaseFramework/Pods-ZLBaseFramework.release.xcconfig"; sourceTree = "<group>"; };
+		A6C72BEE5FF1560DDE0E2D1D /* Pods-GithubClient-ZLGitHubClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GithubClient-ZLGitHubClient.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GithubClient-ZLGitHubClient/Pods-GithubClient-ZLGitHubClient.debug.xcconfig"; sourceTree = "<group>"; };
 		AA68B4BC8FFF87762D625908 /* Pods-ZLBaseFramework.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZLBaseFramework.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZLBaseFramework/Pods-ZLBaseFramework.debug.xcconfig"; sourceTree = "<group>"; };
 		C158892C4674C3DD266C21BA /* Pods_ZLBaseFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZLBaseFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD0AEC7A0ED54B14C3F6E8C9 /* Pods-ZLGitHubClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZLGitHubClient.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZLGitHubClient/Pods-ZLGitHubClient.debug.xcconfig"; sourceTree = "<group>"; };
@@ -761,6 +763,8 @@
 		D1135F8621ECD513003A26C1 /* ZLNewsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLNewsViewController.m; sourceTree = "<group>"; };
 		D1259F9F23195CC700C7892B /* ZLNewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLNewsViewModel.swift; sourceTree = "<group>"; };
 		D1382200231E0984008AC7CC /* UIColor+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+extension.swift"; sourceTree = "<group>"; };
+		D8BEEB21079EB71C2E3D48F3 /* Pods_GithubClient_Fixed_RepoExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GithubClient_Fixed_RepoExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EF9D2D7A040DB8E4D3C7D0A7 /* Pods-GithubClient-Fixed RepoExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GithubClient-Fixed RepoExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GithubClient-Fixed RepoExtension/Pods-GithubClient-Fixed RepoExtension.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -768,7 +772,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A6389CC5113B9E045DD7D154 /* Pods_ZLGitHubClient.framework in Frameworks */,
+				413D64DB9C8C3F4634D1FCCC /* Pods_GithubClient_ZLGitHubClient.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -779,7 +783,7 @@
 				74344A5C258B0FB600903E08 /* WidgetKit.framework in Frameworks */,
 				74438B4A259787620021099C /* Foundation.framework in Frameworks */,
 				74344A5E258B0FB600903E08 /* SwiftUI.framework in Frameworks */,
-				FF82FFB5E37C2000F52B729C /* Pods_Fixed_RepoExtension.framework in Frameworks */,
+				5358B6A0DBC5021339019507 /* Pods_GithubClient_Fixed_RepoExtension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -824,12 +828,12 @@
 				74D3F32E259CBE040002A2D3 /* libgumbo.a */,
 				74438B49259787620021099C /* Foundation.framework */,
 				74A5759824A1C76200A38200 /* libgumbo.a */,
-				71EC483528FF72DE8C8B1035 /* Pods_ZLGitHubClient.framework */,
 				74344A5B258B0FB600903E08 /* WidgetKit.framework */,
 				74344A5D258B0FB600903E08 /* SwiftUI.framework */,
 				C158892C4674C3DD266C21BA /* Pods_ZLBaseFramework.framework */,
 				7AC44332CAA0E09B3278CC22 /* Pods_ZLServiceFramework.framework */,
-				32CC97A2B7228C1B1446BFCA /* Pods_Fixed_RepoExtension.framework */,
+				D8BEEB21079EB71C2E3D48F3 /* Pods_GithubClient_Fixed_RepoExtension.framework */,
+				90BFC8E04356478503620E94 /* Pods_GithubClient_ZLGitHubClient.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2951,6 +2955,10 @@
 				2A1C1E9B223917862FB53386 /* Pods-ZLServiceFramework.release.xcconfig */,
 				4B452F7BFC8564E0921A68EB /* Pods-Fixed RepoExtension.debug.xcconfig */,
 				827C09D31FC9D9456ED23E03 /* Pods-Fixed RepoExtension.release.xcconfig */,
+				EF9D2D7A040DB8E4D3C7D0A7 /* Pods-GithubClient-Fixed RepoExtension.debug.xcconfig */,
+				3AC1DAD9E26567E70156CD78 /* Pods-GithubClient-Fixed RepoExtension.release.xcconfig */,
+				A6C72BEE5FF1560DDE0E2D1D /* Pods-GithubClient-ZLGitHubClient.debug.xcconfig */,
+				932B11E0D85DEDD8045AEB4E /* Pods-GithubClient-ZLGitHubClient.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -3183,7 +3191,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ZLGitHubClient/Pods-ZLGitHubClient-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-GithubClient-ZLGitHubClient/Pods-GithubClient-ZLGitHubClient-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/Apollo/Apollo.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
@@ -3264,7 +3272,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ZLGitHubClient/Pods-ZLGitHubClient-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GithubClient-ZLGitHubClient/Pods-GithubClient-ZLGitHubClient-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		4ED0727E66FE7CDE45783884 /* [CP] Check Pods Manifest.lock */ = {
@@ -3282,7 +3290,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Fixed RepoExtension-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-GithubClient-Fixed RepoExtension-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -3300,7 +3308,7 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ZLGitHubClient-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-GithubClient-ZLGitHubClient-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -3733,7 +3741,7 @@
 		};
 		0ADF904121D4B01900BF86CD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CD0AEC7A0ED54B14C3F6E8C9 /* Pods-ZLGitHubClient.debug.xcconfig */;
+			baseConfigurationReference = A6C72BEE5FF1560DDE0E2D1D /* Pods-GithubClient-ZLGitHubClient.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -3796,13 +3804,13 @@
 		};
 		0ADF904221D4B01900BF86CD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 042F5F698DAC01847DA61C71 /* Pods-ZLGitHubClient.release.xcconfig */;
+			baseConfigurationReference = 932B11E0D85DEDD8045AEB4E /* Pods-GithubClient-ZLGitHubClient.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_ENTITLEMENTS = ZLGitHubClient/ZLGitHubClient.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
@@ -3856,7 +3864,7 @@
 		};
 		74344A6C258B0FB900903E08 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4B452F7BFC8564E0921A68EB /* Pods-Fixed RepoExtension.debug.xcconfig */;
+			baseConfigurationReference = EF9D2D7A040DB8E4D3C7D0A7 /* Pods-GithubClient-Fixed RepoExtension.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
@@ -3893,7 +3901,7 @@
 		};
 		74344A6D258B0FB900903E08 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 827C09D31FC9D9456ED23E03 /* Pods-Fixed RepoExtension.release.xcconfig */;
+			baseConfigurationReference = 3AC1DAD9E26567E70156CD78 /* Pods-GithubClient-Fixed RepoExtension.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
@@ -3901,7 +3909,7 @@
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CODE_SIGN_IDENTITY = "Apple Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 24;

@@ -50,7 +50,7 @@ class ZLUserOrOrgInfoController: ZLBaseViewController {
     
     func sendRequest() {
         
-        let userOrOrgInfo =  ZLServiceManager.sharedInstance.userServiceModel?.getUserInfo(withLoginName: loginName!,
+        let userOrOrgInfo =  ZLServiceManager.sharedInstance.userServiceModel?.getUserInfo(withLoginName: loginName ?? "",
                                                                                            serialNumber: NSString.generateSerialNumber())
         { [weak self](resultModel) in
             

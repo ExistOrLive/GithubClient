@@ -51,12 +51,12 @@ class ZLRepoWorkflowsViewModel: ZLBaseViewModel {
             var cellDatas : [ZLGithubItemTableViewCellData] = []
             for data in dataArray {
                 let cellData = ZLWorkflowTableViewCellData.init(data: data)
-                cellData.repoFullName = self.repoFullName!
+                cellData.repoFullName = self.repoFullName ?? ""
                 cellDatas.append(cellData)
                 weakSelf?.addSubViewModel(cellData)
             }
             weakSelf?.baseView?.appendCellDatas(cellDatas: cellDatas)
-            weakSelf?.currentPage = weakSelf!.currentPage + 1
+            weakSelf?.currentPage += 1
             
         }
         
@@ -82,7 +82,7 @@ class ZLRepoWorkflowsViewModel: ZLBaseViewModel {
             var cellDatas : [ZLGithubItemTableViewCellData] = []
             for data in dataArray {
                 let cellData = ZLWorkflowTableViewCellData.init(data: data)
-                cellData.repoFullName = self.repoFullName!
+                cellData.repoFullName = self.repoFullName ?? ""
                 cellDatas.append(cellData)
                 weakSelf?.addSubViewModel(cellData)
             }

@@ -16,8 +16,8 @@ class ZLWorkboardBaseViewModel: ZLBaseViewModel,ZLWorkboardBaseViewDelegate {
     // subViewModel
     var fixedRepos : [ZLGithubCollectedRepoModel] = []
     
-    var sectionArray :  [ZLWorkboardClassicType]?
-    var cellDataDic : [ZLWorkboardClassicType:[ZLWorkboardTableViewCellData]]?
+    var sectionArray :  [ZLWorkboardClassicType] = []
+    var cellDataDic : [ZLWorkboardClassicType:[ZLWorkboardTableViewCellData]] = [:]
     
     deinit{
         NotificationCenter.default.removeObserver(self, name: ZLLanguageTypeChange_Notificaiton, object: nil)
@@ -30,8 +30,6 @@ class ZLWorkboardBaseViewModel: ZLBaseViewModel,ZLWorkboardBaseViewDelegate {
         }
         baseView = view
         baseView.delegate = self
-        
- 
         
         NotificationCenter.default.addObserver(self, selector: #selector(ZLWorkboardBaseViewModel.onNotificationArrived), name: ZLLanguageTypeChange_Notificaiton, object: nil)
         ZLServiceManager.sharedInstance.viewerServiceModel?.registerObserver(self, selector: #selector(ZLWorkboardBaseViewModel.onNotificationArrived), name: ZLGetCurrentUserInfoResult_Notification)
@@ -51,11 +49,8 @@ class ZLWorkboardBaseViewModel: ZLBaseViewModel,ZLWorkboardBaseViewDelegate {
         
         let sectionArray : [ZLWorkboardClassicType] = [.work,.fixRepo]
         
-        
         self.fixedRepos = ZLServiceManager.sharedInstance.viewerServiceModel?.fixedRepos as? [ZLGithubCollectedRepoModel] ?? []
         
-  
-
         var cellDataArray1 =  [ZLWorkboardTableViewCellData]()
         for repo in self.fixedRepos {
             cellDataArray1.append(ZLWorkboardTableViewCellData(title: repo.full_name ?? "", avatarURL: repo.owner_avatarURL ?? "", type: .fixRepo))

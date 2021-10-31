@@ -19,7 +19,14 @@ class ZLEditFixedRepoController : ZLBaseViewController,UITableViewDelegate,UITab
     var after : String?
     
     // view
-    var tableView : UITableView!
+    private lazy var tableView : UITableView = {
+        let tableView = UITableView(frame: CGRect.zero, style: .grouped)
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.separatorStyle = .none
+        self.tableView.register(ZLSimpleRepoTableViewCell.self, forCellReuseIdentifier: "ZLSimpleRepoTableViewCell")
+        return tableView
+    }()
     
     var searchViewController : ZLBaseSearchController!
     
@@ -34,7 +41,7 @@ class ZLEditFixedRepoController : ZLBaseViewController,UITableViewDelegate,UITab
         self.title = ZLLocalizedString(string: "Repos", comment: "")
         
         let button = ZLBaseButton.init(type: .custom)
-        button.titleLabel?.font = UIFont.init(name: Font_PingFangSCRegular, size: 14)!
+        button.titleLabel?.font = UIFont.init(name: Font_PingFangSCRegular, size: 14) ?? UIFont.systemFont(ofSize: 14)
         button.setTitle(ZLLocalizedString(string: "Save",comment: "保存"), for: .normal)
         
         button.frame = CGRect.init(x: 0, y: 0, width: 70, height: 30)
@@ -58,25 +65,18 @@ class ZLEditFixedRepoController : ZLBaseViewController,UITableViewDelegate,UITab
             make.height.equalTo(70)
         }
         
-        self.tableView = UITableView(frame: CGRect.zero, style: .grouped)
         self.contentView.addSubview(self.tableView)
         self.tableView.snp.makeConstraints{(make) in
             make.bottom.left.right.equalToSuperview()
             make.top.equalTo(self.searchViewController.searchBarContainerView.snp_bottom)
         }
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        self.tableView.separatorStyle = .none
-        self.tableView.register(ZLSimpleRepoTableViewCell.self, forCellReuseIdentifier: "ZLSimpleRepoTableViewCell")
-        weak var selfWeak = self
-        self.tableView?.mj_header = ZLRefresh.refreshHeader(refreshingBlock: {
-            selfWeak?.loadNewData()
+        self.tableView.mj_header = ZLRefresh.refreshHeader(refreshingBlock: { [weak self] in
+            self?.loadNewData()
         })
-        self.tableView?.mj_footer = ZLRefresh.refreshFooter(refreshingBlock: {
-            selfWeak?.loadMoreData()
+        self.tableView.mj_footer = ZLRefresh.refreshFooter(refreshingBlock: { [weak self] in
+            self?.loadMoreData()
         })
-
-        self.tableView?.mj_header?.beginRefreshing()
+        self.tableView.mj_header?.beginRefreshing()
     }
     
     @objc func onSaveButtonClicked(){
@@ -90,8 +90,9 @@ class ZLEditFixedRepoController : ZLBaseViewController,UITableViewDelegate,UITab
     func loadNewData(){
         
         self.tableView.mj_footer?.resetNoMoreData()
-        weak var weakSelf = self
-        ZLServiceManager.sharedInstance.viewerServiceModel?.getMyTopRepos(after: nil , serialNumber: NSString.generateSerialNumber()) { (resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.viewerServiceModel?.getMyTopRepos(after: nil ,
+                                                                          serialNumber: NSString.generateSerialNumber())
+        { [weak weakSelf = self](resultModel : ZLOperationResultModel) in
             
             if resultModel.result == false {
                 if let errorModel = resultModel.data as? ZLGithubRequestErrorModel{
@@ -103,7 +104,7 @@ class ZLEditFixedRepoController : ZLBaseViewController,UITableViewDelegate,UITab
                 if let data = resultModel.data as? ViewerTopRepositoriesQuery.Data {
                     weakSelf?.after = data.viewer.topRepositories.pageInfo.endCursor
                     weakSelf?.topRepositories.removeAll()
-                    weakSelf?.topRepositories.append(contentsOf: data.viewer.topRepositories.nodes!)
+                    weakSelf?.topRepositories.append(contentsOf: data.viewer.topRepositories.nodes ?? [])
                     weakSelf?.tableView.mj_header?.endRefreshing()
                     weakSelf?.reloadData()
                 } else {
@@ -114,9 +115,10 @@ class ZLEditFixedRepoController : ZLBaseViewController,UITableViewDelegate,UITab
     }
     
     func loadMoreData(){
-        
-        weak var weakSelf = self
-        ZLServiceManager.sharedInstance.viewerServiceModel?.getMyTopRepos(after: after , serialNumber: NSString.generateSerialNumber()) { (resultModel : ZLOperationResultModel) in
+    
+        ZLServiceManager.sharedInstance.viewerServiceModel?.getMyTopRepos(after: after ,
+                                                                          serialNumber: NSString.generateSerialNumber())
+        { [weak weakSelf = self] (resultModel : ZLOperationResultModel) in
             
             if resultModel.result == false {
                 if let errorModel = resultModel.data as? ZLGithubRequestErrorModel{
@@ -127,7 +129,7 @@ class ZLEditFixedRepoController : ZLBaseViewController,UITableViewDelegate,UITab
             } else {
                 if let data = resultModel.data as? ViewerTopRepositoriesQuery.Data {
                     weakSelf?.after = data.viewer.topRepositories.pageInfo.endCursor
-                    weakSelf?.topRepositories.append(contentsOf: data.viewer.topRepositories.nodes!)
+                    weakSelf?.topRepositories.append(contentsOf: data.viewer.topRepositories.nodes ?? [])
                     if data.viewer.topRepositories.nodes?.count == 0 {
                         weakSelf?.tableView.mj_footer?.endRefreshingWithNoMoreData()
                     } else {
@@ -341,7 +343,7 @@ class ZLEditFixedRepoSearchController : ZLBaseViewController,UITableViewDelegate
     
     func loadNewData(){
         
-        if(self.searchKey == nil){
+        guard let searchKey = self.searchKey else {
             self.tableView.mj_header?.endRefreshing()
             return
         }
@@ -350,25 +352,25 @@ class ZLEditFixedRepoSearchController : ZLBaseViewController,UITableViewDelegate
         self.tableView.mj_footer?.resetNoMoreData()
         self.tableView.reloadData()
         
-        weak var weakSelf = self
-        ZLServiceManager.sharedInstance.searchServiceModel?.searchInfo(withKeyWord: self.searchKey!,
+        ZLServiceManager.sharedInstance.searchServiceModel?.searchInfo(withKeyWord: searchKey,
                                                  type: .repositories,
                                                  filterInfo: nil,
                                                  page: 0,
                                                  per_page: 15,
                                                  serialNumber: NSString.generateSerialNumber())
-        { (resultModel :ZLOperationResultModel) in
+        { [weak weakSelf = self](resultModel :ZLOperationResultModel) in
+            
              weakSelf?.tableView.mj_header?.endRefreshing()
+            
             if resultModel.result == true {
-                if let searchResultModel = resultModel.data as? ZLSearchResultModel {
-                    if let repos = searchResultModel.data as? [ZLGithubRepositoryModel] {
-                        if repos.count == 0 {
-                            weakSelf?.tableView.mj_footer?.endRefreshingWithNoMoreData()
-                        } else {
-                            self.items.append(contentsOf: repos)
-                            weakSelf?.pageNum = 1;
-                            weakSelf?.tableView.reloadData()
-                        }
+                if let searchResultModel = resultModel.data as? ZLSearchResultModel,
+                   let repos = searchResultModel.data as? [ZLGithubRepositoryModel]{
+                    if repos.count == 0 {
+                        weakSelf?.tableView.mj_footer?.endRefreshingWithNoMoreData()
+                    } else {
+                        self.items.append(contentsOf: repos)
+                        weakSelf?.pageNum = 1;
+                        weakSelf?.tableView.reloadData()
                     }
                 }
             } else {
@@ -383,34 +385,32 @@ class ZLEditFixedRepoSearchController : ZLBaseViewController,UITableViewDelegate
     
     func loadMoreData(){
         
-        if(self.searchKey == nil){
+        guard let searchKey = self.searchKey else {
             self.tableView.mj_footer?.endRefreshing()
             return
         }
-        
-        
-        weak var weakSelf = self
-        ZLServiceManager.sharedInstance.searchServiceModel?.searchInfo(withKeyWord: self.searchKey!,
+        ZLServiceManager.sharedInstance.searchServiceModel?.searchInfo(withKeyWord: searchKey,
                                                  type: .repositories,
                                                  filterInfo: nil,
                                                  page: pageNum,
                                                  per_page: 15,
                                                  serialNumber: NSString.generateSerialNumber())
-        { (resultModel :ZLOperationResultModel) in
+        {[weak weakSelf = self] (resultModel :ZLOperationResultModel) in
+            
             if resultModel.result == true {
-                
-                if let searchResultModel = resultModel.data as? ZLSearchResultModel {
-                    if let repos = searchResultModel.data as? [ZLGithubRepositoryModel]{
-                        if repos.count == 0 {
-                            weakSelf?.tableView.mj_footer?.endRefreshingWithNoMoreData()
-                        } else {
-                            weakSelf?.tableView.mj_footer?.endRefreshing()
-                            self.items.append(contentsOf: repos)
-                            weakSelf?.pageNum += 1;
-                            weakSelf?.tableView.reloadData()
-                        }
+                if let searchResultModel = resultModel.data as? ZLSearchResultModel,
+                   let repos = searchResultModel.data as? [ZLGithubRepositoryModel]{
+                    
+                    if repos.count == 0 {
+                        weakSelf?.tableView.mj_footer?.endRefreshingWithNoMoreData()
+                    } else {
+                        weakSelf?.tableView.mj_footer?.endRefreshing()
+                        self.items.append(contentsOf: repos)
+                        weakSelf?.pageNum += 1;
+                        weakSelf?.tableView.reloadData()
                     }
                 }
+                
             } else {
                 if let errorModel = resultModel.data as? ZLGithubRequestErrorModel{
                     ZLToastView.showMessage(errorModel.message)

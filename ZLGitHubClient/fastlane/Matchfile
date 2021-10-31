@@ -1,4 +1,4 @@
-git_url("https://github.com/ExistOrLive/ZLGithubClientCer.git")
+git_url("git@github.com:ExistOrLive/ZLGithubClientCer.git")
 
 storage_mode("git")
 

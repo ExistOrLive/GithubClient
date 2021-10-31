@@ -41,15 +41,15 @@ var ZLStatusBarHeight : CGFloat {
 }
 
 var ZLKeyWindowHeight : CGFloat {
-    if let window : UIWindow = UIApplication.shared.delegate!.window! {
-        return  window.frame.size.height
+    if let window = UIApplication.shared.delegate?.window {
+        return window?.frame.size.height ?? 0
     }
     return 0
 }
 
 var ZLKeyWindowWidth : CGFloat {
-    if let window : UIWindow = UIApplication.shared.delegate!.window! {
-        return  window.frame.size.width
+    if let window = UIApplication.shared.delegate?.window {
+        return window?.frame.size.width ?? 0
     }
     return 0
 }

@@ -41,7 +41,8 @@ extension ZLMyRepoesController : ZLGithubItemListViewDelegate {
     
     func githubItemListViewRefreshDragDown(pullRequestListView: ZLGithubItemListView) {
         
-        ZLServiceManager.sharedInstance.viewerServiceModel?.getMyTopRepos(after: nil , serialNumber: NSString.generateSerialNumber()) {[weak weakSelf = self] (resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.viewerServiceModel?.getMyTopRepos(after: nil , serialNumber: NSString.generateSerialNumber())
+        { [weak weakSelf = self] (resultModel : ZLOperationResultModel) in
             
             if resultModel.result == false {
                 if let errorModel = resultModel.data as? ZLGithubRequestErrorModel{
@@ -52,9 +53,13 @@ extension ZLMyRepoesController : ZLGithubItemListViewDelegate {
                 if let data = resultModel.data as? ViewerTopRepositoriesQuery.Data {
                     weakSelf?.after = data.viewer.topRepositories.pageInfo.endCursor
                     var cellDatas : [ZLRepoTableViewCellDataForTopRepoQuery] = []
-                    for tmpData in data.viewer.topRepositories.nodes!{
-                        let cellData = ZLRepoTableViewCellDataForTopRepoQuery(data: tmpData!)
-                        cellDatas.append(cellData)
+                    if let nodes =  data.viewer.topRepositories.nodes {
+                        for tmpData in nodes {
+                            if let data = tmpData {
+                                let cellData = ZLRepoTableViewCellDataForTopRepoQuery(data: data)
+                                cellDatas.append(cellData)
+                            }
+                        }
                     }
                     weakSelf?.addSubViewModels(cellDatas)
                     weakSelf?.itemListView.resetCellDatas(cellDatas: cellDatas)
@@ -77,11 +82,17 @@ extension ZLMyRepoesController : ZLGithubItemListViewDelegate {
             } else {
                 if let data = resultModel.data as? ViewerTopRepositoriesQuery.Data {
                     weakSelf?.after = data.viewer.topRepositories.pageInfo.endCursor
+                  
                     var cellDatas : [ZLRepoTableViewCellDataForTopRepoQuery] = []
-                    for tmpData in data.viewer.topRepositories.nodes!{
-                        let cellData = ZLRepoTableViewCellDataForTopRepoQuery(data: tmpData!)
-                        cellDatas.append(cellData)
+                    if let nodes = data.viewer.topRepositories.nodes {
+                        for tmpData in nodes {
+                            if let data = tmpData {
+                                let cellData = ZLRepoTableViewCellDataForTopRepoQuery(data: data)
+                                cellDatas.append(cellData)
+                            }
+                        }
                     }
+                
                     weakSelf?.addSubViewModels(cellDatas)
                     weakSelf?.itemListView.appendCellDatas(cellDatas: cellDatas)
                 } else {
