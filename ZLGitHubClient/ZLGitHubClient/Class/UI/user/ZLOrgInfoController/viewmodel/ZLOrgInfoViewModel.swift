@@ -73,16 +73,14 @@ class ZLOrgInfoViewModel: ZLBaseViewModel {
             self.viewController?.navigationController?.pushViewController(webContentVC, animated: true)
         }
         let alertAction2 = UIAlertAction.init(title: ZLLocalizedString(string: "Open in Safari", comment: ""), style: UIAlertAction.Style.default) { (action : UIAlertAction) in
-            let url =  URL.init(string: self.orgInfoModel.html_url ?? "")
-            if url != nil {
-                UIApplication.shared.open(url!, options: [:], completionHandler: {(result : Bool) in})
+            if let url =  URL.init(string: self.orgInfoModel.html_url ?? "") {
+                UIApplication.shared.open(url, options: [:], completionHandler: {(result : Bool) in})
             }
         }
         
         let alertAction3 = UIAlertAction.init(title: ZLLocalizedString(string: "Share", comment: ""), style: UIAlertAction.Style.default) { (action : UIAlertAction) in
-            let url =  URL.init(string: self.orgInfoModel.html_url ?? "")
-            if url != nil {
-                let activityVC = UIActivityViewController.init(activityItems: [url!], applicationActivities: nil)
+            if let url = URL.init(string: self.orgInfoModel.html_url ?? "") {
+                let activityVC = UIActivityViewController.init(activityItems: [url], applicationActivities: nil)
                 activityVC.popoverPresentationController?.sourceView = button
                 activityVC.excludedActivityTypes = [.message,.mail,.openInIBooks,.markupAsPDF]
                 self.viewController?.present(activityVC, animated: true, completion: nil)

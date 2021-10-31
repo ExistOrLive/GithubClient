@@ -53,9 +53,11 @@ class ZLNotificationViewModel: ZLBaseViewModel {
     
     func loadMoreData(){
         
-        weak var weakSelf = self
-        ZLServiceManager.sharedInstance.eventServiceModel?.getNotificationsWithShowAll(self.showAllNotification, page: Int32(self.pageNum + 1), per_page: 10, serialNumber: NSString.generateSerialNumber())
-        {(resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.eventServiceModel?.getNotificationsWithShowAll(self.showAllNotification,
+                                                                                       page: Int32(self.pageNum + 1),
+                                                                                       per_page: 10,
+                                                                                       serialNumber: NSString.generateSerialNumber())
+        { [weak weakSelf = self](resultModel : ZLOperationResultModel) in
             
             if resultModel.result == false {
                 guard let errorModel : ZLGithubRequestErrorModel = resultModel.data as? ZLGithubRequestErrorModel else {
@@ -72,13 +74,12 @@ class ZLNotificationViewModel: ZLBaseViewModel {
                 
                 var cellDataArray : [ZLGithubItemTableViewCellData] = []
                 for item in data {
-                    let cellData = ZLGithubItemTableViewCellData.getCellDataWithData(data: item)
-                    if cellData != nil {
-                        weakSelf?.addSubViewModel(cellData!)
-                        cellDataArray.append(cellData!)
+                    if let cellData = ZLGithubItemTableViewCellData.getCellDataWithData(data: item) {
+                        weakSelf?.addSubViewModel(cellData)
+                        cellDataArray.append(cellData)
                     }
                 }
-                weakSelf?.pageNum = weakSelf!.pageNum + 1
+                weakSelf?.pageNum += 1
                 weakSelf?.baseView?.githubItemListView.appendCellDatas(cellDatas: cellDataArray)
             }
         }
@@ -87,8 +88,11 @@ class ZLNotificationViewModel: ZLBaseViewModel {
     
     func loadNewData(){
         
-        weak var weakSelf = self
-        ZLServiceManager.sharedInstance.eventServiceModel?.getNotificationsWithShowAll(self.showAllNotification, page: 1, per_page: 10, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.eventServiceModel?.getNotificationsWithShowAll(self.showAllNotification,
+                                                                                       page: 1,
+                                                                                       per_page: 10,
+                                                                                       serialNumber: NSString.generateSerialNumber())
+       {[weak weakSelf = self](resultModel : ZLOperationResultModel) in
             
             SVProgressHUD.dismiss()
             if resultModel.result == false {
@@ -106,18 +110,15 @@ class ZLNotificationViewModel: ZLBaseViewModel {
                 
                 var cellDataArray : [ZLGithubItemTableViewCellData] = []
                 for item in data {
-                    let cellData = ZLGithubItemTableViewCellData.getCellDataWithData(data: item)
-                    if cellData != nil {
-                        weakSelf?.addSubViewModel(cellData!)
-                        cellDataArray.append(cellData!)
+                    if let cellData = ZLGithubItemTableViewCellData.getCellDataWithData(data: item) {
+                        weakSelf?.addSubViewModel(cellData)
+                        cellDataArray.append(cellData)
                     }
                 }
                 weakSelf?.pageNum = 1
                 weakSelf?.baseView?.githubItemListView.resetCellDatas(cellDatas: cellDataArray)
             }
-            
-            
-        })
+        }
     }
     
     func deleteCellData(cellData : ZLNotificationTableViewCellData) {

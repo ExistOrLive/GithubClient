@@ -24,8 +24,8 @@ class ZLWorkboardBaseView: ZLBaseView, UITableViewDelegate, UITableViewDataSourc
     
     private var tableView : UITableView!
     
-    private var sectionArray : [ZLWorkboardClassicType]?
-    private var cellDataDic : [ZLWorkboardClassicType:[ZLWorkboardTableViewCellDelegate]]?
+    private var sectionArray : [ZLWorkboardClassicType] = []
+    private var cellDataDic : [ZLWorkboardClassicType:[ZLWorkboardTableViewCellDelegate]] = [:]
     
     deinit {
         NotificationCenter.default.removeObserver(self, name: ZLLanguageTypeChange_Notificaiton, object: nil)
@@ -60,7 +60,7 @@ class ZLWorkboardBaseView: ZLBaseView, UITableViewDelegate, UITableViewDataSourc
         fatalError("init(coder:) has not been implemented")
     }
     
-    func resetData(sectionArray: [ZLWorkboardClassicType]? , cellDataDic : [ZLWorkboardClassicType:[ZLWorkboardTableViewCellDelegate]]?){
+    func resetData(sectionArray: [ZLWorkboardClassicType] , cellDataDic : [ZLWorkboardClassicType:[ZLWorkboardTableViewCellDelegate]]){
         self.sectionArray = sectionArray
         self.cellDataDic = cellDataDic
         self.tableView.reloadData()
@@ -69,17 +69,17 @@ class ZLWorkboardBaseView: ZLBaseView, UITableViewDelegate, UITableViewDataSourc
     
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return sectionArray?.count ?? 0
+        return sectionArray.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cellDataDic?[sectionArray![section]]?.count ?? 0
+        return cellDataDic[sectionArray[section]]?.count ?? 0
     }
     
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if sectionArray![section] == .fixRepo &&
-            cellDataDic?[.fixRepo]?.count ?? 0 == 0{
+        if sectionArray[section] == .fixRepo &&
+            cellDataDic[.fixRepo]?.count ?? 0 == 0{
             return 30
         }
         return 0
@@ -91,8 +91,8 @@ class ZLWorkboardBaseView: ZLBaseView, UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: "ZLWorkboardTableViewSectionHeader") as? ZLWorkboardTableViewSectionHeader{
-            view.titleLabel.text = self.getSectionTitle(type: sectionArray![section])
-            view.button.isHidden = (sectionArray![section] != .fixRepo)
+            view.titleLabel.text = self.getSectionTitle(type: sectionArray[section])
+            view.button.isHidden = (sectionArray[section] != .fixRepo)
             view.button.setTitle(ZLLocalizedString(string: "Edit", comment: ""), for: .normal)
             if !view.button.allTargets.contains(self) {
                 view.button.addTarget(self, action: #selector(ZLWorkboardBaseView.onEditButtonClicked), for: .touchUpInside)
@@ -103,8 +103,8 @@ class ZLWorkboardBaseView: ZLBaseView, UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        if sectionArray![section] == .fixRepo &&
-            cellDataDic?[.fixRepo]?.count ?? 0 == 0{
+        if sectionArray[section] == .fixRepo &&
+            cellDataDic[.fixRepo]?.count ?? 0 == 0{
             let label = UILabel.init()
             label.backgroundColor = UIColor.clear
             label.textColor = UIColor.init(named: "ZLLabelColor2")
@@ -123,19 +123,22 @@ class ZLWorkboardBaseView: ZLBaseView, UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellData = cellDataDic![sectionArray![indexPath.section]]![indexPath.row]
-        if let tableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLWorkboardTableViewCell") as? ZLWorkboardTableViewCell{
+        
+        if let cellDatas = cellDataDic[sectionArray[indexPath.section]],
+           let tableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLWorkboardTableViewCell") as? ZLWorkboardTableViewCell{
+            
+            let cellData = cellDatas[indexPath.row]
             tableViewCell.fillWithData(cellData: cellData)
             tableViewCell.backView.cornerRadius = 0
             tableViewCell.singleLineView.isHidden = false
-            if cellDataDic![sectionArray![indexPath.section]]?.count == 1 {
+            if cellDataDic[sectionArray[indexPath.section]]?.count == 1 {
                 tableViewCell.backView.cornerDirection = CornerDirection(rawValue: 15)
                 tableViewCell.backView.cornerRadius = 10
                 tableViewCell.singleLineView.isHidden = true
             } else if indexPath.row == 0{
                 tableViewCell.backView.roundTop = true
                 tableViewCell.backView.cornerRadius = 10
-            } else if indexPath.row == cellDataDic![sectionArray![indexPath.section]]!.count  - 1 {
+            } else if indexPath.row == cellDatas.count  - 1 {
                 tableViewCell.backView.cornerRadius = 10
                 tableViewCell.backView.roundBottom = true
                 tableViewCell.singleLineView.isHidden = true
@@ -148,11 +151,9 @@ class ZLWorkboardBaseView: ZLBaseView, UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
-
-        let cellData = cellDataDic![sectionArray![indexPath.section]]![indexPath.row]
-        cellData.onCellClicked()
-        
         cell?.setSelected(false, animated: true)
+        let cellData = cellDataDic[sectionArray[indexPath.section]]?[indexPath.row]
+        cellData?.onCellClicked()
     }
     
     func getSectionTitle(type : ZLWorkboardClassicType) -> String{

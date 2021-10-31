@@ -59,11 +59,12 @@ import UIKit
     func getOwnerAvatarFromServer() {
         ZLServiceManager.sharedInstance.userServiceModel?.getUserAvatar(withLoginName: self.data.owner?.loginName ?? "", serialNumber: NSString.generateSerialNumber())
         { [weak self](resultModel) in
-            if resultModel.result == true, let avatarUrl = resultModel.data as? String {
-                self?.data.owner?.avatar_url = avatarUrl
-                let delegate = self?.cell?.delegate
-                if delegate === self{
-                    self?.cell?.fillWithData(data: self!)
+            if let self = self,
+               resultModel.result == true,
+               let avatarUrl = resultModel.data as? String {
+                self.data.owner?.avatar_url = avatarUrl
+                if self.cell?.delegate === self{
+                    self.cell?.fillWithData(data: self)
                 }
                 
             }
@@ -75,14 +76,13 @@ import UIKit
         ZLServiceManager.sharedInstance.repoServiceModel?.getRepoInfo(withFullName: self.data.full_name ?? "",
                                                                       serialNumber: NSString.generateSerialNumber())
         {[weak self](resultModel : ZLOperationResultModel) in
-            if resultModel.result == true {
-                guard  let model : ZLGithubRepositoryModel = resultModel.data as? ZLGithubRepositoryModel  else {
-                    return
-                }
-                self?.data = model
-                let delegate = self?.cell?.delegate
-                if delegate === self{
-                    self?.cell?.fillWithData(data: self!)
+            
+            if let self = self,
+               resultModel.result == true,
+               let model : ZLGithubRepositoryModel = resultModel.data as? ZLGithubRepositoryModel {
+                self.data = model
+                if self.cell?.delegate === self{
+                    self.cell?.fillWithData(data: self)
                 }
             }
         }

@@ -78,8 +78,8 @@ fileprivate let ZLTrendingOptions = "trendingOptions"
         }
 
         set{
-            if newValue != nil {
-                let data = NSKeyedArchiver.archivedData(withRootObject: newValue!)
+            if let value = newValue {
+                let data = NSKeyedArchiver.archivedData(withRootObject: value)
                 UserDefaults.standard.set(data, forKey: ZLTrendingOptions)
             } else {
                 UserDefaults.standard.removeObject(forKey:ZLTrendingOptions)
@@ -97,7 +97,7 @@ fileprivate let ZLTrendingOptions = "trendingOptions"
             return nil
         }
         set{
-            let tmpTrendingOptions = self.trendingOptions!
+            let tmpTrendingOptions = self.trendingOptions ?? [:]
             tmpTrendingOptions["repo"]?.language = newValue
             self.trendingOptions = tmpTrendingOptions
         }
@@ -111,7 +111,7 @@ fileprivate let ZLTrendingOptions = "trendingOptions"
             return nil
         }
         set{
-            let tmpTrendingOptions = self.trendingOptions!
+            let tmpTrendingOptions = self.trendingOptions ?? [:]
             tmpTrendingOptions["user"]?.language = newValue
             self.trendingOptions = tmpTrendingOptions
         }
@@ -125,7 +125,7 @@ fileprivate let ZLTrendingOptions = "trendingOptions"
             return ZLDateRangeDaily
         }
         set{
-            let tmpTrendingOptions = self.trendingOptions!
+            let tmpTrendingOptions = self.trendingOptions ?? [:]
             tmpTrendingOptions["repo"]?.dateRange = newValue
             self.trendingOptions = tmpTrendingOptions
         }
@@ -140,7 +140,7 @@ fileprivate let ZLTrendingOptions = "trendingOptions"
             return ZLDateRangeDaily
         }
         set{
-            let tmpTrendingOptions = self.trendingOptions!
+            let tmpTrendingOptions = self.trendingOptions ?? [:]
             tmpTrendingOptions["user"]?.dateRange = newValue
             self.trendingOptions = tmpTrendingOptions
         }

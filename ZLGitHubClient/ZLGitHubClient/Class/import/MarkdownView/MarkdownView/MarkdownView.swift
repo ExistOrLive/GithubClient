@@ -78,9 +78,9 @@ open class MarkdownView: UIView {
             controller.addUserScript(userScript)
             
             // 对于相对路径的图片，修正为绝对路径
-            if baseUrl != nil
+            if let tmpBaseUrl = baseUrl
             {
-                let addBaseScript = "let a = '\(baseUrl!)';let contentDiv = document.getElementById('contents');let array = contentDiv.getElementsByTagName('img');for(i=0;i<array.length;i++){let item=array[i];if(item.getAttribute('src').indexOf('http') == -1){item.src = a + item.getAttribute('src');}}"
+                let addBaseScript = "let a = '\(tmpBaseUrl)';let contentDiv = document.getElementById('contents');let array = contentDiv.getElementsByTagName('img');for(i=0;i<array.length;i++){let item=array[i];if(item.getAttribute('src').indexOf('http') == -1){item.src = a + item.getAttribute('src');}}"
                 let addBaseUserScript = WKUserScript(source: addBaseScript, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
                 controller.addUserScript(addBaseUserScript)
             }

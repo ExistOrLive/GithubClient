@@ -52,7 +52,7 @@ class ZLMyPullRequestsView: ZLBaseView {
         
         let button1 = UIButton(type: .custom)
         button1.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
-        button1.setAttributedTitle(NSAttributedString(string: "Created", attributes: [NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor3")!,NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 12)!]), for: .normal)
+        button1.setAttributedTitle(NSAttributedString(string: "Created", attributes: [NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor3") ?? UIColor.darkText,NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 12) ?? UIFont.systemFont(ofSize: 12)]), for: .normal)
         button1.setImage(UIImage(named: "down"), for: .normal)
         view.addSubview(button1)
         button1.snp.makeConstraints { (make) in
@@ -65,7 +65,7 @@ class ZLMyPullRequestsView: ZLBaseView {
     
         let button2 = UIButton(type: .custom)
         button2.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
-        button2.setAttributedTitle(NSAttributedString(string: "Open", attributes: [NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor3")!,NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 12)!]), for: .normal)
+        button2.setAttributedTitle(NSAttributedString(string: "Open", attributes: [NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor3") ?? UIColor.darkText,NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 12) ?? UIFont.systemFont(ofSize: 12)]), for: .normal)
         button2.setImage(UIImage(named: "down"), for: .normal)
         view.addSubview(button2)
         button2.snp.makeConstraints { (make) in
@@ -94,8 +94,8 @@ class ZLMyPullRequestsView: ZLBaseView {
                                                             withDataArray: ["Created","Assigned","Mentioned","Review"])
         { (index : UInt) in
             let str = ["Created","Assigned","Mentioned","Review"][Int(index)]
-            self.filterButton.setAttributedTitle(NSAttributedString(string: str, attributes: [NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor3")!,NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 12)!]), for: .normal)
-            self.filterIndex = ZLPRFilterType.init(rawValue: Int(index))!
+            self.filterButton.setAttributedTitle(NSAttributedString(string: str, attributes: [NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor3") ?? UIColor.darkText,NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 12) ?? UIFont.systemFont(ofSize: 12)]), for: .normal)
+            self.filterIndex = ZLPRFilterType.init(rawValue: Int(index)) ?? .created
             self.delegate?.onFilterTypeChange(type: self.filterIndex)
         }
     }
@@ -106,8 +106,8 @@ class ZLMyPullRequestsView: ZLBaseView {
                                                             withDataArray: ["Open","Closed"])
         { (index : UInt) in
             let str = ["Open","Closed"][Int(index)]
-            self.stateButton.setAttributedTitle(NSAttributedString(string: str, attributes: [NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor3")!,NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 12)!]), for: .normal)
-            self.stateIndex = ZLGithubIssueState.init(rawValue: UInt(Int(index)))!
+            self.stateButton.setAttributedTitle(NSAttributedString(string: str, attributes: [NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor3") ?? UIColor.darkText,NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 12) ?? UIFont.systemFont(ofSize: 12)]), for: .normal)
+            self.stateIndex = ZLGithubIssueState.init(rawValue: UInt(Int(index))) ?? .open
             self.delegate?.onStateChange(state: self.stateIndex)
         }
     }
