@@ -33,16 +33,17 @@ extension ZLRepoForkedReposViewModel
 {
     func loadNewData()
     {
-        if self.fullName == nil
-        {
+        guard let fullName = fullName else {
             ZLToastView .showMessage("fullName is nil")
             self.itemListView?.endRefreshWithError()
             return
         }
         
-        weak var weakSelf = self
-        
-        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoForks(withFullName: self.fullName!, serialNumber: NSString.generateSerialNumber(), per_page: 10, page: 1) { (resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoForks(withFullName: fullName,
+                                                                       serialNumber: NSString.generateSerialNumber(),
+                                                                       per_page: 10,
+                                                                       page: 1)
+        { [weak weakSelf = self](resultModel : ZLOperationResultModel) in
             
             if resultModel.result == false
             {
@@ -71,18 +72,20 @@ extension ZLRepoForkedReposViewModel
         }
     }
     
-    func loadMoreData()
-    {
-        if self.fullName == nil
-        {
+    func loadMoreData(){
+        
+        guard let fullName = fullName else {
             ZLToastView .showMessage("fullName is nil")
             self.itemListView?.endRefreshWithError()
             return
         }
         
-        weak var weakSelf = self
         
-        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoForks(withFullName: self.fullName!, serialNumber: NSString.generateSerialNumber(), per_page: 10, page: self.currentPage + 1) { (resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoForks(withFullName: fullName,
+                                                                       serialNumber: NSString.generateSerialNumber(),
+                                                                       per_page: 10,
+                                                                       page: self.currentPage + 1)
+        { [weak weakSelf = self](resultModel : ZLOperationResultModel) in
             
             if resultModel.result == false
             {

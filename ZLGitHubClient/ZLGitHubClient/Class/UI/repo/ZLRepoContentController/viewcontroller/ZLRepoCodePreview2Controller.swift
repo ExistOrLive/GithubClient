@@ -85,14 +85,13 @@ class ZLRepoCodePreview2Controller: ZLBaseViewController {
         var codeStr = ""
         if let content = self.codeContent?.content{
             
-            let data  = Data.init(base64Encoded: content, options: .ignoreUnknownCharacters)
-            if data == nil{
+            if let data  = Data.init(base64Encoded: content, options: .ignoreUnknownCharacters){
                 
-                codeStr = "load Error"
+                codeStr = String.init(data: data, encoding: .utf8) ?? "load Error"
             }
             else{
                 
-                codeStr = String.init(data: data!, encoding: .utf8) ?? "load Error"
+                codeStr = "load Error"
             }
         }
         else{

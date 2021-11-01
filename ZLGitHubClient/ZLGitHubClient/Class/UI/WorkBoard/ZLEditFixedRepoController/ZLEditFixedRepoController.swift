@@ -21,10 +21,10 @@ class ZLEditFixedRepoController : ZLBaseViewController,UITableViewDelegate,UITab
     // view
     private lazy var tableView : UITableView = {
         let tableView = UITableView(frame: CGRect.zero, style: .grouped)
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        self.tableView.separatorStyle = .none
-        self.tableView.register(ZLSimpleRepoTableViewCell.self, forCellReuseIdentifier: "ZLSimpleRepoTableViewCell")
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.separatorStyle = .none
+        tableView.register(ZLSimpleRepoTableViewCell.self, forCellReuseIdentifier: "ZLSimpleRepoTableViewCell")
         return tableView
     }()
     

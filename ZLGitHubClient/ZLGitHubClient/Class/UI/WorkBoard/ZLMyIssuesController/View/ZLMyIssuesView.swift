@@ -53,7 +53,11 @@ class ZLMyIssuesView: ZLBaseView {
             
         let button1 = UIButton(type: .custom)
         button1.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
-        button1.setAttributedTitle(NSAttributedString(string: "Created", attributes: [NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor3")!,NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 12)!]), for: .normal)
+        button1.setAttributedTitle(NSAttributedString(string: "Created",
+                                                      attributes: [.foregroundColor:UIColor.label(withName: "ZLLabelColor3"),
+                                                                   .font:UIFont.zlRegularFont(withSize: 12)]),
+                                   for: .normal)
+        
         button1.setImage(UIImage(named: "down"), for: .normal)
         view.addSubview(button1)
         button1.snp.makeConstraints { (make) in
@@ -66,7 +70,10 @@ class ZLMyIssuesView: ZLBaseView {
     
         let button2 = UIButton(type: .custom)
         button2.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
-        button2.setAttributedTitle(NSAttributedString(string: "Open", attributes: [NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor3")!,NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 12)!]), for: .normal)
+        button2.setAttributedTitle(NSAttributedString(string: "Open",
+                                                      attributes: [.foregroundColor:UIColor.label(withName: "ZLLabelColor3"),
+                                                                   .font:UIFont.zlRegularFont(withSize: 12)]),
+                                   for: .normal)
         button2.setImage(UIImage(named: "down"), for: .normal)
         view.addSubview(button2)
         button2.snp.makeConstraints { (make) in
@@ -97,7 +104,10 @@ class ZLMyIssuesView: ZLBaseView {
         { (index : UInt) in
             
             let str = ["Created","Assigned","Mentioned"][Int(index)]
-            self.filterButton.setAttributedTitle(NSAttributedString(string: str, attributes: [NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor3")!,NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 12)!]), for: .normal)
+            self.filterButton.setAttributedTitle(NSAttributedString(string: str,
+                                                                    attributes: [.foregroundColor:UIColor.label(withName: "ZLLabelColor3"),
+                                                                                 .font:UIFont.zlRegularFont(withSize: 12)]),
+                                                 for: .normal)
             self.filterIndex = ZLIssueFilterType.init(rawValue: Int(index)) ?? .created
             self.delegate?.onFilterTypeChange(type: self.filterIndex)
         }
@@ -110,7 +120,10 @@ class ZLMyIssuesView: ZLBaseView {
                                                             withDataArray: ["Open","Closed"])
         { (index : UInt) in
             let str = ["Open","Closed"][Int(index)]
-            self.stateButton.setAttributedTitle(NSAttributedString(string: str, attributes: [NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor3")!,NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 12)!]), for: .normal)
+            self.stateButton.setAttributedTitle(NSAttributedString(string: str,
+                                                                   attributes:[.foregroundColor:UIColor.label(withName: "ZLLabelColor3"),
+                                                                               .font:UIFont.zlRegularFont(withSize: 12)]),
+                                                for: .normal)
             self.stateIndex = ZLGithubIssueState.init(rawValue: index) ?? .open
             self.delegate?.onStateChange(state:self.stateIndex)
         }

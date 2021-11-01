@@ -351,11 +351,11 @@ extension ZLRepoCodePreview3Controller : WKUIDelegate,WKNavigationDelegate
 
             var url : URL? = nil
             
-            if urlStr?.count ?? 0 > 0  {
-                url = URL.init(string: urlStr!)
+            if let tmpUrlStr = urlStr {
+                url = URL.init(string: tmpUrlStr)
                 if url?.host == nil {               // 如果是相对路径，组装baseurl
                     url = (URL.init(string: self.contentModel.html_url) as NSURL?)?.deletingLastPathComponent
-                    url?.appendPathComponent(urlStr!)
+                    url?.appendPathComponent(tmpUrlStr)
                 }
             }
             

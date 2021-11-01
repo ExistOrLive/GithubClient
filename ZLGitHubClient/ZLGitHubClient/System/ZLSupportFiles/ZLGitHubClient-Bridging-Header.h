@@ -26,6 +26,7 @@
 #import "UIColor+HexColor.h"
 #import "UIView+HJViewStyle.h"
 #import "NSDate+Localize.h"
+#import "UIFont+ZLExtension.h"
 
 #import "ZLLanguageModuleProtocol.h"
 

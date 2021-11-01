@@ -75,22 +75,22 @@ let Font_PingFangSCRegular = "PingFang-SC-Regular"
 
 func ZLRGBValue_H(colorValue: UInt) -> UIColor
 {
-    return UIColor(rgb: colorValue, alpha: 1.0)
+    return UIColor(rgb: colorValue, alpha: 1.0) ?? UIColor.white
 }
 
 func ZLRGBAValue_H(colorValue: UInt, alphaValue: CGFloat) -> UIColor
 {
-    return UIColor(rgb: colorValue, alpha: alphaValue)
+    return UIColor(rgb: colorValue, alpha: alphaValue) ?? UIColor.white
 }
 
 func ZLRGBValueStr_H(colorValue: String) -> UIColor
 {
-    return UIColor(hexString: colorValue, alpha: 1.0)
+    return UIColor(hexString: colorValue, alpha: 1.0) ?? UIColor.white
 }
 
 func ZLRGBValueStr_H(colorValue: String, alphaValue: CGFloat) -> UIColor
 {
-    return UIColor(hexString: colorValue, alpha: Float(alphaValue))
+    return UIColor(hexString: colorValue, alpha: Float(alphaValue)) ?? UIColor.white
 }
 
 func ZLRawColor(name: String) -> UIColor?{

@@ -98,7 +98,7 @@
 		<integer>0</integer>
 		<key>isSingle</key>
 		<false/>
-		<key> moduleName</key>
+		<key>moduleName</key>
 		<string>ZLGitHubClient</string>
 	</dict>
 	<key>ZLOrgsViewController</key>

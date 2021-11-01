@@ -14,13 +14,17 @@
  *opacity 透明度
  *返回16进制字符串对应的颜色
  */
-+(UIColor *)colorWithHexString:(NSString *)hexColor alpha:(float)opacity;
++(UIColor* _Nullable)colorWithHexString:(NSString * _Nonnull)hexColor alpha:(float)opacity;
 
 /**十六进制数值转换为UIColor
  */
-+(UIColor*)colorWithRGB:(NSUInteger)hex
++(UIColor* _Nullable)colorWithRGB:(NSUInteger)hex
                   alpha:(CGFloat)alpha;
 
 
-+ (BOOL) isLightColor:(UIColor*)clr;
++ (BOOL) isLightColor:(UIColor* _Nonnull)clr;
+
+
++ (UIColor* _Nonnull) labelColorWithName:(NSString * _Nonnull) name;
+
 @end
