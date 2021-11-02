@@ -69,21 +69,26 @@ extension ZLRepoPullRequestViewModel
 {
     func loadNewData()
     {
-        if self.fullName == nil
-        {
+        guard let fullName = self.fullName else {
+            
             ZLToastView.showMessage("Repo fullName is nil")
             SVProgressHUD.dismiss()
             self.pullRequestView?.githubItemListView.endRefreshWithError()
             return
         }
 
-        weak var weakSelf = self
-        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoPullRequest(withFullName: self.fullName!, state: self.filterOpen ? "open" : "closed", per_page: 10 , page : 1 ,serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoPullRequest(withFullName: fullName,
+                                                                             state: self.filterOpen ? "open" : "closed",
+                                                                             per_page: 10 ,
+                                                                             page : 1 ,
+                                                                             serialNumber: NSString.generateSerialNumber())
+        {[weak weakSelf = self] (resultModel : ZLOperationResultModel) in
             
             SVProgressHUD.dismiss()
             
-            if resultModel.result == false
-            {
+            if resultModel.result == false{
+                
                 weakSelf?.pullRequestView?.githubItemListView.endRefreshWithError()
                 let errorModel = resultModel.data as? ZLGithubRequestErrorModel
                 ZLToastView.showMessage("Query Pull Request Failed Code [\(errorModel?.statusCode ?? 0)] Message[\(errorModel?.message ?? "")]")
@@ -106,15 +111,15 @@ extension ZLRepoPullRequestViewModel
             }
             weakSelf?.pullRequestView?.githubItemListView.resetCellDatas(cellDatas: cellDatas)
             weakSelf?.currentPage = 1
-        })
+        }
     }
     
     
     
     func loadMoreData()
     {
-        if self.fullName == nil
-        {
+        guard let fulleName = self.fullName else{
+            
             ZLToastView.showMessage("Repo fullName is nil")
             SVProgressHUD.dismiss()
             self.pullRequestView?.githubItemListView.endRefreshWithError()
@@ -122,7 +127,12 @@ extension ZLRepoPullRequestViewModel
         }
         
         weak var weakSelf = self
-        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoPullRequest(withFullName: self.fullName!, state: self.filterOpen ? "open" : "closed",  per_page: 10 , page : self.currentPage + 1 , serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoPullRequest(withFullName: fulleName,
+                                                                             state: self.filterOpen ? "open" : "closed",
+                                                                             per_page: 10 ,
+                                                                             page : self.currentPage + 1 ,
+                                                                             serialNumber: NSString.generateSerialNumber())
+        {[weak weakSelf = self](resultModel : ZLOperationResultModel) in
             
             if resultModel.result == false
             {
@@ -149,7 +159,7 @@ extension ZLRepoPullRequestViewModel
             weakSelf?.pullRequestView?.githubItemListView.appendCellDatas(cellDatas: cellDatas)
             weakSelf?.currentPage = weakSelf!.currentPage + 1
             
-        })
+        }
     }
     
     

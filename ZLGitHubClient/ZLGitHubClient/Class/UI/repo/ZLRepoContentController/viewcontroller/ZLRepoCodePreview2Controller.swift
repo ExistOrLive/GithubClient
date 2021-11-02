@@ -44,11 +44,12 @@ class ZLRepoCodePreview2Controller: ZLBaseViewController {
     func setUpUI(){
         self.title = self.path
         
-        self.markdownView = MarkdownView()
-        self.contentView.addSubview(self.markdownView!)
-        self.markdownView!.snp.makeConstraints({(make) in
+        let markdownView = MarkdownView()
+        self.contentView.addSubview(markdownView)
+        markdownView.snp.makeConstraints({(make) in
             make.edges.equalToSuperview()
         })
+        self.markdownView = markdownView
         
     }
     

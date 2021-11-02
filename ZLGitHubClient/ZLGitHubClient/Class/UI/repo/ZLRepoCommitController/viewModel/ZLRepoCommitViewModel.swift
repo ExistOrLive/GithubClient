@@ -39,18 +39,22 @@ class ZLRepoCommitViewModel: ZLBaseViewModel {
 
 extension ZLRepoCommitViewModel
 {
-    func loadMoreData()
-    {
-        if self.fullName == nil
-        {
+    func loadMoreData(){
+        
+        guard let fullName = self.fullName else{
             ZLToastView .showMessage("fullName is nil")
             self.itemListView?.endRefreshWithError()
             return
         }
         
         let date = Date.init(timeInterval: -1, since: self.untilDate ?? Date.init())
-        weak var weakSelf = self
-        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoCommit(withFullName: self.fullName!, branch: self.branch, until: date, since: nil, serialNumber: NSString.generateSerialNumber(), completeHandle: { (resultModel : ZLOperationResultModel) in
+        
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoCommit(withFullName: fullName,
+                                                                        branch: self.branch,
+                                                                        until: date,
+                                                                        since: nil,
+                                                                        serialNumber: NSString.generateSerialNumber())
+        {[weak weakSelf = self](resultModel : ZLOperationResultModel) in
             
             if resultModel.result == false
             {
@@ -76,22 +80,24 @@ extension ZLRepoCommitViewModel
                 cellDatas.append(cellData)
             }
             weakSelf?.itemListView?.appendCellDatas(cellDatas: cellDatas)
-            
-            
-        })
+        }
     }
     
     func loadNewData()
     {
-        if self.fullName == nil
-        {
+        guard let fullName = self.fullName else{
+            
             ZLToastView .showMessage("fullName is nil")
             self.itemListView?.endRefreshWithError()
             return
         }
         
-        weak var weakSelf = self
-        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoCommit(withFullName: self.fullName!, branch: self.branch, until: Date.init(), since: nil, serialNumber: NSString.generateSerialNumber(), completeHandle: { (resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoCommit(withFullName: fullName,
+                                                                        branch: self.branch,
+                                                                        until: Date.init(),
+                                                                        since: nil,
+                                                                        serialNumber: NSString.generateSerialNumber())
+        { [weak weakSelf = self](resultModel : ZLOperationResultModel) in
             
             if resultModel.result == false
             {
@@ -118,7 +124,7 @@ extension ZLRepoCommitViewModel
             }
             weakSelf?.itemListView?.resetCellDatas(cellDatas: cellDatas)
             
-        })
+        }
     }
 }
 

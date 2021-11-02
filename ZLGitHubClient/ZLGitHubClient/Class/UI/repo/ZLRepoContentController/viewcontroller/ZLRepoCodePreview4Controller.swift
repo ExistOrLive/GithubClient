@@ -69,10 +69,12 @@ class ZLRepoCodePreview4Controller: ZLBaseViewController {
     func switchToWebVc(urlString : String){
         let webContentVC = ZLWebContentController.init()
         webContentVC.requestURL = URL.init(string: urlString)
-        var viewControllers = self.navigationController?.viewControllers
-        if viewControllers != nil {
-            viewControllers![viewControllers!.count - 1] = webContentVC
-            self.navigationController?.setViewControllers(viewControllers!, animated: false)
+        
+        if var viewControllers = self.navigationController?.viewControllers,
+           !viewControllers.isEmpty {
+            
+            viewControllers[viewControllers.count - 1] = webContentVC
+            self.navigationController?.setViewControllers(viewControllers, animated: false)
         }
     }
     
@@ -85,16 +87,16 @@ class ZLRepoCodePreview4Controller: ZLBaseViewController {
             self.navigationController?.pushViewController(webContentVC, animated: true)
         }
         let alertAction2 = UIAlertAction.init(title: "Open in Safari", style: UIAlertAction.Style.default) { (action : UIAlertAction) in
-            let url =  URL.init(string: self.contentModel.html_url)
-            if url != nil {
-                UIApplication.shared.open(url!, options: [:], completionHandler: {(result : Bool) in})
+            
+            if let url =  URL.init(string: self.contentModel.html_url) {
+                UIApplication.shared.open(url, options: [:], completionHandler: {(result : Bool) in})
             }
         }
         
         let alertAction3 = UIAlertAction.init(title: "Share", style: UIAlertAction.Style.default) { (action : UIAlertAction) in
-            let url =  URL.init(string: self.contentModel.html_url)
-            if url != nil {
-                let activityVC = UIActivityViewController.init(activityItems: [url!], applicationActivities: nil)
+            
+            if let url =  URL.init(string: self.contentModel.html_url) {
+                let activityVC = UIActivityViewController.init(activityItems: [url], applicationActivities: nil)
                 activityVC.popoverPresentationController?.sourceView = button
                 activityVC.excludedActivityTypes = [.message,.mail,.openInIBooks,.markupAsPDF]
                 self.present(activityVC, animated: true, completion: nil)
@@ -122,19 +124,20 @@ extension ZLRepoCodePreview4Controller {
     func sendQueryContentRequest(){
         
         SVProgressHUD.show()
-        weak var weakSelf = self
         
-        ZLServiceManager.sharedInstance.repoServiceModel?.getRepositoryFileContent(withHTMLURL: self.contentModel.html_url, branch: self.branch, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepositoryFileContent(withHTMLURL: self.contentModel.html_url,
+                                                                                   branch: self.branch,
+                                                                                   serialNumber: NSString.generateSerialNumber())
+        {[weak weakSelf = self](resultModel : ZLOperationResultModel) in
             
-            if resultModel.result == false
-            {
+            if resultModel.result == false{
                 SVProgressHUD.dismiss()
                 weakSelf?.switchToWebVC()
                 return
             }
 
-            guard let data : String = resultModel.data as? String else
-            {
+            guard let data : String = resultModel.data as? String else{
+                
                 SVProgressHUD.dismiss()
                 weakSelf?.switchToWebVC()
                 return;
@@ -143,55 +146,8 @@ extension ZLRepoCodePreview4Controller {
             let code = "<article class=\"markdown-body entry-content container-lg\" itemprop=\"text\">\(data)</article>"
             
             weakSelf?.startLoadCode(codeHtml: code)
-        })
+        }
     }
-    
-    func sendRenderMakrdownRequest(){
-        
-        weak var weakSelf = self
-        SVProgressHUD.show()
-        ZLServiceManager.sharedInstance.repoServiceModel?.getRepositoryFileRawInfo(withFullName: weakSelf!.repoFullName,path: weakSelf!.contentModel.path,branch:weakSelf!.branch,serialNumber: NSString.generateSerialNumber(),completeHandle: {(resultModel : ZLOperationResultModel) in
-            
-            if resultModel.result == false
-            {
-                SVProgressHUD.dismiss()
-                weakSelf?.switchToWebVC()
-                return
-            }
-            
-            guard let data : String = resultModel.data as? String else
-            {
-                SVProgressHUD.dismiss()
-                weakSelf?.switchToWebVC()
-                return;
-            }
-            
-            let code = "```\(self.getFileType(fileExtension: URL.init(string: self.contentModel.path)?.pathExtension ?? ""))\n\(data)\n```"
-            
-            ZLServiceManager.sharedInstance.additionServiceModel?.renderCodeToMarkdown(withCode: code, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel : ZLOperationResultModel) in
-                
-                if resultModel.result == false
-                {
-                    SVProgressHUD.dismiss()
-                    weakSelf?.switchToWebVC()
-                    return
-                }
-                
-                guard let data : String = resultModel.data as? String else
-                {
-                    SVProgressHUD.dismiss()
-                    weakSelf?.switchToWebVC()
-                    return;
-                }
-                
-                let code = "<article class=\"markdown-body entry-content container-lg\" itemprop=\"text\">\(data)</article>"
-                
-                weakSelf?.startLoadCode(codeHtml: code)
-                
-            })
-        })
-    }
-    
     
     func startLoadCode(codeHtml : String){
         
@@ -269,8 +225,9 @@ extension ZLRepoCodePreview4Controller : WKUIDelegate,WKNavigationDelegate
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!)
     {
-        if self.contentModel.download_url != nil {
-            let baseURLStr = (URL.init(string: self.contentModel.download_url!) as NSURL?)?.deletingLastPathComponent?.absoluteString
+        if let urlStr = self.contentModel.download_url {
+            
+            let baseURLStr = (URL.init(string: urlStr) as NSURL?)?.deletingLastPathComponent?.absoluteString
             let addBaseScript = "let a = '\(baseURLStr ?? "")';let array = document.getElementsByTagName('img');for(i=0;i<array.length;i++){let item=array[i];if(item.getAttribute('src').indexOf('http') == -1){item.src = a + item.getAttribute('src');}}"
             
             webView.evaluateJavaScript(addBaseScript) { (result : Any?, error : Error?) in

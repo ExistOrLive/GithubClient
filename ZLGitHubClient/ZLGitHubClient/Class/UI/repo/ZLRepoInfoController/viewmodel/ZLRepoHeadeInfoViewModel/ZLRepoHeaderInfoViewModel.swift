@@ -97,14 +97,18 @@ extension ZLRepoHeaderInfoViewModel : ZLRepoHeaderInfoViewDelegate
         if self.repoInfoModel.sourceRepoFullName?.count ?? 0 != 0 {
             
             let attributedStr = NSMutableAttributedString.init(string: self.repoInfoModel?.full_name ?? "",
-                                                               attributes: [NSAttributedString.Key.foregroundColor:tmpColor1,NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCMedium, size: 16)!])
+                                                               attributes: [.foregroundColor:tmpColor1,
+                                                                            .font:UIFont.zlMediumFont(withSize: 16)])
             
             let forkStr = NSMutableAttributedString.init(string: "\nforked from ",
-                                                         attributes: [NSAttributedString.Key.foregroundColor:tmpColor2,NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCMedium, size: 13)!])
+                                                         attributes: [.foregroundColor:tmpColor2,
+                                                                      .font:UIFont.zlMediumFont(withSize: 13)])
             
             attributedStr.append(forkStr)
             
-            let sourceRepoStr = NSMutableAttributedString.init(string: self.repoInfoModel?.sourceRepoFullName ?? "", attributes: [NSAttributedString.Key.foregroundColor:tmpColor1,NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCMedium, size: 13)!])
+            let sourceRepoStr = NSMutableAttributedString.init(string: self.repoInfoModel?.sourceRepoFullName ?? "",
+                                                               attributes: [.foregroundColor:tmpColor1,
+                                                                            .font:UIFont.zlMediumFont(withSize: 13)])
             
             sourceRepoStr.yy_setTextHighlight(NSRange.init(location: 0, length: self.repoInfoModel?.sourceRepoFullName?.count ?? 0),
                                               color: ZLRawColor(name: "ZLLinkLabelColor1"),
@@ -121,7 +125,9 @@ extension ZLRepoHeaderInfoViewModel : ZLRepoHeaderInfoViewDelegate
             return attributedStr
             
         } else {
-            let attributedStr = NSMutableAttributedString.init(string: self.repoInfoModel?.full_name ?? "", attributes: [NSAttributedString.Key.foregroundColor:tmpColor1,NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCMedium, size: 16) ?? UIFont.systemFont(ofSize: 16)])
+            let attributedStr = NSMutableAttributedString.init(string: self.repoInfoModel?.full_name ?? "",
+                                                               attributes: [.foregroundColor:tmpColor1,
+                                                                           .font:UIFont.zlMediumFont(withSize: 16)])
             return attributedStr
         }
     }
@@ -213,8 +219,12 @@ extension ZLRepoHeaderInfoViewModel : ZLRepoHeaderInfoViewDelegate
 extension ZLRepoHeaderInfoViewModel{
     
     func getRepoWatchStatus() -> Void {
+        
+        guard let fullName = self.repoInfoModel.full_name else {
+            return
+        }
      
-        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoWatchStatus(withFullName: self.repoInfoModel.full_name!,
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoWatchStatus(withFullName: fullName,
                                                                              serialNumber: NSString.generateSerialNumber())
         {[weak self](resultModel : ZLOperationResultModel) in
             
@@ -230,10 +240,14 @@ extension ZLRepoHeaderInfoViewModel{
     
     func watchRepo(watch:Bool) -> Void {
         
+        guard let fullName = self.repoInfoModel.full_name else {
+            return
+        }
+        
         if watch == true {
             
             SVProgressHUD.show()
-            ZLServiceManager.sharedInstance.repoServiceModel?.watchRepo(withFullName: self.repoInfoModel.full_name!,
+            ZLServiceManager.sharedInstance.repoServiceModel?.watchRepo(withFullName: fullName,
                                                                         serialNumber: NSString.generateSerialNumber())
             {[weak self](resultModel : ZLOperationResultModel) in
                 SVProgressHUD.dismiss()
@@ -263,8 +277,12 @@ extension ZLRepoHeaderInfoViewModel{
     
     
     func getRepoStarStatus() -> Void {
+        
+        guard let fullName = self.repoInfoModel.full_name else {
+            return
+        }
      
-        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoStarStatus(withFullName: self.repoInfoModel.full_name!,
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoStarStatus(withFullName: fullName,
                                                                             serialNumber: NSString.generateSerialNumber())
         {[weak self](resultModel : ZLOperationResultModel) in
             
@@ -280,10 +298,14 @@ extension ZLRepoHeaderInfoViewModel{
     
     func starRepo(star:Bool) -> Void {
         
+        guard let fullName = self.repoInfoModel.full_name else {
+            return
+        }
+        
         if star == true {
             SVProgressHUD.show()
             
-            ZLServiceManager.sharedInstance.repoServiceModel?.starRepo(withFullName: self.repoInfoModel.full_name!,
+            ZLServiceManager.sharedInstance.repoServiceModel?.starRepo(withFullName: fullName,
                                                                        serialNumber: NSString.generateSerialNumber())
             {[weak self](resultModel : ZLOperationResultModel) in
                 SVProgressHUD.dismiss()
@@ -315,10 +337,13 @@ extension ZLRepoHeaderInfoViewModel{
     
     
     func forkRepo() {
+        guard let fullName = self.repoInfoModel.full_name else {
+            return
+        }
         
         SVProgressHUD.show()
         
-        ZLServiceManager.sharedInstance.repoServiceModel?.forkRepository(withFullName: self.repoInfoModel.full_name!,
+        ZLServiceManager.sharedInstance.repoServiceModel?.forkRepository(withFullName: fullName,
                                                                          org: nil,
                                                                          serialNumber: NSString.generateSerialNumber())
         {(resultModel : ZLOperationResultModel) in

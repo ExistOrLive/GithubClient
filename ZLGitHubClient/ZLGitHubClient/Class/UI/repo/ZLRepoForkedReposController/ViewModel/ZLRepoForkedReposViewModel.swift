@@ -110,7 +110,7 @@ extension ZLRepoForkedReposViewModel
                 cellDatas.append(cellData)
             }
             weakSelf?.itemListView?.appendCellDatas(cellDatas: cellDatas)
-            weakSelf?.currentPage = weakSelf!.currentPage + 1
+            weakSelf?.currentPage += 1
         }
     }
     

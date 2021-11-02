@@ -78,7 +78,7 @@ extension ZLRepoInfoViewModel
         self.addSubViewModel(repoHeaderInfoViewModel)
         
         // 从服务器查询
-        let tmpRepoInfo = ZLServiceManager.sharedInstance.repoServiceModel?.getRepoInfo(withFullName: repoInfoModel.full_name!,
+        let tmpRepoInfo = ZLServiceManager.sharedInstance.repoServiceModel?.getRepoInfo(withFullName: repoInfoModel.full_name ?? "",
                                                                       serialNumber: NSString.generateSerialNumber())
         {[weak self] (resultModel) in
             if resultModel.result == true, let repoInfoModel = resultModel.data as? ZLGithubRepositoryModel {
@@ -99,8 +99,8 @@ extension ZLRepoInfoViewModel
             }
         }
         
-        if tmpRepoInfo != nil {
-            repoInfoModel = tmpRepoInfo!
+        if let info = tmpRepoInfo {
+            repoInfoModel = info
         }
         
         repoHeaderInfoViewModel.bindModel(repoInfoModel, andView: repoInfoView.headerView!)
