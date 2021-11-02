@@ -7,8 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "ZLGithubAPI.h"
-#import "ZLBuglyManager.h"
+#import "ZLGithubAppKey.h"
 
 #import <JJException/JJException.h>
 #ifdef DEBUG
@@ -16,8 +15,11 @@
 #endif
 
 #import <UserNotifications/UserNotifications.h>
-#import <SYDCentralPivot/SYDCentralPivotCoreHeader.h>
+#import <SYDCentralPivot/SYDCentralPivot.h>
+#import <ZLGitRemoteService/ZLGitRemoteService.h>
+#import <ZLGitRemoteService/ZLGitRemoteService-Swift.h>
 #import <Firebase/Firebase.h>
+
 
 
 
@@ -45,15 +47,15 @@
      *
      * 初始化工具模块
      **/
-    [[ZLServiceManager sharedInstance] initManager];
+    [[ZLServiceManager sharedInstance] initManagerWithClientId:MyClientID
+                                                  clientSecret:MyClientSecret
+                                                       buglyId:ZLBuyglyAppId];
     
+    [FIRApp configure];
 
     
     NSString *configFilePath = [[NSBundle mainBundle] pathForResource:@"SYDCenteralFactoryConfig" ofType:@"plist"];
     [[SYDCentralRouter sharedInstance] addConfigWithFilePath:configFilePath withBundle:[NSBundle mainBundle]];;
-    
-   
-    [self setUpBugly];
     
     
     ZLLog_Info(@"中间件，工具模块初始化完毕");
@@ -127,7 +129,9 @@
 
 // 处理URL
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options{
-    [[ZLToolManager sharedInstance].zlurlNotifcaitonModule addURLFromOtherAppOrWidgetWithUrl:url];
+    
+    id<ZLURLNotificationModuleProtocol> notificationModule = [[SYDCentralFactory sharedInstance] getCommonBean:@"ZLUrlNotifcaitonModule"];
+    [notificationModule addURLFromOtherAppOrWidgetWithUrl:url];
     return YES;
 }
 
@@ -232,14 +236,6 @@
            [[DoraemonManager shareInstance] installWithStartingPosition:CGPointMake(66, 66)];
     
        #endif
-}
-
-#pragma mark - Bugly
-- (void) setUpBugly{
-    
-    [[ZLBuglyManager sharedManager] setUp];
-        
-    [FIRApp configure];
 }
 
 #pragma mark - JJException

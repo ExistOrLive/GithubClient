@@ -78,8 +78,8 @@ extension ZLMyIssuesController : ZLGithubItemListViewDelegate {
                 }
                 self?.afterCursor = data.search.pageInfo.endCursor
                 var cellDatas : [ZLIssueTableViewCellDataForViewerIssue] = []
-                if data.search.nodes != nil {
-                    for node in data.search.nodes!{
+                if let nodes = data.search.nodes {
+                    for node in nodes {
                         if let tmpdata = node?.asIssue {
                             cellDatas.append(ZLIssueTableViewCellDataForViewerIssue.init(data: tmpdata))
                         }
@@ -117,8 +117,8 @@ extension ZLMyIssuesController : ZLGithubItemListViewDelegate {
                 }
                 self?.afterCursor = data.search.pageInfo.endCursor
                 var cellDatas : [ZLIssueTableViewCellDataForViewerIssue] = []
-                if data.search.nodes != nil {
-                    for node in data.search.nodes!{
+                if let nodes = data.search.nodes {
+                    for node in nodes {
                         if let tmpdata = node?.asIssue {
                             cellDatas.append(ZLIssueTableViewCellDataForViewerIssue.init(data: tmpdata))
                         }

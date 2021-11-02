@@ -8,7 +8,7 @@
 
 import UIKit
 import WebKit
-import ZLServiceFramework
+import ZLGitRemoteService
 
 fileprivate let OAuthCallBackURL = "https://github.com/organizations/MengAndJie/CallBack"
 

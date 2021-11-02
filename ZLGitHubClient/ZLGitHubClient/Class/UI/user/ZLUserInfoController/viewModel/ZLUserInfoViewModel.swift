@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import ZLServiceFramework
+import ZLGitRemoteService
 
 class ZLUserInfoViewModel: ZLBaseViewModel {
     
@@ -82,16 +82,14 @@ class ZLUserInfoViewModel: ZLBaseViewModel {
             self.viewController?.navigationController?.pushViewController(webContentVC, animated: true)
         }
         let alertAction2 = UIAlertAction.init(title: ZLLocalizedString(string: "Open in Safari", comment: ""), style: UIAlertAction.Style.default) { (action : UIAlertAction) in
-            let url =  URL.init(string: self.userInfoModel.html_url ?? "")
-            if url != nil {
-                UIApplication.shared.open(url!, options: [:], completionHandler: {(result : Bool) in})
+            if let url =  URL.init(string: self.userInfoModel.html_url ?? "") {
+                UIApplication.shared.open(url, options: [:], completionHandler: {(result : Bool) in})
             }
         }
         
         let alertAction3 = UIAlertAction.init(title: ZLLocalizedString(string: "Share", comment: ""), style: UIAlertAction.Style.default) { (action : UIAlertAction) in
-            let url =  URL.init(string: self.userInfoModel.html_url ?? "")
-            if url != nil {
-                let activityVC = UIActivityViewController.init(activityItems: [url!], applicationActivities: nil)
+            if let url =  URL.init(string: self.userInfoModel.html_url ?? "") {
+                let activityVC = UIActivityViewController.init(activityItems: [url], applicationActivities: nil)
                 activityVC.popoverPresentationController?.sourceView = button
                 activityVC.excludedActivityTypes = [.message,.mail,.openInIBooks,.markupAsPDF]
                 self.viewController?.present(activityVC, animated: true, completion: nil)
@@ -167,7 +165,7 @@ extension ZLUserInfoViewModel
     
     
     func getFollowStatus() {
-        ZLServiceManager.sharedInstance.userServiceModel?.getUserFollowStatus(withLoginName: userInfoModel.loginName!,
+        ZLServiceManager.sharedInstance.userServiceModel?.getUserFollowStatus(withLoginName: userInfoModel.loginName ?? "",
                                                                               serialNumber: NSString.generateSerialNumber())
         {[weak self](resultModel : ZLOperationResultModel) in
             if(resultModel.result == true) {
@@ -182,7 +180,7 @@ extension ZLUserInfoViewModel
     func followUser() {
         
         SVProgressHUD.show()
-        ZLServiceManager.sharedInstance.userServiceModel?.followUser(withLoginName: userInfoModel.loginName!,
+        ZLServiceManager.sharedInstance.userServiceModel?.followUser(withLoginName: userInfoModel.loginName ?? "",
                                                                      serialNumber: NSString.generateSerialNumber())
         {[weak self](resultModel : ZLOperationResultModel) in
             SVProgressHUD.dismiss()
@@ -199,7 +197,7 @@ extension ZLUserInfoViewModel
     func unfollowUser() {
         
         SVProgressHUD.show()
-        ZLServiceManager.sharedInstance.userServiceModel?.unfollowUser(withLoginName:userInfoModel.loginName!,
+        ZLServiceManager.sharedInstance.userServiceModel?.unfollowUser(withLoginName:userInfoModel.loginName ?? "",
                                                                        serialNumber: NSString.generateSerialNumber())
         {[weak self](resultModel : ZLOperationResultModel) in
             SVProgressHUD.dismiss()
@@ -214,7 +212,7 @@ extension ZLUserInfoViewModel
     
     
     func getBlockStatus() {
-        ZLServiceManager.sharedInstance.userServiceModel?.getUserBlockStatus(withLoginName: userInfoModel.loginName!,
+        ZLServiceManager.sharedInstance.userServiceModel?.getUserBlockStatus(withLoginName: userInfoModel.loginName ?? "",
                                                                              serialNumber: NSString.generateSerialNumber())
         {[weak self](resultModel : ZLOperationResultModel) in
             if(resultModel.result == true) {
@@ -228,7 +226,7 @@ extension ZLUserInfoViewModel
     
     func BlockUser() {
         SVProgressHUD.show()
-        ZLServiceManager.sharedInstance.userServiceModel?.blockUser(withLoginName: userInfoModel.loginName!,
+        ZLServiceManager.sharedInstance.userServiceModel?.blockUser(withLoginName: userInfoModel.loginName ?? "",
                                                                     serialNumber: NSString.generateSerialNumber())
         {[weak self](resultModel : ZLOperationResultModel) in
             SVProgressHUD.dismiss()
@@ -243,7 +241,7 @@ extension ZLUserInfoViewModel
     
     func unBlockUser() {
         SVProgressHUD.show()
-        ZLServiceManager.sharedInstance.userServiceModel?.unBlockUser(withLoginName: userInfoModel.loginName!,
+        ZLServiceManager.sharedInstance.userServiceModel?.unBlockUser(withLoginName: userInfoModel.loginName ?? "",
                                                                       serialNumber: NSString.generateSerialNumber())
         {[weak self](resultModel : ZLOperationResultModel) in
             SVProgressHUD.dismiss()

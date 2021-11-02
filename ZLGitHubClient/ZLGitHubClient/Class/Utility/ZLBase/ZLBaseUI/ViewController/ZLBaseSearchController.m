@@ -41,7 +41,6 @@
     
     self.backgroundColor = [UIColor colorNamed:@"SearchBarBack"];
     
-    
     self.searchTextField = [UITextField new];
     self.searchTextField.backgroundColor = [UIColor colorNamed:@"ZLExploreTextFieldBackColor"];
     self.searchTextField.cornerRadius = 5.0;

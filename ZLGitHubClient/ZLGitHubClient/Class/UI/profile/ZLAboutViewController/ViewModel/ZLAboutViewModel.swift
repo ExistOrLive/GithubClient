@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import ZLServiceFramework
+import ZLGitRemoteService
 
 class ZLAboutViewModel: ZLBaseViewModel {
     

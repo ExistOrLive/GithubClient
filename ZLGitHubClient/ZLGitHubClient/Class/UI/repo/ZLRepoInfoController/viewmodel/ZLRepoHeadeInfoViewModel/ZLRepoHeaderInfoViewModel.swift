@@ -64,7 +64,7 @@ class ZLRepoHeaderInfoViewModel: ZLBaseViewModel {
 extension ZLRepoHeaderInfoViewModel {
     @objc func onNotificaitonArrived(notification:Notification) {
         switch notification.name{
-        case .ZLLanguageTypeChange_Notificaiton:do{
+        case ZLLanguageTypeChange_Notificaiton:do{
             self.repoHeaderInfoView?.justUpdate()
         }
         case ZLUserInterfaceStyleChange_Notification:do{
@@ -154,6 +154,11 @@ extension ZLRepoHeaderInfoViewModel : ZLRepoHeaderInfoViewDelegate
     }
     
     func onZLRepoHeaderInfoViewEvent(event: ZLRepoHeaderInfoViewEvent){
+        
+        if self.repoInfoModel?.full_name == nil {
+            return 
+        }
+        
         switch event{
         case .copy: do {
             let vc : ZLRepoForkedReposController = ZLRepoForkedReposController.init()

@@ -127,14 +127,13 @@ class ZLRepoCodePreview3Controller: ZLBaseViewController {
     
     
     func switchToWebVC() {
+        
         let webContentVC = ZLWebContentController.init()
         webContentVC.requestURL = URL.init(string: self.contentModel.html_url)
-        var viewControllers = self.navigationController?.viewControllers
-        if viewControllers != nil {
-            viewControllers![viewControllers!.count - 1] = webContentVC
-            self.navigationController?.setViewControllers(viewControllers!, animated: false)
+        if var viewControllers = self.navigationController?.viewControllers {
+            viewControllers[viewControllers.count - 1] = webContentVC
+            self.navigationController?.setViewControllers(viewControllers, animated: false)
         }
-        
     }
     
     func openURL(url : URL?){
@@ -152,16 +151,16 @@ class ZLRepoCodePreview3Controller: ZLBaseViewController {
             self.navigationController?.pushViewController(webContentVC, animated: true)
         }
         let alertAction2 = UIAlertAction.init(title:ZLLocalizedString(string:  "Open in Safari", comment: ""), style: UIAlertAction.Style.default) { (action : UIAlertAction) in
-            let url =  URL.init(string: self.contentModel.html_url)
-            if url != nil {
-                UIApplication.shared.open(url!, options: [:], completionHandler: {(result : Bool) in})
+            
+            if let url =  URL.init(string: self.contentModel.html_url) {
+                UIApplication.shared.open(url, options: [:], completionHandler: {(result : Bool) in})
             }
         }
         
         let alertAction3 = UIAlertAction.init(title: ZLLocalizedString(string: "Share", comment: ""), style: UIAlertAction.Style.default) { (action : UIAlertAction) in
-            let url =  URL.init(string: self.contentModel.html_url)
-            if url != nil {
-                let activityVC = UIActivityViewController.init(activityItems: [url!], applicationActivities: nil)
+
+            if let url =  URL.init(string: self.contentModel.html_url) {
+                let activityVC = UIActivityViewController.init(activityItems: [url], applicationActivities: nil)
                 activityVC.popoverPresentationController?.sourceView = button
                 activityVC.excludedActivityTypes = [.message,.mail,.openInIBooks,.markupAsPDF]
                 self.present(activityVC, animated: true, completion: nil)
@@ -292,8 +291,8 @@ extension ZLRepoCodePreview3Controller {
                     newHtmlStr.insert("<meta name=\"viewport\" content=\"width=device-width\"/>", at: range1.location)
                 }
                 
-                if cssURL != nil {
-                    let cssStr = try String.init(contentsOf: cssURL!)
+                if let tmoCSSURL = cssURL {
+                    let cssStr = try String.init(contentsOf: tmoCSSURL)
                     let range = (newHtmlStr as NSString).range(of:"</style>")
                     if  range.location != NSNotFound{
                         newHtmlStr.insert(cssStr, at: range.location)
@@ -352,11 +351,11 @@ extension ZLRepoCodePreview3Controller : WKUIDelegate,WKNavigationDelegate
 
             var url : URL? = nil
             
-            if urlStr?.count ?? 0 > 0  {
-                url = URL.init(string: urlStr!)
+            if let tmpUrlStr = urlStr {
+                url = URL.init(string: tmpUrlStr)
                 if url?.host == nil {               // 如果是相对路径，组装baseurl
                     url = (URL.init(string: self.contentModel.html_url) as NSURL?)?.deletingLastPathComponent
-                    url?.appendPathComponent(urlStr!)
+                    url?.appendPathComponent(tmpUrlStr)
                 }
             }
             
@@ -376,8 +375,8 @@ extension ZLRepoCodePreview3Controller : WKUIDelegate,WKNavigationDelegate
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!)
     {
-        if self.contentModel.download_url != nil {
-            let baseURLStr = (URL.init(string: self.contentModel.download_url!) as NSURL?)?.deletingLastPathComponent?.absoluteString
+        if let download_url = self.contentModel.download_url {
+            let baseURLStr = (URL.init(string: download_url) as NSURL?)?.deletingLastPathComponent?.absoluteString
             let addBaseScript = "let a = '\(baseURLStr ?? "")';let array = document.getElementsByTagName('img');for(i=0;i<array.length;i++){let item=array[i];if(item.getAttribute('src').indexOf('http') == -1){item.src = a + item.getAttribute('src');}}"
             
             webView.evaluateJavaScript(addBaseScript) { (result : Any?, error : Error?) in

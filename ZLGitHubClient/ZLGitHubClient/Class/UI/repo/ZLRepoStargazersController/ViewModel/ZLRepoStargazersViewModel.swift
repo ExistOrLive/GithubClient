@@ -33,35 +33,37 @@ extension ZLRepoStargazersViewModel
 {
     func loadNewData()
     {
-        if self.fullName == nil
-        {
+        guard let fullName = self.fullName else{
+            
             ZLToastView .showMessage("fullName is nil")
             self.itemListView?.endRefreshWithError()
             return
         }
         
-        weak var weakSelf = self
-        
-        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoStargazers(withFullName: self.fullName!, serialNumber: NSString.generateSerialNumber() ,per_page: 10, page: 1) { (resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoStargazers(withFullName: fullName,
+                                                                            serialNumber: NSString.generateSerialNumber(),
+                                                                            per_page: 10,
+                                                                            page: 1)
+        { [weak weakSelf = self] (resultModel : ZLOperationResultModel) in
             
-            if resultModel.result == false
-            {
+            if resultModel.result == false{
+                
                 weakSelf?.itemListView?.endRefreshWithError()
                 let errorModel = resultModel.data as? ZLGithubRequestErrorModel
                 ZLToastView.showMessage("Query Stargazers Failed Code [\(errorModel?.statusCode ?? 0)] Message[\(errorModel?.message ?? "")]")
                 return
             }
             
-            guard let data : [ZLGithubUserModel] = resultModel.data as? [ZLGithubUserModel] else
-            {
+            guard let data : [ZLGithubUserModel] = resultModel.data as? [ZLGithubUserModel] else{
+                
                 weakSelf?.itemListView?.endRefreshWithError()
                 ZLToastView.showMessage("ZLGithubUserModel transfer error")
                 return;
             }
             
             var cellDatas : [ZLUserTableViewCellData] = []
-            for userData in data
-            {
+            for userData in data{
+                
                 let cellData = ZLUserTableViewCellData.init(userModel: userData)
                 self.addSubViewModel(cellData)
                 cellDatas.append(cellData)
@@ -73,16 +75,18 @@ extension ZLRepoStargazersViewModel
     
     func loadMoreData()
     {
-        if self.fullName == nil
-        {
+        guard let fullName =  self.fullName else{
+            
             ZLToastView .showMessage("fullName is nil")
             self.itemListView?.endRefreshWithError()
             return
         }
-        
-        weak var weakSelf = self
-        
-        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoStargazers(withFullName: self.fullName!, serialNumber: NSString.generateSerialNumber(),per_page: 10, page: self.currentPage + 1 ) { (resultModel : ZLOperationResultModel) in
+                
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoStargazers(withFullName: fullName,
+                                                                            serialNumber: NSString.generateSerialNumber(),
+                                                                            per_page: 10,
+                                                                            page: self.currentPage + 1 )
+        { [weak weakSelf = self](resultModel : ZLOperationResultModel) in
             
             if resultModel.result == false
             {
@@ -107,7 +111,7 @@ extension ZLRepoStargazersViewModel
                 cellDatas.append(cellData)
             }
             weakSelf?.itemListView?.appendCellDatas(cellDatas: cellDatas)
-            weakSelf?.currentPage = weakSelf!.currentPage + 1
+            weakSelf?.currentPage += 1
         }
     }
     

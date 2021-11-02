@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import ZLServiceFramework
+import ZLGitRemoteService
 
 struct ZLWidgetService {
     static func trendingRepo(dateRange: FixedRepoDateRange, language : FixedRepoLanguage,  completeHandler: @escaping (Bool,[ZLGithubRepositoryModel]) -> Void) {

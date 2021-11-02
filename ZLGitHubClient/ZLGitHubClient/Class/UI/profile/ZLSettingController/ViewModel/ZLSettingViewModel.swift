@@ -158,7 +158,7 @@ extension ZLSettingViewModel: UITableViewDataSource,UITableViewDelegate{
             }
             
             tableViewCell.itemTypeLabel.text = ZLLocalizedString(string: "Language", comment: "语言")
-            switch ZLLANMODULE?.currentLanguageType() ?? ZLLanguageType.auto
+            switch LANMODULE?.currentLanguageType() ?? ZLLanguageType.auto
             {
             case .auto:do{
                 tableViewCell.itemValueLabel.text = ZLLocalizedString(string: "FollowSystemSetting", comment: "跟随系统")

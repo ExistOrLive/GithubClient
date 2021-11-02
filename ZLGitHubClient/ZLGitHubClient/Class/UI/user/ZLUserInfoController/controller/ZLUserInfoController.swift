@@ -49,7 +49,7 @@ class ZLUserInfoController: ZLBaseViewController {
         
         if let userModel = userInfoModel {
             viewModel.bindModel(userModel, andView: baseView)
-            analytics.log(.viewItem(name: userModel.loginName!))
+            analytics.log(.viewItem(name: userModel.loginName ?? ""))
         } else if let login = loginName{
             let userModel = ZLGithubUserModel()
             userModel.loginName = login

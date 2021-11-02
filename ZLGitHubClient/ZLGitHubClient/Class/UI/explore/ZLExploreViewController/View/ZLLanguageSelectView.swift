@@ -80,7 +80,7 @@ class ZLLanguageSelectView: UIView {
         view.resultBlock = resultBlock
         
         view.frame = CGRect.init(x: 0, y: 0, width: 280, height: 500)
-        let popup = FFPopup(contetnView: view, showType: .bounceIn, dismissType: .bounceOut, maskType: FFPopup.MaskType.dimmed, dismissOnBackgroundTouch: true, dismissOnContentTouch: false)
+        let popup = FFPopup(contentView: view, showType: .bounceIn, dismissType: .bounceOut, maskType: FFPopup.MaskType.dimmed, dismissOnBackgroundTouch: true, dismissOnContentTouch: false)
         view.popup = popup
         popup.show(layout: .Center)
         

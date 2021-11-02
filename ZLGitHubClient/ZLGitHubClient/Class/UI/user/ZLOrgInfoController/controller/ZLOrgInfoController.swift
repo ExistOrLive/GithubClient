@@ -47,7 +47,7 @@ class ZLOrgInfoController: ZLBaseViewController {
         
         if let orgModel = orgInfoModel {
             viewModel.bindModel(orgModel, andView: baseView)
-            analytics.log(.viewItem(name: orgModel.loginName!))
+            analytics.log(.viewItem(name: orgModel.loginName ?? ""))
         } else if let login = loginName{
             let orgModel = ZLGithubOrgModel()
             orgModel.loginName = login

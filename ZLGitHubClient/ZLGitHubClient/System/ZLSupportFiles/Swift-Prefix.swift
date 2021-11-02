@@ -16,9 +16,22 @@ import Toast_Swift
 import JXSegmentedView
 import Charts
 import FWPopupView
-import ZLServiceFramework
+import ZLGitRemoteService
+import SYDCentralPivot
 
-// notification
+// MARK: ZLLANModule
+public var LANMODULE : ZLLanguageModuleProtocol?{
+    SYDCentralFactory.sharedInstance().getCommonBean("ZLLANModule") as? ZLLanguageModuleProtocol
+}
+
+public func ZLLocalizedString(string: String, comment: String) -> String{
+    return LANMODULE?.localized(withKey: string) ?? comment
+}
+
+public let ZLLanguageTypeChange_Notificaiton = Notification.Name(rawValue: "ZLLanguageTypeChange_Notificaiton")
+
+
+// MARK: notification
 let ZLUserInterfaceStyleChange_Notification = Notification.Name("ZLUserInterfaceStyleChange_Notification")
 
 // MARK: 界面常用参数
@@ -28,15 +41,15 @@ var ZLStatusBarHeight : CGFloat {
 }
 
 var ZLKeyWindowHeight : CGFloat {
-    if let window : UIWindow = UIApplication.shared.delegate!.window! {
-        return  window.frame.size.height
+    if let window = UIApplication.shared.delegate?.window {
+        return window?.frame.size.height ?? 0
     }
     return 0
 }
 
 var ZLKeyWindowWidth : CGFloat {
-    if let window : UIWindow = UIApplication.shared.delegate!.window! {
-        return  window.frame.size.width
+    if let window = UIApplication.shared.delegate?.window {
+        return window?.frame.size.width ?? 0
     }
     return 0
 }
@@ -62,22 +75,22 @@ let Font_PingFangSCRegular = "PingFang-SC-Regular"
 
 func ZLRGBValue_H(colorValue: UInt) -> UIColor
 {
-    return UIColor(rgb: colorValue, alpha: 1.0)
+    return UIColor(rgb: colorValue, alpha: 1.0) ?? UIColor.white
 }
 
 func ZLRGBAValue_H(colorValue: UInt, alphaValue: CGFloat) -> UIColor
 {
-    return UIColor(rgb: colorValue, alpha: alphaValue)
+    return UIColor(rgb: colorValue, alpha: alphaValue) ?? UIColor.white
 }
 
 func ZLRGBValueStr_H(colorValue: String) -> UIColor
 {
-    return UIColor(hexString: colorValue, alpha: 1.0)
+    return UIColor(hexString: colorValue, alpha: 1.0) ?? UIColor.white
 }
 
 func ZLRGBValueStr_H(colorValue: String, alphaValue: CGFloat) -> UIColor
 {
-    return UIColor(hexString: colorValue, alpha: Float(alphaValue))
+    return UIColor(hexString: colorValue, alpha: Float(alphaValue)) ?? UIColor.white
 }
 
 func ZLRawColor(name: String) -> UIColor?{

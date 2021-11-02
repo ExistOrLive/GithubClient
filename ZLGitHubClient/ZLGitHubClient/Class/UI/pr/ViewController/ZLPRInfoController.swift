@@ -20,7 +20,13 @@ class ZLPRInfoController: ZLBaseViewController {
     
     
     // view
-    var itemListView : ZLGithubItemListView!
+    private lazy var itemListView: ZLGithubItemListView = {
+        let itemListView = ZLGithubItemListView()
+        itemListView.setTableViewHeader()
+        itemListView.setTableViewFooter()
+        itemListView.delegate = self
+        return itemListView
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,17 +42,11 @@ class ZLPRInfoController: ZLBaseViewController {
         self.zlNavigationBar.rightButton = button
         
         // view
-        let itemListView = ZLGithubItemListView()
-        itemListView.setTableViewHeader()
-        itemListView.setTableViewFooter()
-        itemListView.delegate = self
         self.contentView.addSubview(itemListView)
         itemListView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
-        self.itemListView = itemListView
-        
-        self.itemListView.beginRefresh()
+        itemListView.beginRefresh()
     }
     
     
@@ -61,16 +61,15 @@ class ZLPRInfoController: ZLBaseViewController {
             self.navigationController?.pushViewController(webContentVC, animated: true)
         }
         let alertAction2 = UIAlertAction.init(title:ZLLocalizedString(string:  "Open in Safari", comment: ""), style: UIAlertAction.Style.default) { (action : UIAlertAction) in
-            let url =  URL.init(string: path)
-            if url != nil {
-                UIApplication.shared.open(url!, options: [:], completionHandler: {(result : Bool) in})
+            
+            if let url =  URL.init(string: path) {
+                UIApplication.shared.open(url, options: [:], completionHandler: {(result : Bool) in})
             }
         }
         
         let alertAction3 = UIAlertAction.init(title: ZLLocalizedString(string: "Share", comment: ""), style: UIAlertAction.Style.default) { (action : UIAlertAction) in
-            let url =  URL.init(string: path)
-            if url != nil {
-                let activityVC = UIActivityViewController.init(activityItems: [url!], applicationActivities: nil)
+            if let url =  URL.init(string: path) {
+                let activityVC = UIActivityViewController.init(activityItems: [url], applicationActivities: nil)
                 activityVC.popoverPresentationController?.sourceView = button
                 activityVC.excludedActivityTypes = [.message,.mail,.openInIBooks,.markupAsPDF]
                 self.present(activityVC, animated: true, completion: nil)
@@ -101,14 +100,13 @@ extension ZLPRInfoController : ZLGithubItemListViewDelegate {
     
     func githubItemListViewRefreshDragDown(pullRequestListView: ZLGithubItemListView) {
         
-        if login == nil ||
-            repoName == nil{
+        guard let login = self.login, let repoName = self.repoName else {
             self.itemListView.endRefreshWithError()
+            return
         }
         
-        
-        ZLServiceManager.sharedInstance.eventServiceModel?.getPRInfo(withLogin: login!,
-                                                                        repoName: repoName!,
+        ZLServiceManager.sharedInstance.eventServiceModel?.getPRInfo(withLogin: login,
+                                                                        repoName: repoName,
                                                                         number: Int32(number),
                                                                         after: nil,
                                                                         serialNumber: NSString.generateSerialNumber())
@@ -141,15 +139,14 @@ extension ZLPRInfoController : ZLGithubItemListViewDelegate {
     
   
     func githubItemListViewRefreshDragUp(pullRequestListView: ZLGithubItemListView) -> Void{
-        
-        if login == nil ||
-            repoName == nil {
+         
+        guard let login = self.login, let repoName = self.repoName else {
             self.itemListView.endRefreshWithError()
+            return
         }
         
-        
-        ZLServiceManager.sharedInstance.eventServiceModel?.getPRInfo(withLogin: login!,
-                                                                        repoName: repoName!,
+        ZLServiceManager.sharedInstance.eventServiceModel?.getPRInfo(withLogin: login,
+                                                                        repoName: repoName,
                                                                         number: Int32(number),
                                                                         after: after,
                                                                         serialNumber: NSString.generateSerialNumber())

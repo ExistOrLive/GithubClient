@@ -101,6 +101,48 @@
     }
 }
 
+#pragma mark - Name Color
+
++ (UIColor* _Nonnull) labelColorWithName:(NSString * _Nonnull) name{
+    UIColor *color = [UIColor colorNamed:name];
+    if(color) {
+        return color;
+    } else {
+        if (@available(iOS 13.0, *)) {
+            return [UIColor labelColor];
+        } else {
+            return [UIColor blackColor];
+        }
+    }
+}
+
+
++ (UIColor* _Nonnull) linkColorWithName:(NSString * _Nonnull) name{
+    UIColor *color = [UIColor colorNamed:name];
+    if(color) {
+        return color;
+    } else {
+        if (@available(iOS 13.0, *)) {
+            return [UIColor linkColor];
+        } else {
+            return [UIColor systemBlueColor];
+        }
+    }
+}
+
+
++ (UIColor* _Nonnull) backColorWithName:(NSString * _Nonnull) name{
+    UIColor *color = [UIColor colorNamed:name];
+    if(color) {
+        return color;
+    } else {
+        if (@available(iOS 13.0, *)) {
+            return [UIColor systemBackgroundColor];
+        } else {
+            return [UIColor systemGrayColor];
+        }
+    }
+}
 
 
 @end

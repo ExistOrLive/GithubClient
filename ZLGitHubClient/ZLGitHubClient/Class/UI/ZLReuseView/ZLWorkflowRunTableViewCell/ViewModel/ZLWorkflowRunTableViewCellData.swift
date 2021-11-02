@@ -111,10 +111,10 @@ extension ZLWorkflowRunTableViewCellData {
     }
     
     func getTimeStr() -> String {
-        if self.data.created_at != nil {
-            return (self.data.created_at! as NSDate).dateLocalStrSinceCurrentTime()
-        } else if self.data.updated_at != nil {
-            return (self.data.updated_at! as NSDate).dateLocalStrSinceCurrentTime()
+        if let date = self.data.created_at  {
+            return (date as NSDate).dateLocalStrSinceCurrentTime()
+        } else if let date = self.data.updated_at {
+            return (date as NSDate).dateLocalStrSinceCurrentTime()
         }
         return ""
     }

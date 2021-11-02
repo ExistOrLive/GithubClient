@@ -9,7 +9,7 @@
 import WidgetKit
 import SwiftUI
 import Intents
-import ZLServiceFramework
+import ZLGitRemoteService
 
 
 extension ZLGithubRepositoryModel{

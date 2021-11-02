@@ -44,21 +44,26 @@ class ZLNotificationTableViewCellData: ZLGithubItemTableViewCellData {
             
             let action : UIContextualAction = UIContextualAction.init(style: UIContextualAction.Style.destructive, title: "Done", handler: {(action : UIContextualAction, view : UIView , block : @escaping (Bool) -> Void) in
                 
-                if self.data.id_Notification != nil {
-                    SVProgressHUD.show()
-                    weak var weakSelf = self
+                if let notificationId = self.data.id_Notification {
                     
-                    ZLServiceManager.sharedInstance.eventServiceModel?.markNotificationReaded(withNotificationId: self.data.id_Notification!, serialNumber: NSString.generateSerialNumber())
-                    {(result : ZLOperationResultModel) in
+                    SVProgressHUD.show()
+                    ZLServiceManager.sharedInstance.eventServiceModel?.markNotificationReaded(withNotificationId: notificationId,
+                                                                                              serialNumber: NSString.generateSerialNumber())
+                    { [weak self](result : ZLOperationResultModel) in
                         
                         block(true)
                         SVProgressHUD.dismiss()
+                
+                        guard let self = self else {
+                            return
+                        }
+                        
                         if result.result == true {
-                            weakSelf?.data.unread = false
+                            self.data.unread = false
                             guard let superViewModel : ZLNotificationViewModel = self.super as? ZLNotificationViewModel else {
                                 return
                             }
-                            superViewModel.deleteCellData(cellData: weakSelf!)
+                            superViewModel.deleteCellData(cellData: self)
                         } else {
                             ZLToastView.showMessage("mark notification read failed")
                         }
@@ -116,18 +121,22 @@ extension ZLNotificationTableViewCellData {
     
     func getNotificationTitle() -> NSAttributedString {
         
-        if attributedNotificationTitle != nil {
-            return attributedNotificationTitle!
+        if let title = attributedNotificationTitle {
+            return title
         }
         
         let url = URL.init(string: self.data.subject?.url ?? "")
         let notificationNumber = url?.lastPathComponent ?? ""
         
-        let attributedStr : NSMutableAttributedString = NSMutableAttributedString.init(string: self.data.repository?.full_name ?? "", attributes: [NSAttributedString.Key.foregroundColor:UIColor.init(cgColor: UIColor.init(named: "ZLLabelColor3")!.cgColor),NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCSemiBold, size: 16) ?? UIFont.systemFont(ofSize: 16)])
+        let attributedStr : NSMutableAttributedString = NSMutableAttributedString.init(string: self.data.repository?.full_name ?? "",
+                                                                                       attributes: [NSAttributedString.Key.foregroundColor:
+                                                                                                        UIColor.init(cgColor: UIColor.init(named: "ZLLabelColor3")?.cgColor ?? UIColor.lightText.cgColor),
+                                                                                                    NSAttributedString.Key.font:
+                                                                                                        UIFont.init(name: Font_PingFangSCSemiBold, size: 16) ?? UIFont.systemFont(ofSize: 16)])
         
         if "Issue" == self.data.subject?.type ||
             "PullRequest" == self.data.subject?.type{
-            let numStr : NSAttributedString = NSMutableAttributedString.init(string: " #\(notificationNumber)", attributes: [NSAttributedString.Key.foregroundColor:UIColor.init(cgColor: UIColor.init(named: "ZLLabelColor4")!.cgColor),NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCSemiBold, size: 16) ?? UIFont.systemFont(ofSize: 16)])
+            let numStr : NSAttributedString = NSMutableAttributedString.init(string: " #\(notificationNumber)", attributes: [NSAttributedString.Key.foregroundColor:UIColor.init(cgColor: UIColor.init(named: "ZLLabelColor4")?.cgColor ?? UIColor.lightText.cgColor),NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCSemiBold, size: 16) ?? UIFont.systemFont(ofSize: 16)])
             
             attributedStr.append(numStr)
         }

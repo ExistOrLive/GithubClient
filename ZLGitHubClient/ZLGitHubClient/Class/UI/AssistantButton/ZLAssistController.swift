@@ -8,6 +8,7 @@
 
 import UIKit
 import CircleMenu
+import SYDCentralPivot
 
 
 enum ZLAssistButtonType{
@@ -53,18 +54,17 @@ class ZLAssistController: ZLBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
         self.setSearchBar()
         self.tableViewIndexs.append(.search)
         
-        if let url = URL(string: UIPasteboard.general.string ?? "") {
-            if ZLUIRouter.isParsedGithubURL(url: url){   // 仅显示github.com的链接；链接必须包含loginName
+        if let url = URL(string: UIPasteboard.general.string ?? ""),
+           ZLUIRouter.isParsedGithubURL(url: url){
+                // 仅显示github.com的链接；链接必须包含loginName
                 self.pasteURL = url
                 self.setPasteURLButton()
                 self.tableViewIndexs.append(.clipBoard)
-            }
         }
+        
         
         if #available(iOS 13.0, *) {
             self.tableViewIndexs.append(.userInterface)
@@ -176,8 +176,10 @@ class ZLAssistController: ZLBaseViewController {
     
     
     @objc func onPasteURLButtonClicked() {
-        ZLAssistButtonManager.shared.dismissAssistDetailView()
-        ZLUIRouter.openURL(url: self.pasteURL!, animated:false)
+        if let url = self.pasteURL {
+            ZLAssistButtonManager.shared.dismissAssistDetailView()
+            ZLUIRouter.openURL(url: url, animated:false)
+        }
     }
         
     func setUpUserInterfaceSegmentControl() {
@@ -234,7 +236,7 @@ class ZLAssistController: ZLBaseViewController {
         let button = ZLBaseButton(type: .custom)
         button.setTitle(ZLLocalizedString(string: "Hide Assist Button", comment: ""), for: .normal)
         button.addTarget(self, action: #selector(onAssitButtonClicked), for: .touchUpInside)
-        button.titleLabel?.font = UIFont.init(name: Font_PingFangSCSemiBold, size: 14)!
+        button.titleLabel?.font = UIFont.init(name: Font_PingFangSCSemiBold, size: 14)
         assistButton = button
     }
     
@@ -490,12 +492,14 @@ extension ZLAssistController : UITableViewDelegate,UITableViewDataSource {
                 tableViewCell.backgroundColor = UIColor.clear
                 tableViewCell.selectionStyle = .none
                 tableViewCell.contentView.backgroundColor = UIColor.clear
-                tableViewCell.contentView.addSubview(searchBar!)
-                searchBar?.snp.makeConstraints({ (make) in
-                    make.right.left.equalToSuperview()
-                    make.center.equalToSuperview()
-                    make.height.equalTo(40)
-                })
+                if let searchBar = self.searchBar {
+                    tableViewCell.contentView.addSubview(searchBar)
+                    searchBar.snp.makeConstraints({ (make) in
+                        make.right.left.equalToSuperview()
+                        make.center.equalToSuperview()
+                        make.height.equalTo(40)
+                    })
+                }
                 return tableViewCell
             }
         }
@@ -506,14 +510,17 @@ extension ZLAssistController : UITableViewDelegate,UITableViewDataSource {
                 let tableViewCell = ZLAssistTableViewCell(style: .default, reuseIdentifier: "clipBoard")
                 tableViewCell.backgroundColor = UIColor.clear
                 tableViewCell.contentView.backgroundColor = UIColor.clear
-                tableViewCell.contentView.addSubview(clipBoardButton!)
                 tableViewCell.selectionStyle = .none
-                clipBoardButton?.snp.makeConstraints({ (make) in
-                    make.left.equalToSuperview().offset(20)
-                    make.right.equalToSuperview().offset(-20)
-                    make.center.equalToSuperview()
-                    make.height.equalTo(80)
-                })
+                if let clipBoardButton = self.clipBoardButton {
+                    tableViewCell.contentView.addSubview(clipBoardButton)
+                    clipBoardButton.snp.makeConstraints({ (make) in
+                        make.left.equalToSuperview().offset(20)
+                        make.right.equalToSuperview().offset(-20)
+                        make.center.equalToSuperview()
+                        make.height.equalTo(80)
+                    })
+                }
+              
                 return tableViewCell
             }
         }
@@ -525,13 +532,15 @@ extension ZLAssistController : UITableViewDelegate,UITableViewDataSource {
                 tableViewCell.backgroundColor = UIColor.clear
                 tableViewCell.selectionStyle = .none
                 tableViewCell.contentView.backgroundColor = UIColor.clear
-                tableViewCell.contentView.addSubview(userInterfaceSegmentedControl!)
-                userInterfaceSegmentedControl?.snp.makeConstraints({ (make) in
-                    make.left.equalToSuperview().offset(20)
-                    make.right.equalToSuperview().offset(-20)
-                    make.center.equalToSuperview()
-                    make.height.equalTo(40)
-                })
+                if let userInterfaceSegmentedControl = self.userInterfaceSegmentedControl {
+                    tableViewCell.contentView.addSubview(userInterfaceSegmentedControl)
+                    userInterfaceSegmentedControl.snp.makeConstraints({ (make) in
+                        make.left.equalToSuperview().offset(20)
+                        make.right.equalToSuperview().offset(-20)
+                        make.center.equalToSuperview()
+                        make.height.equalTo(40)
+                    })
+                }
                 return tableViewCell
             }
         }
@@ -543,14 +552,16 @@ extension ZLAssistController : UITableViewDelegate,UITableViewDataSource {
                 tableViewCell.backgroundColor = UIColor.clear
                 tableViewCell.selectionStyle = .none
                 tableViewCell.contentView.backgroundColor = UIColor.clear
-                tableViewCell.contentView.addSubview(assistButton!)
-                assistButton?.snp.makeConstraints({ (make) in
-                    make.left.greaterThanOrEqualToSuperview().offset(20)
-                    make.right.lessThanOrEqualToSuperview().offset(-20)
-                    make.width.equalTo(250).priority(.high)
-                    make.center.equalToSuperview()
-                    make.height.equalTo(40)
-                })
+                if let assistButton = self.assistButton {
+                    tableViewCell.contentView.addSubview(assistButton)
+                    assistButton.snp.makeConstraints({ (make) in
+                        make.left.greaterThanOrEqualToSuperview().offset(20)
+                        make.right.lessThanOrEqualToSuperview().offset(-20)
+                        make.width.equalTo(250).priority(.high)
+                        make.center.equalToSuperview()
+                        make.height.equalTo(40)
+                    })
+                }
                 return tableViewCell
             }
         }
@@ -561,13 +572,16 @@ extension ZLAssistController : UITableViewDelegate,UITableViewDataSource {
                 let tableViewCell = ZLAssistTableViewCell(style: .default, reuseIdentifier: "circleMenu")
                 tableViewCell.backgroundColor = UIColor.clear
                 tableViewCell.contentView.backgroundColor = UIColor.clear
-                tableViewCell.contentView.addSubview(circleMenu!)
                 tableViewCell.selectionStyle = .none
-                circleMenu?.snp.makeConstraints { (make) in
-                    make.size.equalTo(CGSize(width: 60, height: 60))
-                    make.center.equalToSuperview()
+                if let circleMenu = self.circleMenu {
+                    tableViewCell.contentView.addSubview(circleMenu)
+                    circleMenu.snp.makeConstraints { (make) in
+                        make.size.equalTo(CGSize(width: 60, height: 60))
+                        make.center.equalToSuperview()
+                    }
+                    circleMenu.sendActions(for: .touchUpInside)
                 }
-                circleMenu?.sendActions(for: .touchUpInside)
+                
                 
                 return tableViewCell
             }

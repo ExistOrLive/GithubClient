@@ -9,7 +9,7 @@
 import Foundation
 import WidgetKit
 import SwiftUI
-import ZLServiceFramework
+import ZLGitRemoteService
 
 extension ZLGithubUserContributionData {
     static func getSampleContributionData() -> [ZLGithubUserContributionData] {

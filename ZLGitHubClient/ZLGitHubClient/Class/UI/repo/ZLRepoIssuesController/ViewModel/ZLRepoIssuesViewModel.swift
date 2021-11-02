@@ -53,28 +53,31 @@ extension ZLRepoIssuesViewModel
 {
     func loadNewData(){
         
-        if self.fullName == nil {
+        guard let fullName = self.fullName else {
             SVProgressHUD.dismiss()
             self.baseView?.githubItemListView.endRefreshWithError()
             return
         }
         
-        weak var weakSelf = self
-        
-        ZLServiceManager.sharedInstance.repoServiceModel?.getRepositoryIssues(withFullName: self.fullName!, state: self.filterOpen ?  "open" : "closed", per_page:10, page: 1, serialNumber: NSString.generateSerialNumber()) { (resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepositoryIssues(withFullName: fullName,
+                                                                              state: self.filterOpen ?  "open" : "closed",
+                                                                              per_page:10,
+                                                                              page: 1,
+                                                                              serialNumber: NSString.generateSerialNumber())
+        { [weak weakSelf = self](resultModel : ZLOperationResultModel) in
             
             SVProgressHUD.dismiss()
             
-            if resultModel.result == false
-            {
+            if resultModel.result == false {
+                
                 weakSelf?.baseView?.githubItemListView.endRefreshWithError()
                 let errorModel = resultModel.data as? ZLGithubRequestErrorModel
                 ZLToastView.showMessage("Query issues Failed Code [\(errorModel?.statusCode ?? 0)] Message[\(errorModel?.message ?? "")]")
                 return
             }
             
-            guard let data : [ZLGithubIssueModel] = resultModel.data as? [ZLGithubIssueModel] else
-            {
+            guard let data : [ZLGithubIssueModel] = resultModel.data as? [ZLGithubIssueModel] else {
+                
                 weakSelf?.baseView?.githubItemListView.endRefreshWithError()
                 ZLToastView.showMessage("ZLGithubIssueModel transfer error")
                 return;
@@ -95,26 +98,30 @@ extension ZLRepoIssuesViewModel
     
     func loadMoreData(){
         
-        if self.fullName == nil {
+        guard let fullName = self.fullName else {
             SVProgressHUD.dismiss()
             self.baseView?.githubItemListView.endRefreshWithError()
             return
         }
         
-        weak var weakSelf = self
-        
-        ZLServiceManager.sharedInstance.repoServiceModel?.getRepositoryIssues(withFullName: self.fullName!, state: self.filterOpen ?  "open" : "closed", per_page:10, page: Int(self.currentPage) + 1, serialNumber: NSString.generateSerialNumber()) { (resultModel : ZLOperationResultModel) in
+    
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepositoryIssues(withFullName: fullName,
+                                                                              state: self.filterOpen ?  "open" : "closed",
+                                                                              per_page:10,
+                                                                              page: Int(self.currentPage) + 1,
+                                                                              serialNumber: NSString.generateSerialNumber())
+        { [weak weakSelf = self](resultModel : ZLOperationResultModel) in
             
-            if resultModel.result == false
-            {
+            if resultModel.result == false {
+                
                 weakSelf?.baseView?.githubItemListView.endRefreshWithError()
                 let errorModel = resultModel.data as? ZLGithubRequestErrorModel
                 ZLToastView.showMessage("Query issues Failed Code [\(errorModel?.statusCode ?? 0)] Message[\(errorModel?.message ?? "")]")
                 return
             }
             
-            guard let data : [ZLGithubIssueModel] = resultModel.data as? [ZLGithubIssueModel] else
-            {
+            guard let data : [ZLGithubIssueModel] = resultModel.data as? [ZLGithubIssueModel] else {
+                
                 weakSelf?.baseView?.githubItemListView.endRefreshWithError()
                 ZLToastView.showMessage("ZLGithubIssueModel transfer error")
                 return;
@@ -128,7 +135,7 @@ extension ZLRepoIssuesViewModel
                 cellDatas.append(cellData)
             }
             weakSelf?.baseView?.githubItemListView.appendCellDatas(cellDatas: cellDatas)
-            weakSelf?.currentPage = weakSelf!.currentPage + 1
+            weakSelf?.currentPage += 1
         }
     }
     
