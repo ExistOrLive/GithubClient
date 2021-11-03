@@ -127,25 +127,29 @@ extension ZLNotificationTableViewCellData {
         
         let url = URL.init(string: self.data.subject?.url ?? "")
         let notificationNumber = url?.lastPathComponent ?? ""
-        
-        let attributedStr : NSMutableAttributedString = NSMutableAttributedString.init(string: self.data.repository?.full_name ?? "",
-                                                                                       attributes: [NSAttributedString.Key.foregroundColor:
-                                                                                                        UIColor.init(cgColor: UIColor.init(named: "ZLLabelColor3")?.cgColor ?? UIColor.lightText.cgColor),
-                                                                                                    NSAttributedString.Key.font:
-                                                                                                        UIFont.init(name: Font_PingFangSCSemiBold, size: 16) ?? UIFont.systemFont(ofSize: 16)])
+        UIColor.label(withName: "ZLLabelColor3")
+        let attributedStr = NSMutableAttributedString(string: self.data.repository?.full_name ?? "",
+                                                      attributes: [.foregroundColor: UIColor.init(cgColor:UIColor.label(withName: "ZLLabelColor3").cgColor),
+                                                                   .font: UIFont.zlBoldFont(withSize: 16)])
         
         if "Issue" == self.data.subject?.type ||
             "PullRequest" == self.data.subject?.type{
-            let numStr : NSAttributedString = NSMutableAttributedString.init(string: " #\(notificationNumber)", attributes: [NSAttributedString.Key.foregroundColor:UIColor.init(cgColor: UIColor.init(named: "ZLLabelColor4")?.cgColor ?? UIColor.lightText.cgColor),NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCSemiBold, size: 16) ?? UIFont.systemFont(ofSize: 16)])
+            let numStr  = NSMutableAttributedString(string: " #\(notificationNumber)",
+                                                    attributes: [.foregroundColor:UIColor.init(cgColor:UIColor.label(withName: "ZLLabelColor4").cgColor),
+                                                                 .font:UIFont.zlBoldFont(withSize: 16)])
             
             attributedStr.append(numStr)
         }
+      
         
-        weak var weakSelf = self
-        
-        attributedStr.yy_setTextHighlight(NSRange.init(location: 0, length:attributedStr.length), color: nil , backgroundColor: UIColor.init(cgColor: UIColor.init(named: "ZLLinkLabelColor1")!.cgColor)) {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
+
+        attributedStr.yy_setTextHighlight(NSRange.init(location: 0, length:attributedStr.length),
+                                          color: nil ,
+                                          backgroundColor: UIColor.init(cgColor:UIColor.linkColor(withName: "ZLLinkLabelColor1").cgColor))
+        {[weak weakSelf = self](containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
             
-            if let repoFullName = weakSelf?.data.repository?.full_name,let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: repoFullName) {
+            if let repoFullName = weakSelf?.data.repository?.full_name,
+               let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: repoFullName) {
                 vc.hidesBottomBarWhenPushed = true
                 weakSelf?.viewController?.navigationController?.pushViewController(vc, animated: true)
             }
@@ -174,7 +178,8 @@ extension ZLNotificationTableViewCellData {
 
 extension ZLNotificationTableViewCellData : ZLNotificationTableViewCellDelegate {
     func onNotificationTitleClicked() {
-        if let repoFullName = self.data.repository?.full_name,let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: repoFullName) {
+        if let repoFullName = self.data.repository?.full_name,
+           let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: repoFullName) {
             vc.hidesBottomBarWhenPushed = true
             self.viewController?.navigationController?.pushViewController(vc, animated: true)
         }

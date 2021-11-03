@@ -27,4 +27,8 @@
 
 + (UIColor* _Nonnull) labelColorWithName:(NSString * _Nonnull) name;
 
++ (UIColor* _Nonnull) linkColorWithName:(NSString * _Nonnull) name;
+
++ (UIColor* _Nonnull) backColorWithName:(NSString * _Nonnull) name;
+
 @end

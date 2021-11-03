@@ -14,34 +14,46 @@ class ZLPullRequestEventTableViewCellData: ZLEventTableViewCellData {
     private var _pullRequestBody : NSAttributedString?
     
     override func getEventDescrption() -> NSAttributedString {
-        if _eventDescription != nil {
-            return _eventDescription!
+        
+        if let desc = _eventDescription  {
+            return desc
         }
         
         guard let payload : ZLPullRequestEventPayloadModel = self.eventModel.payload as? ZLPullRequestEventPayloadModel else {
             return super.getEventDescrption()
         }
         
+        
         let str = "\(payload.action) pull request #\(payload.number)\n\n  \(payload.pull_request.title)\n\nin \(self.eventModel.repo.name)"
-        let attributedStr =  NSMutableAttributedString.init(string: str , attributes: [NSAttributedString.Key.foregroundColor:UIColor.init(cgColor: UIColor.init(named: "ZLLabelColor3")!.cgColor),NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 15.0)!])
+        let attributedStr =  NSMutableAttributedString(string: str ,
+                                                       attributes: [.foregroundColor:UIColor.init(cgColor: UIColor.label(withName: "ZLLabelColor3").cgColor),
+                                                                    .font:UIFont.zlRegularFont(withSize: 15)])
 
+        
+        
         let prNumberRange = (str as NSString).range(of: "#\(payload.number)")
-        attributedStr.yy_setTextHighlight(prNumberRange, color: UIColor.init(cgColor: UIColor.init(named: "ZLLinkLabelColor1")!.cgColor), backgroundColor: UIColor.clear , tapAction: {[weak weakSelf = self](containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
+        attributedStr.yy_setTextHighlight(prNumberRange,
+                                          color: UIColor(cgColor: UIColor.linkColor(withName: "ZLLinkLabelColor1").cgColor),
+                                          backgroundColor: UIColor.clear)
+        {[weak weakSelf = self](containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
             let vc = ZLWebContentController.init()
             vc.hidesBottomBarWhenPushed = true
             vc.requestURL = URL.init(string: payload.pull_request.html_url)
             weakSelf?.viewController?.navigationController?.pushViewController(vc, animated: true)
-        })
+        }
 
         let repoNameRange = (str as NSString).range(of: self.eventModel.repo.name)
-        attributedStr.yy_setTextHighlight(repoNameRange, color: UIColor.init(cgColor: UIColor.init(named: "ZLLinkLabelColor1")!.cgColor), backgroundColor: UIColor.clear , tapAction: {[weak weakSelf = self](containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
+        attributedStr.yy_setTextHighlight(repoNameRange,
+                                          color: UIColor(cgColor: UIColor.linkColor(withName: "ZLLinkLabelColor1").cgColor),
+                                          backgroundColor: UIColor.clear)
+        {[weak weakSelf = self](containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
 
-            if let repoFullName = weakSelf?.eventModel.repo.name,let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: repoFullName) {
+            if let repoFullName = weakSelf?.eventModel.repo.name,
+               let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: repoFullName) {
                 vc.hidesBottomBarWhenPushed = true
                 weakSelf?.viewController?.navigationController?.pushViewController(vc, animated: true)
             }
-
-        })
+        }
 
         _eventDescription = attributedStr
         
@@ -97,7 +109,9 @@ extension ZLPullRequestEventTableViewCellData{
                 return NSAttributedString.init()
             }
 
-            self._pullRequestBody = NSAttributedString.init(string: payload.pull_request.body, attributes: [NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 14)!,NSAttributedString.Key.foregroundColor:UIColor.lightGray])
+            self._pullRequestBody = NSAttributedString.init(string: payload.pull_request.body,
+                                                            attributes: [.font:UIFont.zlRegularFont(withSize: 14),
+                                                                         .foregroundColor:UIColor.lightGray])
         }
 
         return self._pullRequestBody ?? NSAttributedString.init()

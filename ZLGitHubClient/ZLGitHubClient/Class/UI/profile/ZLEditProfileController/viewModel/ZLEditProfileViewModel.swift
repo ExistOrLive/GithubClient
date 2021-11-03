@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class ZLEditProfileViewModel: ZLBaseViewModel {
     
@@ -43,6 +44,8 @@ class ZLEditProfileViewModel: ZLBaseViewModel {
         
         self.editProfileView?.endEditing(true)
         
+        SVProgressHUD.show()
+        
         let bio = self.editProfileView?.contentView?.personalDescTextView.text
         let company = self.editProfileView?.contentView?.companyTextField.text
         let location = self.editProfileView?.contentView?.addressTextField.text
@@ -54,6 +57,8 @@ class ZLEditProfileViewModel: ZLBaseViewModel {
                                                                               company: company,
                                                                               serialNumber: NSString.generateSerialNumber())
         { (operationResultModel) in
+            
+            SVProgressHUD.dismiss()
             
             if operationResultModel.result == true
             {
