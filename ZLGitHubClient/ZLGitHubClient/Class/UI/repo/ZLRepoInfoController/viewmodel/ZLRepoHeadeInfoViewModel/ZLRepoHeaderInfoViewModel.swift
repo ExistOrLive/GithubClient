@@ -204,8 +204,8 @@ extension ZLRepoHeaderInfoViewModel : ZLRepoHeaderInfoViewDelegate
             self.forkRepo()
         }
         case .imageAction:do{
-            if self.repoInfoModel.owner?.loginName != nil {
-                if let userInfoVC = ZLUIRouter.getUserInfoViewController(loginName:self.repoInfoModel.owner!.loginName!) {
+            if let loginName = self.repoInfoModel.owner?.loginName {
+                if let userInfoVC = ZLUIRouter.getUserInfoViewController(loginName:loginName) {
                     userInfoVC.hidesBottomBarWhenPushed = true
                     self.viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
                 }
@@ -261,7 +261,7 @@ extension ZLRepoHeaderInfoViewModel{
             
         } else {
             SVProgressHUD.show()
-            ZLServiceManager.sharedInstance.repoServiceModel?.unwatchRepo(withFullName: self.repoInfoModel.full_name!,
+            ZLServiceManager.sharedInstance.repoServiceModel?.unwatchRepo(withFullName: fullName,
                                                                           serialNumber: NSString.generateSerialNumber())
             {[weak self](resultModel : ZLOperationResultModel) in
                 SVProgressHUD.dismiss()
@@ -320,7 +320,7 @@ extension ZLRepoHeaderInfoViewModel{
             
         } else {
             SVProgressHUD.show()
-            ZLServiceManager.sharedInstance.repoServiceModel?.unstarRepo(withFullName: self.repoInfoModel.full_name!,
+            ZLServiceManager.sharedInstance.repoServiceModel?.unstarRepo(withFullName: fullName,
                                                                          serialNumber: NSString.generateSerialNumber())
             {[weak self](resultModel : ZLOperationResultModel) in
                 SVProgressHUD.dismiss()

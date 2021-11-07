@@ -90,8 +90,9 @@ class ZLLoginViewModel: ZLBaseViewModel,ZLLoginBaseViewDelegate {
     func onLoginButtonClicked() {
         
         // 开始登陆认证
-        self.loginSerialNumber = NSString.generateSerialNumber()
-        ZLServiceManager.sharedInstance.loginServiceModel?.startOAuth(self.loginSerialNumber!)
+        let serialNumber = NSString.generateSerialNumber()
+        self.loginSerialNumber = serialNumber
+        ZLServiceManager.sharedInstance.loginServiceModel?.startOAuth(serialNumber)
         
         self.reloadView()
     }
@@ -99,13 +100,15 @@ class ZLLoginViewModel: ZLBaseViewModel,ZLLoginBaseViewDelegate {
     func onAccessTokenButtonClicked() {
         
         ZLInputAccessTokenView.showInputAccessTokenViewWithResultBlock(resultBlock: {(token : String?) in
-            if token == nil {
+            guard let token = token else {
                 ZLToastView.showMessage(ZLLocalizedString(string: "token is nil", comment: ""))
                 return
             }
             
-            self.loginSerialNumber = NSString.generateSerialNumber()
-            ZLServiceManager.sharedInstance.loginServiceModel?.checkTokenIsValid(token!, serialNumber:self.loginSerialNumber!)
+            let serialNumber = NSString.generateSerialNumber()
+            
+            self.loginSerialNumber = serialNumber
+            ZLServiceManager.sharedInstance.loginServiceModel?.checkTokenIsValid(token, serialNumber:serialNumber)
             
             self.reloadView()
         })

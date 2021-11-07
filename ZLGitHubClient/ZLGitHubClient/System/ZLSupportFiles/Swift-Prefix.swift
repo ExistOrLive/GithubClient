@@ -102,6 +102,21 @@ func ZLRawColor(name: String) -> UIColor?{
     }
 }
 
+func ZLRawLabelColor(name: String) -> UIColor{
+    let color = UIColor.label(withName: name)
+    return UIColor(cgColor: color.cgColor)
+}
+
+func ZLRawLinkColor(name: String) -> UIColor{
+    let color = UIColor.linkColor(withName: name)
+    return UIColor(cgColor: color.cgColor)
+}
+
+func ZLRawBackColor(name: String) -> UIColor{
+    let color = UIColor.back(withName: name)
+    return UIColor(cgColor: color.cgColor)
+}
+
 @available(iOS 12.0, *)
 func getRealUserInterfaceStyle() -> UIUserInterfaceStyle {
     if ZLUISharedDataManager.currentUserInterfaceStyle == .unspecified {

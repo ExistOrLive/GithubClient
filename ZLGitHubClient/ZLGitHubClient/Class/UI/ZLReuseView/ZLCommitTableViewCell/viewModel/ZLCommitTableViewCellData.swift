@@ -38,9 +38,10 @@ class ZLCommitTableViewCellData: ZLGithubItemTableViewCellData {
      }
     
     override func onCellSingleTap() {
-        let vc = ZLWebContentController.init()
-        vc.requestURL = URL.init(string: self.commitModel.html_url)
-        self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        if let url = URL(string: self.commitModel.html_url) {
+            ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,
+                                  params: ["requestURL":url])
+        }
     }
 
 }

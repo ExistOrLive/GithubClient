@@ -33,11 +33,11 @@ import UIKit
         
         self.addSubViewModel(viewModel)
         // bind view and viewModel
-        if self.login == nil{
-            viewModel.bindModel(nil, andView: baseView)
+        if let login = self.login {
+            viewModel.bindModel((self.type,login), andView: baseView)
         }
         else{
-            viewModel.bindModel((self.type,self.login!), andView: baseView)
+            viewModel.bindModel(nil, andView: baseView)
         }
         
     }

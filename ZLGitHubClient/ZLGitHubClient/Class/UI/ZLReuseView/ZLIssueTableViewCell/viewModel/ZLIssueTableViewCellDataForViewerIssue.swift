@@ -32,14 +32,6 @@ class ZLIssueTableViewCellDataForViewerIssue: ZLGithubItemTableViewCellData {
     }
     
     override func onCellSingleTap() {
-//        let vc = ZLWebContentController.init()
-//        vc.requestURL = URL.init(string: data.url)
-//        self.viewController?.navigationController?.pushViewController(vc, animated: true)
-//        let vc = ZLIssueInfoController()
-//        vc.login = String(data.repository.nameWithOwner.split(separator: "/").first ?? "")
-//        vc.repoName = data.repository.name
-//        vc.number = data.number
-//        self.viewController?.navigationController?.pushViewController(vc, animated: true)
         ZLUIRouter.navigateVC(key: ZLUIRouter.IssueInfoController,
                               params: ["login":String(data.repository.nameWithOwner.split(separator: "/").first ?? ""),
                                        "repoName":data.repository.name,
@@ -82,9 +74,9 @@ extension ZLIssueTableViewCellDataForViewerIssue : ZLIssueTableViewCellDelegate 
     
     func getIssueLabels() -> [(String,String)] {
         if self.labels == nil {
-            if data.labels?.nodes != nil {
+            if let nodes = data.labels?.nodes {
                 self.labels = []
-                for label in data.labels!.nodes! {
+                for label in nodes {
                     self.labels?.append((label?.name ?? "",label?.color ?? ""))
                 }
             }

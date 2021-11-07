@@ -34,25 +34,25 @@ class ZLReleaseEventTableViewCellData: ZLEventTableViewCellData {
         attributedStr.yy_setTextHighlight(releaseRange,
                                           color: UIColor.init(cgColor: UIColor.linkColor(withName: "ZLLinkLabelColor1").cgColor),
                                           backgroundColor: UIColor.clear)
-        {[weak weakSelf = self] (containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
+        { (containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
             
-            let vc = ZLWebContentController.init()
-            vc.requestURL = URL.init(string: payload.releaseModel.html_url)
-            vc.hidesBottomBarWhenPushed = true
-            weakSelf?.viewController?.navigationController?.pushViewController(vc, animated: true)
+            if let url = URL.init(string: payload.releaseModel.html_url) {
+                ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,
+                                      params: ["requestURL":url])
+            }
         }
         
         let repoNameRange = (str as NSString).range(of: self.eventModel.repo.name)
         attributedStr.yy_setTextHighlight(repoNameRange,
                                           color: UIColor.init(cgColor: UIColor.linkColor(withName: "ZLLinkLabelColor1").cgColor),
                                           backgroundColor: UIColor.clear)
-         {[weak weakSelf = self](containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
+         {[weak self](containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
             
-            if let repoFullName = weakSelf?.eventModel.repo.name,
+            if let repoFullName = self?.eventModel.repo.name,
                let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: repoFullName) {
                 
                 vc.hidesBottomBarWhenPushed = true
-                weakSelf?.viewController?.navigationController?.pushViewController(vc, animated: true)
+                self?.viewController?.navigationController?.pushViewController(vc, animated: true)
             }
         }
         
@@ -75,10 +75,10 @@ class ZLReleaseEventTableViewCellData: ZLEventTableViewCellData {
             return
         }
         
-        let vc = ZLWebContentController.init()
-        vc.requestURL = URL.init(string: payload.releaseModel.html_url)
-        vc.hidesBottomBarWhenPushed = true
-        self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        if let url = URL.init(string: payload.releaseModel.html_url) {
+            ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,
+                                  params: ["requestURL":url])
+        }
     }
     
     override func clearCache() {

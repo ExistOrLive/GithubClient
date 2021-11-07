@@ -67,14 +67,13 @@ class ZLRepoCodePreview4Controller: ZLBaseViewController {
     }
     
     func switchToWebVc(urlString : String){
-        let webContentVC = ZLWebContentController.init()
-        webContentVC.requestURL = URL.init(string: urlString)
-        
-        if var viewControllers = self.navigationController?.viewControllers,
-           !viewControllers.isEmpty {
-            
-            viewControllers[viewControllers.count - 1] = webContentVC
-            self.navigationController?.setViewControllers(viewControllers, animated: false)
+        if let url = URL.init(string: urlString),
+           let vc = ZLUIRouter.getVC(key: ZLUIRouter.WebContentController, params: ["requestURL":url]){
+            if var viewControllers = self.navigationController?.viewControllers,
+               !viewControllers.isEmpty {
+                viewControllers[viewControllers.count - 1] = vc
+                self.navigationController?.setViewControllers(viewControllers, animated: false)
+            }
         }
     }
     
@@ -82,9 +81,9 @@ class ZLRepoCodePreview4Controller: ZLBaseViewController {
         let alertVC = UIAlertController.init(title: self.contentModel.path, message: nil, preferredStyle: .actionSheet)
         alertVC.popoverPresentationController?.sourceView = button
         let alertAction1 = UIAlertAction.init(title: "View in Github", style: UIAlertAction.Style.default) { (action : UIAlertAction) in
-            let webContentVC = ZLWebContentController.init()
-            webContentVC.requestURL = URL.init(string: self.contentModel.html_url)
-            self.navigationController?.pushViewController(webContentVC, animated: true)
+            if let url = URL(string: self.contentModel.html_url) {
+                ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,params: ["requestURL":url])
+            }
         }
         let alertAction2 = UIAlertAction.init(title: "Open in Safari", style: UIAlertAction.Style.default) { (action : UIAlertAction) in
             

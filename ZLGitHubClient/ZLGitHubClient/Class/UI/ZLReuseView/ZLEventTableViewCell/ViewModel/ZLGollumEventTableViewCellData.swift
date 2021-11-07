@@ -13,8 +13,9 @@ class ZLGollumEventTableViewCellData: ZLEventTableViewCellData {
     private var _eventDescription : NSAttributedString?
     
     override func getEventDescrption() -> NSAttributedString {
-        if _eventDescription != nil {
-            return _eventDescription!
+        
+        if let desc = _eventDescription {
+            return desc
         }
         
         guard let payload : ZLGollumEventPayloadModel = self.eventModel.payload as? ZLGollumEventPayloadModel else {
@@ -22,34 +23,46 @@ class ZLGollumEventTableViewCellData: ZLEventTableViewCellData {
         }
         
         let attributedStr : NSMutableAttributedString  = NSMutableAttributedString()
-        weak var weakSelf = self
+       
         for pageModel in payload.pages {
             
             let str = "\(pageModel.action) wiki page \(pageModel.page_name)\n"
-            let tmpAttributedStr =  NSMutableAttributedString.init(string: str , attributes: [NSAttributedString.Key.foregroundColor:UIColor.init(cgColor: UIColor.init(named: "ZLLabelColor3")!.cgColor),NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 15.0)!])
+            let tmpAttributedStr =  NSMutableAttributedString.init(string: str ,
+                                                                   attributes: [.foregroundColor:UIColor(cgColor: UIColor.label(withName: "ZLLabelColor3").cgColor),
+                                                                                .font:UIFont.zlRegularFont(withSize: 15)])
             
             let pageNameRange = (str as NSString).range(of: pageModel.page_name)
-            tmpAttributedStr.yy_setTextHighlight(pageNameRange, color: UIColor.init(cgColor: UIColor.init(named: "ZLLinkLabelColor1")!.cgColor), backgroundColor: UIColor.clear , tapAction: {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
-                let vc = ZLWebContentController.init()
-                vc.hidesBottomBarWhenPushed = true
-                vc.requestURL = URL.init(string: pageModel.html_url)
-                weakSelf?.viewController?.navigationController?.pushViewController(vc, animated: true)
-            })
+            tmpAttributedStr.yy_setTextHighlight(pageNameRange,
+                                                 color: UIColor(cgColor: UIColor.linkColor(withName: "ZLLinkLabelColor1").cgColor),
+                                                 backgroundColor: UIColor.clear)
+            {(containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
+                
+                if let url = URL.init(string: pageModel.html_url) {
+                    ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,
+                                          params: ["requestURL":url])
+                }
+            }
             attributedStr.append(tmpAttributedStr)
         }
         
         let str = "\nin \(self.eventModel.repo.name)"
-        let tmpAttributedStr =  NSMutableAttributedString.init(string: str , attributes: [NSAttributedString.Key.foregroundColor:UIColor.init(cgColor: UIColor.init(named: "ZLLabelColor3")!.cgColor),NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 15.0)!])
+        let tmpAttributedStr =  NSMutableAttributedString(string: str ,
+                                                          attributes: [.foregroundColor:UIColor(cgColor: UIColor.label(withName: "ZLLabelColor3").cgColor),
+                                                                       .font:UIFont.zlRegularFont(withSize: 15)])
         
         let repoRange = (str as NSString).range(of: self.eventModel.repo.name)
-        tmpAttributedStr.yy_setTextHighlight(repoRange, color: UIColor.init(cgColor: UIColor.init(named: "ZLLinkLabelColor1")!.cgColor), backgroundColor: UIColor.clear , tapAction: {[weak weakSelf = self](containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
+        tmpAttributedStr.yy_setTextHighlight(repoRange,
+                                             color: UIColor.init(cgColor: UIColor.linkColor(withName: "ZLLinkLabelColor1").cgColor),
+                                             backgroundColor: UIColor.clear)
+        {[weak self](containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
             
-            if let repoFullName = weakSelf?.eventModel.repo.name,let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: repoFullName) {
+            if let repoFullName = self?.eventModel.repo.name,
+               let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: repoFullName) {
+                
                 vc.hidesBottomBarWhenPushed = true
-                weakSelf?.viewController?.navigationController?.pushViewController(vc, animated: true)
+                self?.viewController?.navigationController?.pushViewController(vc, animated: true)
             }
-            
-        })
+        }
         attributedStr.append(tmpAttributedStr)
         
         _eventDescription = attributedStr

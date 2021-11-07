@@ -123,7 +123,10 @@ class ZLPullRequestTableViewCell: UITableViewCell {
         self.titleLabel.text = data.getPullRequestTitle()
         self.assistLabel.text = data.getPullRequestAssistInfo()
         
-        self.repoNameButton.setAttributedTitle(NSAttributedString(string: data.getPullRequestRepoFullName() ?? "",attributes: [NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor1")!,NSAttributedString.Key.font:UIFont(name: Font_PingFangSCMedium, size: 15)!]), for: .normal)
+        let title = NSAttributedString(string: data.getPullRequestRepoFullName() ?? "",
+                                       attributes: [.foregroundColor:ZLRawLabelColor(name: "ZLLabelColor1"),
+                                                    .font:UIFont.zlRegularFont(withSize: 15)])
+        self.repoNameButton.setAttributedTitle(title, for: .normal)
         
         if data.getPullRequestState() == .open {
             self.statusTag?.image = UIImage.init(named: "pr_opened")

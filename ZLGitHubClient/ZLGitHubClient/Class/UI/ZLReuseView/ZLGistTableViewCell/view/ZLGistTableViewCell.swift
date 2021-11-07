@@ -56,10 +56,10 @@ class ZLGistTableViewCell: UITableViewCell {
         
         self.privateLabel.isHidden = cellData.isPub()
        
-        if cellData.getUpdate_At() != nil {
-            self.timeLabel.text = "\(ZLLocalizedString(string: "update at", comment: "更新于"))\((cellData.getUpdate_At()! as NSDate).dateLocalStrSinceCurrentTime())"
-        } else if cellData.getCreate_At() != nil {
-              self.timeLabel.text = "\(ZLLocalizedString(string: "created at", comment: "创建于"))\((cellData.getCreate_At()! as NSDate).dateLocalStrSinceCurrentTime())"
+        if let update_at = cellData.getUpdate_At() {
+            self.timeLabel.text = "\(ZLLocalizedString(string: "update at", comment: "更新于"))\((update_at as NSDate).dateLocalStrSinceCurrentTime())"
+        } else if let create_at = cellData.getCreate_At() {
+              self.timeLabel.text = "\(ZLLocalizedString(string: "created at", comment: "创建于"))\((create_at as NSDate).dateLocalStrSinceCurrentTime())"
         }
     
         self.descLabel.text = cellData.getDesc()

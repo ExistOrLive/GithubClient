@@ -166,22 +166,10 @@ extension ZLProfileBaseViewModel: UITableViewDelegate, UITableViewDataSource
         case ZLProfileItemType.email:
             break;
         case ZLProfileItemType.blog:do{
-            
-            if self.currentUserInfo?.blog == nil
-            {
-                return
+            if let url = URL(string: self.currentUserInfo?.blog ?? ""){
+                ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,
+                                      params: ["requestURL":url])
             }
-            
-            let url:URL? = URL.init(string:self.currentUserInfo!.blog!)
-            if url == nil
-            {
-                return;
-            }
-            
-            let vc = ZLWebContentController.init()
-            vc.requestURL = url
-            vc.hidesBottomBarWhenPushed = true
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
         }
         case ZLProfileItemType.setting:do{
             if let vc = ZLUIRouter.getVC(key: ZLUIRouter.SettingController){

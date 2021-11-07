@@ -43,9 +43,8 @@ class ZLPullRequestTableViewCellDataForViewerPR: ZLGithubItemTableViewCellData {
                                                "repoName":url.pathComponents[2],
                                                "number":Int(url.pathComponents[4]) ?? 0])
             } else {
-                let vc = ZLWebContentController.init()
-                vc.requestURL = url
-                self.viewController?.navigationController?.pushViewController(vc, animated: true)
+                ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,
+                                      params: ["requestURL":url])
             }
         }
     }

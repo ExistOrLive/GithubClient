@@ -54,13 +54,9 @@ class ZLRepoItemInfoView: ZLBaseView {
     
     @IBAction func onButtonClicked(_ sender: UIButton) {
         
-        if self.delegate?.responds(to: #selector(ZLRepoItemInfoViewDelegate.onZLRepoItemInfoViewEvent(type:))) ?? false
-        {
-            let type = ZLRepoItemType.init(rawValue: sender.tag)
-            
-            if type != nil
-            {
-               self.delegate?.onZLRepoItemInfoViewEvent(type: type!)
+        if self.delegate?.responds(to: #selector(ZLRepoItemInfoViewDelegate.onZLRepoItemInfoViewEvent(type:))) ?? false{
+            if let type = ZLRepoItemType.init(rawValue: sender.tag){
+                self.delegate?.onZLRepoItemInfoViewEvent(type: type)
             }
             
         }

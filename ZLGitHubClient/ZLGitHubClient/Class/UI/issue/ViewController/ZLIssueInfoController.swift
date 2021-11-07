@@ -54,9 +54,9 @@ class ZLIssueInfoController: ZLBaseViewController {
         let alertVC = UIAlertController.init(title: path, message: nil, preferredStyle: .actionSheet)
         alertVC.popoverPresentationController?.sourceView = button
         let alertAction1 = UIAlertAction.init(title: ZLLocalizedString(string: "View in Github", comment: ""), style: UIAlertAction.Style.default) { (action : UIAlertAction) in
-            let webContentVC = ZLWebContentController.init()
-            webContentVC.requestURL = URL.init(string: path)
-            self.navigationController?.pushViewController(webContentVC, animated: true)
+            if let url = URL.init(string: path) {
+                ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,params: ["requestURL":url])
+            }
         }
         let alertAction2 = UIAlertAction.init(title:ZLLocalizedString(string:  "Open in Safari", comment: ""), style: UIAlertAction.Style.default) { (action : UIAlertAction) in
             if let url =  URL.init(string: path) {

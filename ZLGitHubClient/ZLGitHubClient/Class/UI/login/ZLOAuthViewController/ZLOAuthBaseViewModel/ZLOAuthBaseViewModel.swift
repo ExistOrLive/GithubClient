@@ -60,15 +60,22 @@ extension ZLOAuthBaseViewModel: ZLWebContentViewDelegate
         
         ZLLog_Info("OAuth: shouldStartLoadWith \(String(describing: navigationAction.request.url))");
         
-        if (navigationAction.request.url?.absoluteString ?? "").hasPrefix(OAuthCallBackURL)
-        {
+        if (navigationAction.request.url?.absoluteString ?? "").hasPrefix(OAuthCallBackURL){
+            
             // 登陆成功获取token
             decisionHandler(.allow)
+            
+            guard let query = navigationAction.request.url?.query,
+                  let serialNumber = self.loginProcess?.serialNumber else {
+                return
+            }
+            
             self.viewController?.dismiss(animated: true, completion: nil);
-         ZLServiceManager.sharedInstance.loginServiceModel?.getAccessToken(navigationAction.request.url!.query!, serialNumber: self.loginProcess!.serialNumber)
+            ZLServiceManager.sharedInstance.loginServiceModel?.getAccessToken(query,
+                                                                              serialNumber: serialNumber)
         }
-        else
-        {
+        else{
+            
             decisionHandler(.allow)
         }
         

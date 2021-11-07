@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (UIFont* _Nonnull) zlRegularFontWithSize: (CGFloat) size;
 + (UIFont* _Nonnull) zlMediumFontWithSize: (CGFloat) size;
-+ (UIFont* _Nonnull) zlBoldFontWithSize: (CGFloat) size;
++ (UIFont* _Nonnull) zlSemiBoldFontWithSize: (CGFloat) size;
 
 @end
 

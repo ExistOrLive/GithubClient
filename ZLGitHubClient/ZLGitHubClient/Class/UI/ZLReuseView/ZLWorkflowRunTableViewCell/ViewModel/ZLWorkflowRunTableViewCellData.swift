@@ -41,10 +41,10 @@ class ZLWorkflowRunTableViewCellData: ZLGithubItemTableViewCellData {
     }
     
     override func onCellSingleTap() {
-        let webVc = ZLWebContentController.init()
-        webVc.requestURL = URL.init(string: self.data.html_url ?? "")
-        webVc.hidesBottomBarWhenPushed = true
-        self.viewController?.navigationController?.pushViewController(webVc, animated: true)
+        if let url = URL.init(string: self.data.html_url ?? "") {
+            ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,
+                                  params: ["requestURL":url])
+        }
     }
     
 }

@@ -32,12 +32,26 @@ class ZLIssueEventTableViewCellData: ZLEventTableViewCellData {
         attributedStr.yy_setTextHighlight(issueRange,
                                           color: UIColor.init(cgColor: UIColor.linkColor(withName: "ZLLinkLabelColor1").cgColor),
                                           backgroundColor: UIColor.clear)
-        {[weak weakSelf = self](containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
+        {[weak self](containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
             
-            let vc = ZLWebContentController.init()
-            vc.hidesBottomBarWhenPushed = true
-            vc.requestURL = URL.init(string: payload.issue.html_url)
-            weakSelf?.viewController?.navigationController?.pushViewController(vc, animated: true)
+            if let repoFullName = self?.eventModel.repo.name{
+                
+                let array = repoFullName.split(separator: "/")
+                if array.count == 2 {
+                    let login = String(array[0])
+                    let name = String(array[1])
+                    ZLUIRouter.navigateVC(key: ZLUIRouter.IssueInfoController,
+                                          params: ["login":login,
+                                                   "repoName":name,
+                                                   "number":payload.issue.number])
+                }
+                
+            } else if let url = URL.init(string: payload.issue.html_url) {
+                
+                ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,
+                                      params: ["requestURL":url])
+            }
+                
         }
 
         let repoNameRange = (str as NSString).range(of: self.eventModel.repo.name)
@@ -86,9 +100,9 @@ class ZLIssueEventTableViewCellData: ZLEventTableViewCellData {
                                                "repoName":url.pathComponents[2],
                                                "number":Int(url.pathComponents[4]) ?? 0])
             } else {
-                let vc = ZLWebContentController.init()
-                vc.requestURL = url
-                self.viewController?.navigationController?.pushViewController(vc, animated: true)
+                
+                ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,
+                                      params: ["requestURL":url])
             }
             
         }

@@ -20,13 +20,12 @@ class ZLRepoInfoViewModel: ZLBaseViewModel {
     private var repoInfoView : ZLRepoInfoView!
     
     // model
-    private var repoInfoModel : ZLGithubRepositoryModel!
+    private var repoInfoModel : ZLGithubRepositoryModel?
     
     private var currentBranch: String?
     
-    
     // subViewModel
-    private var repoHeaderInfoViewModel : ZLRepoHeaderInfoViewModel!
+    private var repoHeaderInfoViewModel : ZLRepoHeaderInfoViewModel?
 
     
     
@@ -62,8 +61,6 @@ class ZLRepoInfoViewModel: ZLBaseViewModel {
             vc.zlNavigationBar.rightButton = button
         }
         
-        
-      
         self.setViewDataForRepoInfoView()
     }
 }
@@ -74,18 +71,19 @@ extension ZLRepoInfoViewModel
         
         self.viewController?.title = self.repoInfoModel?.name ?? ZLLocalizedString(string: "repository", comment: "")
        
-        repoHeaderInfoViewModel = ZLRepoHeaderInfoViewModel()
+        let repoHeaderInfoViewModel = ZLRepoHeaderInfoViewModel()
         self.addSubViewModel(repoHeaderInfoViewModel)
+        self.repoHeaderInfoViewModel = repoHeaderInfoViewModel
         
         // 从服务器查询
-        let tmpRepoInfo = ZLServiceManager.sharedInstance.repoServiceModel?.getRepoInfo(withFullName: repoInfoModel.full_name ?? "",
+        let tmpRepoInfo = ZLServiceManager.sharedInstance.repoServiceModel?.getRepoInfo(withFullName: repoInfoModel?.full_name ?? "",
                                                                       serialNumber: NSString.generateSerialNumber())
         {[weak self] (resultModel) in
             if resultModel.result == true, let repoInfoModel = resultModel.data as? ZLGithubRepositoryModel {
                
                 self?.viewController?.title = repoInfoModel.name ?? ZLLocalizedString(string: "repository", comment: "")
                 self?.repoInfoModel = repoInfoModel
-                self?.repoHeaderInfoViewModel.update(repoInfoModel)
+                self?.repoHeaderInfoViewModel?.update(repoInfoModel)
                 self?.repoInfoView.reloadData()
                 
             } else if resultModel.result == false, let errorModel = resultModel.data as? ZLGithubRequestErrorModel{
@@ -103,7 +101,7 @@ extension ZLRepoInfoViewModel
             repoInfoModel = info
         }
         
-        repoHeaderInfoViewModel.bindModel(repoInfoModel, andView: repoInfoView.headerView!)
+        repoHeaderInfoViewModel.bindModel(repoInfoModel, andView: repoInfoView.headerView)
         
         repoInfoView.fillWithData(delegate: self)
         
@@ -120,7 +118,7 @@ extension ZLRepoInfoViewModel
             self.repoInfoView?.justUpdate()
         }
         case ZLUserInterfaceStyleChange_Notification:do{
-            self.repoInfoView?.readMeView?.reRender()
+            self.repoInfoView?.readMeView.reRender()
         }
         default:
             break;
@@ -128,29 +126,25 @@ extension ZLRepoInfoViewModel
     }
     
     @objc func onMoreButtonClick(button : UIButton) {
-        
-        if self.repoInfoModel.html_url == nil {
-            return
-        }
-        
+    
         let alertVC = UIAlertController.init(title: self.repoInfoModel?.full_name, message: nil, preferredStyle: .actionSheet)
         alertVC.popoverPresentationController?.sourceView = button
         let alertAction1 = UIAlertAction.init(title:ZLLocalizedString(string: "View in Github", comment: ""), style: UIAlertAction.Style.default) { (action : UIAlertAction) in
-            let webContentVC = ZLWebContentController.init()
-            webContentVC.requestURL = URL.init(string: self.repoInfoModel.html_url!)
-            self.viewController?.navigationController?.pushViewController(webContentVC, animated: true)
+            if let url = URL(string: self.repoInfoModel?.html_url ?? "") {
+                ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,params: ["requestURL":url])
+            }
         }
         let alertAction2 = UIAlertAction.init(title: ZLLocalizedString(string: "Open in Safari", comment: ""), style: UIAlertAction.Style.default) { (action : UIAlertAction) in
-            let url =  URL.init(string: self.repoInfoModel.html_url!)
-            if url != nil {
-                UIApplication.shared.open(url!, options: [:], completionHandler: {(result : Bool) in})
+            if let url =  URL.init(string: self.repoInfoModel?.html_url ?? ""),
+               UIApplication.shared.canOpenURL(url){
+                UIApplication.shared.open(url, options: [:], completionHandler: {(result : Bool) in})
             }
         }
         
         let alertAction3 = UIAlertAction.init(title: ZLLocalizedString(string: "Share", comment: ""), style: UIAlertAction.Style.default) { (action : UIAlertAction) in
-            let url =  URL.init(string: self.repoInfoModel.html_url!)
-            if url != nil {
-                let activityVC = UIActivityViewController.init(activityItems: [url!], applicationActivities: nil)
+
+            if let url =  URL.init(string: self.repoInfoModel?.html_url ?? "") {
+                let activityVC = UIActivityViewController.init(activityItems: [url], applicationActivities: nil)
                 activityVC.popoverPresentationController?.sourceView = button
                 activityVC.excludedActivityTypes = [.message,.mail,.openInIBooks,.markupAsPDF]
                 self.viewController?.present(activityVC, animated: true, completion: nil)
@@ -177,25 +171,24 @@ extension ZLRepoInfoViewModel
 extension ZLRepoInfoViewModel : ZLRepoInfoViewDelegate
 {
     var fullName: String? {
-        repoInfoModel.full_name
+        repoInfoModel?.full_name
     }
 
     var branch: String? {
         if currentBranch != nil {
             return currentBranch
         } else {
-            return repoInfoModel.default_branch
+            return repoInfoModel?.default_branch
         }
     }
     
     var language: String? {
-        repoInfoModel.language
+        repoInfoModel?.language
     }
     
      func onZLRepoItemInfoViewEvent(type : ZLRepoItemType){
         
-        if self.repoInfoModel == nil ||
-            self.repoInfoModel.full_name == nil {
+        guard let fullName = self.repoInfoModel?.full_name else {
             return
         }
         
@@ -203,42 +196,47 @@ extension ZLRepoInfoViewModel : ZLRepoInfoViewDelegate
         {
         case .action : do{
             let workflowVC = ZLRepoWorkflowsController.init()
-            workflowVC.repoFullName = self.repoInfoModel.full_name
+            workflowVC.repoFullName = fullName
             self.viewController?.navigationController?.pushViewController(workflowVC, animated: true)
             }
         case .branch :do{
-            if repoInfoModel.default_branch == nil {
+            
+            guard let defaultBranch = repoInfoModel?.default_branch else {
                 return
             }
-            
-            ZLRepoBranchesView.showRepoBranchedView(repoFullName: repoInfoModel.full_name!,
-                                                    currentBranch: self.currentBranch ?? self.repoInfoModel.default_branch!)
+    
+            ZLRepoBranchesView.showRepoBranchedView(repoFullName: fullName,
+                                                    currentBranch: self.currentBranch ?? defaultBranch )
             {(branch: String) in
                 self.currentBranch = branch
                 self.repoInfoView.reloadData()
-                self.repoInfoView.readMeView?.startLoad(fullName: self.repoInfoModel.full_name ?? "", branch: branch)
+                self.repoInfoView.readMeView.startLoad(fullName:fullName, branch: branch)
             }
         }
         case .pullRequest : do{
             let controller = ZLRepoPullRequestController.init()
-            controller.repoFullName = self.repoInfoModel?.full_name
+            controller.repoFullName = fullName
             self.viewController?.navigationController?.pushViewController(controller, animated: true)
             }
         case .code : do{
             let controller = ZLRepoContentController()
             controller.branch = self.currentBranch ?? self.repoInfoModel?.default_branch
-            controller.repoFullName = self.repoInfoModel?.full_name
+            controller.repoFullName = fullName
             controller.path = ""
             self.viewController?.navigationController?.pushViewController(controller, animated: true)
             }
         case .commit : do{
             let controller = ZLRepoCommitController.init()
-            controller.repoFullName = repoInfoModel.full_name!
-            controller.branch = self.currentBranch ?? self.repoInfoModel.default_branch
+            controller.repoFullName = fullName
+            controller.branch = self.currentBranch ?? self.repoInfoModel?.default_branch
             self.viewController?.navigationController?.pushViewController(controller, animated: true)
             }
         case .language : do{
-            ZLRepoLanguagesPercentView.showRepoLanguagesPercentView(fullName: self.repoInfoModel?.full_name ?? "")
+            guard let language = self.repoInfoModel?.language,
+                  !language.isEmpty else {
+                return
+            }
+            ZLRepoLanguagesPercentView.showRepoLanguagesPercentView(fullName: fullName)
             }
         }
     }

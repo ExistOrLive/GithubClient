@@ -59,7 +59,7 @@ class ZLNotificationTableViewCell: UITableViewCell {
         case "Release":
             self.notificationTypeImageView.image = UIImage.init(named: "release_tag")
         case "Commit":
-            self.notificationTypeImageView.image = nil
+            self.notificationTypeImageView.image = nil 
         default:
             self.notificationTypeImageView.image = nil
         }

@@ -68,16 +68,18 @@ extension ZLNewsViewModel
 {
     func loadMoreData()
     {
-        self.serialNumber = NSString.generateSerialNumber()
-        ZLServiceManager.sharedInstance.eventServiceModel?.getReceivedEvents(forUser: userInfo?.loginName ?? "", page: UInt(self.currentPage + 1), per_page: UInt(self.per_page), serialNumber: self.serialNumber!)
+        let serialNumber = NSString.generateSerialNumber()
+        self.serialNumber = serialNumber
+        ZLServiceManager.sharedInstance.eventServiceModel?.getReceivedEvents(forUser: userInfo?.loginName ?? "", page: UInt(self.currentPage + 1), per_page: UInt(self.per_page), serialNumber: serialNumber)
     }
     
     
     func loadNewData()
     {
         self.isRefreshNew = true;
-        self.serialNumber = NSString.generateSerialNumber()
-        ZLServiceManager.sharedInstance.eventServiceModel?.getReceivedEvents(forUser: userInfo?.loginName ?? "", page: 1, per_page: UInt(self.per_page), serialNumber: self.serialNumber!)
+        let serialNumber = NSString.generateSerialNumber()
+        self.serialNumber = serialNumber
+        ZLServiceManager.sharedInstance.eventServiceModel?.getReceivedEvents(forUser: userInfo?.loginName ?? "", page: 1, per_page: UInt(self.per_page), serialNumber: serialNumber)
     }
     
     
@@ -96,7 +98,7 @@ extension ZLNewsViewModel
                 }
                 
                 // 
-                if resultModel.serialNumber != self.serialNumber!
+                if resultModel.serialNumber != self.serialNumber
                 {
                     return
                 }

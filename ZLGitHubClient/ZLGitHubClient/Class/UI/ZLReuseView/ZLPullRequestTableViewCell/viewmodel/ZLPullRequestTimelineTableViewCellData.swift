@@ -43,8 +43,8 @@ extension ZLPullRequestTimelineTableViewCellData : ZLPullRequestTimelineTableVie
     
     func getTimelineMessage() -> NSAttributedString {
         
-        if attributedString != nil {
-            return attributedString!
+        if let str = attributedString {
+            return str
         }
         
         if let tmpdata = data.asAssignedEvent
@@ -61,16 +61,16 @@ extension ZLPullRequestTimelineTableViewCellData : ZLPullRequestTimelineTableVie
             }
             
             let string = NSMutableAttributedString(string:tmpdata.actor?.login ?? "",
-                                                   attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCSemiBold, size: 15)!,
-                                                                NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor1")!])
+                                                   attributes: [.font:UIFont.zlSemiBoldFont(withSize: 15),
+                                                                .foregroundColor:UIColor(named: "ZLLabelColor1")!])
             
             string.append(NSAttributedString(string: " assigned ",
-                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
-                                                          NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor4")!]))
+                                             attributes: [.font:UIFont.zlRegularFont(withSize: 14),
+                                                          .foregroundColor:UIColor(named: "ZLLabelColor4")!]))
             
             string.append(NSAttributedString(string: assignee ?? "",
-                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCSemiBold, size: 15)!,
-                                                          NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor1")!]))
+                                             attributes: [.font:UIFont.zlSemiBoldFont(withSize: 15),
+                                                          .foregroundColor:UIColor(named: "ZLLabelColor1")!]))
             
             attributedString = string
             

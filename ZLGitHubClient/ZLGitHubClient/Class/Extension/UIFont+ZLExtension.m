@@ -27,7 +27,7 @@
     return [self zlFontWithName:@"PingFang-SC-Medium" size:size];
 }
 
-+ (UIFont* _Nonnull) zlBoldFontWithSize: (CGFloat) size{
++ (UIFont* _Nonnull) zlSemiBoldFontWithSize: (CGFloat) size{
     return [self zlFontWithName:@"PingFang-SC-SemiBold" size:size];
 }
 

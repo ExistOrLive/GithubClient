@@ -26,9 +26,10 @@ class ZLGistTableViewCellData: ZLGithubItemTableViewCellData {
     }
     
     override func onCellSingleTap() -> Void {
-           let vc = ZLWebContentController.init()
-           vc.requestURL = URL.init(string: self.gistModel.html_url)
-           self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        if let url = URL(string: self.gistModel.html_url){
+            ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,
+                                  params: ["requestURL":url])
+        }
     }
     
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {

@@ -93,10 +93,9 @@ extension ZLUserAdditionInfoViewModel : ZLGithubItemListViewDelegate {
                 var cellDataArray: [ZLGithubItemTableViewCellData] = []
                 
                 for item in itemArray {
-                    let cellData = ZLGithubItemTableViewCellData.getCellDataWithData(data: item)
-                    if cellData != nil {
-                        cellDataArray.append(cellData!)
-                        self?.addSubViewModel(cellData!)
+                    if let cellData = ZLGithubItemTableViewCellData.getCellDataWithData(data: item) {
+                        cellDataArray.append(cellData)
+                        self?.addSubViewModel(cellData)
                     }
                 }
                 self?.itemListView.resetCellDatas(cellDatas:cellDataArray)
@@ -125,14 +124,13 @@ extension ZLUserAdditionInfoViewModel : ZLGithubItemListViewDelegate {
                 var cellDataArray: [ZLGithubItemTableViewCellData] = []
                 
                 for item in itemArray {
-                    let cellData = ZLGithubItemTableViewCellData.getCellDataWithData(data: item)
-                    if cellData != nil {
-                        cellDataArray.append(cellData!)
-                        self?.addSubViewModel(cellData!)
+                    if let cellData = ZLGithubItemTableViewCellData.getCellDataWithData(data: item) {
+                        cellDataArray.append(cellData)
+                        self?.addSubViewModel(cellData)
                     }
                 }
                 self?.itemListView.appendCellDatas(cellDatas:cellDataArray)
-                self?.currentPage = (self?.currentPage ?? 0) + 1
+                self?.currentPage += 1
                
             } else if let errorModel = resultModel.data as? ZLGithubRequestErrorModel{
                 ZLToastView.showMessage(errorModel.message)

@@ -17,61 +17,65 @@ class ZLRepoInfoView: ZLBaseView {
     
     weak var delegate: ZLRepoInfoViewDelegate?
     
-    private var scrollView : UIScrollView?
+    private lazy var scrollView : UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.backgroundColor = UIColor.clear
+        return scrollView
+    }()
     
-    var headerView : ZLRepoHeaderInfoView?
-    var itemView : ZLRepoItemInfoView?
-    var readMeView : ZLReadMeView?
+    lazy var headerView : ZLRepoHeaderInfoView = {
+        guard let headerView = Bundle.main.loadNibNamed("ZLRepoHeaderInfoView", owner: nil, options: nil)?.first as? ZLRepoHeaderInfoView else
+        {
+            return ZLRepoHeaderInfoView()
+        }
+        return headerView
+    }()
+    
+    lazy var itemView : ZLRepoItemInfoView = {
+        guard let itemView : ZLRepoItemInfoView =  Bundle.main.loadNibNamed("ZLRepoItemInfoView", owner: nil, options: nil)?.first as? ZLRepoItemInfoView else
+        {
+            return ZLRepoItemInfoView()
+        }
+        return itemView
+    }()
+    
+    lazy var readMeView : ZLReadMeView = {
+        guard let readMeView : ZLReadMeView = Bundle.main.loadNibNamed("ZLReadMeView", owner: nil, options: nil)?.first as? ZLReadMeView else
+        {
+            return ZLReadMeView()
+        }
+        return readMeView
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.scrollView = UIScrollView.init()
-        self.addSubview(self.scrollView!)
-        self.scrollView?.backgroundColor = UIColor.clear
-        self.scrollView!.snp.makeConstraints( { (make) in
+        self.addSubview(self.scrollView)
+        self.scrollView.snp.makeConstraints( { (make) in
             make.edges.equalToSuperview()
         })
-        
-        guard let headerView: ZLRepoHeaderInfoView = Bundle.main.loadNibNamed("ZLRepoHeaderInfoView", owner: nil, options: nil)?.first as? ZLRepoHeaderInfoView else
-        {
-            return
-        }
-        
-        self.scrollView?.addSubview(headerView)
+                
+        self.scrollView.addSubview(headerView)
         headerView.snp.makeConstraints( { (make) in
             make.top.equalToSuperview().offset(10)
             make.leading.right.equalToSuperview()
             make.width.equalTo(self.snp_width)
         })
-        self.headerView = headerView
         
-        
-        guard let itemView : ZLRepoItemInfoView =  Bundle.main.loadNibNamed("ZLRepoItemInfoView", owner: nil, options: nil)?.first as? ZLRepoItemInfoView else
-        {
-            return
-        }
-        
-        self.scrollView?.addSubview(itemView)
+            
+        self.scrollView.addSubview(itemView)
         itemView.snp.makeConstraints( { (make) in
-            make.top.equalTo(self.headerView!.snp_bottom).offset(10)
+            make.top.equalTo(self.headerView.snp_bottom).offset(10)
             make.left.equalToSuperview()
             make.width.equalTo(self.snp_width)
         });
-        self.itemView = itemView
         
-        guard let readMeView : ZLReadMeView = Bundle.main.loadNibNamed("ZLReadMeView", owner: nil, options: nil)?.first as? ZLReadMeView else
-        {
-            return
-        }
-        
-        self.scrollView?.addSubview(readMeView)
+        self.scrollView.addSubview(readMeView)
         readMeView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.itemView!.snp_bottom).offset(10)
+            make.top.equalTo(self.itemView.snp_bottom).offset(10)
             make.left.bottom.equalToSuperview()
             make.width.equalTo(self.snp_width)
         }
-        self.readMeView = readMeView
     }
     
     required init?(coder: NSCoder) {
@@ -80,25 +84,22 @@ class ZLRepoInfoView: ZLBaseView {
     
     
     func justUpdate() {
-        self.headerView?.justUpdate()
-        self.itemView?.justUpdate()
-        self.readMeView?.justUpdate()
+        self.headerView.justUpdate()
+        self.itemView.justUpdate()
+        self.readMeView.justUpdate()
     }
     
     func fillWithData(delegate: ZLRepoInfoViewDelegate){
         self.delegate = delegate
 
-        self.itemView?.fillWithData(delegate: delegate)
+        self.itemView.fillWithData(delegate: delegate)
         
-        self.readMeView?.delegate = delegate
-        self.readMeView?.startLoad(fullName: delegate.fullName ?? "", branch: delegate.branch)
+        self.readMeView.delegate = delegate
+        self.readMeView.startLoad(fullName: delegate.fullName ?? "", branch: delegate.branch)
     }
     
     func reloadData(){
-        self.itemView?.reloadData()
+        self.itemView.reloadData()
     }
     
-    
-    
-
 }

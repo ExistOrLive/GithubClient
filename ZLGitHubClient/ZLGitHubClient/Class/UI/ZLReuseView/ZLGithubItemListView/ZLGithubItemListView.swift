@@ -18,11 +18,18 @@ import MJRefresh
 @objcMembers class ZLGithubItemListView: ZLBaseView {
     
     // view
-    private var tableView : UITableView?
+    private lazy var tableView : UITableView = {
+        let tableView = UITableView.init(frame: self.bounds, style: .plain)
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = UIColor.clear
+        tableView.delegate = self
+        tableView.dataSource = self;
+        return tableView
+    }()
     private var noDataView : UIView?
     
     // viewModel
-    private var cellDatas : [ZLGithubItemTableViewCellData]?
+    private var cellDatas : [ZLGithubItemTableViewCellData] = []
     
     // delegate
     weak var delegate : ZLGithubItemListViewDelegate?
@@ -43,68 +50,61 @@ import MJRefresh
     }
     
     override func awakeFromNib() {
-        self.tableView?.separatorStyle = .none
-        self.tableView?.backgroundColor = UIColor.clear
+        super.awakeFromNib()
+        self.tableView.separatorStyle = .none
+        self.tableView.backgroundColor = UIColor.clear
     }
     
+
     override func tintColorDidChange() {
         // appearence mode 改变
-        if let tmpCellDatas = self.cellDatas{
-            for cellData in tmpCellDatas{
-                cellData.clearCache()
-            }
+        for cellData in self.cellDatas{
+            cellData.clearCache()
         }
-        self.tableView?.reloadData()
+        self.tableView.reloadData()
     }
     
     
     
     private func setUpUI(){
-        
-        self.tableView = UITableView.init(frame: self.bounds, style: .plain)
-        self.tableView?.separatorStyle = .none
-        self.tableView?.backgroundColor = UIColor.clear
-        self.tableViewRegistereCell()
-        self.addSubview(self.tableView!)
-        self.tableView?.snp.makeConstraints({ (make) in
+    
+        self.addSubview(self.tableView)
+        self.tableView.snp.makeConstraints({ (make) in
             make.edges.equalTo(self.snp_edges).inset(UIEdgeInsets.init(top: 10, left: 0, bottom: 0, right: 0))
         })
-        
-        self.tableView?.delegate = self
-        self.tableView?.dataSource = self;
-        
+        self.tableViewRegistereCell()
         self.setNoDataView()
     }
     
     
     private func tableViewRegistereCell(){
         
-        self.tableView?.register(UITableViewCell.self, forCellReuseIdentifier: "UITableViewCell")
-        self.tableView?.register(ZLPullRequestTableViewCell.self, forCellReuseIdentifier: "ZLPullRequestTableViewCell")
-        self.tableView?.register(UINib.init(nibName: "ZLCommitTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLCommitTableViewCell")
-        self.tableView?.register(UINib.init(nibName: "ZLGistTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLGistTableViewCell")
-        self.tableView?.register(ZLEventTableViewCell.self, forCellReuseIdentifier: "ZLEventTableViewCell")
-        self.tableView?.register(ZLPushEventTableViewCell.self, forCellReuseIdentifier: "ZLPushEventTableViewCell")
-        self.tableView?.register(ZLCommitCommentEventTableViewCell.self, forCellReuseIdentifier: "ZLCommitCommentEventTableViewCell")
-        self.tableView?.register(ZLIssueCommentEventTableViewCell.self, forCellReuseIdentifier: "ZLIssueCommentEventTableViewCell")
-        self.tableView?.register(ZLIssueEventTableViewCell.self, forCellReuseIdentifier: "ZLIssueEventTableViewCell")
-        self.tableView?.register(ZLCommitCommentEventTableViewCell.self, forCellReuseIdentifier: "ZLCommitCommentEventTableViewCell")
-        self.tableView?.register(ZLPullRequestEventTableViewCell.self, forCellReuseIdentifier: "ZLPullRequestEventTableViewCell")
-        self.tableView?.register(UINib.init(nibName: "ZLRepositoryTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLRepositoryTableViewCell")
-        self.tableView?.register(UINib.init(nibName: "ZLUserTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLUserTableViewCell")
-        self.tableView?.register(ZLIssueTableViewCell.self, forCellReuseIdentifier:  "ZLIssueTableViewCell")
-        self.tableView?.register(UINib.init(nibName: "ZLNotificationTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLNotificationTableViewCell")
-        self.tableView?.register(UINib.init(nibName: "ZLWorkflowTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLWorkflowTableViewCell")
-        self.tableView?.register(UINib.init(nibName: "ZLWorkflowRunTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLWorkflowRunTableViewCell")
+        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "UITableViewCell")
+        self.tableView.register(ZLPullRequestTableViewCell.self, forCellReuseIdentifier: "ZLPullRequestTableViewCell")
+        self.tableView.register(UINib.init(nibName: "ZLCommitTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLCommitTableViewCell")
+        self.tableView.register(UINib.init(nibName: "ZLGistTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLGistTableViewCell")
+        self.tableView.register(ZLEventTableViewCell.self, forCellReuseIdentifier: "ZLEventTableViewCell")
+        self.tableView.register(ZLPushEventTableViewCell.self, forCellReuseIdentifier: "ZLPushEventTableViewCell")
+        self.tableView.register(ZLCommitCommentEventTableViewCell.self, forCellReuseIdentifier: "ZLCommitCommentEventTableViewCell")
+        self.tableView.register(ZLIssueCommentEventTableViewCell.self, forCellReuseIdentifier: "ZLIssueCommentEventTableViewCell")
+        self.tableView.register(ZLIssueEventTableViewCell.self, forCellReuseIdentifier: "ZLIssueEventTableViewCell")
+        self.tableView.register(ZLCommitCommentEventTableViewCell.self, forCellReuseIdentifier: "ZLCommitCommentEventTableViewCell")
+        self.tableView.register(ZLPullRequestEventTableViewCell.self, forCellReuseIdentifier: "ZLPullRequestEventTableViewCell")
+        self.tableView.register(UINib.init(nibName: "ZLRepositoryTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLRepositoryTableViewCell")
+        self.tableView.register(UINib.init(nibName: "ZLUserTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLUserTableViewCell")
+        self.tableView.register(ZLIssueTableViewCell.self, forCellReuseIdentifier:  "ZLIssueTableViewCell")
+        self.tableView.register(UINib.init(nibName: "ZLNotificationTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLNotificationTableViewCell")
+        self.tableView.register(UINib.init(nibName: "ZLWorkflowTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLWorkflowTableViewCell")
+        self.tableView.register(UINib.init(nibName: "ZLWorkflowRunTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLWorkflowRunTableViewCell")
         
-        self.tableView?.register(ZLIssueHeaderTableViewCell.self, forCellReuseIdentifier: "ZLIssueHeaderTableViewCell")
-        self.tableView?.register(ZLIssueCommentTableViewCell.self, forCellReuseIdentifier: "ZLIssueCommentTableViewCell")
-        self.tableView?.register(ZLIssueTimelineTableViewCell.self, forCellReuseIdentifier: "ZLIssueTimelineTableViewCell")
+        self.tableView.register(ZLIssueHeaderTableViewCell.self, forCellReuseIdentifier: "ZLIssueHeaderTableViewCell")
+        self.tableView.register(ZLIssueCommentTableViewCell.self, forCellReuseIdentifier: "ZLIssueCommentTableViewCell")
+        self.tableView.register(ZLIssueTimelineTableViewCell.self, forCellReuseIdentifier: "ZLIssueTimelineTableViewCell")
         
         
-        self.tableView?.register(ZLPullRequestHeaderTableViewCell.self, forCellReuseIdentifier: "ZLPullRequestHeaderTableViewCell")
-        self.tableView?.register(ZLPullRequestCommentTableViewCell.self, forCellReuseIdentifier: "ZLPullRequestCommentTableViewCell")
-        self.tableView?.register(ZLPullRequestTimelineTableViewCell.self, forCellReuseIdentifier: "ZLPullRequestTimelineTableViewCell")
+        self.tableView.register(ZLPullRequestHeaderTableViewCell.self, forCellReuseIdentifier: "ZLPullRequestHeaderTableViewCell")
+        self.tableView.register(ZLPullRequestCommentTableViewCell.self, forCellReuseIdentifier: "ZLPullRequestCommentTableViewCell")
+        self.tableView.register(ZLPullRequestTimelineTableViewCell.self, forCellReuseIdentifier: "ZLPullRequestTimelineTableViewCell")
     }
     
     private func setNoDataView() -> Void {
@@ -143,66 +143,64 @@ import MJRefresh
     
     @objc func setTableViewHeader(){
         weak var selfWeak = self
-        self.tableView?.mj_header = ZLRefresh.refreshHeader(refreshingBlock: {
+        self.tableView.mj_header = ZLRefresh.refreshHeader(refreshingBlock: {
             selfWeak?.loadNewData()
         })
     }
     
     @objc func setTableViewFooter(){
         weak var selfWeak = self
-        self.tableView?.mj_footer = ZLRefresh.refreshFooter(refreshingBlock: {
+        self.tableView.mj_footer = ZLRefresh.refreshFooter(refreshingBlock: {
             selfWeak?.loadMoreData()
         })
     }
     
     func deleteGithubItem(cellData : ZLGithubItemTableViewCellData) {
         cellData.removeFromSuperViewModel()
-        let index = cellDatas?.firstIndex(of: cellData)
-        if index != nil {
-            cellDatas?.remove(at: index!)
-            self.tableView?.deleteRows(at: [IndexPath.init(row: index!, section: 0)], with: UITableView.RowAnimation.fade)
+        let index = cellDatas.firstIndex(of: cellData)
+        if let index = index {
+            cellDatas.remove(at: index)
+            self.tableView.deleteRows(at: [IndexPath.init(row: index, section: 0)], with: UITableView.RowAnimation.fade)
         }
     }
     
     
-    func itemCount() -> Int
-    {
-        return self.cellDatas?.count ?? 0
+    func itemCount() -> Int{
+        self.cellDatas.count
     }
 }
 
 extension ZLGithubItemListView : UITableViewDelegate, UITableViewDataSource
 {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let num =  self.cellDatas?.count ?? 0
+        let num =  self.cellDatas.count
         self.noDataView?.isHidden = (num != 0)
-        
         return num;
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let tableViewCellData = self.cellDatas?[indexPath.row]
+        let tableViewCellData = self.cellDatas[indexPath.row]
         
-        let tableViewCell = tableView.dequeueReusableCell(withIdentifier: tableViewCellData?.getCellReuseIdentifier() ?? "UITableViewCell", for: indexPath)
+        let tableViewCell = tableView.dequeueReusableCell(withIdentifier: tableViewCellData.getCellReuseIdentifier(), for: indexPath)
         
-        tableViewCellData?.bindModel(nil, andView: tableViewCell)
+        tableViewCellData.bindModel(nil, andView: tableViewCell)
         
         return tableViewCell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return self.cellDatas?[indexPath.row].getCellHeight() ?? 0.0
+        return self.cellDatas[indexPath.row].getCellHeight()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let tableViewCellData = self.cellDatas?[indexPath.row]
-        tableViewCellData?.onCellSingleTap()
+        let tableViewCellData = self.cellDatas[indexPath.row]
+        tableViewCellData.onCellSingleTap()
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let tableViewCellData = self.cellDatas?[indexPath.row]
-        return tableViewCellData?.getCellSwipeActions()
+        let tableViewCellData = self.cellDatas[indexPath.row]
+        return tableViewCellData.getCellSwipeActions()
     }
 }
 
@@ -226,73 +224,62 @@ extension ZLGithubItemListView
 {
     func resetCellDatas(cellDatas: [ZLGithubItemTableViewCellData]?)
     {
-        self.tableView?.mj_header?.endRefreshing()
-        self.tableView?.mj_footer?.endRefreshing()
+        self.tableView.mj_header?.endRefreshing()
+        self.tableView.mj_footer?.endRefreshing()
         
-        if self.cellDatas != nil{
-            for cellData in self.cellDatas!{
-                cellData.removeFromSuperViewModel()
-            }
+        for cellData in self.cellDatas{
+            cellData.removeFromSuperViewModel()
         }
         
-        self.cellDatas = cellDatas;
-        self.tableView?.reloadData();
+        self.cellDatas = cellDatas ?? [];
+        self.tableView.reloadData();
     }
     
     func appendCellDatas(cellDatas: [ZLGithubItemTableViewCellData]?)
     {
-        if((cellDatas == nil) || cellDatas?.count == 0)
-        {
-            self.tableView?.mj_footer?.endRefreshingWithNoMoreData()
+        if cellDatas?.isEmpty ?? true{
+            self.tableView.mj_footer?.endRefreshingWithNoMoreData()
             return
         }
         
-        self.tableView?.mj_footer?.endRefreshing()
-        
-        if(self.cellDatas == nil)
-        {
-            self.cellDatas = [];
-        }
-        self.cellDatas?.append(contentsOf: cellDatas!)
-        self.tableView?.reloadData()
+        self.tableView.mj_footer?.endRefreshing()
+
+        self.cellDatas.append(contentsOf: cellDatas ?? [])
+        self.tableView.reloadData()
     }
     
     func resetContentOffset(){
-        self.tableView?.setContentOffset(CGPoint.zero, animated: false)
+        self.tableView.setContentOffset(CGPoint.zero, animated: false)
     }
     
     func clearListView(){
-        
-        if self.cellDatas != nil{
-            for cellData in self.cellDatas!{
-                cellData.removeFromSuperViewModel()
-            }
+        for cellData in self.cellDatas{
+            cellData.removeFromSuperViewModel()
         }
-      
-        self.cellDatas?.removeAll()
-        self.tableView?.reloadData()
+        self.cellDatas.removeAll()
+        self.tableView.reloadData()
     }
     
     
     func beginRefresh()
     {
-        self.tableView?.mj_header?.beginRefreshing()
+        self.tableView.mj_header?.beginRefreshing()
     }
     
     
     func endRefreshWithError()
     {
-        self.tableView?.mj_header?.endRefreshing()
-        self.tableView?.mj_footer?.endRefreshing()
+        self.tableView.mj_header?.endRefreshing()
+        self.tableView.mj_footer?.endRefreshing()
     }
     
     func justRefresh(){
-        ZLRefresh.justRefreshHeader(header: self.tableView?.mj_header as? MJRefreshNormalHeader)
-        ZLRefresh.justRefreshFooter(footer: self.tableView?.mj_footer as? MJRefreshAutoStateFooter)
-        self.tableView?.reloadData();
+        ZLRefresh.justRefreshHeader(header: self.tableView.mj_header as? MJRefreshNormalHeader)
+        ZLRefresh.justRefreshFooter(footer: self.tableView.mj_footer as? MJRefreshAutoStateFooter)
+        self.tableView.reloadData();
     }
     
     func reloadData(){
-        self.tableView?.reloadData()
+        self.tableView.reloadData()
     }
 }

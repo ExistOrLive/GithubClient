@@ -17,9 +17,25 @@ class ZLUserOrOrgInfoView: ZLBaseView {
     
     private var delegate: ZLUserOrOrgInfoViewDelegate?
     
-    private var scrollView: UIScrollView!
-    var userInfoView: ZLUserInfoView?
-    var orgInfoView: ZLOrgInfoView?
+    private lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView.init()
+        scrollView.backgroundColor = UIColor.clear
+        return scrollView
+    }()
+    
+    var userInfoView: ZLUserInfoView = {
+        guard let baseView = Bundle.main.loadNibNamed("ZLUserInfoView", owner: nil, options: nil)?.first as? ZLUserInfoView else{
+            return ZLUserInfoView()
+        }
+        return baseView
+    }()
+    
+    var orgInfoView: ZLOrgInfoView = {
+        guard let baseView = Bundle.main.loadNibNamed("ZLOrgInfoView", owner: nil, options: nil)?.first as? ZLOrgInfoView else{
+            return ZLOrgInfoView()
+        }
+        return baseView
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,8 +48,6 @@ class ZLUserOrOrgInfoView: ZLBaseView {
     }
     
     private func setUpUI() {
-        scrollView = UIScrollView.init()
-        scrollView.backgroundColor = UIColor.clear
         self.addSubview(scrollView)
         scrollView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
@@ -43,7 +57,6 @@ class ZLUserOrOrgInfoView: ZLBaseView {
     func fillWithData(_ delegate: ZLUserOrOrgInfoViewDelegate){
         
         self.delegate = delegate
-        
         self.reloadData()
     }
     
@@ -55,29 +68,16 @@ class ZLUserOrOrgInfoView: ZLBaseView {
         
         if self.delegate?.isOrgView ?? false {
             
-            if orgInfoView == nil {
-                guard let baseView : ZLOrgInfoView = Bundle.main.loadNibNamed("ZLOrgInfoView", owner: nil, options: nil)?.first as? ZLOrgInfoView else{
-                    return
-                }
-                orgInfoView = baseView
-            }
-            scrollView.addSubview(orgInfoView!)
-            orgInfoView!.snp.makeConstraints { (make) in
+            scrollView.addSubview(orgInfoView)
+            orgInfoView.snp.makeConstraints { (make) in
                 make.edges.equalTo(scrollView)
                 make.width.equalTo(scrollView.snp_width)
             }
             
         } else if self.delegate?.isUserView ?? false {
-            
-            if userInfoView == nil {
-                guard let baseView : ZLUserInfoView = Bundle.main.loadNibNamed("ZLUserInfoView", owner: nil, options: nil)?.first as? ZLUserInfoView else{
-                    return
-                }
-                userInfoView = baseView
-            }
-  
-            scrollView.addSubview(userInfoView!)
-            userInfoView!.snp.makeConstraints { (make) in
+
+            scrollView.addSubview(userInfoView)
+            userInfoView.snp.makeConstraints { (make) in
                 make.edges.equalTo(scrollView)
                 make.width.equalTo(scrollView.snp_width)
             }

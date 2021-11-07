@@ -21,15 +21,15 @@ class ZLOAuthViewController: ZLBaseViewController {
         self.title = ZLLocalizedString(string: "login", comment: "登陆")
 
         
-        if baseView != nil
+        if let baseView = baseView
         {
-            self.contentView.addSubview(baseView!)
-            baseView?.snp.makeConstraints({ (make) in
+            self.contentView.addSubview(baseView)
+            baseView.snp.makeConstraints({ (make) in
                 make.edges.equalToSuperview()
             })
             let viewModel = ZLOAuthBaseViewModel()
             self.addSubViewModel(viewModel)
-            viewModel.bindModel(self.loginProcessModel, andView: baseView!);
+            viewModel.bindModel(self.loginProcessModel, andView: baseView);
         }
         else
         {

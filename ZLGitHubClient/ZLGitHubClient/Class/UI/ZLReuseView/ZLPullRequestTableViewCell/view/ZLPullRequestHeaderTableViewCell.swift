@@ -265,17 +265,23 @@ class ZLPullRequestHeaderTableViewCell: UITableViewCell {
         numberLabel.text = "#\(data.getPRNumber())"
         titleLabel.text = data.getPRTitle()
         
-        let fileChangedStr = NSMutableAttributedString(string: "\(data.getFileChangedNumber()) file changed", attributes: [NSAttributedString.Key.foregroundColor : UIColor(named: "ZLLabelColor1")! ,NSAttributedString.Key.font : UIFont(name: Font_PingFangSCRegular, size: 14)!])
+        let fileChangedStr = NSMutableAttributedString(string: "\(data.getFileChangedNumber()) file changed",
+                                                       attributes: [.foregroundColor : ZLRawLabelColor(name: "ZLLabelColor1") ,
+                                                                    .font : UIFont.zlRegularFont(withSize: 14)])
         if data.getFileChangedNumber() > 0 {
             fileChangedStr.append(NSAttributedString(string: "\n"))
         }
         
         if data.getAdditionFileNumber() > 0 {
-            let addition = NSMutableAttributedString(string: "+\(data.getAdditionFileNumber()) ", attributes: [NSAttributedString.Key.foregroundColor : UIColor(named: "ZLPROpenedColor")!,NSAttributedString.Key.font : UIFont(name: Font_PingFangSCRegular, size: 14)!])
+            let addition = NSMutableAttributedString(string: "+\(data.getAdditionFileNumber()) ",
+                                                     attributes: [.foregroundColor : ZLRawLabelColor(name: "ZLPROpenedColor"),
+                                                                  .font : UIFont.zlRegularFont(withSize: 14)])
             fileChangedStr.append(addition)
         }
         if data.getDeletedFileNumber() > 0 {
-            let deleted = NSMutableAttributedString(string: "-\(data.getDeletedFileNumber())", attributes: [NSAttributedString.Key.foregroundColor : UIColor(named: "ZLPRClosedColor")! ,NSAttributedString.Key.font : UIFont(name: Font_PingFangSCRegular, size: 14)!])
+            let deleted = NSMutableAttributedString(string: "-\(data.getDeletedFileNumber())",
+                                                    attributes: [.foregroundColor : ZLRawLabelColor(name: "ZLPRClosedColor") ,
+                                                                 .font : UIFont.zlRegularFont(withSize: 14)])
             fileChangedStr.append(deleted)
         }
         fileChangedLabel.attributedText = fileChangedStr

@@ -25,12 +25,16 @@ class ZLRepoLanguagesPercentView: ZLBaseView {
             SVProgressHUD.dismiss()
             if result.result == true {
                 
+                guard let data = result.data as? [String:Int] else {
+                    return
+                }
+                
                 guard let view : ZLRepoLanguagesPercentView = Bundle.main.loadNibNamed("ZLRepoLanguagesPercentView", owner: nil, options: nil)?.first as? ZLRepoLanguagesPercentView else {
                            return
                        }
                 view.frame = CGRect.init(x: 0, y: 0, width: 280, height: 480)
                 view.repoFullName = fullName
-                view.data = result.data as! [String:Int]
+                view.data = data
                 view.startLoadData()
 
                 let popup : FFPopup = FFPopup(contentView: view, showType: .bounceIn, dismissType: .bounceOut, maskType: FFPopup.MaskType.dimmed, dismissOnBackgroundTouch: true, dismissOnContentTouch: false)
@@ -77,7 +81,7 @@ class ZLRepoLanguagesPercentView: ZLBaseView {
         l.yEntrySpace = 0
         l.yOffset = 0
         l.font = UIFont.init(name: Font_PingFangSCMedium, size: 12) ?? UIFont.systemFont(ofSize: 12)
-        l.textColor = UIColor(named: "ZLLabelColor1")!
+        l.textColor = UIColor.label(withName: "ZLLabelColor1")
         
         chartView.animate(xAxisDuration: 0, easingOption: .easeOutBack)
     }
@@ -130,7 +134,7 @@ class ZLRepoLanguagesPercentView: ZLBaseView {
         data.setValueFormatter(DefaultValueFormatter(formatter: pFormatter))
         
         data.setValueFont(UIFont.init(name: Font_PingFangSCMedium, size: 12) ?? UIFont.systemFont(ofSize: 12))
-        data.setValueTextColor(UIColor(named: "ZLLabelColor1")!)
+        data.setValueTextColor(UIColor.label(withName: "ZLLabelColor1"))
         
         chartView.data = data
         chartView.highlightValues(nil)

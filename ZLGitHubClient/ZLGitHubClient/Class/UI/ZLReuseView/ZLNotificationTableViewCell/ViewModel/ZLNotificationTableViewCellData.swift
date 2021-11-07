@@ -81,21 +81,21 @@ class ZLNotificationTableViewCellData: ZLGithubItemTableViewCellData {
     }
     
     override func onCellSingleTap() {
-        var url : URL? = nil
+        guard let originURL = URL.init(string: self.data.subject?.url ?? "") else {
+            return
+        }
+        
+        var url: URL? = nil
+        
         if "Issue" == self.data.subject?.type {
-            let tmpurl = URL.init(string: self.data.subject?.url ?? "")
-            let notificationNumber = Int(tmpurl?.lastPathComponent ?? "") ?? 0
-            
+            let notificationNumber = Int(originURL.lastPathComponent) ?? 0
             ZLUIRouter.navigateVC(key: ZLUIRouter.IssueInfoController,
                                   params: ["login":self.data.repository?.owner?.loginName ?? "" ,
                                            "repoName":self.data.repository?.name ?? "",
                                            "number": notificationNumber])
             return
         } else if "PullRequest" == self.data.subject?.type {
-            
-            let tmpurl = URL.init(string: self.data.subject?.url ?? "")
-            let notificationNumber = Int(tmpurl?.lastPathComponent ?? "") ?? 0
-            
+            let notificationNumber = Int(originURL.lastPathComponent) ?? 0
             ZLUIRouter.navigateVC(key: ZLUIRouter.PRInfoController,
                                   params: ["login":self.data.repository?.owner?.loginName ?? "" ,
                                            "repoName":self.data.repository?.name ?? "",
@@ -104,14 +104,19 @@ class ZLNotificationTableViewCellData: ZLGithubItemTableViewCellData {
         } else if "RepositoryVulnerabilityAlert" == self.data.subject?.type {
             url = URL.init(string: "https://github.com/\(self.data.repository?.full_name ?? "")/security")
         } else if "Discussion" == self.data.subject?.type {
-            url = URL.init(string: "https://github.com/\(self.data.repository?.full_name ?? "")/discussions")
+            let discussionNumber = originURL.lastPathComponent
+            url = URL.init(string: "https://github.com/\(self.data.repository?.full_name ?? "")/discussions/\(discussionNumber)")
         } else if "Release" == self.data.subject?.type {
             url = URL.init(string: "https://github.com/\(self.data.repository?.full_name ?? "")/releases")
+        } else if "Commit" == self.data.subject?.type {
+            let commitIndex = originURL.lastPathComponent
+            url = URL.init(string: "https://github.com/\(self.data.repository?.full_name ?? "")/commit/\(commitIndex)")
         }
-        let webVC = ZLWebContentController.init()
-        webVC.requestURL = url
-        webVC.hidesBottomBarWhenPushed = true
-        self.viewController?.navigationController?.pushViewController(webVC, animated: true)
+        
+        if let url = url {
+            ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,
+                                  params: ["requestURL":url])
+        }
     }
     
 }
@@ -130,13 +135,13 @@ extension ZLNotificationTableViewCellData {
         UIColor.label(withName: "ZLLabelColor3")
         let attributedStr = NSMutableAttributedString(string: self.data.repository?.full_name ?? "",
                                                       attributes: [.foregroundColor: UIColor.init(cgColor:UIColor.label(withName: "ZLLabelColor3").cgColor),
-                                                                   .font: UIFont.zlBoldFont(withSize: 16)])
+                                                                   .font: UIFont.zlSemiBoldFont(withSize: 16)])
         
         if "Issue" == self.data.subject?.type ||
             "PullRequest" == self.data.subject?.type{
             let numStr  = NSMutableAttributedString(string: " #\(notificationNumber)",
                                                     attributes: [.foregroundColor:UIColor.init(cgColor:UIColor.label(withName: "ZLLabelColor4").cgColor),
-                                                                 .font:UIFont.zlBoldFont(withSize: 16)])
+                                                                 .font:UIFont.zlSemiBoldFont(withSize: 16)])
             
             attributedStr.append(numStr)
         }

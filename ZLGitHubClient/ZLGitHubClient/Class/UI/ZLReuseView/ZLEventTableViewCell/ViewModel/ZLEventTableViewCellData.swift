@@ -81,7 +81,9 @@ extension ZLEventTableViewCellData
     }
     
     @objc func getEventDescrption() -> NSAttributedString{
-        return NSAttributedString.init(string: self.eventModel.eventDescription , attributes: [NSAttributedString.Key.foregroundColor:ZLRawColor(name: "ZLLabelColor3")!,NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 15.0)!])
+        return NSAttributedString.init(string: self.eventModel.eventDescription ,
+                                       attributes: [.foregroundColor:ZLRawLabelColor(name: "ZLLabelColor3"),
+                                                    .font:UIFont.init(name: Font_PingFangSCRegular, size: 15.0)!])
     }
 }
 

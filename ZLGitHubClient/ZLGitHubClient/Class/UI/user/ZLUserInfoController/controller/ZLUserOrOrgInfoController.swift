@@ -13,7 +13,9 @@ class ZLUserOrOrgInfoController: ZLBaseViewController {
     @objc var loginName: String?
     
     // view
-    var userOrOrgInfoView: ZLUserOrOrgInfoView!
+    var userOrOrgInfoView: ZLUserOrOrgInfoView = {
+        ZLUserOrOrgInfoView()
+    }()
     
     
     // subviewModel
@@ -29,23 +31,18 @@ class ZLUserOrOrgInfoController: ZLBaseViewController {
         super.viewDidLoad()
         
         self.title = loginName
-        if loginName == nil || loginName?.count ?? 0 <= 0{
+        if loginName?.isEmpty ?? true {
             ZLToastView.showMessage(ZLLocalizedString(string: "loginName is nil", comment: ""))
             return
         }
         
-        let baseView = ZLUserOrOrgInfoView()
-        self.contentView.addSubview(baseView)
-        baseView.snp.makeConstraints { (make) in
+        self.contentView.addSubview(userOrOrgInfoView)
+        userOrOrgInfoView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
-        userOrOrgInfoView = baseView
-        baseView.fillWithData(self)
-        
+        userOrOrgInfoView.fillWithData(self)
         
         self.sendRequest()
-        
-       
     }
     
     func sendRequest() {
@@ -109,7 +106,7 @@ class ZLUserOrOrgInfoController: ZLBaseViewController {
             
             let userInfoViewModel = ZLUserInfoViewModel()
             self.addSubViewModel(userInfoViewModel)
-            userInfoViewModel.bindModel(userModel, andView: userOrOrgInfoView.userInfoView ?? UIView())
+            userInfoViewModel.bindModel(userModel, andView: userOrOrgInfoView.userInfoView)
             self.userInfoViewModel = userInfoViewModel
             
             
@@ -120,7 +117,7 @@ class ZLUserOrOrgInfoController: ZLBaseViewController {
             
             let orgINfoViewModel = ZLOrgInfoViewModel()
             self.addSubViewModel(orgINfoViewModel)
-            orgINfoViewModel.bindModel(orgModel, andView: userOrOrgInfoView.orgInfoView ?? UIView())
+            orgINfoViewModel.bindModel(orgModel, andView: userOrOrgInfoView.orgInfoView)
             self.orgInfoViewModel = orgINfoViewModel
             
         } else {

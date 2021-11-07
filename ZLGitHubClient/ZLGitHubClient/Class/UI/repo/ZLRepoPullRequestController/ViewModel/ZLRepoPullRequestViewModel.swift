@@ -126,7 +126,6 @@ extension ZLRepoPullRequestViewModel
             return
         }
         
-        weak var weakSelf = self
         ZLServiceManager.sharedInstance.repoServiceModel?.getRepoPullRequest(withFullName: fulleName,
                                                                              state: self.filterOpen ? "open" : "closed",
                                                                              per_page: 10 ,
@@ -157,7 +156,7 @@ extension ZLRepoPullRequestViewModel
                 cellDatas.append(cellData)
             }
             weakSelf?.pullRequestView?.githubItemListView.appendCellDatas(cellDatas: cellDatas)
-            weakSelf?.currentPage = weakSelf!.currentPage + 1
+            weakSelf?.currentPage += 1
             
         }
     }
