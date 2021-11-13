@@ -77,8 +77,13 @@ extension ZLSearchGithubItemListViewModel : ZLGithubItemListViewDelegate {
         let serialNumber = NSString.generateSerialNumber()
         self.serialNumberDic[ZLSearchGithubItemListViewModel.ZLSearchNewDataKey] = serialNumber
         
-        if self.searchKey != nil {
-            ZLServiceManager.sharedInstance.searchServiceModel?.searchInfo(withKeyWord: self.searchKey!, type: self.searchType, filterInfo: self.searchFilterInfo, page: 1, per_page: UInt(ZLSearchGithubItemListViewModel.per_page), serialNumber: serialNumber)
+        if let searchKey = self.searchKey {
+            ZLServiceManager.sharedInstance.searchServiceModel?.searchInfo(withKeyWord: searchKey,
+                                                                           type: self.searchType,
+                                                                           filterInfo: self.searchFilterInfo,
+                                                                           page: 1,
+                                                                           per_page: UInt(ZLSearchGithubItemListViewModel.per_page),
+                                                                           serialNumber: serialNumber)
         } else {
             self.githubItemListView?.resetCellDatas(cellDatas: nil)
         }
@@ -89,8 +94,13 @@ extension ZLSearchGithubItemListViewModel : ZLGithubItemListViewDelegate {
         let serialNumber = NSString.generateSerialNumber()
         self.serialNumberDic[ZLSearchGithubItemListViewModel.ZLSearchMoreDataKey] = serialNumber
         
-        if self.searchKey != nil {
-            ZLServiceManager.sharedInstance.searchServiceModel?.searchInfo(withKeyWord: self.searchKey!, type: self.searchType, filterInfo: self.searchFilterInfo, page: UInt(self.currentPage + 1), per_page: UInt(ZLSearchGithubItemListViewModel.per_page), serialNumber: serialNumber)
+        if let searchKey = self.searchKey {
+            ZLServiceManager.sharedInstance.searchServiceModel?.searchInfo(withKeyWord: searchKey,
+                                                                           type: self.searchType,
+                                                                           filterInfo: self.searchFilterInfo,
+                                                                           page: UInt(self.currentPage + 1),
+                                                                           per_page: UInt(ZLSearchGithubItemListViewModel.per_page),
+                                                                           serialNumber: serialNumber)
         } else {
             self.githubItemListView?.resetCellDatas(cellDatas: nil)
         }
@@ -134,10 +144,9 @@ extension ZLSearchGithubItemListViewModel {
                 
                 var cellDataArray : [ZLGithubItemTableViewCellData] = []
                 for githubItemModel in searchResult.data {
-                    let cellData = ZLGithubItemTableViewCellData.getCellDataWithData(data: githubItemModel)
-                    if cellData != nil {
-                        self.addSubViewModel(cellData!)
-                        cellDataArray.append(cellData!)
+                    if let cellData = ZLGithubItemTableViewCellData.getCellDataWithData(data: githubItemModel) {
+                        self.addSubViewModel(cellData)
+                        cellDataArray.append(cellData)
                     }
                 }
                 

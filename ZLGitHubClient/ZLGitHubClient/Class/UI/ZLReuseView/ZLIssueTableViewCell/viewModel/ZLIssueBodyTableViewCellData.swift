@@ -86,8 +86,8 @@ class ZLIssueBodyTableViewCellData: ZLGithubItemTableViewCellData {
                     newHtmlStr.insert("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no\"/>", at: range1.location)
                 }
                 
-                if cssURL != nil {
-                    let cssStr = try String.init(contentsOf: cssURL!)
+                if let cssURL = cssURL {
+                    let cssStr = try String.init(contentsOf: cssURL)
                     let range = (newHtmlStr as NSString).range(of:"</style>")
                     if  range.location != NSNotFound{
                         newHtmlStr.insert(cssStr, at: range.location)

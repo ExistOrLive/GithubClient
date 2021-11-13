@@ -20,33 +20,34 @@ class ZLExploreBaseViewModel: ZLBaseViewModel {
     
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
         
-        if !(targetView is ZLExploreBaseView)
-        {
+        guard let targetView = targetView as? ZLExploreBaseView else {
             ZLLog_Warn("targetView is not ZLExploreBaseView,so return")
             return
         }
-        self.baseView = targetView as? ZLExploreBaseView
-        self.baseView?.delegate = self
         
-        NotificationCenter.default.addObserver(self, selector: #selector(onNotificationArrived(notication:)), name: ZLLanguageTypeChange_Notificaiton, object: nil)
-        
-        for itemListView in self.baseView!.githubItemListViewArray{
+        targetView.delegate = self
+    
+        for itemListView in targetView.githubItemListViewArray{
             itemListView.beginRefresh()
         }
         
-        switch self.baseView!.segmentedView.selectedIndex {
+        switch targetView.segmentedView.selectedIndex {
         case 0:do{
-            self.baseView!.languageLabel.text = ZLUISharedDataManager.languageForTrendingRepo ?? "Any"
+            targetView.languageLabel.text = ZLUISharedDataManager.languageForTrendingRepo ?? "Any"
             let title = self.titleForDateRange(dateRange: ZLUISharedDataManager.dateRangeForTrendingRepo)
-            self.baseView!.dateRangeButton.setTitle(ZLLocalizedString(string: title, comment: ""), for: .normal)
+            targetView.dateRangeButton.setTitle(ZLLocalizedString(string: title, comment: ""), for: .normal)
             }
         case 1:do{
-            self.baseView!.languageLabel.text = ZLUISharedDataManager.languageForTrendingUser ?? "Any"
+            targetView.languageLabel.text = ZLUISharedDataManager.languageForTrendingUser ?? "Any"
             let title = self.titleForDateRange(dateRange: ZLUISharedDataManager.dateRangeForTrendingUser)
-            self.baseView!.dateRangeButton.setTitle(ZLLocalizedString(string: title, comment: ""), for: .normal)
+            targetView.dateRangeButton.setTitle(ZLLocalizedString(string: title, comment: ""), for: .normal)
             }
         default:break
         }
+        
+        self.baseView = targetView
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(onNotificationArrived(notication:)), name: ZLLanguageTypeChange_Notificaiton, object: nil)
     }
     
     func titleForDateRange(dateRange : ZLDateRange) -> String {
@@ -73,14 +74,14 @@ class ZLExploreBaseViewModel: ZLBaseViewModel {
         case ZLLanguageTypeChange_Notificaiton:do{
             self.baseView?.justReloadView()
             
-            switch self.baseView!.segmentedView.selectedIndex {
+            switch self.baseView?.segmentedView.selectedIndex ?? 0 {
             case 0:do{
                 let dateRange =  ZLUISharedDataManager.dateRangeForTrendingRepo
-                self.baseView!.dateRangeButton.setTitle(self.titleForDateRange(dateRange: dateRange), for: .normal)
+                self.baseView?.dateRangeButton.setTitle(self.titleForDateRange(dateRange: dateRange), for: .normal)
                 }
             case 1:do{
                 let dateRange = ZLUISharedDataManager.dateRangeForTrendingUser
-                self.baseView!.dateRangeButton.setTitle(self.titleForDateRange(dateRange: dateRange), for: .normal)
+                self.baseView?.dateRangeButton.setTitle(self.titleForDateRange(dateRange: dateRange), for: .normal)
                 }
             default:break
             }
@@ -95,13 +96,14 @@ class ZLExploreBaseViewModel: ZLBaseViewModel {
 
 extension ZLExploreBaseViewModel{
     func getTrendRepo() -> Void {
-        weak var weakSelf = self
         
         let dateRange = ZLUISharedDataManager.dateRangeForTrendingRepo
         let language = ZLUISharedDataManager.languageForTrendingRepo
-        ZLServiceManager.sharedInstance.searchServiceModel?.trending(with:.repositories, language: language, dateRange: dateRange, serialNumber: NSString.generateSerialNumber(), completeHandle: { (model:ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.searchServiceModel?.trending(with:.repositories, language: language, dateRange: dateRange, serialNumber: NSString.generateSerialNumber())
+        {[weak weakSelf = self] (model:ZLOperationResultModel) in
     
             if model.result == true {
+                
                 guard let repoArray : [ZLGithubRepositoryModel] = model.data as?  [ZLGithubRepositoryModel] else {
                     ZLLog_Info("ZLGithubRepositoryModel transfer failed")
                     weakSelf?.baseView?.githubItemListViewArray[0].endRefreshWithError()
@@ -111,7 +113,7 @@ extension ZLExploreBaseViewModel{
                 var repoCellDatas : [ZLRepositoryTableViewCellData] = []
                 for item in repoArray {
                     let cellData = ZLRepositoryTableViewCellData.init(data: item, needPullData: true)
-                    weakSelf!.addSubViewModel(cellData)
+                    weakSelf?.addSubViewModel(cellData)
                     repoCellDatas.append(cellData)
                 }
                 
@@ -124,15 +126,15 @@ extension ZLExploreBaseViewModel{
                 ZLToastView.showMessage("Query Trending Repo Failed errorMessage[\(errorModel.message)]")
             }
             
-        })
+        }
     }
     
     func getTrendUser() -> Void {
         
-        weak var weakSelf = self
         let dateRange = ZLUISharedDataManager.dateRangeForTrendingUser
         let language = ZLUISharedDataManager.languageForTrendingUser
-        ZLServiceManager.sharedInstance.searchServiceModel?.trending(with:.users, language: language, dateRange: dateRange, serialNumber: NSString.generateSerialNumber(), completeHandle: { (model:ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.searchServiceModel?.trending(with:.users, language: language, dateRange: dateRange, serialNumber: NSString.generateSerialNumber())
+        { [weak weakSelf = self](model:ZLOperationResultModel) in
             
             if model.result == true {
                 guard let userArray : [ZLGithubUserModel] = model.data as?  [ZLGithubUserModel] else {
@@ -144,7 +146,7 @@ extension ZLExploreBaseViewModel{
                 var userCellDatas : [ZLUserTableViewCellData] = []
                 for item in userArray {
                     let cellData = ZLUserTableViewCellData.init(userModel: item)
-                    weakSelf!.addSubViewModel(cellData)
+                    weakSelf?.addSubViewModel(cellData)
                     userCellDatas.append(cellData)
                 }
                 
@@ -157,7 +159,7 @@ extension ZLExploreBaseViewModel{
                 ZLToastView.showMessage("Query Trending user Failed errorMessage[\(errorModel.message)]")
             }
             
-        })
+        }
         
         
     }
@@ -197,8 +199,8 @@ extension ZLExploreBaseViewModel : ZLExploreBaseViewDelegate{
       
     func onLanguageButtonClicked() -> Void {
         ZLLanguageSelectView.showLanguageSelectView(resultBlock: { (language : String?) in
-           self.baseView!.languageLabel.text = language ?? "Any"
-           switch self.baseView!.segmentedView.selectedIndex {
+           self.baseView?.languageLabel.text = language ?? "Any"
+           switch self.baseView?.segmentedView.selectedIndex ?? 0{
             case 0:do{
                 ZLUISharedDataManager.languageForTrendingRepo = language
                 self.baseView?.githubItemListViewArray[0].beginRefresh()
@@ -215,7 +217,7 @@ extension ZLExploreBaseViewModel : ZLExploreBaseViewDelegate{
       
     func onDateRangeButtonClicked() -> Void {
         
-        switch self.baseView!.segmentedView.selectedIndex {
+        switch self.baseView?.segmentedView.selectedIndex ?? 0 {
         case 0:do{
             ZLTrendingDateRangeSelectView.showTrendingDateRangeSelectView(initDateRange: ZLUISharedDataManager.dateRangeForTrendingRepo, resultBlock: {(dateRange : ZLDateRange) in
                 self.baseView?.dateRangeButton.setTitle(self.titleForDateRange(dateRange: dateRange), for: .normal)
@@ -237,14 +239,14 @@ extension ZLExploreBaseViewModel : ZLExploreBaseViewDelegate{
     func onSegmentViewSelectedIndex(segmentView: JXSegmentedView, index : Int) -> Void {
         switch index {
         case 0:do{
-            self.baseView!.languageLabel.text = ZLUISharedDataManager.languageForTrendingRepo ?? "Any"
+            self.baseView?.languageLabel.text = ZLUISharedDataManager.languageForTrendingRepo ?? "Any"
             let title = self.titleForDateRange(dateRange: ZLUISharedDataManager.dateRangeForTrendingRepo)
-            self.baseView!.dateRangeButton.setTitle(ZLLocalizedString(string: title, comment: ""), for: .normal)
+            self.baseView?.dateRangeButton.setTitle(ZLLocalizedString(string: title, comment: ""), for: .normal)
             }
         case 1:do{
-            self.baseView!.languageLabel.text = ZLUISharedDataManager.languageForTrendingUser ?? "Any"
+            self.baseView?.languageLabel.text = ZLUISharedDataManager.languageForTrendingUser ?? "Any"
             let title = self.titleForDateRange(dateRange: ZLUISharedDataManager.dateRangeForTrendingUser)
-            self.baseView!.dateRangeButton.setTitle(ZLLocalizedString(string: title, comment: ""), for: .normal)
+            self.baseView?.dateRangeButton.setTitle(ZLLocalizedString(string: title, comment: ""), for: .normal)
             }
         default:break
         }

@@ -1,14 +1,14 @@
 //
-//  UIColor+HexColor.m
+//  UIColor+ZLExtension.m
 //  ZLGithubClient
 //
-//  Created by 谢威彦 on 2019/6/11.
+//  Created by zm on 2019/6/11.
 //  Copyright © 2019 zm. All rights reserved.
 //
 
-#import "UIColor+HexColor.h"
+#import "UIColor+ZLExtension.h"
 
-@implementation UIColor (HexColor)
+@implementation UIColor (ZLExtension)
 +(UIColor *)colorWithHexString:(NSString *)hexColor alpha:(float)opacity{
     NSString * cString = [[hexColor stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
     

@@ -29,8 +29,8 @@ extension ZLIssueTableViewCellData {
         if let timelinesArray = data.repository?.issue?.timelineItems.nodes {
             for tmptimeline in timelinesArray {
                 if let timeline = tmptimeline {
-                    if timeline.asIssueComment != nil {
-                        let cellData = ZLIssueCommentTableViewCellData(data: timeline.asIssueComment!)
+                    if let issueComment = timeline.asIssueComment {
+                        let cellData = ZLIssueCommentTableViewCellData(data: issueComment)
                         cellDatas.append(cellData)
                     }
                     else if timeline.asSubscribedEvent != nil ||

@@ -62,15 +62,15 @@ extension ZLPullRequestTimelineTableViewCellData : ZLPullRequestTimelineTableVie
             
             let string = NSMutableAttributedString(string:tmpdata.actor?.login ?? "",
                                                    attributes: [.font:UIFont.zlSemiBoldFont(withSize: 15),
-                                                                .foregroundColor:UIColor(named: "ZLLabelColor1")!])
+                                                                .foregroundColor:UIColor.label(withName: "ZLLabelColor1")])
             
             string.append(NSAttributedString(string: " assigned ",
                                              attributes: [.font:UIFont.zlRegularFont(withSize: 14),
-                                                          .foregroundColor:UIColor(named: "ZLLabelColor4")!]))
+                                                          .foregroundColor:UIColor.label(withName: "ZLLabelColor4")]))
             
             string.append(NSAttributedString(string: assignee ?? "",
                                              attributes: [.font:UIFont.zlSemiBoldFont(withSize: 15),
-                                                          .foregroundColor:UIColor(named: "ZLLabelColor1")!]))
+                                                          .foregroundColor:UIColor.label(withName: "ZLLabelColor1")]))
             
             attributedString = string
             
@@ -79,12 +79,12 @@ extension ZLPullRequestTimelineTableViewCellData : ZLPullRequestTimelineTableVie
         else if let tmpdata = data.asClosedEvent
         {
             let string = NSMutableAttributedString(string:tmpdata.actor?.login ?? "",
-                                                   attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCSemiBold, size: 15)!,
-                                                                NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor1")!])
+                                                   attributes: [.font:UIFont.zlSemiBoldFont(withSize: 15),
+                                                                .foregroundColor:UIColor.label(withName: "ZLLabelColor1")])
             
             string.append(NSAttributedString(string: " closed pull request",
-                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
-                                                          NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor4")!]))
+                                             attributes: [.font:UIFont.zlRegularFont(withSize: 14),
+                                                          .foregroundColor:UIColor.label(withName: "ZLLabelColor4")]))
             attributedString = string
             
             return string
@@ -92,12 +92,12 @@ extension ZLPullRequestTimelineTableViewCellData : ZLPullRequestTimelineTableVie
         else if let tmpdata = data.asCommentDeletedEvent {
             
             let string = NSMutableAttributedString(string:tmpdata.actor?.login ?? "",
-                                                   attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCSemiBold, size: 15)!,
-                                                                NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor1")!])
+                                                   attributes: [.font:UIFont.zlSemiBoldFont(withSize: 15),
+                                                                .foregroundColor:UIColor.label(withName: "ZLLabelColor1")])
             
             string.append(NSAttributedString(string: " deleted comment",
-                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
-                                                          NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor4")!]))
+                                             attributes: [.font:UIFont.zlRegularFont(withSize: 14),
+                                                          .foregroundColor:UIColor.label(withName: "ZLLabelColor4")]))
             
             attributedString = string
             
@@ -108,30 +108,30 @@ extension ZLPullRequestTimelineTableViewCellData : ZLPullRequestTimelineTableVie
         {
             
             let string = NSMutableAttributedString(string:tmpdata.actor?.login ?? "",
-                                                   attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCSemiBold, size: 15)!,
-                                                                NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor1")!])
+                                                   attributes: [.font:UIFont.zlSemiBoldFont(withSize: 15),
+                                                                .foregroundColor:UIColor.label(withName: "ZLLabelColor1")])
             
             if tmpdata.target.asIssue != nil  {
                 
                 string.append(NSAttributedString(string: " referenced issue  \n\n ",
-                                                 attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
-                                                              NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor4")!]))
+                                                 attributes: [.font:UIFont.zlRegularFont(withSize: 14),
+                                                              .foregroundColor:UIColor.label(withName: "ZLLabelColor4")]))
                 
                 string.append(NSAttributedString(string: "\(tmpdata.target.asIssue?.title ?? "")",
-                                                 attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCMedium, size: 14)!,
-                                                              NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor2")!]))
+                                                 attributes: [.font:UIFont.zlMediumFont(withSize: 14),
+                                                              .foregroundColor:UIColor.label(withName: "ZLLabelColor2")]))
                 
             }
             
             if tmpdata.target.asPullRequest != nil  {
                 
                 string.append(NSAttributedString(string: " referenced pull request  \n\n ",
-                                                 attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
-                                                              NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor4")!]))
+                                                 attributes: [.font:UIFont.zlRegularFont(withSize: 14),
+                                                              .foregroundColor:UIColor.label(withName: "ZLLabelColor4")]))
                 
                 string.append(NSAttributedString(string: "\(tmpdata.target.asPullRequest?.title ?? "")",
-                                                 attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCMedium, size: 14)!,
-                                                              NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor2")!]))
+                                                 attributes: [.font:UIFont.zlMediumFont(withSize: 14),
+                                                              .foregroundColor:UIColor.label(withName: "ZLLabelColor2")]))
                 
             }
             
@@ -144,32 +144,32 @@ extension ZLPullRequestTimelineTableViewCellData : ZLPullRequestTimelineTableVie
         {
             
             let string = NSMutableAttributedString(string:tmpdata.actor?.login ?? "",
-                                                   attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCSemiBold, size: 15)!,
-                                                                NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor1")!])
+                                                   attributes: [.font:UIFont.zlSemiBoldFont(withSize: 15),
+                                                                .foregroundColor:UIColor.label(withName: "ZLLabelColor1")])
             
             string.append(NSAttributedString(string: " force-pushed the branch ",
-                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
-                                                          NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor4")!]))
+                                             attributes: [.font:UIFont.zlRegularFont(withSize: 14),
+                                                          .foregroundColor:UIColor.label(withName: "ZLLabelColor4")]))
             
             string.append(NSAttributedString(string: "\(tmpdata.ref?.name ?? "")",
-                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
-                                                          NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLinkLabelColor2")!]))
+                                             attributes: [.font:UIFont.zlRegularFont(withSize: 14),
+                                                          .foregroundColor:UIColor.linkColor(withName: "ZLLinkLabelColor2")]))
             
             string.append(NSAttributedString(string: " from ",
-                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
-                                                          NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor4")!]))
+                                             attributes: [.font:UIFont.zlRegularFont(withSize: 14),
+                                                          .foregroundColor:UIColor.label(withName: "ZLLabelColor4")]))
             
             string.append(NSAttributedString(string: "\(tmpdata.beforeCommit?.abbreviatedOid ?? "")",
-                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
-                                                          NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLinkLabelColor1")!]))
+                                             attributes: [.font:UIFont.zlRegularFont(withSize: 14),
+                                                          .foregroundColor:UIColor.linkColor(withName: "ZLLinkLabelColor1")]))
             
             string.append(NSAttributedString(string: " to ",
-                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
-                                                          NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor4")!]))
+                                             attributes: [.font:UIFont.zlRegularFont(withSize: 14),
+                                                          .foregroundColor:UIColor.label(withName: "ZLLabelColor4")]))
             
             string.append(NSAttributedString(string: "\(tmpdata.afterCommit?.abbreviatedOid ?? "")",
-                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
-                                                          NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLinkLabelColor1")!]))
+                                             attributes: [.font:UIFont.zlRegularFont(withSize: 14),
+                                                          .foregroundColor:UIColor.linkColor(withName: "ZLLinkLabelColor1")]))
             
             attributedString = string
         
@@ -181,16 +181,16 @@ extension ZLPullRequestTimelineTableViewCellData : ZLPullRequestTimelineTableVie
         {
             
             let string = NSMutableAttributedString(string:tmpdata.actor?.login ?? "",
-                                                   attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCSemiBold, size: 15)!,
-                                                                NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor1")!])
+                                                   attributes: [.font:UIFont.zlSemiBoldFont(withSize: 15),
+                                                                .foregroundColor:UIColor.label(withName: "ZLLabelColor1")])
             
             string.append(NSAttributedString(string: " deleted branch ",
-                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
-                                                          NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor4")!]))
+                                             attributes: [.font:UIFont.zlRegularFont(withSize: 14),
+                                                          .foregroundColor:UIColor.label(withName: "ZLLabelColor4")]))
                         
             string.append(NSAttributedString(string: "\(tmpdata.headRefName)",
-                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
-                                                          NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLinkLabelColor2")!]))
+                                             attributes: [.font:UIFont.zlRegularFont(withSize: 14),
+                                                          .foregroundColor:UIColor.linkColor(withName: "ZLLinkLabelColor2")]))
             
             attributedString = string
             
@@ -200,18 +200,18 @@ extension ZLPullRequestTimelineTableViewCellData : ZLPullRequestTimelineTableVie
         else if let tmpdata = data.asLabeledEvent
         {
             let string = NSMutableAttributedString(string:tmpdata.actor?.login ?? "",
-                                                   attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCSemiBold, size: 15)!,
-                                                                NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor1")!])
+                                                   attributes: [.font:UIFont.zlSemiBoldFont(withSize: 15),
+                                                                .foregroundColor:UIColor.label(withName: "ZLLabelColor1")])
             
             string.append(NSAttributedString(string: " added label ",
-                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
-                                                          NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor4")!]))
+                                             attributes: [.font:UIFont.zlRegularFont(withSize: 14),
+                                                          .foregroundColor:UIColor.label(withName: "ZLLabelColor4")]))
             
             let color = ZLRGBValueStr_H(colorValue:tmpdata.label.color)
             string.append(NSAttributedString(string: "\(tmpdata.label.name)",
-                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCSemiBold, size: 13)!,
-                                                          NSAttributedString.Key.foregroundColor:UIColor.isLightColor(color) ? ZLRGBValue_H(colorValue: 0x333333) : UIColor.white,
-                                                          NSAttributedString.Key.backgroundColor:color]))
+                                             attributes: [.font:UIFont.zlSemiBoldFont(withSize: 13),
+                                                          .foregroundColor:UIColor.isLightColor(color) ? ZLRGBValue_H(colorValue: 0x333333) : UIColor.white,
+                                                          .backgroundColor:color]))
             
             attributedString = string
             
@@ -221,12 +221,12 @@ extension ZLPullRequestTimelineTableViewCellData : ZLPullRequestTimelineTableVie
         else if let tmpdata = data.asLockedEvent{
             
             let string = NSMutableAttributedString(string:tmpdata.actor?.login ?? "",
-                                                   attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCSemiBold, size: 15)!,
-                                                                NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor1")!])
+                                                   attributes: [.font:UIFont.zlSemiBoldFont(withSize: 15),
+                                                                .foregroundColor:UIColor.label(withName: "ZLLabelColor1")])
             
             string.append(NSAttributedString(string: " locked pull request ",
-                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
-                                                          NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor4")!]))
+                                             attributes: [.font:UIFont.zlRegularFont(withSize: 14),
+                                                          .foregroundColor:UIColor.label(withName: "ZLLabelColor4")]))
             
             attributedString = string
             
@@ -237,24 +237,24 @@ extension ZLPullRequestTimelineTableViewCellData : ZLPullRequestTimelineTableVie
         else if let tmpdata = data.asMergedEvent {
             
             let string = NSMutableAttributedString(string:tmpdata.actor?.login ?? "",
-                                                   attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCSemiBold, size: 15)!,
-                                                                NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor1")!])
+                                                   attributes: [.font:UIFont.zlSemiBoldFont(withSize: 15),
+                                                                .foregroundColor:UIColor.label(withName: "ZLLabelColor1")])
             
             string.append(NSAttributedString(string: " merged commit ",
-                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
-                                                          NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor4")!]))
+                                             attributes: [.font:UIFont.zlRegularFont(withSize: 14),
+                                                          .foregroundColor:UIColor.label(withName: "ZLLabelColor4")]))
             
             string.append(NSAttributedString(string: "\(tmpdata.nullableName?.abbreviatedOid ?? "")",
-                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
-                                                          NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLinkLabelColor1")!]))
+                                             attributes: [.font:UIFont.zlRegularFont(withSize: 14),
+                                                          .foregroundColor:UIColor.linkColor(withName: "ZLLinkLabelColor1")]))
             
             string.append(NSAttributedString(string: " into ",
-                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
-                                                          NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor4")!]))
+                                             attributes: [.font:UIFont.zlRegularFont(withSize: 14),
+                                                          .foregroundColor:UIColor.label(withName: "ZLLabelColor4")]))
             
             string.append(NSAttributedString(string: "\(tmpdata.mergeRefName)",
-                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
-                                                          NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLinkLabelColor2")!]))
+                                             attributes: [.font:UIFont.zlRegularFont(withSize: 14),
+                                                          .foregroundColor:UIColor.linkColor(withName: "ZLLinkLabelColor2")]))
             
             attributedString = string
             
@@ -265,16 +265,16 @@ extension ZLPullRequestTimelineTableViewCellData : ZLPullRequestTimelineTableVie
         else if let tmpdata = data.asMilestonedEvent{
             
             let string = NSMutableAttributedString(string:tmpdata.actor?.login ?? "",
-                                                   attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCSemiBold, size: 15)!,
-                                                                NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor1")!])
+                                                   attributes: [.font:UIFont.zlSemiBoldFont(withSize: 15),
+                                                                .foregroundColor:UIColor.label(withName: "ZLLabelColor1")])
             
             string.append(NSAttributedString(string: " added milestone ",
-                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
-                                                          NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor4")!]))
+                                             attributes: [.font:UIFont.zlRegularFont(withSize: 14),
+                                                          .foregroundColor:UIColor.label(withName: "ZLLabelColor4")]))
             
             string.append(NSAttributedString(string:tmpdata.milestoneTitle,
-                                                    attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCSemiBold, size: 15)!,
-                                                                 NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor1")!]))
+                                                    attributes: [.font:UIFont.zlSemiBoldFont(withSize: 15),
+                                                                 .foregroundColor:UIColor.label(withName: "ZLLabelColor1")]))
 
             attributedString = string
             
@@ -285,12 +285,12 @@ extension ZLPullRequestTimelineTableViewCellData : ZLPullRequestTimelineTableVie
         else if let tmpdata = data.asPinnedEvent{
             
             let string = NSMutableAttributedString(string:tmpdata.actor?.login ?? "",
-                                                   attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCSemiBold, size: 15)!,
-                                                                NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor1")!])
+                                                   attributes: [.font:UIFont.zlSemiBoldFont(withSize: 15),
+                                                                .foregroundColor:UIColor.label(withName: "ZLLabelColor1")])
             
             string.append(NSAttributedString(string: " pinned pull request ",
-                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
-                                                          NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor4")!]))
+                                             attributes: [.font:UIFont.zlRegularFont(withSize: 14),
+                                                          .foregroundColor:UIColor.label(withName: "ZLLabelColor4")]))
 
             attributedString = string
             
@@ -301,12 +301,12 @@ extension ZLPullRequestTimelineTableViewCellData : ZLPullRequestTimelineTableVie
         else if let tmpdata = data.asPullRequestCommit {
             
             let string = NSMutableAttributedString(string: "\(tmpdata.commit.abbreviatedOid)  ",
-                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCMedium, size: 13)!,
-                                                          NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLinkLabelColor1")!])
+                                                   attributes: [.font:UIFont.zlSemiBoldFont(withSize: 13),
+                                                          .foregroundColor:UIColor.linkColor(withName: "ZLLinkLabelColor1")])
             
             string.append(NSAttributedString(string:tmpdata.commit.messageHeadline ,
-                                                   attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCMedium, size: 14)!,
-                                                                NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor2")!]))
+                                                   attributes: [.font:UIFont.zlMediumFont(withSize: 14),
+                                                                .foregroundColor:UIColor.label(withName: "ZLLabelColor2")]))
             
             attributedString = string
             
@@ -317,12 +317,12 @@ extension ZLPullRequestTimelineTableViewCellData : ZLPullRequestTimelineTableVie
         else if let tmpdata = data.asPullRequestReview {
             
             let string = NSMutableAttributedString(string:tmpdata.author?.login ?? "",
-                                                   attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCSemiBold, size: 15)!,
-                                                                NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor1")!])
+                                                   attributes: [.font:UIFont.zlSemiBoldFont(withSize: 15),
+                                                                .foregroundColor:UIColor.label(withName: "ZLLabelColor1")])
             
             string.append(NSAttributedString(string: " reviewed these change ",
-                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
-                                                          NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor4")!]))
+                                             attributes: [.font:UIFont.zlRegularFont(withSize: 14),
+                                                          .foregroundColor:UIColor.label(withName: "ZLLabelColor4")]))
 
             attributedString = string
             
@@ -334,16 +334,16 @@ extension ZLPullRequestTimelineTableViewCellData : ZLPullRequestTimelineTableVie
         else if let tmpdata = data.asReferencedEvent {
             
             let string = NSMutableAttributedString(string:tmpdata.actor?.login ?? "",
-                                                   attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCSemiBold, size: 15)!,
-                                                                NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor1")!])
+                                                   attributes: [.font:UIFont.zlSemiBoldFont(withSize: 15),
+                                                                .foregroundColor:UIColor.label(withName: "ZLLabelColor1")])
             
             string.append(NSAttributedString(string: " added a commit that referenced this pull request \n\n ",
-                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
-                                                          NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor4")!]))
+                                             attributes: [.font:UIFont.zlRegularFont(withSize: 14),
+                                                          .foregroundColor:UIColor.label(withName: "ZLLabelColor4")]))
             
             string.append(NSAttributedString(string: "\(tmpdata.nullableName?.messageHeadline ?? "")",
-                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCMedium, size: 14)!,
-                                                          NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor2")!]))
+                                             attributes: [.font:UIFont.zlMediumFont(withSize: 14),
+                                                          .foregroundColor:UIColor.label(withName: "ZLLabelColor2")]))
             
             attributedString = string
             
@@ -354,21 +354,21 @@ extension ZLPullRequestTimelineTableViewCellData : ZLPullRequestTimelineTableVie
         else if let tmpdata = data.asRenamedTitleEvent {
            
            let string = NSMutableAttributedString(string:tmpdata.actor?.login ?? "",
-                                                  attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCSemiBold, size: 15)!,
-                                                               NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor1")!])
+                                                  attributes: [.font:UIFont.zlSemiBoldFont(withSize: 15),
+                                                               .foregroundColor:UIColor.label(withName: "ZLLabelColor1")])
            
            string.append(NSAttributedString(string: " changed the title ",
-                                            attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
-                                                         NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor4")!]))
+                                            attributes: [.font:UIFont.zlRegularFont(withSize: 14),
+                                                         .foregroundColor:UIColor.label(withName: "ZLLabelColor4")]))
                        
            string.append(NSAttributedString(string: "\(tmpdata.previousTitle) ",
-                                            attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
-                                                         NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor2")!,
+                                            attributes: [.font:UIFont.zlRegularFont(withSize: 14),
+                                                         .foregroundColor:UIColor.label(withName: "ZLLabelColor2"),
                                                          NSAttributedString.Key.strikethroughStyle:NSUnderlineStyle.byWord]))
            
            string.append(NSAttributedString(string: "\(tmpdata.currentTitle)",
-                                            attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
-                                                         NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor2")!]))
+                                            attributes: [.font:UIFont.zlRegularFont(withSize: 14),
+                                                         .foregroundColor:UIColor.label(withName: "ZLLabelColor2")]))
            
            attributedString = string
            
@@ -379,12 +379,12 @@ extension ZLPullRequestTimelineTableViewCellData : ZLPullRequestTimelineTableVie
         else if let tmpdata = data.asReopenedEvent {
             
             let string = NSMutableAttributedString(string:tmpdata.actor?.login ?? "",
-                                                   attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCSemiBold, size: 15)!,
-                                                                NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor1")!])
+                                                   attributes: [.font:UIFont.zlSemiBoldFont(withSize: 15),
+                                                                .foregroundColor:UIColor.label(withName: "ZLLabelColor1")])
             
             string.append(NSAttributedString(string: " reopened pull request",
-                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
-                                                          NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor4")!]))
+                                             attributes: [.font:UIFont.zlRegularFont(withSize: 14),
+                                                          .foregroundColor:UIColor.label(withName: "ZLLabelColor4")]))
             
             attributedString = string
             
@@ -396,12 +396,12 @@ extension ZLPullRequestTimelineTableViewCellData : ZLPullRequestTimelineTableVie
         else if let tmpdata = data.asReviewRequestedEvent {
             
             let string = NSMutableAttributedString(string:tmpdata.actor?.login ?? "",
-                                                   attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCSemiBold, size: 15)!,
-                                                                NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor1")!])
+                                                   attributes: [.font:UIFont.zlSemiBoldFont(withSize: 15),
+                                                                .foregroundColor:UIColor.label(withName: "ZLLabelColor1")])
             
             string.append(NSAttributedString(string: " request review from ",
-                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
-                                                          NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor4")!]))
+                                             attributes: [.font:UIFont.zlRegularFont(withSize: 14),
+                                                          .foregroundColor:UIColor.label(withName: "ZLLabelColor4")]))
             
             var assignee : String? = nil
             if let user = tmpdata.requestedReviewer?.asUser {
@@ -413,8 +413,8 @@ extension ZLPullRequestTimelineTableViewCellData : ZLPullRequestTimelineTableVie
             }
             
             string.append(NSAttributedString(string: "\(assignee ?? "")",
-                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 15)!,
-                                                          NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor1")!]))
+                                             attributes: [.font:UIFont.zlRegularFont(withSize: 15),
+                                                          .foregroundColor:UIColor.label(withName: "ZLLabelColor1")]))
             
             attributedString = string
             
@@ -425,18 +425,18 @@ extension ZLPullRequestTimelineTableViewCellData : ZLPullRequestTimelineTableVie
         else if let tmpdata = data.asUnlabeledEvent {
             
             let string = NSMutableAttributedString(string:tmpdata.actor?.login ?? "",
-                                                   attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCSemiBold, size: 15)!,
-                                                                NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor1")!])
+                                                   attributes: [.font:UIFont.zlSemiBoldFont(withSize: 15),
+                                                                .foregroundColor:UIColor.label(withName: "ZLLabelColor1")])
             
             string.append(NSAttributedString(string: " removed label  ",
-                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
-                                                          NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor4")!]))
+                                             attributes: [.font:UIFont.zlRegularFont(withSize: 14),
+                                                          .foregroundColor:UIColor.label(withName: "ZLLabelColor4")]))
             
             let color = ZLRGBValueStr_H(colorValue:tmpdata.label.color)
             string.append(NSAttributedString(string: "\(tmpdata.label.name)",
-                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCSemiBold, size: 13)!,
-                                                          NSAttributedString.Key.foregroundColor:UIColor.isLightColor(color) ? ZLRGBValue_H(colorValue: 0x333333) : UIColor.white,
-                                                          NSAttributedString.Key.backgroundColor:color]))
+                                             attributes: [.font:UIFont.zlSemiBoldFont(withSize: 13),
+                                                          .foregroundColor:UIColor.isLightColor(color) ? ZLRGBValue_H(colorValue: 0x333333) : UIColor.white,
+                                                          .backgroundColor:color]))
             
             attributedString = string
             
@@ -447,12 +447,12 @@ extension ZLPullRequestTimelineTableViewCellData : ZLPullRequestTimelineTableVie
         else if let tmpdata = data.asUnpinnedEvent {
             
             let string = NSMutableAttributedString(string:tmpdata.actor?.login ?? "",
-                                                   attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCSemiBold, size: 15)!,
-                                                                NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor1")!])
+                                                   attributes: [.font:UIFont.zlSemiBoldFont(withSize: 15),
+                                                                .foregroundColor:UIColor.label(withName: "ZLLabelColor1")])
             
             string.append(NSAttributedString(string: " unpinned pull request ",
-                                             attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 14)!,
-                                                          NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor4")!]))
+                                             attributes: [.font:UIFont.zlRegularFont(withSize: 14),
+                                                          .foregroundColor:UIColor.label(withName: "ZLLabelColor4")]))
             
             attributedString = string
             
@@ -462,8 +462,8 @@ extension ZLPullRequestTimelineTableViewCellData : ZLPullRequestTimelineTableVie
         
         
         return NSAttributedString(string:data.__typename,
-                                  attributes: [NSAttributedString.Key.font:UIFont(name: Font_PingFangSCSemiBold, size: 15)!,
-                                               NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor1")!])
+                                  attributes: [.font:UIFont.zlSemiBoldFont(withSize: 15),
+                                               .foregroundColor:UIColor.label(withName: "ZLLabelColor1")])
     }
 }
 

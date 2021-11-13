@@ -46,16 +46,16 @@ class ZLSearchView: ZLBaseView {
         self.searchItemsView = Bundle.main.loadNibNamed("ZLSearchItemsView", owner: self, options: nil)?.first as? ZLSearchItemsView
         self.searchItemsView?.frame = self.contentView.bounds
         self.searchItemsView?.autoresizingMask = UIView.AutoresizingMask.init(rawValue: UIView.AutoresizingMask.flexibleHeight.rawValue | UIView.AutoresizingMask.flexibleWidth.rawValue)
-        if self.searchItemsView != nil{
-            self.contentView.addSubview(self.searchItemsView!)
+        if let searchItemsView = self.searchItemsView{
+            self.contentView.addSubview(searchItemsView)
         }
         
         // ZLSearchRecordView
         self.searchRecordView = Bundle.main.loadNibNamed("ZLSearchRecordView", owner: self, options: nil)?.first as? ZLSearchRecordView
         self.searchRecordView?.frame = self.contentView.bounds
         self.searchRecordView?.autoresizingMask = UIView.AutoresizingMask.init(rawValue: UIView.AutoresizingMask.flexibleHeight.rawValue | UIView.AutoresizingMask.flexibleWidth.rawValue)
-        if self.searchRecordView != nil{
-            self.contentView.addSubview(self.searchRecordView!)
+        if let searchRecordView = self.searchRecordView {
+            self.contentView.addSubview(searchRecordView)
         }
         self.searchRecordView?.isHidden = true
         

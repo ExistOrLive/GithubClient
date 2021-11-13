@@ -42,9 +42,7 @@ class ZLInputAccessTokenView: ZLBaseView {
 
     @IBAction func onConfirmButtonClicked(_ sender: Any) {
         self.popup?.dismiss(animated: true)
-        if self.resultBlock != nil {
-            self.resultBlock!(self.textField.text)
-        }
+        self.resultBlock?(self.textField.text)
     }
 }
 

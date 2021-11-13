@@ -70,12 +70,15 @@ class ZLReadMeView: ZLBaseView {
         self.fullName = fullName
         self.branch = branch
         
-        self.serialNumber = NSString.generateSerialNumber()
         self.progressView.progress = 0.3
         
-        weak var weakSelf = self
-        
-        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoReadMeInfo(withFullName:fullName , branch: branch , isHTML: true, serialNumber:self.serialNumber!, completeHandle: { (resultModel : ZLOperationResultModel) in
+        let serialNumber = NSString.generateSerialNumber()
+        self.serialNumber = serialNumber
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoReadMeInfo(withFullName:fullName ,
+                                                                            branch: branch ,
+                                                                            isHTML: true,
+                                                                            serialNumber:serialNumber)
+       { [weak weakSelf = self](resultModel : ZLOperationResultModel) in
             
             if weakSelf?.serialNumber ?? "" != resultModel.serialNumber {
                 return
@@ -99,29 +102,29 @@ class ZLReadMeView: ZLBaseView {
             weakSelf?.htmlStr = data
             weakSelf?.startRender(codeHtml: data)
             weakSelf?.progressView.progress = 0.75
-        })
+        }
         
         
-        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoReadMeInfo(withFullName:fullName , branch: branch , isHTML: false, serialNumber:self.serialNumber!, completeHandle: { (resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.repoServiceModel?.getRepoReadMeInfo(withFullName:fullName ,
+                                                                            branch: branch ,
+                                                                            isHTML: false,
+                                                                            serialNumber:serialNumber)
+       { [weak self](resultModel : ZLOperationResultModel) in
             
-            if weakSelf?.serialNumber ?? "" != resultModel.serialNumber {
+            guard let self = self,
+                  self.serialNumber ?? "" == resultModel.serialNumber,
+                  resultModel.result == true,
+                  let data : ZLGithubContentModel = resultModel.data as? ZLGithubContentModel else{
                 return
             }
+        
+            self.readMeModel = data
             
-            if resultModel.result == false {
-                return
+            if self.webView.isLoading == false
+                && self.htmlStr != nil {
+                self.reRender()
             }
-            
-            guard let data : ZLGithubContentModel = resultModel.data as? ZLGithubContentModel else {
-                return
-            }
-            
-            weakSelf?.readMeModel = data
-            
-            if weakSelf?.webView.isLoading == false && weakSelf?.htmlStr != nil {
-                
-            }
-        })
+        }
     }
     
     func stopload(){
@@ -179,8 +182,8 @@ class ZLReadMeView: ZLBaseView {
                     newHtmlStr.insert("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no\"/>", at: range1.location)
                 }
                 
-                if cssURL != nil {
-                    let cssStr = try String.init(contentsOf: cssURL!)
+                if let cssURL = cssURL {
+                    let cssStr = try String.init(contentsOf: cssURL)
                     let range = (newHtmlStr as NSString).range(of:"</style>")
                     if  range.location != NSNotFound{
                         newHtmlStr.insert(cssStr, at: range.location)
@@ -284,10 +287,10 @@ extension ZLReadMeView : WKNavigationDelegate,WKUIDelegate{
                     }
                 }
                     
-                url = URL.init(string: urlStr!)
+                url = URL.init(string: newURLStr)
                 if url?.host == nil {               // 如果是相对路径，组装baseurl
                     url = (URL.init(string: self.readMeModel?.html_url ?? "") as NSURL?)?.deletingLastPathComponent
-                    url?.appendPathComponent(urlStr!)
+                    url?.appendPathComponent(newURLStr)
                 }
                 if self.delegate?.responds(to: #selector(ZLReadMeViewDelegate.onLinkClicked(url:))) ?? false {
                     self.delegate?.onLinkClicked?(url: url)
@@ -313,8 +316,8 @@ extension ZLReadMeView : WKNavigationDelegate,WKUIDelegate{
     
     
     func fixPicture(){
-        if self.readMeModel?.download_url != nil {
-            let baseURLStr = (URL.init(string: self.readMeModel!.download_url!) as NSURL?)?.deletingLastPathComponent?.absoluteString
+        if let download_url = self.readMeModel?.download_url {
+            let baseURLStr = (URL.init(string: download_url) as NSURL?)?.deletingLastPathComponent?.absoluteString
             let addBaseScript = "let a = '\(baseURLStr ?? "")';let array = document.getElementsByTagName('img');for(i=0;i<array.length;i++){let item=array[i];if(item.getAttribute('src').indexOf('http') == -1){item.src = a + item.getAttribute('src');}}"
             
             webView.evaluateJavaScript(addBaseScript) { (result : Any?, error : Error?) in

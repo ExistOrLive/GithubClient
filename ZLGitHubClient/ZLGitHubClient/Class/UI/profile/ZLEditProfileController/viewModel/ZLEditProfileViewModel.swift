@@ -20,21 +20,20 @@ class ZLEditProfileViewModel: ZLBaseViewModel {
     
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
         
-        if !(targetView is ZLEditProfileView)
-        {
+        guard let targetView = targetView as? ZLEditProfileView else {
             ZLLog_Warn("targetView is not ZLEditProfileView,so return")
+            return
         }
-        
-        self.editProfileView = targetView as? ZLEditProfileView
-        self.setUpSaveButton()
-        
         
         guard let currentUserModel = ZLServiceManager.sharedInstance.viewerServiceModel?.currentUserModel else {
             ZLToastView.showMessage("get current user info failed")
             return
         }
-        userInfoModel = currentUserModel
         
+        self.editProfileView = targetView
+        self.setUpSaveButton()
+        
+        userInfoModel = currentUserModel
         
         self.setViewDataForEditProfileView()
     }
@@ -78,7 +77,7 @@ class ZLEditProfileViewModel: ZLBaseViewModel {
     func setUpSaveButton()
     {        
         let button = ZLBaseButton.init(type: .custom)
-        button.titleLabel?.font = UIFont.init(name: Font_PingFangSCRegular, size: 14)!
+        button.titleLabel?.font = UIFont.zlRegularFont(withSize: 14)
         button.setTitle(ZLLocalizedString(string: "Save",comment: "保存"), for: .normal)
         
         button.frame = CGRect.init(x: 0, y: 0, width: 70, height: 30)

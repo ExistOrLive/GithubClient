@@ -41,9 +41,15 @@ extension ZLIssueHeaderTableViewCellData : ZLIssueHeaderTableViewCellDelegate {
     }
     
     func getIssueRepoFullName() -> NSAttributedString {
-        let text = NSMutableAttributedString(string: data.repository?.nameWithOwner ?? "", attributes: [NSAttributedString.Key.foregroundColor:UIColor(cgColor: UIColor(named: "ZLLabelColor1")!.cgColor), NSAttributedString.Key.font:UIFont(name: Font_PingFangSCMedium, size: 14)!])
+        let text = NSMutableAttributedString(string: data.repository?.nameWithOwner ?? "",
+                                             attributes: [.foregroundColor:ZLRawLabelColor(name: "ZLLabelColor1"),
+                                                          .font:UIFont.zlMediumFont(withSize: 14)])
         
-        text.yy_setTextHighlight(NSRange(location: 0, length: data.repository?.nameWithOwner.count ?? 0), color: UIColor(cgColor: UIColor(named: "ZLLabelColor1")!.cgColor), backgroundColor: UIColor(cgColor: UIColor(named: "ZLLabelColor1")!.cgColor)) { [weak self](view, string, range, frame) in
+        text.yy_setTextHighlight(NSRange(location: 0,
+                                         length: data.repository?.nameWithOwner.count ?? 0),
+                                 color: ZLRawLabelColor(name: "ZLLabelColor1"),
+                                 backgroundColor: ZLRawLabelColor(name: "ZLLabelColor1"))
+        { [weak self](view, string, range, frame) in
             
             if let fullName = self?.data.repository?.nameWithOwner, let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: fullName){
                 self?.viewController?.navigationController?.pushViewController(vc, animated: true)

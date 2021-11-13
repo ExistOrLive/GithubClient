@@ -21,9 +21,8 @@
 #import "ZLWebContentViewModel.h"
 
 // extension
-#import "UIColor+HexColor.h"
 #import "UIViewController+Tool.h"
-#import "UIColor+HexColor.h"
+#import "UIColor+ZLExtension.h"
 #import "UIView+HJViewStyle.h"
 #import "NSDate+Localize.h"
 #import "UIFont+ZLExtension.h"

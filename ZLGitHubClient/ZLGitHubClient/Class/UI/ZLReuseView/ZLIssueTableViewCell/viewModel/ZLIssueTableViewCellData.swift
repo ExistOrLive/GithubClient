@@ -77,14 +77,17 @@ extension ZLIssueTableViewCellData : ZLIssueTableViewCellDelegate{
     
     func getIssueAssistStr() -> String?{
         
-        if self.isIssueClosed() {
+        if self.isIssueClosed(),
+           let closed_at = self.issueModel.closed_at {
             
-            return "#\(self.issueModel.number) \(self.issueModel.user.loginName ?? "") \(ZLLocalizedString(string: "closed at", comment: "")) \((self.issueModel.closed_at! as NSDate).dateLocalStrSinceCurrentTime())"
+            return "#\(self.issueModel.number) \(self.issueModel.user.loginName ?? "") \(ZLLocalizedString(string: "closed at", comment: "")) \((closed_at as NSDate).dateLocalStrSinceCurrentTime())"
             
-        } else {
+        } else if let created_at = self.issueModel.created_at  {
             
-             return "#\(self.issueModel.number) \(self.issueModel.user.loginName ?? "")  \(ZLLocalizedString(string: "opened at", comment: "")) \((self.issueModel.created_at! as NSDate).dateLocalStrSinceCurrentTime())"
+             return "#\(self.issueModel.number) \(self.issueModel.user.loginName ?? "")  \(ZLLocalizedString(string: "opened at", comment: "")) \(( created_at as NSDate).dateLocalStrSinceCurrentTime())"
         }
+        
+        return nil
     }
     
     func getIssueLabels() -> [(String,String)] {

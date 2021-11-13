@@ -45,7 +45,7 @@ class ZLRepoBranchTableViewCell: UITableViewCell {
         self.branchNameLabel?.textColor = UIColor.init(named: "ZLLabelColor4")
         self.branchNameLabel?.font = UIFont.init(name: Font_PingFangSCRegular, size: 14)
         self.contentView.addSubview(self.branchNameLabel!)
-        self.branchNameLabel!.snp.makeConstraints ({ (make) in
+        self.branchNameLabel?.snp.makeConstraints ({ (make) in
             make.left.equalTo(self.selectedTag!.snp_right).offset(20)
             make.centerY.equalToSuperview()
         })

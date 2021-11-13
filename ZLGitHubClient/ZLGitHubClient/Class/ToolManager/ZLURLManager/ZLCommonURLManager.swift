@@ -17,7 +17,7 @@
         do {
             let regex : NSRegularExpression = try NSRegularExpression(pattern: emailRegex, options: .init(rawValue: 0))
             let result = regex.matches(in: str, options:.init(rawValue: 0), range: NSRange(location: 0, length: str.count))
-            return result.count != 0
+            return !result.isEmpty
         } catch {
             return false
         }
@@ -27,7 +27,7 @@
         do {
             let regex : NSRegularExpression = try NSRegularExpression(pattern: phoneRegex, options: .init(rawValue: 0))
             let result = regex.matches(in: str, options:.init(rawValue: 0), range: NSRange(location: 0, length: str.count))
-            return result.count != 0
+            return !result.isEmpty
         } catch {
             return false
         }
@@ -38,7 +38,7 @@
         do {
             let regex : NSRegularExpression = try NSRegularExpression(pattern: appleAppLinkRegex, options: .init(rawValue: 0))
             let result = regex.matches(in: str, options:.init(rawValue: 0), range: NSRange(location: 0, length: str.count))
-            return result.count != 0
+            return !result.isEmpty
         } catch {
             return false
         }

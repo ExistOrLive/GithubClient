@@ -62,8 +62,10 @@ class ZLSearchGithubItemListSecondViewModel: ZLBaseViewModel {
 extension ZLSearchGithubItemListSecondViewModel : ZLGithubItemListViewDelegate {
     
     func githubItemListViewRefreshDragDown(pullRequestListView: ZLGithubItemListView) {
-        if self.searchKey != nil {
-            ZLServiceManager.sharedInstance.searchServiceModel?.searchInfo(withKeyWord: self.searchKey!,
+        
+        if let searchKey = self.searchKey{
+            
+            ZLServiceManager.sharedInstance.searchServiceModel?.searchInfo(withKeyWord: searchKey,
                                                                            type: self.searchType,
                                                                            filterInfo: self.searchFilterInfo,
                                                                            after: nil,
@@ -107,9 +109,9 @@ extension ZLSearchGithubItemListSecondViewModel : ZLGithubItemListViewDelegate {
     
     func githubItemListViewRefreshDragUp(pullRequestListView: ZLGithubItemListView) {
         
-        if self.searchKey != nil {
+        if let searchKey = self.searchKey {
             
-            ZLServiceManager.sharedInstance.searchServiceModel?.searchInfo(withKeyWord: self.searchKey!,
+            ZLServiceManager.sharedInstance.searchServiceModel?.searchInfo(withKeyWord: searchKey,
                                                                            type: self.searchType,
                                                                            filterInfo: self.searchFilterInfo,
                                                                            after: self.after,

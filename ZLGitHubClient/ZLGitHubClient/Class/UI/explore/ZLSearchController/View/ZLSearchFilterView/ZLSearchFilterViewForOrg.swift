@@ -85,29 +85,29 @@ class ZLSearchFilterViewForOrg: UIView {
     
     func setViewDataForSearchFilterViewForOrg(searchFilterModel:ZLSearchFilterInfoModel?)
     {
-        if searchFilterModel == nil {
+        guard let model = searchFilterModel else {
             return
         }
         
-        if searchFilterModel?.order != nil {
-            if searchFilterModel?.order == "joined" && searchFilterModel?.isAsc == false {
+        if model.order != nil {
+            if model.order == "joined" && model.isAsc == false {
                 self.orderButton.setTitle("Most recently joined", for: .normal)
-            } else if searchFilterModel?.order == "joined" && searchFilterModel?.isAsc == true  {
+            } else if model.order == "joined" && model.isAsc == true  {
                 self.orderButton.setTitle("Least recently joined", for: .normal)
-            } else if searchFilterModel?.order == "repositories" && searchFilterModel?.isAsc == false {
+            } else if model.order == "repositories" && model.isAsc == false {
                 self.orderButton.setTitle("Most repositories", for: .normal)
-            } else if searchFilterModel?.order == "repositories" && searchFilterModel?.isAsc == true {
+            } else if model.order == "repositories" && model.isAsc == true {
                 self.orderButton.setTitle("Fewest repositories", for: .normal)
             }
         }
-        if searchFilterModel?.language != ""{
-            self.languageButton.setTitle(searchFilterModel?.language, for:.normal)
+        if model.language != ""{
+            self.languageButton.setTitle(model.language, for:.normal)
         }
         
-        self.firstTimeFileld.text = searchFilterModel?.firstCreatedTimeStr
-        self.secondTimeField.text = searchFilterModel?.secondCreatedTimeStr
-        self.firstPubRepoNumField.text = searchFilterModel!.firstPubReposNum == 0 ? nil : String(searchFilterModel!.firstPubReposNum)
-        self.secondPubRepoNumField.text = searchFilterModel!.secondPubReposNum == 0 ? nil :  String(searchFilterModel!.secondPubReposNum)
+        self.firstTimeFileld.text = model.firstCreatedTimeStr
+        self.secondTimeField.text = model.secondCreatedTimeStr
+        self.firstPubRepoNumField.text = model.firstPubReposNum == 0 ? nil : String(model.firstPubReposNum)
+        self.secondPubRepoNumField.text = model.secondPubReposNum == 0 ? nil :  String(model.secondPubReposNum)
     }
     
     

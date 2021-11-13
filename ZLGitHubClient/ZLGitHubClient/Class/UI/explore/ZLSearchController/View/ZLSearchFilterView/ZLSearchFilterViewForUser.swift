@@ -93,35 +93,35 @@ class ZLSearchFilterViewForUser: UIView {
     
     func setViewDataForSearchFilterViewForUser(searchFilterModel:ZLSearchFilterInfoModel?)
     {
-        if searchFilterModel == nil {
+        guard let model = searchFilterModel else {
             return
         }
         
-        if searchFilterModel?.order != nil {
-            if searchFilterModel?.order == "followers" && searchFilterModel?.isAsc == false {
+        if model.order != nil {
+            if model.order == "followers" && model.isAsc == false {
                 self.orderButton.setTitle("Most followers", for: .normal)
-            } else if searchFilterModel?.order == "followers" && searchFilterModel?.isAsc == true {
+            } else if model.order == "followers" && model.isAsc == true {
                 self.orderButton.setTitle("Fewest followers", for: .normal)
-            } else if searchFilterModel?.order == "joined" && searchFilterModel?.isAsc == false {
+            } else if model.order == "joined" && model.isAsc == false {
                 self.orderButton.setTitle("Most recently joined", for: .normal)
-            } else if searchFilterModel?.order == "joined" && searchFilterModel?.isAsc == true  {
+            } else if model.order == "joined" && model.isAsc == true  {
                 self.orderButton.setTitle("Least recently joined", for: .normal)
-            } else if searchFilterModel?.order == "repositories" && searchFilterModel?.isAsc == false {
+            } else if model.order == "repositories" && model.isAsc == false {
                 self.orderButton.setTitle("Most repositories", for: .normal)
-            } else if searchFilterModel?.order == "repositories" && searchFilterModel?.isAsc == true {
+            } else if model.order == "repositories" && model.isAsc == true {
                 self.orderButton.setTitle("Fewest repositories", for: .normal)
             }
         }
-        if searchFilterModel?.language != ""{
+        if model.language != ""{
             self.languageButton.setTitle(searchFilterModel?.language, for:.normal)
         }
         
-        self.firstTimeFileld.text = searchFilterModel?.firstCreatedTimeStr
-        self.secondTimeField.text = searchFilterModel?.secondCreatedTimeStr
-        self.firstFollowerNumField.text = searchFilterModel!.firstFollowersNum == 0 ? nil : String(searchFilterModel!.firstFollowersNum)
-        self.secondFollowerNumField.text = searchFilterModel!.secondFollowersNum == 0 ? nil : String(searchFilterModel!.secondFollowersNum)
-        self.firstPubRepoNumField.text = searchFilterModel!.firstPubReposNum == 0 ? nil : String(searchFilterModel!.firstPubReposNum)
-        self.secondPubRepoNumField.text = searchFilterModel!.secondPubReposNum == 0 ? nil :  String(searchFilterModel!.secondPubReposNum)
+        self.firstTimeFileld.text = model.firstCreatedTimeStr
+        self.secondTimeField.text = model.secondCreatedTimeStr
+        self.firstFollowerNumField.text = model.firstFollowersNum == 0 ? nil : String(model.firstFollowersNum)
+        self.secondFollowerNumField.text = model.secondFollowersNum == 0 ? nil : String(model.secondFollowersNum)
+        self.firstPubRepoNumField.text = model.firstPubReposNum == 0 ? nil : String(model.firstPubReposNum)
+        self.secondPubRepoNumField.text = model.secondPubReposNum == 0 ? nil :  String(model.secondPubReposNum)
     }
     
     

@@ -46,12 +46,11 @@ extension ZLBlockedUserViewModel : ZLGithubItemListViewDelegate{
                 
                 var cellDataArray : [ZLGithubItemTableViewCellData] = []
                 for item in data {
-                    let cellData = ZLGithubItemTableViewCellData.getCellDataWithData(data: item)
-                    if cellData != nil {
-                        weakSelf?.addSubViewModel(cellData!)
-                        cellDataArray.append(cellData!)
+                    if let cellData = ZLGithubItemTableViewCellData.getCellDataWithData(data: item) {
+                        cellDataArray.append(cellData)
                     }
                 }
+                weakSelf?.addSubViewModels(cellDataArray)
                 
                 weakSelf?.listView?.resetCellDatas(cellDatas: cellDataArray)
               

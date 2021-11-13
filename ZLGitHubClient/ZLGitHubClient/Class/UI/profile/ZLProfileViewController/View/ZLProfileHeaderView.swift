@@ -55,9 +55,8 @@ class ZLProfileHeaderView: ZLBaseView {
     
     @IBAction func onProfileHeaderViewButtonClicked(_ sender: Any) {
         
-        if self.delegate?.responds(to: #selector(ZLProfileHeaderViewDelegate.onProfileHeaderViewButtonClicked(button:))) ?? false
-        {
-            let button = sender as! UIButton
+        if self.delegate?.responds(to: #selector(ZLProfileHeaderViewDelegate.onProfileHeaderViewButtonClicked(button:))) ?? false,
+           let button = sender as? UIButton {
             self.delegate?.onProfileHeaderViewButtonClicked(button: button)
         }
         

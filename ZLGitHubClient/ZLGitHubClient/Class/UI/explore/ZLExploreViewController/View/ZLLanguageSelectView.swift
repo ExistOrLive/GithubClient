@@ -116,12 +116,12 @@ extension ZLLanguageSelectView : UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         var language : String? = self.filterLanguagesArray[indexPath.row]
-        if self.resultBlock != nil {
-            if "Any" == language {
-                language = nil
-            }
-            self.resultBlock!(language)
+        
+        if "Any" == language {
+            language = nil
         }
+        self.resultBlock?(language)
+        
         self.popup?.dismiss(animated: true)
     }
     
@@ -141,8 +141,9 @@ extension ZLLanguageSelectView : UITextFieldDelegate {
         
         let textStr : NSString? = self.textField.text as NSString?
         let text : String = textStr?.replacingCharacters(in: range, with: string) ?? ""
-        let predicate : NSPredicate = NSPredicate.init(format: "SELF CONTAINS[cd] %@", text)
-        let array = (self.allLanguagesArray as NSArray).filtered(using: predicate) as! [String]
+        let array = self.allLanguagesArray.filter({ str in
+            return str.lowercased().contains(find: text.lowercased())
+        })
         self.filterLanguagesArray = array
         self.tableView.reloadData()
         

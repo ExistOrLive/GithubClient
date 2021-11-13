@@ -40,13 +40,14 @@ class ZLSearchRecordViewModel: ZLBaseViewModel {
     
     
     func filterRecord() {
-        if searchKey == nil || searchKey?.count == 0 {
-            self.tmpSearchRecordArray = Array.init(searchRecordArray.prefix(10))
-        } else {
+        if let searchKey = searchKey,
+           !searchKey.isEmpty {
             let tmpArray = searchRecordArray.filter { (model : String) -> Bool in
-                return model.contains(find: searchKey!)
+                return model.lowercased().contains(find: searchKey.lowercased())
             }
             self.tmpSearchRecordArray = Array.init(tmpArray.prefix(10))
+        } else {
+            self.tmpSearchRecordArray = Array.init(searchRecordArray.prefix(10))
         }
         self.searchRecordView?.tableView.reloadData()
     }
@@ -57,16 +58,17 @@ class ZLSearchRecordViewModel: ZLBaseViewModel {
     }
     
     func onSearhKeyConfirmed(searchKey: String?) {
-        if searchKey == nil || searchKey?.count == 0 {
+        
+        guard let searchKey = searchKey,
+              !searchKey.isEmpty else {
             return
         }
         
         var recordArray = self.searchRecordArray
-        let index = recordArray.firstIndex(of: searchKey!)
-        if index != nil {
-            recordArray.remove(at: index!)
+        if let index = recordArray.firstIndex(of: searchKey) {
+            recordArray.remove(at: index)
         }
-        recordArray.insert(searchKey!, at: 0)
+        recordArray.insert(searchKey, at: 0)
         recordArray = Array.init(recordArray.prefix(50))
         self.searchRecordArray = recordArray
         ZLUISharedDataManager.searchRecordArray = recordArray

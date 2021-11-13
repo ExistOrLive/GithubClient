@@ -175,6 +175,6 @@ extension ZLPushEventTableViewCellData {
         
         self._commitInfoAttributedStr = str
         
-        return self._commitInfoAttributedStr!
+        return str
     }
 }

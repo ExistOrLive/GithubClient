@@ -165,6 +165,9 @@
 		7496BF572600DAA800DDD1BD /* ZLIssueCommentTableViewCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7496BF562600DAA800DDD1BD /* ZLIssueCommentTableViewCellData.swift */; };
 		7496BF5C2600DCFE00DDD1BD /* ZLIssueTimelineTableViewCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7496BF5B2600DCFE00DDD1BD /* ZLIssueTimelineTableViewCellData.swift */; };
 		7496BF6126012FFD00DDD1BD /* ZLIssueBodyTableViewCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7496BF6026012FFC00DDD1BD /* ZLIssueBodyTableViewCellData.swift */; };
+		749B6065273820B600B3989C /* UIFont+ZLExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749B6064273820B600B3989C /* UIFont+ZLExtension.swift */; };
+		749B608C27383D3D00B3989C /* UIColor+ZLExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749B608B27383D3D00B3989C /* UIColor+ZLExtension.swift */; };
+		749B608F2738407F00B3989C /* UIImage+ZLExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 749B608E2738407F00B3989C /* UIImage+ZLExtension.m */; };
 		749BA38B2472E7AD004F8F15 /* ZLLanguageSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749BA38A2472E7AD004F8F15 /* ZLLanguageSelectView.swift */; };
 		749BA38D2472E88C004F8F15 /* ZLLanguageSelectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 749BA38C2472E88C004F8F15 /* ZLLanguageSelectView.xib */; };
 		749BA3902472EFAC004F8F15 /* ZLLanguageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749BA38E2472EFAC004F8F15 /* ZLLanguageTableViewCell.swift */; };
@@ -245,7 +248,7 @@
 		74D1410A2700D3B60082A539 /* ZLLanguageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D141072700D3B60082A539 /* ZLLanguageManager.m */; };
 		74D3DF8725CBEE9300BB11F2 /* UIViewController+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3DF8525CBEE9300BB11F2 /* UIViewController+Tool.m */; };
 		74D3DF9725CBF12200BB11F2 /* UIView+HJViewStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3DF9325CBF12200BB11F2 /* UIView+HJViewStyle.m */; };
-		74D3DF9825CBF12200BB11F2 /* UIColor+HexColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3DF9525CBF12200BB11F2 /* UIColor+HexColor.m */; };
+		74D3DF9825CBF12200BB11F2 /* UIColor+ZLExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3DF9525CBF12200BB11F2 /* UIColor+ZLExtension.m */; };
 		74D3EFD2259BC6060002A2D3 /* ZLRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D3EF55259BC6050002A2D3 /* ZLRefresh.swift */; };
 		74D3EFD3259BC6060002A2D3 /* ZMRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3EF57259BC6050002A2D3 /* ZMRefreshView.m */; };
 		74D3EFD4259BC6060002A2D3 /* ZMRefreshManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3EF5B259BC6050002A2D3 /* ZMRefreshManager.m */; };
@@ -332,7 +335,6 @@
 		D1135F8421ECD502003A26C1 /* ZLExploreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1135F8321ECD502003A26C1 /* ZLExploreViewController.m */; };
 		D1135F8721ECD513003A26C1 /* ZLNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1135F8621ECD513003A26C1 /* ZLNewsViewController.m */; };
 		D1259FA023195CC700C7892B /* ZLNewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1259F9F23195CC700C7892B /* ZLNewsViewModel.swift */; };
-		D1382201231E0984008AC7CC /* UIColor+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1382200231E0984008AC7CC /* UIColor+extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -547,6 +549,10 @@
 		7496BF562600DAA800DDD1BD /* ZLIssueCommentTableViewCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLIssueCommentTableViewCellData.swift; sourceTree = "<group>"; };
 		7496BF5B2600DCFE00DDD1BD /* ZLIssueTimelineTableViewCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLIssueTimelineTableViewCellData.swift; sourceTree = "<group>"; };
 		7496BF6026012FFC00DDD1BD /* ZLIssueBodyTableViewCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLIssueBodyTableViewCellData.swift; sourceTree = "<group>"; };
+		749B6064273820B600B3989C /* UIFont+ZLExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+ZLExtension.swift"; sourceTree = "<group>"; };
+		749B608B27383D3D00B3989C /* UIColor+ZLExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+ZLExtension.swift"; sourceTree = "<group>"; };
+		749B608D2738407F00B3989C /* UIImage+ZLExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+ZLExtension.h"; sourceTree = "<group>"; };
+		749B608E2738407F00B3989C /* UIImage+ZLExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ZLExtension.m"; sourceTree = "<group>"; };
 		749BA38A2472E7AD004F8F15 /* ZLLanguageSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLLanguageSelectView.swift; sourceTree = "<group>"; };
 		749BA38C2472E88C004F8F15 /* ZLLanguageSelectView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZLLanguageSelectView.xib; sourceTree = "<group>"; };
 		749BA38E2472EFAC004F8F15 /* ZLLanguageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLLanguageTableViewCell.swift; sourceTree = "<group>"; };
@@ -639,8 +645,8 @@
 		74D3DF8B25CBEEC800BB11F2 /* Bugly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bugly.framework; path = ZLGitHubClient/Framework/Bugly.framework; sourceTree = "<group>"; };
 		74D3DF9325CBF12200BB11F2 /* UIView+HJViewStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+HJViewStyle.m"; sourceTree = "<group>"; };
 		74D3DF9425CBF12200BB11F2 /* UIView+HJViewStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+HJViewStyle.h"; sourceTree = "<group>"; };
-		74D3DF9525CBF12200BB11F2 /* UIColor+HexColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HexColor.m"; sourceTree = "<group>"; };
-		74D3DF9625CBF12200BB11F2 /* UIColor+HexColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+HexColor.h"; sourceTree = "<group>"; };
+		74D3DF9525CBF12200BB11F2 /* UIColor+ZLExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+ZLExtension.m"; sourceTree = "<group>"; };
+		74D3DF9625CBF12200BB11F2 /* UIColor+ZLExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+ZLExtension.h"; sourceTree = "<group>"; };
 		74D3EF55259BC6050002A2D3 /* ZLRefresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZLRefresh.swift; sourceTree = "<group>"; };
 		74D3EF57259BC6050002A2D3 /* ZMRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMRefreshView.m; sourceTree = "<group>"; };
 		74D3EF58259BC6050002A2D3 /* ZMRefreshManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMRefreshManager.h; sourceTree = "<group>"; };
@@ -765,7 +771,6 @@
 		D1135F8521ECD513003A26C1 /* ZLNewsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLNewsViewController.h; sourceTree = "<group>"; };
 		D1135F8621ECD513003A26C1 /* ZLNewsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLNewsViewController.m; sourceTree = "<group>"; };
 		D1259F9F23195CC700C7892B /* ZLNewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLNewsViewModel.swift; sourceTree = "<group>"; };
-		D1382200231E0984008AC7CC /* UIColor+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+extension.swift"; sourceTree = "<group>"; };
 		D8BEEB21079EB71C2E3D48F3 /* Pods_GithubClient_Fixed_RepoExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GithubClient_Fixed_RepoExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF9D2D7A040DB8E4D3C7D0A7 /* Pods-GithubClient-Fixed RepoExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GithubClient-Fixed RepoExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GithubClient-Fixed RepoExtension/Pods-GithubClient-Fixed RepoExtension.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1360,17 +1365,20 @@
 		743F180F2312664C00E39A95 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				74D3DF9625CBF12200BB11F2 /* UIColor+HexColor.h */,
-				74D3DF9525CBF12200BB11F2 /* UIColor+HexColor.m */,
+				749B608B27383D3D00B3989C /* UIColor+ZLExtension.swift */,
+				74D3DF9625CBF12200BB11F2 /* UIColor+ZLExtension.h */,
+				74D3DF9525CBF12200BB11F2 /* UIColor+ZLExtension.m */,
 				74D3DF9425CBF12200BB11F2 /* UIView+HJViewStyle.h */,
 				74D3DF9325CBF12200BB11F2 /* UIView+HJViewStyle.m */,
 				74D3DF8625CBEE9300BB11F2 /* UIViewController+Tool.h */,
 				74D3DF8525CBEE9300BB11F2 /* UIViewController+Tool.m */,
-				D1382200231E0984008AC7CC /* UIColor+extension.swift */,
 				74D141022700D3090082A539 /* NSDate+Localize.h */,
 				74D141032700D3090082A539 /* NSDate+Localize.m */,
+				749B6064273820B600B3989C /* UIFont+ZLExtension.swift */,
 				74FE05D7273051550039DCE3 /* UIFont+ZLExtension.h */,
 				74FE05D8273051550039DCE3 /* UIFont+ZLExtension.m */,
+				749B608D2738407F00B3989C /* UIImage+ZLExtension.h */,
+				749B608E2738407F00B3989C /* UIImage+ZLExtension.m */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -3338,6 +3346,7 @@
 				747FCA1525FFAA2B00D2C39B /* Fixed_Repo.intentdefinition in Sources */,
 				74886C17260DCE1F00E3C33C /* ZLPullRequestTimelineTableViewCellData.swift in Sources */,
 				74886C0D260DCAAA00E3C33C /* ZLPullRequestCommentTableViewCellData.swift in Sources */,
+				749B608F2738407F00B3989C /* UIImage+ZLExtension.m in Sources */,
 				D1259FA023195CC700C7892B /* ZLNewsViewModel.swift in Sources */,
 				7486DFFE25A2CC7C00EE38CB /* ZLURLNotificationDealManager.swift in Sources */,
 				7444B29B2567AD9700488EF0 /* ZLWorkboardTableViewSectionHeader.swift in Sources */,
@@ -3465,6 +3474,7 @@
 				74835FC6256B8D760083BE10 /* ZLMyIssuesController.swift in Sources */,
 				74D3EFE7259BC6060002A2D3 /* ZLPageTabViewController.swift in Sources */,
 				74C5B20C2479361A00D941DF /* ZLRepoStargazersViewModel.swift in Sources */,
+				749B6065273820B600B3989C /* UIFont+ZLExtension.swift in Sources */,
 				741A2E6B246C5D7400A443E4 /* ZLRepoIssuesViewModel.swift in Sources */,
 				74F02CD922DD719500AE153F /* ZLProfileTableViewCell.swift in Sources */,
 				746FAFD12316AC42006A0288 /* ZLWebContentView.swift in Sources */,
@@ -3502,7 +3512,7 @@
 				743425E6230AEA400031AD7D /* ZLRepoInfoViewModel.swift in Sources */,
 				74C639DB24B7DDA500457F94 /* ZLWorkflowTableViewCell.swift in Sources */,
 				7431B42922F5DDD70060968A /* ZLExploreBaseViewModel.swift in Sources */,
-				74D3DF9825CBF12200BB11F2 /* UIColor+HexColor.m in Sources */,
+				74D3DF9825CBF12200BB11F2 /* UIColor+ZLExtension.m in Sources */,
 				74D3EFD8259BC6060002A2D3 /* UITextField+PlaceHolder.m in Sources */,
 				74D7B5FD22F1398F00C109CA /* ZLUserAdditionInfoController.swift in Sources */,
 				361B8B7F239FD35000F725B8 /* ZLStarReposBaseViewModel.m in Sources */,
@@ -3528,6 +3538,7 @@
 				7486DFBB25A2608F00EE38CB /* ZLUIRouter.swift in Sources */,
 				74D3EFD2259BC6060002A2D3 /* ZLRefresh.swift in Sources */,
 				7496BF6126012FFD00DDD1BD /* ZLIssueBodyTableViewCellData.swift in Sources */,
+				749B608C27383D3D00B3989C /* UIColor+ZLExtension.swift in Sources */,
 				74C19214239EAFF800636F24 /* ZLRepositoryTableViewCellData.swift in Sources */,
 				74FCBDA423142E0200DDE46A /* ZLEditProfileViewModel.swift in Sources */,
 				74043C2A2620827700CCD8C1 /* ZLOrgInfoController.swift in Sources */,
@@ -3568,7 +3579,6 @@
 				74C191FA23956E2B00636F24 /* ZLProfileEventCollectionViewCell.swift in Sources */,
 				74CC6036246C51BD0076EE3C /* ZLIssueTableViewCellData.swift in Sources */,
 				74209D4A24B608860068891E /* ZLNotificationTableViewCellData.swift in Sources */,
-				D1382201231E0984008AC7CC /* UIColor+extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

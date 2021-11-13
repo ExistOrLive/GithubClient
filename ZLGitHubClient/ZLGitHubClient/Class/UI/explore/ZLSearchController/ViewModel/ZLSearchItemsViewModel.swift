@@ -23,18 +23,18 @@ class ZLSearchItemsViewModel: ZLBaseViewModel {
     
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
         
-        if !(targetView is ZLSearchItemsView)
-        {
+        guard let targetView = targetView as? ZLSearchItemsView else{
+            
             ZLLog_Warn("tagtegteViw is not ZLSearchItemsView, so return")
             return
         }
         
-        self.searchItemsView = targetView as? ZLSearchItemsView
+        self.searchItemsView = targetView
         self.searchItemsView?.delegate = self
         
         for i in 0...(ZLSearchItemsView.ZLSearchItemsTypes.count - 1) {
             let searchType = ZLSearchItemsView.ZLSearchItemsTypes[i]
-            let githubItemListView = self.searchItemsView!.githubItemListViewArray[i]
+            let githubItemListView = targetView.githubItemListViewArray[i]
             let githubItemListViewModel = ZLSearchGithubItemListSecondViewModel()
             self.searchGithubItemListViewModelArray.append(githubItemListViewModel)
             self.addSubViewModel(githubItemListViewModel)
@@ -70,9 +70,8 @@ extension ZLSearchItemsViewModel: ZLSearchItemsViewDelegate
             
             ZLSearchFilterViewForRepo.showSearchFilterViewForRepo(filterInfo: self.searchFilterInfoDic[.repositories], resultBlock: {(searchFilterInfo : ZLSearchFilterInfoModel) in
                 self.searchFilterInfoDic[.repositories] = searchFilterInfo
-                let index = ZLSearchItemsView.ZLSearchItemsTypes.firstIndex(of: .repositories)
-                if index != nil {
-                    self.searchGithubItemListViewModelArray[index!].searchWithFilerInfo(searchFilterInfo: searchFilterInfo)
+                if let index = ZLSearchItemsView.ZLSearchItemsTypes.firstIndex(of: .repositories) {
+                    self.searchGithubItemListViewModelArray[index].searchWithFilerInfo(searchFilterInfo: searchFilterInfo)
                 }
             })
                         
@@ -81,9 +80,8 @@ extension ZLSearchItemsViewModel: ZLSearchItemsViewDelegate
             
             ZLSearchFilterViewForUser.showSearchFilterViewForUser(filterInfo: self.searchFilterInfoDic[.users], resultBlock: {(searchFilterInfo : ZLSearchFilterInfoModel) in
                 self.searchFilterInfoDic[.users] = searchFilterInfo
-                let index = ZLSearchItemsView.ZLSearchItemsTypes.firstIndex(of: .users)
-                if index != nil {
-                    self.searchGithubItemListViewModelArray[index!].searchWithFilerInfo(searchFilterInfo: searchFilterInfo)
+                if let index = ZLSearchItemsView.ZLSearchItemsTypes.firstIndex(of: .users) {
+                    self.searchGithubItemListViewModelArray[index].searchWithFilerInfo(searchFilterInfo: searchFilterInfo)
                 }
             })
             }
@@ -91,9 +89,8 @@ extension ZLSearchItemsViewModel: ZLSearchItemsViewDelegate
             
             ZLSearchFilterViewForIssue.showSearchFilterViewForIssue(filterInfo: self.searchFilterInfoDic[.issues], resultBlock: {(searchFilterInfo : ZLSearchFilterInfoModel) in
                 self.searchFilterInfoDic[.issues] = searchFilterInfo
-                let index = ZLSearchItemsView.ZLSearchItemsTypes.firstIndex(of: .issues)
-                if index != nil {
-                    self.searchGithubItemListViewModelArray[index!].searchWithFilerInfo(searchFilterInfo: searchFilterInfo)
+                if let index = ZLSearchItemsView.ZLSearchItemsTypes.firstIndex(of: .issues) {
+                    self.searchGithubItemListViewModelArray[index].searchWithFilerInfo(searchFilterInfo: searchFilterInfo)
                 }
             })
             
@@ -102,9 +99,8 @@ extension ZLSearchItemsViewModel: ZLSearchItemsViewDelegate
             
             ZLSearchFilterViewForPR.showSearchFilterViewForPR(filterInfo: self.searchFilterInfoDic[.pullRequests], resultBlock: {(searchFilterInfo : ZLSearchFilterInfoModel) in
                 self.searchFilterInfoDic[.pullRequests] = searchFilterInfo
-                let index = ZLSearchItemsView.ZLSearchItemsTypes.firstIndex(of: .pullRequests)
-                if index != nil {
-                    self.searchGithubItemListViewModelArray[index!].searchWithFilerInfo(searchFilterInfo: searchFilterInfo)
+                if let index = ZLSearchItemsView.ZLSearchItemsTypes.firstIndex(of: .pullRequests) {
+                    self.searchGithubItemListViewModelArray[index].searchWithFilerInfo(searchFilterInfo: searchFilterInfo)
                 }
             })
             
@@ -112,9 +108,8 @@ extension ZLSearchItemsViewModel: ZLSearchItemsViewDelegate
         case .organizations:do{
             ZLSearchFilterViewForOrg.showSearchFilterViewForOrg(filterInfo: self.searchFilterInfoDic[.organizations], resultBlock: {(searchFilterInfo : ZLSearchFilterInfoModel) in
                 self.searchFilterInfoDic[.organizations] = searchFilterInfo
-                let index = ZLSearchItemsView.ZLSearchItemsTypes.firstIndex(of: .organizations)
-                if index != nil {
-                    self.searchGithubItemListViewModelArray[index!].searchWithFilerInfo(searchFilterInfo: searchFilterInfo)
+                if let index = ZLSearchItemsView.ZLSearchItemsTypes.firstIndex(of: .organizations) {
+                    self.searchGithubItemListViewModelArray[index].searchWithFilerInfo(searchFilterInfo: searchFilterInfo)
                 }
             })
         }

@@ -19,16 +19,48 @@
     }
 }
 
++ (NSSet *) allFontNames {
+    static NSMutableSet *set = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        set = [NSMutableSet set];
+        NSArray *familyNames = [UIFont familyNames];
+        for(NSString *family in familyNames){
+            NSArray* fontName = [UIFont fontNamesForFamilyName:family];
+            [set addObjectsFromArray:fontName];
+        }
+    });
+    return set;
+}
+
++ (NSString *) zlFontNameWithFontFamily:(NSString *) fontFamily fontKind:(NSString *) fontKind{
+    NSString *fontName = [NSString stringWithFormat:@"%@-%@",fontFamily,fontKind];
+    NSAssert([[self allFontNames] containsObject:fontName], @"Font %@ not exist",fontName);
+    return fontName;
+}
+
+
++ (UIFont* _Nonnull) zlLightFontWithSize: (CGFloat) size{
+    NSString *fontName = [self zlFontNameWithFontFamily:ZLFontFamily_PingFangSC fontKind:ZLFontKind_Light];
+    return [self zlFontWithName:fontName size:size];
+}
+
 + (UIFont* _Nonnull) zlRegularFontWithSize: (CGFloat) size{
-    return [self zlFontWithName:@"PingFang-SC-Regular" size:size];
+    NSString *fontName = [self zlFontNameWithFontFamily:ZLFontFamily_PingFangSC fontKind:ZLFontKind_Regular];
+    return [self zlFontWithName:fontName size:size];
 }
 
 + (UIFont* _Nonnull) zlMediumFontWithSize: (CGFloat) size{
-    return [self zlFontWithName:@"PingFang-SC-Medium" size:size];
+    NSString *fontName = [self zlFontNameWithFontFamily:ZLFontFamily_PingFangSC fontKind:ZLFontKind_Medium];
+    return [self zlFontWithName:fontName size:size];
 }
 
 + (UIFont* _Nonnull) zlSemiBoldFontWithSize: (CGFloat) size{
-    return [self zlFontWithName:@"PingFang-SC-SemiBold" size:size];
+    NSString *fontName = [self zlFontNameWithFontFamily:ZLFontFamily_PingFangSC fontKind:ZLFontKind_Semibold];
+    return [self zlFontWithName:fontName size:size];
 }
+
+
+
 
 @end

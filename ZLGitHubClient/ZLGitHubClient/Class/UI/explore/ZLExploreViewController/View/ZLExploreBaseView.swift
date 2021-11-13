@@ -41,7 +41,7 @@ import JXSegmentedView
             self.githubItemListViewArray.removeAll()
             var titles : [String] = []
             if self.delegate?.responds(to: #selector(ZLExploreBaseViewDelegate.exploreTypeTitles)) ?? false {
-                titles = self.delegate!.exploreTypeTitles()
+                titles = self.delegate?.exploreTypeTitles() ?? []
             }
             self.segmentedViewDatasource.titles = titles
             self.githubItemListViewArray.removeAll()
@@ -77,7 +77,7 @@ import JXSegmentedView
         
         self.segmentedListContainerView = JXSegmentedListContainerView.init(dataSource: self, type: .scrollView)
         self.addSubview(self.segmentedListContainerView!)
-        self.segmentedListContainerView!.snp.makeConstraints { (make) in
+        self.segmentedListContainerView?.snp.makeConstraints { (make) in
             make.left.right.equalToSuperview()
             make.bottom.equalTo(self.snp.bottom)
             make.top.equalTo(self.headerView.snp_bottom)
@@ -93,7 +93,7 @@ import JXSegmentedView
         self.languageButton.setTitle(ZLLocalizedString(string: "Lang.", comment: ""), for: .normal)
         
         if self.delegate?.responds(to: #selector(ZLExploreBaseViewDelegate.exploreTypeTitles)) ?? false {
-            let titles : [String] = self.delegate!.exploreTypeTitles()
+            let titles : [String] = self.delegate?.exploreTypeTitles() ?? []
             self.segmentedViewDatasource.titles = titles
             self.segmentedView.reloadData()
         }

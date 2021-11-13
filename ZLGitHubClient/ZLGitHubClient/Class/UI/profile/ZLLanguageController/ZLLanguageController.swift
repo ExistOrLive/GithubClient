@@ -45,11 +45,13 @@ class ZLLanguageController: ZLBaseViewController {
     
     @IBAction func onButtonClicked(_ sender: UIButton) {
         
-        let languageChoice = ZLLanguageType(rawValue: sender.tag - 1)
+        guard let languageChoice = ZLLanguageType(rawValue: sender.tag - 1) else {
+            return
+        }
         for seletedTag in seletedTags{
             seletedTag.isHidden =  (seletedTag.tag != sender.tag)
         }
-        LANMODULE?.setLanguageType(languageChoice!, error: nil)
+        LANMODULE?.setLanguageType(languageChoice, error: nil)
 
         self.title = ZLLocalizedString(string: "Language", comment: "")
         buttons[0].setTitle(ZLLocalizedString(string: "FollowSystemSetting", comment: ""), for: .normal)

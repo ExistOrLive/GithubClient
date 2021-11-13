@@ -127,7 +127,10 @@ class ZLIssueTableViewCell: UITableViewCell {
         
         self.delegate = cellData
         
-        self.repoNameButton.setAttributedTitle(NSAttributedString(string: cellData.getIssueRepoFullName() ?? "",attributes: [NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor1")!,NSAttributedString.Key.font:UIFont(name: Font_PingFangSCMedium, size: 15)!]), for: .normal)
+        let title = NSAttributedString(string: cellData.getIssueRepoFullName() ?? "",
+                                       attributes: [.foregroundColor:UIColor.label(withName: "ZLLabelColor1"),
+                                                    .font:UIFont.zlMediumFont(withSize: 15)])
+        self.repoNameButton.setAttributedTitle(title, for: .normal)
         
         self.titleLabel.text = cellData.getIssueTitleStr()
         self.assitLabel.text = cellData.getIssueAssistStr()
@@ -140,8 +143,8 @@ class ZLIssueTableViewCell: UITableViewCell {
         
         var length : CGFloat = 0.0
         for (label,colorStr) in cellData.getIssueLabels(){
-            let font = UIFont.init(name: Font_PingFangSCRegular, size: 11)
-            let attributes : [NSAttributedString.Key : Any]  = [NSAttributedString.Key.font : font!]
+            let font = UIFont.zlRegularFont(withSize: 11)
+            let attributes : [NSAttributedString.Key : Any]  = [.font : font]
             let attributedStr = NSAttributedString.init(string: label, attributes: attributes)
             let size = attributedStr.boundingRect(with: CGSize.init(width: ZLScreenWidth, height: ZLSCreenHeight), options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil)
             

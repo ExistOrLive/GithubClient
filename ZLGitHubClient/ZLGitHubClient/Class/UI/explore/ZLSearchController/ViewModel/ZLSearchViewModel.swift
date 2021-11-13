@@ -21,32 +21,35 @@ class ZLSearchViewModel: ZLBaseViewModel {
     
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
         
-        if !(targetView is ZLSearchView)
-        {
+        guard let targetView = targetView as? ZLSearchView else{
             ZLLog_Warn("targetView is not ZLSearchView")
             return
         }
         
-        self.searchView = targetView as? ZLSearchView
+        self.searchView = targetView
         self.searchView?.searchTextField.delegate = self
         
-        let searchItemsViewModel = ZLSearchItemsViewModel.init()
-        searchItemsViewModel.bindModel(nil, andView: self.searchView!.searchItemsView!)
-        self.addSubViewModel(searchItemsViewModel)
-        self.searchItemsViewModel = searchItemsViewModel;
-        
-        let searchRecordViewModel = ZLSearchRecordViewModel.init()
-        searchRecordViewModel.bindModel(nil, andView: self.searchView!.searchRecordView!)
-        weak var weakSelf = self
-        searchRecordViewModel.resultBlock = {(searchKey : String) in
-            weakSelf?.searchView?.setUnEditStatus()
-            weakSelf?.searchView?.searchTextField.text = searchKey
-            weakSelf?.searchView?.searchTextField.resignFirstResponder()
-            weakSelf?.searchItemsViewModel?.startSearch(keyWord: searchKey)
-            weakSelf?.searchRecordViewModel?.onSearhKeyConfirmed(searchKey: searchKey)
+        if let searchItemsView = self.searchView?.searchItemsView {
+            let searchItemsViewModel = ZLSearchItemsViewModel.init()
+            self.addSubViewModel(searchItemsViewModel)
+            self.searchItemsViewModel = searchItemsViewModel;
+            searchItemsViewModel.bindModel(nil, andView: searchItemsView)
         }
-        self.addSubViewModel(searchRecordViewModel)
-        self.searchRecordViewModel = searchRecordViewModel;
+       
+        if let searchRecordView = self.searchView?.searchRecordView {
+            let searchRecordViewModel = ZLSearchRecordViewModel.init()
+            searchRecordViewModel.resultBlock = {[weak self](searchKey : String) in
+                self?.searchView?.setUnEditStatus()
+                self?.searchView?.searchTextField.text = searchKey
+                self?.searchView?.searchTextField.resignFirstResponder()
+                self?.searchItemsViewModel?.startSearch(keyWord: searchKey)
+                self?.searchRecordViewModel?.onSearhKeyConfirmed(searchKey: searchKey)
+            }
+            self.addSubViewModel(searchRecordViewModel)
+            self.searchRecordViewModel = searchRecordViewModel;
+            searchRecordViewModel.bindModel(nil, andView: searchRecordView)
+        }
+
         
         if let searchKey = targetModel as? String {
             self.searchView?.searchTextField.text = searchKey

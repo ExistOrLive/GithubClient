@@ -94,36 +94,36 @@ class ZLSearchFilterViewForRepo: ZLBaseView {
     
     func setViewDataForSearchFilterViewForRepo(searchFilterModel: ZLSearchFilterInfoModel?)
     {
-        if searchFilterModel == nil {
+        guard let model = searchFilterModel else{
             return
         }
         
-        if searchFilterModel?.order != nil {
-            if searchFilterModel?.order == "stars" && searchFilterModel?.isAsc == false {
+        if model.order != nil {
+            if model.order == "stars" && model.isAsc == false {
                 self.orderButton.setTitle("Most stars", for:.normal)
-            } else  if searchFilterModel?.order == "stars" && searchFilterModel?.isAsc == true {
+            } else  if model.order == "stars" && model.isAsc == true {
                 self.orderButton.setTitle("Fewst stars", for:.normal)
-            } else  if searchFilterModel?.order == "forks" && searchFilterModel?.isAsc == false {
+            } else  if model.order == "forks" && model.isAsc == false {
                 self.orderButton.setTitle("Most forks", for:.normal)
-            } else  if searchFilterModel?.order == "forks" && searchFilterModel?.isAsc == true {
+            } else  if model.order == "forks" && model.isAsc == true {
                 self.orderButton.setTitle("Fewest forks", for:.normal)
-            } else  if searchFilterModel?.order == "updated" && searchFilterModel?.isAsc == false {
+            } else  if model.order == "updated" && model.isAsc == false {
                 self.orderButton.setTitle("Recently updated", for:.normal)
-            } else  if searchFilterModel?.order == "updated" && searchFilterModel?.isAsc == true {
+            } else  if model.order == "updated" && model.isAsc == true {
                 self.orderButton.setTitle("Least recently updated", for:.normal)
             }
         }
         
-        if searchFilterModel?.language != ""{
-            self.languageButton.setTitle(searchFilterModel?.language, for: .normal)
+        if model.language != ""{
+            self.languageButton.setTitle(model.language, for: .normal)
         }
         
-        self.firstTimeFileld.text = searchFilterModel!.firstCreatedTimeStr
-        self.secondTimeField.text = searchFilterModel!.secondCreatedTimeStr
-        self.firstStarNumField.text = searchFilterModel!.firstStarNum == 0 ? nil : String(searchFilterModel!.firstStarNum)
-        self.secondStarNumField.text = searchFilterModel!.secondStarNum == 0 ? nil : String(searchFilterModel!.secondStarNum)
-        self.firstForkNumField.text = searchFilterModel!.firstForkNum == 0 ? nil : String(searchFilterModel!.firstForkNum)
-        self.secondForkNumField.text = searchFilterModel!.secondForkNum == 0 ? nil : String(searchFilterModel!.secondForkNum)
+        self.firstTimeFileld.text = model.firstCreatedTimeStr
+        self.secondTimeField.text = model.secondCreatedTimeStr
+        self.firstStarNumField.text = model.firstStarNum == 0 ? nil : String(model.firstStarNum)
+        self.secondStarNumField.text = model.secondStarNum == 0 ? nil : String(model.secondStarNum)
+        self.firstForkNumField.text = model.firstForkNum == 0 ? nil : String(model.firstForkNum)
+        self.secondForkNumField.text = model.secondForkNum == 0 ? nil : String(model.secondForkNum)
     }
     
     

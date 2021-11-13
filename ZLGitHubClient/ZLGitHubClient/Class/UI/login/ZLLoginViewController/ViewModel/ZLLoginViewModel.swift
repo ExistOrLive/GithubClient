@@ -20,12 +20,12 @@ class ZLLoginViewModel: ZLBaseViewModel,ZLLoginBaseViewDelegate {
     }
     
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
-        if !(targetView is ZLLoginBaseView){
-            return;
+        guard let targetView = targetView as? ZLLoginBaseView else {
+            return
         }
         
-        self.baseView = targetView as? ZLLoginBaseView;
-        self.baseView?.delegate = self;
+        self.baseView = targetView
+        self.baseView?.delegate = self
         
         // 注册对于登陆结果的通知
         ZLServiceManager.sharedInstance.loginServiceModel?.registerObserver(self, selector: #selector(onNotificationArrived(notificaiton:)), name:ZLLoginResult_Notification)
@@ -127,8 +127,8 @@ class ZLLoginViewModel: ZLBaseViewModel,ZLLoginBaseViewDelegate {
                 return
             }
             
-            if self.loginSerialNumber! != loginProcess.serialNumber{
-                ZLLog_Info("loginProcess: self.loginSerialNumber[\(self.loginSerialNumber!)] loginProcess.serialNumber[\(loginProcess.serialNumber)] not match")
+            if self.loginSerialNumber != loginProcess.serialNumber{
+                ZLLog_Info("loginProcess: self.loginSerialNumber[\(self.loginSerialNumber ?? "")] loginProcess.serialNumber[\(loginProcess.serialNumber)] not match")
                 return
             }
             
@@ -151,8 +151,8 @@ class ZLLoginViewModel: ZLBaseViewModel,ZLLoginBaseViewDelegate {
                 else if loginProcess.loginStep == ZLLoginStep_Success
                 {
                     self.baseView?.activityIndicator.isHidden = true;
-                    let appDelegate:AppDelegate  = UIApplication.shared.delegate! as! AppDelegate;
-                    appDelegate.switch(toMainController: true);
+                    let appDelegate = UIApplication.shared.delegate as? AppDelegate;
+                    appDelegate?.switch(toMainController: true);
                 }
             }
             

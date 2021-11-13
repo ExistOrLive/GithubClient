@@ -50,34 +50,34 @@ class ZLProfileBaseViewModel: ZLBaseViewModel {
         super.vcLifeCycle_viewWillAppear()
         
         // 每次界面将要展示时，更新数据
-        guard let currentUserInfo:ZLGithubUserModel =  ZLServiceManager.sharedInstance.viewerServiceModel?.currentUserModel else{
+        guard let currentUserInfo = ZLServiceManager.sharedInstance.viewerServiceModel?.currentUserModel else{
             return;
         }
         
         // 设置data
-        self.setViewDataForProfileBaseView(model: currentUserInfo, view: self.profileBaseView!)
+        self.setViewDataForProfileBaseView(model: currentUserInfo, view: self.profileBaseView)
     }
 }
 
 extension ZLProfileBaseViewModel
 {
-    func setViewDataForProfileBaseView(model:ZLGithubUserModel, view:ZLProfileBaseView)
+    func setViewDataForProfileBaseView(model:ZLGithubUserModel, view:ZLProfileBaseView?)
     {
         self.currentUserInfo = model;
         
-        view.tableHeaderView?.headImageView.sd_setImage(with: URL.init(string: model.avatar_url ?? ""), placeholderImage: UIImage.init(named: "default_avatar"));
-        view.tableHeaderView?.nameLabel.text = String("\(model.name ?? "")(\(model.loginName ?? ""))")
-        view.tableHeaderView?.contributionView.startLoad(loginName:model.loginName ?? "")
+        view?.tableHeaderView?.headImageView.sd_setImage(with: URL.init(string: model.avatar_url ?? ""), placeholderImage: UIImage.init(named: "default_avatar"));
+        view?.tableHeaderView?.nameLabel.text = String("\(model.name ?? "")(\(model.loginName ?? ""))")
+        view?.tableHeaderView?.contributionView.startLoad(loginName:model.loginName ?? "")
         
         let dateStr = (model.created_at as NSDate?)?.dateStrForYYYYMMdd()
         let createdAtStr = ZLLocalizedString(string:"created at", comment: "创建于")
-        view.tableHeaderView?.createTimeLabel.text = String("\(createdAtStr) \(dateStr ?? "")")
-        view.tableHeaderView?.repositoryNum.text = String("\(model.repositories)")
-        view.tableHeaderView?.gistNumLabel.text = String("\(model.gists)")
-        view.tableHeaderView?.followersNumLabel.text = String("\(model.followers)")
-        view.tableHeaderView?.followingNumLabel.text = String("\(model.following)")
+        view?.tableHeaderView?.createTimeLabel.text = String("\(createdAtStr) \(dateStr ?? "")")
+        view?.tableHeaderView?.repositoryNum.text = String("\(model.repositories)")
+        view?.tableHeaderView?.gistNumLabel.text = String("\(model.gists)")
+        view?.tableHeaderView?.followersNumLabel.text = String("\(model.followers)")
+        view?.tableHeaderView?.followingNumLabel.text = String("\(model.following)")
         
-        view.tableView.reloadData();
+        view?.tableView.reloadData();
     }
 }
 
@@ -107,7 +107,9 @@ extension ZLProfileBaseViewModel: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let tableViewCell:ZLProfileTableViewCell  = tableView.dequeueReusableCell(withIdentifier: "ZLProfileTableViewCell", for: indexPath) as! ZLProfileTableViewCell;
+        guard let tableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLProfileTableViewCell", for: indexPath) as? ZLProfileTableViewCell else {
+            return UITableViewCell(style:.default, reuseIdentifier: nil)
+        }
         tableViewCell.itemContentLabel.text = ""
         tableViewCell.nextImageView.isHidden = true
         
@@ -199,12 +201,17 @@ extension ZLProfileBaseViewModel : ZLProfileHeaderViewDelegate
 {    
     func onProfileHeaderViewButtonClicked(button: UIButton) {
        
-        let type = ZLProfileHeaderViewButtonType.init(rawValue: button.tag)
+        guard let type = ZLProfileHeaderViewButtonType.init(rawValue: button.tag) else {
+            return
+        }
         
-        switch type!
+        switch type
         {
         case .repositories:do{
-            if let login = self.currentUserInfo?.loginName, let vc = ZLUIRouter.getVC(key: ZLUIRouter.UserAdditionInfoController, params: ["login":login,"type":ZLUserAdditionInfoType.repositories.rawValue]) {
+            if let login = self.currentUserInfo?.loginName,
+               let vc = ZLUIRouter.getVC(key: ZLUIRouter.UserAdditionInfoController,
+                                         params: ["login":login,
+                                                  "type":ZLUserAdditionInfoType.repositories.rawValue]) {
                 vc.hidesBottomBarWhenPushed = true
                 self.viewController?.navigationController?.pushViewController(vc, animated: true)
             }
@@ -282,7 +289,7 @@ extension ZLProfileBaseViewModel
             }
             
             // 更新UI
-            self.setViewDataForProfileBaseView(model: model, view: self.profileBaseView!);
+            self.setViewDataForProfileBaseView(model: model, view: self.profileBaseView);
             
             }
         case ZLUpdateUserPublicProfileInfoResult_Notification:do{
@@ -293,7 +300,7 @@ extension ZLProfileBaseViewModel
             }
             
             // 设置data
-            self.setViewDataForProfileBaseView(model: currentUserInfo, view: self.profileBaseView!)
+            self.setViewDataForProfileBaseView(model: currentUserInfo, view: self.profileBaseView)
             
         }
         case ZLLanguageTypeChange_Notificaiton:do

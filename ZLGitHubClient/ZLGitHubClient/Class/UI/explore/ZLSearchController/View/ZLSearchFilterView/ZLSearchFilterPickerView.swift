@@ -17,9 +17,8 @@ class ZLSearchFilterPickerView: ZLBaseView {
         let languageArray = ["Any Language","Action Sheet","C","C++","C#","Clojure","CoffeeScript","CSS","Dart","Go","Haskell","HTML","Java","JavaScript","Lua","MATLAB","Objective-C","Objective-C++","Perl","PHP","Python","R","Ruby","Scala","Shell","Swift","Tex","Vim script"]
         
         var initIndex = 0;
-        if(initTitle != nil)
-        {
-            let index =  languageArray.firstIndex(of: initTitle!)
+        if let title = initTitle {
+            let index =  languageArray.firstIndex(of: title)
             initIndex = index ?? 0;
         }
         
@@ -33,11 +32,10 @@ class ZLSearchFilterPickerView: ZLBaseView {
         let repoOrderArray = ["Best match","Most stars","Fewst stars","Most forks","Fewest forks","Recently updated","Least recently updated"]
         
         var initIndex = 0;
-             if(initTitle != nil)
-             {
-                let index =  repoOrderArray.firstIndex(of: initTitle!)
-                 initIndex = index ?? 0;
-             }
+        if let title = initTitle {
+            let index =  repoOrderArray.firstIndex(of: title)
+            initIndex = index ?? 0;
+        }
         
         CYSinglePickerPopoverView.showCYSinglePickerPopover(withTitle: ZLLocalizedString(string: "OrderSelect", comment: ""),withInitIndex: UInt(initIndex), withDataArray: repoOrderArray, withResultBlock: {(result:UInt) in
             resultBlock?(repoOrderArray[Int(result)])
@@ -49,9 +47,9 @@ class ZLSearchFilterPickerView: ZLBaseView {
         let userOrderArray = ["Best match","Most followers","Fewest followers","Most recently joined","Least recently joined","Most repositories","Fewest repositories"]
         
         var initIndex = 0;
-        if(initTitle != nil)
-        {
-            let index =  userOrderArray.firstIndex(of: initTitle!)
+        if let title = initTitle{
+            
+            let index =  userOrderArray.firstIndex(of: title)
             initIndex = index ?? 0;
         }
         
@@ -66,9 +64,8 @@ class ZLSearchFilterPickerView: ZLBaseView {
         let userOrderArray = ["Best match","Most recently joined","Least recently joined","Most repositories","Fewest repositories"]
         
         var initIndex = 0;
-        if(initTitle != nil)
-        {
-            let index =  userOrderArray.firstIndex(of: initTitle!)
+        if let title = initTitle{
+            let index =  userOrderArray.firstIndex(of: title)
             initIndex = index ?? 0;
         }
         
@@ -82,13 +79,16 @@ class ZLSearchFilterPickerView: ZLBaseView {
         let userOrderArray = ["Best match","Newest","Oldest","Most commented","Least commented","Recently updated","Least recently updated"]
         
         var initIndex = 0;
-        if(initTitle != nil)
-        {
-            let index =  userOrderArray.firstIndex(of: initTitle!)
+        if let title = initTitle{
+            
+            let index =  userOrderArray.firstIndex(of: title)
             initIndex = index ?? 0;
         }
         
-        CYSinglePickerPopoverView.showCYSinglePickerPopover(withTitle: ZLLocalizedString(string: "OrderSelect", comment: ""), withInitIndex: UInt(initIndex), withDataArray: userOrderArray, withResultBlock: {(result:UInt) in
+        CYSinglePickerPopoverView.showCYSinglePickerPopover(withTitle: ZLLocalizedString(string: "OrderSelect", comment: ""),
+                                                            withInitIndex: UInt(initIndex),
+                                                            withDataArray: userOrderArray,
+                                                            withResultBlock: {(result:UInt) in
             resultBlock?(userOrderArray[Int(result)])
         })
     }
@@ -99,9 +99,8 @@ class ZLSearchFilterPickerView: ZLBaseView {
         let userOrderArray = ["Best match","Newest","Oldest","Most commented","Least commented","Recently updated","Least recently updated"]
         
         var initIndex = 0;
-        if(initTitle != nil)
-        {
-            let index =  userOrderArray.firstIndex(of: initTitle!)
+        if let title = initTitle{
+            let index =  userOrderArray.firstIndex(of: title)
             initIndex = index ?? 0;
         }
         

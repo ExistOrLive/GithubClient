@@ -38,8 +38,8 @@ class ZLFeedbackViewModel: ZLBaseViewModel {
         }
         
         let feedback = self.targetView?.feedbackTextView.text
-        let title = "Feedback: \(feedback!)"
-        let body = "\(feedback!) \n >\(self.context ?? "")"
+        let title = "Feedback: \(feedback ?? "")"
+        let body = "\(feedback ?? "") \n >\(self.context ?? "")"
         let serialNumber = NSString.generateSerialNumber()
         
         weak var weakself = self

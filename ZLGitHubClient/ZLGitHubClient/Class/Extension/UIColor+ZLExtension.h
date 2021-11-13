@@ -1,14 +1,17 @@
 //
-//  UIColor+HexColor.h
+//  UIColor+ZLExtension.h
 //  ZLGithubClient
 //
-//  Created by 谢威彦 on 2019/6/11.
+//  Created by zm on 2019/6/11.
 //  Copyright © 2019 zm. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface UIColor (HexColor)
+@interface UIColor (ZLExtension)
+
+#pragma mark - UIColor Hex
+
 /**16进制颜色转换为UIColor
  *hexColor 16进制字符串（可以以0x开头，可以以#开头，也可以就是6位的16进制）
  *opacity 透明度
@@ -22,8 +25,11 @@
                   alpha:(CGFloat)alpha;
 
 
+#pragma mark - UIColor Appearance
 + (BOOL) isLightColor:(UIColor* _Nonnull)clr;
 
+
+#pragma mark - UIColor name
 
 + (UIColor* _Nonnull) labelColorWithName:(NSString * _Nonnull) name;
 

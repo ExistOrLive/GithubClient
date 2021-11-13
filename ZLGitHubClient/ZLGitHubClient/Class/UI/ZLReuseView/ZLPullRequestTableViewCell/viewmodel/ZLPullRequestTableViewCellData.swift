@@ -88,8 +88,8 @@ extension ZLPullRequestTableViewCellData : ZLPullRequestTableViewCellDelegate
         }
         else 
         {
-            if self.pullRequestModel.merged_at != nil{
-                let assitInfo = "#\(self.pullRequestModel.number) \(self.pullRequestModel.user.loginName ?? "") \(ZLLocalizedString(string: "merged at", comment: "合并于")) \((self.pullRequestModel.merged_at! as NSDate).dateLocalStrSinceCurrentTime())"
+            if let merged_at = self.pullRequestModel.merged_at{
+                let assitInfo = "#\(self.pullRequestModel.number) \(self.pullRequestModel.user.loginName ?? "") \(ZLLocalizedString(string: "merged at", comment: "合并于")) \((merged_at as NSDate).dateLocalStrSinceCurrentTime())"
                 return assitInfo
             }
             
@@ -102,9 +102,9 @@ extension ZLPullRequestTableViewCellData : ZLPullRequestTableViewCellDelegate
                 date = self.pullRequestModel.updated_at
             }
             
-            if date != nil{
-                let assitInfo = "#\(self.pullRequestModel.number) \(self.pullRequestModel.user.loginName ?? "") \(ZLLocalizedString(string: "closed at", comment: "关闭于")) \((date! as NSDate).dateLocalStrSinceCurrentTime())"
-                           return assitInfo
+            if let date = date {
+                let assitInfo = "#\(self.pullRequestModel.number) \(self.pullRequestModel.user.loginName ?? "") \(ZLLocalizedString(string: "closed at", comment: "关闭于")) \((date as NSDate).dateLocalStrSinceCurrentTime())"
+                return assitInfo
             }
             else{
                 return ""

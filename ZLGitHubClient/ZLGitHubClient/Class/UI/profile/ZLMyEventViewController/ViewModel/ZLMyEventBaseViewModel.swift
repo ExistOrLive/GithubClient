@@ -118,23 +118,27 @@ extension ZLMyEventBaseViewModel
                 return
             }
             
-            var cellDataArray : [ZLEventTableViewCellData] = [];
-            for eventModel in responseObject.data as! [ZLGithubEventModel]{
-                let cellData = ZLEventTableViewCellData.getCellDataWithEventModel(eventModel: eventModel)
-                self.addSubViewModel(cellData)
-                cellDataArray.append(cellData)
+            if let eventModels = responseObject.data as? [ZLGithubEventModel] {
+                
+                var cellDataArray : [ZLEventTableViewCellData] = [];
+                for eventModel in eventModels{
+                    let cellData = ZLEventTableViewCellData.getCellDataWithEventModel(eventModel: eventModel)
+                    cellDataArray.append(cellData)
+                }
+                self.addSubViewModels(cellDataArray)
+                                
+                if responseObject.serialNumber == self.serialNumberDic[ZLMyEventBaseViewModel.ZLQueryMoreMyEventRequestKey]{
+                    self.serialNumberDic.removeValue(forKey: ZLMyEventBaseViewModel.ZLQueryMoreMyEventRequestKey)
+                    self.baseView?.appendCellDatas(cellDatas: cellDataArray)
+                    self.pageNum = self.pageNum + 1
+                }
+                else if responseObject.serialNumber == self.serialNumberDic[ZLMyEventBaseViewModel.ZLQueryNewMyEventRequestKey]{
+                    self.serialNumberDic.removeValue(forKey: ZLMyEventBaseViewModel.ZLQueryNewMyEventRequestKey)
+                    self.baseView?.resetCellDatas(cellDatas: cellDataArray)
+                    self.pageNum = 1
+                }
             }
-                            
-            if responseObject.serialNumber == self.serialNumberDic[ZLMyEventBaseViewModel.ZLQueryMoreMyEventRequestKey]{
-                self.serialNumberDic.removeValue(forKey: ZLMyEventBaseViewModel.ZLQueryMoreMyEventRequestKey)
-                self.baseView?.appendCellDatas(cellDatas: cellDataArray)
-                self.pageNum = self.pageNum + 1
-            }
-            else if responseObject.serialNumber == self.serialNumberDic[ZLMyEventBaseViewModel.ZLQueryNewMyEventRequestKey]{
-                self.serialNumberDic.removeValue(forKey: ZLMyEventBaseViewModel.ZLQueryNewMyEventRequestKey)
-                self.baseView?.resetCellDatas(cellDatas: cellDataArray)
-                self.pageNum = 1
-            }
+            
             
             }
         default:

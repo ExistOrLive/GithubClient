@@ -260,9 +260,9 @@ extension ZLWebContentView
     
     
     @objc func openInSafari() {
-        if self.webView?.url != nil {
-            UIApplication.shared.open(self.webView!.url!, options: [:], completionHandler: {(result : Bool) in
-                
+        if let url = self.webView?.url,
+           UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url, options: [:], completionHandler: {(result : Bool) in
             })
         }
     }
@@ -282,7 +282,7 @@ extension ZLWebContentView : WKUIDelegate,WKNavigationDelegate
         
         self.setSendRequestStatus()
         
-        if self.delegate != nil && self.delegate!.responds(to: #selector(ZLWebContentViewDelegate.webView(_:navigationAction:decisionHandler:)))
+        if self.delegate?.responds(to: #selector(ZLWebContentViewDelegate.webView(_:navigationAction:decisionHandler:))) ?? false
         {
             self.delegate?.webView(webView, navigationAction: navigationAction, decisionHandler: decisionHandler)
         }
@@ -290,22 +290,17 @@ extension ZLWebContentView : WKUIDelegate,WKNavigationDelegate
         {
             decisionHandler(.allow)
         }
-        
-        
     }
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
         ZLLog_Debug("ZLWebContentView: webView:decidePolicyForNavigationResponse: response[\(navigationResponse.response)]")
         
-        if self.delegate != nil && self.delegate!.responds(to: #selector(ZLWebContentViewDelegate.webView(_:navigationResponse:decisionHandler:)))
-        {
+        if  self.delegate?.responds(to: #selector(ZLWebContentViewDelegate.webView(_:navigationResponse:decisionHandler:))) ?? false {
             self.delegate?.webView(webView, navigationResponse: navigationResponse, decisionHandler: decisionHandler)
         }
-        else
-        {
+        else {
             decisionHandler(.allow)
         }
-        
         
         self.setGetResponseStatus()
     }
@@ -314,7 +309,7 @@ extension ZLWebContentView : WKUIDelegate,WKNavigationDelegate
     
     func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
         ZLLog_Debug("ZLWebContentView: webView:didReceiveServerRedirectForProvisionalNavigation navigation[\(String(describing: navigation))]")
-        if self.delegate != nil && self.delegate!.responds(to: #selector(ZLWebContentViewDelegate.webView(_:didReceiveServerRedirectForProvisionalNavigation:)))
+        if self.delegate?.responds(to: #selector(ZLWebContentViewDelegate.webView(_:didReceiveServerRedirectForProvisionalNavigation:))) ?? false 
         {
             self.delegate?.webView?(webView, didReceiveServerRedirectForProvisionalNavigation: navigation)
         }

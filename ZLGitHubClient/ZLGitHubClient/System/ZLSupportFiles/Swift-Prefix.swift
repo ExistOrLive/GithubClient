@@ -71,51 +71,6 @@ let Font_PingFangSCMedium = "PingFang-SC-Medium"
 let Font_PingFangSCSemiBold = "PingFang-SC-SemiBold"
 let Font_PingFangSCRegular = "PingFang-SC-Regular"
 
-//MARK: Color
-
-func ZLRGBValue_H(colorValue: UInt) -> UIColor
-{
-    return UIColor(rgb: colorValue, alpha: 1.0) ?? UIColor.white
-}
-
-func ZLRGBAValue_H(colorValue: UInt, alphaValue: CGFloat) -> UIColor
-{
-    return UIColor(rgb: colorValue, alpha: alphaValue) ?? UIColor.white
-}
-
-func ZLRGBValueStr_H(colorValue: String) -> UIColor
-{
-    return UIColor(hexString: colorValue, alpha: 1.0) ?? UIColor.white
-}
-
-func ZLRGBValueStr_H(colorValue: String, alphaValue: CGFloat) -> UIColor
-{
-    return UIColor(hexString: colorValue, alpha: Float(alphaValue)) ?? UIColor.white
-}
-
-func ZLRawColor(name: String) -> UIColor?{
-    
-    if let color = UIColor(named: name) {
-        return UIColor(cgColor: color.cgColor)
-    } else {
-        return nil
-    }
-}
-
-func ZLRawLabelColor(name: String) -> UIColor{
-    let color = UIColor.label(withName: name)
-    return UIColor(cgColor: color.cgColor)
-}
-
-func ZLRawLinkColor(name: String) -> UIColor{
-    let color = UIColor.linkColor(withName: name)
-    return UIColor(cgColor: color.cgColor)
-}
-
-func ZLRawBackColor(name: String) -> UIColor{
-    let color = UIColor.back(withName: name)
-    return UIColor(cgColor: color.cgColor)
-}
 
 @available(iOS 12.0, *)
 func getRealUserInterfaceStyle() -> UIUserInterfaceStyle {

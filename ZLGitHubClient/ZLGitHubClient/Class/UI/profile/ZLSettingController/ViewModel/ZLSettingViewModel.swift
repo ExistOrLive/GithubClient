@@ -117,8 +117,8 @@ extension ZLSettingViewModel
             }
         case ZLLogoutResult_Notification:do
         {
-            let appDelegate:AppDelegate  = UIApplication.shared.delegate! as! AppDelegate;
-            appDelegate.switch(toLoginController: true);
+            let appDelegate  = UIApplication.shared.delegate as? AppDelegate
+            appDelegate?.switch(toLoginController: true);
             }
         default:
             break;

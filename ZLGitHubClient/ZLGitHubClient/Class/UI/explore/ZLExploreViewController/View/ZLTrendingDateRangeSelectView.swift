@@ -99,9 +99,7 @@ extension ZLTrendingDateRangeSelectView : UITableViewDelegate,UITableViewDataSou
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let dateRange = self.dataSource[indexPath.row]
-        if self.resultBlock != nil {
-            self.resultBlock!(dateRange)
-        }
+        self.resultBlock?(dateRange)
         self.popup?.dismiss(animated: true)
     }
     

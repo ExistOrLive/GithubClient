@@ -85,8 +85,6 @@ extension ZLOAuthBaseViewModel: ZLWebContentViewDelegate
         
         ZLLog_Info("OAuth: shouldStartLoadWith \(String(describing: navigationResponse.response))");
         
-      //  let response = navigationResponse.response as! HTTPURLResponse
-       
         decisionHandler(.allow)
     }
     
