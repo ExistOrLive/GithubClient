@@ -1,7 +1,6 @@
 {
   "images" : [
     {
-      "filename" : "dir.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -12,7 +11,6 @@
           "value" : "light"
         }
       ],
-      "filename" : "dir-1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -23,7 +21,6 @@
           "value" : "dark"
         }
       ],
-      "filename" : "dir_1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },

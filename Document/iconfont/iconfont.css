@@ -1,0 +1,171 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 2924324 */
+  src: url('iconfont.woff2?t=1636998825507') format('woff2'),
+       url('iconfont.woff?t=1636998825507') format('woff'),
+       url('iconfont.ttf?t=1636998825507') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-git-repo-forked:before {
+  content: "\e799";
+}
+
+.icon-lock:before {
+  content: "\e7c9";
+}
+
+.icon-gantanhao-quan:before {
+  content: "\e70f";
+}
+
+.icon-git-pull-request2:before {
+  content: "\e76e";
+}
+
+.icon-home:before {
+  content: "\e6b8";
+}
+
+.icon-share1:before {
+  content: "\e68b";
+}
+
+.icon-tag:before {
+  content: "\e738";
+}
+
+.icon-setting:before {
+  content: "\e78e";
+}
+
+.icon-file-copy:before {
+  content: "\e7bc";
+}
+
+.icon-fork:before {
+  content: "\e7e8";
+}
+
+.icon-ico_meiyoushuju:before {
+  content: "\e602";
+}
+
+.icon-issues-close:before {
+  content: "\e737";
+}
+
+.icon-Reload:before {
+  content: "\e62f";
+}
+
+.icon-Safari:before {
+  content: "\e69c";
+}
+
+.icon-star:before {
+  content: "\e68a";
+}
+
+.icon-direction-right:before {
+  content: "\e66c";
+}
+
+.icon-direction-left:before {
+  content: "\e66d";
+}
+
+.icon-save:before {
+  content: "\e67c";
+}
+
+.icon-arrow-down-filling:before {
+  content: "\e68c";
+}
+
+.icon-git-pull-request1:before {
+  content: "\e619";
+}
+
+.icon-alert-octagon:before {
+  content: "\e713";
+}
+
+.icon-workflow:before {
+  content: "\e77b";
+}
+
+.icon-Alert:before {
+  content: "\e637";
+}
+
+.icon-more_light:before {
+  content: "\e7e3";
+}
+
+.icon-search:before {
+  content: "\e67d";
+}
+
+.icon-share:before {
+  content: "\e67e";
+}
+
+.icon-add-bold:before {
+  content: "\e685";
+}
+
+.icon-arrow-left-bold:before {
+  content: "\e686";
+}
+
+.icon-close-bold:before {
+  content: "\e687";
+}
+
+.icon-arrow-right-bold:before {
+  content: "\e688";
+}
+
+.icon-select-bold:before {
+  content: "\e689";
+}
+
+.icon-code:before {
+  content: "\e667";
+}
+
+.icon-edit:before {
+  content: "\e66f";
+}
+
+.icon-file-delete:before {
+  content: "\e672";
+}
+
+.icon-file-add:before {
+  content: "\e673";
+}
+
+.icon-file:before {
+  content: "\e674";
+}
+
+.icon-folder-close:before {
+  content: "\e675";
+}
+
+.icon-filter:before {
+  content: "\e676";
+}
+
+.icon-file-open:before {
+  content: "\e677";
+}
+

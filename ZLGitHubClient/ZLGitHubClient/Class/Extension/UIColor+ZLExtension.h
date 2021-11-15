@@ -37,4 +37,6 @@
 
 + (UIColor* _Nonnull) backColorWithName:(NSString * _Nonnull) name;
 
++ (UIColor* _Nonnull) iconColorWithName:(NSString * _Nonnull) name;
+
 @end

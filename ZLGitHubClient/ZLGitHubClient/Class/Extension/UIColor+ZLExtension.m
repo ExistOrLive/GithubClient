@@ -145,4 +145,17 @@
 }
 
 
++ (UIColor* _Nonnull) iconColorWithName:(NSString * _Nonnull) name{
+    UIColor *color = [UIColor colorNamed:name];
+    if(color) {
+        return color;
+    } else {
+        if (@available(iOS 13.0, *)) {
+            return [UIColor labelColor];
+        } else {
+            return [UIColor blackColor];
+        }
+    }
+}
+
 @end

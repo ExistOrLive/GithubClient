@@ -35,6 +35,37 @@ public enum ZLFontFamily: String {
     case dinCondensed = "DINCondensed"
 }
 
+// iconfont
+public struct ZLIconFont{
+    let rawValue: String
+    
+    static let IssueOpen = ZLIconFont(rawValue: "\u{e70f}")
+    static let IssueClose = ZLIconFont(rawValue: "\u{e737}")
+    static let IssueMerge = ZLIconFont(rawValue: "\u{e70f}")
+    
+    static let NextArrow = ZLIconFont(rawValue: "\u{e688}")
+    static let BackArrow = ZLIconFont(rawValue: "\u{e686}")
+    
+    static let Add = ZLIconFont(rawValue: "\u{e685}")
+    static let Close = ZLIconFont(rawValue: "\u{e687}")
+    
+    static let PR = ZLIconFont(rawValue: "\u{e76e}")
+    static let RepoStar = ZLIconFont(rawValue: "\u{e68a}")
+    static let RepoFork = ZLIconFont(rawValue: "\u{e799}")
+    static let RepoPrivate = ZLIconFont(rawValue: "\u{e7c9}")
+    
+    
+    static let DownArrow = ZLIconFont(rawValue: "\u{e68c}")
+    
+    static let File = ZLIconFont(rawValue: "\u{e674}")
+    static let DirClose = ZLIconFont(rawValue: "\u{e675}")
+    static let DirOpen = ZLIconFont(rawValue: "\u{e677}")
+    
+    static let filter = ZLIconFont(rawValue: "\u{e676}")
+
+}
+
+
 
 extension UIFont{
     public static func zlFont(kind: ZLFontKind, family: ZLFontFamily, size: CGFloat) -> UIFont{

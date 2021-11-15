@@ -24,13 +24,49 @@ protocol ZLIssueTableViewCellDelegate : NSObjectProtocol{
 }
 
 class ZLIssueTableViewCell: UITableViewCell {
+    // view
+    private lazy var containerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(named: "ZLCellBack")
+        view.cornerRadius = 8.0
+        return view
+    }()
     
-    var containerView: UIView!
-    var statusTag: UIImageView!
-    var repoNameButton: UIButton!
-    var labelStackView: UIStackView!
-    var titleLabel: UILabel!
-    var assitLabel: UILabel!
+    private lazy var statusTag: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.zlIconFont(withSize: 20)
+        return label
+    }()
+    
+    private lazy var repoNameButton: UIButton = {
+        let button = UIButton()
+        button.contentHorizontalAlignment = .leading
+        return button
+    }()
+    
+    private lazy var labelStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.alignment = .fill
+        stackView.axis = .horizontal
+        stackView.distribution = .equalSpacing
+        stackView.spacing = 8
+        return stackView
+    }()
+    
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.textColor = UIColor(named:"ZLLabelColor3")
+        label.font = UIFont(name: Font_PingFangSCRegular, size: 15)
+        return label
+    }()
+    
+    private lazy var assitLabel: UILabel = {
+        let label2 = UILabel()
+        label2.textColor = UIColor(named:"ZLLabelColor2")
+        label2.font = UIFont(name: Font_PingFangSCRegular, size: 12)
+        return label2
+    }()
         
     
     weak var delegate : ZLIssueTableViewCellDelegate?
@@ -48,75 +84,51 @@ class ZLIssueTableViewCell: UITableViewCell {
         self.delegate?.onClickIssueRepoFullName()
     }
     
-    
     func setUpUI(){
-        
         self.backgroundColor = UIColor.clear
+        self.selectionStyle = .none
         
-        let view = UIView()
-        view.backgroundColor = UIColor(named: "ZLCellBack")
-        view.cornerRadius = 8.0
-        self.contentView.addSubview(view)
-        view.snp.makeConstraints { (make) in
+        self.contentView.addSubview(containerView)
+        containerView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview().inset(UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
         }
-        containerView = view
-        
-        let imageView = UIImageView()
-        containerView.addSubview(imageView)
-        imageView.snp.makeConstraints { (make) in
+
+        containerView.addSubview(statusTag)
+        statusTag.snp.makeConstraints { (make) in
             make.left.equalToSuperview().offset(10)
             make.top.equalToSuperview().offset(10)
             make.size.equalTo(CGSize(width: 20, height: 20))
         }
-        statusTag = imageView
         
-        let button = UIButton()
-        button.contentHorizontalAlignment = .leading
-        containerView.addSubview(button)
-        button.snp.makeConstraints { (make) in
+        containerView.addSubview(repoNameButton)
+        repoNameButton.snp.makeConstraints { (make) in
             make.left.equalTo(statusTag.snp_right).offset(10)
             make.centerY.equalTo(statusTag)
             make.right.equalToSuperview().offset(-15)
         }
-        button.addTarget(self, action: #selector(onRepoNameClick), for: .touchUpInside)
-        repoNameButton = button
+        repoNameButton.addTarget(self, action: #selector(onRepoNameClick), for: .touchUpInside)
         
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.textColor = UIColor(named:"ZLLabelColor3")
-        label.font = UIFont(name: Font_PingFangSCRegular, size: 15)
-        containerView.addSubview(label)
-        label.snp.makeConstraints{ (make) in
+        containerView.addSubview(titleLabel)
+        titleLabel.snp.makeConstraints{ (make) in
             make.left.equalTo(statusTag.snp_right).offset(10)
             make.top.equalTo(repoNameButton.snp.bottom).offset(10)
             make.right.equalToSuperview().offset(-15)
         }
-        titleLabel = label
-        
-        let stackView = UIStackView()
-        stackView.alignment = .fill
-        stackView.axis = .horizontal
-        stackView.distribution = .equalSpacing
-        stackView.spacing = 8
-        containerView.addSubview(stackView)
-        stackView.snp.makeConstraints { (make) in
+    
+        containerView.addSubview(labelStackView)
+        labelStackView.snp.makeConstraints { (make) in
             make.left.equalTo(statusTag.snp_right).offset(10)
             make.top.equalTo(titleLabel.snp.bottom).offset(15)
             make.height.equalTo(20)
         }
-        labelStackView = stackView
         
-        let label2 = UILabel()
-        label2.textColor = UIColor(named:"ZLLabelColor2")
-        label2.font = UIFont(name: Font_PingFangSCRegular, size: 12)
-        containerView.addSubview(label2)
-        label2.snp.makeConstraints{ (make) in
+   
+        containerView.addSubview(assitLabel)
+        assitLabel.snp.makeConstraints{ (make) in
             make.left.equalTo(statusTag.snp_right).offset(10)
-            make.top.equalTo(stackView.snp.bottom).offset(10)
+            make.top.equalTo(labelStackView.snp.bottom).offset(10)
             make.bottom.equalToSuperview().offset(-10)
         }
-        assitLabel = label2
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -134,7 +146,8 @@ class ZLIssueTableViewCell: UITableViewCell {
         
         self.titleLabel.text = cellData.getIssueTitleStr()
         self.assitLabel.text = cellData.getIssueAssistStr()
-        self.statusTag.image = cellData.isIssueClosed() ? UIImage.init(named: "issue_closed") : UIImage.init(named: "issue_opened")
+        self.statusTag.text = cellData.isIssueClosed() ? ZLIconFont.IssueClose.rawValue : ZLIconFont.IssueOpen.rawValue
+        self.statusTag.textColor = cellData.isIssueClosed() ? UIColor(named: "ZLIssueClosedColor") : UIColor(named: "ZLIssueOpenedColor")
         
         
         for view in self.labelStackView.subviews{
@@ -148,10 +161,10 @@ class ZLIssueTableViewCell: UITableViewCell {
             let attributedStr = NSAttributedString.init(string: label, attributes: attributes)
             let size = attributedStr.boundingRect(with: CGSize.init(width: ZLScreenWidth, height: ZLSCreenHeight), options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil)
             
-            if CGFloat(length) + 8.0 + size.width > ZLScreenWidth - 60 {
+            if CGFloat(length) + 16.0 + size.width > ZLScreenWidth - 70 {
                 break;
             }
-            length += 8.0 + size.width
+            length += 16.0 + size.width
             
             let color = ZLRGBValueStr_H(colorValue:colorStr)
             let labelView = UILabel.init()
@@ -184,5 +197,26 @@ class ZLIssueTableViewCell: UITableViewCell {
 
     }
     
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        UIView.animate(withDuration: 0.1) {
+            self.containerView.backgroundColor = UIColor.init(named: "ZLCellBackSelected")
+        }
+    }
+    
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesCancelled(touches, with: event)
+        UIView.animate(withDuration: 0.1) {
+            self.containerView.backgroundColor = UIColor.init(named: "ZLCellBack")
+        }
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        UIView.animate(withDuration: 0.1) {
+            self.containerView.backgroundColor = UIColor.init(named: "ZLCellBack")
+        }
+    }
     
 }

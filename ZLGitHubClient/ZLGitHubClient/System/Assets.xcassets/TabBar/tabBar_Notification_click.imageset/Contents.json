@@ -1,7 +1,6 @@
 {
   "images" : [
     {
-      "filename" : "bell-53-2@1x-1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -12,7 +11,6 @@
           "value" : "light"
         }
       ],
-      "filename" : "bell-53-2@1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -23,7 +21,6 @@
           "value" : "dark"
         }
       ],
-      "filename" : "bell-53-2@1x-2.png",
       "idiom" : "universal",
       "scale" : "1x"
     },

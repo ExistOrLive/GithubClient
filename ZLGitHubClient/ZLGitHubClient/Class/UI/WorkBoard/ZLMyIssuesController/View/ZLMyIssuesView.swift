@@ -19,10 +19,40 @@ class ZLMyIssuesView: ZLBaseView {
     private var stateIndex : ZLGithubIssueState = .open
 
     
-    var githubItemListView : ZLGithubItemListView!
+    lazy var githubItemListView : ZLGithubItemListView = {
+        let itemListView = ZLGithubItemListView()
+        itemListView.setTableViewFooter()
+        itemListView.setTableViewHeader()
+        return itemListView
+    }()
+        
+    private lazy var filterButton: UIButton = {
+        let button = UIButton(type: .custom)
+        let title = NSMutableAttributedString()
+        title.append(NSAttributedString(string: ZLIconFont.DownArrow.rawValue,
+                                        attributes: [.font:UIFont.zlIconFont(withSize:12),
+                                                     .foregroundColor:UIColor.iconColor(withName: "ICON_Common")]))
+        title.append(NSAttributedString(string: " "))
+        title.append(NSAttributedString(string: "Created",
+                                        attributes: [.foregroundColor:UIColor.label(withName: "ZLLabelColor3"),
+                                                     .font:UIFont.zlMediumFont(withSize: 12)]))
+        button.setAttributedTitle(title, for: .normal)
+        return button
+    }()
     
-    var filterButton: UIButton!
-    var stateButton: UIButton!
+    private lazy var stateButton: UIButton = {
+        let button = UIButton(type: .custom)
+        let title = NSMutableAttributedString()
+        title.append(NSAttributedString(string: ZLIconFont.DownArrow.rawValue,
+                                        attributes: [.font:UIFont.zlIconFont(withSize:12),
+                                                     .foregroundColor:UIColor.iconColor(withName: "ICON_Common")]))
+        title.append(NSAttributedString(string: " "))
+        title.append(NSAttributedString(string: "Open",
+                                        attributes: [.foregroundColor:UIColor.label(withName: "ZLLabelColor3"),
+                                                     .font:UIFont.zlMediumFont(withSize: 12)]))
+        button.setAttributedTitle(title, for: .normal)
+        return button
+    }()
     
     
     weak var delegate : ZLMyIssuesViewDelegate?
@@ -51,49 +81,29 @@ class ZLMyIssuesView: ZLBaseView {
             make.height.equalTo(30)
         }
             
-        let button1 = UIButton(type: .custom)
-        button1.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
-        button1.setAttributedTitle(NSAttributedString(string: "Created",
-                                                      attributes: [.foregroundColor:UIColor.label(withName: "ZLLabelColor3"),
-                                                                   .font:UIFont.zlRegularFont(withSize: 12)]),
-                                   for: .normal)
         
-        button1.setImage(UIImage(named: "down"), for: .normal)
-        view.addSubview(button1)
-        button1.snp.makeConstraints { (make) in
+        view.addSubview(filterButton)
+        filterButton.snp.makeConstraints { (make) in
             make.width.equalTo(100)
             make.top.bottom.equalToSuperview()
             make.right.equalToSuperview().offset(-10)
         }
-        button1.addTarget(self, action: #selector(ZLMyPullRequestsView.onFilterButtonClicked), for: .touchUpInside)
-        filterButton = button1
-    
-        let button2 = UIButton(type: .custom)
-        button2.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
-        button2.setAttributedTitle(NSAttributedString(string: "Open",
-                                                      attributes: [.foregroundColor:UIColor.label(withName: "ZLLabelColor3"),
-                                                                   .font:UIFont.zlRegularFont(withSize: 12)]),
-                                   for: .normal)
-        button2.setImage(UIImage(named: "down"), for: .normal)
-        view.addSubview(button2)
-        button2.snp.makeConstraints { (make) in
+        filterButton.addTarget(self, action: #selector(ZLMyPullRequestsView.onFilterButtonClicked), for: .touchUpInside)
+     
+
+        view.addSubview(stateButton)
+        stateButton.snp.makeConstraints { (make) in
             make.width.equalTo(80)
             make.top.bottom.equalToSuperview()
-            make.right.equalTo(button1.snp_left).offset(-10)
+            make.right.equalTo(filterButton.snp_left).offset(-10)
         }
-        button2.addTarget(self, action: #selector(ZLMyPullRequestsView.onStateButtonClicked), for: .touchUpInside)
-        stateButton = button2
-        
-        
-        let itemListView = ZLGithubItemListView()
-        itemListView.setTableViewFooter()
-        itemListView.setTableViewHeader()
-        self.addSubview(itemListView)
-        itemListView.snp.makeConstraints { (make) in
+        stateButton.addTarget(self, action: #selector(ZLMyPullRequestsView.onStateButtonClicked), for: .touchUpInside)
+     
+        self.addSubview(githubItemListView)
+        githubItemListView.snp.makeConstraints { (make) in
             make.right.bottom.left.equalToSuperview()
             make.top.equalTo(view.snp_bottom)
         }
-        self.githubItemListView = itemListView
     }
     
     
@@ -104,10 +114,16 @@ class ZLMyIssuesView: ZLBaseView {
         { (index : UInt) in
             
             let str = ["Created","Assigned","Mentioned"][Int(index)]
-            self.filterButton.setAttributedTitle(NSAttributedString(string: str,
-                                                                    attributes: [.foregroundColor:UIColor.label(withName: "ZLLabelColor3"),
-                                                                                 .font:UIFont.zlRegularFont(withSize: 12)]),
-                                                 for: .normal)
+            let title = NSMutableAttributedString()
+            title.append(NSAttributedString(string: ZLIconFont.DownArrow.rawValue,
+                                            attributes: [.font:UIFont.zlIconFont(withSize:12),
+                                                         .foregroundColor:UIColor.iconColor(withName: "ICON_Common")]))
+            title.append(NSAttributedString(string: " "))
+            title.append(NSAttributedString(string: str,
+                                            attributes: [.foregroundColor:UIColor.label(withName: "ZLLabelColor3"),
+                                                         .font:UIFont.zlMediumFont(withSize: 12)]))
+            self.filterButton.setAttributedTitle(title, for: .normal)
+            
             self.filterIndex = ZLIssueFilterType.init(rawValue: Int(index)) ?? .created
             self.delegate?.onFilterTypeChange(type: self.filterIndex)
         }
@@ -120,10 +136,15 @@ class ZLMyIssuesView: ZLBaseView {
                                                             withDataArray: ["Open","Closed"])
         { (index : UInt) in
             let str = ["Open","Closed"][Int(index)]
-            self.stateButton.setAttributedTitle(NSAttributedString(string: str,
-                                                                   attributes:[.foregroundColor:UIColor.label(withName: "ZLLabelColor3"),
-                                                                               .font:UIFont.zlRegularFont(withSize: 12)]),
-                                                for: .normal)
+            let title = NSMutableAttributedString()
+            title.append(NSAttributedString(string: ZLIconFont.DownArrow.rawValue,
+                                            attributes: [.font:UIFont.zlIconFont(withSize:12),
+                                                         .foregroundColor:UIColor.iconColor(withName: "ICON_Common")]))
+            title.append(NSAttributedString(string: " "))
+            title.append(NSAttributedString(string: str,
+                                            attributes: [.foregroundColor:UIColor.label(withName: "ZLLabelColor3"),
+                                                         .font:UIFont.zlMediumFont(withSize: 12)]))
+            self.stateButton.setAttributedTitle(title, for: .normal)
             self.stateIndex = ZLGithubIssueState.init(rawValue: index) ?? .open
             self.delegate?.onStateChange(state:self.stateIndex)
         }

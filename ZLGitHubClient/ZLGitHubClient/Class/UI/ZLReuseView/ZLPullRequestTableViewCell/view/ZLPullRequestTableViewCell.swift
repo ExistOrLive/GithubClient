@@ -27,20 +27,40 @@ class ZLPullRequestTableViewCell: UITableViewCell {
     
     weak var  delegate : ZLPullRequestTableViewCellDelegate?
     
-    var statusTag: UIImageView!
-    var containerView: UIView!
-    var repoNameButton: UIButton!
-    var titleLabel: UILabel!
-    var assistLabel: UILabel!
+    // MARK: Sub View
+    lazy var statusTag: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.zlIconFont(withSize: 20)
+        return label
+    }()
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        self.containerView.layer.cornerRadius = 8.0
-    }
+    lazy var containerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(named: "ZLCellBack")
+        view.cornerRadius = 8.0
+        return view
+    }()
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(false, animated: animated)
-    }
+    lazy var repoNameButton: UIButton = {
+        let button = UIButton()
+        button.contentHorizontalAlignment = .leading
+        return button
+    }()
+    
+    lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 4
+        label.textColor = UIColor(named:"ZLLabelColor3")
+        label.font = UIFont(name: Font_PingFangSCRegular, size: 15)
+        return label
+    }()
+    
+    lazy var assistLabel: UILabel = {
+        let label2 = UILabel()
+        label2.textColor = UIColor(named:"ZLLabelColor2")
+        label2.font = UIFont(name: Font_PingFangSCRegular, size: 12)
+        return label2
+    }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -57,61 +77,43 @@ class ZLPullRequestTableViewCell: UITableViewCell {
     
     
     func setUpUI() {
-        
+
+        self.selectionStyle = .none
         self.backgroundColor = UIColor.clear
-        
-        let view = UIView()
-        view.backgroundColor = UIColor(named: "ZLCellBack")
-        view.cornerRadius = 8.0
-        self.contentView.addSubview(view)
-        view.snp.makeConstraints { (make) in
+    
+        self.contentView.addSubview(containerView)
+        containerView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview().inset(UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
         }
-        containerView = view
         
-        let imageView = UIImageView()
-        containerView.addSubview(imageView)
-        imageView.snp.makeConstraints { (make) in
+        containerView.addSubview(statusTag)
+        statusTag.snp.makeConstraints { (make) in
             make.left.equalToSuperview().offset(10)
             make.top.equalToSuperview().offset(10)
             make.size.equalTo(CGSize(width: 20, height: 20))
         }
-        statusTag = imageView
         
-        let button = UIButton()
-        button.contentHorizontalAlignment = .leading
-        containerView.addSubview(button)
-        button.snp.makeConstraints { (make) in
+        containerView.addSubview(repoNameButton)
+        repoNameButton.snp.makeConstraints { (make) in
             make.left.equalTo(statusTag.snp_right).offset(10)
             make.centerY.equalTo(statusTag)
             make.right.equalToSuperview().offset(-15)
         }
-        button.addTarget(self, action: #selector(onRepoNameClick), for: .touchUpInside)
-        repoNameButton = button
-        
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.textColor = UIColor(named:"ZLLabelColor3")
-        label.font = UIFont(name: Font_PingFangSCRegular, size: 15)
-        containerView.addSubview(label)
-        label.snp.makeConstraints{ (make) in
+        repoNameButton.addTarget(self, action: #selector(onRepoNameClick), for: .touchUpInside)
+    
+        containerView.addSubview(titleLabel)
+        titleLabel.snp.makeConstraints{ (make) in
             make.left.equalTo(statusTag.snp_right).offset(10)
             make.top.equalTo(repoNameButton.snp.bottom).offset(10)
             make.right.equalToSuperview().offset(-15)
         }
-        titleLabel = label
             
-        let label2 = UILabel()
-        label2.textColor = UIColor(named:"ZLLabelColor2")
-        label2.font = UIFont(name: Font_PingFangSCRegular, size: 12)
-        containerView.addSubview(label2)
-        label2.snp.makeConstraints{ (make) in
+        containerView.addSubview(assistLabel)
+        assistLabel.snp.makeConstraints{ (make) in
             make.left.equalTo(statusTag.snp_right).offset(10)
             make.top.equalTo(titleLabel.snp.bottom).offset(15)
             make.bottom.equalToSuperview().offset(-10)
         }
-        assistLabel = label2
-        
     }
     
     
@@ -128,14 +130,36 @@ class ZLPullRequestTableViewCell: UITableViewCell {
                                                     .font:UIFont.zlRegularFont(withSize: 15)])
         self.repoNameButton.setAttributedTitle(title, for: .normal)
         
+        self.statusTag.text = ZLIconFont.PR.rawValue
         if data.getPullRequestState() == .open {
-            self.statusTag?.image = UIImage.init(named: "pr_opened")
+            self.statusTag.textColor = UIColor(named: "ICON_PROpenedColor")
         } else if data.isPullRequestMerged() {
-            self.statusTag?.image = UIImage.init(named: "pr_merged")
+            self.statusTag.textColor = UIColor(named: "ICON_PRMergedColor")
         } else {
-            self.statusTag?.image = UIImage.init(named: "pr_closed")
+            self.statusTag.textColor = UIColor(named: "ICON_PRClosedColor")
         }
         
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        UIView.animate(withDuration: 0.1) {
+            self.containerView.backgroundColor = UIColor.init(named: "ZLCellBackSelected")
+        }
+    }
+    
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesCancelled(touches, with: event)
+        UIView.animate(withDuration: 0.1) {
+            self.containerView.backgroundColor = UIColor.init(named: "ZLCellBack")
+        }
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        UIView.animate(withDuration: 0.1) {
+            self.containerView.backgroundColor = UIColor.init(named: "ZLCellBack")
+        }
     }
     
 }

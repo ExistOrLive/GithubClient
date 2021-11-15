@@ -7,6 +7,8 @@
 //
 
 #import "UIFont+ZLExtension.h"
+#import <CoreText/CoreText.h>
+#import "UIFont+IconFont.h"
 
 @implementation UIFont (ZLExtension)
 
@@ -60,7 +62,19 @@
     return [self zlFontWithName:fontName size:size];
 }
 
++ (UIFont* _Nonnull) zlIconFontWithSize: (CGFloat) size{
+    return [self iconFontWithSize:size];
+}
 
+#pragma mark - 注册新的font
 
++ (void)registerFontWithURL:(NSURL *)url{
+    NSAssert([[NSFileManager defaultManager] fileExistsAtPath:[url path]], @"Font file doesn't exist");
+    CGDataProviderRef fontDataProvider = CGDataProviderCreateWithURL((__bridge CFURLRef)url);
+    CGFontRef newFont = CGFontCreateWithDataProvider(fontDataProvider);
+    CGDataProviderRelease(fontDataProvider);
+    CTFontManagerRegisterGraphicsFont(newFont, nil);
+    CGFontRelease(newFont);
+}
 
 @end

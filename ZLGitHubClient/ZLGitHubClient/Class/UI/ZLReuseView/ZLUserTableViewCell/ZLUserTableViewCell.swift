@@ -25,32 +25,119 @@ import UIKit
 
 
 class ZLUserTableViewCell: UITableViewCell {
-
-    @IBOutlet weak var containerView: UIView!
-    
-    @IBOutlet weak var headImageView: UIImageView!
-    
-    @IBOutlet weak var loginNameLabel: UILabel!
-    
-    @IBOutlet weak var nameLabel: UILabel!
-    
-    @IBOutlet weak var descLabel: UILabel!
     
     weak var delegate : ZLUserTableViewCellDelegate?
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        self.containerView.layer.cornerRadius = 8.0
-        self.containerView.layer.masksToBounds = true
-        
-        self.headImageView.layer.cornerRadius = 25.0
-        self.headImageView.layer.masksToBounds = true
-    }
+    lazy var containerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(named: "ZLCellBack")
+        view.cornerRadius = 8.0
+        return view
+    }()
+    
+    lazy var headImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.circle = true
+        return imageView
+    }()
+    
+    lazy var loginNameLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.zlMediumFont(withSize: 14)
+        label.textColor = UIColor(named: "ZLLabelColor2")
+  
+        return label
+    }()
+    
+    lazy var nameLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.zlSemiBoldFont(withSize: 17)
+        label.textColor = UIColor(named: "ZLLabelColor1")
+        return label
+    }()
+    
+    lazy var descLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.zlRegularFont(withSize: 12)
+        label.textColor = UIColor(named: "ZLLabelColor2")
+        label.numberOfLines = 5
+        return label
+    }()
+    
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(false, animated: animated)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.setupUI()
     }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupUI() {
+        
+        self.backgroundColor = UIColor.clear
+        self.selectionStyle = .none
+        
+        contentView.addSubview(containerView)
+        containerView.addSubview(headImageView)
+        containerView.addSubview(loginNameLabel)
+        containerView.addSubview(nameLabel)
+        containerView.addSubview(descLabel)
+        
+        containerView.snp.makeConstraints { make in
+            make.edges.equalTo(UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
+        }
+        
+        headImageView.snp.makeConstraints { make in
+            make.top.equalTo(10)
+            make.left.equalTo(10)
+            make.size.equalTo(CGSize(width: 50, height: 50))
+        }
+        
+        nameLabel.snp.makeConstraints { make in
+            make.top.equalTo(headImageView)
+            make.left.equalTo(headImageView.snp.right).offset(15)
+            make.right.equalTo(-15)
+        }
+        
+        loginNameLabel.snp.makeConstraints { make in
+            make.left.equalTo(nameLabel)
+            make.top.equalTo(nameLabel.snp.bottom).offset(5)
+            make.right.equalTo(-15)
+        }
+        
+        descLabel.snp.makeConstraints { make in
+            make.left.equalTo(nameLabel)
+            make.top.equalTo(headImageView.snp.bottom).offset(15)
+            make.right.equalTo(-15)
+            make.bottom.equalTo(-15)
+        }
+        
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        UIView.animate(withDuration: 0.1) {
+            self.containerView.backgroundColor = UIColor.init(named: "ZLCellBackSelected")
+        }
+    }
+    
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesCancelled(touches, with: event)
+        UIView.animate(withDuration: 0.1) {
+            self.containerView.backgroundColor = UIColor.init(named: "ZLCellBack")
+        }
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        UIView.animate(withDuration: 0.1) {
+            self.containerView.backgroundColor = UIColor.init(named: "ZLCellBack")
+        }
+    }
+    
+    
     
 }
 

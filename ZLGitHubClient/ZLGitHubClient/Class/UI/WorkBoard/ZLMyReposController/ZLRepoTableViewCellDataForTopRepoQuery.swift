@@ -48,18 +48,10 @@ class ZLRepoTableViewCellDataForTopRepoQuery: ZLGithubItemTableViewCellData {
 extension ZLRepoTableViewCellDataForTopRepoQuery : ZLRepositoryTableViewCellDelegate {
     
     func onRepoAvaterClicked() -> Void{
-//        if data.isInOrganization {
-//            if let userInfoVC = ZLUIRouter.getUserInfoViewController(loginName: data.owner.login){
-//                userInfoVC.hidesBottomBarWhenPushed = true
-//                self.viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
-//            }
-//            
-//        } else {
-//            if let orgInfoVC = ZLUIRouter.getOrgInfoViewController(loginName: data.owner.login){
-//                orgInfoVC.hidesBottomBarWhenPushed = true
-//                self.viewController?.navigationController?.pushViewController(orgInfoVC, animated: true)
-//            }
-//        }
+        if let userInfoVC = ZLUIRouter.getUserInfoViewController(loginName: data.owner.login){
+            userInfoVC.hidesBottomBarWhenPushed = true
+            self.viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
+        }
     }
     
     func getOwnerAvatarURL() -> String?{
