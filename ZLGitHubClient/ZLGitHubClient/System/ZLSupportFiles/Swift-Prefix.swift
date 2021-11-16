@@ -64,6 +64,8 @@ var ZLScreenBounds : CGRect {
     UIScreen.main.bounds
 }
 
+var ZLSeperateLineHeight: CGFloat = 1.0 / UIScreen.main.scale
+
 
 //MARK: Font
 

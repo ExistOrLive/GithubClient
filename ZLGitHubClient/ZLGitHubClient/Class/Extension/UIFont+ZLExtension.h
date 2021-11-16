@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 #define ZLFontFamily_DINCondensed       @"DINCondensed"
 
 // icon font
-#define ZLIconFont_IssueOpen            @"\U000xe70f"
+#define ZLIconFont_More            @"\ue7e3"
 
 @interface UIFont (ZLExtension)
 

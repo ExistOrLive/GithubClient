@@ -104,7 +104,10 @@ class ZLRepoCodePreview3Controller: ZLBaseViewController {
         
         self.zlNavigationBar.backButton.isHidden = false
         let button = UIButton.init(type: .custom)
-        button.setImage(UIImage.init(named: "run_more"), for: .normal)
+        button.setAttributedTitle(NSAttributedString(string: ZLIconFont.more.rawValue,
+                                                     attributes: [.font:UIFont.zlIconFont(withSize: 30),
+                                                                  .foregroundColor:UIColor.label(withName:"ICON_Common")]),
+                                  for: .normal)
         button.frame = CGRect.init(x: 0, y: 0, width: 60, height: 60)
         button.addTarget(self, action: #selector(onMoreButtonClick(button:)), for: .touchUpInside)
         

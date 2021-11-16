@@ -88,7 +88,9 @@ class ZLMyIssuesView: ZLBaseView {
             make.top.bottom.equalToSuperview()
             make.right.equalToSuperview().offset(-10)
         }
-        filterButton.addTarget(self, action: #selector(ZLMyPullRequestsView.onFilterButtonClicked), for: .touchUpInside)
+        filterButton.addTarget(self,
+                               action: #selector(ZLMyPullRequestsView.onFilterButtonClicked),
+                               for: .touchUpInside)
      
 
         view.addSubview(stateButton)
@@ -97,7 +99,9 @@ class ZLMyIssuesView: ZLBaseView {
             make.top.bottom.equalToSuperview()
             make.right.equalTo(filterButton.snp_left).offset(-10)
         }
-        stateButton.addTarget(self, action: #selector(ZLMyPullRequestsView.onStateButtonClicked), for: .touchUpInside)
+        stateButton.addTarget(self,
+                              action: #selector(ZLMyPullRequestsView.onStateButtonClicked),
+                              for: .touchUpInside)
      
         self.addSubview(githubItemListView)
         githubItemListView.snp.makeConstraints { (make) in

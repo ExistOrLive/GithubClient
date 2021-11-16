@@ -62,6 +62,10 @@ public struct ZLIconFont{
     static let DirOpen = ZLIconFont(rawValue: "\u{e677}")
     
     static let filter = ZLIconFont(rawValue: "\u{e676}")
+    
+    static let more = ZLIconFont(rawValue: "\u{e7e3}")
+    
+    static let workflow = ZLIconFont(rawValue: "\u{e77b}")
 
 }
 

@@ -34,7 +34,10 @@
     }
     
     UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [rightButton setImage:[UIImage imageNamed:@"run_more"] forState:UIControlStateNormal];
+    [rightButton setAttributedTitle:[[NSAttributedString alloc] initWithString:ZLIconFont_More
+                                                                    attributes:@{NSFontAttributeName:[UIFont zlIconFontWithSize:30],
+                                                                                 NSForegroundColorAttributeName:[UIColor colorNamed:@"ICON_Common"]}]
+                           forState:UIControlStateNormal];
     [rightButton setFrame:CGRectMake(0, 0, 60, 60)];
     [rightButton addTarget:self action:@selector(onAdditionButtonClickWithButton:) forControlEvents:UIControlEventTouchUpInside];
     ZLBaseViewController *vc = (ZLBaseViewController *)self.viewController;

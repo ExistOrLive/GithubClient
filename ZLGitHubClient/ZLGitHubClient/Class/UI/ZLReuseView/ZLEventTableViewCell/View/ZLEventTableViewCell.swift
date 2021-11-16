@@ -116,7 +116,9 @@ class ZLEventTableViewCell: UITableViewCell {
         
         let button = UIButton.init(type: .custom)
         button.addTarget(self, action: #selector(ZLEventTableViewCell.onReportButtonClicked), for: .touchUpInside)
-        button.setImage(UIImage.init(named: "run_more"), for: .normal)
+        let str = NSAttributedString(string: ZLIconFont.more.rawValue, attributes: [.font: UIFont.zlIconFont(withSize: 30),
+                                                                                    .foregroundColor:UIColor.label(withName: "ICON_Common")])
+        button.setAttributedTitle(str, for: .normal)
         self.containerView?.addSubview(button)
         button.snp.makeConstraints { (make) in
             make.width.equalTo(45)

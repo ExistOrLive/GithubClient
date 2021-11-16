@@ -84,7 +84,7 @@ class ZLRepoContentController: ZLBaseViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
-        tableView.register(UINib.init(nibName: "ZLRepoContentTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLRepoContentTableViewCell")
+        tableView.register(ZLRepoContentTableViewCell.self, forCellReuseIdentifier: "ZLRepoContentTableViewCell")
         
         tableView.mj_header = ZLRefresh.refreshHeader(refreshingBlock: { [weak self] in
             self?.setQueryContentRequest()
