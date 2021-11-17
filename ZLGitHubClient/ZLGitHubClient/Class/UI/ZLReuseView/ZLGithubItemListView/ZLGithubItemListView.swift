@@ -93,7 +93,7 @@ import MJRefresh
         self.tableView.register(ZLRepositoryTableViewCell.self, forCellReuseIdentifier: "ZLRepositoryTableViewCell")
         self.tableView.register(ZLUserTableViewCell.self, forCellReuseIdentifier: "ZLUserTableViewCell")
         self.tableView.register(ZLIssueTableViewCell.self, forCellReuseIdentifier:  "ZLIssueTableViewCell")
-        self.tableView.register(UINib.init(nibName: "ZLNotificationTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLNotificationTableViewCell")
+        self.tableView.register(ZLNotificationTableViewCell.self, forCellReuseIdentifier: "ZLNotificationTableViewCell")
         self.tableView.register(ZLWorkflowTableViewCell.self, forCellReuseIdentifier: "ZLWorkflowTableViewCell")
         self.tableView.register(UINib.init(nibName: "ZLWorkflowRunTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLWorkflowRunTableViewCell")
         

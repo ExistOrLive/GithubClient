@@ -61,11 +61,23 @@ public struct ZLIconFont{
     static let DirClose = ZLIconFont(rawValue: "\u{e675}")
     static let DirOpen = ZLIconFont(rawValue: "\u{e677}")
     
-    static let filter = ZLIconFont(rawValue: "\u{e676}")
+    static let Filter = ZLIconFont(rawValue: "\u{e676}")
     
-    static let more = ZLIconFont(rawValue: "\u{e7e3}")
+    static let More = ZLIconFont(rawValue: "\u{e7e3}")
     
-    static let workflow = ZLIconFont(rawValue: "\u{e77b}")
+    static let Workflow = ZLIconFont(rawValue: "\u{e77b}")
+    
+    static let Notification = ZLIconFont(rawValue: "\u{e629}")
+    
+    static let NoData = ZLIconFont(rawValue: "\u{e662}")
+    
+    static let Commit = ZLIconFont(rawValue: "\u{e857}")
+    
+    static let Tag = ZLIconFont(rawValue: "\u{e738}")
+    
+    static let Alert = ZLIconFont(rawValue: "\u{e637}")
+    
+    static let Discussion = ZLIconFont(rawValue: "\u{e638}")
 
 }
 

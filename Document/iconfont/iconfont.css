@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 2924324 */
-  src: url('iconfont.woff2?t=1636998825507') format('woff2'),
-       url('iconfont.woff?t=1636998825507') format('woff'),
-       url('iconfont.ttf?t=1636998825507') format('truetype');
+  src: url('iconfont.woff2?t=1637168186808') format('woff2'),
+       url('iconfont.woff?t=1637168186808') format('woff'),
+       url('iconfont.ttf?t=1637168186808') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,26 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-discuss-line:before {
+  content: "\e638";
+}
+
+.icon-notification:before {
+  content: "\e629";
+}
+
+.icon-code-commit:before {
+  content: "\e857";
+}
+
+.icon-jinhangzhong:before {
+  content: "\e662";
+}
+
+.icon-un-progress-o:before {
+  content: "\e6b3";
 }
 
 .icon-git-repo-forked:before {

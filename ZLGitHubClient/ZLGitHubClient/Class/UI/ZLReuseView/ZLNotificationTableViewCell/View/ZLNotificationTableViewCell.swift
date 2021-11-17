@@ -15,23 +15,62 @@ import UIKit
 
 class ZLNotificationTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var notificationTypeImageView: UIImageView!
+    private lazy var containerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(named: "ZLCellBack")
+        view.cornerRadius = 8.0
+        return view
+    }()
     
-    @IBOutlet weak var notificationTitleLabel: YYLabel!
-    @IBOutlet weak var notificationDescLabel: UILabel!
-    @IBOutlet weak var notificationReasonLabel: UILabel!
-    @IBOutlet weak var timeLabel: UILabel!
+    private lazy var notificationTypeLabel: UILabel = {
+        let label = UILabel()
+        label.text = ZLIconFont.Workflow.rawValue
+        label.font = UIFont.zlIconFont(withSize: 20)
+        return label
+    }()
+    
+
+    lazy var notificationTitleLabel: YYLabel = {
+       let label = YYLabel()
+        label.numberOfLines = 0
+        label.preferredMaxLayoutWidth = ZLKeyWindowWidth - 90
+        return label
+    }()
+    
+    
+    lazy var notificationDescLabel: UILabel = {
+       let label = UILabel()
+        label.textColor = .label(withName: "ZLLabelColor3")
+        label.font = .zlRegularFont(withSize: 15)
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    lazy var notificationReasonLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .label(withName: "ZLLabelColor4")
+        label.font = .zlSemiBoldFont(withSize: 15)
+         return label
+    }()
+    
+    lazy var timeLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .label(withName: "ZLLabelColor2")
+        label.font = .zlRegularFont(withSize: 15)
+         return label
+    }()
     
     weak var delegate : ZLNotificationTableViewCellDelegate?
     
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        self.notificationTitleLabel.numberOfLines = 0
-        self.notificationTitleLabel.preferredMaxLayoutWidth = ZLKeyWindowWidth - 90
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.setupUI()
     }
-
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         self.notificationTitleLabel.preferredMaxLayoutWidth = ZLKeyWindowWidth - 90
@@ -41,6 +80,52 @@ class ZLNotificationTableViewCell: UITableViewCell {
         super.setSelected(false, animated: animated)
     }
     
+    
+    private func setupUI(){
+        self.backgroundColor = UIColor.clear
+        self.selectionStyle = .none
+        
+        contentView.addSubview(containerView)
+        containerView.snp.makeConstraints { make in
+            make.edges.equalTo(UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
+        }
+        
+        containerView.addSubview(notificationTypeLabel)
+        containerView.addSubview(notificationTitleLabel)
+        containerView.addSubview(notificationDescLabel)
+        containerView.addSubview(notificationReasonLabel)
+        containerView.addSubview(timeLabel)
+        
+        notificationTypeLabel.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(10)
+            make.size.equalTo(CGSize(width: 25, height: 25))
+        }
+        
+        notificationTitleLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(10)
+            make.left.equalTo(notificationTypeLabel.snp.right).offset(10)
+            make.centerY.equalTo(notificationTypeLabel)
+            make.right.equalToSuperview().offset(-20)
+        }
+        
+        notificationDescLabel.snp.makeConstraints { make in
+            make.left.right.equalTo(notificationTitleLabel)
+            make.top.equalTo(notificationTitleLabel.snp.bottom).offset(13.5)
+        }
+        
+        notificationReasonLabel.snp.makeConstraints { make in
+            make.left.equalTo(notificationTitleLabel)
+            make.top.equalTo(notificationDescLabel.snp.bottom).offset(10)
+            make.bottom.equalToSuperview().offset(-12.5)
+        }
+        
+        timeLabel.snp.makeConstraints { make in
+            make.right.equalTo(notificationTitleLabel)
+            make.centerY.equalTo(notificationReasonLabel)
+        }
+    }
+    
+    
     func fillWithData(data : ZLNotificationTableViewCellData) {
         self.notificationDescLabel.text = data.getNotificationSubjectTitle()
         self.notificationTitleLabel.attributedText = data.getNotificationTitle()
@@ -49,20 +134,48 @@ class ZLNotificationTableViewCell: UITableViewCell {
         
         switch data.getNotificationSubjectType() {
         case "PullRequest":
-            self.notificationTypeImageView.image = UIImage.init(named: "pr_opened")
+            self.notificationTypeLabel.text = ZLIconFont.PR.rawValue
+            self.notificationTypeLabel.textColor = UIColor.iconColor(withName: "ICON_PROpenedColor")
         case "Issue":
-            self.notificationTypeImageView.image = UIImage.init(named: "issue_opened")
+            self.notificationTypeLabel.text = ZLIconFont.IssueOpen.rawValue
+            self.notificationTypeLabel.textColor = UIColor.iconColor(withName: "ICON_IssueOpenedColor")
         case "RepositoryVulnerabilityAlert":
-            self.notificationTypeImageView.image = UIImage.init(named: "security_alert")
+            self.notificationTypeLabel.text = ZLIconFont.Alert.rawValue
+            self.notificationTypeLabel.textColor = UIColor.iconColor(withName: "ICON_Common")
         case "Discussion":
-            self.notificationTypeImageView.image = UIImage.init(named: "discussion")
+            self.notificationTypeLabel.text = ZLIconFont.Discussion.rawValue
+            self.notificationTypeLabel.textColor = UIColor.iconColor(withName: "ICON_Common")
         case "Release":
-            self.notificationTypeImageView.image = UIImage.init(named: "release_tag")
+            self.notificationTypeLabel.text = ZLIconFont.Tag.rawValue
+            self.notificationTypeLabel.textColor = UIColor.iconColor(withName: "ICON_Common")
         case "Commit":
-            self.notificationTypeImageView.image = nil 
+            self.notificationTypeLabel.text = ZLIconFont.Commit.rawValue
+            self.notificationTypeLabel.textColor = UIColor.iconColor(withName: "ICON_Common")
         default:
-            self.notificationTypeImageView.image = nil
+            self.notificationTypeLabel.text = ZLIconFont.Notification.rawValue
+            self.notificationTypeLabel.textColor = UIColor.iconColor(withName: "ICON_Common")
         }
     }
     
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        UIView.animate(withDuration: 0.1) {
+            self.containerView.backgroundColor = UIColor.init(named: "ZLCellBackSelected")
+        }
+    }
+    
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesCancelled(touches, with: event)
+        UIView.animate(withDuration: 0.1) {
+            self.containerView.backgroundColor = UIColor.init(named: "ZLCellBack")
+        }
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        UIView.animate(withDuration: 0.1) {
+            self.containerView.backgroundColor = UIColor.init(named: "ZLCellBack")
+        }
+    }
 }

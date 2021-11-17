@@ -6,6 +6,41 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "12004264",
+      "name": "discuss-line",
+      "font_class": "discuss-line",
+      "unicode": "e638",
+      "unicode_decimal": 58936
+    },
+    {
+      "icon_id": "13851365",
+      "name": "notification",
+      "font_class": "notification",
+      "unicode": "e629",
+      "unicode_decimal": 58921
+    },
+    {
+      "icon_id": "25685062",
+      "name": "code-commit",
+      "font_class": "code-commit",
+      "unicode": "e857",
+      "unicode_decimal": 59479
+    },
+    {
+      "icon_id": "5304397",
+      "name": "进行中",
+      "font_class": "jinhangzhong",
+      "unicode": "e662",
+      "unicode_decimal": 58978
+    },
+    {
+      "icon_id": "11420360",
+      "name": "un-progress-o",
+      "font_class": "un-progress-o",
+      "unicode": "e6b3",
+      "unicode_decimal": 59059
+    },
+    {
       "icon_id": "5127344",
       "name": "git-repo-forked",
       "font_class": "git-repo-forked",

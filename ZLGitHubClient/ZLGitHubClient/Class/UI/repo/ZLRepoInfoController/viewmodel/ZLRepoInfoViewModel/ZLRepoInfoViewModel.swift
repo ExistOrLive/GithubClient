@@ -54,7 +54,7 @@ class ZLRepoInfoViewModel: ZLBaseViewModel {
         if let vc = self.viewController {
             vc.zlNavigationBar.backButton.isHidden = false
             let button = UIButton.init(type: .custom)
-            button.setAttributedTitle(NSAttributedString(string: ZLIconFont.more.rawValue,
+            button.setAttributedTitle(NSAttributedString(string: ZLIconFont.More.rawValue,
                                                          attributes: [.font:UIFont.zlIconFont(withSize: 30),
                                                                       .foregroundColor:UIColor.label(withName:"ICON_Common")]),
                                       for: .normal)

@@ -116,7 +116,7 @@ class ZLEventTableViewCell: UITableViewCell {
         
         let button = UIButton.init(type: .custom)
         button.addTarget(self, action: #selector(ZLEventTableViewCell.onReportButtonClicked), for: .touchUpInside)
-        let str = NSAttributedString(string: ZLIconFont.more.rawValue, attributes: [.font: UIFont.zlIconFont(withSize: 30),
+        let str = NSAttributedString(string: ZLIconFont.More.rawValue, attributes: [.font: UIFont.zlIconFont(withSize: 30),
                                                                                     .foregroundColor:UIColor.label(withName: "ICON_Common")])
         button.setAttributedTitle(str, for: .normal)
         self.containerView?.addSubview(button)
