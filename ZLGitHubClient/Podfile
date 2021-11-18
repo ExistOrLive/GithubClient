@@ -5,15 +5,20 @@ require "fileutils"
 
 abstract_target 'GithubClient' do
 
-#pod "ZLGitRemoteService", :path => '../../ZLGitRemoteService'
-pod 'ZLGitRemoteService', :git => 'https://github.com/ExistOrLive/ZLGitRemoteService.git'
-pod 'Firebase/Analytics'
+
+
+
 
 target 'Fixed RepoExtension' do
-
+  pod 'Kanna', '~> 5.2.2'
 end
 
 target 'ZLGitHubClient' do
+ 
+pod 'Firebase/Analytics'
+  
+#pod "ZLGitRemoteService", :path => '../../ZLGitRemoteService'
+pod 'ZLGitRemoteService', :git => 'https://github.com/ExistOrLive/ZLGitRemoteService.git'
   
 #pod 'Google-Mobile-Ads-SDK'
 pod 'Umbrella'

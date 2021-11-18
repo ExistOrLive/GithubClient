@@ -9,22 +9,21 @@
 import Foundation
 import WidgetKit
 import SwiftUI
-import ZLGitRemoteService
 
-extension ZLGithubUserContributionData {
-    static func getSampleContributionData() -> [ZLGithubUserContributionData] {
-        var datas = [ZLGithubUserContributionData]()
+extension ZLSimpleContributionModel {
+    static func getSampleContributionData() -> [ZLSimpleContributionModel] {
+        var datas = [ZLSimpleContributionModel]()
         for i in 1...154 {
-            let data = ZLGithubUserContributionData()
+            var data = ZLSimpleContributionModel()
             data.contributionsNumber = i % 30
             datas.append(data)
         }
         return datas
     }
-    static func getPlaceHolderContributionData() -> [ZLGithubUserContributionData] {
-        var datas = [ZLGithubUserContributionData]()
+    static func getPlaceHolderContributionData() -> [ZLSimpleContributionModel] {
+        var datas = [ZLSimpleContributionModel]()
         for _ in 1...154 {
-            let data = ZLGithubUserContributionData()
+            var data = ZLSimpleContributionModel()
             data.contributionsNumber = 0
             datas.append(data)
         }
@@ -34,7 +33,7 @@ extension ZLGithubUserContributionData {
 
 struct ContributionEntry : TimelineEntry {
     var date: Date
-    var data: [ZLGithubUserContributionData]
+    var data: [ZLSimpleContributionModel]
     var totalContributions : Int = 0
     var loginName : String?
     var isPlaceHolder : Bool = false
@@ -47,14 +46,14 @@ struct ContributionProvider : IntentTimelineProvider {
     typealias Intent = ContributionConfigurationIntent
     
     func placeholder(in context: Self.Context) -> Self.Entry {
-        ContributionEntry(date:Date(),data:ZLGithubUserContributionData.getPlaceHolderContributionData(),loginName:nil,isPlaceHolder:true)
+        ContributionEntry(date:Date(),data:ZLSimpleContributionModel.getPlaceHolderContributionData(),loginName:nil,isPlaceHolder:true)
     }
     
     func getSnapshot(for configuration: Self.Intent, in context: Self.Context, completion: @escaping (Self.Entry) -> Void) {
         if context.isPreview {
-            completion(ContributionEntry(date:Date(),data:ZLGithubUserContributionData.getSampleContributionData(),loginName:"ExistOrLive"))
+            completion(ContributionEntry(date:Date(),data:ZLSimpleContributionModel.getSampleContributionData(),loginName:"ExistOrLive"))
         } else {
-            completion(ContributionEntry(date:Date(),data:ZLGithubUserContributionData.getPlaceHolderContributionData(),loginName:nil,isPlaceHolder:true))
+            completion(ContributionEntry(date:Date(),data:ZLSimpleContributionModel.getPlaceHolderContributionData(),loginName:nil,isPlaceHolder:true))
         }
         
     }
@@ -225,6 +224,6 @@ struct ContributionWidget : Widget {
 
 struct ContributionWidget_Previews : PreviewProvider {
     static var previews: some View {
-        ContributionView(entry:ContributionEntry(date:Date(),data:ZLGithubUserContributionData.getSampleContributionData(),loginName:"ExistOrLive")).previewContext(WidgetPreviewContext(family: .systemMedium))
+        ContributionView(entry:ContributionEntry(date:Date(),data:ZLSimpleContributionModel.getSampleContributionData(),loginName:"ExistOrLive")).previewContext(WidgetPreviewContext(family: .systemMedium))
     }
 }

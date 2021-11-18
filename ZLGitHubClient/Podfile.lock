@@ -142,6 +142,7 @@ PODS:
     - JJException/Swizzle
   - JJException/Swizzle (0.2.10)
   - JXSegmentedView (1.2.7)
+  - Kanna (5.2.7)
   - LookinServer (1.0.4)
   - Masonry (1.1.0)
   - MJExtension (3.3.0)
@@ -199,6 +200,7 @@ DEPENDENCIES:
   - IQKeyboardManager
   - JJException
   - JXSegmentedView
+  - Kanna (~> 5.2.2)
   - LookinServer
   - Masonry
   - MJExtension
@@ -243,6 +245,7 @@ SPEC REPOS:
     - IQKeyboardManager
     - JJException
     - JXSegmentedView
+    - Kanna
     - LookinServer
     - Masonry
     - MJExtension
@@ -300,6 +303,7 @@ SPEC CHECKSUMS:
   IQKeyboardManager: 2a6e97afdafc7becf0cb17a9a8d795e3a980717f
   JJException: 2fbbd9c97313862134fbd6e5ca8e6a297baeaac0
   JXSegmentedView: eb1cad21f57c2543c00c3e08b8fd3c7ca54f5acd
+  Kanna: 01cfbddc127f5ff0963692f285fcbc8a9d62d234
   LookinServer: 743c1681771d0a8dcc38825325a080c3186404a5
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJExtension: 01704cca2b60a214c10761b6491eab74069d68a9
@@ -319,6 +323,6 @@ SPEC CHECKSUMS:
   ZLBaseUI: 068453e9b04f010e4453191929c5242e832d0d46
   ZLGitRemoteService: ff54fad10c0abfa89dde01b03c774da970ac6d5a
 
-PODFILE CHECKSUM: 219281a663e37630540ee0a5c6290a0a49bf92c1
+PODFILE CHECKSUM: 320594b7caf04f55bf13d25cc4496c9f56aff0da
 
 COCOAPODS: 1.11.0
