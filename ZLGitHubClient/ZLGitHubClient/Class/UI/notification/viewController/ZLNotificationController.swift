@@ -17,10 +17,7 @@ import UIKit
         
         let viewModel = ZLNotificationViewModel.init()
         
-        guard let baseView : ZLNotificationView = Bundle.main.loadNibNamed("ZLNotificationView", owner: viewModel, options: nil)?.first as? ZLNotificationView else
-        {
-            return
-        }
+        let baseView : ZLNotificationView = ZLNotificationView()
         self.contentView.addSubview(baseView)
         baseView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()

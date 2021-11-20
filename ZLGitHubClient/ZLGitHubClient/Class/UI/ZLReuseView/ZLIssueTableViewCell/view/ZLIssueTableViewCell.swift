@@ -38,11 +38,14 @@ class ZLIssueTableViewCell: UITableViewCell {
         return label
     }()
     
-    private lazy var repoNameButton: UIButton = {
-        let button = UIButton()
-        button.contentHorizontalAlignment = .leading
-        return button
+    
+    private lazy var repoNameTitleLabel: YYLabel = {
+       let label = YYLabel()
+        label.numberOfLines = 0
+        label.preferredMaxLayoutWidth = ZLKeyWindowWidth - 90
+        return label
     }()
+    
     
     private lazy var labelStackView: UIStackView = {
         let stackView = UIStackView()
@@ -65,6 +68,8 @@ class ZLIssueTableViewCell: UITableViewCell {
         let label2 = UILabel()
         label2.textColor = UIColor(named:"ZLLabelColor2")
         label2.font = UIFont(name: Font_PingFangSCRegular, size: 12)
+        label2.textAlignment = .left
+        label2.numberOfLines = 0
         return label2
     }()
         
@@ -96,23 +101,21 @@ class ZLIssueTableViewCell: UITableViewCell {
         containerView.addSubview(statusTag)
         statusTag.snp.makeConstraints { (make) in
             make.left.equalToSuperview().offset(10)
-            make.top.equalToSuperview().offset(10)
-            make.size.equalTo(CGSize(width: 20, height: 20))
+            make.size.equalTo(CGSize(width: 25, height: 25))
         }
         
-        containerView.addSubview(repoNameButton)
-        repoNameButton.snp.makeConstraints { (make) in
-            make.left.equalTo(statusTag.snp_right).offset(10)
+        containerView.addSubview(repoNameTitleLabel)
+        repoNameTitleLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(10)
+            make.left.equalTo(statusTag.snp.right).offset(10)
             make.centerY.equalTo(statusTag)
             make.right.equalToSuperview().offset(-15)
         }
-        repoNameButton.addTarget(self, action: #selector(onRepoNameClick), for: .touchUpInside)
         
         containerView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints{ (make) in
-            make.left.equalTo(statusTag.snp_right).offset(10)
-            make.top.equalTo(repoNameButton.snp.bottom).offset(10)
-            make.right.equalToSuperview().offset(-15)
+            make.left.right.equalTo(repoNameTitleLabel)
+            make.top.equalTo(repoNameTitleLabel.snp.bottom).offset(10)
         }
     
         containerView.addSubview(labelStackView)
@@ -122,12 +125,11 @@ class ZLIssueTableViewCell: UITableViewCell {
             make.height.equalTo(20)
         }
         
-   
         containerView.addSubview(assitLabel)
         assitLabel.snp.makeConstraints{ (make) in
-            make.left.equalTo(statusTag.snp_right).offset(10)
             make.top.equalTo(labelStackView.snp.bottom).offset(10)
             make.bottom.equalToSuperview().offset(-10)
+            make.left.right.equalTo(repoNameTitleLabel)
         }
     }
 
@@ -139,10 +141,16 @@ class ZLIssueTableViewCell: UITableViewCell {
         
         self.delegate = cellData
         
-        let title = NSAttributedString(string: cellData.getIssueRepoFullName() ?? "",
-                                       attributes: [.foregroundColor:UIColor.label(withName: "ZLLabelColor1"),
-                                                    .font:UIFont.zlMediumFont(withSize: 15)])
-        self.repoNameButton.setAttributedTitle(title, for: .normal)
+        let title = NSMutableAttributedString(string: cellData.getIssueRepoFullName() ?? "",
+                                              attributes: [.foregroundColor:ZLRawLabelColor(name: "ZLLabelColor1"),
+                                                           .font:UIFont.zlMediumFont(withSize: 15)])
+        title.yy_setTextHighlight(NSRange(location: 0, length: title.length),
+                                  color: nil,
+                                  backgroundColor: UIColor(cgColor:UIColor.linkColor(withName: "ZLLinkLabelColor1").cgColor))
+        { [weak self]_, _, _, _ in
+            self?.onRepoNameClick()
+        }
+        self.repoNameTitleLabel.attributedText = title
         
         self.titleLabel.text = cellData.getIssueTitleStr()
         self.assitLabel.text = cellData.getIssueAssistStr()
@@ -184,7 +192,7 @@ class ZLIssueTableViewCell: UITableViewCell {
                     labelView.textColor = ZLRGBValueStr_H(colorValue:colorStr)
                 }
             }
-
+            
             labelView.snp.makeConstraints { (make) in
                 make.width.equalTo(8.0 + size.width)
             }
@@ -194,7 +202,7 @@ class ZLIssueTableViewCell: UITableViewCell {
         self.labelStackView.snp.updateConstraints { (make) in
             make.height.equalTo(cellData.getIssueLabels().count == 0 ? 0 : 20)
         }
-
+        
     }
     
     

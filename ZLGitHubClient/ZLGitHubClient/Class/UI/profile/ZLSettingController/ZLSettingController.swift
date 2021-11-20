@@ -18,8 +18,8 @@ class ZLSettingController: ZLBaseViewController {
         let tableView = UITableView.init(frame: CGRect.init(), style: .grouped)
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
-        tableView.register(UINib.init(nibName: "ZLSettingItemTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLSettingItemTableViewCell")
-        tableView.register(UINib.init(nibName: "ZLSettingItemTableViewCell1", bundle: nil), forCellReuseIdentifier: "ZLSettingItemTableViewCell1")
+        tableView.register(ZLSettingItemTableViewCell.self, forCellReuseIdentifier: "ZLSettingItemTableViewCell")
+        tableView.register(ZLSettingItemTableViewCell1.self, forCellReuseIdentifier: "ZLSettingItemTableViewCell1")
         tableView.register(UINib.init(nibName: "ZLSettingLogoutTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLSettingLogoutTableViewCell")
         self.contentView.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in

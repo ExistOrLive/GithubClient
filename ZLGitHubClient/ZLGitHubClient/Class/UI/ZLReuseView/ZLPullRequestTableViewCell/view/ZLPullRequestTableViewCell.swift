@@ -41,11 +41,18 @@ class ZLPullRequestTableViewCell: UITableViewCell {
         return view
     }()
     
-    lazy var repoNameButton: UIButton = {
-        let button = UIButton()
-        button.contentHorizontalAlignment = .leading
-        return button
+    private lazy var repoNameTitleLabel: YYLabel = {
+       let label = YYLabel()
+        label.numberOfLines = 0
+        label.preferredMaxLayoutWidth = ZLKeyWindowWidth - 90
+        return label
     }()
+    
+//    lazy var repoNameButton: UIButton = {
+//        let button = UIButton()
+//        button.contentHorizontalAlignment = .leading
+//        return button
+//    }()
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -89,28 +96,26 @@ class ZLPullRequestTableViewCell: UITableViewCell {
         containerView.addSubview(statusTag)
         statusTag.snp.makeConstraints { (make) in
             make.left.equalToSuperview().offset(10)
-            make.top.equalToSuperview().offset(10)
-            make.size.equalTo(CGSize(width: 20, height: 20))
+            make.size.equalTo(CGSize(width: 25, height: 25))
         }
         
-        containerView.addSubview(repoNameButton)
-        repoNameButton.snp.makeConstraints { (make) in
-            make.left.equalTo(statusTag.snp_right).offset(10)
+        containerView.addSubview(repoNameTitleLabel)
+        repoNameTitleLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(10)
+            make.left.equalTo(statusTag.snp.right).offset(10)
             make.centerY.equalTo(statusTag)
             make.right.equalToSuperview().offset(-15)
         }
-        repoNameButton.addTarget(self, action: #selector(onRepoNameClick), for: .touchUpInside)
     
         containerView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints{ (make) in
-            make.left.equalTo(statusTag.snp_right).offset(10)
-            make.top.equalTo(repoNameButton.snp.bottom).offset(10)
-            make.right.equalToSuperview().offset(-15)
+            make.left.right.equalTo(repoNameTitleLabel)
+            make.top.equalTo(repoNameTitleLabel.snp.bottom).offset(10)
         }
             
         containerView.addSubview(assistLabel)
         assistLabel.snp.makeConstraints{ (make) in
-            make.left.equalTo(statusTag.snp_right).offset(10)
+            make.left.right.equalTo(repoNameTitleLabel)
             make.top.equalTo(titleLabel.snp.bottom).offset(15)
             make.bottom.equalToSuperview().offset(-10)
         }
@@ -125,10 +130,16 @@ class ZLPullRequestTableViewCell: UITableViewCell {
         self.titleLabel.text = data.getPullRequestTitle()
         self.assistLabel.text = data.getPullRequestAssistInfo()
         
-        let title = NSAttributedString(string: data.getPullRequestRepoFullName() ?? "",
+        let title = NSMutableAttributedString(string: data.getPullRequestRepoFullName() ?? "",
                                        attributes: [.foregroundColor:ZLRawLabelColor(name: "ZLLabelColor1"),
-                                                    .font:UIFont.zlRegularFont(withSize: 15)])
-        self.repoNameButton.setAttributedTitle(title, for: .normal)
+                                                    .font:UIFont.zlMediumFont(withSize: 15)])
+        title.yy_setTextHighlight(NSRange(location: 0, length: title.length),
+                                  color: nil,
+                                  backgroundColor: UIColor(cgColor:UIColor.linkColor(withName: "ZLLinkLabelColor1").cgColor))
+        { [weak self] _,_,_,_ in
+            self?.onRepoNameClick()
+        }
+        self.repoNameTitleLabel.attributedText = title
         
         self.statusTag.text = ZLIconFont.PR.rawValue
         if data.getPullRequestState() == .open {

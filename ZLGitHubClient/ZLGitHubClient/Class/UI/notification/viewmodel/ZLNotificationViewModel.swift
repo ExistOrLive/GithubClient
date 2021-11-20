@@ -14,7 +14,7 @@ class ZLNotificationViewModel: ZLBaseViewModel {
     
     var pageNum : UInt = 0
     
-    var showAllNotification : Bool = false
+    var showAll: Bool = false
     
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -26,28 +26,14 @@ class ZLNotificationViewModel: ZLBaseViewModel {
             return
         }
         self.baseView = view
-        self.baseView?.githubItemListView.delegate = self
         
-        self.showAllNotification = ZLUISharedDataManager.showAllNotifications
-        self.baseView?.filterLabel.text = self.showAllNotification ? "all" : "unread"
+        self.showAll = ZLUISharedDataManager.showAllNotifications
         
+        self.baseView?.fillWithViewModel(viewModel: self)
+
         self.baseView?.githubItemListView.beginRefresh()
         
         NotificationCenter.default.addObserver(self, selector: #selector(onNotificationArrived(notifcation:)), name: ZLLanguageTypeChange_Notificaiton, object: nil)
-    }
-    
-    
-    @IBAction func onFilterButtonClicked(_ sender: Any) {
-        
-        CYSinglePickerPopoverView.showCYSinglePickerPopover(withTitle: ZLLocalizedString(string: "Filter", comment: ""), withInitIndex: self.showAllNotification ? 0 : 1, withDataArray: ["all","unread"], withResultBlock: {(result : UInt) in
-            self.showAllNotification = result == 0 ? true : false
-            ZLUISharedDataManager.showAllNotifications = self.showAllNotification
-            self.baseView?.filterLabel.text = self.showAllNotification ? "all" : "unread"
-            
-            self.baseView?.githubItemListView.clearListView()
-            SVProgressHUD.show()
-            self.loadNewData()
-        })
     }
     
     
@@ -55,9 +41,9 @@ class ZLNotificationViewModel: ZLBaseViewModel {
         
         ZLServiceManager.sharedInstance.eventServiceModel?.getNotificationsWithShowAll(self.showAllNotification,
                                                                                        page: Int32(self.pageNum + 1),
-                                                                                       per_page: 10,
+                                                                                       per_page: 20,
                                                                                        serialNumber: NSString.generateSerialNumber())
-        { [weak weakSelf = self](resultModel : ZLOperationResultModel) in
+        { [weak self](resultModel : ZLOperationResultModel) in
             
             if resultModel.result == false {
                 guard let errorModel : ZLGithubRequestErrorModel = resultModel.data as? ZLGithubRequestErrorModel else {
@@ -65,7 +51,7 @@ class ZLNotificationViewModel: ZLBaseViewModel {
                     return
                 }
                 ZLToastView.showMessage("query Notifications failed statusCode[\(errorModel.statusCode)] errorMessage[\(errorModel.message)]")
-                weakSelf?.baseView?.githubItemListView.endRefreshWithError()
+                self?.baseView?.githubItemListView.endRefreshWithError()
             } else {
                 
                 guard let data : [ZLGithubNotificationModel] = resultModel.data as? [ZLGithubNotificationModel] else {
@@ -75,12 +61,12 @@ class ZLNotificationViewModel: ZLBaseViewModel {
                 var cellDataArray : [ZLGithubItemTableViewCellData] = []
                 for item in data {
                     if let cellData = ZLGithubItemTableViewCellData.getCellDataWithData(data: item) {
-                        weakSelf?.addSubViewModel(cellData)
+                        self?.addSubViewModel(cellData)
                         cellDataArray.append(cellData)
                     }
                 }
-                weakSelf?.pageNum += 1
-                weakSelf?.baseView?.githubItemListView.appendCellDatas(cellDatas: cellDataArray)
+                self?.pageNum += 1
+                self?.baseView?.githubItemListView.appendCellDatas(cellDatas: cellDataArray)
             }
         }
         
@@ -90,9 +76,9 @@ class ZLNotificationViewModel: ZLBaseViewModel {
         
         ZLServiceManager.sharedInstance.eventServiceModel?.getNotificationsWithShowAll(self.showAllNotification,
                                                                                        page: 1,
-                                                                                       per_page: 10,
+                                                                                       per_page: 20,
                                                                                        serialNumber: NSString.generateSerialNumber())
-       {[weak weakSelf = self](resultModel : ZLOperationResultModel) in
+       {[weak self](resultModel : ZLOperationResultModel) in
             
             SVProgressHUD.dismiss()
             if resultModel.result == false {
@@ -101,7 +87,7 @@ class ZLNotificationViewModel: ZLBaseViewModel {
                     return
                 }
                 ZLToastView.showMessage("query Notification failed statusCode[\(errorModel.statusCode)] errorMessage[\(errorModel.message)]")
-                weakSelf?.baseView?.githubItemListView.endRefreshWithError()
+                self?.baseView?.githubItemListView.endRefreshWithError()
             } else {
                 
                 guard let data : [ZLGithubNotificationModel] = resultModel.data as? [ZLGithubNotificationModel] else {
@@ -111,18 +97,18 @@ class ZLNotificationViewModel: ZLBaseViewModel {
                 var cellDataArray : [ZLGithubItemTableViewCellData] = []
                 for item in data {
                     if let cellData = ZLGithubItemTableViewCellData.getCellDataWithData(data: item) {
-                        weakSelf?.addSubViewModel(cellData)
+                        self?.addSubViewModel(cellData)
                         cellDataArray.append(cellData)
                     }
                 }
-                weakSelf?.pageNum = 1
-                weakSelf?.baseView?.githubItemListView.resetCellDatas(cellDatas: cellDataArray)
+                self?.pageNum = 1
+                self?.baseView?.githubItemListView.resetCellDatas(cellDatas: cellDataArray)
             }
         }
     }
     
     func deleteCellData(cellData : ZLNotificationTableViewCellData) {
-        if self.showAllNotification == false {
+        if self.showAll == false {
             self.baseView?.githubItemListView.deleteGithubItem(cellData: cellData)
         }
     }
@@ -136,12 +122,22 @@ class ZLNotificationViewModel: ZLBaseViewModel {
     
 }
 
-extension ZLNotificationViewModel : ZLGithubItemListViewDelegate {
+extension ZLNotificationViewModel : ZLNotificationViewDataSourceAndDelagate {
+    
+    func onFilterTypeChange(_ showAllNotification: Bool) {
+        showAll = showAllNotification
+        SVProgressHUD.show()
+        self.loadNewData()
+    }
     
     func githubItemListViewRefreshDragDown(pullRequestListView: ZLGithubItemListView) -> Void{
         self.loadNewData()
     }
     func githubItemListViewRefreshDragUp(pullRequestListView: ZLGithubItemListView) -> Void{
         self.loadMoreData()
+    }
+    
+    var showAllNotification: Bool{
+        showAll
     }
 }

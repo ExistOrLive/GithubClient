@@ -28,101 +28,13 @@ struct ZLWidgetService {
                              language : FixedRepoLanguage,
                              completeHandler: @escaping (Bool,[ZLSimpleRepositoryModel]) -> Void) {
         
-        var languageStr : String? = nil
-        switch language{
-        case .any,.unknown:
-            languageStr = nil
-        case .c:
-            languageStr = "C";
-        case .cPlusPlus:
-            languageStr = "C++";
-        case .c4:
-            languageStr = "C#";
-        case .cMake:
-            languageStr = "CMake";
-        case .cSS:
-            languageStr = "CSS";
-        case .cSV:
-            languageStr = "CSV";
-        case .d:
-            languageStr = "D";
-        case .dart:
-            languageStr = "Dart";
-        case .dockerfile:
-            languageStr = "Dockerfile";
-        case .go:
-            languageStr = "Go";
-        case .gradle:
-            languageStr = "Gradle";
-        case .graphQL:
-            languageStr = "GraphQL";
-        case .groovy:
-            languageStr = "Groovy";
-        case .hTML:
-            languageStr = "HTML";
-        case .jSON:
-            languageStr = "JSON";
-        case .java:
-            languageStr = "Java";
-        case .javaScript:
-            languageStr = "JavaScript";
-        case .kotlin:
-            languageStr = "Kotlin";
-        case .mATLAB:
-            languageStr = "MATLAB";
-        case .markdown:
-            languageStr = "Markdown";
-        case .metal:
-            languageStr = "Metal";
-        case .objectiveC:
-            languageStr = "Objective-C";
-        case .objectiveCPLUSPLUS:
-            languageStr = "Objective-C++";
-        case .pHP:
-            languageStr = "PHP";
-        case .pascal:
-            languageStr = "Pascal";
-        case .perl:
-            languageStr = "Perl";
-        case .powerShell:
-            languageStr = "PowerShell";
-        case .python:
-            languageStr = "Python";
-        case .ruby:
-            languageStr = "Ruby";
-        case .sQL:
-            languageStr = "SQL";
-        case .shell:
-            languageStr = "Shell";
-        case .swift:
-            languageStr = "Swift";
-        case .vue:
-            languageStr = "Vue";
-        case .xML:
-            languageStr = "XML";
-        case .yAML:
-            languageStr = "YAML";
-        }
-        
-        var dateRangeStr: String? = nil
-        switch dateRange {
-        case .daily:
-            dateRangeStr = "?since=daily"
-        case .weekly:
-            dateRangeStr = "?since=weekly"
-        case .monthly:
-            dateRangeStr = "?since=monthly"
-        case .unknown:
-            break
-        }
-         
         var urlStr = "https://github.com/trending"
         
-        if let languageStr = languageStr {
+        if let languageStr = language.languageString {
             urlStr += "/\(languageStr)"
         }
         
-        if let dateRangeStr = dateRangeStr {
+        if let dateRangeStr = dateRange.rangeString {
             urlStr += dateRangeStr
         }
         
@@ -246,4 +158,111 @@ struct ZLWidgetService {
         }
         
     }
+}
+
+
+extension FixedRepoLanguage {
+    
+    var languageString : String? {
+        
+        var languageStr: String? = nil
+        switch self{
+        case .any,.unknown:
+            languageStr = nil
+        case .c:
+            languageStr = "C";
+        case .cPlusPlus:
+            languageStr = "C++";
+        case .c4:
+            languageStr = "C#";
+        case .cMake:
+            languageStr = "CMake";
+        case .cSS:
+            languageStr = "CSS";
+        case .cSV:
+            languageStr = "CSV";
+        case .d:
+            languageStr = "D";
+        case .dart:
+            languageStr = "Dart";
+        case .dockerfile:
+            languageStr = "Dockerfile";
+        case .go:
+            languageStr = "Go";
+        case .gradle:
+            languageStr = "Gradle";
+        case .graphQL:
+            languageStr = "GraphQL";
+        case .groovy:
+            languageStr = "Groovy";
+        case .hTML:
+            languageStr = "HTML";
+        case .jSON:
+            languageStr = "JSON";
+        case .java:
+            languageStr = "Java";
+        case .javaScript:
+            languageStr = "JavaScript";
+        case .kotlin:
+            languageStr = "Kotlin";
+        case .mATLAB:
+            languageStr = "MATLAB";
+        case .markdown:
+            languageStr = "Markdown";
+        case .metal:
+            languageStr = "Metal";
+        case .objectiveC:
+            languageStr = "Objective-C";
+        case .objectiveCPLUSPLUS:
+            languageStr = "Objective-C++";
+        case .pHP:
+            languageStr = "PHP";
+        case .pascal:
+            languageStr = "Pascal";
+        case .perl:
+            languageStr = "Perl";
+        case .powerShell:
+            languageStr = "PowerShell";
+        case .python:
+            languageStr = "Python";
+        case .ruby:
+            languageStr = "Ruby";
+        case .sQL:
+            languageStr = "SQL";
+        case .shell:
+            languageStr = "Shell";
+        case .swift:
+            languageStr = "Swift";
+        case .vue:
+            languageStr = "Vue";
+        case .xML:
+            languageStr = "XML";
+        case .yAML:
+            languageStr = "YAML";
+        }
+        
+        return languageStr
+    }
+    
+}
+
+
+extension FixedRepoDateRange {
+
+    var rangeString: String? {
+        var dateRangeStr: String?
+        switch self {
+        case .daily:
+            dateRangeStr = "?since=daily"
+        case .weekly:
+            dateRangeStr = "?since=weekly"
+        case .monthly:
+            dateRangeStr = "?since=monthly"
+        case .unknown:
+            break
+        }
+        return dateRangeStr
+    }
+   
+    
 }

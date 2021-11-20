@@ -111,10 +111,14 @@ import MJRefresh
         let view = UIView.init()
         view.backgroundColor = UIColor.clear
         
-        let imageView = UIImageView.init()
-        imageView.image = UIImage.init(named: "NoData")
-        view.addSubview(imageView)
-        imageView.snp.makeConstraints ({ (make) in
+        
+        let tagLabel = UILabel()
+        tagLabel.textColor = ZLRGBValue_H(colorValue: 0x999999)
+        tagLabel.textAlignment = .center
+        tagLabel.font = .zlIconFont(withSize: 45)
+        tagLabel.text = ZLIconFont.NoData.rawValue
+        view.addSubview(tagLabel)
+        tagLabel.snp.makeConstraints ({ (make) in
             make.size.equalTo(CGSize.init(width: 50, height: 50))
             make.top.left.right.equalToSuperview()
         })
@@ -122,11 +126,11 @@ import MJRefresh
         let label = UILabel.init()
         label.text = "No Data"
         label.textColor = ZLRGBValue_H(colorValue: 0x999999)
-        label.font = UIFont.systemFont(ofSize: 15)
+        label.font = .zlSemiBoldFont(withSize: 15)
         label.textAlignment = .center
         view.addSubview(label)
         label.snp.makeConstraints({(make) in
-            make.top.equalTo(imageView.snp.bottom).offset(10)
+            make.top.equalTo(tagLabel.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
             make.bottom.equalToSuperview()
         })

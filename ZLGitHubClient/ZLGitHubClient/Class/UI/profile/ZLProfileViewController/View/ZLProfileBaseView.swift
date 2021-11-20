@@ -30,7 +30,7 @@ class ZLProfileBaseView: ZLBaseView {
         self.topViewHeightConstraint.constant = ZLStatusBarHeight
         
         // 设置tableView
-        self.tableView.register(UINib.init(nibName: "ZLProfileTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLProfileTableViewCell");
+        self.tableView.register(ZLProfileTableViewCell.self, forCellReuseIdentifier: "ZLProfileTableViewCell");
         self.tableView.autoresizingMask = UIView.AutoresizingMask.init(rawValue: 0);
         
         // 设置tableViewHeader

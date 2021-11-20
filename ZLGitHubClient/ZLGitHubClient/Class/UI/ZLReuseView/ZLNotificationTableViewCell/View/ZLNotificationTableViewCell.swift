@@ -105,7 +105,7 @@ class ZLNotificationTableViewCell: UITableViewCell {
             make.top.equalToSuperview().offset(10)
             make.left.equalTo(notificationTypeLabel.snp.right).offset(10)
             make.centerY.equalTo(notificationTypeLabel)
-            make.right.equalToSuperview().offset(-20)
+            make.right.equalToSuperview().offset(-15)
         }
         
         notificationDescLabel.snp.makeConstraints { make in

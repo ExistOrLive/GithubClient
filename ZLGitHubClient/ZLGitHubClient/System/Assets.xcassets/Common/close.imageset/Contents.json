@@ -1,7 +1,6 @@
 {
   "images" : [
     {
-      "filename" : "icon_closed.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -12,7 +11,6 @@
           "value" : "light"
         }
       ],
-      "filename" : "icon_closed-1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -23,7 +21,6 @@
           "value" : "dark"
         }
       ],
-      "filename" : "icon_closed_1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },

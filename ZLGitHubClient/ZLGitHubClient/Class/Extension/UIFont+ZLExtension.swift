@@ -78,6 +78,8 @@ public struct ZLIconFont{
     static let Alert = ZLIconFont(rawValue: "\u{e637}")
     
     static let Discussion = ZLIconFont(rawValue: "\u{e638}")
+    
+    static let Edit = ZLIconFont(rawValue: "\u{e66f}")
 
 }
 

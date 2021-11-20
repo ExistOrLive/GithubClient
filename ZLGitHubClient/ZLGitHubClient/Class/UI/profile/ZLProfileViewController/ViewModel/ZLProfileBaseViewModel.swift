@@ -111,7 +111,7 @@ extension ZLProfileBaseViewModel: UITableViewDelegate, UITableViewDataSource
             return UITableViewCell(style:.default, reuseIdentifier: nil)
         }
         tableViewCell.itemContentLabel.text = ""
-        tableViewCell.nextImageView.isHidden = true
+        tableViewCell.nextLabel.isHidden = true
         
         switch  ZLProfileBaseView.profileItemsArray[indexPath.section][indexPath.row]{
         case ZLProfileItemType.company:do {
@@ -129,19 +129,19 @@ extension ZLProfileBaseViewModel: UITableViewDelegate, UITableViewDataSource
         case ZLProfileItemType.blog:do {
             tableViewCell.itemTitleLabel.text = ZLLocalizedString(string:"blog", comment: "博客")
             tableViewCell.itemContentLabel.text = self.currentUserInfo?.blog
-            tableViewCell.nextImageView.isHidden = false
+            tableViewCell.nextLabel.isHidden = false
             }
         case ZLProfileItemType.setting:do {
             tableViewCell.itemTitleLabel.text = ZLLocalizedString(string:"setting", comment: "设置")
-            tableViewCell.nextImageView.isHidden = false
+            tableViewCell.nextLabel.isHidden = false
             }
         case ZLProfileItemType.aboutMe:do {
             tableViewCell.itemTitleLabel.text = ZLLocalizedString(string:"about", comment: "关于")
-            tableViewCell.nextImageView.isHidden = false
+            tableViewCell.nextLabel.isHidden = false
             }
         case ZLProfileItemType.feedback:do {
             tableViewCell.itemTitleLabel.text = ZLLocalizedString(string:"feedback", comment: "反馈")
-            tableViewCell.nextImageView.isHidden = false
+            tableViewCell.nextLabel.isHidden = false
             }
         }
         
