@@ -99,7 +99,11 @@ extension ZLExploreBaseViewModel{
         
         let dateRange = ZLUISharedDataManager.dateRangeForTrendingRepo
         let language = ZLUISharedDataManager.languageForTrendingRepo
-        ZLServiceManager.sharedInstance.searchServiceModel?.trending(with:.repositories, language: language, dateRange: dateRange, serialNumber: NSString.generateSerialNumber())
+        
+        let array = ZLServiceManager.sharedInstance.searchServiceModel?.trending(with:.repositories,
+                                                                     language: language,
+                                                                     dateRange: dateRange,
+                                                                     serialNumber: NSString.generateSerialNumber())
         {[weak weakSelf = self] (model:ZLOperationResultModel) in
     
             if model.result == true {
@@ -123,17 +127,34 @@ extension ZLExploreBaseViewModel{
                 guard let errorModel : ZLGithubRequestErrorModel = model.data as? ZLGithubRequestErrorModel else {
                     return
                 }
-                ZLToastView.showMessage("Query Trending Repo Failed errorMessage[\(errorModel.message)]")
+                ZLLog_Info("Query Trending Repo Failed errorMessage[\(errorModel.message)]")
+               // ZLToastView.showMessage("Query Trending Repo Failed errorMessage[\(errorModel.message)]")
             }
             
         }
+        
+        if let array = array as? [ZLGithubRepositoryModel] {
+            var repoCellDatas : [ZLRepositoryTableViewCellData] = []
+            for repo in array {
+                let cellData = ZLRepositoryTableViewCellData.init(data: repo, needPullData: true)
+                self.addSubViewModel(cellData)
+                repoCellDatas.append(cellData)
+            }
+            self.baseView?.githubItemListViewArray[0].resetCellDatas(cellDatas: repoCellDatas)
+        }
+        
     }
     
     func getTrendUser() -> Void {
         
         let dateRange = ZLUISharedDataManager.dateRangeForTrendingUser
         let language = ZLUISharedDataManager.languageForTrendingUser
-        ZLServiceManager.sharedInstance.searchServiceModel?.trending(with:.users, language: language, dateRange: dateRange, serialNumber: NSString.generateSerialNumber())
+        
+        
+        let array = ZLServiceManager.sharedInstance.searchServiceModel?.trending(with:.users,
+                                                                     language: language,
+                                                                     dateRange: dateRange,
+                                                                     serialNumber: NSString.generateSerialNumber())
         { [weak weakSelf = self](model:ZLOperationResultModel) in
             
             if model.result == true {
@@ -156,12 +177,21 @@ extension ZLExploreBaseViewModel{
                 guard let errorModel : ZLGithubRequestErrorModel = model.data as? ZLGithubRequestErrorModel else {
                                    return
                                }
-                ZLToastView.showMessage("Query Trending user Failed errorMessage[\(errorModel.message)]")
+                ZLLog_Info("Query Trending user Failed errorMessage[\(errorModel.message)]")
+              //  ZLToastView.showMessage("Query Trending user Failed errorMessage[\(errorModel.message)]")
             }
             
         }
         
-        
+        if let array = array as? [ZLGithubUserModel] {
+            var userCellDatas : [ZLUserTableViewCellData] = []
+            for user in array {
+                let cellData = ZLUserTableViewCellData.init(userModel: user)
+                self.addSubViewModel(cellData)
+                userCellDatas.append(cellData)
+            }
+            self.baseView?.githubItemListViewArray[1].resetCellDatas(cellDatas: userCellDatas)
+        }
     }
 }
 

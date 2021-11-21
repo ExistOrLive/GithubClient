@@ -189,6 +189,11 @@
 		74A96FC023327B01008365CA /* ZLSearchFilterViewForRepo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74A96FBF23327B01008365CA /* ZLSearchFilterViewForRepo.xib */; };
 		74A96FC223327B69008365CA /* ZLSearchFilterViewForRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A96FC123327B69008365CA /* ZLSearchFilterViewForRepo.swift */; };
 		74A96FC423327D9E008365CA /* ZLSearchFilterPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A96FC323327D9E008365CA /* ZLSearchFilterPickerView.swift */; };
+		74AB42B3274A61A10036EB37 /* NSAttributedStringConvertibleContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AB42B2274A61A10036EB37 /* NSAttributedStringConvertibleContainer.swift */; };
+		74AB42B5274A62050036EB37 /* NSAttributedStringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AB42B4274A62050036EB37 /* NSAttributedStringConvertible.swift */; };
+		74AB42B7274A62B10036EB37 /* NSAttributedString+Delarative.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AB42B6274A62B10036EB37 /* NSAttributedString+Delarative.swift */; };
+		74AB42B9274A65450036EB37 /* NSImageTextAttachmentWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AB42B8274A65450036EB37 /* NSImageTextAttachmentWrapper.swift */; };
+		74AB42BB274A65AF0036EB37 /* NSTagWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AB42BA274A65AF0036EB37 /* NSTagWrapper.swift */; };
 		74B32E2E2465B61000AF1D6B /* ZLRepoContributorsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B32E2D2465B61000AF1D6B /* ZLRepoContributorsController.swift */; };
 		74B32E302465B63000AF1D6B /* ZLRepoContributorsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B32E2F2465B63000AF1D6B /* ZLRepoContributorsViewModel.swift */; };
 		74B32E322465C16700AF1D6B /* ZLUserTableViewCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B32E312465C16700AF1D6B /* ZLUserTableViewCellData.swift */; };
@@ -567,6 +572,11 @@
 		74A96FBF23327B01008365CA /* ZLSearchFilterViewForRepo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZLSearchFilterViewForRepo.xib; sourceTree = "<group>"; };
 		74A96FC123327B69008365CA /* ZLSearchFilterViewForRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLSearchFilterViewForRepo.swift; sourceTree = "<group>"; };
 		74A96FC323327D9E008365CA /* ZLSearchFilterPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLSearchFilterPickerView.swift; sourceTree = "<group>"; };
+		74AB42B2274A61A10036EB37 /* NSAttributedStringConvertibleContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedStringConvertibleContainer.swift; sourceTree = "<group>"; };
+		74AB42B4274A62050036EB37 /* NSAttributedStringConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedStringConvertible.swift; sourceTree = "<group>"; };
+		74AB42B6274A62B10036EB37 /* NSAttributedString+Delarative.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Delarative.swift"; sourceTree = "<group>"; };
+		74AB42B8274A65450036EB37 /* NSImageTextAttachmentWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSImageTextAttachmentWrapper.swift; sourceTree = "<group>"; };
+		74AB42BA274A65AF0036EB37 /* NSTagWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSTagWrapper.swift; sourceTree = "<group>"; };
 		74B32E2D2465B61000AF1D6B /* ZLRepoContributorsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLRepoContributorsController.swift; sourceTree = "<group>"; };
 		74B32E2F2465B63000AF1D6B /* ZLRepoContributorsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLRepoContributorsViewModel.swift; sourceTree = "<group>"; };
 		74B32E312465C16700AF1D6B /* ZLUserTableViewCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLUserTableViewCellData.swift; sourceTree = "<group>"; };
@@ -1346,6 +1356,7 @@
 		743F180F2312664C00E39A95 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				74AB42B1274A616B0036EB37 /* NSAttributedString+Delarative */,
 				74724C5B27414C5700A3D863 /* iconfont */,
 				749B608B27383D3D00B3989C /* UIColor+ZLExtension.swift */,
 				74D3DF9625CBF12200BB11F2 /* UIColor+ZLExtension.h */,
@@ -1760,6 +1771,18 @@
 				749DBCA624B4CE7200D02B2C /* ZLNotificationViewModel.swift */,
 			);
 			path = viewmodel;
+			sourceTree = "<group>";
+		};
+		74AB42B1274A616B0036EB37 /* NSAttributedString+Delarative */ = {
+			isa = PBXGroup;
+			children = (
+				74AB42B2274A61A10036EB37 /* NSAttributedStringConvertibleContainer.swift */,
+				74AB42B4274A62050036EB37 /* NSAttributedStringConvertible.swift */,
+				74AB42B6274A62B10036EB37 /* NSAttributedString+Delarative.swift */,
+				74AB42B8274A65450036EB37 /* NSImageTextAttachmentWrapper.swift */,
+				74AB42BA274A65AF0036EB37 /* NSTagWrapper.swift */,
+			);
+			path = "NSAttributedString+Delarative";
 			sourceTree = "<group>";
 		};
 		74B32E2A2465B5AC00AF1D6B /* ZLRepoContributorsController */ = {
@@ -3329,6 +3352,7 @@
 				74CF8F5F2543107A006F51A5 /* ZLReportController.swift in Sources */,
 				74CC6031246C3E590076EE3C /* ZLIssueTableViewCell.swift in Sources */,
 				7496BF5C2600DCFE00DDD1BD /* ZLIssueTimelineTableViewCellData.swift in Sources */,
+				74AB42B9274A65450036EB37 /* NSImageTextAttachmentWrapper.swift in Sources */,
 				366DB83D241F31A3002A0896 /* ZLCommitTableViewCell.swift in Sources */,
 				74B87A5A2468562400C8EB6B /* ZLFeedbackController.swift in Sources */,
 				74C639E224B8E9AF00457F94 /* ZLWorkflowRunTableViewCell.swift in Sources */,
@@ -3407,6 +3431,7 @@
 				D1135F8721ECD513003A26C1 /* ZLNewsViewController.m in Sources */,
 				74D3EFEA259BC6060002A2D3 /* ZLTextView.m in Sources */,
 				74876F31256AB3F60063A93A /* ZLUserTableViewCellDataForViewerOrgs.swift in Sources */,
+				74AB42B3274A61A10036EB37 /* NSAttributedStringConvertibleContainer.swift in Sources */,
 				74DFD9E12427BA68005825D3 /* ZLRepoContentController.swift in Sources */,
 				7431B43622F5E0510060968A /* ZLSearchViewModel.swift in Sources */,
 				7456A2F02416A4E100222D6C /* ZLPullRequestTableViewCellData.swift in Sources */,
@@ -3449,6 +3474,7 @@
 				74BEF59F22F2D75900FD1738 /* ZLUserTableViewCell.swift in Sources */,
 				742AFDE52429197900DFE87C /* ZLRepoCodePreviewController.swift in Sources */,
 				7496BF412600052300DDD1BD /* ZLIssueHeaderTableViewCellData.swift in Sources */,
+				74AB42BB274A65AF0036EB37 /* NSTagWrapper.swift in Sources */,
 				74DEC202256D02C6007E8A17 /* ZLRepoTableViewCellDataForTopRepoQuery.swift in Sources */,
 				74C3F8C122D1DD930086A3F9 /* ZLLoginBaseView.swift in Sources */,
 				7496BF572600DAA800DDD1BD /* ZLIssueCommentTableViewCellData.swift in Sources */,
@@ -3471,6 +3497,7 @@
 				742935C725B911A2001CD142 /* ZLGithubCollectedRepoModel.swift in Sources */,
 				749DBC8224B38C0C00D02B2C /* ZLGollumEventTableViewCellData.swift in Sources */,
 				7444B2A22567C1B400488EF0 /* ZLWorkboardViewController.swift in Sources */,
+				74AB42B5274A62050036EB37 /* NSAttributedStringConvertible.swift in Sources */,
 				74478D3C231FE37B007D3832 /* ZLSettingController.swift in Sources */,
 				74CF8ED525419CEF006F51A5 /* ZLReadMeView.swift in Sources */,
 				74203A0A24B1D19B007DFC00 /* ZLDeleteEventTableViewCellData.swift in Sources */,
@@ -3504,6 +3531,7 @@
 				74ECBD6E25382A560031EE3A /* ZLRepoCodePreview4Controller.swift in Sources */,
 				7486DFBB25A2608F00EE38CB /* ZLUIRouter.swift in Sources */,
 				74D3EFD2259BC6060002A2D3 /* ZLRefresh.swift in Sources */,
+				74AB42B7274A62B10036EB37 /* NSAttributedString+Delarative.swift in Sources */,
 				7496BF6126012FFD00DDD1BD /* ZLIssueBodyTableViewCellData.swift in Sources */,
 				749B608C27383D3D00B3989C /* UIColor+ZLExtension.swift in Sources */,
 				74C19214239EAFF800636F24 /* ZLRepositoryTableViewCellData.swift in Sources */,

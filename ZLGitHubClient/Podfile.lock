@@ -275,7 +275,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/ExistOrLive/ZLBaseUI.git
     :tag: 1.2.0
   ZLGitRemoteService:
-    :commit: edabdcb4ab6ea3e7406f65c16c76ba9a995b44e5
+    :commit: f9419460c18fc713d8f177a0f35598ef54de8601
     :git: https://github.com/ExistOrLive/ZLGitRemoteService.git
 
 SPEC CHECKSUMS:
