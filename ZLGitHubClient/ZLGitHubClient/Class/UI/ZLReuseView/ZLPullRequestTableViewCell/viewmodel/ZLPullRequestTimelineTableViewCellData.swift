@@ -199,19 +199,64 @@ extension ZLPullRequestTimelineTableViewCellData : ZLPullRequestTimelineTableVie
         }
         else if let tmpdata = data.asLabeledEvent
         {
-            let string = NSMutableAttributedString(string:tmpdata.actor?.login ?? "",
-                                                   attributes: [.font:UIFont.zlSemiBoldFont(withSize: 15),
-                                                                .foregroundColor:UIColor.label(withName: "ZLLabelColor1")])
+            let tagColor = ZLRGBValueStr_H(colorValue:tmpdata.label.color)
+            var borderColor = UIColor.clear
+            var backColor = tagColor
+            var textColor = UIColor.isLightColor(tagColor) ? ZLRGBValue_H(colorValue: 0x333333) : UIColor.white
+            var borderWidth: CGFloat = 0.0
             
-            string.append(NSAttributedString(string: " added label ",
-                                             attributes: [.font:UIFont.zlRegularFont(withSize: 14),
-                                                          .foregroundColor:UIColor.label(withName: "ZLLabelColor4")]))
+            if #available(iOS 12.0, *) {
+                if getRealUserInterfaceStyle() == .dark {
+                    backColor = ZLRGBValueStr_H(colorValue: tmpdata.label.color, alphaValue: 0.2)
+                    borderWidth = 1.0 / UIScreen.main.scale;
+                    borderColor = ZLRGBValueStr_H(colorValue: tmpdata.label.color, alphaValue: 0.5)
+                    textColor = ZLRGBValueStr_H(colorValue:tmpdata.label.color)
+                }
+            }
             
-            let color = ZLRGBValueStr_H(colorValue:tmpdata.label.color)
-            string.append(NSAttributedString(string: "\(tmpdata.label.name)",
-                                             attributes: [.font:UIFont.zlSemiBoldFont(withSize: 13),
-                                                          .foregroundColor:UIColor.isLightColor(color) ? ZLRGBValue_H(colorValue: 0x333333) : UIColor.white,
-                                                          .backgroundColor:color]))
+            let string = NSASCContainer(
+                
+                tmpdata.actor?
+                    .login
+                    .asMutableAttributedString()
+                    .font(.zlSemiBoldFont(withSize: 15))
+                    .foregroundColor(ZLRawLabelColor(name: "ZLLabelColor1")),
+                
+                " added label "
+                    .asMutableAttributedString()
+                    .font(.zlRegularFont(withSize: 14))
+                    .foregroundColor(ZLRawLabelColor(name: "ZLLabelColor4")),
+                
+                NSTagWrapper()
+                    .attributedString(tmpdata.label.name
+                                        .asMutableAttributedString()
+                                        .font(.zlRegularFont(withSize: 13))
+                                        .foregroundColor(textColor))
+                    .cornerRadius(8.0)
+                    .borderColor(borderColor)
+                    .borderWidth(borderWidth)
+                    .backgroundColor(backColor)
+                    .edgeInsets(UIEdgeInsets(top: 2, left: 4, bottom: 2, right: 4))
+                    .asImage()?
+                    .asImageTextAttachmentWrapper()
+                    .alignment(.centerline)
+                
+            ).asMutableAttributedString()
+            
+            
+//            let string = NSMutableAttributedString(string:tmpdata.actor?.login ?? "",
+//                                                   attributes: [.font:UIFont.zlSemiBoldFont(withSize: 15),
+//                                                                .foregroundColor:UIColor.label(withName: "ZLLabelColor1")])
+//
+//            string.append(NSAttributedString(string: " added label ",
+//                                             attributes: [.font:UIFont.zlRegularFont(withSize: 14),
+//                                                          .foregroundColor:UIColor.label(withName: "ZLLabelColor4")]))
+//
+//            let color = ZLRGBValueStr_H(colorValue:tmpdata.label.color)
+//            string.append(NSAttributedString(string: "\(tmpdata.label.name)",
+//                                             attributes: [.font:UIFont.zlSemiBoldFont(withSize: 13),
+//                                                          .foregroundColor:UIColor.isLightColor(color) ? ZLRGBValue_H(colorValue: 0x333333) : UIColor.white,
+//                                                          .backgroundColor:color]))
             
             attributedString = string
             
@@ -424,19 +469,64 @@ extension ZLPullRequestTimelineTableViewCellData : ZLPullRequestTimelineTableVie
         
         else if let tmpdata = data.asUnlabeledEvent {
             
-            let string = NSMutableAttributedString(string:tmpdata.actor?.login ?? "",
-                                                   attributes: [.font:UIFont.zlSemiBoldFont(withSize: 15),
-                                                                .foregroundColor:UIColor.label(withName: "ZLLabelColor1")])
+            let tagColor = ZLRGBValueStr_H(colorValue:tmpdata.label.color)
+            var borderColor = UIColor.clear
+            var backColor = tagColor
+            var textColor = UIColor.isLightColor(tagColor) ? ZLRGBValue_H(colorValue: 0x333333) : UIColor.white
+            var borderWidth: CGFloat = 0.0
             
-            string.append(NSAttributedString(string: " removed label  ",
-                                             attributes: [.font:UIFont.zlRegularFont(withSize: 14),
-                                                          .foregroundColor:UIColor.label(withName: "ZLLabelColor4")]))
+            if #available(iOS 12.0, *) {
+                if getRealUserInterfaceStyle() == .dark {
+                    backColor = ZLRGBValueStr_H(colorValue: tmpdata.label.color, alphaValue: 0.2)
+                    borderWidth = 1.0 / UIScreen.main.scale;
+                    borderColor = ZLRGBValueStr_H(colorValue: tmpdata.label.color, alphaValue: 0.5)
+                    textColor = ZLRGBValueStr_H(colorValue:tmpdata.label.color)
+                }
+            }
             
-            let color = ZLRGBValueStr_H(colorValue:tmpdata.label.color)
-            string.append(NSAttributedString(string: "\(tmpdata.label.name)",
-                                             attributes: [.font:UIFont.zlSemiBoldFont(withSize: 13),
-                                                          .foregroundColor:UIColor.isLightColor(color) ? ZLRGBValue_H(colorValue: 0x333333) : UIColor.white,
-                                                          .backgroundColor:color]))
+            let string = NSASCContainer(
+                
+                tmpdata.actor?
+                    .login
+                    .asMutableAttributedString()
+                    .font(.zlSemiBoldFont(withSize: 15))
+                    .foregroundColor(ZLRawLabelColor(name: "ZLLabelColor1")),
+                
+                " added label "
+                    .asMutableAttributedString()
+                    .font(.zlRegularFont(withSize: 14))
+                    .foregroundColor(ZLRawLabelColor(name: "ZLLabelColor4")),
+                
+                NSTagWrapper()
+                    .attributedString(tmpdata.label.name
+                                        .asMutableAttributedString()
+                                        .font(.zlRegularFont(withSize: 13))
+                                        .foregroundColor(textColor))
+                    .cornerRadius(8.0)
+                    .borderColor(borderColor)
+                    .borderWidth(borderWidth)
+                    .backgroundColor(backColor)
+                    .edgeInsets(UIEdgeInsets(top: 2, left: 4, bottom: 2, right: 4))
+                    .asImage()?
+                    .asImageTextAttachmentWrapper()
+                    .alignment(.centerline)
+                
+            ).asMutableAttributedString()
+            
+            
+//            let string = NSMutableAttributedString(string:tmpdata.actor?.login ?? "",
+//                                                   attributes: [.font:UIFont.zlSemiBoldFont(withSize: 15),
+//                                                                .foregroundColor:UIColor.label(withName: "ZLLabelColor1")])
+//            
+//            string.append(NSAttributedString(string: " removed label  ",
+//                                             attributes: [.font:UIFont.zlRegularFont(withSize: 14),
+//                                                          .foregroundColor:UIColor.label(withName: "ZLLabelColor4")]))
+//            
+//            let color = ZLRGBValueStr_H(colorValue:tmpdata.label.color)
+//            string.append(NSAttributedString(string: "\(tmpdata.label.name)",
+//                                             attributes: [.font:UIFont.zlSemiBoldFont(withSize: 13),
+//                                                          .foregroundColor:UIColor.isLightColor(color) ? ZLRGBValue_H(colorValue: 0x333333) : UIColor.white,
+//                                                          .backgroundColor:color]))
             
             attributedString = string
             

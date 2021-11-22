@@ -41,6 +41,10 @@ public class NSTagWrapper: NSObject {
         self.init(attributedString:attributedString)
     }
     
+    convenience override init(){
+        self.init(attributedString:NSAttributedString())
+    }
+    
     func asImage() -> UIImage? {
         
         let textSize = attributedString.boundingRect(with: CGSize(width: 10000, height: 10000),

@@ -9,6 +9,8 @@
 import UIKit
 import Foundation
 
+typealias NSASCContainer = NSAttributedStringConvertibleContainer
+
 public class NSAttributedStringConvertibleContainer: NSObject {
     
     private var attributes: [NSAttributedString.Key:Any] = [:]
@@ -113,10 +115,10 @@ extension NSAttributedStringConvertibleContainer{
         attributes[.baselineOffset] = offset
         return self
     }
-//    
-//    // 文字特效 letterpressStyle 立体效果
+    
+    // 文字特效 letterpressStyle 立体效果
 //    func textEffect(_ textEffect: TextEffectStyle) -> NSAttributedStringConvertibleContainer {
-//        attributes[.textEffect] = textEffect.
+//        attributes[.textEffect] = textEffect.rawValue
 //        return self
 //    }
     
