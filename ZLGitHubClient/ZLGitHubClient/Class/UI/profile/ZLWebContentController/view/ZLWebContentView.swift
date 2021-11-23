@@ -109,6 +109,8 @@ class ZLWebContentView: ZLBaseView {
         backBarButtonItem.width = ZLKeyWindowWidth / 4
         self.backBarButtonItem = backBarButtonItem
         
+        
+        
         let forwardBarButtonItem : UIBarButtonItem =  UIBarButtonItem.init(image: UIImage.init(named: "next"), style: .plain, target: self, action: #selector(onGoForwardButtonClicked))
         forwardBarButtonItem.isEnabled = false
         forwardBarButtonItem.width = ZLKeyWindowWidth / 4
