@@ -105,9 +105,6 @@ class ZLWebContentView: ZLBaseView {
     func setUpToolBar()
     {
         let backBarButtonItem : UIBarButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "back"), style: .plain, target: self, action: #selector(onGoBackButtonClicked))
-        
-    
-        
         backBarButtonItem.isEnabled = false
         backBarButtonItem.width = ZLKeyWindowWidth / 4
         self.backBarButtonItem = backBarButtonItem
