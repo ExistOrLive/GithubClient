@@ -71,9 +71,7 @@ class ZLRepoInfoViewModel: ZLBaseViewModel {
 extension ZLRepoInfoViewModel
 {
     func setViewDataForRepoInfoView(){
-        
-        self.viewController?.title = self.repoInfoModel?.name ?? ZLLocalizedString(string: "repository", comment: "")
-       
+            
         let repoHeaderInfoViewModel = ZLRepoHeaderInfoViewModel()
         self.addSubViewModel(repoHeaderInfoViewModel)
         self.repoHeaderInfoViewModel = repoHeaderInfoViewModel
@@ -104,6 +102,8 @@ extension ZLRepoInfoViewModel
             repoInfoModel = info
         }
         
+        self.viewController?.title = self.repoInfoModel?.name ?? ZLLocalizedString(string: "repository", comment: "")
+
         repoHeaderInfoViewModel.bindModel(repoInfoModel, andView: repoInfoView.headerView)
         
         repoInfoView.fillWithData(delegate: self)

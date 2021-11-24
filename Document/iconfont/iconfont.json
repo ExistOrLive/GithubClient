@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "515258",
+      "name": "空的_empty38",
+      "font_class": "kongdeempty38",
+      "unicode": "e67f",
+      "unicode_decimal": 59007
+    },
+    {
+      "icon_id": "14629166",
+      "name": "empty-status",
+      "font_class": "empty-status",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
       "icon_id": "12004264",
       "name": "discuss-line",
       "font_class": "discuss-line",

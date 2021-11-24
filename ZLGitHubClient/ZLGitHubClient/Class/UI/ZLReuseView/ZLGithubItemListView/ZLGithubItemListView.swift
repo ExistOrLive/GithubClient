@@ -119,7 +119,7 @@ import MJRefresh
         tagLabel.text = ZLIconFont.NoData.rawValue
         view.addSubview(tagLabel)
         tagLabel.snp.makeConstraints ({ (make) in
-            make.size.equalTo(CGSize.init(width: 50, height: 50))
+            make.size.equalTo(CGSize.init(width: 70, height: 60))
             make.top.left.right.equalToSuperview()
         })
         
@@ -130,7 +130,7 @@ import MJRefresh
         label.textAlignment = .center
         view.addSubview(label)
         label.snp.makeConstraints({(make) in
-            make.top.equalTo(tagLabel.snp.bottom).offset(10)
+            make.top.equalTo(tagLabel.snp.bottom).offset(15)
             make.centerX.equalToSuperview()
             make.bottom.equalToSuperview()
         })
