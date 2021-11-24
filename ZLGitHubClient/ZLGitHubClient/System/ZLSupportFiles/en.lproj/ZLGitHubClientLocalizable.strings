@@ -206,7 +206,7 @@
 
 // Appearance
 "Appearance" = "Appearance";
-"FollowSystemSetting" = "Automic";
+"FollowSystemSetting" = "Automatic";
 "Dark Mode" = "Dark Mode";
 "Light Mode" = "Light Mode";
 

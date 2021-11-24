@@ -69,7 +69,7 @@ public struct ZLIconFont{
     
     static let Notification = ZLIconFont(rawValue: "\u{e629}")
     
-    static let NoData = ZLIconFont(rawValue: "\u{e662}")
+    static let NoData = ZLIconFont(rawValue: "\u{e60e}")
     
     static let Commit = ZLIconFont(rawValue: "\u{e857}")
     
