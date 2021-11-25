@@ -80,6 +80,14 @@ public struct ZLIconFont{
     static let Discussion = ZLIconFont(rawValue: "\u{e638}")
     
     static let Edit = ZLIconFont(rawValue: "\u{e66f}")
+    
+    static let GithubRunSuccess = ZLIconFont(rawValue: "\u{e73c}")
+    
+    static let GithubRunCancel = ZLIconFont(rawValue: "\u{e614}")
+    
+    static let GithubRunFail = ZLIconFont(rawValue: "\u{e6d9}")
+    
+    static let GithubRunInProgress = ZLIconFont(rawValue: "\u{e7e0}")
 
 }
 

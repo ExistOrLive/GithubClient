@@ -120,7 +120,9 @@ extension ZLWorkflowRunTableViewCellData {
     }
     
     func getWorkflowRunDesc() -> NSAttributedString {
-        let str = NSAttributedString.init(string: "\(self.workFlowTitle) #\(self.data.run_number)", attributes: [NSAttributedString.Key.foregroundColor: ZLRawColor(name: "ZLLabelColor4") ?? UIColor.lightGray,NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 14) ?? UIFont.systemFont(ofSize: 14)])
+        let str = NSAttributedString.init(string: "\(self.workFlowTitle) #\(self.data.run_number)",
+                                          attributes: [.foregroundColor: ZLRawLabelColor(name: "ZLLabelColor4"),
+                                                       .font:UIFont.zlRegularFont(withSize: 14)])
         return str
     }
     

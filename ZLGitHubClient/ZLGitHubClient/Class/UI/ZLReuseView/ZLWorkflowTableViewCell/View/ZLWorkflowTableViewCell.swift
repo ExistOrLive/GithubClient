@@ -24,7 +24,7 @@ class ZLWorkflowTableViewCell: UITableViewCell {
     private lazy var workflowTag: UILabel = {
         let label = UILabel()
         label.text = ZLIconFont.Workflow.rawValue
-        label.font = UIFont.zlIconFont(withSize: 25)
+        label.font = UIFont.zlIconFont(withSize: 20)
         label.textColor = UIColor(named: "ICON_Common")
         return label
     }()

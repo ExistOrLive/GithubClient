@@ -6,11 +6,32 @@
   "description": "",
   "glyphs": [
     {
-      "icon_id": "515258",
-      "name": "空的_empty38",
-      "font_class": "kongdeempty38",
-      "unicode": "e67f",
-      "unicode_decimal": 59007
+      "icon_id": "7712738",
+      "name": "success",
+      "font_class": "success",
+      "unicode": "e73c",
+      "unicode_decimal": 59196
+    },
+    {
+      "icon_id": "1441539",
+      "name": "alert-octagon",
+      "font_class": "alert-octagon1",
+      "unicode": "e614",
+      "unicode_decimal": 58900
+    },
+    {
+      "icon_id": "494642",
+      "name": "fail_1f",
+      "font_class": "fail1f",
+      "unicode": "e6d9",
+      "unicode_decimal": 59097
+    },
+    {
+      "icon_id": "587080",
+      "name": "run",
+      "font_class": "run",
+      "unicode": "e7e0",
+      "unicode_decimal": 59360
     },
     {
       "icon_id": "14629166",
@@ -116,13 +137,6 @@
       "font_class": "file-copy",
       "unicode": "e7bc",
       "unicode_decimal": 59324
-    },
-    {
-      "icon_id": "4766995",
-      "name": "fork",
-      "font_class": "fork",
-      "unicode": "e7e8",
-      "unicode_decimal": 59368
     },
     {
       "icon_id": "5643505",

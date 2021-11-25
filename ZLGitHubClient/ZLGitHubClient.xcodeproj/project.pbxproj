@@ -220,7 +220,6 @@
 		74C639DB24B7DDA500457F94 /* ZLWorkflowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C639D924B7DDA500457F94 /* ZLWorkflowTableViewCell.swift */; };
 		74C639DE24B7E4CD00457F94 /* ZLWorkflowTableViewCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C639DD24B7E4CD00457F94 /* ZLWorkflowTableViewCellData.swift */; };
 		74C639E224B8E9AF00457F94 /* ZLWorkflowRunTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C639E024B8E9AF00457F94 /* ZLWorkflowRunTableViewCell.swift */; };
-		74C639E324B8E9AF00457F94 /* ZLWorkflowRunTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74C639E124B8E9AF00457F94 /* ZLWorkflowRunTableViewCell.xib */; };
 		74C639E724B9031D00457F94 /* ZLWorkflowRunTableViewCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C639E624B9031D00457F94 /* ZLWorkflowRunTableViewCellData.swift */; };
 		74C639EA24B916EE00457F94 /* ZLRepoWorkflowRunsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C639E924B916ED00457F94 /* ZLRepoWorkflowRunsController.swift */; };
 		74C639EE24B9187400457F94 /* ZLRepoWorkflowRunsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C639ED24B9187400457F94 /* ZLRepoWorkflowRunsViewModel.swift */; };
@@ -603,7 +602,6 @@
 		74C639D924B7DDA500457F94 /* ZLWorkflowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLWorkflowTableViewCell.swift; sourceTree = "<group>"; };
 		74C639DD24B7E4CD00457F94 /* ZLWorkflowTableViewCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLWorkflowTableViewCellData.swift; sourceTree = "<group>"; };
 		74C639E024B8E9AF00457F94 /* ZLWorkflowRunTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLWorkflowRunTableViewCell.swift; sourceTree = "<group>"; };
-		74C639E124B8E9AF00457F94 /* ZLWorkflowRunTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZLWorkflowRunTableViewCell.xib; sourceTree = "<group>"; };
 		74C639E624B9031D00457F94 /* ZLWorkflowRunTableViewCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLWorkflowRunTableViewCellData.swift; sourceTree = "<group>"; };
 		74C639E924B916ED00457F94 /* ZLRepoWorkflowRunsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLRepoWorkflowRunsController.swift; sourceTree = "<group>"; };
 		74C639ED24B9187400457F94 /* ZLRepoWorkflowRunsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLRepoWorkflowRunsViewModel.swift; sourceTree = "<group>"; };
@@ -2170,7 +2168,6 @@
 			isa = PBXGroup;
 			children = (
 				74C639E024B8E9AF00457F94 /* ZLWorkflowRunTableViewCell.swift */,
-				74C639E124B8E9AF00457F94 /* ZLWorkflowRunTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3132,7 +3129,6 @@
 				745D48C9257249D700E67AEE /* github_style_markdown.css in Resources */,
 				742FE8EF2629D247003C14DD /* ZLSearchFilterViewForPR.xib in Resources */,
 				74D3EFFC259BC6060002A2D3 /* CYSinglePickerPopoverView.xib in Resources */,
-				74C639E324B8E9AF00457F94 /* ZLWorkflowRunTableViewCell.xib in Resources */,
 				746FAFD32316AC73006A0288 /* ZLWebContentView.xib in Resources */,
 				749BA3912472EFAC004F8F15 /* ZLLanguageTableViewCell.xib in Resources */,
 				366DB83E241F31A3002A0896 /* ZLCommitTableViewCell.xib in Resources */,
@@ -3760,7 +3756,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 24LG5QVBPR;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
@@ -3794,7 +3790,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.2.0;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zm.ZLGitHubClient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3819,7 +3815,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 24LG5QVBPR;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
@@ -3852,7 +3848,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.2.0;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zm.ZLGitHubClient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3877,13 +3873,13 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 24LG5QVBPR;
 				INFOPLIST_FILE = "Fixed Repo/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.2.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zm.ZLGitHubClient.Fixed-Repo";
@@ -3911,13 +3907,13 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 24LG5QVBPR;
 				INFOPLIST_FILE = "Fixed Repo/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.2.0;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zm.ZLGitHubClient.Fixed-Repo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
