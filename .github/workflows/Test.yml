@@ -11,9 +11,9 @@ jobs:
       uses: actions/checkout@v2.0.0
     - name: email send for success
       working-directory: ./ZLGitHubClient/EmailSender
-      if: success()
+      if: ${{ always() }}
       env: 
         NOREPLEY_PWD: ${{ secrets.NOREPLY_PASSWD }}
         Email_Receivers: ${{ secrets.Email_Receivers }}
       run: |
-        python3 BuildCheckEmailSender.py $NOREPLEY_PWD $Email_Receivers true
+        python3 BuildCheckEmailSender.py $NOREPLEY_PWD $Email_Receivers ${{ success() }}

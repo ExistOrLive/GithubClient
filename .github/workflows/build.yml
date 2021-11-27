@@ -50,3 +50,11 @@ jobs:
         echo "start project build check"
         bundle exec fastlane github_action_build_check
         echo "project build success"
+    - name: email send for success
+      working-directory: ./ZLGitHubClient/EmailSender
+      if: ${{ always() }}
+      env: 
+        NOREPLEY_PWD: ${{ secrets.NOREPLY_PASSWD }}
+        Email_Receivers: ${{ secrets.Email_Receivers }}
+      run: |
+        python3 BuildCheckEmailSender.py $NOREPLEY_PWD $Email_Receivers ${{ success() }}

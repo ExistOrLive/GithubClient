@@ -14,6 +14,9 @@ senderPwd = sys.argv[1]
 receivers = sys.argv[2].split(";")
 action_result = sys.argv[3]
 
+print(type(action_result))
+print(action_result)
+
 env_dist = os.environ
 workFlow = env_dist.get('GITHUB_WORKFLOW','')
 workFlow_run_id = env_dist.get('GITHUB_RUN_ID','')
@@ -27,21 +30,21 @@ msgRoot['From'] = Header("ExistOrLive", 'utf-8')
 msgRoot['To'] = Header("Dev", 'utf-8')
 
 if "false" == action_result:
-    subject = 'the workflow' + workFlow + ' of ' + repo_fullname + 'run failed'
+    subject = 'The workflow ' + workFlow + ' of ' + repo_fullname + ' run failed'
 else:
-    subject = 'the workflow' + workFlow + ' of ' + repo_fullname + 'run successfully'
+    subject = 'The workflow ' + workFlow + ' of ' + repo_fullname + ' run successfully'
 
 msgRoot['Subject'] = Header(subject, 'utf-8')
 msgAlternative = MIMEMultipart('alternative')
 msgRoot.attach(msgAlternative)
 
 repo_url = "https://github.com/" + repo_fullname
-commit_url = repo_url + "/" + sha
+commit_url = repo_url + "/commit/" + sha
 workflow_run_url = repo_url + "/actions/runs/" + workFlow_run_id
 
 mail_msg = """
-   <p>WorkFlow Run Detail</p>
-   <p><a href="{commit_url}">{event}</a> on {ref} triggered workflow {workflow} in <a href="{repo_url}">{repo_name}</a></p>
+   <h1>WorkFlow Run Detail</h1>
+   <p><a href="{commit_url}"><b>{event}</b></a> on branch <b>{ref}</b> triggered workflow <b>{workflow}</b> in <a href="{repo_url}"><b>{repo_name}</b></a></p>
    <p>you can view log in <a href="{workflow_run_url}">build log</a></p>
    """.format(event=trigger_event,ref=ref,workflow=workFlow,repo_url=repo_url,repo_name=repo_fullname,workflow_run_url=workflow_run_url,commit_url=commit_url)
 msgAlternative.attach(MIMEText(mail_msg, 'html', 'utf-8'))
