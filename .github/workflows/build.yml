@@ -16,13 +16,20 @@ jobs:
     steps:
     - name: checkout
       uses: actions/checkout@v2.0.0
-      with: 
-        ref: ${{ env.GITHUB_REF }}  # 默认是切到出发workflow的节点
+      #with: 
+        #ref: ${{ env.GITHUB_REF }}  # 默认是切到出发workflow的节点
+    - name: download secret file
+      working-directory: ./ZLGitHubClient          # 指定run 的工作目录
+      env: 
+        GITHUBTOKEN: ${{ secrets.GITHUBTOKEN }}
+      run: |
+        pip3 install requests
+        python3 DownloadSecretFile/DownloadSecrectFile.py $GITHUBTOKEN
+        mv ZLGithubAppKey.h ZLGitHubClient/System/ZLSupportFiles/ZLGithubAppKey.h
+        mv GoogleService-Info.plist ZLGitHubClient/GoogleService-Info.plist
     - name: construct build enviroment
       working-directory: ./ZLGitHubClient          # 指定run 的工作目录
       run: |
-        git rev-parse HEAD
-        git rev-parse --abbrev-ref HEAD
         echo "start construct build enviroment"
         gem cleanup
         gem install bundler
