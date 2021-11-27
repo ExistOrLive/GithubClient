@@ -15,55 +15,42 @@ receivers = sys.argv[2].split(";")
 action_result = sys.argv[3]
 
 env_dist = os.environ
-for key in env_dist:
-    print(key + " : " + env_dist.get(key," "))
+workFlow = env_dist.get('GITHUB_WORKFLOW','')
+workFlow_run_id = env_dist.get('GITHUB_RUN_ID','')
+ref = env_dist.get('GITHUB_REF_NAME','')
+trigger_event = env_dist.get('GITHUB_EVENT_NAME','')
+sha = env_dist.get('GITHUB_SHA','')
+repo_fullname = env_dist.get('GITHUB_REPOSITORY','')
 
-# msgRoot = MIMEMultipart('related')
-# msgRoot['From'] = Header("ExistOrLive", 'utf-8')
-# msgRoot['To'] = Header("Dev", 'utf-8')
+msgRoot = MIMEMultipart('related')
+msgRoot['From'] = Header("ExistOrLive", 'utf-8')
+msgRoot['To'] = Header("Dev", 'utf-8')
 
-# if "false" == action_result:
+if "false" == action_result:
+    subject = 'the workflow' + workFlow + ' of ' + repo_fullname + 'run failed'
+else:
+    subject = 'the workflow' + workFlow + ' of ' + repo_fullname + 'run successfully'
 
-#    subject = 'ZLGithubClient build check action failed'
-#    msgRoot['Subject'] = Header(subject, 'utf-8')
-#    msgAlternative = MIMEMultipart('alternative')
-#    msgRoot.attach(msgAlternative)
+msgRoot['Subject'] = Header(subject, 'utf-8')
+msgAlternative = MIMEMultipart('alternative')
+msgRoot.attach(msgAlternative)
 
-#    mail_msg = """
-#    <p>Github Action: ZLGithubClient Auto Buidl failed</p>
-#    <p><a href="https://github.com/MengAndJie/GithubClient/actions">build log</a></p>
-#    """
-#    msgAlternative.attach(MIMEText(mail_msg, 'html', 'utf-8'))
-# else:
+repo_url = "https://github.com/" + repo_fullname
+commit_url = repo_url + "/" + sha
+workflow_run_url = repo_url + "/actions/runs/" + workFlow_run_id
 
-#     subject = 'ZLGithubClient build check action Success'
-#     msgRoot['Subject'] = Header(subject, 'utf-8')
+mail_msg = """
+   <p>WorkFlow Run Detail</p>
+   <p><a href="{commit_url}">{Event}</a> on {ref} triggered workflow {workflow} in <a href="{repo_url}">{repo_Name}</a></p>
+   <p>you can view log in <a href="{workflow_run_url}">build log</a></p>
+   """.format(subject=subject,event=trigger_event,ref=ref,workFlow=workFlow,repo_url=repo_url,repo_fullname=repo_fullname,workflow_run_url=workflow_run_url,commit_url=commit_url)
+msgAlternative.attach(MIMEText(mail_msg, 'html', 'utf-8'))
 
-#     msgAlternative = MIMEMultipart('alternative')
-#     msgRoot.attach(msgAlternative)
-
-#     mail_msg = """
-#     <p>Github Action: ZLGithubClient Auto Build Success, Please download newest beta version</p>
-#     <p><a href="itms-services://?action=download-manifest&url=https://existorlive.github.io/public/GithubClient/CodingArtifacts/manifest.plist">Beta Version</a></p>
-#     <p><img src="cid:image1"/></p>
-#     """
-#     msgAlternative.attach(MIMEText(mail_msg, 'html', 'utf-8'))
-
-#     # 指定图片为当前目录
-#     fp = open('coding.png', 'rb')
-#     msgImage = MIMEImage(fp.read())
-#     fp.close()
-
-#     # 定义图片 ID，在 HTML 文本中引用
-#     msgImage.add_header('Content-ID', '<image1>')
-#     msgRoot.attach(msgImage)
-
-
-# try:
-#     smtpObj = smtplib.SMTP('smtp.exmail.qq.com')
-#     smtpObj.login(sender,senderPwd)
-#     smtpObj.sendmail(sender, receivers, msgRoot.as_string())
-#     print("邮件发送成功")
-# except smtplib.SMTPException as e:
-#     print(str(e))
-#     print("Error: 无法发送邮件")
+try:
+    smtpObj = smtplib.SMTP('smtp.exmail.qq.com')
+    smtpObj.login(sender,senderPwd)
+    smtpObj.sendmail(sender, receivers, msgRoot.as_string())
+    print("邮件发送成功")
+except smtplib.SMTPException as e:
+    print(str(e))
+    print("Error: 无法发送邮件")
