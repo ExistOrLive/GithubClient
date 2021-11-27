@@ -41,9 +41,9 @@ workflow_run_url = repo_url + "/actions/runs/" + workFlow_run_id
 
 mail_msg = """
    <p>WorkFlow Run Detail</p>
-   <p><a href="{commit_url}">{Event}</a> on {ref} triggered workflow {workflow} in <a href="{repo_url}">{repo_Name}</a></p>
+   <p><a href="{commit_url}">{event}</a> on {ref} triggered workflow {workflow} in <a href="{repo_url}">{repo_name}</a></p>
    <p>you can view log in <a href="{workflow_run_url}">build log</a></p>
-   """.format(subject=subject,event=trigger_event,ref=ref,workFlow=workFlow,repo_url=repo_url,repo_fullname=repo_fullname,workflow_run_url=workflow_run_url,commit_url=commit_url)
+   """.format(event=trigger_event,ref=ref,workflow=workFlow,repo_url=repo_url,repo_name=repo_fullname,workflow_run_url=workflow_run_url,commit_url=commit_url)
 msgAlternative.attach(MIMEText(mail_msg, 'html', 'utf-8'))
 
 try:
