@@ -52,10 +52,9 @@ jobs:
         echo "project build success"
     - name: email send for success
       working-directory: ./ZLGitHubClient/EmailSender
-      if: ${{ always() }}
-      env: 
-        JOB_STATUS: ${{ success() }}     # expression https://docs.github.com/en/actions/learn-github-actions/expressions#job-status-check-functions
+      if: ${{ failure() }}                             # expression https://docs.github.com/en/actions/learn-github-actions/expressions#job-status-check-functions
+      env:    
         NOREPLEY_PWD: ${{ secrets.NOREPLY_PASSWD }}
         Email_Receivers: ${{ secrets.Email_Receivers }}
       run: |
-        python3 BuildCheckEmailSender.py $NOREPLEY_PWD $Email_Receivers $JOB_STATUS
+        python3 BuildCheckEmailSender.py $NOREPLEY_PWD $Email_Receivers false
