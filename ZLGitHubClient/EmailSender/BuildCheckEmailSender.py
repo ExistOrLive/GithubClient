@@ -17,6 +17,7 @@ action_result = sys.argv[3]
 print(type(action_result))
 print(action_result)
 
+# workflow 内置环境变量 https://docs.github.com/en/actions/learn-github-actions/environment-variables
 env_dist = os.environ
 workFlow = env_dist.get('GITHUB_WORKFLOW','')
 workFlow_run_id = env_dist.get('GITHUB_RUN_ID','')
