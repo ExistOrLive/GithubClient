@@ -17,7 +17,7 @@ jobs:
     - name: checkout
       uses: actions/checkout@v2.0.0
       with: 
-        ref: ${{ GITHUB_REF }}  # 默认是切到出发workflow的节点
+        ref: ${{ env.GITHUB_REF }}  # 默认是切到出发workflow的节点
     - name: construct build enviroment
       working-directory: ./ZLGitHubClient          # 指定run 的工作目录
       run: |
