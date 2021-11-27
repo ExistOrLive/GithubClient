@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ZLRepoIssuesViewModel: ZLBaseViewModel {
+class ZLRepoIssuesViewModel: ZLBaseViewModel,ZLRepoIssuesViewDelegate {
     
     var baseView : ZLRepoIssuesView?
     
@@ -25,26 +25,18 @@ class ZLRepoIssuesViewModel: ZLBaseViewModel {
             return
         }
         self.baseView = repoIssuesView
-        self.baseView?.githubItemListView.delegate = self
+        
+        self.baseView?.fillWithViewModel(viewModel: self)
+        
         self.baseView?.githubItemListView.beginRefresh()
     }
     
-    @IBAction func onFilterButtonClicked(_ sender: Any) {
-        
-        CYSinglePickerPopoverView.showCYSinglePickerPopover(withTitle: ZLLocalizedString(string: "Filter", comment: ""), withInitIndex: self.filterOpen ? 0 : 1, withDataArray: ["open","closed"], withResultBlock: {(result : UInt) in
-            
-            self.baseView?.filterLabel.text = result == 0 ? "open" : "closed"
-            self.filterOpen = result == 0 ? true : false
-            
-            SVProgressHUD.show()
-            
-            self.baseView?.githubItemListView.clearListView()
-            self.loadNewData()
-            
-        })
-        
-    }
     
+    func onFilterTypeChange(_ open: Bool) {
+        self.filterOpen = open
+        SVProgressHUD.show()
+        self.loadNewData()
+    }
 }
 
 

@@ -10,7 +10,6 @@
 
 // customView
 #import "ZLBaseSearchController.h"
-#import "ZLLoginLogoView.h"
 #import "ZLPresentContainerView.h"
 #import "CYPopoverViewHeader.h"
 #import "ZLFloatView.h"

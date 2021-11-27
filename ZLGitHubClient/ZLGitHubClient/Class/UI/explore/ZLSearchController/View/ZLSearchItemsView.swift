@@ -34,7 +34,9 @@ class ZLSearchItemsView: ZLBaseView {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-//        self.filterButton.setTitle(ZLLocalizedString(string: "Filter", comment: ""), for: .normal)
+        self.filterButton.setTitleColor(UIColor(named: "ICON_Common"), for: .normal)
+        self.filterButton.setTitle(ZLIconFont.Filter.rawValue, for: .normal)
+        self.filterButton.titleLabel?.font = .zlIconFont(withSize:18)
         
         self.segmentedView.delegate = self
         self.segmentedView.collectionView.bounces = false

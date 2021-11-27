@@ -88,7 +88,20 @@ public struct ZLIconFont{
     static let GithubRunFail = ZLIconFont(rawValue: "\u{e6d9}")
     
     static let GithubRunInProgress = ZLIconFont(rawValue: "\u{e7e0}")
+    
+    static let RoundSelected = ZLIconFont(rawValue: "\u{e73c}")
+    
+    static let LineSelected = ZLIconFont(rawValue: "\u{e689}")
 
+    static let PasteBoard = ZLIconFont(rawValue: "\u{e983}")
+    
+    static let Search = ZLIconFont(rawValue: "\u{e67d}")
+    
+    static let Share = ZLIconFont(rawValue: "\u{e68d}")
+    
+    static let Home = ZLIconFont(rawValue: "\u{e6b8}")
+    
+    static let Setting = ZLIconFont(rawValue: "\u{e78e}")
 }
 
 

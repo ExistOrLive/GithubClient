@@ -12,12 +12,24 @@ class ZLRepoBranchTableViewCell: UITableViewCell {
     
     override var isSelected: Bool {
         didSet{
-            self.selectedTag?.isHidden = !self.isSelected
+            self.selectedTag.isHidden = !self.isSelected
         }
     }
 
-    var branchNameLabel : UILabel?
-    var selectedTag : UIImageView?
+    lazy var branchNameLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor.init(named: "ZLLabelColor4")
+        label.font = UIFont.init(name: Font_PingFangSCRegular, size: 14)
+        return label
+    }()
+    
+    var selectedTag: UILabel = {
+        let label = UILabel()
+        label.text = ZLIconFont.LineSelected.rawValue
+        label.font = .zlIconFont(withSize: 20)
+        label.textColor = UIColor(named: "ICON_Common")
+        return label
+    }()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -32,21 +44,19 @@ class ZLRepoBranchTableViewCell: UITableViewCell {
         
         self.contentView.backgroundColor = UIColor.init(named: "ZLPopUpCellBack")
         
-        self.selectedTag = UIImageView.init()
-        self.selectedTag?.image = UIImage.init(named: "selected")
-        self.contentView.addSubview(self.selectedTag!)
-        self.selectedTag?.snp.makeConstraints({ (make) in
+        self.contentView.addSubview(selectedTag)
+        self.contentView.addSubview(branchNameLabel)
+
+        self.selectedTag.snp.makeConstraints({ (make) in
             make.left.equalToSuperview().offset(20)
             make.size.equalTo(CGSize.init(width: 20, height: 20))
             make.centerY.equalToSuperview()
         })
         
-        self.branchNameLabel = UILabel.init()
-        self.branchNameLabel?.textColor = UIColor.init(named: "ZLLabelColor4")
-        self.branchNameLabel?.font = UIFont.init(name: Font_PingFangSCRegular, size: 14)
-        self.contentView.addSubview(self.branchNameLabel!)
-        self.branchNameLabel?.snp.makeConstraints ({ (make) in
-            make.left.equalTo(self.selectedTag!.snp_right).offset(20)
+        self.contentView.addSubview(self.branchNameLabel)
+        self.branchNameLabel.snp.makeConstraints ({ (make) in
+            make.left.equalTo(self.selectedTag.snp_right).offset(20)
+            make.right.equalTo(-5)
             make.centerY.equalToSuperview()
         })
         
