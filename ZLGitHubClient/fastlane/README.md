@@ -16,9 +16,9 @@ or alternatively using `brew install fastlane`
 
 # Available Actions
 ## iOS
-### ios increase
+### ios local_test
 ```
-fastlane ios increase
+fastlane ios local_test
 ```
 
 ### ios adhoc
@@ -26,6 +26,11 @@ fastlane ios increase
 fastlane ios adhoc
 ```
 build one adhoc release local
+### ios github_action_build_check
+```
+fastlane ios github_action_build_check
+```
+just build check, prevent any build or link error
 ### ios jenkins_adhoc
 ```
 fastlane ios jenkins_adhoc

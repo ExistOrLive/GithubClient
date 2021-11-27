@@ -3,7 +3,7 @@ name: ZLGithub DailyCI
 
 on:                               # 触发条件
   schedule:
-     - cron: '0 2 * * *'          # 每天凌晨两点打包
+     - cron: '0 18 * * *'          # 每天北京时间凌晨两点打包 
 
 jobs:
   build:
