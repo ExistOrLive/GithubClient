@@ -162,7 +162,7 @@
     [ZLBaseUIConfig sharedInstance].viewControllerBackgoundColor = [UIColor colorNamed:@"ZLVCBackColor"];
     
     [ZLBaseUIConfig sharedInstance].buttonTitleColor = [UIColor colorNamed:@"ZLBaseButtonTitleColor"];
-    [ZLBaseUIConfig sharedInstance].buttonBorderWidth = 1 / ZLScreenScale;
+    [ZLBaseUIConfig sharedInstance].buttonBorderWidth = 1.0 / ZLScreenScale;
     [ZLBaseUIConfig sharedInstance].buttonBackColor = [UIColor colorNamed:@"ZLBaseButtonBackColor"];
     [ZLBaseUIConfig sharedInstance].buttonBorderColor = [UIColor colorNamed:@"ZLBaseButtonBorderColor"];
     [ZLBaseUIConfig sharedInstance].buttonCornerRadius = 4.0;

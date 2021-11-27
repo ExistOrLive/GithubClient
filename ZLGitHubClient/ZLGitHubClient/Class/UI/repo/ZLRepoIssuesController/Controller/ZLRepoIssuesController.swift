@@ -20,9 +20,7 @@ class ZLRepoIssuesController: ZLBaseViewController {
         
         let viewModel = ZLRepoIssuesViewModel()
         
-        guard  let repoIssuesView : ZLRepoIssuesView = Bundle.main.loadNibNamed("ZLRepoIssuesView", owner: viewModel, options: nil)?.first as? ZLRepoIssuesView else {
-            return
-        }
+        let repoIssuesView = ZLRepoIssuesView()
         self.contentView.addSubview(repoIssuesView)
         repoIssuesView.snp.makeConstraints ({ (make) in
             make.edges.equalToSuperview()

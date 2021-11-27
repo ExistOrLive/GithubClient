@@ -99,7 +99,7 @@ extension ZLRepoBranchesView : UITableViewDelegate,UITableViewDataSource
             return tableViewCell
         }
         
-        cell.branchNameLabel?.text = self.branches?[indexPath.row].name
+        cell.branchNameLabel.text = self.branches?[indexPath.row].name
         cell.isSelected = ((self.branches?[indexPath.row].name) == self.currentBranch)
         return cell
     }

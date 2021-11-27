@@ -17,9 +17,7 @@ import UIKit
         
         let viewModel = ZLAboutViewModel()
         
-        guard let contentView : ZLAboutContentView = Bundle.main.loadNibNamed("ZLAboutContentView", owner:viewModel, options: nil)?.first as? ZLAboutContentView else{
-            return
-        }
+        let contentView = ZLAboutContentView()
         self.contentView.addSubview(contentView);
         contentView.snp_makeConstraints({ (make) in
             make.edges.equalToSuperview()

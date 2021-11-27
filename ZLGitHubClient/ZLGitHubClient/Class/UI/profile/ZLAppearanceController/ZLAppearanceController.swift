@@ -8,20 +8,34 @@
 
 import UIKit
 
-class ZLAppearanceController: ZLBaseViewController {
+class ZLAppearanceController: ZLBaseViewController,ZLAppearanceViewDelegate {
     
-    @IBOutlet var buttons: [UIButton]!
+    var selectIndex: Int {
+        if #available(iOS 13.0, *){
+            return ZLUISharedDataManager.currentUserInterfaceStyle.rawValue
+        }
+        return 0
+    }
     
-    @IBOutlet var seletedTags: [UIImageView]!
+    func onButtonClicked(index: Int) {
+        
+        if #available(iOS 13.0, *){
+            let interfaceStyle : UIUserInterfaceStyle  = UIUserInterfaceStyle.init(rawValue: index) ?? UIUserInterfaceStyle.unspecified
+            ZLUISharedDataManager.currentUserInterfaceStyle = interfaceStyle
+            UIApplication.shared.delegate?.window??.overrideUserInterfaceStyle = interfaceStyle
+            NotificationCenter.default.post(name: ZLUserInterfaceStyleChange_Notification, object: nil)
+        }
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         
         self.title = ZLLocalizedString(string: "Appearance", comment: "")
         
-        guard let view : UIView = Bundle.main.loadNibNamed("ZLAppearanceView", owner: self, options: nil)?.first as? UIView else {
-            return
-        }
+        let view = ZLAppearanceView()
         self.contentView.addSubview(view)
         view.snp.makeConstraints { (make) in
             make.top.bottom.equalTo(self.contentView)
@@ -29,40 +43,7 @@ class ZLAppearanceController: ZLBaseViewController {
             make.left.equalTo(self.contentView.safeAreaLayoutGuide.snp.left)
         }
         
-        
-        buttons[0].setTitle(ZLLocalizedString(string: "FollowSystemSetting", comment: ""), for: .normal)
-        buttons[1].setTitle(ZLLocalizedString(string: "Light Mode", comment: ""), for: .normal)
-        buttons[2].setTitle(ZLLocalizedString(string: "Dark Mode", comment: ""), for: .normal)
-        
-        if #available(iOS 13.0, *){
-            let interfaceStyle = ZLUISharedDataManager.currentUserInterfaceStyle
-            for seletedTag in seletedTags{
-                seletedTag.isHidden = (seletedTag.tag != interfaceStyle.rawValue)
-            }
-        }
+        view.fillWithData(data: self)
     }
-    
-    
-    @IBAction func onButtonClicked(_ sender: UIButton) {
-        
-        for seletedTag in seletedTags{
-            if seletedTag.isHidden == false && seletedTag.tag == sender.tag {
-                return
-            }
-        }
-        
-        if #available(iOS 13.0, *){
-            let interfaceStyle : UIUserInterfaceStyle  = UIUserInterfaceStyle.init(rawValue: sender.tag) ?? UIUserInterfaceStyle.unspecified
-            ZLUISharedDataManager.currentUserInterfaceStyle = interfaceStyle
-            UIApplication.shared.delegate?.window??.overrideUserInterfaceStyle = interfaceStyle
-            for seletedTag in seletedTags{
-                seletedTag.isHidden = (seletedTag.tag != interfaceStyle.rawValue)
-            }
-        }
-        
-        NotificationCenter.default.post(name: ZLUserInterfaceStyleChange_Notification, object: nil)
-        
-        self.navigationController?.popViewController(animated: true)
-    }
-    
+
 }

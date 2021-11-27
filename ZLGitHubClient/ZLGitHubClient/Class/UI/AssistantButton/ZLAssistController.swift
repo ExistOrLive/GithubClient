@@ -36,10 +36,35 @@ class ZLAssistTableViewCell : UITableViewCell {
 
 class ZLAssistController: ZLBaseViewController {
     
-    private var pasteURL : URL?
-    
-    
-    private var tableView : UITableView!
+    // MARK: View
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: CGRect(), style: .grouped)
+        tableView.backgroundColor = UIColor.clear
+        tableView.separatorStyle = .none
+        tableView.contentInset = UIEdgeInsets(top: 30, left: 0, bottom: 0, right: 0)
+        tableView.showsVerticalScrollIndicator = false
+        tableView.tableHeaderView = { () -> UIView in
+            let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50))
+            view.backgroundColor = UIColor.clear
+            
+            let button = UIButton(type: .custom)
+            button.setTitle(ZLIconFont.Close.rawValue, for: .normal)
+            button.setTitleColor(UIColor(named: "ICON_Common"), for: .normal)
+            button.titleLabel?.font = .zlIconFont(withSize: 25)
+            button.addTarget(self, action: #selector(onClose), for: .touchUpInside)
+            
+            view.addSubview(button)
+            button.snp.makeConstraints { (make) in
+                make.size.equalTo(CGSize(width: 40, height: 40))
+                make.centerY.equalToSuperview()
+                make.right.equalTo(view.safeAreaLayoutGuide.snp.right).offset(-20)
+            }
+            
+            return view
+            
+        }()
+        return tableView
+    }()
     
     private var searchBar : ZLBaseSearchBar?
     private var clipBoardButton : UIButton?
@@ -47,8 +72,10 @@ class ZLAssistController: ZLBaseViewController {
     private var assistButton : UIButton?
     private var circleMenu : CircleMenu?
     
+    // MARK: Data
     private var tableViewIndexs : [ZLAssistTableViewCellIndex] = []
     private var buttonTypes : [ZLAssistButtonType]?
+    private var pasteURL : URL?
    
     
     override func viewDidLoad() {
@@ -74,8 +101,8 @@ class ZLAssistController: ZLBaseViewController {
         self.setAssistButton()
         self.tableViewIndexs.append(.assistButon)
         
-//        self.setCircleMenu()
-//        self.tableViewIndexs.append(.circleMenu)
+        self.setCircleMenu()
+        self.tableViewIndexs.append(.circleMenu)
         
         
         self.setUpUI()
@@ -98,30 +125,8 @@ class ZLAssistController: ZLBaseViewController {
     }
     
     func setUpUI(){
-        tableView = UITableView(frame: CGRect(), style: .grouped)
-        tableView.backgroundColor = UIColor.clear
-        tableView.separatorStyle = .none
-        tableView.contentInset = UIEdgeInsets(top: 30, left: 0, bottom: 0, right: 0)
-        tableView.showsVerticalScrollIndicator = false
-        tableView.tableHeaderView = { () -> UIView in
-            let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50))
-            view.backgroundColor = UIColor.clear
-            
-            let button = UIButton(type: .custom)
-            button.setImage(UIImage(named: "close"), for: .normal)
-            button.addTarget(self, action: #selector(onClose), for: .touchUpInside)
-            
-            view.addSubview(button)
-            button.snp.makeConstraints { (make) in
-                make.size.equalTo(CGSize(width: 40, height: 40))
-                make.centerY.equalToSuperview()
-                make.right.equalTo(view.safeAreaLayoutGuide.snp.right).offset(-20)
-            }
-            
-            return view
-            
-        }()
-        self.contentView.addSubview(tableView)
+        
+        contentView.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
@@ -140,7 +145,6 @@ class ZLAssistController: ZLBaseViewController {
         searchBar?.delegate = self
     }
     
-    
     func setPasteURLButton(){
         
         let button = UIButton(type: .custom)
@@ -148,10 +152,12 @@ class ZLAssistController: ZLBaseViewController {
         button.clipsToBounds = true
         button.backgroundColor = UIColor(named: "ZLCellBack")
         
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "assist-pasteboard1")
-        button.addSubview(imageView)
-        imageView.snp.makeConstraints { (make) in
+        let label = UILabel()
+        label.font = .zlIconFont(withSize: 20)
+        label.text = ZLIconFont.PasteBoard.rawValue
+        label.textColor = UIColor(named: "ICON_Common")
+        button.addSubview(label)
+        label.snp.makeConstraints { (make) in
             make.left.equalToSuperview().offset(20)
             make.centerY.equalToSuperview()
             make.size.equalTo(CGSize(width: 20 , height: 20))
@@ -165,7 +171,7 @@ class ZLAssistController: ZLBaseViewController {
         button.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { (make) in
             make.centerY.equalToSuperview()
-            make.left.equalTo(imageView.snp_right).offset(20)
+            make.left.equalTo(label.snp_right).offset(20)
             make.right.equalToSuperview().offset(-20)
         }
                 
@@ -268,19 +274,29 @@ extension ZLAssistController : CircleMenuDelegate {
         switch self.buttonTypes?[atIndex] {
         case .home:
             button.backgroundColor = ZLRGBValue_H(colorValue: 0x337DDB)
-            button.setImage(UIImage(named: "assist-home"), for: .normal)
+            button.setTitle(ZLIconFont.Home.rawValue, for: .normal)
+            button.setTitleColor(UIColor.white, for: .normal)
+            button.titleLabel?.font = .zlIconFont(withSize: 24)
         case .search:
             button.backgroundColor = ZLRGBValue_H(colorValue: 0x52A019)
-            button.setImage(UIImage(named: "assist-search"), for: .normal)
+            button.setTitle(ZLIconFont.Search.rawValue, for: .normal)
+            button.setTitleColor(UIColor.white, for: .normal)
+            button.titleLabel?.font = .zlIconFont(withSize: 24)
         case .pasteboard:
             button.backgroundColor = ZLRGBValue_H(colorValue: 0xCE3B40)
-            button.setImage(UIImage(named: "assist-pasteboard"), for: .normal)
+            button.setTitle(ZLIconFont.PasteBoard.rawValue, for: .normal)
+            button.setTitleColor(UIColor.white, for: .normal)
+            button.titleLabel?.font = .zlIconFont(withSize: 24)
         case .setting:
             button.backgroundColor = ZLRGBValue_H(colorValue: 0x7445DA)
-            button.setImage(UIImage(named: "assist-setting"), for: .normal)
+            button.setTitle(ZLIconFont.Setting.rawValue, for: .normal)
+            button.setTitleColor(UIColor.white, for: .normal)
+            button.titleLabel?.font = .zlIconFont(withSize: 24)
         case .none:
             button.backgroundColor = ZLRGBValue_H(colorValue: 0x337DDB)
-            button.setImage(UIImage(named: "assist-home"), for: .normal)
+            button.setTitle(ZLIconFont.Home.rawValue, for: .normal)
+            button.setTitleColor(UIColor.white, for: .normal)
+            button.titleLabel?.font = .zlIconFont(withSize: 24)
         }
     }
 

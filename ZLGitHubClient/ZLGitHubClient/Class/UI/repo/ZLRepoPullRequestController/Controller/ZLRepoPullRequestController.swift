@@ -20,9 +20,7 @@ class ZLRepoPullRequestController: ZLBaseViewController {
         
         let viewModel = ZLRepoPullRequestViewModel()
         
-        guard let pullRequestView : ZLRepoPullRequestView = Bundle.main.loadNibNamed("ZLRepoPullRequestView", owner: viewModel, options: nil)?.first as? ZLRepoPullRequestView else {
-            return
-        }
+        let pullRequestView = ZLRepoPullRequestView()
         self.contentView.addSubview(pullRequestView)
         pullRequestView.snp.makeConstraints ({ (make) in
             make.edges.equalToSuperview()

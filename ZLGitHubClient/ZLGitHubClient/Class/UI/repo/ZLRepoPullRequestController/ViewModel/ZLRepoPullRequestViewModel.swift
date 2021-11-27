@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ZLRepoPullRequestViewModel: ZLBaseViewModel {
+class ZLRepoPullRequestViewModel: ZLBaseViewModel,ZLRepoPullRequestViewDelegate {
     
     // view
     var pullRequestView : ZLRepoPullRequestView?
@@ -25,33 +25,21 @@ class ZLRepoPullRequestViewModel: ZLBaseViewModel {
             return
         }
         self.pullRequestView = pullRequestView
-        self.pullRequestView?.githubItemListView.delegate = self
-        
         self.fullName = targetModel as? String
+        
+        self.pullRequestView?.fillWithViewModel(viewModel: self)
         
         self.pullRequestView?.githubItemListView.beginRefresh()
     }
     
     
     
-    @IBAction func onFilterButtonClicked(_ sender: Any) {
-        
-        CYSinglePickerPopoverView.showCYSinglePickerPopover(withTitle: ZLLocalizedString(string: "Filter", comment: ""), withInitIndex: self.filterOpen ? 0 : 1, withDataArray: ["open","closed"], withResultBlock: {(result : UInt) in
-            
-            self.pullRequestView?.filterLabel.text = result == 0 ? "open" : "closed"
-            self.filterOpen = result == 0 ? true : false
-            
-            if self.fullName != nil {
-                self.pullRequestView?.githubItemListView.clearListView()
-                SVProgressHUD.show()
-                self.loadNewData()
-            }
-            
-        })
-        
+    func onFilterTypeChange(_ open: Bool) {
+        self.filterOpen = open
+        SVProgressHUD.show()
+        self.loadNewData()
     }
-    
-    
+
 }
 
 extension ZLRepoPullRequestViewModel : ZLGithubItemListViewDelegate

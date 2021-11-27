@@ -204,13 +204,15 @@ class ZLPullRequestHeaderTableViewCell: UITableViewCell {
         }
         fileChangedLabel = fileButtonLabel
         
-        let fileButtonImageView = UIImageView()
-        fileButtonImageView.image = UIImage(named: "Next_MyProfile")
-        filebutton.addSubview(fileButtonImageView)
-        fileButtonImageView.snp.makeConstraints { (make) in
+        let fileButtonNextTag = UILabel()
+        fileButtonNextTag.font = UIFont.zlIconFont(withSize: 15)
+        fileButtonNextTag.textColor = UIColor(named: "ICON_Common")
+        fileButtonNextTag.text = ZLIconFont.NextArrow.rawValue
+        filebutton.addSubview(fileButtonNextTag)
+        fileButtonNextTag.snp.makeConstraints { (make) in
             make.centerY.equalToSuperview()
             make.right.equalToSuperview().offset(-20)
-            make.size.equalTo(CGSize(width: 5, height: 9))
+            make.size.equalTo(CGSize(width: 15, height: 15))
         }
         
         let lineview2 = UIView()
@@ -245,15 +247,16 @@ class ZLPullRequestHeaderTableViewCell: UITableViewCell {
         }
         commitLabel = commitButtonLabel
         
-        let commitButtonImageView = UIImageView()
-        commitButtonImageView.image = UIImage(named: "Next_MyProfile")
-        commitButton.addSubview(commitButtonImageView)
-        commitButtonImageView.snp.makeConstraints { (make) in
+        let commitButtonNextTag = UILabel()
+        commitButtonNextTag.font = UIFont.zlIconFont(withSize: 15)
+        commitButtonNextTag.textColor = UIColor(named: "ICON_Common")
+        commitButtonNextTag.text = ZLIconFont.NextArrow.rawValue
+        commitButton.addSubview(commitButtonNextTag)
+        commitButtonNextTag.snp.makeConstraints { (make) in
             make.centerY.equalToSuperview()
             make.right.equalToSuperview().offset(-20)
-            make.size.equalTo(CGSize(width: 5, height: 9))
+            make.size.equalTo(CGSize(width: 15, height: 15))
         }
-        
     }
     
     func fillWithData(data : ZLPullRequestHeaderTableViewCellDelegate) {
