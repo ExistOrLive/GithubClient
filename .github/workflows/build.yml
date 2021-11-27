@@ -21,13 +21,14 @@ jobs:
     - name: construct build enviroment
       working-directory: ./ZLGitHubClient          # 指定run 的工作目录
       run: |
+        echo "start construct build enviroment"
         gem cleanup
         gem install bundler
         bundle install
         bundle exec pod repo update
         bundle exec pod install
         echo "construct build enviroment success"
-    - name: archive app
+    - name: build app
       working-directory: ./ZLGitHubClient          # 指定run 的工作目录
       env: 
         MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
@@ -36,32 +37,7 @@ jobs:
         FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.apple_pwd }}   # pwd for upload to testflight 
         FASTLANE_USER: ${{ secrets.FASTLANE_USER }}                                    
         FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }} 
-
       run: |
-        pwd 
-        bundle exec fastlane github_action_adhoc
-        echo "ipa build success"
-    - name: upload github artifact
-      if: success()
-      uses: actions/upload-artifact@v1.0.0
-      with:
-          # Artifact name
-          name: ZLGitHubClient
-          # Directory containing files to upload
-          path: ./ZLGitHubClient/fastlane/ipa/adhoc
-    - name: upload artifact
-      working-directory: ./ZLGitHubClient          # 指定run 的工作目录
-      if: success()
-      env: 
-        CODING_ARTIFACT_TOKEN: ${{ secrets.CODING_ARTIFACT_TOKEN }}
-      run: |
-        curl -T ./fastlane/ipa/adhoc/ZLGitHubClient.ipa  -u $CODING_ARTIFACT_TOKEN  "https://existorlive-generic.pkg.coding.net/ZLGitHubClient/adhoc/ZLGitHubClient.ipa" -v                    # 上传ipa到制品库
-        echo "work flow build end"
-    - name: email send for success
-      working-directory: ./ZLGitHubClient/EmailSender
-      if: success()
-      env: 
-        NOREPLEY_PWD: ${{ secrets.NOREPLY_PASSWD }}
-        Email_Receivers: ${{ secrets.Email_Receivers }}
-      run: |
-        python3 EmailSenderForGitAction.py $NOREPLEY_PWD $Email_Receivers true
+        echo "start project build check"
+        bundle exec fastlane github_action_build_check
+        echo "project build success"
