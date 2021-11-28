@@ -50,7 +50,7 @@ jobs:
         echo "start project build check"
         bundle exec fastlane github_action_build_check
         echo "project build success"
-    - name: email send for success
+    - name: email send for fail
       working-directory: ./ZLGitHubClient/EmailSender
       if: ${{ failure() }}                             # expression https://docs.github.com/en/actions/learn-github-actions/expressions#job-status-check-functions
       env:    
@@ -58,3 +58,11 @@ jobs:
         Email_Receivers: ${{ secrets.Email_Receivers }}
       run: |
         python3 BuildCheckEmailSender.py $NOREPLEY_PWD $Email_Receivers false
+    - name: email send for success
+      working-directory: ./ZLGitHubClient/EmailSender
+      if: ${{ success() }}                             # expression https://docs.github.com/en/actions/learn-github-actions/expressions#job-status-check-functions
+      env:    
+        NOREPLEY_PWD: ${{ secrets.NOREPLY_PASSWD }}
+        Email_Receivers: ${{ secrets.Email_Receivers }}
+      run: |
+        python3 BuildCheckEmailSender.py $NOREPLEY_PWD $Email_Receivers true
