@@ -24,9 +24,7 @@ class ZLWorkflowRunTableViewCell: UITableViewCell {
     
     private lazy var workflowRunStatusTag: UILabel = {
         let label = UILabel()
-        label.text = ZLIconFont.Workflow.rawValue
         label.font = UIFont.zlIconFont(withSize: 20)
-        label.textColor = UIColor(named: "ICON_Common")
         return label
     }()
     
@@ -34,7 +32,7 @@ class ZLWorkflowRunTableViewCell: UITableViewCell {
        let label = UILabel()
         label.font = UIFont.zlSemiBoldFont(withSize: 15)
         label.textColor = UIColor.label(withName: "ZLLabelColor1")
-        label.numberOfLines = 2
+        label.numberOfLines = 1
         return label
     }()
     
@@ -122,7 +120,7 @@ class ZLWorkflowRunTableViewCell: UITableViewCell {
     func fillWithData(data : ZLWorkflowRunTableViewCellData) {
         
         self.workflowRunTitleLabel.text = data.getWorkflowRunTitle()
-        self.workflowDescLabel.text = data.getWorkflowRunDesc().string
+        self.workflowDescLabel.text = data.getWorkflowRunDesc()
         self.timeLabel.text = data.getTimeStr()
         self.branchLabel.attributedText = data.getBranchStr()
         
@@ -130,7 +128,7 @@ class ZLWorkflowRunTableViewCell: UITableViewCell {
             if data.getConclusion() == "success" {
                 workflowRunStatusTag.text = ZLIconFont.GithubRunSuccess.rawValue
                 workflowRunStatusTag.textColor = UIColor(named: "ICON_SuccessColor")
-            } else if data.getConclusion() == "failure" {
+            } else if data.getConclusion() == "failure"  || data.getConclusion() == "startup_failure"{
                 workflowRunStatusTag.text = ZLIconFont.GithubRunFail.rawValue
                 workflowRunStatusTag.textColor = UIColor(named: "ICON_FailColor")
             } else if data.getConclusion() == "cancelled" {
@@ -166,4 +164,5 @@ class ZLWorkflowRunTableViewCell: UITableViewCell {
             self.containerView.backgroundColor = UIColor.init(named: "ZLCellBack")
         }
     }
+    
 }
