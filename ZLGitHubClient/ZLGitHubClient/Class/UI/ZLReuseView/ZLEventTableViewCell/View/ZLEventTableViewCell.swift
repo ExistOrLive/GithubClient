@@ -47,6 +47,7 @@ class ZLEventTableViewCell: UITableViewCell {
     
     func setUpUI()
     {
+        selectionStyle = .none
         // containerView
         let view = UIView.init()
         view.backgroundColor = UIColor.init(named: "ZLCellBack")
@@ -183,6 +184,27 @@ extension ZLEventTableViewCell
         if self.delegate?.responds(to: #selector(ZLEventTableViewCellDelegate.onReportClicked)) ?? false
         {
             self.delegate?.onReportClicked()
+        }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        UIView.animate(withDuration: 0.1) {
+            self.containerView?.backgroundColor = UIColor.init(named: "ZLCellBackSelected")
+        }
+    }
+    
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesCancelled(touches, with: event)
+        UIView.animate(withDuration: 0.1) {
+            self.containerView?.backgroundColor = UIColor.init(named: "ZLCellBack")
+        }
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        UIView.animate(withDuration: 0.1) {
+            self.containerView?.backgroundColor = UIColor.init(named: "ZLCellBack")
         }
     }
 }

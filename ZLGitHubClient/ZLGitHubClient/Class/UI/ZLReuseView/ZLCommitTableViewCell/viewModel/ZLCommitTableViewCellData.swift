@@ -29,7 +29,7 @@ class ZLCommitTableViewCellData: ZLGithubItemTableViewCellData {
      
      override func getCellHeight() -> CGFloat
      {
-         return 110.0
+        return UITableView.automaticDimension
      }
      
      override func getCellReuseIdentifier() -> String
