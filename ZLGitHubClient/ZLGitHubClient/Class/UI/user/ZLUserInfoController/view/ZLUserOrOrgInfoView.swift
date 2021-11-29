@@ -23,18 +23,24 @@ class ZLUserOrOrgInfoView: ZLBaseView {
         return scrollView
     }()
     
-    var userInfoView: ZLUserInfoView = {
+    lazy var userInfoView: ZLUserInfoView = {
         guard let baseView = Bundle.main.loadNibNamed("ZLUserInfoView", owner: nil, options: nil)?.first as? ZLUserInfoView else{
             return ZLUserInfoView()
         }
         return baseView
     }()
     
-    var orgInfoView: ZLOrgInfoView = {
+    lazy var orgInfoView: ZLOrgInfoView = {
         guard let baseView = Bundle.main.loadNibNamed("ZLOrgInfoView", owner: nil, options: nil)?.first as? ZLOrgInfoView else{
             return ZLOrgInfoView()
         }
         return baseView
+    }()
+    
+    lazy var placeHolderView: UIImageView = {
+       let imageView = UIImageView()
+        imageView.image = UIImage(named: "placeholder")
+        return imageView
     }()
     
     override init(frame: CGRect) {
@@ -71,7 +77,7 @@ class ZLUserOrOrgInfoView: ZLBaseView {
             scrollView.addSubview(orgInfoView)
             orgInfoView.snp.makeConstraints { (make) in
                 make.edges.equalTo(scrollView)
-                make.width.equalTo(scrollView.snp_width)
+                make.width.equalTo(scrollView.snp.width)
             }
             
         } else if self.delegate?.isUserView ?? false {
@@ -79,7 +85,14 @@ class ZLUserOrOrgInfoView: ZLBaseView {
             scrollView.addSubview(userInfoView)
             userInfoView.snp.makeConstraints { (make) in
                 make.edges.equalTo(scrollView)
-                make.width.equalTo(scrollView.snp_width)
+                make.width.equalTo(scrollView.snp.width)
+            }
+        } else {
+            scrollView.addSubview(placeHolderView)
+            placeHolderView.snp.makeConstraints { (make) in
+                make.edges.equalTo(scrollView)
+                make.width.equalTo(scrollView.snp.width)
+                make.height.equalTo(scrollView.snp.height)
             }
         }
     }
