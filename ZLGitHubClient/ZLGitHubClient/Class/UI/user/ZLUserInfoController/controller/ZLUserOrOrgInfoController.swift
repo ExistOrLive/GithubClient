@@ -10,13 +10,14 @@ import UIKit
 
 class ZLUserOrOrgInfoController: ZLBaseViewController {
 
+    // Outer Property
     @objc var loginName: String?
     
+    
     // view
-    var userOrOrgInfoView: ZLUserOrOrgInfoView = {
+    lazy var userOrOrgInfoView: ZLUserOrOrgInfoView = {
         ZLUserOrOrgInfoView()
     }()
-    
     
     // subviewModel
     var userInfoViewModel: ZLUserInfoViewModel?
@@ -24,8 +25,6 @@ class ZLUserOrOrgInfoController: ZLBaseViewController {
     
     // model
     var model: ZLBaseObject?
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
