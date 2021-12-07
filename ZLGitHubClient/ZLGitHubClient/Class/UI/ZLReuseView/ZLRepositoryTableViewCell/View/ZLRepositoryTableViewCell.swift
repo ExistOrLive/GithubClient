@@ -255,8 +255,8 @@ extension ZLRepositoryTableViewCell
         self.repostitoryNameLabel.text = data.getRepoName()
         self.languageLabel.text = data.getRepoMainLanguage()
         self.descriptionLabel.text = data.getRepoDesc()
-        self.forkNumLabel.text = data.forkNum() <= 1000 ? "\(data.forkNum())" : String(format: "%.1f",Double(data.forkNum())/1000.0) + "k"
-        self.starNumLabel.text = data.starNum() <= 1000 ? "\(data.starNum())" : String(format: "%.1f",Double(data.starNum())/1000.0) + "k"
+        self.forkNumLabel.text = data.forkNum() < 1000 ? "\(data.forkNum())" : String(format: "%.1f",Double(data.forkNum())/1000.0) + "k"
+        self.starNumLabel.text = data.starNum() < 1000 ? "\(data.starNum())" : String(format: "%.1f",Double(data.starNum())/1000.0) + "k"
         self.ownerNameLabel.text = data.getOwnerName()
         self.privateLabel.isHidden = !data.isPriva()
         

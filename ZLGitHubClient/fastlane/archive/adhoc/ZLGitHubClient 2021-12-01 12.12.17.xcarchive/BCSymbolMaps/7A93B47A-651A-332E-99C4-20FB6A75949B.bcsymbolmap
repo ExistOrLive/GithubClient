@@ -1,0 +1,329 @@
+BCSymbolMap Version: 2.0
+Apple clang version 13.0.0 (clang-1300.0.29.3)
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.0.sdk
+iPhoneOS15.0.sdk
+/Users/zhumeng/Library/Developer/Xcode/DerivedData/ZLGitHubClient-dllgqizsadklyxeteoiyvmtboyoe/Build/Intermediates.noindex/ArchiveIntermediates/ZLGitHubClient/IntermediateBuildFilesPath/Pods.build/Release-iphoneos/Toast.build/DerivedSources/Toast_vers.c
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods
+__OBJC_METACLASS_RO_$_PodsDummy_Toast
+__OBJC_CLASS_RO_$_PodsDummy_Toast
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/Target Support Files/Toast/Toast-dummy.m
+-[UIView(Toast) makeToast:]
+-[UIView(Toast) makeToast:duration:position:]
+-[UIView(Toast) makeToast:duration:position:style:]
+-[UIView(Toast) makeToast:duration:position:title:image:style:completion:]
+-[UIView(Toast) showToast:]
+-[UIView(Toast) showToast:duration:position:completion:]
+-[UIView(Toast) hideToast]
+-[UIView(Toast) hideToast:]
+-[UIView(Toast) hideAllToasts]
+-[UIView(Toast) hideAllToasts:clearQueue:]
+-[UIView(Toast) clearToastQueue]
+-[UIView(Toast) cs_showToast:duration:position:]
+___48-[UIView(Toast) cs_showToast:duration:position:]_block_invoke
+___copy_helper_block_e8_32s
+___destroy_helper_block_e8_32s
+___48-[UIView(Toast) cs_showToast:duration:position:]_block_invoke.87
+___copy_helper_block_e8_32s40s
+___destroy_helper_block_e8_32s40s
+-[UIView(Toast) cs_hideToast:]
+-[UIView(Toast) cs_hideToast:fromTap:]
+___38-[UIView(Toast) cs_hideToast:fromTap:]_block_invoke
+___38-[UIView(Toast) cs_hideToast:fromTap:]_block_invoke_2
+-[UIView(Toast) toastViewForMessage:title:image:style:]
+-[UIView(Toast) cs_activeToasts]
+-[UIView(Toast) cs_toastQueue]
+-[UIView(Toast) cs_toastTimerDidFinish:]
+-[UIView(Toast) cs_handleToastTapped:]
+-[UIView(Toast) makeToastActivity:]
+___35-[UIView(Toast) makeToastActivity:]_block_invoke
+-[UIView(Toast) hideToastActivity]
+___34-[UIView(Toast) hideToastActivity]_block_invoke
+___34-[UIView(Toast) hideToastActivity]_block_invoke_2
+-[UIView(Toast) cs_centerPointForPosition:withToast:]
+-[CSToastStyle initWithDefaultStyle]
+-[CSToastStyle setMaxWidthPercentage:]
+-[CSToastStyle setMaxHeightPercentage:]
+-[CSToastStyle init]
+-[CSToastStyle backgroundColor]
+-[CSToastStyle setBackgroundColor:]
+-[CSToastStyle titleColor]
+-[CSToastStyle setTitleColor:]
+-[CSToastStyle messageColor]
+-[CSToastStyle setMessageColor:]
+-[CSToastStyle maxWidthPercentage]
+-[CSToastStyle maxHeightPercentage]
+-[CSToastStyle horizontalPadding]
+-[CSToastStyle setHorizontalPadding:]
+-[CSToastStyle verticalPadding]
+-[CSToastStyle setVerticalPadding:]
+-[CSToastStyle cornerRadius]
+-[CSToastStyle setCornerRadius:]
+-[CSToastStyle titleFont]
+-[CSToastStyle setTitleFont:]
+-[CSToastStyle messageFont]
+-[CSToastStyle setMessageFont:]
+-[CSToastStyle titleAlignment]
+-[CSToastStyle setTitleAlignment:]
+-[CSToastStyle messageAlignment]
+-[CSToastStyle setMessageAlignment:]
+-[CSToastStyle titleNumberOfLines]
+-[CSToastStyle setTitleNumberOfLines:]
+-[CSToastStyle messageNumberOfLines]
+-[CSToastStyle setMessageNumberOfLines:]
+-[CSToastStyle displayShadow]
+-[CSToastStyle setDisplayShadow:]
+-[CSToastStyle shadowColor]
+-[CSToastStyle setShadowColor:]
+-[CSToastStyle shadowOpacity]
+-[CSToastStyle setShadowOpacity:]
+-[CSToastStyle shadowRadius]
+-[CSToastStyle setShadowRadius:]
+-[CSToastStyle shadowOffset]
+-[CSToastStyle setShadowOffset:]
+-[CSToastStyle imageSize]
+-[CSToastStyle setImageSize:]
+-[CSToastStyle activitySize]
+-[CSToastStyle setActivitySize:]
+-[CSToastStyle fadeDuration]
+-[CSToastStyle setFadeDuration:]
+-[CSToastStyle .cxx_destruct]
++[CSToastManager sharedManager]
+___31+[CSToastManager sharedManager]_block_invoke
+___copy_helper_block_e8_
+___destroy_helper_block_e8_
+-[CSToastManager init]
++[CSToastManager setSharedStyle:]
++[CSToastManager sharedStyle]
++[CSToastManager setTapToDismissEnabled:]
++[CSToastManager isTapToDismissEnabled]
++[CSToastManager setQueueEnabled:]
++[CSToastManager isQueueEnabled]
++[CSToastManager setDefaultDuration:]
++[CSToastManager defaultDuration]
++[CSToastManager setDefaultPosition:]
++[CSToastManager defaultPosition]
+-[CSToastManager sharedStyle]
+-[CSToastManager setSharedStyle:]
+-[CSToastManager isTapToDismissEnabled]
+-[CSToastManager setTapToDismissEnabled:]
+-[CSToastManager isQueueEnabled]
+-[CSToastManager setQueueEnabled:]
+-[CSToastManager defaultDuration]
+-[CSToastManager setDefaultDuration:]
+-[CSToastManager defaultPosition]
+-[CSToastManager setDefaultPosition:]
+-[CSToastManager .cxx_destruct]
+___clang_at_available_requires_core_foundation_framework
+_CSToastTimerKey
+_CSToastDurationKey
+_CSToastPositionKey
+_CSToastCompletionKey
+_CSToastActiveKey
+_CSToastActivityViewKey
+_CSToastQueueKey
+_OBJC_CLASSLIST_REFERENCES_$_
+_OBJC_SELECTOR_REFERENCES_
+_OBJC_SELECTOR_REFERENCES_.20
+_OBJC_SELECTOR_REFERENCES_.22
+_OBJC_SELECTOR_REFERENCES_.24
+_OBJC_SELECTOR_REFERENCES_.26
+_OBJC_SELECTOR_REFERENCES_.28
+_OBJC_SELECTOR_REFERENCES_.30
+_OBJC_SELECTOR_REFERENCES_.32
+_OBJC_CLASSLIST_REFERENCES_$_.33
+_OBJC_SELECTOR_REFERENCES_.35
+_OBJC_SELECTOR_REFERENCES_.37
+_OBJC_SELECTOR_REFERENCES_.39
+_OBJC_SELECTOR_REFERENCES_.41
+_OBJC_SELECTOR_REFERENCES_.43
+_OBJC_SELECTOR_REFERENCES_.45
+_OBJC_SELECTOR_REFERENCES_.47
+_OBJC_SELECTOR_REFERENCES_.49
+_OBJC_SELECTOR_REFERENCES_.51
+_OBJC_SELECTOR_REFERENCES_.53
+_OBJC_SELECTOR_REFERENCES_.55
+_OBJC_SELECTOR_REFERENCES_.57
+_OBJC_SELECTOR_REFERENCES_.59
+_OBJC_SELECTOR_REFERENCES_.61
+_OBJC_SELECTOR_REFERENCES_.63
+_OBJC_SELECTOR_REFERENCES_.65
+_OBJC_SELECTOR_REFERENCES_.67
+_OBJC_CLASSLIST_REFERENCES_$_.68
+_OBJC_SELECTOR_REFERENCES_.70
+_OBJC_SELECTOR_REFERENCES_.72
+_OBJC_SELECTOR_REFERENCES_.74
+_OBJC_SELECTOR_REFERENCES_.76
+_OBJC_SELECTOR_REFERENCES_.78
+_OBJC_SELECTOR_REFERENCES_.80
+_OBJC_CLASSLIST_REFERENCES_$_.81
+_OBJC_SELECTOR_REFERENCES_.83
+_OBJC_SELECTOR_REFERENCES_.85
+___block_descriptor_40_e8_32s_e5_v8?0l
+_OBJC_CLASSLIST_REFERENCES_$_.88
+_OBJC_SELECTOR_REFERENCES_.90
+_OBJC_SELECTOR_REFERENCES_.92
+_OBJC_CLASSLIST_REFERENCES_$_.93
+_OBJC_SELECTOR_REFERENCES_.95
+_OBJC_SELECTOR_REFERENCES_.97
+___block_descriptor_56_e8_32s40s_e8_v12?0B8l
+_OBJC_SELECTOR_REFERENCES_.100
+_OBJC_SELECTOR_REFERENCES_.102
+_OBJC_SELECTOR_REFERENCES_.104
+_OBJC_SELECTOR_REFERENCES_.106
+_OBJC_SELECTOR_REFERENCES_.108
+_OBJC_SELECTOR_REFERENCES_.110
+_OBJC_SELECTOR_REFERENCES_.112
+___block_descriptor_49_e8_32s40s_e8_v12?0B8l
+_OBJC_SELECTOR_REFERENCES_.114
+_OBJC_SELECTOR_REFERENCES_.116
+_OBJC_SELECTOR_REFERENCES_.118
+_OBJC_SELECTOR_REFERENCES_.120
+_OBJC_SELECTOR_REFERENCES_.122
+_OBJC_SELECTOR_REFERENCES_.124
+_OBJC_SELECTOR_REFERENCES_.126
+_OBJC_SELECTOR_REFERENCES_.128
+_OBJC_SELECTOR_REFERENCES_.130
+_OBJC_SELECTOR_REFERENCES_.132
+_OBJC_SELECTOR_REFERENCES_.134
+_OBJC_SELECTOR_REFERENCES_.136
+_OBJC_SELECTOR_REFERENCES_.138
+_OBJC_SELECTOR_REFERENCES_.140
+_OBJC_SELECTOR_REFERENCES_.142
+_OBJC_SELECTOR_REFERENCES_.144
+_OBJC_SELECTOR_REFERENCES_.146
+_OBJC_CLASSLIST_REFERENCES_$_.147
+_OBJC_SELECTOR_REFERENCES_.149
+_OBJC_SELECTOR_REFERENCES_.151
+_OBJC_SELECTOR_REFERENCES_.153
+_OBJC_SELECTOR_REFERENCES_.155
+_OBJC_SELECTOR_REFERENCES_.157
+_OBJC_SELECTOR_REFERENCES_.159
+_OBJC_SELECTOR_REFERENCES_.161
+_OBJC_CLASSLIST_REFERENCES_$_.162
+_OBJC_SELECTOR_REFERENCES_.164
+_OBJC_SELECTOR_REFERENCES_.166
+_OBJC_SELECTOR_REFERENCES_.168
+_OBJC_SELECTOR_REFERENCES_.170
+_OBJC_SELECTOR_REFERENCES_.172
+_OBJC_SELECTOR_REFERENCES_.174
+_OBJC_SELECTOR_REFERENCES_.176
+_OBJC_SELECTOR_REFERENCES_.178
+_OBJC_SELECTOR_REFERENCES_.180
+_OBJC_CLASSLIST_REFERENCES_$_.181
+_OBJC_SELECTOR_REFERENCES_.183
+_OBJC_SELECTOR_REFERENCES_.185
+_OBJC_SELECTOR_REFERENCES_.187
+_OBJC_SELECTOR_REFERENCES_.189
+_OBJC_SELECTOR_REFERENCES_.191
+_OBJC_SELECTOR_REFERENCES_.193
+_OBJC_SELECTOR_REFERENCES_.195
+_OBJC_SELECTOR_REFERENCES_.197
+_OBJC_SELECTOR_REFERENCES_.199
+_OBJC_CLASSLIST_REFERENCES_$_.200
+_OBJC_SELECTOR_REFERENCES_.202
+_OBJC_SELECTOR_REFERENCES_.204
+_OBJC_SELECTOR_REFERENCES_.206
+_OBJC_SELECTOR_REFERENCES_.208
+_OBJC_CLASSLIST_REFERENCES_$_.209
+_OBJC_SELECTOR_REFERENCES_.211
+_OBJC_SELECTOR_REFERENCES_.213
+___block_descriptor_48_e8_32s40s_e8_v12?0B8l
+_OBJC_SELECTOR_REFERENCES_.215
+_OBJC_CLASSLIST_REFERENCES_$_.216
+_OBJC_SELECTOR_REFERENCES_.218
+_OBJC_SELECTOR_REFERENCES_.220
+_OBJC_SELECTOR_REFERENCES_.222
+_OBJC_SELECTOR_REFERENCES_.224
+_OBJC_CLASSLIST_REFERENCES_$_.225
+_OBJC_SELECTOR_REFERENCES_.227
+__OBJC_$_CATEGORY_INSTANCE_METHODS_UIView_$_Toast
+__OBJC_$_CATEGORY_UIView_$_Toast
+_OBJC_SELECTOR_REFERENCES_.246
+_OBJC_SELECTOR_REFERENCES_.248
+_OBJC_SELECTOR_REFERENCES_.250
+_OBJC_SELECTOR_REFERENCES_.252
+_OBJC_SELECTOR_REFERENCES_.254
+_OBJC_SELECTOR_REFERENCES_.256
+_OBJC_SELECTOR_REFERENCES_.258
+_OBJC_SELECTOR_REFERENCES_.260
+_OBJC_SELECTOR_REFERENCES_.262
+_OBJC_CLASSLIST_REFERENCES_$_.263
+_OBJC_SELECTOR_REFERENCES_.265
+_OBJC_SELECTOR_REFERENCES_.267
+_OBJC_SELECTOR_REFERENCES_.269
+_OBJC_SELECTOR_REFERENCES_.271
+_OBJC_SELECTOR_REFERENCES_.273
+_OBJC_SELECTOR_REFERENCES_.275
+_OBJC_SELECTOR_REFERENCES_.277
+_OBJC_SELECTOR_REFERENCES_.279
+_OBJC_SELECTOR_REFERENCES_.281
+_OBJC_SELECTOR_REFERENCES_.283
+_OBJC_SELECTOR_REFERENCES_.285
+_OBJC_SELECTOR_REFERENCES_.287
+__OBJC_METACLASS_RO_$_CSToastStyle
+__OBJC_$_INSTANCE_METHODS_CSToastStyle
+_OBJC_IVAR_$_CSToastStyle._displayShadow
+_OBJC_IVAR_$_CSToastStyle._backgroundColor
+_OBJC_IVAR_$_CSToastStyle._titleColor
+_OBJC_IVAR_$_CSToastStyle._messageColor
+_OBJC_IVAR_$_CSToastStyle._maxWidthPercentage
+_OBJC_IVAR_$_CSToastStyle._maxHeightPercentage
+_OBJC_IVAR_$_CSToastStyle._horizontalPadding
+_OBJC_IVAR_$_CSToastStyle._verticalPadding
+_OBJC_IVAR_$_CSToastStyle._cornerRadius
+_OBJC_IVAR_$_CSToastStyle._titleFont
+_OBJC_IVAR_$_CSToastStyle._messageFont
+_OBJC_IVAR_$_CSToastStyle._titleAlignment
+_OBJC_IVAR_$_CSToastStyle._messageAlignment
+_OBJC_IVAR_$_CSToastStyle._titleNumberOfLines
+_OBJC_IVAR_$_CSToastStyle._messageNumberOfLines
+_OBJC_IVAR_$_CSToastStyle._shadowColor
+_OBJC_IVAR_$_CSToastStyle._shadowOpacity
+_OBJC_IVAR_$_CSToastStyle._shadowRadius
+_OBJC_IVAR_$_CSToastStyle._fadeDuration
+_OBJC_IVAR_$_CSToastStyle._shadowOffset
+_OBJC_IVAR_$_CSToastStyle._imageSize
+_OBJC_IVAR_$_CSToastStyle._activitySize
+__OBJC_$_INSTANCE_VARIABLES_CSToastStyle
+__OBJC_$_PROP_LIST_CSToastStyle
+__OBJC_CLASS_RO_$_CSToastStyle
+_sharedManager._sharedManager
+_sharedManager.oncePredicate
+___block_descriptor_40_e8__e5_v8?0l
+_OBJC_CLASSLIST_REFERENCES_$_.373
+_OBJC_SELECTOR_REFERENCES_.374
+_OBJC_SELECTOR_REFERENCES_.376
+_OBJC_SELECTOR_REFERENCES_.378
+_OBJC_SELECTOR_REFERENCES_.380
+_OBJC_SELECTOR_REFERENCES_.382
+_OBJC_SELECTOR_REFERENCES_.384
+_OBJC_SELECTOR_REFERENCES_.386
+__OBJC_$_CLASS_METHODS_CSToastManager
+__OBJC_METACLASS_RO_$_CSToastManager
+__OBJC_$_INSTANCE_METHODS_CSToastManager
+_OBJC_IVAR_$_CSToastManager._tapToDismissEnabled
+_OBJC_IVAR_$_CSToastManager._queueEnabled
+_OBJC_IVAR_$_CSToastManager._sharedStyle
+_OBJC_IVAR_$_CSToastManager._defaultDuration
+_OBJC_IVAR_$_CSToastManager._defaultPosition
+__OBJC_$_INSTANCE_VARIABLES_CSToastManager
+__OBJC_$_PROP_LIST_CSToastManager
+__OBJC_CLASS_RO_$_CSToastManager
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/Toast/Toast/UIView+Toast.m
+Toast/Toast/UIView+Toast.m
+__destroy_helper_block_e8_
+__copy_helper_block_e8_
+__31+[CSToastManager sharedManager]_block_invoke
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.0.sdk/usr/include/dispatch/once.h
+Toast/Toast/UIView+Toast.h
+__34-[UIView(Toast) hideToastActivity]_block_invoke_2
+__34-[UIView(Toast) hideToastActivity]_block_invoke
+__35-[UIView(Toast) makeToastActivity:]_block_invoke
+__38-[UIView(Toast) cs_hideToast:fromTap:]_block_invoke_2
+__38-[UIView(Toast) cs_hideToast:fromTap:]_block_invoke
+__destroy_helper_block_e8_32s40s
+__copy_helper_block_e8_32s40s
+__48-[UIView(Toast) cs_showToast:duration:position:]_block_invoke.87
+__destroy_helper_block_e8_32s
+__copy_helper_block_e8_32s
+__48-[UIView(Toast) cs_showToast:duration:position:]_block_invoke

@@ -74,7 +74,7 @@
         [[ZLServiceManager sharedInstance].userServiceModel getAdditionInfoForUser:loginName
                                                                           infoType:ZLUserAdditionInfoTypeStarredRepos
                                                                               page:self.pageNum + 1
-                                                                          per_page:10
+                                                                          per_page:20
                                                                       serialNumber:NSString.generateSerialNumber completeHandle:^(ZLOperationResultModel * _Nonnull resultModel) {
             if(resultModel.result){
                
@@ -111,7 +111,7 @@
         [[ZLServiceManager sharedInstance].userServiceModel getAdditionInfoForUser:loginName
                                                                           infoType:ZLUserAdditionInfoTypeStarredRepos
                                                                               page:1
-                                                                          per_page:10
+                                                                          per_page:20
                                                                       serialNumber:NSString.generateSerialNumber completeHandle:^(ZLOperationResultModel * _Nonnull resultModel) {
             if(resultModel.result){
                

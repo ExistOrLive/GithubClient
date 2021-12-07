@@ -152,7 +152,7 @@ struct ZLWidgetService {
             }
             
             DispatchQueue.main.async {
-                completeHandler(true,resultArray,showCount)
+                completeHandler(true,resultArray,totalCount)
             }
            
         }

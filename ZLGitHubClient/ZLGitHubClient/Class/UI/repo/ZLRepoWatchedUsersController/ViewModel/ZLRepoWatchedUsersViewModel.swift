@@ -44,7 +44,7 @@ extension ZLRepoWatchedUsersViewModel
         
         ZLServiceManager.sharedInstance.repoServiceModel?.getRepoWatchers(withFullName: fullName,
                                                                           serialNumber: NSString.generateSerialNumber(),
-                                                                          per_page: 10,
+                                                                          per_page: 20,
                                                                           page: 1)
         { [weak weakSelf = self ](resultModel : ZLOperationResultModel) in
             
@@ -85,7 +85,7 @@ extension ZLRepoWatchedUsersViewModel
         
         ZLServiceManager.sharedInstance.repoServiceModel?.getRepoWatchers(withFullName: fullName,
                                                                           serialNumber: NSString.generateSerialNumber(),
-                                                                          per_page: 10,
+                                                                          per_page: 20,
                                                                           page: self.currentPage + 1)
         { [weak weakSelf = self](resultModel : ZLOperationResultModel) in
             

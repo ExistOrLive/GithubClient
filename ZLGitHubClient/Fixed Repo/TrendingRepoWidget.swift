@@ -174,6 +174,8 @@ struct TrendingRepoEntryView : View {
             return FixedRepoMediumView(entry: entry)
         case .systemLarge:
             return FixedRepoMediumView(entry: entry)
+        case .systemExtraLarge:
+            return FixedRepoMediumView(entry: entry)
         @unknown default:
             return FixedRepoMediumView(entry: entry)
         }

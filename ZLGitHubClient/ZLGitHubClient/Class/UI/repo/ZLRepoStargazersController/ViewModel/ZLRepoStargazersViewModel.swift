@@ -42,7 +42,7 @@ extension ZLRepoStargazersViewModel
         
         ZLServiceManager.sharedInstance.repoServiceModel?.getRepoStargazers(withFullName: fullName,
                                                                             serialNumber: NSString.generateSerialNumber(),
-                                                                            per_page: 10,
+                                                                            per_page: 20,
                                                                             page: 1)
         { [weak weakSelf = self] (resultModel : ZLOperationResultModel) in
             
@@ -84,7 +84,7 @@ extension ZLRepoStargazersViewModel
                 
         ZLServiceManager.sharedInstance.repoServiceModel?.getRepoStargazers(withFullName: fullName,
                                                                             serialNumber: NSString.generateSerialNumber(),
-                                                                            per_page: 10,
+                                                                            per_page: 20,
                                                                             page: self.currentPage + 1 )
         { [weak weakSelf = self](resultModel : ZLOperationResultModel) in
             

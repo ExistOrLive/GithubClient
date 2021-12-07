@@ -199,6 +199,7 @@
 "blog" = "博客";
 "website" = "主页";
 "bio" = "个人描述";
+"twitter" = "推特";
 
 // Appearance
 "Appearance" = "外观";
@@ -233,3 +234,5 @@
 "juvenile correlation" = "青少年相关";
 "insults abuse" = "侮辱虐待";
 "other" = "其他";
+
+"pinned" = "已固定";

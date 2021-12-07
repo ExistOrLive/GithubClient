@@ -1,0 +1,3454 @@
+BCSymbolMap Version: 2.0
+Apple clang version 13.0.0 (clang-1300.0.29.3)
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.0.sdk
+iPhoneOS15.0.sdk
+/Users/zhumeng/Library/Developer/Xcode/DerivedData/ZLGitHubClient-dllgqizsadklyxeteoiyvmtboyoe/Build/Intermediates.noindex/ArchiveIntermediates/ZLGitHubClient/IntermediateBuildFilesPath/Pods.build/Release-iphoneos/LookinServer.build/DerivedSources/LookinServer_vers.c
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods
+-[CALayer(Lookin) lookin_removeImplicitAnimations]
+_OBJC_SELECTOR_REFERENCES_
+_OBJC_CLASSLIST_REFERENCES_$_
+_OBJC_SELECTOR_REFERENCES_.16
+_OBJC_SELECTOR_REFERENCES_.18
+_OBJC_SELECTOR_REFERENCES_.20
+_OBJC_SELECTOR_REFERENCES_.22
+_OBJC_SELECTOR_REFERENCES_.24
+_OBJC_SELECTOR_REFERENCES_.26
+_OBJC_SELECTOR_REFERENCES_.28
+_OBJC_SELECTOR_REFERENCES_.30
+_OBJC_SELECTOR_REFERENCES_.32
+_OBJC_SELECTOR_REFERENCES_.34
+_OBJC_SELECTOR_REFERENCES_.36
+_OBJC_SELECTOR_REFERENCES_.38
+_OBJC_SELECTOR_REFERENCES_.40
+_OBJC_SELECTOR_REFERENCES_.42
+_OBJC_SELECTOR_REFERENCES_.44
+_OBJC_SELECTOR_REFERENCES_.46
+_OBJC_SELECTOR_REFERENCES_.48
+_OBJC_SELECTOR_REFERENCES_.50
+_OBJC_SELECTOR_REFERENCES_.52
+_OBJC_SELECTOR_REFERENCES_.54
+_OBJC_SELECTOR_REFERENCES_.56
+_OBJC_SELECTOR_REFERENCES_.58
+_OBJC_SELECTOR_REFERENCES_.60
+_OBJC_SELECTOR_REFERENCES_.62
+_OBJC_SELECTOR_REFERENCES_.64
+_OBJC_SELECTOR_REFERENCES_.66
+_OBJC_SELECTOR_REFERENCES_.68
+_OBJC_SELECTOR_REFERENCES_.70
+_OBJC_CLASSLIST_REFERENCES_$_.71
+_OBJC_SELECTOR_REFERENCES_.73
+_OBJC_SELECTOR_REFERENCES_.75
+_OBJC_CLASSLIST_REFERENCES_$_.76
+_OBJC_SELECTOR_REFERENCES_.78
+_OBJC_SELECTOR_REFERENCES_.80
+_OBJC_SELECTOR_REFERENCES_.82
+_OBJC_SELECTOR_REFERENCES_.84
+_OBJC_SELECTOR_REFERENCES_.86
+_OBJC_SELECTOR_REFERENCES_.88
+_OBJC_SELECTOR_REFERENCES_.90
+_OBJC_SELECTOR_REFERENCES_.92
+_OBJC_SELECTOR_REFERENCES_.94
+_OBJC_SELECTOR_REFERENCES_.96
+_OBJC_SELECTOR_REFERENCES_.98
+_OBJC_CLASSLIST_REFERENCES_$_.99
+_OBJC_SELECTOR_REFERENCES_.101
+_OBJC_SELECTOR_REFERENCES_.103
+_OBJC_SELECTOR_REFERENCES_.105
+_OBJC_SELECTOR_REFERENCES_.107
+_OBJC_SELECTOR_REFERENCES_.109
+__OBJC_$_CATEGORY_INSTANCE_METHODS_CALayer_$_Lookin
+__OBJC_$_CATEGORY_CALayer_$_Lookin
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Shared/Category/CALayer+Lookin.m
+LookinServer/Src/Shared/Category/CALayer+Lookin.m
+-[CALayer(LookinServer) setLks_isLookinPrivateLayer:]
+-[CALayer(LookinServer) lks_isLookinPrivateLayer]
+-[CALayer(LookinServer) lks_window]
+-[CALayer(LookinServer) lks_inLookinPrivateHierarchy]
+-[CALayer(LookinServer) lks_frameInWindow:]
+-[CALayer(LookinServer) setLks_avoidCapturing:]
+-[CALayer(LookinServer) lks_avoidCapturing]
+-[CALayer(LookinServer) setLks_hostView:]
+-[CALayer(LookinServer) lks_hostView]
+-[CALayer(LookinServer) lks_groupScreenshotWithLowQuality:]
+-[CALayer(LookinServer) lks_soloScreenshotWithLowQuality:]
+___58-[CALayer(LookinServer) lks_soloScreenshotWithLowQuality:]_block_invoke
+___copy_helper_block_e8_32s
+___destroy_helper_block_e8_32s
+___58-[CALayer(LookinServer) lks_soloScreenshotWithLowQuality:]_block_invoke.80
+-[CALayer(LookinServer) lks_relatedClassChainList]
++[CALayer(LookinServer) lks_getClassListOfObject:endingClass:]
+-[CALayer(LookinServer) lks_selfRelation]
+___41-[CALayer(LookinServer) lks_selfRelation]_block_invoke
+-[CALayer(LookinServer) lks_backgroundColor]
+-[CALayer(LookinServer) setLks_backgroundColor:]
+-[CALayer(LookinServer) lks_borderColor]
+-[CALayer(LookinServer) setLks_borderColor:]
+-[CALayer(LookinServer) lks_shadowColor]
+-[CALayer(LookinServer) setLks_shadowColor:]
+-[CALayer(LookinServer) lks_shadowOffsetWidth]
+-[CALayer(LookinServer) setLks_shadowOffsetWidth:]
+-[CALayer(LookinServer) lks_shadowOffsetHeight]
+-[CALayer(LookinServer) setLks_shadowOffsetHeight:]
+_OBJC_CLASSLIST_REFERENCES_$_.49
+_OBJC_SELECTOR_REFERENCES_.51
+_OBJC_SELECTOR_REFERENCES_.53
+_OBJC_SELECTOR_REFERENCES_.55
+_OBJC_SELECTOR_REFERENCES_.57
+_OBJC_SELECTOR_REFERENCES_.59
+_OBJC_SELECTOR_REFERENCES_.61
+_OBJC_SELECTOR_REFERENCES_.63
+_OBJC_SELECTOR_REFERENCES_.65
+_OBJC_SELECTOR_REFERENCES_.67
+_OBJC_CLASSLIST_REFERENCES_$_.68
+_OBJC_SELECTOR_REFERENCES_.72
+_OBJC_SELECTOR_REFERENCES_.74
+_OBJC_SELECTOR_REFERENCES_.76
+___block_descriptor_40_e8_32s_e24_v32?0"CALayer"8Q16^B24l
+_OBJC_SELECTOR_REFERENCES_.79
+___block_descriptor_32_e24_v32?0"CALayer"8Q16^B24l
+___block_literal_global
+_OBJC_CLASSLIST_REFERENCES_$_.81
+_OBJC_SELECTOR_REFERENCES_.85
+_OBJC_SELECTOR_REFERENCES_.87
+_OBJC_SELECTOR_REFERENCES_.93
+_OBJC_SELECTOR_REFERENCES_.95
+_OBJC_SELECTOR_REFERENCES_.97
+_OBJC_SELECTOR_REFERENCES_.99
+_OBJC_CLASSLIST_REFERENCES_$_.100
+_OBJC_SELECTOR_REFERENCES_.104
+_OBJC_SELECTOR_REFERENCES_.106
+_OBJC_SELECTOR_REFERENCES_.108
+___block_descriptor_32_e28_24?0Q8"LookinIvarTrace"16l
+___block_literal_global.110
+_OBJC_SELECTOR_REFERENCES_.114
+_OBJC_SELECTOR_REFERENCES_.116
+_OBJC_SELECTOR_REFERENCES_.118
+_OBJC_CLASSLIST_REFERENCES_$_.119
+_OBJC_SELECTOR_REFERENCES_.121
+_OBJC_SELECTOR_REFERENCES_.123
+_OBJC_SELECTOR_REFERENCES_.125
+_OBJC_SELECTOR_REFERENCES_.127
+_OBJC_SELECTOR_REFERENCES_.129
+_OBJC_SELECTOR_REFERENCES_.131
+_OBJC_SELECTOR_REFERENCES_.133
+_OBJC_SELECTOR_REFERENCES_.135
+_OBJC_SELECTOR_REFERENCES_.137
+_OBJC_SELECTOR_REFERENCES_.139
+__OBJC_$_CATEGORY_INSTANCE_METHODS_CALayer_$_LookinServer
+__OBJC_$_CATEGORY_CLASS_METHODS_CALayer_$_LookinServer
+__OBJC_$_PROP_LIST_CALayer_$_LookinServer
+__OBJC_$_CATEGORY_CALayer_$_LookinServer
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Server/Category/CALayer+LookinServer.m
+LookinServer/Src/Server/Category/CALayer+LookinServer.m
+__41-[CALayer(LookinServer) lks_selfRelation]_block_invoke
+NSMakeRange
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.0.sdk/System/Library/Frameworks/Foundation.framework/Headers/NSRange.h
+__58-[CALayer(LookinServer) lks_soloScreenshotWithLowQuality:]_block_invoke.80
+__destroy_helper_block_e8_32s
+__copy_helper_block_e8_32s
+__58-[CALayer(LookinServer) lks_soloScreenshotWithLowQuality:]_block_invoke
+llvm.loop.mustprogress
++[LKS_AttrGroupsMaker attrGroupsForLayer:]
+___42+[LKS_AttrGroupsMaker attrGroupsForLayer:]_block_invoke
+___42+[LKS_AttrGroupsMaker attrGroupsForLayer:]_block_invoke_2
+___42+[LKS_AttrGroupsMaker attrGroupsForLayer:]_block_invoke_3
+___42+[LKS_AttrGroupsMaker attrGroupsForLayer:]_block_invoke.57
++[LKS_AttrGroupsMaker _attributeWithIdentifer:targetObject:]
+_OBJC_CLASSLIST_REFERENCES_$_.15
+_OBJC_SELECTOR_REFERENCES_.17
+_OBJC_SELECTOR_REFERENCES_.19
+_OBJC_SELECTOR_REFERENCES_.21
+_OBJC_CLASSLIST_REFERENCES_$_.22
+_OBJC_CLASSLIST_REFERENCES_$_.27
+_OBJC_SELECTOR_REFERENCES_.29
+_OBJC_SELECTOR_REFERENCES_.31
+_OBJC_SELECTOR_REFERENCES_.33
+_OBJC_SELECTOR_REFERENCES_.35
+_OBJC_SELECTOR_REFERENCES_.37
+_OBJC_SELECTOR_REFERENCES_.39
+_OBJC_SELECTOR_REFERENCES_.41
+___block_descriptor_48_e8_32s_e21_24?0Q8"NSString"16l
+___block_descriptor_32_e33_B16?0"LookinAttributesSection"8l
+_OBJC_CLASSLIST_REFERENCES_$_.63
+_OBJC_SELECTOR_REFERENCES_.69
+_OBJC_SELECTOR_REFERENCES_.71
+_OBJC_CLASSLIST_REFERENCES_$_.75
+_OBJC_SELECTOR_REFERENCES_.77
+_OBJC_SELECTOR_REFERENCES_.81
+_OBJC_SELECTOR_REFERENCES_.83
+_OBJC_CLASSLIST_REFERENCES_$_.89
+_OBJC_SELECTOR_REFERENCES_.91
+_OBJC_SELECTOR_REFERENCES_.112
+_OBJC_SELECTOR_REFERENCES_.115
+_OBJC_SELECTOR_REFERENCES_.120
+_OBJC_SELECTOR_REFERENCES_.126
+_OBJC_CLASSLIST_REFERENCES_$_.133
+_OBJC_SELECTOR_REFERENCES_.138
+_OBJC_SELECTOR_REFERENCES_.141
+_OBJC_SELECTOR_REFERENCES_.144
+_OBJC_SELECTOR_REFERENCES_.147
+_OBJC_SELECTOR_REFERENCES_.150
+_OBJC_SELECTOR_REFERENCES_.153
+_OBJC_CLASSLIST_REFERENCES_$_.154
+_OBJC_SELECTOR_REFERENCES_.156
+_OBJC_SELECTOR_REFERENCES_.160
+_OBJC_SELECTOR_REFERENCES_.162
+_OBJC_SELECTOR_REFERENCES_.164
+_OBJC_SELECTOR_REFERENCES_.166
+_OBJC_SELECTOR_REFERENCES_.168
+__OBJC_$_CLASS_METHODS_LKS_AttrGroupsMaker
+__OBJC_METACLASS_RO_$_LKS_AttrGroupsMaker
+__OBJC_CLASS_RO_$_LKS_AttrGroupsMaker
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Server/Others/LKS_AttrGroupsMaker.m
+LookinServer/Src/Server/Others/LKS_AttrGroupsMaker.m
+__42+[LKS_AttrGroupsMaker attrGroupsForLayer:]_block_invoke.57
+__42+[LKS_AttrGroupsMaker attrGroupsForLayer:]_block_invoke_3
+__42+[LKS_AttrGroupsMaker attrGroupsForLayer:]_block_invoke_2
+__42+[LKS_AttrGroupsMaker attrGroupsForLayer:]_block_invoke
++[LKS_AttrModificationHandler handleModification:completion:]
+___61+[LKS_AttrModificationHandler handleModification:completion:]_block_invoke
+___copy_helper_block_e8_32s40b48s56s
+___destroy_helper_block_e8_32s40s48s56s
++[LKS_AttrModificationHandler handlePatchWithTasks:block:]
+___58+[LKS_AttrModificationHandler handlePatchWithTasks:block:]_block_invoke
+___copy_helper_block_e8_32b
+_OBJC_CLASSLIST_REFERENCES_$_.17
+_OBJC_CLASSLIST_REFERENCES_$_.18
+_OBJC_CLASSLIST_REFERENCES_$_.32
+_OBJC_CLASSLIST_REFERENCES_$_.45
+_OBJC_SELECTOR_REFERENCES_.47
+_OBJC_SELECTOR_REFERENCES_.49
+_OBJC_SELECTOR_REFERENCES_.89
+_OBJC_CLASSLIST_REFERENCES_$_.104
+_OBJC_CLASSLIST_REFERENCES_$_.109
+_OBJC_SELECTOR_REFERENCES_.111
+_OBJC_SELECTOR_REFERENCES_.117
+_OBJC_CLASSLIST_REFERENCES_$_.120
+_OBJC_CLASSLIST_REFERENCES_$_.121
+_OBJC_CLASSLIST_REFERENCES_$_.124
+_OBJC_SELECTOR_REFERENCES_.128
+_OBJC_CLASSLIST_REFERENCES_$_.129
+_OBJC_CLASSLIST_REFERENCES_$_.134
+_OBJC_SELECTOR_REFERENCES_.136
+_OBJC_SELECTOR_REFERENCES_.140
+_OBJC_SELECTOR_REFERENCES_.142
+_OBJC_CLASSLIST_REFERENCES_$_.145
+_OBJC_SELECTOR_REFERENCES_.149
+_OBJC_SELECTOR_REFERENCES_.151
+_OBJC_SELECTOR_REFERENCES_.155
+_OBJC_SELECTOR_REFERENCES_.157
+___block_descriptor_64_e8_32s40bs48s56s_e5_v8?0l
+_OBJC_SELECTOR_REFERENCES_.170
+___block_descriptor_40_e8_32bs_e44_v32?0"LookinStaticAsyncUpdateTask"8Q16^B24l
+_OBJC_SELECTOR_REFERENCES_.173
+__OBJC_$_CLASS_METHODS_LKS_AttrModificationHandler
+__OBJC_METACLASS_RO_$_LKS_AttrModificationHandler
+__OBJC_CLASS_RO_$_LKS_AttrModificationHandler
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Server/Connection/RequestHandler/LKS_AttrModificationHandler.m
+__copy_helper_block_e8_32b
+__58+[LKS_AttrModificationHandler handlePatchWithTasks:block:]_block_invoke
+LookinServer/Src/Server/Connection/RequestHandler/LKS_AttrModificationHandler.m
+__destroy_helper_block_e8_32s40s48s56s
+__copy_helper_block_e8_32s40b48s56s
+__61+[LKS_AttrModificationHandler handleModification:completion:]_block_invoke
++[LKS_AttrModificationPatchHandler handleLayerOids:lowImageQuality:block:]
+___74+[LKS_AttrModificationPatchHandler handleLayerOids:lowImageQuality:block:]_block_invoke
+___copy_helper_block_e8_32b40s
+___destroy_helper_block_e8_32s40s
+_OBJC_CLASSLIST_REFERENCES_$_.34
+_OBJC_CLASSLIST_REFERENCES_$_.39
+_OBJC_CLASSLIST_REFERENCES_$_.42
+___block_descriptor_49_e8_32bs40s_e25_v32?0"NSNumber"8Q16^B24l
+__OBJC_$_CLASS_METHODS_LKS_AttrModificationPatchHandler
+__OBJC_METACLASS_RO_$_LKS_AttrModificationPatchHandler
+__OBJC_CLASS_RO_$_LKS_AttrModificationPatchHandler
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Server/Connection/RequestHandler/LKS_AttrModificationPatchHandler.m
+__destroy_helper_block_e8_32s40s
+__copy_helper_block_e8_32b40s
+__74+[LKS_AttrModificationPatchHandler handleLayerOids:lowImageQuality:block:]_block_invoke
+LookinServer/Src/Server/Connection/RequestHandler/LKS_AttrModificationPatchHandler.m
++[LKS_ConnectionManager sharedInstance]
+___39+[LKS_ConnectionManager sharedInstance]_block_invoke
++[LKS_ConnectionManager load]
+-[LKS_ConnectionManager init]
+___29-[LKS_ConnectionManager init]_block_invoke
+-[LKS_ConnectionManager _handleWillResignActiveNotification]
+-[LKS_ConnectionManager _handleApplicationDidBecomeActive]
+-[LKS_ConnectionManager isiOSAppOnMac]
+-[LKS_ConnectionManager _tryToListenOnPortFrom:to:current:]
+___59-[LKS_ConnectionManager _tryToListenOnPortFrom:to:current:]_block_invoke
+-[LKS_ConnectionManager dealloc]
+-[LKS_ConnectionManager isConnected]
+-[LKS_ConnectionManager respond:requestType:tag:]
+-[LKS_ConnectionManager pushData:type:]
+-[LKS_ConnectionManager _sendData:frameOfType:tag:]
+___51-[LKS_ConnectionManager _sendData:frameOfType:tag:]_block_invoke
+-[LKS_ConnectionManager ioFrameChannel:shouldAcceptFrameOfType:tag:payloadSize:]
+-[LKS_ConnectionManager ioFrameChannel:didReceiveFrameOfType:tag:payload:]
+-[LKS_ConnectionManager ioFrameChannel:didEndWithError:]
+-[LKS_ConnectionManager ioFrameChannel:didAcceptConnection:fromAddress:]
+-[LKS_ConnectionManager _handleLocalInspectIn2D:]
+___49-[LKS_ConnectionManager _handleLocalInspectIn2D:]_block_invoke
+___copy_helper_block_e8_32s40s
+-[LKS_ConnectionManager _handleLocalInspectIn3D:]
+-[LKS_ConnectionManager parseUserInfo:toIncludedWindows:excludedWindows:]
+___73-[LKS_ConnectionManager parseUserInfo:toIncludedWindows:excludedWindows:]_block_invoke
+___73-[LKS_ConnectionManager parseUserInfo:toIncludedWindows:excludedWindows:]_block_invoke_2
+___73-[LKS_ConnectionManager parseUserInfo:toIncludedWindows:excludedWindows:]_block_invoke_3
+-[LKS_ConnectionManager applicationIsActive]
+-[LKS_ConnectionManager setApplicationIsActive:]
+-[LKS_ConnectionManager peerChannel_]
+-[LKS_ConnectionManager setPeerChannel_:]
+-[LKS_ConnectionManager requestHandler]
+-[LKS_ConnectionManager setRequestHandler:]
+-[LKS_ConnectionManager .cxx_destruct]
+___clang_at_available_requires_core_foundation_framework
+_sharedInstance.sharedInstance
+_sharedInstance.onceToken
+___block_descriptor_32_e5_v8?0l
+_OBJC_CLASSLIST_REFERENCES_$_.41
+_OBJC_SELECTOR_REFERENCES_.43
+___block_descriptor_32_e24_v16?0"NSNotification"8l
+___block_literal_global.45
+_OBJC_CLASSLIST_REFERENCES_$_.46
+_OBJC_CLASSLIST_REFERENCES_$_.51
+_OBJC_CLASSLIST_REFERENCES_$_.70
+___block_descriptor_52_e8_32s_e17_v16?0"NSError"8l
+___block_descriptor_32_e17_v16?0"NSError"8l
+___block_literal_global.104
+_OBJC_SELECTOR_REFERENCES_.110
+_OBJC_CLASSLIST_REFERENCES_$_.111
+_OBJC_CLASSLIST_REFERENCES_$_.112
+_OBJC_CLASSLIST_REFERENCES_$_.140
+___block_descriptor_48_e8_32s40s_e5_v8?0l
+_OBJC_CLASSLIST_REFERENCES_$_.143
+_OBJC_SELECTOR_REFERENCES_.145
+___block_descriptor_32_e15_v32?0816^B24l
+___block_literal_global.155
+_OBJC_SELECTOR_REFERENCES_.161
+_OBJC_SELECTOR_REFERENCES_.163
+_OBJC_CLASSLIST_REFERENCES_$_.164
+___block_descriptor_32_e18_B16?0"UIWindow"8l
+___block_literal_global.166
+_OBJC_CLASSLIST_REFERENCES_$_.167
+_OBJC_SELECTOR_REFERENCES_.171
+_OBJC_SELECTOR_REFERENCES_.175
+___block_literal_global.176
+__OBJC_$_CLASS_METHODS_LKS_ConnectionManager
+__OBJC_$_PROTOCOL_INSTANCE_METHODS_NSObject
+__OBJC_$_PROTOCOL_INSTANCE_METHODS_OPT_NSObject
+__OBJC_$_PROP_LIST_NSObject
+__OBJC_$_PROTOCOL_METHOD_TYPES_NSObject
+__OBJC_PROTOCOL_$_NSObject
+__OBJC_LABEL_PROTOCOL_$_NSObject
+__OBJC_$_PROTOCOL_REFS_PTChannelDelegate
+__OBJC_$_PROTOCOL_INSTANCE_METHODS_PTChannelDelegate
+__OBJC_$_PROTOCOL_INSTANCE_METHODS_OPT_PTChannelDelegate
+__OBJC_$_PROTOCOL_METHOD_TYPES_PTChannelDelegate
+__OBJC_PROTOCOL_$_PTChannelDelegate
+__OBJC_LABEL_PROTOCOL_$_PTChannelDelegate
+__OBJC_CLASS_PROTOCOLS_$_LKS_ConnectionManager
+__OBJC_METACLASS_RO_$_LKS_ConnectionManager
+__OBJC_$_INSTANCE_METHODS_LKS_ConnectionManager
+_OBJC_IVAR_$_LKS_ConnectionManager._applicationIsActive
+_OBJC_IVAR_$_LKS_ConnectionManager._peerChannel_
+_OBJC_IVAR_$_LKS_ConnectionManager._requestHandler
+__OBJC_$_INSTANCE_VARIABLES_LKS_ConnectionManager
+__OBJC_$_PROP_LIST_LKS_ConnectionManager
+__OBJC_CLASS_RO_$_LKS_ConnectionManager
+__OBJC_METACLASS_RO_$_Lookin
+__OBJC_CLASS_RO_$_Lookin
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Server/Connection/LKS_ConnectionManager.m
+LookinServer/Src/Server/Connection/LKS_ConnectionManager.m
+LookinServer/Src/Server/Connection/LKS_ConnectionManager.h
+__73-[LKS_ConnectionManager parseUserInfo:toIncludedWindows:excludedWindows:]_block_invoke_3
+__73-[LKS_ConnectionManager parseUserInfo:toIncludedWindows:excludedWindows:]_block_invoke_2
+__73-[LKS_ConnectionManager parseUserInfo:toIncludedWindows:excludedWindows:]_block_invoke
+__copy_helper_block_e8_32s40s
+__49-[LKS_ConnectionManager _handleLocalInspectIn2D:]_block_invoke
+__51-[LKS_ConnectionManager _sendData:frameOfType:tag:]_block_invoke
+__59-[LKS_ConnectionManager _tryToListenOnPortFrom:to:current:]_block_invoke
+__29-[LKS_ConnectionManager init]_block_invoke
+__39+[LKS_ConnectionManager sharedInstance]_block_invoke
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.0.sdk/usr/include/dispatch/once.h
++[LKS_EventHandlerMaker makeForView:]
++[LKS_EventHandlerMaker _gestureHandlersForView:]
+___49+[LKS_EventHandlerMaker _gestureHandlersForView:]_block_invoke
+___49+[LKS_EventHandlerMaker _gestureHandlersForView:]_block_invoke_2
+___49+[LKS_EventHandlerMaker _gestureHandlersForView:]_block_invoke_3
+___copy_helper_block_e8_
+___destroy_helper_block_e8_
++[LKS_EventHandlerMaker _inheritedRecognizerNameForRecognizer:]
+___63+[LKS_EventHandlerMaker _inheritedRecognizerNameForRecognizer:]_block_invoke
+___Block_byref_object_copy_
+___Block_byref_object_dispose_
+___63+[LKS_EventHandlerMaker _inheritedRecognizerNameForRecognizer:]_block_invoke.108
+___copy_helper_block_e8_32s40r
+___destroy_helper_block_e8_32s40r
++[LKS_EventHandlerMaker _targetActionHandlersForControl:]
+___57+[LKS_EventHandlerMaker _targetActionHandlersForControl:]_block_invoke
+___57+[LKS_EventHandlerMaker _targetActionHandlersForControl:]_block_invoke_2
+___57+[LKS_EventHandlerMaker _targetActionHandlersForControl:]_block_invoke_3
+___57+[LKS_EventHandlerMaker _targetActionHandlersForControl:]_block_invoke_4
+___copy_helper_block_e8_32s40s56s
+___destroy_helper_block_e8_32s40s56s
++[LKS_EventHandlerMaker _nameFromControlEvent:]
+___47+[LKS_EventHandlerMaker _nameFromControlEvent:]_block_invoke
+_OBJC_CLASSLIST_REFERENCES_$_.21
+_OBJC_SELECTOR_REFERENCES_.23
+_OBJC_SELECTOR_REFERENCES_.25
+_OBJC_SELECTOR_REFERENCES_.27
+___block_descriptor_32_e27_24?0Q8"LookinTwoTuple"16l
+_OBJC_SELECTOR_REFERENCES_.45
+_OBJC_CLASSLIST_REFERENCES_$_.48
+___block_literal_global.77
+_OBJC_CLASSLIST_REFERENCES_$_.78
+___block_descriptor_40_e8__e32_24?0Q8"UIGestureRecognizer"16l
+__inheritedRecognizerNameForRecognizer:.baseRecognizers
+__inheritedRecognizerNameForRecognizer:.onceToken
+___block_literal_global.95
+_OBJC_CLASSLIST_REFERENCES_$_.96
+_OBJC_CLASSLIST_REFERENCES_$_.97
+_OBJC_CLASSLIST_REFERENCES_$_.98
+_OBJC_CLASSLIST_REFERENCES_$_.101
+_OBJC_CLASSLIST_REFERENCES_$_.102
+_OBJC_CLASSLIST_REFERENCES_$_.103
+___block_descriptor_48_e8_32s40r_e15_v32?0#8Q16^B24l
+_OBJC_SELECTOR_REFERENCES_.113
+__targetActionHandlersForControl:.onceToken
+__targetActionHandlersForControl:.allEvents
+___block_literal_global.114
+_OBJC_CLASSLIST_REFERENCES_$_.115
+_OBJC_SELECTOR_REFERENCES_.119
+___block_descriptor_48_e8_32s40s_e25_v32?0"NSString"8Q16^B24l
+___block_descriptor_56_e8_32s40s_e12_v24?08^B16l
+___block_descriptor_64_e8_32s40s56s_e25_v32?0"NSNumber"8Q16^B24l
+__nameFromControlEvent:.onceToken
+__nameFromControlEvent:.eventsAndNames
+___block_literal_global.134
+_OBJC_CLASSLIST_REFERENCES_$_.163
+_OBJC_SELECTOR_REFERENCES_.165
+_OBJC_SELECTOR_REFERENCES_.167
+__OBJC_$_CLASS_METHODS_LKS_EventHandlerMaker
+__OBJC_METACLASS_RO_$_LKS_EventHandlerMaker
+__OBJC_CLASS_RO_$_LKS_EventHandlerMaker
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Server/Others/LKS_EventHandlerMaker.m
+__47+[LKS_EventHandlerMaker _nameFromControlEvent:]_block_invoke
+LookinServer/Src/Server/Others/LKS_EventHandlerMaker.m
+__destroy_helper_block_e8_32s40s56s
+__copy_helper_block_e8_32s40s56s
+__57+[LKS_EventHandlerMaker _targetActionHandlersForControl:]_block_invoke_4
+__57+[LKS_EventHandlerMaker _targetActionHandlersForControl:]_block_invoke_3
+__57+[LKS_EventHandlerMaker _targetActionHandlersForControl:]_block_invoke_2
+__57+[LKS_EventHandlerMaker _targetActionHandlersForControl:]_block_invoke
+__destroy_helper_block_e8_32s40r
+__copy_helper_block_e8_32s40r
+__63+[LKS_EventHandlerMaker _inheritedRecognizerNameForRecognizer:]_block_invoke.108
+__Block_byref_object_dispose_
+__Block_byref_object_copy_
+__63+[LKS_EventHandlerMaker _inheritedRecognizerNameForRecognizer:]_block_invoke
+__destroy_helper_block_e8_
+__copy_helper_block_e8_
+__49+[LKS_EventHandlerMaker _gestureHandlersForView:]_block_invoke_3
+__49+[LKS_EventHandlerMaker _gestureHandlersForView:]_block_invoke_2
+__49+[LKS_EventHandlerMaker _gestureHandlersForView:]_block_invoke
+-[LKS_ExportManagerMaskView initWithFrame:]
+-[LKS_ExportManagerMaskView layoutSubviews]
+-[LKS_ExportManagerMaskView tipsView]
+-[LKS_ExportManagerMaskView setTipsView:]
+-[LKS_ExportManagerMaskView firstLabel]
+-[LKS_ExportManagerMaskView setFirstLabel:]
+-[LKS_ExportManagerMaskView secondLabel]
+-[LKS_ExportManagerMaskView setSecondLabel:]
+-[LKS_ExportManagerMaskView thirdLabel]
+-[LKS_ExportManagerMaskView setThirdLabel:]
+-[LKS_ExportManagerMaskView .cxx_destruct]
++[LKS_ExportManager sharedInstance]
+___35+[LKS_ExportManager sharedInstance]_block_invoke
++[LKS_ExportManager allocWithZone:]
+-[LKS_ExportManager exportAndShare]
+___35-[LKS_ExportManager exportAndShare]_block_invoke
+-[LKS_ExportManager documentController]
+-[LKS_ExportManager setDocumentController:]
+-[LKS_ExportManager maskView]
+-[LKS_ExportManager setMaskView:]
+-[LKS_ExportManager .cxx_destruct]
+_OBJC_CLASSLIST_REFERENCES_$_.25
+_OBJC_CLASSLIST_REFERENCES_$_.38
+_OBJC_CLASSLIST_REFERENCES_$_.60
+_OBJC_IVAR_$_LKS_ExportManagerMaskView._tipsView
+_OBJC_IVAR_$_LKS_ExportManagerMaskView._firstLabel
+_OBJC_IVAR_$_LKS_ExportManagerMaskView._secondLabel
+_OBJC_IVAR_$_LKS_ExportManagerMaskView._thirdLabel
+__OBJC_METACLASS_RO_$_LKS_ExportManagerMaskView
+__OBJC_$_INSTANCE_METHODS_LKS_ExportManagerMaskView
+__OBJC_$_INSTANCE_VARIABLES_LKS_ExportManagerMaskView
+__OBJC_$_PROP_LIST_LKS_ExportManagerMaskView
+__OBJC_CLASS_RO_$_LKS_ExportManagerMaskView
+_sharedInstance.instance
+___block_descriptor_40_e8__e5_v8?0l
+_OBJC_SELECTOR_REFERENCES_.122
+_OBJC_CLASSLIST_REFERENCES_$_.125
+_OBJC_CLASSLIST_REFERENCES_$_.141
+_OBJC_SELECTOR_REFERENCES_.143
+_OBJC_CLASSLIST_REFERENCES_$_.144
+_OBJC_SELECTOR_REFERENCES_.146
+_OBJC_SELECTOR_REFERENCES_.148
+_OBJC_CLASSLIST_REFERENCES_$_.151
+_OBJC_CLASSLIST_REFERENCES_$_.157
+_OBJC_CLASSLIST_REFERENCES_$_.174
+_OBJC_SELECTOR_REFERENCES_.178
+_OBJC_SELECTOR_REFERENCES_.180
+_OBJC_SELECTOR_REFERENCES_.184
+_OBJC_SELECTOR_REFERENCES_.186
+_OBJC_SELECTOR_REFERENCES_.188
+_OBJC_CLASSLIST_REFERENCES_$_.189
+_OBJC_SELECTOR_REFERENCES_.191
+_OBJC_CLASSLIST_REFERENCES_$_.192
+_OBJC_SELECTOR_REFERENCES_.194
+_OBJC_SELECTOR_REFERENCES_.196
+_OBJC_SELECTOR_REFERENCES_.198
+__OBJC_$_CLASS_METHODS_LKS_ExportManager
+__OBJC_METACLASS_RO_$_LKS_ExportManager
+__OBJC_$_INSTANCE_METHODS_LKS_ExportManager
+_OBJC_IVAR_$_LKS_ExportManager._documentController
+_OBJC_IVAR_$_LKS_ExportManager._maskView
+__OBJC_$_INSTANCE_VARIABLES_LKS_ExportManager
+__OBJC_$_PROP_LIST_LKS_ExportManager
+__OBJC_CLASS_RO_$_LKS_ExportManager
+_OBJC_CLASSLIST_REFERENCES_$_.213
+_OBJC_SELECTOR_REFERENCES_.215
+_OBJC_SELECTOR_REFERENCES_.217
+_OBJC_SELECTOR_REFERENCES_.219
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Server/Others/LKS_ExportManager.m
+LookinServer/Src/Server/Others/LKS_ExportManager.m
+__35-[LKS_ExportManager exportAndShare]_block_invoke
+UI_USER_INTERFACE_IDIOM
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.0.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIDevice.h
+__35+[LKS_ExportManager sharedInstance]_block_invoke
++[LKS_Helper descriptionOfObject:]
++[LKS_Helper bundle]
+__OBJC_$_CLASS_METHODS_LKS_Helper
+__OBJC_METACLASS_RO_$_LKS_Helper
+__OBJC_CLASS_RO_$_LKS_Helper
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Server/Others/LKS_Helper.m
+LookinServer/Src/Server/Others/LKS_Helper.m
++[LKS_HierarchyDetailsHandler sharedInstance]
+___45+[LKS_HierarchyDetailsHandler sharedInstance]_block_invoke
++[LKS_HierarchyDetailsHandler allocWithZone:]
+-[LKS_HierarchyDetailsHandler init]
+-[LKS_HierarchyDetailsHandler startWithPackages:block:]
+-[LKS_HierarchyDetailsHandler bringForwardWithPackages:]
+-[LKS_HierarchyDetailsHandler cancel]
+-[LKS_HierarchyDetailsHandler _dequeueAndHandlePackage]
+___55-[LKS_HierarchyDetailsHandler _dequeueAndHandlePackage]_block_invoke
+___55-[LKS_HierarchyDetailsHandler _dequeueAndHandlePackage]_block_invoke_2
+-[LKS_HierarchyDetailsHandler _handleConnectionDidEnd:]
+-[LKS_HierarchyDetailsHandler taskPackages]
+-[LKS_HierarchyDetailsHandler setTaskPackages:]
+-[LKS_HierarchyDetailsHandler finishedTasks]
+-[LKS_HierarchyDetailsHandler setFinishedTasks:]
+-[LKS_HierarchyDetailsHandler attrGroupsSyncedOids]
+-[LKS_HierarchyDetailsHandler setAttrGroupsSyncedOids:]
+-[LKS_HierarchyDetailsHandler handlerBlock]
+-[LKS_HierarchyDetailsHandler setHandlerBlock:]
+-[LKS_HierarchyDetailsHandler bbb]
+-[LKS_HierarchyDetailsHandler setBbb:]
+-[LKS_HierarchyDetailsHandler .cxx_destruct]
+_OBJC_CLASSLIST_REFERENCES_$_.36
+_OBJC_CLASSLIST_REFERENCES_$_.37
+_OBJC_CLASSLIST_REFERENCES_$_.85
+_OBJC_CLASSLIST_REFERENCES_$_.92
+_OBJC_CLASSLIST_REFERENCES_$_.95
+_OBJC_SELECTOR_REFERENCES_.102
+___block_descriptor_40_e8_32s_e40_24?0Q8"LookinStaticAsyncUpdateTask"16l
+_OBJC_SELECTOR_REFERENCES_.124
+___block_descriptor_40_e8_32s_e5_v8?0l
+__OBJC_$_CLASS_METHODS_LKS_HierarchyDetailsHandler
+__OBJC_METACLASS_RO_$_LKS_HierarchyDetailsHandler
+__OBJC_$_INSTANCE_METHODS_LKS_HierarchyDetailsHandler
+_OBJC_IVAR_$_LKS_HierarchyDetailsHandler._taskPackages
+_OBJC_IVAR_$_LKS_HierarchyDetailsHandler._finishedTasks
+_OBJC_IVAR_$_LKS_HierarchyDetailsHandler._attrGroupsSyncedOids
+_OBJC_IVAR_$_LKS_HierarchyDetailsHandler._handlerBlock
+_OBJC_IVAR_$_LKS_HierarchyDetailsHandler._bbb
+__OBJC_$_INSTANCE_VARIABLES_LKS_HierarchyDetailsHandler
+__OBJC_$_PROP_LIST_LKS_HierarchyDetailsHandler
+__OBJC_CLASS_RO_$_LKS_HierarchyDetailsHandler
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Server/Connection/RequestHandler/LKS_HierarchyDetailsHandler.m
+LookinServer/Src/Server/Connection/RequestHandler/LKS_HierarchyDetailsHandler.m
+__55-[LKS_HierarchyDetailsHandler _dequeueAndHandlePackage]_block_invoke_2
+__55-[LKS_HierarchyDetailsHandler _dequeueAndHandlePackage]_block_invoke
+__45+[LKS_HierarchyDetailsHandler sharedInstance]_block_invoke
++[LKS_HierarchyDisplayItemsMaker itemsWithScreenshots:attrList:lowImageQuality:includedWindows:excludedWindows:]
+___112+[LKS_HierarchyDisplayItemsMaker itemsWithScreenshots:attrList:lowImageQuality:includedWindows:excludedWindows:]_block_invoke
++[LKS_HierarchyDisplayItemsMaker _displayItemWithLayer:screenshots:attrList:lowImageQuality:]
+___93+[LKS_HierarchyDisplayItemsMaker _displayItemWithLayer:screenshots:attrList:lowImageQuality:]_block_invoke
+___copy_helper_block_e8_40s
+___destroy_helper_block_e8_40s
++[LKS_HierarchyDisplayItemsMaker validateFrame:]
++[LKS_HierarchyDisplayItemsMaker cgRectIsNaN:]
++[LKS_HierarchyDisplayItemsMaker cgRectIsInf:]
++[LKS_HierarchyDisplayItemsMaker cgRectIsUnreasonable:]
+_OBJC_CLASSLIST_REFERENCES_$_.24
+___block_descriptor_67_e8_32s40s56s_e25_v32?0"UIWindow"8Q16^B24l
+_OBJC_CLASSLIST_REFERENCES_$_.84
+_OBJC_CLASSLIST_REFERENCES_$_.93
+_OBJC_CLASSLIST_REFERENCES_$_.106
+___block_descriptor_51_e8_40s_e24_v32?0"CALayer"8Q16^B24l
+__OBJC_$_CLASS_METHODS_LKS_HierarchyDisplayItemsMaker
+__OBJC_METACLASS_RO_$_LKS_HierarchyDisplayItemsMaker
+__OBJC_CLASS_RO_$_LKS_HierarchyDisplayItemsMaker
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Server/Others/LKS_HierarchyDisplayItemsMaker.m
+LookinServer/Src/Server/Others/LKS_HierarchyDisplayItemsMaker.m
+__inline_isinfd
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.0.sdk/usr/include/math.h
+__inline_isnand
+__destroy_helper_block_e8_40s
+__copy_helper_block_e8_40s
+__93+[LKS_HierarchyDisplayItemsMaker _displayItemWithLayer:screenshots:attrList:lowImageQuality:]_block_invoke
+__112+[LKS_HierarchyDisplayItemsMaker itemsWithScreenshots:attrList:lowImageQuality:includedWindows:excludedWindows:]_block_invoke
++[LKS_LocalInspectManager sharedInstance]
+___41+[LKS_LocalInspectManager sharedInstance]_block_invoke
++[LKS_LocalInspectManager allocWithZone:]
+-[LKS_LocalInspectManager startLocalInspectWithIncludedWindows:excludedWindows:]
+-[LKS_LocalInspectManager _endLocalInspect]
+-[LKS_LocalInspectManager _setupWindowIfNeeded]
+___47-[LKS_LocalInspectManager _setupWindowIfNeeded]_block_invoke
+___copy_helper_block_e8_32w
+___destroy_helper_block_e8_32w
+-[LKS_LocalInspectManager _removeWindowIfNeeded]
+-[LKS_LocalInspectManager previousKeyWindow]
+-[LKS_LocalInspectManager setPreviousKeyWindow:]
+-[LKS_LocalInspectManager inspectorWindow]
+-[LKS_LocalInspectManager setInspectorWindow:]
+-[LKS_LocalInspectManager viewController]
+-[LKS_LocalInspectManager setViewController:]
+-[LKS_LocalInspectManager tapRecognizer]
+-[LKS_LocalInspectManager setTapRecognizer:]
+-[LKS_LocalInspectManager isInspecting]
+-[LKS_LocalInspectManager setIsInspecting:]
+-[LKS_LocalInspectManager includedWindows]
+-[LKS_LocalInspectManager setIncludedWindows:]
+-[LKS_LocalInspectManager .cxx_destruct]
+__OBJC_METACLASS_RO_$_LKS_LocalInspectContainerWindow
+__OBJC_CLASS_RO_$_LKS_LocalInspectContainerWindow
+_OBJC_CLASSLIST_REFERENCES_$_.31
+_OBJC_CLASSLIST_REFERENCES_$_.62
+_OBJC_CLASSLIST_REFERENCES_$_.69
+_OBJC_CLASSLIST_REFERENCES_$_.74
+___block_descriptor_40_e8_32w_e5_v8?0l
+__OBJC_$_CLASS_METHODS_LKS_LocalInspectManager
+__OBJC_METACLASS_RO_$_LKS_LocalInspectManager
+__OBJC_$_INSTANCE_METHODS_LKS_LocalInspectManager
+_OBJC_IVAR_$_LKS_LocalInspectManager._isInspecting
+_OBJC_IVAR_$_LKS_LocalInspectManager._previousKeyWindow
+_OBJC_IVAR_$_LKS_LocalInspectManager._inspectorWindow
+_OBJC_IVAR_$_LKS_LocalInspectManager._viewController
+_OBJC_IVAR_$_LKS_LocalInspectManager._tapRecognizer
+_OBJC_IVAR_$_LKS_LocalInspectManager._includedWindows
+__OBJC_$_INSTANCE_VARIABLES_LKS_LocalInspectManager
+__OBJC_$_PROP_LIST_LKS_LocalInspectManager
+__OBJC_CLASS_RO_$_LKS_LocalInspectManager
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Server/Inspect/LKS_LocalInspectManager.m
+LookinServer/Src/Server/Inspect/LKS_LocalInspectManager.m
+__destroy_helper_block_e8_32w
+__copy_helper_block_e8_32w
+__47-[LKS_LocalInspectManager _setupWindowIfNeeded]_block_invoke
+__41+[LKS_LocalInspectManager sharedInstance]_block_invoke
+-[LKS_LocalInspectPanelLabelView initWithFrame:]
+-[LKS_LocalInspectPanelLabelView layoutSubviews]
+-[LKS_LocalInspectPanelLabelView sizeThatFits:]
+-[LKS_LocalInspectPanelLabelView addBottomBorderLayer]
+-[LKS_LocalInspectPanelLabelView leftLabel]
+-[LKS_LocalInspectPanelLabelView setLeftLabel:]
+-[LKS_LocalInspectPanelLabelView rightLabel]
+-[LKS_LocalInspectPanelLabelView setRightLabel:]
+-[LKS_LocalInspectPanelLabelView verInset]
+-[LKS_LocalInspectPanelLabelView setVerInset:]
+-[LKS_LocalInspectPanelLabelView interspace]
+-[LKS_LocalInspectPanelLabelView setInterspace:]
+-[LKS_LocalInspectPanelLabelView bottomBorderLayer]
+-[LKS_LocalInspectPanelLabelView setBottomBorderLayer:]
+-[LKS_LocalInspectPanelLabelView .cxx_destruct]
+_OBJC_IVAR_$_LKS_LocalInspectPanelLabelView._horInset
+_OBJC_IVAR_$_LKS_LocalInspectPanelLabelView._interspace
+_OBJC_CLASSLIST_REFERENCES_$_.56
+_OBJC_CLASSLIST_REFERENCES_$_.61
+_OBJC_IVAR_$_LKS_LocalInspectPanelLabelView._leftLabel
+_OBJC_IVAR_$_LKS_LocalInspectPanelLabelView._rightLabel
+_OBJC_IVAR_$_LKS_LocalInspectPanelLabelView._verInset
+_OBJC_IVAR_$_LKS_LocalInspectPanelLabelView._bottomBorderLayer
+__OBJC_METACLASS_RO_$_LKS_LocalInspectPanelLabelView
+__OBJC_$_INSTANCE_METHODS_LKS_LocalInspectPanelLabelView
+__OBJC_$_INSTANCE_VARIABLES_LKS_LocalInspectPanelLabelView
+__OBJC_$_PROP_LIST_LKS_LocalInspectPanelLabelView
+__OBJC_CLASS_RO_$_LKS_LocalInspectPanelLabelView
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Server/Inspect/LKS_LocalInspectPanelLabelView.m
+LookinServer/Src/Server/Inspect/LKS_LocalInspectPanelLabelView.m
+LookinServer/Src/Server/Inspect/LKS_LocalInspectPanelLabelView.h
+-[LKS_LocalInspectViewController viewDidLoad]
+___45-[LKS_LocalInspectViewController viewDidLoad]_block_invoke
+___45-[LKS_LocalInspectViewController viewDidLoad]_block_invoke.100
+-[LKS_LocalInspectViewController viewDidLayoutSubviews]
+-[LKS_LocalInspectViewController viewWillTransitionToSize:withTransitionCoordinator:]
+-[LKS_LocalInspectViewController dealloc]
+-[LKS_LocalInspectViewController highlightLayer:]
+___49-[LKS_LocalInspectViewController highlightLayer:]_block_invoke
+___49-[LKS_LocalInspectViewController highlightLayer:]_block_invoke.237
+___49-[LKS_LocalInspectViewController highlightLayer:]_block_invoke_2
+-[LKS_LocalInspectViewController setShowTitleButton:]
+-[LKS_LocalInspectViewController startTitleButtonAnimIfNeeded]
+-[LKS_LocalInspectViewController setReferRect:]
+-[LKS_LocalInspectViewController setHighlightRect:]
+-[LKS_LocalInspectViewController _didSetReferOrHighlightLayer]
+-[LKS_LocalInspectViewController _layoutPanelViewWithContentRect:]
+___66-[LKS_LocalInspectViewController _layoutPanelViewWithContentRect:]_block_invoke
+___66-[LKS_LocalInspectViewController _layoutPanelViewWithContentRect:]_block_invoke_2
+___copy_helper_block_e8_32r
+___destroy_helper_block_e8_32r
+-[LKS_LocalInspectViewController _renderAndLayoutRulersWithHighlightRect:referRect:]
+___84-[LKS_LocalInspectViewController _renderAndLayoutRulersWithHighlightRect:referRect:]_block_invoke
+___84-[LKS_LocalInspectViewController _renderAndLayoutRulersWithHighlightRect:referRect:]_block_invoke_2
+-[LKS_LocalInspectViewController _layoutTitleButtonReferToPanelView]
+-[LKS_LocalInspectViewController _handleTapRecognizer:]
+-[LKS_LocalInspectViewController _handlePanRecognizer:]
+-[LKS_LocalInspectViewController _handleExitButton]
+-[LKS_LocalInspectViewController _handleEnterForegound]
+-[LKS_LocalInspectViewController _targetViewAtPoint:]
+___53-[LKS_LocalInspectViewController _targetViewAtPoint:]_block_invoke
+-[LKS_LocalInspectViewController _preferredClassesInSelecting]
+___62-[LKS_LocalInspectViewController _preferredClassesInSelecting]_block_invoke
+___62-[LKS_LocalInspectViewController _preferredClassesInSelecting]_block_invoke_2
+-[LKS_LocalInspectViewController clearContents]
+-[LKS_LocalInspectViewController _titleStringForLayer:]
+-[LKS_LocalInspectViewController _subtitleStringForLayer:]
+___58-[LKS_LocalInspectViewController _subtitleStringForLayer:]_block_invoke
+-[LKS_LocalInspectViewController _contentStringsForLayer:]
+-[LKS_LocalInspectViewController didSelectExit]
+-[LKS_LocalInspectViewController setDidSelectExit:]
+-[LKS_LocalInspectViewController showTitleButton]
+-[LKS_LocalInspectViewController includedWindows]
+-[LKS_LocalInspectViewController setIncludedWindows:]
+-[LKS_LocalInspectViewController excludedWindows]
+-[LKS_LocalInspectViewController setExcludedWindows:]
+-[LKS_LocalInspectViewController prevKeyWindow]
+-[LKS_LocalInspectViewController setPrevKeyWindow:]
+-[LKS_LocalInspectViewController highlightLayer]
+-[LKS_LocalInspectViewController setHighlightLayer:]
+-[LKS_LocalInspectViewController referLayer]
+-[LKS_LocalInspectViewController setReferLayer:]
+-[LKS_LocalInspectViewController highlightRect]
+-[LKS_LocalInspectViewController referRect]
+-[LKS_LocalInspectViewController rulerLayers]
+-[LKS_LocalInspectViewController setRulerLayers:]
+-[LKS_LocalInspectViewController rulerLabels]
+-[LKS_LocalInspectViewController setRulerLabels:]
+-[LKS_LocalInspectViewController titleButton]
+-[LKS_LocalInspectViewController setTitleButton:]
+-[LKS_LocalInspectViewController panelView]
+-[LKS_LocalInspectViewController setPanelView:]
+-[LKS_LocalInspectViewController titleLabelView]
+-[LKS_LocalInspectViewController setTitleLabelView:]
+-[LKS_LocalInspectViewController contentLabelViews]
+-[LKS_LocalInspectViewController setContentLabelViews:]
+-[LKS_LocalInspectViewController tapRecognizer]
+-[LKS_LocalInspectViewController setTapRecognizer:]
+-[LKS_LocalInspectViewController panRecognizer]
+-[LKS_LocalInspectViewController setPanRecognizer:]
+-[LKS_LocalInspectViewController .cxx_destruct]
+_OBJC_IVAR_$_LKS_LocalInspectViewController._panelContentsMarginTop
+_OBJC_IVAR_$_LKS_LocalInspectViewController._panelInsetTop
+_OBJC_IVAR_$_LKS_LocalInspectViewController._panelInsetBottom
+_OBJC_CLASSLIST_REFERENCES_$_.23
+_OBJC_CLASSLIST_REFERENCES_$_.40
+_OBJC_CLASSLIST_REFERENCES_$_.57
+_OBJC_CLASSLIST_REFERENCES_$_.58
+_OBJC_CLASSLIST_REFERENCES_$_.87
+_OBJC_CLASSLIST_REFERENCES_$_.94
+___block_descriptor_40_e8_32s_e8_16?0Q8l
+_OBJC_CLASSLIST_REFERENCES_$_.123
+_OBJC_CLASSLIST_REFERENCES_$_.132
+_OBJC_SELECTOR_REFERENCES_.134
+_OBJC_SELECTOR_REFERENCES_.152
+_OBJC_CLASSLIST_REFERENCES_$_.153
+_OBJC_SELECTOR_REFERENCES_.159
+_OBJC_CLASSLIST_REFERENCES_$_.171
+_OBJC_SELECTOR_REFERENCES_.177
+_OBJC_SELECTOR_REFERENCES_.179
+_OBJC_SELECTOR_REFERENCES_.181
+_OBJC_SELECTOR_REFERENCES_.183
+_OBJC_SELECTOR_REFERENCES_.185
+_OBJC_SELECTOR_REFERENCES_.187
+_OBJC_SELECTOR_REFERENCES_.189
+_OBJC_SELECTOR_REFERENCES_.193
+_OBJC_SELECTOR_REFERENCES_.195
+_OBJC_SELECTOR_REFERENCES_.197
+_OBJC_SELECTOR_REFERENCES_.199
+_OBJC_SELECTOR_REFERENCES_.201
+_OBJC_SELECTOR_REFERENCES_.203
+_OBJC_SELECTOR_REFERENCES_.205
+_OBJC_SELECTOR_REFERENCES_.207
+_OBJC_SELECTOR_REFERENCES_.209
+_OBJC_SELECTOR_REFERENCES_.211
+_OBJC_SELECTOR_REFERENCES_.213
+_OBJC_SELECTOR_REFERENCES_.221
+_OBJC_SELECTOR_REFERENCES_.223
+_OBJC_SELECTOR_REFERENCES_.225
+_OBJC_SELECTOR_REFERENCES_.227
+_OBJC_SELECTOR_REFERENCES_.229
+_OBJC_SELECTOR_REFERENCES_.231
+_OBJC_SELECTOR_REFERENCES_.233
+_OBJC_SELECTOR_REFERENCES_.235
+___block_descriptor_40_e8_32s_e40_"LKS_LocalInspectPanelLabelView"16?0Q8l
+___block_descriptor_32_e43_v24?0Q8"LKS_LocalInspectPanelLabelView"16l
+_OBJC_SELECTOR_REFERENCES_.240
+_OBJC_SELECTOR_REFERENCES_.242
+_OBJC_SELECTOR_REFERENCES_.244
+_OBJC_SELECTOR_REFERENCES_.246
+___block_descriptor_40_e8_32s_e43_v24?0Q8"LKS_LocalInspectPanelLabelView"16l
+_OBJC_SELECTOR_REFERENCES_.248
+_OBJC_IVAR_$_LKS_LocalInspectViewController._showTitleButton
+_OBJC_SELECTOR_REFERENCES_.250
+_OBJC_CLASSLIST_REFERENCES_$_.251
+_OBJC_SELECTOR_REFERENCES_.255
+_OBJC_SELECTOR_REFERENCES_.257
+_OBJC_SELECTOR_REFERENCES_.259
+_OBJC_SELECTOR_REFERENCES_.261
+_OBJC_SELECTOR_REFERENCES_.263
+_OBJC_SELECTOR_REFERENCES_.265
+_OBJC_SELECTOR_REFERENCES_.267
+_OBJC_IVAR_$_LKS_LocalInspectViewController._referRect
+_OBJC_SELECTOR_REFERENCES_.269
+_OBJC_IVAR_$_LKS_LocalInspectViewController._highlightRect
+_OBJC_SELECTOR_REFERENCES_.271
+___block_descriptor_32_e46_d32?0d8Q16"LKS_LocalInspectPanelLabelView"24l
+___block_literal_global.273
+_OBJC_SELECTOR_REFERENCES_.275
+_OBJC_SELECTOR_REFERENCES_.277
+___block_descriptor_48_e8_32r_e47_v32?0"LKS_LocalInspectPanelLabelView"8Q16^B24l
+_OBJC_SELECTOR_REFERENCES_.280
+_OBJC_SELECTOR_REFERENCES_.282
+_OBJC_SELECTOR_REFERENCES_.284
+___block_literal_global.286
+_OBJC_SELECTOR_REFERENCES_.288
+___block_descriptor_32_e24_v32?0"UILabel"8Q16^B24l
+___block_literal_global.290
+_OBJC_CLASSLIST_REFERENCES_$_.291
+_OBJC_SELECTOR_REFERENCES_.293
+_OBJC_SELECTOR_REFERENCES_.295
+_OBJC_SELECTOR_REFERENCES_.297
+_OBJC_SELECTOR_REFERENCES_.299
+_OBJC_SELECTOR_REFERENCES_.301
+_OBJC_SELECTOR_REFERENCES_.303
+_OBJC_SELECTOR_REFERENCES_.307
+_OBJC_SELECTOR_REFERENCES_.309
+_OBJC_SELECTOR_REFERENCES_.311
+_OBJC_CLASSLIST_REFERENCES_$_.312
+_OBJC_SELECTOR_REFERENCES_.314
+_OBJC_SELECTOR_REFERENCES_.316
+_OBJC_SELECTOR_REFERENCES_.318
+_OBJC_SELECTOR_REFERENCES_.320
+_OBJC_SELECTOR_REFERENCES_.322
+_OBJC_SELECTOR_REFERENCES_.324
+_OBJC_SELECTOR_REFERENCES_.326
+_OBJC_SELECTOR_REFERENCES_.328
+_OBJC_SELECTOR_REFERENCES_.330
+_OBJC_SELECTOR_REFERENCES_.332
+___block_descriptor_64_e8_32s40r_e25_v32?0"UIWindow"8Q16^B24l
+_OBJC_SELECTOR_REFERENCES_.335
+_OBJC_SELECTOR_REFERENCES_.339
+_OBJC_SELECTOR_REFERENCES_.341
+_OBJC_CLASSLIST_REFERENCES_$_.342
+_OBJC_CLASSLIST_REFERENCES_$_.343
+_OBJC_SELECTOR_REFERENCES_.345
+__preferredClassesInSelecting.onceToken
+__preferredClassesInSelecting.classes
+___block_literal_global.347
+_OBJC_CLASSLIST_REFERENCES_$_.348
+_OBJC_CLASSLIST_REFERENCES_$_.349
+_OBJC_CLASSLIST_REFERENCES_$_.350
+_OBJC_CLASSLIST_REFERENCES_$_.351
+_OBJC_CLASSLIST_REFERENCES_$_.352
+_OBJC_CLASSLIST_REFERENCES_$_.353
+_OBJC_CLASSLIST_REFERENCES_$_.354
+_OBJC_SELECTOR_REFERENCES_.356
+_OBJC_SELECTOR_REFERENCES_.358
+_OBJC_CLASSLIST_REFERENCES_$_.359
+_OBJC_SELECTOR_REFERENCES_.361
+___block_descriptor_32_e21_24?0Q8"NSString"16l
+___block_literal_global.363
+_OBJC_SELECTOR_REFERENCES_.365
+_OBJC_SELECTOR_REFERENCES_.367
+_OBJC_SELECTOR_REFERENCES_.369
+_OBJC_SELECTOR_REFERENCES_.371
+_OBJC_SELECTOR_REFERENCES_.375
+_OBJC_SELECTOR_REFERENCES_.377
+_OBJC_SELECTOR_REFERENCES_.379
+_OBJC_SELECTOR_REFERENCES_.381
+___block_literal_global.383
+_OBJC_SELECTOR_REFERENCES_.385
+_OBJC_SELECTOR_REFERENCES_.387
+_OBJC_SELECTOR_REFERENCES_.391
+_OBJC_CLASSLIST_REFERENCES_$_.392
+_OBJC_SELECTOR_REFERENCES_.396
+_OBJC_SELECTOR_REFERENCES_.398
+_OBJC_SELECTOR_REFERENCES_.400
+_OBJC_SELECTOR_REFERENCES_.404
+_OBJC_SELECTOR_REFERENCES_.406
+_OBJC_CLASSLIST_REFERENCES_$_.407
+_OBJC_SELECTOR_REFERENCES_.409
+_OBJC_SELECTOR_REFERENCES_.411
+_OBJC_SELECTOR_REFERENCES_.417
+_OBJC_SELECTOR_REFERENCES_.421
+_OBJC_SELECTOR_REFERENCES_.423
+_OBJC_SELECTOR_REFERENCES_.425
+_OBJC_SELECTOR_REFERENCES_.429
+_OBJC_SELECTOR_REFERENCES_.433
+_OBJC_SELECTOR_REFERENCES_.435
+_OBJC_SELECTOR_REFERENCES_.437
+_OBJC_CLASSLIST_REFERENCES_$_.442
+_OBJC_SELECTOR_REFERENCES_.444
+_OBJC_SELECTOR_REFERENCES_.446
+_OBJC_CLASSLIST_REFERENCES_$_.447
+_OBJC_SELECTOR_REFERENCES_.451
+_OBJC_SELECTOR_REFERENCES_.453
+_OBJC_SELECTOR_REFERENCES_.457
+_OBJC_SELECTOR_REFERENCES_.459
+_OBJC_SELECTOR_REFERENCES_.463
+_OBJC_SELECTOR_REFERENCES_.465
+_OBJC_SELECTOR_REFERENCES_.469
+_OBJC_SELECTOR_REFERENCES_.471
+_OBJC_SELECTOR_REFERENCES_.473
+_OBJC_SELECTOR_REFERENCES_.479
+_OBJC_SELECTOR_REFERENCES_.483
+_OBJC_SELECTOR_REFERENCES_.487
+_OBJC_SELECTOR_REFERENCES_.489
+_OBJC_SELECTOR_REFERENCES_.497
+_OBJC_SELECTOR_REFERENCES_.501
+_OBJC_IVAR_$_LKS_LocalInspectViewController._didSelectExit
+_OBJC_IVAR_$_LKS_LocalInspectViewController._includedWindows
+_OBJC_IVAR_$_LKS_LocalInspectViewController._excludedWindows
+_OBJC_IVAR_$_LKS_LocalInspectViewController._prevKeyWindow
+_OBJC_IVAR_$_LKS_LocalInspectViewController._highlightLayer
+_OBJC_IVAR_$_LKS_LocalInspectViewController._referLayer
+_OBJC_IVAR_$_LKS_LocalInspectViewController._rulerLayers
+_OBJC_IVAR_$_LKS_LocalInspectViewController._rulerLabels
+_OBJC_IVAR_$_LKS_LocalInspectViewController._titleButton
+_OBJC_IVAR_$_LKS_LocalInspectViewController._panelView
+_OBJC_IVAR_$_LKS_LocalInspectViewController._titleLabelView
+_OBJC_IVAR_$_LKS_LocalInspectViewController._contentLabelViews
+_OBJC_IVAR_$_LKS_LocalInspectViewController._tapRecognizer
+_OBJC_IVAR_$_LKS_LocalInspectViewController._panRecognizer
+__OBJC_METACLASS_RO_$_LKS_LocalInspectViewController
+__OBJC_$_INSTANCE_METHODS_LKS_LocalInspectViewController
+__OBJC_$_INSTANCE_VARIABLES_LKS_LocalInspectViewController
+__OBJC_$_PROP_LIST_LKS_LocalInspectViewController
+__OBJC_CLASS_RO_$_LKS_LocalInspectViewController
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Server/Inspect/LKS_LocalInspectViewController.m
+LookinServer/Src/Server/Inspect/LKS_LocalInspectViewController.m
+LookinServer/Src/Server/Inspect/LKS_LocalInspectViewController.h
+__58-[LKS_LocalInspectViewController _subtitleStringForLayer:]_block_invoke
+__62-[LKS_LocalInspectViewController _preferredClassesInSelecting]_block_invoke_2
+__62-[LKS_LocalInspectViewController _preferredClassesInSelecting]_block_invoke
+__53-[LKS_LocalInspectViewController _targetViewAtPoint:]_block_invoke
+__84-[LKS_LocalInspectViewController _renderAndLayoutRulersWithHighlightRect:referRect:]_block_invoke_2
+__84-[LKS_LocalInspectViewController _renderAndLayoutRulersWithHighlightRect:referRect:]_block_invoke
+__destroy_helper_block_e8_32r
+__copy_helper_block_e8_32r
+__66-[LKS_LocalInspectViewController _layoutPanelViewWithContentRect:]_block_invoke_2
+__66-[LKS_LocalInspectViewController _layoutPanelViewWithContentRect:]_block_invoke
+__49-[LKS_LocalInspectViewController highlightLayer:]_block_invoke_2
+__49-[LKS_LocalInspectViewController highlightLayer:]_block_invoke.237
+__49-[LKS_LocalInspectViewController highlightLayer:]_block_invoke
+__45-[LKS_LocalInspectViewController viewDidLoad]_block_invoke.100
+__45-[LKS_LocalInspectViewController viewDidLoad]_block_invoke
++[LKS_MethodTraceManager sharedInstance]
+___40+[LKS_MethodTraceManager sharedInstance]_block_invoke
++[LKS_MethodTraceManager allocWithZone:]
+-[LKS_MethodTraceManager removeWithClassName:selName:]
+___54-[LKS_MethodTraceManager removeWithClassName:selName:]_block_invoke
+-[LKS_MethodTraceManager addWithClassName:selName:]
+_LKS_AltSelectorFromSelector
+-[LKS_MethodTraceManager _addToActiveListWithClassName:selName:]
+___64-[LKS_MethodTraceManager _addToActiveListWithClassName:selName:]_block_invoke
+-[LKS_MethodTraceManager _isValidWithClassName:selName:]
+-[LKS_MethodTraceManager currentActiveTraceList]
+-[LKS_MethodTraceManager allClassesListInApp]
+___45-[LKS_MethodTraceManager allClassesListInApp]_block_invoke
+_LKS_ActiveList
+___LKS_ActiveList_block_invoke
+_LKS_HookedDict
+___LKS_HookedDict_block_invoke
+___Lookin_PleaseRemoveMethodTraceInLookinAppIfCrashHere_block_invoke
+___Lookin_PleaseRemoveMethodTraceInLookinAppIfCrashHere_block_invoke_2
+___Lookin_PleaseRemoveMethodTraceInLookinAppIfCrashHere_block_invoke_3
+___Lookin_PleaseRemoveMethodTraceInLookinAppIfCrashHere_block_invoke_4
+___copy_helper_block_e8_32s40s48r56r
+___destroy_helper_block_e8_32s40s48r56r
+___LKS_ArgumentsDescriptionsFromInvocation_block_invoke
+___block_descriptor_40_e8_32s_e29_B32?0"NSDictionary"8Q16^B24l
+___block_descriptor_40_e8_32s_e22_B16?0"NSDictionary"8l
+_OBJC_CLASSLIST_REFERENCES_$_.65
+___block_descriptor_40_e8_32s_e18_B16?0"NSString"8l
+__OBJC_$_CLASS_METHODS_LKS_MethodTraceManager
+__OBJC_METACLASS_RO_$_LKS_MethodTraceManager
+__OBJC_$_INSTANCE_METHODS_LKS_MethodTraceManager
+__OBJC_CLASS_RO_$_LKS_MethodTraceManager
+_LKS_ActiveList.list
+_LKS_ActiveList.onceToken
+_LKS_HookedDict.dict
+_LKS_HookedDict.onceToken
+___block_literal_global.150
+___block_descriptor_64_e8_32s40s48r56r_e39_v32?0"NSString"8"NSMutableSet"16^B24l
+_OBJC_CLASSLIST_REFERENCES_$_.166
+_OBJC_SELECTOR_REFERENCES_.172
+_OBJC_SELECTOR_REFERENCES_.174
+_OBJC_SELECTOR_REFERENCES_.176
+_OBJC_CLASSLIST_REFERENCES_$_.181
+_OBJC_CLASSLIST_REFERENCES_$_.188
+_OBJC_SELECTOR_REFERENCES_.190
+_OBJC_SELECTOR_REFERENCES_.192
+_OBJC_CLASSLIST_REFERENCES_$_.193
+___block_descriptor_48_e25_v24?08"NSInvocation"16l
+_OBJC_CLASSLIST_REFERENCES_$_.205
+_OBJC_SELECTOR_REFERENCES_.218
+_OBJC_CLASSLIST_REFERENCES_$_.221
+_OBJC_SELECTOR_REFERENCES_.230
+_OBJC_SELECTOR_REFERENCES_.237
+_OBJC_SELECTOR_REFERENCES_.260
+_OBJC_SELECTOR_REFERENCES_.270
+_OBJC_SELECTOR_REFERENCES_.274
+_OBJC_SELECTOR_REFERENCES_.281
+_OBJC_SELECTOR_REFERENCES_.310
+___block_descriptor_48_e8_32s40s_e8_16?0Q8l
+_OBJC_SELECTOR_REFERENCES_.325
+_OBJC_SELECTOR_REFERENCES_.329
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Server/Others/LKS_MethodTraceManager.m
+__LKS_ArgumentsDescriptionsFromInvocation_block_invoke
+LookinServer/Src/Server/Others/LKS_MethodTraceManager.m
+__destroy_helper_block_e8_32s40s48r56r
+__copy_helper_block_e8_32s40s48r56r
+__Lookin_PleaseRemoveMethodTraceInLookinAppIfCrashHere_block_invoke_4
+__Lookin_PleaseRemoveMethodTraceInLookinAppIfCrashHere_block_invoke_3
+__Lookin_PleaseRemoveMethodTraceInLookinAppIfCrashHere_block_invoke_2
+__Lookin_PleaseRemoveMethodTraceInLookinAppIfCrashHere_block_invoke
+LKS_ArgumentsDescriptionsFromInvocation
+__LKS_HookedDict_block_invoke
+LKS_HookedDict
+__LKS_ActiveList_block_invoke
+LKS_ActiveList
+__45-[LKS_MethodTraceManager allClassesListInApp]_block_invoke
+__64-[LKS_MethodTraceManager _addToActiveListWithClassName:selName:]_block_invoke
+LKS_AltSelectorFromSelector
+Lookin_PleaseRemoveMethodTraceInLookinAppIfCrashHere
+__54-[LKS_MethodTraceManager removeWithClassName:selName:]_block_invoke
+__40+[LKS_MethodTraceManager sharedInstance]_block_invoke
++[LKS_ObjectRegistry sharedInstance]
+___36+[LKS_ObjectRegistry sharedInstance]_block_invoke
++[LKS_ObjectRegistry allocWithZone:]
+-[LKS_ObjectRegistry init]
+-[LKS_ObjectRegistry addObject:]
+-[LKS_ObjectRegistry objectWithOid:]
+-[LKS_ObjectRegistry data]
+-[LKS_ObjectRegistry setData:]
+-[LKS_ObjectRegistry .cxx_destruct]
+_OBJC_SELECTOR_REFERENCES_.2
+_OBJC_SELECTOR_REFERENCES_.4
+_OBJC_SELECTOR_REFERENCES_.7
+_OBJC_SELECTOR_REFERENCES_.9
+_OBJC_SELECTOR_REFERENCES_.11
+_OBJC_SELECTOR_REFERENCES_.13
+_OBJC_SELECTOR_REFERENCES_.15
+__OBJC_$_CLASS_METHODS_LKS_ObjectRegistry
+__OBJC_METACLASS_RO_$_LKS_ObjectRegistry
+__OBJC_$_INSTANCE_METHODS_LKS_ObjectRegistry
+_OBJC_IVAR_$_LKS_ObjectRegistry._data
+__OBJC_$_INSTANCE_VARIABLES_LKS_ObjectRegistry
+__OBJC_$_PROP_LIST_LKS_ObjectRegistry
+__OBJC_CLASS_RO_$_LKS_ObjectRegistry
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Server/Others/LKS_ObjectRegistry.m
+LookinServer/Src/Server/Others/LKS_ObjectRegistry.m
+__36+[LKS_ObjectRegistry sharedInstance]_block_invoke
+-[LKS_PerspectiveDataSource initWithHierarchyInfo:]
+___51-[LKS_PerspectiveDataSource initWithHierarchyInfo:]_block_invoke
+___51-[LKS_PerspectiveDataSource initWithHierarchyInfo:]_block_invoke_2
+-[LKS_PerspectiveDataSource numberOfRows]
+-[LKS_PerspectiveDataSource itemAtRow:]
+-[LKS_PerspectiveDataSource rowForItem:]
+-[LKS_PerspectiveDataSource setSelectedItem:]
+-[LKS_PerspectiveDataSource collapseItem:]
+-[LKS_PerspectiveDataSource expandItem:]
+-[LKS_PerspectiveDataSource aliasForColor:]
+-[LKS_PerspectiveDataSource _adjustExpansionWithPreferedSelectedItem:]
+___70-[LKS_PerspectiveDataSource _adjustExpansionWithPreferedSelectedItem:]_block_invoke
+___70-[LKS_PerspectiveDataSource _adjustExpansionWithPreferedSelectedItem:]_block_invoke_2
+___70-[LKS_PerspectiveDataSource _adjustExpansionWithPreferedSelectedItem:]_block_invoke_3
+___70-[LKS_PerspectiveDataSource _adjustExpansionWithPreferedSelectedItem:]_block_invoke_4
+___70-[LKS_PerspectiveDataSource _adjustExpansionWithPreferedSelectedItem:]_block_invoke.145
+___70-[LKS_PerspectiveDataSource _adjustExpansionWithPreferedSelectedItem:]_block_invoke_2.155
+___70-[LKS_PerspectiveDataSource _adjustExpansionWithPreferedSelectedItem:]_block_invoke_3.159
+___70-[LKS_PerspectiveDataSource _adjustExpansionWithPreferedSelectedItem:]_block_invoke_4.174
+___70-[LKS_PerspectiveDataSource _adjustExpansionWithPreferedSelectedItem:]_block_invoke_5
+___70-[LKS_PerspectiveDataSource _adjustExpansionWithPreferedSelectedItem:]_block_invoke_6
+___70-[LKS_PerspectiveDataSource _adjustExpansionWithPreferedSelectedItem:]_block_invoke_7
+___70-[LKS_PerspectiveDataSource _adjustExpansionWithPreferedSelectedItem:]_block_invoke.187
+-[LKS_PerspectiveDataSource _updateDisplayingFlatItems]
+___55-[LKS_PerspectiveDataSource _updateDisplayingFlatItems]_block_invoke
+-[LKS_PerspectiveDataSource perspectiveLayer]
+-[LKS_PerspectiveDataSource setPerspectiveLayer:]
+-[LKS_PerspectiveDataSource hierarchyView]
+-[LKS_PerspectiveDataSource setHierarchyView:]
+-[LKS_PerspectiveDataSource flatItems]
+-[LKS_PerspectiveDataSource setFlatItems:]
+-[LKS_PerspectiveDataSource displayingFlatItems]
+-[LKS_PerspectiveDataSource setDisplayingFlatItems:]
+-[LKS_PerspectiveDataSource selectedItem]
+-[LKS_PerspectiveDataSource rawHierarchyInfo]
+-[LKS_PerspectiveDataSource colorToAliasMap]
+-[LKS_PerspectiveDataSource setColorToAliasMap:]
+-[LKS_PerspectiveDataSource .cxx_destruct]
+_OBJC_CLASSLIST_REFERENCES_$_.72
+___block_descriptor_32_e27_v16?0"LookinDisplayItem"8l
+___block_descriptor_48_e8_32s40s_e34_v32?0"LookinDisplayItem"8Q16^B24l
+_OBJC_SELECTOR_REFERENCES_.100
+___block_descriptor_32_e34_v32?0"LookinDisplayItem"8Q16^B24l
+___block_literal_global.129
+___block_descriptor_32_e27_B16?0"LookinDisplayItem"8l
+___block_literal_global.135
+___block_literal_global.140
+___block_descriptor_40_e8_32s_e34_v32?0"LookinDisplayItem"8Q16^B24l
+___block_literal_global.146
+_OBJC_SELECTOR_REFERENCES_.154
+_OBJC_CLASSLIST_REFERENCES_$_.156
+_OBJC_SELECTOR_REFERENCES_.158
+_OBJC_SELECTOR_REFERENCES_.169
+___block_literal_global.175
+___block_descriptor_32_e31_v24?0"LookinDisplayItem"8^B16l
+___block_literal_global.178
+___block_descriptor_48_e8_32s_e27_v16?0"LookinDisplayItem"8l
+___block_literal_global.188
+___block_descriptor_48_e8_32s40r_e34_v32?0"LookinDisplayItem"8Q16^B24l
+__OBJC_METACLASS_RO_$_LKS_PerspectiveDataSource
+__OBJC_$_INSTANCE_METHODS_LKS_PerspectiveDataSource
+_OBJC_IVAR_$_LKS_PerspectiveDataSource._perspectiveLayer
+_OBJC_IVAR_$_LKS_PerspectiveDataSource._hierarchyView
+_OBJC_IVAR_$_LKS_PerspectiveDataSource._flatItems
+_OBJC_IVAR_$_LKS_PerspectiveDataSource._displayingFlatItems
+_OBJC_IVAR_$_LKS_PerspectiveDataSource._selectedItem
+_OBJC_IVAR_$_LKS_PerspectiveDataSource._rawHierarchyInfo
+_OBJC_IVAR_$_LKS_PerspectiveDataSource._colorToAliasMap
+__OBJC_$_INSTANCE_VARIABLES_LKS_PerspectiveDataSource
+__OBJC_$_PROP_LIST_LKS_PerspectiveDataSource
+__OBJC_CLASS_RO_$_LKS_PerspectiveDataSource
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Server/Perspective/LKS_PerspectiveDataSource.m
+LookinServer/Src/Server/Perspective/LKS_PerspectiveDataSource.m
+LookinServer/Src/Server/Perspective/LKS_PerspectiveDataSource.h
+__55-[LKS_PerspectiveDataSource _updateDisplayingFlatItems]_block_invoke
+__70-[LKS_PerspectiveDataSource _adjustExpansionWithPreferedSelectedItem:]_block_invoke.187
+__70-[LKS_PerspectiveDataSource _adjustExpansionWithPreferedSelectedItem:]_block_invoke_7
+__70-[LKS_PerspectiveDataSource _adjustExpansionWithPreferedSelectedItem:]_block_invoke_6
+__70-[LKS_PerspectiveDataSource _adjustExpansionWithPreferedSelectedItem:]_block_invoke_5
+__70-[LKS_PerspectiveDataSource _adjustExpansionWithPreferedSelectedItem:]_block_invoke_4.174
+__70-[LKS_PerspectiveDataSource _adjustExpansionWithPreferedSelectedItem:]_block_invoke_3.159
+__70-[LKS_PerspectiveDataSource _adjustExpansionWithPreferedSelectedItem:]_block_invoke_2.155
+__70-[LKS_PerspectiveDataSource _adjustExpansionWithPreferedSelectedItem:]_block_invoke.145
+__70-[LKS_PerspectiveDataSource _adjustExpansionWithPreferedSelectedItem:]_block_invoke_4
+__70-[LKS_PerspectiveDataSource _adjustExpansionWithPreferedSelectedItem:]_block_invoke_3
+__70-[LKS_PerspectiveDataSource _adjustExpansionWithPreferedSelectedItem:]_block_invoke_2
+__70-[LKS_PerspectiveDataSource _adjustExpansionWithPreferedSelectedItem:]_block_invoke
+__51-[LKS_PerspectiveDataSource initWithHierarchyInfo:]_block_invoke_2
+__51-[LKS_PerspectiveDataSource initWithHierarchyInfo:]_block_invoke
+-[LKS_PerspectiveHierarchyCell initWithStyle:reuseIdentifier:]
+-[LKS_PerspectiveHierarchyCell layoutSubviews]
+-[LKS_PerspectiveHierarchyCell sizeThatFits:]
+-[LKS_PerspectiveHierarchyCell setDisplayItem:]
+-[LKS_PerspectiveHierarchyCell reRender]
+-[LKS_PerspectiveHierarchyCell _arrowRightImage]
+-[LKS_PerspectiveHierarchyCell _arrowDownImage]
+-[LKS_PerspectiveHierarchyCell displayItem]
+-[LKS_PerspectiveHierarchyCell indicatorButton]
+-[LKS_PerspectiveHierarchyCell titleLabel]
+-[LKS_PerspectiveHierarchyCell setTitleLabel:]
+-[LKS_PerspectiveHierarchyCell subtitleLabel]
+-[LKS_PerspectiveHierarchyCell setSubtitleLabel:]
+-[LKS_PerspectiveHierarchyCell strikethroughLayer]
+-[LKS_PerspectiveHierarchyCell setStrikethroughLayer:]
+-[LKS_PerspectiveHierarchyCell cachedContentWidth]
+-[LKS_PerspectiveHierarchyCell setCachedContentWidth:]
+-[LKS_PerspectiveHierarchyCell .cxx_destruct]
+_OBJC_IVAR_$_LKS_PerspectiveHierarchyCell._horInset
+_OBJC_IVAR_$_LKS_PerspectiveHierarchyCell._indicatorWidth
+_OBJC_IVAR_$_LKS_PerspectiveHierarchyCell._iconImageMarginLeft
+_OBJC_IVAR_$_LKS_PerspectiveHierarchyCell._indentUnitWidth
+_OBJC_IVAR_$_LKS_PerspectiveHierarchyCell._titleLeft
+_OBJC_IVAR_$_LKS_PerspectiveHierarchyCell._subtitleLeft
+_OBJC_IVAR_$_LKS_PerspectiveHierarchyCell._indicatorButton
+_OBJC_CLASSLIST_REFERENCES_$_.26
+_OBJC_IVAR_$_LKS_PerspectiveHierarchyCell._displayItem
+__arrowRightImage.image
+__arrowDownImage.image
+_OBJC_IVAR_$_LKS_PerspectiveHierarchyCell._titleLabel
+_OBJC_IVAR_$_LKS_PerspectiveHierarchyCell._subtitleLabel
+_OBJC_IVAR_$_LKS_PerspectiveHierarchyCell._strikethroughLayer
+_OBJC_IVAR_$_LKS_PerspectiveHierarchyCell._cachedContentWidth
+__OBJC_METACLASS_RO_$_LKS_PerspectiveHierarchyCell
+__OBJC_$_INSTANCE_METHODS_LKS_PerspectiveHierarchyCell
+__OBJC_$_INSTANCE_VARIABLES_LKS_PerspectiveHierarchyCell
+__OBJC_$_PROP_LIST_LKS_PerspectiveHierarchyCell
+__OBJC_CLASS_RO_$_LKS_PerspectiveHierarchyCell
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Server/Perspective/LKS_PerspectiveHierarchyCell.m
+LookinServer/Src/Server/Perspective/LKS_PerspectiveHierarchyCell.m
+LookinServer/Src/Server/Perspective/LKS_PerspectiveHierarchyCell.h
+-[LKS_PerspectiveHierarchyView initWithDataSource:]
+-[LKS_PerspectiveHierarchyView layoutSubviews]
+-[LKS_PerspectiveHierarchyView setIsHorizontalLayout:]
+-[LKS_PerspectiveHierarchyView tableView:numberOfRowsInSection:]
+-[LKS_PerspectiveHierarchyView tableView:cellForRowAtIndexPath:]
+-[LKS_PerspectiveHierarchyView tableView:heightForRowAtIndexPath:]
+-[LKS_PerspectiveHierarchyView tableView:heightForFooterInSection:]
+-[LKS_PerspectiveHierarchyView tableView:heightForHeaderInSection:]
+-[LKS_PerspectiveHierarchyView tableView:didSelectRowAtIndexPath:]
+-[LKS_PerspectiveHierarchyView dataSourceDidChangeDisplayItems:]
+-[LKS_PerspectiveHierarchyView dataSourceDidChangeSelectedItem:]
+-[LKS_PerspectiveHierarchyView _tableViewReloadData]
+-[LKS_PerspectiveHierarchyView _handleCellExpansionButton:]
+-[LKS_PerspectiveHierarchyView isHorizontalLayout]
+-[LKS_PerspectiveHierarchyView effectBgView]
+-[LKS_PerspectiveHierarchyView setEffectBgView:]
+-[LKS_PerspectiveHierarchyView scrollView]
+-[LKS_PerspectiveHierarchyView setScrollView:]
+-[LKS_PerspectiveHierarchyView tableView]
+-[LKS_PerspectiveHierarchyView setTableView:]
+-[LKS_PerspectiveHierarchyView dataSource]
+-[LKS_PerspectiveHierarchyView setDataSource:]
+-[LKS_PerspectiveHierarchyView dragHintLayer]
+-[LKS_PerspectiveHierarchyView setDragHintLayer:]
+-[LKS_PerspectiveHierarchyView currentMaxCellWidth]
+-[LKS_PerspectiveHierarchyView setCurrentMaxCellWidth:]
+-[LKS_PerspectiveHierarchyView selectedCell]
+-[LKS_PerspectiveHierarchyView setSelectedCell:]
+-[LKS_PerspectiveHierarchyView .cxx_destruct]
+_OBJC_CLASSLIST_REFERENCES_$_.52
+_OBJC_IVAR_$_LKS_PerspectiveHierarchyView._isHorizontalLayout
+_OBJC_SELECTOR_REFERENCES_.130
+_OBJC_SELECTOR_REFERENCES_.132
+_OBJC_CLASSLIST_REFERENCES_$_.135
+_OBJC_CLASSLIST_REFERENCES_$_.142
+_OBJC_IVAR_$_LKS_PerspectiveHierarchyView._effectBgView
+_OBJC_IVAR_$_LKS_PerspectiveHierarchyView._scrollView
+_OBJC_IVAR_$_LKS_PerspectiveHierarchyView._tableView
+_OBJC_IVAR_$_LKS_PerspectiveHierarchyView._dataSource
+_OBJC_IVAR_$_LKS_PerspectiveHierarchyView._dragHintLayer
+_OBJC_IVAR_$_LKS_PerspectiveHierarchyView._currentMaxCellWidth
+_OBJC_IVAR_$_LKS_PerspectiveHierarchyView._selectedCell
+__OBJC_$_PROTOCOL_REFS_UIScrollViewDelegate
+__OBJC_$_PROTOCOL_INSTANCE_METHODS_OPT_UIScrollViewDelegate
+__OBJC_$_PROTOCOL_METHOD_TYPES_UIScrollViewDelegate
+__OBJC_PROTOCOL_$_UIScrollViewDelegate
+__OBJC_LABEL_PROTOCOL_$_UIScrollViewDelegate
+__OBJC_$_PROTOCOL_REFS_UITableViewDelegate
+__OBJC_$_PROTOCOL_INSTANCE_METHODS_OPT_UITableViewDelegate
+__OBJC_$_PROTOCOL_METHOD_TYPES_UITableViewDelegate
+__OBJC_PROTOCOL_$_UITableViewDelegate
+__OBJC_LABEL_PROTOCOL_$_UITableViewDelegate
+__OBJC_$_PROTOCOL_REFS_UITableViewDataSource
+__OBJC_$_PROTOCOL_INSTANCE_METHODS_UITableViewDataSource
+__OBJC_$_PROTOCOL_INSTANCE_METHODS_OPT_UITableViewDataSource
+__OBJC_$_PROTOCOL_METHOD_TYPES_UITableViewDataSource
+__OBJC_PROTOCOL_$_UITableViewDataSource
+__OBJC_LABEL_PROTOCOL_$_UITableViewDataSource
+__OBJC_$_PROTOCOL_REFS_LKS_PerspectiveDataSourceDelegate
+__OBJC_$_PROTOCOL_INSTANCE_METHODS_OPT_LKS_PerspectiveDataSourceDelegate
+__OBJC_$_PROTOCOL_METHOD_TYPES_LKS_PerspectiveDataSourceDelegate
+__OBJC_PROTOCOL_$_LKS_PerspectiveDataSourceDelegate
+__OBJC_LABEL_PROTOCOL_$_LKS_PerspectiveDataSourceDelegate
+__OBJC_CLASS_PROTOCOLS_$_LKS_PerspectiveHierarchyView
+__OBJC_METACLASS_RO_$_LKS_PerspectiveHierarchyView
+__OBJC_$_INSTANCE_METHODS_LKS_PerspectiveHierarchyView
+__OBJC_$_INSTANCE_VARIABLES_LKS_PerspectiveHierarchyView
+__OBJC_$_PROP_LIST_LKS_PerspectiveHierarchyView
+__OBJC_CLASS_RO_$_LKS_PerspectiveHierarchyView
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Server/Perspective/LKS_PerspectiveHierarchyView.m
+LookinServer/Src/Server/Perspective/LKS_PerspectiveHierarchyView.m
+LookinServer/Src/Server/Perspective/LKS_PerspectiveHierarchyView.h
+-[LKS_PerspectiveItemUnselectableLayer hitTest:]
+-[LKS_PerspectiveItemLayer init]
+-[LKS_PerspectiveItemLayer layoutSublayers]
+-[LKS_PerspectiveItemLayer setDisplayItem:]
+-[LKS_PerspectiveItemLayer reRender]
+-[LKS_PerspectiveItemLayer hitTest:]
+-[LKS_PerspectiveItemLayer displayItem]
+-[LKS_PerspectiveItemLayer selectedMaskLayer]
+-[LKS_PerspectiveItemLayer setSelectedMaskLayer:]
+-[LKS_PerspectiveItemLayer contentLayer]
+-[LKS_PerspectiveItemLayer setContentLayer:]
+-[LKS_PerspectiveItemLayer .cxx_destruct]
+__OBJC_METACLASS_RO_$_LKS_PerspectiveItemUnselectableLayer
+__OBJC_$_INSTANCE_METHODS_LKS_PerspectiveItemUnselectableLayer
+__OBJC_CLASS_RO_$_LKS_PerspectiveItemUnselectableLayer
+_OBJC_CLASSLIST_REFERENCES_$_.28
+_OBJC_IVAR_$_LKS_PerspectiveItemLayer._displayItem
+_OBJC_IVAR_$_LKS_PerspectiveItemLayer._selectedMaskLayer
+_OBJC_IVAR_$_LKS_PerspectiveItemLayer._contentLayer
+__OBJC_METACLASS_RO_$_LKS_PerspectiveItemLayer
+__OBJC_$_INSTANCE_METHODS_LKS_PerspectiveItemLayer
+__OBJC_$_INSTANCE_VARIABLES_LKS_PerspectiveItemLayer
+__OBJC_$_PROP_LIST_LKS_PerspectiveItemLayer
+__OBJC_CLASS_RO_$_LKS_PerspectiveItemLayer
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Server/Perspective/LKS_PerspectiveItemLayer.m
+LookinServer/Src/Server/Perspective/LKS_PerspectiveItemLayer.m
+LookinServer/Src/Server/Perspective/LKS_PerspectiveItemLayer.h
+-[LookinDisplayItem(LKS_PerspectiveLayer) setLks_itemLayer:]
+-[LookinDisplayItem(LKS_PerspectiveLayer) lks_itemLayer]
+-[LKS_PerspectiveLayer initWithDataSource:]
+-[LKS_PerspectiveLayer layoutSublayers]
+-[LKS_PerspectiveLayer setDimension:]
+___37-[LKS_PerspectiveLayer setDimension:]_block_invoke
+-[LKS_PerspectiveLayer setRotation:]
+-[LKS_PerspectiveLayer setRotation:animated:completion:]
+-[LKS_PerspectiveLayer _rebuildPreviewLayers]
+___45-[LKS_PerspectiveLayer _rebuildPreviewLayers]_block_invoke
+___45-[LKS_PerspectiveLayer _rebuildPreviewLayers]_block_invoke_2
+___45-[LKS_PerspectiveLayer _rebuildPreviewLayers]_block_invoke.106
+___45-[LKS_PerspectiveLayer _rebuildPreviewLayers]_block_invoke_2.111
+-[LKS_PerspectiveLayer _updateZIndex]
+___37-[LKS_PerspectiveLayer _updateZIndex]_block_invoke
+___37-[LKS_PerspectiveLayer _updateZIndex]_block_invoke_2
+-[LKS_PerspectiveLayer _updateZIndexForItem:]
+-[LKS_PerspectiveLayer _updateZTranslationByZIndex]
+___51-[LKS_PerspectiveLayer _updateZTranslationByZIndex]_block_invoke
+___51-[LKS_PerspectiveLayer _updateZTranslationByZIndex]_block_invoke.148
+-[LKS_PerspectiveLayer _maxZIndexForOverlappedItemUnderItem:]
+___61-[LKS_PerspectiveLayer _maxZIndexForOverlappedItemUnderItem:]_block_invoke
+___61-[LKS_PerspectiveLayer _maxZIndexForOverlappedItemUnderItem:]_block_invoke.166
+-[LKS_PerspectiveLayer dataSourceDidChangeSelectedItem:]
+-[LKS_PerspectiveLayer dataSourceDidChangeDisplayItems:]
+___56-[LKS_PerspectiveLayer dataSourceDidChangeDisplayItems:]_block_invoke
+-[LKS_PerspectiveLayer dataSourceDidChangeNoPreview:]
+-[LKS_PerspectiveLayer dimension]
+-[LKS_PerspectiveLayer rotation]
+-[LKS_PerspectiveLayer rotateLayer]
+-[LKS_PerspectiveLayer setRotateLayer:]
+-[LKS_PerspectiveLayer itemLayers]
+-[LKS_PerspectiveLayer setItemLayers:]
+-[LKS_PerspectiveLayer dataSource]
+-[LKS_PerspectiveLayer setDataSource:]
+-[LKS_PerspectiveLayer selectedLayer]
+-[LKS_PerspectiveLayer setSelectedLayer:]
+-[LKS_PerspectiveLayer .cxx_destruct]
+__OBJC_$_CATEGORY_INSTANCE_METHODS_LookinDisplayItem_$_LKS_PerspectiveLayer
+__OBJC_$_PROP_LIST_LookinDisplayItem_$_LKS_PerspectiveLayer
+__OBJC_$_CATEGORY_LookinDisplayItem_$_LKS_PerspectiveLayer
+_OBJC_IVAR_$_LKS_PerspectiveLayer._dimension
+___block_descriptor_32_e41_v32?0"LKS_PerspectiveItemLayer"8Q16^B24l
+_OBJC_IVAR_$_LKS_PerspectiveLayer._rotation
+___block_descriptor_40_e8_32s_e34_"LKS_PerspectiveItemLayer"16?0Q8l
+___block_descriptor_32_e37_v24?0Q8"LKS_PerspectiveItemLayer"16l
+___block_literal_global.108
+___block_descriptor_48_e8_32s40s_e37_v24?0Q8"LKS_PerspectiveItemLayer"16l
+___block_literal_global.127
+___block_descriptor_40_e8_32r_e41_v32?0"LKS_PerspectiveItemLayer"8Q16^B24l
+_OBJC_CLASSLIST_REFERENCES_$_.149
+___block_descriptor_56_e8_32s40r_e41_v32?0"LKS_PerspectiveItemLayer"8Q16^B24l
+___block_literal_global.160
+_OBJC_IVAR_$_LKS_PerspectiveLayer._rotateLayer
+_OBJC_IVAR_$_LKS_PerspectiveLayer._itemLayers
+_OBJC_IVAR_$_LKS_PerspectiveLayer._dataSource
+_OBJC_IVAR_$_LKS_PerspectiveLayer._selectedLayer
+__OBJC_CLASS_PROTOCOLS_$_LKS_PerspectiveLayer
+__OBJC_METACLASS_RO_$_LKS_PerspectiveLayer
+__OBJC_$_INSTANCE_METHODS_LKS_PerspectiveLayer
+__OBJC_$_INSTANCE_VARIABLES_LKS_PerspectiveLayer
+__OBJC_$_PROP_LIST_LKS_PerspectiveLayer
+__OBJC_CLASS_RO_$_LKS_PerspectiveLayer
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Server/Perspective/LKS_PerspectiveLayer.m
+LookinServer/Src/Server/Perspective/LKS_PerspectiveLayer.m
+LookinServer/Src/Server/Perspective/LKS_PerspectiveLayer.h
+__56-[LKS_PerspectiveLayer dataSourceDidChangeDisplayItems:]_block_invoke
+__61-[LKS_PerspectiveLayer _maxZIndexForOverlappedItemUnderItem:]_block_invoke.166
+__61-[LKS_PerspectiveLayer _maxZIndexForOverlappedItemUnderItem:]_block_invoke
+__51-[LKS_PerspectiveLayer _updateZTranslationByZIndex]_block_invoke.148
+__51-[LKS_PerspectiveLayer _updateZTranslationByZIndex]_block_invoke
+__37-[LKS_PerspectiveLayer _updateZIndex]_block_invoke_2
+__37-[LKS_PerspectiveLayer _updateZIndex]_block_invoke
+__45-[LKS_PerspectiveLayer _rebuildPreviewLayers]_block_invoke_2.111
+__45-[LKS_PerspectiveLayer _rebuildPreviewLayers]_block_invoke.106
+__45-[LKS_PerspectiveLayer _rebuildPreviewLayers]_block_invoke_2
+__45-[LKS_PerspectiveLayer _rebuildPreviewLayers]_block_invoke
+__37-[LKS_PerspectiveLayer setDimension:]_block_invoke
+-[LKS_PerspectiveLoadingMaskView initWithFrame:]
+-[LKS_PerspectiveLoadingMaskView layoutSubviews]
+-[LKS_PerspectiveLoadingMaskView tipsView]
+-[LKS_PerspectiveLoadingMaskView setTipsView:]
+-[LKS_PerspectiveLoadingMaskView firstLabel]
+-[LKS_PerspectiveLoadingMaskView setFirstLabel:]
+-[LKS_PerspectiveLoadingMaskView secondLabel]
+-[LKS_PerspectiveLoadingMaskView setSecondLabel:]
+-[LKS_PerspectiveLoadingMaskView .cxx_destruct]
++[LKS_PerspectiveManager sharedInstance]
+___40+[LKS_PerspectiveManager sharedInstance]_block_invoke
++[LKS_PerspectiveManager allocWithZone:]
+-[LKS_PerspectiveManager showWithIncludedWindows:excludedWindows:]
+___66-[LKS_PerspectiveManager showWithIncludedWindows:excludedWindows:]_block_invoke
+___copy_helper_block_e8_32s40s48s
+___destroy_helper_block_e8_32s40s48s
+-[LKS_PerspectiveManager _exit]
+-[LKS_PerspectiveManager loadingView]
+-[LKS_PerspectiveManager setLoadingView:]
+-[LKS_PerspectiveManager previousKeyWindow]
+-[LKS_PerspectiveManager setPreviousKeyWindow:]
+-[LKS_PerspectiveManager contentWindow]
+-[LKS_PerspectiveManager setContentWindow:]
+-[LKS_PerspectiveManager viewController]
+-[LKS_PerspectiveManager setViewController:]
+-[LKS_PerspectiveManager .cxx_destruct]
+_OBJC_IVAR_$_LKS_PerspectiveLoadingMaskView._tipsView
+_OBJC_IVAR_$_LKS_PerspectiveLoadingMaskView._firstLabel
+_OBJC_IVAR_$_LKS_PerspectiveLoadingMaskView._secondLabel
+__OBJC_METACLASS_RO_$_LKS_PerspectiveLoadingMaskView
+__OBJC_$_INSTANCE_METHODS_LKS_PerspectiveLoadingMaskView
+__OBJC_$_INSTANCE_VARIABLES_LKS_PerspectiveLoadingMaskView
+__OBJC_$_PROP_LIST_LKS_PerspectiveLoadingMaskView
+__OBJC_CLASS_RO_$_LKS_PerspectiveLoadingMaskView
+__OBJC_METACLASS_RO_$_LKS_PerspectiveContainerWindow
+__OBJC_CLASS_RO_$_LKS_PerspectiveContainerWindow
+_OBJC_CLASSLIST_REFERENCES_$_.117
+_OBJC_CLASSLIST_REFERENCES_$_.126
+_OBJC_CLASSLIST_REFERENCES_$_.138
+_OBJC_CLASSLIST_REFERENCES_$_.147
+___block_descriptor_56_e8_32s40s48s_e5_v8?0l
+__OBJC_$_CLASS_METHODS_LKS_PerspectiveManager
+__OBJC_METACLASS_RO_$_LKS_PerspectiveManager
+__OBJC_$_INSTANCE_METHODS_LKS_PerspectiveManager
+_OBJC_IVAR_$_LKS_PerspectiveManager._loadingView
+_OBJC_IVAR_$_LKS_PerspectiveManager._previousKeyWindow
+_OBJC_IVAR_$_LKS_PerspectiveManager._contentWindow
+_OBJC_IVAR_$_LKS_PerspectiveManager._viewController
+__OBJC_$_INSTANCE_VARIABLES_LKS_PerspectiveManager
+__OBJC_$_PROP_LIST_LKS_PerspectiveManager
+__OBJC_CLASS_RO_$_LKS_PerspectiveManager
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Server/Perspective/LKS_PerspectiveManager.m
+LookinServer/Src/Server/Perspective/LKS_PerspectiveManager.m
+__destroy_helper_block_e8_32s40s48s
+__copy_helper_block_e8_32s40s48s
+__66-[LKS_PerspectiveManager showWithIncludedWindows:excludedWindows:]_block_invoke
+__40+[LKS_PerspectiveManager sharedInstance]_block_invoke
+-[LKS_PerspectiveToolbarCloseButton initWithFrame:]
+-[LKS_PerspectiveToolbarCloseButton _image]
+-[LKS_PerspectiveToolbarDimensionButtonsView initWithFrame:]
+-[LKS_PerspectiveToolbarDimensionButtonsView layoutSubviews]
+-[LKS_PerspectiveToolbarDimensionButtonsView _image2D]
+-[LKS_PerspectiveToolbarDimensionButtonsView _image3D]
+-[LKS_PerspectiveToolbarDimensionButtonsView button2D]
+-[LKS_PerspectiveToolbarDimensionButtonsView button3D]
+-[LKS_PerspectiveToolbarDimensionButtonsView .cxx_destruct]
+-[LKS_PerspectiveToolbarLayoutButtonsView initWithFrame:]
+-[LKS_PerspectiveToolbarLayoutButtonsView layoutSubviews]
+-[LKS_PerspectiveToolbarLayoutButtonsView _imageHorizontal]
+-[LKS_PerspectiveToolbarLayoutButtonsView _imageVertical]
+-[LKS_PerspectiveToolbarLayoutButtonsView verticalLayoutButton]
+-[LKS_PerspectiveToolbarLayoutButtonsView horizontalLayoutButton]
+-[LKS_PerspectiveToolbarLayoutButtonsView .cxx_destruct]
+-[LKS_PerspectiveToolbarPropertyButton initWithFrame:]
+-[LKS_PerspectiveToolbarPropertyButton _image]
+_OBJC_SELECTOR_REFERENCES_.6
+_OBJC_SELECTOR_REFERENCES_.8
+_OBJC_SELECTOR_REFERENCES_.10
+_OBJC_SELECTOR_REFERENCES_.12
+_OBJC_CLASSLIST_REFERENCES_$_.13
+__OBJC_METACLASS_RO_$_LKS_PerspectiveToolbarCloseButton
+__OBJC_$_INSTANCE_METHODS_LKS_PerspectiveToolbarCloseButton
+__OBJC_CLASS_RO_$_LKS_PerspectiveToolbarCloseButton
+_OBJC_IVAR_$_LKS_PerspectiveToolbarDimensionButtonsView._button2D
+_OBJC_IVAR_$_LKS_PerspectiveToolbarDimensionButtonsView._button3D
+__OBJC_METACLASS_RO_$_LKS_PerspectiveToolbarDimensionButtonsView
+__OBJC_$_INSTANCE_METHODS_LKS_PerspectiveToolbarDimensionButtonsView
+__OBJC_$_INSTANCE_VARIABLES_LKS_PerspectiveToolbarDimensionButtonsView
+__OBJC_$_PROP_LIST_LKS_PerspectiveToolbarDimensionButtonsView
+__OBJC_CLASS_RO_$_LKS_PerspectiveToolbarDimensionButtonsView
+_OBJC_IVAR_$_LKS_PerspectiveToolbarLayoutButtonsView._verticalLayoutButton
+_OBJC_IVAR_$_LKS_PerspectiveToolbarLayoutButtonsView._horizontalLayoutButton
+__OBJC_METACLASS_RO_$_LKS_PerspectiveToolbarLayoutButtonsView
+__OBJC_$_INSTANCE_METHODS_LKS_PerspectiveToolbarLayoutButtonsView
+__OBJC_$_INSTANCE_VARIABLES_LKS_PerspectiveToolbarLayoutButtonsView
+__OBJC_$_PROP_LIST_LKS_PerspectiveToolbarLayoutButtonsView
+__OBJC_CLASS_RO_$_LKS_PerspectiveToolbarLayoutButtonsView
+__OBJC_METACLASS_RO_$_LKS_PerspectiveToolbarPropertyButton
+__OBJC_$_INSTANCE_METHODS_LKS_PerspectiveToolbarPropertyButton
+__OBJC_CLASS_RO_$_LKS_PerspectiveToolbarPropertyButton
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Server/Perspective/LKS_PerspectiveToolbarButtons.m
+LookinServer/Src/Server/Perspective/LKS_PerspectiveToolbarButtons.m
+LookinServer/Src/Server/Perspective/LKS_PerspectiveToolbarButtons.h
+-[LKS_PerspectiveViewController initWithHierarchyInfo:]
+-[LKS_PerspectiveViewController viewDidLoad]
+___44-[LKS_PerspectiveViewController viewDidLoad]_block_invoke
+-[LKS_PerspectiveViewController viewDidLayoutSubviews]
+-[LKS_PerspectiveViewController _handleTapGesture:]
+-[LKS_PerspectiveViewController _handleRotationGestureRecognizer:]
+-[LKS_PerspectiveViewController _handleHierarchyDragGestureRecognizer:]
+___71-[LKS_PerspectiveViewController _handleHierarchyDragGestureRecognizer:]_block_invoke
+___71-[LKS_PerspectiveViewController _handleHierarchyDragGestureRecognizer:]_block_invoke_2
+___71-[LKS_PerspectiveViewController _handleHierarchyDragGestureRecognizer:]_block_invoke.191
+___71-[LKS_PerspectiveViewController _handleHierarchyDragGestureRecognizer:]_block_invoke_2.192
+-[LKS_PerspectiveViewController _handleTwoFingersGestureRecognizer:]
+-[LKS_PerspectiveViewController _handle2D]
+-[LKS_PerspectiveViewController _handle3D]
+-[LKS_PerspectiveViewController _handleVerticalLayout]
+-[LKS_PerspectiveViewController _handleHorizontalLayout]
+-[LKS_PerspectiveViewController setLayoutType:]
+-[LKS_PerspectiveViewController gestureRecognizer:shouldReceiveTouch:]
+-[LKS_PerspectiveViewController gestureRecognizerShouldBegin:]
+-[LKS_PerspectiveViewController _startEnterAnim]
+___48-[LKS_PerspectiveViewController _startEnterAnim]_block_invoke
+___48-[LKS_PerspectiveViewController _startEnterAnim]_block_invoke.232
+-[LKS_PerspectiveViewController setScale:animated:]
+-[LKS_PerspectiveViewController setTranslation:animated:]
+-[LKS_PerspectiveViewController _updateTransformAnimated:]
+-[LKS_PerspectiveViewController closeButton]
+-[LKS_PerspectiveViewController previewLayer]
+-[LKS_PerspectiveViewController setPreviewLayer:]
+-[LKS_PerspectiveViewController hierarchyView]
+-[LKS_PerspectiveViewController setHierarchyView:]
+-[LKS_PerspectiveViewController dimensionButtonsView]
+-[LKS_PerspectiveViewController setDimensionButtonsView:]
+-[LKS_PerspectiveViewController layoutButtonsView]
+-[LKS_PerspectiveViewController setLayoutButtonsView:]
+-[LKS_PerspectiveViewController propertyButton]
+-[LKS_PerspectiveViewController setPropertyButton:]
+-[LKS_PerspectiveViewController dataSource]
+-[LKS_PerspectiveViewController setDataSource:]
+-[LKS_PerspectiveViewController layoutType]
+-[LKS_PerspectiveViewController tapGestureRecognizer]
+-[LKS_PerspectiveViewController setTapGestureRecognizer:]
+-[LKS_PerspectiveViewController rotationGestureRecognizer]
+-[LKS_PerspectiveViewController setRotationGestureRecognizer:]
+-[LKS_PerspectiveViewController hierarchyDragGestureRecognizer]
+-[LKS_PerspectiveViewController setHierarchyDragGestureRecognizer:]
+-[LKS_PerspectiveViewController twoFingersGestureRecognizer]
+-[LKS_PerspectiveViewController setTwoFingersGestureRecognizer:]
+-[LKS_PerspectiveViewController previewAndHierarchySepPosition]
+-[LKS_PerspectiveViewController setPreviewAndHierarchySepPosition:]
+-[LKS_PerspectiveViewController scale]
+-[LKS_PerspectiveViewController setScale:]
+-[LKS_PerspectiveViewController translation]
+-[LKS_PerspectiveViewController setTranslation:]
+-[LKS_PerspectiveViewController .cxx_destruct]
+_OBJC_IVAR_$_LKS_PerspectiveViewController._selectedButtonColor
+_OBJC_IVAR_$_LKS_PerspectiveViewController._closeButton
+_OBJC_CLASSLIST_REFERENCES_$_.53
+_OBJC_CLASSLIST_REFERENCES_$_.127
+_OBJC_CLASSLIST_REFERENCES_$_.152
+_OBJC_CLASSLIST_REFERENCES_$_.185
+___block_descriptor_40_e8_32s_e8_v12?0B8l
+_OBJC_SELECTOR_REFERENCES_.200
+_OBJC_SELECTOR_REFERENCES_.204
+_OBJC_SELECTOR_REFERENCES_.208
+_OBJC_SELECTOR_REFERENCES_.212
+_OBJC_SELECTOR_REFERENCES_.214
+_OBJC_SELECTOR_REFERENCES_.216
+_OBJC_SELECTOR_REFERENCES_.220
+_OBJC_IVAR_$_LKS_PerspectiveViewController._layoutType
+_OBJC_SELECTOR_REFERENCES_.222
+_OBJC_SELECTOR_REFERENCES_.224
+_OBJC_SELECTOR_REFERENCES_.226
+_OBJC_CLASSLIST_REFERENCES_$_.227
+___block_descriptor_41_e8_32s_e5_v8?0l
+_OBJC_SELECTOR_REFERENCES_.234
+_OBJC_IVAR_$_LKS_PerspectiveViewController._scale
+_OBJC_SELECTOR_REFERENCES_.236
+_OBJC_IVAR_$_LKS_PerspectiveViewController._translation
+_OBJC_CLASSLIST_REFERENCES_$_.237
+_OBJC_SELECTOR_REFERENCES_.239
+_OBJC_SELECTOR_REFERENCES_.241
+_OBJC_SELECTOR_REFERENCES_.243
+_OBJC_SELECTOR_REFERENCES_.245
+_OBJC_IVAR_$_LKS_PerspectiveViewController._previewLayer
+_OBJC_IVAR_$_LKS_PerspectiveViewController._hierarchyView
+_OBJC_IVAR_$_LKS_PerspectiveViewController._dimensionButtonsView
+_OBJC_IVAR_$_LKS_PerspectiveViewController._layoutButtonsView
+_OBJC_IVAR_$_LKS_PerspectiveViewController._propertyButton
+_OBJC_IVAR_$_LKS_PerspectiveViewController._dataSource
+_OBJC_IVAR_$_LKS_PerspectiveViewController._tapGestureRecognizer
+_OBJC_IVAR_$_LKS_PerspectiveViewController._rotationGestureRecognizer
+_OBJC_IVAR_$_LKS_PerspectiveViewController._hierarchyDragGestureRecognizer
+_OBJC_IVAR_$_LKS_PerspectiveViewController._twoFingersGestureRecognizer
+_OBJC_IVAR_$_LKS_PerspectiveViewController._previewAndHierarchySepPosition
+__OBJC_$_PROTOCOL_REFS_UIGestureRecognizerDelegate
+__OBJC_$_PROTOCOL_INSTANCE_METHODS_OPT_UIGestureRecognizerDelegate
+__OBJC_$_PROTOCOL_METHOD_TYPES_UIGestureRecognizerDelegate
+__OBJC_PROTOCOL_$_UIGestureRecognizerDelegate
+__OBJC_LABEL_PROTOCOL_$_UIGestureRecognizerDelegate
+__OBJC_CLASS_PROTOCOLS_$_LKS_PerspectiveViewController
+__OBJC_METACLASS_RO_$_LKS_PerspectiveViewController
+__OBJC_$_INSTANCE_METHODS_LKS_PerspectiveViewController
+__OBJC_$_INSTANCE_VARIABLES_LKS_PerspectiveViewController
+__OBJC_$_PROP_LIST_LKS_PerspectiveViewController
+__OBJC_CLASS_RO_$_LKS_PerspectiveViewController
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Server/Perspective/LKS_PerspectiveViewController.m
+LookinServer/Src/Server/Perspective/LKS_PerspectiveViewController.m
+LookinServer/Src/Server/Perspective/LKS_PerspectiveViewController.h
+__48-[LKS_PerspectiveViewController _startEnterAnim]_block_invoke.232
+__48-[LKS_PerspectiveViewController _startEnterAnim]_block_invoke
+UIInterfaceOrientationIsLandscape
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.0.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIApplication.h
+__71-[LKS_PerspectiveViewController _handleHierarchyDragGestureRecognizer:]_block_invoke_2.192
+__71-[LKS_PerspectiveViewController _handleHierarchyDragGestureRecognizer:]_block_invoke.191
+__71-[LKS_PerspectiveViewController _handleHierarchyDragGestureRecognizer:]_block_invoke_2
+__71-[LKS_PerspectiveViewController _handleHierarchyDragGestureRecognizer:]_block_invoke
+__44-[LKS_PerspectiveViewController viewDidLoad]_block_invoke
+-[LKS_RequestHandler init]
+-[LKS_RequestHandler canHandleRequestType:]
+-[LKS_RequestHandler handleRequestType:tag:object:]
+___51-[LKS_RequestHandler handleRequestType:tag:object:]_block_invoke
+___51-[LKS_RequestHandler handleRequestType:tag:object:]_block_invoke_2
+___51-[LKS_RequestHandler handleRequestType:tag:object:]_block_invoke_3
+___51-[LKS_RequestHandler handleRequestType:tag:object:]_block_invoke_4
+___51-[LKS_RequestHandler handleRequestType:tag:object:]_block_invoke_5
+-[LKS_RequestHandler _methodNameListForClass:hasArg:]
+___53-[LKS_RequestHandler _methodNameListForClass:hasArg:]_block_invoke
+-[LKS_RequestHandler _handleInvokeWithObject:selector:resultDescription:resultObject:error:]
+-[LKS_RequestHandler _submitResponseWithError:requestType:tag:]
+-[LKS_RequestHandler _submitResponseWithData:requestType:tag:]
+-[LKS_RequestHandler .cxx_destruct]
+_OBJC_CLASSLIST_REFERENCES_$_.44
+___block_descriptor_40_e45_v24?0"LookinDisplayItemDetail"8"NSError"16l
+___block_descriptor_44_e33_v16?0"LookinDisplayItemDetail"8l
+___block_descriptor_32_e51_q32?0q8Q16"LookinStaticAsyncUpdateTasksPackage"24l
+_OBJC_CLASSLIST_REFERENCES_$_.73
+___block_descriptor_44_e29_v24?0"NSArray"8"NSError"16l
+_OBJC_CLASSLIST_REFERENCES_$_.80
+_OBJC_CLASSLIST_REFERENCES_$_.83
+_OBJC_CLASSLIST_REFERENCES_$_.86
+_OBJC_CLASSLIST_REFERENCES_$_.91
+_OBJC_CLASSLIST_REFERENCES_$_.110
+_OBJC_CLASSLIST_REFERENCES_$_.172
+_OBJC_CLASSLIST_REFERENCES_$_.179
+___block_descriptor_56_e8_32s40s_e5_v8?0l
+_OBJC_CLASSLIST_REFERENCES_$_.215
+_OBJC_SELECTOR_REFERENCES_.232
+_OBJC_SELECTOR_REFERENCES_.238
+_OBJC_CLASSLIST_REFERENCES_$_.245
+_OBJC_SELECTOR_REFERENCES_.247
+_OBJC_SELECTOR_REFERENCES_.249
+_OBJC_SELECTOR_REFERENCES_.251
+_OBJC_SELECTOR_REFERENCES_.253
+_OBJC_SELECTOR_REFERENCES_.306
+_OBJC_SELECTOR_REFERENCES_.317
+__OBJC_METACLASS_RO_$_LKS_RequestHandler
+__OBJC_$_INSTANCE_METHODS_LKS_RequestHandler
+_OBJC_IVAR_$_LKS_RequestHandler._validRequestTypes
+__OBJC_$_INSTANCE_VARIABLES_LKS_RequestHandler
+__OBJC_CLASS_RO_$_LKS_RequestHandler
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Server/Connection/LKS_RequestHandler.m
+LookinServer/Src/Server/Connection/LKS_RequestHandler.m
+__53-[LKS_RequestHandler _methodNameListForClass:hasArg:]_block_invoke
+__51-[LKS_RequestHandler handleRequestType:tag:object:]_block_invoke_5
+__51-[LKS_RequestHandler handleRequestType:tag:object:]_block_invoke_4
+__51-[LKS_RequestHandler handleRequestType:tag:object:]_block_invoke_3
+__51-[LKS_RequestHandler handleRequestType:tag:object:]_block_invoke_2
+__51-[LKS_RequestHandler handleRequestType:tag:object:]_block_invoke
++[LKS_TraceManager sharedInstance]
+___34+[LKS_TraceManager sharedInstance]_block_invoke
++[LKS_TraceManager allocWithZone:]
+-[LKS_TraceManager reload]
+___26-[LKS_TraceManager reload]_block_invoke
+-[LKS_TraceManager _addTraceForLayersRootedByLayer:]
+___52-[LKS_TraceManager _addTraceForLayersRootedByLayer:]_block_invoke
+-[LKS_TraceManager _buildSpecialTraceForView:]
+___46-[LKS_TraceManager _buildSpecialTraceForView:]_block_invoke
+___46-[LKS_TraceManager _buildSpecialTraceForView:]_block_invoke.110
+___46-[LKS_TraceManager _buildSpecialTraceForView:]_block_invoke.129
+___46-[LKS_TraceManager _buildSpecialTraceForView:]_block_invoke.135
+___46-[LKS_TraceManager _buildSpecialTraceForView:]_block_invoke_2
+-[LKS_TraceManager _markIVarsInAllClassLevelsOfObject:]
+-[LKS_TraceManager _markIVarsOfObject:class:]
+___45-[LKS_TraceManager _markIVarsOfObject:class:]_block_invoke
+___LKS_InvalidIvarTraces_block_invoke
+___block_descriptor_40_e8_32s_e25_v32?0"UIWindow"8Q16^B24l
+_OBJC_CLASSLIST_REFERENCES_$_.90
+___block_descriptor_48_e8_32s40s_e32_v32?0"UITableViewCell"8Q16^B24l
+___block_descriptor_40_e8_32s_e25_v32?0"NSNumber"8Q16^B24l
+___block_descriptor_40_e8_32s_e28_v32?0"NSIndexPath"8Q16^B24l
+___block_descriptor_40_e8_32s_e37_v32?0"UICollectionViewCell"8Q16^B24l
+_OBJC_CLASSLIST_REFERENCES_$_.162
+___block_descriptor_40_e18_B16?0"NSString"8lu32l8
+_OBJC_CLASSLIST_REFERENCES_$_.182
+_OBJC_CLASSLIST_REFERENCES_$_.183
+_OBJC_CLASSLIST_REFERENCES_$_.184
+__OBJC_$_CLASS_METHODS_LKS_TraceManager
+__OBJC_METACLASS_RO_$_LKS_TraceManager
+__OBJC_$_INSTANCE_METHODS_LKS_TraceManager
+__OBJC_CLASS_RO_$_LKS_TraceManager
+_LKS_InvalidIvarTraces.list
+_LKS_InvalidIvarTraces.onceToken
+_OBJC_CLASSLIST_REFERENCES_$_.214
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Server/Others/LKS_TraceManager.m
+__LKS_InvalidIvarTraces_block_invoke
+LookinServer/Src/Server/Others/LKS_TraceManager.m
+__45-[LKS_TraceManager _markIVarsOfObject:class:]_block_invoke
+LKS_InvalidIvarTraces
+__46-[LKS_TraceManager _buildSpecialTraceForView:]_block_invoke_2
+__46-[LKS_TraceManager _buildSpecialTraceForView:]_block_invoke.135
+__46-[LKS_TraceManager _buildSpecialTraceForView:]_block_invoke.129
+__46-[LKS_TraceManager _buildSpecialTraceForView:]_block_invoke.110
+__46-[LKS_TraceManager _buildSpecialTraceForView:]_block_invoke
+__52-[LKS_TraceManager _addTraceForLayersRootedByLayer:]_block_invoke
+__26-[LKS_TraceManager reload]_block_invoke
+__34+[LKS_TraceManager sharedInstance]_block_invoke
+-[LookinAppInfo copyWithZone:]
+-[LookinAppInfo initWithCoder:]
+-[LookinAppInfo encodeWithCoder:]
++[LookinAppInfo supportsSecureCoding]
+-[LookinAppInfo isEqual:]
+-[LookinAppInfo hash]
+-[LookinAppInfo isEqualToAppInfo:]
++[LookinAppInfo currentInfoWithScreenshot:icon:localIdentifiers:]
++[LookinAppInfo appName]
++[LookinAppInfo appIcon]
++[LookinAppInfo screenshotImage]
++[LookinAppInfo isSimulator]
++[LookinAppInfo getAppInfoIdentifier]
+___37+[LookinAppInfo getAppInfoIdentifier]_block_invoke
+-[LookinAppInfo appInfoIdentifier]
+-[LookinAppInfo setAppInfoIdentifier:]
+-[LookinAppInfo shouldUseCache]
+-[LookinAppInfo setShouldUseCache:]
+-[LookinAppInfo serverVersion]
+-[LookinAppInfo setServerVersion:]
+-[LookinAppInfo screenshot]
+-[LookinAppInfo setScreenshot:]
+-[LookinAppInfo appIcon]
+-[LookinAppInfo setAppIcon:]
+-[LookinAppInfo appName]
+-[LookinAppInfo setAppName:]
+-[LookinAppInfo appBundleIdentifier]
+-[LookinAppInfo setAppBundleIdentifier:]
+-[LookinAppInfo deviceDescription]
+-[LookinAppInfo setDeviceDescription:]
+-[LookinAppInfo osDescription]
+-[LookinAppInfo setOsDescription:]
+-[LookinAppInfo osMainVersion]
+-[LookinAppInfo setOsMainVersion:]
+-[LookinAppInfo deviceType]
+-[LookinAppInfo setDeviceType:]
+-[LookinAppInfo screenWidth]
+-[LookinAppInfo setScreenWidth:]
+-[LookinAppInfo screenHeight]
+-[LookinAppInfo setScreenHeight:]
+-[LookinAppInfo screenScale]
+-[LookinAppInfo setScreenScale:]
+-[LookinAppInfo .cxx_destruct]
+_OBJC_CLASSLIST_REFERENCES_$_.136
+_OBJC_CLASSLIST_REFERENCES_$_.148
+_OBJC_CLASSLIST_REFERENCES_$_.165
+_OBJC_CLASSLIST_REFERENCES_$_.194
+_getAppInfoIdentifier.onceToken
+_getAppInfoIdentifier.identifier
+_OBJC_CLASSLIST_REFERENCES_$_.202
+_OBJC_SELECTOR_REFERENCES_.206
+__OBJC_$_CLASS_METHODS_LookinAppInfo
+__OBJC_$_PROTOCOL_INSTANCE_METHODS_NSCoding
+__OBJC_$_PROTOCOL_METHOD_TYPES_NSCoding
+__OBJC_PROTOCOL_$_NSCoding
+__OBJC_LABEL_PROTOCOL_$_NSCoding
+__OBJC_$_PROTOCOL_REFS_NSSecureCoding
+__OBJC_$_PROTOCOL_CLASS_METHODS_NSSecureCoding
+__OBJC_$_PROTOCOL_METHOD_TYPES_NSSecureCoding
+__OBJC_$_CLASS_PROP_LIST_NSSecureCoding
+__OBJC_PROTOCOL_$_NSSecureCoding
+__OBJC_LABEL_PROTOCOL_$_NSSecureCoding
+__OBJC_$_PROTOCOL_INSTANCE_METHODS_NSCopying
+__OBJC_$_PROTOCOL_METHOD_TYPES_NSCopying
+__OBJC_PROTOCOL_$_NSCopying
+__OBJC_LABEL_PROTOCOL_$_NSCopying
+__OBJC_CLASS_PROTOCOLS_$_LookinAppInfo
+__OBJC_$_CLASS_PROP_LIST_LookinAppInfo
+__OBJC_METACLASS_RO_$_LookinAppInfo
+__OBJC_$_INSTANCE_METHODS_LookinAppInfo
+_OBJC_IVAR_$_LookinAppInfo._shouldUseCache
+_OBJC_IVAR_$_LookinAppInfo._serverVersion
+_OBJC_IVAR_$_LookinAppInfo._appInfoIdentifier
+_OBJC_IVAR_$_LookinAppInfo._screenshot
+_OBJC_IVAR_$_LookinAppInfo._appIcon
+_OBJC_IVAR_$_LookinAppInfo._appName
+_OBJC_IVAR_$_LookinAppInfo._appBundleIdentifier
+_OBJC_IVAR_$_LookinAppInfo._deviceDescription
+_OBJC_IVAR_$_LookinAppInfo._osDescription
+_OBJC_IVAR_$_LookinAppInfo._osMainVersion
+_OBJC_IVAR_$_LookinAppInfo._deviceType
+_OBJC_IVAR_$_LookinAppInfo._screenWidth
+_OBJC_IVAR_$_LookinAppInfo._screenHeight
+_OBJC_IVAR_$_LookinAppInfo._screenScale
+__OBJC_$_INSTANCE_VARIABLES_LookinAppInfo
+__OBJC_$_PROP_LIST_LookinAppInfo
+__OBJC_CLASS_RO_$_LookinAppInfo
+_OBJC_SELECTOR_REFERENCES_.287
+_OBJC_SELECTOR_REFERENCES_.289
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Shared/LookinAppInfo.m
+LookinServer/Src/Shared/LookinAppInfo.m
+LookinServer/Src/Shared/LookinAppInfo.h
+__37+[LookinAppInfo getAppInfoIdentifier]_block_invoke
+-[LookinAttribute copyWithZone:]
+-[LookinAttribute encodeWithCoder:]
+-[LookinAttribute initWithCoder:]
++[LookinAttribute supportsSecureCoding]
+-[LookinAttribute identifier]
+-[LookinAttribute setIdentifier:]
+-[LookinAttribute value]
+-[LookinAttribute setValue:]
+-[LookinAttribute attrType]
+-[LookinAttribute setAttrType:]
+-[LookinAttribute targetDisplayItem]
+-[LookinAttribute setTargetDisplayItem:]
+-[LookinAttribute .cxx_destruct]
+__OBJC_$_CLASS_METHODS_LookinAttribute
+__OBJC_CLASS_PROTOCOLS_$_LookinAttribute
+__OBJC_$_CLASS_PROP_LIST_LookinAttribute
+__OBJC_METACLASS_RO_$_LookinAttribute
+__OBJC_$_INSTANCE_METHODS_LookinAttribute
+_OBJC_IVAR_$_LookinAttribute._identifier
+_OBJC_IVAR_$_LookinAttribute._value
+_OBJC_IVAR_$_LookinAttribute._attrType
+_OBJC_IVAR_$_LookinAttribute._targetDisplayItem
+__OBJC_$_INSTANCE_VARIABLES_LookinAttribute
+__OBJC_$_PROP_LIST_LookinAttribute
+__OBJC_CLASS_RO_$_LookinAttribute
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Shared/LookinAttribute.m
+LookinServer/Src/Shared/LookinAttribute.m
+LookinServer/Src/Shared/LookinAttribute.h
+-[LookinAttributeModification encodeWithCoder:]
+-[LookinAttributeModification initWithCoder:]
++[LookinAttributeModification supportsSecureCoding]
+-[LookinAttributeModification targetOid]
+-[LookinAttributeModification setTargetOid:]
+-[LookinAttributeModification setterSelector]
+-[LookinAttributeModification setSetterSelector:]
+-[LookinAttributeModification getterSelector]
+-[LookinAttributeModification setGetterSelector:]
+-[LookinAttributeModification attrType]
+-[LookinAttributeModification setAttrType:]
+-[LookinAttributeModification value]
+-[LookinAttributeModification setValue:]
+-[LookinAttributeModification .cxx_destruct]
+_OBJC_SELECTOR_REFERENCES_.14
+__OBJC_$_CLASS_METHODS_LookinAttributeModification
+__OBJC_CLASS_PROTOCOLS_$_LookinAttributeModification
+__OBJC_$_CLASS_PROP_LIST_LookinAttributeModification
+__OBJC_METACLASS_RO_$_LookinAttributeModification
+__OBJC_$_INSTANCE_METHODS_LookinAttributeModification
+_OBJC_IVAR_$_LookinAttributeModification._targetOid
+_OBJC_IVAR_$_LookinAttributeModification._setterSelector
+_OBJC_IVAR_$_LookinAttributeModification._getterSelector
+_OBJC_IVAR_$_LookinAttributeModification._attrType
+_OBJC_IVAR_$_LookinAttributeModification._value
+__OBJC_$_INSTANCE_VARIABLES_LookinAttributeModification
+__OBJC_$_PROP_LIST_LookinAttributeModification
+__OBJC_CLASS_RO_$_LookinAttributeModification
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Shared/LookinAttributeModification.m
+LookinServer/Src/Shared/LookinAttributeModification.m
+LookinServer/Src/Shared/LookinAttributeModification.h
+-[LookinAttributesGroup copyWithZone:]
+___38-[LookinAttributesGroup copyWithZone:]_block_invoke
+-[LookinAttributesGroup encodeWithCoder:]
+-[LookinAttributesGroup initWithCoder:]
+-[LookinAttributesGroup hash]
+-[LookinAttributesGroup isEqual:]
++[LookinAttributesGroup supportsSecureCoding]
+-[LookinAttributesGroup identifier]
+-[LookinAttributesGroup setIdentifier:]
+-[LookinAttributesGroup attrSections]
+-[LookinAttributesGroup setAttrSections:]
+-[LookinAttributesGroup .cxx_destruct]
+___block_descriptor_32_e36_24?0Q8"LookinAttributesSection"16l
+__OBJC_$_CLASS_METHODS_LookinAttributesGroup
+__OBJC_CLASS_PROTOCOLS_$_LookinAttributesGroup
+__OBJC_$_CLASS_PROP_LIST_LookinAttributesGroup
+__OBJC_METACLASS_RO_$_LookinAttributesGroup
+__OBJC_$_INSTANCE_METHODS_LookinAttributesGroup
+_OBJC_IVAR_$_LookinAttributesGroup._identifier
+_OBJC_IVAR_$_LookinAttributesGroup._attrSections
+__OBJC_$_INSTANCE_VARIABLES_LookinAttributesGroup
+__OBJC_$_PROP_LIST_LookinAttributesGroup
+__OBJC_CLASS_RO_$_LookinAttributesGroup
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Shared/LookinAttributesGroup.m
+LookinServer/Src/Shared/LookinAttributesGroup.m
+LookinServer/Src/Shared/LookinAttributesGroup.h
+__38-[LookinAttributesGroup copyWithZone:]_block_invoke
+-[LookinAttributesSection copyWithZone:]
+___40-[LookinAttributesSection copyWithZone:]_block_invoke
+-[LookinAttributesSection encodeWithCoder:]
+-[LookinAttributesSection initWithCoder:]
++[LookinAttributesSection supportsSecureCoding]
+-[LookinAttributesSection identifier]
+-[LookinAttributesSection setIdentifier:]
+-[LookinAttributesSection attributes]
+-[LookinAttributesSection setAttributes:]
+-[LookinAttributesSection .cxx_destruct]
+___block_descriptor_32_e28_24?0Q8"LookinAttribute"16l
+__OBJC_$_CLASS_METHODS_LookinAttributesSection
+__OBJC_CLASS_PROTOCOLS_$_LookinAttributesSection
+__OBJC_$_CLASS_PROP_LIST_LookinAttributesSection
+__OBJC_METACLASS_RO_$_LookinAttributesSection
+__OBJC_$_INSTANCE_METHODS_LookinAttributesSection
+_OBJC_IVAR_$_LookinAttributesSection._identifier
+_OBJC_IVAR_$_LookinAttributesSection._attributes
+__OBJC_$_INSTANCE_VARIABLES_LookinAttributesSection
+__OBJC_$_PROP_LIST_LookinAttributesSection
+__OBJC_CLASS_RO_$_LookinAttributesSection
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Shared/LookinAttributesSection.m
+LookinServer/Src/Shared/LookinAttributesSection.m
+LookinServer/Src/Shared/LookinAttributesSection.h
+__40-[LookinAttributesSection copyWithZone:]_block_invoke
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Shared/LookinAttrIdentifiers.m
++[LookinAutoLayoutConstraint instanceFromNSConstraint:isEffective:firstItemType:secondItemType:]
+-[LookinAutoLayoutConstraint setFirstAttribute:]
+-[LookinAutoLayoutConstraint setSecondAttribute:]
+-[LookinAutoLayoutConstraint _assertUnknownAttribute:]
++[LookinAutoLayoutConstraint descriptionWithItemObject:type:detailed:]
++[LookinAutoLayoutConstraint descriptionWithAttribute:]
++[LookinAutoLayoutConstraint symbolWithRelation:]
++[LookinAutoLayoutConstraint descriptionWithRelation:]
++[LookinAutoLayoutConstraint supportsSecureCoding]
+-[LookinAutoLayoutConstraint encodeWithCoder:]
+-[LookinAutoLayoutConstraint initWithCoder:]
+-[LookinAutoLayoutConstraint effective]
+-[LookinAutoLayoutConstraint setEffective:]
+-[LookinAutoLayoutConstraint active]
+-[LookinAutoLayoutConstraint setActive:]
+-[LookinAutoLayoutConstraint shouldBeArchived]
+-[LookinAutoLayoutConstraint setShouldBeArchived:]
+-[LookinAutoLayoutConstraint firstItem]
+-[LookinAutoLayoutConstraint setFirstItem:]
+-[LookinAutoLayoutConstraint firstItemType]
+-[LookinAutoLayoutConstraint setFirstItemType:]
+-[LookinAutoLayoutConstraint firstAttribute]
+-[LookinAutoLayoutConstraint relation]
+-[LookinAutoLayoutConstraint setRelation:]
+-[LookinAutoLayoutConstraint secondItem]
+-[LookinAutoLayoutConstraint setSecondItem:]
+-[LookinAutoLayoutConstraint secondItemType]
+-[LookinAutoLayoutConstraint setSecondItemType:]
+-[LookinAutoLayoutConstraint secondAttribute]
+-[LookinAutoLayoutConstraint multiplier]
+-[LookinAutoLayoutConstraint setMultiplier:]
+-[LookinAutoLayoutConstraint constant]
+-[LookinAutoLayoutConstraint setConstant:]
+-[LookinAutoLayoutConstraint priority]
+-[LookinAutoLayoutConstraint setPriority:]
+-[LookinAutoLayoutConstraint identifier]
+-[LookinAutoLayoutConstraint setIdentifier:]
+-[LookinAutoLayoutConstraint .cxx_destruct]
+_OBJC_CLASSLIST_REFERENCES_$_.82
+__OBJC_$_CLASS_METHODS_LookinAutoLayoutConstraint
+__OBJC_CLASS_PROTOCOLS_$_LookinAutoLayoutConstraint
+__OBJC_$_CLASS_PROP_LIST_LookinAutoLayoutConstraint
+__OBJC_METACLASS_RO_$_LookinAutoLayoutConstraint
+__OBJC_$_INSTANCE_METHODS_LookinAutoLayoutConstraint
+_OBJC_IVAR_$_LookinAutoLayoutConstraint._effective
+_OBJC_IVAR_$_LookinAutoLayoutConstraint._active
+_OBJC_IVAR_$_LookinAutoLayoutConstraint._shouldBeArchived
+_OBJC_IVAR_$_LookinAutoLayoutConstraint._firstItem
+_OBJC_IVAR_$_LookinAutoLayoutConstraint._firstItemType
+_OBJC_IVAR_$_LookinAutoLayoutConstraint._firstAttribute
+_OBJC_IVAR_$_LookinAutoLayoutConstraint._relation
+_OBJC_IVAR_$_LookinAutoLayoutConstraint._secondItem
+_OBJC_IVAR_$_LookinAutoLayoutConstraint._secondItemType
+_OBJC_IVAR_$_LookinAutoLayoutConstraint._secondAttribute
+_OBJC_IVAR_$_LookinAutoLayoutConstraint._multiplier
+_OBJC_IVAR_$_LookinAutoLayoutConstraint._constant
+_OBJC_IVAR_$_LookinAutoLayoutConstraint._priority
+_OBJC_IVAR_$_LookinAutoLayoutConstraint._identifier
+__OBJC_$_INSTANCE_VARIABLES_LookinAutoLayoutConstraint
+__OBJC_$_PROP_LIST_LookinAutoLayoutConstraint
+__OBJC_CLASS_RO_$_LookinAutoLayoutConstraint
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Shared/LookinAutoLayoutConstraint.m
+LookinServer/Src/Shared/LookinAutoLayoutConstraint.m
+LookinServer/Src/Shared/LookinAutoLayoutConstraint.h
+-[LookinConnectionAttachment init]
+-[LookinConnectionAttachment encodeWithCoder:]
+-[LookinConnectionAttachment initWithCoder:]
++[LookinConnectionAttachment supportsSecureCoding]
+-[LookinConnectionAttachment dataType]
+-[LookinConnectionAttachment setDataType:]
+-[LookinConnectionAttachment data]
+-[LookinConnectionAttachment setData:]
+-[LookinConnectionAttachment .cxx_destruct]
+__OBJC_$_CLASS_METHODS_LookinConnectionAttachment
+__OBJC_CLASS_PROTOCOLS_$_LookinConnectionAttachment
+__OBJC_$_CLASS_PROP_LIST_LookinConnectionAttachment
+__OBJC_METACLASS_RO_$_LookinConnectionAttachment
+__OBJC_$_INSTANCE_METHODS_LookinConnectionAttachment
+_OBJC_IVAR_$_LookinConnectionAttachment._dataType
+_OBJC_IVAR_$_LookinConnectionAttachment._data
+__OBJC_$_INSTANCE_VARIABLES_LookinConnectionAttachment
+__OBJC_$_PROP_LIST_LookinConnectionAttachment
+__OBJC_CLASS_RO_$_LookinConnectionAttachment
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Shared/LookinConnectionAttachment.m
+LookinServer/Src/Shared/LookinConnectionAttachment.m
+LookinServer/Src/Shared/LookinConnectionAttachment.h
+-[LookinConnectionResponseAttachment encodeWithCoder:]
+-[LookinConnectionResponseAttachment init]
+-[LookinConnectionResponseAttachment initWithCoder:]
++[LookinConnectionResponseAttachment supportsSecureCoding]
++[LookinConnectionResponseAttachment attachmentWithError:]
+-[LookinConnectionResponseAttachment lookinServerVersion]
+-[LookinConnectionResponseAttachment setLookinServerVersion:]
+-[LookinConnectionResponseAttachment lookinServerIsExprimental]
+-[LookinConnectionResponseAttachment setLookinServerIsExprimental:]
+-[LookinConnectionResponseAttachment error]
+-[LookinConnectionResponseAttachment setError:]
+-[LookinConnectionResponseAttachment appIsInBackground]
+-[LookinConnectionResponseAttachment setAppIsInBackground:]
+-[LookinConnectionResponseAttachment dataTotalCount]
+-[LookinConnectionResponseAttachment setDataTotalCount:]
+-[LookinConnectionResponseAttachment currentDataCount]
+-[LookinConnectionResponseAttachment setCurrentDataCount:]
+-[LookinConnectionResponseAttachment .cxx_destruct]
+_OBJC_IVAR_$_LookinConnectionResponseAttachment._lookinServerVersion
+_OBJC_IVAR_$_LookinConnectionResponseAttachment._lookinServerIsExprimental
+_OBJC_IVAR_$_LookinConnectionResponseAttachment._error
+_OBJC_IVAR_$_LookinConnectionResponseAttachment._appIsInBackground
+_OBJC_IVAR_$_LookinConnectionResponseAttachment._dataTotalCount
+_OBJC_IVAR_$_LookinConnectionResponseAttachment._currentDataCount
+__OBJC_$_CLASS_METHODS_LookinConnectionResponseAttachment
+__OBJC_METACLASS_RO_$_LookinConnectionResponseAttachment
+__OBJC_$_INSTANCE_METHODS_LookinConnectionResponseAttachment
+__OBJC_$_INSTANCE_VARIABLES_LookinConnectionResponseAttachment
+__OBJC_$_PROP_LIST_LookinConnectionResponseAttachment
+__OBJC_CLASS_RO_$_LookinConnectionResponseAttachment
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Shared/LookinConnectionResponseAttachment.m
+LookinServer/Src/Shared/LookinConnectionResponseAttachment.m
+LookinServer/Src/Shared/LookinConnectionResponseAttachment.h
++[LookinDashboardBlueprint groupIDs]
+___36+[LookinDashboardBlueprint groupIDs]_block_invoke
++[LookinDashboardBlueprint sectionIDsForGroupID:]
+___49+[LookinDashboardBlueprint sectionIDsForGroupID:]_block_invoke
++[LookinDashboardBlueprint attrIDsForSectionID:]
+___48+[LookinDashboardBlueprint attrIDsForSectionID:]_block_invoke
++[LookinDashboardBlueprint getHostGroupID:sectionID:fromAttrID:]
+___64+[LookinDashboardBlueprint getHostGroupID:sectionID:fromAttrID:]_block_invoke
+___64+[LookinDashboardBlueprint getHostGroupID:sectionID:fromAttrID:]_block_invoke_2
+___64+[LookinDashboardBlueprint getHostGroupID:sectionID:fromAttrID:]_block_invoke_3
+___copy_helper_block_e8_32s40s48s56r64r
+___destroy_helper_block_e8_32s40s48s56r64r
+___copy_helper_block_e8_40s48s56r64r
+___destroy_helper_block_e8_40s48s56r64r
+___copy_helper_block_e8_40s48r56r
+___destroy_helper_block_e8_40s48r56r
++[LookinDashboardBlueprint groupTitleWithGroupID:]
+___50+[LookinDashboardBlueprint groupTitleWithGroupID:]_block_invoke
++[LookinDashboardBlueprint sectionTitleWithSectionID:]
+___54+[LookinDashboardBlueprint sectionTitleWithSectionID:]_block_invoke
++[LookinDashboardBlueprint _infoForAttrID:]
+___43+[LookinDashboardBlueprint _infoForAttrID:]_block_invoke
++[LookinDashboardBlueprint objectAttrTypeWithAttrID:]
++[LookinDashboardBlueprint classNameWithAttrID:]
++[LookinDashboardBlueprint isUIViewPropertyWithAttrID:]
++[LookinDashboardBlueprint enumListNameWithAttrID:]
++[LookinDashboardBlueprint needPatchAfterModificationWithAttrID:]
++[LookinDashboardBlueprint fullTitleWithAttrID:]
++[LookinDashboardBlueprint briefTitleWithAttrID:]
++[LookinDashboardBlueprint getterWithAttrID:]
++[LookinDashboardBlueprint setterWithAttrID:]
++[LookinDashboardBlueprint hideIfNilWithAttrID:]
++[LookinDashboardBlueprint minAvailableOSVersionWithAttrID:]
+_groupIDs.array
+_groupIDs.onceToken
+_sectionIDsForGroupID:.dict
+_sectionIDsForGroupID:.onceToken
+___block_literal_global.1
+_OBJC_CLASSLIST_REFERENCES_$_.2
+_attrIDsForSectionID:.dict
+_attrIDsForSectionID:.onceToken
+___block_literal_global.7
+___block_descriptor_88_e8_32s40s48s56r64r_e25_v32?0"NSString"8Q16^B24l
+___block_descriptor_80_e8_40s48s56r64r_e25_v32?0"NSString"8Q16^B24l
+___block_descriptor_64_e8_40s48r56r_e25_v32?0"NSString"8Q16^B24l
+_groupTitleWithGroupID:.onceToken
+_groupTitleWithGroupID:.rawInfo
+___block_literal_global.20
+_sectionTitleWithSectionID:.onceToken
+_sectionTitleWithSectionID:.rawInfo
+___block_literal_global.48
+__infoForAttrID:.dict
+__infoForAttrID:.onceToken
+___block_literal_global.145
+_OBJC_CLASSLIST_REFERENCES_$_.160
+_OBJC_SELECTOR_REFERENCES_.408
+_OBJC_SELECTOR_REFERENCES_.410
+_OBJC_SELECTOR_REFERENCES_.412
+_OBJC_SELECTOR_REFERENCES_.414
+_OBJC_SELECTOR_REFERENCES_.416
+_OBJC_CLASSLIST_REFERENCES_$_.417
+_OBJC_SELECTOR_REFERENCES_.427
+__OBJC_$_CLASS_METHODS_LookinDashboardBlueprint
+__OBJC_METACLASS_RO_$_LookinDashboardBlueprint
+__OBJC_CLASS_RO_$_LookinDashboardBlueprint
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Shared/LookinDashboardBlueprint.m
+LookinServer/Src/Shared/LookinDashboardBlueprint.m
+__43+[LookinDashboardBlueprint _infoForAttrID:]_block_invoke
+__54+[LookinDashboardBlueprint sectionTitleWithSectionID:]_block_invoke
+__50+[LookinDashboardBlueprint groupTitleWithGroupID:]_block_invoke
+__destroy_helper_block_e8_40s48r56r
+__copy_helper_block_e8_40s48r56r
+__destroy_helper_block_e8_40s48s56r64r
+__copy_helper_block_e8_40s48s56r64r
+__destroy_helper_block_e8_32s40s48s56r64r
+__copy_helper_block_e8_32s40s48s56r64r
+__64+[LookinDashboardBlueprint getHostGroupID:sectionID:fromAttrID:]_block_invoke_3
+__64+[LookinDashboardBlueprint getHostGroupID:sectionID:fromAttrID:]_block_invoke_2
+__64+[LookinDashboardBlueprint getHostGroupID:sectionID:fromAttrID:]_block_invoke
+__48+[LookinDashboardBlueprint attrIDsForSectionID:]_block_invoke
+__49+[LookinDashboardBlueprint sectionIDsForGroupID:]_block_invoke
+__36+[LookinDashboardBlueprint groupIDs]_block_invoke
+-[LookinDisplayItem copyWithZone:]
+___34-[LookinDisplayItem copyWithZone:]_block_invoke
+___34-[LookinDisplayItem copyWithZone:]_block_invoke_2
+___34-[LookinDisplayItem copyWithZone:]_block_invoke_3
+-[LookinDisplayItem encodeWithCoder:]
+-[LookinDisplayItem initWithCoder:]
++[LookinDisplayItem supportsSecureCoding]
+-[LookinDisplayItem init]
+-[LookinDisplayItem displayingObject]
+-[LookinDisplayItem setAttributesGroupList:]
+___44-[LookinDisplayItem setAttributesGroupList:]_block_invoke
+___44-[LookinDisplayItem setAttributesGroupList:]_block_invoke_2
+___44-[LookinDisplayItem setAttributesGroupList:]_block_invoke_3
+-[LookinDisplayItem representedForSystemClass]
+-[LookinDisplayItem itemIsKindOfClassWithName:]
+-[LookinDisplayItem itemIsKindOfClassesWithNames:]
+___50-[LookinDisplayItem itemIsKindOfClassesWithNames:]_block_invoke
+___50-[LookinDisplayItem itemIsKindOfClassesWithNames:]_block_invoke_2
+-[LookinDisplayItem setSubitems:]
+___33-[LookinDisplayItem setSubitems:]_block_invoke
+___33-[LookinDisplayItem setSubitems:]_block_invoke_2
+-[LookinDisplayItem setIsExpandable:]
+-[LookinDisplayItem setIsExpanded:]
+___35-[LookinDisplayItem setIsExpanded:]_block_invoke
+-[LookinDisplayItem setSoloScreenshot:]
+-[LookinDisplayItem setIsSelected:]
+-[LookinDisplayItem setAvoidSyncScreenshot:]
+-[LookinDisplayItem setIsHovered:]
+-[LookinDisplayItem setGroupScreenshot:]
+-[LookinDisplayItem setDisplayingInHierarchy:]
+___46-[LookinDisplayItem setDisplayingInHierarchy:]_block_invoke
+-[LookinDisplayItem _updateDisplayingInHierarchyProperty]
+-[LookinDisplayItem setIsHidden:]
+-[LookinDisplayItem setAlpha:]
+-[LookinDisplayItem setInHiddenHierarchy:]
+___42-[LookinDisplayItem setInHiddenHierarchy:]_block_invoke
+-[LookinDisplayItem _updateInHiddenHierarchyProperty]
+-[LookinDisplayItem enumerateSelfAndAncestors:]
+-[LookinDisplayItem enumerateAncestors:]
+-[LookinDisplayItem enumerateSelfAndChildren:]
+___46-[LookinDisplayItem enumerateSelfAndChildren:]_block_invoke
++[LookinDisplayItem flatItemsFromHierarchicalItems:]
+___52+[LookinDisplayItem flatItemsFromHierarchicalItems:]_block_invoke
+-[LookinDisplayItem description]
+-[LookinDisplayItem setFrameToRoot:]
+___36-[LookinDisplayItem setFrameToRoot:]_block_invoke
+-[LookinDisplayItem setPreviewItemDelegate:]
+-[LookinDisplayItem setRowViewDelegate:]
+-[LookinDisplayItem setFrame:]
+-[LookinDisplayItem setBounds:]
+___31-[LookinDisplayItem setBounds:]_block_invoke
+-[LookinDisplayItem _updateFrameToRoot]
+-[LookinDisplayItem setInNoPreviewHierarchy:]
+___45-[LookinDisplayItem setInNoPreviewHierarchy:]_block_invoke
+-[LookinDisplayItem setNoPreview:]
+-[LookinDisplayItem _updateInNoPreviewHierarchy]
+-[LookinDisplayItem appropriateScreenshot]
+-[LookinDisplayItem _notifyDelegatesWith:]
+-[LookinDisplayItem isMatchedWithSearchString:]
+-[LookinDisplayItem setIsInSearch:]
+-[LookinDisplayItem setHighlightedSearchString:]
+-[LookinDisplayItem setHostViewControllerObject:]
+-[LookinDisplayItem setViewObject:]
+-[LookinDisplayItem setLayerObject:]
+-[LookinDisplayItem _updateTitleProperty]
+-[LookinDisplayItem _updateSubtitleProperty]
+___44-[LookinDisplayItem _updateSubtitleProperty]_block_invoke
+-[LookinDisplayItem dealloc]
+-[LookinDisplayItem subitems]
+-[LookinDisplayItem isHidden]
+-[LookinDisplayItem alpha]
+-[LookinDisplayItem frame]
+-[LookinDisplayItem bounds]
+-[LookinDisplayItem soloScreenshot]
+-[LookinDisplayItem groupScreenshot]
+-[LookinDisplayItem viewObject]
+-[LookinDisplayItem layerObject]
+-[LookinDisplayItem hostViewControllerObject]
+-[LookinDisplayItem attributesGroupList]
+-[LookinDisplayItem eventHandlers]
+-[LookinDisplayItem setEventHandlers:]
+-[LookinDisplayItem representedAsKeyWindow]
+-[LookinDisplayItem setRepresentedAsKeyWindow:]
+-[LookinDisplayItem previewItemDelegate]
+-[LookinDisplayItem rowViewDelegate]
+-[LookinDisplayItem backgroundColor]
+-[LookinDisplayItem setBackgroundColor:]
+-[LookinDisplayItem superItem]
+-[LookinDisplayItem setSuperItem:]
+-[LookinDisplayItem title]
+-[LookinDisplayItem subtitle]
+-[LookinDisplayItem isExpanded]
+-[LookinDisplayItem isExpandable]
+-[LookinDisplayItem displayingInHierarchy]
+-[LookinDisplayItem inHiddenHierarchy]
+-[LookinDisplayItem screenshotEncodeType]
+-[LookinDisplayItem setScreenshotEncodeType:]
+-[LookinDisplayItem avoidSyncScreenshot]
+-[LookinDisplayItem previewLayer]
+-[LookinDisplayItem setPreviewLayer:]
+-[LookinDisplayItem previewNode]
+-[LookinDisplayItem setPreviewNode:]
+-[LookinDisplayItem noPreview]
+-[LookinDisplayItem inNoPreviewHierarchy]
+-[LookinDisplayItem previewZIndex]
+-[LookinDisplayItem setPreviewZIndex:]
+-[LookinDisplayItem frameToRoot]
+-[LookinDisplayItem preferToBeCollapsed]
+-[LookinDisplayItem setPreferToBeCollapsed:]
+-[LookinDisplayItem isSelected]
+-[LookinDisplayItem isHovered]
+-[LookinDisplayItem hasDeterminedExpansion]
+-[LookinDisplayItem setHasDeterminedExpansion:]
+-[LookinDisplayItem isInSearch]
+-[LookinDisplayItem highlightedSearchString]
+-[LookinDisplayItem indentLevel]
+-[LookinDisplayItem setIndentLevel:]
+-[LookinDisplayItem .cxx_destruct]
+___block_descriptor_32_e30_24?0Q8"LookinDisplayItem"16l
+___block_descriptor_32_e34_24?0Q8"LookinAttributesGroup"16l
+___block_literal_global.65
+___block_descriptor_32_e31_24?0Q8"LookinEventHandler"16l
+___block_literal_global.71
+_OBJC_CLASSLIST_REFERENCES_$_.130
+_OBJC_CLASSLIST_REFERENCES_$_.137
+___block_descriptor_40_e8_32s_e32_v32?0"LookinAttribute"8Q16^B24l
+___block_descriptor_40_e8_32s_e40_v32?0"LookinAttributesSection"8Q16^B24l
+___block_descriptor_40_e8_32s_e35_v24?0"LookinAttributesGroup"8^B16l
+_OBJC_SELECTOR_REFERENCES_.182
+___block_descriptor_48_e8_32s40r_e25_v32?0"NSString"8Q16^B24l
+___block_descriptor_48_e8_32s40r_e22_v24?0"NSString"8^B16l
+___block_literal_global.186
+___block_literal_global.197
+___block_literal_global.198
+_OBJC_SELECTOR_REFERENCES_.202
+___block_literal_global.207
+___block_descriptor_40_e8_32bs_e34_v32?0"LookinDisplayItem"8Q16^B24l
+_OBJC_CLASSLIST_REFERENCES_$_.216
+_OBJC_SELECTOR_REFERENCES_.228
+___block_descriptor_48_e8_32s_e34_v32?0"LookinDisplayItem"8Q16^B24l
+_OBJC_CLASSLIST_REFERENCES_$_.229
+___block_literal_global.234
+___block_literal_global.245
+___block_literal_global.250
+_OBJC_SELECTOR_REFERENCES_.252
+_OBJC_SELECTOR_REFERENCES_.254
+_OBJC_SELECTOR_REFERENCES_.256
+_OBJC_SELECTOR_REFERENCES_.258
+_OBJC_SELECTOR_REFERENCES_.262
+_OBJC_SELECTOR_REFERENCES_.264
+_OBJC_SELECTOR_REFERENCES_.266
+_OBJC_SELECTOR_REFERENCES_.268
+_OBJC_SELECTOR_REFERENCES_.272
+_OBJC_SELECTOR_REFERENCES_.278
+___block_literal_global.282
+_OBJC_SELECTOR_REFERENCES_.286
+_OBJC_SELECTOR_REFERENCES_.292
+_OBJC_SELECTOR_REFERENCES_.294
+__OBJC_$_CLASS_METHODS_LookinDisplayItem
+__OBJC_CLASS_PROTOCOLS_$_LookinDisplayItem
+__OBJC_$_CLASS_PROP_LIST_LookinDisplayItem
+__OBJC_METACLASS_RO_$_LookinDisplayItem
+__OBJC_$_INSTANCE_METHODS_LookinDisplayItem
+_OBJC_IVAR_$_LookinDisplayItem._isHidden
+_OBJC_IVAR_$_LookinDisplayItem._representedAsKeyWindow
+_OBJC_IVAR_$_LookinDisplayItem._isExpanded
+_OBJC_IVAR_$_LookinDisplayItem._isExpandable
+_OBJC_IVAR_$_LookinDisplayItem._displayingInHierarchy
+_OBJC_IVAR_$_LookinDisplayItem._inHiddenHierarchy
+_OBJC_IVAR_$_LookinDisplayItem._avoidSyncScreenshot
+_OBJC_IVAR_$_LookinDisplayItem._noPreview
+_OBJC_IVAR_$_LookinDisplayItem._inNoPreviewHierarchy
+_OBJC_IVAR_$_LookinDisplayItem._preferToBeCollapsed
+_OBJC_IVAR_$_LookinDisplayItem._isSelected
+_OBJC_IVAR_$_LookinDisplayItem._isHovered
+_OBJC_IVAR_$_LookinDisplayItem._hasDeterminedExpansion
+_OBJC_IVAR_$_LookinDisplayItem._isInSearch
+_OBJC_IVAR_$_LookinDisplayItem._alpha
+_OBJC_IVAR_$_LookinDisplayItem._subitems
+_OBJC_IVAR_$_LookinDisplayItem._soloScreenshot
+_OBJC_IVAR_$_LookinDisplayItem._groupScreenshot
+_OBJC_IVAR_$_LookinDisplayItem._viewObject
+_OBJC_IVAR_$_LookinDisplayItem._layerObject
+_OBJC_IVAR_$_LookinDisplayItem._hostViewControllerObject
+_OBJC_IVAR_$_LookinDisplayItem._attributesGroupList
+_OBJC_IVAR_$_LookinDisplayItem._eventHandlers
+_OBJC_IVAR_$_LookinDisplayItem._previewItemDelegate
+_OBJC_IVAR_$_LookinDisplayItem._rowViewDelegate
+_OBJC_IVAR_$_LookinDisplayItem._backgroundColor
+_OBJC_IVAR_$_LookinDisplayItem._superItem
+_OBJC_IVAR_$_LookinDisplayItem._title
+_OBJC_IVAR_$_LookinDisplayItem._subtitle
+_OBJC_IVAR_$_LookinDisplayItem._screenshotEncodeType
+_OBJC_IVAR_$_LookinDisplayItem._previewLayer
+_OBJC_IVAR_$_LookinDisplayItem._previewNode
+_OBJC_IVAR_$_LookinDisplayItem._previewZIndex
+_OBJC_IVAR_$_LookinDisplayItem._highlightedSearchString
+_OBJC_IVAR_$_LookinDisplayItem._indentLevel
+_OBJC_IVAR_$_LookinDisplayItem._frame
+_OBJC_IVAR_$_LookinDisplayItem._bounds
+_OBJC_IVAR_$_LookinDisplayItem._frameToRoot
+__OBJC_$_INSTANCE_VARIABLES_LookinDisplayItem
+__OBJC_$_PROP_LIST_LookinDisplayItem
+__OBJC_CLASS_RO_$_LookinDisplayItem
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Shared/LookinDisplayItem.m
+LookinServer/Src/Shared/LookinDisplayItem.m
+LookinServer/Src/Shared/LookinDisplayItem.h
+__44-[LookinDisplayItem _updateSubtitleProperty]_block_invoke
+__45-[LookinDisplayItem setInNoPreviewHierarchy:]_block_invoke
+__31-[LookinDisplayItem setBounds:]_block_invoke
+__36-[LookinDisplayItem setFrameToRoot:]_block_invoke
+__52+[LookinDisplayItem flatItemsFromHierarchicalItems:]_block_invoke
+__46-[LookinDisplayItem enumerateSelfAndChildren:]_block_invoke
+__42-[LookinDisplayItem setInHiddenHierarchy:]_block_invoke
+__46-[LookinDisplayItem setDisplayingInHierarchy:]_block_invoke
+__35-[LookinDisplayItem setIsExpanded:]_block_invoke
+__33-[LookinDisplayItem setSubitems:]_block_invoke_2
+__33-[LookinDisplayItem setSubitems:]_block_invoke
+__50-[LookinDisplayItem itemIsKindOfClassesWithNames:]_block_invoke_2
+__50-[LookinDisplayItem itemIsKindOfClassesWithNames:]_block_invoke
+__44-[LookinDisplayItem setAttributesGroupList:]_block_invoke_3
+__44-[LookinDisplayItem setAttributesGroupList:]_block_invoke_2
+__44-[LookinDisplayItem setAttributesGroupList:]_block_invoke
+__34-[LookinDisplayItem copyWithZone:]_block_invoke_3
+__34-[LookinDisplayItem copyWithZone:]_block_invoke_2
+__34-[LookinDisplayItem copyWithZone:]_block_invoke
+-[LookinDisplayItemDetail encodeWithCoder:]
+-[LookinDisplayItemDetail initWithCoder:]
++[LookinDisplayItemDetail supportsSecureCoding]
+-[LookinDisplayItemDetail displayItemOid]
+-[LookinDisplayItemDetail setDisplayItemOid:]
+-[LookinDisplayItemDetail groupScreenshot]
+-[LookinDisplayItemDetail setGroupScreenshot:]
+-[LookinDisplayItemDetail soloScreenshot]
+-[LookinDisplayItemDetail setSoloScreenshot:]
+-[LookinDisplayItemDetail frameValue]
+-[LookinDisplayItemDetail setFrameValue:]
+-[LookinDisplayItemDetail boundsValue]
+-[LookinDisplayItemDetail setBoundsValue:]
+-[LookinDisplayItemDetail hiddenValue]
+-[LookinDisplayItemDetail setHiddenValue:]
+-[LookinDisplayItemDetail alphaValue]
+-[LookinDisplayItemDetail setAlphaValue:]
+-[LookinDisplayItemDetail attributesGroupList]
+-[LookinDisplayItemDetail setAttributesGroupList:]
+-[LookinDisplayItemDetail .cxx_destruct]
+_OBJC_CLASSLIST_REFERENCES_$_.59
+__OBJC_$_CLASS_METHODS_LookinDisplayItemDetail
+__OBJC_CLASS_PROTOCOLS_$_LookinDisplayItemDetail
+__OBJC_$_CLASS_PROP_LIST_LookinDisplayItemDetail
+__OBJC_METACLASS_RO_$_LookinDisplayItemDetail
+__OBJC_$_INSTANCE_METHODS_LookinDisplayItemDetail
+_OBJC_IVAR_$_LookinDisplayItemDetail._displayItemOid
+_OBJC_IVAR_$_LookinDisplayItemDetail._groupScreenshot
+_OBJC_IVAR_$_LookinDisplayItemDetail._soloScreenshot
+_OBJC_IVAR_$_LookinDisplayItemDetail._frameValue
+_OBJC_IVAR_$_LookinDisplayItemDetail._boundsValue
+_OBJC_IVAR_$_LookinDisplayItemDetail._hiddenValue
+_OBJC_IVAR_$_LookinDisplayItemDetail._alphaValue
+_OBJC_IVAR_$_LookinDisplayItemDetail._attributesGroupList
+__OBJC_$_INSTANCE_VARIABLES_LookinDisplayItemDetail
+__OBJC_$_PROP_LIST_LookinDisplayItemDetail
+__OBJC_CLASS_RO_$_LookinDisplayItemDetail
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Shared/LookinDisplayItemDetail.m
+LookinServer/Src/Shared/LookinDisplayItemDetail.m
+LookinServer/Src/Shared/LookinDisplayItemDetail.h
+-[LookinEventHandler copyWithZone:]
+___35-[LookinEventHandler copyWithZone:]_block_invoke
+-[LookinEventHandler encodeWithCoder:]
+-[LookinEventHandler initWithCoder:]
++[LookinEventHandler supportsSecureCoding]
+-[LookinEventHandler handlerType]
+-[LookinEventHandler setHandlerType:]
+-[LookinEventHandler eventName]
+-[LookinEventHandler setEventName:]
+-[LookinEventHandler targetActions]
+-[LookinEventHandler setTargetActions:]
+-[LookinEventHandler inheritedRecognizerName]
+-[LookinEventHandler setInheritedRecognizerName:]
+-[LookinEventHandler gestureRecognizerIsEnabled]
+-[LookinEventHandler setGestureRecognizerIsEnabled:]
+-[LookinEventHandler gestureRecognizerDelegator]
+-[LookinEventHandler setGestureRecognizerDelegator:]
+-[LookinEventHandler recognizerIvarTraces]
+-[LookinEventHandler setRecognizerIvarTraces:]
+-[LookinEventHandler recognizerOid]
+-[LookinEventHandler setRecognizerOid:]
+-[LookinEventHandler .cxx_destruct]
+___block_descriptor_32_e33_24?0Q8"LookinStringTwoTuple"16l
+__OBJC_$_CLASS_METHODS_LookinEventHandler
+__OBJC_CLASS_PROTOCOLS_$_LookinEventHandler
+__OBJC_$_CLASS_PROP_LIST_LookinEventHandler
+__OBJC_METACLASS_RO_$_LookinEventHandler
+__OBJC_$_INSTANCE_METHODS_LookinEventHandler
+_OBJC_IVAR_$_LookinEventHandler._gestureRecognizerIsEnabled
+_OBJC_IVAR_$_LookinEventHandler._handlerType
+_OBJC_IVAR_$_LookinEventHandler._eventName
+_OBJC_IVAR_$_LookinEventHandler._targetActions
+_OBJC_IVAR_$_LookinEventHandler._inheritedRecognizerName
+_OBJC_IVAR_$_LookinEventHandler._gestureRecognizerDelegator
+_OBJC_IVAR_$_LookinEventHandler._recognizerIvarTraces
+_OBJC_IVAR_$_LookinEventHandler._recognizerOid
+__OBJC_$_INSTANCE_VARIABLES_LookinEventHandler
+__OBJC_$_PROP_LIST_LookinEventHandler
+__OBJC_CLASS_RO_$_LookinEventHandler
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Shared/LookinEventHandler.m
+LookinServer/Src/Shared/LookinEventHandler.m
+LookinServer/Src/Shared/LookinEventHandler.h
+__35-[LookinEventHandler copyWithZone:]_block_invoke
+-[LookinHierarchyFile encodeWithCoder:]
+-[LookinHierarchyFile initWithCoder:]
++[LookinHierarchyFile supportsSecureCoding]
++[LookinHierarchyFile verifyHierarchyFile:]
+-[LookinHierarchyFile serverVersion]
+-[LookinHierarchyFile setServerVersion:]
+-[LookinHierarchyFile hierarchyInfo]
+-[LookinHierarchyFile setHierarchyInfo:]
+-[LookinHierarchyFile soloScreenshots]
+-[LookinHierarchyFile setSoloScreenshots:]
+-[LookinHierarchyFile groupScreenshots]
+-[LookinHierarchyFile setGroupScreenshots:]
+-[LookinHierarchyFile .cxx_destruct]
+_OBJC_CLASSLIST_REFERENCES_$_.66
+__OBJC_$_CLASS_METHODS_LookinHierarchyFile
+__OBJC_CLASS_PROTOCOLS_$_LookinHierarchyFile
+__OBJC_$_CLASS_PROP_LIST_LookinHierarchyFile
+__OBJC_METACLASS_RO_$_LookinHierarchyFile
+__OBJC_$_INSTANCE_METHODS_LookinHierarchyFile
+_OBJC_IVAR_$_LookinHierarchyFile._serverVersion
+_OBJC_IVAR_$_LookinHierarchyFile._hierarchyInfo
+_OBJC_IVAR_$_LookinHierarchyFile._soloScreenshots
+_OBJC_IVAR_$_LookinHierarchyFile._groupScreenshots
+__OBJC_$_INSTANCE_VARIABLES_LookinHierarchyFile
+__OBJC_$_PROP_LIST_LookinHierarchyFile
+__OBJC_CLASS_RO_$_LookinHierarchyFile
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Shared/LookinHierarchyFile.m
+LookinServer/Src/Shared/LookinHierarchyFile.m
+LookinServer/Src/Shared/LookinHierarchyFile.h
++[LookinHierarchyInfo configClass]
+___34+[LookinHierarchyInfo configClass]_block_invoke
++[LookinHierarchyInfo staticInfo]
++[LookinHierarchyInfo exportedInfo]
++[LookinHierarchyInfo perspectiveInfoWithIncludedWindows:excludedWindows:]
++[LookinHierarchyInfo collapsedClassList]
+___41+[LookinHierarchyInfo collapsedClassList]_block_invoke
++[LookinHierarchyInfo colorAlias]
+___33+[LookinHierarchyInfo colorAlias]_block_invoke
+___33+[LookinHierarchyInfo colorAlias]_block_invoke_2
+-[LookinHierarchyInfo encodeWithCoder:]
+-[LookinHierarchyInfo initWithCoder:]
++[LookinHierarchyInfo supportsSecureCoding]
+-[LookinHierarchyInfo copyWithZone:]
+___36-[LookinHierarchyInfo copyWithZone:]_block_invoke
+-[LookinHierarchyInfo displayItems]
+-[LookinHierarchyInfo setDisplayItems:]
+-[LookinHierarchyInfo colorAlias]
+-[LookinHierarchyInfo setColorAlias:]
+-[LookinHierarchyInfo collapsedClassList]
+-[LookinHierarchyInfo setCollapsedClassList:]
+-[LookinHierarchyInfo appInfo]
+-[LookinHierarchyInfo setAppInfo:]
+-[LookinHierarchyInfo serverVersion]
+-[LookinHierarchyInfo setServerVersion:]
+-[LookinHierarchyInfo serverSetupType]
+-[LookinHierarchyInfo setServerSetupType:]
+-[LookinHierarchyInfo .cxx_destruct]
+_configClass.onceToken
+_configClass.configClass
+___block_descriptor_32_e8_B16?08l
+___block_literal_global.67
+_OBJC_CLASSLIST_REFERENCES_$_.79
+___block_descriptor_40_e8_32r_e15_v32?0816^B24l
+___block_descriptor_40_e8_32s_e15_v32?0816^B24l
+___block_literal_global.118
+__OBJC_$_CLASS_METHODS_LookinHierarchyInfo
+__OBJC_CLASS_PROTOCOLS_$_LookinHierarchyInfo
+__OBJC_$_CLASS_PROP_LIST_LookinHierarchyInfo
+__OBJC_METACLASS_RO_$_LookinHierarchyInfo
+__OBJC_$_INSTANCE_METHODS_LookinHierarchyInfo
+_OBJC_IVAR_$_LookinHierarchyInfo._serverVersion
+_OBJC_IVAR_$_LookinHierarchyInfo._serverSetupType
+_OBJC_IVAR_$_LookinHierarchyInfo._displayItems
+_OBJC_IVAR_$_LookinHierarchyInfo._colorAlias
+_OBJC_IVAR_$_LookinHierarchyInfo._collapsedClassList
+_OBJC_IVAR_$_LookinHierarchyInfo._appInfo
+__OBJC_$_INSTANCE_VARIABLES_LookinHierarchyInfo
+__OBJC_$_PROP_LIST_LookinHierarchyInfo
+__OBJC_CLASS_RO_$_LookinHierarchyInfo
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Shared/LookinHierarchyInfo.m
+LookinServer/Src/Shared/LookinHierarchyInfo.m
+LookinServer/Src/Shared/LookinHierarchyInfo.h
+__36-[LookinHierarchyInfo copyWithZone:]_block_invoke
+__33+[LookinHierarchyInfo colorAlias]_block_invoke_2
+__33+[LookinHierarchyInfo colorAlias]_block_invoke
+__41+[LookinHierarchyInfo collapsedClassList]_block_invoke
+__34+[LookinHierarchyInfo configClass]_block_invoke
+-[LookinIvarTrace hash]
+-[LookinIvarTrace isEqual:]
+-[LookinIvarTrace copyWithZone:]
+-[LookinIvarTrace encodeWithCoder:]
+-[LookinIvarTrace initWithCoder:]
++[LookinIvarTrace supportsSecureCoding]
+-[LookinIvarTrace relation]
+-[LookinIvarTrace setRelation:]
+-[LookinIvarTrace hostClassName]
+-[LookinIvarTrace setHostClassName:]
+-[LookinIvarTrace ivarName]
+-[LookinIvarTrace setIvarName:]
+-[LookinIvarTrace hostObject]
+-[LookinIvarTrace setHostObject:]
+-[LookinIvarTrace .cxx_destruct]
+__OBJC_$_CLASS_METHODS_LookinIvarTrace
+__OBJC_CLASS_PROTOCOLS_$_LookinIvarTrace
+__OBJC_$_CLASS_PROP_LIST_LookinIvarTrace
+__OBJC_METACLASS_RO_$_LookinIvarTrace
+__OBJC_$_INSTANCE_METHODS_LookinIvarTrace
+_OBJC_IVAR_$_LookinIvarTrace._relation
+_OBJC_IVAR_$_LookinIvarTrace._hostClassName
+_OBJC_IVAR_$_LookinIvarTrace._ivarName
+_OBJC_IVAR_$_LookinIvarTrace._hostObject
+__OBJC_$_INSTANCE_VARIABLES_LookinIvarTrace
+__OBJC_$_PROP_LIST_LookinIvarTrace
+__OBJC_CLASS_RO_$_LookinIvarTrace
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Shared/LookinIvarTrace.m
+LookinServer/Src/Shared/LookinIvarTrace.m
+LookinServer/Src/Shared/LookinIvarTrace.h
+-[LookinMethodTraceRecordStackItem idx]
+-[LookinMethodTraceRecordStackItem setIdx:]
+-[LookinMethodTraceRecordStackItem category]
+-[LookinMethodTraceRecordStackItem setCategory:]
+-[LookinMethodTraceRecordStackItem detail]
+-[LookinMethodTraceRecordStackItem setDetail:]
+-[LookinMethodTraceRecordStackItem isSystemSeriesEnding]
+-[LookinMethodTraceRecordStackItem setIsSystemSeriesEnding:]
+-[LookinMethodTraceRecordStackItem isSystemItem]
+-[LookinMethodTraceRecordStackItem setIsSystemItem:]
+-[LookinMethodTraceRecordStackItem .cxx_destruct]
+-[LookinMethodTraceRecord encodeWithCoder:]
+-[LookinMethodTraceRecord initWithCoder:]
++[LookinMethodTraceRecord supportsSecureCoding]
+-[LookinMethodTraceRecord briefFormattedCallStacks]
+-[LookinMethodTraceRecord completeFormattedCallStacks]
+-[LookinMethodTraceRecord _makeCombinedTitle]
+___45-[LookinMethodTraceRecord _makeCombinedTitle]_block_invoke
+___45-[LookinMethodTraceRecord _makeCombinedTitle]_block_invoke_2
+-[LookinMethodTraceRecord _formattedStacksFromRawStacks:brief:]
+___63-[LookinMethodTraceRecord _formattedStacksFromRawStacks:brief:]_block_invoke
+___63-[LookinMethodTraceRecord _formattedStacksFromRawStacks:brief:]_block_invoke.148
+-[LookinMethodTraceRecord _formattedStackItemFromRawString:]
+___60-[LookinMethodTraceRecord _formattedStackItemFromRawString:]_block_invoke
+-[LookinMethodTraceRecord targetAddress]
+-[LookinMethodTraceRecord setTargetAddress:]
+-[LookinMethodTraceRecord selClassName]
+-[LookinMethodTraceRecord setSelClassName:]
+-[LookinMethodTraceRecord selName]
+-[LookinMethodTraceRecord setSelName:]
+-[LookinMethodTraceRecord args]
+-[LookinMethodTraceRecord setArgs:]
+-[LookinMethodTraceRecord callStacks]
+-[LookinMethodTraceRecord setCallStacks:]
+-[LookinMethodTraceRecord date]
+-[LookinMethodTraceRecord setDate:]
+-[LookinMethodTraceRecord combinedTitle]
+-[LookinMethodTraceRecord .cxx_destruct]
+__OBJC_METACLASS_RO_$_LookinMethodTraceRecordStackItem
+__OBJC_$_INSTANCE_METHODS_LookinMethodTraceRecordStackItem
+_OBJC_IVAR_$_LookinMethodTraceRecordStackItem._isSystemSeriesEnding
+_OBJC_IVAR_$_LookinMethodTraceRecordStackItem._isSystemItem
+_OBJC_IVAR_$_LookinMethodTraceRecordStackItem._idx
+_OBJC_IVAR_$_LookinMethodTraceRecordStackItem._category
+_OBJC_IVAR_$_LookinMethodTraceRecordStackItem._detail
+__OBJC_$_INSTANCE_VARIABLES_LookinMethodTraceRecordStackItem
+__OBJC_$_PROP_LIST_LookinMethodTraceRecordStackItem
+__OBJC_CLASS_RO_$_LookinMethodTraceRecordStackItem
+___block_descriptor_32_e18_B16?0"NSString"8l
+___block_descriptor_56_e8_32s40s48s_e25_v32?0"NSString"8Q16^B24l
+___block_descriptor_40_e8_32s_e21_24?0Q8"NSString"16l
+___block_descriptor_48_e8_32s40s_e49_v32?0"LookinMethodTraceRecordStackItem"8Q16^B24l
+___block_literal_global.159
+__OBJC_$_CLASS_METHODS_LookinMethodTraceRecord
+__OBJC_CLASS_PROTOCOLS_$_LookinMethodTraceRecord
+__OBJC_$_CLASS_PROP_LIST_LookinMethodTraceRecord
+__OBJC_METACLASS_RO_$_LookinMethodTraceRecord
+__OBJC_$_INSTANCE_METHODS_LookinMethodTraceRecord
+_OBJC_IVAR_$_LookinMethodTraceRecord._targetAddress
+_OBJC_IVAR_$_LookinMethodTraceRecord._selClassName
+_OBJC_IVAR_$_LookinMethodTraceRecord._selName
+_OBJC_IVAR_$_LookinMethodTraceRecord._args
+_OBJC_IVAR_$_LookinMethodTraceRecord._callStacks
+_OBJC_IVAR_$_LookinMethodTraceRecord._date
+_OBJC_IVAR_$_LookinMethodTraceRecord._combinedTitle
+__OBJC_$_INSTANCE_VARIABLES_LookinMethodTraceRecord
+__OBJC_$_PROP_LIST_LookinMethodTraceRecord
+__OBJC_CLASS_RO_$_LookinMethodTraceRecord
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Shared/LookinMethodTraceRecord.m
+LookinServer/Src/Shared/LookinMethodTraceRecord.m
+LookinServer/Src/Shared/LookinMethodTraceRecord.h
+__60-[LookinMethodTraceRecord _formattedStackItemFromRawString:]_block_invoke
+__63-[LookinMethodTraceRecord _formattedStacksFromRawStacks:brief:]_block_invoke.148
+__63-[LookinMethodTraceRecord _formattedStacksFromRawStacks:brief:]_block_invoke
+__45-[LookinMethodTraceRecord _makeCombinedTitle]_block_invoke_2
+__45-[LookinMethodTraceRecord _makeCombinedTitle]_block_invoke
+-[LookinMsgActionParams doubleValue]
+-[LookinMsgActionParams integerValue]
+-[LookinMsgActionParams boolValue]
+-[LookinMsgActionParams value]
+-[LookinMsgActionParams setValue:]
+-[LookinMsgActionParams setDoubleValue:]
+-[LookinMsgActionParams setIntegerValue:]
+-[LookinMsgActionParams setBoolValue:]
+-[LookinMsgActionParams relatedObject]
+-[LookinMsgActionParams setRelatedObject:]
+-[LookinMsgActionParams userInfo]
+-[LookinMsgActionParams setUserInfo:]
+-[LookinMsgActionParams .cxx_destruct]
++[LookinMsgAttribute attributeWithValue:]
+-[LookinMsgAttribute init]
+-[LookinMsgAttribute setValue:ignoreSubscriber:userInfo:]
+___57-[LookinMsgAttribute setValue:ignoreSubscriber:userInfo:]_block_invoke
+___copy_helper_block_e8_32s40s48s56r
+___destroy_helper_block_e8_32s40s48s56r
+-[LookinMsgAttribute subscribe:action:relatedObject:]
+-[LookinMsgAttribute subscribe:action:relatedObject:sendAtOnce:]
+-[LookinMsgAttribute currentValue]
+-[LookinMsgAttribute setCurrentValue:]
+-[LookinMsgAttribute subscribers]
+-[LookinMsgAttribute setSubscribers:]
+-[LookinMsgAttribute .cxx_destruct]
++[LookinDoubleMsgAttribute attributeWithDouble:]
+-[LookinDoubleMsgAttribute setDoubleValue:ignoreSubscriber:]
+-[LookinDoubleMsgAttribute currentDoubleValue]
++[LookinIntegerMsgAttribute attributeWithInteger:]
+-[LookinIntegerMsgAttribute setIntegerValue:ignoreSubscriber:]
+-[LookinIntegerMsgAttribute currentIntegerValue]
++[LookinBOOLMsgAttribute attributeWithBOOL:]
+-[LookinBOOLMsgAttribute setBOOLValue:ignoreSubscriber:]
+-[LookinBOOLMsgAttribute currentBOOLValue]
+__OBJC_METACLASS_RO_$_LookinMsgActionParams
+__OBJC_$_INSTANCE_METHODS_LookinMsgActionParams
+_OBJC_IVAR_$_LookinMsgActionParams._boolValue
+_OBJC_IVAR_$_LookinMsgActionParams._value
+_OBJC_IVAR_$_LookinMsgActionParams._doubleValue
+_OBJC_IVAR_$_LookinMsgActionParams._integerValue
+_OBJC_IVAR_$_LookinMsgActionParams._relatedObject
+_OBJC_IVAR_$_LookinMsgActionParams._userInfo
+__OBJC_$_INSTANCE_VARIABLES_LookinMsgActionParams
+__OBJC_$_PROP_LIST_LookinMsgActionParams
+__OBJC_CLASS_RO_$_LookinMsgActionParams
+___block_descriptor_64_e8_32s40s48s56r_e38_v32?0"LookinMsgTargetAction"8Q16^B24l
+__OBJC_$_CLASS_METHODS_LookinMsgAttribute
+__OBJC_METACLASS_RO_$_LookinMsgAttribute
+__OBJC_$_INSTANCE_METHODS_LookinMsgAttribute
+_OBJC_IVAR_$_LookinMsgAttribute._currentValue
+_OBJC_IVAR_$_LookinMsgAttribute._subscribers
+__OBJC_$_INSTANCE_VARIABLES_LookinMsgAttribute
+__OBJC_$_PROP_LIST_LookinMsgAttribute
+__OBJC_CLASS_RO_$_LookinMsgAttribute
+__OBJC_$_CLASS_METHODS_LookinDoubleMsgAttribute
+__OBJC_METACLASS_RO_$_LookinDoubleMsgAttribute
+__OBJC_$_INSTANCE_METHODS_LookinDoubleMsgAttribute
+__OBJC_$_PROP_LIST_LookinDoubleMsgAttribute
+__OBJC_CLASS_RO_$_LookinDoubleMsgAttribute
+__OBJC_$_CLASS_METHODS_LookinIntegerMsgAttribute
+__OBJC_METACLASS_RO_$_LookinIntegerMsgAttribute
+__OBJC_$_INSTANCE_METHODS_LookinIntegerMsgAttribute
+__OBJC_$_PROP_LIST_LookinIntegerMsgAttribute
+__OBJC_CLASS_RO_$_LookinIntegerMsgAttribute
+_OBJC_CLASSLIST_REFERENCES_$_.159
+__OBJC_$_CLASS_METHODS_LookinBOOLMsgAttribute
+__OBJC_METACLASS_RO_$_LookinBOOLMsgAttribute
+__OBJC_$_INSTANCE_METHODS_LookinBOOLMsgAttribute
+__OBJC_$_PROP_LIST_LookinBOOLMsgAttribute
+__OBJC_CLASS_RO_$_LookinBOOLMsgAttribute
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Shared/Message/LookinMsgAttribute.m
+LookinServer/Src/Shared/Message/LookinMsgAttribute.m
+LookinServer/Src/Shared/Message/LookinMsgAttribute.h
+__destroy_helper_block_e8_32s40s48s56r
+__copy_helper_block_e8_32s40s48s56r
+__57-[LookinMsgAttribute setValue:ignoreSubscriber:userInfo:]_block_invoke
+-[LookinMsgTargetAction hash]
+-[LookinMsgTargetAction isEqual:]
+-[LookinMsgTargetAction target]
+-[LookinMsgTargetAction setTarget:]
+-[LookinMsgTargetAction action]
+-[LookinMsgTargetAction setAction:]
+-[LookinMsgTargetAction relatedObject]
+-[LookinMsgTargetAction setRelatedObject:]
+-[LookinMsgTargetAction .cxx_destruct]
+__OBJC_METACLASS_RO_$_LookinMsgTargetAction
+__OBJC_$_INSTANCE_METHODS_LookinMsgTargetAction
+_OBJC_IVAR_$_LookinMsgTargetAction._target
+_OBJC_IVAR_$_LookinMsgTargetAction._action
+_OBJC_IVAR_$_LookinMsgTargetAction._relatedObject
+__OBJC_$_INSTANCE_VARIABLES_LookinMsgTargetAction
+__OBJC_$_PROP_LIST_LookinMsgTargetAction
+__OBJC_CLASS_RO_$_LookinMsgTargetAction
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Shared/Message/LookinMsgTargetAction.m
+LookinServer/Src/Shared/Message/LookinMsgTargetAction.m
+LookinServer/Src/Shared/Message/LookinMsgTargetAction.h
++[LookinObject instanceWithObject:]
+-[LookinObject copyWithZone:]
+___29-[LookinObject copyWithZone:]_block_invoke
+-[LookinObject encodeWithCoder:]
+-[LookinObject initWithCoder:]
+-[LookinObject setClassChainList:]
++[LookinObject supportsSecureCoding]
+-[LookinObject completedSelfClassName]
+-[LookinObject shortSelfClassName]
+-[LookinObject oid]
+-[LookinObject setOid:]
+-[LookinObject memoryAddress]
+-[LookinObject setMemoryAddress:]
+-[LookinObject classChainList]
+-[LookinObject specialTrace]
+-[LookinObject setSpecialTrace:]
+-[LookinObject ivarTraces]
+-[LookinObject setIvarTraces:]
+-[LookinObject .cxx_destruct]
+_OBJC_CLASSLIST_REFERENCES_$_.19
+__OBJC_$_CLASS_METHODS_LookinObject
+__OBJC_CLASS_PROTOCOLS_$_LookinObject
+__OBJC_$_CLASS_PROP_LIST_LookinObject
+__OBJC_METACLASS_RO_$_LookinObject
+__OBJC_$_INSTANCE_METHODS_LookinObject
+_OBJC_IVAR_$_LookinObject._oid
+_OBJC_IVAR_$_LookinObject._memoryAddress
+_OBJC_IVAR_$_LookinObject._classChainList
+_OBJC_IVAR_$_LookinObject._specialTrace
+_OBJC_IVAR_$_LookinObject._ivarTraces
+__OBJC_$_INSTANCE_VARIABLES_LookinObject
+__OBJC_$_PROP_LIST_LookinObject
+__OBJC_CLASS_RO_$_LookinObject
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Shared/LookinObject.m
+LookinServer/Src/Shared/LookinObject.m
+LookinServer/Src/Shared/LookinObject.h
+__29-[LookinObject copyWithZone:]_block_invoke
+__OBJC_METACLASS_RO_$_PodsDummy_LookinServer
+__OBJC_CLASS_RO_$_PodsDummy_LookinServer
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/Target Support Files/LookinServer/LookinServer-dummy.m
+-[LookinStaticAsyncUpdateTask encodeWithCoder:]
+-[LookinStaticAsyncUpdateTask initWithCoder:]
++[LookinStaticAsyncUpdateTask supportsSecureCoding]
+-[LookinStaticAsyncUpdateTask hash]
+-[LookinStaticAsyncUpdateTask isEqual:]
+-[LookinStaticAsyncUpdateTask oid]
+-[LookinStaticAsyncUpdateTask setOid:]
+-[LookinStaticAsyncUpdateTask taskType]
+-[LookinStaticAsyncUpdateTask setTaskType:]
+-[LookinStaticAsyncUpdateTask frameSize]
+-[LookinStaticAsyncUpdateTask setFrameSize:]
+-[LookinStaticAsyncUpdateTasksPackage encodeWithCoder:]
+-[LookinStaticAsyncUpdateTasksPackage initWithCoder:]
++[LookinStaticAsyncUpdateTasksPackage supportsSecureCoding]
+-[LookinStaticAsyncUpdateTasksPackage tasks]
+-[LookinStaticAsyncUpdateTasksPackage setTasks:]
+-[LookinStaticAsyncUpdateTasksPackage .cxx_destruct]
+__OBJC_$_CLASS_METHODS_LookinStaticAsyncUpdateTask
+__OBJC_CLASS_PROTOCOLS_$_LookinStaticAsyncUpdateTask
+__OBJC_$_CLASS_PROP_LIST_LookinStaticAsyncUpdateTask
+__OBJC_METACLASS_RO_$_LookinStaticAsyncUpdateTask
+__OBJC_$_INSTANCE_METHODS_LookinStaticAsyncUpdateTask
+_OBJC_IVAR_$_LookinStaticAsyncUpdateTask._oid
+_OBJC_IVAR_$_LookinStaticAsyncUpdateTask._taskType
+_OBJC_IVAR_$_LookinStaticAsyncUpdateTask._frameSize
+__OBJC_$_INSTANCE_VARIABLES_LookinStaticAsyncUpdateTask
+__OBJC_$_PROP_LIST_LookinStaticAsyncUpdateTask
+__OBJC_CLASS_RO_$_LookinStaticAsyncUpdateTask
+__OBJC_$_CLASS_METHODS_LookinStaticAsyncUpdateTasksPackage
+__OBJC_CLASS_PROTOCOLS_$_LookinStaticAsyncUpdateTasksPackage
+__OBJC_$_CLASS_PROP_LIST_LookinStaticAsyncUpdateTasksPackage
+__OBJC_METACLASS_RO_$_LookinStaticAsyncUpdateTasksPackage
+__OBJC_$_INSTANCE_METHODS_LookinStaticAsyncUpdateTasksPackage
+_OBJC_IVAR_$_LookinStaticAsyncUpdateTasksPackage._tasks
+__OBJC_$_INSTANCE_VARIABLES_LookinStaticAsyncUpdateTasksPackage
+__OBJC_$_PROP_LIST_LookinStaticAsyncUpdateTasksPackage
+__OBJC_CLASS_RO_$_LookinStaticAsyncUpdateTasksPackage
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Shared/LookinStaticAsyncUpdateTask.m
+LookinServer/Src/Shared/LookinStaticAsyncUpdateTask.m
+LookinServer/Src/Shared/LookinStaticAsyncUpdateTask.h
+-[LookinTwoTuple encodeWithCoder:]
+-[LookinTwoTuple initWithCoder:]
++[LookinTwoTuple supportsSecureCoding]
+-[LookinTwoTuple hash]
+-[LookinTwoTuple isEqual:]
+-[LookinTwoTuple first]
+-[LookinTwoTuple setFirst:]
+-[LookinTwoTuple second]
+-[LookinTwoTuple setSecond:]
+-[LookinTwoTuple .cxx_destruct]
++[LookinStringTwoTuple tupleWithFirst:second:]
+-[LookinStringTwoTuple copyWithZone:]
+-[LookinStringTwoTuple encodeWithCoder:]
+-[LookinStringTwoTuple initWithCoder:]
++[LookinStringTwoTuple supportsSecureCoding]
+-[LookinStringTwoTuple first]
+-[LookinStringTwoTuple setFirst:]
+-[LookinStringTwoTuple second]
+-[LookinStringTwoTuple setSecond:]
+-[LookinStringTwoTuple .cxx_destruct]
+__OBJC_$_CLASS_METHODS_LookinTwoTuple
+__OBJC_CLASS_PROTOCOLS_$_LookinTwoTuple
+__OBJC_$_CLASS_PROP_LIST_LookinTwoTuple
+__OBJC_METACLASS_RO_$_LookinTwoTuple
+__OBJC_$_INSTANCE_METHODS_LookinTwoTuple
+_OBJC_IVAR_$_LookinTwoTuple._first
+_OBJC_IVAR_$_LookinTwoTuple._second
+__OBJC_$_INSTANCE_VARIABLES_LookinTwoTuple
+__OBJC_$_PROP_LIST_LookinTwoTuple
+__OBJC_CLASS_RO_$_LookinTwoTuple
+__OBJC_$_CLASS_METHODS_LookinStringTwoTuple
+__OBJC_CLASS_PROTOCOLS_$_LookinStringTwoTuple
+__OBJC_$_CLASS_PROP_LIST_LookinStringTwoTuple
+__OBJC_METACLASS_RO_$_LookinStringTwoTuple
+__OBJC_$_INSTANCE_METHODS_LookinStringTwoTuple
+_OBJC_IVAR_$_LookinStringTwoTuple._first
+_OBJC_IVAR_$_LookinStringTwoTuple._second
+__OBJC_$_INSTANCE_VARIABLES_LookinStringTwoTuple
+__OBJC_$_PROP_LIST_LookinStringTwoTuple
+__OBJC_CLASS_RO_$_LookinStringTwoTuple
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Shared/LookinTuple.m
+LookinServer/Src/Shared/LookinTuple.m
+LookinServer/Src/Shared/LookinTuple.h
++[LookinWeakContainer containerWithObject:]
+-[LookinWeakContainer hash]
+-[LookinWeakContainer isEqual:]
+-[LookinWeakContainer object]
+-[LookinWeakContainer setObject:]
+-[LookinWeakContainer .cxx_destruct]
+__OBJC_$_CLASS_METHODS_LookinWeakContainer
+__OBJC_METACLASS_RO_$_LookinWeakContainer
+__OBJC_$_INSTANCE_METHODS_LookinWeakContainer
+_OBJC_IVAR_$_LookinWeakContainer._object
+__OBJC_$_INSTANCE_VARIABLES_LookinWeakContainer
+__OBJC_$_PROP_LIST_LookinWeakContainer
+__OBJC_CLASS_RO_$_LookinWeakContainer
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Shared/LookinWeakContainer.m
+LookinServer/Src/Shared/LookinWeakContainer.m
+LookinServer/Src/Shared/LookinWeakContainer.h
+-[NSArray(Lookin) lookin_resizeWithCount:add:remove:doNext:]
++[NSArray(Lookin) lookin_arrayWithCount:block:]
+-[NSArray(Lookin) lookin_hasIndex:]
+-[NSArray(Lookin) lookin_map:]
+___30-[NSArray(Lookin) lookin_map:]_block_invoke
+-[NSArray(Lookin) lookin_filter:]
+___33-[NSArray(Lookin) lookin_filter:]_block_invoke
+-[NSArray(Lookin) lookin_firstFiltered:]
+___40-[NSArray(Lookin) lookin_firstFiltered:]_block_invoke
+___copy_helper_block_e8_32b40r
+-[NSArray(Lookin) lookin_lastFiltered:]
+___39-[NSArray(Lookin) lookin_lastFiltered:]_block_invoke
+-[NSArray(Lookin) lookin_reduce:]
+___33-[NSArray(Lookin) lookin_reduce:]_block_invoke
+-[NSArray(Lookin) lookin_reduceCGFloat:initialAccumlator:]
+___58-[NSArray(Lookin) lookin_reduceCGFloat:initialAccumlator:]_block_invoke
+-[NSArray(Lookin) lookin_reduceInteger:initialAccumlator:]
+___58-[NSArray(Lookin) lookin_reduceInteger:initialAccumlator:]_block_invoke
+-[NSArray(Lookin) lookin_all:]
+___30-[NSArray(Lookin) lookin_all:]_block_invoke
+-[NSArray(Lookin) lookin_any:]
+___30-[NSArray(Lookin) lookin_any:]_block_invoke
+-[NSArray(Lookin) lookin_arrayByRemovingObject:]
+-[NSArray(Lookin) lookin_nonredundantArray]
+-[NSArray(Lookin) lookin_safeObjectAtIndex:]
+-[NSArray(Lookin) lookin_sortedArrayByStringLength]
+___51-[NSArray(Lookin) lookin_sortedArrayByStringLength]_block_invoke
+-[NSMutableArray(Lookin) lookin_dequeueWithCount:add:notDequeued:doNext:]
+-[NSMutableArray(Lookin) lookin_removeObjectsPassingTest:]
+___58-[NSMutableArray(Lookin) lookin_removeObjectsPassingTest:]_block_invoke
+___block_descriptor_48_e8_32bs40s_e15_v32?08Q16^B24l
+___block_descriptor_48_e8_32bs40r_e15_v32?08Q16^B24l
+___block_descriptor_32_e31_q24?0"NSString"8"NSString"16l
+__OBJC_$_CATEGORY_INSTANCE_METHODS_NSArray_$_Lookin
+__OBJC_$_CATEGORY_CLASS_METHODS_NSArray_$_Lookin
+__OBJC_$_CATEGORY_NSArray_$_Lookin
+__OBJC_$_CATEGORY_INSTANCE_METHODS_NSMutableArray_$_Lookin
+__OBJC_$_CATEGORY_NSMutableArray_$_Lookin
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Shared/Category/NSArray+Lookin.m
+__58-[NSMutableArray(Lookin) lookin_removeObjectsPassingTest:]_block_invoke
+LookinServer/Src/Shared/Category/NSArray+Lookin.m
+__51-[NSArray(Lookin) lookin_sortedArrayByStringLength]_block_invoke
+__30-[NSArray(Lookin) lookin_any:]_block_invoke
+__30-[NSArray(Lookin) lookin_all:]_block_invoke
+__58-[NSArray(Lookin) lookin_reduceInteger:initialAccumlator:]_block_invoke
+__58-[NSArray(Lookin) lookin_reduceCGFloat:initialAccumlator:]_block_invoke
+__33-[NSArray(Lookin) lookin_reduce:]_block_invoke
+__39-[NSArray(Lookin) lookin_lastFiltered:]_block_invoke
+__copy_helper_block_e8_32b40r
+__40-[NSArray(Lookin) lookin_firstFiltered:]_block_invoke
+__33-[NSArray(Lookin) lookin_filter:]_block_invoke
+__30-[NSArray(Lookin) lookin_map:]_block_invoke
+-[NSObject(Lookin) lookin_allBindObjects]
+-[NSObject(Lookin) lookin_bindObject:forKey:]
+-[NSObject(Lookin) lookin_getBindObjectForKey:]
+-[NSObject(Lookin) lookin_bindObjectWeakly:forKey:]
+-[NSObject(Lookin) lookin_bindDouble:forKey:]
+-[NSObject(Lookin) lookin_getBindDoubleForKey:]
+-[NSObject(Lookin) lookin_bindBOOL:forKey:]
+-[NSObject(Lookin) lookin_getBindBOOLForKey:]
+-[NSObject(Lookin) lookin_bindLong:forKey:]
+-[NSObject(Lookin) lookin_getBindLongForKey:]
+-[NSObject(Lookin) lookin_bindPoint:forKey:]
+-[NSObject(Lookin) lookin_getBindPointForKey:]
+-[NSObject(Lookin) lookin_clearBindForKey:]
+-[NSObject(Lookin_Coding) lookin_encodedObjectWithType:]
+-[NSObject(Lookin_Coding) lookin_decodedObjectWithType:]
+_kAssociatedObjectKey_LookinAllBindObjects
+__OBJC_$_CATEGORY_INSTANCE_METHODS_NSObject_$_Lookin
+__OBJC_$_CATEGORY_NSObject_$_Lookin
+__OBJC_$_CATEGORY_INSTANCE_METHODS_NSObject_$_Lookin_Coding
+__OBJC_$_CATEGORY_NSObject_$_Lookin_Coding
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Shared/Category/NSObject+Lookin.m
+LookinServer/Src/Shared/Category/NSObject+Lookin.m
+-[NSObject(LookinServer) lks_registerOid]
+-[NSObject(LookinServer) setLks_oid:]
+-[NSObject(LookinServer) lks_oid]
++[NSObject(LookinServer) lks_objectWithOid:]
+-[NSObject(LookinServer) setLks_ivarTraces:]
+-[NSObject(LookinServer) lks_ivarTraces]
+-[NSObject(LookinServer) setLks_specialTrace:]
+-[NSObject(LookinServer) lks_specialTrace]
++[NSObject(LookinServer) lks_clearAllObjectsTraces]
+___51+[NSObject(LookinServer) lks_clearAllObjectsTraces]_block_invoke
++[NSObject(LookinServer) lks_allObjectsWithTraces]
+___50+[NSObject(LookinServer) lks_allObjectsWithTraces]_block_invoke
+-[NSObject(LookinServer) lks_classChainListWithSwiftPrefix:]
+-[NSObject(LookinServer) lks_shortClassName]
+___block_descriptor_32_e25_v32?0"NSObject"8Q16^B24l
+_lks_allObjectsWithTraces.onceToken
+_lks_allObjectsWithTraces.lks_allObjectsWithTraces
+___block_literal_global.57
+__OBJC_$_CATEGORY_INSTANCE_METHODS_NSObject_$_LookinServer
+__OBJC_$_CATEGORY_CLASS_METHODS_NSObject_$_LookinServer
+__OBJC_$_PROP_LIST_NSObject_$_LookinServer
+__OBJC_$_CATEGORY_NSObject_$_LookinServer
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Server/Category/NSObject+LookinServer.m
+LookinServer/Src/Server/Category/NSObject+LookinServer.m
+__50+[NSObject(LookinServer) lks_allObjectsWithTraces]_block_invoke
+__51+[NSObject(LookinServer) lks_clearAllObjectsTraces]_block_invoke
+-[NSSet(Lookin) lookin_map:]
+___28-[NSSet(Lookin) lookin_map:]_block_invoke
+-[NSSet(Lookin) lookin_firstFiltered:]
+___38-[NSSet(Lookin) lookin_firstFiltered:]_block_invoke
+-[NSSet(Lookin) lookin_filter:]
+___31-[NSSet(Lookin) lookin_filter:]_block_invoke
+-[NSSet(Lookin) lookin_any:]
+___28-[NSSet(Lookin) lookin_any:]_block_invoke
+___block_descriptor_48_e8_32bs40s_e12_v24?08^B16l
+___block_descriptor_48_e8_32bs40r_e12_v24?08^B16l
+__OBJC_$_CATEGORY_INSTANCE_METHODS_NSSet_$_Lookin
+__OBJC_$_CATEGORY_NSSet_$_Lookin
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Shared/Category/NSSet+Lookin.m
+__28-[NSSet(Lookin) lookin_any:]_block_invoke
+LookinServer/Src/Shared/Category/NSSet+Lookin.m
+__31-[NSSet(Lookin) lookin_filter:]_block_invoke
+__38-[NSSet(Lookin) lookin_firstFiltered:]_block_invoke
+__28-[NSSet(Lookin) lookin_map:]_block_invoke
++[NSString(Lookin) lookin_stringFromDouble:decimal:]
++[NSString(Lookin) lookin_stringFromInset:]
++[NSString(Lookin) lookin_stringFromSize:]
++[NSString(Lookin) lookin_stringFromPoint:]
++[NSString(Lookin) lookin_stringFromRect:]
++[NSString(Lookin) lookin_rgbaStringFromColor:]
+-[NSString(Lookin) lookin_safeInitWithUTF8String:]
+-[NSString(Lookin) lookin_shortClassNameString]
+__OBJC_$_CATEGORY_INSTANCE_METHODS_NSString_$_Lookin
+__OBJC_$_CATEGORY_CLASS_METHODS_NSString_$_Lookin
+__OBJC_$_CATEGORY_NSString_$_Lookin
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Shared/Category/NSString+Lookin.m
+LookinServer/Src/Shared/Category/NSString+Lookin.m
++[PTChannel channelWithDelegate:]
+-[PTChannel initWithProtocol:delegate:]
+-[PTChannel initWithProtocol:]
+-[PTChannel init]
+-[PTChannel dealloc]
+-[PTChannel isConnected]
+-[PTChannel isListening]
+-[PTChannel userInfo]
+-[PTChannel setUserInfo:]
+-[PTChannel setConnState:]
+-[PTChannel setDispatchChannel:]
+-[PTChannel setDispatchSource:]
+-[PTChannel delegate]
+-[PTChannel setDelegate:]
+-[PTChannel connectToPort:overUSBHub:deviceID:callback:]
+___56-[PTChannel connectToPort:overUSBHub:deviceID:callback:]_block_invoke
+___copy_helper_block_e8_32s40b
+___56-[PTChannel connectToPort:overUSBHub:deviceID:callback:]_block_invoke.29
+-[PTChannel connectToPort:IPv4Address:callback:]
+___48-[PTChannel connectToPort:IPv4Address:callback:]_block_invoke
+-[PTChannel listenOnPort:IPv4Address:callback:]
+___47-[PTChannel listenOnPort:IPv4Address:callback:]_block_invoke
+___47-[PTChannel listenOnPort:IPv4Address:callback:]_block_invoke.49
+-[PTChannel acceptIncomingConnection:]
+___38-[PTChannel acceptIncomingConnection:]_block_invoke
+-[PTChannel close]
+-[PTChannel cancel]
+-[PTChannel startReadingFromConnectedChannel:error:]
+___52-[PTChannel startReadingFromConnectedChannel:error:]_block_invoke
+___52-[PTChannel startReadingFromConnectedChannel:error:]_block_invoke.64
+___52-[PTChannel startReadingFromConnectedChannel:error:]_block_invoke_2
+___copy_helper_block_e8_32b40b
+___52-[PTChannel startReadingFromConnectedChannel:error:]_block_invoke.70
+___copy_helper_block_e8_32b40s48b
+___copy_helper_block_e8_32b40s48s
+-[PTChannel sendFrameOfType:tag:withPayload:callback:]
+-[PTChannel description]
+-[PTChannel protocol]
+-[PTChannel setProtocol:]
+-[PTChannel .cxx_destruct]
+-[PTAddress initWithSockaddr:]
+-[PTAddress name]
+-[PTAddress port]
+-[PTAddress description]
+-[PTData initWithMappedDispatchData:data:length:]
+-[PTData dealloc]
+-[PTData description]
+-[PTData dispatchData]
+-[PTData data]
+-[PTData length]
+-[PTData .cxx_destruct]
+-[PTChannel setDispatchChannel:].cold.1
+-[PTChannel setDispatchSource:].cold.1
+-[PTChannel connectToPort:overUSBHub:deviceID:callback:].cold.1
+-[PTChannel connectToPort:IPv4Address:callback:].cold.1
+-[PTChannel connectToPort:IPv4Address:callback:].cold.2
+-[PTChannel listenOnPort:IPv4Address:callback:].cold.1
+-[PTAddress initWithSockaddr:].cold.1
+_OBJC_CLASSLIST_REFERENCES_$_.1
+_OBJC_SELECTOR_REFERENCES_.3
+_OBJC_SELECTOR_REFERENCES_.5
+_kUserInfoKey
+___block_descriptor_48_e8_32s40bs_e46_v24?0"NSError"8"NSObject<OS_dispatch_io>"16l
+___block_descriptor_40_e8_32s_e17_v16?0"NSError"8l
+___block_descriptor_44_e8_32s_e8_v12?0i8l
+___block_descriptor_44_e8_32s_e5_v8?0l
+___block_descriptor_52_e8_32s40r_e8_v12?0i8l
+___block_descriptor_40_e8_32s_e20_B20?0"NSError"8B16l
+___block_descriptor_48_e8_32bs40bs_e20_v20?0"NSError"8B16l
+___block_descriptor_64_e8_32bs40s48bs_e55_v40?0"NSError"8"NSObject<OS_dispatch_data>"16r*24Q32l
+___block_descriptor_56_e8_32bs40s48s_e35_v36?0"NSError"8I16I20I24?<v?>28l
+__OBJC_$_CLASS_METHODS_PTChannel
+__OBJC_METACLASS_RO_$_PTChannel
+__OBJC_$_INSTANCE_METHODS_PTChannel
+_OBJC_IVAR_$_PTChannel.dispatchObj_channel_
+_OBJC_IVAR_$_PTChannel.dispatchObj_source_
+_OBJC_IVAR_$_PTChannel.endError_
+_OBJC_IVAR_$_PTChannel.connState_
+_OBJC_IVAR_$_PTChannel.protocol_
+__OBJC_$_INSTANCE_VARIABLES_PTChannel
+__OBJC_$_PROP_LIST_PTChannel
+__OBJC_CLASS_RO_$_PTChannel
+__OBJC_METACLASS_RO_$_PTAddress
+__OBJC_$_INSTANCE_METHODS_PTAddress
+_OBJC_IVAR_$_PTAddress.sockaddr_
+__OBJC_$_INSTANCE_VARIABLES_PTAddress
+__OBJC_$_PROP_LIST_PTAddress
+__OBJC_CLASS_RO_$_PTAddress
+__OBJC_METACLASS_RO_$_PTData
+__OBJC_$_INSTANCE_METHODS_PTData
+_OBJC_IVAR_$_PTData.dispatchData_
+_OBJC_IVAR_$_PTData.data_
+_OBJC_IVAR_$_PTData.length_
+__OBJC_$_INSTANCE_VARIABLES_PTData
+__OBJC_$_PROP_LIST_PTData
+__OBJC_CLASS_RO_$_PTData
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Shared/Peertalk/PTChannel.m
+-[PTAddress initWithSockaddr:].cold.1
+LookinServer/Src/Shared/Peertalk/PTChannel.m
+-[PTChannel listenOnPort:IPv4Address:callback:].cold.1
+-[PTChannel connectToPort:IPv4Address:callback:].cold.2
+-[PTChannel connectToPort:IPv4Address:callback:].cold.1
+-[PTChannel connectToPort:overUSBHub:deviceID:callback:].cold.1
+-[PTChannel setDispatchSource:].cold.1
+-[PTChannel setDispatchChannel:].cold.1
+__copy_helper_block_e8_32b40s48s
+__copy_helper_block_e8_32b40s48b
+__52-[PTChannel startReadingFromConnectedChannel:error:]_block_invoke.70
+__copy_helper_block_e8_32b40b
+__52-[PTChannel startReadingFromConnectedChannel:error:]_block_invoke_2
+__52-[PTChannel startReadingFromConnectedChannel:error:]_block_invoke.64
+__52-[PTChannel startReadingFromConnectedChannel:error:]_block_invoke
+__38-[PTChannel acceptIncomingConnection:]_block_invoke
+__47-[PTChannel listenOnPort:IPv4Address:callback:]_block_invoke.49
+__47-[PTChannel listenOnPort:IPv4Address:callback:]_block_invoke
+__48-[PTChannel connectToPort:IPv4Address:callback:]_block_invoke
+__56-[PTChannel connectToPort:overUSBHub:deviceID:callback:]_block_invoke.29
+__copy_helper_block_e8_32s40b
+__56-[PTChannel connectToPort:overUSBHub:deviceID:callback:]_block_invoke
+-[RQueueLocalIOFrameProtocol setQueue:]
++[PTProtocol sharedProtocolForQueue:]
+__release_queue_local_protocol
+-[PTProtocol initWithDispatchQueue:]
+-[PTProtocol init]
+-[PTProtocol dealloc]
+-[PTProtocol queue]
+-[PTProtocol setQueue:]
+-[PTProtocol newTag]
+-[PTProtocol createDispatchDataWithFrameOfType:frameTag:payload:]
+___65-[PTProtocol createDispatchDataWithFrameOfType:frameTag:payload:]_block_invoke
+-[PTProtocol sendFrameOfType:tag:withPayload:overChannel:callback:]
+___67-[PTProtocol sendFrameOfType:tag:withPayload:overChannel:callback:]_block_invoke
+-[PTProtocol readFrameOverChannel:callback:]
+___44-[PTProtocol readFrameOverChannel:callback:]_block_invoke
+-[PTProtocol readPayloadOfSize:overChannel:callback:]
+___53-[PTProtocol readPayloadOfSize:overChannel:callback:]_block_invoke
+-[PTProtocol readAndDiscardDataOfSize:overChannel:callback:]
+___60-[PTProtocol readAndDiscardDataOfSize:overChannel:callback:]_block_invoke
+-[PTProtocol readFramesOverChannel:onFrame:]
+___44-[PTProtocol readFramesOverChannel:onFrame:]_block_invoke
+___44-[PTProtocol readFramesOverChannel:onFrame:]_block_invoke_2
+___copy_helper_block_e8_32s40s48b
+-[PTProtocol .cxx_destruct]
+-[_PTDispatchData initWithDispatchData:]
+-[_PTDispatchData dealloc]
+-[_PTDispatchData .cxx_destruct]
+-[NSData(PTProtocol) createReferencingDispatchData]
+___51-[NSData(PTProtocol) createReferencingDispatchData]_block_invoke
++[NSData(PTProtocol) dataWithContentsOfDispatchData:]
+-[NSDictionary(PTProtocol) createReferencingDispatchData]
++[NSDictionary(PTProtocol) dictionaryWithContentsOfDispatchData:]
+-[PTProtocol createDispatchDataWithFrameOfType:frameTag:payload:].cold.1
+__OBJC_METACLASS_RO_$_RQueueLocalIOFrameProtocol
+__OBJC_$_INSTANCE_METHODS_RQueueLocalIOFrameProtocol
+__OBJC_CLASS_RO_$_RQueueLocalIOFrameProtocol
+_sharedProtocolForQueue:.currentQueueFrameProtocolKey
+___block_descriptor_40_e5_v8?0l
+_OBJC_CLASSLIST_REFERENCES_$_.12
+___block_descriptor_40_e8_32bs_e42_v24?0B8"NSObject<OS_dispatch_data>"12i20l
+___block_descriptor_48_e8_32bs40r_e42_v24?0B8"NSObject<OS_dispatch_data>"12i20l
+___block_descriptor_60_e8_32s40s48bs_e5_v8?0l
+___block_descriptor_56_e8_32bs40s48s_e26_v28?0"NSError"8I16I20I24l
+__OBJC_$_CLASS_METHODS_PTProtocol
+__OBJC_METACLASS_RO_$_PTProtocol
+__OBJC_$_INSTANCE_METHODS_PTProtocol
+_OBJC_IVAR_$_PTProtocol.nextFrameTag_
+__OBJC_$_INSTANCE_VARIABLES_PTProtocol
+__OBJC_$_PROP_LIST_PTProtocol
+__OBJC_CLASS_RO_$_PTProtocol
+__OBJC_METACLASS_RO_$__PTDispatchData
+__OBJC_$_INSTANCE_METHODS__PTDispatchData
+__OBJC_$_INSTANCE_VARIABLES__PTDispatchData
+__OBJC_CLASS_RO_$__PTDispatchData
+_OBJC_CLASSLIST_REFERENCES_$_.55
+__OBJC_$_CATEGORY_INSTANCE_METHODS_NSData_$_PTProtocol
+__OBJC_$_CATEGORY_CLASS_METHODS_NSData_$_PTProtocol
+__OBJC_$_CATEGORY_NSData_$_PTProtocol
+__OBJC_$_CATEGORY_INSTANCE_METHODS_NSDictionary_$_PTProtocol
+__OBJC_$_CATEGORY_CLASS_METHODS_NSDictionary_$_PTProtocol
+__OBJC_$_CATEGORY_NSDictionary_$_PTProtocol
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Shared/Peertalk/PTProtocol.m
+-[PTProtocol createDispatchDataWithFrameOfType:frameTag:payload:].cold.1
+LookinServer/Src/Shared/Peertalk/PTProtocol.m
+__51-[NSData(PTProtocol) createReferencingDispatchData]_block_invoke
+__copy_helper_block_e8_32s40s48b
+__44-[PTProtocol readFramesOverChannel:onFrame:]_block_invoke_2
+__44-[PTProtocol readFramesOverChannel:onFrame:]_block_invoke
+__60-[PTProtocol readAndDiscardDataOfSize:overChannel:callback:]_block_invoke
+__53-[PTProtocol readPayloadOfSize:overChannel:callback:]_block_invoke
+__44-[PTProtocol readFrameOverChannel:callback:]_block_invoke
+__67-[PTProtocol sendFrameOfType:tag:withPayload:overChannel:callback:]_block_invoke
+__65-[PTProtocol createDispatchDataWithFrameOfType:frameTag:payload:]_block_invoke
+_release_queue_local_protocol
++[PTUSBHub sharedHub]
+___21+[PTUSBHub sharedHub]_block_invoke
+___21+[PTUSBHub sharedHub]_block_invoke_2
+-[PTUSBHub init]
+-[PTUSBHub listenOnQueue:onStart:onEnd:]
+___40-[PTUSBHub listenOnQueue:onStart:onEnd:]_block_invoke
+-[PTUSBHub connectToDevice:port:onStart:onEnd:]
+___47-[PTUSBHub connectToDevice:port:onStart:onEnd:]_block_invoke
+-[PTUSBHub handleBroadcastPacket:]
+-[PTUSBHub .cxx_destruct]
++[PTUSBChannel packetDictionaryWithPacketType:payload:]
+___55+[PTUSBChannel packetDictionaryWithPacketType:payload:]_block_invoke
+-[PTUSBChannel init]
+-[PTUSBChannel dealloc]
+-[PTUSBChannel valid]
+-[PTUSBChannel dispatchChannel]
+-[PTUSBChannel fileDescriptor]
+-[PTUSBChannel openOnQueue:error:onEnd:]
+___40-[PTUSBChannel openOnQueue:error:onEnd:]_block_invoke
+-[PTUSBChannel listenWithBroadcastHandler:callback:]
+___52-[PTUSBChannel listenWithBroadcastHandler:callback:]_block_invoke
+-[PTUSBChannel errorFromPlistResponse:error:]
+-[PTUSBChannel nextPacketTag]
+-[PTUSBChannel sendRequest:callback:]
+___37-[PTUSBChannel sendRequest:callback:]_block_invoke
+-[PTUSBChannel setNeedsReadingPacket]
+-[PTUSBChannel scheduleReadPacketWithBroadcastHandler:]
+___55-[PTUSBChannel scheduleReadPacketWithBroadcastHandler:]_block_invoke
+-[PTUSBChannel scheduleReadPacketWithCallback:]
+___47-[PTUSBChannel scheduleReadPacketWithCallback:]_block_invoke
+_usbmux_packet_alloc
+___47-[PTUSBChannel scheduleReadPacketWithCallback:]_block_invoke_2
+-[PTUSBChannel sendPacketOfType:overProtocol:tag:payload:callback:]
+___67-[PTUSBChannel sendPacketOfType:overProtocol:tag:payload:callback:]_block_invoke
+-[PTUSBChannel sendPacket:tag:callback:]
+-[PTUSBChannel sendDispatchData:callback:]
+___42-[PTUSBChannel sendDispatchData:callback:]_block_invoke
+-[PTUSBChannel sendData:callback:]
+___34-[PTUSBChannel sendData:callback:]_block_invoke
+-[PTUSBChannel readFromOffset:length:callback:]
+___47-[PTUSBChannel readFromOffset:length:callback:]_block_invoke
+-[PTUSBChannel cancel]
+-[PTUSBChannel stop]
+-[PTUSBChannel .cxx_destruct]
+-[PTUSBChannel openOnQueue:error:onEnd:].cold.1
+-[PTUSBChannel openOnQueue:error:onEnd:].cold.2
+-[PTUSBChannel scheduleReadPacketWithBroadcastHandler:].cold.1
+___47-[PTUSBChannel scheduleReadPacketWithCallback:]_block_invoke.cold.1
+_usbmux_packet_alloc.cold.1
+___47-[PTUSBChannel scheduleReadPacketWithCallback:]_block_invoke_2.cold.1
+-[PTUSBChannel sendPacketOfType:overProtocol:tag:payload:callback:].cold.1
+_sharedHub.gSharedHub
+_sharedHub.onceToken
+___block_literal_global.11
+___block_descriptor_40_e8_32s_e22_v16?0"NSDictionary"8l
+_OBJC_CLASSLIST_REFERENCES_$_.29
+___block_descriptor_48_e8_32s40bs_e34_v24?0"NSError"8"NSDictionary"16l
+__OBJC_$_CLASS_METHODS_PTUSBHub
+__OBJC_METACLASS_RO_$_PTUSBHub
+__OBJC_$_INSTANCE_METHODS_PTUSBHub
+_OBJC_IVAR_$_PTUSBHub.channel_
+__OBJC_$_INSTANCE_VARIABLES_PTUSBHub
+__OBJC_CLASS_RO_$_PTUSBHub
+_packetDictionaryWithPacketType:payload:.bundleName
+_packetDictionaryWithPacketType:payload:.bundleVersion
+_packetDictionaryWithPacketType:payload:.onceToken
+___block_literal_global.72
+_OBJC_CLASSLIST_REFERENCES_$_.88
+___block_descriptor_44_e8_32bs_e8_v12?0i8l
+___block_descriptor_48_e8_32bs40s_e34_v24?0"NSError"8"NSDictionary"16l
+___block_descriptor_52_e8_32bs40s_e17_v16?0"NSError"8l
+___block_descriptor_48_e8_32bs40s_e37_v28?0"NSError"8"NSDictionary"16I24l
+___block_descriptor_68_e8_32s40bs_e42_v24?0B8"NSObject<OS_dispatch_data>"12i20l
+___block_descriptor_48_e8_32s40bs_e42_v24?0B8"NSObject<OS_dispatch_data>"12i20l
+__OBJC_$_CLASS_METHODS_PTUSBChannel
+__OBJC_METACLASS_RO_$_PTUSBChannel
+__OBJC_$_INSTANCE_METHODS_PTUSBChannel
+__OBJC_$_INSTANCE_VARIABLES_PTUSBChannel
+__OBJC_$_PROP_LIST_PTUSBChannel
+__OBJC_CLASS_RO_$_PTUSBChannel
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Shared/Peertalk/PTUSBHub.m
+-[PTUSBChannel sendPacketOfType:overProtocol:tag:payload:callback:].cold.1
+LookinServer/Src/Shared/Peertalk/PTUSBHub.m
+__47-[PTUSBChannel scheduleReadPacketWithCallback:]_block_invoke_2.cold.1
+usbmux_packet_alloc.cold.1
+__47-[PTUSBChannel scheduleReadPacketWithCallback:]_block_invoke.cold.1
+-[PTUSBChannel scheduleReadPacketWithBroadcastHandler:].cold.1
+-[PTUSBChannel openOnQueue:error:onEnd:].cold.2
+-[PTUSBChannel openOnQueue:error:onEnd:].cold.1
+__47-[PTUSBChannel readFromOffset:length:callback:]_block_invoke
+__34-[PTUSBChannel sendData:callback:]_block_invoke
+__42-[PTUSBChannel sendDispatchData:callback:]_block_invoke
+__67-[PTUSBChannel sendPacketOfType:overProtocol:tag:payload:callback:]_block_invoke
+usbmux_packet_free
+usbmux_packet_create
+usbmux_packet_set_payload
+usbmux_packet_payload
+__47-[PTUSBChannel scheduleReadPacketWithCallback:]_block_invoke_2
+usbmux_packet_payload_size
+usbmux_packet_alloc
+__47-[PTUSBChannel scheduleReadPacketWithCallback:]_block_invoke
+__55-[PTUSBChannel scheduleReadPacketWithBroadcastHandler:]_block_invoke
+__37-[PTUSBChannel sendRequest:callback:]_block_invoke
+__52-[PTUSBChannel listenWithBroadcastHandler:callback:]_block_invoke
+__40-[PTUSBChannel openOnQueue:error:onEnd:]_block_invoke
+__55+[PTUSBChannel packetDictionaryWithPacketType:payload:]_block_invoke
+__47-[PTUSBHub connectToDevice:port:onStart:onEnd:]_block_invoke
+__40-[PTUSBHub listenOnQueue:onStart:onEnd:]_block_invoke
+__21+[PTUSBHub sharedHub]_block_invoke_2
+__21+[PTUSBHub sharedHub]_block_invoke
++[UIBlurEffect(LookinServer) load]
+___34+[UIBlurEffect(LookinServer) load]_block_invoke
++[UIBlurEffect(LookinServer) lks_effectWithStyle:]
+-[UIBlurEffect(LookinServer) setLks_effectStyleNumber:]
+-[UIBlurEffect(LookinServer) lks_effectStyleNumber]
+_load.onceToken
+__OBJC_$_CATEGORY_INSTANCE_METHODS_UIBlurEffect_$_LookinServer
+__OBJC_$_CATEGORY_CLASS_METHODS_UIBlurEffect_$_LookinServer
+__OBJC_$_PROP_LIST_UIBlurEffect_$_LookinServer
+__OBJC_$_CATEGORY_UIBlurEffect_$_LookinServer
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Server/Category/UIBlurEffect+LookinServer.m
+LookinServer/Src/Server/Category/UIBlurEffect+LookinServer.m
+__34+[UIBlurEffect(LookinServer) load]_block_invoke
+-[UIColor(LookinServer) lks_rgbaComponents]
++[UIColor(LookinServer) lks_colorFromRGBAComponents:]
+-[UIColor(LookinServer) lks_rgbaString]
+-[UIColor(LookinServer) lks_hexString]
++[UIColor(LookinServer) _alignColorHexStringLength:]
++[UIColor(LookinServer) _hexStringWithInteger:]
++[UIColor(LookinServer) _hexLetterStringWithInteger:]
+_OBJC_CLASSLIST_REFERENCES_$_.3
+_OBJC_CLASSLIST_REFERENCES_$_.8
+__OBJC_$_CATEGORY_INSTANCE_METHODS_UIColor_$_LookinServer
+__OBJC_$_CATEGORY_CLASS_METHODS_UIColor_$_LookinServer
+__OBJC_$_CATEGORY_UIColor_$_LookinServer
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Server/Category/UIColor+LookinServer.m
+LookinServer/Src/Server/Category/UIColor+LookinServer.m
++[UIGestureRecognizer(LookinServer) load]
+___41+[UIGestureRecognizer(LookinServer) load]_block_invoke
+-[UIGestureRecognizer(LookinServer) lks_initWithTarget:action:]
+-[UIGestureRecognizer(LookinServer) lks_addTarget:action:]
+-[UIGestureRecognizer(LookinServer) lks_removeTarget:action:]
+-[UIGestureRecognizer(LookinServer) lks_didAddTarget:action:]
+___61-[UIGestureRecognizer(LookinServer) lks_didAddTarget:action:]_block_invoke
+-[UIGestureRecognizer(LookinServer) lks_didRemoveTarget:action:]
+___64-[UIGestureRecognizer(LookinServer) lks_didRemoveTarget:action:]_block_invoke
+___64-[UIGestureRecognizer(LookinServer) lks_didRemoveTarget:action:]_block_invoke.68
+___64-[UIGestureRecognizer(LookinServer) lks_didRemoveTarget:action:]_block_invoke_2
+-[UIGestureRecognizer(LookinServer) setLks_targetActions:]
+-[UIGestureRecognizer(LookinServer) lks_targetActions]
+___block_descriptor_48_e8_32s40s_e24_B16?0"LookinTwoTuple"8l
+___block_descriptor_40_e8_32s_e27_B24?0Q8"LookinTwoTuple"16l
+___block_descriptor_48_e8_32s40s_e27_B24?0Q8"LookinTwoTuple"16l
+__OBJC_$_CATEGORY_INSTANCE_METHODS_UIGestureRecognizer_$_LookinServer
+__OBJC_$_CATEGORY_CLASS_METHODS_UIGestureRecognizer_$_LookinServer
+__OBJC_$_PROP_LIST_UIGestureRecognizer_$_LookinServer
+__OBJC_$_CATEGORY_UIGestureRecognizer_$_LookinServer
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Server/Category/UIGestureRecognizer+LookinServer.m
+LookinServer/Src/Server/Category/UIGestureRecognizer+LookinServer.m
+__64-[UIGestureRecognizer(LookinServer) lks_didRemoveTarget:action:]_block_invoke_2
+__64-[UIGestureRecognizer(LookinServer) lks_didRemoveTarget:action:]_block_invoke.68
+__64-[UIGestureRecognizer(LookinServer) lks_didRemoveTarget:action:]_block_invoke
+__61-[UIGestureRecognizer(LookinServer) lks_didAddTarget:action:]_block_invoke
+__41+[UIGestureRecognizer(LookinServer) load]_block_invoke
++[UIImage(LookinServer) load]
+___29+[UIImage(LookinServer) load]_block_invoke
++[UIImage(LookinServer) lks_imageNamed:]
++[UIImage(LookinServer) lks_imageWithContentsOfFile:]
+-[UIImage(LookinServer) setLks_imageSourceName:]
+-[UIImage(LookinServer) lks_imageSourceName]
+-[UIImage(LookinServer) lookin_data]
+__OBJC_$_CATEGORY_INSTANCE_METHODS_UIImage_$_LookinServer
+__OBJC_$_CATEGORY_CLASS_METHODS_UIImage_$_LookinServer
+__OBJC_$_PROP_LIST_UIImage_$_LookinServer
+__OBJC_$_CATEGORY_UIImage_$_LookinServer
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Server/Category/UIImage+LookinServer.m
+LookinServer/Src/Server/Category/UIImage+LookinServer.m
+__29+[UIImage(LookinServer) load]_block_invoke
+-[UIImageView(LookinServer) lks_imageSourceName]
+-[UIImageView(LookinServer) lks_imageViewOidIfHasImage]
+__OBJC_$_CATEGORY_INSTANCE_METHODS_UIImageView_$_LookinServer
+__OBJC_$_CATEGORY_UIImageView_$_LookinServer
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Server/Category/UIImageView+LookinServer.m
+LookinServer/Src/Server/Category/UIImageView+LookinServer.m
+-[UILabel(LookinServer) lks_fontSize]
+-[UILabel(LookinServer) setLks_fontSize:]
+-[UILabel(LookinServer) lks_fontName]
+__OBJC_$_CATEGORY_INSTANCE_METHODS_UILabel_$_LookinServer
+__OBJC_$_PROP_LIST_UILabel_$_LookinServer
+__OBJC_$_CATEGORY_UILabel_$_LookinServer
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Server/Category/UILabel+LookinServer.m
+LookinServer/Src/Server/Category/UILabel+LookinServer.m
+-[UITableView(LookinServer) lks_numberOfRows]
+___45-[UITableView(LookinServer) lks_numberOfRows]_block_invoke
+__OBJC_$_CATEGORY_INSTANCE_METHODS_UITableView_$_LookinServer
+__OBJC_$_CATEGORY_UITableView_$_LookinServer
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Server/Category/UITableView+LookinServer.m
+__45-[UITableView(LookinServer) lks_numberOfRows]_block_invoke
+LookinServer/Src/Server/Category/UITableView+LookinServer.m
+-[UITextField(LookinServer) lks_fontSize]
+-[UITextField(LookinServer) setLks_fontSize:]
+-[UITextField(LookinServer) lks_fontName]
+__OBJC_$_CATEGORY_INSTANCE_METHODS_UITextField_$_LookinServer
+__OBJC_$_PROP_LIST_UITextField_$_LookinServer
+__OBJC_$_CATEGORY_UITextField_$_LookinServer
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Server/Category/UITextField+LookinServer.m
+LookinServer/Src/Server/Category/UITextField+LookinServer.m
+-[UITextView(LookinServer) lks_fontSize]
+-[UITextView(LookinServer) setLks_fontSize:]
+-[UITextView(LookinServer) lks_fontName]
+__OBJC_$_CATEGORY_INSTANCE_METHODS_UITextView_$_LookinServer
+__OBJC_$_PROP_LIST_UITextView_$_LookinServer
+__OBJC_$_CATEGORY_UITextView_$_LookinServer
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Server/Category/UITextView+LookinServer.m
+LookinServer/Src/Server/Category/UITextView+LookinServer.m
++[UIView(LookinServer) load]
+___28+[UIView(LookinServer) load]_block_invoke
+-[UIView(LookinServer) lks_initWithFrame:]
+-[UIView(LookinServer) lks_initWithCoder:]
+-[UIView(LookinServer) setLks_hostViewController:]
+-[UIView(LookinServer) lks_hostViewController]
+-[UIView(LookinServer) lks_subviewAtPoint:preferredClasses:]
+___60-[UIView(LookinServer) lks_subviewAtPoint:preferredClasses:]_block_invoke
+___60-[UIView(LookinServer) lks_subviewAtPoint:preferredClasses:]_block_invoke.41
+-[UIView(LookinServer) lks_bestSize]
+-[UIView(LookinServer) lks_bestWidth]
+-[UIView(LookinServer) lks_bestHeight]
+-[UIView(LookinServer) setLks_isChildrenViewOfTabBar:]
+-[UIView(LookinServer) lks_isChildrenViewOfTabBar]
+-[UIView(LookinServer) setLks_verticalContentHuggingPriority:]
+-[UIView(LookinServer) lks_verticalContentHuggingPriority]
+-[UIView(LookinServer) setLks_horizontalContentHuggingPriority:]
+-[UIView(LookinServer) lks_horizontalContentHuggingPriority]
+-[UIView(LookinServer) setLks_verticalContentCompressionResistancePriority:]
+-[UIView(LookinServer) lks_verticalContentCompressionResistancePriority]
+-[UIView(LookinServer) setLks_horizontalContentCompressionResistancePriority:]
+-[UIView(LookinServer) lks_horizontalContentCompressionResistancePriority]
++[UIView(LookinServer) lks_rebuildGlobalInvolvedRawConstraints]
+___63+[UIView(LookinServer) lks_rebuildGlobalInvolvedRawConstraints]_block_invoke
+___63+[UIView(LookinServer) lks_rebuildGlobalInvolvedRawConstraints]_block_invoke.88
++[UIView(LookinServer) lks_addInvolvedRawConstraintsForViewsRootedByView:]
+___74+[UIView(LookinServer) lks_addInvolvedRawConstraintsForViewsRootedByView:]_block_invoke
+___74+[UIView(LookinServer) lks_addInvolvedRawConstraintsForViewsRootedByView:]_block_invoke_2
++[UIView(LookinServer) lks_removeInvolvedRawConstraintsForViewsRootedByView:]
+___77+[UIView(LookinServer) lks_removeInvolvedRawConstraintsForViewsRootedByView:]_block_invoke
+-[UIView(LookinServer) setLks_involvedRawConstraints:]
+-[UIView(LookinServer) lks_involvedRawConstraints]
+-[UIView(LookinServer) lks_constraints]
+___39-[UIView(LookinServer) lks_constraints]_block_invoke
+-[UIView(LookinServer) _lks_constraintItemTypeForItem:]
+___block_descriptor_40_e8_32s_e8_B16?0#8l
+___block_descriptor_48_e16_B16?0"UIView"8l
+___block_descriptor_40_e8__e25_v32?0"UIWindow"8Q16^B24l
+___block_descriptor_32_e35_v32?0"NSLayoutConstraint"8Q16^B24l
+___block_descriptor_40_e8__e23_v32?0"UIView"8Q16^B24l
+___block_descriptor_48_e8_32s40s_e31_24?0Q8"NSLayoutConstraint"16l
+__OBJC_$_CATEGORY_INSTANCE_METHODS_UIView_$_LookinServer
+__OBJC_$_CATEGORY_CLASS_METHODS_UIView_$_LookinServer
+__OBJC_$_PROP_LIST_UIView_$_LookinServer
+__OBJC_$_CATEGORY_UIView_$_LookinServer
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Server/Category/UIView+LookinServer.m
+LookinServer/Src/Server/Category/UIView+LookinServer.m
+__39-[UIView(LookinServer) lks_constraints]_block_invoke
+__77+[UIView(LookinServer) lks_removeInvolvedRawConstraintsForViewsRootedByView:]_block_invoke
+__74+[UIView(LookinServer) lks_addInvolvedRawConstraintsForViewsRootedByView:]_block_invoke_2
+__74+[UIView(LookinServer) lks_addInvolvedRawConstraintsForViewsRootedByView:]_block_invoke
+__63+[UIView(LookinServer) lks_rebuildGlobalInvolvedRawConstraints]_block_invoke.88
+__63+[UIView(LookinServer) lks_rebuildGlobalInvolvedRawConstraints]_block_invoke
+__60-[UIView(LookinServer) lks_subviewAtPoint:preferredClasses:]_block_invoke.41
+__60-[UIView(LookinServer) lks_subviewAtPoint:preferredClasses:]_block_invoke
+__28+[UIView(LookinServer) load]_block_invoke
++[UIViewController(LookinServer) load]
+___38+[UIViewController(LookinServer) load]_block_invoke
+-[UIViewController(LookinServer) lks_viewDidLoad]
++[UIViewController(LookinServer) lks_visibleViewController]
+-[UIViewController(LookinServer) lks_visibleViewControllerIfExist]
+__OBJC_$_CATEGORY_INSTANCE_METHODS_UIViewController_$_LookinServer
+__OBJC_$_CATEGORY_CLASS_METHODS_UIViewController_$_LookinServer
+__OBJC_$_CATEGORY_UIViewController_$_LookinServer
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Server/Category/UIViewController+LookinServer.m
+LookinServer/Src/Server/Category/UIViewController+LookinServer.m
+__38+[UIViewController(LookinServer) load]_block_invoke
+-[UIVisualEffectView(LookinServer) setLks_blurEffectStyleNumber:]
+-[UIVisualEffectView(LookinServer) lks_blurEffectStyleNumber]
+__OBJC_$_CATEGORY_INSTANCE_METHODS_UIVisualEffectView_$_LookinServer
+__OBJC_$_CATEGORY_UIVisualEffectView_$_LookinServer
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/LookinServer/Src/Server/Category/UIVisualEffectView+LookinServer.m
+LookinServer/Src/Server/Category/UIVisualEffectView+LookinServer.m

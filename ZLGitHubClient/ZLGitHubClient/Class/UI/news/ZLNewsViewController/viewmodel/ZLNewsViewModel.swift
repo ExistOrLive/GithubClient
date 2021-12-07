@@ -14,7 +14,7 @@ class ZLNewsViewModel: ZLBaseViewModel {
     
     var isRefreshNew : Bool = true
     var currentPage: Int = 0
-    var per_page: Int = 10
+    var per_page: Int = 20
 
     var curLoginName: String?
     var userInfo: ZLGithubUserModel?

@@ -116,7 +116,7 @@ extension ZLSearchGithubItemListViewModel {
     
     static let ZLSearchNewDataKey = "ZLSearchNewDataKey"
     
-    static let per_page: UInt = 10                            // 每页多少记录
+    static let per_page: UInt = 20                            // 每页多少记录
     
     @objc func onNotificationArrived(notification:Notification){
         

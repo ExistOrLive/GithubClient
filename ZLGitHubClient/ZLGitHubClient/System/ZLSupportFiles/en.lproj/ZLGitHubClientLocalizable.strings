@@ -197,6 +197,7 @@
 "blog" = "Blog";
 "bio" = "Bio";
 "website" = "Website";
+"twitter" = "Twitter";
 
 // tab
 "news" = "News";
@@ -240,4 +241,6 @@
 "juvenile correlation" = "juvenile correlation";
 "insults abuse" = "insults abuse";
 "other" = "other";
+
+"pinned" = "Pinned";
 

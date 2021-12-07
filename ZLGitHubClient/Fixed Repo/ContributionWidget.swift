@@ -197,6 +197,8 @@ struct ContributionView : View {
             return ContributionMeidumView(entry: entry)
         case .systemLarge:
             return ContributionMeidumView(entry: entry)
+        case .systemExtraLarge:
+            return ContributionMeidumView(entry: entry)
         @unknown default:
             return ContributionMeidumView(entry: entry)
         }

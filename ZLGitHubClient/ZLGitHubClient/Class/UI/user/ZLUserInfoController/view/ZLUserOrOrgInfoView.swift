@@ -24,10 +24,7 @@ class ZLUserOrOrgInfoView: ZLBaseView {
     }()
     
     lazy var userInfoView: ZLUserInfoView = {
-        guard let baseView = Bundle.main.loadNibNamed("ZLUserInfoView", owner: nil, options: nil)?.first as? ZLUserInfoView else{
-            return ZLUserInfoView()
-        }
-        return baseView
+        return ZLUserInfoView()
     }()
     
     lazy var orgInfoView: ZLOrgInfoView = {
@@ -54,10 +51,10 @@ class ZLUserOrOrgInfoView: ZLBaseView {
     }
     
     private func setUpUI() {
-        self.addSubview(scrollView)
-        scrollView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
-        }
+//        self.addSubview(scrollView)
+//        scrollView.snp.makeConstraints { (make) in
+//            make.edges.equalToSuperview()
+//        }
     }
     
     func fillWithData(_ delegate: ZLUserOrOrgInfoViewDelegate){
@@ -68,32 +65,36 @@ class ZLUserOrOrgInfoView: ZLBaseView {
     
     func reloadData(){
         
-        for view in scrollView.subviews{
+//        for view in scrollView.subviews{
+//            view.removeFromSuperview()
+//        }
+//
+//        if self.delegate?.isOrgView ?? false {
+//
+//            scrollView.addSubview(orgInfoView)
+//            orgInfoView.snp.makeConstraints { (make) in
+//                make.edges.equalTo(scrollView)
+//                make.width.equalTo(scrollView.snp.width)
+//            }
+//
+//        } else if self.delegate?.isUserView ?? false {
+//
+//            scrollView.addSubview(userInfoView)
+//            userInfoView.snp.makeConstraints { (make) in
+//                make.edges.equalTo(scrollView)
+//                make.width.equalTo(scrollView.snp.width)
+//            }
+//        }
+        
+        
+        for view in self.subviews{
             view.removeFromSuperview()
         }
         
-        if self.delegate?.isOrgView ?? false {
-            
-            scrollView.addSubview(orgInfoView)
-            orgInfoView.snp.makeConstraints { (make) in
-                make.edges.equalTo(scrollView)
-                make.width.equalTo(scrollView.snp.width)
-            }
-            
-        } else if self.delegate?.isUserView ?? false {
-
-            scrollView.addSubview(userInfoView)
-            userInfoView.snp.makeConstraints { (make) in
-                make.edges.equalTo(scrollView)
-                make.width.equalTo(scrollView.snp.width)
-            }
-        } else {
-            scrollView.addSubview(placeHolderView)
-            placeHolderView.snp.makeConstraints { (make) in
-                make.edges.equalTo(scrollView)
-                make.width.equalTo(scrollView.snp.width)
-                make.height.equalTo(scrollView.snp.height)
-            }
+        self.addSubview(userInfoView)
+        userInfoView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
         }
+        
     }
 }

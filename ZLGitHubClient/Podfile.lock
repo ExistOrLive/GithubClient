@@ -183,7 +183,7 @@ PODS:
   - YYText (1.0.7)
   - ZLBaseUI (1.2.0):
     - Masonry
-  - ZLGitRemoteService (1.1.2):
+  - ZLGitRemoteService (1.2.0):
     - AFNetworking
     - Apollo (~> 0.39.0)
     - Bugly
@@ -224,7 +224,7 @@ DEPENDENCIES:
   - WoodPeckeriOS
   - YYText
   - ZLBaseUI (from `https://github.com/ExistOrLive/ZLBaseUI.git`, tag `1.2.0`)
-  - ZLGitRemoteService (from `https://github.com/ExistOrLive/ZLGitRemoteService.git`)
+  - ZLGitRemoteService (from `../../ZLGitRemoteService`)
 
 SPEC REPOS:
   trunk:
@@ -275,15 +275,12 @@ EXTERNAL SOURCES:
     :git: https://github.com/ExistOrLive/ZLBaseUI.git
     :tag: 1.2.0
   ZLGitRemoteService:
-    :git: https://github.com/ExistOrLive/ZLGitRemoteService.git
+    :path: "../../ZLGitRemoteService"
 
 CHECKOUT OPTIONS:
   ZLBaseUI:
     :git: https://github.com/ExistOrLive/ZLBaseUI.git
     :tag: 1.2.0
-  ZLGitRemoteService:
-    :commit: 878a6bf6577ba79f1c91a6a175ef032f46aa82cb
-    :git: https://github.com/ExistOrLive/ZLGitRemoteService.git
 
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
@@ -328,8 +325,8 @@ SPEC CHECKSUMS:
   WoodPeckeriOS: 12ec7f38c695e51cd94a476228888dfe85d9d916
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZLBaseUI: 068453e9b04f010e4453191929c5242e832d0d46
-  ZLGitRemoteService: ff54fad10c0abfa89dde01b03c774da970ac6d5a
+  ZLGitRemoteService: 3a3fe9f9d831675909632ef61650e7b382481c81
 
-PODFILE CHECKSUM: 4ad3bf125c1eddedf7e07ff06b94728978f460a7
+PODFILE CHECKSUM: 689dc9908ed122f3f26b1f88b5f4209bc0bcf471
 
 COCOAPODS: 1.11.0
