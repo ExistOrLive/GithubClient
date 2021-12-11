@@ -55,7 +55,7 @@ class ZLCommonTableViewCell: UITableViewCell {
     }
     
     // MARK: fillWithData
-    func fillWithData(viewData: ZLCommonTableViewCellData){
+    func fillWithData(viewData: ZLCommonTableViewCellDataSourceAndDelegate){
         selectionStyle = viewData.canClick ? .gray : .none
         titleLabel.text = viewData.title
         subLabel.text = viewData.info

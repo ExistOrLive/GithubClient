@@ -15,14 +15,15 @@ class ZLUserInfoViewModel: ZLBaseViewModel {
     private weak var userInfoView: ZLUserInfoView?
     
     // model
-    private var userInfoModel : ZLGithubUserModel?            //
+    private var userInfoModel: ZLGithubUserModel?            //
+    private var pinnedRepositories: [ZLGithubRepositoryBriefModel] = []
     
     // subViewModel
     private var subViewModelArray: [[ZLGithubItemTableViewCellData]] = []
     
     // viewCallBack
     private var viewCallback: (() -> Void)?
-    
+    private var readMeCallback: (() -> Void)?
     
     deinit {
         // 注销监听
@@ -64,6 +65,8 @@ class ZLUserInfoViewModel: ZLBaseViewModel {
             
             vc.zlNavigationBar.rightButton = button
         }
+        
+        getUserPinnedRepos()
     }
     
     override func update(_ targetModel: Any?) {
@@ -77,6 +80,9 @@ class ZLUserInfoViewModel: ZLBaseViewModel {
         generateSubViewModel()
         
         viewCallback?()
+        readMeCallback?()
+        
+        getUserPinnedRepos()
     }
     
     
@@ -90,11 +96,16 @@ class ZLUserInfoViewModel: ZLBaseViewModel {
             subViewModel.removeFromSuperViewModel()
         }
         
-        
         // headerCellData
         let headerCellData = ZLUserInfoHeaderCellData(data: model)
         self.subViewModelArray.append([headerCellData])
         self.addSubViewModel(headerCellData)
+        
+        
+        // contributionCellData
+        let contributionCellData = ZLUserContributionsCellData(loginName: model.loginName ?? "")
+        self.subViewModelArray.append([contributionCellData])
+        self.addSubViewModel(contributionCellData)
         
         
         var itemCellDatas = [ZLGithubItemTableViewCellData]()
@@ -118,18 +129,6 @@ class ZLUserInfoViewModel: ZLBaseViewModel {
                                                      cellHeight: 50)
            itemCellDatas.append(cellData)
         }
-        
-        
-        // twitter
-//        if let twitter = model.twitter_username,
-//           !twitter.isEmpty {
-//
-//            let cellData = ZLCommonTableViewCellData(canClick: true,
-//                                                     title: ZLLocalizedString(string: "twitter", comment: ""),
-//                                                     info: twitter,
-//                                                     cellHeight: 50)
-//           itemCellDatas.append(cellData)
-//        }
         
         // email
         if let email = model.email,
@@ -168,10 +167,13 @@ class ZLUserInfoViewModel: ZLBaseViewModel {
         }
         
         self.addSubViewModels(itemCellDatas)
-        
         self.subViewModelArray.append(itemCellDatas)
         
-        
+        if !pinnedRepositories.isEmpty {
+            let pinnedReposCellData = ZLPinnedRepositoriesTableViewCellData(repos: pinnedRepositories)
+            self.addSubViewModel(pinnedReposCellData)
+            self.subViewModelArray.append([pinnedReposCellData])
+        }
     }
     
     
@@ -216,7 +218,20 @@ class ZLUserInfoViewModel: ZLBaseViewModel {
     
 }
 
+// MARK: ZLUserInfoViewDelegateAndDataSource
 extension ZLUserInfoViewModel: ZLUserInfoViewDelegateAndDataSource {
+    
+    
+    var loginName: String {
+        userInfoModel?.loginName ?? ""
+    }
+    
+    func onLinkClicked(url: URL?) {
+        if let realurl = url {
+            ZLUIRouter.openURL(url: realurl)
+        }
+    }
+    
     
     var cellDatas: [[ZLGithubItemTableViewCellDataProtocol]] {
         return self.subViewModelArray
@@ -226,7 +241,25 @@ extension ZLUserInfoViewModel: ZLUserInfoViewDelegateAndDataSource {
         viewCallback = callback
     }
     
+    func setReadMeCallBack(callback: @escaping () -> Void) {
+        readMeCallback = callback
+    }
+    
     func loadNewData() {
+        
+        guard let _ = userInfoModel?.loginName else {
+            ZLToastView.showMessage("login name is nil")
+            viewCallback?()
+            return
+        }
+        
+        getUserInfo()
+    }
+}
+
+// MARK: Request
+extension ZLUserInfoViewModel {
+    func getUserInfo() {
         
         guard let loginName = userInfoModel?.loginName else {
             ZLToastView.showMessage("login name is nil")
@@ -243,7 +276,7 @@ extension ZLUserInfoViewModel: ZLUserInfoViewDelegateAndDataSource {
             if model.result {
                 
                 if let model = model.data as? ZLGithubUserModel {
-                    self.userInfoModel = model
+                    self.update(model)
                 }
             } else {
                 
@@ -253,6 +286,33 @@ extension ZLUserInfoViewModel: ZLUserInfoViewDelegateAndDataSource {
             }
 
             self.viewCallback?()
+        }
+    }
+    
+    
+    func getUserPinnedRepos() {
+        
+        guard let loginName = userInfoModel?.loginName else {
+            return
+        }
+        
+        ZLServiceManager.sharedInstance.userServiceModel?.getUserPinnedRepositories(loginName,
+                                                                                    serialNumber: NSString.generateSerialNumber())
+        { [weak self] model in
+            
+            guard let self = self else  { return }
+            
+            if model.result {
+                if let data = model.data as? [ZLGithubRepositoryBriefModel] {
+                    self.pinnedRepositories = data
+                    self.generateSubViewModel()
+                    self.viewCallback?()
+                }
+            } else {
+                if let model = model.data as? ZLGithubRequestErrorModel {
+                    ZLLog_Info(model.message)
+                }
+            }
         }
     }
 }

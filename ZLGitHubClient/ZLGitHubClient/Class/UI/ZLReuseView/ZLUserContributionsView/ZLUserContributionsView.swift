@@ -15,8 +15,31 @@ class ZLUserContributionsView: ZLBaseView,UICollectionViewDataSource,UICollectio
     private var dataArray : [ZLGithubUserContributionData] = []
     
     // view
-    private var collectionView : UICollectionView!
-    private var label : UILabel!
+    private lazy var collectionView : UICollectionView = {
+        let collectionViewLayout = UICollectionViewFlowLayout()
+        collectionViewLayout.scrollDirection = .horizontal
+        collectionViewLayout.estimatedItemSize = CGSize(width: 10, height: 10)
+        collectionViewLayout.minimumInteritemSpacing = 2
+        collectionViewLayout.minimumLineSpacing = 2
+        let collectionView = UICollectionView(frame: CGRect(), collectionViewLayout: collectionViewLayout)
+        collectionView.backgroundColor = UIColor.clear
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.contentInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "UICollectionViewCell")
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        return collectionView
+    }()
+    
+    
+    private lazy var label : UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: Font_PingFangSCSemiBold, size: 12)
+        label.textColor = UIColor(named: "ZLLabelColor2")
+        label.isUserInteractionEnabled = false
+        label.textAlignment = .center
+        return label
+    }()
     
     
     required init?(coder: NSCoder) {
@@ -32,10 +55,9 @@ class ZLUserContributionsView: ZLBaseView,UICollectionViewDataSource,UICollectio
     override func updateConstraints() {
         super.updateConstraints()
         collectionView.snp.updateConstraints { (make) in
-            make.width.equalTo(collectionView.contentSize.width).priority(.high)
+            make.width.equalTo(collectionView.contentSize.width + 10).priority(.high)
         }
     }
-    
     
     deinit {
         collectionView.removeObserver(self, forKeyPath: "contentSize")
@@ -45,38 +67,30 @@ class ZLUserContributionsView: ZLBaseView,UICollectionViewDataSource,UICollectio
     private func setUpUI() {
         
         self.backgroundColor = UIColor(named: "ZLContributionBackColor")
-       
-        let collectionViewLayout = UICollectionViewFlowLayout()
-        collectionViewLayout.scrollDirection = .horizontal
-        collectionViewLayout.estimatedItemSize = CGSize(width: 10, height: 10)
-        collectionViewLayout.minimumInteritemSpacing = 2
-        collectionViewLayout.minimumLineSpacing = 2
-        self.collectionView = UICollectionView(frame: CGRect(), collectionViewLayout: collectionViewLayout)
-        self.collectionView.backgroundColor = UIColor.clear
-        self.collectionView.showsHorizontalScrollIndicator = false
-        self.collectionView.contentInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
-        self.collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "UICollectionViewCell")
-        self.collectionView.delegate = self
-        self.collectionView.dataSource = self
-
-        
+               
         self.addSubview(collectionView)
         collectionView.snp.makeConstraints { (make) in
             make.top.bottom.centerX.equalToSuperview()
             make.left.greaterThanOrEqualToSuperview()
             make.right.lessThanOrEqualToSuperview()
-            make.width.equalTo(collectionView.contentSize.width).priority(.high)
+            make.width.equalTo(collectionView.contentSize.width + 10).priority(.high)
         }
         collectionView.addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
         
-        label = UILabel()
-        label.font = UIFont(name: Font_PingFangSCSemiBold, size: 12)
-        label.textColor = UIColor(named: "ZLLabelColor2")
-        label.isUserInteractionEnabled = false
-        label.textAlignment = .center
         self.addSubview(label)
         label.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
+        }
+    }
+    
+    
+    func update(loginName: String, force: Bool = false ){
+        
+        if force ||
+            loginName != self.loginName ||
+            self.dataArray.isEmpty {
+            
+            self.startLoad(loginName: loginName)
         }
     }
     
@@ -93,11 +107,31 @@ class ZLUserContributionsView: ZLBaseView,UICollectionViewDataSource,UICollectio
                     self?.dataArray = array
                 }
             }
-            self?.collectionView.reloadData()
+            
+            self?.collectionView.performBatchUpdates { [weak self] in
+                self?.collectionView.reloadData()
+            } completion: { [weak self] _ in
+                guard let self = self else {return}
+                let count = self.dataArray.count
+                if count > 0 && self.collectionView.contentOffset.x <= 0 {
+                    let indexPath = IndexPath(row: count - 1, section: 0)
+                    self.collectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.right, animated: false)
+                }
+            }
         }
         
         self.dataArray = contributionsDatas ?? []
-        self.collectionView.reloadData()
+        
+        self.collectionView.performBatchUpdates { [weak self] in
+            self?.collectionView.reloadData()
+        } completion: { [weak self] _ in
+            guard let self = self else {return}
+            let count = self.dataArray.count
+            if count > 0 && self.collectionView.contentOffset.x <= 0 {
+                let indexPath = IndexPath(row: count - 1, section: 0)
+                self.collectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.right, animated: false)
+            }
+        }
     }
     
     

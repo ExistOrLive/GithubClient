@@ -55,6 +55,7 @@
 "branch" = "Branch";
 "action" = "Action";
 "contributor" = "Contributors";
+"contributions" = "Contributions";
 
 "day ago" = " day ago";
 "hour ago" = " hour ago";

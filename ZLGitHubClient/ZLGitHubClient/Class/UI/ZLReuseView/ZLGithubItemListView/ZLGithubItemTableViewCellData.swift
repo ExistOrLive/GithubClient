@@ -24,11 +24,11 @@ import Foundation
 class ZLGithubItemTableViewCellData : ZLBaseViewModel,ZLGithubItemTableViewCellDataProtocol
 {
     func getCellReuseIdentifier() -> String {
-        return "UITableViewCell";
+        return "UITableViewCell"
     }
     
     func getCellHeight() -> CGFloat {
-        return 0;
+        return 0
     }
     
     func onCellSingleTap() {

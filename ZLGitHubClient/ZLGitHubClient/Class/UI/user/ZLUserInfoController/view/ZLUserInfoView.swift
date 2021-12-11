@@ -10,11 +10,19 @@ import UIKit
 
 protocol ZLUserInfoViewDelegateAndDataSource: NSObjectProtocol{
     
+    // datasource
+    var loginName: String {get}
+    
     var cellDatas: [[ZLGithubItemTableViewCellDataProtocol]] {get}
     
-    func setCallBack(callback: @escaping () -> Void)
-    
+    // delegate
     func loadNewData()
+    
+    func onLinkClicked(url : URL?) -> Void
+    
+    func setCallBack(callback: @escaping () -> Void)
+    func setReadMeCallBack(callback: @escaping () -> Void)
+    
 }
 
 
@@ -44,16 +52,30 @@ class ZLUserInfoView: ZLBaseView {
         delegate?.setCallBack { [weak self] in
             self?.reloadData()
         }
+        delegate?.setReadMeCallBack { [weak self] in
+            self?.reloadReadMe()
+        }
         reloadData()
+        reloadReadMe()
     }
     
     private func reloadData(){
         self.tableView.mj_header?.endRefreshing()
         self.tableView.reloadData()
+     
     }
     
     private func loadNewData() {
         self.delegate?.loadNewData()
+    }
+    
+    private func reloadReadMe(){
+        if let loginName = delegate?.loginName,
+           !loginName.isEmpty{
+            readMeView?.startLoad(fullName: "\(loginName)/\(loginName)", branch: nil)
+        } else {
+            tableView.tableFooterView = nil
+        }
     }
     
     //MARK: View
@@ -65,8 +87,11 @@ class ZLUserInfoView: ZLBaseView {
         tableView.showsVerticalScrollIndicator = false
         tableView.register(ZLUserInfoHeaderCell.self, forCellReuseIdentifier: "ZLUserInfoHeaderCell")
         tableView.register(ZLCommonTableViewCell.self, forCellReuseIdentifier: "ZLCommonTableViewCell")
+        tableView.register(ZLUserContributionsCell.self, forCellReuseIdentifier: "ZLUserContributionsCell")
+        tableView.register(ZLPinnedRepositoriesTableViewCell.self, forCellReuseIdentifier: "ZLPinnedRepositoriesTableViewCell")
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 40, right: 0)
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = 0
         }
@@ -74,6 +99,14 @@ class ZLUserInfoView: ZLBaseView {
             self?.loadNewData()
         })
         return tableView
+    }()
+    
+    private lazy var readMeView: ZLReadMeView? = {
+        guard let readMeView : ZLReadMeView = Bundle.main.loadNibNamed("ZLReadMeView", owner: nil, options: nil)?.first as? ZLReadMeView else {
+            return nil
+        }
+        readMeView.delegate = self
+        return readMeView
     }()
     
 }
@@ -92,17 +125,27 @@ extension ZLUserInfoView: UITableViewDelegate, UITableViewDataSource {
         
         if let headerCell = cell as? ZLUserInfoHeaderCell,
             let headerCellData = cellData as? ZLUserInfoHeaderCellDataSourceAndDelegate {
+            
             headerCell.fillWithData(viewModel: headerCellData)
-            return headerCell
-        }
-        
-        if let commonCell = cell as? ZLCommonTableViewCell,
-           let commonCellData = cellData as? ZLCommonTableViewCellData {
+            
+        } else if let commonCell = cell as? ZLCommonTableViewCell,
+           let commonCellData = cellData as? ZLCommonTableViewCellDataSourceAndDelegate {
+            
             commonCell.fillWithData(viewData: commonCellData)
-            return commonCell
+            
+        } else if let contributionCell = cell as? ZLUserContributionsCell,
+                  let contributionCellData = cellData as? ZLUserContributionsCellDelegate {
+            
+            contributionCell.fillWithData(data: contributionCellData)
+            
+        } else if let pinnedRepocell = cell as? ZLPinnedRepositoriesTableViewCell,
+                  let pinnedRepoCellData = cellData as? ZLPinnedRepositoriesTableViewCellData {
+            
+            pinnedRepocell.fillWithData(viewModel: pinnedRepoCellData)
+            
         }
-        
-        return UITableViewCell()
+    
+        return cell 
     }
     
     
@@ -143,3 +186,20 @@ extension ZLUserInfoView: UITableViewDelegate, UITableViewDataSource {
     
 }
 
+extension ZLUserInfoView: ZLReadMeViewDelegate {
+    
+    @objc func onLinkClicked(url : URL?) -> Void {
+        self.delegate?.onLinkClicked(url: url)
+    }
+    
+    @objc func getReadMeContent(result : Bool) -> Void {
+        tableView.tableFooterView = result ?  readMeView : nil
+    }
+    
+    @objc func notifyNewHeight(height: CGFloat) {
+        if tableView.tableFooterView != nil {
+            readMeView?.frame = CGRect(x: 0, y: 0, width: 0, height: height)
+            tableView.tableFooterView = readMeView
+        }
+    }
+}

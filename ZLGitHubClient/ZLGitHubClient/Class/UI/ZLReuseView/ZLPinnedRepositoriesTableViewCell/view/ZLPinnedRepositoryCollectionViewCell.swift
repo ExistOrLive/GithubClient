@@ -14,8 +14,8 @@ protocol ZLPinnedRepositoryCollectionViewCellDataSourceAndDelegate: ZLGithubItem
     var ownerName: String {get}
     var language: String {get}
     var desc: String {get}
-    var forkNum: String {get}
-    var starNum: String {get}
+    var forkNum: Int {get}
+    var starNum: Int {get}
 }
 
 class ZLPinnedRepositoryCollectionViewCell: UICollectionViewCell {
@@ -130,8 +130,8 @@ class ZLPinnedRepositoryCollectionViewCell: UICollectionViewCell {
         languageLabel.text = viewData.language
         ownerNameLabel.text = viewData.ownerName
         descriptionLabel.text = viewData.desc
-        starNumLabel.text = viewData.starNum
-        forkNumLabel.text = viewData.forkNum
+        forkNumLabel.text = viewData.forkNum < 1000 ? "\(viewData.forkNum)" : String(format: "%.1f",Double(viewData.forkNum)/1000.0) + "k"
+        starNumLabel.text = viewData.starNum < 1000 ? "\(viewData.starNum)" : String(format: "%.1f",Double(viewData.starNum)/1000.0) + "k"
     }
     
     

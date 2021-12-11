@@ -55,6 +55,7 @@
 "commit" = "提交";
 "action" = "Action";
 "contributor" = "贡献者";
+"contributions" = "贡献";
 
 "day ago" = "天前";
 "hour ago" = "小时前";

@@ -26,7 +26,9 @@ class ZLPinnedRepositoriesTableViewCell: UITableViewCell {
     }
     
     private func setupUI() {
-        contentView.backgroundColor = UIColor(named: "ZLCellBack")
+        contentView.backgroundColor = .clear
+        backgroundColor = .clear
+        selectionStyle = .none
         
         contentView.addSubview(titleLabel)
         contentView.addSubview(collectionView)
@@ -41,7 +43,7 @@ class ZLPinnedRepositoriesTableViewCell: UITableViewCell {
             make.right.equalTo(-20)
             make.top.equalTo(60)
             make.bottom.equalTo(-20)
-            make.height.equalTo(180)
+            make.height.equalTo(150)
         }
     }
     
@@ -59,10 +61,11 @@ class ZLPinnedRepositoriesTableViewCell: UITableViewCell {
         layout.scrollDirection = .horizontal
         layout.itemSize = CGSize(width: 300, height: 150)
         layout.minimumInteritemSpacing = 20
-        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         collectionView.backgroundColor = UIColor(named: "ZLVCBackColor")
         collectionView.register(ZLPinnedRepositoryCollectionViewCell.self, forCellWithReuseIdentifier: "ZLPinnedRepositoryCollectionViewCell")
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.backgroundColor = .clear
         collectionView.delegate = self
         collectionView.dataSource = self
         return collectionView

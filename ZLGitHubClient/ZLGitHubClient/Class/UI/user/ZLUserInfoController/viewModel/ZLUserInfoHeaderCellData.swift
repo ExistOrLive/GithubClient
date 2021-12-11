@@ -11,7 +11,7 @@ import UIKit
 class ZLUserInfoHeaderCellData: ZLGithubItemTableViewCellData {
     
     // data
-    private let data: ZLGithubUserModel
+    private var data: ZLGithubUserModel
     private var _followStatus: Bool = false
     private var _blockStatus: Bool = false
     
@@ -25,6 +25,15 @@ class ZLUserInfoHeaderCellData: ZLGithubItemTableViewCellData {
         setUp()
     }
     
+    
+    override func update(_ targetModel: Any?) {
+        guard let data = targetModel as? ZLGithubUserModel else {
+            return
+        }
+        self.data = data
+        setUp()
+    }
+    
     private func setUp(){
         
         if showBlockButton {
@@ -34,7 +43,6 @@ class ZLUserInfoHeaderCellData: ZLGithubItemTableViewCellData {
             getFollowStatus()
         }
     }
-    
     
     override func getCellReuseIdentifier() -> String {
         "ZLUserInfoHeaderCell"
