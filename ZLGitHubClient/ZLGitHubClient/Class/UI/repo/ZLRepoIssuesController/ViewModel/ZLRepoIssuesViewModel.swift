@@ -53,7 +53,7 @@ extension ZLRepoIssuesViewModel
         
         ZLServiceManager.sharedInstance.repoServiceModel?.getRepositoryIssues(withFullName: fullName,
                                                                               state: self.filterOpen ?  "open" : "closed",
-                                                                              per_page:10,
+                                                                              per_page:20,
                                                                               page: 1,
                                                                               serialNumber: NSString.generateSerialNumber())
         { [weak weakSelf = self](resultModel : ZLOperationResultModel) in
@@ -99,7 +99,7 @@ extension ZLRepoIssuesViewModel
     
         ZLServiceManager.sharedInstance.repoServiceModel?.getRepositoryIssues(withFullName: fullName,
                                                                               state: self.filterOpen ?  "open" : "closed",
-                                                                              per_page:10,
+                                                                              per_page:20,
                                                                               page: Int(self.currentPage) + 1,
                                                                               serialNumber: NSString.generateSerialNumber())
         { [weak weakSelf = self](resultModel : ZLOperationResultModel) in

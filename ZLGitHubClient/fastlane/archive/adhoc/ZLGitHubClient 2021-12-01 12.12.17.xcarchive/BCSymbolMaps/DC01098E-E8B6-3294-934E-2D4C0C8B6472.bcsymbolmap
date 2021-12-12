@@ -1,0 +1,22 @@
+BCSymbolMap Version: 2.0
+Apple clang version 13.0.0 (clang-1300.0.29.3)
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.0.sdk
+iPhoneOS15.0.sdk
+/Users/zhumeng/Library/Developer/Xcode/DerivedData/ZLGitHubClient-dllgqizsadklyxeteoiyvmtboyoe/Build/Intermediates.noindex/ArchiveIntermediates/ZLGitHubClient/IntermediateBuildFilesPath/Pods.build/Release-iphoneos/fishhook.build/DerivedSources/fishhook_vers.c
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods
+_prepend_rebindings
+_rebind_symbols_for_image
+__rebind_symbols_for_image
+_perform_rebinding_with_section
+__rebindings_head
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/fishhook/fishhook.c
+llvm.loop.mustprogress
+perform_rebinding_with_section
+fishhook/fishhook.c
+rebind_symbols
+rebind_symbols_for_image
+prepend_rebindings
+rebind_symbols_image
+__OBJC_METACLASS_RO_$_PodsDummy_fishhook
+__OBJC_CLASS_RO_$_PodsDummy_fishhook
+/Users/zhumeng/开发/GithubClient/ZLGitHubClient/Pods/Target Support Files/fishhook/fishhook-dummy.m

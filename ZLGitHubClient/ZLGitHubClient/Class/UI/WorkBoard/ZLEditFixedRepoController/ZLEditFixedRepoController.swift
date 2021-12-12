@@ -356,7 +356,7 @@ class ZLEditFixedRepoSearchController : ZLBaseViewController,UITableViewDelegate
                                                  type: .repositories,
                                                  filterInfo: nil,
                                                  page: 0,
-                                                 per_page: 15,
+                                                 per_page: 20,
                                                  serialNumber: NSString.generateSerialNumber())
         { [weak weakSelf = self](resultModel :ZLOperationResultModel) in
             
@@ -393,7 +393,7 @@ class ZLEditFixedRepoSearchController : ZLBaseViewController,UITableViewDelegate
                                                  type: .repositories,
                                                  filterInfo: nil,
                                                  page: pageNum,
-                                                 per_page: 15,
+                                                 per_page: 20,
                                                  serialNumber: NSString.generateSerialNumber())
         {[weak weakSelf = self] (resultModel :ZLOperationResultModel) in
             

@@ -10,7 +10,7 @@ import UIKit
 
 class ZLUserAdditionInfoViewModel: ZLBaseViewModel {
     
-    static let per_page: UInt = 10                            // 每页多少记录
+    static let per_page: UInt = 20                            // 每页多少记录
     
     // model
     var type : ZLUserAdditionInfoType!             // info类型

@@ -50,10 +50,10 @@ class ZLMyEventBaseViewModel: ZLBaseViewModel {
 extension ZLMyEventBaseViewModel : ZLGithubItemListViewDelegate
 {
     func githubItemListViewRefreshDragDown(pullRequestListView: ZLGithubItemListView) -> Void{
-        self.queryNewMyEventRequest(pageNum: 1, pageSize: 10)
+        self.queryNewMyEventRequest(pageNum: 1, pageSize: 20)
     }
     func githubItemListViewRefreshDragUp(pullRequestListView: ZLGithubItemListView) -> Void{
-        self.queryMoreMyEventRequest(pageNum: self.pageNum + 1, pageSize: 10)
+        self.queryMoreMyEventRequest(pageNum: self.pageNum + 1, pageSize: 20)
     }
 }
 

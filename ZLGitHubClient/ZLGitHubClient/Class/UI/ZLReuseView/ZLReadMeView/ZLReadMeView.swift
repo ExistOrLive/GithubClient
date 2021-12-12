@@ -16,6 +16,8 @@ import WebKit
     @objc optional func getReadMeContent(result : Bool) -> Void
     
     @objc optional func loadEnd(result : Bool) -> Void
+    
+    @objc optional func notifyNewHeight(height : CGFloat)
 }
 
 
@@ -58,6 +60,11 @@ class ZLReadMeView: ZLBaseView {
         self.webView.scrollView.addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
     }
     
+    override func tintColorDidChange() {
+        // appearence mode 改变
+        self.reRender()
+    }
+    
     @IBAction func onRefreshButtonClicked(_ sender: Any) {
         self.reload()
     }
@@ -95,7 +102,7 @@ class ZLReadMeView: ZLBaseView {
             }
             
             if weakSelf?.delegate?.responds(to: #selector(ZLReadMeViewDelegate.getReadMeContent(result:))) ?? false {
-                weakSelf?.delegate?.getReadMeContent?(result: true)
+                weakSelf?.delegate?.getReadMeContent?(result:  resultModel.result)
             }
             
             
@@ -213,7 +220,11 @@ class ZLReadMeView: ZLBaseView {
                 return
             }
             
-            self.webViewHeightConstant.constant = size.height;
+            self.webViewHeightConstant.constant = size.height
+            
+            if (self.delegate?.responds(to: #selector(ZLReadMeViewDelegate.notifyNewHeight(height:)))) ?? false {
+                self.delegate?.notifyNewHeight?(height: size.height + 81)
+            }
         }
         
     }

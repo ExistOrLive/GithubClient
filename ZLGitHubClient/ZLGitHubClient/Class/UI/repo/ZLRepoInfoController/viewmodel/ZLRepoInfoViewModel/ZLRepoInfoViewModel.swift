@@ -121,7 +121,7 @@ extension ZLRepoInfoViewModel
             self.repoInfoView?.justUpdate()
         }
         case ZLUserInterfaceStyleChange_Notification:do{
-            self.repoInfoView?.readMeView.reRender()
+            //self.repoInfoView?.readMeView.reRender()
         }
         default:
             break;

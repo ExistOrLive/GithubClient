@@ -11,9 +11,9 @@ import Foundation
 
 @objc protocol ZLGithubItemTableViewCellDataProtocol : NSObjectProtocol
 {
-    func getCellReuseIdentifier() -> String;
+    func getCellReuseIdentifier() -> String
      
-    func getCellHeight() -> CGFloat;
+    func getCellHeight() -> CGFloat
     
     func onCellSingleTap()
     
@@ -24,11 +24,11 @@ import Foundation
 class ZLGithubItemTableViewCellData : ZLBaseViewModel,ZLGithubItemTableViewCellDataProtocol
 {
     func getCellReuseIdentifier() -> String {
-        return "UITableViewCell";
+        return "UITableViewCell"
     }
     
     func getCellHeight() -> CGFloat {
-        return 0;
+        return 0
     }
     
     func onCellSingleTap() {
