@@ -1,11 +1,8 @@
-/* 
-  ZLGitHubClientLocalizable.strings
-  ZLGitHubClient
-
-  Created by 朱猛 on 2019/7/30.
-  Copyright © 2019 ZM. All rights reserved.
-*/
-
+// ZLGitHubClientLocalizable.strings
+//   ZLGitHubClient
+// 
+//   Created by 朱猛 on 2019/7/30.
+//   Copyright © 2019 ZM. All rights reserved.
 "repositories" = "Repos";
 "repository" = "Repo";
 "organizations" = "Organizations";
@@ -28,27 +25,20 @@
 "watcher" = "Watchers";
 "owner" = "Owner";
 "submit" = "Submit";
-
 "setting" = "Setting";
 "about" = "About";
 "feedback" = "Feedback";
-
 "lastest update" = "Lastest update";
 "all update" = "All update";
-
 "login" = "Login";
 "logout" = "Logout";
-
 "fork :" = "fork :";
 "star :" = "star :";
 "private" = "private";
-
-
 "DropDownSeeMore" = "drop down see more";
 "DropUpSeeMore" = "drop up see more";
 "Loading" = "loading";
 "LoadFinished" = "load finished";
-
 "commit" = "Commit";
 "pull request" = "Pull Request";
 "pull requests" = "Pull Requests";
@@ -56,25 +46,17 @@
 "action" = "Action";
 "contributor" = "Contributors";
 "contributions" = "Contributions";
-
 "day ago" = " day ago";
 "hour ago" = " hour ago";
 "minute ago" = " minute ago";
-
 "day later" = " day later";
 "hour later" = " hour later";
 "minute later" = " minute later";
-
 "update at" = "update at ";
-"explore" = "Explore";
-"profile" = "Profile";
-
 "Language" = "Language";
 "SimpleChinese" = "Simple Chinese";
 "English" = "English";
-
 "Search" = "Search";
-
 "Cancel" = "Cancel";
 "Confirm" = "Confirm";
 "AreYouSureToLogout" = "Are You Sure to Logout? ";
@@ -84,55 +66,42 @@
 "Input Blog" = "Input Blog";
 "Save" = "Save";
 "Edit" = "Edit";
-
 "User" = "User";
-
 "gistFiles" = " files";
 "comments" = " comments";
-
 "committed" = " committed ";
 "current" = "current";
-
 "thanks for your feedback" = "Thanks for your feedback";
 "submission failed" = "Submission Failed";
 "input feedback" = "Input feedback please";
-
 "refresh" = "Refresh";
-
 "Select a language" = "Select a language";
 "Filter languages" = "Filter languages";
-
 "trending" = "Trending";
-
 "daily" = "Toady";
 "weekly" = "This week";
 "monthly" = "This month";
-
 "Star" = "Star";
 "Unstar" = "Unstar";
 "Star Success" = "Star Successfully";
 "Star Fail" = "Star Fail";
 "Unstar Success" = "Unstar Successfully";
 "Unstar Fail" = "Unstar Fail";
-
 "Watch" = "Watch";
 "Unwatch" = "Unwatch";
 "Watch Success" = "Watch Successfully";
 "Watch Fail" = "Watch Fail";
 "Unwatch Success" = "Unwatch Successfully";
 "Unwatch Fail" = "Unwatch Fail";
-
 "Fork" = "Fork";
 "Fork Success" = "Fork Successfully";
 "Fork Fail" = "Fork Fail";
-
 "Follow" = "Follow";
 "Unfollow" = "Unfollow";
 "Follow Success" = "Follow Successfully";
 "Follow Fail" = "Follow Fail";
 "Unfollow Success" = "Unfollow Successfully";
 "Unfollow Fail" = "Unfollow Fail";
-
 "Block" = "Block";
 "Unblock" = "Unblock";
 "Block Success" = "Block Successfully";
@@ -140,37 +109,30 @@
 "Unblock Success" = "Unblock Successfully";
 "Unblock Fail" = "Unblock Fail";
 "Blocked User" = "Blocked User";
-
 "My Events" = "My Events";
 "Events" = "Events";
 
 // explore
 "Lang." = "Lang.";
-"DateRange" = "DateRange";
 "Today" = "Today";
 "This Week" = "This Week";
 "This Month" = "This Month";
 
-
 // login
-
 "ZLLoginStep_checkIsLogined" = "Checking if is Logined";
 "ZLLoginStep_logining" = "Logining";
 "ZLLoginStep_getToken" = "Getting Token";
 "ZLLoginStep_checkToken" = "Checking if Token is valid";
-"ZLLoginStep_Success" = "Login successFully";
+"ZLLoginStep_Success" = "Login Successfully";
 "Input Access Token" = "Input Access Token";
-
 
 // refresh
 "MJRefreshHeaderIdleText" = "Pull down to refresh";
 "MJRefreshHeaderPullingText" = "Release to refresh";
 "MJRefreshHeaderRefreshingText" = "Loading...";
-
 "MJRefreshAutoFooterIdleText" = "Tap or pull up to load more";
 "MJRefreshAutoFooterRefreshingText" = "Loading...";
 "MJRefreshAutoFooterNoMoreDataText" = "No more data";
-
 
 // search filter
 "Order" = "Order";
@@ -180,15 +142,13 @@
 "FollowersNum" = "Followers";
 "PubReposNum" = "Pub Repos";
 "State" = "State";
-
 "SearchRecord" = "Record";
 "ClearSearchRecord" = "Clear";
 "Filter" = "Filter";
 
+// explore
 "DateRange" = "Date Range";
-
 "OrderSelect" = "Order";
-
 "FilterFinish" = "Finish";
 
 // profile
@@ -212,10 +172,8 @@
 "Dark Mode" = "Dark Mode";
 "Light Mode" = "Light Mode";
 
-
 // share
 "Share" = "Share";
-
 
 // workboard
 "Workboard" = "Workboard";
@@ -223,12 +181,10 @@
 "Fixed Repos" = "Fixed Repos";
 "Add Fixed Repo" = "Add Fixed Repo";
 "My Repos" = "My Repos";
-
 "ClipBoard" = "ClipBoard";
 "AssistButton" = "Assist Button";
 "Hide Assist Button" = "Hide Assist Button";
 "ReShow Assist Button" = "You can relaunch assist button in setting";
-
 
 // report
 "Report" = "Report";
@@ -242,6 +198,4 @@
 "juvenile correlation" = "juvenile correlation";
 "insults abuse" = "insults abuse";
 "other" = "other";
-
 "pinned" = "Pinned";
-

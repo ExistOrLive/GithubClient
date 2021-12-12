@@ -37,7 +37,7 @@ extension ZLPinnedRepositoriesCollectionViewCellData: ZLPinnedRepositoryCollecti
         repo.owner?.avatar_url ?? ""
     }
     var repoName: String {
-        repo.full_name ?? ""
+        repo.name ?? ""
     }
     var ownerName: String {
         repo.owner?.loginName ?? ""
@@ -53,5 +53,9 @@ extension ZLPinnedRepositoriesCollectionViewCellData: ZLPinnedRepositoryCollecti
     }
     var starNum: Int {
         repo.stargazers_count 
+    }
+    
+    var isPrivate: Bool {
+        repo.isPriva
     }
 }

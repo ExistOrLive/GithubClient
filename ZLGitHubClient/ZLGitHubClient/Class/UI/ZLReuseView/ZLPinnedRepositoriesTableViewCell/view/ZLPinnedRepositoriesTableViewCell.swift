@@ -39,11 +39,11 @@ class ZLPinnedRepositoriesTableViewCell: UITableViewCell {
         }
         
         collectionView.snp.makeConstraints { make in
-            make.left.equalTo(20)
-            make.right.equalTo(-20)
+            make.left.equalTo(0)
+            make.right.equalTo(0)
             make.top.equalTo(60)
             make.bottom.equalTo(-20)
-            make.height.equalTo(150)
+            make.height.equalTo(180)
         }
     }
     
@@ -59,9 +59,10 @@ class ZLPinnedRepositoriesTableViewCell: UITableViewCell {
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.itemSize = CGSize(width: 300, height: 150)
+        layout.itemSize = CGSize(width: 300, height: 180)
         layout.minimumInteritemSpacing = 20
         let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         collectionView.backgroundColor = UIColor(named: "ZLVCBackColor")
         collectionView.register(ZLPinnedRepositoryCollectionViewCell.self, forCellWithReuseIdentifier: "ZLPinnedRepositoryCollectionViewCell")
         collectionView.showsHorizontalScrollIndicator = false

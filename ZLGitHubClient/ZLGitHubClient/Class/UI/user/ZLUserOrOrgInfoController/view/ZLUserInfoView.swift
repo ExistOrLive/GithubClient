@@ -89,9 +89,10 @@ class ZLUserInfoView: ZLBaseView {
         tableView.register(ZLCommonTableViewCell.self, forCellReuseIdentifier: "ZLCommonTableViewCell")
         tableView.register(ZLUserContributionsCell.self, forCellReuseIdentifier: "ZLUserContributionsCell")
         tableView.register(ZLPinnedRepositoriesTableViewCell.self, forCellReuseIdentifier: "ZLPinnedRepositoriesTableViewCell")
+        tableView.register(ZLOrgInfoHeaderCell.self, forCellReuseIdentifier: "ZLOrgInfoHeaderCell")
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 40, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: ZLSafeAreaBottomHeight, right: 0)
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = 0
         }
@@ -139,9 +140,14 @@ extension ZLUserInfoView: UITableViewDelegate, UITableViewDataSource {
             contributionCell.fillWithData(data: contributionCellData)
             
         } else if let pinnedRepocell = cell as? ZLPinnedRepositoriesTableViewCell,
-                  let pinnedRepoCellData = cellData as? ZLPinnedRepositoriesTableViewCellData {
+                  let pinnedRepoCellData = cellData as? ZLPinnedRepositoriesTableViewCellDelegateAndDataSource {
             
             pinnedRepocell.fillWithData(viewModel: pinnedRepoCellData)
+            
+        } else if let orgInfoHeaderCell = cell as? ZLOrgInfoHeaderCell,
+                  let orgInfoHeaderCellData = cellData as? ZLOrgInfoHeaderCellDataSourceAndDelegate {
+            
+            orgInfoHeaderCell.fillWithData(viewModel: orgInfoHeaderCellData)
             
         }
     

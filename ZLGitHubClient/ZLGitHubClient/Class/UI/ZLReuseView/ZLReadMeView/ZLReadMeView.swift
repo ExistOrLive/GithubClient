@@ -60,6 +60,11 @@ class ZLReadMeView: ZLBaseView {
         self.webView.scrollView.addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
     }
     
+    override func tintColorDidChange() {
+        // appearence mode 改变
+        self.reRender()
+    }
+    
     @IBAction func onRefreshButtonClicked(_ sender: Any) {
         self.reload()
     }

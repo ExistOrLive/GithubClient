@@ -13,8 +13,8 @@ target 'ZLGitHubClient' do
  
 pod 'Firebase/Analytics'
   
-pod "ZLGitRemoteService", :path => '../../ZLGitRemoteService'
-#pod 'ZLGitRemoteService', :git => 'https://github.com/ExistOrLive/ZLGitRemoteService.git', :tag => '1.2.0'
+#pod "ZLGitRemoteService", :path => '../../ZLGitRemoteService'
+pod 'ZLGitRemoteService', :git => 'https://github.com/ExistOrLive/ZLGitRemoteService.git', :tag => '1.2.0'
   
 #pod 'Google-Mobile-Ads-SDK'
 pod 'Umbrella'

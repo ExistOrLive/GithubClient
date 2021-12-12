@@ -11,9 +11,9 @@ import Foundation
 
 @objc protocol ZLGithubItemTableViewCellDataProtocol : NSObjectProtocol
 {
-    func getCellReuseIdentifier() -> String;
+    func getCellReuseIdentifier() -> String
      
-    func getCellHeight() -> CGFloat;
+    func getCellHeight() -> CGFloat
     
     func onCellSingleTap()
     

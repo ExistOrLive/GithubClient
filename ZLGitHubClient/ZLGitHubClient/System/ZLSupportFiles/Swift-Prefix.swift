@@ -64,6 +64,20 @@ var ZLScreenBounds : CGRect {
     UIScreen.main.bounds
 }
 
+var ZLSafeAreaBottomHeight: CGFloat {
+    if let window = UIApplication.shared.delegate?.window {
+        return window?.safeAreaInsets.bottom ?? 0
+    }
+    return 0
+}
+
+var ZLSafeAreaTopHeight: CGFloat {
+    if let window = UIApplication.shared.delegate?.window {
+        return window?.safeAreaInsets.top ?? 0
+    }
+    return 0
+}
+
 var ZLSeperateLineHeight: CGFloat = 1.0 / UIScreen.main.scale
 
 

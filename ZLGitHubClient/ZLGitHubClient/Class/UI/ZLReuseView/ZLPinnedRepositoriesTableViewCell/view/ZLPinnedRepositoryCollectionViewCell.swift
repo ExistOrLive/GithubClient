@@ -16,6 +16,7 @@ protocol ZLPinnedRepositoryCollectionViewCellDataSourceAndDelegate: ZLGithubItem
     var desc: String {get}
     var forkNum: Int {get}
     var starNum: Int {get}
+    var isPrivate: Bool {get}
 }
 
 class ZLPinnedRepositoryCollectionViewCell: UICollectionViewCell {
@@ -68,8 +69,8 @@ class ZLPinnedRepositoryCollectionViewCell: UICollectionViewCell {
         }
         
         descriptionLabel.snp.makeConstraints { make in
-            make.left.equalTo(repostitoryNameLabel)
-            make.top.equalTo(ownerNameLabel.snp.bottom).offset(20)
+            make.left.equalTo(20)
+            make.top.equalTo(avatarButton.snp.bottom).offset(20)
             make.right.equalToSuperview().offset(-20)
         }
         
@@ -132,6 +133,7 @@ class ZLPinnedRepositoryCollectionViewCell: UICollectionViewCell {
         descriptionLabel.text = viewData.desc
         forkNumLabel.text = viewData.forkNum < 1000 ? "\(viewData.forkNum)" : String(format: "%.1f",Double(viewData.forkNum)/1000.0) + "k"
         starNumLabel.text = viewData.starNum < 1000 ? "\(viewData.starNum)" : String(format: "%.1f",Double(viewData.starNum)/1000.0) + "k"
+        privateLabel.isHidden = !viewData.isPrivate
     }
     
     

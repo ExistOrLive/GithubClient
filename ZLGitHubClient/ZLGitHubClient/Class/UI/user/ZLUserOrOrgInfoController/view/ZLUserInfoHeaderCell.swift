@@ -167,6 +167,7 @@ class ZLUserInfoHeaderCell: UITableViewCell {
         let label = UILabel()
         label.textColor = UIColor(named: "ZLLabelColor1")
         label.font = UIFont.zlMediumFont(withSize: 16)
+        label.numberOfLines = 3
         return label
     }()
     

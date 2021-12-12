@@ -11,9 +11,6 @@ import ZLGitRemoteService
 
 class ZLUserInfoViewModel: ZLBaseViewModel {
     
-    // view
-    private weak var userInfoView: ZLUserInfoView?
-    
     // model
     private var userInfoModel: ZLGithubUserModel?            //
     private var pinnedRepositories: [ZLGithubRepositoryBriefModel] = []
@@ -41,7 +38,6 @@ class ZLUserInfoViewModel: ZLBaseViewModel {
             ZLLog_Warn("targetView is not ZLUserInfoView");
             return
         }
-        userInfoView = view
         
         guard let model : ZLGithubUserModel = targetModel as? ZLGithubUserModel else{
             ZLLog_Warn("model is not ZLGithubUserModel");
@@ -51,20 +47,7 @@ class ZLUserInfoViewModel: ZLBaseViewModel {
         
         generateSubViewModel()
         
-        userInfoView?.fillWithData(delegateAndDataSource: self)
-        
-        if let vc = self.viewController {
-            vc.zlNavigationBar.backButton.isHidden = false
-            let button = UIButton.init(type: .custom)
-            button.setAttributedTitle(NSAttributedString(string: ZLIconFont.More.rawValue,
-                                                         attributes: [.font:UIFont.zlIconFont(withSize: 30),
-                                                                      .foregroundColor:UIColor.label(withName:"ICON_Common")]),
-                                      for: .normal)
-            button.frame = CGRect.init(x: 0, y: 0, width: 60, height: 60)
-            button.addTarget(self, action: #selector(onMoreButtonClick(button:)), for: .touchUpInside)
-            
-            vc.zlNavigationBar.rightButton = button
-        }
+        view.fillWithData(delegateAndDataSource: self)
         
         getUserPinnedRepos()
     }
@@ -166,8 +149,10 @@ class ZLUserInfoViewModel: ZLBaseViewModel {
            itemCellDatas.append(cellData)
         }
         
-        self.addSubViewModels(itemCellDatas)
-        self.subViewModelArray.append(itemCellDatas)
+        if !itemCellDatas.isEmpty {
+            self.addSubViewModels(itemCellDatas)
+            self.subViewModelArray.append(itemCellDatas)
+        }
         
         if !pinnedRepositories.isEmpty {
             let pinnedReposCellData = ZLPinnedRepositoriesTableViewCellData(repos: pinnedRepositories)
@@ -176,51 +161,14 @@ class ZLUserInfoViewModel: ZLBaseViewModel {
         }
     }
     
-    
-    @objc func onMoreButtonClick(button : UIButton) {
-        
-        if self.userInfoModel?.html_url == nil {
-            return
-        }
-        
-        let alertVC = UIAlertController.init(title: self.userInfoModel?.loginName, message: nil, preferredStyle: .actionSheet)
-        alertVC.popoverPresentationController?.sourceView = button
-        let alertAction1 = UIAlertAction.init(title: ZLLocalizedString(string: "View in Github", comment: ""), style: UIAlertAction.Style.default) { (action : UIAlertAction) in
-            if let url = URL.init(string: self.userInfoModel?.html_url ?? "") {
-                ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,params: ["requestURL":url])
-            }
-        }
-        let alertAction2 = UIAlertAction.init(title: ZLLocalizedString(string: "Open in Safari", comment: ""), style: UIAlertAction.Style.default) { (action : UIAlertAction) in
-            if let url =  URL.init(string: self.userInfoModel?.html_url ?? "") {
-                UIApplication.shared.open(url, options: [:], completionHandler: {(result : Bool) in})
-            }
-        }
-        
-        let alertAction3 = UIAlertAction.init(title: ZLLocalizedString(string: "Share", comment: ""), style: UIAlertAction.Style.default) { (action : UIAlertAction) in
-            if let url =  URL.init(string: self.userInfoModel?.html_url ?? "") {
-                let activityVC = UIActivityViewController.init(activityItems: [url], applicationActivities: nil)
-                activityVC.popoverPresentationController?.sourceView = button
-                activityVC.excludedActivityTypes = [.message,.mail,.openInIBooks,.markupAsPDF]
-                self.viewController?.present(activityVC, animated: true, completion: nil)
-            }
-        }
-        
-        let alertAction4 = UIAlertAction.init(title: ZLLocalizedString(string: "Cancel", comment: ""), style: UIAlertAction.Style.cancel, handler: nil)
-        
-        alertVC.addAction(alertAction1)
-        alertVC.addAction(alertAction2)
-        alertVC.addAction(alertAction3)
-        alertVC.addAction(alertAction4)
-        
-        self.viewController?.present(alertVC, animated: true, completion: nil)
-        
-    }
-    
 }
 
 // MARK: ZLUserInfoViewDelegateAndDataSource
 extension ZLUserInfoViewModel: ZLUserInfoViewDelegateAndDataSource {
     
+    var html_url: String? {
+        userInfoModel?.html_url
+    }
     
     var loginName: String {
         userInfoModel?.loginName ?? ""
@@ -259,6 +207,7 @@ extension ZLUserInfoViewModel: ZLUserInfoViewDelegateAndDataSource {
 
 // MARK: Request
 extension ZLUserInfoViewModel {
+    
     func getUserInfo() {
         
         guard let loginName = userInfoModel?.loginName else {
@@ -333,22 +282,4 @@ extension ZLUserInfoViewModel
 //            break
 //        }
     }
-}
-
-extension ZLUserInfoViewModel {
-    
-    
-    // MARK: ZLReadmeViewDelegate
-    
-//    func onLinkClicked(url : URL?) -> Void {
-//        if let realurl = url {
-//            ZLUIRouter.openURL(url: realurl)
-//        }
-//    }
-//
-//    func getReadMeContent(result: Bool) {
-//        if result == true {
-//            self.userInfoView.readMeView?.isHidden = false
-//        }
-//    }
 }
