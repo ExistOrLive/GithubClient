@@ -14,7 +14,7 @@ target 'ZLGitHubClient' do
 pod 'Firebase/Analytics'
   
 #pod "ZLGitRemoteService", :path => '../../ZLGitRemoteService'
-pod 'ZLGitRemoteService', :git => 'https://github.com/ExistOrLive/ZLGitRemoteService.git', :tag => '1.2.0'
+pod 'ZLGitRemoteService', :git => 'https://github.com/ExistOrLive/ZLGitRemoteService.git'
   
 #pod 'Google-Mobile-Ads-SDK'
 pod 'Umbrella'
@@ -75,8 +75,6 @@ pod 'JJException'
 
 # 扩展
 pod 'UITextView+Placeholder'
-
-pod 'then'
 
 pod "SYDCentralPivot"
 pod 'ZLBaseUI', :git => 'https://github.com/ExistOrLive/ZLBaseUI.git', :tag => '1.2.0'
