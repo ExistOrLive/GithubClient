@@ -108,18 +108,18 @@ class ZLUserInfoHeaderCell: UITableViewCell {
             make.centerY.equalTo(avatarImageView)
         }
         
-        reposNumButton.snp.makeConstraints { make in
-            make.width.equalTo(50)
-        }
-        gistsNumButton.snp.makeConstraints { make in
-            make.width.equalTo(50)
-        }
-        followersNumButton.snp.makeConstraints { make in
-            make.width.equalTo(50)
-        }
-        followingsNumButton.snp.makeConstraints { make in
-            make.width.equalTo(50)
-        }
+//        reposNumButton.snp.makeConstraints { make in
+//            make.width.equalTo(50)
+//        }
+//        gistsNumButton.snp.makeConstraints { make in
+//            make.width.equalTo(50)
+//        }
+//        followersNumButton.snp.makeConstraints { make in
+//            make.width.equalTo(50)
+//        }
+//        followingsNumButton.snp.makeConstraints { make in
+//            make.width.equalTo(50)
+//        }
         
         followButton.snp.makeConstraints { make in
             make.size.equalTo(CGSize(width: 60, height: 25))
@@ -189,8 +189,9 @@ class ZLUserInfoHeaderCell: UITableViewCell {
     private lazy var buttonStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.distribution = .equalSpacing
+        stackView.distribution = .fillEqually
         stackView.alignment = .fill
+        stackView.spacing = 35
         return stackView
     }()
     

@@ -36,6 +36,11 @@ class ZLPullRequestTimelineTableViewCellData: ZLGithubItemTableViewCellData {
     override func getCellHeight() -> CGFloat {
         return UITableView.automaticDimension;
     }
+    
+    override func clearCache() {
+        super.clearCache()
+        self.attributedString = nil
+    }
 
 }
 
