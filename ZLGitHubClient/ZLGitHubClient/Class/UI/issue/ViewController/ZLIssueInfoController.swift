@@ -93,7 +93,9 @@ class ZLIssueInfoController: ZLBaseViewController {
 
 extension ZLIssueInfoController {
     override func getEvent(_ event: Any?, fromSubViewModel subViewModel: ZLBaseViewModel) {
-        self.itemListView.reloadData()
+        if let cellData = subViewModel as? ZLGithubItemTableViewCellData {
+            self.itemListView.reloadVisibleCells(cellDatas: [cellData])
+        }
     }
 }
 

@@ -286,4 +286,27 @@ extension ZLGithubItemListView
     func reloadData(){
         self.tableView.reloadData()
     }
+    
+    func reloadVisibleCells(cellDatas: [ZLGithubItemTableViewCellData]) {
+        if let visibleIndexPaths = self.tableView.indexPathsForVisibleRows {
+            
+            let indexPaths = cellDatas.compactMap({ cellData -> IndexPath? in
+                if let index = cellDatas.firstIndex(of: cellData) {
+                    let indexPath =  IndexPath(row: index, section: 0)
+                    if visibleIndexPaths.contains(where: { objIndexPath in
+                        objIndexPath.row == indexPath.row
+                    }) {
+                        return indexPath
+                    } else {
+                        return nil
+                    }
+                } else {
+                    return nil
+                }
+            })
+            
+            self.tableView.reloadRows(at: indexPaths, with: .automatic)
+        }
+    }
+    
 }

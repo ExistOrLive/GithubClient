@@ -15,24 +15,21 @@ protocol ZLPullRequestCommentTableViewCellDelegate : NSObjectProtocol{
     func getTime() -> String
     func getCommentHtml() -> String
     func getCommentText() -> String
-    func getCommentWebView() -> WKWebView
-    func getCommentWebViewHeight() -> CGFloat
     
     func onAvatarButtonClicked() -> Void
+    func didRowHeightChange(height: CGFloat)
+    func didClickLink(url: URL)
 }
-
-
 
 class ZLPullRequestCommentTableViewCell: UITableViewCell {
     
     private var delegete: ZLPullRequestCommentTableViewCellDelegate?
-    
-    var avatarButton : UIButton!
-    var actorLabel : UILabel!
-    var timeLabel : UILabel!
-    var containerView : UIView!
-    
-    var tmpHtml : String?
+        
+    private var cacheHtml: String?
+
+//    deinit {
+//        webView.scrollView.removeObserver(self, forKeyPath: "contentSize")
+//    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -43,17 +40,6 @@ class ZLPullRequestCommentTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-
-    
-    
     func setUpUI(){
         
         self.selectionStyle = .none
@@ -61,55 +47,38 @@ class ZLPullRequestCommentTableViewCell: UITableViewCell {
         self.contentView.backgroundColor = UIColor.clear
         self.backgroundColor = UIColor.clear
         
-        let backView = UIView()
-        backView.layer.masksToBounds = true
-        backView.layer.cornerRadius = 8.0
-        backView.backgroundColor = UIColor(named: "ZLIssueCommentCellColor")
         self.contentView.addSubview(backView)
+        
         backView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview().inset(UIEdgeInsets(top: 20, left: 10, bottom: 0, right: 10))
+            make.edges.equalToSuperview().inset(UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0))
         }
         
-        let tmpAvatarButton = UIButton(type: .custom)
-        tmpAvatarButton.cornerRadius = 20
-        backView.addSubview(tmpAvatarButton)
-        tmpAvatarButton.snp.makeConstraints { (make) in
+        backView.addSubview(avatarButton)
+        avatarButton.snp.makeConstraints { (make) in
             make.top.equalToSuperview().offset(20)
             make.left.equalToSuperview().offset(15)
             make.size.equalTo(CGSize(width: 40, height: 40))
         }
-        avatarButton = tmpAvatarButton
-        avatarButton.addTarget(self, action: #selector(onAvatarButtonClicked), for: .touchUpInside)
-        
-        let label1 = UILabel()
-        label1.textColor = UIColor(named: "ZLLabelColor1")
-        label1.font = UIFont(name: Font_PingFangSCMedium, size: 15)
-        backView.addSubview(label1)
-        label1.snp.makeConstraints { (make) in
+       
+        backView.addSubview(actorLabel)
+        actorLabel.snp.makeConstraints { (make) in
             make.left.equalTo(avatarButton.snp.right).offset(10)
             make.top.equalTo(avatarButton)
         }
-        actorLabel = label1
         
-        let label2 = UILabel()
-        label2.textColor = UIColor(named: "ZLLabelColor2")
-        label2.font = UIFont(name: Font_PingFangSCRegular, size: 12)
-        backView.addSubview(label2)
-        label2.snp.makeConstraints { (make) in
+        backView.addSubview(timeLabel)
+        timeLabel.snp.makeConstraints { (make) in
             make.left.equalTo(avatarButton.snp.right).offset(10)
             make.bottom.equalTo(avatarButton)
         }
-        timeLabel = label2
         
-        containerView = UIView()
-        backView.addSubview(containerView)
-        containerView.snp.makeConstraints { (make) in
+        backView.addSubview(webView)
+        webView.snp.makeConstraints { make in
             make.top.equalTo(avatarButton.snp.bottom).offset(20)
-            make.left.equalToSuperview().offset(25)
-            make.right.equalToSuperview().offset(-25)
+            make.left.equalToSuperview().offset(15)
+            make.right.equalToSuperview().offset(-15)
             make.bottom.equalToSuperview().offset(-10)
         }
-        
 
         let view = UIView()
         view.backgroundColor = UIColor(named: "ZLSeperatorLineColor")
@@ -122,29 +91,96 @@ class ZLPullRequestCommentTableViewCell: UITableViewCell {
         }
     }
     
-    
     func fillWithData(data : ZLPullRequestCommentTableViewCellDelegate) {
-       
         self.delegete = data
-        
         avatarButton.sd_setImage(with: URL(string: data.getActorAvatarUrl()), for: .normal, placeholderImage: UIImage(named: "default_avatar"))
         actorLabel.text = data.getActorName()
         timeLabel.text = data.getTime()
-        
-        let webView = data.getCommentWebView()
-        for view in containerView.subviews {
-            view.removeFromSuperview()
-        }
-        containerView.addSubview(webView)
-        webView.snp.removeConstraints()
-        webView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
-            make.height.equalTo(data.getCommentWebViewHeight())
-        }
-        
+        webView.loadHTMLString(data.getCommentHtml(), baseURL: nil)
     }
     
     @objc func onAvatarButtonClicked(){
         self.delegete?.onAvatarButtonClicked()
+    }
+    
+    
+    // MARK: View
+    
+    private lazy var backView: UIView = {
+        let backView = UIView()
+        backView.backgroundColor = UIColor(named: "ZLIssueCommentCellColor")
+        return backView
+    }()
+    
+    private lazy var avatarButton: UIButton = {
+        let tmpAvatarButton = UIButton(type: .custom)
+        tmpAvatarButton.cornerRadius = 20
+        tmpAvatarButton.addTarget(self, action: #selector(onAvatarButtonClicked), for: .touchUpInside)
+        return tmpAvatarButton
+    }()
+    
+    private lazy var actorLabel: UILabel = {
+        let label1 = UILabel()
+        label1.textColor = UIColor(named: "ZLLabelColor1")
+        label1.font = UIFont(name: Font_PingFangSCMedium, size: 15)
+        return label1
+    }()
+    
+    private lazy var timeLabel: UILabel = {
+        let label2 = UILabel()
+        label2.textColor = UIColor(named: "ZLLabelColor2")
+        label2.font = UIFont(name: Font_PingFangSCRegular, size: 12)
+        return label2
+    }()
+    
+    private lazy var webView: WKWebView = {
+        let webView = WKWebView()
+        webView.navigationDelegate = self
+        webView.scrollView.backgroundColor = UIColor.clear
+        webView.backgroundColor = UIColor.clear
+//        webView.scrollView.isScrollEnabled = false
+//        webView.scrollView.addObserver(self, forKeyPath: "contentSize", options: [.new,.old], context: nil)
+        return webView
+    }()
+}
+
+//extension ZLPullRequestCommentTableViewCell {
+//
+//    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+//        if keyPath == "contentSize" {
+//            guard let size : CGSize = change?[NSKeyValueChangeKey.newKey] as? CGSize else{
+//                return
+//            }
+//            self.delegete?.didRowHeightChange(height: size.height + 110)
+//        }
+//    }
+//}
+
+extension ZLPullRequestCommentTableViewCell : WKNavigationDelegate {
+    
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        if navigationAction.navigationType == .linkActivated {
+            
+            if let url = navigationAction.request.url {
+                self.delegete?.didClickLink(url: url)
+            }
+            decisionHandler(.cancel)
+            
+        } else {
+            decisionHandler(.allow)
+        }
+        
+    }
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+      let script = "let array = document.getElementsByTagName('html');array[0].offsetHeight"
+
+      webView.evaluateJavaScript(script) { [weak self] result, error in
+        if let _ = error { return }
+
+        if let height = result as? CGFloat {
+            self?.delegete?.didRowHeightChange(height: height + 110)
+        }
+      }
     }
 }
