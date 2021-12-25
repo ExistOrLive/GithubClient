@@ -147,7 +147,7 @@ class ZLPullRequestTableViewCell: UITableViewCell {
         } else if data.isPullRequestMerged() {
             self.statusTag.textColor = UIColor(named: "ICON_PRMergedColor")
         } else {
-            self.statusTag.textColor = UIColor(named: "ICON_PRClosedColor")
+            self.statusTag.textColor = UIColor(named: "ICON_PRCloseColor")
         }
         
     }
