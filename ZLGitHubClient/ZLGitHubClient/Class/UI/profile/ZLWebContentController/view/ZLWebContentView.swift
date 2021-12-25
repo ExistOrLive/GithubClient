@@ -275,10 +275,13 @@ extension ZLWebContentView
 extension ZLWebContentView : WKUIDelegate,WKNavigationDelegate
 {
     func webViewDidClose(_ webView: WKWebView) {
-        
+        ZLLog_Debug("ZLWebContentView: webViewDidClose")
     }
     
-    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+    /// 1. 决定是否发出请求
+    func webView(_ webView: WKWebView,
+                 decidePolicyFor navigationAction: WKNavigationAction,
+                 decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         
         ZLLog_Debug("ZLWebContentView: webView:decidePolicyForNavigationAction: type[\(navigationAction.navigationType)] request[\(navigationAction.request)]]")
         
@@ -294,7 +297,37 @@ extension ZLWebContentView : WKUIDelegate,WKNavigationDelegate
         }
     }
     
-    func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+    /// 2. 开始发出请求
+    func webView(_ webView: WKWebView,
+                 didStartProvisionalNavigation navigation: WKNavigation!) {
+
+        ZLLog_Debug("ZLWebContentView: webView:didStartProvisionalNavigation navigation[\(String(describing: navigation))]")
+    }
+    
+    /// 3. 请求重定向
+    func webView(_ webView: WKWebView,
+                 didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
+     
+        ZLLog_Debug("ZLWebContentView: webView:didReceiveServerRedirectForProvisionalNavigation navigation[\(String(describing: navigation))]")
+        if self.delegate?.responds(to: #selector(ZLWebContentViewDelegate.webView(_:didReceiveServerRedirectForProvisionalNavigation:))) ?? false 
+        {
+            self.delegate?.webView?(webView, didReceiveServerRedirectForProvisionalNavigation: navigation)
+        }
+    }
+    
+    /// 4. 请求失败
+    func webView(_ webView: WKWebView,
+                 didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        
+        ZLLog_Debug("ZLWebContentView: webView:didFailProvisionalNavigation navigation[\(String(describing: navigation))] error[\(error.localizedDescription)]")
+        self.setFaildRequestStatus(text: error.localizedDescription)
+    }
+    
+    /// 5. 收到响应，决定是否处理响应
+    func webView(_ webView: WKWebView,
+                 decidePolicyFor navigationResponse: WKNavigationResponse,
+                 decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+        //
         ZLLog_Debug("ZLWebContentView: webView:decidePolicyForNavigationResponse: response[\(navigationResponse.response)]")
         
         if  self.delegate?.responds(to: #selector(ZLWebContentViewDelegate.webView(_:navigationResponse:decisionHandler:))) ?? false {
@@ -308,46 +341,26 @@ extension ZLWebContentView : WKUIDelegate,WKNavigationDelegate
     }
     
 
-    
-    func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
-        ZLLog_Debug("ZLWebContentView: webView:didReceiveServerRedirectForProvisionalNavigation navigation[\(String(describing: navigation))]")
-        if self.delegate?.responds(to: #selector(ZLWebContentViewDelegate.webView(_:didReceiveServerRedirectForProvisionalNavigation:))) ?? false 
-        {
-            self.delegate?.webView?(webView, didReceiveServerRedirectForProvisionalNavigation: navigation)
-        }
-    }
-    
-    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-        ZLLog_Debug("ZLWebContentView: webView:didStartProvisionalNavigation navigation[\(String(describing: navigation))]")
-    }
-    
-    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
-        ZLLog_Debug("ZLWebContentView: webView:didFailProvisionalNavigation navigation[\(String(describing: navigation))] error[\(error.localizedDescription)]")
-        
-        self.setFaildRequestStatus(text: error.localizedDescription)
-    }
-    
-    
-    
-
     /**
      * 收到请求的响应，开始刷新界面
      *
      **/
-    
+    /// 6. 处理请求， 开始刷新页面
     func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
-        
+        ZLLog_Debug("ZLWebContentView: webView:didCommit navigation[\(String(describing: navigation))]")
         self.setStartLoadStatus()
         
     }
     
+    /// 7.  页面渲染失败
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        
+        ZLLog_Debug("ZLWebContentView: webView:didFail navigation[\(String(describing: navigation))] error[\(error.localizedDescription)]")
         self.setEndLoadStatus()
     }
     
+    /// 8. 页面渲染结束
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-       
+        ZLLog_Debug("ZLWebContentView: webView:didFinish navigation[\(String(describing: navigation))]")
         self.setEndLoadStatus()
     }
 }
