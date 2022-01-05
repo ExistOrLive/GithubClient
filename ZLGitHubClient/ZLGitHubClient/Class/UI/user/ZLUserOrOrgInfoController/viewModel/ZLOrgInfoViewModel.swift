@@ -33,6 +33,8 @@ class ZLOrgInfoViewModel: ZLBaseViewModel {
         }
         orgInfoModel = model
         
+        generateSubViewModel()
+        
         view.fillWithData(delegateAndDataSource: self)
         
         getUserPinnedRepos()
