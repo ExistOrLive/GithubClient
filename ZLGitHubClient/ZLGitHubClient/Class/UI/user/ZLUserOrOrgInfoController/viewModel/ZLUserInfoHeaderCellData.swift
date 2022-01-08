@@ -218,7 +218,7 @@ extension ZLUserInfoHeaderCellData: ZLUserInfoHeaderCellDataSourceAndDelegate {
     }
     
     var showBlockButton: Bool {
-        var showBlockButton = ZLSharedDataManager.sharedInstance().configModel?.BlockFunction ?? true
+        var showBlockButton = ZLUISharedDataManager.enabledBlockFunction
         let currentLoginName = ZLServiceManager.sharedInstance.viewerServiceModel?.currentUserLoginName
         if currentLoginName == "ExistOrLive1" ||
             currentLoginName == "existorlive3" ||

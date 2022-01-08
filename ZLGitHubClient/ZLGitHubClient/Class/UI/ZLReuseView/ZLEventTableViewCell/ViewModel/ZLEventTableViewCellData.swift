@@ -24,7 +24,7 @@ class ZLEventTableViewCellData: ZLGithubItemTableViewCellData {
             return
         }
         
-        var  showReportButton = ZLSharedDataManager.sharedInstance().configModel?.ReportFunction ?? true
+        var  showReportButton = ZLUISharedDataManager.enbaledReportFunction
         let currentLoginName = ZLServiceManager.sharedInstance.viewerServiceModel?.currentUserLoginName
         if  currentLoginName == "ExistOrLive1" ||
                 currentLoginName == "existorlive3" ||

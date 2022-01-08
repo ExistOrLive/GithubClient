@@ -12,7 +12,11 @@ end
 target 'ZLGitHubClient' do
  
 pod 'Firebase/Analytics'
-  
+pod 'Firebase/Crashlytics'
+pod 'Firebase/RemoteConfig'
+pod 'Firebase/Performance'
+
+
 #pod "ZLGitRemoteService", :path => '../../ZLGitRemoteService'
 pod 'ZLGitRemoteService', :git => 'https://github.com/ExistOrLive/ZLGitRemoteService.git'
   

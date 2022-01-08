@@ -24,7 +24,7 @@ class ZLWorkboardViewController: ZLBaseViewController {
         let viewModel = ZLWorkboardBaseViewModel()
         self.addSubViewModel(viewModel)
         viewModel.bindModel(nil, andView: baseView)
-        
-        
     }
+    
+    
 }

@@ -141,6 +141,7 @@
 		74724C612741502400A3D863 /* UIImage+IconFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 74724C602741502400A3D863 /* UIImage+IconFont.m */; };
 		747FCA1525FFAA2B00D2C39B /* Fixed_Repo.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 747FCA1825FFAA2B00D2C39B /* Fixed_Repo.intentdefinition */; };
 		747FCA1625FFAA2B00D2C39B /* Fixed_Repo.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 747FCA1825FFAA2B00D2C39B /* Fixed_Repo.intentdefinition */; };
+		74833FA92789DBA1009137D1 /* RemoteConfigDefault.plist in Resources */ = {isa = PBXBuildFile; fileRef = 74833FA82789DBA1009137D1 /* RemoteConfigDefault.plist */; };
 		74835FC6256B8D760083BE10 /* ZLMyIssuesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74835FC5256B8D760083BE10 /* ZLMyIssuesController.swift */; };
 		74835FE7256BA7810083BE10 /* ZLMyIssuesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74835FE6256BA7810083BE10 /* ZLMyIssuesView.swift */; };
 		74835FEB256BB7230083BE10 /* ZLIssueTableViewCellDataForViewerIssue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74835FEA256BB7230083BE10 /* ZLIssueTableViewCellDataForViewerIssue.swift */; };
@@ -523,6 +524,7 @@
 		747FCA1725FFAA2B00D2C39B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = Base; path = Base.lproj/Fixed_Repo.intentdefinition; sourceTree = "<group>"; };
 		747FCA3525FFBC7400D2C39B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Fixed_Repo.strings; sourceTree = "<group>"; };
 		747FCA3A25FFBC7700D2C39B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Fixed_Repo.strings"; sourceTree = "<group>"; };
+		74833FA82789DBA1009137D1 /* RemoteConfigDefault.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = RemoteConfigDefault.plist; sourceTree = "<group>"; };
 		74835FC5256B8D760083BE10 /* ZLMyIssuesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLMyIssuesController.swift; sourceTree = "<group>"; };
 		74835FE6256BA7810083BE10 /* ZLMyIssuesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLMyIssuesView.swift; sourceTree = "<group>"; };
 		74835FEA256BB7230083BE10 /* ZLIssueTableViewCellDataForViewerIssue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLIssueTableViewCellDataForViewerIssue.swift; sourceTree = "<group>"; };
@@ -1525,6 +1527,7 @@
 				74C3F8CF22D1E79D0086A3F9 /* Swift-Prefix.swift */,
 				74C861CC22F02BED00A30B79 /* ZLGitHubClientLocalizable.strings */,
 				7408EC222533BD72001DA1EC /* ZLGithubAppKey.h */,
+				74833FA82789DBA1009137D1 /* RemoteConfigDefault.plist */,
 			);
 			path = ZLSupportFiles;
 			sourceTree = "<group>";
@@ -3110,6 +3113,7 @@
 			files = (
 				742AFDE824291E8200DFE87C /* github_style.html in Resources */,
 				74CDA6822409833C00049EF8 /* main.css in Resources */,
+				74833FA92789DBA1009137D1 /* RemoteConfigDefault.plist in Resources */,
 				74CF8F6325431351006F51A5 /* ZLReportBaseView.xib in Resources */,
 				7451F153247AD3FA0047A186 /* ZLTrendingDateRangeTableViewCell.xib in Resources */,
 				74F02CD622DCD76600AE153F /* ZLProfileHeaderView.xib in Resources */,
@@ -3195,9 +3199,13 @@
 				"${BUILT_PRODUCTS_DIR}/FFPopup/FFPopup.framework",
 				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
 				"${BUILT_PRODUCTS_DIR}/FWPopupView/FWPopupView.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseABTesting/FirebaseABTesting.framework",
 				"${BUILT_PRODUCTS_DIR}/FirebaseCore/FirebaseCore.framework",
 				"${BUILT_PRODUCTS_DIR}/FirebaseCoreDiagnostics/FirebaseCoreDiagnostics.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseCrashlytics/FirebaseCrashlytics.framework",
 				"${BUILT_PRODUCTS_DIR}/FirebaseInstallations/FirebaseInstallations.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebasePerformance/FirebasePerformance.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseRemoteConfig/FirebaseRemoteConfig.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleDataTransport/GoogleDataTransport.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
@@ -3236,9 +3244,13 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FFPopup.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMDB.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FWPopupView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseABTesting.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCoreDiagnostics.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCrashlytics.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseInstallations.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebasePerformance.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseRemoteConfig.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleDataTransport.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManager.framework",
