@@ -49,7 +49,7 @@ class ZLSettingViewModel: ZLBaseViewModel {
         settingItemForFirstSection.append(monitor)
         #endif
         let currentLoginName = ZLServiceManager.sharedInstance.viewerServiceModel?.currentUserLoginName
-        if ZLSharedDataManager.sharedInstance().configModel?.BlockFunction ?? true ||
+        if ZLUISharedDataManager.enabledBlockFunction ||
             currentLoginName == "ExistOrLive1" ||
             currentLoginName == "existorlive3" ||
             currentLoginName == "existorlive11" {
