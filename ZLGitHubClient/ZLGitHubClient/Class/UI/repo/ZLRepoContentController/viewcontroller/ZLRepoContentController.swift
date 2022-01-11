@@ -30,6 +30,7 @@ class ZLRepoContentController: ZLBaseViewController {
     var currentContentNode : ZLRepoContentNode?
     
     var tableView : UITableView?
+    var leftPanGestureRecognizer: UIScreenEdgePanGestureRecognizer?
     
     override func viewDidLoad() {
        
@@ -45,6 +46,25 @@ class ZLRepoContentController: ZLBaseViewController {
         
         self.tableView?.mj_header?.beginRefreshing()
         
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.leftPanGestureRecognizer?.isEnabled = true
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if self.leftPanGestureRecognizer == nil,
+            let gestureRecognizers = self.navigationController?.view.gestureRecognizers {
+            for gestureRecognizer in gestureRecognizers {
+                if let panGestureRecognizer = gestureRecognizer as? UIScreenEdgePanGestureRecognizer,
+                   panGestureRecognizer.isEnabled == true {
+                    self.leftPanGestureRecognizer = panGestureRecognizer
+                }
+            }
+        }
+        self.leftPanGestureRecognizer?.isEnabled = false
     }
     
     func generateContentTree() {
