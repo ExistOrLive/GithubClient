@@ -8,21 +8,19 @@
 
 import UIKit
 
-
-@objc protocol ZLGithubItemCollectionViewCellDataProtocol : NSObjectProtocol
-{
-    func getCellReuseIdentifier() -> String;
+@objc protocol ZLGithubItemCollectionViewCellDataProtocol: NSObjectProtocol {
+    func getCellReuseIdentifier() -> String
 
     func onCellSingleTap()
 }
 
-class ZLGithubItemCollectionViewCellData: ZLBaseViewModel,ZLGithubItemCollectionViewCellDataProtocol {
-    
-    func getCellReuseIdentifier() -> String{
+class ZLGithubItemCollectionViewCellData: ZLBaseViewModel, ZLGithubItemCollectionViewCellDataProtocol {
+
+    func getCellReuseIdentifier() -> String {
         return "UICollectionViewCell"
     }
 
     func onCellSingleTap() {
-        
+
     }
 }

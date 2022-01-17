@@ -9,78 +9,74 @@
 import UIKit
 
 class ZLReleaseEventTableViewCellData: ZLEventTableViewCellData {
-    
-    private var _eventDescription : NSAttributedString?
-    
+
+    private var _eventDescription: NSAttributedString?
+
     override func getEventDescrption() -> NSAttributedString {
-        
+
         if let desc = _eventDescription {
             return desc
         }
-        
-        guard let payload : ZLReleaseEventPayloadModel = self.eventModel.payload as? ZLReleaseEventPayloadModel else {
+
+        guard let payload: ZLReleaseEventPayloadModel = self.eventModel.payload as? ZLReleaseEventPayloadModel else {
             return super.getEventDescrption()
         }
-        
+
         let str = "\(payload.action) release \(payload.releaseModel.tag_name)\n\n  \(payload.releaseModel.name)\n\nin \(self.eventModel.repo.name)"
-        
+
         let attributedStr =  NSMutableAttributedString(string: str ,
-                                                       attributes: [.foregroundColor:UIColor.init(cgColor: UIColor.label(withName: "ZLLabelColor3").cgColor),
-                                                                    .font:UIFont.zlRegularFont(withSize: 15)])
-                
-        
-        
+                                                       attributes: [.foregroundColor: UIColor.init(cgColor: UIColor.label(withName: "ZLLabelColor3").cgColor),
+                                                                    .font: UIFont.zlRegularFont(withSize: 15)])
+
         let releaseRange = (str as NSString).range(of: payload.releaseModel.tag_name)
         attributedStr.yy_setTextHighlight(releaseRange,
                                           color: UIColor.init(cgColor: UIColor.linkColor(withName: "ZLLinkLabelColor1").cgColor),
-                                          backgroundColor: UIColor.clear)
-        { (containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
-            
+                                          backgroundColor: UIColor.clear) { (_: UIView, _: NSAttributedString, _: NSRange, _: CGRect) in
+
             if let url = URL.init(string: payload.releaseModel.html_url) {
                 ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,
-                                      params: ["requestURL":url])
+                                      params: ["requestURL": url])
             }
         }
-        
+
         let repoNameRange = (str as NSString).range(of: self.eventModel.repo.name)
         attributedStr.yy_setTextHighlight(repoNameRange,
                                           color: UIColor.init(cgColor: UIColor.linkColor(withName: "ZLLinkLabelColor1").cgColor),
-                                          backgroundColor: UIColor.clear)
-         {[weak self](containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
-            
+                                          backgroundColor: UIColor.clear) {[weak self](_: UIView, _: NSAttributedString, _: NSRange, _: CGRect) in
+
             if let repoFullName = self?.eventModel.repo.name,
                let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: repoFullName) {
-                
+
                 vc.hidesBottomBarWhenPushed = true
                 self?.viewController?.navigationController?.pushViewController(vc, animated: true)
             }
         }
-        
+
         _eventDescription = attributedStr
-        
+
         return attributedStr
     }
-    
+
     override func getCellReuseIdentifier() -> String {
         return "ZLEventTableViewCell"
     }
-    
+
     override func getCellHeight() -> CGFloat {
         return UITableView.automaticDimension
     }
-    
+
     override func onCellSingleTap() {
-        
+
         guard let payload = self.eventModel.payload as? ZLReleaseEventPayloadModel else {
             return
         }
-        
+
         if let url = URL.init(string: payload.releaseModel.html_url) {
             ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,
-                                  params: ["requestURL":url])
+                                  params: ["requestURL": url])
         }
     }
-    
+
     override func clearCache() {
         self._eventDescription = nil
     }

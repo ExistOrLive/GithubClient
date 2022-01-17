@@ -11,13 +11,13 @@ import UIKit
 class ZLPinnedRepositoriesCollectionViewCellData: ZLGithubItemCollectionViewCellData {
 
     private var repo: ZLGithubRepositoryBriefModel
-    
+
     init(repo: ZLGithubRepositoryBriefModel) {
         self.repo = repo
         super.init()
     }
-    
-    override func getCellReuseIdentifier() -> String{
+
+    override func getCellReuseIdentifier() -> String {
         return "ZLPinnedRepositoryCollectionViewCell"
     }
 
@@ -28,11 +28,11 @@ class ZLPinnedRepositoriesCollectionViewCellData: ZLGithubItemCollectionViewCell
         }
         self.viewController?.navigationController?.pushViewController(vc, animated: true)
     }
-    
+
 }
 
 extension ZLPinnedRepositoriesCollectionViewCellData: ZLPinnedRepositoryCollectionViewCellDataSourceAndDelegate {
-    
+
     var avatarUrl: String {
         repo.owner?.avatar_url ?? ""
     }
@@ -52,9 +52,9 @@ extension ZLPinnedRepositoriesCollectionViewCellData: ZLPinnedRepositoryCollecti
         repo.forks_count
     }
     var starNum: Int {
-        repo.stargazers_count 
+        repo.stargazers_count
     }
-    
+
     var isPrivate: Bool {
         repo.isPriva
     }

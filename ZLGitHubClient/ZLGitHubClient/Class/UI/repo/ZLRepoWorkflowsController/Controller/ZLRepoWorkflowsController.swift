@@ -9,24 +9,24 @@
 import UIKit
 
 class ZLRepoWorkflowsController: ZLBaseViewController {
-    
-    var repoFullName : String?
+
+    var repoFullName: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.title = "Workflow"
-        
+
         let viewModel = ZLRepoWorkflowsViewModel()
-        
-        let githubItemListView : ZLGithubItemListView = ZLGithubItemListView.init()
+
+        let githubItemListView: ZLGithubItemListView = ZLGithubItemListView.init()
         githubItemListView.setTableViewFooter()
         githubItemListView.setTableViewHeader()
         self.contentView.addSubview(githubItemListView)
         githubItemListView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
-        
+
         self.addSubViewModel(viewModel)
         viewModel.bindModel(repoFullName, andView: githubItemListView)
     }

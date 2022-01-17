@@ -8,15 +8,15 @@
 
 import UIKit
 
-class ZLLanguageController: ZLBaseViewController,ZLLanguageViewDelegate {
-    
+class ZLLanguageController: ZLBaseViewController, ZLLanguageViewDelegate {
+
     var selectIndex: Int {
         (LANMODULE?.currentLanguageType() ?? ZLLanguageType.auto).rawValue + 1
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         title = ZLLocalizedString(string: "Language", comment: "")
         let languageView = ZLLanguageView()
         contentView.addSubview(languageView)
@@ -27,8 +27,7 @@ class ZLLanguageController: ZLBaseViewController,ZLLanguageViewDelegate {
         }
         languageView.fillWithData(data: self)
     }
-    
-    
+
     func onButtonClicked(index: Int) {
         guard let languageChoice = ZLLanguageType(rawValue: index - 1) else {
             return
@@ -36,7 +35,5 @@ class ZLLanguageController: ZLBaseViewController,ZLLanguageViewDelegate {
         LANMODULE?.setLanguageType(languageChoice, error: nil)
         navigationController?.popViewController(animated: true)
     }
-    
 
-    
 }

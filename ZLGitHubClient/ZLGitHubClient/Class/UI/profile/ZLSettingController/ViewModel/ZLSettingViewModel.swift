@@ -9,8 +9,7 @@
 import UIKit
 import MJRefresh
 
-enum ZLSettingItemType: Int
-{
+enum ZLSettingItemType: Int {
     case language
     case logout
     case monitor
@@ -20,31 +19,30 @@ enum ZLSettingItemType: Int
 }
 
 class ZLSettingViewModel: ZLBaseViewModel {
-    
-    static var settingItemTypes : [[ZLSettingItemType]] = [[.language,.blockedUser],[.logout]]
-    
-    
+
+    static var settingItemTypes: [[ZLSettingItemType]] = [[.language, .blockedUser], [.logout]]
+
     // view
-    var tableView : UITableView?
-    
+    var tableView: UITableView?
+
     // Model
-    var logoutSerialNumber : String?
-    
+    var logoutSerialNumber: String?
+
     deinit {
         NotificationCenter.default.removeObserver(self, name: ZLLanguageTypeChange_Notificaiton, object: nil)
         ZLServiceManager.sharedInstance.loginServiceModel?.unRegisterObserver(self, name: ZLLogoutResult_Notification)
     }
-    
+
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
-        
+
         guard let tableView = targetView as? UITableView else {
             ZLLog_Error("targetView is not ZLSettingView,so return")
             return
         }
         self.tableView = tableView
-        
-        var settingItemForFirstSection : [ZLSettingItemType] = [.language]
-        
+
+        var settingItemForFirstSection: [ZLSettingItemType] = [.language]
+
         #if debug
         settingItemForFirstSection.append(monitor)
         #endif
@@ -58,157 +56,140 @@ class ZLSettingViewModel: ZLBaseViewModel {
         if #available(iOS 13.0, *) {
             settingItemForFirstSection.append(.interfaceStyle)
         }
-        
+
         settingItemForFirstSection.append(.assistButton)
-        
-        ZLSettingViewModel.settingItemTypes = [settingItemForFirstSection,[.logout]]
-        
-    
+
+        ZLSettingViewModel.settingItemTypes = [settingItemForFirstSection, [.logout]]
+
         self.tableView?.dataSource = self
         self.tableView?.delegate = self
-        
-        NotificationCenter.default.addObserver(self, selector:#selector(onNotificationArrived(notication:)) , name: ZLLanguageTypeChange_Notificaiton, object: nil)
-        ZLServiceManager.sharedInstance.loginServiceModel?.registerObserver(self, selector:#selector(onNotificationArrived(notication:)), name:ZLLogoutResult_Notification)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(onNotificationArrived(notication:)), name: ZLLanguageTypeChange_Notificaiton, object: nil)
+        ZLServiceManager.sharedInstance.loginServiceModel?.registerObserver(self, selector: #selector(onNotificationArrived(notication:)), name: ZLLogoutResult_Notification)
     }
-    
+
     override func vcLifeCycle_viewWillAppear() {
         super.vcLifeCycle_viewWillAppear()
         self.tableView?.reloadData()
     }
-    
-    
-    func onLogout()
-    {
+
+    func onLogout() {
         let alertController = UIAlertController.init(title: ZLLocalizedString(string: "AreYouSureToLogout", comment: "您确定要退出吗？"), message: nil, preferredStyle: UIAlertController.Style.alert)
-        let cancelAction = UIAlertAction.init(title: ZLLocalizedString(string: "Cancel", comment: "取消"), style: UIAlertAction.Style.default, handler:nil)
-        let confirmAction = UIAlertAction.init(title: ZLLocalizedString(string: "Confirm", comment: "确认"), style: UIAlertAction.Style.destructive, handler:{ (action : UIAlertAction) in
-            
+        let cancelAction = UIAlertAction.init(title: ZLLocalizedString(string: "Cancel", comment: "取消"), style: UIAlertAction.Style.default, handler: nil)
+        let confirmAction = UIAlertAction.init(title: ZLLocalizedString(string: "Confirm", comment: "确认"), style: UIAlertAction.Style.destructive, handler: { (_: UIAlertAction) in
+
             self.logoutSerialNumber = NSString.generateSerialNumber()
             ZLServiceManager.sharedInstance.loginServiceModel?.logout(self.logoutSerialNumber ?? "")
         })
-        
+
         alertController.addAction(cancelAction)
         alertController.addAction(confirmAction)
-        
+
         self.viewController?.present(alertController, animated: true, completion: nil)
-        
+
     }
-    
-    func onMonitor(){
-        
+
+    func onMonitor() {
+
     }
-    
+
 }
 
-
-// MARK:onNotificationArrived
-extension ZLSettingViewModel
-{
-    @objc func onNotificationArrived(notication: Notification)
-    {
+// MARK: onNotificationArrived
+extension ZLSettingViewModel {
+    @objc func onNotificationArrived(notication: Notification) {
         ZLLog_Info("notificaition[\(notication) arrived]")
-        
-        switch notication.name
-        {
-        case ZLLanguageTypeChange_Notificaiton:do
-        {
+
+        switch notication.name {
+        case ZLLanguageTypeChange_Notificaiton:do {
             self.viewController?.title = ZLLocalizedString(string: "setting", comment: "")
             self.tableView?.reloadData()
             }
-        case ZLLogoutResult_Notification:do
-        {
+        case ZLLogoutResult_Notification:do {
             let appDelegate  = UIApplication.shared.delegate as? AppDelegate
-            appDelegate?.switch(toLoginController: true);
+            appDelegate?.switch(toLoginController: true)
             }
         default:
-            break;
+            break
         }
-        
+
     }
 }
 
-
 // MARK: UITableViewDelegate
 
-extension ZLSettingViewModel: UITableViewDataSource,UITableViewDelegate{
-    
+extension ZLSettingViewModel: UITableViewDataSource, UITableViewDelegate {
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50.0
     }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-    {
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return ZLSettingViewModel.settingItemTypes[section].count
     }
-    
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
-    {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let settingItemType = ZLSettingViewModel.settingItemTypes[indexPath.section][indexPath.row]
-        
-        var cell : UITableViewCell = UITableViewCell.init()
-        
-        switch settingItemType
-        {
-        case .language:do{
-            
-            guard let tableViewCell: ZLSettingItemTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLSettingItemTableViewCell", for: indexPath) as? ZLSettingItemTableViewCell else{
+
+        var cell: UITableViewCell = UITableViewCell.init()
+
+        switch settingItemType {
+        case .language:do {
+
+            guard let tableViewCell: ZLSettingItemTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLSettingItemTableViewCell", for: indexPath) as? ZLSettingItemTableViewCell else {
                 let cell = UITableViewCell.init()
                 return cell
             }
-            
+
             tableViewCell.itemTypeLabel.text = ZLLocalizedString(string: "Language", comment: "语言")
-            switch LANMODULE?.currentLanguageType() ?? ZLLanguageType.auto
-            {
-            case .auto:do{
+            switch LANMODULE?.currentLanguageType() ?? ZLLanguageType.auto {
+            case .auto:do {
                 tableViewCell.itemValueLabel.text = ZLLocalizedString(string: "FollowSystemSetting", comment: "跟随系统")
             }
-            case .english:do{
+            case .english:do {
                 tableViewCell.itemValueLabel.text = ZLLocalizedString(string: "English", comment: "英文")
                 }
-            case .simpleChinese:do{
+            case .simpleChinese:do {
                 tableViewCell.itemValueLabel.text = ZLLocalizedString(string: "SimpleChinese", comment: "简体中文")
                 }
             @unknown default:do {
             }
             }
-            
+
             cell = tableViewCell
-            
+
             }
-        case .monitor:do{
-            
-            guard let tableViewCell: ZLSettingItemTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLSettingItemTableViewCell", for: indexPath) as? ZLSettingItemTableViewCell else
-                     {
+        case .monitor:do {
+
+            guard let tableViewCell: ZLSettingItemTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLSettingItemTableViewCell", for: indexPath) as? ZLSettingItemTableViewCell else {
                          let cell = UITableViewCell.init()
                          return cell
                      }
-                     
+
                      tableViewCell.itemTypeLabel.text = ZLLocalizedString(string: "Monitor", comment: "监控")
                      cell = tableViewCell
-                      
+
                   }
-        case .logout:do{
-            
-            guard let tableViewCell: ZLSettingLogoutTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLSettingLogoutTableViewCell", for: indexPath) as? ZLSettingLogoutTableViewCell else
-            {
+        case .logout:do {
+
+            guard let tableViewCell: ZLSettingLogoutTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLSettingLogoutTableViewCell", for: indexPath) as? ZLSettingLogoutTableViewCell else {
                 let cell = UITableViewCell.init()
                 return cell
             }
             tableViewCell.titleLabel.text = ZLLocalizedString(string: "logout", comment: "注销")
             cell = tableViewCell
             }
-        case .blockedUser:do{
-            guard let tableViewCell: ZLSettingItemTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLSettingItemTableViewCell", for: indexPath) as? ZLSettingItemTableViewCell else{
-                let cell = UITableViewCell.init();
+        case .blockedUser:do {
+            guard let tableViewCell: ZLSettingItemTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLSettingItemTableViewCell", for: indexPath) as? ZLSettingItemTableViewCell else {
+                let cell = UITableViewCell.init()
                 return cell
             }
             tableViewCell.itemTypeLabel.text = ZLLocalizedString(string: "Blocked User", comment: "屏蔽的用户")
             cell = tableViewCell
         }
-        case .interfaceStyle:do{
-            guard let tableViewCell: ZLSettingItemTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLSettingItemTableViewCell", for: indexPath) as? ZLSettingItemTableViewCell else{
-                let cell = UITableViewCell.init();
+        case .interfaceStyle:do {
+            guard let tableViewCell: ZLSettingItemTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLSettingItemTableViewCell", for: indexPath) as? ZLSettingItemTableViewCell else {
+                let cell = UITableViewCell.init()
                 return cell
             }
             tableViewCell.itemTypeLabel.text = ZLLocalizedString(string: "Appearance", comment: "外观")
@@ -220,15 +201,15 @@ extension ZLSettingViewModel: UITableViewDataSource,UITableViewDelegate{
                     tableViewCell.itemValueLabel.text = ZLLocalizedString(string: "Dark Mode", comment: "")
                 case .light:
                     tableViewCell.itemValueLabel.text = ZLLocalizedString(string: "Light Mode", comment: "")
-                @unknown default:do{
+                @unknown default:do {
                 }
                 }
             }
             cell = tableViewCell
         }
-        case .assistButton:do{
-            guard let tableViewCell: ZLSettingItemTableViewCell1 = tableView.dequeueReusableCell(withIdentifier: "ZLSettingItemTableViewCell1", for: indexPath) as? ZLSettingItemTableViewCell1 else{
-                let cell = UITableViewCell.init();
+        case .assistButton:do {
+            guard let tableViewCell: ZLSettingItemTableViewCell1 = tableView.dequeueReusableCell(withIdentifier: "ZLSettingItemTableViewCell1", for: indexPath) as? ZLSettingItemTableViewCell1 else {
+                let cell = UITableViewCell.init()
                 return cell
             }
             tableViewCell.itemTypeLabel.text = ZLLocalizedString(string: "AssistButton", comment: "辅助按钮")
@@ -239,63 +220,59 @@ extension ZLSettingViewModel: UITableViewDataSource,UITableViewDelegate{
             cell = tableViewCell
         }
         }
-        
+
         if cell is ZLSettingItemTableViewCell {
             let tmpCell = cell as! ZLSettingItemTableViewCell
             tmpCell.singleIineView.isHidden = (indexPath.row == ZLSettingViewModel.settingItemTypes[indexPath.section].count - 1)
         }
-        
+
         if cell is ZLSettingItemTableViewCell1 {
             let tmpCell = cell as! ZLSettingItemTableViewCell1
             tmpCell.singleIineView.isHidden = (indexPath.row == ZLSettingViewModel.settingItemTypes[indexPath.section].count - 1)
         }
-    
+
         return cell
-        
+
     }
-    
-    func numberOfSections(in tableView: UITableView) -> Int
-    {
+
+    func numberOfSections(in tableView: UITableView) -> Int {
         return ZLSettingViewModel.settingItemTypes.count
     }
-    
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+
         let settingItemType = ZLSettingViewModel.settingItemTypes[indexPath.section][indexPath.row]
-        
-        switch settingItemType
-        {
-        case .language:do{
+
+        switch settingItemType {
+        case .language:do {
             let vc = ZLLanguageController()
             self.viewController?.navigationController?.pushViewController(vc, animated: true)
             }
-        case .logout:do{
+        case .logout:do {
             self.onLogout()
             }
-        case .monitor:do{
+        case .monitor:do {
             self.onMonitor()
             }
-        case .blockedUser:do{
+        case .blockedUser:do {
             let vc = ZLBlockedUserController()
             self.viewController?.navigationController?.pushViewController(vc, animated: true)
         }
-        case .interfaceStyle:do{
+        case .interfaceStyle:do {
             if let vc = ZLUIRouter.getVC(key: ZLUIRouter.AppearanceController) {
                 self.viewController?.navigationController?.pushViewController(vc, animated: true)
-            }            
+            }
         }
-        case .assistButton:do{
-            
+        case .assistButton:do {
+
         }
         }
-        
+
     }
-    
-    
-    @objc func onAssistButtonSwitch(switchView : UISwitch) {
+
+    @objc func onAssistButtonSwitch(switchView: UISwitch) {
         ZLUISharedDataManager.isAssistButtonHidden = !switchView.isOn
         ZLAssistButtonManager.shared.setHidden(!switchView.isOn)
     }
-    
+
 }

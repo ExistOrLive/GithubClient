@@ -9,23 +9,23 @@
 import UIKit
 
 protocol ZLUserInfoHeaderCellDataSourceAndDelegate: ZLGithubItemTableViewCellDataProtocol {
-   
+
     var name: String {get}
     var time: String {get}
     var desc: String {get}
     var avatarUrl: String {get}
-    
+
     var reposNum: String {get}
     var gistsNum: String {get}
     var followersNum: String {get}
     var followingNum: String {get}
-    
+
     var showBlockButton: Bool {get}
     var showFollowButton: Bool {get}
-    
+
     var blockStatus: Bool {get}
     var followStatus: Bool {get}
-    
+
     func onFollowButtonClicked()
     func onBlockButtonClicked()
 
@@ -33,15 +33,14 @@ protocol ZLUserInfoHeaderCellDataSourceAndDelegate: ZLGithubItemTableViewCellDat
     func onGistsNumButtonClicked()
     func onFollowsNumButtonClicked()
     func onFollowingNumButtonClicked()
-    
+
     func setUserInfoHeaderCallback(callBack: @escaping () -> Void)
 }
 
-
 class ZLUserInfoHeaderCell: UITableViewCell {
-    
+
     private weak var delegate: ZLUserInfoHeaderCellDataSourceAndDelegate?
-    
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
@@ -50,51 +49,50 @@ class ZLUserInfoHeaderCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
+
     private func setupUI() {
         selectionStyle = .none
         contentView.backgroundColor = UIColor(named: "ZLCellBack")
-        
+
         addSubview(avatarImageView)
         addSubview(nameLabel)
         addSubview(descLabel)
         addSubview(timeLabel)
-        
+
         addSubview(buttonStackView)
         buttonStackView.addArrangedSubview(reposNumButton)
         buttonStackView.addArrangedSubview(gistsNumButton)
         buttonStackView.addArrangedSubview(followersNumButton)
         buttonStackView.addArrangedSubview(followingsNumButton)
-        
+
         addSubview(buttonStackView1)
         buttonStackView1.addArrangedSubview(followButton)
         buttonStackView1.addArrangedSubview(blockButton)
-        
+
         avatarImageView.snp.makeConstraints { make in
             make.left.equalTo(30)
             make.top.equalTo(15)
             make.size.equalTo(CGSize(width: 60, height: 60))
         }
-        
+
         nameLabel.snp.makeConstraints { make in
             make.left.equalTo(30)
             make.right.equalTo(-30)
             make.top.equalTo(avatarImageView.snp.bottom).offset(15)
         }
-        
+
         timeLabel.snp.makeConstraints { make in
             make.left.equalTo(30)
             make.right.equalTo(-30)
             make.top.equalTo(nameLabel.snp.bottom).offset(15)
         }
-        
+
         descLabel.snp.makeConstraints { make in
             make.right.equalTo(-30)
             make.left.equalTo(30)
             make.top.equalTo(timeLabel.snp.bottom).offset(25)
         }
-        
+
         buttonStackView.snp.makeConstraints { make in
             make.left.equalTo(30)
             make.right.equalTo(-30)
@@ -102,12 +100,12 @@ class ZLUserInfoHeaderCell: UITableViewCell {
             make.bottom.equalTo(-10)
             make.height.equalTo(50)
         }
-        
+
         buttonStackView1.snp.makeConstraints { make in
             make.right.equalTo(-15)
             make.centerY.equalTo(avatarImageView)
         }
-        
+
 //        reposNumButton.snp.makeConstraints { make in
 //            make.width.equalTo(50)
 //        }
@@ -120,7 +118,7 @@ class ZLUserInfoHeaderCell: UITableViewCell {
 //        followingsNumButton.snp.makeConstraints { make in
 //            make.width.equalTo(50)
 //        }
-        
+
         followButton.snp.makeConstraints { make in
             make.size.equalTo(CGSize(width: 60, height: 25))
         }
@@ -128,19 +126,19 @@ class ZLUserInfoHeaderCell: UITableViewCell {
             make.size.equalTo(CGSize(width: 60, height: 25))
         }
     }
-    
+
     // MARK: fillWithdata
-    func fillWithData(viewModel: ZLUserInfoHeaderCellDataSourceAndDelegate){
+    func fillWithData(viewModel: ZLUserInfoHeaderCellDataSourceAndDelegate) {
         delegate = viewModel
-        delegate?.setUserInfoHeaderCallback { [weak self] in 
+        delegate?.setUserInfoHeaderCallback { [weak self] in
             self?.reloadData()
         }
         reloadData()
     }
-    
+
     private func reloadData() {
-        
-        avatarImageView.sd_setImage(with: URL(string: delegate?.avatarUrl ?? ""),placeholderImage: UIImage(named: "default_avatar"))
+
+        avatarImageView.sd_setImage(with: URL(string: delegate?.avatarUrl ?? ""), placeholderImage: UIImage(named: "default_avatar"))
         nameLabel.text = delegate?.name
         timeLabel.text = delegate?.time
         descLabel.text = delegate?.desc
@@ -148,21 +146,20 @@ class ZLUserInfoHeaderCell: UITableViewCell {
         gistsNumButton.numLabel.text  = delegate?.gistsNum
         followersNumButton.numLabel.text = delegate?.followersNum
         followingsNumButton.numLabel.text = delegate?.followingNum
-        
+
         followButton.isHidden = !(delegate?.showFollowButton ?? false)
         blockButton.isHidden = !(delegate?.showBlockButton ?? false)
         followButton.isSelected = delegate?.followStatus ?? false
-        blockButton.isSelected = delegate?.blockStatus ?? false 
+        blockButton.isSelected = delegate?.blockStatus ?? false
     }
-    
-    
+
     // MARK: View
     private lazy var avatarImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.circle = true 
+        imageView.circle = true
         return imageView
     }()
-    
+
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(named: "ZLLabelColor1")
@@ -170,7 +167,7 @@ class ZLUserInfoHeaderCell: UITableViewCell {
         label.numberOfLines = 3
         return label
     }()
-    
+
     private lazy var descLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(named: "ZLLabelColor2")
@@ -178,14 +175,14 @@ class ZLUserInfoHeaderCell: UITableViewCell {
         label.numberOfLines = 4
         return label
     }()
-    
+
     private lazy var timeLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(named: "ZLLabelColor2")
         label.font = UIFont.zlRegularFont(withSize: 11)
         return label
     }()
-    
+
     private lazy var buttonStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -194,7 +191,7 @@ class ZLUserInfoHeaderCell: UITableViewCell {
         stackView.spacing = 35
         return stackView
     }()
-    
+
     private lazy var buttonStackView1: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -203,15 +200,15 @@ class ZLUserInfoHeaderCell: UITableViewCell {
         stackView.spacing = 10
         return stackView
     }()
-    
+
     private lazy var reposNumButton: ZLUserInfoHeaderButton = {
         let button = ZLUserInfoHeaderButton(type: .custom)
         button.numLabel.text  = "0"
         button.nameLabel.text = ZLLocalizedString(string: "repositories", comment: "")
         button.addTarget(self, action: #selector(onReposNumButtonClicked), for: .touchUpInside)
-        return button 
+        return button
     }()
-    
+
     private lazy var gistsNumButton: ZLUserInfoHeaderButton = {
         let button = ZLUserInfoHeaderButton(type: .custom)
         button.numLabel.text  = "0"
@@ -219,7 +216,7 @@ class ZLUserInfoHeaderCell: UITableViewCell {
         button.addTarget(self, action: #selector(onGistsNumButtonClicked), for: .touchUpInside)
         return button
     }()
-    
+
     private lazy var followersNumButton: ZLUserInfoHeaderButton = {
         let button = ZLUserInfoHeaderButton(type: .custom)
         button.numLabel.text  = "0"
@@ -227,7 +224,7 @@ class ZLUserInfoHeaderCell: UITableViewCell {
         button.addTarget(self, action: #selector(onFollowsNumButtonClicked), for: .touchUpInside)
         return button
     }()
-    
+
     private lazy var followingsNumButton: ZLUserInfoHeaderButton = {
         let button = ZLUserInfoHeaderButton(type: .custom)
         button.numLabel.text  = "0"
@@ -235,7 +232,7 @@ class ZLUserInfoHeaderCell: UITableViewCell {
         button.addTarget(self, action: #selector(onFollowingNumButtonClicked), for: .touchUpInside)
         return button
     }()
-    
+
     private lazy var followButton: ZLBaseButton = {
         let button = ZLBaseButton()
         button.setTitle(ZLLocalizedString(string: "Follow", comment: ""), for: .normal)
@@ -244,7 +241,7 @@ class ZLUserInfoHeaderCell: UITableViewCell {
         button.addTarget(self, action: #selector(onFollowButtonClicked), for: .touchUpInside)
         return button
     }()
-    
+
     private lazy var blockButton: ZLBaseButton = {
         let button = ZLBaseButton()
         button.setTitle(ZLLocalizedString(string: "Block", comment: ""), for: .normal)
@@ -253,47 +250,46 @@ class ZLUserInfoHeaderCell: UITableViewCell {
         button.addTarget(self, action: #selector(onBlockButtonClicked), for: .touchUpInside)
         return button
     }()
-    
+
 }
 
 extension ZLUserInfoHeaderCell {
-    
-    @objc func onFollowButtonClicked(){
+
+    @objc func onFollowButtonClicked() {
         self.delegate?.onFollowButtonClicked()
     }
-    @objc func onBlockButtonClicked(){
+    @objc func onBlockButtonClicked() {
         self.delegate?.onBlockButtonClicked()
     }
-    @objc func onReposNumButtonClicked(){
+    @objc func onReposNumButtonClicked() {
         self.delegate?.onReposNumButtonClicked()
     }
-    @objc func onGistsNumButtonClicked(){
+    @objc func onGistsNumButtonClicked() {
         self.delegate?.onGistsNumButtonClicked()
     }
-    @objc func onFollowsNumButtonClicked(){
+    @objc func onFollowsNumButtonClicked() {
         self.delegate?.onFollowsNumButtonClicked()
     }
-    @objc func onFollowingNumButtonClicked(){
+    @objc func onFollowingNumButtonClicked() {
         self.delegate?.onFollowingNumButtonClicked()
     }
 }
 
+private class ZLUserInfoHeaderButton: UIButton {
 
-fileprivate class ZLUserInfoHeaderButton: UIButton {
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     private func setupUI() {
         addSubview(numLabel)
         addSubview(nameLabel)
-        
+
         numLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(1.5)
             make.centerX.equalToSuperview()
@@ -303,7 +299,7 @@ fileprivate class ZLUserInfoHeaderButton: UIButton {
             make.centerX.equalToSuperview()
         }
     }
-    
+
     // MARK: View
     lazy var numLabel: UILabel = {
         let label = UILabel()
@@ -312,7 +308,7 @@ fileprivate class ZLUserInfoHeaderButton: UIButton {
         label.textAlignment = .center
         return label
     }()
-    
+
     lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(named: "ZLLabelColor3")

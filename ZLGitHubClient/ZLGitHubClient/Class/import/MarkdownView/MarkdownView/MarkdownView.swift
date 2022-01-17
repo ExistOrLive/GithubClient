@@ -9,7 +9,7 @@ import WebKit
 open class MarkdownView: UIView {
 
    var webView: WKWebView?
-  
+
   fileprivate var intrinsicContentHeight: CGFloat? {
     didSet {
       self.invalidateIntrinsicContentSize()
@@ -33,13 +33,12 @@ open class MarkdownView: UIView {
   }
 
   override init (frame: CGRect) {
-    super.init(frame : frame)
+    super.init(frame: frame)
   }
 
   public required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
   }
-    
 
   open override var intrinsicContentSize: CGSize {
     if let height = self.intrinsicContentHeight {
@@ -51,43 +50,41 @@ open class MarkdownView: UIView {
 
     public func load(markdown: String?, baseUrl: String?, enableImage: Bool = true) {
         guard let markdown = markdown else { return }
-        
+
         let bundle = Bundle.main
-        
+
         let htmlURL: URL? =
             bundle.url(forResource: "index",
                        withExtension: "html") ??
                 bundle.url(forResource: "index",
                            withExtension: "html",
                            subdirectory: "MarkdownView.bundle")
-        
+
         if let url = htmlURL {
-            
-            if self.webView != nil
-            {
+
+            if self.webView != nil {
                 self.webView?.removeFromSuperview()
                 self.webView = nil
             }
-            
+
             let controller = WKUserContentController()
-            
+
             let escapedMarkdown = self.escape(markdown: markdown) ?? ""
             let imageOption = enableImage ? "true" : "false"
             let script = "window.showMarkdown('\(escapedMarkdown)', \(imageOption));"
             let userScript = WKUserScript(source: script, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
             controller.addUserScript(userScript)
-            
+
             // 对于相对路径的图片，修正为绝对路径
-            if let tmpBaseUrl = baseUrl
-            {
+            if let tmpBaseUrl = baseUrl {
                 let addBaseScript = "let a = '\(tmpBaseUrl)';let contentDiv = document.getElementById('contents');let array = contentDiv.getElementsByTagName('img');for(i=0;i<array.length;i++){let item=array[i];if(item.getAttribute('src').indexOf('http') == -1){item.src = a + item.getAttribute('src');}}"
                 let addBaseUserScript = WKUserScript(source: addBaseScript, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
                 controller.addUserScript(addBaseUserScript)
             }
-            
+
             let configuration = WKWebViewConfiguration()
             configuration.userContentController = controller
-            
+
             let wv = WKWebView(frame: self.bounds, configuration: configuration)
             wv.scrollView.isScrollEnabled = self.isScrollEnabled
             wv.translatesAutoresizingMaskIntoConstraints = false
@@ -99,16 +96,14 @@ open class MarkdownView: UIView {
             wv.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
             wv.backgroundColor = self.backgroundColor
             self.webView = wv
-            
+
             do {
                 let htmlStr = try String.init(contentsOf: url)
                 self.webView?.loadHTMLString(htmlStr as String, baseURL: nil)
-                
-            }catch{
+
+            } catch {
                 self.webView?.loadHTMLString("Error", baseURL: nil)
             }
-            
-            
 
         } else {
             // TODO: raise error

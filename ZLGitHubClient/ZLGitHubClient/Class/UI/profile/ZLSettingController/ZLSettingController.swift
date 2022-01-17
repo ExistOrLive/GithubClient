@@ -14,7 +14,7 @@ class ZLSettingController: ZLBaseViewController {
         super.viewDidLoad()
 
         self.title = ZLLocalizedString(string: "setting", comment: "设置")
-        
+
         let tableView = UITableView.init(frame: CGRect.init(), style: .grouped)
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
@@ -25,12 +25,11 @@ class ZLSettingController: ZLBaseViewController {
         tableView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
-        
+
         let viewModel = ZLSettingViewModel()
         self.addSubViewModel(viewModel)
-        viewModel.bindModel(nil, andView:tableView)
+        viewModel.bindModel(nil, andView: tableView)
     }
-    
 
     /*
     // MARK: - Navigation

@@ -1,4 +1,3 @@
-
 //
 //  ZLGithubItemTableViewCellData.swift
 //  ZLGitHubClient
@@ -9,56 +8,53 @@
 
 import Foundation
 
-@objc protocol ZLGithubItemTableViewCellDataProtocol : NSObjectProtocol
-{
+@objc protocol ZLGithubItemTableViewCellDataProtocol: NSObjectProtocol {
     func getCellReuseIdentifier() -> String
-     
+
     func getCellHeight() -> CGFloat
-    
+
     func onCellSingleTap()
-    
+
     func getCellSwipeActions() -> UISwipeActionsConfiguration?
 }
 
-
-class ZLGithubItemTableViewCellData : ZLBaseViewModel,ZLGithubItemTableViewCellDataProtocol
-{
+class ZLGithubItemTableViewCellData: ZLBaseViewModel, ZLGithubItemTableViewCellDataProtocol {
     func getCellReuseIdentifier() -> String {
         return "UITableViewCell"
     }
-    
+
     func getCellHeight() -> CGFloat {
         return 0
     }
-    
+
     func onCellSingleTap() {
-        
+
     }
-    
-    func getCellSwipeActions() -> UISwipeActionsConfiguration?{
+
+    func getCellSwipeActions() -> UISwipeActionsConfiguration? {
         return nil
     }
-    
-    func clearCache(){
-        
+
+    func clearCache() {
+
     }
-    
+
 }
 
 extension ZLGithubItemTableViewCellData {
-    
-    class func getCellDataWithData(data: Any?) -> ZLGithubItemTableViewCellData?{
-        
+
+    class func getCellDataWithData(data: Any?) -> ZLGithubItemTableViewCellData? {
+
         if data == nil {
             return nil
         } else if let data = data as? ZLGithubRepositoryModel {
-            return ZLRepositoryTableViewCellData.init(data:data)
+            return ZLRepositoryTableViewCellData.init(data: data)
         } else if let data = data as? ZLGithubUserModel {
             return ZLUserTableViewCellData.init(userModel: data)
         } else if let data = data as? ZLGithubPullRequestModel {
             return ZLPullRequestTableViewCellData.init(eventModel: data)
         } else if let data = data as? ZLGithubEventModel {
-            return ZLEventTableViewCellData.getCellDataWithEventModel(eventModel:data)
+            return ZLEventTableViewCellData.getCellDataWithEventModel(eventModel: data)
         } else if let data = data as? ZLGithubGistModel {
             return ZLGistTableViewCellData.init(data: data)
         } else if let data = data as? ZLGithubCommitModel {
@@ -75,5 +71,5 @@ extension ZLGithubItemTableViewCellData {
             return nil
         }
     }
-    
+
 }

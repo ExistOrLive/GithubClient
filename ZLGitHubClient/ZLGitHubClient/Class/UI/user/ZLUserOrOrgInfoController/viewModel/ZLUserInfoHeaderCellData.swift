@@ -9,23 +9,22 @@
 import UIKit
 
 class ZLUserInfoHeaderCellData: ZLGithubItemTableViewCellData {
-    
+
     // data
     private var data: ZLGithubUserModel
     private var _followStatus: Bool = false
     private var _blockStatus: Bool = false
-    
+
     // block
     private var reloadViewBlock: (() -> Void)?
 
-    init(data: ZLGithubUserModel){
+    init(data: ZLGithubUserModel) {
         self.data = data
         super.init()
-        
+
         setUp()
     }
-    
-    
+
     override func update(_ targetModel: Any?) {
         guard let data = targetModel as? ZLGithubUserModel else {
             return
@@ -33,9 +32,9 @@ class ZLUserInfoHeaderCellData: ZLGithubItemTableViewCellData {
         self.data = data
         setUp()
     }
-    
-    private func setUp(){
-        
+
+    private func setUp() {
+
         if showBlockButton {
             getBlockStatus()
         }
@@ -43,11 +42,11 @@ class ZLUserInfoHeaderCellData: ZLGithubItemTableViewCellData {
             getFollowStatus()
         }
     }
-    
+
     override func getCellReuseIdentifier() -> String {
         "ZLUserInfoHeaderCell"
     }
-    
+
     override func getCellHeight() -> CGFloat {
         UITableView.automaticDimension
     }
@@ -55,30 +54,28 @@ class ZLUserInfoHeaderCellData: ZLGithubItemTableViewCellData {
 
 // request 
 extension ZLUserInfoHeaderCellData {
-    
+
     func getFollowStatus() {
-        
+
         ZLServiceManager.sharedInstance.userServiceModel?.getUserFollowStatus(withLoginName: data.loginName ?? "",
-                                                                              serialNumber: NSString.generateSerialNumber())
-        {[weak self](resultModel : ZLOperationResultModel) in
+                                                                              serialNumber: NSString.generateSerialNumber()) {[weak self](resultModel: ZLOperationResultModel) in
             guard let self = self else { return }
             if resultModel.result,
-                let data : [String:Bool] = resultModel.data as? [String:Bool] {
+                let data: [String: Bool] = resultModel.data as? [String: Bool] {
                 self._followStatus = data["isFollow"] ?? false
                 self.reloadViewBlock?()
             }
         }
     }
-    
+
     func followUser() {
-        
+
         SVProgressHUD.show()
         ZLServiceManager.sharedInstance.userServiceModel?.followUser(withLoginName: data.loginName ?? "",
-                                                                     serialNumber: NSString.generateSerialNumber())
-        {[weak self](resultModel : ZLOperationResultModel) in
+                                                                     serialNumber: NSString.generateSerialNumber()) {[weak self](resultModel: ZLOperationResultModel) in
             SVProgressHUD.dismiss()
             guard let self = self else { return }
-            if(resultModel.result == true){
+            if resultModel.result == true {
                 self._followStatus = true
                 self.reloadViewBlock?()
                 ZLToastView.showMessage(ZLLocalizedString(string: "Follow Success", comment: ""))
@@ -86,15 +83,14 @@ extension ZLUserInfoHeaderCellData {
                 ZLToastView.showMessage(ZLLocalizedString(string: "Follow Fail", comment: ""))
             }
         }
-        
+
     }
-    
+
     func unfollowUser() {
-        
+
         SVProgressHUD.show()
-        ZLServiceManager.sharedInstance.userServiceModel?.unfollowUser(withLoginName:data.loginName ?? "",
-                                                                       serialNumber: NSString.generateSerialNumber())
-        {[weak self](resultModel : ZLOperationResultModel) in
+        ZLServiceManager.sharedInstance.userServiceModel?.unfollowUser(withLoginName: data.loginName ?? "",
+                                                                       serialNumber: NSString.generateSerialNumber()) {[weak self](resultModel: ZLOperationResultModel) in
             SVProgressHUD.dismiss()
             guard let self = self else { return }
             if resultModel.result {
@@ -106,17 +102,15 @@ extension ZLUserInfoHeaderCellData {
             }
         }
     }
-    
-    
+
     func getBlockStatus() {
-        
+
         ZLServiceManager.sharedInstance.userServiceModel?.getUserBlockStatus(withLoginName: data.loginName ?? "",
-                                                                             serialNumber: NSString.generateSerialNumber())
-        {[weak self](resultModel : ZLOperationResultModel) in
-            
+                                                                             serialNumber: NSString.generateSerialNumber()) {[weak self](resultModel: ZLOperationResultModel) in
+
             guard let self = self else { return }
-            if(resultModel.result == true) {
-                guard let data : [String:Bool] = resultModel.data as? [String:Bool] else {
+            if resultModel.result == true {
+                guard let data: [String: Bool] = resultModel.data as? [String: Bool] else {
                     return
                 }
                 self._blockStatus = data["isBlock"] ?? false
@@ -124,17 +118,16 @@ extension ZLUserInfoHeaderCellData {
             }
         }
     }
-    
+
     func BlockUser() {
-        
+
         SVProgressHUD.show()
         ZLServiceManager.sharedInstance.userServiceModel?.blockUser(withLoginName: data.loginName ?? "",
-                                                                    serialNumber: NSString.generateSerialNumber())
-        {[weak self](resultModel : ZLOperationResultModel) in
-            
+                                                                    serialNumber: NSString.generateSerialNumber()) {[weak self](resultModel: ZLOperationResultModel) in
+
             SVProgressHUD.dismiss()
             guard let self = self else { return }
-            if(resultModel.result == true){
+            if resultModel.result == true {
                 self._blockStatus = true
                 self.reloadViewBlock?()
                 ZLToastView.showMessage(ZLLocalizedString(string: "Block Success", comment: ""))
@@ -143,14 +136,13 @@ extension ZLUserInfoHeaderCellData {
             }
         }
     }
-    
+
     func unBlockUser() {
-        
+
         SVProgressHUD.show()
         ZLServiceManager.sharedInstance.userServiceModel?.unBlockUser(withLoginName: data.loginName ?? "",
-                                                                      serialNumber: NSString.generateSerialNumber())
-        {[weak self](resultModel : ZLOperationResultModel) in
-            
+                                                                      serialNumber: NSString.generateSerialNumber()) {[weak self](resultModel: ZLOperationResultModel) in
+
             SVProgressHUD.dismiss()
             guard let self = self else { return }
             if resultModel.result {
@@ -162,61 +154,60 @@ extension ZLUserInfoHeaderCellData {
             }
         }
     }
-    
+
 }
 
-
 extension ZLUserInfoHeaderCellData: ZLUserInfoHeaderCellDataSourceAndDelegate {
-       
-    var name: String{
+
+    var name: String {
         return "\(data.name ?? "")(\(data.loginName ?? ""))"
     }
-    
+
     var time: String {
-        let createdAtStr = ZLLocalizedString(string:"created at", comment: "创建于")
+        let createdAtStr = ZLLocalizedString(string: "created at", comment: "创建于")
         return "\(createdAtStr) \((data.created_at as NSDate?)?.dateStrForYYYYMMdd() ?? "")"
     }
-    
+
     var desc: String {
         data.bio ?? ""
     }
-    
+
     var avatarUrl: String {
         data.avatar_url ?? ""
     }
-    
+
     var reposNum: String {
         if data.repositories >= 1000 {
-            return String(format: "%.1f",Double(data.repositories) / 1000.0) + "k"
+            return String(format: "%.1f", Double(data.repositories) / 1000.0) + "k"
         } else {
             return "\(data.repositories)"
         }
     }
-    
+
     var gistsNum: String {
         if data.gists >= 1000 {
-            return String(format: "%.1f",Double(data.gists) / 1000.0) + "k"
+            return String(format: "%.1f", Double(data.gists) / 1000.0) + "k"
         } else {
             return "\(data.gists)"
         }
     }
-    
+
     var followersNum: String {
         if data.followers >= 1000 {
-            return String(format: "%.1f",Double(data.followers) / 1000.0) + "k"
+            return String(format: "%.1f", Double(data.followers) / 1000.0) + "k"
         } else {
             return "\(data.followers)"
         }
     }
-    
+
     var followingNum: String {
         if data.following >= 1000 {
-            return String(format: "%.1f",Double(data.following) / 1000.0) + "k"
+            return String(format: "%.1f", Double(data.following) / 1000.0) + "k"
         } else {
             return "\(data.following)"
         }
     }
-    
+
     var showBlockButton: Bool {
         var showBlockButton = ZLUISharedDataManager.enabledBlockFunction
         let currentLoginName = ZLServiceManager.sharedInstance.viewerServiceModel?.currentUserLoginName
@@ -230,27 +221,27 @@ extension ZLUserInfoHeaderCellData: ZLUserInfoHeaderCellDataSourceAndDelegate {
         }
         return showBlockButton
     }
-    
+
     var showFollowButton: Bool {
         let currentLoginName = ZLServiceManager.sharedInstance.viewerServiceModel?.currentUserLoginName
         return currentLoginName != data.loginName
     }
-    
+
     var blockStatus: Bool {
         _blockStatus
     }
     var followStatus: Bool {
         _followStatus
     }
-    
-    func onFollowButtonClicked(){
+
+    func onFollowButtonClicked() {
         if self._followStatus {
             unfollowUser()
         } else {
             followUser()
         }
     }
-    func onBlockButtonClicked(){
+    func onBlockButtonClicked() {
         if self._blockStatus {
             unBlockUser()
         } else {
@@ -258,35 +249,35 @@ extension ZLUserInfoHeaderCellData: ZLUserInfoHeaderCellDataSourceAndDelegate {
         }
     }
 
-    func onReposNumButtonClicked(){
+    func onReposNumButtonClicked() {
         if let login = data.loginName,
            let vc = ZLUIRouter.getVC(key: ZLUIRouter.UserAdditionInfoController,
-                                     params: ["login":login,"type":ZLUserAdditionInfoType.repositories.rawValue]) {
+                                     params: ["login": login, "type": ZLUserAdditionInfoType.repositories.rawValue]) {
             self.viewController?.navigationController?.pushViewController(vc, animated: true)
         }
     }
-    func onGistsNumButtonClicked(){
+    func onGistsNumButtonClicked() {
         if let login = data.loginName,
            let vc = ZLUIRouter.getVC(key: ZLUIRouter.UserAdditionInfoController,
-                                     params: ["login":login,"type":ZLUserAdditionInfoType.gists.rawValue]) {
+                                     params: ["login": login, "type": ZLUserAdditionInfoType.gists.rawValue]) {
             self.viewController?.navigationController?.pushViewController(vc, animated: true)
         }
     }
-    func onFollowsNumButtonClicked(){
+    func onFollowsNumButtonClicked() {
         if let login = data.loginName,
-           let vc = ZLUIRouter.getVC(key: ZLUIRouter.UserAdditionInfoController, params: ["login":login,"type":ZLUserAdditionInfoType.followers.rawValue]) {
+           let vc = ZLUIRouter.getVC(key: ZLUIRouter.UserAdditionInfoController, params: ["login": login, "type": ZLUserAdditionInfoType.followers.rawValue]) {
             self.viewController?.navigationController?.pushViewController(vc, animated: true)
         }
     }
-    func onFollowingNumButtonClicked(){
+    func onFollowingNumButtonClicked() {
         if let login = data.loginName,
-           let vc = ZLUIRouter.getVC(key: ZLUIRouter.UserAdditionInfoController, params: ["login":login,"type":ZLUserAdditionInfoType.following.rawValue]) {
+           let vc = ZLUIRouter.getVC(key: ZLUIRouter.UserAdditionInfoController, params: ["login": login, "type": ZLUserAdditionInfoType.following.rawValue]) {
             self.viewController?.navigationController?.pushViewController(vc, animated: true)
         }
     }
-    
-    func setUserInfoHeaderCallback(callBack: @escaping () -> Void){
+
+    func setUserInfoHeaderCallback(callBack: @escaping () -> Void) {
         self.reloadViewBlock = callBack
     }
-    
+
 }

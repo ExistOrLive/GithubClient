@@ -11,7 +11,7 @@ import UIKit
 class ZLSearchRecordTableViewCell: UITableViewCell {
 
     @IBOutlet weak var recordLabel: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -22,5 +22,5 @@ class ZLSearchRecordTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
 }

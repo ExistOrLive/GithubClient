@@ -9,24 +9,24 @@
 import UIKit
 
 @objcMembers class ZLNotificationController: ZLBaseViewController {
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.title = ZLLocalizedString(string: "Notification", comment: "通知")
-        
+
         let viewModel = ZLNotificationViewModel.init()
-        
-        let baseView : ZLNotificationView = ZLNotificationView()
+
+        let baseView: ZLNotificationView = ZLNotificationView()
         self.contentView.addSubview(baseView)
         baseView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
-        
+
         self.addSubViewModel(viewModel)
         // bind view and viewModel
         viewModel.bindModel(nil, andView: baseView)
-        
+
     }
-    
+
 }

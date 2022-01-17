@@ -9,18 +9,17 @@
 import UIKit
 
 protocol ZLOrgInfoHeaderCellDataSourceAndDelegate: ZLGithubItemTableViewCellDataProtocol {
-   
+
     var name: String {get}
     var time: String {get}
     var desc: String {get}
     var avatarUrl: String {get}
 }
 
-
 class ZLOrgInfoHeaderCell: UITableViewCell {
-    
+
     private weak var delegate: ZLOrgInfoHeaderCellDataSourceAndDelegate?
-    
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
@@ -29,35 +28,34 @@ class ZLOrgInfoHeaderCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
+
     private func setupUI() {
         selectionStyle = .none
         contentView.backgroundColor = UIColor(named: "ZLCellBack")
-        
+
         addSubview(avatarImageView)
         addSubview(nameLabel)
         addSubview(descLabel)
         addSubview(timeLabel)
-        
+
         avatarImageView.snp.makeConstraints { make in
             make.left.equalTo(30)
             make.top.equalTo(15)
             make.size.equalTo(CGSize(width: 60, height: 60))
         }
-        
+
         nameLabel.snp.makeConstraints { make in
             make.left.equalTo(30)
             make.right.equalTo(-30)
             make.top.equalTo(avatarImageView.snp.bottom).offset(15)
         }
-        
+
         timeLabel.snp.makeConstraints { make in
             make.left.equalTo(30)
             make.right.equalTo(-30)
             make.top.equalTo(nameLabel.snp.bottom).offset(15)
         }
-        
+
         descLabel.snp.makeConstraints { make in
             make.right.equalTo(-30)
             make.left.equalTo(30)
@@ -65,29 +63,28 @@ class ZLOrgInfoHeaderCell: UITableViewCell {
             make.bottom.equalTo(-20)
         }
     }
-    
+
     // MARK: fillWithdata
-    func fillWithData(viewModel: ZLOrgInfoHeaderCellDataSourceAndDelegate){
+    func fillWithData(viewModel: ZLOrgInfoHeaderCellDataSourceAndDelegate) {
         delegate = viewModel
         reloadData()
     }
-    
+
     private func reloadData() {
-        
-        avatarImageView.sd_setImage(with: URL(string: delegate?.avatarUrl ?? ""),placeholderImage: UIImage(named: "default_avatar"))
+
+        avatarImageView.sd_setImage(with: URL(string: delegate?.avatarUrl ?? ""), placeholderImage: UIImage(named: "default_avatar"))
         nameLabel.text = delegate?.name
         timeLabel.text = delegate?.time
         descLabel.text = delegate?.desc
     }
 
-    
     // MARK: View
     private lazy var avatarImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.circle = true
         return imageView
     }()
-    
+
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(named: "ZLLabelColor1")
@@ -95,7 +92,7 @@ class ZLOrgInfoHeaderCell: UITableViewCell {
         label.numberOfLines = 0
         return label
     }()
-    
+
     private lazy var descLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(named: "ZLLabelColor2")
@@ -103,13 +100,12 @@ class ZLOrgInfoHeaderCell: UITableViewCell {
         label.numberOfLines = 4
         return label
     }()
-    
+
     private lazy var timeLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(named: "ZLLabelColor2")
         label.font = UIFont.zlRegularFont(withSize: 11)
         return label
     }()
-    
-    
+
 }

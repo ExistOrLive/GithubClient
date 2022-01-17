@@ -9,56 +9,54 @@
 import UIKit
 
 class ZLNotificationViewModel: ZLBaseViewModel {
-    
-    var baseView : ZLNotificationView?
-    
-    var pageNum : UInt = 0
-    
+
+    var baseView: ZLNotificationView?
+
+    var pageNum: UInt = 0
+
     var showAll: Bool = false
-    
+
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-    
+
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
-        
-        guard let view : ZLNotificationView = targetView as? ZLNotificationView else {
+
+        guard let view: ZLNotificationView = targetView as? ZLNotificationView else {
             return
         }
         self.baseView = view
-        
+
         self.showAll = ZLUISharedDataManager.showAllNotifications
-        
+
         self.baseView?.fillWithViewModel(viewModel: self)
 
         self.baseView?.githubItemListView.beginRefresh()
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(onNotificationArrived(notifcation:)), name: ZLLanguageTypeChange_Notificaiton, object: nil)
     }
-    
-    
-    func loadMoreData(){
-        
+
+    func loadMoreData() {
+
         ZLServiceManager.sharedInstance.eventServiceModel?.getNotificationsWithShowAll(self.showAllNotification,
                                                                                        page: Int32(self.pageNum + 1),
                                                                                        per_page: 20,
-                                                                                       serialNumber: NSString.generateSerialNumber())
-        { [weak self](resultModel : ZLOperationResultModel) in
-            
+                                                                                       serialNumber: NSString.generateSerialNumber()) { [weak self](resultModel: ZLOperationResultModel) in
+
             if resultModel.result == false {
-                guard let errorModel : ZLGithubRequestErrorModel = resultModel.data as? ZLGithubRequestErrorModel else {
+                guard let errorModel: ZLGithubRequestErrorModel = resultModel.data as? ZLGithubRequestErrorModel else {
                     ZLToastView.showMessage("query Notifications failed")
                     return
                 }
                 ZLToastView.showMessage("query Notifications failed statusCode[\(errorModel.statusCode)] errorMessage[\(errorModel.message)]")
                 self?.baseView?.githubItemListView.endRefreshWithError()
             } else {
-                
-                guard let data : [ZLGithubNotificationModel] = resultModel.data as? [ZLGithubNotificationModel] else {
+
+                guard let data: [ZLGithubNotificationModel] = resultModel.data as? [ZLGithubNotificationModel] else {
                     return
                 }
-                
-                var cellDataArray : [ZLGithubItemTableViewCellData] = []
+
+                var cellDataArray: [ZLGithubItemTableViewCellData] = []
                 for item in data {
                     if let cellData = ZLGithubItemTableViewCellData.getCellDataWithData(data: item) {
                         self?.addSubViewModel(cellData)
@@ -69,32 +67,31 @@ class ZLNotificationViewModel: ZLBaseViewModel {
                 self?.baseView?.githubItemListView.appendCellDatas(cellDatas: cellDataArray)
             }
         }
-        
+
     }
-    
-    func loadNewData(){
-        
+
+    func loadNewData() {
+
         ZLServiceManager.sharedInstance.eventServiceModel?.getNotificationsWithShowAll(self.showAllNotification,
                                                                                        page: 1,
                                                                                        per_page: 20,
-                                                                                       serialNumber: NSString.generateSerialNumber())
-       {[weak self](resultModel : ZLOperationResultModel) in
-            
+                                                                                       serialNumber: NSString.generateSerialNumber()) {[weak self](resultModel: ZLOperationResultModel) in
+
             SVProgressHUD.dismiss()
             if resultModel.result == false {
-                guard let errorModel : ZLGithubRequestErrorModel = resultModel.data as? ZLGithubRequestErrorModel else {
+                guard let errorModel: ZLGithubRequestErrorModel = resultModel.data as? ZLGithubRequestErrorModel else {
                     ZLToastView.showMessage("query Notification failed")
                     return
                 }
                 ZLToastView.showMessage("query Notification failed statusCode[\(errorModel.statusCode)] errorMessage[\(errorModel.message)]")
                 self?.baseView?.githubItemListView.endRefreshWithError()
             } else {
-                
-                guard let data : [ZLGithubNotificationModel] = resultModel.data as? [ZLGithubNotificationModel] else {
+
+                guard let data: [ZLGithubNotificationModel] = resultModel.data as? [ZLGithubNotificationModel] else {
                     return
                 }
-                
-                var cellDataArray : [ZLGithubItemTableViewCellData] = []
+
+                var cellDataArray: [ZLGithubItemTableViewCellData] = []
                 for item in data {
                     if let cellData = ZLGithubItemTableViewCellData.getCellDataWithData(data: item) {
                         self?.addSubViewModel(cellData)
@@ -106,38 +103,37 @@ class ZLNotificationViewModel: ZLBaseViewModel {
             }
         }
     }
-    
-    func deleteCellData(cellData : ZLNotificationTableViewCellData) {
+
+    func deleteCellData(cellData: ZLNotificationTableViewCellData) {
         if self.showAll == false {
             self.baseView?.githubItemListView.deleteGithubItem(cellData: cellData)
         }
     }
-    
-    
-    @objc func onNotificationArrived(notifcation : Notification) -> Void {
+
+    @objc func onNotificationArrived(notifcation: Notification) {
         if notifcation.name == ZLLanguageTypeChange_Notificaiton {
             self.viewController?.title = ZLLocalizedString(string: "Notification", comment: "")
         }
     }
-    
+
 }
 
-extension ZLNotificationViewModel : ZLNotificationViewDataSourceAndDelagate {
-    
+extension ZLNotificationViewModel: ZLNotificationViewDataSourceAndDelagate {
+
     func onFilterTypeChange(_ showAllNotification: Bool) {
         showAll = showAllNotification
         SVProgressHUD.show()
         self.loadNewData()
     }
-    
-    func githubItemListViewRefreshDragDown(pullRequestListView: ZLGithubItemListView) -> Void{
+
+    func githubItemListViewRefreshDragDown(pullRequestListView: ZLGithubItemListView) {
         self.loadNewData()
     }
-    func githubItemListViewRefreshDragUp(pullRequestListView: ZLGithubItemListView) -> Void{
+    func githubItemListViewRefreshDragUp(pullRequestListView: ZLGithubItemListView) {
         self.loadMoreData()
     }
-    
-    var showAllNotification: Bool{
+
+    var showAllNotification: Bool {
         showAll
     }
 }

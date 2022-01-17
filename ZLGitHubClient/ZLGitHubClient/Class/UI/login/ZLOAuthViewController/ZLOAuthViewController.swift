@@ -9,32 +9,28 @@
 import UIKit
 
 class ZLOAuthViewController: ZLBaseViewController {
-    
-    var loginProcessModel : ZLLoginProcessModel?
+
+    var loginProcessModel: ZLLoginProcessModel?
 
     override func viewDidLoad() {
-        super.viewDidLoad();
-        
+        super.viewDidLoad()
+
         self.setZLNavigationBarHidden(false)
-        
-        let baseView: ZLWebContentView? = Bundle.main.loadNibNamed("ZLWebContentView", owner: nil, options: nil)?.first as? ZLWebContentView;
+
+        let baseView: ZLWebContentView? = Bundle.main.loadNibNamed("ZLWebContentView", owner: nil, options: nil)?.first as? ZLWebContentView
         self.title = ZLLocalizedString(string: "login", comment: "登陆")
 
-        
-        if let baseView = baseView
-        {
+        if let baseView = baseView {
             self.contentView.addSubview(baseView)
             baseView.snp.makeConstraints({ (make) in
                 make.edges.equalToSuperview()
             })
             let viewModel = ZLOAuthBaseViewModel()
             self.addSubViewModel(viewModel)
-            viewModel.bindModel(self.loginProcessModel, andView: baseView);
+            viewModel.bindModel(self.loginProcessModel, andView: baseView)
+        } else {
+            NSLog("ZLOAuthBaseView load failed")
         }
-        else
-        {
-            NSLog("ZLOAuthBaseView load failed");
-        }
-        
+
     }
 }

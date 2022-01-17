@@ -9,12 +9,12 @@
 import UIKit
 
 class ZLPinnedRepositoriesTableViewCellData: ZLGithubItemTableViewCellData {
-   
+
     private var repos: [ZLGithubRepositoryBriefModel]
-    
+
     private var subCellDatas: [ZLPinnedRepositoriesCollectionViewCellData]
-    
-    init(repos: [ZLGithubRepositoryBriefModel]){
+
+    init(repos: [ZLGithubRepositoryBriefModel]) {
         self.repos = repos
         subCellDatas = repos.map({ item in
             let cellData = ZLPinnedRepositoriesCollectionViewCellData(repo: item)
@@ -23,7 +23,7 @@ class ZLPinnedRepositoriesTableViewCellData: ZLGithubItemTableViewCellData {
         super.init()
         self.addSubViewModels(subCellDatas)
     }
-    
+
     override func update(_ targetModel: Any?) {
         guard let repos = targetModel as? [ZLGithubRepositoryBriefModel] else {
             return
@@ -31,7 +31,7 @@ class ZLPinnedRepositoriesTableViewCellData: ZLGithubItemTableViewCellData {
         for subViewModel in self.subViewModels {
             subViewModel.removeFromSuperViewModel()
         }
-        
+
         self.repos = repos
         subCellDatas = repos.map({ item in
             let cellData = ZLPinnedRepositoriesCollectionViewCellData(repo: item)
@@ -39,11 +39,11 @@ class ZLPinnedRepositoriesTableViewCellData: ZLGithubItemTableViewCellData {
         })
         self.addSubViewModels(subCellDatas)
     }
-    
+
     override func getCellReuseIdentifier() -> String {
         return "ZLPinnedRepositoriesTableViewCell"
     }
-    
+
     override func getCellHeight() -> CGFloat {
         return UITableView.automaticDimension
     }
@@ -53,7 +53,5 @@ extension ZLPinnedRepositoriesTableViewCellData: ZLPinnedRepositoriesTableViewCe
     var cellDatas: [ZLPinnedRepositoryCollectionViewCellDataSourceAndDelegate] {
         subCellDatas
     }
-    
-    
-    
+
 }

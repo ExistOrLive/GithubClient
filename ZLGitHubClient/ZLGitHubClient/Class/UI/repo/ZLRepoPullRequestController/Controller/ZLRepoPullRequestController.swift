@@ -10,26 +10,25 @@ import UIKit
 
 class ZLRepoPullRequestController: ZLBaseViewController {
 
-    var repoFullName : String?
-    
+    var repoFullName: String?
+
     override func viewDidLoad() {
-        
+
         super.viewDidLoad()
-        
+
         self.title = ZLLocalizedString(string: "pull request", comment: "合并请求")
-        
+
         let viewModel = ZLRepoPullRequestViewModel()
-        
+
         let pullRequestView = ZLRepoPullRequestView()
         self.contentView.addSubview(pullRequestView)
-        pullRequestView.snp.makeConstraints ({ (make) in
+        pullRequestView.snp.makeConstraints({ (make) in
             make.edges.equalToSuperview()
         })
-        
+
         self.addSubViewModel(viewModel)
         viewModel.bindModel(self.repoFullName, andView: pullRequestView)
     }
-    
 
     /*
     // MARK: - Navigation

@@ -8,30 +8,29 @@
 
 import UIKit
 
-class ZLRepoIssuesViewModel: ZLBaseViewModel,ZLRepoIssuesViewDelegate {
-    
-    var baseView : ZLRepoIssuesView?
-    
+class ZLRepoIssuesViewModel: ZLBaseViewModel, ZLRepoIssuesViewDelegate {
+
+    var baseView: ZLRepoIssuesView?
+
     // model
-    var fullName : String?
-    var filterOpen : Bool = true
-    var currentPage : Int = 0
-    
+    var fullName: String?
+    var filterOpen: Bool = true
+    var currentPage: Int = 0
+
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
-        
+
         self.fullName = targetModel as? String
-        
-        guard let repoIssuesView : ZLRepoIssuesView = targetView as? ZLRepoIssuesView else{
+
+        guard let repoIssuesView: ZLRepoIssuesView = targetView as? ZLRepoIssuesView else {
             return
         }
         self.baseView = repoIssuesView
-        
+
         self.baseView?.fillWithViewModel(viewModel: self)
-        
+
         self.baseView?.githubItemListView.beginRefresh()
     }
-    
-    
+
     func onFilterTypeChange(_ open: Bool) {
         self.filterOpen = open
         SVProgressHUD.show()
@@ -39,45 +38,40 @@ class ZLRepoIssuesViewModel: ZLBaseViewModel,ZLRepoIssuesViewDelegate {
     }
 }
 
+extension ZLRepoIssuesViewModel {
+    func loadNewData() {
 
-
-extension ZLRepoIssuesViewModel
-{
-    func loadNewData(){
-        
         guard let fullName = self.fullName else {
             SVProgressHUD.dismiss()
             self.baseView?.githubItemListView.endRefreshWithError()
             return
         }
-        
+
         ZLServiceManager.sharedInstance.repoServiceModel?.getRepositoryIssues(withFullName: fullName,
                                                                               state: self.filterOpen ?  "open" : "closed",
-                                                                              per_page:20,
+                                                                              per_page: 20,
                                                                               page: 1,
-                                                                              serialNumber: NSString.generateSerialNumber())
-        { [weak weakSelf = self](resultModel : ZLOperationResultModel) in
-            
+                                                                              serialNumber: NSString.generateSerialNumber()) { [weak weakSelf = self](resultModel: ZLOperationResultModel) in
+
             SVProgressHUD.dismiss()
-            
+
             if resultModel.result == false {
-                
+
                 weakSelf?.baseView?.githubItemListView.endRefreshWithError()
                 let errorModel = resultModel.data as? ZLGithubRequestErrorModel
                 ZLToastView.showMessage("Query issues Failed Code [\(errorModel?.statusCode ?? 0)] Message[\(errorModel?.message ?? "")]")
                 return
             }
-            
-            guard let data : [ZLGithubIssueModel] = resultModel.data as? [ZLGithubIssueModel] else {
-                
+
+            guard let data: [ZLGithubIssueModel] = resultModel.data as? [ZLGithubIssueModel] else {
+
                 weakSelf?.baseView?.githubItemListView.endRefreshWithError()
                 ZLToastView.showMessage("ZLGithubIssueModel transfer error")
-                return;
+                return
             }
-            
-            var cellDatas : [ZLIssueTableViewCellData] = []
-            for issueModel in data
-            {
+
+            var cellDatas: [ZLIssueTableViewCellData] = []
+            for issueModel in data {
                 let cellData = ZLIssueTableViewCellData.init(issueModel: issueModel)
                 self.addSubViewModel(cellData)
                 cellDatas.append(cellData)
@@ -86,42 +80,38 @@ extension ZLRepoIssuesViewModel
             weakSelf?.currentPage = 1
         }
     }
-    
-    
-    func loadMoreData(){
-        
+
+    func loadMoreData() {
+
         guard let fullName = self.fullName else {
             SVProgressHUD.dismiss()
             self.baseView?.githubItemListView.endRefreshWithError()
             return
         }
-        
-    
+
         ZLServiceManager.sharedInstance.repoServiceModel?.getRepositoryIssues(withFullName: fullName,
                                                                               state: self.filterOpen ?  "open" : "closed",
-                                                                              per_page:20,
+                                                                              per_page: 20,
                                                                               page: Int(self.currentPage) + 1,
-                                                                              serialNumber: NSString.generateSerialNumber())
-        { [weak weakSelf = self](resultModel : ZLOperationResultModel) in
-            
+                                                                              serialNumber: NSString.generateSerialNumber()) { [weak weakSelf = self](resultModel: ZLOperationResultModel) in
+
             if resultModel.result == false {
-                
+
                 weakSelf?.baseView?.githubItemListView.endRefreshWithError()
                 let errorModel = resultModel.data as? ZLGithubRequestErrorModel
                 ZLToastView.showMessage("Query issues Failed Code [\(errorModel?.statusCode ?? 0)] Message[\(errorModel?.message ?? "")]")
                 return
             }
-            
-            guard let data : [ZLGithubIssueModel] = resultModel.data as? [ZLGithubIssueModel] else {
-                
+
+            guard let data: [ZLGithubIssueModel] = resultModel.data as? [ZLGithubIssueModel] else {
+
                 weakSelf?.baseView?.githubItemListView.endRefreshWithError()
                 ZLToastView.showMessage("ZLGithubIssueModel transfer error")
-                return;
+                return
             }
-            
-            var cellDatas : [ZLIssueTableViewCellData] = []
-            for issueModel in data
-            {
+
+            var cellDatas: [ZLIssueTableViewCellData] = []
+            for issueModel in data {
                 let cellData = ZLIssueTableViewCellData.init(issueModel: issueModel)
                 self.addSubViewModel(cellData)
                 cellDatas.append(cellData)
@@ -130,19 +120,15 @@ extension ZLRepoIssuesViewModel
             weakSelf?.currentPage += 1
         }
     }
-    
+
 }
 
-
-
-extension ZLRepoIssuesViewModel : ZLGithubItemListViewDelegate
-{
+extension ZLRepoIssuesViewModel: ZLGithubItemListViewDelegate {
     func githubItemListViewRefreshDragUp(pullRequestListView: ZLGithubItemListView) {
         self.loadMoreData()
     }
-    
-    func githubItemListViewRefreshDragDown(pullRequestListView: ZLGithubItemListView) -> Void
-    {
+
+    func githubItemListViewRefreshDragDown(pullRequestListView: ZLGithubItemListView) {
         self.loadNewData()
     }
 }

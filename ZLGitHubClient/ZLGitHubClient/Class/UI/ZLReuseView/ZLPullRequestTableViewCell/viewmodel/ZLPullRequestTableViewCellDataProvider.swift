@@ -9,20 +9,20 @@
 import Foundation
 
 extension ZLPullRequestTableViewCellData {
-    static func getCellDatasWithPRModel(data:PrInfoQuery.Data, firstPage:Bool) -> [ZLGithubItemTableViewCellData]{
-        
-        var cellDatas : [ZLGithubItemTableViewCellData] = []
-        
+    static func getCellDatasWithPRModel(data: PrInfoQuery.Data, firstPage: Bool) -> [ZLGithubItemTableViewCellData] {
+
+        var cellDatas: [ZLGithubItemTableViewCellData] = []
+
         if firstPage {
             let headercellData = ZLPullRequestHeaderTableViewCellData(data: data)
             cellDatas.append(headercellData)
-            
+
             if let pullrequest = data.repository?.pullRequest {
                 let bodyCellData = ZLPullRequestBodyTableViewCellData(data: pullrequest)
                 cellDatas.append(bodyCellData)
             }
         }
-              
+
         if let timelines = data.repository?.pullRequest?.timelineItems.nodes {
             for timeline in timelines {
                 if let comment =  timeline?.asIssueComment {
@@ -34,13 +34,13 @@ extension ZLPullRequestTableViewCellData {
                             timeline?.asAddedToProjectEvent != nil ||
                             timeline?.asRemovedFromProjectEvent != nil {
                     continue
-                } else if let timeline  = timeline{
+                } else if let timeline  = timeline {
                     let timelinedata = ZLPullRequestTimelineTableViewCellData(data: timeline)
                     cellDatas.append(timelinedata)
                 }
             }
         }
-        
+
         return cellDatas
     }
 }

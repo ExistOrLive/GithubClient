@@ -8,45 +8,43 @@
 
 import UIKit
 
-@objc protocol ZLEventTableViewCellDelegate: NSObjectProtocol{
-    func onAvatarClicked() -> Void;
-    
-    func onCellSingleTap() -> Void;
-    
-    func onReportClicked() -> Void;
+@objc protocol ZLEventTableViewCellDelegate: NSObjectProtocol {
+    func onAvatarClicked()
+
+    func onCellSingleTap()
+
+    func onReportClicked()
 }
 
 class ZLEventTableViewCell: UITableViewCell {
-    
-    weak var delegate : ZLEventTableViewCellDelegate?
-    
-    var containerView : UIView?
-    
+
+    weak var delegate: ZLEventTableViewCellDelegate?
+
+    var containerView: UIView?
+
     var headImageButton: UIButton?
-    
+
     var actorNameLabel: UILabel?
-    
-    var timeLabel : UILabel?
-    
-    var eventDesLabel : YYLabel?
-    
-    var assistInfoView : UIView?
-    
-    var reportMoreButton : UIButton?
-    
+
+    var timeLabel: UILabel?
+
+    var eventDesLabel: YYLabel?
+
+    var assistInfoView: UIView?
+
+    var reportMoreButton: UIButton?
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-     
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style,reuseIdentifier: reuseIdentifier)
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.backgroundColor = UIColor.clear
         self.setUpUI()
     }
-    
-    
-    func setUpUI()
-    {
+
+    func setUpUI() {
         selectionStyle = .none
         // containerView
         let view = UIView.init()
@@ -58,7 +56,7 @@ class ZLEventTableViewCell: UITableViewCell {
             make.edges.equalTo(self.contentView).inset(UIEdgeInsets.init(top: 5, left: 10, bottom: 5, right: 10))
         })
         self.containerView = view
-        
+
         // headImageButton
         let headImageButton = UIButton.init(type: .custom)
         headImageButton.layer.cornerRadius = 20.0
@@ -72,7 +70,7 @@ class ZLEventTableViewCell: UITableViewCell {
         })
         self.headImageButton = headImageButton
         self.headImageButton?.addTarget(self, action: #selector(self.onAvatarButtonClicked(button:)), for: .touchUpInside)
-        
+
         let actorNameLabel = UILabel.init()
         actorNameLabel.textColor = UIColor.init(named: "ZLLabelColor1") ?? UIColor.black
         actorNameLabel.font = UIFont.init(name: Font_PingFangSCMedium, size: 16.0)
@@ -82,7 +80,7 @@ class ZLEventTableViewCell: UITableViewCell {
             make.centerY.equalTo(self.headImageButton!.snp_centerY)
         })
         self.actorNameLabel = actorNameLabel
-        
+
         let timeLabel = UILabel.init()
         timeLabel.textColor = UIColor.init(named: "ZLLabelColor2") ?? UIColor.init(hexString: "#878787", alpha: 1.0)
         timeLabel.font = UIFont.init(name: Font_PingFangSCMedium, size: 15.0)
@@ -92,8 +90,7 @@ class ZLEventTableViewCell: UITableViewCell {
             make.centerY.equalTo(self.actorNameLabel!.snp_centerY)
         })
         self.timeLabel = timeLabel
-        
-        
+
         let eventDesLabel = YYLabel.init()
         eventDesLabel.numberOfLines = 0
         eventDesLabel.preferredMaxLayoutWidth = ZLScreenWidth - 50
@@ -104,7 +101,7 @@ class ZLEventTableViewCell: UITableViewCell {
             make.top.equalTo(self.headImageButton!.snp.bottom).offset(10)
         })
         self.eventDesLabel = eventDesLabel
-        
+
         let assistInfoView = UIView.init()
         self.containerView?.addSubview(assistInfoView)
         assistInfoView.snp.makeConstraints { (make) in
@@ -114,11 +111,11 @@ class ZLEventTableViewCell: UITableViewCell {
             make.height.equalTo(20).priority(.medium)
         }
         self.assistInfoView = assistInfoView
-        
+
         let button = UIButton.init(type: .custom)
         button.addTarget(self, action: #selector(ZLEventTableViewCell.onReportButtonClicked), for: .touchUpInside)
         let str = NSAttributedString(string: ZLIconFont.More.rawValue, attributes: [.font: UIFont.zlIconFont(withSize: 30),
-                                                                                    .foregroundColor:UIColor.label(withName: "ICON_Common")])
+                                                                                    .foregroundColor: UIColor.label(withName: "ICON_Common")])
         button.setAttributedTitle(str, for: .normal)
         self.containerView?.addSubview(button)
         button.snp.makeConstraints { (make) in
@@ -130,24 +127,21 @@ class ZLEventTableViewCell: UITableViewCell {
         }
         self.reportMoreButton = button
     }
-    
+
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(false, animated: animated)
     }
-    
-    func fillWithData(cellData : ZLEventTableViewCellData)
-    {
+
+    func fillWithData(cellData: ZLEventTableViewCellData) {
         self.headImageButton?.sd_setBackgroundImage(with: URL.init(string: cellData.getActorAvaterURL()), for: .normal, placeholderImage: UIImage.init(named: "default_avatar"), options: .refreshCached, context: nil)
         self.actorNameLabel?.text = cellData.getActorName()
         self.timeLabel?.text = cellData.getTimeStr()
         self.eventDesLabel?.attributedText = cellData.getEventDescrption()
     }
-    
-    
-    
-    func hiddenReportButton(hidden:Bool) {
+
+    func hiddenReportButton(hidden: Bool) {
         self.reportMoreButton?.isHidden = hidden
-        if hidden{
+        if hidden {
             self.reportMoreButton!.snp.updateConstraints { (make) in
                 make.height.equalTo(0)
             }
@@ -159,48 +153,40 @@ class ZLEventTableViewCell: UITableViewCell {
     }
 }
 
-
-// MARK : action
-extension ZLEventTableViewCell
-{
-    @objc func onAvatarButtonClicked(button: UIButton) -> Void
-    {
-        if self.delegate?.responds(to: #selector(ZLEventTableViewCellDelegate.onAvatarClicked)) ?? false
-        {
+// MARK: action
+extension ZLEventTableViewCell {
+    @objc func onAvatarButtonClicked(button: UIButton) {
+        if self.delegate?.responds(to: #selector(ZLEventTableViewCellDelegate.onAvatarClicked)) ?? false {
             self.delegate?.onAvatarClicked()
         }
     }
-    
-    @objc func onCellSingleTap()
-    {
-        if self.delegate?.responds(to: #selector(ZLEventTableViewCellDelegate.onCellSingleTap)) ?? false
-        {
+
+    @objc func onCellSingleTap() {
+        if self.delegate?.responds(to: #selector(ZLEventTableViewCellDelegate.onCellSingleTap)) ?? false {
             self.delegate?.onCellSingleTap()
         }
     }
-    
-    @objc func onReportButtonClicked()
-    {
-        if self.delegate?.responds(to: #selector(ZLEventTableViewCellDelegate.onReportClicked)) ?? false
-        {
+
+    @objc func onReportButtonClicked() {
+        if self.delegate?.responds(to: #selector(ZLEventTableViewCellDelegate.onReportClicked)) ?? false {
             self.delegate?.onReportClicked()
         }
     }
-    
+
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         UIView.animate(withDuration: 0.1) {
             self.containerView?.backgroundColor = UIColor.init(named: "ZLCellBackSelected")
         }
     }
-    
+
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesCancelled(touches, with: event)
         UIView.animate(withDuration: 0.1) {
             self.containerView?.backgroundColor = UIColor.init(named: "ZLCellBack")
         }
     }
-    
+
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
         UIView.animate(withDuration: 0.1) {
@@ -208,4 +194,3 @@ extension ZLEventTableViewCell
         }
     }
 }
-

@@ -9,11 +9,11 @@
 import UIKit
 
 class ZLTrendingDateRangeTableViewCell: UITableViewCell {
-    
+
     @IBOutlet weak var selectedTag: UIImageView!
-    
+
     @IBOutlet weak var titleLabel: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
@@ -21,7 +21,7 @@ class ZLTrendingDateRangeTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
+
         if selected == true {
             self.selectedTag.isHidden = false
             self.titleLabel.textColor = UIColor.black
@@ -30,5 +30,5 @@ class ZLTrendingDateRangeTableViewCell: UITableViewCell {
             self.titleLabel.textColor = UIColor.init(named: "ZLLabelColor4")
         }
     }
-    
+
 }

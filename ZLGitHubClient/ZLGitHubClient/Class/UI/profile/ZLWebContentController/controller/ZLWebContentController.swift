@@ -9,18 +9,18 @@
 import UIKit
 
 @objcMembers class ZLWebContentController: ZLBaseViewController {
-    
+
     var requestURL: URL?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.title = "WebView";
-        
+
+        self.title = "WebView"
+
         let viewModel = ZLWebContentViewModel()
         self.addSubViewModel(viewModel)
-        
-        guard let baseView = Bundle.main.loadNibNamed("ZLWebContentView", owner: viewModel, options: nil)?.first as? ZLWebContentView else{
+
+        guard let baseView = Bundle.main.loadNibNamed("ZLWebContentView", owner: viewModel, options: nil)?.first as? ZLWebContentView else {
             ZLLog_Warn("ZLWebContentView load failed,so return")
             return
         }
@@ -28,16 +28,15 @@ import UIKit
         baseView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
-        
+
         viewModel.bindModel(self.requestURL, andView: baseView)
     }
-    
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        
+
     }
-    
+
     /*
     // MARK: - Navigation
 

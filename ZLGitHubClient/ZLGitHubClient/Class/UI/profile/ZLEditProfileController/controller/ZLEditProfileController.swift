@@ -1,4 +1,3 @@
-
 //
 //  ZLEditProfileController.swift
 //  ZLGitHubClient
@@ -10,21 +9,20 @@
 import UIKit
 
 class ZLEditProfileController: ZLBaseViewController {
-     
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.title = ZLLocalizedString(string: "EditProfile", comment: "编辑主页")
 
         let viewModel = ZLEditProfileViewModel()
         self.addSubViewModel(viewModel)
-        
-        guard let baseView: ZLEditProfileView = Bundle.main.loadNibNamed("ZLEditProfileView", owner: viewModel, options: nil)?.first as? ZLEditProfileView else
-        {
-            ZLLog_Warn("ZLRepoInfoView can not be loaded");
-            return;
+
+        guard let baseView: ZLEditProfileView = Bundle.main.loadNibNamed("ZLEditProfileView", owner: viewModel, options: nil)?.first as? ZLEditProfileView else {
+            ZLLog_Warn("ZLRepoInfoView can not be loaded")
+            return
         }
-        
+
         self.contentView.addSubview(baseView)
         baseView.snp.makeConstraints({ (make) in
             make.top.bottom.equalToSuperview()
@@ -33,7 +31,6 @@ class ZLEditProfileController: ZLBaseViewController {
         })
         viewModel.bindModel(nil, andView: baseView)
     }
-    
 
     /*
     // MARK: - Navigation

@@ -8,14 +8,14 @@
 
 import UIKit
 
-class ZLUserContributionsView: ZLBaseView,UICollectionViewDataSource,UICollectionViewDelegate {
-    
+class ZLUserContributionsView: ZLBaseView, UICollectionViewDataSource, UICollectionViewDelegate {
+
     // model
     private var loginName  = ""
-    private var dataArray : [ZLGithubUserContributionData] = []
-    
+    private var dataArray: [ZLGithubUserContributionData] = []
+
     // view
-    private lazy var collectionView : UICollectionView = {
+    private lazy var collectionView: UICollectionView = {
         let collectionViewLayout = UICollectionViewFlowLayout()
         collectionViewLayout.scrollDirection = .horizontal
         collectionViewLayout.estimatedItemSize = CGSize(width: 10, height: 10)
@@ -30,9 +30,8 @@ class ZLUserContributionsView: ZLBaseView,UICollectionViewDataSource,UICollectio
         collectionView.dataSource = self
         return collectionView
     }()
-    
-    
-    private lazy var label : UILabel = {
+
+    private lazy var label: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: Font_PingFangSCSemiBold, size: 12)
         label.textColor = UIColor(named: "ZLLabelColor2")
@@ -40,34 +39,32 @@ class ZLUserContributionsView: ZLBaseView,UICollectionViewDataSource,UICollectio
         label.textAlignment = .center
         return label
     }()
-    
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.setUpUI()
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setUpUI()
     }
-    
+
     override func updateConstraints() {
         super.updateConstraints()
         collectionView.snp.updateConstraints { (make) in
             make.width.equalTo(collectionView.contentSize.width + 10).priority(.high)
         }
     }
-    
+
     deinit {
         collectionView.removeObserver(self, forKeyPath: "contentSize")
     }
-    
-    
+
     private func setUpUI() {
-        
+
         self.backgroundColor = UIColor(named: "ZLContributionBackColor")
-               
+
         self.addSubview(collectionView)
         collectionView.snp.makeConstraints { (make) in
             make.top.bottom.centerX.equalToSuperview()
@@ -76,38 +73,36 @@ class ZLUserContributionsView: ZLBaseView,UICollectionViewDataSource,UICollectio
             make.width.equalTo(collectionView.contentSize.width + 10).priority(.high)
         }
         collectionView.addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
-        
+
         self.addSubview(label)
         label.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
     }
-    
-    
-    func update(loginName: String, force: Bool = false ){
-        
+
+    func update(loginName: String, force: Bool = false ) {
+
         if force ||
             loginName != self.loginName ||
             self.dataArray.isEmpty {
-            
+
             self.startLoad(loginName: loginName)
         }
     }
-    
-    func startLoad(loginName : String) {
-        
+
+    func startLoad(loginName: String) {
+
         self.loginName = loginName
-        
+
         let contributionsDatas = ZLServiceManager.sharedInstance.userServiceModel?.getUserContributionsData(withLoginName: loginName,
-                                                                                   serialNumber: NSString.generateSerialNumber())
-        { [weak self](resultModel) in
-            
+                                                                                   serialNumber: NSString.generateSerialNumber()) { [weak self](resultModel) in
+
             if resultModel.result == true {
                 if let array = resultModel.data as? [ZLGithubUserContributionData] {
                     self?.dataArray = array
                 }
             }
-            
+
             self?.collectionView.performBatchUpdates { [weak self] in
                 self?.collectionView.reloadData()
             } completion: { [weak self] _ in
@@ -119,9 +114,9 @@ class ZLUserContributionsView: ZLBaseView,UICollectionViewDataSource,UICollectio
                 }
             }
         }
-        
+
         self.dataArray = contributionsDatas ?? []
-        
+
         self.collectionView.performBatchUpdates { [weak self] in
             self?.collectionView.reloadData()
         } completion: { [weak self] _ in
@@ -133,14 +128,13 @@ class ZLUserContributionsView: ZLBaseView,UICollectionViewDataSource,UICollectio
             }
         }
     }
-    
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         self.label.text = self.dataArray.count == 0  ? "No Data" : nil
         return self.dataArray.count
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell{
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let collectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "UICollectionViewCell", for: indexPath)
         collectionViewCell.cornerRadius = 2.0
         let contributionData = self.dataArray[indexPath.row]
@@ -160,9 +154,8 @@ class ZLUserContributionsView: ZLBaseView,UICollectionViewDataSource,UICollectio
         }
         return collectionViewCell
     }
-    
-    
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
         self.setNeedsUpdateConstraints()
     }
 }

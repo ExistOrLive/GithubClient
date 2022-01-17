@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum ZLProfileItemType: Int{
+enum ZLProfileItemType: Int {
     case company = 0
     case location
     case email
@@ -23,38 +23,37 @@ class ZLProfileBaseView: ZLBaseView {
     @IBOutlet weak var topViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var tableView: UITableView!
     var tableHeaderView: ZLProfileHeaderView?
-    
+
     override func awakeFromNib() {
-        super.awakeFromNib();
-        
+        super.awakeFromNib()
+
         self.topViewHeightConstraint.constant = ZLStatusBarHeight
-        
+
         // 设置tableView
-        self.tableView.register(ZLProfileTableViewCell.self, forCellReuseIdentifier: "ZLProfileTableViewCell");
-        self.tableView.autoresizingMask = UIView.AutoresizingMask.init(rawValue: 0);
-        
+        self.tableView.register(ZLProfileTableViewCell.self, forCellReuseIdentifier: "ZLProfileTableViewCell")
+        self.tableView.autoresizingMask = UIView.AutoresizingMask.init(rawValue: 0)
+
         // 设置tableViewHeader
-        if let tableViewHeader = Bundle.main.loadNibNamed("ZLProfileHeaderView", owner: self, options: nil)?.first as? ZLProfileHeaderView{
-            
-            tableViewHeader.autoresizingMask = UIView.AutoresizingMask.init(rawValue: 0);
-            tableViewHeader.frame = CGRect.init(x: 0, y: 0, width: ZLScreenWidth, height: 330);
-            tableView.tableHeaderView = tableViewHeader;
-            self.tableHeaderView = tableViewHeader;
+        if let tableViewHeader = Bundle.main.loadNibNamed("ZLProfileHeaderView", owner: self, options: nil)?.first as? ZLProfileHeaderView {
+
+            tableViewHeader.autoresizingMask = UIView.AutoresizingMask.init(rawValue: 0)
+            tableViewHeader.frame = CGRect.init(x: 0, y: 0, width: ZLScreenWidth, height: 330)
+            tableView.tableHeaderView = tableViewHeader
+            self.tableHeaderView = tableViewHeader
         }
-        
-        let view = UIView.init(frame: CGRect.init(x: 0, y: 0 - 4 * ZLScreenWidth, width:  4 * ZLScreenWidth, height: 4 * ZLScreenWidth))
+
+        let view = UIView.init(frame: CGRect.init(x: 0, y: 0 - 4 * ZLScreenWidth, width: 4 * ZLScreenWidth, height: 4 * ZLScreenWidth))
         view.backgroundColor = UIColor.black
         self.tableView.addSubview(view)
         view.snp.makeConstraints { (make) in
             make.left.width.height.equalTo(self.tableView)
             make.bottom.equalTo(self.tableView.snp_top)
         }
-    
+
     }
 }
 
-extension ZLProfileBaseView
-{
+extension ZLProfileBaseView {
     static let profileItemsArray = [[ZLProfileItemType.company,
                                      ZLProfileItemType.location,
                                      ZLProfileItemType.email,
@@ -62,6 +61,5 @@ extension ZLProfileBaseView
                                     [ZLProfileItemType.setting,
                                      ZLProfileItemType.aboutMe,
                                      ZLProfileItemType.feedback]]
-    
-  
+
 }

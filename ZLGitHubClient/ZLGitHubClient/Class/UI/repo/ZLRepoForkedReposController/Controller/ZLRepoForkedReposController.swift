@@ -9,27 +9,26 @@
 import UIKit
 
 class ZLRepoForkedReposController: ZLBaseViewController {
-    
-    var repoFullName : String?
+
+    var repoFullName: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.title = ZLLocalizedString(string: "fork", comment: "")
-        
+
         let itemListView = ZLGithubItemListView.init()
         itemListView.setTableViewHeader()
         itemListView.setTableViewFooter()
         self.contentView.addSubview(itemListView)
-        itemListView.snp.makeConstraints ({ (make) in
+        itemListView.snp.makeConstraints({ (make) in
             make.edges.equalToSuperview()
         })
-        
+
         let viewModel = ZLRepoForkedReposViewModel()
         self.addSubViewModel(viewModel)
         viewModel.bindModel(repoFullName, andView: itemListView)
     }
-    
 
     /*
     // MARK: - Navigation

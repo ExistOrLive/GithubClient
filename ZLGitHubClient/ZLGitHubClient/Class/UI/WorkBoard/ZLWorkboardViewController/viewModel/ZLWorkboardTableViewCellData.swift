@@ -8,22 +8,21 @@
 
 import UIKit
 
+class ZLWorkboardTableViewCellData: ZLBaseViewModel, ZLWorkboardTableViewCellDelegate {
 
-class ZLWorkboardTableViewCellData: ZLBaseViewModel,ZLWorkboardTableViewCellDelegate {
-    
-    private let celltitle : String
-    private let cellavatarURL : String
-    private let type : ZLWorkboardType
-    
-    init(title:String = "", avatarURL :String = "", type : ZLWorkboardType){
+    private let celltitle: String
+    private let cellavatarURL: String
+    private let type: ZLWorkboardType
+
+    init(title: String = "", avatarURL: String = "", type: ZLWorkboardType) {
         self.type = type
         self.celltitle = title
         self.cellavatarURL = avatarURL
         super.init()
     }
-    
-    var title: String{
-        get{
+
+    var title: String {
+        get {
             switch type {
             case .issues:
                 return ZLLocalizedString(string: "issues", comment: "")
@@ -40,12 +39,12 @@ class ZLWorkboardTableViewCellData: ZLBaseViewModel,ZLWorkboardTableViewCellDele
             case .fixRepo:
                 return self.celltitle
             }
-               
+
         }
     }
-    
-    var avatarURL: String{
-        get{
+
+    var avatarURL: String {
+        get {
             switch type {
             case .issues:
                 return "issues_icon"
@@ -64,17 +63,17 @@ class ZLWorkboardTableViewCellData: ZLBaseViewModel,ZLWorkboardTableViewCellDele
             }
         }
     }
-    
-    var isGithubItem: Bool{
-        get{
-            if self.type == .fixRepo{
+
+    var isGithubItem: Bool {
+        get {
+            if self.type == .fixRepo {
                 return true
             } else {
                 return false
             }
         }
     }
-    
+
     func onCellClicked() {
         switch self.type {
         case .issues:
@@ -108,13 +107,12 @@ class ZLWorkboardTableViewCellData: ZLBaseViewModel,ZLWorkboardTableViewCellDele
             self.viewController?.navigationController?.pushViewController(vc, animated: true)
             break
         case .fixRepo:
-            guard let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: self.celltitle) else { return } 
+            guard let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: self.celltitle) else { return }
             vc.hidesBottomBarWhenPushed = true
             self.viewController?.navigationController?.pushViewController(vc, animated: true)
             break
         }
-        
+
     }
-    
-    
+
 }

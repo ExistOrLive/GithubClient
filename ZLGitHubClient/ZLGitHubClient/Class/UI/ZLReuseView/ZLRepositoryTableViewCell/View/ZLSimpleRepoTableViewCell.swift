@@ -9,27 +9,27 @@
 import UIKit
 
 class ZLSimpleRepoTableViewCell: UITableViewCell {
-    
-    var avatarImageView : UIImageView!
-    var fullNameLabel : UILabel!
-    var singleLineView : UIView!
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
+
+    var avatarImageView: UIImageView!
+    var fullNameLabel: UILabel!
+    var singleLineView: UIView!
+
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setUpUI()
     }
 
-    public required init?(coder: NSCoder){
+    public required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.setUpUI()
     }
-    
-    func setUpUI(){
-        
+
+    func setUpUI() {
+
         self.backgroundColor = UIColor.clear
-        
+
         self.contentView.backgroundColor = UIColor(named: "ZLCellBack")
-        
+
         self.avatarImageView = UIImageView()
         self.contentView.addSubview(self.avatarImageView)
         self.avatarImageView.snp.makeConstraints { (make) in
@@ -38,7 +38,7 @@ class ZLSimpleRepoTableViewCell: UITableViewCell {
             make.left.equalToSuperview().offset(15)
         }
         self.avatarImageView.circle = true
-        
+
         self.fullNameLabel = UILabel()
         self.fullNameLabel.font = UIFont(name: Font_PingFangSCMedium, size: 14)
         self.fullNameLabel.textColor = UIColor(named: "ZLLabelColor1")
@@ -48,7 +48,7 @@ class ZLSimpleRepoTableViewCell: UITableViewCell {
             make.centerY.equalToSuperview()
             make.right.equalToSuperview().offset(-10)
         }
-        
+
         self.singleLineView = UIView()
         self.singleLineView.backgroundColor = UIColor(named: "ZLSeperatorLineColor")
         self.contentView.addSubview(self.singleLineView)
@@ -57,7 +57,7 @@ class ZLSimpleRepoTableViewCell: UITableViewCell {
             make.height.equalTo(0.3)
             make.bottom.right.equalToSuperview()
         }
-        
+
     }
 
     override func awakeFromNib() {

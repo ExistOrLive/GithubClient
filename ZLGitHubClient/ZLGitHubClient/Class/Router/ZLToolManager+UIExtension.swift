@@ -10,11 +10,11 @@ import Foundation
 import ZLServiceFramework
 import SYDCentralPivot
 
-extension ZLToolManager{
-    
+extension ZLToolManager {
+
     static let zlurlNotifcaitonModuleKey = "ZLUrlNotifcaitonModule"
-        
-    @objc var zlurlNotifcaitonModule :  ZLURLNotificationModuleProtocol?{
+
+    @objc var zlurlNotifcaitonModule: ZLURLNotificationModuleProtocol? {
         SYDCentralFactory.sharedInstance().getCommonBean(ZLToolManager.zlurlNotifcaitonModuleKey) as? ZLURLNotificationModuleProtocol
     }
 }

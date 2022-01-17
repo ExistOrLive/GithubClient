@@ -7,51 +7,51 @@
 //
 
 import UIKit
-//import FWPopupView
+// import FWPopupView
 
 class ZLWorkflowRunTableViewCellData: ZLGithubItemTableViewCellData {
-    
+
     // 
-    var data : ZLGithubRepoWorkflowRunModel
-    var workFlowTitle : String = ""
-    var repoFullName : String = ""
-    
+    var data: ZLGithubRepoWorkflowRunModel
+    var workFlowTitle: String = ""
+    var repoFullName: String = ""
+
     // model
-    var branchStr : NSAttributedString?
-    
-    init(data : ZLGithubRepoWorkflowRunModel) {
+    var branchStr: NSAttributedString?
+
+    init(data: ZLGithubRepoWorkflowRunModel) {
         self.data = data
         super.init()
     }
-    
+
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
-        guard let cell : ZLWorkflowRunTableViewCell = targetView as? ZLWorkflowRunTableViewCell else {
+        guard let cell: ZLWorkflowRunTableViewCell = targetView as? ZLWorkflowRunTableViewCell else {
             return
         }
         cell.delegate = self
         cell.fillWithData(data: self)
     }
-    
+
     override func getCellReuseIdentifier() -> String {
         return "ZLWorkflowRunTableViewCell"
     }
-    
+
     override func getCellHeight() -> CGFloat {
         return UITableView.automaticDimension
     }
-    
+
     override func onCellSingleTap() {
         if let url = URL.init(string: self.data.html_url ?? "") {
             ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,
-                                  params: ["requestURL":url])
+                                  params: ["requestURL": url])
         }
     }
-    
+
 }
 
-extension ZLWorkflowRunTableViewCellData : ZLWorkflowRunTableViewCellDelegate {
-    func onMoreButtonClicked(button:UIButton) -> Void{
-        
+extension ZLWorkflowRunTableViewCellData: ZLWorkflowRunTableViewCellDelegate {
+    func onMoreButtonClicked(button: UIButton) {
+
 //        let vProperty = FWMenuViewProperty()
 //        vProperty.popupCustomAlignment = .topCenter
 //        vProperty.popupAnimationType = .scale
@@ -100,45 +100,44 @@ extension ZLWorkflowRunTableViewCellData : ZLWorkflowRunTableViewCellDelegate {
 //            menuView.attachedView = button
 //            menuView.show()
 //        }
-        
+
     }
 }
-
 
 extension ZLWorkflowRunTableViewCellData {
     func getWorkflowRunTitle() -> String {
         self.data.head_commit?.message ?? ""
     }
-    
+
     func getTimeStr() -> String {
-        if let date = self.data.created_at  {
+        if let date = self.data.created_at {
             return (date as NSDate).dateLocalStrSinceCurrentTime()
         } else if let date = self.data.updated_at {
             return (date as NSDate).dateLocalStrSinceCurrentTime()
         }
         return ""
     }
-    
+
     func getWorkflowRunDesc() -> String {
         return "\(self.workFlowTitle) #\(self.data.run_number)"
     }
-    
+
     func getBranchStr() -> NSAttributedString {
-        let str = NSMutableAttributedString.init(string: "\(self.data.head_repository?.full_name ?? "" ):\(self.data.head_branch ?? "")", attributes: [NSAttributedString.Key.foregroundColor:ZLRawColor(name: "ZLLinkLabelColor1") ?? UIColor.blue,NSAttributedString.Key.font:UIFont.init(name: Font_PingFangSCRegular, size: 13) ?? UIFont.systemFont(ofSize: 12)])
-        str.yy_setTextHighlight(NSRange.init(location: 0, length: str.length), color: ZLRawColor(name: "ZLLinkLabelColor1") ?? UIColor.blue, backgroundColor: UIColor.clear) {[weak weakSelf = self](containerView : UIView, text : NSAttributedString, range: NSRange, rect : CGRect) in
-            
-            if let repoFullName = weakSelf?.data.head_repository?.full_name,let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: repoFullName) {
+        let str = NSMutableAttributedString.init(string: "\(self.data.head_repository?.full_name ?? "" ):\(self.data.head_branch ?? "")", attributes: [NSAttributedString.Key.foregroundColor: ZLRawColor(name: "ZLLinkLabelColor1") ?? UIColor.blue, NSAttributedString.Key.font: UIFont.init(name: Font_PingFangSCRegular, size: 13) ?? UIFont.systemFont(ofSize: 12)])
+        str.yy_setTextHighlight(NSRange.init(location: 0, length: str.length), color: ZLRawColor(name: "ZLLinkLabelColor1") ?? UIColor.blue, backgroundColor: UIColor.clear) {[weak weakSelf = self](_: UIView, _: NSAttributedString, _: NSRange, _: CGRect) in
+
+            if let repoFullName = weakSelf?.data.head_repository?.full_name, let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: repoFullName) {
                 vc.hidesBottomBarWhenPushed = true
                 weakSelf?.viewController?.navigationController?.pushViewController(vc, animated: true)
             }
         }
         return str
     }
-    
+
     func getConclusion() -> String {
         return self.data.conclusion ?? "success"
     }
-    
+
     func getStatus() -> String {
         return self.data.status ?? "completed"
     }
