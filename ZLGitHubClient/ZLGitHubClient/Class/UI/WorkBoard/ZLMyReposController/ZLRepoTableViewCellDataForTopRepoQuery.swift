@@ -89,4 +89,17 @@ extension ZLRepoTableViewCellDataForTopRepoQuery : ZLRepositoryTableViewCellDele
         return self.data.forkCount
     }
     
+    func hasLongPressAction() -> Bool {
+        true
+    }
+    
+    func longPressAction(view: UIView) {
+        guard let url = URL(string: data.url),
+              let vc = viewController else {
+                  return
+              }
+        
+        view.showShareMenu(title: data.url, url: url, sourceViewController: vc)
+    }
+    
 }

@@ -30,7 +30,6 @@ class ZLRepoContentController: ZLBaseViewController {
     var currentContentNode : ZLRepoContentNode?
     
     var tableView : UITableView?
-    var leftPanGestureRecognizer: UIScreenEdgePanGestureRecognizer?
     
     override func viewDidLoad() {
        
@@ -48,23 +47,18 @@ class ZLRepoContentController: ZLBaseViewController {
         
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        self.leftPanGestureRecognizer?.isEnabled = true
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if let navigationVC = navigationController as? ZLBaseNavigationController {
+            navigationVC.forbidGestureBack = false
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if self.leftPanGestureRecognizer == nil,
-            let gestureRecognizers = self.navigationController?.view.gestureRecognizers {
-            for gestureRecognizer in gestureRecognizers {
-                if let panGestureRecognizer = gestureRecognizer as? UIScreenEdgePanGestureRecognizer,
-                   panGestureRecognizer.isEnabled == true {
-                    self.leftPanGestureRecognizer = panGestureRecognizer
-                }
-            }
+        if let navigationVC = navigationController as? ZLBaseNavigationController {
+            navigationVC.forbidGestureBack = true
         }
-        self.leftPanGestureRecognizer?.isEnabled = false
     }
     
     func generateContentTree() {
@@ -208,8 +202,18 @@ extension ZLRepoContentController : UITableViewDelegate,UITableViewDataSource
             return UITableViewCell.init(style: .default, reuseIdentifier: "")
         }
         
-        tableViewCell.setCellData(cellData: self.currentContentNode?.subNodes?[indexPath.row].content)
-        
+        if let contentModel = self.currentContentNode?.subNodes?[indexPath.row].content {
+            tableViewCell.setCellData(cellData: contentModel) { [weak self] view in
+                
+                if let self = self,
+                   let url = URL(string: contentModel.html_url) {
+                    view.showShareMenu(title: url.absoluteString, url: url, sourceViewController: self)
+                }
+            }
+        } else {
+            tableViewCell.setCellData(cellData: nil)
+        }
+    
         return tableViewCell
     }
     

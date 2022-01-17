@@ -11,6 +11,7 @@ import UIKit
 class ZLUserTableViewCellDataForViewerOrgs: ZLGithubItemTableViewCellData {
 
     let data : ViewerOrgsQuery.Data.Viewer.Organization.Edge.Node
+    weak var cell: ZLUserTableViewCell?
     
     init(data :  ViewerOrgsQuery.Data.Viewer.Organization.Edge.Node){
         self.data = data
@@ -25,6 +26,7 @@ class ZLUserTableViewCellDataForViewerOrgs: ZLGithubItemTableViewCellData {
         }
         cell.fillWithData(data: self)
         cell.delegate = self
+        self.cell = cell
     }
     
     
@@ -79,5 +81,16 @@ extension ZLUserTableViewCellDataForViewerOrgs : ZLUserTableViewCellDelegate {
         return data.description
     }
     
+    func longPressAction(view: UIView) {
+        guard let sourceViewController = viewController,
+              let url = URL(string: "https://github.com/\(data.login.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? "")") else {
+                  return
+              }
+        view.showShareMenu(title:url.absoluteString, url: url, sourceViewController: sourceViewController)
+    }
+    
+    func hasLongPressAction() -> Bool {
+        true
+    }
     
 }

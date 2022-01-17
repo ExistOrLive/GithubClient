@@ -72,5 +72,19 @@ extension ZLUserTableViewCellData:ZLUserTableViewCellDelegate{
     func desc() -> String? {
         return self.userModel.bio
     }
+    
+    func hasLongPressAction() -> Bool {
+        true
+    }
+    
+    func longPressAction(view: UIView) {
+        guard let sourceViewController = viewController,
+              let title = userModel.loginName,
+              let url = URL(string: "https://github.com/\(title.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? "")") else {
+                  return
+              }
+        
+        view.showShareMenu(title:url.absoluteString , url: url, sourceViewController: sourceViewController)
+    }
 }
 

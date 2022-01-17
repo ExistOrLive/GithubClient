@@ -148,4 +148,20 @@ extension ZLRepositoryTableViewCellData : ZLRepositoryTableViewCellDelegate
         return Int(self.data.forks_count)
     }
     
+    func hasLongPressAction() -> Bool {
+        if let html_url = data.html_url,
+           let _ = URL(string: html_url) {
+            return true
+        }
+        return false
+    }
+    
+    func longPressAction(view: UIView) {
+        if let html_url = data.html_url,
+           let url = URL(string: html_url),
+        let vc = viewController {
+            view.showShareMenu(title: html_url, url: url, sourceViewController: vc)
+        }
+    }
+    
 }

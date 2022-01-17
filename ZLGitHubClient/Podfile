@@ -81,7 +81,14 @@ pod 'JJException'
 pod 'UITextView+Placeholder'
 
 pod "SYDCentralPivot"
-pod 'ZLBaseUI', :git => 'https://github.com/ExistOrLive/ZLBaseUI.git', :tag => '1.2.0'
+pod 'ZLBaseUI', :git => 'https://github.com/ExistOrLive/ZLBaseUI.git'
+#pod 'ZLBaseUI', :path => "../../ZLBaseUI"
+
+# 转场动画
+pod 'Hero'
+
+# 物理引擎动画
+pod 'pop', '~> 1.0'
 
 end
 

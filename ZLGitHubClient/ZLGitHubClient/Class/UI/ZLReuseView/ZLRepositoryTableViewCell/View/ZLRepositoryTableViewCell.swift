@@ -9,8 +9,8 @@
 import UIKit
 
 
-@objc protocol ZLRepositoryTableViewCellDelegate : NSObjectProtocol
-{
+protocol ZLRepositoryTableViewCellDelegate : NSObjectProtocol{
+    
     func onRepoAvaterClicked() -> Void
     
     func getOwnerAvatarURL() -> String?
@@ -30,6 +30,38 @@ import UIKit
     func starNum() -> Int
     
     func forkNum() -> Int
+    
+    func hasLongPressAction() -> Bool
+    
+    func longPressAction(view: UIView)
+}
+
+extension ZLRepositoryTableViewCellDelegate {
+    
+    func onRepoAvaterClicked() -> Void {}
+    
+    func getOwnerAvatarURL() -> String? { nil }
+
+    func getRepoFullName() -> String? { nil }
+    
+    func getRepoName() -> String? { nil }
+    
+    func getOwnerName() -> String? { nil }
+    
+    func getRepoMainLanguage() -> String? { nil }
+    
+    func getRepoDesc() -> String? { nil }
+    
+    func isPriva() -> Bool { false }
+    
+    func starNum() -> Int { 0 }
+    
+    func forkNum() -> Int { 0 }
+    
+    func hasLongPressAction() -> Bool { false }
+     
+    func longPressAction(view: UIView) { }
+    
 }
 
 class ZLRepositoryTableViewCell: UITableViewCell {
@@ -116,6 +148,11 @@ class ZLRepositoryTableViewCell: UITableViewCell {
         label.font = UIFont.zlMediumFont(withSize: 12)
         label.textColor = UIColor(named: "ZLLabelColor2")
         return label
+    }()
+    
+    lazy var longPressGesture: UILongPressGestureRecognizer = {
+        let gesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressAction(gesture:)))
+        return gesture
     }()
     
     weak var delegate : ZLRepositoryTableViewCellDelegate?
@@ -220,6 +257,8 @@ class ZLRepositoryTableViewCell: UITableViewCell {
             make.size.equalTo(CGSize(width: 20, height: 20))
             make.centerY.equalToSuperview()
         }
+        
+        containerView.addGestureRecognizer(longPressGesture)
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -242,35 +281,38 @@ class ZLRepositoryTableViewCell: UITableViewCell {
             self.containerView.backgroundColor = UIColor.init(named: "ZLCellBack")
         }
     }
+
 }
 
 extension ZLRepositoryTableViewCell
 {
     func fillWithData(data : ZLRepositoryTableViewCellDelegate) -> Void
     {
-        self.delegate = data
-        self.avatarButton.sd_setBackgroundImage(with: URL.init(string: data.getOwnerAvatarURL() ?? ""),
+        delegate = data
+        avatarButton.sd_setBackgroundImage(with: URL.init(string: data.getOwnerAvatarURL() ?? ""),
                                                 for: .normal,
                                                 placeholderImage: UIImage.init(named: "default_avatar"))
-        self.repostitoryNameLabel.text = data.getRepoName()
-        self.languageLabel.text = data.getRepoMainLanguage()
-        self.descriptionLabel.text = data.getRepoDesc()
-        self.forkNumLabel.text = data.forkNum() < 1000 ? "\(data.forkNum())" : String(format: "%.1f",Double(data.forkNum())/1000.0) + "k"
-        self.starNumLabel.text = data.starNum() < 1000 ? "\(data.starNum())" : String(format: "%.1f",Double(data.starNum())/1000.0) + "k"
-        self.ownerNameLabel.text = data.getOwnerName()
-        self.privateLabel.isHidden = !data.isPriva()
+        repostitoryNameLabel.text = data.getRepoName()
+        languageLabel.text = data.getRepoMainLanguage()
+        descriptionLabel.text = data.getRepoDesc()
+        forkNumLabel.text = data.forkNum() < 1000 ? "\(data.forkNum())" : String(format: "%.1f",Double(data.forkNum())/1000.0) + "k"
+        starNumLabel.text = data.starNum() < 1000 ? "\(data.starNum())" : String(format: "%.1f",Double(data.starNum())/1000.0) + "k"
+        ownerNameLabel.text = data.getOwnerName()
+        privateLabel.isHidden = !data.isPriva()
         
+        longPressGesture.isEnabled = data.hasLongPressAction()
     }
 }
 
 
 extension ZLRepositoryTableViewCell
 {
-    @objc func onAvatarSingleTapAction()
-    {
-        if self.delegate?.responds(to: #selector(ZLRepositoryTableViewCellDelegate.onRepoAvaterClicked)) ?? false
-        {
-            self.delegate?.onRepoAvaterClicked()
-        }
+    @objc func onAvatarSingleTapAction() {
+        delegate?.onRepoAvaterClicked()
+    }
+    
+    @objc func longPressAction(gesture: UILongPressGestureRecognizer) {
+        guard gesture.state == .began else { return }
+        delegate?.longPressAction(view:self)
     }
 }

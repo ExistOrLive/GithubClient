@@ -10,7 +10,7 @@ import UIKit
 import WebKit
 import ZLGitRemoteService
 
-fileprivate let OAuthCallBackURL = "https://github.com/organizations/MengAndJie/CallBack"
+fileprivate let OAuthCallBackURL = "https://www.existorlive.cn/callback"
 
 class ZLOAuthBaseViewModel: ZLBaseViewModel {
     

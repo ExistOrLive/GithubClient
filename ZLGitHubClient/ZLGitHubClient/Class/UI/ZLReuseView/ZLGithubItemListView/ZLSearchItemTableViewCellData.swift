@@ -166,9 +166,6 @@ extension ZLSearchItemTableViewCellData: ZLUserTableViewCellDelegate {
         }
         return desc
     }
-    
-    
-    
 }
 
 extension ZLSearchItemTableViewCellData: ZLRepositoryTableViewCellDelegate {
@@ -218,7 +215,6 @@ extension ZLSearchItemTableViewCellData: ZLRepositoryTableViewCellDelegate {
     func forkNum() -> Int{
         data?.asRepository?.forkCount ?? 0
     }
-    
 }
 
 extension ZLSearchItemTableViewCellData: ZLIssueTableViewCellDelegate {
@@ -331,3 +327,51 @@ extension ZLSearchItemTableViewCellData: ZLPullRequestTableViewCellDelegate {
     
 }
 
+
+extension ZLSearchItemTableViewCellData {
+    
+    func hasLongPressAction() -> Bool {
+        
+        if let userModel = data?.asUser,
+           let _ = URL(string: userModel.url) {
+            return true
+        } else if let repoModel = data?.asRepository,
+                  let _ = URL(string: repoModel.url) {
+            return true
+        } else if let issueModel = data?.asIssue,
+                  let _ = URL(string: issueModel.url) {
+            return true
+        } else if let prModel = data?.asPullRequest,
+                  let _ = URL(string: prModel.url) {
+            return true
+        } else if let orgModel = data?.asOrganization,
+                  let _ = URL(string: orgModel.url){
+            return true
+        }
+        
+        return false
+    }
+    
+    func longPressAction(view: UIView) {
+        
+        guard let sourceViewController = viewController else { return }
+        
+        if let userModel = data?.asUser,
+           let url = URL(string: userModel.url) {
+            view.showShareMenu(title:url.absoluteString, url: url, sourceViewController: sourceViewController)
+        } else if let repoModel = data?.asRepository,
+                  let url = URL(string: repoModel.url) {
+            view.showShareMenu(title:url.absoluteString, url: url, sourceViewController: sourceViewController)
+        } else if let issueModel = data?.asIssue,
+                  let url = URL(string: issueModel.url) {
+            view.showShareMenu(title:url.absoluteString, url: url, sourceViewController: sourceViewController)
+        } else if let prModel = data?.asPullRequest,
+                  let url = URL(string: prModel.url) {
+            view.showShareMenu(title:url.absoluteString, url: url, sourceViewController: sourceViewController)
+        } else if let orgModel = data?.asOrganization,
+                  let url = URL(string: orgModel.url){
+            view.showShareMenu(title:url.absoluteString, url: url, sourceViewController: sourceViewController)
+        }
+    
+    }
+}

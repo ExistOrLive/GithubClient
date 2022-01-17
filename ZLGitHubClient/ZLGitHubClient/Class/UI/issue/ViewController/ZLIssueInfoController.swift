@@ -53,38 +53,11 @@ class ZLIssueInfoController: ZLBaseViewController {
     
     @objc func onMoreButtonClick(button: UIButton) {
         
-        let path = "https://www.github.com/\(login ?? "")/\(repoName ?? "")/issues/\(number )"
-        let alertVC = UIAlertController.init(title: path, message: nil, preferredStyle: .actionSheet)
-        alertVC.popoverPresentationController?.sourceView = button
-        let alertAction1 = UIAlertAction.init(title: ZLLocalizedString(string: "View in Github", comment: ""), style: UIAlertAction.Style.default) { (action : UIAlertAction) in
-            if let url = URL.init(string: path) {
-                ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,params: ["requestURL":url])
-            }
-        }
-        let alertAction2 = UIAlertAction.init(title:ZLLocalizedString(string:  "Open in Safari", comment: ""), style: UIAlertAction.Style.default) { (action : UIAlertAction) in
-            if let url =  URL.init(string: path) {
-                UIApplication.shared.open(url, options: [:], completionHandler: {(result : Bool) in})
-            }
-        }
+        let path = "https://www.github.com/\(login?.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? "")/\(repoName?.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? "")/issues/\(number)"
         
-        let alertAction3 = UIAlertAction.init(title: ZLLocalizedString(string: "Share", comment: ""), style: UIAlertAction.Style.default) { (action : UIAlertAction) in
-            
-            if let url =  URL.init(string: path) {
-                let activityVC = UIActivityViewController.init(activityItems: [url], applicationActivities: nil)
-                activityVC.popoverPresentationController?.sourceView = button
-                activityVC.excludedActivityTypes = [.message,.mail,.openInIBooks,.markupAsPDF]
-                self.present(activityVC, animated: true, completion: nil)
-            }
-        }
+        guard let url = URL(string: path) else { return }
         
-        let alertAction4 = UIAlertAction.init(title: ZLLocalizedString(string: "Cancel", comment: ""), style: UIAlertAction.Style.cancel, handler: nil)
-        
-        alertVC.addAction(alertAction1)
-        alertVC.addAction(alertAction2)
-        alertVC.addAction(alertAction3)
-        alertVC.addAction(alertAction4)
-        
-        self.present(alertVC, animated: true, completion: nil)
+        button.showShareMenu(title: path, url: url, sourceViewController: self)
         
     }
 

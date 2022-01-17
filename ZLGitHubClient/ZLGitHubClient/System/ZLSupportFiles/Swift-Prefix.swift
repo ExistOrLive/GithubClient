@@ -15,7 +15,6 @@ import MJRefresh
 import Toast_Swift
 import JXSegmentedView
 import Charts
-import FWPopupView
 import ZLGitRemoteService
 import SYDCentralPivot
 

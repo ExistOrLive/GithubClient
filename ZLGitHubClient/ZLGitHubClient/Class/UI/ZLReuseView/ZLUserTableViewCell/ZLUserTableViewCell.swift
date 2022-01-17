@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import FWPopupView
 
-@objc protocol ZLUserTableViewCellDelegate : NSObjectProtocol {
+protocol ZLUserTableViewCellDelegate : NSObjectProtocol {
     
     func getName() -> String?
     
@@ -21,6 +22,29 @@ import UIKit
     func getLocation() -> String?
     
     func desc() -> String?
+    
+    func hasLongPressAction() -> Bool
+    
+    func longPressAction(view: UIView)
+}
+
+extension ZLUserTableViewCellDelegate {
+   
+    func getName() -> String? { nil }
+    
+    func getLoginName() -> String? { nil }
+    
+    func getAvatarUrl() -> String? { nil }
+    
+    func getCompany() -> String? { nil }
+    
+    func getLocation() -> String? { nil }
+    
+    func desc() -> String? { nil }
+     
+    func hasLongPressAction() -> Bool { false }
+    
+    func longPressAction(view: UIView) { }
 }
 
 
@@ -64,6 +88,10 @@ class ZLUserTableViewCell: UITableViewCell {
         return label
     }()
     
+    lazy var longPressGesture: UILongPressGestureRecognizer = {
+        let gesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressAction(gesture:)))
+        return gesture
+    }()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -114,6 +142,7 @@ class ZLUserTableViewCell: UITableViewCell {
             make.bottom.equalTo(-15)
         }
         
+        containerView.addGestureRecognizer(longPressGesture)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -137,22 +166,25 @@ class ZLUserTableViewCell: UITableViewCell {
         }
     }
     
-    
-    
+    @objc func longPressAction(gesture: UILongPressGestureRecognizer) {
+        guard gesture.state == .began else { return }
+        delegate?.longPressAction(view:self)
+    }
 }
 
 
 extension ZLUserTableViewCell
 {
-    func fillWithData(data : ZLUserTableViewCellDelegate) -> Void
-    {
-        self.delegate = data
+    func fillWithData(data : ZLUserTableViewCellDelegate) {
         
-        self.headImageView.sd_setImage(with: URL.init(string: data.getAvatarUrl() ?? ""), placeholderImage: UIImage.init(named: "default_avatar"))
-        self.loginNameLabel.text = data.getLoginName()
-        self.nameLabel.text = "\(data.getName() ?? "")"
-        self.descLabel.text = data.desc()
-       
+        delegate = data
+        
+        headImageView.sd_setImage(with: URL.init(string: data.getAvatarUrl() ?? ""), placeholderImage: UIImage.init(named: "default_avatar"))
+        loginNameLabel.text = data.getLoginName()
+        nameLabel.text = "\(data.getName() ?? "")"
+        descLabel.text = data.desc()
+        
+        longPressGesture.isEnabled = data.hasLongPressAction()
     }
 }
 

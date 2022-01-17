@@ -56,7 +56,7 @@ class ZLPinnedRepositoriesTableViewCell: UITableViewCell {
     
     // MARK: View
     
-    private lazy var collectionView: UICollectionView = {
+     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.itemSize = CGSize(width: 300, height: 180)

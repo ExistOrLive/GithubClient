@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import FWPopupView
+//import FWPopupView
 
 class ZLWorkflowRunTableViewCellData: ZLGithubItemTableViewCellData {
     
@@ -52,54 +52,54 @@ class ZLWorkflowRunTableViewCellData: ZLGithubItemTableViewCellData {
 extension ZLWorkflowRunTableViewCellData : ZLWorkflowRunTableViewCellDelegate {
     func onMoreButtonClicked(button:UIButton) -> Void{
         
-        let vProperty = FWMenuViewProperty()
-        vProperty.popupCustomAlignment = .topCenter
-        vProperty.popupAnimationType = .scale
-        vProperty.popupArrowStyle = .round
-        vProperty.touchWildToHide = "1"
-        vProperty.topBottomMargin = 0
-        vProperty.maskViewColor = UIColor(white: 0, alpha: 0.3)
-        
-        if self.data.status == "completed" {
-            let menuView = FWMenuView.menu(itemTitles: ["rerun","view log"], itemImageNames:nil, itemBlock: { (popupView, index, title) in
-                
-                if index == 0 {
-                    SVProgressHUD.show()
-                    ZLServiceManager.sharedInstance.repoServiceModel?.rerunRepoWorkflowRun(withFullName: self.repoFullName, workflowRunId: self.data.id_workflowrun ?? "", serialNumber: NSString.generateSerialNumber()) { (result : ZLOperationResultModel) in
-                        SVProgressHUD.dismiss()
-                        if result.result == true {
-                            ZLToastView.showMessage("rerun success,please refresh")
-                        } else {
-                            ZLToastView.showMessage("rerun fail")
-                        }
-                    }
-                } else if index == 1 {
-                    
-                }
-                
-            }, property: vProperty)
-            menuView.attachedView = button
-            menuView.show()
-        } else if self.data.status == "in_progress" {
-            let menuView = FWMenuView.menu(itemTitles: ["cancel","view log"], itemImageNames:nil, itemBlock: { (popupView, index, title) in
-                
-                if index == 0 {
-                    SVProgressHUD.show()
-                    ZLServiceManager.sharedInstance.repoServiceModel?.cancelRepoWorkflowRun(withFullName: self.repoFullName, workflowRunId: self.data.id_workflowrun ?? "", serialNumber: NSString.generateSerialNumber()) { (result : ZLOperationResultModel) in
-                        SVProgressHUD.dismiss()
-                        if result.result == true {
-                            ZLToastView.showMessage("cancel success,please refresh")
-                        } else {
-                            ZLToastView.showMessage("cancel fail")
-                        }
-                    }
-                } else if index == 1 {
-                    
-                }
-            }, property: vProperty)
-            menuView.attachedView = button
-            menuView.show()
-        }
+//        let vProperty = FWMenuViewProperty()
+//        vProperty.popupCustomAlignment = .topCenter
+//        vProperty.popupAnimationType = .scale
+//        vProperty.popupArrowStyle = .round
+//        vProperty.touchWildToHide = "1"
+//        vProperty.topBottomMargin = 0
+//        vProperty.maskViewColor = UIColor(white: 0, alpha: 0.3)
+//
+//        if self.data.status == "completed" {
+//            let menuView = FWMenuView.menu(itemTitles: ["rerun","view log"], itemImageNames:nil, itemBlock: { (popupView, index, title) in
+//
+//                if index == 0 {
+//                    SVProgressHUD.show()
+//                    ZLServiceManager.sharedInstance.repoServiceModel?.rerunRepoWorkflowRun(withFullName: self.repoFullName, workflowRunId: self.data.id_workflowrun ?? "", serialNumber: NSString.generateSerialNumber()) { (result : ZLOperationResultModel) in
+//                        SVProgressHUD.dismiss()
+//                        if result.result == true {
+//                            ZLToastView.showMessage("rerun success,please refresh")
+//                        } else {
+//                            ZLToastView.showMessage("rerun fail")
+//                        }
+//                    }
+//                } else if index == 1 {
+//
+//                }
+//
+//            }, property: vProperty)
+//            menuView.attachedView = button
+//            menuView.show()
+//        } else if self.data.status == "in_progress" {
+//            let menuView = FWMenuView.menu(itemTitles: ["cancel","view log"], itemImageNames:nil, itemBlock: { (popupView, index, title) in
+//
+//                if index == 0 {
+//                    SVProgressHUD.show()
+//                    ZLServiceManager.sharedInstance.repoServiceModel?.cancelRepoWorkflowRun(withFullName: self.repoFullName, workflowRunId: self.data.id_workflowrun ?? "", serialNumber: NSString.generateSerialNumber()) { (result : ZLOperationResultModel) in
+//                        SVProgressHUD.dismiss()
+//                        if result.result == true {
+//                            ZLToastView.showMessage("cancel success,please refresh")
+//                        } else {
+//                            ZLToastView.showMessage("cancel fail")
+//                        }
+//                    }
+//                } else if index == 1 {
+//
+//                }
+//            }, property: vProperty)
+//            menuView.attachedView = button
+//            menuView.show()
+//        }
         
     }
 }

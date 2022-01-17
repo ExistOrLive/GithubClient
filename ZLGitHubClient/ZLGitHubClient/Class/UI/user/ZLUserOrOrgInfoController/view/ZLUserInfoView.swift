@@ -144,6 +144,10 @@ extension ZLUserInfoView: UITableViewDelegate, UITableViewDataSource {
             
             pinnedRepocell.fillWithData(viewModel: pinnedRepoCellData)
             
+            if let navigationVC = self.getViewController()?.navigationController as? ZLBaseNavigationController {
+                pinnedRepocell.collectionView.panGestureRecognizer.require(toFail: navigationVC.zlInteractivePopGestureRecognizer)
+            }
+            
         } else if let orgInfoHeaderCell = cell as? ZLOrgInfoHeaderCell,
                   let orgInfoHeaderCellData = cellData as? ZLOrgInfoHeaderCellDataSourceAndDelegate {
             
@@ -187,8 +191,6 @@ extension ZLUserInfoView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 10
     }
-    
-    
     
 }
 

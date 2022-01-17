@@ -163,6 +163,7 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (7.7.0):
     - GoogleUtilities/Logger
+  - Hero (1.6.1)
   - IQKeyboardManager (6.5.9)
   - JJException (0.2.11):
     - JJException/All (= 0.2.11)
@@ -193,6 +194,7 @@ PODS:
     - nanopb/encode (= 2.30908.0)
   - nanopb/decode (2.30908.0)
   - nanopb/encode (2.30908.0)
+  - pop (1.0.12)
   - PromisesObjC (2.0.0)
   - SDWebImage (5.0.6):
     - SDWebImage/Core (= 5.0.6)
@@ -241,6 +243,7 @@ DEPENDENCIES:
   - Firebase/Performance
   - Firebase/RemoteConfig
   - FWPopupView
+  - Hero
   - IQKeyboardManager
   - JJException
   - JXSegmentedView
@@ -249,6 +252,7 @@ DEPENDENCIES:
   - Masonry
   - MJExtension
   - MJRefresh
+  - pop (~> 1.0)
   - SDWebImage (~> 5.0.0)
   - SnapKit (~> 4.0.0)
   - SVProgressHUD
@@ -260,7 +264,7 @@ DEPENDENCIES:
   - Umbrella/Firebase
   - WoodPeckeriOS
   - YYText
-  - ZLBaseUI (from `https://github.com/ExistOrLive/ZLBaseUI.git`, tag `1.2.0`)
+  - ZLBaseUI (from `https://github.com/ExistOrLive/ZLBaseUI.git`)
   - ZLGitRemoteService (from `https://github.com/ExistOrLive/ZLGitRemoteService.git`)
 
 SPEC REPOS:
@@ -290,6 +294,7 @@ SPEC REPOS:
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleUtilities
+    - Hero
     - IQKeyboardManager
     - JJException
     - JXSegmentedView
@@ -299,6 +304,7 @@ SPEC REPOS:
     - MJExtension
     - MJRefresh
     - nanopb
+    - pop
     - PromisesObjC
     - SDWebImage
     - SnapKit
@@ -314,16 +320,15 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   ZLBaseUI:
     :git: https://github.com/ExistOrLive/ZLBaseUI.git
-    :tag: 1.2.0
   ZLGitRemoteService:
     :git: https://github.com/ExistOrLive/ZLGitRemoteService.git
 
 CHECKOUT OPTIONS:
   ZLBaseUI:
+    :commit: b2545c33d6484491cc9ae8f7860a3641a7abf05e
     :git: https://github.com/ExistOrLive/ZLBaseUI.git
-    :tag: 1.2.0
   ZLGitRemoteService:
-    :commit: 8cb2fadc6b173adb319b1c4f5bba9c731ce83efe
+    :commit: df644e74ea03aa6cd4faf841aab7662dd4ae7130
     :git: https://github.com/ExistOrLive/ZLGitRemoteService.git
 
 SPEC CHECKSUMS:
@@ -352,6 +357,7 @@ SPEC CHECKSUMS:
   GoogleAppMeasurement: a3311dbcf3ea651e5a070fe8559b57c174ada081
   GoogleDataTransport: 629c20a4d363167143f30ea78320d5a7eb8bd940
   GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1
+  Hero: 215865ba3ae41dd9bb08cd6c60a645529c6fc94b
   IQKeyboardManager: 241cc94ccabc9deb8f8bd7d12f00d73288d13ecc
   JJException: 738a5379392769edca40815ec14cd895a000d9e7
   JXSegmentedView: eb1cad21f57c2543c00c3e08b8fd3c7ca54f5acd
@@ -361,6 +367,7 @@ SPEC CHECKSUMS:
   MJExtension: 21c5f6f8c4d5d8844b7ae8fbae08fed0b501f961
   MJRefresh: fdf5e979eb406a0341468932d1dfc8b7f9fce961
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
+  pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   SDWebImage: 920f1a2ff1ca8296ad34f6e0510a1ef1d70ac965
   SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
@@ -375,6 +382,6 @@ SPEC CHECKSUMS:
   ZLBaseUI: 068453e9b04f010e4453191929c5242e832d0d46
   ZLGitRemoteService: 3a3fe9f9d831675909632ef61650e7b382481c81
 
-PODFILE CHECKSUM: 7d756aca2348d651e34969a643c1328fb279f3de
+PODFILE CHECKSUM: 336f1621c71ccb26b3dc58296c6ca9dee8305e77
 
 COCOAPODS: 1.11.0

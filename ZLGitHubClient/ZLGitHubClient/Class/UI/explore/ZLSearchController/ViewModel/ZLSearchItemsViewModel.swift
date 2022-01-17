@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ZLBaseUI
 
 class ZLSearchItemsViewModel: ZLBaseViewModel {
     
@@ -32,15 +33,9 @@ class ZLSearchItemsViewModel: ZLBaseViewModel {
         self.searchItemsView = targetView
         self.searchItemsView?.delegate = self
         
-        if let gestureRecognizers = self.viewController?.navigationController?.view.gestureRecognizers {
-            for gestureRecognizer in gestureRecognizers {
-                if gestureRecognizer is UIScreenEdgePanGestureRecognizer &&
-                    gestureRecognizer.isEnabled == true {
-                    self.searchItemsView?.segmentedListContainerView?.scrollView.panGestureRecognizer.require(toFail: gestureRecognizer)
-                }
-            }
+        if let navigationVC = self.viewController?.navigationController as? ZLBaseNavigationController {
+            self.searchItemsView?.segmentedListContainerView?.scrollView.panGestureRecognizer.require(toFail: navigationVC.zlInteractivePopGestureRecognizer)
         }
-        
         
         for i in 0...(ZLSearchItemsView.ZLSearchItemsTypes.count - 1) {
             let searchType = ZLSearchItemsView.ZLSearchItemsTypes[i]

@@ -148,39 +148,11 @@ class ZLRepoCodePreview3Controller: ZLBaseViewController {
     }
     
     @objc func onMoreButtonClick(button : UIButton) {
-        let alertVC = UIAlertController.init(title: self.contentModel.path, message: nil, preferredStyle: .actionSheet)
-        alertVC.popoverPresentationController?.sourceView = button
-        let alertAction1 = UIAlertAction.init(title: ZLLocalizedString(string: "View in Github", comment: ""), style: UIAlertAction.Style.default) { (action : UIAlertAction) in
-            if let url = URL(string: self.contentModel.html_url) {
-                ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,params: ["requestURL":url])
-            }
+        
+        guard let url = URL(string: self.contentModel.html_url) else {
+            return
         }
-        let alertAction2 = UIAlertAction.init(title:ZLLocalizedString(string:  "Open in Safari", comment: ""), style: UIAlertAction.Style.default) { (action : UIAlertAction) in
-            
-            if let url =  URL.init(string: self.contentModel.html_url) {
-                UIApplication.shared.open(url, options: [:], completionHandler: {(result : Bool) in})
-            }
-        }
-        
-        let alertAction3 = UIAlertAction.init(title: ZLLocalizedString(string: "Share", comment: ""), style: UIAlertAction.Style.default) { (action : UIAlertAction) in
-
-            if let url =  URL.init(string: self.contentModel.html_url) {
-                let activityVC = UIActivityViewController.init(activityItems: [url], applicationActivities: nil)
-                activityVC.popoverPresentationController?.sourceView = button
-                activityVC.excludedActivityTypes = [.message,.mail,.openInIBooks,.markupAsPDF]
-                self.present(activityVC, animated: true, completion: nil)
-            }
-        }
-        
-        let alertAction4 = UIAlertAction.init(title: ZLLocalizedString(string: "Cancel", comment: ""), style: UIAlertAction.Style.cancel, handler: nil)
-        
-        alertVC.addAction(alertAction1)
-        alertVC.addAction(alertAction2)
-        alertVC.addAction(alertAction3)
-        alertVC.addAction(alertAction4)
-        
-        self.present(alertVC, animated: true, completion: nil)
-        
+        button.showShareMenu(title: url.absoluteString, url: url, sourceViewController: self )
     }
     
     

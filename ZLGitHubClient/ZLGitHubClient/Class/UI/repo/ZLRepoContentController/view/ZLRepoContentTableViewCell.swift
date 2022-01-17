@@ -10,6 +10,8 @@ import UIKit
 
 class ZLRepoContentTableViewCell: UITableViewCell {
     
+    private var longPressBlock: ((UIView) -> Void)?
+    
     private lazy var typeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.zlIconFont(withSize: 30)
@@ -38,6 +40,11 @@ class ZLRepoContentTableViewCell: UITableViewCell {
         let view = UIView()
         view.backgroundColor = .back(withName: "ZLSeperatorLineColor")
         return view
+    }()
+    
+    private lazy var longPressGesture: UILongPressGestureRecognizer = {
+        let gesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressAction(gesture:)))
+        return gesture
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -86,9 +93,11 @@ class ZLRepoContentTableViewCell: UITableViewCell {
             make.bottom.right.equalToSuperview()
             make.left.equalTo(titleLabel)
         }
+        
+        contentView.addGestureRecognizer(longPressGesture)
     }
     
-    func setCellData(cellData : ZLGithubContentModel?)
+    func setCellData(cellData : ZLGithubContentModel?, longPressBlock: ((UIView) -> Void)? = nil)
     {
         if cellData?.type == "dir"{
             self.typeLabel.text = ZLIconFont.DirClose.rawValue
@@ -97,7 +106,19 @@ class ZLRepoContentTableViewCell: UITableViewCell {
             self.typeLabel.text = ZLIconFont.File.rawValue
         }
         self.titleLabel.text = cellData?.name
+        
+        if let _ = URL(string: cellData?.html_url ?? "") {
+            longPressGesture.isEnabled = true
+        } else {
+            longPressGesture.isEnabled = false
+        }
+        
+        self.longPressBlock = longPressBlock
     }
     
+    @objc func longPressAction(gesture: UILongPressGestureRecognizer) {
+        guard gesture.state == .began else { return }
+        longPressBlock?(self)
+    }
     
 }
