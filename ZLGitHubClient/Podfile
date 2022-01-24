@@ -27,7 +27,6 @@ pod 'Umbrella/Firebase'
 #pod 'Analytics', '~> 3.0'
 
 # Json Model 转换
-pod 'MJExtension'
 
 # 刷新控件
 pod 'MJRefresh'
@@ -43,10 +42,6 @@ pod 'IQKeyboardManager'
 # 图表
 #pod 'ChartsRealm'
 pod 'Charts'
-# 弹出菜单
-pod 'FWPopupView'
-# 圆形菜单
-pod 'CircleMenu'
 
 #下载图片
 pod 'SDWebImage', '~> 5.0.0'
@@ -59,9 +54,6 @@ pod 'Masonry'
 pod 'SnapKit', '~> 4.0.0'
 
 pod 'YYText'
-
-# 弹出框容器
-pod 'FFPopup'
 
 # 移动监控工具
 pod 'WoodPeckeriOS', :configurations => ['Debug']
@@ -84,11 +76,27 @@ pod "SYDCentralPivot"
 pod 'ZLBaseUI', :git => 'https://github.com/ExistOrLive/ZLBaseUI.git'
 #pod 'ZLBaseUI', :path => "../../ZLBaseUI"
 
+pod 'RxSwift'
+pod 'RxCocoa'
+pod 'RxRelay'
+
 # 转场动画
 pod 'Hero'
 
 # 物理引擎动画
 pod 'pop', '~> 1.0'
+
+# 弹出框 弹出菜单
+pod 'FWPopupView'
+
+# 圆形菜单
+pod 'CircleMenu'
+
+# 浮动view https://github.com/scenee/FloatingPanel
+pod 'FloatingPanel'
+
+# 弹出框容器
+pod 'FFPopup'
 
 end
 

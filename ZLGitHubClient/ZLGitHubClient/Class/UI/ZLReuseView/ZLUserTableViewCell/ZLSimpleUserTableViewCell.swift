@@ -1,15 +1,23 @@
 //
-//  ZLSimpleRepoTableViewCell.swift
+//  ZLSimpleUserTableViewCell.swift
 //  ZLGitHubClient
 //
-//  Created by 朱猛 on 2020/11/24.
-//  Copyright © 2020 ZM. All rights reserved.
+//  Created by 朱猛 on 2022/1/23.
+//  Copyright © 2022 ZM. All rights reserved.
 //
 
 import UIKit
 
-class ZLSimpleRepoTableViewCell: UITableViewCell {
+protocol ZLSimpleUserTableViewCellDataSource {
+    
+    var avatarUrl: String { get }
+    
+    var loginName: String { get }
+    
+}
 
+class ZLSimpleUserTableViewCell: UITableViewCell {
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setUpUI()
@@ -76,4 +84,13 @@ class ZLSimpleRepoTableViewCell: UITableViewCell {
         view.backgroundColor = UIColor(named: "ZLSeperatorLineColor")
         return view
     }()
+}
+
+extension ZLSimpleUserTableViewCell: ViewUpdatable {
+    
+    func fillWithData(viewData: ZLSimpleUserTableViewCellDataSource) {
+        
+        avatarImageView.sd_setImage(with: URL(string: viewData.avatarUrl), placeholderImage: UIImage(named: "default_avatar"))
+        fullNameLabel.text = viewData.loginName
+    }
 }

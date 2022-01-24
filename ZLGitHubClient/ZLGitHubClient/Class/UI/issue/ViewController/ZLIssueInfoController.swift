@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FloatingPanel
+import ZLBaseUI
 
 class ZLIssueInfoController: ZLBaseViewController {
 
@@ -25,10 +27,35 @@ class ZLIssueInfoController: ZLBaseViewController {
         itemListView.delegate = self
         return itemListView
     }()
+    
+    // subviewcontroller
+    private lazy var floatingVC: FloatingPanelController = {
+       
+        let vc = FloatingPanelController()
+        vc.layout = ZLIssueFloatingPanelLayout()
+        vc.delegate = self
+        
+        let contentVC = ZLEditIssueController()
+        contentVC.loginName = login
+        contentVC.repoName = repoName
+        contentVC.number = number
+        vc.set(contentViewController: contentVC)
+        vc.track(scrollView: contentVC.editIssueView.tableView)
+        
+        return vc 
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        setupUI()
+        
+        itemListView.beginRefresh()
+    }
+    
+    
+    func setupUI() {
+        
         self.title = ZLLocalizedString(string: "Issue", comment: "")
 
         self.zlNavigationBar.backButton.isHidden = false
@@ -45,10 +72,14 @@ class ZLIssueInfoController: ZLBaseViewController {
         // view
         self.contentView.addSubview(itemListView)
         itemListView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
+            make.top.left.right.equalToSuperview()
+            make.bottom.equalTo(contentView.safeAreaLayoutGuide.snp.bottom).offset(-80)
         }
-        itemListView.beginRefresh()
+        
+        floatingVC.addPanel(toParent: self)
+        
     }
+    
 
     @objc func onMoreButtonClick(button: UIButton) {
 
@@ -145,4 +176,21 @@ extension ZLIssueInfoController: ZLGithubItemListViewDelegate {
 
     }
 
+}
+
+
+extension ZLIssueInfoController: FloatingPanelControllerDelegate {
+    
+}
+ 
+
+class ZLIssueFloatingPanelLayout: FloatingPanelLayout {
+    let position: FloatingPanelPosition = .bottom
+    let initialState: FloatingPanelState = .tip
+    var anchors: [FloatingPanelState: FloatingPanelLayoutAnchoring] {
+        return [
+            .full: FloatingPanelLayoutAnchor(absoluteInset: 44.0, edge: .top, referenceGuide: .safeArea),
+            .tip: FloatingPanelLayoutAnchor(absoluteInset: 80.0, edge: .bottom, referenceGuide: .safeArea),
+        ]
+    }
 }

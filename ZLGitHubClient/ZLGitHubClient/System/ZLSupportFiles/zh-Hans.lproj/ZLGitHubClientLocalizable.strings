@@ -205,3 +205,10 @@
 "Copy URL" = "复制链接";
 "View in Github" = "在GitHub中打开";
 "Open in Safari" = "在浏览器中打开";
+
+"NoDescription" = "未提供说明";
+
+"Assignee" = "受理者";
+"Label" = "标签";
+"Project" = "项目";
+"Milestone" = "里程碑";

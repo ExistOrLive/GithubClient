@@ -142,7 +142,7 @@ extension ZLUserInfoView: UITableViewDelegate, UITableViewDataSource {
 
             pinnedRepocell.fillWithData(viewModel: pinnedRepoCellData)
 
-            if let navigationVC = self.getViewController()?.navigationController as? ZLBaseNavigationController {
+            if let navigationVC = self.viewController?.navigationController as? ZLBaseNavigationController {
                 pinnedRepocell.collectionView.panGestureRecognizer.require(toFail: navigationVC.zlInteractivePopGestureRecognizer)
             }
 

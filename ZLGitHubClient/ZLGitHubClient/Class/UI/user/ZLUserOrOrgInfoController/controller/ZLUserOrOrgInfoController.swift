@@ -28,28 +28,29 @@ class ZLUserOrOrgInfoController: ZLBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        guard let login = loginName else {
+        guard let _ = loginName else {
             ZLToastView.showMessage(ZLLocalizedString(string: "loginName is nil", comment: ""))
             return
         }
 
-        title = login
-
+        setupUI()
+        sendRequest()
+    }
+    
+    func setupUI() {
+        title = loginName
         contentView.addSubview(userInfoView)
         userInfoView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
-
         setSharedButton()
-
-        sendRequest()
     }
-
+    
     func sendRequest() {
 
         let userOrOrgInfo =  ZLServiceManager.sharedInstance.userServiceModel?.getUserInfo(withLoginName: loginName ?? "",
                                                                                            serialNumber: NSString.generateSerialNumber()) { [weak self](resultModel) in
-            SVProgressHUD.dismiss()
+            UIView.dismissProgressHUD()
 
             guard let self = self else { return }
 
@@ -102,7 +103,7 @@ class ZLUserOrOrgInfoController: ZLBaseViewController {
             orgInfoViewModel.bindModel(orgModel, andView: userInfoView)
             self.orgInfoViewModel = orgInfoViewModel
         } else {
-            SVProgressHUD.show()
+            self.contentView.showProgressHUD()
         }
     }
 
@@ -122,7 +123,7 @@ class ZLUserOrOrgInfoController: ZLBaseViewController {
     // action
     @objc func onMoreButtonClick(button: UIButton) {
 
-        guard let login = loginName else { return }
+        guard let _ = loginName else { return }
         var html_url = self.userInfoViewModel?.html_url ?? ""
         if html_url.isEmpty {
             html_url = self.orgInfoViewModel?.html_url ?? ""

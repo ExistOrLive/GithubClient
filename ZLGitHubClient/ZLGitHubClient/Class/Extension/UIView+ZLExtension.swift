@@ -9,6 +9,7 @@
 import Foundation
 import FWPopupView
 import UIKit
+import SVProgressHUD
 
 extension UIView {
 
@@ -133,7 +134,32 @@ extension UIView {
         sourceViewController.present(alertVC, animated: true, completion: nil)
 
     }
+}
 
+
+// MARK: SVProgressHUD
+
+extension UIView {
+    
+    func showProgressHUD(style: SVProgressHUDStyle = .light,
+                         maskType: SVProgressHUDMaskType = .black,
+                         animationType: SVProgressHUDAnimationType = .flat) {
+        SVProgressHUD.setDefaultStyle(style)
+        SVProgressHUD.setDefaultMaskType(maskType)
+        SVProgressHUD.setDefaultAnimationType(animationType)
+        SVProgressHUD.setContainerView(self)
+        SVProgressHUD.setOffsetFromCenter(UIOffset(horizontal: 0, vertical: -100))
+        SVProgressHUD.show()
+        
+    }
+    
+    static func dismissProgressHUD() {
+        SVProgressHUD.dismiss()
+        SVProgressHUD.setDefaultStyle(.light)
+        SVProgressHUD.setDefaultMaskType(.black)
+        SVProgressHUD.setDefaultAnimationType(.flat)
+        SVProgressHUD.setContainerView(nil)
+    }
 }
 
 // MARK: Common
@@ -141,8 +167,7 @@ extension UIView {
 extension UIView {
 
     // 获取View的VC
-    func getViewController() -> UIViewController? {
-
+    var viewController: UIViewController? {
         var currentResponder: UIResponder = self
         while let nextResponder = currentResponder.next {
             if let vc = nextResponder as? UIViewController {
@@ -151,7 +176,15 @@ extension UIView {
                 currentResponder = nextResponder
             }
         }
-
         return nil
     }
+}
+
+
+
+protocol ViewUpdatable {
+    
+    associatedtype ViewData
+    
+    func fillWithData(viewData: ViewData)
 }

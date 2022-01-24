@@ -114,6 +114,7 @@ PODS:
     - GoogleUtilities/Environment (~> 7.6)
     - "GoogleUtilities/NSData+zlib (~> 7.6)"
   - fishhook (0.2)
+  - FloatingPanel (2.5.1)
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
@@ -196,6 +197,12 @@ PODS:
   - nanopb/encode (2.30908.0)
   - pop (1.0.12)
   - PromisesObjC (2.0.0)
+  - RxCocoa (6.5.0):
+    - RxRelay (= 6.5.0)
+    - RxSwift (= 6.5.0)
+  - RxRelay (6.5.0):
+    - RxSwift (= 6.5.0)
+  - RxSwift (6.5.0)
   - SDWebImage (5.0.6):
     - SDWebImage/Core (= 5.0.6)
   - SDWebImage/Core (5.0.6)
@@ -242,6 +249,7 @@ DEPENDENCIES:
   - Firebase/Crashlytics
   - Firebase/Performance
   - Firebase/RemoteConfig
+  - FloatingPanel
   - FWPopupView
   - Hero
   - IQKeyboardManager
@@ -250,9 +258,11 @@ DEPENDENCIES:
   - Kanna (~> 5.2.2)
   - LookinServer
   - Masonry
-  - MJExtension
   - MJRefresh
   - pop (~> 1.0)
+  - RxCocoa
+  - RxRelay
+  - RxSwift
   - SDWebImage (~> 5.0.0)
   - SnapKit (~> 4.0.0)
   - SVProgressHUD
@@ -289,6 +299,7 @@ SPEC REPOS:
     - FirebasePerformance
     - FirebaseRemoteConfig
     - fishhook
+    - FloatingPanel
     - FMDB
     - FWPopupView
     - GoogleAppMeasurement
@@ -306,6 +317,9 @@ SPEC REPOS:
     - nanopb
     - pop
     - PromisesObjC
+    - RxCocoa
+    - RxRelay
+    - RxSwift
     - SDWebImage
     - SnapKit
     - SVProgressHUD
@@ -328,7 +342,7 @@ CHECKOUT OPTIONS:
     :commit: b2545c33d6484491cc9ae8f7860a3641a7abf05e
     :git: https://github.com/ExistOrLive/ZLBaseUI.git
   ZLGitRemoteService:
-    :commit: df644e74ea03aa6cd4faf841aab7662dd4ae7130
+    :commit: db0689d42ee1517efd579b6cc80f501c4e3185bb
     :git: https://github.com/ExistOrLive/ZLGitRemoteService.git
 
 SPEC CHECKSUMS:
@@ -352,6 +366,7 @@ SPEC CHECKSUMS:
   FirebasePerformance: 4f6d878a30f70f5ea4327c36868cd3624e762a07
   FirebaseRemoteConfig: 84d3397887d95587f0ee7a0a3989b2756dc2bbf9
   fishhook: ea19933abfe8f2f52c55fd8b6e2718467d3ebc89
+  FloatingPanel: 523cb50f490f151fc03fabf24a8322e44d22f65f
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   FWPopupView: eea10388d25444fbe69b9222a5b5f317bb049395
   GoogleAppMeasurement: a3311dbcf3ea651e5a070fe8559b57c174ada081
@@ -369,6 +384,9 @@ SPEC CHECKSUMS:
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
+  RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
+  RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
+  RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
   SDWebImage: 920f1a2ff1ca8296ad34f6e0510a1ef1d70ac965
   SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
@@ -382,6 +400,6 @@ SPEC CHECKSUMS:
   ZLBaseUI: 068453e9b04f010e4453191929c5242e832d0d46
   ZLGitRemoteService: 3a3fe9f9d831675909632ef61650e7b382481c81
 
-PODFILE CHECKSUM: 336f1621c71ccb26b3dc58296c6ca9dee8305e77
+PODFILE CHECKSUM: f02489e0fccdd5401c0c73e55803b53d16f28c6c
 
 COCOAPODS: 1.11.0

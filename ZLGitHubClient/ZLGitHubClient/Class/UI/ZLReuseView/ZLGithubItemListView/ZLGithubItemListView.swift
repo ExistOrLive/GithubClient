@@ -137,15 +137,13 @@ import MJRefresh
     }
 
     func setTableViewHeader() {
-        weak var selfWeak = self
-        self.tableView.mj_header = ZLRefresh.refreshHeader(refreshingBlock: {
+        self.tableView.mj_header = ZLRefresh.refreshHeader(refreshingBlock: { [weak selfWeak = self] in
             selfWeak?.loadNewData()
         })
     }
 
     func setTableViewFooter() {
-        weak var selfWeak = self
-        self.tableView.mj_footer = ZLRefresh.refreshFooter(refreshingBlock: {
+        self.tableView.mj_footer = ZLRefresh.refreshFooter(refreshingBlock: { [weak selfWeak = self] in
             selfWeak?.loadMoreData()
         })
     }

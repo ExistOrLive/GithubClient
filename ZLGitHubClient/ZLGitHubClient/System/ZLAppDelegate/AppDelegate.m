@@ -150,7 +150,7 @@
 
 #pragma mark -
 
-- (void) initUIConfig{
+- (void) initUIConfig {
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeBlack];
     if([ZLDeviceInfo isIpad]){
         self.allowRotation = YES;    // iPad 允许旋转
@@ -166,7 +166,6 @@
     [ZLBaseUIConfig sharedInstance].buttonBackColor = [UIColor colorNamed:@"ZLBaseButtonBackColor"];
     [ZLBaseUIConfig sharedInstance].buttonBorderColor = [UIColor colorNamed:@"ZLBaseButtonBorderColor"];
     [ZLBaseUIConfig sharedInstance].buttonCornerRadius = 4.0;
-    
     
 }
 

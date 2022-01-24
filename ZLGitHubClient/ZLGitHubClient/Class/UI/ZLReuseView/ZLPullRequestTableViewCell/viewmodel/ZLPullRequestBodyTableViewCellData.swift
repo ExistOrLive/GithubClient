@@ -79,7 +79,8 @@ class ZLPullRequestBodyTableViewCellData: ZLGithubItemTableViewCellData {
 
                 let range = (newHtmlStr as NSString).range(of: "</body>")
                 if  range.location != NSNotFound {
-                    newHtmlStr.insert("<article class=\"markdown-body entry-content container-lg\" itemprop=\"text\">\(data.bodyHtml)</article>", at: range.location)
+                    let bodyHtml = data.bodyHtml.isEmpty ? ZLLocalizedString(string: "NoDescription", comment: "") : data.bodyHtml
+                    newHtmlStr.insert("<article class=\"markdown-body entry-content container-lg\" itemprop=\"text\">\(bodyHtml)</article>", at: range.location)
                 }
                 return newHtmlStr as String
 

@@ -227,7 +227,7 @@ extension ZLPullRequestTimelineTableViewCellData: ZLPullRequestTimelineTableView
                     .borderColor(borderColor)
                     .borderWidth(borderWidth)
                     .backgroundColor(backColor)
-                    .edgeInsets(UIEdgeInsets(top: 2, left: 4, bottom: 2, right: 4))
+                    .edgeInsets(UIEdgeInsets(top: 2, left: 10, bottom: 2, right: 10))
                     .asImage()?
                     .asImageTextAttachmentWrapper()
                     .alignment(.centerline)
@@ -248,7 +248,8 @@ extension ZLPullRequestTimelineTableViewCellData: ZLPullRequestTimelineTableView
 //                                                          .foregroundColor:UIColor.isLightColor(color) ? ZLRGBValue_H(colorValue: 0x333333) : UIColor.white,
 //                                                          .backgroundColor:color]))
 
-            attributedString = string
+            let paragraphStyle = NSMutableParagraphStyle().lineSpacing(10)
+            attributedString = string.paraghStyle(paragraphStyle)
 
             return string
 
@@ -473,7 +474,7 @@ extension ZLPullRequestTimelineTableViewCellData: ZLPullRequestTimelineTableView
                     .borderColor(borderColor)
                     .borderWidth(borderWidth)
                     .backgroundColor(backColor)
-                    .edgeInsets(UIEdgeInsets(top: 2, left: 4, bottom: 2, right: 4))
+                    .edgeInsets(UIEdgeInsets(top: 2, left: 10, bottom: 2, right: 10))
                     .asImage()?
                     .asImageTextAttachmentWrapper()
                     .alignment(.centerline)
@@ -493,8 +494,8 @@ extension ZLPullRequestTimelineTableViewCellData: ZLPullRequestTimelineTableView
 //                                             attributes: [.font:UIFont.zlSemiBoldFont(withSize: 13),
 //                                                          .foregroundColor:UIColor.isLightColor(color) ? ZLRGBValue_H(colorValue: 0x333333) : UIColor.white,
 //                                                          .backgroundColor:color]))
-
-            attributedString = string
+            let paragraphStyle = NSMutableParagraphStyle().lineSpacing(10)
+            attributedString = string.paraghStyle(paragraphStyle)
 
             return string
 
