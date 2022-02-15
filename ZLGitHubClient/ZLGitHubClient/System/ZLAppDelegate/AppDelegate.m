@@ -47,9 +47,11 @@
      *
      * 初始化工具模块
      **/
-    [[ZLServiceManager sharedInstance] initManagerWithClientId:MyClientID
-                                                  clientSecret:MyClientSecret
-                                                       buglyId:ZLBuyglyAppId];
+    [[ZLServiceManager sharedInstance] initManagerWithBuglyId:ZLBuyglyAppId];
+    
+    ZLUISharedDataManager.githubClientID = MyClientID;
+    ZLUISharedDataManager.githubClientSecret = MyClientSecret;
+    ZLUISharedDataManager.githubClientCallback = MyClientCallback;
     
     [FIRApp configure];
 

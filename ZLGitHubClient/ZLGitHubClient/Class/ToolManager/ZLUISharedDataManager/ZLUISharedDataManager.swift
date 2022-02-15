@@ -153,7 +153,15 @@ private let ZLTrendingOptions = "trendingOptions"
             RemoteConfig.remoteConfig().configValue(forKey: "Report_Function_Enabled").boolValue
         }
     }
-
+    
+    
+    // MARK:  Github Secret
+    
+    static var githubClientID: String = ""
+    
+    static var githubClientSecret: String = ""
+    
+    static var githubClientCallback: String = ""
 }
 
 extension ZLUISharedDataManager {

@@ -14,6 +14,7 @@ PODS:
   - AFNetworking/Serialization (4.0.1)
   - AFNetworking/UIKit (4.0.1):
     - AFNetworking/NSURLSession
+  - Alamofire (5.5.0)
   - Apollo (0.39.0):
     - Apollo/Core (= 0.39.0)
   - Apollo/Core (0.39.0)
@@ -226,6 +227,10 @@ PODS:
   - YYText (1.0.7)
   - ZLBaseUI (1.2.0):
     - Masonry
+  - ZLGithubOAuth (1.0.0):
+    - Alamofire
+    - SnapKit
+    - ZLBaseUI
   - ZLGitRemoteService (1.2.0):
     - AFNetworking
     - Apollo (~> 0.39.0)
@@ -275,11 +280,13 @@ DEPENDENCIES:
   - WoodPeckeriOS
   - YYText
   - ZLBaseUI (from `https://github.com/ExistOrLive/ZLBaseUI.git`)
+  - ZLGithubOAuth (from `https://github.com/ExistOrLive/ZLGithubOAuth.git`, tag `1.0.0`)
   - ZLGitRemoteService (from `https://github.com/ExistOrLive/ZLGitRemoteService.git`)
 
 SPEC REPOS:
   trunk:
     - AFNetworking
+    - Alamofire
     - Apollo
     - BSBacktraceLogger
     - Bugly
@@ -334,6 +341,9 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   ZLBaseUI:
     :git: https://github.com/ExistOrLive/ZLBaseUI.git
+  ZLGithubOAuth:
+    :git: https://github.com/ExistOrLive/ZLGithubOAuth.git
+    :tag: 1.0.0
   ZLGitRemoteService:
     :git: https://github.com/ExistOrLive/ZLGitRemoteService.git
 
@@ -341,12 +351,16 @@ CHECKOUT OPTIONS:
   ZLBaseUI:
     :commit: b2545c33d6484491cc9ae8f7860a3641a7abf05e
     :git: https://github.com/ExistOrLive/ZLBaseUI.git
+  ZLGithubOAuth:
+    :git: https://github.com/ExistOrLive/ZLGithubOAuth.git
+    :tag: 1.0.0
   ZLGitRemoteService:
-    :commit: db0689d42ee1517efd579b6cc80f501c4e3185bb
+    :commit: 59d53c7a856db741826fcd2100eafb1643bea74a
     :git: https://github.com/ExistOrLive/ZLGitRemoteService.git
 
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
+  Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
   Apollo: f6c6410ebee82dd5846be87b81cedc8bc7754a82
   BSBacktraceLogger: 06b983ee93a9f87d957960e9c73d660d5966b447
   Bugly: afe841bba2ea6de6d432a3c125240a5e75949c55
@@ -398,8 +412,9 @@ SPEC CHECKSUMS:
   WoodPeckeriOS: 12ec7f38c695e51cd94a476228888dfe85d9d916
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZLBaseUI: 068453e9b04f010e4453191929c5242e832d0d46
+  ZLGithubOAuth: 5f107874475666cd000254e7256495c1f739abde
   ZLGitRemoteService: 3a3fe9f9d831675909632ef61650e7b382481c81
 
-PODFILE CHECKSUM: f02489e0fccdd5401c0c73e55803b53d16f28c6c
+PODFILE CHECKSUM: f2b5edcd2833e115e2fac0e4d3236914d92917a2
 
-COCOAPODS: 1.11.0
+COCOAPODS: 1.11.2

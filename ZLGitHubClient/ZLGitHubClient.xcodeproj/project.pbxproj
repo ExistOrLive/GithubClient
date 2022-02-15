@@ -226,8 +226,6 @@
 		74C3F8C922D1E2DB0086A3F9 /* ZLLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C3F8C822D1E2DB0086A3F9 /* ZLLoginViewModel.swift */; };
 		74C3F8CB22D1E3070086A3F9 /* ZLLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C3F8CA22D1E3070086A3F9 /* ZLLoginViewController.swift */; };
 		74C3F8D022D1E79D0086A3F9 /* Swift-Prefix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C3F8CF22D1E79D0086A3F9 /* Swift-Prefix.swift */; };
-		74C3F8DA22D24C930086A3F9 /* ZLOAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C3F8D922D24C930086A3F9 /* ZLOAuthViewController.swift */; };
-		74C3F8E222D2536B0086A3F9 /* ZLOAuthBaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C3F8E122D2536B0086A3F9 /* ZLOAuthBaseViewModel.swift */; };
 		74C5B20A247935EA00D941DF /* ZLRepoStargazersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C5B209247935EA00D941DF /* ZLRepoStargazersController.swift */; };
 		74C5B20C2479361A00D941DF /* ZLRepoStargazersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C5B20B2479361A00D941DF /* ZLRepoStargazersViewModel.swift */; };
 		74C639C724B788FE00457F94 /* ZLRepoIssuesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C639C624B788FE00457F94 /* ZLRepoIssuesView.swift */; };
@@ -627,8 +625,6 @@
 		74C3F8C822D1E2DB0086A3F9 /* ZLLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLLoginViewModel.swift; sourceTree = "<group>"; };
 		74C3F8CA22D1E3070086A3F9 /* ZLLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLLoginViewController.swift; sourceTree = "<group>"; };
 		74C3F8CF22D1E79D0086A3F9 /* Swift-Prefix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Swift-Prefix.swift"; sourceTree = "<group>"; };
-		74C3F8D922D24C930086A3F9 /* ZLOAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLOAuthViewController.swift; sourceTree = "<group>"; };
-		74C3F8E122D2536B0086A3F9 /* ZLOAuthBaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLOAuthBaseViewModel.swift; sourceTree = "<group>"; };
 		74C5B209247935EA00D941DF /* ZLRepoStargazersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLRepoStargazersController.swift; sourceTree = "<group>"; };
 		74C5B20B2479361A00D941DF /* ZLRepoStargazersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLRepoStargazersViewModel.swift; sourceTree = "<group>"; };
 		74C639C624B788FE00457F94 /* ZLRepoIssuesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLRepoIssuesView.swift; sourceTree = "<group>"; };
@@ -1942,7 +1938,6 @@
 		74C19200239D207A00636F24 /* login */ = {
 			isa = PBXGroup;
 			children = (
-				74C3F8D522D24C270086A3F9 /* ZLOAuthViewController */,
 				746F47BA222D678A004D2A2F /* ZLLoginViewController */,
 			);
 			path = login;
@@ -2075,23 +2070,6 @@
 				74C3F8C822D1E2DB0086A3F9 /* ZLLoginViewModel.swift */,
 			);
 			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		74C3F8D522D24C270086A3F9 /* ZLOAuthViewController */ = {
-			isa = PBXGroup;
-			children = (
-				74C3F8E022D253470086A3F9 /* ZLOAuthBaseViewModel */,
-				74C3F8D922D24C930086A3F9 /* ZLOAuthViewController.swift */,
-			);
-			path = ZLOAuthViewController;
-			sourceTree = "<group>";
-		};
-		74C3F8E022D253470086A3F9 /* ZLOAuthBaseViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				74C3F8E122D2536B0086A3F9 /* ZLOAuthBaseViewModel.swift */,
-			);
-			path = ZLOAuthBaseViewModel;
 			sourceTree = "<group>";
 		};
 		74C5B201247933FC00D941DF /* ZLRepoStargazersController */ = {
@@ -3258,6 +3236,7 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-GithubClient-ZLGitHubClient/Pods-GithubClient-ZLGitHubClient-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Apollo/Apollo.framework",
 				"${BUILT_PRODUCTS_DIR}/BSBacktraceLogger/BSBacktraceLogger.framework",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
@@ -3300,6 +3279,7 @@
 				"${BUILT_PRODUCTS_DIR}/Umbrella/Umbrella.framework",
 				"${BUILT_PRODUCTS_DIR}/YYText/YYText.framework",
 				"${BUILT_PRODUCTS_DIR}/ZLBaseUI/ZLBaseUI.framework",
+				"${BUILT_PRODUCTS_DIR}/ZLGithubOAuth/ZLGithubOAuth.framework",
 				"${BUILT_PRODUCTS_DIR}/fishhook/fishhook.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 				"${BUILT_PRODUCTS_DIR}/pop/pop.framework",
@@ -3309,6 +3289,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Apollo.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BSBacktraceLogger.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
@@ -3351,6 +3332,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Umbrella.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYText.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZLBaseUI.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZLGithubOAuth.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/fishhook.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/pop.framework",
@@ -3425,7 +3407,6 @@
 				D1259FA023195CC700C7892B /* ZLNewsViewModel.swift in Sources */,
 				7486DFFE25A2CC7C00EE38CB /* ZLURLNotificationDealManager.swift in Sources */,
 				7444B29B2567AD9700488EF0 /* ZLWorkboardTableViewSectionHeader.swift in Sources */,
-				74C3F8E222D2536B0086A3F9 /* ZLOAuthBaseViewModel.swift in Sources */,
 				74EAB98F260B70CC00784695 /* ZLPRInfoController.swift in Sources */,
 				74EBF5B7275D0D8F000CF72C /* ZLCommonTableViewCell.swift in Sources */,
 				7456B746279DBFAC0033AFB1 /* ZLIssueLabelsCellData.swift in Sources */,
@@ -3547,7 +3528,6 @@
 				74A96FC423327D9E008365CA /* ZLSearchFilterPickerView.swift in Sources */,
 				7437978B258399FD008AFBE8 /* ZLPullRequestTableViewCellDataForViewerPR.swift in Sources */,
 				7451F145247A98DA0047A186 /* ZLRepoWatchedUsersController.swift in Sources */,
-				74C3F8DA22D24C930086A3F9 /* ZLOAuthViewController.swift in Sources */,
 				740318CB22F702B7004CE52D /* ZLSearchRecordView.swift in Sources */,
 				7431B42D22F5DF8C0060968A /* ZLSearchController.swift in Sources */,
 				74DEC1FE256CFD82007E8A17 /* ZLMyRepoesController.swift in Sources */,

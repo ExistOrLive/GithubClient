@@ -113,7 +113,7 @@ extension ZLExploreBaseViewModel {
 
                 var repoCellDatas: [ZLRepositoryTableViewCellData] = []
                 for item in repoArray {
-                    let cellData = ZLRepositoryTableViewCellData.init(data: item, needPullData: true)
+                    let cellData = ZLRepositoryTableViewCellData.init(data: item, needPullData: false)
                     weakSelf?.addSubViewModel(cellData)
                     repoCellDatas.append(cellData)
                 }
@@ -133,7 +133,7 @@ extension ZLExploreBaseViewModel {
         if let array = array as? [ZLGithubRepositoryModel] {
             var repoCellDatas: [ZLRepositoryTableViewCellData] = []
             for repo in array {
-                let cellData = ZLRepositoryTableViewCellData.init(data: repo, needPullData: true)
+                let cellData = ZLRepositoryTableViewCellData.init(data: repo, needPullData: false)
                 self.addSubViewModel(cellData)
                 repoCellDatas.append(cellData)
             }
