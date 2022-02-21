@@ -17,7 +17,7 @@ pod 'Firebase/RemoteConfig'
 pod 'Firebase/Performance'
 
 #pod "ZLGithubOAuth", :path => '../../ZLGithubOAuth'
-pod 'ZLGithubOAuth', :git => 'https://github.com/ExistOrLive/ZLGithubOAuth.git', :tag => '1.0.0'
+pod 'ZLGithubOAuth', :git => 'https://github.com/ExistOrLive/ZLGithubOAuth.git', :tag => '1.2.0'
 
 #pod "ZLGitRemoteService", :path => '../../ZLGitRemoteService'
 pod 'ZLGitRemoteService', :git => 'https://github.com/ExistOrLive/ZLGitRemoteService.git'

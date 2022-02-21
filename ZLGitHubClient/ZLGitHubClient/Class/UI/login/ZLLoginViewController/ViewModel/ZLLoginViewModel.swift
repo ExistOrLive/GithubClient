@@ -13,6 +13,7 @@ import ZLGitRemoteService
 enum ZLLoginStep {
     case initialize
     case oauth
+    case gettoken
     case checktoken
 }
 
@@ -58,6 +59,12 @@ class ZLLoginViewModel: ZLBaseViewModel, ZLLoginBaseViewDelegate {
             self.baseView?.loginButton.isEnabled = false
             self.baseView?.accessTokenButton.isEnabled = false
             self.baseView?.loginInfoLabel.text = ZLLocalizedString(string: "ZLLoginStep_logining", comment: "登录中...")
+            self.baseView?.activityIndicator.isHidden = false
+            self.baseView?.activityIndicator.startAnimating()
+        case .gettoken:
+            self.baseView?.loginButton.isEnabled = false
+            self.baseView?.accessTokenButton.isEnabled = false
+            self.baseView?.loginInfoLabel.text = ZLLocalizedString(string: "ZLLoginStep_getToken", comment: "正在获取token....")
             self.baseView?.activityIndicator.isHidden = false
             self.baseView?.activityIndicator.startAnimating()
         case .checktoken:
@@ -153,6 +160,8 @@ extension ZLLoginViewModel: ZLGithubOAuthManagerDelegate {
             step = .oauth
             reloadView()
         case .getToken:
+            step = .gettoken
+            reloadView()
             break
         case .fail:
             break
@@ -162,6 +171,7 @@ extension ZLLoginViewModel: ZLGithubOAuthManagerDelegate {
     }
     
     func onOAuthSuccess(token: String) {
+        oauthManager = nil
         let serialNumber = NSString.generateSerialNumber()
         loginSerialNumber = serialNumber
         ZLServiceManager.sharedInstance.loginServiceModel?.setAccessToken(token,
@@ -173,6 +183,7 @@ extension ZLLoginViewModel: ZLGithubOAuthManagerDelegate {
     func onOAuthFail(status: ZLGithubOAuthStatus, error: String) {
         step = .initialize
         reloadView()
+        oauthManager = nil
         ZLToastView.showMessage(error)
     }
 }

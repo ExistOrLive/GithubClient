@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CircleMenu
 
 @objcMembers class ZLAssistButtonManager: NSObject {
 
