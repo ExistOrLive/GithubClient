@@ -96,8 +96,8 @@ class ZLAssistController: ZLBaseViewController {
         self.setAssistButton()
         self.tableViewIndexs.append(.assistButon)
 
-        self.setCircleMenu()
-        self.tableViewIndexs.append(.circleMenu)
+//        self.setCircleMenu()
+//        self.tableViewIndexs.append(.circleMenu)
 
         self.setUpUI()
     }

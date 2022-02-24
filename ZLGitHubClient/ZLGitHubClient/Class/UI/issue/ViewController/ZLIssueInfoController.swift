@@ -9,6 +9,8 @@
 import UIKit
 import FloatingPanel
 import ZLBaseUI
+import RxSwift
+import RxRelay
 
 class ZLIssueInfoController: ZLBaseViewController {
 
@@ -18,45 +20,31 @@ class ZLIssueInfoController: ZLBaseViewController {
     @objc var number: Int = 0
 
     var after: String?
-
-    // view
-    private lazy var itemListView: ZLGithubItemListView = {
-        let itemListView = ZLGithubItemListView()
-        itemListView.setTableViewHeader()
-        itemListView.setTableViewFooter()
-        itemListView.delegate = self
-        return itemListView
-    }()
     
-    // subviewcontroller
-    private lazy var floatingVC: FloatingPanelController = {
-       
-        let vc = FloatingPanelController()
-        vc.layout = ZLIssueFloatingPanelLayout()
-        vc.delegate = self
-        
-        let contentVC = ZLEditIssueController()
-        contentVC.loginName = login
-        contentVC.repoName = repoName
-        contentVC.number = number
-        vc.set(contentViewController: contentVC)
-        vc.track(scrollView: contentVC.editIssueView.tableView)
-        
-        return vc 
+    // Observer
+    let _errorObserver = PublishRelay<Void>()
+    let _resetObserver = PublishRelay<[ZLGithubItemTableViewCellData]>()
+    let _appendObserver = PublishRelay<[ZLGithubItemTableViewCellData]>()
+    let _reloadVisibleCellObserver = PublishRelay<[ZLGithubItemTableViewCellData]>()
+
+    private lazy var issueInfoView: ZLIssueInfoView = {
+       let view = ZLIssueInfoView()
+       return view
     }()
 
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         
         setupUI()
         
-        itemListView.beginRefresh()
+        issueInfoView.beginRefresh()
     }
     
     
     func setupUI() {
         
-        self.title = ZLLocalizedString(string: "Issue", comment: "")
+        self.title = ZLLocalizedString(string: "issue", comment: "")
 
         self.zlNavigationBar.backButton.isHidden = false
         let button = UIButton.init(type: .custom)
@@ -70,25 +58,21 @@ class ZLIssueInfoController: ZLBaseViewController {
         self.zlNavigationBar.rightButton = button
 
         // view
-        self.contentView.addSubview(itemListView)
-        itemListView.snp.makeConstraints { (make) in
-            make.top.left.right.equalToSuperview()
-            make.bottom.equalTo(contentView.safeAreaLayoutGuide.snp.bottom).offset(-80)
+        self.contentView.addSubview(issueInfoView)
+        issueInfoView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
         }
         
-        floatingVC.addPanel(toParent: self)
-        
+        issueInfoView.fillWithData(viewData: self)
+    
     }
     
 
     @objc func onMoreButtonClick(button: UIButton) {
 
         let path = "https://www.github.com/\(login?.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? "")/\(repoName?.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? "")/issues/\(number)"
-
         guard let url = URL(string: path) else { return }
-
         button.showShareMenu(title: path, url: url, sourceViewController: self)
-
     }
 
 }
@@ -96,17 +80,59 @@ class ZLIssueInfoController: ZLBaseViewController {
 extension ZLIssueInfoController {
     override func getEvent(_ event: Any?, fromSubViewModel subViewModel: ZLBaseViewModel) {
         if let cellData = subViewModel as? ZLGithubItemTableViewCellData {
-            self.itemListView.reloadVisibleCells(cellDatas: [cellData])
+            _reloadVisibleCellObserver.accept([cellData])
         }
     }
 }
 
-extension ZLIssueInfoController: ZLGithubItemListViewDelegate {
+// MARK: ZLIssueInfoViewDelegateAndDataSource
+extension ZLIssueInfoController: ZLIssueInfoViewDelegateAndDataSource {
+    
+    var errorObservable: Observable<Void> {
+        _errorObserver.asObservable()
+    }
+    
+    var resetObservable: Observable<([ZLGithubItemTableViewCellData])> {
+        _resetObserver.asObservable()
+    }
+    
+    var appendObservable: Observable<([ZLGithubItemTableViewCellData])> {
+        _appendObserver.asObservable()
+    }
+    
+    var reloadVisibleCellObservale: Observable<([ZLGithubItemTableViewCellData])> {
+        _reloadVisibleCellObserver.asObservable()
+    }
+    
+    func onCommentButtonClick() {
+        
+    }
+    
+    func onInfoButtonClick() {
+        let vc = ZLEditIssueController()
+        vc.loginName = login
+        vc.repoName = repoName
+        vc.number = number
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func onRefreshPullDown() {
+        loadNewData()
+    }
 
-    func githubItemListViewRefreshDragDown(pullRequestListView: ZLGithubItemListView) {
+    func onRefreshPullUp() {
+        loadMoreData()
+    }
+}
 
+
+// MARK: Request
+extension ZLIssueInfoController {
+
+    func loadNewData() {
+        
         guard let login = self.login, let repoName = self.repoName else {
-            self.itemListView.endRefreshWithError()
+            _errorObserver.accept(())
             return
         }
 
@@ -120,7 +146,7 @@ extension ZLIssueInfoController: ZLGithubItemListViewDelegate {
                 if let errorModel = resultModel.data as? ZLGithubRequestErrorModel {
                     ZLToastView.showMessage(errorModel.message)
                 }
-                self?.itemListView.endRefreshWithError()
+                self?._errorObserver.accept(())
             } else {
                 if let data = resultModel.data as? IssueInfoQuery.Data {
 
@@ -130,19 +156,19 @@ extension ZLIssueInfoController: ZLGithubItemListViewDelegate {
                     let cellDatas: [ZLGithubItemTableViewCellData] = ZLIssueTableViewCellData.getCellDatasWithIssueModel(data: data, firstPage: true)
 
                     self?.addSubViewModels(cellDatas)
-                    self?.itemListView.resetCellDatas(cellDatas: cellDatas)
+                    self?._resetObserver.accept(cellDatas)
 
                 } else {
-                    self?.itemListView.endRefreshWithError()
+                    self?._errorObserver.accept(())
                 }
             }
         }
     }
-
-    func githubItemListViewRefreshDragUp(pullRequestListView: ZLGithubItemListView) {
-
+    
+    func loadMoreData() {
+        
         guard let login = self.login, let repoName = self.repoName else {
-            self.itemListView.endRefreshWithError()
+            _errorObserver.accept(())
             return
         }
 
@@ -156,7 +182,7 @@ extension ZLIssueInfoController: ZLGithubItemListViewDelegate {
                 if let errorModel = resultModel.data as? ZLGithubRequestErrorModel {
                     ZLToastView.showMessage(errorModel.message)
                 }
-                self?.itemListView.endRefreshWithError()
+                self?._errorObserver.accept(())
             } else {
                 if let data = resultModel.data as? IssueInfoQuery.Data {
 
@@ -166,31 +192,15 @@ extension ZLIssueInfoController: ZLGithubItemListViewDelegate {
                     let cellDatas: [ZLGithubItemTableViewCellData] = ZLIssueTableViewCellData.getCellDatasWithIssueModel(data: data, firstPage: false)
 
                     self?.addSubViewModels(cellDatas)
-                    self?.itemListView.appendCellDatas(cellDatas: cellDatas)
+                    self?._appendObserver.accept(cellDatas)
 
                 } else {
-                    self?.itemListView.endRefreshWithError()
+                    self?._errorObserver.accept(())
                 }
             }
         }
-
-    }
-
-}
-
-
-extension ZLIssueInfoController: FloatingPanelControllerDelegate {
-    
-}
- 
-
-class ZLIssueFloatingPanelLayout: FloatingPanelLayout {
-    let position: FloatingPanelPosition = .bottom
-    let initialState: FloatingPanelState = .tip
-    var anchors: [FloatingPanelState: FloatingPanelLayoutAnchoring] {
-        return [
-            .full: FloatingPanelLayoutAnchor(absoluteInset: 44.0, edge: .top, referenceGuide: .safeArea),
-            .tip: FloatingPanelLayoutAnchor(absoluteInset: 80.0, edge: .bottom, referenceGuide: .safeArea),
-        ]
+        
     }
 }
+
+

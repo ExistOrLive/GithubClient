@@ -216,7 +216,7 @@ extension ZLUIRouter {
         if (url.host == "github.com" ||
             url.host == "www.github.com") &&
             pathComponents.count >= 2 {
-
+            
             let login = pathComponents[1]
             if "issues" == login ||
                 "pulls" == login ||
@@ -227,36 +227,37 @@ extension ZLUIRouter {
                 "collections" == login ||
                 "events" == login ||
                 "sponsors" == login {
+                
                 self.navigateVC(key: WebContentController, params: ["requestURL": url], animated: animated)
                 return
             }
-
+            
             if pathComponents.count == 2 {
-
+                
                 self.navigateVC(key: UserOrOrgInfoController, params: ["loginName": pathComponents[1]], animated: animated)
                 return
-
+                
             } else if pathComponents.count == 3 {
-
+                
                 let repoModel = ZLGithubRepositoryModel()
                 repoModel.full_name = "\(pathComponents[1])/\(pathComponents[2])"
                 self.navigateVC(key: RepoInfoController, params: ["repoInfoModel": repoModel], animated: animated)
                 return
-
+                
             } else if pathComponents.count == 5 && pathComponents[3] == "pull" {
-
+                
                 self.navigateVC(key: PRInfoController, params: ["login": pathComponents[1],
-                                                                 "repoName": pathComponents[2],
-                                                                 "number": Int(pathComponents[4]) ?? 0], animated: animated)
+                                                                "repoName": pathComponents[2],
+                                                                "number": Int(pathComponents[4]) ?? 0], animated: animated)
                 return
-
+                
             } else if pathComponents.count == 5 && pathComponents[3] == "issues" {
-
+                
                 self.navigateVC(key: IssueInfoController, params: ["login": pathComponents[1],
-                                                                    "repoName": pathComponents[2],
-                                                                    "number": Int(pathComponents[4]) ?? 0], animated: animated)
+                                                                   "repoName": pathComponents[2],
+                                                                   "number": Int(pathComponents[4]) ?? 0], animated: animated)
                 return
-
+                
             }
         }
 

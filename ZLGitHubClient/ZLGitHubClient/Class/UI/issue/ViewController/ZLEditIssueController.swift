@@ -41,7 +41,8 @@ class ZLEditIssueController: ZLBaseViewController {
 extension ZLEditIssueController {
     
     func setupUI() {
-        self.setZLNavigationBarHidden(true)
+    
+        self.title = ZLLocalizedString(string: "issue", comment: "")
         
         contentView.addSubview(editIssueView)
         editIssueView.snp.makeConstraints { make in
@@ -70,6 +71,8 @@ extension ZLEditIssueController {
                 assigneesViewModels.append(viewModel)
             }
             _sectionType.append(.assignees(assigneesViewModels))
+        } else {
+            _sectionType.append(.assignees([]))
         }
         
         // label
@@ -78,7 +81,7 @@ extension ZLEditIssueController {
             let viewModel = ZLIssueLabelsCellData(data: labels)
             addSubViewModel(viewModel)
             _sectionType.append(.label(viewModel))
-        }
+        } 
         
         // project
         if let projects = data?.repository?.issue?.projectCards.nodes,
@@ -91,9 +94,9 @@ extension ZLEditIssueController {
                     projectViewModels.append(viewModel)
                 }
             }
-            if !projectViewModels.isEmpty {
-                _sectionType.append(.project(projectViewModels))
-            }
+            _sectionType.append(.project(projectViewModels))
+        } else {
+            _sectionType.append(.project([]))
         }
         
         // milestone
@@ -101,6 +104,8 @@ extension ZLEditIssueController {
             let viewModel = ZLIssueMileStoneCellData(data: milestone)
             addSubViewModel(viewModel)
             _sectionType.append(.milestone([viewModel]))
+        } else {
+            _sectionType.append(.milestone([]))
         }
     }
     
@@ -143,6 +148,7 @@ extension ZLEditIssueController {
                 }
                 self?.data = data
                 self?.generateSubViewModel()
+                self?.title = data.repository?.issue?.title
                 self?.reloadView()
             } else {
                 guard let errorModel = result.data as? ZLGithubRequestErrorModel else {

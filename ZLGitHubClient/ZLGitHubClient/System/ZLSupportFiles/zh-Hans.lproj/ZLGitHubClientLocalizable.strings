@@ -5,6 +5,7 @@
 "commits" = "提交";
 "topics" = "标题";
 "issues" = "问题";
+"issue" = "问题";
 "code" = "代码";
 "gists" = "代码片段";
 "members" = "成员";
@@ -212,3 +213,6 @@
 "Label" = "标签";
 "Project" = "项目";
 "Milestone" = "里程碑";
+
+"Comment" = "评论";
+"Infomation" = "信息";

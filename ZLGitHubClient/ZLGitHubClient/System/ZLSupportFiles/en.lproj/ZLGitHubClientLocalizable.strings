@@ -11,6 +11,7 @@
 "commits" = "Commits";
 "topics" = "Topics";
 "issues" = "Issues";
+"issue" = "Issue";
 "code" = "Code";
 "gists" = "Gists";
 "members" = "Members";
@@ -212,3 +213,5 @@
 "Project" = "Project";
 "Milestone" = "Milestone";
 
+"Comment" = "Comment";
+"Infomation" = "Infomation";

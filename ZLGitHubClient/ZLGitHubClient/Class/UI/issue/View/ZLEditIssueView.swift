@@ -40,12 +40,6 @@ class ZLEditIssueView: ZLBaseView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    lazy var commentButton: UIButton = {
-        let button = ZLBaseButton()
-        button.setTitle(ZLLocalizedString(string: "comment", comment: ""), for: .normal)
-        return button
-    }()
-    
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: CGRect.zero, style: .grouped)
         tableView.initCommonTableView()
@@ -64,20 +58,9 @@ class ZLEditIssueView: ZLBaseView {
 extension ZLEditIssueView {
     
     func setupUI() {
-        
-        addSubview(commentButton)
         addSubview(tableView)
-        
-        commentButton.snp.makeConstraints { make in
-            make.top.equalTo(30)
-            make.left.equalTo(40)
-            make.right.equalTo(-40)
-            make.height.equalTo(40)
-        }
-        
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(commentButton.snp.bottom).offset(10)
-            make.bottom.left.right.equalToSuperview()
+            make.edges.equalToSuperview()
         }
     }
     
