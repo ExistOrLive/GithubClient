@@ -215,3 +215,5 @@
 
 "Comment" = "Comment";
 "Infomation" = "Infomation";
+
+"EnterComment" = "Enter Comment please (Support Markdown)";

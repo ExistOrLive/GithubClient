@@ -216,3 +216,5 @@
 
 "Comment" = "评论";
 "Infomation" = "信息";
+
+"EnterComment" = "请输入评论信息(支持Markdown)";

@@ -19,7 +19,9 @@ class ZLIssueInfoController: ZLBaseViewController {
     @objc var repoName: String?
     @objc var number: Int = 0
 
+    // model
     var after: String?
+    var issueId: String?
     
     // Observer
     let _errorObserver = PublishRelay<Void>()
@@ -105,7 +107,10 @@ extension ZLIssueInfoController: ZLIssueInfoViewDelegateAndDataSource {
     }
     
     func onCommentButtonClick() {
-        
+        guard let issueId = self.issueId else { return }
+        let vc = ZLSubmitCommentController()
+        vc.issueId = issueId
+        self.present(vc, animated: true, completion: nil)
     }
     
     func onInfoButtonClick() {
@@ -152,6 +157,7 @@ extension ZLIssueInfoController {
 
                     self?.title = data.repository?.issue?.title
                     self?.after = data.repository?.issue?.timelineItems.pageInfo.endCursor
+                    self?.issueId = data.repository?.issue?.id
 
                     let cellDatas: [ZLGithubItemTableViewCellData] = ZLIssueTableViewCellData.getCellDatasWithIssueModel(data: data, firstPage: true)
 

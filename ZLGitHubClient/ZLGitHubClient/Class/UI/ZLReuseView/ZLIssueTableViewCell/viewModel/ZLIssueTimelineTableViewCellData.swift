@@ -78,6 +78,33 @@ extension ZLIssueTimelineTableViewCellData: ZLIssueTimelineTableViewCellDelegate
             attributedString = string
 
             return string
+        } else if let tmpdata = data.asUnassignedEvent {
+            
+            var assignee: String?
+            if let bot = tmpdata.assignee?.asBot {
+                assignee = bot.login
+            } else if let user = tmpdata.assignee?.asUser {
+                assignee = user.login
+            } else if let mannequin = tmpdata.assignee?.asMannequin {
+                assignee = mannequin.login
+            } else if let org = tmpdata.assignee?.asOrganization {
+                assignee = org.login
+            }
+
+            let string = NSMutableAttributedString(string: tmpdata.actor?.login ?? "",
+                                                   attributes: [.font: UIFont.zlSemiBoldFont(withSize: 15),
+                                                                .foregroundColor: UIColor.label(withName: "ZLLabelColor1")])
+
+            string.append(NSAttributedString(string: " unassigned ",
+                                             attributes: [.font: UIFont.zlRegularFont(withSize: 14),
+                                                          .foregroundColor: UIColor.label(withName: "ZLLabelColor4")]))
+
+            string.append(NSAttributedString(string: assignee ?? "",
+                                             attributes: [.font: UIFont.zlSemiBoldFont(withSize: 15),
+                                                          .foregroundColor: UIColor.label(withName: "ZLLabelColor1")]))
+
+            attributedString = string
+            
         } else if let tmpdata = data.asClosedEvent {
             let string = NSMutableAttributedString(string: tmpdata.actor?.login ?? "",
                                                    attributes: [.font: UIFont.zlSemiBoldFont(withSize: 15),

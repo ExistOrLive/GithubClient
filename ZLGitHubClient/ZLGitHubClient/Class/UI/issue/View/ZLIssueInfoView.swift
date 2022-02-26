@@ -11,7 +11,7 @@ import RxCocoa
 import RxSwift
 import ZLBaseUI
 
-protocol ZLIssueInfoViewDelegateAndDataSource {
+protocol ZLIssueInfoViewDelegateAndDataSource: NSObjectProtocol {
     
     // Observable
     var errorObservable: Observable<Void> { get }
@@ -34,7 +34,7 @@ protocol ZLIssueInfoViewDelegateAndDataSource {
 
 class ZLIssueInfoView: ZLBaseView {
     
-    private var delegate: ZLIssueInfoViewDelegateAndDataSource?
+    private weak var delegate: ZLIssueInfoViewDelegateAndDataSource?
    
     // Rx
     private let disposeBag = DisposeBag()
