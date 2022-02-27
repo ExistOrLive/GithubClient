@@ -22,6 +22,8 @@ class ZLEditIssueController: ZLBaseViewController {
     
     private var _sectionType = [ZLEditIssueSectionType]()
     private var _refreshEvent = PublishRelay<Void>()
+    private var _titleEvent = BehaviorRelay<String>(value: ZLLocalizedString(string: "Issue", comment: ""))
+
     
 
     override func viewDidLoad() {
@@ -42,8 +44,6 @@ extension ZLEditIssueController {
     
     func setupUI() {
     
-        self.title = ZLLocalizedString(string: "issue", comment: "")
-        
         contentView.addSubview(editIssueView)
         editIssueView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -124,6 +124,14 @@ extension ZLEditIssueController: ZLEditIssueViewDelegateAndSource {
     var refreshEvent: Observable<Void> {
         _refreshEvent.asObservable()
     }
+    
+    var titleObservable: Observable<String> {
+        _titleEvent.asObservable()
+    }
+    
+    func onCloseButtonClicked() {
+        onBackButtonClicked(nil)
+    }
 }
 
 // MARK: Request
@@ -136,11 +144,15 @@ extension ZLEditIssueController {
                   return
               }
         
+        view.showProgressHUD()
+        
         ZLServiceManager.sharedInstance.eventServiceModel?.getIssueEditInfo(withLoginName: loginName,
                                                                             repoName: repoName,
                                                                             number: Int32(number),
                                                                             serialNumber: NSString.generateSerialNumber())
         { [weak self] result in
+            
+            UIView.dismissProgressHUD()
             
             if result.result {
                 guard let data = result.data as? IssueEditInfoQuery.Data else {
@@ -148,7 +160,8 @@ extension ZLEditIssueController {
                 }
                 self?.data = data
                 self?.generateSubViewModel()
-                self?.title = data.repository?.issue?.title
+                let title = data.repository?.issue?.title ?? ""
+                self?._titleEvent.accept(title)
                 self?.reloadView()
             } else {
                 guard let errorModel = result.data as? ZLGithubRequestErrorModel else {

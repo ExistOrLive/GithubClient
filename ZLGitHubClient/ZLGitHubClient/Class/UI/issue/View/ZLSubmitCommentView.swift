@@ -14,7 +14,6 @@ import RxCocoa
 
 protocol ZLSubmitCommentViewDelegate: NSObjectProtocol {
     
-    
     func onCancelButtonClicked()
     
     func onSubmitButtonClicked(comment: String)
@@ -116,12 +115,14 @@ class ZLSubmitCommentView: ZLBaseView {
     private lazy var cancelButton: UIButton = {
        let button = ZLBaseButton()
         button.setTitle(ZLLocalizedString(string: "Cancel", comment: ""), for: .normal)
+        button.titleLabel?.font = UIFont.zlRegularFont(withSize: 14)
         return button
     }()
     
     private lazy var submitButton: UIButton = {
         let button = ZLBaseButton()
         button.setTitle(ZLLocalizedString(string: "submit", comment: ""), for: .normal)
+        button.titleLabel?.font = UIFont.zlRegularFont(withSize: 14)
          return button
     }()
     
@@ -140,7 +141,9 @@ class ZLSubmitCommentView: ZLBaseView {
     private lazy var textView: UITextView = {
        let textView = UITextView()
         textView.placeholder = ZLLocalizedString(string: "EnterComment", comment: "")
+        textView.font = UIFont.zlRegularFont(withSize: 13)
         textView.textAlignment = .left
+        textView.backgroundColor = .clear
         return textView
     }()
 }

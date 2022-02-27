@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import IQKeyboardManager
 
 class ZLEditProfileController: ZLBaseViewController {
 
@@ -32,6 +33,15 @@ class ZLEditProfileController: ZLBaseViewController {
         viewModel.bindModel(nil, andView: baseView)
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        IQKeyboardManager.shared().isEnabled = true
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        IQKeyboardManager.shared().isEnabled = false
+    }
     /*
     // MARK: - Navigation
 

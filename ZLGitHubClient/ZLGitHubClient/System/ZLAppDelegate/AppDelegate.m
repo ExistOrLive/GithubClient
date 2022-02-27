@@ -19,6 +19,7 @@
 #import <ZLGitRemoteService/ZLGitRemoteService.h>
 #import <ZLGitRemoteService/ZLGitRemoteService-Swift.h>
 #import <Firebase/Firebase.h>
+#import <IQKeyboardManager/IQKeyboardManager.h>
 
 
 
@@ -153,6 +154,9 @@
 #pragma mark -
 
 - (void) initUIConfig {
+    
+    [[IQKeyboardManager sharedManager] setEnable:NO];
+    
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeBlack];
     if([ZLDeviceInfo isIpad]){
         self.allowRotation = YES;    // iPad 允许旋转

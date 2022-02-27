@@ -118,7 +118,7 @@ extension ZLIssueInfoController: ZLIssueInfoViewDelegateAndDataSource {
         vc.loginName = login
         vc.repoName = repoName
         vc.number = number
-        self.navigationController?.pushViewController(vc, animated: true)
+        self.present(vc, animated: true, completion: nil)
     }
     
     func onRefreshPullDown() {

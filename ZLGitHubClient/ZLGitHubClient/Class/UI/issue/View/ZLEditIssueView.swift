@@ -22,6 +22,10 @@ protocol ZLEditIssueViewDelegateAndSource: NSObjectProtocol {
     var sectionTypes: [ZLEditIssueSectionType] { get }
     
     var refreshEvent: Observable<Void> { get }
+    
+    var titleObservable: Observable<String> { get }
+    
+    func onCloseButtonClicked()
 }
 
 
@@ -40,6 +44,32 @@ class ZLEditIssueView: ZLBaseView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: lazy view
+    
+    private lazy var headerView: UIView = {
+       let view = UIView()
+        view.backgroundColor = UIColor(named:"ZLNavigationBarBackColor")
+        return view
+    }()
+    
+    private lazy var closeButton: UIButton = {
+       let button = ZLBaseButton()
+        button.setTitle(ZLLocalizedString(string: "Close", comment: ""), for: .normal)
+        button.titleLabel?.font = UIFont.zlRegularFont(withSize: 14)
+        return button
+    }()
+        
+    private lazy var titleLabel: UILabel = {
+       let label = UILabel()
+        label.textColor = UIColor(named: "ZLNavigationBarTitleColor")
+        label.font = UIFont(name:Font_PingFangSCMedium , size: 18)
+        label.textAlignment = .center
+        label.adjustsFontSizeToFitWidth = true
+        label.numberOfLines = 2
+        label.text = ZLLocalizedString(string: "Comment", comment: "")
+        return label
+    }()
+    
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: CGRect.zero, style: .grouped)
         tableView.initCommonTableView()
@@ -52,16 +82,44 @@ class ZLEditIssueView: ZLBaseView {
         tableView.dataSource = self
         return tableView
     }()
-    
 }
 
 extension ZLEditIssueView {
     
     func setupUI() {
+        
+        addSubview(headerView)
         addSubview(tableView)
-        tableView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+        
+        headerView.addSubview(titleLabel)
+        headerView.addSubview(closeButton)
+        
+        headerView.snp.makeConstraints { make in
+            make.top.left.right.equalToSuperview()
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.top).offset(60)
         }
+        
+        titleLabel.snp.makeConstraints { make in
+            make.height.equalTo(60)
+            make.bottom.equalToSuperview()
+            make.left.equalTo(80)
+            make.right.equalTo(-80)
+        }
+        
+        closeButton.snp.makeConstraints { make in
+            make.size.equalTo(CGSize(width: 70, height: 30))
+            make.bottom.equalTo(-15)
+            make.left.equalTo(10)
+        }
+        
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(headerView.snp.bottom).offset(10)
+            make.left.right.bottom.equalToSuperview()
+        }
+        
+        closeButton.rx.tap.subscribe(onNext: { [weak self] _ in
+            self?.delegate?.onCloseButtonClicked()
+        }).disposed(by: disposeBag)
     }
     
     override func tintColorDidChange() {
@@ -177,6 +235,8 @@ extension ZLEditIssueView: ViewUpdatable {
         viewData.refreshEvent.subscribe(onNext: { [weak self] _ in
             self?.tableView.reloadData()
         }).disposed(by: disposeBag)
+        
+        viewData.titleObservable.bind(to: titleLabel.rx.text).disposed(by: disposeBag)
     }
 }
 
