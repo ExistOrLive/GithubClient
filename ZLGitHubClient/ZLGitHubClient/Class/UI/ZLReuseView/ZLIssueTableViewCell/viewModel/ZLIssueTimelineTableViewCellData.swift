@@ -105,6 +105,8 @@ extension ZLIssueTimelineTableViewCellData: ZLIssueTimelineTableViewCellDelegate
 
             attributedString = string
             
+            return string
+            
         } else if let tmpdata = data.asClosedEvent {
             let string = NSMutableAttributedString(string: tmpdata.actor?.login ?? "",
                                                    attributes: [.font: UIFont.zlSemiBoldFont(withSize: 15),
@@ -235,6 +237,20 @@ extension ZLIssueTimelineTableViewCellData: ZLIssueTimelineTableViewCellDelegate
                                                                 .foregroundColor: UIColor.label(withName: "ZLLabelColor1")])
 
             string.append(NSAttributedString(string: " locked issue ",
+                                             attributes: [.font: UIFont.zlRegularFont(withSize: 14),
+                                                          .foregroundColor: UIColor.label(withName: "ZLLabelColor4")]))
+
+            attributedString = string
+
+            return string
+
+        } else if let tmpdata = data.asUnlockedEvent {
+            
+            let string = NSMutableAttributedString(string: tmpdata.actor?.login ?? "",
+                                                   attributes: [.font: UIFont.zlSemiBoldFont(withSize: 15),
+                                                                .foregroundColor: UIColor.label(withName: "ZLLabelColor1")])
+
+            string.append(NSAttributedString(string: " unlocked issue ",
                                              attributes: [.font: UIFont.zlRegularFont(withSize: 14),
                                                           .foregroundColor: UIColor.label(withName: "ZLLabelColor4")]))
 
@@ -408,6 +424,27 @@ extension ZLIssueTimelineTableViewCellData: ZLIssueTimelineTableViewCellDelegate
 
             return string
 
+        } else if let tmpData = data.asAddedToProjectEvent {
+            
+            let string = NSASCContainer(
+
+                tmpData.actor?
+                    .login
+                    .asMutableAttributedString()
+                    .font(.zlSemiBoldFont(withSize: 15))
+                    .foregroundColor(ZLRawLabelColor(name: "ZLLabelColor1")),
+
+                " added this issue to project"
+                    .asMutableAttributedString()
+                    .font(.zlRegularFont(withSize: 14))
+                    .foregroundColor(ZLRawLabelColor(name: "ZLLabelColor4"))
+                
+            ).asMutableAttributedString()
+            
+    
+            attributedString = string
+
+            return string
         }
 
         return NSAttributedString(string: data.__typename,

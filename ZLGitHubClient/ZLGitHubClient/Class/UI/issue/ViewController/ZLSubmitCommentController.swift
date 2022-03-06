@@ -9,15 +9,17 @@
 import UIKit
 import ZLBaseUI
 import ZLGitRemoteService
+import RxRelay
+import RxSwift
 
 class ZLSubmitCommentController: ZLBaseViewController {
     
     //
     var issueId: String?
     
-    // view
-    private let submitCommentView = ZLSubmitCommentView()
-
+    // observale
+    let _clearEvent: PublishRelay<Void> = PublishRelay<Void>()
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,17 +31,31 @@ class ZLSubmitCommentController: ZLBaseViewController {
         submitCommentView.fillWithData(viewData: self)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func watchKeyboardStatusNotification() -> Bool{
+        return true 
     }
-    */
-
+    
+    override func keyboardWillShow(_ payload: ZLKeyboardNotificationPayload) {
+        UIView.animate(withDuration: TimeInterval(payload.duration)) { [weak self] in
+            self?.submitCommentView.snp_remakeConstraints({ make in
+                make.top.left.right.equalToSuperview()
+                make.bottom.equalToSuperview().offset(-payload.endFrame.height)
+            })
+        }
+    }
+    
+    override func keyboardWillHide(_ payload: ZLKeyboardNotificationPayload) {
+        UIView.animate(withDuration: TimeInterval(payload.duration)) { [weak self] in
+            self?.submitCommentView.snp_remakeConstraints({ make in
+                make.top.left.right.bottom.equalToSuperview()
+            })
+        }
+    }
+    
+    // MARK: Lazy View
+    lazy var submitCommentView: ZLSubmitCommentView = {
+        ZLSubmitCommentView()
+    }()
 }
 
 
@@ -67,7 +83,9 @@ extension ZLSubmitCommentController: ZLSubmitCommentViewDelegate {
                 if let data = model.data as? AddIssueCommentMutation.Data,
                    let cursor = data.addComment?.timelineEdge?.cursor,
                    let mutationId = data.addComment?.clientMutationId {
-                    self.dismiss(animated: true, completion: nil)
+                    
+                   self._clearEvent.accept(())
+                   self.dismiss(animated: true, completion: nil)
                 } else {
                     ZLToastView.showMessage("Nerwork Error")
                 }
@@ -77,4 +95,9 @@ extension ZLSubmitCommentController: ZLSubmitCommentViewDelegate {
         
         })
     }
+    
+    var clearObservable: Observable<Void> {
+        _clearEvent.asObservable()
+    }
 }
+

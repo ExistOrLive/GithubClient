@@ -21,6 +21,10 @@ import UIKit
     func isPullRequestMerged() -> Bool
 
     func onClickPullRequestRepoFullName()
+    
+    func hasLongPressAction() -> Bool
+
+    func longPressAction(view: UIView)
 }
 
 class ZLPullRequestTableViewCell: UITableViewCell {
@@ -67,6 +71,11 @@ class ZLPullRequestTableViewCell: UITableViewCell {
         label2.textColor = UIColor(named: "ZLLabelColor2")
         label2.font = UIFont(name: Font_PingFangSCRegular, size: 12)
         return label2
+    }()
+    
+    lazy var longPressGesture: UILongPressGestureRecognizer = {
+        let gesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressAction(gesture:)))
+        return gesture
     }()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -118,11 +127,15 @@ class ZLPullRequestTableViewCell: UITableViewCell {
             make.top.equalTo(titleLabel.snp.bottom).offset(15)
             make.bottom.equalToSuperview().offset(-10)
         }
+        
+        containerView.addGestureRecognizer(longPressGesture)
     }
 
     func fillWithData(data: ZLPullRequestTableViewCellDelegate) {
 
         self.delegate = data
+        
+        longPressGesture.isEnabled = data.hasLongPressAction()
 
         self.titleLabel.text = data.getPullRequestTitle()
         self.assistLabel.text = data.getPullRequestAssistInfo()
@@ -167,6 +180,11 @@ class ZLPullRequestTableViewCell: UITableViewCell {
         UIView.animate(withDuration: 0.1) {
             self.containerView.backgroundColor = UIColor.init(named: "ZLCellBack")
         }
+    }
+    
+    @objc func longPressAction(gesture: UILongPressGestureRecognizer) {
+        guard gesture.state == .began else { return }
+        delegate?.longPressAction(view: self)
     }
 
 }

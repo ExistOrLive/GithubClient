@@ -23,11 +23,15 @@ class ZLIssueInfoController: ZLBaseViewController {
     var after: String?
     var issueId: String?
     
+    // vc
+    var commentVC: ZLSubmitCommentController?
+    
     // Observer
     let _errorObserver = PublishRelay<Void>()
     let _resetObserver = PublishRelay<[ZLGithubItemTableViewCellData]>()
     let _appendObserver = PublishRelay<[ZLGithubItemTableViewCellData]>()
     let _reloadVisibleCellObserver = PublishRelay<[ZLGithubItemTableViewCellData]>()
+    let _canReactObserver = BehaviorRelay<Bool>(value:false)
 
     private lazy var issueInfoView: ZLIssueInfoView = {
        let view = ZLIssueInfoView()
@@ -90,6 +94,10 @@ extension ZLIssueInfoController {
 // MARK: ZLIssueInfoViewDelegateAndDataSource
 extension ZLIssueInfoController: ZLIssueInfoViewDelegateAndDataSource {
     
+    var canReactObservale: Observable<Bool> {
+        _canReactObserver.asObservable()
+    }
+    
     var errorObservable: Observable<Void> {
         _errorObserver.asObservable()
     }
@@ -108,9 +116,13 @@ extension ZLIssueInfoController: ZLIssueInfoViewDelegateAndDataSource {
     
     func onCommentButtonClick() {
         guard let issueId = self.issueId else { return }
-        let vc = ZLSubmitCommentController()
-        vc.issueId = issueId
-        self.present(vc, animated: true, completion: nil)
+        if commentVC == nil {
+            commentVC = ZLSubmitCommentController()
+        }
+        commentVC?.issueId = issueId
+        if let vc = commentVC {
+            self.present(vc, animated: true, completion: nil)
+        }
     }
     
     func onInfoButtonClick() {
@@ -163,6 +175,7 @@ extension ZLIssueInfoController {
 
                     self?.addSubViewModels(cellDatas)
                     self?._resetObserver.accept(cellDatas)
+                    self?._canReactObserver.accept(data.repository?.issue?.viewerCanReact ?? false)
 
                 } else {
                     self?._errorObserver.accept(())

@@ -22,6 +22,8 @@ protocol ZLIssueInfoViewDelegateAndDataSource: NSObjectProtocol {
     
     var reloadVisibleCellObservale: Observable<[ZLGithubItemTableViewCellData]> { get }
     
+    var canReactObservale: Observable<Bool> { get }
+    
     // delegate
     func onCommentButtonClick()
     
@@ -42,6 +44,7 @@ class ZLIssueInfoView: ZLBaseView {
     private var resetDisposable: Disposable?
     private var appendDisposable: Disposable?
     private var reloadVisibleCellDisposable: Disposable?
+    private var canReactDisposable: Disposable?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -102,6 +105,7 @@ extension ZLIssueInfoView {
         resetDisposable?.dispose()
         appendDisposable?.dispose()
         reloadVisibleCellDisposable?.dispose()
+        canReactDisposable?.dispose()
         
         delegate = viewData
         
@@ -125,10 +129,13 @@ extension ZLIssueInfoView {
             self.itemListView.reloadVisibleCells(cellDatas: element)
         }, onError: nil, onCompleted: nil, onDisposed: nil)
         
+        canReactDisposable = viewData.canReactObservale.share().bind(to: bottomView.commentButton.rx.isEnabled)
+        
         errorDisposable?.disposed(by: disposeBag)
         resetDisposable?.disposed(by: disposeBag)
         appendDisposable?.disposed(by: disposeBag)
         reloadVisibleCellDisposable?.disposed(by: disposeBag)
+        canReactDisposable?.disposed(by: disposeBag)
     }
     
 }
@@ -210,6 +217,7 @@ private class ZLIssueInfoBottomView: ZLBaseView {
         button.setTitleColor(UIColor(named: "ZLLabelColor1"), for: .normal)
         button.setTitleColor(UIColor(named: "ZLLabelColor2"), for: .disabled)
         button.titleLabel?.font = UIFont.zlMediumFont(withSize: 16)
+        button.isEnabled = false
         return button
     }()
     

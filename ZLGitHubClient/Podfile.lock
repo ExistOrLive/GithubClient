@@ -349,13 +349,13 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   ZLBaseUI:
-    :commit: b2545c33d6484491cc9ae8f7860a3641a7abf05e
+    :commit: 0b5babc9a48a1990967bb2aa86f44d3a484635f2
     :git: https://github.com/ExistOrLive/ZLBaseUI.git
   ZLGithubOAuth:
     :git: https://github.com/ExistOrLive/ZLGithubOAuth.git
     :tag: 1.2.0
   ZLGitRemoteService:
-    :commit: afdc9a89343ed21c2127eacf502147b5703adbb0
+    :commit: 305fcac48cbc927f562533432e41d55e51483229
     :git: https://github.com/ExistOrLive/ZLGitRemoteService.git
 
 SPEC CHECKSUMS:

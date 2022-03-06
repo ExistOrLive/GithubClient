@@ -107,4 +107,19 @@ extension ZLPullRequestTableViewCellData: ZLPullRequestTableViewCellDelegate {
     func isPullRequestMerged() -> Bool {
         return self.pullRequestModel.merged_at != nil
     }
+    
+    func hasLongPressAction() -> Bool {
+        if let _ = URL(string: self.pullRequestModel.html_url) {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    func longPressAction(view: UIView) {
+        guard let sourceViewController = viewController,
+              let url = URL(string: self.pullRequestModel.html_url) else { return }
+        
+        view.showShareMenu(title: url.absoluteString, url: url, sourceViewController: sourceViewController)
+    }
 }

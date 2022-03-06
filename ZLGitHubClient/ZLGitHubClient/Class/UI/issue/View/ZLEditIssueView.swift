@@ -102,8 +102,8 @@ extension ZLEditIssueView {
         titleLabel.snp.makeConstraints { make in
             make.height.equalTo(60)
             make.bottom.equalToSuperview()
-            make.left.equalTo(80)
-            make.right.equalTo(-80)
+            make.left.equalTo(100)
+            make.right.equalTo(-100)
         }
         
         closeButton.snp.makeConstraints { make in

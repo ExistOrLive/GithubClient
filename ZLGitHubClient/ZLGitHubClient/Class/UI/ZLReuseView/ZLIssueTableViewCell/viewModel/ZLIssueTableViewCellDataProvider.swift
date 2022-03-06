@@ -35,7 +35,6 @@ extension ZLIssueTableViewCellData {
                     } else if timeline.asSubscribedEvent != nil ||
                                 timeline.asUnsubscribedEvent != nil ||
                                 timeline.asMentionedEvent != nil ||
-                                timeline.asAddedToProjectEvent != nil ||
                                 timeline.asRemovedFromProjectEvent != nil {
                         continue
                     } else {

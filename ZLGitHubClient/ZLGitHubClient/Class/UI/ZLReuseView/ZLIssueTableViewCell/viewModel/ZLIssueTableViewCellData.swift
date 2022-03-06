@@ -108,4 +108,19 @@ extension ZLIssueTableViewCellData: ZLIssueTableViewCellDelegate {
             }
         }
     }
+    
+    func hasLongPressAction() -> Bool {
+        if let _ = URL(string: issueModel.html_url) {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    func longPressAction(view: UIView) {
+        guard let sourceViewController = viewController,
+              let url = URL(string: issueModel.html_url) else { return }
+        
+        view.showShareMenu(title: url.absoluteString, url: url, sourceViewController: sourceViewController)
+    }
 }

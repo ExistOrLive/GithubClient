@@ -21,6 +21,10 @@ protocol ZLIssueTableViewCellDelegate: NSObjectProtocol {
     func getIssueLabels() -> [(String, String)]
 
     func onClickIssueRepoFullName()
+    
+    func hasLongPressAction() -> Bool
+
+    func longPressAction(view: UIView)
 }
 
 class ZLIssueTableViewCell: UITableViewCell {
@@ -69,6 +73,11 @@ class ZLIssueTableViewCell: UITableViewCell {
         label2.textAlignment = .left
         label2.numberOfLines = 0
         return label2
+    }()
+    
+    private lazy var longPressGesture: UILongPressGestureRecognizer = {
+        let gesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressAction(gesture:)))
+        return gesture
     }()
 
     weak var delegate: ZLIssueTableViewCellDelegate?
@@ -128,6 +137,8 @@ class ZLIssueTableViewCell: UITableViewCell {
             make.bottom.equalToSuperview().offset(-10)
             make.left.right.equalTo(repoNameTitleLabel)
         }
+        
+        containerView.addGestureRecognizer(longPressGesture)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -137,6 +148,8 @@ class ZLIssueTableViewCell: UITableViewCell {
     func fillWithData(cellData: ZLIssueTableViewCellDelegate) {
 
         self.delegate = cellData
+        
+        longPressGesture.isEnabled = cellData.hasLongPressAction()
 
         let title = NSMutableAttributedString(string: cellData.getIssueRepoFullName() ?? "",
                                               attributes: [.foregroundColor: ZLRawLabelColor(name: "ZLLabelColor1"),
@@ -219,6 +232,11 @@ class ZLIssueTableViewCell: UITableViewCell {
         UIView.animate(withDuration: 0.1) {
             self.containerView.backgroundColor = UIColor.init(named: "ZLCellBack")
         }
+    }
+    
+    @objc func longPressAction(gesture: UILongPressGestureRecognizer) {
+        guard gesture.state == .began else { return }
+        delegate?.longPressAction(view: self)
     }
 
 }

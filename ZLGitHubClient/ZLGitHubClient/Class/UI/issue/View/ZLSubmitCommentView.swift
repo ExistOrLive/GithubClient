@@ -17,6 +17,8 @@ protocol ZLSubmitCommentViewDelegate: NSObjectProtocol {
     func onCancelButtonClicked()
     
     func onSubmitButtonClicked(comment: String)
+    
+    var clearObservable: Observable<Void> { get }
 }
 
 
@@ -78,7 +80,7 @@ class ZLSubmitCommentView: ZLBaseView {
             make.top.equalTo(headerView.snp.bottom).offset(10)
             make.left.equalTo(10)
             make.right.equalTo(-10)
-            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(10)
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-10)
         }
         
         cancelButton.rx.tap.subscribe(onNext: { [weak self]_ in
@@ -144,6 +146,7 @@ class ZLSubmitCommentView: ZLBaseView {
         textView.font = UIFont.zlRegularFont(withSize: 13)
         textView.textAlignment = .left
         textView.backgroundColor = .clear
+        textView.showsVerticalScrollIndicator = false 
         return textView
     }()
 }
@@ -152,5 +155,8 @@ extension ZLSubmitCommentView: ViewUpdatable {
     
     func fillWithData(viewData: ZLSubmitCommentViewDelegate) {
         delagate = viewData
+        viewData.clearObservable.subscribe(onNext: { [weak self] _ in
+            self?.textView.text = nil
+        }).disposed(by:disposeBag)
     }
 }

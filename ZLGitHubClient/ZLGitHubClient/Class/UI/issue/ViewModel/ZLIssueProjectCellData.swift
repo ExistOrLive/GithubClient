@@ -30,14 +30,26 @@ extension ZLIssueProjectCellData: ZLIssueProjectCellDataSourceAndDeledate {
     }
     
     var toDoValue: Double {
-        data.project.progress.todoPercentage
+        if data.project.progress.enabled {
+            return data.project.progress.todoPercentage
+        } else {
+            return 1.0
+        }
     }
     
     var doneValue: Double {
-        data.project.progress.donePercentage
+        if data.project.progress.enabled {
+            return data.project.progress.donePercentage
+        } else {
+            return 0.0
+        }
     }
     
     var inProgessValue: Double {
-        data.project.progress.inProgressPercentage
+        if data.project.progress.enabled {
+            return data.project.progress.inProgressPercentage
+        } else {
+            return 0.0
+        }
     }
 }
