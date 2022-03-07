@@ -72,7 +72,7 @@ extension ZLEditIssueController {
             }
             _sectionType.append(.assignees(assigneesViewModels))
         } else {
-            _sectionType.append(.assignees([]))
+            _sectionType.append(.assignees([ZLIssueNoneCellData(info: ZLLocalizedString(string: "No one assigned", comment: ""))]))
         }
         
         // label
@@ -81,7 +81,9 @@ extension ZLEditIssueController {
             let viewModel = ZLIssueLabelsCellData(data: labels)
             addSubViewModel(viewModel)
             _sectionType.append(.label(viewModel))
-        } 
+        } else {
+            _sectionType.append(.label(ZLIssueNoneCellData(info: ZLLocalizedString(string: "None yet", comment: ""))))
+        }
         
         // project
         if let projects = data?.repository?.issue?.projectCards.nodes,
@@ -96,7 +98,7 @@ extension ZLEditIssueController {
             }
             _sectionType.append(.project(projectViewModels))
         } else {
-            _sectionType.append(.project([]))
+            _sectionType.append(.project([ZLIssueNoneCellData(info: ZLLocalizedString(string: "None yet", comment: ""))]))
         }
         
         // milestone
@@ -105,7 +107,7 @@ extension ZLEditIssueController {
             addSubViewModel(viewModel)
             _sectionType.append(.milestone([viewModel]))
         } else {
-            _sectionType.append(.milestone([]))
+            _sectionType.append(.milestone([ZLIssueNoneCellData(info: ZLLocalizedString(string: "No milestone", comment: ""))]))
         }
     }
     

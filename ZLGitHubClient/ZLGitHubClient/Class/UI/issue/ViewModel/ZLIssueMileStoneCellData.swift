@@ -8,13 +8,21 @@
 
 import UIKit
 
-class ZLIssueMileStoneCellData: ZLBaseViewModel {
+class ZLIssueMileStoneCellData: ZLGithubItemTableViewCellData {
     
     let data: IssueEditInfoQuery.Data.Repository.Issue.Milestone
     
     init(data: IssueEditInfoQuery.Data.Repository.Issue.Milestone) {
         self.data = data
         super.init()
+    }
+    
+    override func getCellReuseIdentifier() -> String {
+        return "ZLIssueMilestoneCell"
+    }
+
+    override func getCellHeight() -> CGFloat {
+        UITableView.automaticDimension
     }
 }
 

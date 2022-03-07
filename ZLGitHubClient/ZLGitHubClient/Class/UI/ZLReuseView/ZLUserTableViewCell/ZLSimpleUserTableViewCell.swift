@@ -32,11 +32,12 @@ class ZLSimpleUserTableViewCell: UITableViewCell {
 
         self.backgroundColor = UIColor.clear
         self.contentView.backgroundColor = UIColor(named: "ZLCellBack")
-  
+        
         self.contentView.addSubview(avatarImageView)
         avatarImageView.snp.makeConstraints { (make) in
-            make.centerY.equalToSuperview()
             make.size.equalTo(CGSize(width: 40, height: 40))
+            make.top.equalTo(10)
+            make.bottom.equalTo(-10)
             make.left.equalToSuperview().offset(15)
         }
         avatarImageView.circle = true

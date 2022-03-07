@@ -29,7 +29,7 @@ class ZLEditIssueHeaderView: UITableViewHeaderFooterView {
     // MARK: Lazy View
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.font = .zlRegularFont(withSize: 14)
+        label.font = .zlMediumFont(withSize: 16)
         label.textColor = UIColor(named:"ZLLabelColor1")
         return label
     }()

@@ -220,3 +220,7 @@
 "EnterComment" = "请输入评论信息(支持Markdown)";
 
 "Close" = "关闭";
+
+"No one assigned" = "未分配受理人";
+"None yet" = "暂无";
+"No milestone" = "暂无里程碑";

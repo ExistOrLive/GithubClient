@@ -8,13 +8,21 @@
 
 import UIKit
 
-class ZLIssueLabelsCellData: ZLBaseViewModel {
+class ZLIssueLabelsCellData: ZLGithubItemTableViewCellData {
     
     let data: IssueEditInfoQuery.Data.Repository.Issue.Label
     
     init(data: IssueEditInfoQuery.Data.Repository.Issue.Label) {
         self.data = data
         super.init()
+    }
+    
+    override func getCellReuseIdentifier() -> String {
+        return "ZLIssueLabelsCell"
+    }
+
+    override func getCellHeight() -> CGFloat {
+        UITableView.automaticDimension
     }
 }
 

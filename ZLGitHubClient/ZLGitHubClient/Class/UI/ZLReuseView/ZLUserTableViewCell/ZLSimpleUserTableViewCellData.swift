@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ZLSimpleUserTableViewCellData: ZLBaseViewModel {
+class ZLSimpleUserTableViewCellData: ZLGithubItemTableViewCellData {
     
     var _loginName: String
     var _avatarUrl: String
@@ -19,6 +19,13 @@ class ZLSimpleUserTableViewCellData: ZLBaseViewModel {
         super.init()
     }
     
+    override func getCellReuseIdentifier() -> String {
+        "ZLSimpleUserTableViewCell"
+    }
+
+    override func getCellHeight() -> CGFloat {
+        UITableView.automaticDimension
+    }
 }
 
 extension ZLSimpleUserTableViewCellData: ZLSimpleUserTableViewCellDataSource {

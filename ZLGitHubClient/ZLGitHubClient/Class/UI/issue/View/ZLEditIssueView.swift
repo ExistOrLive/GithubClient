@@ -11,10 +11,10 @@ import ZLBaseUI
 import RxSwift
 
 enum ZLEditIssueSectionType {
-    case assignees([ZLSimpleUserTableViewCellDataSource])
-    case label(ZLIssueLabelsCellDataSource)
-    case project([ZLIssueProjectCellDataSourceAndDeledate])
-    case milestone([ZLIssueMilestoneCellDelegateAndDataSource])
+    case assignees([ZLGithubItemTableViewCellDataProtocol])
+    case label(ZLGithubItemTableViewCellDataProtocol)
+    case project([ZLGithubItemTableViewCellDataProtocol])
+    case milestone([ZLGithubItemTableViewCellDataProtocol])
 }
 
 protocol ZLEditIssueViewDelegateAndSource: NSObjectProtocol {
@@ -73,10 +73,11 @@ class ZLEditIssueView: ZLBaseView {
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: CGRect.zero, style: .grouped)
         tableView.initCommonTableView()
-        tableView.register(ZLSimpleUserTableViewCell.self)
-        tableView.register(ZLIssueLabelsCell.self)
-        tableView.register(ZLIssueProjectCell.self)
-        tableView.register(ZLIssueMilestoneCell.self)
+        tableView.register(ZLSimpleUserTableViewCell.self, forCellReuseIdentifier: "ZLSimpleUserTableViewCell")
+        tableView.register(ZLIssueLabelsCell.self, forCellReuseIdentifier: "ZLIssueLabelsCell")
+        tableView.register(ZLIssueProjectCell.self, forCellReuseIdentifier: "ZLIssueProjectCell")
+        tableView.register(ZLIssueMilestoneCell.self, forCellReuseIdentifier: "ZLIssueMilestoneCell")
+        tableView.register(ZLIssueNoneCell.self, forCellReuseIdentifier: "ZLIssueNoneCell")
         tableView.registerHeaderFooterView(ZLEditIssueHeaderView.self)
         tableView.delegate = self
         tableView.dataSource = self
@@ -138,22 +139,50 @@ extension ZLEditIssueView: UITableViewDelegate, UITableViewDataSource {
         switch sectionType {
         case let .assignees(dataSources):
             let datasource = dataSources[indexPath.row]
-            let cell = tableView.dequeueReusableCell(ZLSimpleUserTableViewCell.self, for: indexPath)
-            cell.fillWithData(viewData:datasource)
+            let cell = tableView.dequeueReusableCell(withIdentifier: datasource.getCellReuseIdentifier(), for: indexPath)
+            if let cell = cell as? ZLSimpleUserTableViewCell,
+               let cellData = datasource as? ZLSimpleUserTableViewCellDataSource {
+                cell.fillWithData(viewData: cellData)
+            }
+            if let cell = cell as? ZLIssueNoneCell,
+               let cellData = datasource as? ZLIssueNoneCellDataSource {
+                cell.fillWithData(viewData: cellData)
+            }
             return cell 
         case let .label(dataSource):
-            let cell = tableView.dequeueReusableCell(ZLIssueLabelsCell.self, for: indexPath)
-            cell.fillWithData(viewData:dataSource)
+            let cell = tableView.dequeueReusableCell(withIdentifier: dataSource.getCellReuseIdentifier(), for: indexPath)
+            if let cell = cell as? ZLIssueLabelsCell,
+               let cellData = dataSource as? ZLIssueLabelsCellDataSource {
+                cell.fillWithData(viewData: cellData)
+            }
+            if let cell = cell as? ZLIssueNoneCell,
+               let cellData = dataSource as? ZLIssueNoneCellDataSource {
+                cell.fillWithData(viewData: cellData)
+            }
             return cell
         case let .milestone(dataSources):
             let datasource = dataSources[indexPath.row]
-            let cell = tableView.dequeueReusableCell(ZLIssueMilestoneCell.self, for: indexPath)
-            cell.fillWithData(viewData:datasource)
+            let cell = tableView.dequeueReusableCell(withIdentifier: datasource.getCellReuseIdentifier(), for: indexPath)
+            if let cell = cell as? ZLIssueMilestoneCell,
+               let cellData = datasource as? ZLIssueMilestoneCellDelegateAndDataSource {
+                cell.fillWithData(viewData: cellData)
+            }
+            if let cell = cell as? ZLIssueNoneCell,
+               let cellData = datasource as? ZLIssueNoneCellDataSource {
+                cell.fillWithData(viewData: cellData)
+            }
             return cell
         case let .project(dataSources):
             let datasource = dataSources[indexPath.row]
-            let cell = tableView.dequeueReusableCell(ZLIssueProjectCell.self, for: indexPath)
-            cell.fillWithData(viewData:datasource)
+            let cell = tableView.dequeueReusableCell(withIdentifier: datasource.getCellReuseIdentifier(), for: indexPath)
+            if let cell = cell as? ZLIssueProjectCell,
+               let cellData = datasource as?  ZLIssueProjectCellDataSourceAndDeledate{
+                cell.fillWithData(viewData: cellData)
+            }
+            if let cell = cell as? ZLIssueNoneCell,
+               let cellData = datasource as? ZLIssueNoneCellDataSource {
+                cell.fillWithData(viewData: cellData)
+            }
             return cell
         }
     }
@@ -180,15 +209,7 @@ extension ZLEditIssueView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard let sectionType = delegate?.sectionTypes[indexPath.section] else {
-            return 0
-        }
-        switch sectionType {
-        case .assignees:
-            return 60
-        default:
-            return UITableView.automaticDimension
-        }
+        return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -196,7 +217,7 @@ extension ZLEditIssueView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 30
+        return CGFloat.leastNonzeroMagnitude
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

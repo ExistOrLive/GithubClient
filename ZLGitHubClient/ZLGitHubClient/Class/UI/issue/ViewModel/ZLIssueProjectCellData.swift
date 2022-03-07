@@ -8,13 +8,21 @@
 
 import UIKit
 
-class ZLIssueProjectCellData: ZLBaseViewModel {
+class ZLIssueProjectCellData: ZLGithubItemTableViewCellData {
     
     let data: IssueEditInfoQuery.Data.Repository.Issue.ProjectCard.Node
     
     init(data: IssueEditInfoQuery.Data.Repository.Issue.ProjectCard.Node) {
         self.data = data
         super.init()
+    }
+    
+    override func getCellReuseIdentifier() -> String {
+        return "ZLIssueProjectCell"
+    }
+
+    override func getCellHeight() -> CGFloat {
+        UITableView.automaticDimension
     }
 
 }
