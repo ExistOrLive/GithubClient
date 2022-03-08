@@ -39,7 +39,7 @@ class ZLPullRequestEventTableViewCellData: ZLEventTableViewCellData {
                 if array.count == 2 {
                     let login = String(array[0])
                     let name = String(array[1])
-                    ZLUIRouter.navigateVC(key: ZLUIRouter.IssueInfoController,
+                    ZLUIRouter.navigateVC(key: ZLUIRouter.PRInfoController,
                                           params: ["login": login,
                                                    "repoName": name,
                                                    "number": payload.number])

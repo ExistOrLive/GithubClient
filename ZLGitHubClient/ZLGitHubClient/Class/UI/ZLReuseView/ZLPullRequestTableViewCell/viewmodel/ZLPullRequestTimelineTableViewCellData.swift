@@ -373,23 +373,37 @@ extension ZLPullRequestTimelineTableViewCellData: ZLPullRequestTimelineTableView
 
         } else if let tmpdata = data.asRenamedTitleEvent {
 
-           let string = NSMutableAttributedString(string: tmpdata.actor?.login ?? "",
-                                                  attributes: [.font: UIFont.zlSemiBoldFont(withSize: 15),
-                                                               .foregroundColor: UIColor.label(withName: "ZLLabelColor1")])
-
-           string.append(NSAttributedString(string: " changed the title ",
-                                            attributes: [.font: UIFont.zlRegularFont(withSize: 14),
-                                                         .foregroundColor: UIColor.label(withName: "ZLLabelColor4")]))
-
-           string.append(NSAttributedString(string: "\(tmpdata.previousTitle) ",
-                                            attributes: [.font: UIFont.zlRegularFont(withSize: 14),
-                                                         .foregroundColor: UIColor.label(withName: "ZLLabelColor2"),
-                                                         NSAttributedString.Key.strikethroughStyle: NSUnderlineStyle.byWord]))
-
-           string.append(NSAttributedString(string: "\(tmpdata.currentTitle)",
-                                            attributes: [.font: UIFont.zlRegularFont(withSize: 14),
-                                                         .foregroundColor: UIColor.label(withName: "ZLLabelColor2")]))
-
+            let string: NSMutableAttributedString = NSASCContainer(
+                
+                tmpdata.actor?.login ?? ""
+                    .asMutableAttributedString()
+                    .font(.zlSemiBoldFont(withSize: 15))
+                    .foregroundColor(.label(withName:"ZLLabelColor1")),
+                
+                " changed title "
+                    .asMutableAttributedString()
+                    .font(.zlRegularFont(withSize: 14))
+                    .foregroundColor(.label(withName:"ZLLabelColor4")),
+                
+                "\(tmpdata.previousTitle)"
+                    .asMutableAttributedString()
+                    .font(.zlMediumFont(withSize: 14))
+                    .foregroundColor(.label(withName: "ZLLabelColor2"))
+                    .strikethroughStyle(.single)
+                    .strikethroughColor(.label(withName: "ZLLabelColor2")),
+                
+                " to "
+                    .asMutableAttributedString()
+                    .font(.zlRegularFont(withSize: 14))
+                    .foregroundColor(.label(withName:"ZLLabelColor4")),
+                
+                "\(tmpdata.currentTitle)"
+                    .asMutableAttributedString()
+                    .font(.zlMediumFont(withSize: 14))
+                    .foregroundColor(.label(withName: "ZLLabelColor2"))
+                
+            ).asMutableAttributedString()
+            
            attributedString = string
 
            return string
