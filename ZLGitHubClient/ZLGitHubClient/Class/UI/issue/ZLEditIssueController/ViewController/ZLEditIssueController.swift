@@ -24,14 +24,11 @@ class ZLEditIssueController: ZLBaseViewController {
     private var _refreshEvent = PublishRelay<Void>()
     private var _titleEvent = BehaviorRelay<String>(value: ZLLocalizedString(string: "Issue", comment: ""))
 
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupUI()
-        
-        sendRequest()
+        requestNewData()
     }
     
     lazy var editIssueView: ZLEditIssueView = {
@@ -67,7 +64,6 @@ extension ZLEditIssueController {
             var assigneesViewModels = [ZLSimpleUserTableViewCellData]()
             for assignee in assignees {
                 let viewModel = ZLSimpleUserTableViewCellData(loginName: assignee?.login ?? "", avatarUrl: assignee?.avatarUrl ?? "")
-                addSubViewModel(viewModel)
                 assigneesViewModels.append(viewModel)
             }
             _sectionType.append(.assignees(assigneesViewModels))
@@ -79,7 +75,6 @@ extension ZLEditIssueController {
         if let labels = data?.repository?.issue?.labels,
            !(labels.nodes?.isEmpty ?? false) {
             let viewModel = ZLIssueLabelsCellData(data: labels)
-            addSubViewModel(viewModel)
             _sectionType.append(.label(viewModel))
         } else {
             _sectionType.append(.label(ZLIssueNoneCellData(info: ZLLocalizedString(string: "None yet", comment: ""))))
@@ -92,7 +87,6 @@ extension ZLEditIssueController {
             for project in projects {
                 if let project = project {
                     let viewModel = ZLIssueProjectCellData(data: project)
-                    addSubViewModel(viewModel)
                     projectViewModels.append(viewModel)
                 }
             }
@@ -104,11 +98,33 @@ extension ZLEditIssueController {
         // milestone
         if let milestone = data?.repository?.issue?.milestone {
             let viewModel = ZLIssueMileStoneCellData(data: milestone)
-            addSubViewModel(viewModel)
             _sectionType.append(.milestone([viewModel]))
         } else {
             _sectionType.append(.milestone([ZLIssueNoneCellData(info: ZLLocalizedString(string: "No milestone", comment: ""))]))
         }
+        
+        // Operation
+        var operationsCellDatas = [ZLGithubItemTableViewCellData]()
+        if data?.repository?.issue?.viewerCanSubscribe ?? false {
+            let turnOn = data?.repository?.issue?.viewerSubscription == .subscribed
+            operationsCellDatas.append(ZLIssueOperateCellData(operationType: .subscribe, turnOn: turnOn))
+        }
+        
+        
+        if data?.repository?.issue?.viewerCanUpdate ?? false {
+            
+//            let turnOn1 = data?.repository?.issue?.locked == true
+//            operationsCellDatas.append(ZLIssueOperateCellData(operationType: .lock, turnOn: turnOn1))
+        
+            let turnOn2 = data?.repository?.issue?.closed == false
+            operationsCellDatas.append(ZLIssueOperateCellData(operationType: .closeOrOpen, turnOn: turnOn2))
+        }
+        
+        if !operationsCellDatas.isEmpty {
+            _sectionType.append(.operation(operationsCellDatas))
+        }
+        
+
     }
     
     func reloadView() {
@@ -117,6 +133,7 @@ extension ZLEditIssueController {
     }
 }
 
+// MARK: - ZLEditIssueViewDelegateAndSource
 extension ZLEditIssueController: ZLEditIssueViewDelegateAndSource {
    
     var sectionTypes: [ZLEditIssueSectionType] {
@@ -131,15 +148,27 @@ extension ZLEditIssueController: ZLEditIssueViewDelegateAndSource {
         _titleEvent.asObservable()
     }
     
-    func onCloseButtonClicked() {
+    func onCloseAction() {
         onBackButtonClicked(nil)
+    }
+    
+    func onOperationAction(type: ZLEditIssueOperationType) {
+        switch type {
+        case .closeOrOpen:
+            requestCloseOrReopenIssue()
+        case .subscribe:
+            requestSubscribeIssue()
+        case .lock:
+            requestLockIssue()
+        }
     }
 }
 
-// MARK: Request
+// MARK: -  Request
+
 extension ZLEditIssueController {
     
-    func sendRequest() {
+    func requestNewData() {
         
         guard let loginName = self.loginName,
               let repoName = self.repoName else {
@@ -169,7 +198,89 @@ extension ZLEditIssueController {
                 guard let errorModel = result.data as? ZLGithubRequestErrorModel else {
                     return
                 }
-                ZLLog_Info(errorModel.message)
+                ZLToastView.showMessage(errorModel.message)
+            }
+        }
+    }
+    
+    func requestCloseOrReopenIssue() {
+        
+        guard let id = data?.repository?.issue?.id,
+              let isClosed = data?.repository?.issue?.closed else {
+            return
+        }
+        
+        view.showProgressHUD()
+        
+        ZLServiceManager
+            .sharedInstance
+            .eventServiceModel?
+            .openOrCloseIssue(id,
+                              open: isClosed,
+                              serialNumber: NSString.generateSerialNumber())
+        { [weak self] resultModel in
+            
+            UIView.dismissProgressHUD()
+            if resultModel.result {
+                self?.requestNewData()
+            } else {
+                ZLToastView.showMessage("Request Failed")
+            }
+                
+        }
+    }
+    
+    func requestSubscribeIssue() {
+        
+        guard let id = data?.repository?.issue?.id else {
+            return
+        }
+        
+        view.showProgressHUD()
+        
+        let isSubscribe = data?.repository?.issue?.viewerSubscription == .subscribed
+        
+        ZLServiceManager
+            .sharedInstance
+            .eventServiceModel?
+            .subscribeOrUnsubscribeSubscription(id,
+                                                subscribe: !isSubscribe,
+                                                serialNumber: NSString.generateSerialNumber())
+        { [weak self] resultModel in
+            
+            UIView.dismissProgressHUD()
+            if resultModel.result {
+                self?.requestNewData()
+            } else {
+                ZLToastView.showMessage("Request Failed")
+            }
+                
+        }
+    }
+    
+    func requestLockIssue() {
+        
+        guard let id = data?.repository?.issue?.id else {
+            return
+        }
+        
+        view.showProgressHUD()
+        
+        let isLock = data?.repository?.issue?.locked == true
+        
+        ZLServiceManager
+            .sharedInstance
+            .eventServiceModel?
+            .lockOrUnlockLockable(id,
+                                  lock: !isLock,
+                                  serialNumber: NSString.generateSerialNumber())
+        { [weak self] resultModel in
+            
+            UIView.dismissProgressHUD()
+            if resultModel.result {
+                self?.requestNewData()
+            } else {
+                ZLToastView.showMessage("Request Failed")
             }
         }
     }

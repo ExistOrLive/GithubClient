@@ -9,6 +9,7 @@
 import UIKit
 
 class ZLIssueNoneCellData: ZLGithubItemTableViewCellData {
+    
     private let infoText: String
     
     init(info: String) {

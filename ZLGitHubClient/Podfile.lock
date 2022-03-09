@@ -355,7 +355,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/ExistOrLive/ZLGithubOAuth.git
     :tag: 1.2.0
   ZLGitRemoteService:
-    :commit: 305fcac48cbc927f562533432e41d55e51483229
+    :commit: 93c76704bb76f5c1e6dd8d21e64aefb91b2720c4
     :git: https://github.com/ExistOrLive/ZLGitRemoteService.git
 
 SPEC CHECKSUMS:

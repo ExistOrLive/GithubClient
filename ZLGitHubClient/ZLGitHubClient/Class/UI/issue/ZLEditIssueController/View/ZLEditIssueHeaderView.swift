@@ -71,7 +71,7 @@ extension ZLEditIssueHeaderView {
         
         separateLine.snp.makeConstraints { make in
             make.left.equalTo(20)
-            make.height.equalTo(1.0 / 3)
+            make.height.equalTo(1.0 / UIScreen.main.scale)
             make.right.equalToSuperview()
             make.bottom.equalToSuperview()
         }

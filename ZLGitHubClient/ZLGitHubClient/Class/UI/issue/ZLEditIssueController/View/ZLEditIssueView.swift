@@ -10,11 +10,18 @@ import UIKit
 import ZLBaseUI
 import RxSwift
 
+enum ZLEditIssueOperationType {
+    case closeOrOpen
+    case lock
+    case subscribe
+}
+
 enum ZLEditIssueSectionType {
     case assignees([ZLGithubItemTableViewCellDataProtocol])
     case label(ZLGithubItemTableViewCellDataProtocol)
     case project([ZLGithubItemTableViewCellDataProtocol])
     case milestone([ZLGithubItemTableViewCellDataProtocol])
+    case operation([ZLGithubItemTableViewCellDataProtocol])
 }
 
 protocol ZLEditIssueViewDelegateAndSource: NSObjectProtocol {
@@ -25,7 +32,9 @@ protocol ZLEditIssueViewDelegateAndSource: NSObjectProtocol {
     
     var titleObservable: Observable<String> { get }
     
-    func onCloseButtonClicked()
+    func onCloseAction()
+    
+    func onOperationAction(type: ZLEditIssueOperationType)
 }
 
 
@@ -78,6 +87,7 @@ class ZLEditIssueView: ZLBaseView {
         tableView.register(ZLIssueProjectCell.self, forCellReuseIdentifier: "ZLIssueProjectCell")
         tableView.register(ZLIssueMilestoneCell.self, forCellReuseIdentifier: "ZLIssueMilestoneCell")
         tableView.register(ZLIssueNoneCell.self, forCellReuseIdentifier: "ZLIssueNoneCell")
+        tableView.register(ZLIssueOperateCell.self, forCellReuseIdentifier: "ZLIssueOperateCell")
         tableView.registerHeaderFooterView(ZLEditIssueHeaderView.self)
         tableView.delegate = self
         tableView.dataSource = self
@@ -119,7 +129,7 @@ extension ZLEditIssueView {
         }
         
         closeButton.rx.tap.subscribe(onNext: { [weak self] _ in
-            self?.delegate?.onCloseButtonClicked()
+            self?.delegate?.onCloseAction()
         }).disposed(by: disposeBag)
     }
     
@@ -184,6 +194,14 @@ extension ZLEditIssueView: UITableViewDelegate, UITableViewDataSource {
                 cell.fillWithData(viewData: cellData)
             }
             return cell
+        case let .operation(dataSources):
+            let dataSource = dataSources[indexPath.row]
+            let cell = tableView.dequeueReusableCell(withIdentifier: dataSource.getCellReuseIdentifier(), for: indexPath)
+            if let cell = cell as? ZLIssueOperateCell,
+               let cellData = dataSource as? ZLIssueOperateCellDataSource {
+                cell.fillWithData(viewData: cellData)
+            }
+            return cell
         }
     }
     
@@ -205,6 +223,8 @@ extension ZLEditIssueView: UITableViewDelegate, UITableViewDataSource {
             return dataSources.count
         case let .project(dataSources):
             return dataSources.count
+        case let .operation(dataSources):
+            return dataSources.count
         }
     }
     
@@ -213,11 +233,24 @@ extension ZLEditIssueView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
+        guard let sectionType = delegate?.sectionTypes[section] else {
+            return CGFloat.leastNormalMagnitude
+        }
+        switch sectionType {
+        case .project, .label, .assignees, .milestone:
+            return 50
+        case .operation:
+            return 20
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return CGFloat.leastNonzeroMagnitude
+        if section == delegate?.sectionTypes.count ?? 0 - 1 {
+            return 30
+        } else {
+            return CGFloat.leastNonzeroMagnitude
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -236,6 +269,10 @@ extension ZLEditIssueView: UITableViewDelegate, UITableViewDataSource {
             headerView.fillWithData(viewData: (ZLLocalizedString(string: "Milestone", comment: ""), nil))
         case .project:
             headerView.fillWithData(viewData: (ZLLocalizedString(string: "Project", comment: ""), nil))
+        case .operation:
+            let view = UIView()
+            view.backgroundColor = .clear
+            return view
         }
         
         return headerView
@@ -245,6 +282,23 @@ extension ZLEditIssueView: UITableViewDelegate, UITableViewDataSource {
         let view = UIView()
         view.backgroundColor = .clear
         return view 
+    }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let sectionType = delegate?.sectionTypes[indexPath.section] else {
+            return
+        }
+        switch sectionType {
+        case let .operation(dataSources):
+            guard let cellData = dataSources[indexPath.row] as? ZLIssueOperateCellDataSource else {
+                return
+            }
+            delegate?.onOperationAction(type: cellData.opeationType)
+       
+        default:
+            break
+        }
     }
     
 }

@@ -223,3 +223,10 @@
 "No one assigned" = "No one assigned";
 "None yet" = "None yet";
 "No milestone" = "No milestone";
+
+"Issue_Close" = "Close Issue";
+"Issue_Reopen" = "Reopen Issue";
+"Issue_Subscribe" = "Subscribe Issue";
+"Issue_Unsubscribe" = "Unsubscribe Issue";
+"Issue_Lock" = "Lock Issue";
+"Issue_Unlock" = "Unlock Issue";

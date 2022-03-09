@@ -224,3 +224,10 @@
 "No one assigned" = "未分配受理人";
 "None yet" = "暂无";
 "No milestone" = "暂无里程碑";
+
+"Issue_Close" = "关闭问题";
+"Issue_Reopen" = "重新打开问题";
+"Issue_Subscribe" = "订阅问题";
+"Issue_Unsubscribe" = "取消订阅问题";
+"Issue_Lock" = "锁定问题";
+"Issue_Unlock" = "取消锁定问题";
