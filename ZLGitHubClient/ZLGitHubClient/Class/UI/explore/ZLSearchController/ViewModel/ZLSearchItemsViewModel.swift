@@ -32,10 +32,6 @@ class ZLSearchItemsViewModel: ZLBaseViewModel {
         self.searchItemsView = targetView
         self.searchItemsView?.delegate = self
 
-        if let navigationVC = self.viewController?.navigationController as? ZLBaseNavigationController {
-            self.searchItemsView?.segmentedListContainerView?.scrollView.panGestureRecognizer.require(toFail: navigationVC.zlInteractivePopGestureRecognizer)
-        }
-
         for i in 0...(ZLSearchItemsView.ZLSearchItemsTypes.count - 1) {
             let searchType = ZLSearchItemsView.ZLSearchItemsTypes[i]
             let githubItemListView = targetView.githubItemListViewArray[i]
