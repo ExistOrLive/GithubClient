@@ -8,7 +8,8 @@
 
 #import "ZLMainViewController.h"
 #import "ZLBaseNavigationController.h"
-#import "UIImage+Image.h"
+#import "UIImage+ZLExtension.h"
+
 @interface ZLMainViewController()
 
 @property(nonatomic, strong) ZLAssistButtonManager * assistManager;

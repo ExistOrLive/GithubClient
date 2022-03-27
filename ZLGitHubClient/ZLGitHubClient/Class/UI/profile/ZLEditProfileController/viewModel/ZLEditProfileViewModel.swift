@@ -7,7 +7,8 @@
 //
 
 import UIKit
-import SVProgressHUD
+import ZLBaseUI
+import ZLGitRemoteService
 
 class ZLEditProfileViewModel: ZLBaseViewModel {
 
@@ -41,7 +42,7 @@ class ZLEditProfileViewModel: ZLBaseViewModel {
 
         self.editProfileView?.endEditing(true)
 
-        SVProgressHUD.show()
+        ZLProgressHUD.show()
 
         let bio = self.editProfileView?.contentView?.personalDescTextView.text
         let company = self.editProfileView?.contentView?.companyTextField.text
@@ -54,15 +55,15 @@ class ZLEditProfileViewModel: ZLBaseViewModel {
                                                                               company: company,
                                                                               serialNumber: NSString.generateSerialNumber()) { (operationResultModel) in
 
-            SVProgressHUD.dismiss()
+            ZLProgressHUD.dismiss()
 
             if operationResultModel.result == true {
                 ZLLog_Info("update public profile success")
                 self.viewController?.navigationController?.popViewController(animated: true)
-                ZLToastView.showMessage("保存成功")
+                ZLToastView.showMessage(ZLLocalizedString(string: "Save_Success", comment: ""))
             } else {
                 ZLLog_Info("update public profile failed")
-                ZLToastView.showMessage("保存失败")
+                ZLToastView.showMessage(ZLLocalizedString(string: "Save_Fail", comment: ""))
             }
         }
 

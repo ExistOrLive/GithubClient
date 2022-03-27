@@ -88,6 +88,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIImage *) resizeImageWithSize:(CGSize) size;
 
+
+#pragma mark - originImage
+
+/**
+  返回未经渲染的原始图片
+ */
++ (UIImage *)imageOriginalName:(NSString *)imageName;
+
+#pragma mark - pure color
+
++ (UIImage *)imageWithColor:(UIColor *)color;
+
 @end
 
 NS_ASSUME_NONNULL_END

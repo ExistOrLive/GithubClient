@@ -180,5 +180,26 @@
     return [UIImage imageWithCGImage:image.CGImage scale:UIScreen.mainScreen.scale orientation:UIImageOrientationUp];
 }
 
+#pragma mark - 
+
+/**
+  返回未经渲染的原始图片
+ */
++ (UIImage *)imageOriginalName:(NSString *)imageName {
+    UIImage *image = [UIImage imageNamed:imageName];
+    return [image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+}
+
+
++ (UIImage *)imageWithColor:(UIColor *)color {
+    CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
 
 @end

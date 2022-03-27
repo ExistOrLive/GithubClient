@@ -45,14 +45,14 @@ class ZLUserOrOrgInfoController: ZLBaseViewController {
         }
         setSharedButton()
     }
-    
+
     func sendRequest() {
 
         let userOrOrgInfo =  ZLServiceManager.sharedInstance.userServiceModel?.getUserInfo(withLoginName: loginName ?? "",
                                                                                            serialNumber: NSString.generateSerialNumber()) { [weak self](resultModel) in
-            UIView.dismissProgressHUD()
-
+        
             guard let self = self else { return }
+            self.contentView.dismissProgressHUD()
 
             if resultModel.result == true {
 

@@ -50,11 +50,11 @@ class ZLReportController: ZLBaseViewController {
 
     @IBAction func onSubmitButtonClicked(_ sender: Any) {
 
-        SVProgressHUD.show()
+        ZLProgressHUD.show()
         weak var weakSelf = self
         ZLServiceManager.sharedInstance.userServiceModel?.blockUser(withLoginName: self.loginName ?? "", serialNumber: NSString.generateSerialNumber()) { (model) in
 
-            SVProgressHUD.dismiss()
+            ZLProgressHUD.dismiss()
 
             if model.result == true {
                 ZLToastView.showMessage(ZLLocalizedString(string: "Report Success", comment: ""))

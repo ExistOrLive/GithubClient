@@ -32,8 +32,8 @@ pod 'Umbrella/Firebase'
 
 # 刷新控件
 pod 'MJRefresh'
-# 转圈控件  https://github.com/SVProgressHUD/SVProgressHUD
-pod 'SVProgressHUD'
+# 转圈控件
+pod 'MBProgressHUD'
 # ToastView https://github.com/scalessec/Toast-Swift
 pod 'Toast-Swift'
 pod 'Toast'

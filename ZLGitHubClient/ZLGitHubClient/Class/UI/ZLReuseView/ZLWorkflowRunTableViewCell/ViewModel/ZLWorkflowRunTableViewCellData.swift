@@ -64,9 +64,9 @@ extension ZLWorkflowRunTableViewCellData: ZLWorkflowRunTableViewCellDelegate {
 //            let menuView = FWMenuView.menu(itemTitles: ["rerun","view log"], itemImageNames:nil, itemBlock: { (popupView, index, title) in
 //
 //                if index == 0 {
-//                    SVProgressHUD.show()
+//                    ZLProgressHUD.show()
 //                    ZLServiceManager.sharedInstance.repoServiceModel?.rerunRepoWorkflowRun(withFullName: self.repoFullName, workflowRunId: self.data.id_workflowrun ?? "", serialNumber: NSString.generateSerialNumber()) { (result : ZLOperationResultModel) in
-//                        SVProgressHUD.dismiss()
+//                        ZLProgressHUD.dismiss()
 //                        if result.result == true {
 //                            ZLToastView.showMessage("rerun success,please refresh")
 //                        } else {
@@ -84,9 +84,9 @@ extension ZLWorkflowRunTableViewCellData: ZLWorkflowRunTableViewCellDelegate {
 //            let menuView = FWMenuView.menu(itemTitles: ["cancel","view log"], itemImageNames:nil, itemBlock: { (popupView, index, title) in
 //
 //                if index == 0 {
-//                    SVProgressHUD.show()
+//                    ZLProgressHUD.show()
 //                    ZLServiceManager.sharedInstance.repoServiceModel?.cancelRepoWorkflowRun(withFullName: self.repoFullName, workflowRunId: self.data.id_workflowrun ?? "", serialNumber: NSString.generateSerialNumber()) { (result : ZLOperationResultModel) in
-//                        SVProgressHUD.dismiss()
+//                        ZLProgressHUD.dismiss()
 //                        if result.result == true {
 //                            ZLToastView.showMessage("cancel success,please refresh")
 //                        } else {

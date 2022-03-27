@@ -230,3 +230,6 @@
 "Issue_Unsubscribe" = "Unsubscribe Issue";
 "Issue_Lock" = "Lock Issue";
 "Issue_Unlock" = "Unlock Issue";
+
+"Save_Success" = "Save Success";
+"Save_Fail" = "Save Fail";

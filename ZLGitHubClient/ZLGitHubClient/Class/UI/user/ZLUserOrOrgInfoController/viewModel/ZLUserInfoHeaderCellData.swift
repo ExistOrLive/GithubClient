@@ -70,10 +70,10 @@ extension ZLUserInfoHeaderCellData {
 
     func followUser() {
 
-        SVProgressHUD.show()
+        ZLProgressHUD.show()
         ZLServiceManager.sharedInstance.userServiceModel?.followUser(withLoginName: data.loginName ?? "",
                                                                      serialNumber: NSString.generateSerialNumber()) {[weak self](resultModel: ZLOperationResultModel) in
-            SVProgressHUD.dismiss()
+            ZLProgressHUD.dismiss()
             guard let self = self else { return }
             if resultModel.result == true {
                 self._followStatus = true
@@ -88,10 +88,10 @@ extension ZLUserInfoHeaderCellData {
 
     func unfollowUser() {
 
-        SVProgressHUD.show()
+        ZLProgressHUD.show()
         ZLServiceManager.sharedInstance.userServiceModel?.unfollowUser(withLoginName: data.loginName ?? "",
                                                                        serialNumber: NSString.generateSerialNumber()) {[weak self](resultModel: ZLOperationResultModel) in
-            SVProgressHUD.dismiss()
+            ZLProgressHUD.dismiss()
             guard let self = self else { return }
             if resultModel.result {
                 self._followStatus = false
@@ -121,11 +121,11 @@ extension ZLUserInfoHeaderCellData {
 
     func BlockUser() {
 
-        SVProgressHUD.show()
+        ZLProgressHUD.show()
         ZLServiceManager.sharedInstance.userServiceModel?.blockUser(withLoginName: data.loginName ?? "",
                                                                     serialNumber: NSString.generateSerialNumber()) {[weak self](resultModel: ZLOperationResultModel) in
 
-            SVProgressHUD.dismiss()
+            ZLProgressHUD.dismiss()
             guard let self = self else { return }
             if resultModel.result == true {
                 self._blockStatus = true
@@ -139,11 +139,11 @@ extension ZLUserInfoHeaderCellData {
 
     func unBlockUser() {
 
-        SVProgressHUD.show()
+        ZLProgressHUD.show()
         ZLServiceManager.sharedInstance.userServiceModel?.unBlockUser(withLoginName: data.loginName ?? "",
                                                                       serialNumber: NSString.generateSerialNumber()) {[weak self](resultModel: ZLOperationResultModel) in
 
-            SVProgressHUD.dismiss()
+            ZLProgressHUD.dismiss()
             guard let self = self else { return }
             if resultModel.result {
                 self._blockStatus = false

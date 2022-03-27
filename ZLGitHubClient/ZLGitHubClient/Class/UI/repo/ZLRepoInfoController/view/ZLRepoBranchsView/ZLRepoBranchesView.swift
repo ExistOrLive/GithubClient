@@ -21,10 +21,10 @@ class ZLRepoBranchesView: ZLBaseView {
     private weak var popup: FFPopup?
 
     class func showRepoBranchedView(repoFullName: String, currentBranch: String, handle: ((String) -> Void)?) {
-        SVProgressHUD.show()
+        ZLProgressHUD.show()
         ZLServiceManager.sharedInstance.repoServiceModel?.getRepositoryBranchesInfo(withFullName: repoFullName, serialNumber: NSString.generateSerialNumber(), completeHandle: { (model: ZLOperationResultModel) in
 
-            SVProgressHUD.dismiss()
+            ZLProgressHUD.dismiss()
 
             if model.result == false {
                 guard let errorModel: ZLGithubRequestErrorModel = model.data as?  ZLGithubRequestErrorModel else {

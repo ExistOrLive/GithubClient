@@ -45,12 +45,12 @@ class ZLNotificationTableViewCellData: ZLGithubItemTableViewCellData {
 
                 if let notificationId = self.data.id_Notification {
 
-                    SVProgressHUD.show()
+                    ZLProgressHUD.show()
                     ZLServiceManager.sharedInstance.eventServiceModel?.markNotificationReaded(withNotificationId: notificationId,
                                                                                               serialNumber: NSString.generateSerialNumber()) { [weak self](result: ZLOperationResultModel) in
 
                         block(true)
-                        SVProgressHUD.dismiss()
+                        ZLProgressHUD.dismiss()
 
                         guard let self = self else {
                             return

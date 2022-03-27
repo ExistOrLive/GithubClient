@@ -35,6 +35,10 @@ class ZLEditIssueController: ZLBaseViewController {
         ZLEditIssueView()
     }()
 
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
 }
 
 extension ZLEditIssueController {
@@ -183,17 +187,19 @@ extension ZLEditIssueController {
                                                                             serialNumber: NSString.generateSerialNumber())
         { [weak self] result in
             
-            UIView.dismissProgressHUD()
+            guard let self = self else { return }
+            
+            self.view.dismissProgressHUD()
             
             if result.result {
                 guard let data = result.data as? IssueEditInfoQuery.Data else {
                     return
                 }
-                self?.data = data
-                self?.generateSubViewModel()
+                self.data = data
+                self.generateSubViewModel()
                 let title = data.repository?.issue?.title ?? ""
-                self?._titleEvent.accept(title)
-                self?.reloadView()
+                self._titleEvent.accept(title)
+                self.reloadView()
             } else {
                 guard let errorModel = result.data as? ZLGithubRequestErrorModel else {
                     return
@@ -220,13 +226,14 @@ extension ZLEditIssueController {
                               serialNumber: NSString.generateSerialNumber())
         { [weak self] resultModel in
             
-            UIView.dismissProgressHUD()
+            guard let self = self else { return }
+            
+            self.view.dismissProgressHUD()
             if resultModel.result {
-                self?.requestNewData()
+                self.requestNewData()
             } else {
                 ZLToastView.showMessage("Request Failed")
             }
-                
         }
     }
     
@@ -247,10 +254,10 @@ extension ZLEditIssueController {
                                                 subscribe: !isSubscribe,
                                                 serialNumber: NSString.generateSerialNumber())
         { [weak self] resultModel in
-            
-            UIView.dismissProgressHUD()
+            guard let self = self else { return }
+            self.view.dismissProgressHUD()
             if resultModel.result {
-                self?.requestNewData()
+                self.requestNewData()
             } else {
                 ZLToastView.showMessage("Request Failed")
             }
@@ -275,10 +282,10 @@ extension ZLEditIssueController {
                                   lock: !isLock,
                                   serialNumber: NSString.generateSerialNumber())
         { [weak self] resultModel in
-            
-            UIView.dismissProgressHUD()
+            guard let self = self else { return  }
+            self.view.dismissProgressHUD()
             if resultModel.result {
-                self?.requestNewData()
+                self.requestNewData()
             } else {
                 ZLToastView.showMessage("Request Failed")
             }

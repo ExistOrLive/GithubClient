@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import ZLBaseUI
+import ZLGitRemoteService
 
 class ZLFeedbackViewModel: ZLBaseViewModel {
 
@@ -16,7 +18,7 @@ class ZLFeedbackViewModel: ZLBaseViewModel {
 
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
 
-        guard let view: ZLFeedbackView = targetView as? ZLFeedbackView else {
+        guard let view = targetView as? ZLFeedbackView else {
             return
         }
         self.targetView = view
@@ -38,31 +40,45 @@ class ZLFeedbackViewModel: ZLBaseViewModel {
         let title = "Feedback: \(feedback ?? "")"
         let body = "\(feedback ?? "") \n >\(self.context ?? "")"
         let serialNumber = NSString.generateSerialNumber()
+        
+        #if DEBUG
+        let fullName = "MengAndJie/GithubClient"
+        #else
+        let fullName = "ExistOrLive/GithubClient"
+        #endif
 
-        weak var weakself = self
-        SVProgressHUD.show()
-        ZLServiceManager.sharedInstance.eventServiceModel?.createIssue(withFullName: "ExistOrLive/GithubClient", title: title, body: body, labels: nil, assignees: nil, serialNumber: serialNumber, completeHandle: { (resultModel: ZLOperationResultModel) in
-            SVProgressHUD.dismiss()
+        targetView?.showProgressHUD()
+        ZLServiceManager.sharedInstance.eventServiceModel?.createIssue(withFullName: fullName,
+                                                                       title: title,
+                                                                       body: body,
+                                                                       labels: nil,
+                                                                       assignees: nil,
+                                                                       serialNumber: serialNumber)
+        { [weak self] (resultModel: ZLOperationResultModel) in
+           
+            
+            guard let self = self else { return }
+            self.targetView?.dismissProgressHUD()
+            
             if resultModel.result == true {
-
                 ZLToastView .showMessage(ZLLocalizedString(string: "thanks for your feedback", comment: ""))
-                weakself?.viewController?.navigationController?.popViewController(animated: true)
+                self.viewController?.navigationController?.popViewController(animated: true)
 
             } else {
 
                 guard let errorModel: ZLGithubRequestErrorModel = resultModel.data as? ZLGithubRequestErrorModel else {
-                    ZLToastView .showMessage(ZLLocalizedString(string: "submission failed", comment: ""))
+                    ZLToastView.showMessage(ZLLocalizedString(string: "submission failed", comment: ""))
                     return
                 }
 
                 if errorModel.statusCode == 401 {
 
                 } else {
-                    ZLToastView .showMessage("\(ZLLocalizedString(string: "submission failed", comment: "")) Code[\(errorModel.statusCode )] Message[\(errorModel.message)]")
+                    ZLToastView.showMessage("\(ZLLocalizedString(string: "submission failed", comment: "")) Code[\(errorModel.statusCode )] Message[\(errorModel.message)]")
                 }
 
             }
-        })
+        }
 
     }
 

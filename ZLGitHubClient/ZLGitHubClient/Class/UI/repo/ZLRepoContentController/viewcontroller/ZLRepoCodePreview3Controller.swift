@@ -163,7 +163,7 @@ extension ZLRepoCodePreview3Controller {
 
     func sendQueryContentRequest() {
 
-        SVProgressHUD.show()
+        ZLProgressHUD.show()
 
         ZLServiceManager.sharedInstance.repoServiceModel?.getRepositoryFileHTMLInfo(withFullName: self.repoFullName,
                                                                                     path: self.contentModel.path,
@@ -172,14 +172,14 @@ extension ZLRepoCodePreview3Controller {
 
             if resultModel.result == false {
 
-                SVProgressHUD.dismiss()
+                ZLProgressHUD.dismiss()
                 self?.switchToWebVC()
                 return
             }
 
             guard let data: String = resultModel.data as? String else {
 
-                SVProgressHUD.dismiss()
+                ZLProgressHUD.dismiss()
                 self?.switchToWebVC()
                 return
             }
@@ -191,7 +191,7 @@ extension ZLRepoCodePreview3Controller {
 
     func sendRenderMakrdownRequest() {
 
-        SVProgressHUD.show()
+        ZLProgressHUD.show()
         ZLServiceManager.sharedInstance.repoServiceModel?.getRepositoryFileRawInfo(withFullName: self.repoFullName,
                                                                                    path: self.contentModel.path,
                                                                                    branch: self.branch,
@@ -200,13 +200,13 @@ extension ZLRepoCodePreview3Controller {
             guard let self = self else { return }
 
             if resultModel.result == false {
-                SVProgressHUD.dismiss()
+                ZLProgressHUD.dismiss()
                 self.switchToWebVC()
                 return
             }
 
             guard let data: String = resultModel.data as? String else {
-                SVProgressHUD.dismiss()
+                ZLProgressHUD.dismiss()
                 self.switchToWebVC()
                 return
             }
@@ -219,14 +219,14 @@ extension ZLRepoCodePreview3Controller {
 
                 if resultModel.result == false {
 
-                    SVProgressHUD.dismiss()
+                    ZLProgressHUD.dismiss()
                     self.switchToWebVC()
                     return
                 }
 
                 guard let data: String = resultModel.data as? String else {
 
-                    SVProgressHUD.dismiss()
+                    ZLProgressHUD.dismiss()
                     self.switchToWebVC()
                     return
                 }
@@ -286,7 +286,7 @@ extension ZLRepoCodePreview3Controller {
                 ZLToastView.showMessage("load Code index html failed")
             }
         }
-        SVProgressHUD.dismiss()
+        ZLProgressHUD.dismiss()
     }
 
     func getFileType(fileExtension: String) -> String {

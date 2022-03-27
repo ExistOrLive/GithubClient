@@ -76,8 +76,7 @@ class ZLNotificationViewModel: ZLBaseViewModel {
                                                                                        page: 1,
                                                                                        per_page: 20,
                                                                                        serialNumber: NSString.generateSerialNumber()) {[weak self](resultModel: ZLOperationResultModel) in
-
-            SVProgressHUD.dismiss()
+            self?.baseView?.dismissProgressHUD()
             if resultModel.result == false {
                 guard let errorModel: ZLGithubRequestErrorModel = resultModel.data as? ZLGithubRequestErrorModel else {
                     ZLToastView.showMessage("query Notification failed")
@@ -122,7 +121,7 @@ extension ZLNotificationViewModel: ZLNotificationViewDataSourceAndDelagate {
 
     func onFilterTypeChange(_ showAllNotification: Bool) {
         showAll = showAllNotification
-        SVProgressHUD.show()
+        baseView?.showProgressHUD()
         self.loadNewData()
     }
 

@@ -247,6 +247,7 @@
 		74CAB16925BBAE2A00CE26A4 /* ContributionWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CAB16825BBAE2A00CE26A4 /* ContributionWidget.swift */; };
 		74CC6031246C3E590076EE3C /* ZLIssueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CC602F246C3E590076EE3C /* ZLIssueTableViewCell.swift */; };
 		74CC6036246C51BD0076EE3C /* ZLIssueTableViewCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CC6035246C51BD0076EE3C /* ZLIssueTableViewCellData.swift */; };
+		74CCB11527EF8DDC0041EBF7 /* ZLProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CCB11427EF8DDC0041EBF7 /* ZLProgressHUD.swift */; };
 		74CCC436240D53560001AA5D /* ZLRepoHeaderInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CCC435240D53560001AA5D /* ZLRepoHeaderInfoViewModel.swift */; };
 		74CDA6812409833C00049EF8 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 74CDA67A2409833C00049EF8 /* index.html */; };
 		74CDA6822409833C00049EF8 /* main.css in Resources */ = {isa = PBXBuildFile; fileRef = 74CDA67B2409833C00049EF8 /* main.css */; };
@@ -264,12 +265,6 @@
 		74D3DF9725CBF12200BB11F2 /* UIView+HJViewStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3DF9325CBF12200BB11F2 /* UIView+HJViewStyle.m */; };
 		74D3DF9825CBF12200BB11F2 /* UIColor+ZLExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3DF9525CBF12200BB11F2 /* UIColor+ZLExtension.m */; };
 		74D3EFD2259BC6060002A2D3 /* ZLRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D3EF55259BC6050002A2D3 /* ZLRefresh.swift */; };
-		74D3EFD3259BC6060002A2D3 /* ZMRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3EF57259BC6050002A2D3 /* ZMRefreshView.m */; };
-		74D3EFD4259BC6060002A2D3 /* ZMRefreshManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3EF5B259BC6050002A2D3 /* ZMRefreshManager.m */; };
-		74D3EFD6259BC6060002A2D3 /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3EF5E259BC6050002A2D3 /* UIView+Frame.m */; };
-		74D3EFD7259BC6060002A2D3 /* UIImage+Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3EF5F259BC6050002A2D3 /* UIImage+Image.m */; };
-		74D3EFD8259BC6060002A2D3 /* UITextField+PlaceHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3EF61259BC6050002A2D3 /* UITextField+PlaceHolder.m */; };
-		74D3EFD9259BC6060002A2D3 /* UIBarButtonItem+Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3EF62259BC6050002A2D3 /* UIBarButtonItem+Item.m */; };
 		74D3EFDA259BC6060002A2D3 /* ZLCommonURLManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D3EF68259BC6050002A2D3 /* ZLCommonURLManager.swift */; };
 		74D3EFDB259BC6060002A2D3 /* ZLToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D3EF6B259BC6050002A2D3 /* ZLToastView.m */; };
 		74D3EFE7259BC6060002A2D3 /* ZLPageTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D3EF8C259BC6060002A2D3 /* ZLPageTabViewController.swift */; };
@@ -658,6 +653,7 @@
 		74CAB16825BBAE2A00CE26A4 /* ContributionWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributionWidget.swift; sourceTree = "<group>"; };
 		74CC602F246C3E590076EE3C /* ZLIssueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLIssueTableViewCell.swift; sourceTree = "<group>"; };
 		74CC6035246C51BD0076EE3C /* ZLIssueTableViewCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLIssueTableViewCellData.swift; sourceTree = "<group>"; };
+		74CCB11427EF8DDC0041EBF7 /* ZLProgressHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZLProgressHUD.swift; sourceTree = "<group>"; };
 		74CCC435240D53560001AA5D /* ZLRepoHeaderInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLRepoHeaderInfoViewModel.swift; sourceTree = "<group>"; };
 		74CDA67A2409833C00049EF8 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		74CDA67B2409833C00049EF8 /* main.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = main.css; sourceTree = "<group>"; };
@@ -682,19 +678,6 @@
 		74D3DF9525CBF12200BB11F2 /* UIColor+ZLExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+ZLExtension.m"; sourceTree = "<group>"; };
 		74D3DF9625CBF12200BB11F2 /* UIColor+ZLExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+ZLExtension.h"; sourceTree = "<group>"; };
 		74D3EF55259BC6050002A2D3 /* ZLRefresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZLRefresh.swift; sourceTree = "<group>"; };
-		74D3EF57259BC6050002A2D3 /* ZMRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMRefreshView.m; sourceTree = "<group>"; };
-		74D3EF58259BC6050002A2D3 /* ZMRefreshManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMRefreshManager.h; sourceTree = "<group>"; };
-		74D3EF59259BC6050002A2D3 /* ZMRefreshConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMRefreshConfig.h; sourceTree = "<group>"; };
-		74D3EF5A259BC6050002A2D3 /* ZMRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMRefreshView.h; sourceTree = "<group>"; };
-		74D3EF5B259BC6050002A2D3 /* ZMRefreshManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMRefreshManager.m; sourceTree = "<group>"; };
-		74D3EF5E259BC6050002A2D3 /* UIView+Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frame.m"; sourceTree = "<group>"; };
-		74D3EF5F259BC6050002A2D3 /* UIImage+Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Image.m"; sourceTree = "<group>"; };
-		74D3EF60259BC6050002A2D3 /* UIBarButtonItem+Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+Item.h"; sourceTree = "<group>"; };
-		74D3EF61259BC6050002A2D3 /* UITextField+PlaceHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+PlaceHolder.m"; sourceTree = "<group>"; };
-		74D3EF62259BC6050002A2D3 /* UIBarButtonItem+Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+Item.m"; sourceTree = "<group>"; };
-		74D3EF63259BC6050002A2D3 /* UIImage+Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Image.h"; sourceTree = "<group>"; };
-		74D3EF65259BC6050002A2D3 /* UIView+Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Frame.h"; sourceTree = "<group>"; };
-		74D3EF66259BC6050002A2D3 /* UITextField+PlaceHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+PlaceHolder.h"; sourceTree = "<group>"; };
 		74D3EF68259BC6050002A2D3 /* ZLCommonURLManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZLCommonURLManager.swift; sourceTree = "<group>"; };
 		74D3EF6A259BC6050002A2D3 /* ZLToastView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLToastView.h; sourceTree = "<group>"; };
 		74D3EF6B259BC6050002A2D3 /* ZLToastView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLToastView.m; sourceTree = "<group>"; };
@@ -1367,25 +1350,9 @@
 		743F180F2312664C00E39A95 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				74AB42B1274A616B0036EB37 /* NSAttributedString+Delarative */,
+				74CCB11027EF87F80041EBF7 /* UIKit */,
+				74CCB10F27EF87E40041EBF7 /* Foundation */,
 				74724C5B27414C5700A3D863 /* iconfont */,
-				749B608B27383D3D00B3989C /* UIColor+ZLExtension.swift */,
-				7456B726279470310033AFB1 /* UIView+ZLExtension.swift */,
-				74D3DF9625CBF12200BB11F2 /* UIColor+ZLExtension.h */,
-				74D3DF9525CBF12200BB11F2 /* UIColor+ZLExtension.m */,
-				74D3DF9425CBF12200BB11F2 /* UIView+HJViewStyle.h */,
-				74D3DF9325CBF12200BB11F2 /* UIView+HJViewStyle.m */,
-				74D3DF8625CBEE9300BB11F2 /* UIViewController+Tool.h */,
-				74D3DF8525CBEE9300BB11F2 /* UIViewController+Tool.m */,
-				74D141022700D3090082A539 /* NSDate+Localize.h */,
-				74D141032700D3090082A539 /* NSDate+Localize.m */,
-				749B6064273820B600B3989C /* UIFont+ZLExtension.swift */,
-				74FE05D7273051550039DCE3 /* UIFont+ZLExtension.h */,
-				74FE05D8273051550039DCE3 /* UIFont+ZLExtension.m */,
-				749B608D2738407F00B3989C /* UIImage+ZLExtension.h */,
-				749B608E2738407F00B3989C /* UIImage+ZLExtension.m */,
-				7456B7282795C9F80033AFB1 /* UITableView+ZLExtension.swift */,
-				7456B72A2795CAB20033AFB1 /* UICollectionVIew+ZLExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -2319,6 +2286,46 @@
 			path = viewModel;
 			sourceTree = "<group>";
 		};
+		74CCB10F27EF87E40041EBF7 /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				74AB42B1274A616B0036EB37 /* NSAttributedString+Delarative */,
+				74D141022700D3090082A539 /* NSDate+Localize.h */,
+				74D141032700D3090082A539 /* NSDate+Localize.m */,
+			);
+			path = Foundation;
+			sourceTree = "<group>";
+		};
+		74CCB11027EF87F80041EBF7 /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				749B608B27383D3D00B3989C /* UIColor+ZLExtension.swift */,
+				7456B726279470310033AFB1 /* UIView+ZLExtension.swift */,
+				74D3DF9625CBF12200BB11F2 /* UIColor+ZLExtension.h */,
+				74D3DF9525CBF12200BB11F2 /* UIColor+ZLExtension.m */,
+				74D3DF9425CBF12200BB11F2 /* UIView+HJViewStyle.h */,
+				74D3DF9325CBF12200BB11F2 /* UIView+HJViewStyle.m */,
+				74D3DF8625CBEE9300BB11F2 /* UIViewController+Tool.h */,
+				74D3DF8525CBEE9300BB11F2 /* UIViewController+Tool.m */,
+				749B6064273820B600B3989C /* UIFont+ZLExtension.swift */,
+				74FE05D7273051550039DCE3 /* UIFont+ZLExtension.h */,
+				74FE05D8273051550039DCE3 /* UIFont+ZLExtension.m */,
+				749B608D2738407F00B3989C /* UIImage+ZLExtension.h */,
+				749B608E2738407F00B3989C /* UIImage+ZLExtension.m */,
+				7456B7282795C9F80033AFB1 /* UITableView+ZLExtension.swift */,
+				7456B72A2795CAB20033AFB1 /* UICollectionVIew+ZLExtension.swift */,
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
+		74CCB11127EF889B0041EBF7 /* ZLProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				74CCB11427EF8DDC0041EBF7 /* ZLProgressHUD.swift */,
+			);
+			path = ZLProgressHUD;
+			sourceTree = "<group>";
+		};
 		74CCC433240D527B0001AA5D /* ZLRepoInfoViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -2415,9 +2422,9 @@
 		74D3EF52259BC6050002A2D3 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				74D3EF53259BC6050002A2D3 /* ZLUtils */,
 				7456B740279D6B2C0033AFB1 /* ZLProgressView */,
 				7486E04925A3A06B00EE38CB /* ZLFloatView */,
-				74D3EF53259BC6050002A2D3 /* ZLUtils */,
 				74D3EF8A259BC6060002A2D3 /* ZLCustomView */,
 				74D3EF97259BC6060002A2D3 /* ZLBase */,
 				74D3EFB4259BC6060002A2D3 /* CYPopoverView */,
@@ -2428,47 +2435,19 @@
 		74D3EF53259BC6050002A2D3 /* ZLUtils */ = {
 			isa = PBXGroup;
 			children = (
-				74D3EF54259BC6050002A2D3 /* ZLRefreshComponent */,
-				74D3EF56259BC6050002A2D3 /* ZMRefreshTools */,
-				74D3EF5C259BC6050002A2D3 /* Category */,
+				74CCB11127EF889B0041EBF7 /* ZLProgressHUD */,
+				74D3EF54259BC6050002A2D3 /* ZLRefresh */,
 				74D3EF69259BC6050002A2D3 /* ZLToastView */,
 			);
 			path = ZLUtils;
 			sourceTree = "<group>";
 		};
-		74D3EF54259BC6050002A2D3 /* ZLRefreshComponent */ = {
+		74D3EF54259BC6050002A2D3 /* ZLRefresh */ = {
 			isa = PBXGroup;
 			children = (
 				74D3EF55259BC6050002A2D3 /* ZLRefresh.swift */,
 			);
-			path = ZLRefreshComponent;
-			sourceTree = "<group>";
-		};
-		74D3EF56259BC6050002A2D3 /* ZMRefreshTools */ = {
-			isa = PBXGroup;
-			children = (
-				74D3EF57259BC6050002A2D3 /* ZMRefreshView.m */,
-				74D3EF58259BC6050002A2D3 /* ZMRefreshManager.h */,
-				74D3EF59259BC6050002A2D3 /* ZMRefreshConfig.h */,
-				74D3EF5A259BC6050002A2D3 /* ZMRefreshView.h */,
-				74D3EF5B259BC6050002A2D3 /* ZMRefreshManager.m */,
-			);
-			path = ZMRefreshTools;
-			sourceTree = "<group>";
-		};
-		74D3EF5C259BC6050002A2D3 /* Category */ = {
-			isa = PBXGroup;
-			children = (
-				74D3EF5E259BC6050002A2D3 /* UIView+Frame.m */,
-				74D3EF5F259BC6050002A2D3 /* UIImage+Image.m */,
-				74D3EF60259BC6050002A2D3 /* UIBarButtonItem+Item.h */,
-				74D3EF61259BC6050002A2D3 /* UITextField+PlaceHolder.m */,
-				74D3EF62259BC6050002A2D3 /* UIBarButtonItem+Item.m */,
-				74D3EF63259BC6050002A2D3 /* UIImage+Image.h */,
-				74D3EF65259BC6050002A2D3 /* UIView+Frame.h */,
-				74D3EF66259BC6050002A2D3 /* UITextField+PlaceHolder.h */,
-			);
-			path = Category;
+			path = ZLRefresh;
 			sourceTree = "<group>";
 		};
 		74D3EF67259BC6050002A2D3 /* ZLURLManager */ = {
@@ -2549,8 +2528,8 @@
 			isa = PBXGroup;
 			children = (
 				74D3EF9F259BC6060002A2D3 /* ZLRoundRectTextField.m */,
-				74D3EFA2259BC6060002A2D3 /* ZLPresentContainerView.h */,
 				74D3EFA4259BC6060002A2D3 /* ZLRoundRectTextField.h */,
+				74D3EFA2259BC6060002A2D3 /* ZLPresentContainerView.h */,
 				74D3EFA7259BC6060002A2D3 /* ZLPresentContainerView.m */,
 			);
 			path = View;
@@ -3331,6 +3310,7 @@
 				"${BUILT_PRODUCTS_DIR}/JJException/JJException.framework",
 				"${BUILT_PRODUCTS_DIR}/JXSegmentedView/JXSegmentedView.framework",
 				"${BUILT_PRODUCTS_DIR}/LookinServer/LookinServer.framework",
+				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/MJExtension/MJExtension.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
@@ -3339,7 +3319,6 @@
 				"${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
-				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SYDCentralPivot/SYDCentralPivot.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Toast/Toast.framework",
@@ -3384,6 +3363,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JJException.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JXSegmentedView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LookinServer.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJExtension.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
@@ -3392,7 +3372,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRelay.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SYDCentralPivot.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast.framework",
@@ -3465,7 +3444,6 @@
 				7456B74A279DC4AA0033AFB1 /* ZLIssueMileStoneCellData.swift in Sources */,
 				74FCBDA623142F1300DDE46A /* ZLEditProfileController.swift in Sources */,
 				7434CA852393EA1A00763220 /* ZLPushEventTableViewCellData.swift in Sources */,
-				74D3EFD6259BC6060002A2D3 /* UIView+Frame.m in Sources */,
 				74634D4F2766408500A042F4 /* ZLOrgInfoHeaderCellData.swift in Sources */,
 				743425C7230AC6AD0031AD7D /* ZLRepoInfoController.swift in Sources */,
 				74209D5424B66D820068891E /* ZLRepoLanguagesPercentView.swift in Sources */,
@@ -3540,12 +3518,12 @@
 				7444B2A62567C22400488EF0 /* ZLWorkboardBaseViewModel.swift in Sources */,
 				3693D8D12465236D00779FC4 /* ZLAboutContentView.swift in Sources */,
 				74C1920A239D317600636F24 /* ZLMyEventController.swift in Sources */,
-				74D3EFD3259BC6060002A2D3 /* ZMRefreshView.m in Sources */,
 				74EBF5AD275BE11F000CF72C /* ZLUserInfoHeaderCell.swift in Sources */,
 				749BA38B2472E7AD004F8F15 /* ZLLanguageSelectView.swift in Sources */,
 				7496BF4D2600CC8300DDD1BD /* ZLIssueCommentTableViewCell.swift in Sources */,
 				74D1410A2700D3B60082A539 /* ZLLanguageManager.m in Sources */,
 				74D3F002259BC6070002A2D3 /* CYInputPopoverView.m in Sources */,
+				74CCB11527EF8DDC0041EBF7 /* ZLProgressHUD.swift in Sources */,
 				7456B72B2795CAB20033AFB1 /* UICollectionVIew+ZLExtension.swift in Sources */,
 				366DB841241F3D70002A0896 /* ZLGithubItemListView.swift in Sources */,
 				74D55DE922FB0AAD004114BC /* ZLSearchRecordViewModel.swift in Sources */,
@@ -3555,7 +3533,6 @@
 				749DBC8A24B39F8200D02B2C /* ZLIssueCommentEventTableViewCellData.swift in Sources */,
 				74203A0824B1C676007DFC00 /* ZLCreateEventTableViewCellData.swift in Sources */,
 				743425D7230ACA740031AD7D /* ZLRepoHeaderInfoView.swift in Sources */,
-				74D3EFD7259BC6060002A2D3 /* UIImage+Image.m in Sources */,
 				743425CB230AC72E0031AD7D /* ZLRepoInfoView.swift in Sources */,
 				7486E04C25A3A07D00EE38CB /* ZLFloatView.m in Sources */,
 				366DB846241F4566002A0896 /* ZLCommitTableViewCellData.swift in Sources */,
@@ -3605,7 +3582,6 @@
 				7486E05125A3A98400EE38CB /* ZLAssistButtonManager.swift in Sources */,
 				74EF616824226C90008C8D27 /* ZLRepoBranchTableViewCell.swift in Sources */,
 				3693D8D4246523A400779FC4 /* ZLAboutViewModel.swift in Sources */,
-				74D3EFD9259BC6060002A2D3 /* UIBarButtonItem+Item.m in Sources */,
 				74E321DC254CB2CA006CE05D /* ZLAppearanceController.swift in Sources */,
 				742FE9022629DE55003C14DD /* ZLSearchFilterViewForIssue.swift in Sources */,
 				74C3F8CB22D1E3070086A3F9 /* ZLLoginViewController.swift in Sources */,
@@ -3645,7 +3621,6 @@
 				3628FCE6238CF1C600FC36FC /* ZLEventTableViewCellData.swift in Sources */,
 				74203A0424B1B862007DFC00 /* ZLCommitCommentEventTableViewCellData.swift in Sources */,
 				74C639E724B9031D00457F94 /* ZLWorkflowRunTableViewCellData.swift in Sources */,
-				74D3EFD4259BC6060002A2D3 /* ZMRefreshManager.m in Sources */,
 				74835FE7256BA7810083BE10 /* ZLMyIssuesView.swift in Sources */,
 				7456A2ED2416A31200222D6C /* ZLPullRequestTableViewCell.swift in Sources */,
 				7451F149247A99400047A186 /* ZLRepoForkedReposController.swift in Sources */,
@@ -3664,7 +3639,6 @@
 				74C639DB24B7DDA500457F94 /* ZLWorkflowTableViewCell.swift in Sources */,
 				7431B42922F5DDD70060968A /* ZLExploreBaseViewModel.swift in Sources */,
 				74D3DF9825CBF12200BB11F2 /* UIColor+ZLExtension.m in Sources */,
-				74D3EFD8259BC6060002A2D3 /* UITextField+PlaceHolder.m in Sources */,
 				74D7B5FD22F1398F00C109CA /* ZLUserAdditionInfoController.swift in Sources */,
 				7456B727279470310033AFB1 /* UIView+ZLExtension.swift in Sources */,
 				361B8B7F239FD35000F725B8 /* ZLStarReposBaseViewModel.m in Sources */,
@@ -3966,8 +3940,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OBJC_BRIDGING_HEADER = "ZLGitHubClient/System/ZLSupportFiles/ZLGitHubClient-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 arm64e i386 x86_64";

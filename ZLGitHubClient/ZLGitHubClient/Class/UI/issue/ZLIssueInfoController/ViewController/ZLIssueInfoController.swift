@@ -118,6 +118,7 @@ extension ZLIssueInfoController: ZLIssueInfoViewDelegateAndDataSource {
         guard let issueId = self.issueId else { return }
         if commentVC == nil {
             commentVC = ZLSubmitCommentController()
+            commentVC?.modalPresentationStyle = .fullScreen
         }
         commentVC?.issueId = issueId
         if let vc = commentVC {
@@ -130,6 +131,7 @@ extension ZLIssueInfoController: ZLIssueInfoViewDelegateAndDataSource {
         vc.loginName = login
         vc.repoName = repoName
         vc.number = number
+        vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
     }
     

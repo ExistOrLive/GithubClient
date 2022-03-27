@@ -157,7 +157,6 @@
     
     [[IQKeyboardManager sharedManager] setEnable:NO];
     
-    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeBlack];
     if([ZLDeviceInfo isIpad]){
         self.allowRotation = YES;    // iPad 允许旋转
     }

@@ -33,7 +33,7 @@ class ZLRepoIssuesViewModel: ZLBaseViewModel, ZLRepoIssuesViewDelegate {
 
     func onFilterTypeChange(_ open: Bool) {
         self.filterOpen = open
-        SVProgressHUD.show()
+        ZLProgressHUD.show()
         self.loadNewData()
     }
 }
@@ -42,7 +42,7 @@ extension ZLRepoIssuesViewModel {
     func loadNewData() {
 
         guard let fullName = self.fullName else {
-            SVProgressHUD.dismiss()
+            ZLProgressHUD.dismiss()
             self.baseView?.githubItemListView.endRefreshWithError()
             return
         }
@@ -53,7 +53,7 @@ extension ZLRepoIssuesViewModel {
                                                                               page: 1,
                                                                               serialNumber: NSString.generateSerialNumber()) { [weak weakSelf = self](resultModel: ZLOperationResultModel) in
 
-            SVProgressHUD.dismiss()
+            ZLProgressHUD.dismiss()
 
             if resultModel.result == false {
 
@@ -84,7 +84,7 @@ extension ZLRepoIssuesViewModel {
     func loadMoreData() {
 
         guard let fullName = self.fullName else {
-            SVProgressHUD.dismiss()
+            ZLProgressHUD.dismiss()
             self.baseView?.githubItemListView.endRefreshWithError()
             return
         }

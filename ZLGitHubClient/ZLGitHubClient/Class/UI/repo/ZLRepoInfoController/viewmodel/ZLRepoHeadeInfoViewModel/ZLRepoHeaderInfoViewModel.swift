@@ -235,10 +235,10 @@ extension ZLRepoHeaderInfoViewModel {
 
         if watch == true {
 
-            SVProgressHUD.show()
+            ZLProgressHUD.show()
             ZLServiceManager.sharedInstance.repoServiceModel?.watchRepo(withFullName: fullName,
                                                                         serialNumber: NSString.generateSerialNumber()) {[weak self](resultModel: ZLOperationResultModel) in
-                SVProgressHUD.dismiss()
+                ZLProgressHUD.dismiss()
                 if resultModel.result {
                     self?.repoHeaderInfoView?.watchButton.isSelected = true
                     ZLToastView.showMessage(ZLLocalizedString(string: "Watch Success", comment: ""))
@@ -248,10 +248,10 @@ extension ZLRepoHeaderInfoViewModel {
             }
 
         } else {
-            SVProgressHUD.show()
+            ZLProgressHUD.show()
             ZLServiceManager.sharedInstance.repoServiceModel?.unwatchRepo(withFullName: fullName,
                                                                           serialNumber: NSString.generateSerialNumber()) {[weak self](resultModel: ZLOperationResultModel) in
-                SVProgressHUD.dismiss()
+                ZLProgressHUD.dismiss()
                 if resultModel.result {
                     self?.repoHeaderInfoView?.watchButton.isSelected = false
                     ZLToastView.showMessage(ZLLocalizedString(string: "Unwatch Success", comment: ""))
@@ -287,11 +287,11 @@ extension ZLRepoHeaderInfoViewModel {
         }
 
         if star == true {
-            SVProgressHUD.show()
+            ZLProgressHUD.show()
 
             ZLServiceManager.sharedInstance.repoServiceModel?.starRepo(withFullName: fullName,
                                                                        serialNumber: NSString.generateSerialNumber()) {[weak self](resultModel: ZLOperationResultModel) in
-                SVProgressHUD.dismiss()
+                ZLProgressHUD.dismiss()
 
                 if resultModel.result {
                     self?.repoHeaderInfoView?.starButton.isSelected = true
@@ -302,10 +302,10 @@ extension ZLRepoHeaderInfoViewModel {
             }
 
         } else {
-            SVProgressHUD.show()
+            ZLProgressHUD.show()
             ZLServiceManager.sharedInstance.repoServiceModel?.unstarRepo(withFullName: fullName,
                                                                          serialNumber: NSString.generateSerialNumber()) {[weak self](resultModel: ZLOperationResultModel) in
-                SVProgressHUD.dismiss()
+                ZLProgressHUD.dismiss()
                 if resultModel.result {
                     self?.repoHeaderInfoView?.starButton.isSelected = false
                     ZLToastView.showMessage(ZLLocalizedString(string: "Unstar Success", comment: ""))
@@ -322,12 +322,12 @@ extension ZLRepoHeaderInfoViewModel {
             return
         }
 
-        SVProgressHUD.show()
+        ZLProgressHUD.show()
 
         ZLServiceManager.sharedInstance.repoServiceModel?.forkRepository(withFullName: fullName,
                                                                          org: nil,
                                                                          serialNumber: NSString.generateSerialNumber()) {(resultModel: ZLOperationResultModel) in
-            SVProgressHUD.dismiss()
+            ZLProgressHUD.dismiss()
 
             if resultModel.result {
                 ZLToastView.showMessage(ZLLocalizedString(string: "Fork Success", comment: "拷贝成功"))

@@ -8,6 +8,8 @@
 
 import UIKit
 import MJRefresh
+import ZLBaseUI
+import ZLGitRemoteService
 
 enum ZLSettingItemType: Int {
     case language
@@ -43,8 +45,8 @@ class ZLSettingViewModel: ZLBaseViewModel {
 
         var settingItemForFirstSection: [ZLSettingItemType] = [.language]
 
-        #if debug
-        settingItemForFirstSection.append(monitor)
+        #if DEBUG
+        settingItemForFirstSection.append(.monitor)
         #endif
         let currentLoginName = ZLServiceManager.sharedInstance.viewerServiceModel?.currentUserLoginName
         if ZLUISharedDataManager.enabledBlockFunction ||

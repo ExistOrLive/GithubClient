@@ -70,14 +70,14 @@ extension ZLSubmitCommentController: ZLSubmitCommentViewDelegate {
         
         guard let issueId = self.issueId else { return }
         
-        submitCommentView.showProgressHUD()
+        view.showProgressHUD()
         
         ZLServiceManager.sharedInstance.eventServiceModel?.addIssueComment(withIssueId: issueId,
                                                                            comment: comment,
                                                                            serialNumber: NSString.generateSerialNumber() ,
                                                                            completeHandle: { [weak self] model in
             guard let self = self else { return }
-            UIView.dismissProgressHUD()
+            self.view.dismissProgressHUD()
             
             if model.result {
                 if let data = model.data as? AddIssueCommentMutation.Data,

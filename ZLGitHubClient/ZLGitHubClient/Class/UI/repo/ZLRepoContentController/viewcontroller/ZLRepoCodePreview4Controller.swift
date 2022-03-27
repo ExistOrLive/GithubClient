@@ -90,21 +90,21 @@ extension ZLRepoCodePreview4Controller {
 
     func sendQueryContentRequest() {
 
-        SVProgressHUD.show()
+        ZLProgressHUD.show()
 
         ZLServiceManager.sharedInstance.repoServiceModel?.getRepositoryFileContent(withHTMLURL: self.contentModel.html_url,
                                                                                    branch: self.branch,
                                                                                    serialNumber: NSString.generateSerialNumber()) {[weak weakSelf = self](resultModel: ZLOperationResultModel) in
 
             if resultModel.result == false {
-                SVProgressHUD.dismiss()
+                ZLProgressHUD.dismiss()
                 weakSelf?.switchToWebVC()
                 return
             }
 
             guard let data: String = resultModel.data as? String else {
 
-                SVProgressHUD.dismiss()
+                ZLProgressHUD.dismiss()
                 weakSelf?.switchToWebVC()
                 return
             }
@@ -146,10 +146,10 @@ extension ZLRepoCodePreview4Controller {
 
             } catch {
                 ZLToastView.showMessage("load Code index html failed")
-                SVProgressHUD.dismiss()
+                ZLProgressHUD.dismiss()
             }
         } else {
-            SVProgressHUD.dismiss()
+            ZLProgressHUD.dismiss()
         }
     }
 
@@ -190,7 +190,7 @@ extension ZLRepoCodePreview4Controller: WKUIDelegate, WKNavigationDelegate {
             }
         }
 
-        SVProgressHUD.dismiss()
+        ZLProgressHUD.dismiss()
 
     }
 

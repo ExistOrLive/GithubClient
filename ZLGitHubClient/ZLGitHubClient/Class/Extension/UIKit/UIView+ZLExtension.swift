@@ -9,7 +9,6 @@
 import Foundation
 import FWPopupView
 import UIKit
-import SVProgressHUD
 
 extension UIView {
 
@@ -137,28 +136,16 @@ extension UIView {
 }
 
 
-// MARK: SVProgressHUD
+// MARK: ProgressHUD
 
 extension UIView {
     
-    func showProgressHUD(style: SVProgressHUDStyle = .light,
-                         maskType: SVProgressHUDMaskType = .black,
-                         animationType: SVProgressHUDAnimationType = .flat) {
-        SVProgressHUD.setDefaultStyle(style)
-        SVProgressHUD.setDefaultMaskType(maskType)
-        SVProgressHUD.setDefaultAnimationType(animationType)
-        SVProgressHUD.setContainerView(self)
-        SVProgressHUD.setOffsetFromCenter(UIOffset(horizontal: 0, vertical: -100))
-        SVProgressHUD.show()
-        
+    func showProgressHUD() {
+        ZLProgressHUD.show(view: self, animated: true)
     }
     
-    static func dismissProgressHUD() {
-        SVProgressHUD.dismiss()
-        SVProgressHUD.setDefaultStyle(.light)
-        SVProgressHUD.setDefaultMaskType(.black)
-        SVProgressHUD.setDefaultAnimationType(.flat)
-        SVProgressHUD.setContainerView(nil)
+    func dismissProgressHUD() {
+        ZLProgressHUD.dismiss(view: self, animated: true)
     }
 }
 

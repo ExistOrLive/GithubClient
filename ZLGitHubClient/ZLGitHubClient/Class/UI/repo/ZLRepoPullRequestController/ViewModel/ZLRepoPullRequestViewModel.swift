@@ -33,7 +33,7 @@ class ZLRepoPullRequestViewModel: ZLBaseViewModel, ZLRepoPullRequestViewDelegate
 
     func onFilterTypeChange(_ open: Bool) {
         self.filterOpen = open
-        SVProgressHUD.show()
+        ZLProgressHUD.show()
         self.loadNewData()
     }
 
@@ -53,7 +53,7 @@ extension ZLRepoPullRequestViewModel {
         guard let fullName = self.fullName else {
 
             ZLToastView.showMessage("Repo fullName is nil")
-            SVProgressHUD.dismiss()
+            ZLProgressHUD.dismiss()
             self.pullRequestView?.githubItemListView.endRefreshWithError()
             return
         }
@@ -64,7 +64,7 @@ extension ZLRepoPullRequestViewModel {
                                                                              page: 1 ,
                                                                              serialNumber: NSString.generateSerialNumber()) {[weak weakSelf = self] (resultModel: ZLOperationResultModel) in
 
-            SVProgressHUD.dismiss()
+            ZLProgressHUD.dismiss()
 
             if resultModel.result == false {
 
@@ -95,7 +95,7 @@ extension ZLRepoPullRequestViewModel {
         guard let fulleName = self.fullName else {
 
             ZLToastView.showMessage("Repo fullName is nil")
-            SVProgressHUD.dismiss()
+            ZLProgressHUD.dismiss()
             self.pullRequestView?.githubItemListView.endRefreshWithError()
             return
         }

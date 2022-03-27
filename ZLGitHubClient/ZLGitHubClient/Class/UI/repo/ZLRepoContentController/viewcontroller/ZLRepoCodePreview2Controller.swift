@@ -52,16 +52,16 @@ class ZLRepoCodePreview2Controller: ZLBaseViewController {
     }
 
     func sendQueryContentRequest() {
-        SVProgressHUD.show()
+        ZLProgressHUD.show()
         weak var weakSelf = self
 
         ZLServiceManager.sharedInstance.repoServiceModel?.getRepositoryFileInfo(withFullName: self.repoFullName, path: self.path, branch: self.branch, serialNumber: NSString.generateSerialNumber(), completeHandle: {(resultModel: ZLOperationResultModel) in
-            SVProgressHUD.dismiss()
+            ZLProgressHUD.dismiss()
 
             if resultModel.result == false {
                 let errorModel = resultModel.data as? ZLGithubRequestErrorModel
                 ZLToastView.showMessage("Query content Failed Code [\(errorModel?.statusCode ?? 0)] Message[\(errorModel?.message ?? "")]")
-                SVProgressHUD.dismiss()
+                ZLProgressHUD.dismiss()
                 return
             }
 

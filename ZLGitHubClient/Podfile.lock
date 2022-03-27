@@ -189,6 +189,7 @@ PODS:
   - Kanna (5.2.7)
   - LookinServer (1.0.4)
   - Masonry (1.1.0)
+  - MBProgressHUD (1.2.0)
   - MJExtension (3.4.1)
   - MJRefresh (3.7.5)
   - nanopb (2.30908.0):
@@ -208,7 +209,6 @@ PODS:
     - SDWebImage/Core (= 5.0.6)
   - SDWebImage/Core (5.0.6)
   - SnapKit (4.0.1)
-  - SVProgressHUD (2.2.5)
   - SYDCentralPivot (1.4.1):
     - SYDCentralPivot/Core (= 1.4.1)
     - SYDCentralPivot/VC (= 1.4.1)
@@ -263,6 +263,7 @@ DEPENDENCIES:
   - Kanna (~> 5.2.2)
   - LookinServer
   - Masonry
+  - MBProgressHUD
   - MJRefresh
   - pop (~> 1.0)
   - RxCocoa
@@ -270,7 +271,6 @@ DEPENDENCIES:
   - RxSwift
   - SDWebImage (~> 5.0.0)
   - SnapKit (~> 4.0.0)
-  - SVProgressHUD
   - SYDCentralPivot
   - Toast
   - Toast-Swift
@@ -319,6 +319,7 @@ SPEC REPOS:
     - Kanna
     - LookinServer
     - Masonry
+    - MBProgressHUD
     - MJExtension
     - MJRefresh
     - nanopb
@@ -329,7 +330,6 @@ SPEC REPOS:
     - RxSwift
     - SDWebImage
     - SnapKit
-    - SVProgressHUD
     - SYDCentralPivot
     - Toast
     - Toast-Swift
@@ -349,7 +349,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   ZLBaseUI:
-    :commit: 0b5babc9a48a1990967bb2aa86f44d3a484635f2
+    :commit: c47d65b77c7bc5e2e8568b0ebaab0e3b0fa5fd3e
     :git: https://github.com/ExistOrLive/ZLBaseUI.git
   ZLGithubOAuth:
     :git: https://github.com/ExistOrLive/ZLGithubOAuth.git
@@ -393,6 +393,7 @@ SPEC CHECKSUMS:
   Kanna: 01cfbddc127f5ff0963692f285fcbc8a9d62d234
   LookinServer: 743c1681771d0a8dcc38825325a080c3186404a5
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   MJExtension: 21c5f6f8c4d5d8844b7ae8fbae08fed0b501f961
   MJRefresh: fdf5e979eb406a0341468932d1dfc8b7f9fce961
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
@@ -403,7 +404,6 @@ SPEC CHECKSUMS:
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
   SDWebImage: 920f1a2ff1ca8296ad34f6e0510a1ef1d70ac965
   SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
-  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SYDCentralPivot: 744303ae0997af1b829fab7ef9772bba692222bd
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
@@ -415,6 +415,6 @@ SPEC CHECKSUMS:
   ZLGithubOAuth: 2d9879eac1d41d45206e6e92463afae2537ec44d
   ZLGitRemoteService: 3a3fe9f9d831675909632ef61650e7b382481c81
 
-PODFILE CHECKSUM: a6f9ef86d63b4da8edb9f928127f3954f850ca85
+PODFILE CHECKSUM: be8f9be285aa3405eada0d1e6abbcdc8e1a3e2a7
 
 COCOAPODS: 1.11.2
