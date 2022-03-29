@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import YYText
 
 @objc protocol ZLEventTableViewCellDelegate: NSObjectProtocol {
     func onAvatarClicked()

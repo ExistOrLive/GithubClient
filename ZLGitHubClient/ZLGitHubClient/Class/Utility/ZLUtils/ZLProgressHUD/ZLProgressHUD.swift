@@ -9,7 +9,7 @@
 import UIKit
 import MBProgressHUD
 
-class ZLProgressHUD: NSObject {
+@objcMembers class ZLProgressHUD: NSObject {
     
     class func show() {
         self.show(view: nil, animated: true)
@@ -20,19 +20,14 @@ class ZLProgressHUD: NSObject {
     }
     
     class func show(view: UIView?, animated: Bool) {
-        var hud: MBProgressHUD? = nil
         if let view = view {
-            hud = MBProgressHUD.showAdded(to: view, animated: animated)
+            MBProgressHUD.showAdded(to: view, animated: animated)
         } else {
             if let window = UIApplication.shared.delegate?.window,
                let window = window {
-                hud = MBProgressHUD.showAdded(to: window, animated: animated)
+                MBProgressHUD.showAdded(to: window, animated: animated)
             }
         }
-//        hud?.bezelView.blurEffectStyle = .extraDark
-//        if getRealUserInterfaceStyle() == .dark {
-//            hud?.bezelView.blurEffectStyle = .light
-//        }
     }
     
     class func dismiss(view: UIView?, animated: Bool) {

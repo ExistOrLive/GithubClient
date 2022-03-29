@@ -8,6 +8,7 @@
 
 #import "UIFont+IconFont.h"
 #import "UIFont+ZLExtension.h"
+#import <CoreText/CoreText.h>
 @implementation UIFont (IconFont)
 
 + (UIFont *) iconFontWithSize:(CGFloat)size {

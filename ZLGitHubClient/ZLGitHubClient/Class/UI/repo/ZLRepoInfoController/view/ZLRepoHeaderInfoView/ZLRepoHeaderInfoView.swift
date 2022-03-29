@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import YYText
 
 @objc enum ZLRepoHeaderInfoViewEvent: Int {         // 在enum之前加@objc 可以转换为objc enum
     case issue = 1

@@ -10,7 +10,7 @@ import UIKit
 
 class ZLIssueTimelineTableViewCellData: ZLGithubItemTableViewCellData {
 
-    typealias IssueTimelineData = IssueInfoQuery.Data.Repository.Issue.TimelineItem.Node
+    typealias IssueTimelineData = IssueTimeLineInfoQuery.Data.Repository.Issue.TimelineItem.Node
 
     let data: IssueTimelineData
 

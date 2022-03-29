@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FFPopup
 
 class ZLInputAccessTokenView: ZLBaseView {
 

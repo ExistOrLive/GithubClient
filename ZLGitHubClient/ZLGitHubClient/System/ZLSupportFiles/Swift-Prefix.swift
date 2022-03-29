@@ -12,7 +12,6 @@ import CocoaLumberjack
 import SDWebImage
 import SnapKit
 import MJRefresh
-import Toast_Swift
 import JXSegmentedView
 import Charts
 import ZLGitRemoteService

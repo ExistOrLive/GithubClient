@@ -9,6 +9,97 @@
 import UIKit
 import MJRefresh
 
+enum ZLRefreshViewType: Int {
+    case header
+    case footer
+}
+
+protocol ZLRefreshProtocol: NSObjectProtocol {
+    
+    var scrollView: UIScrollView { get }
+    
+    func setRefreshView(type: ZLRefreshViewType)
+    
+    func hiddenRefreshView(type: ZLRefreshViewType)
+    
+    func showRefreshView(type: ZLRefreshViewType)
+    
+    
+    func beginRefreshView(type: ZLRefreshViewType)
+    
+    func endRefreshView(type: ZLRefreshViewType)
+    
+    func endRefreshFooterWithNoMoreData()
+    
+    func resetRefreshFooter()
+    
+    
+    func refreshLoadNewData()
+    
+    func refreshLoadMoreData()
+}
+
+extension ZLRefreshProtocol {
+   
+    func setRefreshView(type: ZLRefreshViewType) {
+        if type == .footer {
+            scrollView.mj_footer = ZLRefresh.refreshFooter { [weak self] in
+                self?.refreshLoadMoreData()
+            }
+        } else if type == .header {
+            scrollView.mj_header = ZLRefresh.refreshHeader { [weak self] in
+                self?.refreshLoadNewData()
+            }
+        }
+    }
+    
+    func hiddenRefreshView(type: ZLRefreshViewType) {
+        if type == .footer {
+            scrollView.mj_footer?.isHidden = true
+        } else if type == .header {
+            scrollView.mj_header?.isHidden = true
+        }
+    }
+    
+    func showRefreshView(type: ZLRefreshViewType) {
+        if type == .footer {
+            scrollView.mj_footer?.isHidden = false
+        } else if type == .header {
+            scrollView.mj_header?.isHidden = false
+        }
+    }
+    
+    func beginRefreshView(type: ZLRefreshViewType) {
+        if type == .footer {
+            scrollView.mj_footer?.beginRefreshing()
+        } else if type == .header {
+            scrollView.mj_header?.beginRefreshing()
+        }
+    }
+    
+    func endRefreshView(type: ZLRefreshViewType) {
+        if type == .footer {
+            scrollView.mj_footer?.endRefreshing()
+        } else if type == .header {
+            scrollView.mj_header?.endRefreshing()
+        }
+    }
+    
+    func endRefreshFooterWithNoMoreData() {
+        scrollView.mj_footer?.endRefreshingWithNoMoreData()
+    }
+    
+    func resetRefreshFooter() {
+        scrollView.mj_footer?.resetNoMoreData()
+    }
+    
+}
+
+
+
+
+
+
 @objcMembers class ZLRefresh: NSObject {
 
     static func refreshHeader(refreshingBlock:@escaping MJRefreshComponentAction) -> MJRefreshHeader {

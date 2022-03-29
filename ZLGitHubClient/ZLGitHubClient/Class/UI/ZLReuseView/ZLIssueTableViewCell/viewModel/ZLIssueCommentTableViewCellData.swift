@@ -11,7 +11,7 @@ import WebKit
 
 class ZLIssueCommentTableViewCellData: ZLGithubItemTableViewCellData {
 
-    typealias IssueCommentData = IssueInfoQuery.Data.Repository.Issue.TimelineItem.Node.AsIssueComment
+    typealias IssueCommentData = IssueTimeLineInfoQuery.Data.Repository.Issue.TimelineItem.Node.AsIssueComment
 
     let data: IssueCommentData
 

@@ -16,9 +16,7 @@ protocol ZLIssueInfoViewDelegateAndDataSource: NSObjectProtocol {
     // Observable
     var errorObservable: Observable<Void> { get }
     
-    var resetObservable: Observable<[ZLGithubItemTableViewCellData]> { get }
-    
-    var appendObservable: Observable<[ZLGithubItemTableViewCellData]> { get }
+    var setObservable: Observable<([ZLGithubItemTableViewCellData],Bool)> { get }
     
     var reloadVisibleCellObservale: Observable<[ZLGithubItemTableViewCellData]> { get }
     
@@ -41,7 +39,7 @@ class ZLIssueInfoView: ZLBaseView {
     // Rx
     private let disposeBag = DisposeBag()
     private var errorDisposable: Disposable?
-    private var resetDisposable: Disposable?
+    private var setDisposable: Disposable?
     private var appendDisposable: Disposable?
     private var reloadVisibleCellDisposable: Disposable?
     private var canReactDisposable: Disposable?
@@ -102,7 +100,7 @@ extension ZLIssueInfoView {
     func fillWithData(viewData: ZLIssueInfoViewDelegateAndDataSource) {
         
         errorDisposable?.dispose()
-        resetDisposable?.dispose()
+        setDisposable?.dispose()
         appendDisposable?.dispose()
         reloadVisibleCellDisposable?.dispose()
         canReactDisposable?.dispose()
@@ -114,15 +112,13 @@ extension ZLIssueInfoView {
             self.itemListView.endRefreshWithError()
         }, onError: nil, onCompleted: nil, onDisposed: nil)
         
-        resetDisposable = viewData.resetObservable.share().subscribe(onNext: { [weak self] element in
+        setDisposable = viewData.setObservable.share().subscribe(onNext: { [weak self] element in
+            let (cellDatas,lastPage) = element
             guard let self = self else { return }
-            self.itemListView.resetCellDatas(cellDatas: element)
+            self.itemListView.setCellDatas(cellDatas: cellDatas,lastPage: lastPage)
         }, onError: nil, onCompleted: nil, onDisposed: nil)
         
-        appendDisposable = viewData.appendObservable.share().subscribe(onNext: { [weak self] element in
-            guard let self = self else { return }
-            self.itemListView.appendCellDatas(cellDatas: element)
-        }, onError: nil, onCompleted: nil, onDisposed: nil)
+       
         
         reloadVisibleCellDisposable = viewData.reloadVisibleCellObservale.share().subscribe(onNext: { [weak self] element in
             guard let self = self else { return }
@@ -132,7 +128,7 @@ extension ZLIssueInfoView {
         canReactDisposable = viewData.canReactObservale.share().bind(to: bottomView.commentButton.rx.isEnabled)
         
         errorDisposable?.disposed(by: disposeBag)
-        resetDisposable?.disposed(by: disposeBag)
+        setDisposable?.disposed(by: disposeBag)
         appendDisposable?.disposed(by: disposeBag)
         reloadVisibleCellDisposable?.disposed(by: disposeBag)
         canReactDisposable?.disposed(by: disposeBag)

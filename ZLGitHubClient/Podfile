@@ -35,7 +35,6 @@ pod 'MJRefresh'
 # 转圈控件
 pod 'MBProgressHUD'
 # ToastView https://github.com/scalessec/Toast-Swift
-pod 'Toast-Swift'
 pod 'Toast'
 # pageView控件 https://github.com/pujiaxin33/JXSegmentedView
 pod 'JXSegmentedView'

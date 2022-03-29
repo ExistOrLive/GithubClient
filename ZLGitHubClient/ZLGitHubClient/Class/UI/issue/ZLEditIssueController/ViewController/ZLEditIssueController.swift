@@ -18,6 +18,8 @@ class ZLEditIssueController: ZLBaseViewController {
     var repoName: String?
     var number: Int = 0
     
+    var refreshStatusBlock: (() -> Void)?
+    
     private var data: IssueEditInfoQuery.Data?
     
     private var _sectionType = [ZLEditIssueSectionType]()
@@ -231,6 +233,7 @@ extension ZLEditIssueController {
             self.view.dismissProgressHUD()
             if resultModel.result {
                 self.requestNewData()
+                self.refreshStatusBlock?()
             } else {
                 ZLToastView.showMessage("Request Failed")
             }

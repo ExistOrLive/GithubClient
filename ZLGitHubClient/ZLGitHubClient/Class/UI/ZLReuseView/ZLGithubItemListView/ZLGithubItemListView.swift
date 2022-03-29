@@ -8,13 +8,14 @@
 
 import UIKit
 import MJRefresh
+import ZLBaseUI
 
 @objc protocol ZLGithubItemListViewDelegate: NSObjectProtocol {
     func githubItemListViewRefreshDragDown(pullRequestListView: ZLGithubItemListView)
     func githubItemListViewRefreshDragUp(pullRequestListView: ZLGithubItemListView)
 }
 
-@objcMembers class ZLGithubItemListView: ZLBaseView {
+@objc class ZLGithubItemListView: ZLBaseView {
 
     // view
     private lazy var tableView: UITableView = {
@@ -25,24 +26,52 @@ import MJRefresh
         tableView.dataSource = self
         return tableView
     }()
-    private var noDataView: UIView?
+    private lazy var noDataView: UIView = {
+        let view = UIView.init()
+        view.backgroundColor = UIColor.clear
+
+        let tagLabel = UILabel()
+        tagLabel.textColor = ZLRGBValue_H(colorValue: 0x999999)
+        tagLabel.textAlignment = .center
+        tagLabel.font = .zlIconFont(withSize: 45)
+        tagLabel.text = ZLIconFont.NoData.rawValue
+        view.addSubview(tagLabel)
+        tagLabel.snp.makeConstraints({ (make) in
+            make.size.equalTo(CGSize.init(width: 70, height: 60))
+            make.top.left.right.equalToSuperview()
+        })
+
+        let label = UILabel.init()
+        label.text = "No Data"
+        label.textColor = ZLRGBValue_H(colorValue: 0x999999)
+        label.font = .zlSemiBoldFont(withSize: 15)
+        label.textAlignment = .center
+        view.addSubview(label)
+        label.snp.makeConstraints({(make) in
+            make.top.equalTo(tagLabel.snp.bottom).offset(15)
+            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview()
+        })
+
+        return view
+    }()
 
     // viewModel
     private var cellDatas: [ZLGithubItemTableViewCellData] = []
 
     // delegate
-    weak var delegate: ZLGithubItemListViewDelegate?
+    @objc weak var delegate: ZLGithubItemListViewDelegate?
 
-    override init(frame: CGRect) {
+    @objc override init(frame: CGRect) {
         super.init(frame: frame)
         self.setUpUI()
     }
 
-    convenience init() {
+    @objc convenience init() {
         self.init(frame: CGRect())
     }
 
-    required init?(coder: NSCoder) {
+    @objc required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.setUpUI()
     }
@@ -63,12 +92,18 @@ import MJRefresh
 
     private func setUpUI() {
 
-        self.addSubview(self.tableView)
-        self.tableView.snp.makeConstraints({ (make) in
+        addSubview(self.tableView)
+        tableView.snp.makeConstraints({ (make) in
             make.edges.equalTo(self.snp_edges).inset(UIEdgeInsets.init(top: 10, left: 0, bottom: 0, right: 0))
         })
+        
+        addSubview(noDataView)
+        noDataView.snp.makeConstraints({(make) in
+            make.center.equalToSuperview()
+        })
+
+        noDataView.isHidden = true
         self.tableViewRegistereCell()
-        self.setNoDataView()
     }
 
     private func tableViewRegistereCell() {
@@ -99,73 +134,19 @@ import MJRefresh
         self.tableView.register(ZLPullRequestCommentTableViewCell.self, forCellReuseIdentifier: "ZLPullRequestCommentTableViewCell")
         self.tableView.register(ZLPullRequestTimelineTableViewCell.self, forCellReuseIdentifier: "ZLPullRequestTimelineTableViewCell")
     }
-
-    private func setNoDataView() {
-        let view = UIView.init()
-        view.backgroundColor = UIColor.clear
-
-        let tagLabel = UILabel()
-        tagLabel.textColor = ZLRGBValue_H(colorValue: 0x999999)
-        tagLabel.textAlignment = .center
-        tagLabel.font = .zlIconFont(withSize: 45)
-        tagLabel.text = ZLIconFont.NoData.rawValue
-        view.addSubview(tagLabel)
-        tagLabel.snp.makeConstraints({ (make) in
-            make.size.equalTo(CGSize.init(width: 70, height: 60))
-            make.top.left.right.equalToSuperview()
-        })
-
-        let label = UILabel.init()
-        label.text = "No Data"
-        label.textColor = ZLRGBValue_H(colorValue: 0x999999)
-        label.font = .zlSemiBoldFont(withSize: 15)
-        label.textAlignment = .center
-        view.addSubview(label)
-        label.snp.makeConstraints({(make) in
-            make.top.equalTo(tagLabel.snp.bottom).offset(15)
-            make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview()
-        })
-
-        self.addSubview(view)
-        view.snp.makeConstraints({(make) in
-            make.center.equalToSuperview()
-        })
-
-        noDataView = view
-        view.isHidden = true
-    }
-
-    func setTableViewHeader() {
-        self.tableView.mj_header = ZLRefresh.refreshHeader(refreshingBlock: { [weak selfWeak = self] in
-            selfWeak?.loadNewData()
-        })
-    }
-
-    func setTableViewFooter() {
-        self.tableView.mj_footer = ZLRefresh.refreshFooter(refreshingBlock: { [weak selfWeak = self] in
-            selfWeak?.loadMoreData()
-        })
-    }
-
-    func deleteGithubItem(cellData: ZLGithubItemTableViewCellData) {
-        cellData.removeFromSuperViewModel()
-        let index = cellDatas.firstIndex(of: cellData)
-        if let index = index {
-            cellDatas.remove(at: index)
-            self.tableView.deleteRows(at: [IndexPath.init(row: index, section: 0)], with: UITableView.RowAnimation.fade)
-        }
-    }
-
-    func itemCount() -> Int {
-        self.cellDatas.count
-    }
 }
 
 extension ZLGithubItemListView: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let num =  self.cellDatas.count
-        self.noDataView?.isHidden = (num != 0)
+        if num == 0 {
+            self.noDataView.isHidden = false
+            self.hiddenRefreshView(type: .footer)
+        } else {
+            self.noDataView.isHidden = true
+            self.showRefreshView(type: .footer)
+        }
         return num
     }
 
@@ -195,14 +176,20 @@ extension ZLGithubItemListView: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension ZLGithubItemListView {
-    func loadNewData() {
+
+extension ZLGithubItemListView: ZLRefreshProtocol {
+    
+    var scrollView: UIScrollView {
+        tableView
+    }
+    
+    func refreshLoadNewData() {
         if self.delegate?.responds(to: #selector(ZLGithubItemListViewDelegate.githubItemListViewRefreshDragDown(pullRequestListView:))) ?? false {
             self.delegate?.githubItemListViewRefreshDragDown(pullRequestListView: self)
         }
     }
-
-    func loadMoreData() {
+    
+    func refreshLoadMoreData() {
         if self.delegate?.responds(to: #selector(ZLGithubItemListViewDelegate.githubItemListViewRefreshDragUp(pullRequestListView:))) ?? false {
             self.delegate?.githubItemListViewRefreshDragUp(pullRequestListView: self)
         }
@@ -210,35 +197,73 @@ extension ZLGithubItemListView {
 }
 
 extension ZLGithubItemListView {
-    func resetCellDatas(cellDatas: [ZLGithubItemTableViewCellData]?) {
-        self.tableView.mj_header?.endRefreshing()
-        self.tableView.mj_footer?.endRefreshing()
+    
+    @objc func setTableViewHeader() {
+        self.setRefreshView(type: .header)
+    }
+
+    @objc  func setTableViewFooter() {
+        self.setRefreshView(type: .footer)
+        self.hiddenRefreshView(type: .footer)
+    }
+
+    @objc  func deleteGithubItem(cellData: ZLGithubItemTableViewCellData) {
+        cellData.removeFromSuperViewModel()
+        let index = cellDatas.firstIndex(of: cellData)
+        if let index = index {
+            cellDatas.remove(at: index)
+            self.tableView.deleteRows(at: [IndexPath.init(row: index, section: 0)], with: UITableView.RowAnimation.fade)
+        }
+    }
+
+    @objc func itemCount() -> Int {
+        self.cellDatas.count
+    }
+    
+    @objc func setCellDatas(cellDatas: [ZLGithubItemTableViewCellData], lastPage: Bool) {
+        endRefreshView(type: .header)
+        if lastPage {
+            endRefreshFooterWithNoMoreData()
+        } else {
+            endRefreshView(type: .footer)
+        }
+    
+        self.cellDatas = cellDatas
+        self.tableView.reloadData()
+    }
+    
+    @objc func resetCellDatas(cellDatas: [ZLGithubItemTableViewCellData]?) {
+        
+        endRefreshView(type: .footer)
+        endRefreshView(type: .header)
 
         for cellData in self.cellDatas {
             cellData.removeFromSuperViewModel()
         }
 
         self.cellDatas = cellDatas ?? []
+      
         self.tableView.reloadData()
     }
 
-    func appendCellDatas(cellDatas: [ZLGithubItemTableViewCellData]?) {
+    @objc func appendCellDatas(cellDatas: [ZLGithubItemTableViewCellData]?) {
         if cellDatas?.isEmpty ?? true {
-            self.tableView.mj_footer?.endRefreshingWithNoMoreData()
+            endRefreshFooterWithNoMoreData()
             return
         }
 
-        self.tableView.mj_footer?.endRefreshing()
-
+        endRefreshView(type: .footer)
+        
         self.cellDatas.append(contentsOf: cellDatas ?? [])
+    
         self.tableView.reloadData()
     }
 
-    func resetContentOffset() {
+    @objc func resetContentOffset() {
         self.tableView.setContentOffset(CGPoint.zero, animated: false)
     }
 
-    func clearListView() {
+    @objc  func clearListView() {
         for cellData in self.cellDatas {
             cellData.removeFromSuperViewModel()
         }
@@ -246,26 +271,26 @@ extension ZLGithubItemListView {
         self.tableView.reloadData()
     }
 
-    func beginRefresh() {
-        self.tableView.mj_header?.beginRefreshing()
+    @objc func beginRefresh() {
+        beginRefreshView(type: .header)
     }
 
-    func endRefreshWithError() {
-        self.tableView.mj_header?.endRefreshing()
-        self.tableView.mj_footer?.endRefreshing()
+    @objc func endRefreshWithError() {
+        endRefreshView(type: .header)
+        endRefreshView(type: .footer)
     }
 
-    func justRefresh() {
+    @objc func justRefresh() {
         ZLRefresh.justRefreshHeader(header: self.tableView.mj_header as? MJRefreshNormalHeader)
         ZLRefresh.justRefreshFooter(footer: self.tableView.mj_footer as? MJRefreshAutoStateFooter)
         self.tableView.reloadData()
     }
 
-    func reloadData() {
+    @objc func reloadData() {
         self.tableView.reloadData()
     }
 
-    func reloadVisibleCells(cellDatas: [ZLGithubItemTableViewCellData]) {
+    @objc func reloadVisibleCells(cellDatas: [ZLGithubItemTableViewCellData]) {
         if let visibleIndexPaths = self.tableView.indexPathsForVisibleRows {
 
             let indexPaths = cellDatas.compactMap({ cellData -> IndexPath? in

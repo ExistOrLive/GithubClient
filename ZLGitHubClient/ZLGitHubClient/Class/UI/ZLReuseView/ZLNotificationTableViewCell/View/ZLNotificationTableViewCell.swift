@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import YYText
 
 @objc protocol  ZLNotificationTableViewCellDelegate: NSObjectProtocol {
     func onNotificationTitleClicked()

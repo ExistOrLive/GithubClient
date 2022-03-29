@@ -10,11 +10,15 @@ import UIKit
 
 class ZLIssueHeaderTableViewCellData: ZLGithubItemTableViewCellData {
 
-    let data: IssueInfoQuery.Data
+    var data: IssueInfoQuery.Data
 
     init(data: IssueInfoQuery.Data) {
         self.data = data
         super.init()
+    }
+    
+    func update(data: IssueInfoQuery.Data) {
+        self.data = data
     }
 
     override func getCellReuseIdentifier() -> String {

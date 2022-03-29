@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import YYText
 
 protocol ZLIssueTableViewCellDelegate: NSObjectProtocol {
 
