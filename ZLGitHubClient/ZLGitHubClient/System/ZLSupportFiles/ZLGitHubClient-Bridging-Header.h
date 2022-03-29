@@ -19,6 +19,8 @@
 #import "UIView+HJViewStyle.h"
 #import "NSDate+Localize.h"
 #import "UIFont+ZLExtension.h"
+#import "UIImage+IconFont.h"
+#import "UIFont+IconFont.h"
 
 #import "ZLLanguageModuleProtocol.h"
 

@@ -17,12 +17,12 @@
                            fontSize:(CGFloat) size
                               Color:(UIColor *) color{
     
-    UIGraphicsBeginImageContextWithOptions(CGSizeMake(size, size), YES, UIScreen.mainScreen.scale);
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(size, size), NO, UIScreen.mainScreen.scale);
         
     UIFont *font = [UIFont iconFontWithSize:size];
     NSAttributedString* str = [[NSAttributedString alloc] initWithString:text
                                                               attributes:@{NSFontAttributeName:font,
-                                                                           NSForegroundColorAttributeName:color}];
+                                                                           NSForegroundColorAttributeName:color}];    
     [str drawAtPoint:CGPointMake(0, 0)];
     
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();

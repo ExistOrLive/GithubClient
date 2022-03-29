@@ -45,6 +45,7 @@ public struct ZLIconFont {
 
     static let NextArrow = ZLIconFont(rawValue: "\u{e688}")
     static let BackArrow = ZLIconFont(rawValue: "\u{e686}")
+    static let Reload = ZLIconFont(rawValue: "\u{e62f}")
 
     static let Add = ZLIconFont(rawValue: "\u{e685}")
     static let Close = ZLIconFont(rawValue: "\u{e687}")
@@ -101,6 +102,8 @@ public struct ZLIconFont {
     static let Home = ZLIconFont(rawValue: "\u{e6b8}")
 
     static let Setting = ZLIconFont(rawValue: "\u{e78e}")
+    
+    static let Safari = ZLIconFont(rawValue: "\u{e69c}")
 }
 
 extension UIFont {

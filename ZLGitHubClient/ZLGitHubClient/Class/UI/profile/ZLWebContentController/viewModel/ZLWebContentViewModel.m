@@ -60,14 +60,14 @@
     }
     
     NSMutableURLRequest * request =[NSMutableURLRequest requestWithURL:self.url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60];
-    [self.webContentView.webView loadRequest:request];
+    [self.webContentView loadRequest:request];
 }
 
 
 
 - (void) onAdditionButtonClickWithButton:(UIButton *) button {
     
-    NSURL *url = self.webContentView.webView.URL;
+    NSURL *url = self.webContentView.currentURL;
     
     UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:@[url] applicationActivities:nil];
     activityVC.popoverPresentationController.sourceView = button;
