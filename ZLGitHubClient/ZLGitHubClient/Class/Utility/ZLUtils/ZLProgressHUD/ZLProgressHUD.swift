@@ -42,3 +42,16 @@ import MBProgressHUD
     }
 
 }
+
+// MARK: ProgressHUD
+
+extension UIView {
+    
+    func showProgressHUD() {
+        ZLProgressHUD.show(view: self, animated: true)
+    }
+    
+    func dismissProgressHUD() {
+        ZLProgressHUD.dismiss(view: self, animated: true)
+    }
+}

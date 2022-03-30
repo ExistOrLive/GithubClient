@@ -113,7 +113,11 @@ extension ZLEditIssueController {
         var operationsCellDatas = [ZLGithubItemTableViewCellData]()
         if data?.repository?.issue?.viewerCanSubscribe ?? false {
             let turnOn = data?.repository?.issue?.viewerSubscription == .subscribed
-            operationsCellDatas.append(ZLIssueOperateCellData(operationType: .subscribe, turnOn: turnOn))
+            operationsCellDatas.append(ZLIssueOperateCellData(operationType: .subscribe,
+                                                              turnOn: turnOn,
+                                                              clickBlock: { [weak self] _ in
+                self?.onOperationAction(type: .subscribe)
+            }))
         }
         
         
@@ -123,7 +127,11 @@ extension ZLEditIssueController {
 //            operationsCellDatas.append(ZLIssueOperateCellData(operationType: .lock, turnOn: turnOn1))
         
             let turnOn2 = data?.repository?.issue?.closed == false
-            operationsCellDatas.append(ZLIssueOperateCellData(operationType: .closeOrOpen, turnOn: turnOn2))
+            operationsCellDatas.append(ZLIssueOperateCellData(operationType: .closeOrOpen,
+                                                              turnOn: turnOn2,
+                                                              clickBlock: { [weak self] _ in
+                self?.onOperationAction(type: .closeOrOpen)
+            }))
         }
         
         if !operationsCellDatas.isEmpty {
@@ -136,6 +144,17 @@ extension ZLEditIssueController {
     func reloadView() {
         // 刷新
         _refreshEvent.accept(())
+    }
+    
+    func onOperationAction(type: ZLEditIssueOperationType) {
+        switch type {
+        case .closeOrOpen:
+            requestCloseOrReopenIssue()
+        case .subscribe:
+            requestSubscribeIssue()
+        case .lock:
+            requestLockIssue()
+        }
     }
 }
 
@@ -157,17 +176,7 @@ extension ZLEditIssueController: ZLEditIssueViewDelegateAndSource {
     func onCloseAction() {
         onBackButtonClicked(nil)
     }
-    
-    func onOperationAction(type: ZLEditIssueOperationType) {
-        switch type {
-        case .closeOrOpen:
-            requestCloseOrReopenIssue()
-        case .subscribe:
-            requestSubscribeIssue()
-        case .lock:
-            requestLockIssue()
-        }
-    }
+
 }
 
 // MARK: -  Request

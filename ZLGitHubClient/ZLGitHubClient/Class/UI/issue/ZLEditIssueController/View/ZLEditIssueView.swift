@@ -33,8 +33,6 @@ protocol ZLEditIssueViewDelegateAndSource: NSObjectProtocol {
     var titleObservable: Observable<String> { get }
     
     func onCloseAction()
-    
-    func onOperationAction(type: ZLEditIssueOperationType)
 }
 
 
@@ -286,19 +284,7 @@ extension ZLEditIssueView: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let sectionType = delegate?.sectionTypes[indexPath.section] else {
-            return
-        }
-        switch sectionType {
-        case let .operation(dataSources):
-            guard let cellData = dataSources[indexPath.row] as? ZLIssueOperateCellDataSource else {
-                return
-            }
-            delegate?.onOperationAction(type: cellData.opeationType)
-       
-        default:
-            break
-        }
+        
     }
     
 }

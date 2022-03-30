@@ -6,7 +6,7 @@
 //  Copyright © 2021 ZM. All rights reserved.
 //
 
-#import "UIImage+ZLExtension.h"
+#import "UIImage+ZLBase.h"
 #import <CoreGraphics/CoreGraphics.h>
 
 @implementation UIImage (ZLExtension)

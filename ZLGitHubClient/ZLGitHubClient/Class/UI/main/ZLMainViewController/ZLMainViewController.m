@@ -8,7 +8,7 @@
 
 #import "ZLMainViewController.h"
 #import "ZLBaseNavigationController.h"
-#import "UIImage+ZLExtension.h"
+#import "UIImage+ZLBase.h"
 
 @interface ZLMainViewController()
 

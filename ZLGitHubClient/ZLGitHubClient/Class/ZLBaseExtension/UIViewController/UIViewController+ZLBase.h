@@ -1,5 +1,5 @@
 //
-//  UIViewController+SYDRouter.h
+//  UIViewController+ZLBase.h
 //  SYDServiceSDK
 //
 //  Created by zhumeng on 2019/1/7.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIViewController (Tool)
+@interface UIViewController (ZLBase)
 
 + (UIViewController *)getTopViewController;
 

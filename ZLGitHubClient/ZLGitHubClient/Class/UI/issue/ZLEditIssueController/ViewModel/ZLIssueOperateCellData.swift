@@ -12,10 +12,14 @@ class ZLIssueOperateCellData: ZLGithubItemTableViewCellData {
     
     private let type: ZLEditIssueOperationType
     private let turnOn: Bool
+    private let _clickBlock: ((UIButton) -> Void)?
     
-    init(operationType: ZLEditIssueOperationType, turnOn: Bool) {
+    init(operationType: ZLEditIssueOperationType,
+         turnOn: Bool,
+         clickBlock: ((UIButton) -> Void)?) {
         self.type = operationType
         self.turnOn = turnOn
+        self._clickBlock = clickBlock
         super.init()
     }
     
@@ -31,49 +35,17 @@ class ZLIssueOperateCellData: ZLGithubItemTableViewCellData {
 
 
 extension ZLIssueOperateCellData: ZLIssueOperateCellDataSource {
-    var attributedTitle: NSAttributedString {
-        switch type {
-        case .subscribe:
-            if turnOn {
-                return ZLLocalizedString(string: "Issue_Unsubscribe", comment: "")
-                    .asMutableAttributedString()
-                    .font(.zlMediumFont(withSize: 16))
-                    .foregroundColor(.label(withName: "CommonOperationColor"))
-            } else {
-                return ZLLocalizedString(string: "Issue_Subscribe", comment: "")
-                    .asMutableAttributedString()
-                    .font(.zlMediumFont(withSize: 16))
-                    .foregroundColor(.label(withName: "CommonOperationColor"))
-            }
-        case .lock:
-            if turnOn {
-                return ZLLocalizedString(string: "Issue_Unlock", comment: "")
-                    .asMutableAttributedString()
-                    .font(.zlMediumFont(withSize: 16))
-                    .foregroundColor(.label(withName: "CommonOperationColor"))
-            } else {
-                return ZLLocalizedString(string: "Issue_Lock", comment: "")
-                    .asMutableAttributedString()
-                    .font(.zlMediumFont(withSize: 16))
-                    .foregroundColor(.label(withName: "CommonOperationColor"))
-            }
-        case .closeOrOpen:
-            if turnOn {
-                return ZLLocalizedString(string: "Issue_Close", comment: "")
-                    .asMutableAttributedString()
-                    .font(.zlMediumFont(withSize: 18))
-                    .foregroundColor(.label(withName: "WarningOperationColor"))
-            } else {
-                return ZLLocalizedString(string: "Issue_Reopen", comment: "")
-                    .asMutableAttributedString()
-                    .font(.zlMediumFont(withSize: 18))
-                    .foregroundColor(.label(withName: "RecommandOperationColor"))
-            }
-        }
+    
+    var clickBlock: ((UIButton) -> Void)? {
+        _clickBlock
     }
     
     var opeationType: ZLEditIssueOperationType {
         type 
+    }
+    
+    var on: Bool {
+        turnOn
     }
 }
 

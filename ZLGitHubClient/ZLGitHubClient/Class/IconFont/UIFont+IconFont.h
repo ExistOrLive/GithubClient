@@ -14,6 +14,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (UIFont *) iconFontWithSize:(CGFloat)size;
 
+#pragma mark - icon font
+
++ (UIFont* _Nonnull) zlIconFontWithSize: (CGFloat) size;
+
 @end
 
 NS_ASSUME_NONNULL_END

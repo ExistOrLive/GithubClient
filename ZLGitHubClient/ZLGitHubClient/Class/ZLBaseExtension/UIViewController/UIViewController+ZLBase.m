@@ -1,15 +1,15 @@
 
 //
-//  UIViewController+Tool.m
+//  UIViewController+ZLBase.m
 //  SYDServiceSDK
 //
 //  Created by zhumeng on 2019/1/7.
 //  Copyright © 2019年 zhumeng. All rights reserved.
 //
 
-#import "UIViewController+Tool.h"
+#import "UIViewController+ZLBase.h"
 
-@implementation UIViewController (Tool)
+@implementation UIViewController (ZLBase)
 
 + (UIViewController *)getTopViewController{
     return [self getTopViewControllerFromWindow:[UIApplication sharedApplication].delegate.window];

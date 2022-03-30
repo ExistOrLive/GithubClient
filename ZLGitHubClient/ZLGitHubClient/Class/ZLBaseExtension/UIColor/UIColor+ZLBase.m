@@ -1,12 +1,12 @@
 //
-//  UIColor+ZLExtension.m
+//  UIColor+ZLBase.m
 //  ZLGithubClient
 //
 //  Created by zm on 2019/6/11.
 //  Copyright © 2019 zm. All rights reserved.
 //
 
-#import "UIColor+ZLExtension.h"
+#import "UIColor+ZLBase.h"
 
 @implementation UIColor (ZLExtension)
 +(UIColor *)colorWithHexString:(NSString *)hexColor alpha:(float)opacity{

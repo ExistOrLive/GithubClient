@@ -9,13 +9,20 @@
 import UIKit
 
 protocol ZLIssueOperateCellDataSource {
-    var attributedTitle: NSAttributedString { get }
-    
+   
     var opeationType: ZLEditIssueOperationType { get }
+    
+    var on: Bool { get }
+    
+    var clickBlock: ((UIButton) -> Void)? { get }
 }
 
 class ZLIssueOperateCell: UITableViewCell {
-
+    
+    var clickBlock: ((UIButton) -> Void)?
+    var opeationType: ZLEditIssueOperationType = .subscribe
+    var on: Bool = false
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
@@ -29,36 +36,118 @@ class ZLIssueOperateCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    private lazy var operateLabel: UILabel = {
-        let label = UILabel()
-        return label
-    }()
-    
-    lazy var separateLine: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(named:"ZLSeperatorLineColor")
-        return view
+    private var button: UIButton = {
+        let button = UIButton(type: .custom)
+        button.addTarget(self, action: #selector(onButtonClicked(button:)), for: .touchUpInside)
+        button.layer.cornerRadius = 8.0
+        button.layer.masksToBounds = true 
+        return button
     }()
     
     private func setupUI() {
         selectionStyle = .none
         backgroundColor = .clear
         contentView.backgroundColor = .clear
-        contentView.addSubview(operateLabel)
-      
-        operateLabel.snp.makeConstraints { make in
-            make.left.equalTo(20)
-            make.right.equalTo(-20)
-            make.top.bottom.equalToSuperview()
-            make.height.equalTo(50)
+        contentView.addSubview(button)
+        
+        button.snp.makeConstraints { make in
+            make.size.equalTo(CGSize(width: 250, height: 45))
+            make.centerX.equalToSuperview()
+            make.top.equalTo(15)
+            make.bottom.equalTo(-15)
         }
     }
-
+    
+    @objc private func onButtonClicked(button: UIButton) {
+        clickBlock?(button)
+    }
+    
+    override func tintColorDidChange() {
+        switch opeationType {
+        case .subscribe:
+            if on {
+                button.setTitle(ZLLocalizedString(string: "Issue_Unsubscribe", comment: ""), for: .normal)
+                button.titleLabel?.font = .zlMediumFont(withSize: 14)
+                button.setTitleColor(.white, for: .normal)
+                button.setBackgroundImage(UIImage(color:UIColor.back(withName: "CommonOperationColor")), for: .normal)
+            } else {
+                button.setTitle(ZLLocalizedString(string: "Issue_Subscribe", comment: ""), for: .normal)
+                button.titleLabel?.font = .zlMediumFont(withSize: 14)
+                button.setTitleColor(.white, for: .normal)
+                button.setBackgroundImage(UIImage(color:UIColor.back(withName: "CommonOperationColor")), for: .normal)
+            }
+        case .lock:
+            if on {
+                button.setTitle(ZLLocalizedString(string: "Issue_Unlock", comment: ""), for: .normal)
+                button.titleLabel?.font = .zlMediumFont(withSize: 14)
+                button.setTitleColor(.white, for: .normal)
+                button.setBackgroundImage(UIImage(color:UIColor.back(withName: "CommonOperationColor")), for: .normal)
+            } else {
+                button.setTitle(ZLLocalizedString(string: "Issue_Lock", comment: ""), for: .normal)
+                button.titleLabel?.font = .zlMediumFont(withSize: 14)
+                button.setTitleColor(.white, for: .normal)
+                button.setBackgroundImage(UIImage(color:UIColor.back(withName: "CommonOperationColor")), for: .normal)
+            }
+        case .closeOrOpen:
+            if on {
+                button.setTitle(ZLLocalizedString(string: "Issue_Close", comment: ""), for: .normal)
+                button.setTitleColor(.white, for: .normal)
+                button.titleLabel?.font = .zlMediumFont(withSize: 14)
+                button.setBackgroundImage(UIImage(color:UIColor.back(withName: "WarningOperationColor")), for: .normal)
+            } else {
+                button.setTitle(ZLLocalizedString(string: "Issue_Reopen", comment: ""), for: .normal)
+                button.setTitleColor(.white, for: .normal)
+                button.titleLabel?.font = .zlMediumFont(withSize: 14)
+                button.setBackgroundImage(UIImage(color:UIColor.back(withName: "RecommandOperationColor")), for: .normal)
+            }
+        }
+    }
 }
 
 extension ZLIssueOperateCell: ViewUpdatable {
     
     func fillWithData(viewData: ZLIssueOperateCellDataSource) {
-        operateLabel.attributedText = viewData.attributedTitle
+        clickBlock = viewData.clickBlock
+        opeationType = viewData.opeationType
+        on = viewData.on
+        
+        switch viewData.opeationType {
+        case .subscribe:
+            if on {
+                button.setTitle(ZLLocalizedString(string: "Issue_Unsubscribe", comment: ""), for: .normal)
+                button.titleLabel?.font = .zlMediumFont(withSize: 14)
+                button.setTitleColor(.white, for: .normal)
+                button.setBackgroundImage(UIImage(color:UIColor.back(withName: "CommonOperationColor")), for: .normal)
+            } else {
+                button.setTitle(ZLLocalizedString(string: "Issue_Subscribe", comment: ""), for: .normal)
+                button.titleLabel?.font = .zlMediumFont(withSize: 14)
+                button.setTitleColor(.white, for: .normal)
+                button.setBackgroundImage(UIImage(color:UIColor.back(withName: "CommonOperationColor")), for: .normal)
+            }
+        case .lock:
+            if on {
+                button.setTitle(ZLLocalizedString(string: "Issue_Unlock", comment: ""), for: .normal)
+                button.titleLabel?.font = .zlMediumFont(withSize: 14)
+                button.setTitleColor(.white, for: .normal)
+                button.setBackgroundImage(UIImage(color:UIColor.back(withName: "CommonOperationColor")), for: .normal)
+            } else {
+                button.setTitle(ZLLocalizedString(string: "Issue_Lock", comment: ""), for: .normal)
+                button.titleLabel?.font = .zlMediumFont(withSize: 14)
+                button.setTitleColor(.white, for: .normal)
+                button.setBackgroundImage(UIImage(color:UIColor.back(withName: "CommonOperationColor")), for: .normal)
+            }
+        case .closeOrOpen:
+            if on {
+                button.setTitle(ZLLocalizedString(string: "Issue_Close", comment: ""), for: .normal)
+                button.setTitleColor(.white, for: .normal)
+                button.titleLabel?.font = .zlMediumFont(withSize: 14)
+                button.setBackgroundImage(UIImage(color:UIColor.back(withName: "WarningOperationColor")), for: .normal)
+            } else {
+                button.setTitle(ZLLocalizedString(string: "Issue_Reopen", comment: ""), for: .normal)
+                button.setTitleColor(.white, for: .normal)
+                button.titleLabel?.font = .zlMediumFont(withSize: 14)
+                button.setBackgroundImage(UIImage(color:UIColor.back(withName: "RecommandOperationColor")), for: .normal)
+            }
+        }
     }
 }

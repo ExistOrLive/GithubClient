@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import UIKit
+import ZLBaseUI
 
 @objc protocol ZLGithubItemTableViewCellDataProtocol: NSObjectProtocol {
     func getCellReuseIdentifier() -> String

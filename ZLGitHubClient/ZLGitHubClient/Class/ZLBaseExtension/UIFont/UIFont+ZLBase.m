@@ -1,16 +1,15 @@
 //
-//  UIFont+ZLExtension.m
+//  UIFont+ZLBase.m
 //  ZLGitHubClient
 //
 //  Created by 朱猛 on 2021/11/2.
 //  Copyright © 2021 ZM. All rights reserved.
 //
 
-#import "UIFont+ZLExtension.h"
+#import "UIFont+ZLBase.h"
 #import <CoreText/CoreText.h>
-#import "UIFont+IconFont.h"
 
-@implementation UIFont (ZLExtension)
+@implementation UIFont (ZLBase)
 
 + (UIFont* _Nonnull) zlFontWithName:(NSString* _Nonnull) name size:(CGFloat) size{
     UIFont* font = [UIFont fontWithName:name size:size];
@@ -62,9 +61,7 @@
     return [self zlFontWithName:fontName size:size];
 }
 
-+ (UIFont* _Nonnull) zlIconFontWithSize: (CGFloat) size{
-    return [self iconFontWithSize:size];
-}
+
 
 #pragma mark - 注册新的font
 

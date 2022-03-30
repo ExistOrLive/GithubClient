@@ -7,7 +7,7 @@
 //
 
 #import "UIFont+IconFont.h"
-#import "UIFont+ZLExtension.h"
+#import "UIFont+ZLBase.h"
 #import <CoreText/CoreText.h>
 @implementation UIFont (IconFont)
 
@@ -29,6 +29,10 @@
 
 + (NSString *) iconFontName{
     return @"iconfont";
+}
+
++ (UIFont* _Nonnull) zlIconFontWithSize: (CGFloat) size{
+    return [self iconFontWithSize:size];
 }
 
 @end

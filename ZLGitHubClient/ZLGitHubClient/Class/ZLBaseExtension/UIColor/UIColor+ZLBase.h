@@ -1,5 +1,5 @@
 //
-//  UIColor+ZLExtension.h
+//  UIColor+ZLBase.h
 //  ZLGithubClient
 //
 //  Created by zm on 2019/6/11.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIColor (ZLExtension)
+@interface UIColor (ZLBase)
 
 #pragma mark - UIColor Hex
 

@@ -49,15 +49,12 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIFont* _Nonnull) zlMediumFontWithSize: (CGFloat) size;
 + (UIFont* _Nonnull) zlSemiBoldFontWithSize: (CGFloat) size;
 
-#pragma mark - icon font
-
-+ (UIFont* _Nonnull) zlIconFontWithSize: (CGFloat) size;
-
 #pragma mark - 注册新的font
 
 + (void)registerFontWithURL:(NSURL *)url;
 
-#pragma mark - PingFang-SC Font
+#pragma mark - 
++ (NSSet *) allFontNames;
 
 @end
 
