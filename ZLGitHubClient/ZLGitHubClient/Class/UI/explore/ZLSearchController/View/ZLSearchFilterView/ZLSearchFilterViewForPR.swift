@@ -7,93 +7,87 @@
 //
 
 import UIKit
+import FFPopup
 
 class ZLSearchFilterViewForPR: UIView {
 
-    static let minWidth : CGFloat = 300.0
-    
+    static let minWidth: CGFloat = 300.0
+
     @IBOutlet private weak var orderLabel: UILabel!
     @IBOutlet private weak var languageLabel: UILabel!
     @IBOutlet private weak var stateLabel: UILabel!
-    
+
     @IBOutlet weak var orderButton: UIButton!
     @IBOutlet weak var languageButton: UIButton!
     @IBOutlet weak var stateButton: UIButton!
-    
-    @IBOutlet weak var finishButton: UIButton!
-    
 
-    
-    weak var popup : FFPopup?
-    
-    var resultBlock : ((ZLSearchFilterInfoModel) -> Void)?
-    
-    static func showSearchFilterViewForPR(filterInfo:ZLSearchFilterInfoModel?, resultBlock:((ZLSearchFilterInfoModel) -> Void)?){
-        guard  let view : ZLSearchFilterViewForPR = Bundle.main.loadNibNamed("ZLSearchFilterViewForPR", owner: nil, options: nil)?.first as? ZLSearchFilterViewForPR else {
+    @IBOutlet weak var finishButton: UIButton!
+
+    weak var popup: FFPopup?
+
+    var resultBlock: ((ZLSearchFilterInfoModel) -> Void)?
+
+    static func showSearchFilterViewForPR(filterInfo: ZLSearchFilterInfoModel?, resultBlock: ((ZLSearchFilterInfoModel) -> Void)?) {
+        guard  let view: ZLSearchFilterViewForPR = Bundle.main.loadNibNamed("ZLSearchFilterViewForPR", owner: nil, options: nil)?.first as? ZLSearchFilterViewForPR else {
             return
         }
         view.frame = CGRect.init(x: 0, y: 0, width: ZLSearchFilterViewForPR.minWidth, height: ZLSCreenHeight)
         view.setViewDataForSearchFilterViewForPR(searchFilterModel: filterInfo)
         view.resultBlock = resultBlock
-        
+
         let popup = FFPopup(contentView: view, showType: .slideInFromRight, dismissType: .slideOutToRight, maskType: FFPopup.MaskType.dimmed, dismissOnBackgroundTouch: true, dismissOnContentTouch: false)
         view.popup = popup
         popup.show(layout: FFPopupLayout.init(horizontal: FFPopup.HorizontalLayout.right, vertical: FFPopup.VerticalLayout.center))
     }
-    
-    
+
     override func awakeFromNib() {
-        
+
         super.awakeFromNib()
-        
+
         self.orderLabel.text = ZLLocalizedString(string: "Order", comment: "排序")
         self.languageLabel.text = ZLLocalizedString(string: "Language", comment: "语言")
         self.stateLabel.text = ZLLocalizedString(string: "State", comment: "状态")
-        
+
         self.stateButton.setTitle("Open", for: .normal)
         self.stateButton.setTitle("Closed", for: .selected)
-        
+
         self.finishButton.setTitle(ZLLocalizedString(string: "FilterFinish", comment: ""), for: .normal)
-        
-                
+
         let gestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(resignAllResponder))
         self.addGestureRecognizer(gestureRecognizer)
-        
+
         self.finishButton.titleLabel?.font = UIFont.init(name: Font_PingFangSCSemiBold, size: 14)
     }
-    
+
     @IBAction func onOrderButtonClicked(_ sender: UIButton) {
-        ZLSearchFilterPickerView.showPROrderPickerView(initTitle:sender.titleLabel?.text, resultBlock: {(result: String) in
+        ZLSearchFilterPickerView.showPROrderPickerView(initTitle: sender.titleLabel?.text, resultBlock: {(result: String) in
             sender.setTitle(result, for: .normal)
         })
     }
-    
-    
+
     @IBAction func onLanguageButtonClicked(_ sender: UIButton) {
-        ZLLanguageSelectView.showLanguageSelectView { (result : String?) in
+        ZLLanguageSelectView.showLanguageSelectView { (result: String?) in
             sender.setTitle(result ?? "Any", for: .normal)
         }
     }
-    
+
     @IBAction func onStateButtonClicked(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
     }
-    
-    @objc func resignAllResponder()
-    {
+
+    @objc func resignAllResponder() {
         self.endEditing(true)
     }
-    
-    func setViewDataForSearchFilterViewForPR(searchFilterModel:ZLSearchFilterInfoModel?)
-    {
+
+    func setViewDataForSearchFilterViewForPR(searchFilterModel: ZLSearchFilterInfoModel?) {
         if searchFilterModel == nil {
             return
         }
-        
+
         if searchFilterModel?.order != nil {
             if searchFilterModel?.order == "created" && searchFilterModel?.isAsc == false {
                 self.orderButton.setTitle("Newest", for: .normal)
-            } else if searchFilterModel?.order == "created" && searchFilterModel?.isAsc == true  {
+            } else if searchFilterModel?.order == "created" && searchFilterModel?.isAsc == true {
                 self.orderButton.setTitle("Oldest", for: .normal)
             } else if searchFilterModel?.order == "comments" && searchFilterModel?.isAsc == false {
                 self.orderButton.setTitle("Most commented", for: .normal)
@@ -106,56 +100,54 @@ class ZLSearchFilterViewForPR: UIView {
             }
         }
         if searchFilterModel?.language != ""{
-            self.languageButton.setTitle(searchFilterModel?.language, for:.normal)
+            self.languageButton.setTitle(searchFilterModel?.language, for: .normal)
         }
-        
+
         self.stateButton.isSelected = searchFilterModel?.issueOrPRClosed ?? false
     }
-    
-    
+
     @IBAction func onFinishButtonClicked(_ sender: Any) {
-        
+
         let searchFilterModel = ZLSearchFilterInfoModel()
         let str = self.orderButton.title(for: .normal) ?? ""
-        switch(str){
-        case "Newest":do{
+        switch str {
+        case "Newest":do {
             searchFilterModel.isAsc = false
             searchFilterModel.order = "created"
         }
-        case "Oldest":do{
+        case "Oldest":do {
             searchFilterModel.isAsc = true
             searchFilterModel.order = "created"
         }
-        case "Most commented":do{
+        case "Most commented":do {
             searchFilterModel.isAsc = false
             searchFilterModel.order = "comments"
         }
-        case "Least commented":do{
+        case "Least commented":do {
             searchFilterModel.isAsc = true
             searchFilterModel.order = "comments"
         }
-        case "Recently updated":do{
+        case "Recently updated":do {
             searchFilterModel.isAsc = false
             searchFilterModel.order = "updated"
         }
-        case "Least recently updated":do{
+        case "Least recently updated":do {
             searchFilterModel.isAsc = true
             searchFilterModel.order = "updated"
         }
-        default:do{
+        default:do {
             searchFilterModel.order = nil
         }
         }
         searchFilterModel.language = self.languageButton.title(for: .normal) ?? ""
-        
+
         searchFilterModel.issueOrPRClosed = self.stateButton.isSelected
-        
+
         if self.resultBlock != nil {
             self.resultBlock?(searchFilterModel)
         }
-        
+
         self.popup?.dismiss(animated: true)
     }
-    
-    
+
 }

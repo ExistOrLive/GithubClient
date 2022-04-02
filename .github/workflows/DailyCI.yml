@@ -1,0 +1,69 @@
+# action 语法 https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions
+name: ZLGithub DailyCI
+
+on:                               # 触发条件
+  schedule:
+     - cron: '0 18 * * *'          # 每天北京时间凌晨两点打包 
+
+jobs:
+  build:
+    name: build
+    runs-on: macos-latest # runner 系统 
+    steps:
+    
+    - name: checkout
+      uses: actions/checkout@v2.0.0
+      with: 
+        ref: master 
+        
+    - name: download secret file
+      working-directory: ./ZLGitHubClient          # 指定run 的工作目录
+      env: 
+        GITHUBTOKEN: ${{ secrets.GITHUBTOKEN }}
+      run: |
+        pip3 install requests
+        python3 DownloadSecretFile/DownloadSecrectFile.py $GITHUBTOKEN
+        mv ZLGithubAppKey.h ZLGitHubClient/System/ZLSupportFiles/ZLGithubAppKey.h
+        mv GoogleService-Info.plist ZLGitHubClient/GoogleService-Info.plist
+        
+    - name: construct build enviroment
+      working-directory: ./ZLGitHubClient          # 指定run 的工作目录
+      run: |
+        gem cleanup
+        gem install bundler
+        bundle install
+        bundle exec pod repo update
+        bundle exec pod install
+        echo "construct build enviroment success"
+        
+    - name: archive and upload app
+      working-directory: ./ZLGitHubClient          # 指定run 的工作目录
+      env: 
+        MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
+        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+        MATCH_GITHUB_URL: ${{ secrets.MATCH_GITHUB_URL }}
+        FASTLANE_USER: ${{ secrets.FASTLANE_USER }}                                    
+        FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }} 
+        APPSTOREAPIISSUERID: ${{ secrets.APPSTOREAPIISSUERID }} 
+        APPSTOREAPIKEY: ${{ secrets.APPSTOREAPIKEY }} 
+        APPSTOREAPIKEYID: ${{ secrets.APPSTOREAPIKEYID }} 
+
+      run: |
+        pwd 
+        bundle exec fastlane github_action_testFlight
+        echo "ipa build and upload success"
+        
+    - name: upload github artifact
+      if: success()
+      uses: actions/upload-artifact@v1.0.0
+      with:
+          # Artifact name
+          name: ZLGitHubClient
+          # Directory containing files to upload
+          path: ./ZLGitHubClient/fastlane/ipa/TestFlight
+          
+    - name: upload dSYM to firebase
+      working-directory: ./ZLGitHubClient          # 指定run 的工作目录
+      run: |
+        unzip fastlane/ipa/TestFlight/ZLGitHubClient.app.dSYM.zip -d dSYMS
+        find ./dSYMS -name "*.dSYM" | sed 's/\ /\\ /' | xargs Pods/FirebaseCrashlytics/upload-symbols -gsp ZLGitHubClient/GoogleService-Info.plist  -p ios

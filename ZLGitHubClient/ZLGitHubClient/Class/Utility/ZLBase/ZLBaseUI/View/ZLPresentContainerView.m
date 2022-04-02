@@ -7,7 +7,7 @@
 //
 
 #import "ZLPresentContainerView.h"
-#import "UIColor+HexColor.h"
+#import "UIColor+ZLBase.h"
 #import <Masonry/Masonry.h>
 
 @interface ZLPresentContainerView() <UIGestureRecognizerDelegate>

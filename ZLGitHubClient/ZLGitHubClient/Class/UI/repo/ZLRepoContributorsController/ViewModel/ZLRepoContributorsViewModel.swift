@@ -10,14 +10,14 @@ import UIKit
 
 class ZLRepoContributorsViewModel: ZLBaseViewModel {
 
-    var itemListView : ZLGithubItemListView?
-    var fullName : String?
-    
+    var itemListView: ZLGithubItemListView?
+    var fullName: String?
+
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
-        
+
         self.fullName = targetModel as? String
-        
-        guard let itemsView : ZLGithubItemListView = targetView as? ZLGithubItemListView else{
+
+        guard let itemsView: ZLGithubItemListView = targetView as? ZLGithubItemListView else {
             return
         }
         self.itemListView = itemsView
@@ -26,41 +26,37 @@ class ZLRepoContributorsViewModel: ZLBaseViewModel {
     }
 }
 
-extension ZLRepoContributorsViewModel
-{
-    func loadNewData(){
-        
+extension ZLRepoContributorsViewModel {
+    func loadNewData() {
+
         guard let fullName = self.fullName else {
-            
+
             ZLToastView .showMessage("fullName is nil")
             self.itemListView?.endRefreshWithError()
             return
         }
-        
 
-        
         ZLServiceManager.sharedInstance.repoServiceModel?.getRepositoryContributors(withFullName: fullName,
-                                                                                    serialNumber: NSString.generateSerialNumber())
-        { [weak weakSelf = self](resultModel : ZLOperationResultModel) in
-            
-            if resultModel.result == false{
-                
+                                                                                    serialNumber: NSString.generateSerialNumber()) { [weak weakSelf = self](resultModel: ZLOperationResultModel) in
+
+            if resultModel.result == false {
+
                 weakSelf?.itemListView?.endRefreshWithError()
                 let errorModel = resultModel.data as? ZLGithubRequestErrorModel
                 ZLToastView.showMessage("Query Contributors Failed Code [\(errorModel?.statusCode ?? 0)] Message[\(errorModel?.message ?? "")]")
                 return
             }
-            
-            guard let data : [ZLGithubUserModel] = resultModel.data as? [ZLGithubUserModel] else{
-                
+
+            guard let data: [ZLGithubUserModel] = resultModel.data as? [ZLGithubUserModel] else {
+
                 weakSelf?.itemListView?.endRefreshWithError()
                 ZLToastView.showMessage("ZLGithubUserModel transfer error")
-                return;
+                return
             }
-            
-            var cellDatas : [ZLUserTableViewCellData] = []
-            for userModel in data{
-                
+
+            var cellDatas: [ZLUserTableViewCellData] = []
+            for userModel in data {
+
                 let cellData = ZLUserTableViewCellData.init(userModel: userModel )
                 self.addSubViewModel(cellData)
                 cellDatas.append(cellData)
@@ -70,17 +66,12 @@ extension ZLRepoContributorsViewModel
     }
 }
 
-
- 
-extension ZLRepoContributorsViewModel : ZLGithubItemListViewDelegate
-{
+extension ZLRepoContributorsViewModel: ZLGithubItemListViewDelegate {
     func githubItemListViewRefreshDragUp(pullRequestListView: ZLGithubItemListView) {
-        
+
     }
-    
-    func githubItemListViewRefreshDragDown(pullRequestListView: ZLGithubItemListView) -> Void
-    {
+
+    func githubItemListViewRefreshDragDown(pullRequestListView: ZLGithubItemListView) {
         self.loadNewData()
     }
 }
-

@@ -8,7 +8,8 @@
 
 #import "ZLMainViewController.h"
 #import "ZLBaseNavigationController.h"
-#import "UIImage+Image.h"
+#import "UIImage+ZLBase.h"
+
 @interface ZLMainViewController()
 
 @property(nonatomic, strong) ZLAssistButtonManager * assistManager;
@@ -43,6 +44,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onNotificationArrived:) name:ZLLanguageTypeChange_Notificaiton object:nil];
     
     [[ZLAssistButtonManager sharedInstance] setHidden:ZLUISharedDataManager.isAssistButtonHidden];
+    
+    [ZLUISharedDataManager initRemoteConfig];
 }
 
 - (void) viewWillAppear:(BOOL)animated{
@@ -128,12 +131,20 @@
         }
     }
     
-    
     self.tabBar.tintColor = [UIColor colorNamed:@"ZLTabBarTintColor"];
     
     UIImage *backImage = [UIImage imageWithColor:[UIColor colorNamed:@"ZLTabBarBackColor"]];
-    [self.tabBar setBackgroundImage:backImage];
-    [self.tabBar setShadowImage:backImage];
+    
+    if (@available(iOS 15.0, *)) {
+        // iOS 15.0 后设置tabbar背景颜色
+        UITabBarAppearance * appearance = [UITabBarAppearance new];
+        appearance.backgroundImage = backImage;
+        appearance.shadowImage = backImage;
+        self.tabBar.scrollEdgeAppearance = appearance;
+    } else {
+        [self.tabBar setBackgroundImage:backImage];
+        [self.tabBar setShadowImage:backImage];
+    }
     
 }
 
@@ -152,9 +163,16 @@
     profileNavigationController.tabBarItem.title = ZLLocalizedString(@"profile", @"我");
     
     UIImage *backImage = [UIImage imageWithColor:[UIColor colorNamed:@"ZLTabBarBackColor"]];
-    [self.tabBar setBackgroundImage:backImage];
-    [self.tabBar setShadowImage:backImage];
-    
+
+    if (@available(iOS 15.0, *)) {
+        UITabBarAppearance * appearance = [UITabBarAppearance new];
+        appearance.backgroundImage = backImage;
+        appearance.shadowImage = backImage;
+        self.tabBar.scrollEdgeAppearance = appearance;
+    } else {
+        [self.tabBar setBackgroundImage:backImage];
+        [self.tabBar setShadowImage:backImage];
+    }
 }
 
 - (void) justReloadLanguage{

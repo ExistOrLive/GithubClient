@@ -9,22 +9,20 @@
 import UIKit
 
 class ZLSearchController: ZLBaseViewController {
-    
-    @objc var searchKey : String?
+
+    @objc var searchKey: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
         self.setZLNavigationBarHidden(true)
-        
+
         // 创建ViewModel
         let viewModel = ZLSearchViewModel()
         self.addSubViewModel(viewModel)
-        
+
         // 创建ZLSearchView
-        guard let baseView: ZLSearchView = Bundle.main.loadNibNamed("ZLSearchView", owner: viewModel, options: nil)?.first as? ZLSearchView else
-        {
+        guard let baseView: ZLSearchView = Bundle.main.loadNibNamed("ZLSearchView", owner: viewModel, options: nil)?.first as? ZLSearchView else {
             ZLLog_Warn("load ZLSearchView failed")
             return
         }
@@ -32,12 +30,11 @@ class ZLSearchController: ZLBaseViewController {
         baseView.snp_makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
-        
+
         // 绑定view viewModel VC
         viewModel.bindModel(searchKey, andView: baseView)
-    
+
     }
-    
 
     /*
     // MARK: - Navigation

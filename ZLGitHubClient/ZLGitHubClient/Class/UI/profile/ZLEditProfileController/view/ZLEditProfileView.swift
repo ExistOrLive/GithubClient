@@ -8,22 +8,20 @@
 
 import UIKit
 
-
 class ZLEditProfileView: ZLBaseView {
-    
+
     @IBOutlet weak var scrollView: UIScrollView!
-    
+
     var contentView: ZLEditProfileContentView?
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        guard let contentView : ZLEditProfileContentView = Bundle.main.loadNibNamed("ZLEditProfileContentView", owner: nil, options: nil)?.first as? ZLEditProfileContentView else
-        {
+
+        guard let contentView: ZLEditProfileContentView = Bundle.main.loadNibNamed("ZLEditProfileContentView", owner: nil, options: nil)?.first as? ZLEditProfileContentView else {
             ZLLog_Warn("ZLEditProfileContentView load failed")
             return
         }
-        
+
         self.scrollView.addSubview(contentView)
         contentView.snp_makeConstraints { (make) in
             make.edges.equalToSuperview()
@@ -31,11 +29,9 @@ class ZLEditProfileView: ZLBaseView {
         }
         self.contentView = contentView
     }
-    
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.endEditing(true)
     }
-    
-    
+
 }

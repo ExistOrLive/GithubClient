@@ -9,18 +9,18 @@
 import UIKit
 
 class ZLMyRepoesController: ZLBaseViewController {
-    
+
     // view
-    var itemListView : ZLGithubItemListView!
-    
+    var itemListView: ZLGithubItemListView!
+
     // after
-    var after : String?
-    
+    var after: String?
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.title = ZLLocalizedString(string: "My Repos", comment: "")
-        
+
         // view
         let itemListView = ZLGithubItemListView()
         itemListView.setTableViewHeader()
@@ -31,28 +31,27 @@ class ZLMyRepoesController: ZLBaseViewController {
             make.edges.equalToSuperview()
         }
         self.itemListView = itemListView
-        
+
         self.itemListView.beginRefresh()
     }
 
 }
 
-extension ZLMyRepoesController : ZLGithubItemListViewDelegate {
-    
+extension ZLMyRepoesController: ZLGithubItemListViewDelegate {
+
     func githubItemListViewRefreshDragDown(pullRequestListView: ZLGithubItemListView) {
-        
-        ZLServiceManager.sharedInstance.viewerServiceModel?.getMyTopRepos(after: nil , serialNumber: NSString.generateSerialNumber())
-        { [weak weakSelf = self] (resultModel : ZLOperationResultModel) in
-            
+
+        ZLServiceManager.sharedInstance.viewerServiceModel?.getMyTopRepos(after: nil, serialNumber: NSString.generateSerialNumber()) { [weak weakSelf = self] (resultModel: ZLOperationResultModel) in
+
             if resultModel.result == false {
-                if let errorModel = resultModel.data as? ZLGithubRequestErrorModel{
+                if let errorModel = resultModel.data as? ZLGithubRequestErrorModel {
                     ZLToastView.showMessage(errorModel.message)
                 }
                 weakSelf?.itemListView.endRefreshWithError()
             } else {
                 if let data = resultModel.data as? ViewerTopRepositoriesQuery.Data {
                     weakSelf?.after = data.viewer.topRepositories.pageInfo.endCursor
-                    var cellDatas : [ZLRepoTableViewCellDataForTopRepoQuery] = []
+                    var cellDatas: [ZLRepoTableViewCellDataForTopRepoQuery] = []
                     if let nodes =  data.viewer.topRepositories.nodes {
                         for tmpData in nodes {
                             if let data = tmpData {
@@ -68,22 +67,22 @@ extension ZLMyRepoesController : ZLGithubItemListViewDelegate {
                 }
             }
         }
-        
+
     }
-    
+
     func githubItemListViewRefreshDragUp(pullRequestListView: ZLGithubItemListView) {
-        
-        ZLServiceManager.sharedInstance.viewerServiceModel?.getMyTopRepos(after: self.after , serialNumber: NSString.generateSerialNumber()) {[weak weakSelf = self] (resultModel : ZLOperationResultModel) in
+
+        ZLServiceManager.sharedInstance.viewerServiceModel?.getMyTopRepos(after: self.after, serialNumber: NSString.generateSerialNumber()) {[weak weakSelf = self] (resultModel: ZLOperationResultModel) in
             if resultModel.result == false {
-                if let errorModel = resultModel.data as? ZLGithubRequestErrorModel{
+                if let errorModel = resultModel.data as? ZLGithubRequestErrorModel {
                     ZLToastView.showMessage(errorModel.message)
                 }
                 weakSelf?.itemListView.endRefreshWithError()
             } else {
                 if let data = resultModel.data as? ViewerTopRepositoriesQuery.Data {
                     weakSelf?.after = data.viewer.topRepositories.pageInfo.endCursor
-                  
-                    var cellDatas : [ZLRepoTableViewCellDataForTopRepoQuery] = []
+
+                    var cellDatas: [ZLRepoTableViewCellDataForTopRepoQuery] = []
                     if let nodes = data.viewer.topRepositories.nodes {
                         for tmpData in nodes {
                             if let data = tmpData {
@@ -92,7 +91,7 @@ extension ZLMyRepoesController : ZLGithubItemListViewDelegate {
                             }
                         }
                     }
-                
+
                     weakSelf?.addSubViewModels(cellDatas)
                     weakSelf?.itemListView.appendCellDatas(cellDatas: cellDatas)
                 } else {
@@ -101,5 +100,5 @@ extension ZLMyRepoesController : ZLGithubItemListViewDelegate {
             }
         }
     }
-    
+
 }

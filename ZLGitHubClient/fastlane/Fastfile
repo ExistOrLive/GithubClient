@@ -22,20 +22,14 @@ platform :ios do
 #    upload_to_testflight
 #  end
 
-  lane :increase do
-          gym(workspace: "ZLGitHubClient.xcworkspace",
-        scheme: "ZLGitHubClient",
-        clean: true,
-        include_symbols: true,
-        include_bitcode: true,
-        output_directory: "./fastlane/ipa/TestFlight",
-        output_name: "ZLGitHubClient.ipa",
-        export_options: {
-          method: "app-store",
-          provisioningProfiles: {
-            "com.zm.ZLGitHubClient" => "*** AppStore com.zm.ZLGitHubClient"
-            }
-            })
+  lane :local_test do
+    # 跳过签名,出包，仅做archive 编译检查
+    gym(workspace: "ZLGitHubClient.xcworkspace",
+    scheme: "ZLGitHubClient",
+    clean: true,
+    build_path: "./fastlane/archive/adhoc",
+    skip_codesigning: true,    
+    skip_package_ipa: true)
   end
 
   desc "build one adhoc release local"
@@ -51,6 +45,17 @@ platform :ios do
         include_bitcode: true,
         output_directory: "./fastlane/ipa",
         output_name: "ZLGitHubClient.ipa")
+  end
+
+  desc "just build check, prevent any build or link error"
+  lane :github_action_build_check do
+    # 跳过签名，仅做archive 编译检查
+    gym(workspace: "ZLGitHubClient.xcworkspace",
+    scheme: "ZLGitHubClient",
+    clean: true,
+    build_path: "./fastlane/archive/adhoc",
+    skip_codesigning: true,    
+    skip_package_ipa: true)
   end
 
   desc "build one adhoc release local"

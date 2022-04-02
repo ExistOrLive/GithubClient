@@ -10,16 +10,15 @@ import UIKit
 
 @objcMembers class ZLUserAdditionInfoController: ZLBaseViewController {
 
-    @objc var type : ZLUserAdditionInfoType = .repositories                       //! 附加信息类型 仓库/代码片段等
-    @objc var login: String?                                        // login
-    
-    
+    var type: ZLUserAdditionInfoType = .repositories                       // ! 附加信息类型 仓库/代码片段等
+    var login: String?                                        // login
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // viewModel
         let viewModel = ZLUserAdditionInfoViewModel()
-        
+
         // view
         let baseView = ZLGithubItemListView()
         baseView.setTableViewHeader()
@@ -30,18 +29,16 @@ import UIKit
             make.left.equalTo(self.contentView.safeAreaLayoutGuide.snp.left)
             make.right.equalTo(self.contentView.safeAreaLayoutGuide.snp.right)
         }
-        
+
         self.addSubViewModel(viewModel)
         // bind view and viewModel
-        if self.login == nil{
+        if let login = self.login {
+            viewModel.bindModel((self.type, login), andView: baseView)
+        } else {
             viewModel.bindModel(nil, andView: baseView)
         }
-        else{
-            viewModel.bindModel((self.type,self.login!), andView: baseView)
-        }
-        
+
     }
-    
 
     /*
     // MARK: - Navigation

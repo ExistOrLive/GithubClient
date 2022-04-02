@@ -8,38 +8,66 @@
 
 import UIKit
 
-protocol ZLMyPullRequestsViewDelegate : NSObjectProtocol {
-    func onFilterTypeChange(type : ZLPRFilterType)
+protocol ZLMyPullRequestsViewDelegate: NSObjectProtocol {
+    func onFilterTypeChange(type: ZLPRFilterType)
     func onStateChange(state: ZLGithubIssueState)
-    
 }
 
-
 class ZLMyPullRequestsView: ZLBaseView {
-    
-    private var filterIndex : ZLPRFilterType = .created
-    private var stateIndex : ZLGithubIssueState = .open
-    
-    var githubItemListView : ZLGithubItemListView!
-    var filterButton: UIButton!
-    var stateButton: UIButton!
-    
-    weak var delegate : ZLMyPullRequestsViewDelegate?
-    
+
+    private var filterIndex: ZLPRFilterType = .created
+    private var stateIndex: ZLGithubIssueState = .open
+
+    lazy var githubItemListView: ZLGithubItemListView = {
+        let itemListView = ZLGithubItemListView()
+        itemListView.setTableViewFooter()
+        itemListView.setTableViewHeader()
+        return itemListView
+    }()
+
+    lazy var filterButton: UIButton = {
+        let button = UIButton(type: .custom)
+        let title = NSMutableAttributedString()
+        title.append(NSAttributedString(string: ZLIconFont.DownArrow.rawValue,
+                                        attributes: [.font: UIFont.zlIconFont(withSize: 12),
+                                                     .foregroundColor: UIColor.iconColor(withName: "ICON_Common")]))
+        title.append(NSAttributedString(string: " "))
+        title.append(NSAttributedString(string: "Created",
+                                        attributes: [.foregroundColor: UIColor.label(withName: "ZLLabelColor3"),
+                                                     .font: UIFont.zlMediumFont(withSize: 12)]))
+        button.setAttributedTitle(title, for: .normal)
+        return button
+    }()
+
+    lazy var stateButton: UIButton = {
+        let button = UIButton(type: .custom)
+        let title = NSMutableAttributedString()
+        title.append(NSAttributedString(string: ZLIconFont.DownArrow.rawValue,
+                                        attributes: [.font: UIFont.zlIconFont(withSize: 12),
+                                                     .foregroundColor: UIColor.iconColor(withName: "ICON_Common")]))
+        title.append(NSAttributedString(string: " "))
+        title.append(NSAttributedString(string: "Open",
+                                        attributes: [.foregroundColor: UIColor.label(withName: "ZLLabelColor3"),
+                                                     .font: UIFont.zlMediumFont(withSize: 12)]))
+        button.setAttributedTitle(title, for: .normal)
+        return button
+    }()
+
+    weak var delegate: ZLMyPullRequestsViewDelegate?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setUpUI()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.setUpUI()
     }
-    
-    
-    func setUpUI(){
+
+    func setUpUI() {
         self.backgroundColor = UIColor.clear
-        
+
         let view = UIView()
         view.backgroundColor = UIColor(named: "ZLSubBarColor")
         self.addSubview(view)
@@ -49,65 +77,72 @@ class ZLMyPullRequestsView: ZLBaseView {
             make.right.equalTo(self.safeAreaLayoutGuide.snp.right)
             make.height.equalTo(30)
         }
-        
-        let button1 = UIButton(type: .custom)
-        button1.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
-        button1.setAttributedTitle(NSAttributedString(string: "Created", attributes: [NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor3") ?? UIColor.darkText,NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 12) ?? UIFont.systemFont(ofSize: 12)]), for: .normal)
-        button1.setImage(UIImage(named: "down"), for: .normal)
-        view.addSubview(button1)
-        button1.snp.makeConstraints { (make) in
+
+        view.addSubview(filterButton)
+        filterButton.snp.makeConstraints { (make) in
             make.width.equalTo(100)
             make.top.bottom.equalToSuperview()
             make.right.equalToSuperview().offset(-10)
         }
-        button1.addTarget(self, action: #selector(ZLMyPullRequestsView.onFilterButtonClicked), for: .touchUpInside)
-        filterButton = button1
-    
-        let button2 = UIButton(type: .custom)
-        button2.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
-        button2.setAttributedTitle(NSAttributedString(string: "Open", attributes: [NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor3") ?? UIColor.darkText,NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 12) ?? UIFont.systemFont(ofSize: 12)]), for: .normal)
-        button2.setImage(UIImage(named: "down"), for: .normal)
-        view.addSubview(button2)
-        button2.snp.makeConstraints { (make) in
+        filterButton.addTarget(self,
+                               action: #selector(ZLMyPullRequestsView.onFilterButtonClicked),
+                               for: .touchUpInside)
+
+        view.addSubview(stateButton)
+        stateButton.snp.makeConstraints { (make) in
             make.width.equalTo(80)
             make.top.bottom.equalToSuperview()
-            make.right.equalTo(button1.snp_left).offset(-10)
+            make.right.equalTo(filterButton.snp_left).offset(-10)
         }
-        button2.addTarget(self, action: #selector(ZLMyPullRequestsView.onStateButtonClicked), for: .touchUpInside)
-        stateButton = button2
-        
-        let itemListView = ZLGithubItemListView()
-        itemListView.setTableViewFooter()
-        itemListView.setTableViewHeader()
-        self.addSubview(itemListView)
-        itemListView.snp.makeConstraints { (make) in
+        stateButton.addTarget(self,
+                              action: #selector(ZLMyPullRequestsView.onStateButtonClicked),
+                              for: .touchUpInside)
+
+        self.addSubview(githubItemListView)
+        githubItemListView.snp.makeConstraints { (make) in
             make.right.bottom.left.equalToSuperview()
             make.top.equalTo(view.snp_bottom)
         }
-        self.githubItemListView = itemListView
     }
-    
-    
-    @objc func onFilterButtonClicked(){
+
+    @objc func onFilterButtonClicked() {
         CYSinglePickerPopoverView.showCYSinglePickerPopover(withTitle: ZLLocalizedString(string: "Filter", comment: ""),
                                                             withInitIndex: UInt(self.filterIndex.rawValue),
-                                                            withDataArray: ["Created","Assigned","Mentioned","Review"])
-        { (index : UInt) in
-            let str = ["Created","Assigned","Mentioned","Review"][Int(index)]
-            self.filterButton.setAttributedTitle(NSAttributedString(string: str, attributes: [NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor3") ?? UIColor.darkText,NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 12) ?? UIFont.systemFont(ofSize: 12)]), for: .normal)
+                                                            withDataArray: ["Created", "Assigned", "Mentioned", "Review"]) { (index: UInt) in
+            let str = ["Created", "Assigned", "Mentioned", "Review"][Int(index)]
+
+            let title = NSMutableAttributedString()
+            title.append(NSAttributedString(string: ZLIconFont.DownArrow.rawValue,
+                                            attributes: [.font: UIFont.zlIconFont(withSize: 12),
+                                                         .foregroundColor: UIColor.iconColor(withName: "ICON_Common")]))
+            title.append(NSAttributedString(string: " "))
+            title.append(NSAttributedString(string: str,
+                                            attributes: [.foregroundColor: UIColor.label(withName: "ZLLabelColor3"),
+                                                         .font: UIFont.zlMediumFont(withSize: 12)]))
+            self.filterButton.setAttributedTitle(title, for: .normal)
+
             self.filterIndex = ZLPRFilterType.init(rawValue: Int(index)) ?? .created
             self.delegate?.onFilterTypeChange(type: self.filterIndex)
         }
     }
-    
-    @objc func onStateButtonClicked(){
+
+    @objc func onStateButtonClicked() {
         CYSinglePickerPopoverView.showCYSinglePickerPopover(withTitle: ZLLocalizedString(string: "Filter", comment: ""),
                                                             withInitIndex: UInt(self.filterIndex.rawValue),
-                                                            withDataArray: ["Open","Closed"])
-        { (index : UInt) in
-            let str = ["Open","Closed"][Int(index)]
-            self.stateButton.setAttributedTitle(NSAttributedString(string: str, attributes: [NSAttributedString.Key.foregroundColor:UIColor(named: "ZLLabelColor3") ?? UIColor.darkText,NSAttributedString.Key.font:UIFont(name: Font_PingFangSCRegular, size: 12) ?? UIFont.systemFont(ofSize: 12)]), for: .normal)
-            self.stateIndex = ZLGithubIssueState.init(rawValue: UInt(Int(index))) ?? .open
+                                                            withDataArray: ["Open", "Closed"]) { (index: UInt) in
+            let str = ["Open", "Closed"][Int(index)]
+
+            let title = NSMutableAttributedString()
+            title.append(NSAttributedString(string: ZLIconFont.DownArrow.rawValue,
+                                            attributes: [.font: UIFont.zlIconFont(withSize: 12),
+                                                         .foregroundColor: UIColor.iconColor(withName: "ICON_Common")]))
+            title.append(NSAttributedString(string: " "))
+            title.append(NSAttributedString(string: str,
+                                            attributes: [.foregroundColor: UIColor.label(withName: "ZLLabelColor3"),
+                                                         .font: UIFont.zlMediumFont(withSize: 12)]))
+            self.stateButton.setAttributedTitle(title, for: .normal)
+            self.stateIndex = ZLGithubIssueState.init(rawValue: index) ?? .open
+
             self.delegate?.onStateChange(state: self.stateIndex)
         }
     }

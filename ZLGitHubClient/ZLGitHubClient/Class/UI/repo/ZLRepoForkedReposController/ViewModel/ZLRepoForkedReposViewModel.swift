@@ -9,18 +9,18 @@
 import UIKit
 
 class ZLRepoForkedReposViewModel: ZLBaseViewModel {
-    
-    var itemListView : ZLGithubItemListView?
-    
+
+    var itemListView: ZLGithubItemListView?
+
     // model
-    var fullName : String?
-    var currentPage : Int = 0
-    
+    var fullName: String?
+    var currentPage: Int = 0
+
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
-        
+
         self.fullName = targetModel as? String
-        
-        guard let itemsView : ZLGithubItemListView = targetView as? ZLGithubItemListView else{
+
+        guard let itemsView: ZLGithubItemListView = targetView as? ZLGithubItemListView else {
             return
         }
         self.itemListView = itemsView
@@ -29,40 +29,34 @@ class ZLRepoForkedReposViewModel: ZLBaseViewModel {
     }
 }
 
-extension ZLRepoForkedReposViewModel
-{
-    func loadNewData()
-    {
+extension ZLRepoForkedReposViewModel {
+    func loadNewData() {
         guard let fullName = fullName else {
             ZLToastView .showMessage("fullName is nil")
             self.itemListView?.endRefreshWithError()
             return
         }
-        
+
         ZLServiceManager.sharedInstance.repoServiceModel?.getRepoForks(withFullName: fullName,
                                                                        serialNumber: NSString.generateSerialNumber(),
-                                                                       per_page: 10,
-                                                                       page: 1)
-        { [weak weakSelf = self](resultModel : ZLOperationResultModel) in
-            
-            if resultModel.result == false
-            {
+                                                                       per_page: 20,
+                                                                       page: 1) { [weak weakSelf = self](resultModel: ZLOperationResultModel) in
+
+            if resultModel.result == false {
                 weakSelf?.itemListView?.endRefreshWithError()
                 let errorModel = resultModel.data as? ZLGithubRequestErrorModel
                 ZLToastView.showMessage("Query Forks Failed Code [\(errorModel?.statusCode ?? 0)] Message[\(errorModel?.message ?? "")]")
                 return
             }
-            
-            guard let data : [ZLGithubRepositoryModel] = resultModel.data as? [ZLGithubRepositoryModel] else
-            {
+
+            guard let data: [ZLGithubRepositoryModel] = resultModel.data as? [ZLGithubRepositoryModel] else {
                 weakSelf?.itemListView?.endRefreshWithError()
                 ZLToastView.showMessage("ZLGithubRepositoryModel transfer error")
-                return;
+                return
             }
-            
-            var cellDatas : [ZLRepositoryTableViewCellData] = []
-            for repoData in data
-            {
+
+            var cellDatas: [ZLRepositoryTableViewCellData] = []
+            for repoData in data {
                 let cellData = ZLRepositoryTableViewCellData.init(data: repoData)
                 self.addSubViewModel(cellData)
                 cellDatas.append(cellData)
@@ -71,61 +65,52 @@ extension ZLRepoForkedReposViewModel
             weakSelf?.currentPage = 1
         }
     }
-    
-    func loadMoreData(){
-        
+
+    func loadMoreData() {
+
         guard let fullName = fullName else {
             ZLToastView .showMessage("fullName is nil")
             self.itemListView?.endRefreshWithError()
             return
         }
-        
-        
+
         ZLServiceManager.sharedInstance.repoServiceModel?.getRepoForks(withFullName: fullName,
                                                                        serialNumber: NSString.generateSerialNumber(),
-                                                                       per_page: 10,
-                                                                       page: self.currentPage + 1)
-        { [weak weakSelf = self](resultModel : ZLOperationResultModel) in
-            
-            if resultModel.result == false
-            {
+                                                                       per_page: 20,
+                                                                       page: self.currentPage + 1) { [weak weakSelf = self](resultModel: ZLOperationResultModel) in
+
+            if resultModel.result == false {
                 weakSelf?.itemListView?.endRefreshWithError()
                 let errorModel = resultModel.data as? ZLGithubRequestErrorModel
                 ZLToastView.showMessage("Query Forks Failed Code [\(errorModel?.statusCode ?? 0)] Message[\(errorModel?.message ?? "")]")
                 return
             }
-            
-            guard let data : [ZLGithubRepositoryModel] = resultModel.data as? [ZLGithubRepositoryModel] else
-            {
+
+            guard let data: [ZLGithubRepositoryModel] = resultModel.data as? [ZLGithubRepositoryModel] else {
                 weakSelf?.itemListView?.endRefreshWithError()
                 ZLToastView.showMessage("ZLGithubRepositoryModel transfer error")
-                return;
+                return
             }
-            
-            var cellDatas : [ZLRepositoryTableViewCellData] = []
-            for repoData in data
-            {
+
+            var cellDatas: [ZLRepositoryTableViewCellData] = []
+            for repoData in data {
                 let cellData = ZLRepositoryTableViewCellData.init(data: repoData)
                 self.addSubViewModel(cellData)
                 cellDatas.append(cellData)
             }
             weakSelf?.itemListView?.appendCellDatas(cellDatas: cellDatas)
-            weakSelf?.currentPage = weakSelf!.currentPage + 1
+            weakSelf?.currentPage += 1
         }
     }
-    
+
 }
 
-
-
-extension ZLRepoForkedReposViewModel : ZLGithubItemListViewDelegate
-{
+extension ZLRepoForkedReposViewModel: ZLGithubItemListViewDelegate {
     func githubItemListViewRefreshDragUp(pullRequestListView: ZLGithubItemListView) {
         self.loadMoreData()
     }
-    
-    func githubItemListViewRefreshDragDown(pullRequestListView: ZLGithubItemListView) -> Void
-    {
+
+    func githubItemListViewRefreshDragDown(pullRequestListView: ZLGithubItemListView) {
         self.loadNewData()
     }
 }

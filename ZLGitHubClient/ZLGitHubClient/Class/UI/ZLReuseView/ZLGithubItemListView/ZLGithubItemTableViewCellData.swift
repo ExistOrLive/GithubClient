@@ -1,4 +1,3 @@
-
 //
 //  ZLGithubItemTableViewCellData.swift
 //  ZLGitHubClient
@@ -8,72 +7,71 @@
 //
 
 import Foundation
+import UIKit
+import ZLBaseUI
 
-@objc protocol ZLGithubItemTableViewCellDataProtocol : NSObjectProtocol
-{
-    func getCellReuseIdentifier() -> String;
-     
-    func getCellHeight() -> CGFloat;
-    
+@objc protocol ZLGithubItemTableViewCellDataProtocol: NSObjectProtocol {
+    func getCellReuseIdentifier() -> String
+
+    func getCellHeight() -> CGFloat
+
     func onCellSingleTap()
-    
+
     func getCellSwipeActions() -> UISwipeActionsConfiguration?
 }
 
-
-class ZLGithubItemTableViewCellData : ZLBaseViewModel,ZLGithubItemTableViewCellDataProtocol
-{
+class ZLGithubItemTableViewCellData: ZLBaseViewModel, ZLGithubItemTableViewCellDataProtocol {
     func getCellReuseIdentifier() -> String {
-        return "UITableViewCell";
+        return "UITableViewCell"
     }
-    
+
     func getCellHeight() -> CGFloat {
-        return 0;
+        return 0
     }
-    
+
     func onCellSingleTap() {
-        
+
     }
-    
-    func getCellSwipeActions() -> UISwipeActionsConfiguration?{
+
+    func getCellSwipeActions() -> UISwipeActionsConfiguration? {
         return nil
     }
-    
-    func clearCache(){
-        
+
+    func clearCache() {
+
     }
-    
+
 }
 
 extension ZLGithubItemTableViewCellData {
-    
-    class func getCellDataWithData(data: Any?) -> ZLGithubItemTableViewCellData?{
-        
+
+    class func getCellDataWithData(data: Any?) -> ZLGithubItemTableViewCellData? {
+
         if data == nil {
             return nil
-        } else if data! is ZLGithubRepositoryModel {
-            return ZLRepositoryTableViewCellData.init(data: data! as! ZLGithubRepositoryModel)
-        } else if data! is ZLGithubUserModel {
-            return ZLUserTableViewCellData.init(userModel: data! as! ZLGithubUserModel)
-        } else if data! is ZLGithubPullRequestModel {
-            return ZLPullRequestTableViewCellData.init(eventModel: data! as! ZLGithubPullRequestModel)
-        } else if data! is ZLGithubEventModel {
-            return ZLEventTableViewCellData.getCellDataWithEventModel(eventModel: data! as! ZLGithubEventModel)
-        } else if data! is ZLGithubGistModel {
-            return ZLGistTableViewCellData.init(data: data! as! ZLGithubGistModel)
-        } else if data! is ZLGithubCommitModel {
-            return ZLCommitTableViewCellData.init(commitModel: data! as! ZLGithubCommitModel)
-        } else if data! is ZLGithubIssueModel {
-            return ZLIssueTableViewCellData.init(issueModel: data! as! ZLGithubIssueModel)
-        } else if data! is ZLGithubNotificationModel {
-            return ZLNotificationTableViewCellData.init(data: data! as! ZLGithubNotificationModel)
-        } else if data! is ZLGithubRepoWorkflowModel {
-            return ZLWorkflowTableViewCellData.init(data: data! as! ZLGithubRepoWorkflowModel)
-        } else if data! is ZLGithubRepoWorkflowRunModel {
-            return ZLWorkflowRunTableViewCellData.init(data: data! as! ZLGithubRepoWorkflowRunModel)
+        } else if let data = data as? ZLGithubRepositoryModel {
+            return ZLRepositoryTableViewCellData.init(data: data)
+        } else if let data = data as? ZLGithubUserModel {
+            return ZLUserTableViewCellData.init(userModel: data)
+        } else if let data = data as? ZLGithubPullRequestModel {
+            return ZLPullRequestTableViewCellData.init(eventModel: data)
+        } else if let data = data as? ZLGithubEventModel {
+            return ZLEventTableViewCellData.getCellDataWithEventModel(eventModel: data)
+        } else if let data = data as? ZLGithubGistModel {
+            return ZLGistTableViewCellData.init(data: data)
+        } else if let data = data as? ZLGithubCommitModel {
+            return ZLCommitTableViewCellData.init(commitModel: data)
+        } else if let data = data as? ZLGithubIssueModel {
+            return ZLIssueTableViewCellData.init(issueModel: data)
+        } else if let data = data as? ZLGithubNotificationModel {
+            return ZLNotificationTableViewCellData.init(data: data)
+        } else if let data = data as? ZLGithubRepoWorkflowModel {
+            return ZLWorkflowTableViewCellData.init(data: data)
+        } else if let data = data as? ZLGithubRepoWorkflowRunModel {
+            return ZLWorkflowRunTableViewCellData.init(data: data)
         } else {
             return nil
         }
     }
-    
+
 }

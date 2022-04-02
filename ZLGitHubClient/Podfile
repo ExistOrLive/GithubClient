@@ -1,35 +1,47 @@
-platform :ios, '12.0'
+platform :ios, '11.0'
 use_frameworks!
 inhibit_all_warnings!     # 屏蔽pod中告警
 require "fileutils"
 
 abstract_target 'GithubClient' do
 
-#pod "ZLGitRemoteService", :path => '../../ZLGitRemoteService'
-pod 'ZLGitRemoteService', :git => 'https://github.com/ExistOrLive/ZLGitRemoteService.git'
-pod 'Firebase/Analytics'
-
 target 'Fixed RepoExtension' do
-
+  pod 'Kanna', '~> 5.2.2'
 end
 
 target 'ZLGitHubClient' do
-  
+ 
+pod 'Firebase/Analytics'
+pod 'Firebase/Crashlytics'
+pod 'Firebase/RemoteConfig'
+pod 'Firebase/Performance'
+
+pod "SYDCentralPivot"
+
+pod 'ZLGithubOAuth', :git => 'https://github.com/ExistOrLive/ZLGithubOAuth.git', :tag => '1.2.0'
+#pod "ZLGithubOAuth", :path => '../../ZLGithubOAuth'
+
+pod 'ZLGitRemoteService', :git => 'https://github.com/ExistOrLive/ZLGitRemoteService.git', :tag => '1.2.1'
+#pod "ZLGitRemoteService", :path => '../../ZLGitRemoteService'
+
+pod 'ZLBaseUI', :git => 'https://github.com/ExistOrLive/ZLBaseUI.git', :tag => '1.2.1'
+#pod 'ZLBaseUI', :path => "../../ZLBaseUI"
+
+pod 'ZLBaseExtension', :git => "https://github.com/ExistOrLive/ZLBaseExtension.git", :tag => '1.2.0'
+#pod 'ZLBaseExtension', :path => "../../ZLBaseExtension"
+
 #pod 'Google-Mobile-Ads-SDK'
 pod 'Umbrella'
 #pod 'Umbrella/Segment'
 pod 'Umbrella/Firebase'
 #pod 'Analytics', '~> 3.0'
 
-# Json Model 转换
-pod 'MJExtension'
 
 # 刷新控件
 pod 'MJRefresh'
-# 转圈控件  https://github.com/SVProgressHUD/SVProgressHUD
-pod 'SVProgressHUD'
+# 转圈控件
+pod 'MBProgressHUD'
 # ToastView https://github.com/scalessec/Toast-Swift
-pod 'Toast-Swift'
 pod 'Toast'
 # pageView控件 https://github.com/pujiaxin33/JXSegmentedView
 pod 'JXSegmentedView'
@@ -38,17 +50,8 @@ pod 'IQKeyboardManager'
 # 图表
 #pod 'ChartsRealm'
 pod 'Charts'
-# 弹出菜单
-pod 'FWPopupView'
-# 圆形菜单
-pod 'CircleMenu'
-
 #下载图片
 pod 'SDWebImage', '~> 5.0.0'
-
-#pod 'MMMarkdown'
-#pod 'MarkdownView'
-
 # AutoLayout
 pod 'Masonry'
 pod 'SnapKit', '~> 4.0.0'
@@ -58,6 +61,12 @@ pod 'YYText'
 # 弹出框容器
 pod 'FFPopup'
 
+
+#pod 'MMMarkdown'
+#pod 'MarkdownView'
+
+
+
 # 移动监控工具
 pod 'WoodPeckeriOS', :configurations => ['Debug']
 pod 'LookinServer', :configurations => ['Debug']
@@ -66,17 +75,33 @@ pod 'DoraemonKit/WithLogger', '~> 2.0.0', :configurations => ['Debug']
 #pod 'DoraemonKit/WithGPS', '~> 2.0.0', :configurations => ['Debug']
 pod 'DoraemonKit/WithMLeaksFinder', '2.0.0', :configurations => ['Debug']
 
-# bugly
-#pod 'Bugly'
-
 # 异常防护
 pod 'JJException'
 
 # 扩展
 pod 'UITextView+Placeholder'
 
-pod "SYDCentralPivot"
-pod 'ZLBaseUI', :git => 'https://github.com/ExistOrLive/ZLBaseUI.git', :tag => '1.2.0'
+# Rx
+pod 'RxSwift'
+pod 'RxCocoa'
+pod 'RxRelay'
+
+# 转场动画
+#pod 'Hero'
+
+# 物理引擎动画
+#pod 'pop', '~> 1.0'
+
+# 弹出框 弹出菜单
+pod 'FWPopupView'
+
+# 圆形菜单
+pod 'CircleMenu'
+
+# 浮动view https://github.com/scenee/FloatingPanel
+#pod 'FloatingPanel'
+
+
 
 end
 

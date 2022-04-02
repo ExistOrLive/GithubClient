@@ -9,14 +9,12 @@
 import WidgetKit
 import SwiftUI
 import Intents
-import ZLGitRemoteService
 
 
-extension ZLGithubRepositoryModel{
-    static func getSampleModel() -> ZLGithubRepositoryModel{
-        let model = ZLGithubRepositoryModel()
-        model.full_name = "ExistOrLive/GithubClient"
-        model.desc_Repo = "Github iOS Client based on Github REST V3 API and GraphQL V4 API"
+extension ZLSimpleRepositoryModel{
+    static func getSampleModel() -> ZLSimpleRepositoryModel{
+        var model = ZLSimpleRepositoryModel(fullName: "ExistOrLive/GithubClient")
+        model.desc = "Github iOS Client based on Github REST V3 API and GraphQL V4 API"
         model.language = "Swift"
         return model
     }
@@ -28,7 +26,7 @@ struct TrendingRepoProvider: IntentTimelineProvider {
     }
     
     func getSnapshot(for configuration: FixedRepoConfigurationIntent, in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date(),model: ZLGithubRepositoryModel.getSampleModel(), color:Color.blue)
+        let entry = SimpleEntry(date: Date(),model: ZLSimpleRepositoryModel.getSampleModel(), color:Color.blue)
         completion(entry)
     }
     
@@ -57,7 +55,7 @@ struct TrendingRepoProvider: IntentTimelineProvider {
 
 struct SimpleEntry: TimelineEntry {
     let date: Date
-    let model : ZLGithubRepositoryModel?
+    let model : ZLSimpleRepositoryModel?
     let color : Color
 }
 
@@ -102,14 +100,14 @@ struct FixedRepoMediumView : View {
                     
                 } else {
                     
-                    Text(entry.model?.full_name ?? "")
+                    Text(entry.model?.fullName ?? "")
                         .font(.title3)
                         .foregroundColor(Color("ZLTitleColor"))
                         .lineLimit(2)
                     
                     Spacer()
                     
-                    Text(entry.model?.desc_Repo ?? "")
+                    Text(entry.model?.desc ?? "")
                         .font(.caption)
                         .foregroundColor(Color("ZLDescColor"))
                         .lineLimit(3)
@@ -133,7 +131,7 @@ struct FixedRepoMediumView : View {
                             .scaledToFit()
                             .frame(minWidth: 15, idealWidth: nil, maxWidth: 15, minHeight: nil, idealHeight: nil, maxHeight: nil, alignment:.center)
                             .padding(.leading, 20)
-                        Text(String(entry.model?.stargazers_count ?? 0))
+                        Text(String(entry.model?.star ?? 0))
                             .font(.caption2)
                             .foregroundColor(Color("ZLLanguageColor"))
                         
@@ -142,7 +140,7 @@ struct FixedRepoMediumView : View {
                             .scaledToFit()
                             .frame(minWidth: 15.5, idealWidth: nil, maxWidth: 15.5, minHeight: nil, idealHeight: nil, maxHeight: nil, alignment:.center)
                             .padding(.leading, 20)
-                        Text(String(entry.model?.forks_count ?? 0))
+                        Text(String(entry.model?.fork ?? 0))
                             .font(.caption2)
                             .foregroundColor(Color("ZLLanguageColor"))
                     }
@@ -156,7 +154,7 @@ struct FixedRepoMediumView : View {
             Spacer()
         }
         .unredacted()
-        .widgetURL(URL(string: "https://github.com/\(entry.model?.full_name ?? "")"))
+        .widgetURL(URL(string: "https://github.com/\(entry.model?.fullName ?? "")"))
         
     }
     
@@ -175,6 +173,8 @@ struct TrendingRepoEntryView : View {
         case .systemMedium:
             return FixedRepoMediumView(entry: entry)
         case .systemLarge:
+            return FixedRepoMediumView(entry: entry)
+        case .systemExtraLarge:
             return FixedRepoMediumView(entry: entry)
         @unknown default:
             return FixedRepoMediumView(entry: entry)
@@ -198,7 +198,7 @@ struct TrendingRepoWidget: Widget {
 
 struct Fixed_Repo_Previews: PreviewProvider {
     static var previews: some View {
-        TrendingRepoEntryView(entry: SimpleEntry(date: Date(), model: ZLGithubRepositoryModel.getSampleModel(),color:Color.blue))
+        TrendingRepoEntryView(entry: SimpleEntry(date: Date(), model: ZLSimpleRepositoryModel.getSampleModel(),color:Color.blue))
             .previewContext(WidgetPreviewContext(family: .systemMedium))
     }
 }

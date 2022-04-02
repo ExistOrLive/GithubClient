@@ -34,7 +34,10 @@
     }
     
     UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [rightButton setImage:[UIImage imageNamed:@"run_more"] forState:UIControlStateNormal];
+    [rightButton setAttributedTitle:[[NSAttributedString alloc] initWithString:ZLIconFont_More
+                                                                    attributes:@{NSFontAttributeName:[UIFont zlIconFontWithSize:30],
+                                                                                 NSForegroundColorAttributeName:[UIColor colorNamed:@"ICON_Common"]}]
+                           forState:UIControlStateNormal];
     [rightButton setFrame:CGRectMake(0, 0, 60, 60)];
     [rightButton addTarget:self action:@selector(onAdditionButtonClickWithButton:) forControlEvents:UIControlEventTouchUpInside];
     ZLBaseViewController *vc = (ZLBaseViewController *)self.viewController;
@@ -57,15 +60,19 @@
     }
     
     NSMutableURLRequest * request =[NSMutableURLRequest requestWithURL:self.url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60];
-    [self.webContentView.webView loadRequest:request];
+    [self.webContentView loadRequest:request];
 }
 
 
 
 - (void) onAdditionButtonClickWithButton:(UIButton *) button {
+        
+    NSURL *url = self.webContentView.currentURL != nil ? self.webContentView.currentURL : self.url;
     
-    NSURL *url = self.webContentView.webView.URL;
-    
+    if(url == nil) {
+        return;
+    }
+
     UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:@[url] applicationActivities:nil];
     activityVC.popoverPresentationController.sourceView = button;
     activityVC.excludedActivityTypes = @[UIActivityTypeMessage,UIActivityTypeMail,UIActivityTypeOpenInIBooks,UIActivityTypeMarkupAsPDF];

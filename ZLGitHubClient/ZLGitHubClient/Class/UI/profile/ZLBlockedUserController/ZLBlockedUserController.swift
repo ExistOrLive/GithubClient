@@ -12,23 +12,21 @@ class ZLBlockedUserController: ZLBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.title = ZLLocalizedString(string: "Blocked User", comment: "屏蔽的用户")
-        
-        let view = ZLGithubItemListView.init();
+
+        let view = ZLGithubItemListView.init()
         view.setTableViewHeader()
-        
-        self.contentView.addSubview(view);
+
+        self.contentView.addSubview(view)
         view.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview();
+            make.edges.equalToSuperview()
         }
-        
-        
+
         let viewModel = ZLBlockedUserViewModel()
         self.addSubViewModel(viewModel)
         viewModel.bindModel(nil, andView: view)
     }
-    
 
     /*
     // MARK: - Navigation

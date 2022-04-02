@@ -9,11 +9,11 @@
 import UIKit
 
 class ZLLanguageTableViewCell: UITableViewCell {
-    
+
     @IBOutlet weak var selectedTag: UIImageView!
-    
+
     @IBOutlet weak var languageLabel: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
@@ -21,7 +21,7 @@ class ZLLanguageTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
+
         if selected == true {
             self.selectedTag.isHidden = false
             self.languageLabel.textColor = UIColor.black
@@ -30,5 +30,5 @@ class ZLLanguageTableViewCell: UITableViewCell {
             self.languageLabel.textColor = UIColor.init(named: "ZLLabelColor4")
         }
     }
-    
+
 }

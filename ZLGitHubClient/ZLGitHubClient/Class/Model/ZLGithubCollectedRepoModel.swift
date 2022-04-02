@@ -9,7 +9,7 @@
 import ZLGitRemoteService
 
 @objcMembers open class ZLGithubCollectedRepoModel: ZLBaseObject {
-    open var full_name : String?
-    open var owner_login : String?
-    open var owner_avatarURL : String?
+    open var full_name: String?
+    open var owner_login: String?
+    open var owner_avatarURL: String?
 }

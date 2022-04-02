@@ -7,36 +7,36 @@
 //
 
 import UIKit
+import ZLGitRemoteService
 
 class ZLRepoTableViewCellDataForTopRepoQuery: ZLGithubItemTableViewCellData {
-    
-    var data : ViewerTopRepositoriesQuery.Data.Viewer.TopRepository.Node
-    
+
+    var data: ViewerTopRepositoriesQuery.Data.Viewer.TopRepository.Node
+
     // view
-    weak var cell : ZLRepositoryTableViewCell?
-    
-    init(data : ViewerTopRepositoriesQuery.Data.Viewer.TopRepository.Node){
-        self.data = data;
+    weak var cell: ZLRepositoryTableViewCell?
+
+    init(data: ViewerTopRepositoriesQuery.Data.Viewer.TopRepository.Node) {
+        self.data = data
         super.init()
     }
-    
+
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
-        guard let cell : ZLRepositoryTableViewCell = targetView as? ZLRepositoryTableViewCell else{
+        guard let cell: ZLRepositoryTableViewCell = targetView as? ZLRepositoryTableViewCell else {
             return
         }
         cell.fillWithData(data: self)
         self.cell = cell
     }
-    
-    override func getCellHeight() -> CGFloat
-    {
+
+    override func getCellHeight() -> CGFloat {
         return UITableView.automaticDimension
     }
-    
+
     override func getCellReuseIdentifier() -> String {
         return "ZLRepositoryTableViewCell"
     }
-    
+
     override func onCellSingleTap() {
         if let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: data.nameWithOwner) {
             vc.hidesBottomBarWhenPushed = true
@@ -45,56 +45,61 @@ class ZLRepoTableViewCellDataForTopRepoQuery: ZLGithubItemTableViewCellData {
     }
 }
 
-extension ZLRepoTableViewCellDataForTopRepoQuery : ZLRepositoryTableViewCellDelegate {
-    
-    func onRepoAvaterClicked() -> Void{
-//        if data.isInOrganization {
-//            if let userInfoVC = ZLUIRouter.getUserInfoViewController(loginName: data.owner.login){
-//                userInfoVC.hidesBottomBarWhenPushed = true
-//                self.viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
-//            }
-//            
-//        } else {
-//            if let orgInfoVC = ZLUIRouter.getOrgInfoViewController(loginName: data.owner.login){
-//                orgInfoVC.hidesBottomBarWhenPushed = true
-//                self.viewController?.navigationController?.pushViewController(orgInfoVC, animated: true)
-//            }
-//        }
+extension ZLRepoTableViewCellDataForTopRepoQuery: ZLRepositoryTableViewCellDelegate {
+
+    func onRepoAvaterClicked() {
+        if let userInfoVC = ZLUIRouter.getUserInfoViewController(loginName: data.owner.login) {
+            userInfoVC.hidesBottomBarWhenPushed = true
+            self.viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
+        }
     }
-    
-    func getOwnerAvatarURL() -> String?{
+
+    func getOwnerAvatarURL() -> String? {
         return self.data.owner.avatarUrl
     }
 
-    func getRepoFullName() -> String?{
+    func getRepoFullName() -> String? {
         return self.data.nameWithOwner
     }
-    
-    func getRepoName() -> String?{
+
+    func getRepoName() -> String? {
         return self.data.name
     }
-    
-    func getOwnerName() -> String?{
+
+    func getOwnerName() -> String? {
         return self.data.owner.login
     }
-    
-    func getRepoMainLanguage() -> String?{
+
+    func getRepoMainLanguage() -> String? {
         return self.data.primaryLanguage?.name
     }
-    
-    func getRepoDesc() -> String?{
+
+    func getRepoDesc() -> String? {
         return self.data.description
     }
-    
-    func isPriva() -> Bool{
+
+    func isPriva() -> Bool {
         return self.data.isPrivate
     }
-    func starNum() -> Int{
+    func starNum() -> Int {
         return self.data.stargazerCount
     }
-    
-    func forkNum() -> Int{
+
+    func forkNum() -> Int {
         return self.data.forkCount
     }
-    
+
+    func hasLongPressAction() -> Bool {
+        true
+    }
+
+    func longPressAction(view: UIView) {
+        guard let url = URL(string: data.url),
+              let vc = viewController else {
+                  return
+              }
+
+        view.showShareMenu(title: data.url, url: url, sourceViewController: vc)
+    }
+
 }

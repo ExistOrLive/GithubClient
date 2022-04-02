@@ -9,31 +9,31 @@
 import UIKit
 
 class ZLWorkflowTableViewCellData: ZLGithubItemTableViewCellData {
-    var data : ZLGithubRepoWorkflowModel
-    
-    var repoFullName : String = ""
-    
-    init(data : ZLGithubRepoWorkflowModel) {
+    var data: ZLGithubRepoWorkflowModel
+
+    var repoFullName: String = ""
+
+    init(data: ZLGithubRepoWorkflowModel) {
         self.data = data
         super.init()
     }
-    
+
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
-        guard let tableViewCell : ZLWorkflowTableViewCell = targetView as? ZLWorkflowTableViewCell else {
+        guard let tableViewCell: ZLWorkflowTableViewCell = targetView as? ZLWorkflowTableViewCell else {
             return
         }
         tableViewCell.fillWithData(cellData: self)
         tableViewCell.delegate = self
     }
-    
+
     override func getCellReuseIdentifier() -> String {
            return "ZLWorkflowTableViewCell"
     }
-    
+
     override func getCellHeight() -> CGFloat {
         return UITableView.automaticDimension
     }
-    
+
     override func onCellSingleTap() {
         let workflowRunVc = ZLRepoWorkflowRunsController.init()
         workflowRunVc.fullName = self.repoFullName
@@ -47,17 +47,17 @@ extension ZLWorkflowTableViewCellData {
     func getWorkflowTitle() -> String {
         return data.name ?? ""
     }
-    
+
     func getWorkflowState() -> String {
         return data.state
     }
 }
 
-
 extension ZLWorkflowTableViewCellData: ZLWorkflowTableViewCellDelegate {
     func onConfigButtonClicked() {
-        let webVC = ZLWebContentController.init()
-        webVC.requestURL = URL.init(string: data.html_url ?? "")
-        self.viewController?.navigationController?.pushViewController(webVC, animated: true)
+        if let url = URL.init(string: self.data.html_url ?? "") {
+            ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,
+                                  params: ["requestURL": url])
+        }
     }
 }

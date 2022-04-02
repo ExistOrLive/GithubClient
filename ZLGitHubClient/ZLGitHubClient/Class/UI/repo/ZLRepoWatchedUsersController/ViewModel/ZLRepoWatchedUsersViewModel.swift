@@ -9,18 +9,18 @@
 import UIKit
 
 class ZLRepoWatchedUsersViewModel: ZLBaseViewModel {
-    
-    var itemListView : ZLGithubItemListView?
-    
+
+    var itemListView: ZLGithubItemListView?
+
     // model
-    var fullName : String?
-    var currentPage : Int = 0
-    
+    var fullName: String?
+    var currentPage: Int = 0
+
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
-        
+
         self.fullName = targetModel as? String
-        
-        guard let itemsView : ZLGithubItemListView = targetView as? ZLGithubItemListView else{
+
+        guard let itemsView: ZLGithubItemListView = targetView as? ZLGithubItemListView else {
             return
         }
         self.itemListView = itemsView
@@ -29,43 +29,35 @@ class ZLRepoWatchedUsersViewModel: ZLBaseViewModel {
     }
 }
 
-extension ZLRepoWatchedUsersViewModel
-{
-    func loadNewData()
-    {
+extension ZLRepoWatchedUsersViewModel {
+    func loadNewData() {
         guard let fullName = self.fullName else {
-            
+
             ZLToastView .showMessage("fullName is nil")
             self.itemListView?.endRefreshWithError()
             return
         }
-        
 
-        
         ZLServiceManager.sharedInstance.repoServiceModel?.getRepoWatchers(withFullName: fullName,
                                                                           serialNumber: NSString.generateSerialNumber(),
-                                                                          per_page: 10,
-                                                                          page: 1)
-        { [weak weakSelf = self ](resultModel : ZLOperationResultModel) in
-            
-            if resultModel.result == false
-            {
+                                                                          per_page: 20,
+                                                                          page: 1) { [weak weakSelf = self ](resultModel: ZLOperationResultModel) in
+
+            if resultModel.result == false {
                 weakSelf?.itemListView?.endRefreshWithError()
                 let errorModel = resultModel.data as? ZLGithubRequestErrorModel
                 ZLToastView.showMessage("Query Watchers Failed Code [\(errorModel?.statusCode ?? 0)] Message[\(errorModel?.message ?? "")]")
                 return
             }
-            
-            guard let data : [ZLGithubUserModel] = resultModel.data as? [ZLGithubUserModel] else
-            {
+
+            guard let data: [ZLGithubUserModel] = resultModel.data as? [ZLGithubUserModel] else {
                 weakSelf?.itemListView?.endRefreshWithError()
                 ZLToastView.showMessage("ZLGithubUserModel transfer error")
-                return;
+                return
             }
-            
-            var cellDatas : [ZLUserTableViewCellData] = []
-            for userData in data
-            {
+
+            var cellDatas: [ZLUserTableViewCellData] = []
+            for userData in data {
                 let cellData = ZLUserTableViewCellData.init(userModel: userData)
                 self.addSubViewModel(cellData)
                 cellDatas.append(cellData)
@@ -74,39 +66,34 @@ extension ZLRepoWatchedUsersViewModel
             weakSelf?.currentPage = 1
         }
     }
-    
-    func loadMoreData()
-    {
+
+    func loadMoreData() {
         guard let fullName = self.fullName else {
             ZLToastView .showMessage("fullName is nil")
             self.itemListView?.endRefreshWithError()
             return
         }
-        
+
         ZLServiceManager.sharedInstance.repoServiceModel?.getRepoWatchers(withFullName: fullName,
                                                                           serialNumber: NSString.generateSerialNumber(),
-                                                                          per_page: 10,
-                                                                          page: self.currentPage + 1)
-        { [weak weakSelf = self](resultModel : ZLOperationResultModel) in
-            
-            if resultModel.result == false
-            {
+                                                                          per_page: 20,
+                                                                          page: self.currentPage + 1) { [weak weakSelf = self](resultModel: ZLOperationResultModel) in
+
+            if resultModel.result == false {
                 weakSelf?.itemListView?.endRefreshWithError()
                 let errorModel = resultModel.data as? ZLGithubRequestErrorModel
                 ZLToastView.showMessage("Query Watchers Failed Code [\(errorModel?.statusCode ?? 0)] Message[\(errorModel?.message ?? "")]")
                 return
             }
-            
-            guard let data : [ZLGithubUserModel] = resultModel.data as? [ZLGithubUserModel] else
-            {
+
+            guard let data: [ZLGithubUserModel] = resultModel.data as? [ZLGithubUserModel] else {
                 weakSelf?.itemListView?.endRefreshWithError()
                 ZLToastView.showMessage("ZLGithubUserModel transfer error")
-                return;
+                return
             }
-            
-            var cellDatas : [ZLUserTableViewCellData] = []
-            for userData in data
-            {
+
+            var cellDatas: [ZLUserTableViewCellData] = []
+            for userData in data {
                 let cellData = ZLUserTableViewCellData.init(userModel: userData)
                 self.addSubViewModel(cellData)
                 cellDatas.append(cellData)
@@ -115,19 +102,15 @@ extension ZLRepoWatchedUsersViewModel
             weakSelf?.currentPage += 1
         }
     }
-    
+
 }
 
-
-
-extension ZLRepoWatchedUsersViewModel : ZLGithubItemListViewDelegate
-{
+extension ZLRepoWatchedUsersViewModel: ZLGithubItemListViewDelegate {
     func githubItemListViewRefreshDragUp(pullRequestListView: ZLGithubItemListView) {
         self.loadMoreData()
     }
-    
-    func githubItemListViewRefreshDragDown(pullRequestListView: ZLGithubItemListView) -> Void
-    {
+
+    func githubItemListViewRefreshDragDown(pullRequestListView: ZLGithubItemListView) {
         self.loadNewData()
     }
 }

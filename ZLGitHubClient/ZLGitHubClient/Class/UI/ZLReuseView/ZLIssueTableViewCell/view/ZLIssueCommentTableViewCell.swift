@@ -9,107 +9,74 @@
 import UIKit
 import WebKit
 
-protocol ZLIssueCommentTableViewCellDelegate : NSObjectProtocol{
+protocol ZLIssueCommentTableViewCellDelegate: NSObjectProtocol {
     func getActorAvatarUrl() -> String
     func getActorName() -> String
     func getTime() -> String
     func getCommentHtml() -> String
     func getCommentText() -> String
-    func getCommentWebView() -> WKWebView
-    func getCommentWebViewHeight() -> CGFloat
-    
+
     func onAvatarButtonClicked()
+    func didRowHeightChange(height: CGFloat)
+    func didClickLink(url: URL)
 }
 
 class ZLIssueCommentTableViewCell: UITableViewCell {
-    
-    var delegate: ZLIssueCommentTableViewCellDelegate?
-    
-    var avatarButton : UIButton!
-    var actorLabel : UILabel!
-    var timeLabel : UILabel!
-    var containerView : UIView!
-    
+
+    fileprivate weak var delegate: ZLIssueCommentTableViewCellDelegate?
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setUpUI()
     }
-    
-    
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+
+    deinit {
+        webView.configuration.userContentController.removeAllUserScripts()
+        webView.configuration.userContentController.removeScriptMessageHandler(forName: "onHTMLHeightChange")
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+    func setUpUI() {
 
-        // Configure the view for the selected state
-    }
-
-    
-    
-    func setUpUI(){
-        
         self.selectionStyle = .none
-        
         self.contentView.backgroundColor = UIColor.clear
         self.backgroundColor = UIColor.clear
-        
-        let backView = UIView()
-        backView.layer.masksToBounds = true
-        backView.layer.cornerRadius = 8.0
-        backView.backgroundColor = UIColor(named: "ZLIssueCommentCellColor")
         self.contentView.addSubview(backView)
+
         backView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview().inset(UIEdgeInsets(top: 20, left: 10, bottom: 0, right: 10))
+            make.edges.equalToSuperview().inset(UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0))
         }
-        
-        let tmpAvatarButton = UIButton(type: .custom)
-        tmpAvatarButton.cornerRadius = 20
-        backView.addSubview(tmpAvatarButton)
-        tmpAvatarButton.snp.makeConstraints { (make) in
+
+        backView.addSubview(avatarButton)
+        avatarButton.snp.makeConstraints { (make) in
             make.top.equalToSuperview().offset(20)
             make.left.equalToSuperview().offset(15)
             make.size.equalTo(CGSize(width: 40, height: 40))
         }
-        avatarButton = tmpAvatarButton
-        avatarButton.addTarget(self, action: #selector(onAvatarButtonClicked), for: .touchUpInside)
-        
-        let label1 = UILabel()
-        label1.textColor = UIColor(named: "ZLLabelColor1")
-        label1.font = UIFont(name: Font_PingFangSCMedium, size: 15)
-        backView.addSubview(label1)
-        label1.snp.makeConstraints { (make) in
+
+        backView.addSubview(actorLabel)
+        actorLabel.snp.makeConstraints { (make) in
             make.left.equalTo(avatarButton.snp.right).offset(10)
             make.top.equalTo(avatarButton)
         }
-        actorLabel = label1
-        
-        let label2 = UILabel()
-        label2.textColor = UIColor(named: "ZLLabelColor2")
-        label2.font = UIFont(name: Font_PingFangSCRegular, size: 12)
-        backView.addSubview(label2)
-        label2.snp.makeConstraints { (make) in
+
+        backView.addSubview(timeLabel)
+        timeLabel.snp.makeConstraints { (make) in
             make.left.equalTo(avatarButton.snp.right).offset(10)
             make.bottom.equalTo(avatarButton)
         }
-        timeLabel = label2
-        
-        containerView = UIView()
-        backView.addSubview(containerView)
-        containerView.snp.makeConstraints { (make) in
+
+        backView.addSubview(webView)
+        webView.snp.makeConstraints { make in
             make.top.equalTo(avatarButton.snp.bottom).offset(20)
-            make.left.equalToSuperview().offset(25)
-            make.right.equalToSuperview().offset(-25)
+            make.left.equalToSuperview().offset(15)
+            make.right.equalToSuperview().offset(-15)
             make.bottom.equalToSuperview().offset(-10)
         }
-                
+
         let view = UIView()
         view.backgroundColor = UIColor(named: "ZLSeperatorLineColor")
         self.contentView.addSubview(view)
@@ -120,33 +87,132 @@ class ZLIssueCommentTableViewCell: UITableViewCell {
             make.width.equalTo(1)
         }
     }
-    
-    
-    func fillWithData(data : ZLIssueCommentTableViewCellDelegate) {
-        
-        delegate = data
-        
-        avatarButton.sd_setImage(with: URL(string: data.getActorAvatarUrl()), for: .normal, placeholderImage: UIImage(named: "default_avatar"))
+
+    func fillWithData(data: ZLIssueCommentTableViewCellDelegate) {
+        self.delegate = data
+        avatarButton.sd_setImage(with: URL(string: data.getActorAvatarUrl()),
+                                 for: .normal,
+                                 placeholderImage: UIImage(named: "default_avatar"))
         actorLabel.text = data.getActorName()
         timeLabel.text = data.getTime()
-        
-        let webView = data.getCommentWebView()
-        for view in containerView.subviews {
-            view.removeFromSuperview()
-        }
-        containerView.addSubview(webView)
-        webView.snp.removeConstraints()
-        webView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
-            make.height.equalTo(data.getCommentWebViewHeight())
-        }
-        
+        webView.loadHTMLString(data.getCommentHtml(), baseURL: nil)
     }
-    
-    
-    @objc func onAvatarButtonClicked(){
+
+    @objc func onAvatarButtonClicked() {
         self.delegate?.onAvatarButtonClicked()
     }
-    
-    
+
+    // MARK: scriptHandler
+    private lazy var scriptHandler: ZLIssueCommentScriptMessageHandler = {
+        let handler = ZLIssueCommentScriptMessageHandler()
+        handler.cell = self
+        return handler
+    }()
+
+    // MARK: View
+
+    private lazy var backView: UIView = {
+        let backView = UIView()
+        backView.backgroundColor = UIColor(named: "ZLIssueCommentCellColor")
+        return backView
+    }()
+
+    private lazy var avatarButton: UIButton = {
+        let tmpAvatarButton = UIButton(type: .custom)
+        tmpAvatarButton.cornerRadius = 20
+        tmpAvatarButton.addTarget(self, action: #selector(onAvatarButtonClicked), for: .touchUpInside)
+        return tmpAvatarButton
+    }()
+
+    private lazy var actorLabel: UILabel = {
+        let label1 = UILabel()
+        label1.textColor = UIColor(named: "ZLLabelColor1")
+        label1.font = UIFont(name: Font_PingFangSCMedium, size: 15)
+        return label1
+    }()
+
+    private lazy var timeLabel: UILabel = {
+        let label2 = UILabel()
+        label2.textColor = UIColor(named: "ZLLabelColor2")
+        label2.font = UIFont(name: Font_PingFangSCRegular, size: 12)
+        return label2
+    }()
+
+    private lazy var webView: WKWebView = {
+        let userContentController = WKUserContentController()
+        // 注册回调 传入的scriptHandler是强引用
+        userContentController.add(scriptHandler, name: "onHTMLHeightChange")
+        // 在HTML页面加载前插入脚本
+        let script = WKUserScript(source: ZLIssueCommentTableViewCell.getHTMLHeightScript, injectionTime: .atDocumentStart, forMainFrameOnly: false)
+        userContentController.addUserScript(script)
+        let webViewConfig = WKWebViewConfiguration()
+        webViewConfig.userContentController = userContentController
+
+        let webView = WKWebView(frame: CGRect.zero, configuration: webViewConfig)
+        webView.navigationDelegate = self
+        webView.scrollView.backgroundColor = UIColor.clear
+        webView.backgroundColor = UIColor.clear
+        webView.scrollView.isScrollEnabled = false
+        return webView
+    }()
+
+    // JS脚本监控HTML高度，0.5秒检查一次，如果变化通知原生cell更新
+    static let getHTMLHeightScript = #"""
+                                     var currentHeight = 0
+
+                                     function getHTMLHeight() {
+                                         let array = document.getElementsByTagName('html')
+                                         let offsetHeight = array[0].offsetHeight
+                                         if(currentHeight != offsetHeight) {
+                                             currentHeight = offsetHeight
+                                             window.webkit.messageHandlers.onHTMLHeightChange.postMessage(offsetHeight)
+                                         }
+                                     }
+
+                                     window.setInterval("getHTMLHeight()",500)
+                                     """#
+
+}
+
+extension ZLIssueCommentTableViewCell: WKNavigationDelegate {
+
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        if navigationAction.navigationType == .linkActivated {
+            if let url = navigationAction.request.url {
+                self.delegate?.didClickLink(url: url)
+            }
+            decisionHandler(.cancel)
+        } else {
+            decisionHandler(.allow)
+        }
+    }
+
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+//      let script = "let array = document.getElementsByTagName('html');array[0].offsetHeight"
+//      webView.evaluateJavaScript(script) { [weak self] result, error in
+//        if let _ = error { return }
+//        if let height = result as? CGFloat {
+//            self?.delegate?.didRowHeightChange(height: height + 110)
+//        }
+//      }
+    }
+}
+
+class ZLIssueCommentScriptMessageHandler: NSObject, WKScriptMessageHandler {
+
+    weak var cell: ZLIssueCommentTableViewCell?
+
+    deinit {
+        print("ZLIssueCommentScriptMessageHandler deinit")
+    }
+
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        // height change
+        if "onHTMLHeightChange" == message.name {
+            guard let height = message.body as? CGFloat else {
+                return
+            }
+            cell?.delegate?.didRowHeightChange(height: height + 110)
+        }
+    }
 }

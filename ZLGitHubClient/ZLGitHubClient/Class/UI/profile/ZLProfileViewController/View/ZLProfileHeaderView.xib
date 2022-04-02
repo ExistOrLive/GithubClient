@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -44,12 +44,11 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hFi-TB-MzG">
-                            <rect key="frame" x="362" y="30" width="20" height="20"/>
+                            <rect key="frame" x="352" y="30" width="30" height="30"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="20" id="i6Z-53-7Nn"/>
-                                <constraint firstAttribute="width" constant="20" id="rJ0-nN-fbt"/>
+                                <constraint firstAttribute="height" constant="30" id="i6Z-53-7Nn"/>
+                                <constraint firstAttribute="width" constant="30" id="rJ0-nN-fbt"/>
                             </constraints>
-                            <state key="normal" backgroundImage="Edit_MyProfile"/>
                             <connections>
                                 <action selector="onProfileHeaderViewButtonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="p16-6J-TKP"/>
                             </connections>
@@ -212,15 +211,8 @@
                             <color key="textColor" name="ZLLabelColor1"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Next_MyProfile" translatesAutoresizingMaskIntoConstraints="NO" id="doq-bf-sT3">
-                            <rect key="frame" x="362" y="20.5" width="5" height="9"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="9" id="qPT-Vt-oH9"/>
-                                <constraint firstAttribute="width" constant="5" id="qu0-me-Jw6"/>
-                            </constraints>
-                        </imageView>
                         <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tI7-p3-DgD">
-                            <rect key="frame" x="289" y="12" width="68" height="26"/>
+                            <rect key="frame" x="299" y="12" width="68" height="26"/>
                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                             <state key="normal" title="查看全部修改">
                                 <color key="titleColor" name="ZLLabelColor2"/>
@@ -242,15 +234,13 @@
                     <color key="backgroundColor" name="ZLCellBack"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="155" id="44i-0e-jTi"/>
-                        <constraint firstItem="doq-bf-sT3" firstAttribute="leading" secondItem="tI7-p3-DgD" secondAttribute="trailing" constant="5" id="D71-LE-2bo"/>
-                        <constraint firstAttribute="trailing" secondItem="doq-bf-sT3" secondAttribute="trailing" constant="15" id="E6Y-eR-QSK"/>
                         <constraint firstItem="buL-Rc-oyY" firstAttribute="top" secondItem="EY7-Hj-YAT" secondAttribute="bottom" constant="10" id="Nym-6p-qnt"/>
                         <constraint firstItem="buL-Rc-oyY" firstAttribute="leading" secondItem="Rsj-dY-eGJ" secondAttribute="leading" constant="15" id="PSr-TB-CZE"/>
                         <constraint firstItem="EY7-Hj-YAT" firstAttribute="leading" secondItem="Rsj-dY-eGJ" secondAttribute="leading" constant="15" id="Seb-AC-PyI"/>
                         <constraint firstItem="EY7-Hj-YAT" firstAttribute="top" secondItem="Rsj-dY-eGJ" secondAttribute="top" constant="15" id="UOp-Ce-Hgo"/>
                         <constraint firstItem="tI7-p3-DgD" firstAttribute="centerY" secondItem="EY7-Hj-YAT" secondAttribute="centerY" id="Ulm-lS-aI0"/>
-                        <constraint firstItem="EY7-Hj-YAT" firstAttribute="centerY" secondItem="doq-bf-sT3" secondAttribute="centerY" id="XQz-oe-wiy"/>
                         <constraint firstAttribute="trailing" secondItem="buL-Rc-oyY" secondAttribute="trailing" constant="15" id="Y5h-ui-KdM"/>
+                        <constraint firstAttribute="trailing" secondItem="tI7-p3-DgD" secondAttribute="trailing" constant="15" id="awc-Vf-doz"/>
                         <constraint firstAttribute="bottom" secondItem="buL-Rc-oyY" secondAttribute="bottom" constant="10" id="frB-5f-Fsp"/>
                     </constraints>
                 </view>
@@ -267,6 +257,7 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="EditProfileButton" destination="hFi-TB-MzG" id="6L0-En-zgm"/>
                 <outlet property="allUpdateButton" destination="tI7-p3-DgD" id="WiM-5n-mVW"/>
                 <outlet property="contributionView" destination="buL-Rc-oyY" id="8Rv-n4-1We"/>
                 <outlet property="createTimeLabel" destination="GvF-MU-KfX" id="Jnr-t9-dsH"/>
@@ -287,14 +278,12 @@
         </view>
     </objects>
     <resources>
-        <image name="Edit_MyProfile" width="10.5" height="10.5"/>
-        <image name="Next_MyProfile" width="5" height="9"/>
-        <image name="default_avatar" width="143" height="143"/>
+        <image name="default_avatar" width="40" height="40"/>
         <namedColor name="ZLCellBack">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="ZLContributionBackColor">
-            <color red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="ZLLabelColor1">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

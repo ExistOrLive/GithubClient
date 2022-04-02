@@ -1,12 +1,6 @@
 name: ZLGithub Test
 
-on:                               # 触发条件
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
+on: [push,pull_request]
 
 jobs:
   build:
@@ -15,16 +9,11 @@ jobs:
     steps:
     - name: checkout
       uses: actions/checkout@v2.0.0
-      with: 
-        ref: master 
-    - name: download secret file
-      working-directory: ./ZLGitHubClient          # 指定run 的工作目录
+    - name: email send for success
+      working-directory: ./ZLGitHubClient/EmailSender
+      if: ${{ failure() }}
       env: 
-        GITHUBTOKEN: ${{ secrets.GITHUBTOKEN }}
+        NOREPLEY_PWD: ${{ secrets.NOREPLY_PASSWD }}
+        Email_Receivers: ${{ secrets.Email_Receivers }}
       run: |
-        ls
-        pwd
-        pip3 install requests
-        python3 DownloadSecretFile/DownloadSecrectFile.py $GITHUBTOKEN
-        mv ZLGithubAppKey.h ZLGitHubClient/System/ZLSupportFiles/ZLGithubAppKey.h
-        mv GoogleService-Info.plist ZLGitHubClient/GoogleService-Info.plist
+        python3 BuildCheckEmailSender.py $NOREPLEY_PWD $Email_Receivers false

@@ -11,7 +11,7 @@ import UIKit
 class ZLSettingLogoutTableViewCell: UITableViewCell {
 
     @IBOutlet weak var titleLabel: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         titleLabel.text = ZLLocalizedString(string: "logout", comment: "注销")
@@ -22,5 +22,5 @@ class ZLSettingLogoutTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
 }

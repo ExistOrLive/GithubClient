@@ -9,40 +9,40 @@
 import UIKit
 import ZLGitRemoteService
 
-class ZLAboutViewModel: ZLBaseViewModel {
-    
-    var aboutView : ZLAboutContentView?
-    
+class ZLAboutViewModel: ZLBaseViewModel, ZLAboutContentViewDelegate {
+
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
-        guard let aboutView : ZLAboutContentView = targetView as? ZLAboutContentView else{
-            return;
+        guard let aboutView = targetView as? ZLAboutContentView else {
+            return
         }
-        self.aboutView = aboutView
-        
-        self.aboutView?.versionLabel.text = ZLDeviceInfo.getAppVersion()
+        aboutView.fillWithData(delegate: self)
     }
-    
-    @IBAction func onContributorsButtonClicked(_ sender: Any) {
+
+    var version: String {
+        ZLDeviceInfo.getAppVersion()
+    }
+
+   func onContributorsButtonClicked() {
+
         let contributorsVC = ZLRepoContributorsController.init()
         contributorsVC.repoFullName = "ExistOrLive/GithubClient"
         self.viewController?.navigationController?.pushViewController(contributorsVC, animated: true)
     }
-    
-    
-    @IBAction func onRepoButtonClicked(_ sender: Any) {
+
+   func onRepoButtonClicked() {
+
         if let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: "ExistOrLive/GithubClient") {
             vc.hidesBottomBarWhenPushed = true
             self.viewController?.navigationController?.pushViewController(vc, animated: true)
         }
     }
-    
-    @IBAction func onAppStoreButtonClicked(_ sender: Any) {
-        let url = URL.init(string: "https://apps.apple.com/cn/app/zlgithubclient/id1498787032")
-        if UIApplication.shared.canOpenURL(url!) {
-            UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+
+   func onAppStoreButtonClicked() {
+
+        if  let url = URL.init(string: "https://apps.apple.com/cn/app/zlgithubclient/id1498787032"),
+            UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
-        
     }
-    
-    
+
 }

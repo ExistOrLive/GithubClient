@@ -19,6 +19,7 @@
 #import <ZLGitRemoteService/ZLGitRemoteService.h>
 #import <ZLGitRemoteService/ZLGitRemoteService-Swift.h>
 #import <Firebase/Firebase.h>
+#import <IQKeyboardManager/IQKeyboardManager.h>
 
 
 
@@ -47,9 +48,11 @@
      *
      * 初始化工具模块
      **/
-    [[ZLServiceManager sharedInstance] initManagerWithClientId:MyClientID
-                                                  clientSecret:MyClientSecret
-                                                       buglyId:ZLBuyglyAppId];
+    [[ZLServiceManager sharedInstance] initManagerWithBuglyId:ZLBuyglyAppId];
+    
+    ZLUISharedDataManager.githubClientID = MyClientID;
+    ZLUISharedDataManager.githubClientSecret = MyClientSecret;
+    ZLUISharedDataManager.githubClientCallback = MyClientCallback;
     
     [FIRApp configure];
 
@@ -150,8 +153,10 @@
 
 #pragma mark -
 
-- (void) initUIConfig{
-    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeBlack];
+- (void) initUIConfig {
+    
+    [[IQKeyboardManager sharedManager] setEnable:NO];
+    
     if([ZLDeviceInfo isIpad]){
         self.allowRotation = YES;    // iPad 允许旋转
     }
@@ -162,11 +167,10 @@
     [ZLBaseUIConfig sharedInstance].viewControllerBackgoundColor = [UIColor colorNamed:@"ZLVCBackColor"];
     
     [ZLBaseUIConfig sharedInstance].buttonTitleColor = [UIColor colorNamed:@"ZLBaseButtonTitleColor"];
-    [ZLBaseUIConfig sharedInstance].buttonBorderWidth = 1 / ZLScreenScale;
+    [ZLBaseUIConfig sharedInstance].buttonBorderWidth = 1.0 / ZLScreenScale;
     [ZLBaseUIConfig sharedInstance].buttonBackColor = [UIColor colorNamed:@"ZLBaseButtonBackColor"];
     [ZLBaseUIConfig sharedInstance].buttonBorderColor = [UIColor colorNamed:@"ZLBaseButtonBorderColor"];
     [ZLBaseUIConfig sharedInstance].buttonCornerRadius = 4.0;
-    
     
 }
 

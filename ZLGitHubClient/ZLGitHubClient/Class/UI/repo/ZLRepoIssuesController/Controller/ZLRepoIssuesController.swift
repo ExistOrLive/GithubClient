@@ -9,30 +9,26 @@
 import UIKit
 
 class ZLRepoIssuesController: ZLBaseViewController {
-    
-    var repoFullName : String?
-    
-    
+
+    var repoFullName: String?
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.title = ZLLocalizedString(string: "issues", comment: "")
-        
+
         let viewModel = ZLRepoIssuesViewModel()
-        
-        guard  let repoIssuesView : ZLRepoIssuesView = Bundle.main.loadNibNamed("ZLRepoIssuesView", owner: viewModel, options: nil)?.first as? ZLRepoIssuesView else {
-            return
-        }
+
+        let repoIssuesView = ZLRepoIssuesView()
         self.contentView.addSubview(repoIssuesView)
-        repoIssuesView.snp.makeConstraints ({ (make) in
+        repoIssuesView.snp.makeConstraints({ (make) in
             make.edges.equalToSuperview()
         })
-        
+
         self.addSubViewModel(viewModel)
         viewModel.bindModel(repoFullName, andView: repoIssuesView)
     }
-    
-    
+
     /*
      // MARK: - Navigation
      
@@ -42,5 +38,5 @@ class ZLRepoIssuesController: ZLBaseViewController {
      // Pass the selected object to the new view controller.
      }
      */
-    
+
 }

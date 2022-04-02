@@ -9,21 +9,21 @@
 import UIKit
 
 class ZLMyIssuesController: ZLBaseViewController, ZLMyIssuesViewDelegate {
-    
-    // view
-    var myIssuesView : ZLMyIssuesView!
-    
-    // model
-    var filterType : ZLIssueFilterType = .created
-    var state : ZLGithubIssueState = .open
 
-    var afterCursor : String?
-    
+    // view
+    var myIssuesView: ZLMyIssuesView!
+
+    // model
+    var filterType: ZLIssueFilterType = .created
+    var state: ZLGithubIssueState = .open
+
+    var afterCursor: String?
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.title = ZLLocalizedString(string: "issues", comment: "")
-        
+
         let issuesView = ZLMyIssuesView()
         self.contentView.addSubview(issuesView)
         issuesView.snp.makeConstraints { (make) in
@@ -31,53 +31,52 @@ class ZLMyIssuesController: ZLBaseViewController, ZLMyIssuesViewDelegate {
         }
         issuesView.githubItemListView.delegate = self
         issuesView.delegate = self
-        
+
         self.myIssuesView = issuesView
-       
+
         self.myIssuesView.githubItemListView.beginRefresh()
     }
-    
+
     func onFilterTypeChange(type: ZLIssueFilterType) {
         self.filterType = type
         self.myIssuesView.githubItemListView.clearListView()
         self.myIssuesView.githubItemListView.beginRefresh()
     }
-    
-    func onStateChange(state:ZLGithubIssueState){
+
+    func onStateChange(state: ZLGithubIssueState) {
         self.state = state
         self.myIssuesView.githubItemListView.clearListView()
         self.myIssuesView.githubItemListView.beginRefresh()
     }
-    
+
 }
 
-extension ZLMyIssuesController : ZLGithubItemListViewDelegate {
-    
-    func githubItemListViewRefreshDragDown(pullRequestListView: ZLGithubItemListView) -> Void{
-        
+extension ZLMyIssuesController: ZLGithubItemListViewDelegate {
+
+    func githubItemListViewRefreshDragDown(pullRequestListView: ZLGithubItemListView) {
+
         ZLServiceManager.sharedInstance.viewerServiceModel?.getMyIssues(key: nil,
                                                                         state: state,
                                                                         filter: filterType,
                                                                         after: nil,
-                                                                        serialNumber: NSString.generateSerialNumber())
-        { [weak self](resultModel) in
-            
+                                                                        serialNumber: NSString.generateSerialNumber()) { [weak self](resultModel) in
+
             if resultModel.result == false {
-                
+
                 self?.myIssuesView.githubItemListView.endRefreshWithError()
-                guard let errorModel = resultModel.data as? ZLGithubRequestErrorModel else{
+                guard let errorModel = resultModel.data as? ZLGithubRequestErrorModel else {
                     return
                 }
                 ZLToastView.showMessage(errorModel.message)
-                
+
             } else {
-                
+
                 guard let data = resultModel.data as? SearchItemQuery.Data else {
                     self?.myIssuesView.githubItemListView.endRefreshWithError()
                     return
                 }
                 self?.afterCursor = data.search.pageInfo.endCursor
-                var cellDatas : [ZLIssueTableViewCellDataForViewerIssue] = []
+                var cellDatas: [ZLIssueTableViewCellDataForViewerIssue] = []
                 if let nodes = data.search.nodes {
                     for node in nodes {
                         if let tmpdata = node?.asIssue {
@@ -88,35 +87,34 @@ extension ZLMyIssuesController : ZLGithubItemListViewDelegate {
                 }
                 self?.myIssuesView.githubItemListView.resetCellDatas(cellDatas: cellDatas)
             }
-            
+
         }
     }
-    
-    func githubItemListViewRefreshDragUp(pullRequestListView: ZLGithubItemListView) -> Void{
-        
+
+    func githubItemListViewRefreshDragUp(pullRequestListView: ZLGithubItemListView) {
+
         ZLServiceManager.sharedInstance.viewerServiceModel?.getMyIssues(key: nil,
                                                                         state: state,
                                                                         filter: filterType,
                                                                         after: afterCursor,
-                                                                        serialNumber: NSString.generateSerialNumber())
-        { [weak self](resultModel : ZLOperationResultModel) in
-            
+                                                                        serialNumber: NSString.generateSerialNumber()) { [weak self](resultModel: ZLOperationResultModel) in
+
             if resultModel.result == false {
-                
+
                 self?.myIssuesView.githubItemListView.endRefreshWithError()
-                guard let errorModel = resultModel.data as? ZLGithubRequestErrorModel else{
+                guard let errorModel = resultModel.data as? ZLGithubRequestErrorModel else {
                     return
                 }
                 ZLToastView.showMessage(errorModel.message)
-                
+
             } else {
-                
+
                 guard let data = resultModel.data as? SearchItemQuery.Data else {
                     self?.myIssuesView.githubItemListView.endRefreshWithError()
                     return
                 }
                 self?.afterCursor = data.search.pageInfo.endCursor
-                var cellDatas : [ZLIssueTableViewCellDataForViewerIssue] = []
+                var cellDatas: [ZLIssueTableViewCellDataForViewerIssue] = []
                 if let nodes = data.search.nodes {
                     for node in nodes {
                         if let tmpdata = node?.asIssue {

@@ -12,10 +12,8 @@ import CocoaLumberjack
 import SDWebImage
 import SnapKit
 import MJRefresh
-import Toast_Swift
 import JXSegmentedView
 import Charts
-import FWPopupView
 import ZLGitRemoteService
 import SYDCentralPivot
 
@@ -64,6 +62,22 @@ var ZLScreenBounds : CGRect {
     UIScreen.main.bounds
 }
 
+var ZLSafeAreaBottomHeight: CGFloat {
+    if let window = UIApplication.shared.delegate?.window {
+        return window?.safeAreaInsets.bottom ?? 0
+    }
+    return 0
+}
+
+var ZLSafeAreaTopHeight: CGFloat {
+    if let window = UIApplication.shared.delegate?.window {
+        return window?.safeAreaInsets.top ?? 0
+    }
+    return 0
+}
+
+var ZLSeperateLineHeight: CGFloat = 1.0 / UIScreen.main.scale
+
 
 //MARK: Font
 
@@ -71,36 +85,6 @@ let Font_PingFangSCMedium = "PingFang-SC-Medium"
 let Font_PingFangSCSemiBold = "PingFang-SC-SemiBold"
 let Font_PingFangSCRegular = "PingFang-SC-Regular"
 
-//MARK: Color
-
-func ZLRGBValue_H(colorValue: UInt) -> UIColor
-{
-    return UIColor(rgb: colorValue, alpha: 1.0) ?? UIColor.white
-}
-
-func ZLRGBAValue_H(colorValue: UInt, alphaValue: CGFloat) -> UIColor
-{
-    return UIColor(rgb: colorValue, alpha: alphaValue) ?? UIColor.white
-}
-
-func ZLRGBValueStr_H(colorValue: String) -> UIColor
-{
-    return UIColor(hexString: colorValue, alpha: 1.0) ?? UIColor.white
-}
-
-func ZLRGBValueStr_H(colorValue: String, alphaValue: CGFloat) -> UIColor
-{
-    return UIColor(hexString: colorValue, alpha: Float(alphaValue)) ?? UIColor.white
-}
-
-func ZLRawColor(name: String) -> UIColor?{
-    
-    if let color = UIColor(named: name) {
-        return UIColor(cgColor: color.cgColor)
-    } else {
-        return nil
-    }
-}
 
 @available(iOS 12.0, *)
 func getRealUserInterfaceStyle() -> UIUserInterfaceStyle {
