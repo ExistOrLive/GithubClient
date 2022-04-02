@@ -174,7 +174,7 @@ class ZLEditFixedRepoController: ZLBaseViewController, UITableViewDelegate, UITa
     }
 
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if section == 0 && self.selectedRepos.count == 0 {
+        if section == 0 && self.selectedRepos.isEmpty {
             return 40
         }
         return 0
@@ -197,7 +197,7 @@ class ZLEditFixedRepoController: ZLBaseViewController, UITableViewDelegate, UITa
     }
 
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        if section == 0 && self.selectedRepos.count == 0 {
+        if section == 0 && self.selectedRepos.isEmpty {
             let label = UILabel()
             label.backgroundColor = UIColor(named: "ZLCellBack")
             label.textColor = UIColor(named: "ZLLabelColor2")

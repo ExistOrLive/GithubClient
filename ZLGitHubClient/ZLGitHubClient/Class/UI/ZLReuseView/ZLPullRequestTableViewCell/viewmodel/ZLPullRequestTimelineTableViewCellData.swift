@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ZLBaseExtension
 
 class ZLPullRequestTimelineTableViewCellData: ZLGithubItemTableViewCellData {
 

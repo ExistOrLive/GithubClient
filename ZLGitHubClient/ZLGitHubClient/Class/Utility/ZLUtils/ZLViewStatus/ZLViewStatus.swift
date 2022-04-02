@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import ZLBaseExtension
 
 @objc enum ZLViewStatus: Int {
     case loading = 0

@@ -8,6 +8,7 @@
 
 import UIKit
 import SYDCentralPivot
+import ZLGitRemoteService
 
 @objcMembers class ZLUIRouter: NSObject {
 

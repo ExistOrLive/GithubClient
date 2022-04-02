@@ -9,6 +9,7 @@
 import UIKit
 import Charts
 import FFPopup
+import ZLBaseExtension
 
 class ZLRepoLanguagesPercentView: ZLBaseView {
 

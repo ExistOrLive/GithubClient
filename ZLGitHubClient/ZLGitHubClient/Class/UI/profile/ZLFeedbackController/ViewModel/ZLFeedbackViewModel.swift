@@ -30,15 +30,20 @@ class ZLFeedbackViewModel: ZLBaseViewModel {
     @IBAction func onSubmitButtonClicked(_ sender: Any) {
 
         self.targetView?.endEditing(true)
-
-        if self.targetView?.feedbackTextView.text.count ?? 0 <= 0 {
-            ZLToastView.showMessage(ZLLocalizedString(string: "input feedback", comment: ""))
-            return
+        
+        guard let feedback = self.targetView?.feedbackTextView.text,
+              !feedback.isEmpty else {
+                  ZLToastView.showMessage(ZLLocalizedString(string: "input feedback", comment: ""))
+                  return
         }
 
-        let feedback = self.targetView?.feedbackTextView.text
-        let title = "Feedback: \(feedback ?? "")"
-        let body = "\(feedback ?? "") \n >\(self.context ?? "")"
+        var feedbackTitle = feedback
+        if feedbackTitle.count > 100 {
+            let index = feedbackTitle.index(feedbackTitle.startIndex, offsetBy: 100)
+            feedbackTitle = String(feedbackTitle[..<index])
+        }
+        let title = "Feedback: \(feedbackTitle)"
+        let body = "\(feedback) \n >\(self.context ?? "")"
         let serialNumber = NSString.generateSerialNumber()
         
         #if DEBUG

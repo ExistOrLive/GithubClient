@@ -8,6 +8,7 @@
 
 import UIKit
 import YYText
+import ZLBaseExtension
 
 protocol ZLIssueTableViewCellDelegate: NSObjectProtocol {
 
@@ -61,7 +62,7 @@ class ZLIssueTableViewCell: UITableViewCell {
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 0
+        label.numberOfLines = 4
         label.textColor = UIColor(named: "ZLLabelColor3")
         label.font = UIFont(name: Font_PingFangSCRegular, size: 15)
         return label

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ZLBaseExtension
 
 class ZLEditProfileContentView: ZLBaseView, UITextFieldDelegate, UITextViewDelegate {
 

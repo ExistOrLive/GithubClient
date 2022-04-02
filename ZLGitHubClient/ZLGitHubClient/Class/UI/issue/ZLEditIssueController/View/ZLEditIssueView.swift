@@ -9,6 +9,7 @@
 import UIKit
 import ZLBaseUI
 import RxSwift
+import ZLBaseExtension
 
 enum ZLEditIssueOperationType {
     case closeOrOpen
@@ -32,7 +33,11 @@ protocol ZLEditIssueViewDelegateAndSource: NSObjectProtocol {
     
     var titleObservable: Observable<String> { get }
     
+    var viewerCanUpdate : Bool { get }
+    
     func onCloseAction()
+    
+    func onEditAssigneeAction()
 }
 
 
@@ -253,14 +258,19 @@ extension ZLEditIssueView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = tableView.dequeueReusableHeaderFooterView(ZLEditIssueHeaderView.self)
-        
+        headerView.editButton.isHidden = true
         guard let sectionType = delegate?.sectionTypes[section] else {
             return headerView
         }
         
         switch sectionType {
         case .assignees:
-            headerView.fillWithData(viewData: (ZLLocalizedString(string: "Assignee", comment: ""), nil))
+            headerView.fillWithData(viewData: (ZLLocalizedString(string: "Assignee", comment: ""), { [weak self] in
+                self?.delegate?.onEditAssigneeAction()
+            }))
+            if delegate?.viewerCanUpdate ?? false {
+                headerView.editButton.isHidden = false
+            }
         case .label:
             headerView.fillWithData(viewData: (ZLLocalizedString(string: "Label", comment: ""), nil))
         case .milestone:

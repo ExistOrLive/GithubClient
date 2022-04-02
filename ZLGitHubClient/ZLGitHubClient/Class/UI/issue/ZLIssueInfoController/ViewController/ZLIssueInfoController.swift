@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import FloatingPanel
 import ZLBaseUI
 import RxSwift
 import RxRelay

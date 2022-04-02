@@ -66,9 +66,13 @@
 
 
 - (void) onAdditionButtonClickWithButton:(UIButton *) button {
+        
+    NSURL *url = self.webContentView.currentURL != nil ? self.webContentView.currentURL : self.url;
     
-    NSURL *url = self.webContentView.currentURL;
-    
+    if(url == nil) {
+        return;
+    }
+
     UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:@[url] applicationActivities:nil];
     activityVC.popoverPresentationController.sourceView = button;
     activityVC.excludedActivityTypes = @[UIActivityTypeMessage,UIActivityTypeMail,UIActivityTypeOpenInIBooks,UIActivityTypeMarkupAsPDF];

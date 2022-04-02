@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import ZLBaseUI
 
 protocol ZLUserInfoViewDelegateAndDataSource: NSObjectProtocol {
 
     // datasource
-    var loginName: String {get}
+    var userOrOrgLoginName: String {get}
 
     var cellDatas: [[ZLGithubItemTableViewCellDataProtocol]] {get}
 
@@ -55,13 +56,11 @@ class ZLUserInfoView: ZLBaseView {
             self?.reloadReadMe()
         }
         reloadData()
-        reloadReadMe()
     }
 
     private func reloadData() {
         self.tableView.mj_header?.endRefreshing()
         self.tableView.reloadData()
-
     }
 
     private func loadNewData() {
@@ -69,7 +68,7 @@ class ZLUserInfoView: ZLBaseView {
     }
 
     private func reloadReadMe() {
-        if let loginName = delegate?.loginName,
+        if let loginName = delegate?.userOrOrgLoginName,
            !loginName.isEmpty {
             readMeView?.startLoad(fullName: "\(loginName)/\(loginName)", branch: nil)
         } else {

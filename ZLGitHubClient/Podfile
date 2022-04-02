@@ -16,19 +16,26 @@ pod 'Firebase/Crashlytics'
 pod 'Firebase/RemoteConfig'
 pod 'Firebase/Performance'
 
-#pod "ZLGithubOAuth", :path => '../../ZLGithubOAuth'
-pod 'ZLGithubOAuth', :git => 'https://github.com/ExistOrLive/ZLGithubOAuth.git', :tag => '1.2.0'
+pod "SYDCentralPivot"
 
+pod 'ZLGithubOAuth', :git => 'https://github.com/ExistOrLive/ZLGithubOAuth.git', :tag => '1.2.0'
+#pod "ZLGithubOAuth", :path => '../../ZLGithubOAuth'
+
+pod 'ZLGitRemoteService', :git => 'https://github.com/ExistOrLive/ZLGitRemoteService.git', :tag => '1.2.1'
 #pod "ZLGitRemoteService", :path => '../../ZLGitRemoteService'
-pod 'ZLGitRemoteService', :git => 'https://github.com/ExistOrLive/ZLGitRemoteService.git'
-  
+
+pod 'ZLBaseUI', :git => 'https://github.com/ExistOrLive/ZLBaseUI.git', :tag => '1.2.1'
+#pod 'ZLBaseUI', :path => "../../ZLBaseUI"
+
+pod 'ZLBaseExtension', :git => "https://github.com/ExistOrLive/ZLBaseExtension.git", :tag => '1.2.0'
+#pod 'ZLBaseExtension', :path => "../../ZLBaseExtension"
+
 #pod 'Google-Mobile-Ads-SDK'
 pod 'Umbrella'
 #pod 'Umbrella/Segment'
 pod 'Umbrella/Firebase'
 #pod 'Analytics', '~> 3.0'
 
-# Json Model 转换
 
 # 刷新控件
 pod 'MJRefresh'
@@ -43,18 +50,22 @@ pod 'IQKeyboardManager'
 # 图表
 #pod 'ChartsRealm'
 pod 'Charts'
-
 #下载图片
 pod 'SDWebImage', '~> 5.0.0'
-
-#pod 'MMMarkdown'
-#pod 'MarkdownView'
-
 # AutoLayout
 pod 'Masonry'
 pod 'SnapKit', '~> 4.0.0'
 
 pod 'YYText'
+
+# 弹出框容器
+pod 'FFPopup'
+
+
+#pod 'MMMarkdown'
+#pod 'MarkdownView'
+
+
 
 # 移动监控工具
 pod 'WoodPeckeriOS', :configurations => ['Debug']
@@ -64,28 +75,22 @@ pod 'DoraemonKit/WithLogger', '~> 2.0.0', :configurations => ['Debug']
 #pod 'DoraemonKit/WithGPS', '~> 2.0.0', :configurations => ['Debug']
 pod 'DoraemonKit/WithMLeaksFinder', '2.0.0', :configurations => ['Debug']
 
-# bugly
-#pod 'Bugly'
-
 # 异常防护
 pod 'JJException'
 
 # 扩展
 pod 'UITextView+Placeholder'
 
-pod "SYDCentralPivot"
-pod 'ZLBaseUI', :git => 'https://github.com/ExistOrLive/ZLBaseUI.git'
-#pod 'ZLBaseUI', :path => "../../ZLBaseUI"
-
+# Rx
 pod 'RxSwift'
 pod 'RxCocoa'
 pod 'RxRelay'
 
 # 转场动画
-pod 'Hero'
+#pod 'Hero'
 
 # 物理引擎动画
-pod 'pop', '~> 1.0'
+#pod 'pop', '~> 1.0'
 
 # 弹出框 弹出菜单
 pod 'FWPopupView'
@@ -94,10 +99,9 @@ pod 'FWPopupView'
 pod 'CircleMenu'
 
 # 浮动view https://github.com/scenee/FloatingPanel
-pod 'FloatingPanel'
+#pod 'FloatingPanel'
 
-# 弹出框容器
-pod 'FFPopup'
+
 
 end
 

@@ -83,7 +83,7 @@ class ZLIssueHeaderTableViewCell: UITableViewCell {
         let label3 = UILabel()
         label3.textColor = UIColor(named: "ZLLabelColor1")
         label3.font = UIFont(name: Font_PingFangSCSemiBold, size: 20)
-        label3.numberOfLines = 0
+        label3.numberOfLines = 4
         self.contentView.addSubview(label3)
         label3.snp.makeConstraints { (make) in
             make.left.equalToSuperview().offset(25)

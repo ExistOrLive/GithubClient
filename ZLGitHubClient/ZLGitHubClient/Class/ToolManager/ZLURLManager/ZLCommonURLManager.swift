@@ -10,7 +10,7 @@
 
     static let emailRegex = #"^(mailto:)?[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$"#
     static let phoneRegex = #"^(tel:)?1(3|4|5|6|7|8|9)\d{9}$"#
-    static let appleAppLinkRegex = #"^(https|http):\/\/apps\.apple\.com\/cn\/app\/"#
+    static let appleAppLinkRegex = #"^(https|http):\/\/apps\.apple\.com(\/cn)?\/app\/"#
 
     static func isEmail(str: String) -> Bool {
         do {
@@ -42,4 +42,36 @@
             return false
         }
     }
-}
+    
+    
+    
+    static func openURL(urlStr: String) -> Bool {
+        
+        var url: URL? = nil
+        
+        if ZLCommonURLManager.isEmail(str: urlStr) {
+            if urlStr.starts(with: "mailto:") {
+                url = URL.init(string: urlStr)
+            } else {
+                url = URL.init(string: "mailto:\(urlStr)")
+            }
+        } else if ZLCommonURLManager.isPhone(str: urlStr) {
+            if urlStr.starts(with: "tel:")  {
+                url = URL.init(string: urlStr)
+            } else {
+                url = URL.init(string: "tel:\(urlStr)")
+            }
+        } else if ZLCommonURLManager.isAppleAppLink(str: urlStr) {
+            url = URL.init(string: urlStr)
+        }
+
+        if let url = url {
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                return true
+            }
+        }
+        
+        return false
+    }
+ }

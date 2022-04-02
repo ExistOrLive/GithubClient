@@ -8,6 +8,9 @@
 
 import UIKit
 import WebKit
+import ZLGitRemoteService
+import ZLBaseUI
+import ZLBaseExtension
 
 @objc protocol ZLWebContentViewDelegate: NSObjectProtocol {
     @objc func webView(_ webView: WKWebView, navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void)
@@ -134,6 +137,11 @@ class ZLWebContentView: ZLBaseView {
         return button
     }()
     
+    
+    //
+    
+    private var originRequest: URLRequest?
+    
     @objc private(set) var isLoading: Bool = false               // 是否在加载请求
     
     @objc var currentURL: URL? {
@@ -162,14 +170,15 @@ class ZLWebContentView: ZLBaseView {
     
     
     @objc func loadRequest(_ request: URLRequest) {
+        originRequest = request
         webView.load(request)
     }
-    
     
 
     private func setupUI() {
         addSubview(stackView)
         addSubview(bottomView)
+        addSubview(promptLabel)
         bottomView.addSubview(buttonStackView)
         
         stackView.addArrangedSubview(processView)
@@ -197,6 +206,11 @@ class ZLWebContentView: ZLBaseView {
         buttonStackView.snp.makeConstraints { make in
             make.top.left.right.equalToSuperview()
             make.height.equalTo(45)
+        }
+        
+        promptLabel.snp.makeConstraints { make in
+            make.center.equalTo(webView)
+            make.size.equalTo(CGSize(width: 200, height: 200))
         }
     }
     
@@ -287,17 +301,22 @@ extension ZLWebContentView {
     }
 
     @objc private func onReloadOrStopLoadButtonCicked() {
-        if self.isLoading {
+        if webView.isLoading {
             webView.stopLoading()
         } else {
             webView.reload()
         }
-
     }
 
     @objc private func openInSafari() {
         if let url = self.webView.url,
            UIApplication.shared.canOpenURL(url) {
+            
+            UIApplication.shared.open(url, options: [:], completionHandler: {(_: Bool) in
+            })
+        } else if let url = self.originRequest?.url,
+                  UIApplication.shared.canOpenURL(url) {
+            
             UIApplication.shared.open(url, options: [:], completionHandler: {(_: Bool) in
             })
         }
@@ -318,7 +337,7 @@ extension ZLWebContentView: WKUIDelegate, WKNavigationDelegate {
                  decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
 
         ZLLog_Debug("ZLWebContentView: webView:decidePolicyForNavigationAction: type[\(navigationAction.navigationType)] request[\(navigationAction.request)]]")
-
+        promptLabel.text = nil
         if self.delegate?.responds(to: #selector(ZLWebContentViewDelegate.webView(_:navigationAction:decisionHandler:))) ?? false {
             self.delegate?.webView(webView, navigationAction: navigationAction, decisionHandler: decisionHandler)
         } else {
@@ -347,6 +366,7 @@ extension ZLWebContentView: WKUIDelegate, WKNavigationDelegate {
     func webView(_ webView: WKWebView,
                  didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         ZLLog_Debug("ZLWebContentView: webView:didFailProvisionalNavigation navigation[\(String(describing: navigation))] error[\(error.localizedDescription)]")
+        promptLabel.text = error.localizedDescription
     }
 
     /// 5. 收到响应，决定是否处理响应

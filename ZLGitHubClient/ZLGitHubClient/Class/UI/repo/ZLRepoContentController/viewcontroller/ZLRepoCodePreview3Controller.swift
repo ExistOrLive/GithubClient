@@ -8,6 +8,8 @@
 
 import UIKit
 import WebKit
+import ZLBaseUI
+import ZLGitRemoteService
 
 /**
   *  利用 REST API 获取 md 内容 ； 代码使用markdown接口渲染
@@ -313,21 +315,24 @@ extension ZLRepoCodePreview3Controller: WKUIDelegate, WKNavigationDelegate {
     }
 
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        let urlStr = navigationAction.request.url?.absoluteString
+        guard var urlStr = navigationAction.request.url?.absoluteString else {
+            decisionHandler(.allow)
+            return
+        }
 
         if navigationAction.navigationType == .linkActivated {
             decisionHandler(.cancel)
-
-            var url: URL?
-
-            if let tmpUrlStr = urlStr {
-                url = URL.init(string: tmpUrlStr)
-                if url?.host == nil {               // 如果是相对路径，组装baseurl
-                    url = (URL.init(string: self.contentModel.html_url) as NSURL?)?.deletingLastPathComponent
-                    url?.appendPathComponent(tmpUrlStr)
-                }
+            
+            if ZLCommonURLManager.openURL(urlStr: urlStr) {
+                return
             }
 
+            var url = URL(string: urlStr)
+            if url?.host == nil {               // 如果是相对路径，组装baseurl
+                url = (URL.init(string: self.contentModel.html_url) as NSURL?)?.deletingLastPathComponent
+                url = URL(string: "\(url?.absoluteString ?? "" )\(urlStr)")
+            }
+        
             guard let appdelegate: AppDelegate = UIApplication.shared.delegate as? AppDelegate else {
                 return
             }

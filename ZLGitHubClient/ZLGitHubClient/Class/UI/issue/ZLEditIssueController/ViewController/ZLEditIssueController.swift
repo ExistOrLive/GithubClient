@@ -10,6 +10,7 @@ import UIKit
 import ZLBaseUI
 import RxSwift
 import RxRelay
+import ZLGitRemoteService
 
 class ZLEditIssueController: ZLBaseViewController {
     
@@ -173,8 +174,35 @@ extension ZLEditIssueController: ZLEditIssueViewDelegateAndSource {
         _titleEvent.asObservable()
     }
     
+    var viewerCanUpdate: Bool {
+        data?.repository?.issue?.viewerCanUpdate ?? false
+    }
+    
     func onCloseAction() {
         onBackButtonClicked(nil)
+    }
+    
+    func onEditAssigneeAction() {
+        guard let participants = data?.repository?.issue?.participants.nodes,
+              let assignees = data?.repository?.issue?.assignees.nodes else { return }
+        var assigneeModels =  [ZLEditAssigneeModel]()
+        for participant in participants {
+            let assigneeModel = ZLEditAssigneeModel()
+            assigneeModel.login = participant?.login ?? ""
+            assigneeModel.id = participant?.id ?? ""
+            assigneeModel.avatar = participant?.avatarUrl ?? ""
+            
+            for tmp in assignees {
+                if tmp?.id == participant?.id {
+                    assigneeModel.selected = true
+                }
+            }
+            assigneeModels.append(assigneeModel)
+        }
+        
+        ZLEditAssigneesView.showEditAssigneesView(data: assigneeModels) { [weak self] (addIds, removeIds) in
+            self?.requestEditAssignee(addID: addIds, removeID: removeIds)
+        }
     }
 
 }
@@ -192,10 +220,10 @@ extension ZLEditIssueController {
         
         view.showProgressHUD()
         
-        ZLServiceManager.sharedInstance.eventServiceModel?.getIssueEditInfo(withLoginName: loginName,
-                                                                            repoName: repoName,
-                                                                            number: Int32(number),
-                                                                            serialNumber: NSString.generateSerialNumber())
+        ZLEventServiceShared()?.getIssueEditInfo(withLoginName: loginName,
+                                                 repoName: repoName,
+                                                 number: Int32(number),
+                                                 serialNumber: NSString.generateSerialNumber())
         { [weak self] result in
             
             guard let self = self else { return }
@@ -287,12 +315,33 @@ extension ZLEditIssueController {
         
         let isLock = data?.repository?.issue?.locked == true
         
-        ZLServiceManager
-            .sharedInstance
-            .eventServiceModel?
-            .lockOrUnlockLockable(id,
-                                  lock: !isLock,
-                                  serialNumber: NSString.generateSerialNumber())
+        ZLEventServiceShared()?.lockOrUnlockLockable(id,
+                                                     lock: !isLock,
+                                                     serialNumber: NSString.generateSerialNumber())
+        { [weak self] resultModel in
+            guard let self = self else { return  }
+            self.view.dismissProgressHUD()
+            if resultModel.result {
+                self.requestNewData()
+            } else {
+                ZLToastView.showMessage("Request Failed")
+            }
+        }
+    }
+    
+    
+    func requestEditAssignee(addID: [String], removeID: [String]) {
+        
+        guard let id = data?.repository?.issue?.id else {
+            return
+        }
+        
+        view.showProgressHUD()
+        
+        ZLEventServiceShared()?.editIssueAssignees(withIssueId: id,
+                                                   addedList: addID,
+                                                   removedList: removeID,
+                                                   serialNumber: NSString.generateSerialNumber())
         { [weak self] resultModel in
             guard let self = self else { return  }
             self.view.dismissProgressHUD()
