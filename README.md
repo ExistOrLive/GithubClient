@@ -5,32 +5,28 @@
 ![license](https://img.shields.io/github/license/existorlive/githubclient)
 ![commit](https://img.shields.io/github/last-commit/mengandjie/githubclient)
 ![stars](https://img.shields.io/github/stars/existorlive/githubclient)
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-## Github iOS 客户端  by Existorlive
 
-<div><a href="https://apps.apple.com/app/gorillas/id1498787032"><img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/appstoredownload.png" width=150></a></div>
+基于 [Github REST V3 API](https://docs.github.com/en/rest) 和 [Github GraphQL V4 API](https://docs.github.com/en/free-pro-team@latest/graphql) 开发的Github iOS客户端
 
-- Objective-c 2.0
-- Swift 5 
-- Cocoapods 1.9.1
-- iOS >= 11.0
+## 安装
 
-基于 [Github REST V3 API](https://docs.github.com/en/rest) 和 [Github GraphQL V4 API](https://docs.github.com/en/free-pro-team@latest/graphql) 开发的iOS客户端。目前支持以下的功能：
+- [App Store Release](https://apps.apple.com/app/gorillas/id1498787032)
 
-- 支持 Github OAuth 登录和 Access Token 登录
-- 查询和修改登录用户的 profile
-- 查看登录用户的 repositories，gists，followers，following
-- 查看 repositories 和 users 的趋势榜
-- 根据关键字搜索 repositories 和 users，支持 advanced search
-- 支持 watch，star 以及 fork 指定的 repository；支持 follow 指定的用户
-- 查看指定 repository 的 commit，branch，language，pull request 以及 issues 等
-- 支持简单查阅 repository 的代码
-- 支持查阅 Notification
+- [TestFlight Beta](https://testflight.apple.com/join/kCFO5joL)
 
-## 寻求志同道合的合作开发者，若有意请联系<a src="2068531506@qq.com">2068531506@qq.com</a>
+## 基本功能
+
+1.  搜索需要的开源repository和想要了解的开发者
+2. 支持浏览每日/周/月开源repository和开发者趋势榜单
+3. 支持浏览开源仓库的基本信息，包括commits，issues，watchers，pull requests等等，支持fork，watch，star指定的开源仓库
+4. 支持浏览public 及 private 仓库的代码
+5. 浏览开发者的基本信息，follow指定的开发者
+6. 支持查看follow的开发者和watch的开源repository的最新动态
+7. 简单查阅notification
+8. 在工作台固定收藏的repository
+9. 在工作台查阅登陆用户处理的issue和pull request
+
 
 #### Github OAuth login and Access Token login 
 
@@ -94,61 +90,68 @@
 <img src="https://gitee.com/zxhubs/git-hub-client-material/raw/master/GitHubClientMaterial/010.jpeg"/>
 </div>
 
-## Trend Repositories Widget
-
-<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_4547.PNG" width="300"/>
-
-## Contributions Widget
-
-<img src="https://gitee.com/existorlive/exist-or-live-pic/raw/master/IMG_4552.PNG" width="300"/>
 
 
-## 新手使用 GitHubClient 源码使用指南
+## 开始项目
 
-> 在使用源码前，需要 Github 的账户下创建一个 OAuth Application，具体请参考官方文档 [Creating an OAuth App](https://docs.github.com/en/developers/apps/creating-an-oauth-app)
+1. 准备开发环境
+   
+    - **xcode**
+    - **ruby**
+    - **git**
 
-> 创建 OAuth Application 后，获得`Client ID` 和 `Client Secret`。打开工程下`ZLGithubAppKey.h`文件，替换宏`MyClientID` 和 `MyClientSecret`
+2. 安装**bundle**
+   
+   ```sh 
+   gem install bundle 
+   ```
 
-步骤一、clone 源码之后，在你的 Mac 上安装 CocoaPods。
+3. 下载项目源码 
 
-步骤二、打开 `终端`，切换到工程文件的目录下。比如你的工程文件下载到了 Mac 的桌面上，在 `终端` app 中输入`cd /User/admin（替换你自己的电脑用户名）/Desktop/GithubClient-master/ZLGitHubClient`。
+    ```sh 
+    git clone https://github.com/ExistOrLive/GithubClient.git
+    ```
 
-步骤三、输入 `pod install` 安装工程所依赖的库。显示如下即安装成功。
-<div align="left">
-<img src="https://gitee.com/zxhubs/git-hub-client-material/raw/master/GitHubClientMaterial/pod_install.jpg" width="450"/>
-</div>
+4. 切换至 `ZLGithubClient/ZLGithubClient` 目录下，执行 `bundle install`，安装依赖的ruby工具，如 **cocoapods** ，**fastlane** 等 
 
-步骤四、在 Xcode 中打开运行本工程文件，请注意⚠️打开的是 `ZLGitHubClient.xcworkspace` 并非是 `ZLGitHubClient.xcodeproj`，请务必注意后缀。恭喜成功运行了👏👏👏。
+    ```sh
+
+    cd ZLGithubClient/ZLGithubClient
+
+    bundle install 
+    ```
+
+5. 执行 `bundle exec pod install` 
+
+    ```sh 
+    bundle exec pod install 
+    ```
+
+    <div align="left">
+    <img src="https://gitee.com/zxhubs/git-hub-client-material/raw/master/GitHubClientMaterial/pod_install.jpg" width="450"/>
+    </div>
+
+6. 在使用源码前，需要 Github 的账户下创建一个 OAuth Application，具体请参考官方文档 [Creating an OAuth App](https://docs.github.com/en/developers/apps/creating-an-oauth-app); 创建 OAuth Application 后，获得`Client ID` 和 `Client Secret` 
+
+7. ZLGithubClient 使用 [Bugly](https://bugly.qq.com/v2/) 和 [Firebase](https://firebase.google.com/) 作为分析工具，因此需要创建对应应用并获取 `Bugly App Id` 和 `GoogleService-Info.plist`
+
+8. 将 `GoogleService-Info.plist` 拷贝到项目对应目录下；创建 `ZLGithubAppKey.h` 文件，提供宏定义 ，并拷贝到对应的目录下
+
+    <div align="left">
+    <img src="https://github.com/ExistOrLive/existorlivepic/raw/master/202204050025208.png" width="450"/>
+    </div>
+
+    <div align="left">
+    <img src="https://github.com/ExistOrLive/existorlivepic/raw/master/202204050026633.png" width="200"/>
+    </div>
+    
+9. 构建工程
 
 ## 常见问题解答
->  在上述指南中可能会遇到的一些疑惑。
-- Q：CocoaPods 是什么？
-A：CocoaPods 是 macOS 和 iOS 平台非常流行的包管理工具，用来帮助我们管理第三方依赖库的工具。通过调用第三方库，可以用于拓展软件的功能。
----
-- Q：为什么需要 CocoaPods？
-A：在实际开发过程中避免不了去使用第三方的库，所以会使用到 CocoaPods。pod 是由 ruby 语言编写的，是记录引用库的名称，执行 `pod install` 即在把远程仓库下载至本地。
----
-- Q：在使用 `pod install` 命令时速度过慢？
-A：解决方案之一可以采取科学上网的方式。举例：采取代理，给 git 设置全局代理，在终端输入命令 `git config --global http.proxy socks5://127.0.0.1:7890` 其中 socks5 的的端口号为你所使用代理的端口号，本演示的端口号是 7890，请注意替换 7890。如果需要移除上述全局代理请在终端输入命令 `git config --global --unset http.proxy`。
----
-- Q：在使用 `Podfile` 文件是什么？
-A：用于描述一个或多个 `Xcode Project` 中各个 `Targets` 之间的依赖关系
----
-- Q：在使用 `Lockfile` 文件是什么？
-A：用于记录最后一次 CocoaPods 所安装的 Pod 依赖库版本的信息快照。生成的 Podfile.lock。在 pod install 过程，Podfile 会结合它来确认最终所安装的 Pod 版本。
----
-- Q：xcworkspace 和 xcodeproj 的区别？
-A：xcodeproj bundle 内包含 project.workspace。而当我们通过 pod install 命令添加 Pod 依赖后，Xcode 工程目录下会多出 .workspace，它是 Xcodeproj 替我们生成的，用于管理当前的 .project 与 Pods.pbxproj。
----
-pod install 执行过程思维导图
-<div align="left">
-<img src="https://gitee.com/zxhubs/git-hub-client-material/raw/master/GitHubClientMaterial/podinstall.jpg" width="550"/>
-</div>
 
-## 结语
-普通的代码千篇一律，优秀的代码万里挑一。开源就如星星之火正在燎原，本项目是开源世界中小小一隅，如果有感兴趣的开发者欢迎加入。
+[常见问题解答](Document/Troubleshooting/TronbleShooting_Readme.md)
 
-## Contributors ✨
+## 贡献者 ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
@@ -169,3 +172,6 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+
+## 结语
+普通的代码千篇一律，优秀的代码万里挑一。开源就如星星之火正在燎原，本项目是开源世界中小小一隅，如果有感兴趣的开发者欢迎加入, 若有意请联系<a src="2068531506@qq.com">2068531506@qq.com</a>.
