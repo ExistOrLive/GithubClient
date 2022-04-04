@@ -17,15 +17,16 @@
 
 ## 基本功能
 
-1.  搜索需要的开源repository和想要了解的开发者
-2. 支持浏览每日/周/月开源repository和开发者趋势榜单
-3. 支持浏览开源仓库的基本信息，包括commits，issues，watchers，pull requests等等，支持fork，watch，star指定的开源仓库
-4. 支持浏览public 及 private 仓库的代码
-5. 浏览开发者的基本信息，follow指定的开发者
-6. 支持查看follow的开发者和watch的开源repository的最新动态
-7. 简单查阅notification
-8. 在工作台固定收藏的repository
-9. 在工作台查阅登陆用户处理的issue和pull request
+1. 搜索开源仓库和开发者
+2. 支持浏览每日/周/月开源仓库和开发者趋势榜单
+3. 支持浏览开源仓库的基本信息，包括code，commits，issues，pull requests等等
+4. 支持fork，watch，star开源仓库
+5. 支持浏览登录用户的公开及私有仓库
+6. 浏览开发者的基本信息，follow开发者
+7. 支持查看follow的开发者和watch的开源repository的最新动态
+8. 简单查阅通知
+9. 在工作台固定收藏的仓库
+10. 在工作台查阅登录用户的issue和pull request
 
 
 #### Github OAuth login and Access Token login 
