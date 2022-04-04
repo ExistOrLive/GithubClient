@@ -157,7 +157,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://github.com/existorlive"><img src="https://avatars.githubusercontent.com/u/18443373?v=4?s=100" width="100px;" alt=""/><br /><sub><b>朱猛</b></sub></a><br /><a href="#design-ExistOrLive" title="Design">🎨</a></td>
+    <td align="center"><a href="https://github.com/ExistOrLive"><img src="https://avatars.githubusercontent.com/u/18443373?v=4?s=100" width="100px;" alt=""/><br /><sub><b>朱猛</b></sub></a><br /><a href="#design-ExistOrLive" title="Design">🎨</a></td>
     <td align="center"><a href="https://github.com/longxiaochi"><img src="https://avatars.githubusercontent.com/u/18322377?v=4?s=100" width="100px;" alt=""/><br /><sub><b>longxiaochi</b></sub></a><br /><a href="#design-longxiaochi" title="Design">🎨</a></td>
     <td align="center"><a href="https://github.com/ZXHubs"><img src="https://avatars.githubusercontent.com/u/53455473?v=4?s=100" width="100px;" alt=""/><br /><sub><b>ZXHubs</b></sub></a><br /><a href="#design-ZXHubs" title="Design">🎨</a></td>
   </tr>
