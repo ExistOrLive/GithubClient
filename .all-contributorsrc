@@ -1,0 +1,24 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "ExistOrLive",
+      "name": "朱猛",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18443373?v=4",
+      "profile": "https://gitbook.existorlive.cn",
+      "contributions": [
+        "design"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "GithubClient",
+  "projectOwner": "MengAndJie",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
