@@ -1,6 +1,6 @@
 # ZLGithubClient
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 ![ZLGithub TestFlight](https://github.com/MengAndJie/GithubClient/workflows/ZLGithub%20TestFlight/badge.svg)
 ![language](https://img.shields.io/github/languages/top/existorlive/githubclient)
@@ -158,6 +158,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="https://gitbook.existorlive.cn"><img src="https://avatars.githubusercontent.com/u/18443373?v=4?s=100" width="100px;" alt=""/><br /><sub><b>朱猛</b></sub></a><br /><a href="#design-ExistOrLive" title="Design">🎨</a></td>
+    <td align="center"><a href="https://github.com/longxiaochi"><img src="https://avatars.githubusercontent.com/u/18322377?v=4?s=100" width="100px;" alt=""/><br /><sub><b>longxiaochi</b></sub></a><br /><a href="#design-longxiaochi" title="Design">🎨</a></td>
   </tr>
 </table>
 
