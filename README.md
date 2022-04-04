@@ -1,13 +1,13 @@
 # ZLGithubClient
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
 ![ZLGithub TestFlight](https://github.com/MengAndJie/GithubClient/workflows/ZLGithub%20TestFlight/badge.svg)
 ![language](https://img.shields.io/github/languages/top/existorlive/githubclient)
 ![CodeSize](https://img.shields.io/github/languages/code-size/existorlive/GitHubClient)
 ![license](https://img.shields.io/github/license/existorlive/githubclient)
 ![commit](https://img.shields.io/github/last-commit/mengandjie/githubclient)
 ![stars](https://img.shields.io/github/stars/existorlive/githubclient)
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Github iOS 客户端  by Existorlive
 
