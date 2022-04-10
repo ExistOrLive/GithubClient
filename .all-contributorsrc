@@ -1,0 +1,42 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "ExistOrLive",
+      "name": "朱猛",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18443373?v=4",
+      "profile": "https://github.com/ExistOrLive",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "longxiaochi",
+      "name": "longxiaochi",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18322377?v=4",
+      "profile": "https://github.com/longxiaochi",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "ZXHubs",
+      "name": "ZXHubs",
+      "avatar_url": "https://avatars.githubusercontent.com/u/53455473?v=4",
+      "profile": "https://github.com/ZXHubs",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "GithubClient",
+  "projectOwner": "MengAndJie",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
