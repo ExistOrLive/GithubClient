@@ -88,37 +88,28 @@
 
 #pragma mark - ZLWebContentViewDelegate
 
-- (void)webView:(WKWebView * _Nonnull)webView navigationAction:(WKNavigationAction * _Nonnull)navigationAction decisionHandler:(void (^ _Nonnull)(WKNavigationActionPolicy))decisionHandler {
+ - (void)webView:(WKWebView * _Nonnull)webView
+navigationAction:(WKNavigationAction * _Nonnull)navigationAction
+ decisionHandler:(void (^ _Nonnull)(WKNavigationActionPolicy))decisionHandler {
+     
     NSString *url = navigationAction.request.URL.absoluteString;
-    NSString *newUrl = nil;
-    if([ZLCommonURLManager isEmailWithStr:url]){
-        if([newUrl hasPrefix:@"mailto:"]){
-            newUrl = url;
-        } else {
-            newUrl = [@"mailto:" stringByAppendingString:url];
-        }
-    } else if ([ZLCommonURLManager isPhoneWithStr:url]) {
-        if([newUrl hasPrefix:@"tel:"]){
-            newUrl = url;
-        } else {
-            newUrl = [@"tel:" stringByAppendingString:url];
-        }
-    } else if ([ZLCommonURLManager isAppleAppLinkWithStr:url]) {
-        newUrl = url;
+     
+     if (url == nil) {
+         decisionHandler(WKNavigationActionPolicyAllow);
+         return;
+     }
+ 
+     if([ZLCommonURLManager openURLWithUrlStr:url completionHandler:^(BOOL success) {
+         if(success){
+             if([url isEqualToString:self.url.absoluteString]) {
+                 [self.viewController.navigationController popViewControllerAnimated:NO];
+             }
+         }
+     }]) {
+        decisionHandler(WKNavigationActionPolicyCancel);
+         return;
     }
 
-    if(newUrl && [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:newUrl]]){
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:newUrl] options:@{} completionHandler:^(BOOL success) {
-            if(success){
-                if([url isEqualToString:self.url.absoluteString]) {
-                    [self.viewController.navigationController popViewControllerAnimated:NO];
-                }
-            }
-        }];
-        decisionHandler(WKNavigationActionPolicyCancel);
-        return;
-    }
-    
     decisionHandler(WKNavigationActionPolicyAllow);
 }
 

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ZLGitRemoteService
 
 @objcMembers class ZLRepositoryTableViewCellData: ZLGithubItemTableViewCellData {
 
@@ -136,14 +137,21 @@ extension ZLRepositoryTableViewCellData: ZLRepositoryTableViewCellDelegate {
            let _ = URL(string: html_url) {
             return true
         }
+        if let _ = data.full_name {
+            return true
+        }
         return false
     }
 
     func longPressAction(view: UIView) {
         if let html_url = data.html_url,
            let url = URL(string: html_url),
-        let vc = viewController {
+           let vc = viewController {
             view.showShareMenu(title: html_url, url: url, sourceViewController: vc)
+        } else if let fullName = data.full_name,
+           let url = URL(string: "https://github.com/\(fullName)"),
+           let vc = viewController {
+            view.showShareMenu(title: url.absoluteString, url: url, sourceViewController: vc)
         }
     }
 
