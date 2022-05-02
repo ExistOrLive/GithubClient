@@ -36,6 +36,8 @@ class ZLWorkboardTableViewCellData: ZLBaseViewModel, ZLWorkboardTableViewCellDel
                 return ZLLocalizedString(string: "star", comment: "")
             case .events:
                 return ZLLocalizedString(string: "Events", comment: "")
+            case .discussions:
+                return ZLLocalizedString(string: "Discussions", comment: "")
             case .fixRepo:
                 return self.celltitle
             }
@@ -57,6 +59,8 @@ class ZLWorkboardTableViewCellData: ZLBaseViewModel, ZLWorkboardTableViewCellDel
             case .starRepos:
                 return "star_icon"
             case .events:
+                return "event_icon"
+            case .discussions:
                 return "event_icon"
             case .fixRepo:
                 return self.cellavatarURL
@@ -103,6 +107,11 @@ class ZLWorkboardTableViewCellData: ZLBaseViewModel, ZLWorkboardTableViewCellDel
             break
         case .events:
             guard let vc = ZLUIRouter.getZLNewsViewController() else { return  }
+            vc.hidesBottomBarWhenPushed = true
+            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            break
+        case .discussions:
+            let vc = ZLMyDiscussionsController()
             vc.hidesBottomBarWhenPushed = true
             self.viewController?.navigationController?.pushViewController(vc, animated: true)
             break

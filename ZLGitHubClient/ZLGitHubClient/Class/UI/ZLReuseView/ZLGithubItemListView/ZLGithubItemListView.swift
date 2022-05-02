@@ -134,6 +134,7 @@ import ZLBaseExtension
         self.tableView.register(ZLPullRequestHeaderTableViewCell.self, forCellReuseIdentifier: "ZLPullRequestHeaderTableViewCell")
         self.tableView.register(ZLPullRequestCommentTableViewCell.self, forCellReuseIdentifier: "ZLPullRequestCommentTableViewCell")
         self.tableView.register(ZLPullRequestTimelineTableViewCell.self, forCellReuseIdentifier: "ZLPullRequestTimelineTableViewCell")
+        self.tableView.register(ZLDiscussionTableViewCell.self, forCellReuseIdentifier: "ZLDiscussionTableViewCell")
     }
 }
 

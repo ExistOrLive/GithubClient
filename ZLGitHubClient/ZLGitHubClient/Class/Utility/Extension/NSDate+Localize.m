@@ -84,7 +84,7 @@
     }
 }
 
-+ (NSString *) getDateLocalStrSinceCurrentTimeWithGithubTime:(NSString *) githubDateStr; {
++ (NSString *) getDateLocalStrSinceCurrentTimeWithGithubTime:(NSString *) githubDateStr {
     NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
     [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
