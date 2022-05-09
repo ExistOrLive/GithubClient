@@ -61,7 +61,7 @@ class ZLWorkboardTableViewCellData: ZLBaseViewModel, ZLWorkboardTableViewCellDel
             case .events:
                 return "event_icon"
             case .discussions:
-                return "event_icon"
+                return "discussion_icon"
             case .fixRepo:
                 return self.cellavatarURL
             }

@@ -73,15 +73,27 @@ extension ZLDiscussionTableViewCellData: ZLDiscussionTableViewCellDataSourceAndD
     }
     
     func onClickRepoFullName() {
-        
+        if let url = URL(string: self.data.url) {
+            if url.pathComponents.count >= 5 {
+                if let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: "\(url.pathComponents[1])/\(url.pathComponents[2])") {
+                    self.viewController?.navigationController?.pushViewController(vc, animated: true)
+                }
+            }
+        }
     }
     
     func hasLongPressAction() -> Bool {
-        true
+        if let _ = URL(string: data.url) {
+            return true
+        } else {
+            return false
+        }
     }
 
     func longPressAction(view: UIView) {
-        
+        guard let vc = viewController,
+              let url = URL(string: self.data.url) else { return }
+        view.showShareMenu(title: data.title, url: url, sourceViewController: vc)
     }
     
 }

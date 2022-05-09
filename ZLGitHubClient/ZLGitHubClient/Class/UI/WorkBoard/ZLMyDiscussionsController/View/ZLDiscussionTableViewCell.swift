@@ -9,6 +9,7 @@
 import UIKit
 import YYText
 import SnapKit
+import ZLBaseExtension
 
 protocol ZLDiscussionTableViewCellDataSourceAndDelegate: NSObjectProtocol {
     
@@ -53,6 +54,9 @@ class ZLDiscussionTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    @objc func onRepoNameClick() {
+        self.delegate?.onClickRepoFullName()
+    }
     
     private func setupUI() {
         selectionStyle = .none
@@ -64,6 +68,7 @@ class ZLDiscussionTableViewCell: UITableViewCell {
         containerView.addSubview(repoNameTitleLabel)
         containerView.addSubview(titleLabel)
         containerView.addSubview(createTimeLabel)
+        containerView.addGestureRecognizer(longPressGesture)
         
         containerView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview().inset(UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
@@ -91,6 +96,47 @@ class ZLDiscussionTableViewCell: UITableViewCell {
             make.top.equalTo(titleLabel.snp.bottom).offset(15)
             make.bottom.equalToSuperview().offset(-10)
         }
+        
+        let bottomView = UIView()
+        bottomView.backgroundColor = UIColor.clear
+        containerView.addSubview(bottomView)
+        bottomView.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(20)
+            make.left.equalTo(repoNameTitleLabel)
+            make.bottom.equalToSuperview().offset(-10)
+            make.right.equalToSuperview().offset(-20)
+            make.height.equalTo(20)
+        }
+        
+        bottomView.addSubview(thumbsUpLabel)
+        bottomView.addSubview(thumbsUpNumLabel)
+        bottomView.addSubview(commentLabel)
+        bottomView.addSubview(commentNumLabel)
+
+        thumbsUpLabel.snp.makeConstraints { make in
+            make.size.equalTo(CGSize(width: 20, height: 20))
+            make.centerY.equalToSuperview()
+            make.left.top.bottom.equalToSuperview()
+        }
+        
+        thumbsUpNumLabel.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview()
+            make.width.equalTo(40)
+            make.left.equalTo(thumbsUpLabel.snp.left).offset(30)
+        }
+        
+        commentLabel.snp.makeConstraints { make in
+            make.size.equalTo(CGSize(width: 20, height: 20))
+            make.centerY.equalToSuperview()
+            make.left.equalTo(thumbsUpNumLabel.snp.left).offset(50)
+        }
+        
+        commentNumLabel.snp.makeConstraints { make in
+            make.left.equalTo(commentLabel.snp.left).offset(30)
+            make.top.bottom.equalToSuperview()
+            make.width.equalTo(40)
+        }
+        
     }
     
     // MARK: View
@@ -131,6 +177,45 @@ class ZLDiscussionTableViewCell: UITableViewCell {
         return label
     }()
     
+    lazy var thumbsUpLabel: UILabel = {
+        let label = UILabel()
+        label.text = ZLIconFont.ThumbsUP.rawValue
+        label.font = UIFont.zlIconFont(withSize: 15)
+        label.textColor = UIColor(named: "ZLLabelColor2")
+        return label
+    }()
+    
+    lazy var commentLabel: UILabel = {
+        let label = UILabel()
+        label.text = ZLIconFont.Comment.rawValue
+        label.font = UIFont.zlIconFont(withSize: 15)
+        label.textColor = UIColor(named: "ZLLabelColor2")
+        return label
+    }()
+    
+    lazy var thumbsUpNumLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .left
+        label.font = UIFont.zlMediumFont(withSize: 12)
+        label.textColor = UIColor(named: "ZLLabelColor2")
+        return label
+    }()
+    
+    lazy var commentNumLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .left
+        label.font = UIFont.zlMediumFont(withSize: 12)
+        label.textColor = UIColor(named: "ZLLabelColor2")
+        return label
+    }()
+    
+    lazy var longPressGesture: UILongPressGestureRecognizer = {
+        let gesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressAction(gesture:)))
+        return gesture
+    }()
+    
+    weak var delegate: ZLDiscussionTableViewCellDataSourceAndDelegate?
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         UIView.animate(withDuration: 0.1) {
@@ -156,8 +241,34 @@ class ZLDiscussionTableViewCell: UITableViewCell {
 extension ZLDiscussionTableViewCell: ViewUpdatable {
     
     func fillWithData(viewData: ZLDiscussionTableViewCellDataSourceAndDelegate) {
-        repoNameTitleLabel.text = viewData.repositoryFullName
+        
+        delegate = viewData
+        
+        let title = NSMutableAttributedString(string: viewData.repositoryFullName ,
+                                              attributes: [.foregroundColor:ZLRawLabelColor(name: "ZLLabelColor1"),
+                                                           .font: UIFont.zlMediumFont(withSize: 15)])
+        title.yy_setTextHighlight(NSRange(location: 0, length: title.length),
+                                  color: nil,
+                                  backgroundColor: UIColor(cgColor: UIColor.linkColor(withName: "ZLLinkLabelColor1").cgColor)) { [weak self]_, _, _, _ in
+            self?.onRepoNameClick()
+        }
+        
+        repoNameTitleLabel.attributedText = title
+//        repoNameTitleLabel.text = viewData.repositoryFullName
         titleLabel.text = viewData.title
         createTimeLabel.text = viewData.createTime
+        
+        thumbsUpNumLabel.text = viewData.upvoteNumber < 1000 ? "\(viewData.upvoteNumber)" : String(format: "%.1f", Double(viewData.upvoteNumber)/1000.0) + "k"
+        commentNumLabel.text = viewData.commentNumber < 1000 ? "\(viewData.commentNumber)" : String(format: "%.1f", Double(viewData.commentNumber)/1000.0) + "k"
+        
+        longPressGesture.isEnabled = viewData.hasLongPressAction()
+    }
+}
+
+extension ZLDiscussionTableViewCell {
+
+    @objc func longPressAction(gesture: UILongPressGestureRecognizer) {
+        guard gesture.state == .began else { return }
+        delegate?.longPressAction(view: self)
     }
 }

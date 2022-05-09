@@ -79,4 +79,6 @@ public struct ZLIconFont {
     static let Safari = ZLIconFont(rawValue: "\u{e69c}")
     
     static let Comment = ZLIconFont(rawValue: "\u{e68d}")
+    
+    static let ThumbsUP = ZLIconFont(rawValue: "\u{ec7f}")
 }
