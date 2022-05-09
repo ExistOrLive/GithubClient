@@ -67,8 +67,14 @@ class ZLDiscussionTableViewCell: UITableViewCell {
         containerView.addSubview(iconTag)
         containerView.addSubview(repoNameTitleLabel)
         containerView.addSubview(titleLabel)
-        containerView.addSubview(createTimeLabel)
+        containerView.addSubview(bottomView)
         containerView.addGestureRecognizer(longPressGesture)
+        
+        bottomView.addSubview(thumbsUpLabel)
+        bottomView.addSubview(thumbsUpNumLabel)
+        bottomView.addSubview(commentLabel)
+        bottomView.addSubview(commentNumLabel)
+        bottomView.addSubview(createTimeLabel)
         
         containerView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview().inset(UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
@@ -91,32 +97,18 @@ class ZLDiscussionTableViewCell: UITableViewCell {
             make.top.equalTo(repoNameTitleLabel.snp.bottom).offset(10)
         }
         
-        createTimeLabel.snp.makeConstraints { (make) in
-            make.right.equalTo(repoNameTitleLabel)
-            make.top.equalTo(titleLabel.snp.bottom).offset(15)
-            make.bottom.equalToSuperview().offset(-10)
-        }
         
-        let bottomView = UIView()
-        bottomView.backgroundColor = UIColor.clear
-        containerView.addSubview(bottomView)
         bottomView.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(20)
             make.left.equalTo(repoNameTitleLabel)
             make.bottom.equalToSuperview().offset(-10)
             make.right.equalToSuperview().offset(-20)
-            make.height.equalTo(20)
         }
         
-        bottomView.addSubview(thumbsUpLabel)
-        bottomView.addSubview(thumbsUpNumLabel)
-        bottomView.addSubview(commentLabel)
-        bottomView.addSubview(commentNumLabel)
-
         thumbsUpLabel.snp.makeConstraints { make in
             make.size.equalTo(CGSize(width: 20, height: 20))
             make.centerY.equalToSuperview()
-            make.left.top.bottom.equalToSuperview()
+            make.left.equalToSuperview()
         }
         
         thumbsUpNumLabel.snp.makeConstraints { make in
@@ -135,6 +127,11 @@ class ZLDiscussionTableViewCell: UITableViewCell {
             make.left.equalTo(commentLabel.snp.left).offset(30)
             make.top.bottom.equalToSuperview()
             make.width.equalTo(40)
+        }
+        
+        createTimeLabel.snp.makeConstraints { (make) in
+            make.top.bottom.right.equalToSuperview()
+            make.centerY.equalToSuperview()
         }
         
     }
@@ -168,6 +165,12 @@ class ZLDiscussionTableViewCell: UITableViewCell {
         label.textColor = UIColor(named: "ZLLabelColor3")
         label.font = UIFont(name: Font_PingFangSCRegular, size: 15)
         return label
+    }()
+    
+    private lazy var bottomView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.clear
+        return view
     }()
     
     private lazy var createTimeLabel: UILabel = {
@@ -254,7 +257,6 @@ extension ZLDiscussionTableViewCell: ViewUpdatable {
         }
         
         repoNameTitleLabel.attributedText = title
-//        repoNameTitleLabel.text = viewData.repositoryFullName
         titleLabel.text = viewData.title
         createTimeLabel.text = viewData.createTime
         
