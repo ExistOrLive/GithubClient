@@ -22,13 +22,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self setZLNavigationBarHidden:YES];
     //  创建ViewModel
     ZLExploreBaseViewModel *viewModel = [ZLExploreBaseViewModel new];
     
-    ZLExploreBaseView * baseView = [[NSBundle mainBundle] loadNibNamed:@"ZLExploreBaseView" owner:viewModel options:nil].firstObject;
-    [self.view addSubview:baseView];
+    ZLExploreBaseView * baseView = [[ZLExploreBaseView alloc] init];
+    [self.contentView addSubview:baseView];
     [baseView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
+        make.edges.equalTo(self.contentView);
     }];
     
     [self addSubViewModel:viewModel];

@@ -141,3 +141,9 @@ extension ZLSearchItemsView: JXSegmentedListContainerViewListDelegate {
         return self
     }
 }
+
+extension ZLGithubItemListView: JXSegmentedListContainerViewListDelegate {
+    func listView() -> UIView {
+        return self
+    }
+}
