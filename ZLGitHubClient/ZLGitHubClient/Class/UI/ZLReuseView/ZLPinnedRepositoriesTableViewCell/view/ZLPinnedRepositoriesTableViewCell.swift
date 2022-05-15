@@ -47,13 +47,6 @@ class ZLPinnedRepositoriesTableViewCell: UITableViewCell {
         }
     }
 
-    // MARK: fillWithData
-
-    func fillWithData(viewModel: ZLPinnedRepositoriesTableViewCellDelegateAndDataSource) {
-        self.delegate = viewModel
-        self.collectionView.reloadData()
-    }
-
     // MARK: View
 
      lazy var collectionView: UICollectionView = {
@@ -108,4 +101,13 @@ extension ZLPinnedRepositoriesTableViewCell: UICollectionViewDelegate, UICollect
         cellData.onCellSingleTap()
     }
 
+}
+
+extension ZLPinnedRepositoriesTableViewCell: ZLViewUpdatableWithViewData {
+   
+    // MARK: fillWithData
+    func fillWithViewData(viewData: ZLPinnedRepositoriesTableViewCellDelegateAndDataSource) {
+        self.delegate = viewData
+        self.collectionView.reloadData()
+    }
 }

@@ -42,8 +42,8 @@ class ZLDiscussionTableViewCellData: ZLGithubItemTableViewCellData {
     
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
         super.bindModel(targetModel, andView: targetView)
-        if let cell = targetView as? ZLDiscussionTableViewCell {
-            cell.fillWithData(viewData: self)
+        if let cell = targetView as? ZLViewUpdatable {
+            cell.fillWithData(data: self)
         }
     }
     
@@ -62,7 +62,6 @@ extension ZLDiscussionTableViewCellData: ZLDiscussionTableViewCellDataSourceAndD
     var createTime: String {
         NSDate.getLocalStrSinceCurrentTime(withGithubTime: data.createdAt)
     }
-    
     
     var upvoteNumber: Int {
         data.upvoteCount

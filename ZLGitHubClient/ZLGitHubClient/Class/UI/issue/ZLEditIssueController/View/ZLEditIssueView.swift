@@ -153,56 +153,35 @@ extension ZLEditIssueView: UITableViewDelegate, UITableViewDataSource {
         case let .assignees(dataSources):
             let datasource = dataSources[indexPath.row]
             let cell = tableView.dequeueReusableCell(withIdentifier: datasource.getCellReuseIdentifier(), for: indexPath)
-            if let cell = cell as? ZLSimpleUserTableViewCell,
-               let cellData = datasource as? ZLSimpleUserTableViewCellDataSource {
-                cell.fillWithData(viewData: cellData)
-            }
-            if let cell = cell as? ZLIssueNoneCell,
-               let cellData = datasource as? ZLIssueNoneCellDataSource {
-                cell.fillWithData(viewData: cellData)
+            if let viewUpdatable = cell as? ZLViewUpdatable {
+                viewUpdatable.fillWithData(data: datasource)
             }
             return cell 
         case let .label(dataSource):
             let cell = tableView.dequeueReusableCell(withIdentifier: dataSource.getCellReuseIdentifier(), for: indexPath)
-            if let cell = cell as? ZLIssueLabelsCell,
-               let cellData = dataSource as? ZLIssueLabelsCellDataSource {
-                cell.fillWithData(viewData: cellData)
-            }
-            if let cell = cell as? ZLIssueNoneCell,
-               let cellData = dataSource as? ZLIssueNoneCellDataSource {
-                cell.fillWithData(viewData: cellData)
+            if let viewUpdatable = cell as? ZLViewUpdatable {
+                viewUpdatable.fillWithData(data: dataSource)
             }
             return cell
         case let .milestone(dataSources):
             let datasource = dataSources[indexPath.row]
             let cell = tableView.dequeueReusableCell(withIdentifier: datasource.getCellReuseIdentifier(), for: indexPath)
-            if let cell = cell as? ZLIssueMilestoneCell,
-               let cellData = datasource as? ZLIssueMilestoneCellDelegateAndDataSource {
-                cell.fillWithData(viewData: cellData)
-            }
-            if let cell = cell as? ZLIssueNoneCell,
-               let cellData = datasource as? ZLIssueNoneCellDataSource {
-                cell.fillWithData(viewData: cellData)
+            if let viewUpdatable = cell as? ZLViewUpdatable {
+                viewUpdatable.fillWithData(data: datasource)
             }
             return cell
         case let .project(dataSources):
             let datasource = dataSources[indexPath.row]
             let cell = tableView.dequeueReusableCell(withIdentifier: datasource.getCellReuseIdentifier(), for: indexPath)
-            if let cell = cell as? ZLIssueProjectCell,
-               let cellData = datasource as?  ZLIssueProjectCellDataSourceAndDeledate{
-                cell.fillWithData(viewData: cellData)
-            }
-            if let cell = cell as? ZLIssueNoneCell,
-               let cellData = datasource as? ZLIssueNoneCellDataSource {
-                cell.fillWithData(viewData: cellData)
+            if let viewUpdatable = cell as? ZLViewUpdatable {
+                viewUpdatable.fillWithData(data: datasource)
             }
             return cell
         case let .operation(dataSources):
-            let dataSource = dataSources[indexPath.row]
-            let cell = tableView.dequeueReusableCell(withIdentifier: dataSource.getCellReuseIdentifier(), for: indexPath)
-            if let cell = cell as? ZLIssueOperateCell,
-               let cellData = dataSource as? ZLIssueOperateCellDataSource {
-                cell.fillWithData(viewData: cellData)
+            let datasource = dataSources[indexPath.row]
+            let cell = tableView.dequeueReusableCell(withIdentifier: datasource.getCellReuseIdentifier(), for: indexPath)
+            if let viewUpdatable = cell as? ZLViewUpdatable {
+                viewUpdatable.fillWithData(data: datasource)
             }
             return cell
         }
@@ -265,18 +244,18 @@ extension ZLEditIssueView: UITableViewDelegate, UITableViewDataSource {
         
         switch sectionType {
         case .assignees:
-            headerView.fillWithData(viewData: (ZLLocalizedString(string: "Assignee", comment: ""), { [weak self] in
+            headerView.fillWithViewData(viewData: (ZLLocalizedString(string: "Assignee", comment: ""), { [weak self] in
                 self?.delegate?.onEditAssigneeAction()
             }))
             if delegate?.viewerCanUpdate ?? false {
                 headerView.editButton.isHidden = false
             }
         case .label:
-            headerView.fillWithData(viewData: (ZLLocalizedString(string: "Label", comment: ""), nil))
+            headerView.fillWithViewData(viewData: (ZLLocalizedString(string: "Label", comment: ""), nil ))
         case .milestone:
-            headerView.fillWithData(viewData: (ZLLocalizedString(string: "Milestone", comment: ""), nil))
+            headerView.fillWithViewData(viewData: (ZLLocalizedString(string: "Milestone", comment: ""), nil))
         case .project:
-            headerView.fillWithData(viewData: (ZLLocalizedString(string: "Project", comment: ""), nil))
+            headerView.fillWithViewData(viewData: (ZLLocalizedString(string: "Project", comment: ""), nil))
         case .operation:
             let view = UIView()
             view.backgroundColor = .clear
@@ -300,8 +279,8 @@ extension ZLEditIssueView: UITableViewDelegate, UITableViewDataSource {
 }
 
 
-extension ZLEditIssueView: ViewUpdatable {
-    func fillWithData(viewData: ZLEditIssueViewDelegateAndSource) {
+extension ZLEditIssueView: ZLViewUpdatableWithViewData {
+    func fillWithViewData(viewData: ZLEditIssueViewDelegateAndSource) {
         delegate = viewData
         viewData.refreshEvent.subscribe(onNext: { [weak self] _ in
             self?.tableView.reloadData()
@@ -311,3 +290,9 @@ extension ZLEditIssueView: ViewUpdatable {
     }
 }
 
+
+extension ZLEditIssueView: ZLViewStatusProtocol {
+    var targetView: UIView {
+        tableView
+    }
+}

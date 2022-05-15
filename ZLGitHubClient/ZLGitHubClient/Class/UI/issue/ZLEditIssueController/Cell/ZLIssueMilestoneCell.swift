@@ -77,9 +77,9 @@ extension ZLIssueMilestoneCell {
     }
 }
 
-extension ZLIssueMilestoneCell: ViewUpdatable {
+extension ZLIssueMilestoneCell: ZLViewUpdatableWithViewData {
     
-    func fillWithData(viewData: ZLIssueMilestoneCellDelegateAndDataSource) {
+    func fillWithViewData(viewData: ZLIssueMilestoneCellDelegateAndDataSource) {
         
         milestoneTitleLabel.text = viewData.title
         progressView.set(params: [(viewData.percent,UIColor.back(withName: "done")),

@@ -77,8 +77,9 @@ extension ZLMyDiscussionsBaseView: ZLGithubItemListViewDelegate {
 }
 
 
-extension ZLMyDiscussionsBaseView: ViewUpdatable {
-    func fillWithData(viewData: ZLMyDiscussionsBaseViewDelegateAndDataSource) {
+extension ZLMyDiscussionsBaseView: ZLViewUpdatableWithViewData {
+  
+    func fillWithViewData(viewData: ZLMyDiscussionsBaseViewDelegateAndDataSource) {
         delegate = viewData
         itemView.setCellDatas(cellDatas: viewData.cellDatas, lastPage: viewData.isLastPage)
     }

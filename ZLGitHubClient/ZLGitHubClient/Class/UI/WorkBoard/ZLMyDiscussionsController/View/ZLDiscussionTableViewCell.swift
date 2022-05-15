@@ -241,9 +241,9 @@ class ZLDiscussionTableViewCell: UITableViewCell {
     }
 }
 
-extension ZLDiscussionTableViewCell: ViewUpdatable {
+extension ZLDiscussionTableViewCell: ZLViewUpdatableWithViewData {
     
-    func fillWithData(viewData: ZLDiscussionTableViewCellDataSourceAndDelegate) {
+    func fillWithViewData(viewData: ZLDiscussionTableViewCellDataSourceAndDelegate) {
         
         delegate = viewData
         

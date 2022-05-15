@@ -151,9 +151,9 @@ class ZLSubmitCommentView: ZLBaseView {
     }()
 }
 
-extension ZLSubmitCommentView: ViewUpdatable {
+extension ZLSubmitCommentView: ZLViewUpdatableWithViewData {
     
-    func fillWithData(viewData: ZLSubmitCommentViewDelegate) {
+    func fillWithViewData(viewData: ZLSubmitCommentViewDelegate) {
         delagate = viewData
         viewData.clearObservable.subscribe(onNext: { [weak self] _ in
             self?.textView.text = nil

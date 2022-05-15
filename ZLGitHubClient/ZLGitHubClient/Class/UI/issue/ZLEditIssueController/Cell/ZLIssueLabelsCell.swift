@@ -53,8 +53,8 @@ class ZLIssueLabelsCell: UITableViewCell {
 
 }
 
-extension ZLIssueLabelsCell: ViewUpdatable {
-    func fillWithData(viewData: ZLIssueLabelsCellDataSource) {
+extension ZLIssueLabelsCell: ZLViewUpdatableWithViewData {
+    func fillWithViewData(viewData: ZLIssueLabelsCellDataSource) {
         labelsLabel.attributedText = viewData.labelsStr
     }
 }
