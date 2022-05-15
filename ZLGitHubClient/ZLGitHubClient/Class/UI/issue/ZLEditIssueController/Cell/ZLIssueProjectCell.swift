@@ -96,9 +96,9 @@ extension ZLIssueProjectCell {
     }
 }
 
-extension ZLIssueProjectCell: ViewUpdatable {
+extension ZLIssueProjectCell: ZLViewUpdatableWithViewData {
     
-    func fillWithData(viewData: ZLIssueProjectCellDataSourceAndDeledate) {
+    func fillWithViewData(viewData: ZLIssueProjectCellDataSourceAndDeledate) {
         
         projectTitleLabel.text = viewData.projectTitle
         projectColumnLabel.text = viewData.projectColumnTitle

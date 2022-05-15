@@ -32,7 +32,7 @@ class ZLMyDiscussionsController: ZLBaseViewController {
         discussionsView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        discussionsView.fillWithData(viewData: self)
+        discussionsView.fillWithData(data: self)
     }
 
     // MARK: view

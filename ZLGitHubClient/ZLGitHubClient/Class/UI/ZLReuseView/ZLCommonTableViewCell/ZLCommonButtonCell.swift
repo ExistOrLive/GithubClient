@@ -50,8 +50,8 @@ class ZLCommonButtonCell: UITableViewCell {
 }
 
 
-extension ZLCommonButtonCell: ViewUpdatable {
-    func fillWithData(viewData: ZLCommonButtonCellDelegate) {
+extension ZLCommonButtonCell: ZLViewUpdatableWithViewData {
+    func fillWithViewData(viewData: ZLCommonButtonCellDelegate) {
         viewData.relayoutBlock?(button)
         clickBlock = viewData.clickBlock
     }

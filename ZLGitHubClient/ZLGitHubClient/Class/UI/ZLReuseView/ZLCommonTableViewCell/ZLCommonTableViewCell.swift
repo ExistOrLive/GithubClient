@@ -54,14 +54,6 @@ class ZLCommonTableViewCell: UITableViewCell {
 
     }
 
-    // MARK: fillWithData
-    func fillWithData(viewData: ZLCommonTableViewCellDataSourceAndDelegate) {
-        selectionStyle = viewData.canClick ? .gray : .none
-        titleLabel.text = viewData.title
-        subLabel.text = viewData.info
-        nextLabel.isHidden = !viewData.canClick
-    }
-
     // MARK: View
     lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -84,4 +76,15 @@ class ZLCommonTableViewCell: UITableViewCell {
         label.text = ZLIconFont.NextArrow.rawValue
         return label
     }()
+}
+
+
+extension ZLCommonTableViewCell: ZLViewUpdatableWithViewData {
+    // MARK: fillWithData
+    func fillWithViewData(viewData: ZLCommonTableViewCellDataSourceAndDelegate) {
+        selectionStyle = viewData.canClick ? .gray : .none
+        titleLabel.text = viewData.title
+        subLabel.text = viewData.info
+        nextLabel.isHidden = !viewData.canClick
+    }
 }

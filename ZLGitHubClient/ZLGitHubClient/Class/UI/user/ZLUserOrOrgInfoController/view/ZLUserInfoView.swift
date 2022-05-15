@@ -120,32 +120,9 @@ extension ZLUserInfoView: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellData.getCellReuseIdentifier()) else {
             return UITableViewCell()
         }
-
-        if let headerCell = cell as? ZLUserInfoHeaderCell,
-            let headerCellData = cellData as? ZLUserInfoHeaderCellDataSourceAndDelegate {
-
-            headerCell.fillWithData(viewModel: headerCellData)
-
-        } else if let commonCell = cell as? ZLCommonTableViewCell,
-           let commonCellData = cellData as? ZLCommonTableViewCellDataSourceAndDelegate {
-
-            commonCell.fillWithData(viewData: commonCellData)
-
-        } else if let contributionCell = cell as? ZLUserContributionsCell,
-                  let contributionCellData = cellData as? ZLUserContributionsCellDelegate {
-
-            contributionCell.fillWithData(data: contributionCellData)
-
-        } else if let pinnedRepocell = cell as? ZLPinnedRepositoriesTableViewCell,
-                  let pinnedRepoCellData = cellData as? ZLPinnedRepositoriesTableViewCellDelegateAndDataSource {
-
-            pinnedRepocell.fillWithData(viewModel: pinnedRepoCellData)
-
-        } else if let orgInfoHeaderCell = cell as? ZLOrgInfoHeaderCell,
-                  let orgInfoHeaderCellData = cellData as? ZLOrgInfoHeaderCellDataSourceAndDelegate {
-
-            orgInfoHeaderCell.fillWithData(viewModel: orgInfoHeaderCellData)
-
+        
+        if let viewUpdatable = cell as? ZLViewUpdatable {
+            viewUpdatable.fillWithData(data: cellData)
         }
 
         return cell

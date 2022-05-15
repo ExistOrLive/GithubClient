@@ -36,15 +36,19 @@ class ZLUserContributionsCell: UITableViewCell {
         }
     }
 
-    func fillWithData(data: ZLUserContributionsCellDelegate) {
-        let loginName = data.loginName
-        if !loginName.isEmpty {
-            contributionsView.update(loginName: loginName)
-        }
-    }
-
     // MARK: View
     private lazy var contributionsView: ZLUserContributionsView = {
         ZLUserContributionsView()
     }()
+}
+
+
+extension ZLUserContributionsCell: ZLViewUpdatableWithViewData {
+    
+    func fillWithViewData(viewData: ZLUserContributionsCellDelegate) {
+        let loginName = viewData.loginName
+        if !loginName.isEmpty {
+            contributionsView.update(loginName: loginName)
+        }
+    }
 }

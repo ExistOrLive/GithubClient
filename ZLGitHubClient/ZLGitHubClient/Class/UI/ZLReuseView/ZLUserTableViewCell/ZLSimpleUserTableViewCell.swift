@@ -87,9 +87,9 @@ class ZLSimpleUserTableViewCell: UITableViewCell {
     }()
 }
 
-extension ZLSimpleUserTableViewCell: ViewUpdatable {
+extension ZLSimpleUserTableViewCell: ZLViewUpdatableWithViewData {
     
-    func fillWithData(viewData: ZLSimpleUserTableViewCellDataSource) {
+    func fillWithViewData(viewData: ZLSimpleUserTableViewCellDataSource) {
         
         avatarImageView.sd_setImage(with: URL(string: viewData.avatarUrl), placeholderImage: UIImage(named: "default_avatar"))
         fullNameLabel.text = viewData.loginName

@@ -31,6 +31,7 @@ class ZLEditIssueController: ZLBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        editIssueView.viewStatus = .loading
         requestNewData()
     }
     
@@ -54,7 +55,7 @@ extension ZLEditIssueController {
         }
         
         // bind 
-        editIssueView.fillWithData(viewData: self)
+        editIssueView.fillWithData(data: self)
     }
     
     func generateSubViewModel() {
@@ -218,7 +219,7 @@ extension ZLEditIssueController {
                   return
               }
         
-        view.showProgressHUD()
+
         
         ZLEventServiceShared()?.getIssueEditInfo(withLoginName: loginName,
                                                  repoName: repoName,
@@ -228,12 +229,14 @@ extension ZLEditIssueController {
             
             guard let self = self else { return }
             
-            self.view.dismissProgressHUD()
+
+            
             
             if result.result {
                 guard let data = result.data as? IssueEditInfoQuery.Data else {
                     return
                 }
+                self.editIssueView.viewStatus = .empty
                 self.data = data
                 self.generateSubViewModel()
                 let title = data.repository?.issue?.title ?? ""
@@ -243,6 +246,7 @@ extension ZLEditIssueController {
                 guard let errorModel = result.data as? ZLGithubRequestErrorModel else {
                     return
                 }
+                self.editIssueView.viewStatus = .error
                 ZLToastView.showMessage(errorModel.message)
             }
         }
