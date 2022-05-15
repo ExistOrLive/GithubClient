@@ -392,7 +392,6 @@
 		0ADF903C21D4B01900BF86CD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0ADF904321D4D33D00BF86CD /* ZLGitHubClient-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZLGitHubClient-Bridging-Header.h"; sourceTree = "<group>"; };
 		2A1C1E9B223917862FB53386 /* Pods-ZLServiceFramework.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZLServiceFramework.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZLServiceFramework/Pods-ZLServiceFramework.release.xcconfig"; sourceTree = "<group>"; };
-		318B20A72828D8C7001DB0F3 /* ZLGithubAppKey.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ZLGithubAppKey.h; path = "../../../../movie/SecretFile-master/GithubClient/ZLGithubAppKey.h"; sourceTree = "<group>"; };
 		361B8B79239FD1C000F725B8 /* ZLStarReposBaseView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLStarReposBaseView.h; sourceTree = "<group>"; };
 		361B8B7A239FD1C000F725B8 /* ZLStarReposBaseView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLStarReposBaseView.m; sourceTree = "<group>"; };
 		361B8B7D239FD35000F725B8 /* ZLStarReposBaseViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLStarReposBaseViewModel.h; sourceTree = "<group>"; };
@@ -830,7 +829,6 @@
 			children = (
 				745EADDF2616E38600973F86 /* GoogleService-Info.plist */,
 				366488532420B73100EC8FC7 /* ZLGitHubClient.entitlements */,
-				318B20A72828D8C7001DB0F3 /* ZLGithubAppKey.h */,
 				74C3F8C522D1DE360086A3F9 /* Class */,
 				74C3F8C422D1DE220086A3F9 /* System */,
 			);
