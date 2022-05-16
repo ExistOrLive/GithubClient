@@ -16,14 +16,12 @@ class ZLMyDiscussionsController: ZLBaseViewController {
     // Model
     private var _after: String?
     
-    private var _cellDatas: [ZLGithubItemTableViewCellData] = []
+    private var _cellDatas: [ZLTableViewBaseCellData] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        
-        contentView.showProgressHUD()
-        loadData(isLoadNewData: true)
+        discussionsView.startLoad()
     }
     
     private func setupUI() {
@@ -46,13 +44,14 @@ class ZLMyDiscussionsController: ZLBaseViewController {
 
 // MARK: ZLMyDiscussionsBaseViewDelegateAndDataSource
 extension ZLMyDiscussionsController: ZLMyDiscussionsBaseViewDelegateAndDataSource {
+    
     // DataSource
-    var cellDatas: [ZLGithubItemTableViewCellData] {
+    var cellDatas: [ZLTableViewCellProtocol] {
         _cellDatas
     }
     
-    var isLastPage: Bool {
-        _after == nil
+    var hasMoreData: Bool {
+        _after != nil
     }
     
     // Delegate
@@ -91,11 +90,14 @@ extension ZLMyDiscussionsController {
                 }
                 self.addSubViewModels(cellDatas)
                 if isLoadNewData {
+                    for oldCellData in self._cellDatas {
+                        oldCellData.removeFromSuperViewModel()
+                    }
                     self._cellDatas = cellDatas
                 } else {
                     self._cellDatas.append(contentsOf: cellDatas)
                 }
-                self._after = data.search.pageInfo.endCursor
+                self._after = data.search.pageInfo.hasNextPage ? data.search.pageInfo.endCursor : nil
                 self.discussionsView.reloadData()
                 
             } else {

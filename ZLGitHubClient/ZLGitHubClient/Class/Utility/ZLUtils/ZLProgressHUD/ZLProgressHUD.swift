@@ -23,8 +23,7 @@ import MBProgressHUD
         if let view = view {
             MBProgressHUD.showAdded(to: view, animated: animated)
         } else {
-            if let window = UIApplication.shared.delegate?.window,
-               let window = window {
+            if let window = UIApplication.shared.keyWindow {
                 MBProgressHUD.showAdded(to: window, animated: animated)
             }
         }
@@ -34,8 +33,7 @@ import MBProgressHUD
         if let view = view {
             MBProgressHUD.hide(for: view, animated: animated)
         } else {
-            if let window = UIApplication.shared.delegate?.window,
-               let window = window {
+            if let window = UIApplication.shared.keyWindow {
                 MBProgressHUD.hide(for: window, animated: animated)
             }
         }

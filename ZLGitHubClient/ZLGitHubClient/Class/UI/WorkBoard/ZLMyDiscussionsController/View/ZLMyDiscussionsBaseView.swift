@@ -9,12 +9,13 @@
 import UIKit
 import ZLBaseUI
 import SnapKit
+import SwiftUI
 
 protocol ZLMyDiscussionsBaseViewDelegateAndDataSource: NSObjectProtocol {
     // DataSource
-    var cellDatas: [ZLGithubItemTableViewCellData] { get }
+    var cellDatas: [ZLTableViewCellProtocol] { get }
     
-    var isLastPage: Bool { get }
+    var hasMoreData: Bool { get }
     
     // Delegate
     func loadNewData()
@@ -38,40 +39,40 @@ class ZLMyDiscussionsBaseView: ZLBaseView {
     
     private func setupUI() {
         addSubview(itemView)
-        
         itemView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.edges.equalTo(UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0))
         }
     }
     
     func startLoad() {
-        itemView.beginRefresh()
+        itemView.startLoad()
     }
     
     func reloadData() {
         if let viewData = delegate {
-            itemView.setCellDatas(cellDatas: viewData.cellDatas, lastPage: viewData.isLastPage)
+            itemView.resetCellDatas(cellDatas: viewData.cellDatas, hasMoreData: viewData.hasMoreData)
         }
     }
     
     
     // MARK: View
-    lazy var itemView: ZLGithubItemListView = {
-       let view = ZLGithubItemListView()
-        view.delegate = self
+    lazy var itemView: ZLTableContainerView = {
+       let view = ZLTableContainerView()
         view.setTableViewHeader()
         view.setTableViewFooter()
+        view.delegate = self
+        view.register(ZLDiscussionTableViewCell.self, forCellReuseIdentifier: "ZLDiscussionTableViewCell")
         return view
     }()
 
 }
 
-extension ZLMyDiscussionsBaseView: ZLGithubItemListViewDelegate {
-    func githubItemListViewRefreshDragDown(pullRequestListView: ZLGithubItemListView) {
+extension ZLMyDiscussionsBaseView: ZLTableContainerViewDelegate {
+    
+    func zlLoadNewData() {
         delegate?.loadNewData()
     }
-    
-    func githubItemListViewRefreshDragUp(pullRequestListView: ZLGithubItemListView) {
+    func zlLoadMoreData() {
         delegate?.loadMoreData()
     }
 }
@@ -81,6 +82,6 @@ extension ZLMyDiscussionsBaseView: ZLViewUpdatableWithViewData {
   
     func fillWithViewData(viewData: ZLMyDiscussionsBaseViewDelegateAndDataSource) {
         delegate = viewData
-        itemView.setCellDatas(cellDatas: viewData.cellDatas, lastPage: viewData.isLastPage)
+        itemView.resetCellDatas(cellDatas: viewData.cellDatas, hasMoreData: viewData.hasMoreData)
     }
 }

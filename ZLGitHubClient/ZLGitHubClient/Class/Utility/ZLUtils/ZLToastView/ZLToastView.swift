@@ -24,6 +24,10 @@ import Toast
     class func showMessage(_ message: String, duration: TimeInterval, sourceView: UIView) {
         sourceView.makeToast(message, duration: duration, position: CSToastPositionCenter)
     }
+    
+    class func showMessage(_ message: String, sourceView: UIView) {
+        sourceView.makeToast(message, duration: 3.0, position: CSToastPositionCenter)
+    }
 
 }
 

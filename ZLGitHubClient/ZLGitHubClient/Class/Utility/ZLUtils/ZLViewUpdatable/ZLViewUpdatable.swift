@@ -9,14 +9,6 @@
 import Foundation
 import UIKit
 
-protocol ViewUpdatable {
-    
-    associatedtype ViewData
-    
-    func fillWithData(viewData: ViewData)
-}
-
-
 // MARK: ZLViewUpdatable
 protocol ZLViewUpdatable {
         
