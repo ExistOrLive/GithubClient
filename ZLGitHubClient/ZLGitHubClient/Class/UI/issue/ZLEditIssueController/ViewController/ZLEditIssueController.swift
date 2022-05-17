@@ -236,7 +236,7 @@ extension ZLEditIssueController {
                 guard let data = result.data as? IssueEditInfoQuery.Data else {
                     return
                 }
-                self.editIssueView.viewStatus = .empty
+                self.editIssueView.viewStatus = .normal
                 self.data = data
                 self.generateSubViewModel()
                 let title = data.repository?.issue?.title ?? ""
