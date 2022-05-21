@@ -11,7 +11,7 @@ import YYText
 import SnapKit
 import ZLBaseExtension
 
-protocol ZLDiscussionTableViewCellDataSourceAndDelegate: NSObjectProtocol {
+protocol ZLDiscussionTableViewCellDataSourceAndDelegate: AnyObject {
     
     var repositoryFullName: String { get }
     
@@ -32,38 +32,17 @@ protocol ZLDiscussionTableViewCellDataSourceAndDelegate: NSObjectProtocol {
 }
 
 
-class ZLDiscussionTableViewCell: UITableViewCell {
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
+class ZLDiscussionTableViewCell: ZLBaseCardTableViewCell {
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupUI()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    weak var delegate: ZLDiscussionTableViewCellDataSourceAndDelegate?
     
     @objc func onRepoNameClick() {
         self.delegate?.onClickRepoFullName()
     }
     
-    private func setupUI() {
-        selectionStyle = .none
-        backgroundColor = .clear
-        contentView.backgroundColor = .clear
+    override func setupUI() {
+        super.setupUI()
         
-        contentView.addSubview(containerView)
         containerView.addSubview(iconTag)
         containerView.addSubview(repoNameTitleLabel)
         containerView.addSubview(titleLabel)
@@ -75,10 +54,6 @@ class ZLDiscussionTableViewCell: UITableViewCell {
         bottomView.addSubview(commentLabel)
         bottomView.addSubview(commentNumLabel)
         bottomView.addSubview(createTimeLabel)
-        
-        containerView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview().inset(UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
-        }
         
         iconTag.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(10)
@@ -137,14 +112,6 @@ class ZLDiscussionTableViewCell: UITableViewCell {
     }
     
     // MARK: View
-    
-    private lazy var containerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(named: "ZLCellBack")
-        view.cornerRadius = 8.0
-        return view
-    }()
-    
     private lazy var iconTag: UILabel = {
         let label = UILabel()
         label.font = .zlIconFont(withSize: 20)
@@ -217,28 +184,6 @@ class ZLDiscussionTableViewCell: UITableViewCell {
         return gesture
     }()
     
-    weak var delegate: ZLDiscussionTableViewCellDataSourceAndDelegate?
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        UIView.animate(withDuration: 0.1) {
-            self.containerView.backgroundColor = UIColor.init(named: "ZLCellBackSelected")
-        }
-    }
-
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesCancelled(touches, with: event)
-        UIView.animate(withDuration: 0.1) {
-            self.containerView.backgroundColor = UIColor.init(named: "ZLCellBack")
-        }
-    }
-
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesEnded(touches, with: event)
-        UIView.animate(withDuration: 0.1) {
-            self.containerView.backgroundColor = UIColor.init(named: "ZLCellBack")
-        }
-    }
 }
 
 extension ZLDiscussionTableViewCell: ZLViewUpdatableWithViewData {

@@ -9,7 +9,7 @@
 import UIKit
 import ZLGitRemoteService
 
-class ZLDiscussionTableViewCellData: ZLGithubItemTableViewCellData {
+class ZLDiscussionTableViewCellData: ZLTableViewBaseCellData {
     
     typealias DiscussionData = SearchItemQuery.Data.Search.Node.AsDiscussion
     
@@ -20,14 +20,10 @@ class ZLDiscussionTableViewCellData: ZLGithubItemTableViewCellData {
         super.init()
     }
     
-    override func getCellReuseIdentifier() -> String {
-        return "ZLDiscussionTableViewCell"
+    override var cellReuseIdentifier: String {
+        "ZLDiscussionTableViewCell"
     }
-
-    override func getCellHeight() -> CGFloat {
-        return UITableView.automaticDimension
-    }
-
+    
     override func onCellSingleTap() {
         if let url = URL.init(string: data.url) {
             ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,
@@ -39,14 +35,6 @@ class ZLDiscussionTableViewCellData: ZLGithubItemTableViewCellData {
     override func clearCache() {
 
     }
-    
-    override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
-        super.bindModel(targetModel, andView: targetView)
-        if let cell = targetView as? ZLViewUpdatable {
-            cell.fillWithData(data: self)
-        }
-    }
-    
 }
 
 extension ZLDiscussionTableViewCellData: ZLDiscussionTableViewCellDataSourceAndDelegate {
