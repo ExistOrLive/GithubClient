@@ -25,7 +25,7 @@ import ZLBaseExtension
     
     weak var delegate: ZLExploreBaseViewDelegate? {
         didSet {
-            var titles: [String] = self.delegate?.exploreTypeTitles() ?? []
+            let titles: [String] = self.delegate?.exploreTypeTitles() ?? []
             self.segmentedViewDatasource.titles = titles
             self.segmentedView.reloadData()
         }

@@ -150,7 +150,6 @@ class ZLWebContentView: ZLBaseView {
 
     @objc weak var delegate: ZLWebContentViewDelegate?
     
-    
 
     deinit {
         removeObservers()

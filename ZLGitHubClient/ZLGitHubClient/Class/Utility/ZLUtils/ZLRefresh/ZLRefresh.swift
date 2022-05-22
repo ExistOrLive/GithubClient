@@ -18,22 +18,6 @@ protocol ZLRefreshProtocol: NSObjectProtocol {
     
     var scrollView: UIScrollView { get }
     
-    func setRefreshView(type: ZLRefreshViewType)
-    
-    func hiddenRefreshView(type: ZLRefreshViewType)
-    
-    func showRefreshView(type: ZLRefreshViewType)
-    
-    
-    func beginRefreshView(type: ZLRefreshViewType)
-    
-    func endRefreshView(type: ZLRefreshViewType)
-    
-    func endRefreshFooterWithNoMoreData()
-    
-    func resetRefreshFooter()
-    
-    
     func refreshLoadNewData()
     
     func refreshLoadMoreData()
