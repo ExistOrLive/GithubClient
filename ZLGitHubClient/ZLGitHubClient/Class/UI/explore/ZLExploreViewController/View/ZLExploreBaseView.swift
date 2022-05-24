@@ -116,7 +116,7 @@ import ZLBaseExtension
     lazy var trendingLabel: UILabel = {
        let label = UILabel()
         label.font = UIFont.zlIconFont(withSize: 25)
-        label.text = ZLIconFont.Notification.rawValue
+        label.text = ZLIconFont.Trending.rawValue
         label.textColor = UIColor(named:"ZLLabelColor1")
         return label
     }()
