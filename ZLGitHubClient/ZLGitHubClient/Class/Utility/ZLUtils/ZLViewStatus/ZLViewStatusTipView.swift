@@ -8,6 +8,7 @@
 
 import Foundation
 import ZLBaseExtension
+import MBProgressHUD
 
 @objc class ZLViewStatusTipView: UIView {
     
@@ -21,12 +22,23 @@ import ZLBaseExtension
     }
     
     func showPlaceholderView() {
-        ZLProgressHUD.dismiss(view: self, animated: true)
+        ZLProgressHUD.dismiss(view: self, animated: false)
+        let subViews = self.subviews
+        for view in subViews {
+            if view is MBProgressHUD {
+                view.removeFromSuperview()
+            }
+        }
         containerView.isHidden = false
     }
     
     func showProgressView() {
-        ZLProgressHUD.show(view: self, animated: true)
+        if !subviews.contains(where: { view in
+            view is MBProgressHUD
+        }) {
+            ZLProgressHUD.show(view: self, animated: false)
+        }
+        
         containerView.isHidden = true
     }
     

@@ -26,7 +26,6 @@ class ZLUserTableViewCellData: ZLGithubItemTableViewCellData {
         }
         self.cell = cell
         cell.fillWithData(data: self)
-        cell.delegate = self
     }
 
     override func getCellHeight() -> CGFloat {

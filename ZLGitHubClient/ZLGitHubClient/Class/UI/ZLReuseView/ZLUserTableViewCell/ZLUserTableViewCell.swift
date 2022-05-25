@@ -46,16 +46,9 @@ extension ZLUserTableViewCellDelegate {
     func longPressAction(view: UIView) { }
 }
 
-class ZLUserTableViewCell: UITableViewCell {
+class ZLUserTableViewCell: ZLBaseCardTableViewCell {
 
     weak var delegate: ZLUserTableViewCellDelegate?
-
-    lazy var containerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(named: "ZLCellBack")
-        view.cornerRadius = 8.0
-        return view
-    }()
 
     lazy var headImageView: UIImageView = {
         let imageView = UIImageView()
@@ -100,20 +93,14 @@ class ZLUserTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func setupUI() {
-
-        self.backgroundColor = UIColor.clear
-        self.selectionStyle = .none
-
-        contentView.addSubview(containerView)
+    override func setupUI() {
+        
+        super.setupUI()
+        
         containerView.addSubview(headImageView)
         containerView.addSubview(loginNameLabel)
         containerView.addSubview(nameLabel)
         containerView.addSubview(descLabel)
-
-        containerView.snp.makeConstraints { make in
-            make.edges.equalTo(UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
-        }
 
         headImageView.snp.makeConstraints { make in
             make.top.equalTo(10)
@@ -143,35 +130,15 @@ class ZLUserTableViewCell: UITableViewCell {
         containerView.addGestureRecognizer(longPressGesture)
     }
 
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        UIView.animate(withDuration: 0.1) {
-            self.containerView.backgroundColor = UIColor.init(named: "ZLCellBackSelected")
-        }
-    }
-
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesCancelled(touches, with: event)
-        UIView.animate(withDuration: 0.1) {
-            self.containerView.backgroundColor = UIColor.init(named: "ZLCellBack")
-        }
-    }
-
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesEnded(touches, with: event)
-        UIView.animate(withDuration: 0.1) {
-            self.containerView.backgroundColor = UIColor.init(named: "ZLCellBack")
-        }
-    }
-
     @objc func longPressAction(gesture: UILongPressGestureRecognizer) {
         guard gesture.state == .began else { return }
         delegate?.longPressAction(view: self)
     }
 }
 
-extension ZLUserTableViewCell {
-    func fillWithData(data: ZLUserTableViewCellDelegate) {
+extension ZLUserTableViewCell: ZLViewUpdatableWithViewData {
+    
+    func fillWithViewData(viewData data: ZLUserTableViewCellDelegate) {
 
         delegate = data
 
