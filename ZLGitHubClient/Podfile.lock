@@ -240,6 +240,13 @@ PODS:
     - SYDCentralPivot
     - Umbrella
     - Umbrella/Firebase
+  - ZLUIUtilities (0.1.0):
+    - MBProgressHUD
+    - MJRefresh
+    - SnapKit
+    - Toast
+    - ZLBaseExtension
+    - ZLBaseUI
 
 DEPENDENCIES:
   - Charts
@@ -277,6 +284,7 @@ DEPENDENCIES:
   - ZLBaseUI (from `https://github.com/ExistOrLive/ZLBaseUI.git`, tag `1.2.1`)
   - ZLGithubOAuth (from `https://github.com/ExistOrLive/ZLGithubOAuth.git`, tag `1.2.0`)
   - ZLGitRemoteService (from `https://github.com/ExistOrLive/ZLGitRemoteService.git`)
+  - ZLUIUtilities (from `https://github.com/ExistOrLive/ZLUIUtilities.git`)
 
 SPEC REPOS:
   trunk:
@@ -341,6 +349,8 @@ EXTERNAL SOURCES:
     :tag: 1.2.0
   ZLGitRemoteService:
     :git: https://github.com/ExistOrLive/ZLGitRemoteService.git
+  ZLUIUtilities:
+    :git: https://github.com/ExistOrLive/ZLUIUtilities.git
 
 CHECKOUT OPTIONS:
   ZLBaseExtension:
@@ -355,6 +365,9 @@ CHECKOUT OPTIONS:
   ZLGitRemoteService:
     :commit: 21731bb82559b0d512a986ccf654d7e7ae60fc30
     :git: https://github.com/ExistOrLive/ZLGitRemoteService.git
+  ZLUIUtilities:
+    :commit: adbcc7534163738f2b19ebf5c1446c064afb1bd1
+    :git: https://github.com/ExistOrLive/ZLUIUtilities.git
 
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
@@ -409,7 +422,8 @@ SPEC CHECKSUMS:
   ZLBaseUI: 2815898555602f9bebb23ca0277ff5352d2a2952
   ZLGithubOAuth: 2d9879eac1d41d45206e6e92463afae2537ec44d
   ZLGitRemoteService: c57964a471dd83f634c10d323c42fe9800b199db
+  ZLUIUtilities: 58cc312400e93051b01ab73e77998865ee43f53a
 
-PODFILE CHECKSUM: e2c606609a77a4b64d50f56f093a6d816bbad10a
+PODFILE CHECKSUM: 954b4e3ce719c225c5c2130ddef00110b119e5ea
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.0

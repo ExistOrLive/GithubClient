@@ -21,6 +21,8 @@
 #pragma mark -
 #import <Masonry/Masonry.h>
 #import "ZLLanguageModuleProtocol.h"
+#import "ZLBaseUI/ZLBaseUIHeader.h"
+#import "UIColor+ZLBase.h"
 
 #pragma mark - swift module
 #import "ZLGitHubClient-Swift.h"

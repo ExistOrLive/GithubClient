@@ -8,6 +8,7 @@
 
 import UIKit
 import ZLGitRemoteService
+import ZLUIUtilities
 
 @objcMembers class ZLRepositoryTableViewCellData: ZLGithubItemTableViewCellData {
 

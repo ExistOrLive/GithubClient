@@ -8,6 +8,9 @@
 
 import UIKit
 import ZLGitRemoteService
+import ZLUIUtilities
+import ZLBaseUI
+import ZLBaseExtension
 
 class ZLNotificationTableViewCellData: ZLGithubItemTableViewCellData {
 

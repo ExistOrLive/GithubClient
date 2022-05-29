@@ -11,6 +11,7 @@ import WebKit
 import ZLGitRemoteService
 import ZLBaseUI
 import ZLBaseExtension
+import ZLUIUtilities
 
 @objc protocol ZLReadMeViewDelegate: NSObjectProtocol {
 

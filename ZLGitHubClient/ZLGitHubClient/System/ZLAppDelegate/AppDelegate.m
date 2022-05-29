@@ -172,6 +172,21 @@
     [ZLBaseUIConfig sharedInstance].buttonBorderColor = [UIColor colorNamed:@"ZLBaseButtonBorderColor"];
     [ZLBaseUIConfig sharedInstance].buttonCornerRadius = 4.0;
     
+    [ZLRefresh setWithHeaderIdleTextBlock:^NSString * {
+        return ZLLocalizedString(@"MJRefreshHeaderIdleText", @"");
+    } headerPullingTextBlock:^NSString * _Nonnull{
+        return ZLLocalizedString(@"MJRefreshHeaderPullingText", @"");
+    } headerRefreshingTextBlock:^NSString * _Nonnull{
+        return ZLLocalizedString(@"MJRefreshHeaderRefreshingText", @"");
+    } autoFooterRefreshingTextBlock:^NSString * _Nonnull{
+        return ZLLocalizedString(@"MJRefreshAutoFooterRefreshingText", @"");
+    } autoFooterNoMoreDataTextBlock:^NSString * _Nonnull{
+        return ZLLocalizedString(@"MJRefreshAutoFooterNoMoreDataText", @"");
+    }];
+    
+    [ZLViewStatusPresenter setWithNoDataImageBlock:^UIImage * _Nonnull{
+        return [UIImage iconFontImageWithText:@"\ue60e" fontSize:45 imageSize: CGSizeMake(70, 60) color:ZLRGBValue_H(0x999999)];
+     }];
 }
 
 - (void) switchToMainController:(BOOL) animated{

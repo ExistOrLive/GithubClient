@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ZLUIUtilities
 
 enum ZLRepoInfoItemType: Int {
     case file                   // 仓库文件

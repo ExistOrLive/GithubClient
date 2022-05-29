@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ZLUIUtilities
 
 protocol ZLUserContributionsCellDelegate: NSObjectProtocol {
     var loginName: String {get}

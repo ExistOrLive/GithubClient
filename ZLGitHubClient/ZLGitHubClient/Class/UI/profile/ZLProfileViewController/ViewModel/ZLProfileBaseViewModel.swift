@@ -8,6 +8,7 @@
 
 import UIKit
 import Foundation
+import ZLUIUtilities
 
 class ZLProfileBaseViewModel: ZLBaseViewModel {
 

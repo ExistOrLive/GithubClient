@@ -8,6 +8,7 @@
 
 import UIKit
 import JXSegmentedView
+import ZLUIUtilities
 
 class ZLExploreBaseViewModel: ZLBaseViewModel {
 

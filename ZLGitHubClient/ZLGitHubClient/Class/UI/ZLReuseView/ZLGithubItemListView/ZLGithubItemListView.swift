@@ -9,6 +9,7 @@
 import UIKit
 import MJRefresh
 import ZLBaseUI
+import ZLUIUtilities
 import ZLBaseExtension
 
 @objc protocol ZLGithubItemListViewDelegate: NSObjectProtocol {
@@ -283,8 +284,7 @@ extension ZLGithubItemListView {
     }
 
     @objc func justRefresh() {
-        ZLRefresh.justRefreshHeader(header: self.tableView.mj_header as? MJRefreshNormalHeader)
-        ZLRefresh.justRefreshFooter(footer: self.tableView.mj_footer as? MJRefreshAutoStateFooter)
+        self.justReloadRefreshView()
         self.tableView.reloadData()
     }
 

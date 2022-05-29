@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ZLBaseExtension
 
 enum ZLWorkboardClassicType {
     case work

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ZLUIUtilities
 
 protocol ZLRepositoryTableViewCellDelegate: NSObjectProtocol {
 
