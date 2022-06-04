@@ -284,6 +284,11 @@ class ZLRepositoryTableViewCell: UITableViewCell {
 }
 
 extension ZLRepositoryTableViewCell: ZLViewUpdatableWithViewData {
+    
+    func justUpdateView() {
+        
+    }
+    
     func fillWithViewData(viewData data: ZLRepositoryTableViewCellDelegate)  {
         delegate = data
         avatarButton.sd_setBackgroundImage(with: URL.init(string: data.getOwnerAvatarURL() ?? ""),

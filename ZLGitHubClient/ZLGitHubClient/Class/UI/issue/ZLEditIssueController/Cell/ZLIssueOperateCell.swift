@@ -109,6 +109,10 @@ class ZLIssueOperateCell: UITableViewCell {
 
 extension ZLIssueOperateCell: ZLViewUpdatableWithViewData {
     
+    func justUpdateView() {
+        
+    }
+    
     func fillWithViewData(viewData: ZLIssueOperateCellDataSource) {
         clickBlock = viewData.clickBlock
         opeationType = viewData.opeationType

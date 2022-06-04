@@ -97,4 +97,8 @@ extension ZLSimpleUserTableViewCell: ZLViewUpdatableWithViewData {
         avatarImageView.sd_setImage(with: URL(string: viewData.avatarUrl), placeholderImage: UIImage(named: "default_avatar"))
         fullNameLabel.text = viewData.loginName
     }
+    
+    func justUpdateView() {
+        
+    }
 }

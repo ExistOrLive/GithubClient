@@ -45,8 +45,9 @@ class ZLForkEventTableViewCellData: ZLEventTableViewCellData {
                                              color: UIColor(cgColor: UIColor.linkColor(withName: "ZLLinkLabelColor1").cgColor),
                                              backgroundColor: UIColor.clear) {[weak self](_: UIView, _: NSAttributedString, _: NSRange, _: CGRect) in
 
-            if let repoFullName = payload.forkee.full_name,
+            if let repoFullName = self?.eventModel.repo.name,
                let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: repoFullName) {
+
                 vc.hidesBottomBarWhenPushed = true
                 self?.viewController?.navigationController?.pushViewController(vc, animated: true)
             }
@@ -56,10 +57,9 @@ class ZLForkEventTableViewCellData: ZLEventTableViewCellData {
         attributedString.yy_setTextHighlight(forkeeRepoNameRange,
                                              color: UIColor(cgColor: UIColor.linkColor(withName: "ZLLinkLabelColor1").cgColor),
                                              backgroundColor: UIColor.clear) {[weak self](_: UIView, _: NSAttributedString, _: NSRange, _: CGRect) in
-
-            if let repoFullName = self?.eventModel.repo.name,
+            
+            if let repoFullName = payload.forkee.full_name,
                let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: repoFullName) {
-
                 vc.hidesBottomBarWhenPushed = true
                 self?.viewController?.navigationController?.pushViewController(vc, animated: true)
             }

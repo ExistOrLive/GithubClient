@@ -290,6 +290,10 @@ extension ZLEditIssueView: ZLViewUpdatableWithViewData {
         
         viewData.titleObservable.bind(to: titleLabel.rx.text).disposed(by: disposeBag)
     }
+    
+    func justUpdateView() {
+        
+    }
 }
 
 

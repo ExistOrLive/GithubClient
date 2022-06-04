@@ -108,6 +108,10 @@ extension ZLPinnedRepositoriesTableViewCell: UICollectionViewDelegate, UICollect
 
 extension ZLPinnedRepositoriesTableViewCell: ZLViewUpdatableWithViewData {
    
+    func justUpdateView() {
+        
+    }
+    
     // MARK: fillWithData
     func fillWithViewData(viewData: ZLPinnedRepositoriesTableViewCellDelegateAndDataSource) {
         self.delegate = viewData

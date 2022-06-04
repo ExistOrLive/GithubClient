@@ -242,6 +242,10 @@ extension ZLUserInfoHeaderCell: ZLViewUpdatableWithViewData {
         }
         reloadData()
     }
+    
+    func justUpdateView() {
+        
+    }
 }
 
 

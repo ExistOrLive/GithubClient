@@ -52,4 +52,8 @@ extension ZLUserContributionsCell: ZLViewUpdatableWithViewData {
             contributionsView.update(loginName: loginName)
         }
     }
+    
+    func justUpdateView() {
+        
+    }
 }

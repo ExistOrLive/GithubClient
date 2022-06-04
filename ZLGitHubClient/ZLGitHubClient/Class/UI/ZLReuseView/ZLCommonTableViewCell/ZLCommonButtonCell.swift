@@ -58,4 +58,7 @@ extension ZLCommonButtonCell: ZLViewUpdatableWithViewData {
         viewData.relayoutBlock?(button)
         clickBlock = viewData.clickBlock
     }
+    func justUpdateView() {
+        
+    }
 }

@@ -150,4 +150,8 @@ extension ZLUserTableViewCell: ZLViewUpdatableWithViewData {
 
         longPressGesture.isEnabled = data.hasLongPressAction()
     }
+    
+    func justUpdateView() {
+        
+    }
 }

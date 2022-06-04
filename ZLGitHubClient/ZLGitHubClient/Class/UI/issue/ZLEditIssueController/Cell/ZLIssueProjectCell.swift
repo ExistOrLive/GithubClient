@@ -100,6 +100,9 @@ extension ZLIssueProjectCell {
 }
 
 extension ZLIssueProjectCell: ZLViewUpdatableWithViewData {
+    func justUpdateView() {
+        
+    }
     
     func fillWithViewData(viewData: ZLIssueProjectCellDataSourceAndDeledate) {
         

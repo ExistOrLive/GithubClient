@@ -190,6 +190,10 @@ class ZLDiscussionTableViewCell: ZLBaseCardTableViewCell {
 
 extension ZLDiscussionTableViewCell: ZLViewUpdatableWithViewData {
     
+    func justUpdateView() {
+        
+    }
+    
     func fillWithViewData(viewData: ZLDiscussionTableViewCellDataSourceAndDelegate) {
         
         delegate = viewData

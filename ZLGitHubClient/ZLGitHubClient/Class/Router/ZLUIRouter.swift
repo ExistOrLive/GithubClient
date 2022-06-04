@@ -146,15 +146,9 @@ extension ZLUIRouter {
         self.getVC(key: UserOrOrgInfoController, params: ["loginName": loginName])
     }
 
-    static func getRepoInfoViewController(_ repoInfo: ZLGithubRepositoryModel) -> UIViewController? {
-        let params = ["repoInfoModel": repoInfo]
-        return self.getVC(key: RepoInfoController, params: params)
-    }
-
     static func getRepoInfoViewController(repoFullName: String) -> UIViewController? {
-        let repoModel = ZLGithubRepositoryModel()
-        repoModel.full_name = repoFullName
-        return  self.getRepoInfoViewController(repoModel)
+        let params = ["fullName": repoFullName]
+        return self.getVC(key: RepoInfoController, params: params)
     }
 
 }

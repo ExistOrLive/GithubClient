@@ -56,4 +56,8 @@ extension ZLIssueNoneCell: ZLViewUpdatableWithViewData {
     func fillWithViewData(viewData: ZLIssueNoneCellDataSource) {
         infoLabel.text = viewData.info
     }
+    
+    func justUpdateView() {
+        
+    }
 }
