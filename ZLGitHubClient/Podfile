@@ -24,7 +24,7 @@ pod 'ZLGithubOAuth', :git => 'https://github.com/ExistOrLive/ZLGithubOAuth.git',
 pod 'ZLGitRemoteService', :git => 'https://github.com/ExistOrLive/ZLGitRemoteService.git'
 #pod "ZLGitRemoteService", :path => '../../ZLGitRemoteService'
 
-pod 'ZLBaseUI', :git => 'https://github.com/ExistOrLive/ZLBaseUI.git', :tag => '1.2.1'
+pod 'ZLBaseUI', :git => 'https://github.com/ExistOrLive/ZLBaseUI.git'
 #pod 'ZLBaseUI', :path => "../../ZLBaseUI"
 
 pod 'ZLBaseExtension', :git => "https://github.com/ExistOrLive/ZLBaseExtension.git", :tag => '1.2.0'

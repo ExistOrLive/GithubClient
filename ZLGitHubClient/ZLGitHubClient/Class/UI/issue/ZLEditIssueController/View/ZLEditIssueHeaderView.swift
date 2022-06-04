@@ -89,6 +89,10 @@ extension ZLEditIssueHeaderView {
 
 extension ZLEditIssueHeaderView: ZLViewUpdatableWithViewData {
     
+    func justUpdateView() {
+        
+    }
+    
     func fillWithViewData(viewData: (String,(() -> Void)?)) {
         let (title,block) = viewData
         titleLabel.text = title

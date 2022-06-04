@@ -281,7 +281,7 @@ DEPENDENCIES:
   - WoodPeckeriOS
   - YYText
   - ZLBaseExtension (from `https://github.com/ExistOrLive/ZLBaseExtension.git`, tag `1.2.0`)
-  - ZLBaseUI (from `https://github.com/ExistOrLive/ZLBaseUI.git`, tag `1.2.1`)
+  - ZLBaseUI (from `https://github.com/ExistOrLive/ZLBaseUI.git`)
   - ZLGithubOAuth (from `https://github.com/ExistOrLive/ZLGithubOAuth.git`, tag `1.2.0`)
   - ZLGitRemoteService (from `https://github.com/ExistOrLive/ZLGitRemoteService.git`)
   - ZLUIUtilities (from `https://github.com/ExistOrLive/ZLUIUtilities.git`)
@@ -343,7 +343,6 @@ EXTERNAL SOURCES:
     :tag: 1.2.0
   ZLBaseUI:
     :git: https://github.com/ExistOrLive/ZLBaseUI.git
-    :tag: 1.2.1
   ZLGithubOAuth:
     :git: https://github.com/ExistOrLive/ZLGithubOAuth.git
     :tag: 1.2.0
@@ -357,8 +356,8 @@ CHECKOUT OPTIONS:
     :git: https://github.com/ExistOrLive/ZLBaseExtension.git
     :tag: 1.2.0
   ZLBaseUI:
+    :commit: 60e7e064882fdfe446f75f045262314809d726e6
     :git: https://github.com/ExistOrLive/ZLBaseUI.git
-    :tag: 1.2.1
   ZLGithubOAuth:
     :git: https://github.com/ExistOrLive/ZLGithubOAuth.git
     :tag: 1.2.0
@@ -366,7 +365,7 @@ CHECKOUT OPTIONS:
     :commit: 21731bb82559b0d512a986ccf654d7e7ae60fc30
     :git: https://github.com/ExistOrLive/ZLGitRemoteService.git
   ZLUIUtilities:
-    :commit: adbcc7534163738f2b19ebf5c1446c064afb1bd1
+    :commit: cdce4196a2bc23844f5da14dfb19cf68d989f1b4
     :git: https://github.com/ExistOrLive/ZLUIUtilities.git
 
 SPEC CHECKSUMS:
@@ -424,6 +423,6 @@ SPEC CHECKSUMS:
   ZLGitRemoteService: c57964a471dd83f634c10d323c42fe9800b199db
   ZLUIUtilities: 58cc312400e93051b01ab73e77998865ee43f53a
 
-PODFILE CHECKSUM: 954b4e3ce719c225c5c2130ddef00110b119e5ea
+PODFILE CHECKSUM: eb76ee8a9b0cda27a96b37f47ffde9712e1c6d52
 
 COCOAPODS: 1.11.0

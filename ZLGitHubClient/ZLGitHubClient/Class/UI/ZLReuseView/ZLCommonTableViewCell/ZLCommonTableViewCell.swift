@@ -11,7 +11,7 @@ import ZLBaseUI
 import ZLUIUtilities
 import ZLBaseExtension
 
-protocol ZLCommonTableViewCellDataSourceAndDelegate: ZLGithubItemTableViewCellDataProtocol {
+protocol ZLCommonTableViewCellDataSourceAndDelegate {
 
     var canClick: Bool { get }
 
@@ -89,5 +89,9 @@ extension ZLCommonTableViewCell: ZLViewUpdatableWithViewData {
         titleLabel.text = viewData.title
         subLabel.text = viewData.info
         nextLabel.isHidden = !viewData.canClick
+    }
+    
+    func justUpdateView() {
+        
     }
 }

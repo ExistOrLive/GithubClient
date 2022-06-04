@@ -82,7 +82,10 @@ extension ZLMyDiscussionsBaseView: ZLTableContainerViewDelegate {
 
 
 extension ZLMyDiscussionsBaseView: ZLViewUpdatableWithViewData {
-  
+    func justUpdateView() {
+        
+    }
+    
     func fillWithViewData(viewData: ZLMyDiscussionsBaseViewDelegateAndDataSource) {
         delegate = viewData
         itemView.resetCellDatas(cellDatas: viewData.cellDatas, hasMoreData: viewData.hasMoreData)

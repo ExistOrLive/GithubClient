@@ -154,6 +154,9 @@ class ZLSubmitCommentView: ZLBaseView {
 }
 
 extension ZLSubmitCommentView: ZLViewUpdatableWithViewData {
+    func justUpdateView() {
+        
+    }
     
     func fillWithViewData(viewData: ZLSubmitCommentViewDelegate) {
         delagate = viewData

@@ -50,7 +50,9 @@ import ZLUIUtilities
     }
 
     override func onCellSingleTap() {
-        if let vc = ZLUIRouter.getRepoInfoViewController(self.data) {
+        if  let fullName = data.full_name,
+            !fullName.isEmpty,
+            let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: fullName) {
             vc.hidesBottomBarWhenPushed = true
             self.viewController?.navigationController?.pushViewController(vc, animated: true)
         }

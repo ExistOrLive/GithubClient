@@ -205,6 +205,10 @@ extension ZLExploreBaseView: ZLViewUpdatableWithViewData {
     func fillWithViewData(viewData: ZLExploreBaseViewDelegate) {
         self.delegate = viewData
     }
+    
+    func justUpdateView() {
+        
+    }
 }
 
 

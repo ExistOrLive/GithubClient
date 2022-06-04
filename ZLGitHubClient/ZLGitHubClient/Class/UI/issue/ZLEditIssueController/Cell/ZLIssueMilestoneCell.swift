@@ -81,6 +81,9 @@ extension ZLIssueMilestoneCell {
 }
 
 extension ZLIssueMilestoneCell: ZLViewUpdatableWithViewData {
+    func justUpdateView() {
+        
+    }
     
     func fillWithViewData(viewData: ZLIssueMilestoneCellDelegateAndDataSource) {
         

@@ -112,4 +112,8 @@ extension ZLOrgInfoHeaderCell: ZLViewUpdatableWithViewData {
         delegate = viewData
         reloadData()
     }
+    
+    func justUpdateView() {
+        
+    }
 }
