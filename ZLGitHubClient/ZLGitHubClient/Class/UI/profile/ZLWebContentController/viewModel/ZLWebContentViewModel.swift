@@ -21,10 +21,19 @@ class ZLWebContentViewModel: ZLBaseViewModel {
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
         super.bindModel(targetModel, andView: targetView)
         
-        guard let url = targetModel as? URL,
-              let _ = url.host else {
+        guard var url = targetModel as? URL else {
             ZLToastView.showMessage("Invalid URL")
             return
+        }
+        
+        if url.scheme == nil {
+            if let newUrl = URL(string: "https://\(url.absoluteString)"),
+               newUrl.host != nil {
+                url = newUrl
+            } else {
+                ZLToastView.showMessage("Invalid URL")
+                return
+            }
         }
         
         guard let view = targetView as? ZLWebContentView else {
@@ -34,10 +43,6 @@ class ZLWebContentViewModel: ZLBaseViewModel {
         self.webContentView = view
         self.webContentView?.delegate = self
           
-        if url.scheme == nil {
-            self.url = URL(string: "https://\(url.absoluteString)")
-        }
-        
         if let url = self.url {
             let request = URLRequest(url: url,
                                      cachePolicy: .useProtocolCachePolicy,

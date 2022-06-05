@@ -60,7 +60,7 @@ import ZLBaseExtension
         
         segmentedView.snp.makeConstraints { make in
             make.width.equalTo(200)
-            make.height.equalTo(50)
+            make.height.equalTo(40)
             make.centerX.equalToSuperview()
             make.bottom.equalTo(headerView.snp.bottom).offset(-10)
         }
@@ -140,24 +140,31 @@ import ZLBaseExtension
         let dataSource = JXSegmentedTitleDataSource()
         
         dataSource.titles = []
-        dataSource.itemWidthIncrement = 10
         dataSource.titleNormalColor = UIColor.label(withName: "ZLLabelColor2")
         dataSource.titleSelectedColor = UIColor.label(withName: "ZLLabelColor1")
         dataSource.titleNormalFont = UIFont.zlRegularFont(withSize: 14.0)
         dataSource.titleSelectedFont = UIFont.zlSemiBoldFont(withSize: 16.0)
+        dataSource.itemWidth = 100
+        dataSource.itemSpacing = 0
         
         return dataSource 
     }()
     
-    lazy var indicator: JXSegmentedIndicatorLineView = {
-        let indicator = JXSegmentedIndicatorLineView()
-        indicator.indicatorColor = UIColor.init(named: "ZLExploreUnderlineColor") ?? UIColor.black
-        indicator.indicatorHeight = 1.0
+    lazy var indicator: JXSegmentedIndicatorBackgroundView = {
+        let indicator = JXSegmentedIndicatorBackgroundView()
+        indicator.indicatorColor = UIColor.init(named: "SegmentedViewBackIndicator") ?? UIColor.gray
+        indicator.indicatorHeight = 36.0
+        indicator.indicatorWidthIncrement = 0
+        indicator.indicatorWidth = 96.0
+        indicator.indicatorCornerRadius = 8.0
         return indicator
     }()
     
     lazy var segmentedView: JXSegmentedView = {
-       return JXSegmentedView()
+        let segmentedView = JXSegmentedView()
+        segmentedView.backgroundColor = UIColor(named:"SegmentedViewBack")
+        segmentedView.cornerRadius = 8.0
+        return segmentedView
     }()
     
 }

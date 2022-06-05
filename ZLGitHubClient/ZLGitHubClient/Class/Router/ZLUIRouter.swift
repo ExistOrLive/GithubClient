@@ -234,9 +234,8 @@ extension ZLUIRouter {
                 
             } else if pathComponents.count == 3 {
                 
-                let repoModel = ZLGithubRepositoryModel()
-                repoModel.full_name = "\(pathComponents[1])/\(pathComponents[2])"
-                self.navigateVC(key: RepoInfoController, params: ["repoInfoModel": repoModel], animated: animated)
+                let repoFullName = "\(pathComponents[1])/\(pathComponents[2])"
+                self.navigateVC(key: RepoInfoController, params: ["fullName": repoFullName], animated: animated)
                 return
                 
             } else if pathComponents.count == 5 && pathComponents[3] == "pull" {
