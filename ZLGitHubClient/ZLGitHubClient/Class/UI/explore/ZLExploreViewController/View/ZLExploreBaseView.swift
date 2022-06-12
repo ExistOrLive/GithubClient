@@ -60,7 +60,7 @@ import ZLBaseExtension
         
         segmentedView.snp.makeConstraints { make in
             make.width.equalTo(200)
-            make.height.equalTo(40)
+            make.height.equalTo(35)
             make.centerX.equalToSuperview()
             make.bottom.equalTo(headerView.snp.bottom).offset(-10)
         }
@@ -153,7 +153,7 @@ import ZLBaseExtension
     lazy var indicator: JXSegmentedIndicatorBackgroundView = {
         let indicator = JXSegmentedIndicatorBackgroundView()
         indicator.indicatorColor = UIColor.init(named: "SegmentedViewBackIndicator") ?? UIColor.gray
-        indicator.indicatorHeight = 36.0
+        indicator.indicatorHeight = 31.0
         indicator.indicatorWidthIncrement = 0
         indicator.indicatorWidth = 96.0
         indicator.indicatorCornerRadius = 8.0

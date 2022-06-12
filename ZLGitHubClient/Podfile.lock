@@ -365,7 +365,7 @@ CHECKOUT OPTIONS:
     :commit: 21731bb82559b0d512a986ccf654d7e7ae60fc30
     :git: https://github.com/ExistOrLive/ZLGitRemoteService.git
   ZLUIUtilities:
-    :commit: cdce4196a2bc23844f5da14dfb19cf68d989f1b4
+    :commit: d5d07c4671468fb9e4ad00151b17698d8c15e99a
     :git: https://github.com/ExistOrLive/ZLUIUtilities.git
 
 SPEC CHECKSUMS:

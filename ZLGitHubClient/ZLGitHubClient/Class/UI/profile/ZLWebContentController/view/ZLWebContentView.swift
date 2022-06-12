@@ -330,6 +330,14 @@ extension ZLWebContentView: WKUIDelegate, WKNavigationDelegate {
         ZLLog_Debug("ZLWebContentView: webViewDidClose")
     }
 
+    func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+        // WkWebView 处理 open new window
+        if !(navigationAction.targetFrame?.isMainFrame ?? false) {
+            webView.load(navigationAction.request)
+        }
+        return nil
+    }
+    
     /// 1. 决定是否发出请求
     func webView(_ webView: WKWebView,
                  decidePolicyFor navigationAction: WKNavigationAction,
@@ -399,5 +407,11 @@ extension ZLWebContentView: WKUIDelegate, WKNavigationDelegate {
     /// 8. 页面渲染结束
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         ZLLog_Debug("ZLWebContentView: webView:didFinish navigation[\(String(describing: navigation))]")
+    }
+    
+    
+    func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
+       /// 当页面白屏时，reloadData
+        webView.reload()
     }
 }

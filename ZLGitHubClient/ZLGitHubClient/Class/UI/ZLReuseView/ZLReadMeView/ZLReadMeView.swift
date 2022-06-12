@@ -293,6 +293,12 @@ extension ZLReadMeView: WKNavigationDelegate, WKUIDelegate {
             self.delegate?.loadEnd?(result: self.htmlStr != nil)
         }
     }
+    
+    func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
+       /// 当页面白屏时，reloadData
+        webView.reload()
+    }
+
 
     func fixPicture() {
         if let download_url = self.readMeModel?.download_url {

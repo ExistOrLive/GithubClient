@@ -1213,7 +1213,6 @@
 			isa = PBXGroup;
 			children = (
 				74CCC434240D529F0001AA5D /* ZLRepoHeadeInfoViewModel */,
-				74CCC433240D527B0001AA5D /* ZLRepoInfoViewModel */,
 			);
 			path = viewmodel;
 			sourceTree = "<group>";
@@ -2242,13 +2241,6 @@
 				7496BF6026012FFC00DDD1BD /* ZLIssueBodyTableViewCellData.swift */,
 			);
 			path = viewModel;
-			sourceTree = "<group>";
-		};
-		74CCC433240D527B0001AA5D /* ZLRepoInfoViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ZLRepoInfoViewModel;
 			sourceTree = "<group>";
 		};
 		74CCC434240D529F0001AA5D /* ZLRepoHeadeInfoViewModel */ = {

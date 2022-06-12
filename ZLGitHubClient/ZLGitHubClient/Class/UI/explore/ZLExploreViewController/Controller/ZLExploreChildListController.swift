@@ -24,6 +24,10 @@ class ZLExploreChildListController: ZLBaseViewController {
     
     weak var superVC: UIViewController?
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     init(type: ZLExploreChildListType, superVC: UIViewController?) {
         self.type = type
         self.superVC = superVC
@@ -38,7 +42,7 @@ class ZLExploreChildListController: ZLBaseViewController {
         super.viewDidLoad()
         setUpUI()
         bindData()
-        
+    
         itemListView.startLoad()
     }
 
@@ -46,7 +50,8 @@ class ZLExploreChildListController: ZLBaseViewController {
                 
         contentView.addSubview(headerView)
         contentView.addSubview(itemListView)
-        headerView.addSubview(stackView)
+        headerView.addSubview(headerScrollView)
+        headerScrollView.addSubview(stackView)
         stackView.addArrangedSubview(dateButton)
         stackView.addArrangedSubview(languageButton)
         
@@ -55,9 +60,13 @@ class ZLExploreChildListController: ZLBaseViewController {
             make.height.equalTo(40)
         }
         
+        headerScrollView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
         stackView.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(20)
-            make.top.bottom.equalToSuperview()
+            make.top.left.right.bottom.equalToSuperview()
+            make.height.equalTo(40)
         }
         
         dateButton.snp.makeConstraints { make in
@@ -86,15 +95,89 @@ class ZLExploreChildListController: ZLBaseViewController {
     }
     
     func setButtonTitle(button: UIButton, title: String) {
-        let titleWidth = title
-            .asMutableAttributedString()
-            .font(UIFont.zlMediumFont(withSize: 10))
+        var attributedStr = "".asMutableAttributedString()
+        
+        if button == languageButton {
+            
+            attributedStr = NSASCContainer(
+                
+                ZLLocalizedString(string: "Language: ", comment: "")
+                    .asMutableAttributedString()
+                    .font(.zlMediumFont(withSize: 10))
+                    .foregroundColor(UIColor.label(withName: "ZLLabelColor2")),
+                
+                title
+                    .asMutableAttributedString()
+                    .font(.zlMediumFont(withSize: 12))
+                    .foregroundColor(UIColor.label(withName: "ZLLabelColor1")),
+                
+                " "
+                    .asMutableAttributedString(),
+                
+                ZLIconFont.DownArrow.rawValue
+                    .asMutableAttributedString()
+                    .font(.iconFont(size: 10))
+                    .foregroundColor(UIColor.label(withName: "ZLLabelColor1"))
+                
+            ).asMutableAttributedString()
+            
+        } else if button == dateButton {
+            
+            attributedStr = NSASCContainer(
+                
+                ZLLocalizedString(string: "Date Range: ", comment: "")
+                    .asMutableAttributedString()
+                    .font(.zlMediumFont(withSize: 10))
+                    .foregroundColor(UIColor.label(withName: "ZLLabelColor2")),
+                
+                title
+                    .asMutableAttributedString()
+                    .font(.zlMediumFont(withSize: 12))
+                    .foregroundColor(UIColor.label(withName: "ZLLabelColor1")),
+                
+                " "
+                    .asMutableAttributedString(),
+                
+                ZLIconFont.DownArrow.rawValue
+                    .asMutableAttributedString()
+                    .font(.iconFont(size: 10))
+                    .foregroundColor(UIColor.label(withName: "ZLLabelColor1"))
+                
+            ).asMutableAttributedString()
+            
+        } else if button == spokenLanguageButton {
+            
+            attributedStr = NSASCContainer(
+                
+                ZLLocalizedString(string: "Spoken Language: ", comment: "")
+                    .asMutableAttributedString()
+                    .font(.zlMediumFont(withSize: 10))
+                    .foregroundColor(UIColor.label(withName: "ZLLabelColor2")),
+                
+                title
+                    .asMutableAttributedString()
+                    .font(.zlMediumFont(withSize: 12))
+                    .foregroundColor(UIColor.label(withName: "ZLLabelColor1")),
+                
+                " "
+                    .asMutableAttributedString(),
+                
+                ZLIconFont.DownArrow.rawValue
+                    .asMutableAttributedString()
+                    .font(.iconFont(size: 10))
+                    .foregroundColor(UIColor.label(withName: "ZLLabelColor1"))
+                
+            ).asMutableAttributedString()
+            
+        }
+        
+        let titleWidth = attributedStr
             .boundingRect(with: CGSize(width: CGFloat.infinity, height: CGFloat.infinity), options: .usesLineFragmentOrigin, context: nil)
             .width + 30
         button.snp.updateConstraints { make in
             make.width.equalTo(max(titleWidth,60))
         }
-        button.setTitle(title, for: .normal)
+        button.setAttributedTitle(attributedStr, for: .normal)
     }
     
     func bindData() {
@@ -120,7 +203,7 @@ class ZLExploreChildListController: ZLBaseViewController {
         }
         }
         
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(onNotificationArrived(notication:)), name: ZLLanguageTypeChange_Notificaiton, object: nil)
     }
     
     
@@ -175,6 +258,15 @@ class ZLExploreChildListController: ZLBaseViewController {
         button.titleLabel?.font = UIFont.zlMediumFont(withSize: 11)
         button.addTarget(self, action: #selector(onSpokenLanguageButtonClicked), for: .touchUpInside)
         return button
+    }()
+    
+    lazy var headerScrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.backgroundColor = .clear
+        scrollView.bounces = false
+        scrollView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        scrollView.showsHorizontalScrollIndicator = false
+        return scrollView
     }()
     
     lazy var stackView: UIStackView = {
@@ -405,5 +497,41 @@ extension ZLExploreChildListController {
 extension ZLExploreChildListController: JXSegmentedListContainerViewListDelegate {
     func listView() -> UIView {
         return self.view 
+    }
+}
+
+
+// MARK: Notificaiton
+extension ZLExploreChildListController {
+    @objc func onNotificationArrived(notication: Notification) {
+
+        switch notication.name {
+        case ZLLanguageTypeChange_Notificaiton:do {
+ 
+            switch type {
+            case .repo: do {
+                let dateTitle = titleForDateRange(dateRange: ZLUISharedDataManager.dateRangeForTrendingRepo)
+                setButtonTitle(button: dateButton, title: dateTitle)
+                
+                let language = ZLUISharedDataManager.languageForTrendingRepo ?? "Any"
+                setButtonTitle(button: languageButton, title: language)
+                
+                let spokenLanguage = ZLUISharedDataManager.spokenLanguageForTrendingRepo ?? "Any"
+                setButtonTitle(button: spokenLanguageButton, title: spokenLanguage)
+            }
+                
+            case .user: do {
+                let dateTitle = titleForDateRange(dateRange: ZLUISharedDataManager.dateRangeForTrendingUser)
+                setButtonTitle(button: dateButton, title: dateTitle)
+                
+                let language = ZLUISharedDataManager.languageForTrendingUser ?? "Any"
+                setButtonTitle(button: languageButton, title: language)
+            }
+            }
+            }
+        default:
+            break
+        }
+
     }
 }

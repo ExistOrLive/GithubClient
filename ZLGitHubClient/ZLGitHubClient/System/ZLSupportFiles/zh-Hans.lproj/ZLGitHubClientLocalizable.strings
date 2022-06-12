@@ -125,6 +125,9 @@
 
 // explore
 "Lang." = "语言";
+"Spoken Language: " = "交流语言：";
+"Date Range: " = "时间范围：";
+"Language: " = "开发语言：";
 
 // login
 "ZLLoginStep_checkIsLogined" = "检查登录状态...";
