@@ -75,7 +75,7 @@ class ZLProfileHeaderView: ZLBaseView {
         self.followersButton.setTitle(ZLLocalizedString(string: "followers", comment: "粉丝"), for: UIControl.State.normal)
         self.followingButton.setTitle(ZLLocalizedString(string: "following", comment: "关注"), for: UIControl.State.normal)
 
-        self.latestUpdateLabel.text = ZLLocalizedString(string: "lastest update", comment: "最近修改")
+        self.latestUpdateLabel.text = ZLLocalizedString(string: "latest update", comment: "最近修改")
         self.allUpdateButton.setTitle("\(ZLLocalizedString(string: "all update", comment: "查看全部修改")) \(ZLIconFont.NextArrow.rawValue)", for: .normal)
     }
 }
