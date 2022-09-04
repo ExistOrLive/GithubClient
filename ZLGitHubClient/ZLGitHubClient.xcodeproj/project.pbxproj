@@ -153,6 +153,21 @@
 		745EADE02616E38600973F86 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 745EADDF2616E38600973F86 /* GoogleService-Info.plist */; };
 		74634D4B27663D9D00A042F4 /* ZLOrgInfoHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74634D4A27663D9D00A042F4 /* ZLOrgInfoHeaderCell.swift */; };
 		74634D4F2766408500A042F4 /* ZLOrgInfoHeaderCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74634D4E2766408500A042F4 /* ZLOrgInfoHeaderCellData.swift */; };
+		7466025628C4DC39004D104F /* ZMInputConfirmPopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7466024128C4DC39004D104F /* ZMInputConfirmPopView.swift */; };
+		7466025728C4DC39004D104F /* ZMPopContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7466024228C4DC39004D104F /* ZMPopContainerView.swift */; };
+		7466025828C4DC39004D104F /* ZMInputPopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7466024328C4DC39004D104F /* ZMInputPopView.swift */; };
+		7466025928C4DC39004D104F /* ZMInputCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7466024428C4DC39004D104F /* ZMInputCollectionView.swift */; };
+		7466025A28C4DC39004D104F /* ZMInputCollectionView+PublicAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7466024528C4DC39004D104F /* ZMInputCollectionView+PublicAPI.swift */; };
+		7466025B28C4DC39004D104F /* ZMInputCollectionViewSelectCellDataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7466024728C4DC39004D104F /* ZMInputCollectionViewSelectCellDataType.swift */; };
+		7466025C28C4DC39004D104F /* ZMInputCollectionViewCellDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7466024828C4DC39004D104F /* ZMInputCollectionViewCellDataProtocol.swift */; };
+		7466025D28C4DC39004D104F /* ZMInputCollectionViewRangeButtonsCellDataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7466024928C4DC39004D104F /* ZMInputCollectionViewRangeButtonsCellDataType.swift */; };
+		7466025E28C4DC39004D104F /* ZMInputCollectionViewUpdatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7466024A28C4DC39004D104F /* ZMInputCollectionViewUpdatable.swift */; };
+		7466025F28C4DC39004D104F /* ZMInputCollectionViewTextFieldCellDataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7466024B28C4DC39004D104F /* ZMInputCollectionViewTextFieldCellDataType.swift */; };
+		7466026028C4DC39004D104F /* ZMInputCollectionViewSectionTitleHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7466024D28C4DC39004D104F /* ZMInputCollectionViewSectionTitleHeader.swift */; };
+		7466026128C4DC39004D104F /* ZMInputCollectionViewSectionPlaceHolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7466024E28C4DC39004D104F /* ZMInputCollectionViewSectionPlaceHolderView.swift */; };
+		7466026428C4DC39004D104F /* ZMInputCollectionViewSelectBorderBoxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7466025128C4DC39004D104F /* ZMInputCollectionViewSelectBorderBoxCell.swift */; };
+		7466026528C4DC39004D104F /* ZMInputCollectionViewBaseDataContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7466025328C4DC39004D104F /* ZMInputCollectionViewBaseDataContainer.swift */; };
+		7466026628C4DC39004D104F /* ZMInputCollectionViewPolicyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7466025528C4DC39004D104F /* ZMInputCollectionViewPolicyProtocol.swift */; };
 		7467ABB727F5B49C00F8905B /* NSDate+Localize.m in Sources */ = {isa = PBXBuildFile; fileRef = 7467ABB127F5B49C00F8905B /* NSDate+Localize.m */; };
 		7467ABBA27F6F37E00F8905B /* ZLUserInfoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7467ABB927F6F37E00F8905B /* ZLUserInfoPresenter.swift */; };
 		7467ABBC27F704A300F8905B /* ZLPresenterMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7467ABBB27F704A300F8905B /* ZLPresenterMessageModel.swift */; };
@@ -532,6 +547,21 @@
 		745EADDF2616E38600973F86 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		74634D4A27663D9D00A042F4 /* ZLOrgInfoHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLOrgInfoHeaderCell.swift; sourceTree = "<group>"; };
 		74634D4E2766408500A042F4 /* ZLOrgInfoHeaderCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLOrgInfoHeaderCellData.swift; sourceTree = "<group>"; };
+		7466024128C4DC39004D104F /* ZMInputConfirmPopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZMInputConfirmPopView.swift; sourceTree = "<group>"; };
+		7466024228C4DC39004D104F /* ZMPopContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZMPopContainerView.swift; sourceTree = "<group>"; };
+		7466024328C4DC39004D104F /* ZMInputPopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZMInputPopView.swift; sourceTree = "<group>"; };
+		7466024428C4DC39004D104F /* ZMInputCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZMInputCollectionView.swift; sourceTree = "<group>"; };
+		7466024528C4DC39004D104F /* ZMInputCollectionView+PublicAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ZMInputCollectionView+PublicAPI.swift"; sourceTree = "<group>"; };
+		7466024728C4DC39004D104F /* ZMInputCollectionViewSelectCellDataType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZMInputCollectionViewSelectCellDataType.swift; sourceTree = "<group>"; };
+		7466024828C4DC39004D104F /* ZMInputCollectionViewCellDataProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZMInputCollectionViewCellDataProtocol.swift; sourceTree = "<group>"; };
+		7466024928C4DC39004D104F /* ZMInputCollectionViewRangeButtonsCellDataType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZMInputCollectionViewRangeButtonsCellDataType.swift; sourceTree = "<group>"; };
+		7466024A28C4DC39004D104F /* ZMInputCollectionViewUpdatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZMInputCollectionViewUpdatable.swift; sourceTree = "<group>"; };
+		7466024B28C4DC39004D104F /* ZMInputCollectionViewTextFieldCellDataType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZMInputCollectionViewTextFieldCellDataType.swift; sourceTree = "<group>"; };
+		7466024D28C4DC39004D104F /* ZMInputCollectionViewSectionTitleHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZMInputCollectionViewSectionTitleHeader.swift; sourceTree = "<group>"; };
+		7466024E28C4DC39004D104F /* ZMInputCollectionViewSectionPlaceHolderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZMInputCollectionViewSectionPlaceHolderView.swift; sourceTree = "<group>"; };
+		7466025128C4DC39004D104F /* ZMInputCollectionViewSelectBorderBoxCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZMInputCollectionViewSelectBorderBoxCell.swift; sourceTree = "<group>"; };
+		7466025328C4DC39004D104F /* ZMInputCollectionViewBaseDataContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZMInputCollectionViewBaseDataContainer.swift; sourceTree = "<group>"; };
+		7466025528C4DC39004D104F /* ZMInputCollectionViewPolicyProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZMInputCollectionViewPolicyProtocol.swift; sourceTree = "<group>"; };
 		7467ABB127F5B49C00F8905B /* NSDate+Localize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Localize.m"; sourceTree = "<group>"; };
 		7467ABB227F5B49C00F8905B /* NSDate+Localize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Localize.h"; sourceTree = "<group>"; };
 		7467ABB927F6F37E00F8905B /* ZLUserInfoPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLUserInfoPresenter.swift; sourceTree = "<group>"; };
@@ -1481,6 +1511,68 @@
 			path = ZLProgressView;
 			sourceTree = "<group>";
 		};
+		7466023F28C4DC39004D104F /* ZMInputPopView */ = {
+			isa = PBXGroup;
+			children = (
+				7466024028C4DC39004D104F /* InputPopView */,
+				7466024628C4DC39004D104F /* Protocol */,
+				7466024C28C4DC39004D104F /* View */,
+				7466025228C4DC39004D104F /* CellDataContainer */,
+				7466025428C4DC39004D104F /* Policy */,
+			);
+			path = ZMInputPopView;
+			sourceTree = "<group>";
+		};
+		7466024028C4DC39004D104F /* InputPopView */ = {
+			isa = PBXGroup;
+			children = (
+				7466024228C4DC39004D104F /* ZMPopContainerView.swift */,
+				7466024328C4DC39004D104F /* ZMInputPopView.swift */,
+				7466024128C4DC39004D104F /* ZMInputConfirmPopView.swift */,
+				7466024428C4DC39004D104F /* ZMInputCollectionView.swift */,
+				7466024528C4DC39004D104F /* ZMInputCollectionView+PublicAPI.swift */,
+			);
+			path = InputPopView;
+			sourceTree = "<group>";
+		};
+		7466024628C4DC39004D104F /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				7466024728C4DC39004D104F /* ZMInputCollectionViewSelectCellDataType.swift */,
+				7466024928C4DC39004D104F /* ZMInputCollectionViewRangeButtonsCellDataType.swift */,
+				7466024B28C4DC39004D104F /* ZMInputCollectionViewTextFieldCellDataType.swift */,
+				7466024828C4DC39004D104F /* ZMInputCollectionViewCellDataProtocol.swift */,
+				7466024A28C4DC39004D104F /* ZMInputCollectionViewUpdatable.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		7466024C28C4DC39004D104F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7466024D28C4DC39004D104F /* ZMInputCollectionViewSectionTitleHeader.swift */,
+				7466024E28C4DC39004D104F /* ZMInputCollectionViewSectionPlaceHolderView.swift */,
+				7466025128C4DC39004D104F /* ZMInputCollectionViewSelectBorderBoxCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7466025228C4DC39004D104F /* CellDataContainer */ = {
+			isa = PBXGroup;
+			children = (
+				7466025328C4DC39004D104F /* ZMInputCollectionViewBaseDataContainer.swift */,
+			);
+			path = CellDataContainer;
+			sourceTree = "<group>";
+		};
+		7466025428C4DC39004D104F /* Policy */ = {
+			isa = PBXGroup;
+			children = (
+				7466025528C4DC39004D104F /* ZMInputCollectionViewPolicyProtocol.swift */,
+			);
+			path = Policy;
+			sourceTree = "<group>";
+		};
 		7467ABB827F6F34200F8905B /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
@@ -1989,6 +2081,7 @@
 		74C3F8C522D1DE360086A3F9 /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				7466023F28C4DC39004D104F /* ZMInputPopView */,
 				744392BD27F4460E00965D8F /* IconFont */,
 				74D3F05B259BCDC10002A2D3 /* Router */,
 				746B092221EB71F7000EE88B /* UI */,
@@ -3320,11 +3413,13 @@
 				74886C0D260DCAAA00E3C33C /* ZLPullRequestCommentTableViewCellData.swift in Sources */,
 				D1259FA023195CC700C7892B /* ZLNewsViewModel.swift in Sources */,
 				7486DFFE25A2CC7C00EE38CB /* ZLURLNotificationDealManager.swift in Sources */,
+				7466025A28C4DC39004D104F /* ZMInputCollectionView+PublicAPI.swift in Sources */,
 				7444B29B2567AD9700488EF0 /* ZLWorkboardTableViewSectionHeader.swift in Sources */,
 				74EAB98F260B70CC00784695 /* ZLPRInfoController.swift in Sources */,
 				74EBF5B7275D0D8F000CF72C /* ZLCommonTableViewCell.swift in Sources */,
 				7456B746279DBFAC0033AFB1 /* ZLIssueLabelsCellData.swift in Sources */,
 				366DB84D241F4BC4002A0896 /* ZLRepoCommitViewModel.swift in Sources */,
+				7466025928C4DC39004D104F /* ZMInputCollectionView.swift in Sources */,
 				7467ABBA27F6F37E00F8905B /* ZLUserInfoPresenter.swift in Sources */,
 				74D3EFDA259BC6060002A2D3 /* ZLCommonURLManager.swift in Sources */,
 				74EAB995260B727000784695 /* ZLPullRequestHeaderTableViewCell.swift in Sources */,
@@ -3411,6 +3506,7 @@
 				745CC456275E7FED0036EC06 /* ZLCommonTableViewCellData.swift in Sources */,
 				7451F152247AD3FA0047A186 /* ZLTrendingDateRangeTableViewCell.swift in Sources */,
 				7444B2912567928000488EF0 /* ZLWorkboardTableViewCell.swift in Sources */,
+				7466025E28C4DC39004D104F /* ZMInputCollectionViewUpdatable.swift in Sources */,
 				74FCBD9F231423A800DDE46A /* ZLEditProfileContentView.swift in Sources */,
 				742FE8F52629D2E1003C14DD /* ZLSearchFilterViewForOrg.swift in Sources */,
 				74876F2C256AADDB0063A93A /* ZLOrgsViewController.swift in Sources */,
@@ -3418,6 +3514,7 @@
 				7470B995262364B6000D2A20 /* ZLUISharedDataManager.swift in Sources */,
 				74D3EFEA259BC6060002A2D3 /* ZLTextView.m in Sources */,
 				74876F31256AB3F60063A93A /* ZLUserTableViewCellDataForViewerOrgs.swift in Sources */,
+				7466025C28C4DC39004D104F /* ZMInputCollectionViewCellDataProtocol.swift in Sources */,
 				7456B742279D6B5F0033AFB1 /* ZLProgressView.swift in Sources */,
 				74DFD9E12427BA68005825D3 /* ZLRepoContentController.swift in Sources */,
 				7431B43622F5E0510060968A /* ZLSearchViewModel.swift in Sources */,
@@ -3437,6 +3534,7 @@
 				74A96FC423327D9E008365CA /* ZLSearchFilterPickerView.swift in Sources */,
 				7437978B258399FD008AFBE8 /* ZLPullRequestTableViewCellDataForViewerPR.swift in Sources */,
 				7451F145247A98DA0047A186 /* ZLRepoWatchedUsersController.swift in Sources */,
+				7466025D28C4DC39004D104F /* ZMInputCollectionViewRangeButtonsCellDataType.swift in Sources */,
 				740318CB22F702B7004CE52D /* ZLSearchRecordView.swift in Sources */,
 				7431B42D22F5DF8C0060968A /* ZLSearchController.swift in Sources */,
 				74F837C827D6643000109BAB /* ZLIssueNoneCell.swift in Sources */,
@@ -3459,6 +3557,7 @@
 				74D3EFE7259BC6060002A2D3 /* ZLPageTabViewController.swift in Sources */,
 				744F6564281FD05F0045DCE9 /* ZLDiscussionTableViewCellData.swift in Sources */,
 				74EBF5B2275CE2F3000CF72C /* ZLPinnedRepositoryCollectionViewCell.swift in Sources */,
+				7466025628C4DC39004D104F /* ZMInputConfirmPopView.swift in Sources */,
 				74C5B20C2479361A00D941DF /* ZLRepoStargazersViewModel.swift in Sources */,
 				741A2E6B246C5D7400A443E4 /* ZLRepoIssuesViewModel.swift in Sources */,
 				74F02CD922DD719500AE153F /* ZLProfileTableViewCell.swift in Sources */,
@@ -3469,10 +3568,14 @@
 				7456B73F279C992D0033AFB1 /* ZLIssueProjectCell.swift in Sources */,
 				74F837CA27D668F900109BAB /* ZLIssueNoneCellData.swift in Sources */,
 				7496BF412600052300DDD1BD /* ZLIssueHeaderTableViewCellData.swift in Sources */,
+				7466025B28C4DC39004D104F /* ZMInputCollectionViewSelectCellDataType.swift in Sources */,
 				74DEC202256D02C6007E8A17 /* ZLRepoTableViewCellDataForTopRepoQuery.swift in Sources */,
+				7466026428C4DC39004D104F /* ZMInputCollectionViewSelectBorderBoxCell.swift in Sources */,
 				740C2FC02838EC9F00DAFF0E /* ZLNewsViewController.swift in Sources */,
+				7466025F28C4DC39004D104F /* ZMInputCollectionViewTextFieldCellDataType.swift in Sources */,
 				74C3F8C122D1DD930086A3F9 /* ZLLoginBaseView.swift in Sources */,
 				7496BF572600DAA800DDD1BD /* ZLIssueCommentTableViewCellData.swift in Sources */,
+				7466026128C4DC39004D104F /* ZMInputCollectionViewSectionPlaceHolderView.swift in Sources */,
 				74209D4E24B655A60068891E /* ZLRepoPullRequestView.swift in Sources */,
 				74C3F8D022D1E79D0086A3F9 /* Swift-Prefix.swift in Sources */,
 				74C5B20A247935EA00D941DF /* ZLRepoStargazersController.swift in Sources */,
@@ -3508,10 +3611,12 @@
 				742935D825B92F4B001CD142 /* ZLLanguageController.swift in Sources */,
 				740C2FBE2838E1EB00DAFF0E /* ZLRepositoryTableViewCellDataV2.swift in Sources */,
 				0ADF903D21D4B01900BF86CD /* main.m in Sources */,
+				7466026028C4DC39004D104F /* ZMInputCollectionViewSectionTitleHeader.swift in Sources */,
 				7496BF3C25FFF34700DDD1BD /* ZLIssueHeaderTableViewCell.swift in Sources */,
 				74D3EFF7259BC6060002A2D3 /* CYPopoverTableViewCell.m in Sources */,
 				74C639EE24B9187400457F94 /* ZLRepoWorkflowRunsViewModel.swift in Sources */,
 				74835FEB256BB7230083BE10 /* ZLIssueTableViewCellDataForViewerIssue.swift in Sources */,
+				7466026528C4DC39004D104F /* ZMInputCollectionViewBaseDataContainer.swift in Sources */,
 				7456B73B279C98EF0033AFB1 /* ZLIssueLabelsCell.swift in Sources */,
 				749DBC9A24B3E65200D02B2C /* ZLReleaseEventTableViewCellData.swift in Sources */,
 				744F655F281FC9E20045DCE9 /* ZLMyDiscussionsBaseView.swift in Sources */,
@@ -3529,10 +3634,12 @@
 				7486DFBB25A2608F00EE38CB /* ZLUIRouter.swift in Sources */,
 				74AAE5DE284B4B7C0030DA01 /* ZLCommonSectionHeaderFooterView.swift in Sources */,
 				7496BF6126012FFD00DDD1BD /* ZLIssueBodyTableViewCellData.swift in Sources */,
+				7466025828C4DC39004D104F /* ZMInputPopView.swift in Sources */,
 				74C19214239EAFF800636F24 /* ZLRepositoryTableViewCellData.swift in Sources */,
 				74FCBDA423142E0200DDE46A /* ZLEditProfileViewModel.swift in Sources */,
 				7456B739279C98B70033AFB1 /* ZLEditIssueHeaderView.swift in Sources */,
 				74D3EFFD259BC6060002A2D3 /* CYDatePickerView.m in Sources */,
+				7466026628C4DC39004D104F /* ZMInputCollectionViewPolicyProtocol.swift in Sources */,
 				74C639DE24B7E4CD00457F94 /* ZLWorkflowTableViewCellData.swift in Sources */,
 				7444B29E2567B8DD00488EF0 /* ZLWorkboardBaseView.swift in Sources */,
 				74EBF5B4275D033B000CF72C /* ZLGithubItemCollectionViewCellData.swift in Sources */,
@@ -3569,6 +3676,7 @@
 				74B32E2E2465B61000AF1D6B /* ZLRepoContributorsController.swift in Sources */,
 				7456B7312799BB2F0033AFB1 /* ZLEditIssueController.swift in Sources */,
 				74AAE5DB284B41A80030DA01 /* ZLRepoInfoPresenter.swift in Sources */,
+				7466025728C4DC39004D104F /* ZMPopContainerView.swift in Sources */,
 				74C861C622F025F100A30B79 /* ZLRepositoryTableViewCell.swift in Sources */,
 				74886C03260DC99A00E3C33C /* ZLPullRequestCommentTableViewCell.swift in Sources */,
 				74D7B60522F140DC00C109CA /* ZLUserAdditionInfoViewModel.swift in Sources */,
