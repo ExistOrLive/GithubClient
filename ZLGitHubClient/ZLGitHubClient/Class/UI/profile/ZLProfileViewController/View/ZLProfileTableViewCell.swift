@@ -21,6 +21,7 @@ class ZLProfileTableViewCell: UITableViewCell {
         let label = UILabel()
         label.textColor = .label(withName: "ZLLabelColor2")
         label.font = .zlRegularFont(withSize: 13)
+        label.textAlignment = .right
          return label
     }()
 
@@ -68,6 +69,7 @@ class ZLProfileTableViewCell: UITableViewCell {
         itemTitleLabel.snp.makeConstraints { make in
             make.left.equalTo(20)
             make.centerY.equalToSuperview()
+            make.width.lessThanOrEqualTo(110)
         }
 
         nextLabel.snp.makeConstraints { make in
@@ -79,6 +81,7 @@ class ZLProfileTableViewCell: UITableViewCell {
         itemContentLabel.snp.makeConstraints { make in
             make.right.equalTo(-50)
             make.centerY.equalToSuperview()
+            make.left.equalTo(110)
         }
 
         singleLineView.snp.makeConstraints { make in

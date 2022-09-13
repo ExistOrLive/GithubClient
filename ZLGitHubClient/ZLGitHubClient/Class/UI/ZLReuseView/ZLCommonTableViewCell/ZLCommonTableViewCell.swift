@@ -37,22 +37,32 @@ class ZLCommonTableViewCell: UITableViewCell {
         contentView.backgroundColor = UIColor(named: "ZLCellBack")
 
         contentView.addSubview(titleLabel)
-        contentView.addSubview(subLabel)
+        contentView.addSubview(scrollView)
+        scrollView.addSubview(subLabel)
         contentView.addSubview(nextLabel)
 
         titleLabel.snp.makeConstraints { make in
             make.left.equalTo(20)
-            make.centerY.equalToSuperview()
+            make.width.lessThanOrEqualTo(100)
+            make.height.equalToSuperview()
         }
 
-        subLabel.snp.makeConstraints { make in
+        scrollView.snp.makeConstraints { make in
             make.right.equalTo(-50)
             make.centerY.equalToSuperview()
+            make.left.greaterThanOrEqualTo(120)
+            make.height.equalToSuperview()
+        }
+        
+        subLabel.snp.makeConstraints { make in
+            make.edges.equalTo(scrollView.contentLayoutGuide)
+            make.height.equalTo(scrollView)
+            make.width.equalTo(scrollView).priority(.low)
         }
 
         nextLabel.snp.makeConstraints { make in
             make.right.equalTo(-20)
-            make.centerY.equalToSuperview()
+            make.height.equalToSuperview()
         }
 
     }
@@ -63,6 +73,15 @@ class ZLCommonTableViewCell: UITableViewCell {
         label.font = .zlMediumFont(withSize: 16)
         label.textColor = UIColor(named: "ZLLabelColor1")
         return label
+    }()
+    
+    lazy var scrollView: UIScrollView = {
+       let scrollView = UIScrollView()
+        scrollView.backgroundColor = .clear
+        scrollView.bounces = false
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.showsHorizontalScrollIndicator = false
+        return scrollView
     }()
 
     lazy var subLabel: UILabel = {
@@ -89,6 +108,7 @@ extension ZLCommonTableViewCell: ZLViewUpdatableWithViewData {
         titleLabel.text = viewData.title
         subLabel.text = viewData.info
         nextLabel.isHidden = !viewData.canClick
+        scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
     }
     
     func justUpdateView() {
