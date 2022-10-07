@@ -66,7 +66,7 @@ class ZLPRInfoController: ZLBaseViewController {
 extension ZLPRInfoController {
     override func getEvent(_ event: Any?, fromSubViewModel subViewModel: ZLBaseViewModel) {
         if let cellData = subViewModel as? ZLGithubItemTableViewCellData {
-            self.itemListView.reloadVisibleCells(cellDatas: [cellData])
+            self.itemListView.batchUpdatesHeight()
         }
     }
 }

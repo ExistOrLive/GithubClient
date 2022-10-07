@@ -18,6 +18,8 @@ protocol ZLCommonTableViewCellDataSourceAndDelegate {
     var title: String { get }
 
     var info: String { get }
+    
+    var showSeparateLine: Bool { get }
 
 }
 
@@ -40,6 +42,7 @@ class ZLCommonTableViewCell: UITableViewCell {
         contentView.addSubview(scrollView)
         scrollView.addSubview(subLabel)
         contentView.addSubview(nextLabel)
+        contentView.addSubview(separateLine)
 
         titleLabel.snp.makeConstraints { make in
             make.left.equalTo(20)
@@ -65,6 +68,12 @@ class ZLCommonTableViewCell: UITableViewCell {
             make.height.equalToSuperview()
         }
 
+        separateLine.snp.makeConstraints { make in
+            make.left.equalTo(20)
+            make.right.equalTo(0)
+            make.bottom.equalTo(0)
+            make.height.equalTo(1.0/UIScreen.main.scale)
+        }
     }
 
     // MARK: View
@@ -81,6 +90,7 @@ class ZLCommonTableViewCell: UITableViewCell {
         scrollView.bounces = false
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
+        scrollView.isUserInteractionEnabled = false
         return scrollView
     }()
 
@@ -98,6 +108,13 @@ class ZLCommonTableViewCell: UITableViewCell {
         label.text = ZLIconFont.NextArrow.rawValue
         return label
     }()
+    
+    lazy var separateLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(named: "ZLSeperatorLineColor")
+        view.isHidden = true
+        return view
+    }()
 }
 
 
@@ -109,6 +126,7 @@ extension ZLCommonTableViewCell: ZLViewUpdatableWithViewData {
         subLabel.text = viewData.info
         nextLabel.isHidden = !viewData.canClick
         scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+        separateLine.isHidden = !viewData.showSeparateLine
     }
     
     func justUpdateView() {

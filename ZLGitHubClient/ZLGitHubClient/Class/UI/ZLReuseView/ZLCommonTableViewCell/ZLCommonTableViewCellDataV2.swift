@@ -12,20 +12,23 @@ import ZLUIUtilities
 class ZLCommonTableViewCellDataV2: ZLTableViewBaseCellData {
 
     private var _canClick: Bool = false
-    private var _title: String = ""
-    private var _info: String = ""
+    private var _titleBlock: () -> String = { "" }
+    private var _infoBlock: () -> String = { "" }
     private var _cellHeight: CGFloat = 0.0
+    private var _showSeparateLine: Bool = false
     private var _actionBlock: (() -> Void)?
 
     init(canClick: Bool,
-         title: String,
-         info: String,
+         title: @escaping () -> String,
+         info: @escaping () -> String,
          cellHeight: CGFloat,
+         showSeparateLine:Bool = false,
          actionBlock:(() -> Void)? = nil) {
         _canClick = canClick
-        _title = title
-        _info = info
+        _titleBlock = title
+        _infoBlock = info
         _cellHeight = cellHeight
+        _showSeparateLine = showSeparateLine
         _actionBlock = actionBlock
         super.init()
     }
@@ -50,11 +53,15 @@ extension ZLCommonTableViewCellDataV2: ZLCommonTableViewCellDataSourceAndDelegat
     }
 
     var title: String {
-        _title
+        _titleBlock()
     }
 
     var info: String {
-        _info
+        _infoBlock()
+    }
+    
+    var showSeparateLine: Bool {
+        _showSeparateLine
     }
 
 }

@@ -313,5 +313,10 @@ extension ZLGithubItemListView {
             self.tableView.reloadRows(at: indexPaths, with: .automatic)
         }
     }
+    
+    @objc func batchUpdatesHeight() {
+        self.tableView.beginUpdates()
+        self.tableView.endUpdates()
+    }
 
 }

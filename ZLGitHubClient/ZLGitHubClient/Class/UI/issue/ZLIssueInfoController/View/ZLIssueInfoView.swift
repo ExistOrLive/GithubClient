@@ -122,7 +122,7 @@ extension ZLIssueInfoView {
         
         reloadVisibleCellDisposable = viewData.reloadVisibleCellObservale.share().subscribe(onNext: { [weak self] element in
             guard let self = self else { return }
-            self.itemListView.reloadVisibleCells(cellDatas: element)
+            self.itemListView.batchUpdatesHeight()
         }, onError: nil, onCompleted: nil, onDisposed: nil)
         
         canReactDisposable = viewData.canReactObservale.share().bind(to: bottomView.commentButton.rx.isEnabled)

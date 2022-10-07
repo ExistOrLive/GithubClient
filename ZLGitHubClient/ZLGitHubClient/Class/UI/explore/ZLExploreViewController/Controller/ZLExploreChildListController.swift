@@ -508,6 +508,7 @@ extension ZLExploreChildListController {
         switch notication.name {
         case ZLLanguageTypeChange_Notificaiton:do {
  
+            self.itemListView.justRefresh()
             switch type {
             case .repo: do {
                 let dateTitle = titleForDateRange(dateRange: ZLUISharedDataManager.dateRangeForTrendingRepo)

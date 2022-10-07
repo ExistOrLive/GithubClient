@@ -92,7 +92,7 @@ class ZLRepoInfoController: ZLBaseViewController {
 extension ZLRepoInfoController {
     
     func generateCellDatas() {
-      
+        
         let model = presenter?.repoModel
         
         sectionDatas.removeAll()
@@ -112,53 +112,53 @@ extension ZLRepoInfoController {
         sectionDatas.append(headerSectionData)
         
         let commitCellData = ZLCommonTableViewCellDataV2(canClick: true,
-                                                       title: ZLLocalizedString(string: "commit", comment: "提交"),
-                                                       info: "",
-                                                       cellHeight: 50,
-                                                       actionBlock: { [weak self] in
+                                                         title: { ZLLocalizedString(string: "commit", comment: "提交") },
+                                                         info: {""},
+                                                         cellHeight: 50,
+                                                         actionBlock: { [weak self] in
             self?.onCommitClicked()
         })
-    
+        
         let branchCellData = ZLCommonTableViewCellDataV2(canClick: true,
-                                                       title: ZLLocalizedString(string: "branch", comment: "分支"),
-                                                         info: presenter?.currentBranch ?? "",
-                                                       cellHeight: 50,
-                                                       actionBlock: { [weak self] in
+                                                         title: {ZLLocalizedString(string: "branch", comment: "分支")},
+                                                         info: { [weak self] in self?.presenter?.currentBranch ?? ""},
+                                                         cellHeight: 50,
+                                                         actionBlock: { [weak self] in
             self?.onBranchClicked()
             
         })
         
         let languageCellData = ZLCommonTableViewCellDataV2(canClick: true,
-                                                         title: ZLLocalizedString(string: "Language", comment: "语言"),
-                                                         info: model.language ?? "" ,
-                                                         cellHeight: 50,
-                                                         actionBlock: { [weak self] in
+                                                           title: {ZLLocalizedString(string: "Language", comment: "语言")},
+                                                           info: { model.language ?? ""} ,
+                                                           cellHeight: 50,
+                                                           actionBlock: { [weak self] in
             self?.onLanguageClicked()
         })
         
         let codeCellData = ZLCommonTableViewCellDataV2(canClick: true,
-                                                     title: ZLLocalizedString(string: "code", comment: "代码"),
-                                                     info: "",
-                                                     cellHeight: 50,
-                                                     actionBlock: {  [weak self] in
+                                                       title: {ZLLocalizedString(string: "code", comment: "代码")},
+                                                       info: {""},
+                                                       cellHeight: 50,
+                                                       actionBlock: {  [weak self] in
             self?.onCodeClicked()
             
         })
         
         let actionCellData = ZLCommonTableViewCellDataV2(canClick: true,
-                                                       title: ZLLocalizedString(string: "action", comment: "action"),
-                                                       info: "",
-                                                       cellHeight: 50,
-                                                       actionBlock: { [weak self] in
+                                                         title:{ ZLLocalizedString(string: "action", comment: "action")},
+                                                         info: {""},
+                                                         cellHeight: 50,
+                                                         actionBlock: { [weak self] in
             self?.onActionClicked()
         })
         
         
         let prCellData = ZLCommonTableViewCellDataV2(canClick: true,
-                                                   title: ZLLocalizedString(string: "pull request", comment: "合并请求"),
-                                                   info:"",
-                                                   cellHeight: 50,
-                                                   actionBlock: { [weak self] in
+                                                     title: {ZLLocalizedString(string: "pull request", comment: "合并请求")},
+                                                     info:{""},
+                                                     cellHeight: 50,
+                                                     actionBlock: { [weak self] in
             self?.onPrClicked()
         })
         let itemCellDatas: [ZLTableViewBaseCellData] = [commitCellData,
@@ -201,7 +201,7 @@ extension ZLRepoInfoController {
                                                 currentBranch: presenter?.currentBranch ?? "" ) { [weak self] (branch: String) in
             guard let self = self else { return }
             self.presenter?.changeBranch(newBranch: branch)
-            self.generateCellDatas()
+            self.tableContainerView.reloadData()
             self.readMeView?.startLoad(fullName: fullName, branch: branch)
         }
     }
