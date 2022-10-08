@@ -15,14 +15,14 @@ import ZLGitRemoteService
 class ZLEditProfileViewModel: ZLBaseViewModel {
 
     // view
-    private weak var editProfileView: ZLEditProfileView?
+    private weak var editProfileView: ZLEditProfileContentView?
 
     // model
     private var userInfoModel: ZLGithubUserModel?
 
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
 
-        guard let targetView = targetView as? ZLEditProfileView else {
+        guard let targetView = targetView as? ZLEditProfileContentView else {
             ZLLog_Warn("targetView is not ZLEditProfileView,so return")
             return
         }
@@ -46,10 +46,10 @@ class ZLEditProfileViewModel: ZLBaseViewModel {
 
         ZLProgressHUD.show()
 
-        let bio = self.editProfileView?.contentView?.personalDescTextView.text
-        let company = self.editProfileView?.contentView?.companyTextField.text
-        let location = self.editProfileView?.contentView?.addressTextField.text
-        let blog = self.editProfileView?.contentView?.blogTextField.text
+        let bio = self.editProfileView?.bioTextView.text
+        let company = self.editProfileView?.companyTextField.text
+        let location = self.editProfileView?.addressTextField.text
+        let blog = self.editProfileView?.blogTextField.text
 
         ZLServiceManager.sharedInstance.viewerServiceModel?.updateUserProfile(blog: blog,
                                                                               location: location,
@@ -88,10 +88,10 @@ class ZLEditProfileViewModel: ZLBaseViewModel {
 extension ZLEditProfileViewModel {
 
     func setViewDataForEditProfileView() {
-        self.editProfileView?.contentView?.personalDescTextView.text = userInfoModel?.bio
-        self.editProfileView?.contentView?.companyTextField.text = userInfoModel?.company
-        self.editProfileView?.contentView?.addressTextField.text = userInfoModel?.location
-        self.editProfileView?.contentView?.blogTextField.text = userInfoModel?.blog
+        self.editProfileView?.bioTextView.text = userInfoModel?.bio
+        self.editProfileView?.companyTextField.text = userInfoModel?.company
+        self.editProfileView?.addressTextField.text = userInfoModel?.location
+        self.editProfileView?.blogTextField.text = userInfoModel?.blog
     }
 
 }

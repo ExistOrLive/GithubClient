@@ -79,10 +79,8 @@ class ZLRepoInfoController: ZLBaseViewController {
         return view
     }()
     
-    lazy var readMeView: ZLReadMeView? = {
-        guard let readMeView: ZLReadMeView = Bundle.main.loadNibNamed("ZLReadMeView", owner: nil, options: nil)?.first as? ZLReadMeView else {
-            return nil
-        }
+    lazy var readMeView: ZLReadMeView = {
+        let readMeView: ZLReadMeView = ZLReadMeView()
         readMeView.delegate = self
         return readMeView
     }()
@@ -202,7 +200,7 @@ extension ZLRepoInfoController {
             guard let self = self else { return }
             self.presenter?.changeBranch(newBranch: branch)
             self.tableContainerView.reloadData()
-            self.readMeView?.startLoad(fullName: fullName, branch: branch)
+            self.readMeView.startLoad(fullName: fullName, branch: branch)
         }
     }
     
@@ -274,7 +272,7 @@ extension ZLRepoInfoController: ZLTableContainerViewDelegate {
         
         presenter?.getRepoStarStatus()
         
-        readMeView?.startLoad(fullName: fullName ?? "", branch: presenter?.currentBranch)
+        readMeView.startLoad(fullName: fullName ?? "", branch: presenter?.currentBranch)
     }
     
     func zlLoadMoreData() {
@@ -293,7 +291,7 @@ extension ZLRepoInfoController: ZLReadMeViewDelegate {
 
     @objc func notifyNewHeight(height: CGFloat) {
         if tableContainerView.tableViewFooter != nil {
-            readMeView?.frame = CGRect(x: 0, y: 0, width: 0, height: height)
+            readMeView.frame = CGRect(x: 0, y: 0, width: 0, height: height)
             tableContainerView.tableViewFooter = readMeView
         }
     }

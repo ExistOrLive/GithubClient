@@ -72,7 +72,7 @@ class ZLUserInfoView: ZLBaseView {
     private func reloadReadMe() {
         if let loginName = delegate?.userOrOrgLoginName,
            !loginName.isEmpty {
-            readMeView?.startLoad(fullName: "\(loginName)/\(loginName)", branch: nil)
+            readMeView.startLoad(fullName: "\(loginName)/\(loginName)", branch: nil)
         } else {
             tableView.tableFooterView = nil
         }
@@ -102,10 +102,8 @@ class ZLUserInfoView: ZLBaseView {
         return tableView
     }()
 
-    private lazy var readMeView: ZLReadMeView? = {
-        guard let readMeView: ZLReadMeView = Bundle.main.loadNibNamed("ZLReadMeView", owner: nil, options: nil)?.first as? ZLReadMeView else {
-            return nil
-        }
+    private lazy var readMeView: ZLReadMeView = {
+       let readMeView: ZLReadMeView = ZLReadMeView()
         readMeView.delegate = self
         return readMeView
     }()
@@ -176,7 +174,7 @@ extension ZLUserInfoView: ZLReadMeViewDelegate {
 
     @objc func notifyNewHeight(height: CGFloat) {
         if tableView.tableFooterView != nil {
-            readMeView?.frame = CGRect(x: 0, y: 0, width: 0, height: height)
+            readMeView.frame = CGRect(x: 0, y: 0, width: 0, height: height)
             tableView.tableFooterView = readMeView
         }
     }
