@@ -133,5 +133,6 @@ extension ZLProfileContributionsCell: ZLViewUpdatableWithViewData {
     func fillWithViewData(viewData: ZLProfileContributionsCellDataSourceAndDelegate) {
         delegate = viewData
         contributionsView.update(loginName: viewData.loginName)
+        justUpdateView()
     }
 }
