@@ -95,7 +95,7 @@ class ZLProfileContributionsCell: UITableViewCell {
     
     private lazy var titleLabel: UILabel = {
        let label = UILabel()
-        label.textColor = UIColor.label(withName: "ZLLabelColor2")
+        label.textColor = UIColor.label(withName: "ZLLabelColor1")
         label.font = UIFont.zlMediumFont(withSize: 14)
         label.text = ZLLocalizedString(string: "latest update", comment: "最近修改")
         return label 
