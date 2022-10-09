@@ -11,6 +11,7 @@ import WebKit
 import ZLGitRemoteService
 import ZLBaseUI
 import ZLBaseExtension
+import ZLUIUtilities
 
 @objc protocol ZLReadMeViewDelegate: NSObjectProtocol {
 
@@ -27,16 +28,7 @@ class ZLReadMeView: ZLBaseView {
 
     // delegate
     weak var delegate: ZLReadMeViewDelegate?
-
-    // view
-    @IBOutlet weak var progressView: UIProgressView!
-
-    @IBOutlet weak var refreshButton: UIButton!
-
-    @IBOutlet weak var webView: WKWebView!
-
-    @IBOutlet weak var webViewHeightConstant: NSLayoutConstraint!
-
+    
     // model
     private var fullName: String?
     private var branch: String?
@@ -44,22 +36,45 @@ class ZLReadMeView: ZLBaseView {
     private var readMeModel: ZLGithubContentModel?
     private var htmlStr: String?
     private var serialNumber: String?
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-
-        self.refreshButton.setTitle(ZLLocalizedString(string: "refresh", comment: "刷新"), for: .normal)
-
-        self.webView.scrollView.backgroundColor = UIColor.clear
-        self.webView.scrollView.isScrollEnabled = false
-        self.webView.contentScaleFactor = 1.0
-        self.webView.backgroundColor = UIColor.clear
-        self.webView.uiDelegate = self
-        self.webView.navigationDelegate = self
-
-        self.webView.scrollView.maximumZoomScale = 1
-        self.webView.scrollView.minimumZoomScale = 1
-        self.webView.scrollView.addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupUI() {
+        backgroundColor = UIColor(named: "ZLCellBack")
+        addSubview(titleLabel)
+        addSubview(refreshButton)
+        addSubview(progressView)
+        addSubview(webView)
+        
+        titleLabel.snp.makeConstraints { make in
+            make.top.left.equalTo(20)
+        }
+        
+        refreshButton.snp.makeConstraints { make in
+            make.right.equalTo(-20)
+            make.top.equalTo(20)
+            make.size.equalTo(CGSize(width: 60, height: 25))
+        }
+        
+        progressView.snp.makeConstraints { make in
+            make.top.equalTo(60)
+            make.height.equalTo(1)
+            make.left.equalTo(20)
+            make.right.equalTo(-20)
+        }
+        
+        webView.snp.makeConstraints { make in
+            make.top.equalTo(progressView.snp.bottom).offset(20)
+            make.height.equalTo(20)
+            make.left.right.equalToSuperview()
+        }
     }
 
     override func tintColorDidChange() {
@@ -67,10 +82,136 @@ class ZLReadMeView: ZLBaseView {
         self.reRender()
     }
 
-    @IBAction func onRefreshButtonClicked(_ sender: Any) {
-        self.reload()
+    // 开始渲染页面
+    private func startRender(codeHtml: String) {
+
+        let htmlURL: URL? = Bundle.main.url(forResource: "github_style", withExtension: "html")
+
+        let cssURL: URL?
+
+        if #available(iOS 12.0, *) {
+            if getRealUserInterfaceStyle() == .light {
+                cssURL = Bundle.main.url(forResource: "github_style_markdown", withExtension: "css")
+            } else {
+                cssURL = Bundle.main.url(forResource: "github_style_dark_markdown", withExtension: "css")
+            }
+        } else {
+            cssURL = Bundle.main.url(forResource: "github_style_markdown", withExtension: "css")
+        }
+
+        if let url = htmlURL {
+
+            do {
+                let htmlStr = try String.init(contentsOf: url)
+                let newHtmlStr = NSMutableString.init(string: htmlStr)
+
+                let range1 = (newHtmlStr as NSString).range(of: "<style>")
+                if  range1.location != NSNotFound {
+                    newHtmlStr.insert("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no\"/>", at: range1.location)
+                }
+
+                if let cssURL = cssURL {
+                    let cssStr = try String.init(contentsOf: cssURL)
+                    let range = (newHtmlStr as NSString).range(of: "</style>")
+                    if  range.location != NSNotFound {
+                        newHtmlStr.insert(cssStr, at: range.location)
+                    }
+                }
+
+                let range = (newHtmlStr as NSString).range(of: "</body>")
+                if  range.location != NSNotFound {
+                    newHtmlStr.insert(codeHtml, at: range.location)
+                }
+
+                self.webView.loadHTMLString(newHtmlStr as String, baseURL: nil)
+
+            } catch {
+                ZLToastView.showMessage("load Code index html failed")
+            }
+        } else {
+        }
     }
 
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
+
+        if keyPath == "contentSize"{
+
+            guard let size: CGSize = change?[NSKeyValueChangeKey.newKey] as? CGSize else {
+                return
+            }
+
+            if (self.delegate?.responds(to: #selector(ZLReadMeViewDelegate.notifyNewHeight(height:)))) ?? false {
+                self.delegate?.notifyNewHeight?(height: size.height + 81)
+            }
+            
+            ZLMainThreadDispatch {
+                self.webView.snp.updateConstraints { make in
+                    make.height.equalTo(size.height)
+                }
+            }
+        }
+
+    }
+
+    deinit {
+        self.webView.scrollView.removeObserver(self, forKeyPath: "contentSize")
+    }
+    
+    // MARK: Lazy view
+    lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor(named:"ZLLabelColor1")
+        label.font = .zlMediumFont(withSize: 17)
+        label.text = "ReadMe"
+        return label
+    }()
+    
+    lazy var progressView: UIProgressView = {
+        let progressView = UIProgressView()
+        progressView.progressTintColor = UIColor(rgb: 0x000000, alpha: 0.3)
+        progressView.trackTintColor = .white
+        progressView.progress = 0.0
+        return progressView
+    }()
+
+    lazy var refreshButton: UIButton = {
+        let button = ZLBaseButton()
+        button.titleLabel?.font = .zlMediumFont(withSize: 10)
+        button.setTitle(ZLLocalizedString(string: "refresh", comment: "刷新"), for: .normal)
+        button.addTarget(self, action: #selector(onRefreshButtonClicked(_:)), for: .touchUpInside)
+        return button
+    }()
+
+    lazy var webView: WKWebView = {
+        let webview = WKWebView()
+        webview.scrollView.backgroundColor = UIColor.clear
+        webview.scrollView.isScrollEnabled = false
+        webview.contentScaleFactor = 1.0
+        webview.backgroundColor = UIColor.clear
+        webview.uiDelegate = self
+        webview.navigationDelegate = self
+        
+        webview.scrollView.maximumZoomScale = 1
+        webview.scrollView.minimumZoomScale = 1
+        webview.scrollView.addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
+        return webview
+    }()
+
+}
+
+// MARK: - Action
+extension ZLReadMeView {
+    @objc func onRefreshButtonClicked(_ sender: Any) {
+        self.reload()
+    }
+}
+
+// MARK: - Outer Method
+extension ZLReadMeView {
+    /// 加载github readme
+    ///  - parameters:
+    ///      - fullName: 仓库fullname
+    ///      - branch: 分支
     func startLoad(fullName: String, branch: String?) {
 
         self.stopload()
@@ -141,95 +282,28 @@ class ZLReadMeView: ZLBaseView {
         self.webView.stopLoading()
     }
 
+    /// 仅重新渲染网页
     func reRender() {
         if let html = self.htmlStr {
             self.startRender(codeHtml: html)
         }
     }
 
+    /// 重新请求加载网页
     func reload() {
         if let fullName = self.fullName {
             self.startLoad(fullName: fullName, branch: self.branch)
         }
     }
 
+    /// 国际化刷新
     func justUpdate() {
         self.refreshButton.setTitle(ZLLocalizedString(string: "refresh", comment: "刷新"), for: .normal)
     }
-
-    // 开始渲染页面
-    private func startRender(codeHtml: String) {
-
-        let htmlURL: URL? = Bundle.main.url(forResource: "github_style", withExtension: "html")
-
-        let cssURL: URL?
-
-        if #available(iOS 12.0, *) {
-            if getRealUserInterfaceStyle() == .light {
-                cssURL = Bundle.main.url(forResource: "github_style_markdown", withExtension: "css")
-            } else {
-                cssURL = Bundle.main.url(forResource: "github_style_dark_markdown", withExtension: "css")
-            }
-        } else {
-            cssURL = Bundle.main.url(forResource: "github_style_markdown", withExtension: "css")
-        }
-
-        if let url = htmlURL {
-
-            do {
-                let htmlStr = try String.init(contentsOf: url)
-                let newHtmlStr = NSMutableString.init(string: htmlStr)
-
-                let range1 = (newHtmlStr as NSString).range(of: "<style>")
-                if  range1.location != NSNotFound {
-                    newHtmlStr.insert("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no\"/>", at: range1.location)
-                }
-
-                if let cssURL = cssURL {
-                    let cssStr = try String.init(contentsOf: cssURL)
-                    let range = (newHtmlStr as NSString).range(of: "</style>")
-                    if  range.location != NSNotFound {
-                        newHtmlStr.insert(cssStr, at: range.location)
-                    }
-                }
-
-                let range = (newHtmlStr as NSString).range(of: "</body>")
-                if  range.location != NSNotFound {
-                    newHtmlStr.insert(codeHtml, at: range.location)
-                }
-
-                self.webView?.loadHTMLString(newHtmlStr as String, baseURL: nil)
-
-            } catch {
-                ZLToastView.showMessage("load Code index html failed")
-            }
-        } else {
-        }
-    }
-
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
-
-        if keyPath == "contentSize"{
-
-            guard let size: CGSize = change?[NSKeyValueChangeKey.newKey] as? CGSize else {
-                return
-            }
-
-            self.webViewHeightConstant.constant = size.height
-
-            if (self.delegate?.responds(to: #selector(ZLReadMeViewDelegate.notifyNewHeight(height:)))) ?? false {
-                self.delegate?.notifyNewHeight?(height: size.height + 81)
-            }
-        }
-
-    }
-
-    deinit {
-        self.webView.scrollView.removeObserver(self, forKeyPath: "contentSize")
-    }
-
+    
 }
 
+// MARK: - WKWebview
 extension ZLReadMeView: WKNavigationDelegate, WKUIDelegate {
 
     func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
@@ -292,6 +366,12 @@ extension ZLReadMeView: WKNavigationDelegate, WKUIDelegate {
             self.delegate?.loadEnd?(result: self.htmlStr != nil)
         }
     }
+    
+    func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
+       /// 当页面白屏时，reloadData
+        webView.reload()
+    }
+
 
     func fixPicture() {
         if let download_url = self.readMeModel?.download_url {

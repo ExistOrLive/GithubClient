@@ -29,7 +29,7 @@
 "setting" = "Setting";
 "about" = "About";
 "feedback" = "Feedback";
-"lastest update" = "Lastest update";
+"latest update" = "Latest update";
 "all update" = "All update";
 "login" = "Login";
 "logout" = "Logout";
@@ -118,6 +118,9 @@
 "Today" = "Today";
 "This Week" = "This Week";
 "This Month" = "This Month";
+"Spoken Language: " = "Spoken Languague: ";
+"Date Range: " = "Date Range: ";
+"Language: " = "Language: ";
 
 // login
 "ZLLoginStep_checkIsLogined" = "Checking if is Logined";
@@ -233,3 +236,5 @@
 
 "Save_Success" = "Save Success";
 "Save_Fail" = "Save Fail";
+
+"Discussions" = "Discussions";

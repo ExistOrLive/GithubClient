@@ -8,6 +8,8 @@
 
 import UIKit
 import ZLBaseUI
+import ZLUIUtilities
+import ZLBaseExtension
 import SnapKit
 import RxSwift
 import RxCocoa
@@ -151,9 +153,12 @@ class ZLSubmitCommentView: ZLBaseView {
     }()
 }
 
-extension ZLSubmitCommentView: ViewUpdatable {
+extension ZLSubmitCommentView: ZLViewUpdatableWithViewData {
+    func justUpdateView() {
+        
+    }
     
-    func fillWithData(viewData: ZLSubmitCommentViewDelegate) {
+    func fillWithViewData(viewData: ZLSubmitCommentViewDelegate) {
         delagate = viewData
         viewData.clearObservable.subscribe(onNext: { [weak self] _ in
             self?.textView.text = nil

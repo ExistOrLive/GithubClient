@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import ZLUIUtilities
+import ZLBaseUI
+import ZLBaseExtension
 
 class ZLNotificationViewModel: ZLBaseViewModel {
 
@@ -112,6 +115,7 @@ class ZLNotificationViewModel: ZLBaseViewModel {
     @objc func onNotificationArrived(notifcation: Notification) {
         if notifcation.name == ZLLanguageTypeChange_Notificaiton {
             self.viewController?.title = ZLLocalizedString(string: "Notification", comment: "")
+            self.baseView?.githubItemListView.justRefresh()
         }
     }
 

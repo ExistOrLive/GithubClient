@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ZLUIUtilities
 
 protocol ZLOrgInfoHeaderCellDataSourceAndDelegate: ZLGithubItemTableViewCellDataProtocol {
 
@@ -64,12 +65,6 @@ class ZLOrgInfoHeaderCell: UITableViewCell {
         }
     }
 
-    // MARK: fillWithdata
-    func fillWithData(viewModel: ZLOrgInfoHeaderCellDataSourceAndDelegate) {
-        delegate = viewModel
-        reloadData()
-    }
-
     private func reloadData() {
 
         avatarImageView.sd_setImage(with: URL(string: delegate?.avatarUrl ?? ""), placeholderImage: UIImage(named: "default_avatar"))
@@ -108,4 +103,17 @@ class ZLOrgInfoHeaderCell: UITableViewCell {
         return label
     }()
 
+}
+
+
+extension ZLOrgInfoHeaderCell: ZLViewUpdatableWithViewData {
+    // MARK: fillWithdata
+    func fillWithViewData(viewData: ZLOrgInfoHeaderCellDataSourceAndDelegate) {
+        delegate = viewData
+        reloadData()
+    }
+    
+    func justUpdateView() {
+        
+    }
 }

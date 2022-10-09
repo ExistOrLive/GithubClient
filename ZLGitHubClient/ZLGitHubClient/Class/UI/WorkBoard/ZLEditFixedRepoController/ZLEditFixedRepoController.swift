@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ZLUIUtilities
 
 class ZLEditFixedRepoController: ZLBaseViewController, UITableViewDelegate, UITableViewDataSource {
 

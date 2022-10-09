@@ -8,7 +8,9 @@
 
 import UIKit
 import WebKit
+import ZLUIUtilities
 import ZLBaseUI
+import ZLBaseExtension
 import ZLGitRemoteService
 
 /**
@@ -106,7 +108,7 @@ class ZLRepoCodePreview3Controller: ZLBaseViewController {
                                                      attributes: [.font: UIFont.zlIconFont(withSize: 30),
                                                                   .foregroundColor: UIColor.label(withName: "ICON_Common")]),
                                   for: .normal)
-        button.frame = CGRect.init(x: 0, y: 0, width: 60, height: 60)
+        button.frame = CGRect(x: 0, y: 0, width: 60, height: 60)
         button.addTarget(self, action: #selector(onMoreButtonClick(button:)), for: .touchUpInside)
 
         self.zlNavigationBar.rightButton = button

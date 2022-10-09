@@ -17,9 +17,7 @@ class ZLFeedbackController: ZLBaseViewController {
 
         let viewModel = ZLFeedbackViewModel()
 
-        guard let feedbackView: ZLFeedbackView = Bundle.main.loadNibNamed("ZLFeedbackView", owner: viewModel, options: nil)?.first as? ZLFeedbackView else {
-            return
-        }
+        let feedbackView: ZLFeedbackView = ZLFeedbackView()
         self.contentView.addSubview(feedbackView)
         feedbackView.snp.makeConstraints({ (make) in
             make.edges.equalToSuperview()

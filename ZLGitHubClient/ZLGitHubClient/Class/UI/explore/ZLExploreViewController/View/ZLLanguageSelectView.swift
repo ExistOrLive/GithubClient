@@ -9,14 +9,9 @@
 import UIKit
 import FFPopup
 import ZLBaseExtension
+import ZLUIUtilities
 
 class ZLLanguageSelectView: UIView {
-
-    @IBOutlet weak var titleLabel: UILabel!
-
-    @IBOutlet weak var textField: UITextField!
-
-    @IBOutlet weak var tableView: UITableView!
 
     var allLanguagesArray: [String] = []
 
@@ -26,19 +21,20 @@ class ZLLanguageSelectView: UIView {
 
     var resultBlock: ((String?) -> Void)?
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    static func showLanguageSelectView(resultBlock : @escaping ((String?) -> Void)) {
 
-        self.titleLabel.text = ZLLocalizedString(string: "Select a language", comment: "选择一种语言")
-        let attributedPlaceHolder = NSAttributedString.init(string: ZLLocalizedString(string: "Filter languages", comment: "筛选语言"), attributes: [NSAttributedString.Key.foregroundColor: ZLRGBValue_H(colorValue: 0xCED1D6), NSAttributedString.Key.font: UIFont.init(name: Font_PingFangSCRegular, size: 12) ?? UIFont.systemFont(ofSize: 12)])
-        self.textField.attributedPlaceholder = attributedPlaceHolder
-
-        self.tableView.register(UINib.init(nibName: "ZLLanguageTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLLanguageTableViewCell")
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-
-        self.textField.delegate = self
-
+        let view: ZLLanguageSelectView = ZLLanguageSelectView(frame: CGRect.init(x: 0, y: 0, width: 280, height: 500))
+        view.resultBlock = resultBlock
+        
+        let popup = FFPopup(contentView: view, showType: .bounceIn, dismissType: .bounceOut, maskType: FFPopup.MaskType.dimmed, dismissOnBackgroundTouch: true, dismissOnContentTouch: false)
+        view.popup = popup
+        popup.show(layout: .Center)
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupUI()
+        
         let languageArray = ZLServiceManager.sharedInstance.additionServiceModel?.getLanguagesWithSerialNumber(NSString.generateSerialNumber(), completeHandle: {[weak self](resultModel: ZLOperationResultModel) in
 
             if resultModel.result == true {
@@ -69,22 +65,96 @@ class ZLLanguageSelectView: UIView {
             self.filterLanguagesArray = newLanguageArray
             self.tableView.reloadData()
         }
-
     }
-
-    static func showLanguageSelectView(resultBlock : @escaping ((String?) -> Void)) {
-
-        guard let view: ZLLanguageSelectView = Bundle.main.loadNibNamed("ZLLanguageSelectView", owner: nil, options: nil)?.first as? ZLLanguageSelectView else {
-            return
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setupUI() {
+        
+        cornerRadius = 5
+        
+        addSubview(headerView)
+        addSubview(tableView)
+        headerView.addSubview(titleLabel)
+        headerView.addSubview(seperateLine)
+        headerView.addSubview(textField)
+        
+        headerView.snp.makeConstraints { make in
+            make.top.left.right.equalToSuperview()
+            make.height.equalTo(100)
         }
-        view.resultBlock = resultBlock
-
-        view.frame = CGRect.init(x: 0, y: 0, width: 280, height: 500)
-        let popup = FFPopup(contentView: view, showType: .bounceIn, dismissType: .bounceOut, maskType: FFPopup.MaskType.dimmed, dismissOnBackgroundTouch: true, dismissOnContentTouch: false)
-        view.popup = popup
-        popup.show(layout: .Center)
-
+        
+        titleLabel.snp.makeConstraints { make in
+            make.left.equalTo(10)
+            make.top.equalTo(10)
+        }
+        
+        seperateLine.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(10)
+            make.height.equalTo(1.0 / UIScreen.main.scale)
+            make.left.right.equalToSuperview()
+        }
+        
+        textField.snp.makeConstraints { make in
+            make.top.equalTo(seperateLine.snp.bottom).offset(10)
+            make.left.equalTo(10)
+            make.right.equalTo(-10)
+            make.height.equalTo(40)
+            make.bottom.equalTo(-10)
+        }
+        
+        tableView.snp.makeConstraints { make in
+            make.bottom.left.right.equalToSuperview()
+            make.top.equalTo(headerView.snp.bottom)
+        }
     }
+    
+    
+    lazy var headerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(named:"ZLPopUpTitleBackView")
+        return view
+    }()
+    
+    lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = .zlMediumFont(withSize: 15)
+        label.textColor = UIColor(named: "ZLPopupTitleColor")
+        label.text = ZLLocalizedString(string: "Select a language", comment: "选择一种语言")
+        return label
+    }()
+    
+    lazy var seperateLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(named:"ZLSeperatorLineColor")
+        return view
+    }()
+    
+    lazy var textField: UITextField = {
+       let textField = UITextField()
+        textField.delegate = self
+        let attributedPlaceHolder = NSAttributedString.init(string: ZLLocalizedString(string: "Filter languages", comment: "筛选语言"), attributes: [NSAttributedString.Key.foregroundColor: ZLRGBValue_H(colorValue: 0xCED1D6), NSAttributedString.Key.font: UIFont.init(name: Font_PingFangSCRegular, size: 12) ?? UIFont.systemFont(ofSize: 12)])
+        textField.attributedPlaceholder = attributedPlaceHolder
+        textField.font = .zlRegularFont(withSize: 14)
+        textField.borderStyle = .roundedRect
+        textField.backgroundColor = UIColor(named: "ZLPopUpTextFieldBackColor")
+        return textField
+    }()
+    
+    lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: CGRect.zero)
+        tableView.register(ZLSpokenLanguageSelectViewCell.self, forCellReuseIdentifier: "ZLSpokenLanguageSelectViewCell")
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.contentInset = UIEdgeInsets.zero
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0
+        }
+        return tableView
+    }()
+
 
 }
 
@@ -95,7 +165,7 @@ extension ZLLanguageSelectView: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell: ZLLanguageTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLLanguageTableViewCell", for: indexPath) as? ZLLanguageTableViewCell else {
+        guard let cell: ZLSpokenLanguageSelectViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLSpokenLanguageSelectViewCell", for: indexPath) as? ZLSpokenLanguageSelectViewCell else {
             return UITableViewCell.init()
         }
 

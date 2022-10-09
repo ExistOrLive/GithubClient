@@ -9,6 +9,7 @@
 import UIKit
 import MJRefresh
 import ZLBaseUI
+import ZLUIUtilities
 import ZLBaseExtension
 
 @objc protocol ZLGithubItemListViewDelegate: NSObjectProtocol {
@@ -134,6 +135,7 @@ import ZLBaseExtension
         self.tableView.register(ZLPullRequestHeaderTableViewCell.self, forCellReuseIdentifier: "ZLPullRequestHeaderTableViewCell")
         self.tableView.register(ZLPullRequestCommentTableViewCell.self, forCellReuseIdentifier: "ZLPullRequestCommentTableViewCell")
         self.tableView.register(ZLPullRequestTimelineTableViewCell.self, forCellReuseIdentifier: "ZLPullRequestTimelineTableViewCell")
+        self.tableView.register(ZLDiscussionTableViewCell.self, forCellReuseIdentifier: "ZLDiscussionTableViewCell")
     }
 }
 
@@ -282,8 +284,7 @@ extension ZLGithubItemListView {
     }
 
     @objc func justRefresh() {
-        ZLRefresh.justRefreshHeader(header: self.tableView.mj_header as? MJRefreshNormalHeader)
-        ZLRefresh.justRefreshFooter(footer: self.tableView.mj_footer as? MJRefreshAutoStateFooter)
+        self.justReloadRefreshView()
         self.tableView.reloadData()
     }
 
@@ -311,6 +312,11 @@ extension ZLGithubItemListView {
 
             self.tableView.reloadRows(at: indexPaths, with: .automatic)
         }
+    }
+    
+    @objc func batchUpdatesHeight() {
+        self.tableView.beginUpdates()
+        self.tableView.endUpdates()
     }
 
 }

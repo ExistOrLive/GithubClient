@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ZLBaseUI
 import IQKeyboardManager
 
 class ZLEditProfileController: ZLBaseViewController {
@@ -19,18 +20,13 @@ class ZLEditProfileController: ZLBaseViewController {
         let viewModel = ZLEditProfileViewModel()
         self.addSubViewModel(viewModel)
 
-        guard let baseView: ZLEditProfileView = Bundle.main.loadNibNamed("ZLEditProfileView", owner: viewModel, options: nil)?.first as? ZLEditProfileView else {
-            ZLLog_Warn("ZLRepoInfoView can not be loaded")
-            return
-        }
-
-        self.contentView.addSubview(baseView)
-        baseView.snp.makeConstraints({ (make) in
+        self.contentView.addSubview(editProfileView)
+        editProfileView.snp.makeConstraints({ (make) in
             make.top.bottom.equalToSuperview()
             make.left.equalTo(self.contentView.safeAreaLayoutGuide.snp.left)
             make.right.equalTo(self.contentView.safeAreaLayoutGuide.snp.right)
         })
-        viewModel.bindModel(nil, andView: baseView)
+        viewModel.bindModel(nil, andView: editProfileView)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -42,14 +38,12 @@ class ZLEditProfileController: ZLBaseViewController {
         super.viewDidDisappear(animated)
         IQKeyboardManager.shared().isEnabled = false
     }
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    // MARK: Lazy View
+    lazy var editProfileView: ZLEditProfileContentView = {
+       let view = ZLEditProfileContentView()
+        return view
+    }()
+    
 
 }

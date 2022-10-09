@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import ZLUIUtilities
+import ZLBaseUI
+import ZLBaseExtension
 
 protocol ZLIssueOperateCellDataSource {
    
@@ -104,9 +107,13 @@ class ZLIssueOperateCell: UITableViewCell {
     }
 }
 
-extension ZLIssueOperateCell: ViewUpdatable {
+extension ZLIssueOperateCell: ZLViewUpdatableWithViewData {
     
-    func fillWithData(viewData: ZLIssueOperateCellDataSource) {
+    func justUpdateView() {
+        
+    }
+    
+    func fillWithViewData(viewData: ZLIssueOperateCellDataSource) {
         clickBlock = viewData.clickBlock
         opeationType = viewData.opeationType
         on = viewData.on

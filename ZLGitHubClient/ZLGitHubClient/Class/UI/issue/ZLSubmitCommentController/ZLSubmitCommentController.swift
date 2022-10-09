@@ -8,6 +8,8 @@
 
 import UIKit
 import ZLBaseUI
+import ZLUIUtilities
+import ZLBaseExtension
 import ZLGitRemoteService
 import RxRelay
 import RxSwift
@@ -28,7 +30,7 @@ class ZLSubmitCommentController: ZLBaseViewController {
             make.edges.equalToSuperview()
         }
         
-        submitCommentView.fillWithData(viewData: self)
+        submitCommentView.fillWithData(data: self)
     }
     
     override func watchKeyboardStatusNotification() -> Bool{

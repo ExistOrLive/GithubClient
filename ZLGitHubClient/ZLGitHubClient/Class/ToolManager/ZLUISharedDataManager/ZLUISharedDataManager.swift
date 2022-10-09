@@ -14,6 +14,7 @@ private let ZLAssistButtonKey = "ZLAssistButtonKey"
 private let ZLSearchRecordKey = "ZLSearchRecordKey"
 private let ZLShowAllNotificationsKey = "ZLShowAllNotificationsKey"
 private let ZLTrendingOptions = "trendingOptions"
+private let ZLTrendingRepoSpokenLanguage = "trendingRepoSpokenLanguage"
 
 @objcMembers class ZLUISharedDataManager: NSObject {
 
@@ -142,6 +143,16 @@ private let ZLTrendingOptions = "trendingOptions"
         }
     }
 
+    static var spokenLanguageForTrendingRepo: String? {
+        get {
+            UserDefaults.standard.string(forKey: ZLTrendingRepoSpokenLanguage)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: ZLTrendingRepoSpokenLanguage)
+            UserDefaults.standard.synchronize()
+        }
+    }
+    
     static var enabledBlockFunction: Bool {
         get {
             RemoteConfig.remoteConfig().configValue(forKey: "Block_Function_Enabled").boolValue

@@ -4,6 +4,9 @@
 
 *.DS_Store
 
+#bundle
+.bundle
+
 ### Objective-C ###
 # Xcode
 #

@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import ZLBaseUI
+import ZLUIUtilities
+import ZLBaseExtension
 
 protocol ZLPinnedRepositoriesTableViewCellDelegateAndDataSource: ZLGithubItemTableViewCellDataProtocol {
     var cellDatas: [ZLPinnedRepositoryCollectionViewCellDataSourceAndDelegate] {get}
@@ -45,13 +48,6 @@ class ZLPinnedRepositoriesTableViewCell: UITableViewCell {
             make.bottom.equalTo(-20)
             make.height.equalTo(180)
         }
-    }
-
-    // MARK: fillWithData
-
-    func fillWithData(viewModel: ZLPinnedRepositoriesTableViewCellDelegateAndDataSource) {
-        self.delegate = viewModel
-        self.collectionView.reloadData()
     }
 
     // MARK: View
@@ -108,4 +104,17 @@ extension ZLPinnedRepositoriesTableViewCell: UICollectionViewDelegate, UICollect
         cellData.onCellSingleTap()
     }
 
+}
+
+extension ZLPinnedRepositoriesTableViewCell: ZLViewUpdatableWithViewData {
+   
+    func justUpdateView() {
+        
+    }
+    
+    // MARK: fillWithData
+    func fillWithViewData(viewData: ZLPinnedRepositoriesTableViewCellDelegateAndDataSource) {
+        self.delegate = viewData
+        self.collectionView.reloadData()
+    }
 }

@@ -8,6 +8,8 @@
 
 import UIKit
 import ZLBaseUI
+import ZLUIUtilities
+import ZLBaseExtension
 
 protocol ZLUserInfoViewDelegateAndDataSource: NSObjectProtocol {
 
@@ -70,7 +72,7 @@ class ZLUserInfoView: ZLBaseView {
     private func reloadReadMe() {
         if let loginName = delegate?.userOrOrgLoginName,
            !loginName.isEmpty {
-            readMeView?.startLoad(fullName: "\(loginName)/\(loginName)", branch: nil)
+            readMeView.startLoad(fullName: "\(loginName)/\(loginName)", branch: nil)
         } else {
             tableView.tableFooterView = nil
         }
@@ -100,10 +102,8 @@ class ZLUserInfoView: ZLBaseView {
         return tableView
     }()
 
-    private lazy var readMeView: ZLReadMeView? = {
-        guard let readMeView: ZLReadMeView = Bundle.main.loadNibNamed("ZLReadMeView", owner: nil, options: nil)?.first as? ZLReadMeView else {
-            return nil
-        }
+    private lazy var readMeView: ZLReadMeView = {
+       let readMeView: ZLReadMeView = ZLReadMeView()
         readMeView.delegate = self
         return readMeView
     }()
@@ -120,32 +120,9 @@ extension ZLUserInfoView: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellData.getCellReuseIdentifier()) else {
             return UITableViewCell()
         }
-
-        if let headerCell = cell as? ZLUserInfoHeaderCell,
-            let headerCellData = cellData as? ZLUserInfoHeaderCellDataSourceAndDelegate {
-
-            headerCell.fillWithData(viewModel: headerCellData)
-
-        } else if let commonCell = cell as? ZLCommonTableViewCell,
-           let commonCellData = cellData as? ZLCommonTableViewCellDataSourceAndDelegate {
-
-            commonCell.fillWithData(viewData: commonCellData)
-
-        } else if let contributionCell = cell as? ZLUserContributionsCell,
-                  let contributionCellData = cellData as? ZLUserContributionsCellDelegate {
-
-            contributionCell.fillWithData(data: contributionCellData)
-
-        } else if let pinnedRepocell = cell as? ZLPinnedRepositoriesTableViewCell,
-                  let pinnedRepoCellData = cellData as? ZLPinnedRepositoriesTableViewCellDelegateAndDataSource {
-
-            pinnedRepocell.fillWithData(viewModel: pinnedRepoCellData)
-
-        } else if let orgInfoHeaderCell = cell as? ZLOrgInfoHeaderCell,
-                  let orgInfoHeaderCellData = cellData as? ZLOrgInfoHeaderCellDataSourceAndDelegate {
-
-            orgInfoHeaderCell.fillWithData(viewModel: orgInfoHeaderCellData)
-
+        
+        if let viewUpdatable = cell as? ZLViewUpdatable {
+            viewUpdatable.fillWithData(data: cellData)
         }
 
         return cell
@@ -197,7 +174,7 @@ extension ZLUserInfoView: ZLReadMeViewDelegate {
 
     @objc func notifyNewHeight(height: CGFloat) {
         if tableView.tableFooterView != nil {
-            readMeView?.frame = CGRect(x: 0, y: 0, width: 0, height: height)
+            readMeView.frame = CGRect(x: 0, y: 0, width: 0, height: height)
             tableView.tableFooterView = readMeView
         }
     }

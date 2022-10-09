@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import ZLBaseUI
+import ZLUIUtilities
+import ZLBaseExtension
 
 class ZLRepoPullRequestViewModel: ZLBaseViewModel, ZLRepoPullRequestViewDelegate {
 

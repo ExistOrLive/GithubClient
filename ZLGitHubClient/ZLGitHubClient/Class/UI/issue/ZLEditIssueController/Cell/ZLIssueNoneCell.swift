@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import ZLUIUtilities
+import ZLBaseExtension
 
 protocol ZLIssueNoneCellDataSource {
     var info: String { get }
@@ -49,9 +51,13 @@ class ZLIssueNoneCell: UITableViewCell {
 
 }
 
-extension ZLIssueNoneCell: ViewUpdatable {
+extension ZLIssueNoneCell: ZLViewUpdatableWithViewData {
     
-    func fillWithData(viewData: ZLIssueNoneCellDataSource) {
+    func fillWithViewData(viewData: ZLIssueNoneCellDataSource) {
         infoLabel.text = viewData.info
+    }
+    
+    func justUpdateView() {
+        
     }
 }

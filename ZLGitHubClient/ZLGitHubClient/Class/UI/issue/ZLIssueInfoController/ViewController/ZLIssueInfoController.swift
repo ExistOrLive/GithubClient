@@ -11,6 +11,7 @@ import ZLBaseUI
 import RxSwift
 import RxRelay
 import ZLGitRemoteService
+import ZLUIUtilities
 
 class ZLIssueInfoController: ZLBaseViewController {
 

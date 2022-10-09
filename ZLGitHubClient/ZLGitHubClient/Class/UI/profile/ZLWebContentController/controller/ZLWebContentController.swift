@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 
 @objcMembers class ZLWebContentController: ZLBaseViewController {
 
@@ -14,28 +15,52 @@ import UIKit
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.title = "WebView"
-
-        let viewModel = ZLWebContentViewModel()
-        self.addSubViewModel(viewModel)
-
-        let baseView = ZLWebContentView()
-        self.contentView.addSubview(baseView)
-        baseView.snp.makeConstraints { (make) in
+        setupUI()
+    }
+    
+    func setupUI() {
+        title = "WebView"
+        contentView.addSubview(webContentView)
+        webContentView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
-
-        viewModel.bindModel(self.requestURL, andView: baseView)
+        addSubViewModel(webContentViewModel)
+        webContentViewModel.bindModel(self.requestURL, andView: webContentView)
+        
+        zlNavigationBar.rightButton = rightButton
     }
-    /*
-    // MARK: - Navigation
+    
+    //MARK: Lazy View
+    private lazy var webContentView: ZLWebContentView = {
+        ZLWebContentView()
+    }()
+    
+    private lazy var rightButton: UIButton = {
+        let button = UIButton(frame:CGRect(x: 0, y: 0, width: 60, height: 60))
+        let attributedTitle = ZLIconFont
+            .More
+            .rawValue
+            .asMutableAttributedString()
+            .font(UIFont.zlIconFont(withSize: 30))
+            .foregroundColor(UIColor.label(withName: "ICON_Common"))
+        button.setAttributedTitle(attributedTitle, for: .normal)
+        button.addTarget(self, action: #selector(onRightButtonClicked(button:)), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var webContentViewModel: ZLWebContentViewModel = {
+        ZLWebContentViewModel()
+    }()
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    @objc func onRightButtonClicked(button: UIButton) {
+        guard let url = webContentView.currentURL ?? requestURL else {
+            return
+        }
+   
+        let activityVC = UIActivityViewController.init(activityItems: [url], applicationActivities: nil)
+        activityVC.popoverPresentationController?.sourceView = button
+        activityVC.excludedActivityTypes = [.message, .mail, .openInIBooks, .markupAsPDF]
+        self.present(activityVC, animated: true, completion: nil)
     }
-    */
-
 }

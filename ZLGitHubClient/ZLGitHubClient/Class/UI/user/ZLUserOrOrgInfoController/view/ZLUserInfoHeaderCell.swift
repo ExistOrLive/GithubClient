@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ZLUIUtilities
 
 protocol ZLUserInfoHeaderCellDataSourceAndDelegate: ZLGithubItemTableViewCellDataProtocol {
 
@@ -106,34 +107,12 @@ class ZLUserInfoHeaderCell: UITableViewCell {
             make.centerY.equalTo(avatarImageView)
         }
 
-//        reposNumButton.snp.makeConstraints { make in
-//            make.width.equalTo(50)
-//        }
-//        gistsNumButton.snp.makeConstraints { make in
-//            make.width.equalTo(50)
-//        }
-//        followersNumButton.snp.makeConstraints { make in
-//            make.width.equalTo(50)
-//        }
-//        followingsNumButton.snp.makeConstraints { make in
-//            make.width.equalTo(50)
-//        }
-
         followButton.snp.makeConstraints { make in
             make.size.equalTo(CGSize(width: 60, height: 25))
         }
         blockButton.snp.makeConstraints { make in
             make.size.equalTo(CGSize(width: 60, height: 25))
         }
-    }
-
-    // MARK: fillWithdata
-    func fillWithData(viewModel: ZLUserInfoHeaderCellDataSourceAndDelegate) {
-        delegate = viewModel
-        delegate?.setUserInfoHeaderCallback { [weak self] in
-            self?.reloadData()
-        }
-        reloadData()
     }
 
     private func reloadData() {
@@ -252,6 +231,23 @@ class ZLUserInfoHeaderCell: UITableViewCell {
     }()
 
 }
+
+
+extension ZLUserInfoHeaderCell: ZLViewUpdatableWithViewData {
+    // MARK: fillWithdata
+    func fillWithViewData(viewData: ZLUserInfoHeaderCellDataSourceAndDelegate){
+        delegate = viewData
+        delegate?.setUserInfoHeaderCallback { [weak self] in
+            self?.reloadData()
+        }
+        reloadData()
+    }
+    
+    func justUpdateView() {
+        
+    }
+}
+
 
 extension ZLUserInfoHeaderCell {
 

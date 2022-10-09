@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import ZLBaseUI
+import ZLUIUtilities
+import ZLBaseExtension
 
 protocol ZLIssueProjectCellDataSourceAndDeledate {
     
@@ -96,9 +99,12 @@ extension ZLIssueProjectCell {
     }
 }
 
-extension ZLIssueProjectCell: ViewUpdatable {
+extension ZLIssueProjectCell: ZLViewUpdatableWithViewData {
+    func justUpdateView() {
+        
+    }
     
-    func fillWithData(viewData: ZLIssueProjectCellDataSourceAndDeledate) {
+    func fillWithViewData(viewData: ZLIssueProjectCellDataSourceAndDeledate) {
         
         projectTitleLabel.text = viewData.projectTitle
         projectColumnLabel.text = viewData.projectColumnTitle

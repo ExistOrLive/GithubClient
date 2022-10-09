@@ -146,15 +146,9 @@ extension ZLUIRouter {
         self.getVC(key: UserOrOrgInfoController, params: ["loginName": loginName])
     }
 
-    static func getRepoInfoViewController(_ repoInfo: ZLGithubRepositoryModel) -> UIViewController? {
-        let params = ["repoInfoModel": repoInfo]
-        return self.getVC(key: RepoInfoController, params: params)
-    }
-
     static func getRepoInfoViewController(repoFullName: String) -> UIViewController? {
-        let repoModel = ZLGithubRepositoryModel()
-        repoModel.full_name = repoFullName
-        return  self.getRepoInfoViewController(repoModel)
+        let params = ["fullName": repoFullName]
+        return self.getVC(key: RepoInfoController, params: params)
     }
 
 }
@@ -240,9 +234,8 @@ extension ZLUIRouter {
                 
             } else if pathComponents.count == 3 {
                 
-                let repoModel = ZLGithubRepositoryModel()
-                repoModel.full_name = "\(pathComponents[1])/\(pathComponents[2])"
-                self.navigateVC(key: RepoInfoController, params: ["repoInfoModel": repoModel], animated: animated)
+                let repoFullName = "\(pathComponents[1])/\(pathComponents[2])"
+                self.navigateVC(key: RepoInfoController, params: ["fullName": repoFullName], animated: animated)
                 return
                 
             } else if pathComponents.count == 5 && pathComponents[3] == "pull" {

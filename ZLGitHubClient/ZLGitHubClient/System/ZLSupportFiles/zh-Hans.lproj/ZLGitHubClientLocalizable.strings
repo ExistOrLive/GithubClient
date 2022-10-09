@@ -23,7 +23,7 @@
 "about" = "关于";
 "feedback" = "反馈";
 "submit" = "提交";
-"lastest update" = "最近动态";
+"latest update" = "最近动态";
 "all update" = "查看全部动态";
 "login" = "登录";
 "logout" = "注销";
@@ -125,6 +125,9 @@
 
 // explore
 "Lang." = "语言";
+"Spoken Language: " = "交流语言：";
+"Date Range: " = "时间范围：";
+"Language: " = "开发语言：";
 
 // login
 "ZLLoginStep_checkIsLogined" = "检查登录状态...";
@@ -234,3 +237,5 @@
 
 "Save_Success" = "保存成功";
 "Save_Fail" = "保存失败";
+
+"Discussions" = "讨论";

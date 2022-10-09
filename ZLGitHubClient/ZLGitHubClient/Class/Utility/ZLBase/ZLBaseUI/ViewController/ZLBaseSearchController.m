@@ -7,6 +7,7 @@
 //
 
 #import "ZLBaseSearchController.h"
+#import "ZLBaseExtension/UIView+HJViewStyle.h"
 
 @interface ZLBaseSearchBar() <UITextFieldDelegate>
 

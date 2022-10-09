@@ -8,140 +8,172 @@
 
 import UIKit
 import JXSegmentedView
+import ZLUIUtilities
+import ZLBaseUI
 import ZLBaseExtension
 
-@objc protocol ZLExploreBaseViewDelegate: ZLGithubItemListViewDelegate {
+@objc protocol ZLExploreBaseViewDelegate {
 
     func exploreTypeTitles() -> [String]
-
-    func onSearchButtonClicked()
-
-    func onLanguageButtonClicked()
-
-    func onDateRangeButtonClicked()
-
+    
+    func segmentedListContainerViewListDelegate() -> [JXSegmentedListContainerViewListDelegate]
+    
     func onSegmentViewSelectedIndex(segmentView: JXSegmentedView, index: Int)
+    
+    func onSearchButtonClicked()
 }
 
 @objcMembers class ZLExploreBaseView: UIView {
-
-    @IBOutlet weak var trendingLabel: UILabel!
-    @IBOutlet weak var searchButton: UIButton!
-    @IBOutlet weak var languageButton: UIButton!
-    @IBOutlet weak var dateRangeButton: UIButton!
-    @IBOutlet weak var headerView: UIView!
-    @IBOutlet weak var segmentedView: JXSegmentedView!
-    @IBOutlet weak var languageLabel: UILabel!
-    var segmentedListContainerView: JXSegmentedListContainerView?
-    var githubItemListViewArray: [ZLGithubItemListView] = []
-    var segmentedViewDatasource: JXSegmentedTitleDataSource = JXSegmentedTitleDataSource()
-
+    
     weak var delegate: ZLExploreBaseViewDelegate? {
         didSet {
-            self.githubItemListViewArray.removeAll()
-            var titles: [String] = []
-            if self.delegate?.responds(to: #selector(ZLExploreBaseViewDelegate.exploreTypeTitles)) ?? false {
-                titles = self.delegate?.exploreTypeTitles() ?? []
-            }
-            self.segmentedViewDatasource.titles = titles
-            self.githubItemListViewArray.removeAll()
-            for i in 0..<titles.count {
-                let listView = ZLGithubItemListView.init()
-                listView.setTableViewHeader()
-                listView.tag = i
-                listView.delegate = self
-                self.githubItemListViewArray.append(listView)
-            }
-            self.segmentedView.reloadData()
-        }
-    }
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-
-        self.segmentedView.delegate = self
-
-        self.segmentedViewDatasource.titles = []
-        self.segmentedViewDatasource.itemWidthIncrement = 10
-        self.segmentedViewDatasource.titleNormalColor = UIColor.init(named: "ZLLabelColor2") ?? ZLRGBValue_H(colorValue: 0x999999)
-        self.segmentedViewDatasource.titleSelectedColor = UIColor.init(named: "ZLLabelColor1") ?? UIColor.black
-        self.segmentedViewDatasource.titleNormalFont =  UIFont.init(name: Font_PingFangSCRegular, size: 14.0) ?? UIFont.systemFont(ofSize: 15)
-        self.segmentedViewDatasource.titleSelectedFont = UIFont.init(name: Font_PingFangSCSemiBold, size: 16.0)
-
-        self.segmentedView.dataSource = self.segmentedViewDatasource
-
-        let indicator = JXSegmentedIndicatorLineView()
-        indicator.indicatorColor = UIColor.init(named: "ZLExploreUnderlineColor") ?? UIColor.black
-        indicator.indicatorHeight = 1.0
-        self.segmentedView.indicators = [indicator]
-
-        self.segmentedListContainerView = JXSegmentedListContainerView.init(dataSource: self, type: .scrollView)
-        self.addSubview(self.segmentedListContainerView!)
-        self.segmentedListContainerView?.snp.makeConstraints { (make) in
-            make.left.right.equalToSuperview()
-            make.bottom.equalTo(self.snp.bottom)
-            make.top.equalTo(self.headerView.snp_bottom)
-        }
-        self.segmentedView.listContainer = self.segmentedListContainerView
-
-        self.justReloadView()
-    }
-
-    func justReloadView() {
-        self.searchButton.setTitle(ZLLocalizedString(string: "Search", comment: "搜索"), for: .normal)
-        self.trendingLabel.text = ZLLocalizedString(string: "trending", comment: "趋势")
-        self.languageButton.setTitle(ZLLocalizedString(string: "Lang.", comment: ""), for: .normal)
-
-        if self.delegate?.responds(to: #selector(ZLExploreBaseViewDelegate.exploreTypeTitles)) ?? false {
             let titles: [String] = self.delegate?.exploreTypeTitles() ?? []
             self.segmentedViewDatasource.titles = titles
             self.segmentedView.reloadData()
         }
-
-        for githubItemListView in self.githubItemListViewArray {
-            githubItemListView.justRefresh()
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupUI()
+        configSegmentView()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    func setupUI() {
+        
+        addSubview(headerView)
+        headerView.addSubview(trendingLabel)
+        headerView.addSubview(segmentedView)
+        headerView.addSubview(searchButton)
+        
+        addSubview(segmentedListContainerView)
+        
+        headerView.snp.makeConstraints { make in
+            make.top.left.right.equalToSuperview()
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.top).offset(60)
         }
+        
+        segmentedView.snp.makeConstraints { make in
+            make.width.equalTo(200)
+            make.height.equalTo(35)
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(headerView.snp.bottom).offset(-10)
+        }
+        
+        trendingLabel.snp.makeConstraints { make in
+            make.size.equalTo(30)
+            make.left.equalTo(20)
+            make.centerY.equalTo(segmentedView)
+        }
+        
+        searchButton.snp.makeConstraints { make in
+            make.right.equalTo(-20)
+            make.size.equalTo(30)
+            make.centerY.equalTo(segmentedView)
+        }
+        searchButton.addTarget(self, action: #selector(onSearchButtonClicked(_ :)), for: .touchUpInside)
+        
+        segmentedListContainerView.snp.makeConstraints { (make) in
+            make.left.right.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.top.equalTo(self.headerView.snp_bottom)
+        }
+        
+    }
+    
+    
+    func configSegmentView() {
+        
+        self.segmentedView.delegate = self
+        self.segmentedView.dataSource = self.segmentedViewDatasource
+        self.segmentedView.indicators = [indicator]
+        self.segmentedView.listContainer = self.segmentedListContainerView
+
+        self.justReloadView()
+    }
+    
+    func justReloadView() {
+        let titles: [String] = self.delegate?.exploreTypeTitles() ?? []
+        self.segmentedViewDatasource.titles = titles
+        self.segmentedView.reloadData()
     }
 
-    @IBAction func onLanguageButtonClicked(_ sender: Any) {
-        if self.delegate?.responds(to: #selector(ZLExploreBaseViewDelegate.onLanguageButtonClicked)) ?? false {
-            self.delegate?.onLanguageButtonClicked()
-        }
+    func onSearchButtonClicked(_ sender: Any) {
+        self.delegate?.onSearchButtonClicked()
     }
-
-    @IBAction func onDateRangeButtonClicked(_ sender: Any) {
-        if self.delegate?.responds(to: #selector(ZLExploreBaseViewDelegate.onDateRangeButtonClicked)) ?? false {
-            self.delegate?.onDateRangeButtonClicked()
-        }
-    }
-
-    @IBAction func onSearchButtonClicked(_ sender: Any) {
-        if self.delegate?.responds(to: #selector(ZLExploreBaseViewDelegate.onSearchButtonClicked)) ?? false {
-            self.delegate?.onSearchButtonClicked()
-        }
-    }
-
+    
+    
+    // MARK: Lazy View
+    lazy var headerView: UIView = {
+       let view = UIView()
+        view.backgroundColor = UIColor(named:"ZLNavigationBarBackColor")
+        return view
+    }()
+    
+    lazy var trendingLabel: UILabel = {
+       let label = UILabel()
+        label.font = UIFont.zlIconFont(withSize: 25)
+        label.text = ZLIconFont.Trending.rawValue
+        label.textColor = UIColor(named:"ZLLabelColor1")
+        return label
+    }()
+    
+    lazy var searchButton: UIButton = {
+       let button = UIButton()
+        button.setTitle(ZLIconFont.Search.rawValue, for: .normal)
+        button.titleLabel?.font = UIFont.zlIconFont(withSize: 25)
+        button.setTitleColor(UIColor(named:"ZLLabelColor1"), for: .normal)
+        return button
+    }()
+    
+    lazy var segmentedListContainerView: JXSegmentedListContainerView = {
+        JXSegmentedListContainerView(dataSource: self, type: .scrollView)
+    }()
+    
+    lazy var segmentedViewDatasource: JXSegmentedTitleDataSource = {
+    
+        let dataSource = JXSegmentedTitleDataSource()
+        
+        dataSource.titles = []
+        dataSource.titleNormalColor = UIColor.label(withName: "ZLLabelColor2")
+        dataSource.titleSelectedColor = UIColor.label(withName: "ZLLabelColor1")
+        dataSource.titleNormalFont = UIFont.zlRegularFont(withSize: 14.0)
+        dataSource.titleSelectedFont = UIFont.zlSemiBoldFont(withSize: 16.0)
+        dataSource.itemWidth = 100
+        dataSource.itemSpacing = 0
+        
+        return dataSource 
+    }()
+    
+    lazy var indicator: JXSegmentedIndicatorBackgroundView = {
+        let indicator = JXSegmentedIndicatorBackgroundView()
+        indicator.indicatorColor = UIColor.init(named: "SegmentedViewBackIndicator") ?? UIColor.gray
+        indicator.indicatorHeight = 31.0
+        indicator.indicatorWidthIncrement = 0
+        indicator.indicatorWidth = 96.0
+        indicator.indicatorCornerRadius = 8.0
+        return indicator
+    }()
+    
+    lazy var segmentedView: JXSegmentedView = {
+        let segmentedView = JXSegmentedView()
+        segmentedView.backgroundColor = UIColor(named:"SegmentedViewBack")
+        segmentedView.cornerRadius = 8.0
+        return segmentedView
+    }()
+    
 }
 
-extension ZLExploreBaseView: ZLGithubItemListViewDelegate {
-
-    func githubItemListViewRefreshDragDown(pullRequestListView: ZLGithubItemListView) {
-        if self.delegate?.responds(to: #selector(ZLExploreBaseViewDelegate.githubItemListViewRefreshDragDown(pullRequestListView:))) ?? false {
-            self.delegate?.githubItemListViewRefreshDragDown(pullRequestListView: pullRequestListView)
-        }
-    }
-
-    func githubItemListViewRefreshDragUp(pullRequestListView: ZLGithubItemListView) {
-
-    }
-}
-
+// MARK: JXSegmentedViewDelegate
 extension ZLExploreBaseView: JXSegmentedViewDelegate {
 
     func segmentedView(_ segmentedView: JXSegmentedView, didSelectedItemAt index: Int) {
-        if self.delegate?.responds(to: #selector(ZLExploreBaseViewDelegate.onSegmentViewSelectedIndex(segmentView:index:))) ?? false {
-            self.delegate?.onSegmentViewSelectedIndex(segmentView: segmentedView, index: index)
-        }
+        self.delegate?.onSegmentViewSelectedIndex(segmentView: segmentedView, index: index)
     }
 
     func segmentedView(_ segmentedView: JXSegmentedView, didClickSelectedItemAt index: Int) {
@@ -161,24 +193,29 @@ extension ZLExploreBaseView: JXSegmentedViewDelegate {
     }
 }
 
+// MARK: JXSegmentedListContainerViewDataSource
 extension ZLExploreBaseView: JXSegmentedListContainerViewDataSource {
 
     /// 返回list的数量
     func numberOfLists(in listContainerView: JXSegmentedListContainerView) -> Int {
-        if self.delegate?.responds(to: #selector(ZLExploreBaseViewDelegate.exploreTypeTitles)) ?? false {
-            return self.delegate?.exploreTypeTitles().count ?? 0
-        } else {
-            return 0
-        }
+        return self.delegate?.exploreTypeTitles().count ?? 0
     }
 
     func listContainerView(_ listContainerView: JXSegmentedListContainerView, initListAt index: Int) -> JXSegmentedListContainerViewListDelegate {
-        return self.githubItemListViewArray[index]
+        return self.delegate?.segmentedListContainerViewListDelegate()[index] ?? ZLExploreChildListController(type: .repo, superVC: nil)
     }
 }
 
-extension ZLGithubItemListView: JXSegmentedListContainerViewListDelegate {
-    func listView() -> UIView {
-        return self
+// MARK: ZLViewUpdatableWithViewData
+extension ZLExploreBaseView: ZLViewUpdatableWithViewData {
+    
+    func fillWithViewData(viewData: ZLExploreBaseViewDelegate) {
+        self.delegate = viewData
+    }
+    
+    func justUpdateView() {
+        
     }
 }
+
+

@@ -60,7 +60,8 @@ class ZLWorkboardBaseViewModel: ZLBaseViewModel, ZLWorkboardBaseViewDelegate {
                               ZLWorkboardTableViewCellData(type: .orgs),
                               ZLWorkboardTableViewCellData(type: .repos),
                               ZLWorkboardTableViewCellData(type: .starRepos),
-                              ZLWorkboardTableViewCellData(type: .events)]
+                              ZLWorkboardTableViewCellData(type: .events),
+                              ZLWorkboardTableViewCellData(type: .discussions)]
         for cellData in cellDataArray1 {
             self.addSubViewModel(cellData)
         }

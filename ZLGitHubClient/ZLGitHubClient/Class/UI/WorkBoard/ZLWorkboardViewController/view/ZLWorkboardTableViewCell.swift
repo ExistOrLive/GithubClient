@@ -15,6 +15,7 @@ enum ZLWorkboardType {
     case orgs
     case starRepos
     case events
+    case discussions
     case fixRepo
 }
 

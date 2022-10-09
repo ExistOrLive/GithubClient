@@ -7,14 +7,19 @@
 //
 
 import UIKit
+import ZLBaseUI
+import ZLUIUtilities
+import ZLBaseExtension
 
-protocol ZLCommonTableViewCellDataSourceAndDelegate: ZLGithubItemTableViewCellDataProtocol {
+protocol ZLCommonTableViewCellDataSourceAndDelegate {
 
     var canClick: Bool { get }
 
     var title: String { get }
 
     var info: String { get }
+    
+    var showSeparateLine: Bool { get }
 
 }
 
@@ -34,32 +39,41 @@ class ZLCommonTableViewCell: UITableViewCell {
         contentView.backgroundColor = UIColor(named: "ZLCellBack")
 
         contentView.addSubview(titleLabel)
-        contentView.addSubview(subLabel)
+        contentView.addSubview(scrollView)
+        scrollView.addSubview(subLabel)
         contentView.addSubview(nextLabel)
+        contentView.addSubview(separateLine)
 
         titleLabel.snp.makeConstraints { make in
             make.left.equalTo(20)
-            make.centerY.equalToSuperview()
+            make.width.lessThanOrEqualTo(100)
+            make.height.equalToSuperview()
         }
 
-        subLabel.snp.makeConstraints { make in
+        scrollView.snp.makeConstraints { make in
             make.right.equalTo(-50)
             make.centerY.equalToSuperview()
+            make.left.greaterThanOrEqualTo(120)
+            make.height.equalToSuperview()
+        }
+        
+        subLabel.snp.makeConstraints { make in
+            make.edges.equalTo(scrollView.contentLayoutGuide)
+            make.height.equalTo(scrollView)
+            make.width.equalTo(scrollView).priority(.low)
         }
 
         nextLabel.snp.makeConstraints { make in
             make.right.equalTo(-20)
-            make.centerY.equalToSuperview()
+            make.height.equalToSuperview()
         }
 
-    }
-
-    // MARK: fillWithData
-    func fillWithData(viewData: ZLCommonTableViewCellDataSourceAndDelegate) {
-        selectionStyle = viewData.canClick ? .gray : .none
-        titleLabel.text = viewData.title
-        subLabel.text = viewData.info
-        nextLabel.isHidden = !viewData.canClick
+        separateLine.snp.makeConstraints { make in
+            make.left.equalTo(20)
+            make.right.equalTo(0)
+            make.bottom.equalTo(0)
+            make.height.equalTo(1.0/UIScreen.main.scale)
+        }
     }
 
     // MARK: View
@@ -68,6 +82,16 @@ class ZLCommonTableViewCell: UITableViewCell {
         label.font = .zlMediumFont(withSize: 16)
         label.textColor = UIColor(named: "ZLLabelColor1")
         return label
+    }()
+    
+    lazy var scrollView: UIScrollView = {
+       let scrollView = UIScrollView()
+        scrollView.backgroundColor = .clear
+        scrollView.bounces = false
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.isUserInteractionEnabled = false
+        return scrollView
     }()
 
     lazy var subLabel: UILabel = {
@@ -84,4 +108,28 @@ class ZLCommonTableViewCell: UITableViewCell {
         label.text = ZLIconFont.NextArrow.rawValue
         return label
     }()
+    
+    lazy var separateLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(named: "ZLSeperatorLineColor")
+        view.isHidden = true
+        return view
+    }()
+}
+
+
+extension ZLCommonTableViewCell: ZLViewUpdatableWithViewData {
+    // MARK: fillWithData
+    func fillWithViewData(viewData: ZLCommonTableViewCellDataSourceAndDelegate) {
+        selectionStyle = viewData.canClick ? .gray : .none
+        titleLabel.text = viewData.title
+        subLabel.text = viewData.info
+        nextLabel.isHidden = !viewData.canClick
+        scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+        separateLine.isHidden = !viewData.showSeparateLine
+    }
+    
+    func justUpdateView() {
+        
+    }
 }

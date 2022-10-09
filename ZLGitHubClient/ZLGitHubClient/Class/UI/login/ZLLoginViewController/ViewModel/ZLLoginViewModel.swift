@@ -9,6 +9,7 @@
 import UIKit
 import ZLGithubOAuth
 import ZLGitRemoteService
+import ZLUIUtilities
 
 enum ZLLoginStep {
     case initialize

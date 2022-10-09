@@ -8,6 +8,7 @@
 
 import UIKit
 import WebKit
+import ZLUIUtilities
 
 class ZLRepoCodePreview2Controller: ZLBaseViewController {
 

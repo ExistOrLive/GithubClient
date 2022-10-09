@@ -240,6 +240,13 @@ PODS:
     - SYDCentralPivot
     - Umbrella
     - Umbrella/Firebase
+  - ZLUIUtilities (0.1.0):
+    - MBProgressHUD
+    - MJRefresh
+    - SnapKit
+    - Toast
+    - ZLBaseExtension
+    - ZLBaseUI
 
 DEPENDENCIES:
   - Charts
@@ -274,9 +281,10 @@ DEPENDENCIES:
   - WoodPeckeriOS
   - YYText
   - ZLBaseExtension (from `https://github.com/ExistOrLive/ZLBaseExtension.git`, tag `1.2.0`)
-  - ZLBaseUI (from `https://github.com/ExistOrLive/ZLBaseUI.git`, tag `1.2.1`)
+  - ZLBaseUI (from `https://github.com/ExistOrLive/ZLBaseUI.git`)
   - ZLGithubOAuth (from `https://github.com/ExistOrLive/ZLGithubOAuth.git`, tag `1.2.0`)
-  - ZLGitRemoteService (from `https://github.com/ExistOrLive/ZLGitRemoteService.git`, tag `1.2.1`)
+  - ZLGitRemoteService (from `https://github.com/ExistOrLive/ZLGitRemoteService.git`)
+  - ZLUIUtilities (from `https://github.com/ExistOrLive/ZLUIUtilities.git`)
 
 SPEC REPOS:
   trunk:
@@ -335,27 +343,30 @@ EXTERNAL SOURCES:
     :tag: 1.2.0
   ZLBaseUI:
     :git: https://github.com/ExistOrLive/ZLBaseUI.git
-    :tag: 1.2.1
   ZLGithubOAuth:
     :git: https://github.com/ExistOrLive/ZLGithubOAuth.git
     :tag: 1.2.0
   ZLGitRemoteService:
     :git: https://github.com/ExistOrLive/ZLGitRemoteService.git
-    :tag: 1.2.1
+  ZLUIUtilities:
+    :git: https://github.com/ExistOrLive/ZLUIUtilities.git
 
 CHECKOUT OPTIONS:
   ZLBaseExtension:
     :git: https://github.com/ExistOrLive/ZLBaseExtension.git
     :tag: 1.2.0
   ZLBaseUI:
+    :commit: 60e7e064882fdfe446f75f045262314809d726e6
     :git: https://github.com/ExistOrLive/ZLBaseUI.git
-    :tag: 1.2.1
   ZLGithubOAuth:
     :git: https://github.com/ExistOrLive/ZLGithubOAuth.git
     :tag: 1.2.0
   ZLGitRemoteService:
+    :commit: a304049f369d9fe7a9701abf834ea794dbe6ff6d
     :git: https://github.com/ExistOrLive/ZLGitRemoteService.git
-    :tag: 1.2.1
+  ZLUIUtilities:
+    :commit: 3fa0671df2f040a9bf00a56f27bf209f46b18ea1
+    :git: https://github.com/ExistOrLive/ZLUIUtilities.git
 
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
@@ -410,7 +421,8 @@ SPEC CHECKSUMS:
   ZLBaseUI: 2815898555602f9bebb23ca0277ff5352d2a2952
   ZLGithubOAuth: 2d9879eac1d41d45206e6e92463afae2537ec44d
   ZLGitRemoteService: c57964a471dd83f634c10d323c42fe9800b199db
+  ZLUIUtilities: 58cc312400e93051b01ab73e77998865ee43f53a
 
-PODFILE CHECKSUM: 8676863089e6111f26aea8b2a1eb1426a9dcaa60
+PODFILE CHECKSUM: eb76ee8a9b0cda27a96b37f47ffde9712e1c6d52
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3
