@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ZLGitRemoteService
 
 class ZLSearchItemTableViewCellData: ZLGithubItemTableViewCellData {
 

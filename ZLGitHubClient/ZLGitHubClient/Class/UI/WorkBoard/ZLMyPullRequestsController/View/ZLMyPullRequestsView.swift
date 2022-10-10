@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ZLGitRemoteService
 
 protocol ZLMyPullRequestsViewDelegate: NSObjectProtocol {
     func onFilterTypeChange(type: ZLPRFilterType)

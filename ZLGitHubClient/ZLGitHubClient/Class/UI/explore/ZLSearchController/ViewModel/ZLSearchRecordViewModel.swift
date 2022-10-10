@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import ZLGitRemoteService
+import ZLBaseUI
 
 class ZLSearchRecordViewModel: ZLBaseViewModel {
 

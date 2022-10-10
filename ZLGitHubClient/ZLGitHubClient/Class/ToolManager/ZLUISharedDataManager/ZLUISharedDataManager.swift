@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseRemoteConfig
+import ZLGitRemoteService
 
 private let ZLCurrentUserInterfaceStyleKey = "ZLCurrentUserInterfaceStyleKey"
 private let ZLAssistButtonKey = "ZLAssistButtonKey"

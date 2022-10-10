@@ -9,6 +9,7 @@
 import UIKit
 import YYText
 import ZLBaseExtension
+import ZLGitRemoteService
 
 @objc protocol ZLPullRequestTableViewCellDelegate: NSObjectProtocol {
 

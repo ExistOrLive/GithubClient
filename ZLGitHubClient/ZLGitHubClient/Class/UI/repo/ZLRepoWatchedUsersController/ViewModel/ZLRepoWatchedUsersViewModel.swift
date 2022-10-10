@@ -8,6 +8,7 @@
 
 import UIKit
 import ZLUIUtilities
+import ZLGitRemoteService
 
 class ZLRepoWatchedUsersViewModel: ZLBaseViewModel {
 

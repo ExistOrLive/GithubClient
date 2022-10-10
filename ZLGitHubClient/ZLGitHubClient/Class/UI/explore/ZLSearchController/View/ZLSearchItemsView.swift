@@ -9,6 +9,7 @@
 import UIKit
 import JXSegmentedView
 import ZLBaseExtension
+import ZLGitRemoteService
 
 @objc protocol ZLSearchItemsViewDelegate: NSObjectProtocol {
     func onFilterButtonClicked(button: UIButton)

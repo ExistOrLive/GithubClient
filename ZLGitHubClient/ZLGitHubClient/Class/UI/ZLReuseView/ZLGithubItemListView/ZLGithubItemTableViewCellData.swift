@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import ZLBaseUI
+import ZLGitRemoteService
 
 @objc protocol ZLGithubItemTableViewCellDataProtocol: NSObjectProtocol {
     func getCellReuseIdentifier() -> String

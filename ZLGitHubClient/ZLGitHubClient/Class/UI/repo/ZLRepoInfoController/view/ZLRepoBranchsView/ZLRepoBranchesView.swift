@@ -11,6 +11,7 @@ import FFPopup
 import ZLUIUtilities
 import ZLBaseUI
 import ZLBaseExtension
+import ZLGitRemoteService
 
 class ZLRepoBranchesView: ZLBaseView {
 
