@@ -30,6 +30,8 @@ class ZLSearchViewModel: ZLBaseViewModel {
 
         self.searchView = targetView
         self.searchView?.searchTextField.delegate = self
+        self.searchView?.cancelButton.addTarget(self, action: #selector(onCancelButtonClicked), for: .touchUpInside)
+        self.searchView?.backButton.addTarget(self, action: #selector(onBackButtonClicked), for: .touchUpInside)
 
         if let searchItemsView = self.searchView?.searchItemsView {
             let searchItemsViewModel = ZLSearchItemsViewModel.init()
@@ -60,31 +62,14 @@ class ZLSearchViewModel: ZLBaseViewModel {
 
     }
 
-    override func getEvent(_ event: Any?, fromSubViewModel subViewModel: ZLBaseViewModel) {
-
-        guard let eventType: ZLSearchViewEventType = event as? ZLSearchViewEventType else {
-            ZLLog_Warn("event is not valid")
-            return
-        }
-
-        switch eventType {
-        case .filterButtonClicked:
-            do {
-
-            }
-        }
-    }
-
-    @IBAction func onBackButtonClicked(_ sender: Any) {
+    @objc func onBackButtonClicked() {
         self.viewController?.navigationController?.popViewController(animated: true)
     }
 
-    @IBAction func onCancelButtonClicked(_ sender: Any) {
-
+    @objc func onCancelButtonClicked() {
         self.searchView?.searchTextField.text = self.preSearchKeyWord
         self.searchView?.searchTextField.resignFirstResponder()
         self.searchView?.setUnEditStatus()
-
     }
 
 }
