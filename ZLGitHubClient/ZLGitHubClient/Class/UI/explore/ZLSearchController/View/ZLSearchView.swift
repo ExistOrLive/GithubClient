@@ -31,7 +31,7 @@ class ZLSearchView: ZLBaseView {
         contentView.addSubview(searchRecordView)
                 
         topBackView.snp.makeConstraints { make in
-            make.top.equalTo(self.safeAreaLayoutGuide.snp.top)
+            make.top.equalToSuperview()
             make.left.right.equalToSuperview()
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.top).offset(ZLBaseUIConfig.sharedInstance().navigationBarHeight)
         }
