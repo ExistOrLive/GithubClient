@@ -9,6 +9,7 @@
 import UIKit
 import JXSegmentedView
 import ZLBaseExtension
+import ZLGitRemoteService
 
 @objc protocol ZLSearchItemsViewDelegate: NSObjectProtocol {
     func onFilterButtonClicked(button: UIButton)
@@ -16,88 +17,138 @@ import ZLBaseExtension
     func onSearchTypeChanged(searchType: ZLSearchType)
 }
 
+
+extension ZLSearchType {
+    var searchTypeTitle: String {
+        switch self {
+        case .repositories:do {
+            return ZLLocalizedString(string: "repositories", comment: "")
+        }
+        case .users:do {
+            return ZLLocalizedString(string: "users", comment: "")
+        }
+        case .organizations:do {
+            return ZLLocalizedString(string: "organizations", comment: "")
+        }
+        case .issues:do {
+            return ZLLocalizedString(string: "issues", comment: "")
+        }
+        case .pullRequests:do {
+            return ZLLocalizedString(string: "pull requests", comment: "")
+        }
+        @unknown default:
+            return ""
+        }
+    }
+}
+
 class ZLSearchItemsView: ZLBaseView {
 
     static let ZLSearchItemsTypes: [ZLSearchType] = [.repositories, .users, .organizations, .issues, .pullRequests]
 
     weak var delegate: ZLSearchItemsViewDelegate?
-
-    @IBOutlet weak var filterButton: UIButton!
-    @IBOutlet weak var containerView: UIView!
-
-    @IBOutlet weak var segmentedView: JXSegmentedView!
-    var segmentedViewDatasource: JXSegmentedTitleDataSource = JXSegmentedTitleDataSource()
-    var segmentedListContainerView: JXSegmentedListContainerView?
-    var githubItemListViewArray: [ZLGithubItemListView] = []
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-
-        self.filterButton.setTitleColor(UIColor(named: "ICON_Common"), for: .normal)
-        self.filterButton.setTitle(ZLIconFont.Filter.rawValue, for: .normal)
-        self.filterButton.titleLabel?.font = .zlIconFont(withSize: 18)
-
-        self.segmentedView.delegate = self
-        self.segmentedView.collectionView.bounces = false
-
-        var titles: [String] = []
-        for searchType in ZLSearchItemsView.ZLSearchItemsTypes {
-            self.githubItemListViewArray.append(ZLGithubItemListView())
-            switch searchType {
-            case .repositories:do {
-                titles.append(ZLLocalizedString(string: "repositories", comment: ""))
-            }
-            case .users:do {
-                titles.append(ZLLocalizedString(string: "users", comment: ""))
-            }
-            case .organizations:do {
-                titles.append(ZLLocalizedString(string: "organizations", comment: ""))
-            }
-            case .issues:do {
-                titles.append(ZLLocalizedString(string: "issues", comment: ""))
-                }
-            case .pullRequests:do {
-                titles.append(ZLLocalizedString(string: "pull requests", comment: ""))
-                }
-            @unknown default:
-                break
-            }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setupUI() {
+        backgroundColor = .clear
+        addSubview(topBackView)
+        topBackView.addSubview(segmentedView)
+        topBackView.addSubview(filterButton)
+        addSubview(segmentedListContainerView)
+        
+        topBackView.snp.makeConstraints { make in
+            make.top.left.right.equalToSuperview()
+            make.height.equalTo(60)
         }
-
-        self.segmentedViewDatasource.titles = titles
-        self.segmentedViewDatasource.itemWidthIncrement = 10
-        self.segmentedViewDatasource.titleNormalColor = UIColor.init(named: "ZLLabelColor2") ?? ZLRGBValue_H(colorValue: 0x999999)
-        self.segmentedViewDatasource.titleSelectedColor = UIColor.init(named: "ZLLabelColor1") ?? UIColor.black
-        self.segmentedViewDatasource.titleNormalFont =  UIFont.init(name: Font_PingFangSCRegular, size: 14.0) ?? UIFont.systemFont(ofSize: 15)
-        self.segmentedViewDatasource.titleSelectedFont = UIFont.init(name: Font_PingFangSCSemiBold, size: 16.0)
-
-        self.segmentedView.dataSource = self.segmentedViewDatasource
-
-        let indicator = JXSegmentedIndicatorLineView()
-        indicator.indicatorColor =  UIColor.init(named: "ZLExploreUnderlineColor") ?? UIColor.black
-
-        indicator.indicatorHeight = 1.0
-        self.segmentedView.indicators = [indicator]
-
-        self.segmentedListContainerView = JXSegmentedListContainerView.init(dataSource: self, type: .scrollView)
-        self.containerView.addSubview(self.segmentedListContainerView!)
-        self.segmentedListContainerView!.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
+        segmentedView.snp.makeConstraints { make in
+            make.height.equalTo(40)
+            make.centerY.equalToSuperview()
+            make.left.equalToSuperview()
         }
-        self.segmentedView.listContainer = self.segmentedListContainerView
-
+        filterButton.snp.makeConstraints { make in
+            make.width.equalTo(50)
+            make.top.right.bottom.equalToSuperview()
+            make.left.equalTo(segmentedView.snp.right).offset(10)
+        }
+        segmentedListContainerView.snp.makeConstraints { make in
+            make.left.right.bottom.equalToSuperview()
+            make.top.equalTo(topBackView.snp.bottom)
+        }
     }
 
-    @IBAction func onFilterViewClicked(_ sender: Any) {
-
+    @objc func onFilterViewClicked(sender: Any) {
         if self.delegate?.responds(to: #selector(ZLSearchItemsViewDelegate.onFilterButtonClicked(button:))) ?? false {
             self.delegate?.onFilterButtonClicked(button: sender as! UIButton)
         }
-
     }
+    
+    // MARK: Lazy View
+    lazy var topBackView: UIView = {
+       let view = UIView()
+        view.backgroundColor = UIColor(named:"ZLCellBack")
+        return view
+    }()
+    
+    lazy var filterButton: UIButton = {
+        let button = UIButton()
+        button.setTitleColor(UIColor(named: "ICON_Common"), for: .normal)
+        button.setTitle(ZLIconFont.Filter.rawValue, for: .normal)
+        button.titleLabel?.font = .zlIconFont(withSize: 18)
+        button.addTarget(self, action: #selector(onFilterViewClicked(sender:)), for: .touchUpInside)
+        return button
+    }()
+    
+    lazy var segmentedView: JXSegmentedView = {
+        let segmentedView = JXSegmentedView()
+        segmentedView.delegate = self
+        segmentedView.dataSource = segmentedViewDatasource
+        segmentedView.indicators = [indicator]
+        segmentedView.listContainer = segmentedListContainerView
+        return segmentedView
+    }()
+    
+    lazy var indicator: JXSegmentedIndicatorLineView = {
+        let indicator = JXSegmentedIndicatorLineView()
+        indicator.indicatorColor =  UIColor.init(named: "ZLExploreUnderlineColor") ?? UIColor.black
+        indicator.indicatorHeight = 1.0
+        return indicator
+    }()
+
+    lazy var segmentedViewDatasource: JXSegmentedTitleDataSource = {
+        let datasource = JXSegmentedTitleDataSource()
+        datasource.titles = titles
+        datasource.itemWidthIncrement = 10
+        datasource.titleNormalColor = .label(withName: "ZLLabelColor2")
+        datasource.titleSelectedColor = .label(withName: "ZLLabelColor1")
+        datasource.titleNormalFont =  .zlRegularFont(withSize: 14)
+        datasource.titleSelectedFont = .zlSemiBoldFont(withSize: 16)
+        return datasource
+    }()
+    
+    lazy var titles: [String] = {
+        ZLSearchItemsView.ZLSearchItemsTypes.map { $0.searchTypeTitle }
+    }()
+    
+    lazy var segmentedListContainerView: JXSegmentedListContainerView = {
+        let containerView = JXSegmentedListContainerView(dataSource: self)
+        return containerView
+    }()
+    
+    lazy var githubItemListViewArray: [ZLGithubItemListView] = {
+        ZLSearchItemsView.ZLSearchItemsTypes.map { _ in ZLGithubItemListView() }
+    }()
 
 }
 
+// MARK: - JXSegmentedViewDelegate
 extension ZLSearchItemsView: JXSegmentedViewDelegate {
 
     func segmentedView(_ segmentedView: JXSegmentedView, didSelectedItemAt index: Int) {
@@ -107,23 +158,12 @@ extension ZLSearchItemsView: JXSegmentedViewDelegate {
         }
     }
 
-    func segmentedView(_ segmentedView: JXSegmentedView, didClickSelectedItemAt index: Int) {
-
-    }
-
-    func segmentedView(_ segmentedView: JXSegmentedView, didScrollSelectedItemAt index: Int) {
-
-    }
-
-    func segmentedView(_ segmentedView: JXSegmentedView, scrollingFrom leftIndex: Int, to rightIndex: Int, percent: CGFloat) {
-
-    }
-
     func segmentedView(_ segmentedView: JXSegmentedView, canClickItemAt index: Int) -> Bool {
         return true
     }
 }
 
+// MARK: - JXSegmentedListContainerViewDataSource
 extension ZLSearchItemsView: JXSegmentedListContainerViewDataSource {
 
     /// 返回list的数量

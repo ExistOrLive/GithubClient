@@ -12,6 +12,7 @@ import ZLUIUtilities
 import ZLBaseExtension
 import UIKit
 import JXSegmentedView
+import ZLGitRemoteService
 
 enum ZLExploreChildListType: Int, CaseIterable {
     case repo = 0

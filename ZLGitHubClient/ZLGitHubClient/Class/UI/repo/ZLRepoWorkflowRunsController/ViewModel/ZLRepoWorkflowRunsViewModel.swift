@@ -10,6 +10,7 @@ import UIKit
 import ZLUIUtilities
 import ZLBaseUI
 import ZLBaseExtension
+import ZLGitRemoteService
 
 class ZLRepoWorkflowRunsViewModel: ZLBaseViewModel {
 

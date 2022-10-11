@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import ZLGitRemoteService
 
 extension ZLEventTableViewCellData {
     static func getCellDataWithEventModel(eventModel: ZLGithubEventModel) -> ZLEventTableViewCellData {

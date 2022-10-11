@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ZLGitRemoteService
 
 /**
  master_branch = "master";

@@ -10,6 +10,7 @@ import UIKit
 import ZLBaseUI
 import ZLUIUtilities
 import ZLBaseExtension
+import ZLGitRemoteService
 
 class ZLNewsViewModel: ZLBaseViewModel {
 

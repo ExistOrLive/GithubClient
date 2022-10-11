@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import ZLGitRemoteService
+import ZLBaseUI
 
 class ZLSearchRecordViewModel: ZLBaseViewModel {
 
@@ -94,10 +96,14 @@ extension ZLSearchRecordViewModel: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let record = self.tmpSearchRecordArray[indexPath.row]
-        guard  let tableViewCell: ZLSearchRecordTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLSearchRecordTableViewCell", for: indexPath) as? ZLSearchRecordTableViewCell else {
+        guard  let tableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLCommonTableViewCell", for: indexPath) as? ZLCommonTableViewCell else {
             return UITableViewCell.init(style: .default, reuseIdentifier: "")
         }
-        tableViewCell.recordLabel.text = record
+        tableViewCell.titleLabel.text = record
+        tableViewCell.titleLabel.font = .zlRegularFont(withSize: 13)
+        tableViewCell.titleLabel.textColor = UIColor(named: "ZLLabelColor3")
+        tableViewCell.nextLabel.isHidden = false
+        tableViewCell.separateLine.isHidden = false
         return tableViewCell
     }
 
@@ -105,5 +111,11 @@ extension ZLSearchRecordViewModel: UITableViewDataSource, UITableViewDelegate {
         let record = self.tmpSearchRecordArray[indexPath.row]
         self.resultBlock?(record)
     }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return CGFloat.leastNonzeroMagnitude
+    }
+    
+    
 
 }

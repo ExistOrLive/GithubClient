@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ZLGitRemoteService
 
 @objc protocol ZLPageTabViewControllerDelegate: NSObjectProtocol {
     @objc optional func didSelectViewAtIndex(index: Int, pageVC: ZLPageTabViewController)

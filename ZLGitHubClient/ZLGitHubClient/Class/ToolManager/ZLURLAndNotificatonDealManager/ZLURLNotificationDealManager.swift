@@ -8,6 +8,7 @@
 
 import UIKit
 import Foundation
+import ZLGitRemoteService
 
 @objc protocol ZLURLNotificationModuleProtocol: NSObjectProtocol {
      func addURLFromOtherAppOrWidget(url: URL)

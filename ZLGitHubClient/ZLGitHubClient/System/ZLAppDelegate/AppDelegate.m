@@ -17,7 +17,6 @@
 #import <UserNotifications/UserNotifications.h>
 #import <SYDCentralPivot/SYDCentralPivot.h>
 #import <ZLGitRemoteService/ZLGitRemoteService.h>
-#import <ZLGitRemoteService/ZLGitRemoteService-Swift.h>
 #import <Firebase/Firebase.h>
 #import <IQKeyboardManager/IQKeyboardManager.h>
 

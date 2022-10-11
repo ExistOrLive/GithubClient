@@ -8,6 +8,7 @@
 
 import UIKit
 import FFPopup
+import ZLGitRemoteService
 
 class ZLSearchFilterViewForUser: UIView {
 

@@ -10,6 +10,7 @@ import UIKit
 import FFPopup
 import ZLBaseExtension
 import ZLUIUtilities
+import ZLGitRemoteService
 
 class ZLLanguageSelectView: UIView {
 

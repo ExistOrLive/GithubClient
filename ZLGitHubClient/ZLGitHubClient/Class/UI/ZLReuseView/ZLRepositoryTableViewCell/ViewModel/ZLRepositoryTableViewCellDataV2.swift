@@ -10,6 +10,7 @@ import UIKit
 import ZLUIUtilities
 import ZLBaseUI
 import ZLBaseExtension
+import ZLGitRemoteService
 
 class ZLRepositoryTableViewCellDataV2: ZLTableViewBaseCellData {
 

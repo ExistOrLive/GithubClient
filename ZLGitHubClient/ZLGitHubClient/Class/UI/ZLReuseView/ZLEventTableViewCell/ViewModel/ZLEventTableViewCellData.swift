@@ -8,6 +8,7 @@
 
 import UIKit
 import ZLBaseExtension
+import ZLGitRemoteService
 
 class ZLEventTableViewCellData: ZLGithubItemTableViewCellData {
 

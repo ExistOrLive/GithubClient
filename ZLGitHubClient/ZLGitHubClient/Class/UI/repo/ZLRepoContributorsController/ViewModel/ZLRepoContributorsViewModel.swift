@@ -8,6 +8,8 @@
 
 import UIKit
 import ZLUIUtilities
+import ZLGitRemoteService
+import ZLBaseUI
 
 class ZLRepoContributorsViewModel: ZLBaseViewModel {
 

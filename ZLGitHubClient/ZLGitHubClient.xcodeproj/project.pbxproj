@@ -25,14 +25,9 @@
 		366DB84D241F4BC4002A0896 /* ZLRepoCommitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366DB84C241F4BC4002A0896 /* ZLRepoCommitViewModel.swift */; };
 		3693D8D12465236D00779FC4 /* ZLAboutContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3693D8CF2465236D00779FC4 /* ZLAboutContentView.swift */; };
 		3693D8D4246523A400779FC4 /* ZLAboutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3693D8D3246523A400779FC4 /* ZLAboutViewModel.swift */; };
-		413D64DB9C8C3F4634D1FCCC /* Pods_GithubClient_ZLGitHubClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90BFC8E04356478503620E94 /* Pods_GithubClient_ZLGitHubClient.framework */; };
-		5358B6A0DBC5021339019507 /* Pods_GithubClient_Fixed_RepoExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8BEEB21079EB71C2E3D48F3 /* Pods_GithubClient_Fixed_RepoExtension.framework */; };
+		53191A24298A8A32EB797570 /* libPods-GithubClient-Fixed RepoExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F5EC103FCDB3794BE775543 /* libPods-GithubClient-Fixed RepoExtension.a */; };
 		740318CB22F702B7004CE52D /* ZLSearchRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740318CA22F702B7004CE52D /* ZLSearchRecordView.swift */; };
-		740318CD22F702D1004CE52D /* ZLSearchRecordView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 740318CC22F702D1004CE52D /* ZLSearchRecordView.xib */; };
 		740318CF22F702E6004CE52D /* ZLSearchItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740318CE22F702E6004CE52D /* ZLSearchItemsView.swift */; };
-		740318D122F702FD004CE52D /* ZLSearchItemsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 740318D022F702FD004CE52D /* ZLSearchItemsView.xib */; };
-		740318D422F70867004CE52D /* ZLSearchTypeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740318D222F70867004CE52D /* ZLSearchTypeCollectionViewCell.swift */; };
-		740318D522F70867004CE52D /* ZLSearchTypeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 740318D322F70867004CE52D /* ZLSearchTypeCollectionViewCell.xib */; };
 		740C2F2B2830F9E300DAFF0E /* ZLExploreChildListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740C2F2A2830F9E300DAFF0E /* ZLExploreChildListController.swift */; };
 		740C2F362832A1E100DAFF0E /* ZLBaseCardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740C2F352832A1E100DAFF0E /* ZLBaseCardTableViewCell.swift */; };
 		740C2FBC2838D46400DAFF0E /* ZLStarRepoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740C2FBB2838D46400DAFF0E /* ZLStarRepoViewController.swift */; };
@@ -298,8 +293,6 @@
 		74D3F60B259D55E30002A2D3 /* ZLWidgetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D3F60A259D55E30002A2D3 /* ZLWidgetService.swift */; };
 		74D55DE722FB0A8B004114BC /* ZLSearchItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D55DE622FB0A8B004114BC /* ZLSearchItemsViewModel.swift */; };
 		74D55DE922FB0AAD004114BC /* ZLSearchRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D55DE822FB0AAD004114BC /* ZLSearchRecordViewModel.swift */; };
-		74D55DEC22FB183E004114BC /* ZLSearchRecordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D55DEA22FB183E004114BC /* ZLSearchRecordTableViewCell.swift */; };
-		74D55DED22FB183E004114BC /* ZLSearchRecordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74D55DEB22FB183E004114BC /* ZLSearchRecordTableViewCell.xib */; };
 		74D7B5FD22F1398F00C109CA /* ZLUserAdditionInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D7B5FC22F1398F00C109CA /* ZLUserAdditionInfoController.swift */; };
 		74D7B60522F140DC00C109CA /* ZLUserAdditionInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D7B60422F140DC00C109CA /* ZLUserAdditionInfoViewModel.swift */; };
 		74DB05B223F138840009FEAC /* ZLGistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DB05B023F138840009FEAC /* ZLGistTableViewCell.swift */; };
@@ -341,6 +334,7 @@
 		74FCBD9F231423A800DDE46A /* ZLEditProfileContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74FCBD9E231423A800DDE46A /* ZLEditProfileContentView.swift */; };
 		74FCBDA423142E0200DDE46A /* ZLEditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74FCBDA323142E0200DDE46A /* ZLEditProfileViewModel.swift */; };
 		74FCBDA623142F1300DDE46A /* ZLEditProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74FCBDA523142F1300DDE46A /* ZLEditProfileController.swift */; };
+		8EEE979EB43EE43A18EC2ADF /* libPods-GithubClient-ZLGitHubClient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5DBCF7431669D0BFC0ACE20 /* libPods-GithubClient-ZLGitHubClient.a */; };
 		D1259FA023195CC700C7892B /* ZLNewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1259F9F23195CC700C7892B /* ZLNewsViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -406,13 +400,10 @@
 		3693D8D3246523A400779FC4 /* ZLAboutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLAboutViewModel.swift; sourceTree = "<group>"; };
 		3AC1DAD9E26567E70156CD78 /* Pods-GithubClient-Fixed RepoExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GithubClient-Fixed RepoExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-GithubClient-Fixed RepoExtension/Pods-GithubClient-Fixed RepoExtension.release.xcconfig"; sourceTree = "<group>"; };
 		4B452F7BFC8564E0921A68EB /* Pods-Fixed RepoExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fixed RepoExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Fixed RepoExtension/Pods-Fixed RepoExtension.debug.xcconfig"; sourceTree = "<group>"; };
+		4F5EC103FCDB3794BE775543 /* libPods-GithubClient-Fixed RepoExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GithubClient-Fixed RepoExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		60A321F2ADD6DAF97FEEDF94 /* Pods-ZLServiceFramework.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZLServiceFramework.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZLServiceFramework/Pods-ZLServiceFramework.debug.xcconfig"; sourceTree = "<group>"; };
 		740318CA22F702B7004CE52D /* ZLSearchRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLSearchRecordView.swift; sourceTree = "<group>"; };
-		740318CC22F702D1004CE52D /* ZLSearchRecordView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZLSearchRecordView.xib; sourceTree = "<group>"; };
 		740318CE22F702E6004CE52D /* ZLSearchItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLSearchItemsView.swift; sourceTree = "<group>"; };
-		740318D022F702FD004CE52D /* ZLSearchItemsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZLSearchItemsView.xib; sourceTree = "<group>"; };
-		740318D222F70867004CE52D /* ZLSearchTypeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLSearchTypeCollectionViewCell.swift; sourceTree = "<group>"; };
-		740318D322F70867004CE52D /* ZLSearchTypeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZLSearchTypeCollectionViewCell.xib; sourceTree = "<group>"; };
 		7408EC222533BD72001DA1EC /* ZLGithubAppKey.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLGithubAppKey.h; sourceTree = "<group>"; };
 		740C2F2A2830F9E300DAFF0E /* ZLExploreChildListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLExploreChildListController.swift; sourceTree = "<group>"; };
 		740C2F352832A1E100DAFF0E /* ZLBaseCardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLBaseCardTableViewCell.swift; sourceTree = "<group>"; };
@@ -711,8 +702,6 @@
 		74D3F60A259D55E30002A2D3 /* ZLWidgetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLWidgetService.swift; sourceTree = "<group>"; };
 		74D55DE622FB0A8B004114BC /* ZLSearchItemsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLSearchItemsViewModel.swift; sourceTree = "<group>"; };
 		74D55DE822FB0AAD004114BC /* ZLSearchRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLSearchRecordViewModel.swift; sourceTree = "<group>"; };
-		74D55DEA22FB183E004114BC /* ZLSearchRecordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLSearchRecordTableViewCell.swift; sourceTree = "<group>"; };
-		74D55DEB22FB183E004114BC /* ZLSearchRecordTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZLSearchRecordTableViewCell.xib; sourceTree = "<group>"; };
 		74D7B5FC22F1398F00C109CA /* ZLUserAdditionInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLUserAdditionInfoController.swift; sourceTree = "<group>"; };
 		74D7B60422F140DC00C109CA /* ZLUserAdditionInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLUserAdditionInfoViewModel.swift; sourceTree = "<group>"; };
 		74DB05B023F138840009FEAC /* ZLGistTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLGistTableViewCell.swift; sourceTree = "<group>"; };
@@ -756,7 +745,6 @@
 		74FCBDA523142F1300DDE46A /* ZLEditProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLEditProfileController.swift; sourceTree = "<group>"; };
 		7AC44332CAA0E09B3278CC22 /* Pods_ZLServiceFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZLServiceFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		827C09D31FC9D9456ED23E03 /* Pods-Fixed RepoExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fixed RepoExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-Fixed RepoExtension/Pods-Fixed RepoExtension.release.xcconfig"; sourceTree = "<group>"; };
-		90BFC8E04356478503620E94 /* Pods_GithubClient_ZLGitHubClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GithubClient_ZLGitHubClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		932B11E0D85DEDD8045AEB4E /* Pods-GithubClient-ZLGitHubClient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GithubClient-ZLGitHubClient.release.xcconfig"; path = "Pods/Target Support Files/Pods-GithubClient-ZLGitHubClient/Pods-GithubClient-ZLGitHubClient.release.xcconfig"; sourceTree = "<group>"; };
 		9DB8CADD643B3AEB70C63C51 /* Pods-ZLBaseFramework.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZLBaseFramework.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZLBaseFramework/Pods-ZLBaseFramework.release.xcconfig"; sourceTree = "<group>"; };
 		A6C72BEE5FF1560DDE0E2D1D /* Pods-GithubClient-ZLGitHubClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GithubClient-ZLGitHubClient.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GithubClient-ZLGitHubClient/Pods-GithubClient-ZLGitHubClient.debug.xcconfig"; sourceTree = "<group>"; };
@@ -764,8 +752,8 @@
 		C158892C4674C3DD266C21BA /* Pods_ZLBaseFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZLBaseFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD0AEC7A0ED54B14C3F6E8C9 /* Pods-ZLGitHubClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZLGitHubClient.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZLGitHubClient/Pods-ZLGitHubClient.debug.xcconfig"; sourceTree = "<group>"; };
 		D1259F9F23195CC700C7892B /* ZLNewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLNewsViewModel.swift; sourceTree = "<group>"; };
-		D8BEEB21079EB71C2E3D48F3 /* Pods_GithubClient_Fixed_RepoExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GithubClient_Fixed_RepoExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF9D2D7A040DB8E4D3C7D0A7 /* Pods-GithubClient-Fixed RepoExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GithubClient-Fixed RepoExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GithubClient-Fixed RepoExtension/Pods-GithubClient-Fixed RepoExtension.debug.xcconfig"; sourceTree = "<group>"; };
+		F5DBCF7431669D0BFC0ACE20 /* libPods-GithubClient-ZLGitHubClient.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GithubClient-ZLGitHubClient.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -773,7 +761,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				413D64DB9C8C3F4634D1FCCC /* Pods_GithubClient_ZLGitHubClient.framework in Frameworks */,
+				8EEE979EB43EE43A18EC2ADF /* libPods-GithubClient-ZLGitHubClient.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -784,7 +772,7 @@
 				74344A5C258B0FB600903E08 /* WidgetKit.framework in Frameworks */,
 				74438B4A259787620021099C /* Foundation.framework in Frameworks */,
 				74344A5E258B0FB600903E08 /* SwiftUI.framework in Frameworks */,
-				5358B6A0DBC5021339019507 /* Pods_GithubClient_Fixed_RepoExtension.framework in Frameworks */,
+				53191A24298A8A32EB797570 /* libPods-GithubClient-Fixed RepoExtension.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -833,8 +821,8 @@
 				74344A5D258B0FB600903E08 /* SwiftUI.framework */,
 				C158892C4674C3DD266C21BA /* Pods_ZLBaseFramework.framework */,
 				7AC44332CAA0E09B3278CC22 /* Pods_ZLServiceFramework.framework */,
-				D8BEEB21079EB71C2E3D48F3 /* Pods_GithubClient_Fixed_RepoExtension.framework */,
-				90BFC8E04356478503620E94 /* Pods_GithubClient_ZLGitHubClient.framework */,
+				4F5EC103FCDB3794BE775543 /* libPods-GithubClient-Fixed RepoExtension.a */,
+				F5DBCF7431669D0BFC0ACE20 /* libPods-GithubClient-ZLGitHubClient.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1162,13 +1150,7 @@
 				7431B43122F5DFF50060968A /* ZLSearchView.swift */,
 				7431B43322F5E03F0060968A /* ZLSearchView.xib */,
 				740318CA22F702B7004CE52D /* ZLSearchRecordView.swift */,
-				740318CC22F702D1004CE52D /* ZLSearchRecordView.xib */,
 				740318CE22F702E6004CE52D /* ZLSearchItemsView.swift */,
-				740318D022F702FD004CE52D /* ZLSearchItemsView.xib */,
-				740318D222F70867004CE52D /* ZLSearchTypeCollectionViewCell.swift */,
-				740318D322F70867004CE52D /* ZLSearchTypeCollectionViewCell.xib */,
-				74D55DEA22FB183E004114BC /* ZLSearchRecordTableViewCell.swift */,
-				74D55DEB22FB183E004114BC /* ZLSearchRecordTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3063,6 +3045,7 @@
 				390C286527A3295B07634395 /* [CP] Embed Pods Frameworks */,
 				74344A6B258B0FB900903E08 /* Embed App Extensions */,
 				74D3EEBA259BC2120002A2D3 /* Embed Frameworks */,
+				2E5E5E459488BEDF066C4349 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -3163,16 +3146,12 @@
 				7426C7A12562EF6B00DFDA04 /* github_style.css in Resources */,
 				74CDA6812409833C00049EF8 /* index.html in Resources */,
 				74C861CA22F02BED00A30B79 /* ZLGitHubClientLocalizable.strings in Resources */,
-				740318CD22F702D1004CE52D /* ZLSearchRecordView.xib in Resources */,
 				7431B43422F5E03F0060968A /* ZLSearchView.xib in Resources */,
 				74CDA6852409833C00049EF8 /* README.md in Resources */,
 				0ADF903721D4B01900BF86CD /* Assets.xcassets in Resources */,
 				74A96FC023327B01008365CA /* ZLSearchFilterViewForRepo.xib in Resources */,
-				740318D522F70867004CE52D /* ZLSearchTypeCollectionViewCell.xib in Resources */,
 				74CDA6842409833C00049EF8 /* LICENSE in Resources */,
 				74F0ABE72365971900D1B954 /* ZLSearchFilterViewForUser.xib in Resources */,
-				74D55DED22FB183E004114BC /* ZLSearchRecordTableViewCell.xib in Resources */,
-				740318D122F702FD004CE52D /* ZLSearchItemsView.xib in Resources */,
 				7436AC8621EB815800F03276 /* SYDCenteralFactoryConfig.plist in Resources */,
 				0ADF903521D4B01900BF86CD /* Main.storyboard in Resources */,
 				74C3F8C322D1DDA20086A3F9 /* ZLLoginBaseView.xib in Resources */,
@@ -3195,6 +3174,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		2E5E5E459488BEDF066C4349 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GithubClient-ZLGitHubClient/Pods-GithubClient-ZLGitHubClient-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/DoraemonKit/DoraemonKit.bundle",
+				"${PODS_ROOT}/FWPopupView/FWPopupView/Resources/FWPopupView.bundle",
+				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/DoraemonKit.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FWPopupView.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GithubClient-ZLGitHubClient/Pods-GithubClient-ZLGitHubClient-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		390C286527A3295B07634395 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3202,104 +3203,10 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-GithubClient-ZLGitHubClient/Pods-GithubClient-ZLGitHubClient-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/Apollo/Apollo.framework",
-				"${BUILT_PRODUCTS_DIR}/BSBacktraceLogger/BSBacktraceLogger.framework",
-				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
-				"${BUILT_PRODUCTS_DIR}/CircleMenu/CircleMenu.framework",
-				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
-				"${BUILT_PRODUCTS_DIR}/DoraemonKit/DoraemonKit.framework",
-				"${BUILT_PRODUCTS_DIR}/FBRetainCycleDetector/FBRetainCycleDetector.framework",
-				"${BUILT_PRODUCTS_DIR}/FFPopup/FFPopup.framework",
-				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
-				"${BUILT_PRODUCTS_DIR}/FWPopupView/FWPopupView.framework",
-				"${BUILT_PRODUCTS_DIR}/FirebaseABTesting/FirebaseABTesting.framework",
-				"${BUILT_PRODUCTS_DIR}/FirebaseCore/FirebaseCore.framework",
-				"${BUILT_PRODUCTS_DIR}/FirebaseCoreDiagnostics/FirebaseCoreDiagnostics.framework",
-				"${BUILT_PRODUCTS_DIR}/FirebaseCrashlytics/FirebaseCrashlytics.framework",
-				"${BUILT_PRODUCTS_DIR}/FirebaseInstallations/FirebaseInstallations.framework",
-				"${BUILT_PRODUCTS_DIR}/FirebasePerformance/FirebasePerformance.framework",
-				"${BUILT_PRODUCTS_DIR}/FirebaseRemoteConfig/FirebaseRemoteConfig.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleDataTransport/GoogleDataTransport.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
-				"${BUILT_PRODUCTS_DIR}/JJException/JJException.framework",
-				"${BUILT_PRODUCTS_DIR}/JXSegmentedView/JXSegmentedView.framework",
-				"${BUILT_PRODUCTS_DIR}/LookinServer/LookinServer.framework",
-				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
-				"${BUILT_PRODUCTS_DIR}/MJExtension/MJExtension.framework",
-				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
-				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
-				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
-				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
-				"${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework",
-				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
-				"${BUILT_PRODUCTS_DIR}/SYDCentralPivot/SYDCentralPivot.framework",
-				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
-				"${BUILT_PRODUCTS_DIR}/Toast/Toast.framework",
-				"${BUILT_PRODUCTS_DIR}/UITextView+Placeholder/UITextView_Placeholder.framework",
-				"${BUILT_PRODUCTS_DIR}/Umbrella/Umbrella.framework",
-				"${BUILT_PRODUCTS_DIR}/YYText/YYText.framework",
-				"${BUILT_PRODUCTS_DIR}/ZLBaseExtension/ZLBaseExtension.framework",
-				"${BUILT_PRODUCTS_DIR}/ZLBaseUI/ZLBaseUI.framework",
-				"${BUILT_PRODUCTS_DIR}/ZLGithubOAuth/ZLGithubOAuth.framework",
-				"${BUILT_PRODUCTS_DIR}/ZLUIUtilities/ZLUIUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/fishhook/fishhook.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
-				"${BUILT_PRODUCTS_DIR}/Kanna/Kanna.framework",
 				"${PODS_XCFRAMEWORKS_BUILD_DIR}/WoodPeckeriOS/WoodPeckeriOS.framework/WoodPeckeriOS",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Apollo.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BSBacktraceLogger.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CircleMenu.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DoraemonKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBRetainCycleDetector.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FFPopup.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMDB.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FWPopupView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseABTesting.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCore.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCoreDiagnostics.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCrashlytics.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseInstallations.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebasePerformance.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseRemoteConfig.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleDataTransport.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManager.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JJException.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JXSegmentedView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LookinServer.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJExtension.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRelay.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SYDCentralPivot.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITextView_Placeholder.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Umbrella.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYText.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZLBaseExtension.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZLBaseUI.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZLGithubOAuth.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZLUIUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/fishhook.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kanna.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WoodPeckeriOS.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3554,7 +3461,6 @@
 				74203A0A24B1D19B007DFC00 /* ZLDeleteEventTableViewCellData.swift in Sources */,
 				7466029328EFD7B3004D104F /* ZLProfileContributionsCellData.swift in Sources */,
 				74D3F001259BC6070002A2D3 /* CYPopoverCollectionViewCell.m in Sources */,
-				740318D422F70867004CE52D /* ZLSearchTypeCollectionViewCell.swift in Sources */,
 				74C639DB24B7DDA500457F94 /* ZLWorkflowTableViewCell.swift in Sources */,
 				7431B42922F5DDD70060968A /* ZLExploreBaseViewModel.swift in Sources */,
 				744392C627F4508200965D8F /* ZLCommonButtonCellData.swift in Sources */,
@@ -3574,7 +3480,6 @@
 				744F655F281FC9E20045DCE9 /* ZLMyDiscussionsBaseView.swift in Sources */,
 				74209D4724B5FE1D0068891E /* ZLNotificationTableViewCell.swift in Sources */,
 				741A2E69246C5D1400A443E4 /* ZLRepoIssuesController.swift in Sources */,
-				74D55DEC22FB183E004114BC /* ZLSearchRecordTableViewCell.swift in Sources */,
 				36371EAA248F644B0005774B /* ZLInputAccessTokenView.swift in Sources */,
 				7451F147247A99140047A186 /* ZLRepoWatchedUsersViewModel.swift in Sources */,
 				0ADF902F21D4B01900BF86CD /* AppDelegate.m in Sources */,

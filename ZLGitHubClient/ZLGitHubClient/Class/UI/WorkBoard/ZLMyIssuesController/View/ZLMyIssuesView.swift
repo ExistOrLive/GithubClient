@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import ZLGitRemoteService
+import ZLBaseUI
 
 protocol ZLMyIssuesViewDelegate: NSObjectProtocol {
     func onFilterTypeChange(type: ZLIssueFilterType)

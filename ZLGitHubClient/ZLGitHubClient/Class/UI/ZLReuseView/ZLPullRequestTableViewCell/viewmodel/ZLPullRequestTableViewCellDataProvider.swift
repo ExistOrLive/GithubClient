@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import ZLGitRemoteService
 
 extension ZLPullRequestTableViewCellData {
     static func getCellDatasWithPRModel(data: PrInfoQuery.Data, firstPage: Bool) -> [ZLGithubItemTableViewCellData] {

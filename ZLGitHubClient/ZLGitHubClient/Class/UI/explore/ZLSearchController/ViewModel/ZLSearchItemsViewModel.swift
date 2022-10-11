@@ -8,6 +8,7 @@
 
 import UIKit
 import ZLBaseUI
+import ZLGitRemoteService
 
 class ZLSearchItemsViewModel: ZLBaseViewModel {
 
