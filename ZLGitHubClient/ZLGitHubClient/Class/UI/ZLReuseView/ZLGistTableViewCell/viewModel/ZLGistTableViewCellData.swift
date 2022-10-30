@@ -37,13 +37,23 @@ class ZLGistTableViewCellData: ZLGithubItemTableViewCellData {
         guard let cell: ZLGistTableViewCell = targetView as? ZLGistTableViewCell else {
             return
         }
-        cell.fillWithData(cellData: self)
+        cell.fillWithViewData(viewData: self)
         cell.delegate = self
     }
 
 }
 
-extension ZLGistTableViewCellData {
+extension ZLGistTableViewCellData: ZLGistTableViewCellDelegate {
+   
+    func onAvatarButtonClicked() {
+        guard let login = gistModel.owner.loginName,
+              !login.isEmpty,
+              let vc = ZLUIRouter.getUserInfoViewController(loginName: login) else {
+                  return
+              }
+        self.viewController?.navigationController?.pushViewController(vc, animated: true)
+    }
+    
 
     func getOwnerAvatar() -> String {
         return self.gistModel.owner.avatar_url ?? ""
@@ -80,9 +90,5 @@ extension ZLGistTableViewCellData {
     func getUpdate_At() -> Date? {
         return self.gistModel.updated_at
     }
-
-}
-
-extension ZLGistTableViewCellData: ZLGistTableViewCellDelegate {
 
 }

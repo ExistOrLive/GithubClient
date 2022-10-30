@@ -64,6 +64,15 @@ public extension ZMInputCollectionView {
         }
     }
     
+    // scrollViewdelegate
+    var scrollViewDelegate: ZMInputCollectionScrollViewDelegate? {
+        get {
+            _scrollViewDelegate
+        }
+        set {
+            _scrollViewDelegate = newValue
+        }
+    }
     
     // policy
     var policy: ZMInputCollectionViewPolicyProtocol? {

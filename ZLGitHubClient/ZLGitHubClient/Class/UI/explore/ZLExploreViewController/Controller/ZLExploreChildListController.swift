@@ -278,6 +278,10 @@ class ZLExploreChildListController: ZLBaseViewController {
         stackView.alignment = .center
         return stackView
     }()
+    
+    lazy var filterManager: ZLTrendingFilterManager = {
+       return ZLTrendingFilterManager()
+    }()
 }
 
 // MARK: ZLBaseViewModel
@@ -295,30 +299,40 @@ extension ZLExploreChildListController {
 extension ZLExploreChildListController {
     
     @objc func onLanguageButtonClicked() {
+        guard let view = ZLMainWindow else { return }
+        var developLanguage: String? = nil
+        switch self.type {
+        case .repo:
+            developLanguage = ZLUISharedDataManager.languageForTrendingRepo
+        case .user:
+            developLanguage = ZLUISharedDataManager.languageForTrendingUser
+        }
         
-        ZLLanguageSelectView.showLanguageSelectView(resultBlock: { (language: String?) in
+        filterManager.showDevelopLanguageSelectView(to: view,
+                                                    developeLanguage: developLanguage)
+        { [weak self] newLanguage in
+            guard let self = self else { return }
             
-            let languageTitle = language ?? "Any"
+            let languageTitle = newLanguage ?? "Any"
             self.setButtonTitle(button: self.languageButton, title: languageTitle)
             
             switch self.type {
             case .repo:
-                ZLUISharedDataManager.languageForTrendingRepo = language
+                ZLUISharedDataManager.languageForTrendingRepo = newLanguage
             case .user:
-                ZLUISharedDataManager.languageForTrendingUser = language
+                ZLUISharedDataManager.languageForTrendingUser = newLanguage
             }
-            
             self.itemListView.startLoad()
-        })
+        }
     }
     
     @objc func onDateButtonClicked() {
-        
-        ZLTrendingDateRangeSelectView.showTrendingDateRangeSelectView(initDateRange: ZLUISharedDataManager.dateRangeForTrendingRepo, resultBlock: {(dateRange: ZLDateRange) in
-            
+        guard let view = ZLMainWindow else { return }
+        filterManager.showTrendingDateRangeSelectView(to: view,
+                                                      initDateRange: ZLUISharedDataManager.dateRangeForTrendingRepo) { dateRange in
             let dateTitle = self.titleForDateRange(dateRange: dateRange)
             self.setButtonTitle(button: self.dateButton, title: dateTitle)
-  
+            
             switch self.type {
             case .repo:
                 ZLUISharedDataManager.dateRangeForTrendingRepo = dateRange
@@ -327,20 +341,25 @@ extension ZLExploreChildListController {
             }
             
             self.itemListView.startLoad()
-    
-        })
+        }
     }
     
     @objc func onSpokenLanguageButtonClicked() {
         
-        ZLSpokenLanguageSelectView.showSpokenLanguageSelectView { language, code in
+        guard let view = ZLMainWindow else { return }
+        
+        filterManager.showSpokenLanguageSelectView(to: view,
+                                                   spokenLanguage: ZLUISharedDataManager.spokenLanguageForTrendingRepo)
+        { [weak self] newLanguage in
+            guard let self = self else { return }
             
-            let languageTitle = language ?? "Any"
+            let languageTitle = newLanguage ?? "Any"
             self.setButtonTitle(button: self.spokenLanguageButton, title: languageTitle)
             
-            ZLUISharedDataManager.spokenLanguageForTrendingRepo = language
+            ZLUISharedDataManager.spokenLanguageForTrendingRepo = newLanguage
             self.itemListView.startLoad()
         }
+        
     }
     
 }
@@ -371,7 +390,7 @@ extension ZLExploreChildListController {
         let language = ZLUISharedDataManager.languageForTrendingRepo
         var spokenLanguageCode: String? = nil
         if let spokenLanguague = ZLUISharedDataManager.spokenLanguageForTrendingRepo {
-            spokenLanguageCode = ZLSpokenLanguageSelectView.spokenLanguagueDic[spokenLanguague]
+            spokenLanguageCode = ZLTrendingFilterManager.spokenLanguagueDic[spokenLanguague] ?? nil
         }
          
         

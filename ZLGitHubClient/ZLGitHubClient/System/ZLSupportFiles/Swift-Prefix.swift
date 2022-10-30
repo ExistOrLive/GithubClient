@@ -62,6 +62,10 @@ var ZLScreenBounds : CGRect {
     UIScreen.main.bounds
 }
 
+var ZLMainWindow: UIWindow? {
+    return UIApplication.shared.delegate?.window ?? UIWindow()
+}
+
 var ZLSafeAreaBottomHeight: CGFloat {
     if let window = UIApplication.shared.delegate?.window {
         return window?.safeAreaInsets.bottom ?? 0
@@ -101,8 +105,20 @@ func getRealUserInterfaceStyle() -> UIUserInterfaceStyle {
     } else {
         return ZLUISharedDataManager.currentUserInterfaceStyle
     }
-    
-   
+}
+
+
+var ZLScreenBoundsAdjustWithScreenOrientation: CGRect {
+    let width = UIScreen.main.bounds.size.width
+    let height = UIScreen.main.bounds.size.height
+    if (UIDevice.current.orientation.isPortrait && width <= height) ||
+        (UIDevice.current.orientation.isLandscape && width > height) {
+        return CGRect(origin: .zero, size: CGSize(width: width, height: height))
+    } else if (UIDevice.current.orientation.isPortrait && width > height) ||
+                (UIDevice.current.orientation.isLandscape && width <= height) {
+        return CGRect(origin: .zero, size: CGSize(width: height, height: width))
+    }
+    return UIScreen.main.bounds
 }
 
 

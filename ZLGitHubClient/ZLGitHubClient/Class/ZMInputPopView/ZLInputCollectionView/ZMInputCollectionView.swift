@@ -9,6 +9,18 @@ import UIKit
 import ZLBaseExtension
 import SnapKit
 
+// MARK: - ZMInputCollectionScrollViewDelegate
+public protocol ZMInputCollectionScrollViewDelegate: AnyObject {
+    
+    func inputCollectionScrollViewWillBeginDragging(_ collectionView: ZMInputCollectionView)
+}
+
+public extension ZMInputCollectionDelegate {
+
+    func ZMInputCollectionScrollViewDelegate(_ collectionView: ZMInputCollectionView) {}
+}
+
+
 // MARK: - ZMInputCollectionDelegate
 public protocol ZMInputCollectionDelegate: AnyObject {
     
@@ -90,6 +102,8 @@ public class ZMInputCollectionView: UIView {
     
     weak var _uiDelegate: ZMInputCollectionViewUIDelegate?
     
+    weak var _scrollViewDelegate: ZMInputCollectionScrollViewDelegate?
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -146,6 +160,10 @@ public class ZMInputCollectionView: UIView {
 
 // MARK: UICollectionViewDelegate UICollectionViewDataSource
 extension ZMInputCollectionView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        _scrollViewDelegate?.inputCollectionScrollViewWillBeginDragging(self)
+    }
     
     
     public func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -257,6 +275,8 @@ extension ZMInputCollectionView: UICollectionViewDelegate, UICollectionViewDataS
         return self.footerReferenceSize
     }
 }
+
+
 
 
 // MARK: 选择框逻辑 / 多按钮逻辑

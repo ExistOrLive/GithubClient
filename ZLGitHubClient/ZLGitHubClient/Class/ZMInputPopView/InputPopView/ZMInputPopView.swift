@@ -16,7 +16,7 @@ public protocol ZMInputPopViewSingleSelectDelegate: AnyObject {
 }
 
 /// ZMInputPopView
-open class ZMInputPopView: ZMPopContainerView {
+open class ZMInputPopView: ZMPopContainerView, ZMInputCollectionDelegate {
     
     @objc public var contentWidth: CGFloat = CGFloat.greatestFiniteMagnitude
     
@@ -51,36 +51,46 @@ open class ZMInputPopView: ZMPopContainerView {
         return CGSize(width: collectionView.frame.width, height: min(collectionView.frame.height,contentMaxHeight))
     }
     
-
     @objc open dynamic func show(_ to: UIView,
                                  contentPoition: ZMPopContainerViewPosition,
                                  animationDuration: TimeInterval) {
+        guard status == .dismissed else { return }
+        self.inline_show(to,
+                         contentPoition: contentPoition,
+                         animationDuration: animationDuration)
+       
+    }
+    
+
+    @objc  dynamic func inline_show(_ to: UIView,
+                                    contentPoition: ZMPopContainerViewPosition,
+                                    animationDuration: TimeInterval) {
+        guard status == .dismissed || status == .caculatingBeforePop else { return }
+        inlineChangeToCaculutingBeforePopStatus()
         
         // 高度动态适配
-        // 需要设置 collectionView 的size，否则 collectionView reloadData 讲不会有效
+        // 需要设置 collectionView 的size，否则 collectionView reloadData 将不会有效
         contentView.frame = CGRect(x: 0, y: 0, width: contentWidth, height: UIScreen.main.bounds.height)
-//        collectionView.frame = CGRect(x: 0, y: 0, width: contentWidth, height: UIScreen.mainSize.height)
-    
-        
+
         if let contentHeight = contentHeight {
             // 高度固定
             collectionView.sizeToFitContentView {
-                self.show(to,
-                          contentView: self.contentView,
-                          contentSize: CGSize(width: self.contentWidth, height: contentHeight),
-                          contentPoition: contentPoition,
-                          animationDuration: animationDuration)
+                self.inline_show(to,
+                                 contentView: self.contentView,
+                                 contentSize: CGSize(width: self.contentWidth, height: contentHeight),
+                                 contentPoition: contentPoition,
+                                 animationDuration: animationDuration)
                 self.collectionView.reloadData()
             }
 
         } else {
         
             collectionView.sizeToFitContentView {
-                self.show(to,
-                          contentView: self.contentView,
-                          contentSize: self.autoContentViewSize(),
-                          contentPoition: contentPoition,
-                          animationDuration: animationDuration)
+                self.inline_show(to,
+                                 contentView: self.contentView,
+                                 contentSize: self.autoContentViewSize(),
+                                 contentPoition: contentPoition,
+                                 animationDuration: animationDuration)
                 self.collectionView.reloadData()
             }
         }
@@ -98,28 +108,10 @@ open class ZMInputPopView: ZMPopContainerView {
     @objc public dynamic lazy var collectionView: ZMInputCollectionView = {
         let view = ZMInputCollectionView()
         return view
-    }() 
-}
-
-// 单选弹窗
-extension ZMInputPopView: ZMInputCollectionDelegate {
-
-    public dynamic func showSingleSelectBox(_ to: UIView,
-                                            contentPoition: ZMPopContainerViewPosition,
-                                            animationDuration: TimeInterval,
-                                            cellDatas: [ZMInputCollectionViewSelectCellDataType],
-                                            headerData: ZMInputCollectionViewBaseSectionViewDataType? = nil,
-                                            footerData: ZMInputCollectionViewBaseSectionViewDataType? = nil,
-                                            singleSelectDelegate: ZMInputPopViewSingleSelectDelegate) {
-        self.singleSelectDelegate = singleSelectDelegate
-        self.collectionView.defaultPolicy.maxSelectedNum = 1
-        self.collectionView.policy = collectionView.defaultPolicy
-        self.collectionView.delegate = self
-        self.collectionView.setCellDatas(cellDatas: cellDatas, headerData: headerData, footerData: footerData)
-        
-        self.show(to, contentPoition: contentPoition, animationDuration: animationDuration)
-    }
+    }()
     
+    
+    /// ZMInputCollectionDelegate
     /// 当缓存中的数据修改时，回调  处理单选逻辑
     public func inputCollectionView(_ collectionView: ZMInputCollectionView,
                                     allSectionDatasDidChanged sectionDatas: [ZMInputCollectionViewSectionDataType]) {
@@ -135,4 +127,30 @@ extension ZMInputPopView: ZMInputCollectionDelegate {
             self.dismiss()
         }
     }
+    
+}
+
+// 单选弹窗
+extension ZMInputPopView {
+
+    public dynamic func showSingleSelectBox(_ to: UIView,
+                                            contentPoition: ZMPopContainerViewPosition,
+                                            animationDuration: TimeInterval,
+                                            cellDatas: [ZMInputCollectionViewSelectCellDataType],
+                                            headerData: ZMInputCollectionViewBaseSectionViewDataType? = nil,
+                                            footerData: ZMInputCollectionViewBaseSectionViewDataType? = nil,
+                                            singleSelectDelegate: ZMInputPopViewSingleSelectDelegate) {
+        guard status == .dismissed else { return }
+        inlineChangeToCaculutingBeforePopStatus()
+        
+        self.singleSelectDelegate = singleSelectDelegate
+        self.collectionView.defaultPolicy.maxSelectedNum = 1
+        self.collectionView.policy = collectionView.defaultPolicy
+        self.collectionView.delegate = self
+        self.collectionView.setCellDatas(cellDatas: cellDatas, headerData: headerData, footerData: footerData)
+        
+        self.inline_show(to, contentPoition: contentPoition, animationDuration: animationDuration)
+    }
+    
+    
 }

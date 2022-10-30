@@ -113,7 +113,7 @@ import ZLBaseExtension
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "UITableViewCell")
         self.tableView.register(ZLPullRequestTableViewCell.self, forCellReuseIdentifier: "ZLPullRequestTableViewCell")
         self.tableView.register(ZLCommitTableViewCell.self, forCellReuseIdentifier: "ZLCommitTableViewCell")
-        self.tableView.register(UINib.init(nibName: "ZLGistTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLGistTableViewCell")
+        self.tableView.register(ZLGistTableViewCell.self, forCellReuseIdentifier: "ZLGistTableViewCell")
         self.tableView.register(ZLEventTableViewCell.self, forCellReuseIdentifier: "ZLEventTableViewCell")
         self.tableView.register(ZLPushEventTableViewCell.self, forCellReuseIdentifier: "ZLPushEventTableViewCell")
         self.tableView.register(ZLCommitCommentEventTableViewCell.self, forCellReuseIdentifier: "ZLCommitCommentEventTableViewCell")
