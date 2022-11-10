@@ -6,8 +6,8 @@
 //  Copyright © 2020 ZM. All rights reserved.
 //
 
-#import "ZLBaseViewController.h"
-#import "ZLBaseView.h"
+#import "ZLBaseUI/ZLBaseViewController.h"
+#import "ZLBaseUI/ZLBaseView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

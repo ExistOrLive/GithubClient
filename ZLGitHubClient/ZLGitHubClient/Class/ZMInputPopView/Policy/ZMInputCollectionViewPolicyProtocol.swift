@@ -21,26 +21,24 @@ public protocol ZMInputCollectionViewPolicyProtocol: AnyObject {
     ///    - completionHandler: 处理回调 changes:  数据是否修改  needFlush 是否需要flush cellData的缓存数据
     ///   请在主线程回调 completionHandler
     func inputCollectionView(_ collectionView: ZMInputCollectionView,
-                             didClickIndexPath indexPath: IndexPath,
+                             didSelectIndexPath indexPath: IndexPath,
                              cellDataForClickedCell cellData: ZMInputCollectionViewSelectCellDataType,
                              sectionCellDatas: [ZMInputCollectionViewBaseCellDataType],
                              sectionDatas: [ZMInputCollectionViewSectionDataType],
                              completionHandler: @escaping (_ changed:Bool, _ needFlush:Bool) -> Void)
     
-    /// 多按钮策略
+    /// 按钮策略
     ///  - Parameters:
     ///    - collectionView: ZMInputCollectionView
     ///    - didClickIndexPath: 点击的cell的indexPath
-    ///    - buttonIndex: 点击的button的索引
     ///    - cellDataForClickedCell: 点击的cell的cellData
     ///    - sectionCellDatas: 点击的cell的section的celldata数组
     ///    - sectionDatas: 所有的sectionData
     ///    - completionHandler: 处理回调 changes:  数据是否修改  needFlush 是否需要flush cellData的缓存数据
     ///    请在主线程回调 completionHandler
     func inputCollectionView(_ collectionView: ZMInputCollectionView,
-                             buttonIndex : Int,
                              didClickIndexPath indexPath: IndexPath,
-                             cellDataForClickedCell cellData: ZMInputCollectionViewRangeButtonsCellDataType,
+                             cellDataForClickedCell cellData: ZMInputCollectionViewButtonCellDataType,
                              sectionCellDatas: [ZMInputCollectionViewBaseCellDataType],
                              sectionDatas: [ZMInputCollectionViewSectionDataType],
                              completionHandler: @escaping (_ changed:Bool, _ needFlush:Bool) -> Void)
@@ -50,16 +48,15 @@ public protocol ZMInputCollectionViewPolicyProtocol: AnyObject {
 public extension ZMInputCollectionViewPolicyProtocol {
     
     func inputCollectionView(_ collectionView: ZMInputCollectionView,
-                             didClickIndexPath indexPath: IndexPath,
+                             didSelectIndexPath indexPath: IndexPath,
                              cellDataForClickedCell cellData: ZMInputCollectionViewSelectCellDataType,
                              sectionCellDatas: [ZMInputCollectionViewBaseCellDataType],
                              sectionDatas: [ZMInputCollectionViewSectionDataType],
                              completionHandler: @escaping (_ changed:Bool, _ needFlush:Bool) -> Void) {}
     
     func inputCollectionView(_ collectionView: ZMInputCollectionView,
-                             buttonIndex: Int,
                              didClickIndexPath indexPath: IndexPath,
-                             cellDataForClickedCell cellData: ZMInputCollectionViewRangeButtonsCellDataType,
+                             cellDataForClickedCell cellData: ZMInputCollectionViewButtonCellDataType,
                              sectionCellDatas: [ZMInputCollectionViewBaseCellDataType],
                              sectionDatas: [ZMInputCollectionViewSectionDataType],
                              completionHandler: @escaping (_ changed:Bool, _ needFlush:Bool) -> Void) {}
@@ -81,7 +78,7 @@ public class ZMInputCollectionViewDefaultPolicy: ZMInputCollectionViewPolicyProt
     }
     
     public func inputCollectionView(_ collectionView: ZMInputCollectionView,
-                                    didClickIndexPath indexPath: IndexPath,
+                                    didSelectIndexPath indexPath: IndexPath,
                                     cellDataForClickedCell cellData: ZMInputCollectionViewSelectCellDataType,
                                     sectionCellDatas: [ZMInputCollectionViewBaseCellDataType],
                                     sectionDatas: [ZMInputCollectionViewSectionDataType],

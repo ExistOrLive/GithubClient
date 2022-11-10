@@ -35,6 +35,16 @@ public extension ZMInputConfirmPopViewDelegate {
 open class ZMInputConfirmPopView: ZMInputPopView {
     
     public weak var delegate: ZMInputConfirmPopViewDelegate?
+    
+    public var contentInset: UIEdgeInsets = .zero {
+        didSet {
+            if let _ =  verticalStackView.superview {
+                verticalStackView.snp.remakeConstraints { make in
+                    make.edges.equalTo(contentInset)
+                }
+            }
+        }
+    }
 
     public var bottomViewHeight: CGFloat = 77 {
         didSet {
@@ -43,7 +53,6 @@ open class ZMInputConfirmPopView: ZMInputPopView {
                     make.height.equalTo(bottomViewHeight)
                 }
             }
-            
         }
     }
     
@@ -69,7 +78,7 @@ open class ZMInputConfirmPopView: ZMInputPopView {
         horizontalStackView.addArrangedSubview(confirmButton)
         
         verticalStackView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.edges.equalTo(contentInset)
         }
         
         bottomView.snp.makeConstraints { make in
@@ -97,7 +106,7 @@ open class ZMInputConfirmPopView: ZMInputPopView {
     
     // 自适应高度： collectionView 高度会自动计算，其他部分高度需要手动指定
     @objc open dynamic override func autoContentViewSize() -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: min(collectionView.frame.height + bottomViewHeight,contentMaxHeight))
+        return CGSize(width: collectionView.frame.width, height: min(collectionView.frame.height + bottomViewHeight + contentInset.top + contentInset.bottom ,contentMaxHeight))
     }
     
     // MARK: Action

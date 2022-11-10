@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "ZLGithubAppKey.h"
+#import "ZLGitHubClient-Swift.h"
 
 #import <JJException/JJException.h>
 #ifdef DEBUG

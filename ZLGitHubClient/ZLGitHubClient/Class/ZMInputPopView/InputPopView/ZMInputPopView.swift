@@ -62,7 +62,7 @@ open class ZMInputPopView: ZMPopContainerView, ZMInputCollectionDelegate {
     }
     
 
-    @objc  dynamic func inline_show(_ to: UIView,
+    @objc public dynamic func inline_show(_ to: UIView,
                                     contentPoition: ZMPopContainerViewPosition,
                                     animationDuration: TimeInterval) {
         guard status == .dismissed || status == .caculatingBeforePop else { return }

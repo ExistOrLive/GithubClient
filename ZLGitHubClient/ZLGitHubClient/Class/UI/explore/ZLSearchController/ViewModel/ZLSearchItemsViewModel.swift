@@ -21,6 +21,9 @@ class ZLSearchItemsViewModel: ZLBaseViewModel {
 
     // model
     private var currentSearchType: ZLSearchType = .repositories
+    
+    // filterViewManager
+    private var filterViewManager: ZLSearchFilterViewManager = ZLSearchFilterViewManager() 
 
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
 
@@ -73,12 +76,13 @@ extension ZLSearchItemsViewModel: ZLSearchItemsViewDelegate {
             }
         case .users:do {
 
-            ZLSearchFilterViewForUser.showSearchFilterViewForUser(filterInfo: self.searchFilterInfoDic[.users], resultBlock: {(searchFilterInfo: ZLSearchFilterInfoModel) in
-                self.searchFilterInfoDic[.users] = searchFilterInfo
-                if let index = ZLSearchItemsView.ZLSearchItemsTypes.firstIndex(of: .users) {
-                    self.searchGithubItemListViewModelArray[index].searchWithFilerInfo(searchFilterInfo: searchFilterInfo)
-                }
-            })
+            filterViewManager.showSearchFilterViewForUser()
+//            ZLSearchFilterViewForUser.showSearchFilterViewForUser(filterInfo: self.searchFilterInfoDic[.users], resultBlock: {(searchFilterInfo: ZLSearchFilterInfoModel) in
+//                self.searchFilterInfoDic[.users] = searchFilterInfo
+//                if let index = ZLSearchItemsView.ZLSearchItemsTypes.firstIndex(of: .users) {
+//                    self.searchGithubItemListViewModelArray[index].searchWithFilerInfo(searchFilterInfo: searchFilterInfo)
+//                }
+//            })
             }
         case .issues:do {
 

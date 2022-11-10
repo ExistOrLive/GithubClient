@@ -83,8 +83,8 @@ extension ZLSubmitCommentController: ZLSubmitCommentViewDelegate {
             
             if model.result {
                 if let data = model.data as? AddIssueCommentMutation.Data,
-                   let cursor = data.addComment?.timelineEdge?.cursor,
-                   let mutationId = data.addComment?.clientMutationId {
+                   let _ = data.addComment?.timelineEdge?.cursor,
+                   let _ = data.addComment?.clientMutationId {
                     
                    self._clearEvent.accept(())
                    self.dismiss(animated: true, completion: nil)

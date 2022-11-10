@@ -4,7 +4,7 @@ inhibit_all_warnings!     # 屏蔽pod中告警
 require "fileutils"
 
 abstract_target 'GithubClient' do
-
+  
 target 'Fixed RepoExtension' do
   pod 'Kanna', '~> 5.2.2'
 end

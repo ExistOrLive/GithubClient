@@ -184,6 +184,12 @@ extension ZMInputCollectionView: UICollectionViewDelegate, UICollectionViewDataS
                                  cellData: cellData,
                                  cellDataContainer: cellDataContainer,
                                  sectionDataContainer: sectionDataContainer)
+        } else if let cellData = cellDataContainer.realCellData as? ZMInputCollectionViewButtonCellDataType {
+            // 按钮逻辑
+            self.didClickButtonCellAt(indexPath: indexPath,
+                                      cellData: cellData,
+                                      cellDataContainer: cellDataContainer,
+                                      sectionDataContainer: sectionDataContainer)
         }
     }
     
@@ -290,10 +296,10 @@ extension ZMInputCollectionView {
         
         // 调用选择策略
         _policy?.inputCollectionView(self,
-                                            didClickIndexPath: indexPath,
-                                            cellDataForClickedCell: cellDataContainer,
-                                            sectionCellDatas: sectionDataContainer.cellDatas,
-                                            sectionDatas: _sectionDatas) { [weak self] (changed,needFlush) in
+                                     didSelectIndexPath: indexPath,
+                                     cellDataForClickedCell: cellDataContainer,
+                                     sectionCellDatas: sectionDataContainer.cellDatas,
+                                     sectionDatas: _sectionDatas) { [weak self] (changed,needFlush) in
             guard let self = self else { return }
             
             if changed {
@@ -311,20 +317,18 @@ extension ZMInputCollectionView {
         
     }
     
-    // 多按钮逻辑
-    func didClickButtonInCellAt(buttonIndex: Int,
-                                indexPath: IndexPath,
-                                cellData: ZMInputCollectionViewRangeButtonsCellDataType,
-                                cellDataContainer: ZMInputCollectionViewBaseCellDataContainer,
-                                sectionDataContainer: ZMInputCollectionViewBaseSectionDataContainer) {
+    // 按钮逻辑
+    func didClickButtonCellAt(indexPath: IndexPath,
+                              cellData: ZMInputCollectionViewButtonCellDataType,
+                              cellDataContainer: ZMInputCollectionViewBaseCellDataContainer,
+                              sectionDataContainer: ZMInputCollectionViewBaseSectionDataContainer) {
         
-        // 调用范围按钮策略
+        // 调用按钮策略
         self._policy?.inputCollectionView(self,
-                                                 buttonIndex: buttonIndex,
-                                                 didClickIndexPath: indexPath,
-                                                 cellDataForClickedCell: cellDataContainer,
-                                                 sectionCellDatas: sectionDataContainer.cellDatas,
-                                                 sectionDatas: self._sectionDatas) { [weak self] (changed,needFlush) in
+                                          didClickIndexPath: indexPath,
+                                          cellDataForClickedCell: cellDataContainer,
+                                          sectionCellDatas: sectionDataContainer.cellDatas,
+                                          sectionDatas: self._sectionDatas) { [weak self] (changed,needFlush) in
             guard let self = self else { return }
             
             if changed {

@@ -19,6 +19,7 @@ public class ZMInputCollectionViewSectionTitleHeaderData: ZMInputCollectionViewS
     public var titleColor: UIColor = .black
     public var titleTopPadding: CGFloat = 0
     public var titleLeftPadding: CGFloat = 0
+    public var id: String = ""
 
     public init() {}
     
@@ -27,13 +28,15 @@ public class ZMInputCollectionViewSectionTitleHeaderData: ZMInputCollectionViewS
                 titleFont: UIFont = .zlMediumFont(withSize: 18),
                 titleColor: UIColor = .black,
                 titleTopPadding: CGFloat = 0,
-                titleLeftPadding: CGFloat = 0) {
+                titleLeftPadding: CGFloat = 0,
+                id: String = "") {
         self.title = title
         self.sectionViewIdentifier = sectionViewIdentifier
         self.titleFont = titleFont
         self.titleColor = titleColor
         self.titleTopPadding = titleTopPadding
         self.titleLeftPadding = titleLeftPadding
+        self.id = id
     }
 }
 

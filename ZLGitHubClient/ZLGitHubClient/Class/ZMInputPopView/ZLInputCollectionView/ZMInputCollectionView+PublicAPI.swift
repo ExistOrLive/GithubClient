@@ -26,7 +26,7 @@ public extension ZMInputCollectionView {
         _sectionDatas = [ZMInputCollectionViewBaseSectionDataContainer(cellDataContainers: cellDataContainers,
                                                                    sectionHeaderData: headerData,
                                                                    sectionFooterData: footerData)]
-        sizeToFitContentView()
+        collectionView.reloadData()
     }
     
     // 设置sectionDatas
@@ -40,7 +40,7 @@ public extension ZMInputCollectionView {
                                                              sectionHeaderData: realSectionData.sectionHeaderData,
                                                              sectionFooterData: realSectionData.sectionFooterData)
         })
-        sizeToFitContentView()
+        collectionView.reloadData()
     }
     
 
