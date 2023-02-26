@@ -27,6 +27,8 @@ class ZLSearchFilterButtonCellData: ZMInputCollectionViewButtonCellDataType {
         self.buttonTitle = buttonTitle
         self.buttonValue = buttonValue
         self.cellIdentifier = cellIdentifier
+        self.defaultButtonTitle = defaultButtonTitle
+        self.defaultButtonValue = defaultButtonValue
         self.id = id 
     }
 }

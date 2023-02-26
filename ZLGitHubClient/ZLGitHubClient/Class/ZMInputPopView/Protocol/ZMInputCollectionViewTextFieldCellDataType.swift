@@ -25,7 +25,8 @@ public extension ZMInputCollectionViewTextFieldCellDataType {
 public protocol ZMInputCollectionViewTextFieldCellDataUpdatable: ZMInputCollectionViewUpdatable {
     
     associatedtype CellDataType
-    func updateConcreteCellData(cellData: CellDataType,
+    func updateConcreteCellData(cellDataContainer:  ZMInputCollectionViewTextFieldCellDataType,
+                                cellData: CellDataType,
                                 textValue: String?)
 }
 
@@ -33,7 +34,8 @@ public extension ZMInputCollectionViewTextFieldCellDataUpdatable {
     func updateViewData(viewData: Any) {
         if let cellDataContainer = viewData as? ZMInputCollectionViewBaseCellDataContainer,
            let realCellData = cellDataContainer.realCellData as? CellDataType {
-            updateConcreteCellData(cellData:realCellData,
+            updateConcreteCellData(cellDataContainer:cellDataContainer,
+                                   cellData:realCellData,
                                    textValue: cellDataContainer.textValue)
         }
     }

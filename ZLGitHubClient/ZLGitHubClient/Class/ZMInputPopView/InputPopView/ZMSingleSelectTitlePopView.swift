@@ -22,7 +22,7 @@ open class ZMSingleSelectTitlePopView: ZMInputPopView,ZMInputCollectionScrollVie
     
     var singleSelectBlock: ((Int,String) -> Void)? = nil
     
-    public var titleBackViewHeight: CGFloat = 45 {
+    public var titleBackViewHeight: CGFloat = 50 {
         didSet {
             if let _ =  titleBackView.superview {
                 titleBackView.snp.updateConstraints { make in
@@ -166,6 +166,30 @@ open class ZMSingleSelectTitlePopView: ZMInputPopView,ZMInputCollectionScrollVie
     }
 }
 
+// MARK: UITextFieldDelegate
+extension ZMSingleSelectTitlePopView: UITextFieldDelegate {
+    
+    public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+
+        if string == "\n" {
+            textField.resignFirstResponder()
+            return false
+        }
+
+        let textStr: NSString? = self.textField.text as NSString?
+        let text: String = textStr?.replacingCharacters(in: range, with: string) ?? ""
+        var array = self.cellDatas
+        if !text.isEmpty {
+            array = self.cellDatas.filter({ cellData in
+                return cellData.title.lowercased().contains(find: text.lowercased())
+            })
+        }
+        self.filterCellDatas = array
+        self.collectionView.setCellDatas(cellDatas: filterCellDatas)
+
+        return true
+    }
+}
 
 extension ZMSingleSelectTitlePopView {
     
@@ -177,7 +201,7 @@ extension ZMSingleSelectTitlePopView {
     
     public typealias SelectCell = UICollectionViewCell & ZMInputCollectionViewSelectCellConcreteUpdatable
     
-    /// 单选弹窗， 
+    /// 单选弹窗，
     public dynamic func showSingleSelectTitleBox<T: SelectCell>(_ to: UIView,
                                                                 contentPoition: ZMPopContainerViewPosition,
                                                                 animationDuration: TimeInterval,
@@ -210,29 +234,34 @@ extension ZMSingleSelectTitlePopView {
         self.collectionView.setCellDatas(cellDatas: filterCellDatas)
         self.inline_show(to, contentPoition: contentPoition, animationDuration: animationDuration)
     }
-}
-
-
-extension ZMSingleSelectTitlePopView: UITextFieldDelegate {
     
-    public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    
+    static public func showCenterSingleSelectTickBox(to: UIView,
+                                                     title: String,
+                                                     selectableTitles: [String],
+                                                     selectedTitle: String,
+                                                     singleSelectBlock: ((Int,String) -> Void)? = nil) {
+        
+        let selectView = ZMSingleSelectTitlePopView()
+        selectView.titleLabel.text = title 
+        selectView.frame = UIScreen.main.bounds
+        selectView.textFieldBackView.isHidden = true
+        selectView.contentWidth = 280
+        selectView.collectionView.lineSpacing = .leastNonzeroMagnitude
+        selectView.collectionView.interitemSpacing = .leastNonzeroMagnitude
+        selectView.collectionView.itemSize = CGSize(width: 280, height: 50)
+        selectView.popDelegate = ZMPopContainerViewDelegate_Center.shared
 
-        if string == "\n" {
-            textField.resignFirstResponder()
-            return false
+        let selectedIndex = selectableTitles.firstIndex(of: selectedTitle) ?? 0
+        selectView.showSingleSelectTitleBox(to,
+                                            contentPoition: .center,
+                                            animationDuration: 0.1,
+                                            titles: selectableTitles,
+                                            selectedIndex: selectedIndex,
+                                            cellType: ZMInputCollectionViewSelectTickCell.self)
+        { index, title in
+            singleSelectBlock?(index,title)
         }
-
-        let textStr: NSString? = self.textField.text as NSString?
-        let text: String = textStr?.replacingCharacters(in: range, with: string) ?? ""
-        var array = self.cellDatas
-        if !text.isEmpty {
-            array = self.cellDatas.filter({ cellData in
-                return cellData.title.lowercased().contains(find: text.lowercased())
-            })
-        }
-        self.filterCellDatas = array
-        self.collectionView.setCellDatas(cellDatas: filterCellDatas)
-
-        return true
     }
+    
 }

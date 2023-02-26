@@ -146,7 +146,7 @@ open class ZMInputConfirmPopView: ZMInputPopView {
     
     @objc public dynamic lazy var resetButton: UIButton = {
         let button = UIButton()
-        button.setTitle("重置", for: .normal)
+        button.setTitle(ZLLocalizedString(string: "Reset", comment: ""), for: .normal)
         button.setTitleColor(UIColor.label(withName: "ZLBaseButtonTitleColor"), for: .normal)
         button.titleLabel?.font = .zlMediumFont(withSize: 16)
         button.backgroundColor = UIColor.back(withName: "ZLBaseButtonBackColor")
@@ -159,7 +159,7 @@ open class ZMInputConfirmPopView: ZMInputPopView {
     
     @objc public dynamic lazy var confirmButton: UIButton = {
         let button = UIButton()
-        button.setTitle("确定", for: .normal)
+        button.setTitle(ZLLocalizedString(string: "Confirm", comment: ""), for: .normal)
         button.setTitleColor(UIColor.label(withName: "ZLBaseButtonTitleColor"), for: .normal)
         button.titleLabel?.font = .zlMediumFont(withSize: 16)
         button.backgroundColor = UIColor.back(withName: "ZLBaseButtonBackColor")

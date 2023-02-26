@@ -8,138 +8,141 @@
 
 import Foundation
 import UIKit
+import ZLGitRemoteService
 
 class ZLSearchFilterViewManager {
     
+    var filterBlock: ((ZLSearchFilterInfoModel) -> Void)?
+    
     // MARK: ViewData
+    lazy var repoDatas: [ZMInputCollectionSectionData] = {
+        return generateFilterSectionDatas(searchType: .repositories)
+    }()
+
     lazy var userDatas: [ZMInputCollectionSectionData] = {
-        return generateUserDatas()
+        return generateFilterSectionDatas(searchType: .users)
     }()
     
+    lazy var orgDatas: [ZMInputCollectionSectionData] = {
+        return generateFilterSectionDatas(searchType: .organizations)
+    }()
+    
+    lazy var prDatas: [ZMInputCollectionSectionData] = {
+        return generateFilterSectionDatas(searchType: .pullRequests)
+    }()
+    
+    lazy var issueDatas: [ZMInputCollectionSectionData] = {
+        return generateFilterSectionDatas(searchType: .issues)
+    }()
     
     // MARK: Lazy View
-    lazy var searchFilterViewForUser: ZMInputConfirmPopView = {
+    var searchFilterView: ZMInputConfirmPopView {
         let view = ZMInputConfirmPopView()
         view.contentWidth = 300
         view.contentHeight = ZLSCreenHeight
-        view.collectionView.register(sectionHeaderType: ZMInputCollectionViewSectionTitleHeader.self, withReuseIdentifier: "ZMInputCollectionViewSectionTitleHeader")
-        view.collectionView.register(cellType: ZLSearchFilterButtonCell.self, forCellWithReuseIdentifier: "ZLSearchFilterButtonCell")
-        view.collectionView.register(cellType: ZLSearchFilterTextFieldCell.self, forCellWithReuseIdentifier: "ZLSearchFilterTextFieldCell")
-        view.collectionView.register(cellType: ZLSearchFilterSingleLineCell.self, forCellWithReuseIdentifier: "ZLSearchFilterSingleLineCell")
+        view.collectionView.register(sectionHeaderType: ZMInputCollectionViewSectionTitleHeader.self,
+                                     withReuseIdentifier: "ZMInputCollectionViewSectionTitleHeader")
+        view.collectionView.register(cellType: ZLSearchFilterButtonCell.self,
+                                     forCellWithReuseIdentifier: "ZLSearchFilterButtonCell")
+        view.collectionView.register(cellType: ZLSearchFilterTextFieldCell.self,
+                                     forCellWithReuseIdentifier: "ZLSearchFilterTextFieldCell")
+        view.collectionView.register(cellType: ZLSearchFilterSingleLineCell.self,
+                                     forCellWithReuseIdentifier: "ZLSearchFilterSingleLineCell")
         view.collectionView.policy = self
         view.collectionView.delegate = self
         view.collectionView.uiDelegate = self
+        view.popDelegate = self
         view.collectionView.headerReferenceSize = CGSize(width: ZLScreenWidth, height: 35)
         view.contentInset = UIEdgeInsets(top: ZLSafeAreaTopHeight, left: 0, bottom: ZLSafeAreaBottomHeight, right: 0)
+        view.frame = UIScreen.main.bounds
         return view
-    }()
+    }
 }
 
 extension ZLSearchFilterViewManager {
     
-    func showSearchFilterViewForUser() {
+    func showSearchFilterViewFor(searchType: ZLSearchType,
+                                 filterBlock: @escaping (ZLSearchFilterInfoModel) -> Void) {
         guard let view = ZLMainWindow else { return }
-        searchFilterViewForUser.frame = UIScreen.main.bounds
-        searchFilterViewForUser.collectionView.setSectionDatas(sectionDatas: userDatas)
-        searchFilterViewForUser.show(view,
-                                     contentPoition: .right,
-                                     animationDuration: 0.25)
+        self.filterBlock = filterBlock
+        let searchFilterView = self.searchFilterView
+        searchFilterView
+            .collectionView
+            .setSectionDatas(sectionDatas: getFilterSectionDatas(searchType: searchType))
+        searchFilterView.show(view,
+                              contentPoition: .right,
+                              animationDuration: 0.25)
     }
 }
 
-
-
 extension ZLSearchFilterViewManager {
-    func generateUserDatas() -> [ZMInputCollectionSectionData] {
-      
-        // order
-        let orderSectionViewData = ZMInputCollectionViewSectionTitleHeaderData(
-            title: ZLLocalizedString(string: "Order", comment: "排序"),
-            titleColor: UIColor.label(withName: "ZLLabelColor1"),
-            titleLeftPadding: 20)
-        let orderCellData = ZLSearchFilterButtonCellData(buttonValue: nil,
-                                                         buttonTitle: nil,
-                                                         defaultButtonTitle: "Best Match",
-                                                         id: "order")
-
-        let orderSectionData = ZMInputCollectionSectionData(cellDatas: [orderCellData],
-                                                            sectionHeaderData: orderSectionViewData)
-        
-        // Language
-        let lanSectionViewData = ZMInputCollectionViewSectionTitleHeaderData(
-            title: ZLLocalizedString(string: "Language", comment: "语言"),
-            titleColor: UIColor.label(withName: "ZLLabelColor1"),
-            titleLeftPadding: 20)
-        let lanCellData = ZLSearchFilterButtonCellData(buttonValue: nil,
-                                                       buttonTitle: nil,
-                                                       defaultButtonTitle: "Any",
-                                                       id: "language")
-        
-        let lanSectionData = ZMInputCollectionSectionData(cellDatas: [lanCellData],
-                                                          sectionHeaderData: lanSectionViewData)
-        
-        // 创建时间
-        let createSectionViewData = ZMInputCollectionViewSectionTitleHeaderData(
-            title: ZLLocalizedString(string: "CreateTime", comment: "创建于"),
-            titleColor: UIColor.label(withName: "ZLLabelColor1"),
-            titleLeftPadding: 20)
-        let createTimeCellData1 = ZLSearchFilterButtonCellData(buttonValue: nil,
-                                                               buttonTitle: nil,
-                                                               id: "firstCreatedTimeStr")
-        
-        let createTimeSingleLineCellDatas = ZLSearchFilterSingleLineCellData(id:"singline")
-        
-        let createTimeCellData2 = ZLSearchFilterButtonCellData(buttonValue: nil,
-                                                               buttonTitle: nil,
-                                                               id: "secondCreatedTimeStr")
-        
-        let createTimeSectionData = ZMInputCollectionSectionData(cellDatas: [createTimeCellData1,createTimeSingleLineCellDatas,createTimeCellData2],
-                                                          sectionHeaderData: createSectionViewData)
-        
-        
-        // 粉丝
-        
-        let followerSectionViewData = ZMInputCollectionViewSectionTitleHeaderData(
-            title: ZLLocalizedString(string: "FollowersNum", comment: "粉丝"),
-            titleColor: UIColor.label(withName: "ZLLabelColor1"),
-            titleLeftPadding: 20)
-        let followerCellData1 = ZLSearchFilterTextFieldCellData(textValue: nil,
-                                                                placeHolder: "",
-                                                                id: "firstFollowersNum")
-        
-        let followerSingleLineCellDatas = ZLSearchFilterSingleLineCellData(id:"singline")
-        
-        let followerCellData2 = ZLSearchFilterTextFieldCellData(textValue: nil,
-                                                                placeHolder: nil,
-                                                                id: "secondFollowersNum")
-        
-        let followerSectionData = ZMInputCollectionSectionData(cellDatas: [followerCellData1,followerSingleLineCellDatas,followerCellData2],
-                                                          sectionHeaderData: followerSectionViewData)
-        
-        // 公共仓库
-        
-        let pubRepoSectionViewData = ZMInputCollectionViewSectionTitleHeaderData(
-            title: ZLLocalizedString(string: "PubReposNum", comment: "公共仓库"),
-            titleColor: UIColor.label(withName: "ZLLabelColor1"),
-            titleLeftPadding: 20)
-        let pubRepoCellData1 = ZLSearchFilterTextFieldCellData(textValue: nil,
-                                                               placeHolder: nil,
-                                                               id: "firstPubReposNum")
-        
-        let pubRepoSingleLineCellDatas = ZLSearchFilterSingleLineCellData(id:"singline")
-        
-        let pubRepoCellData2 = ZLSearchFilterTextFieldCellData(textValue: nil,
-                                                               placeHolder: nil,
-                                                               id: "secondPubReposNum")
-        
-        let pubRepoSectionData = ZMInputCollectionSectionData(cellDatas: [pubRepoCellData1,pubRepoSingleLineCellDatas,pubRepoCellData2],
-                                                          sectionHeaderData: pubRepoSectionViewData)
-        
-        return [orderSectionData,
-                lanSectionData,
-                createTimeSectionData,
-                followerSectionData,
-                pubRepoSectionData]
+    
+    func getFilterSectionDatas(searchType: ZLSearchType) -> [ZMInputCollectionSectionData] {
+        switch searchType {
+        case .repositories:
+            return repoDatas
+        case .users:
+            return userDatas
+        case .issues:
+            return issueDatas
+        case .pullRequests:
+            return prDatas
+        case .organizations:
+            return orgDatas
+        @unknown default:
+            return repoDatas
+        }
+    }
+    
+    /// 生成不同搜索类型的过滤选项SectionData
+    func generateFilterSectionDatas(searchType: ZLSearchType) -> [ZMInputCollectionSectionData] {
+    
+        searchType.filterSections.map { section -> ZMInputCollectionSectionData in
+            let sectionHeaderData = ZMInputCollectionViewSectionTitleHeaderData(
+                title: ZLLocalizedString(string: section.titleKey, comment: ""),
+                titleColor: UIColor.label(withName: "ZLLabelColor1"),
+                titleLeftPadding: 20)
+            
+            let cellDatas =  section.cellTypes.map { cellType -> ZMInputCollectionViewBaseCellDataType in
+                switch cellType {
+                case .repoOrder,.userOrder,.orgOrder,.prOrder,.issueOrder:
+                    return ZLSearchFilterButtonCellData(buttonValue: nil,
+                                                        buttonTitle: "Best Match",
+                                                        defaultButtonTitle: "Best Match",
+                                                        id: cellType.id)
+                case .language:
+                    return ZLSearchFilterButtonCellData(buttonValue: nil,
+                                                        buttonTitle: "Any",
+                                                        defaultButtonTitle: "Any",
+                                                        id: cellType.id)
+                case .firstCreatedTime,.secondCreatedTime:
+                    return ZLSearchFilterButtonCellData(buttonValue: nil,
+                                                        buttonTitle: nil,
+                                                        id: cellType.id)
+                case .firstFork,
+                        .firstStar,
+                        .secondFork,
+                        .secondStar,
+                        .firstRepo,
+                        .secondRepo,
+                        .firstFollower,
+                        .secondFollower:
+                    return ZLSearchFilterTextFieldCellData(textValue: nil,
+                                                           placeHolder: "",
+                                                           id: cellType.id)
+                case .openStatus:
+                    return ZLSearchFilterButtonCellData(buttonValue: true,
+                                                        buttonTitle: "Open",
+                                                        defaultButtonTitle: "Open",
+                                                        id: cellType.id)
+                case .singline:
+                    return ZLSearchFilterSingleLineCellData(id:cellType.id)
+                }
+            }
+            
+            return ZMInputCollectionSectionData(cellDatas: cellDatas,
+                                                sectionHeaderData: sectionHeaderData)
+        }
     }
 }
 
@@ -162,17 +165,111 @@ extension ZLSearchFilterViewManager: ZMInputCollectionViewPolicyProtocol {
                              sectionCellDatas: [ZMInputCollectionViewBaseCellDataType],
                              sectionDatas: [ZMInputCollectionViewSectionDataType],
                              completionHandler: @escaping (_ changed:Bool, _ needFlush:Bool) -> Void) {
-        if cellData.id == "order" {
-            
-            ZLSearchFilterPickerView.showUserOrderPickerView(initTitle: cellData.buttonValue as? String, resultBlock: {[weak cellData](result: String) in
+        guard let cellType = ZLSearchFilterCellType(rawValue: cellData.id) else {
+            completionHandler(false,false)
+            return
+        }
+        
+        switch cellType {
+        case .repoOrder:
+            guard let window = ZLMainWindow else { return }
+            let selectedOrder = cellData.buttonValue as? String
+            ZMSingleSelectTitlePopView
+                .showCenterSingleSelectTickBox(to: window,
+                                               title: ZLLocalizedString(string: "OrderSelect",
+                                                                        comment: ""),
+                                               selectableTitles: ZLSearchRepoOrderItem.allCases.map({$0.rawValue}),
+                                               selectedTitle: selectedOrder ?? "")
+            {[weak cellData] (index: Int,result: String) in
                 cellData?.buttonValue = result
-            })
-        } else if cellData.id == "language" {
-            
-        } else if cellData.id == "firstCreatedTimeStr" {
-            
-        } else if cellData.id == "secondCreatedTimeStr" {
-            
+                cellData?.buttonTitle = result
+                completionHandler(true,false)
+            }
+        case .userOrder:
+            guard let window = ZLMainWindow else { return }
+            let selectedOrder = cellData.buttonValue as? String
+            ZMSingleSelectTitlePopView
+                .showCenterSingleSelectTickBox(to: window,
+                                               title: ZLLocalizedString(string: "OrderSelect",
+                                                                        comment: ""),
+                                               selectableTitles: ZLSearchUserOrderItem.allCases.map({$0.rawValue}),
+                                               selectedTitle: selectedOrder ?? "")
+            {[weak cellData] (index: Int,result: String) in
+                cellData?.buttonValue = result
+                cellData?.buttonTitle = result
+                completionHandler(true,false)
+            }
+        case .orgOrder:
+            guard let window = ZLMainWindow else { return }
+            let selectedOrder = cellData.buttonValue as? String
+            ZMSingleSelectTitlePopView
+                .showCenterSingleSelectTickBox(to: window,
+                                               title: ZLLocalizedString(string: "OrderSelect",
+                                                                        comment: ""),
+                                               selectableTitles: ZLSearchOrgOrderItem.allCases.map({$0.rawValue}),
+                                               selectedTitle: selectedOrder ?? "")
+            {[weak cellData] (index: Int,result: String) in
+                cellData?.buttonValue = result
+                cellData?.buttonTitle = result
+                completionHandler(true,false)
+            }
+        case .issueOrder:
+            guard let window = ZLMainWindow else { return }
+            let selectedOrder = cellData.buttonValue as? String
+            ZMSingleSelectTitlePopView
+                .showCenterSingleSelectTickBox(to: window,
+                                               title: ZLLocalizedString(string: "OrderSelect",
+                                                                        comment: ""),
+                                               selectableTitles: ZLSearchIssueOrPROrderItem.allCases.map({$0.rawValue}),
+                                               selectedTitle: selectedOrder ?? "")
+            {[weak cellData] (index: Int,result: String) in
+                cellData?.buttonValue = result
+                cellData?.buttonTitle = result
+                completionHandler(true,false)
+            }
+        case .prOrder:
+            guard let window = ZLMainWindow else { return }
+            let selectedOrder = cellData.buttonValue as? String
+            ZMSingleSelectTitlePopView
+                .showCenterSingleSelectTickBox(to: window,
+                                               title: ZLLocalizedString(string: "OrderSelect",
+                                                                        comment: ""),
+                                               selectableTitles: ZLSearchIssueOrPROrderItem.allCases.map({$0.rawValue}),
+                                               selectedTitle: selectedOrder ?? "")
+            {[weak cellData] (index: Int,result: String) in
+                cellData?.buttonValue = result
+                cellData?.buttonTitle = result
+                completionHandler(true,false)
+            }
+        case .language:
+            guard let window = ZLMainWindow else { return }
+            let language = cellData.buttonValue as? String
+            ZMLanguageSelectView.showDevelopLanguageSelectView(to: window,
+                                                                  developeLanguage: language) { [weak cellData] language in
+                cellData?.buttonTitle = language ?? "Any"
+                cellData?.buttonValue = language
+                completionHandler(true,false)
+            }
+        case .openStatus:
+            let openStatus = cellData.buttonValue as? Bool ?? true
+            cellData.buttonValue = !openStatus
+            cellData.buttonTitle = !openStatus ? "Open" : "Close"
+            completionHandler(true,false)
+        case .firstCreatedTime, .secondCreatedTime:
+            guard let window = ZLMainWindow else { return }
+            let currentDate = (cellData.buttonValue as? String)?.toDate()
+            ZMDatePickerPopView.showDatePickerPopView(to: window,
+                                                      title: ZLLocalizedString(string: "DateRange", comment: ""),
+                                                      startDate: Date(year: 2008, month: 1, day: 1),
+                                                      endDate: Date(),
+                                                      currentDate: currentDate) { [weak cellData] date in
+                
+                cellData?.buttonValue = date.toString()
+                cellData?.buttonTitle = date.toString()
+                completionHandler(true,false)
+            }
+        default:
+            break
         }
     }
 }
@@ -190,6 +287,107 @@ extension ZLSearchFilterViewManager: ZMInputCollectionDelegate {
     func inputCollectionView(_ collectionView: ZMInputCollectionView,
                              didFlushData cellDatas: [[ZMInputCollectionViewBaseCellDataType]]) {
         
+        let model: ZLSearchFilterInfoModel = ZLSearchFilterInfoModel()
+        for sectionCellDatas in cellDatas {
+            for cellData in sectionCellDatas {
+                guard let cellType = ZLSearchFilterCellType(rawValue: cellData.id) else {
+                    continue
+                }
+                
+                switch cellType {
+                case .repoOrder:
+                    if let buttonCellData = cellData as? ZMInputCollectionViewButtonCellDataType,
+                       let value = buttonCellData.buttonValue as? String,
+                       let orderType = ZLSearchRepoOrderItem(rawValue: value){
+                        model.isAsc = orderType.isAsc
+                        model.order = orderType.order
+                    }
+                case .userOrder:
+                    if let buttonCellData = cellData as? ZMInputCollectionViewButtonCellDataType,
+                       let value = buttonCellData.buttonValue as? String,
+                       let orderType = ZLSearchUserOrderItem(rawValue: value){
+                        model.isAsc = orderType.isAsc
+                        model.order = orderType.order
+                    }
+                case .orgOrder:
+                    if let buttonCellData = cellData as? ZMInputCollectionViewButtonCellDataType,
+                       let value = buttonCellData.buttonValue as? String,
+                       let orderType = ZLSearchOrgOrderItem(rawValue: value){
+                        model.isAsc = orderType.isAsc
+                        model.order = orderType.order
+                    }
+                case .issueOrder,.prOrder:
+                    if let buttonCellData = cellData as? ZMInputCollectionViewButtonCellDataType,
+                       let value = buttonCellData.buttonValue as? String,
+                       let orderType = ZLSearchIssueOrPROrderItem(rawValue: value){
+                        model.isAsc = orderType.isAsc
+                        model.order = orderType.order
+                    }
+                case .language:
+                    if let buttonCellData = cellData as? ZMInputCollectionViewButtonCellDataType,
+                       let value = buttonCellData.buttonValue as? String {
+                        model.language = value
+                    }
+                case .openStatus:
+                    if let buttonCellData = cellData as? ZMInputCollectionViewButtonCellDataType {
+                        model.issueOrPRClosed = !(buttonCellData.buttonValue as? Bool ?? true)
+                    }
+                case .firstCreatedTime:
+                    if let buttonCellData = cellData as? ZMInputCollectionViewButtonCellDataType,
+                       let value = buttonCellData.buttonValue as? String {
+                        model.firstCreatedTimeStr = value
+                    }
+                case .secondCreatedTime:
+                    if let buttonCellData = cellData as? ZMInputCollectionViewButtonCellDataType,
+                       let value = buttonCellData.buttonValue as? String {
+                        model.secondCreatedTimeStr = value
+                    }
+                case .firstStar:
+                    if let textCellData = cellData as? ZMInputCollectionViewTextFieldCellDataType,
+                       let value = textCellData.textValue {
+                        model.firstStarNum = UInt(value) ?? 0
+                    }
+                case .secondStar:
+                    if let textCellData = cellData as? ZMInputCollectionViewTextFieldCellDataType,
+                       let value = textCellData.textValue {
+                        model.secondStarNum = UInt(value) ?? 0
+                    }
+                case .firstFork:
+                    if let textCellData = cellData as? ZMInputCollectionViewTextFieldCellDataType,
+                       let value = textCellData.textValue {
+                        model.firstForkNum = UInt(value) ?? 0
+                    }
+                case .secondFork:
+                    if let textCellData = cellData as? ZMInputCollectionViewTextFieldCellDataType,
+                       let value = textCellData.textValue {
+                        model.secondForkNum = UInt(value) ?? 0
+                    }
+                case .firstFollower:
+                    if let textCellData = cellData as? ZMInputCollectionViewTextFieldCellDataType,
+                       let value = textCellData.textValue {
+                        model.firstFollowersNum = UInt(value) ?? 0
+                    }
+                case .secondFollower:
+                    if let textCellData = cellData as? ZMInputCollectionViewTextFieldCellDataType,
+                       let value = textCellData.textValue {
+                        model.secondFollowersNum = UInt(value) ?? 0
+                    }
+                case .firstRepo:
+                    if let textCellData = cellData as? ZMInputCollectionViewTextFieldCellDataType,
+                       let value = textCellData.textValue {
+                        model.firstPubReposNum = UInt(value) ?? 0
+                    }
+                case .secondRepo:
+                    if let textCellData = cellData as? ZMInputCollectionViewTextFieldCellDataType,
+                       let value = textCellData.textValue {
+                        model.secondPubReposNum = UInt(value) ?? 0
+                    }
+                default:
+                    break
+                }
+            }
+        }
+        filterBlock?(model)
     }
 }
 
@@ -199,21 +397,17 @@ extension ZLSearchFilterViewManager: ZMInputCollectionViewUIDelegate {
     func inputCollectionView(_ collectionView: ZMInputCollectionView, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let sectionData = collectionView.sectionDatas[indexPath.section]
         let cellData = sectionData.cellDatas[indexPath.row]
-        
-        switch cellData.id {
-        case "order", "language":
-            return CGSize(width: 260, height: 35)
-        case "firstCreatedTimeStr",
-             "secondCreatedTimeStr",
-             "firstFollowersNum",
-             "secondFollowersNum",
-             "firstPubReposNum",
-             "secondPubReposNum":
-            return CGSize(width: 100, height: 35)
-        case "singline":
-            return CGSize(width: 40, height: 35)
-        default:
+        guard let cellType = ZLSearchFilterCellType(rawValue: cellData.id ) else {
             return .zero
+        }
+        switch cellType {
+        case .repoOrder,.userOrder,.orgOrder,.issueOrder,.prOrder,.language,.openStatus:
+            return CGSize(width: 260, height: 35)
+        case .firstFork,.firstRepo,.firstFollower,.firstStar,.firstCreatedTime,
+                .secondFork,.secondRepo,.secondFollower,.secondStar,.secondCreatedTime:
+            return CGSize(width: 100, height: 35)
+        case .singline:
+            return CGSize(width: 40, height: 35)
         }
     }
     
@@ -232,4 +426,38 @@ extension ZLSearchFilterViewManager: ZMInputCollectionViewUIDelegate {
     func inputCollectionView(_ collectionView: ZMInputCollectionView, interitemSpacingForSectionAt section: Int) -> CGFloat {
         10
     }
+}
+
+// MARK: - ZMPopContainerViewDelegate
+extension ZLSearchFilterViewManager: ZMPopContainerViewDelegate {
+    
+    func popContainerViewShouldChangeFrameWhenDeviceOrientationDidChange(_ view:ZMPopContainerView) -> Bool {
+        ZLDeviceInfo.isIpad()
+    }
+
+    func popContainerViewShouldChangeContentViewFrameWhenDeviceOrientationDidChange(_ view:ZMPopContainerView) -> Bool {
+        ZLDeviceInfo.isIpad()
+    }
+
+    func popContainerViewChangeFrameWhenDeviceOrientationDidChange(_ view:ZMPopContainerView) -> CGRect {
+        if let view = view as? ZMInputConfirmPopView {
+            view.contentInset = UIEdgeInsets(top: ZLSafeAreaTopHeight, left: 0, bottom: ZLSafeAreaBottomHeight, right: 0)
+        }
+        return ZLScreenBoundsAdjustWithScreenOrientation
+    }
+
+    func popContainerViewChangeContentViewTargetFrameWhenDeviceOrientationDidChange(_ view:ZMPopContainerView) -> CGRect {
+        let size = CGSize(width: 300, height: view.frame.height)
+        let origin = CGPoint(x: view.frame.width - 300,
+                             y: 0)
+        return CGRect(origin: origin, size: size)
+    }
+
+    func popContainerViewChangeContentViewInitFrameWhenDeviceOrientationDidChange(_ view:ZMPopContainerView) -> CGRect {
+        let size = CGSize(width: 300, height: view.frame.height)
+        let origin = CGPoint(x: view.frame.width,
+                             y: 0)
+        return CGRect(origin: origin, size: size)
+    }
+
 }

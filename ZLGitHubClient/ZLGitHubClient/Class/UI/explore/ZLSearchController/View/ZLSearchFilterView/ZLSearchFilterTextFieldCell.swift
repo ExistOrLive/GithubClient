@@ -28,6 +28,8 @@ class ZLSearchFilterTextFieldCellData: ZMInputCollectionViewTextFieldCellDataTyp
 
 class ZLSearchFilterTextFieldCell: UICollectionViewCell {
     
+    weak var cellDataContainer: ZMInputCollectionViewTextFieldCellDataType?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpUI()
@@ -54,13 +56,16 @@ class ZLSearchFilterTextFieldCell: UICollectionViewCell {
         textField.font = UIFont.zlRegularFont(withSize: 14)
         textField.delegate = self
         textField.keyboardType = .numberPad
+        textField.addTarget(self, action: #selector(onTextFieldChange), for: .editingChanged)
         return textField
     }()
 }
 
 extension ZLSearchFilterTextFieldCell: ZMInputCollectionViewTextFieldCellDataUpdatable {
-    func updateConcreteCellData(cellData: ZLSearchFilterTextFieldCellData,
+    func updateConcreteCellData(cellDataContainer: ZMInputCollectionViewTextFieldCellDataType,
+                                cellData: ZLSearchFilterTextFieldCellData,
                                 textValue: String?) {
+        self.cellDataContainer = cellDataContainer
         self.textField.text = textValue
         self.textField.placeholder = cellData.placeHolder
     }
@@ -68,6 +73,11 @@ extension ZLSearchFilterTextFieldCell: ZMInputCollectionViewTextFieldCellDataUpd
 
 
 extension ZLSearchFilterTextFieldCell: UITextFieldDelegate {
+    
+    @objc func onTextFieldChange() {
+        cellDataContainer?.textValue = textField.text
+    }
+    
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
