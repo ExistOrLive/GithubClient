@@ -304,6 +304,19 @@ extension ZMPopContainerViewDelegate {
         }
         return true
     }
+    
+    // MARK: - hitTest
+//    open override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+//        let view = hitTest(point, with: event)
+//
+//        guard let view = view,
+//              let content = content,
+//              view.isDescendant(of: content) else {
+//                  return view
+//        }
+//        dismiss()
+//        return view
+//    }
 }
 
 // MARK:  support contentPosition

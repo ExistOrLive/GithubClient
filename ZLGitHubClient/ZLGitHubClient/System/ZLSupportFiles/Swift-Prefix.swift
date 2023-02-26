@@ -13,7 +13,6 @@ import SDWebImage
 import SnapKit
 import MJRefresh
 import JXSegmentedView
-import Charts
 import ZLGitRemoteService
 import SYDCentralPivot
 

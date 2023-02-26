@@ -95,7 +95,7 @@ class ZLNotificationView: ZLBaseView {
 
     @objc private func onFilterButtonClicked() {
         
-        guard let view = viewController?.view else { return }
+        guard let view = ZLMainWindow else { return }
         ZMSingleSelectTitlePopView
             .showCenterSingleSelectTickBox(to: view,
                                            title: ZLLocalizedString(string: "Filter",

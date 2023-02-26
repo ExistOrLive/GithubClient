@@ -240,6 +240,9 @@ extension ZMSingleSelectTitlePopView {
                                                      title: String,
                                                      selectableTitles: [String],
                                                      selectedTitle: String,
+                                                     contentWidth: CGFloat = 280,
+                                                     contentHeight: CGFloat? = nil,
+                                                     contentMaxHeight: CGFloat = .greatestFiniteMagnitude,
                                                      singleSelectBlock: ((Int,String) -> Void)? = nil) {
         
         let selectView = ZMSingleSelectTitlePopView()
@@ -247,6 +250,8 @@ extension ZMSingleSelectTitlePopView {
         selectView.frame = UIScreen.main.bounds
         selectView.textFieldBackView.isHidden = true
         selectView.contentWidth = 280
+        selectView.contentHeight = contentHeight
+        selectView.contentMaxHeight = contentMaxHeight
         selectView.collectionView.lineSpacing = .leastNonzeroMagnitude
         selectView.collectionView.interitemSpacing = .leastNonzeroMagnitude
         selectView.collectionView.itemSize = CGSize(width: 280, height: 50)
