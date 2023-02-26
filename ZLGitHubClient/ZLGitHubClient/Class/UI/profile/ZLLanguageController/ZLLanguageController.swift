@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import ZLBaseUI
+import ZLGitRemoteService
 
 class ZLLanguageController: ZLBaseViewController, ZLLanguageViewDelegate {
 
