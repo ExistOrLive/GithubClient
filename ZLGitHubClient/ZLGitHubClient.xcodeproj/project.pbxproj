@@ -350,7 +350,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		042F5F698DAC01847DA61C71 /* Pods-ZLGitHubClient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZLGitHubClient.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZLGitHubClient/Pods-ZLGitHubClient.release.xcconfig"; sourceTree = "<group>"; };
 		0ADF902A21D4B01900BF86CD /* ZLGitHubClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZLGitHubClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ADF902D21D4B01900BF86CD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0ADF902E21D4B01900BF86CD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -360,7 +359,6 @@
 		0ADF903B21D4B01900BF86CD /* ZLGitHubClient_Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ZLGitHubClient_Info.plist; sourceTree = "<group>"; };
 		0ADF903C21D4B01900BF86CD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0ADF904321D4D33D00BF86CD /* ZLGitHubClient-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZLGitHubClient-Bridging-Header.h"; sourceTree = "<group>"; };
-		2A1C1E9B223917862FB53386 /* Pods-ZLServiceFramework.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZLServiceFramework.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZLServiceFramework/Pods-ZLServiceFramework.release.xcconfig"; sourceTree = "<group>"; };
 		3628FCDF238BB22000FC36FC /* ZLEventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLEventTableViewCell.swift; sourceTree = "<group>"; };
 		3628FCE5238CF1C600FC36FC /* ZLEventTableViewCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLEventTableViewCellData.swift; sourceTree = "<group>"; };
 		362EEC8F246D2BE500CE99D3 /* ZLFeedbackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLFeedbackViewModel.swift; sourceTree = "<group>"; };
@@ -376,9 +374,7 @@
 		3693D8CF2465236D00779FC4 /* ZLAboutContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZLAboutContentView.swift; sourceTree = "<group>"; };
 		3693D8D3246523A400779FC4 /* ZLAboutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLAboutViewModel.swift; sourceTree = "<group>"; };
 		3AC1DAD9E26567E70156CD78 /* Pods-GithubClient-Fixed RepoExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GithubClient-Fixed RepoExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-GithubClient-Fixed RepoExtension/Pods-GithubClient-Fixed RepoExtension.release.xcconfig"; sourceTree = "<group>"; };
-		4B452F7BFC8564E0921A68EB /* Pods-Fixed RepoExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fixed RepoExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Fixed RepoExtension/Pods-Fixed RepoExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		4F5EC103FCDB3794BE775543 /* libPods-GithubClient-Fixed RepoExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GithubClient-Fixed RepoExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		60A321F2ADD6DAF97FEEDF94 /* Pods-ZLServiceFramework.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZLServiceFramework.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZLServiceFramework/Pods-ZLServiceFramework.debug.xcconfig"; sourceTree = "<group>"; };
 		740318CA22F702B7004CE52D /* ZLSearchRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLSearchRecordView.swift; sourceTree = "<group>"; };
 		740318CE22F702E6004CE52D /* ZLSearchItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLSearchItemsView.swift; sourceTree = "<group>"; };
 		7408EC222533BD72001DA1EC /* ZLGithubAppKey.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLGithubAppKey.h; sourceTree = "<group>"; };
@@ -689,13 +685,9 @@
 		74FCBDA323142E0200DDE46A /* ZLEditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLEditProfileViewModel.swift; sourceTree = "<group>"; };
 		74FCBDA523142F1300DDE46A /* ZLEditProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLEditProfileController.swift; sourceTree = "<group>"; };
 		7AC44332CAA0E09B3278CC22 /* Pods_ZLServiceFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZLServiceFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		827C09D31FC9D9456ED23E03 /* Pods-Fixed RepoExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fixed RepoExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-Fixed RepoExtension/Pods-Fixed RepoExtension.release.xcconfig"; sourceTree = "<group>"; };
 		932B11E0D85DEDD8045AEB4E /* Pods-GithubClient-ZLGitHubClient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GithubClient-ZLGitHubClient.release.xcconfig"; path = "Pods/Target Support Files/Pods-GithubClient-ZLGitHubClient/Pods-GithubClient-ZLGitHubClient.release.xcconfig"; sourceTree = "<group>"; };
-		9DB8CADD643B3AEB70C63C51 /* Pods-ZLBaseFramework.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZLBaseFramework.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZLBaseFramework/Pods-ZLBaseFramework.release.xcconfig"; sourceTree = "<group>"; };
 		A6C72BEE5FF1560DDE0E2D1D /* Pods-GithubClient-ZLGitHubClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GithubClient-ZLGitHubClient.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GithubClient-ZLGitHubClient/Pods-GithubClient-ZLGitHubClient.debug.xcconfig"; sourceTree = "<group>"; };
-		AA68B4BC8FFF87762D625908 /* Pods-ZLBaseFramework.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZLBaseFramework.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZLBaseFramework/Pods-ZLBaseFramework.debug.xcconfig"; sourceTree = "<group>"; };
 		C158892C4674C3DD266C21BA /* Pods_ZLBaseFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZLBaseFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CD0AEC7A0ED54B14C3F6E8C9 /* Pods-ZLGitHubClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZLGitHubClient.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZLGitHubClient/Pods-ZLGitHubClient.debug.xcconfig"; sourceTree = "<group>"; };
 		D1259F9F23195CC700C7892B /* ZLNewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLNewsViewModel.swift; sourceTree = "<group>"; };
 		EF9D2D7A040DB8E4D3C7D0A7 /* Pods-GithubClient-Fixed RepoExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GithubClient-Fixed RepoExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GithubClient-Fixed RepoExtension/Pods-GithubClient-Fixed RepoExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		F5DBCF7431669D0BFC0ACE20 /* libPods-GithubClient-ZLGitHubClient.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GithubClient-ZLGitHubClient.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2843,14 +2835,6 @@
 		8AD159E421EC467DE119C80F /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				CD0AEC7A0ED54B14C3F6E8C9 /* Pods-ZLGitHubClient.debug.xcconfig */,
-				042F5F698DAC01847DA61C71 /* Pods-ZLGitHubClient.release.xcconfig */,
-				AA68B4BC8FFF87762D625908 /* Pods-ZLBaseFramework.debug.xcconfig */,
-				9DB8CADD643B3AEB70C63C51 /* Pods-ZLBaseFramework.release.xcconfig */,
-				60A321F2ADD6DAF97FEEDF94 /* Pods-ZLServiceFramework.debug.xcconfig */,
-				2A1C1E9B223917862FB53386 /* Pods-ZLServiceFramework.release.xcconfig */,
-				4B452F7BFC8564E0921A68EB /* Pods-Fixed RepoExtension.debug.xcconfig */,
-				827C09D31FC9D9456ED23E03 /* Pods-Fixed RepoExtension.release.xcconfig */,
 				EF9D2D7A040DB8E4D3C7D0A7 /* Pods-GithubClient-Fixed RepoExtension.debug.xcconfig */,
 				3AC1DAD9E26567E70156CD78 /* Pods-GithubClient-Fixed RepoExtension.release.xcconfig */,
 				A6C72BEE5FF1560DDE0E2D1D /* Pods-GithubClient-ZLGitHubClient.debug.xcconfig */,
@@ -3041,12 +3025,14 @@
 				"${PODS_ROOT}/Target Support Files/Pods-GithubClient-ZLGitHubClient/Pods-GithubClient-ZLGitHubClient-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/DoraemonKit/DoraemonKit.bundle",
 				"${PODS_ROOT}/FWPopupView/FWPopupView/Resources/FWPopupView.bundle",
+				"${PODS_ROOT}/GCDWebServer/GCDWebUploader/GCDWebUploader.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/DoraemonKit.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FWPopupView.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GCDWebUploader.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3613,79 +3599,6 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MARKETING_VERSION = 1.3.0;
 				NEW_SETTING = "";
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/Alamofire/Alamofire.modulemap\"",
-					"-fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/Apollo/Apollo.modulemap\"",
-					"-fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/Charts/Charts.modulemap\"",
-					"-fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/CircleMenu/CircleMenu.modulemap\"",
-					"-fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/FWPopupView/FWPopupView.modulemap\"",
-					"-fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/JXSegmentedView/JXSegmentedView.modulemap\"",
-					"-fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/RxCocoa/RxCocoa.modulemap\"",
-					"-fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/RxRelay/RxRelay.modulemap\"",
-					"-fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/RxSwift/RxSwift.modulemap\"",
-					"-fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/SnapKit/SnapKit.modulemap\"",
-					"-fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/Umbrella/Umbrella.modulemap\"",
-					"-fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/ZLBaseExtension/ZLBaseExtension.modulemap\"",
-					"-fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/ZLGitRemoteService/ZLGitRemoteService.modulemap\"",
-					"-fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/ZLGithubOAuth/ZLGithubOAuth.modulemap\"",
-					"-fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/ZLUIUtilities/ZLUIUtilities.modulemap\"",
-					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Private/SDWebImage/SDWebImage.modulemap\"",
-					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/AFNetworking/AFNetworking.modulemap\"",
-					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/BSBacktraceLogger/BSBacktraceLogger.modulemap\"",
-					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/CocoaLumberjack/CocoaLumberjack.modulemap\"",
-					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/DoraemonKit/DoraemonKit.modulemap\"",
-					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/FBLPromises/PromisesObjC.modulemap\"",
-					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/FBRetainCycleDetector/FBRetainCycleDetector.modulemap\"",
-					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/FFPopup/FFPopup.modulemap\"",
-					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/FMDB/FMDB.modulemap\"",
-					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/FirebaseABTesting/FirebaseABTesting.modulemap\"",
-					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/FirebaseCore/FirebaseCore.modulemap\"",
-					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/FirebaseCoreDiagnostics/FirebaseCoreDiagnostics.modulemap\"",
-					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/FirebaseCrashlytics/FirebaseCrashlytics.modulemap\"",
-					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/FirebaseInstallations/FirebaseInstallations.modulemap\"",
-					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/FirebasePerformance/FirebasePerformance.modulemap\"",
-					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/FirebaseRemoteConfig/FirebaseRemoteConfig.modulemap\"",
-					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/GoogleDataTransport/GoogleDataTransport.modulemap\"",
-					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/GoogleUtilities/GoogleUtilities.modulemap\"",
-					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/IQKeyboardManager/IQKeyboardManager.modulemap\"",
-					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/JJException/JJException.modulemap\"",
-					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/LookinServer/LookinServer.modulemap\"",
-					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/MBProgressHUD/MBProgressHUD.modulemap\"",
-					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/MJExtension/MJExtension.modulemap\"",
-					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/MJRefresh/MJRefresh.modulemap\"",
-					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/Masonry/Masonry.modulemap\"",
-					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/SYDCentralPivot/SYDCentralPivot.modulemap\"",
-					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/Toast/Toast.modulemap\"",
-					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/UITextView_Placeholder/UITextView+Placeholder.modulemap\"",
-					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/YYText/YYText.modulemap\"",
-					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/ZLBaseUI/ZLBaseUI.modulemap\"",
-					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/fishhook/fishhook.modulemap\"",
-					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/nanopb/nanopb.modulemap\"",
-					"-isystem",
-					"\"${PODS_ROOT}/Headers/Public\"",
-					"-isystem",
-					"\"${PODS_ROOT}/Headers/Public/PromisesObjC\"",
-					"-isystem",
-					"\"${PODS_ROOT}/Headers/Public/RxCocoa\"",
-					"-iframework",
-					"\"${PODS_ROOT}/Bugly\"",
-					"-iframework",
-					"\"${PODS_ROOT}/FirebaseAnalytics/Frameworks\"",
-					"-iframework",
-					"\"${PODS_XCFRAMEWORKS_BUILD_DIR}/FirebaseAnalytics/AdIdSupport\"",
-					"-iframework",
-					"\"${PODS_ROOT}/GoogleAppMeasurement/Frameworks\"",
-					"-iframework",
-					"\"${PODS_XCFRAMEWORKS_BUILD_DIR}/GoogleAppMeasurement/AdIdSupport\"",
-					"-iframework",
-					"\"${PODS_XCFRAMEWORKS_BUILD_DIR}/GoogleAppMeasurement/WithoutAdIdSupport\"",
-					"-iframework",
-					"\"${PODS_ROOT}/WoodPeckeriOS\"",
-					"-iframework",
-					"\"${PODS_XCFRAMEWORKS_BUILD_DIR}/WoodPeckeriOS\"",
-					"-v",
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zm.ZLGitHubClient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
