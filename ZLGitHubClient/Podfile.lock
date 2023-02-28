@@ -364,7 +364,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/ExistOrLive/ZLGithubOAuth.git
     :tag: 1.2.0
   ZLGitRemoteService:
-    :commit: 8c00f6d417eab8bd16d26eb57586b0458892c277
+    :commit: f1d249b6f92f684d6b1e7e2f4870f7df277da6b3
     :git: https://github.com/ExistOrLive/ZLGitRemoteService.git
   ZLUIUtilities:
     :commit: 3fa0671df2f040a9bf00a56f27bf209f46b18ea1
@@ -425,6 +425,6 @@ SPEC CHECKSUMS:
   ZLGitRemoteService: c57964a471dd83f634c10d323c42fe9800b199db
   ZLUIUtilities: 58cc312400e93051b01ab73e77998865ee43f53a
 
-PODFILE CHECKSUM: e7e80a9eb8e3e23f1bbe7ac019cad2f004d82b1c
+PODFILE CHECKSUM: 87e2716218bf2617ee2d5ed736f7b4c2dce3912b
 
 COCOAPODS: 1.11.3
