@@ -226,7 +226,7 @@ public class ZMDatePickerPopView: ZMPopContainerView {
     // MARK: Lazy View
     public lazy var contentView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "ZLVCBackColor")
         view.layer.masksToBounds = true
         view.layer.cornerRadius = 5.0
         return view
@@ -263,7 +263,6 @@ public class ZMDatePickerPopView: ZMPopContainerView {
     
     public lazy var bottomView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
         return view
     }()
     
