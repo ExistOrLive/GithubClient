@@ -9,15 +9,15 @@
 import Foundation
 import UIKit
 
-class ZLSearchFilterTextFieldCellData: ZMInputCollectionViewTextFieldCellDataType {
+class ZLSearchFilterNumberFieldCellData: ZMInputCollectionViewTextFieldCellDataType {
     var textValue: String?
     var placeHolder: String?
-    var cellIdentifier: String = "ZLSearchFilterTextFieldCell"
+    var cellIdentifier: String = "ZLSearchFilterNumberFieldCell"
     var id: String = ""
     
     init(textValue: String?,
          placeHolder: String?,
-         cellIdentifier: String = "ZLSearchFilterTextFieldCell",
+         cellIdentifier: String = "ZLSearchFilterNumberFieldCell",
          id: String = "") {
         self.textValue = textValue
         self.placeHolder = placeHolder
@@ -26,7 +26,7 @@ class ZLSearchFilterTextFieldCellData: ZMInputCollectionViewTextFieldCellDataTyp
     }
 }
 
-class ZLSearchFilterTextFieldCell: UICollectionViewCell {
+class ZLSearchFilterNumberFieldCell: UICollectionViewCell {
     
     weak var cellDataContainer: ZMInputCollectionViewTextFieldCellDataType?
     
@@ -56,14 +56,15 @@ class ZLSearchFilterTextFieldCell: UICollectionViewCell {
         textField.font = UIFont.zlRegularFont(withSize: 14)
         textField.delegate = self
         textField.keyboardType = .numberPad
+        textField.textAlignment = .center
         textField.addTarget(self, action: #selector(onTextFieldChange), for: .editingChanged)
         return textField
     }()
 }
 
-extension ZLSearchFilterTextFieldCell: ZMInputCollectionViewTextFieldCellDataUpdatable {
+extension ZLSearchFilterNumberFieldCell: ZMInputCollectionViewTextFieldCellDataUpdatable {
     func updateConcreteCellData(cellDataContainer: ZMInputCollectionViewTextFieldCellDataType,
-                                cellData: ZLSearchFilterTextFieldCellData,
+                                cellData: ZLSearchFilterNumberFieldCellData,
                                 textValue: String?) {
         self.cellDataContainer = cellDataContainer
         self.textField.text = textValue
@@ -72,12 +73,17 @@ extension ZLSearchFilterTextFieldCell: ZMInputCollectionViewTextFieldCellDataUpd
 }
 
 
-extension ZLSearchFilterTextFieldCell: UITextFieldDelegate {
+extension ZLSearchFilterNumberFieldCell: UITextFieldDelegate {
     
     @objc func onTextFieldChange() {
-        cellDataContainer?.textValue = textField.text
+        if let intValue = UInt(textField.text ?? "") {
+            cellDataContainer?.textValue = "\(intValue)"
+            textField.text = "\(intValue)"
+        } else {
+            cellDataContainer?.textValue = nil
+            textField.text = nil
+        }
     }
-    
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -87,5 +93,17 @@ extension ZLSearchFilterTextFieldCell: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        /// 能转换为整型数才允许输入
+        let oldText = textField.text ?? ""
+        let newText = (oldText as NSString).replacingCharacters(in: range, with: string)
+        let newValue = UInt(newText)
+        if newText.isEmpty || newValue != nil  {
+            return true
+        } else {
+            return false
+        }
     }
 }

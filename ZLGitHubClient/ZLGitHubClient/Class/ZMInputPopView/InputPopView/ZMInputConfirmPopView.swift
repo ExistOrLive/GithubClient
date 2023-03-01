@@ -9,6 +9,7 @@ import Foundation
 import ZLBaseExtension
 import SnapKit
 import UIKit
+import ZLBaseUI
 
 public protocol ZMInputConfirmPopViewDelegate: AnyObject {
     func inputConfirmPopViewWillConfirm(_ box: ZMInputConfirmPopView,
@@ -145,34 +146,23 @@ open class ZMInputConfirmPopView: ZMInputPopView {
     }()
     
     @objc public dynamic lazy var resetButton: UIButton = {
-        let button = UIButton()
+        let button = ZLBaseButton()
         button.setTitle(ZLLocalizedString(string: "Reset", comment: ""), for: .normal)
-        button.setTitleColor(UIColor.label(withName: "ZLBaseButtonTitleColor"), for: .normal)
         button.titleLabel?.font = .zlMediumFont(withSize: 16)
-        button.backgroundColor = UIColor.back(withName: "ZLBaseButtonBackColor")
-        button.layer.cornerRadius = 2.0
-        button.layer.borderColor = UIColor.back(withName: "ZLBaseButtonBorderColor").cgColor
-        button.layer.borderWidth = 1.0
         button.addTarget(self, action: #selector(onResetButtonClicked), for: .touchUpInside)
         return button
     }()
     
     @objc public dynamic lazy var confirmButton: UIButton = {
-        let button = UIButton()
+        let button = ZLBaseButton()
         button.setTitle(ZLLocalizedString(string: "Confirm", comment: ""), for: .normal)
-        button.setTitleColor(UIColor.label(withName: "ZLBaseButtonTitleColor"), for: .normal)
         button.titleLabel?.font = .zlMediumFont(withSize: 16)
-        button.backgroundColor = UIColor.back(withName: "ZLBaseButtonBackColor")
-        button.layer.cornerRadius = 2.0
-        button.layer.borderColor = UIColor.back(withName: "ZLBaseButtonBorderColor").cgColor
-        button.layer.borderWidth = 1.0
         button.addTarget(self, action: #selector(onConfirmButtonClicked), for: .touchUpInside)
         return button
     }()
     
     @objc public dynamic lazy var bottomView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
         return view
     }()
     

@@ -113,6 +113,7 @@ post_install do |installer|
   ## fix oclint issue : one compiler command contains multiple jobs
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
+      ## fix  CocoaPod config to solve XCode 14, iOS16 Requires a development team. Select a development team in the Signing & Capabilities editor https://stackoverflow.com/questions/73811360/cocoapod-config-to-solve-xcode-14-ios16-requires-a-development-team-select-a-d
       if target.respond_to?(:product_type) and target.product_type == "com.apple.product-type.bundle"
         target.build_configurations.each do |config|
           config.build_settings['EXPANDED_CODE_SIGN_IDENTITY'] = ""
