@@ -100,8 +100,8 @@ open class ZMInputPopView: ZMPopContainerView, ZMInputCollectionDelegate {
     // MARK: Lazy View
     @objc public dynamic lazy var contentView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
         view.layer.masksToBounds = true
+        view.backgroundColor = UIColor(named: "ZLVCBackColor")
         return view
     }()
 

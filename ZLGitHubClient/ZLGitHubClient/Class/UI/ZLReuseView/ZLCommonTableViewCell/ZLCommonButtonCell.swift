@@ -45,7 +45,7 @@ class ZLCommonButtonCell: UITableViewCell {
     }
     
     // MAKR: view
-    private var button: UIButton = {
+    private lazy var button: UIButton = {
         let button = UIButton(type: .custom)
         button.addTarget(self, action: #selector(onButtonClicked(button:)), for: .touchUpInside)
         return button

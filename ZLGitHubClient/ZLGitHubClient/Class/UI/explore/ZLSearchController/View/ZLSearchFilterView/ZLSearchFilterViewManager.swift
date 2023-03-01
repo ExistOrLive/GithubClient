@@ -12,6 +12,12 @@ import ZLGitRemoteService
 
 class ZLSearchFilterViewManager {
     
+    init(viewModel: ZLSearchItemsViewModel) {
+        self.viewModel = viewModel
+    }
+    
+    weak var viewModel: ZLSearchItemsViewModel?
+
     var filterBlock: ((ZLSearchFilterInfoModel) -> Void)?
     
     // MARK: ViewData
@@ -34,6 +40,7 @@ class ZLSearchFilterViewManager {
     lazy var issueDatas: [ZMInputCollectionSectionData] = {
         return generateFilterSectionDatas(searchType: .issues)
     }()
+
     
     // MARK: Lazy View
     var searchFilterView: ZMInputConfirmPopView {
@@ -44,8 +51,8 @@ class ZLSearchFilterViewManager {
                                      withReuseIdentifier: "ZMInputCollectionViewSectionTitleHeader")
         view.collectionView.register(cellType: ZLSearchFilterButtonCell.self,
                                      forCellWithReuseIdentifier: "ZLSearchFilterButtonCell")
-        view.collectionView.register(cellType: ZLSearchFilterTextFieldCell.self,
-                                     forCellWithReuseIdentifier: "ZLSearchFilterTextFieldCell")
+        view.collectionView.register(cellType: ZLSearchFilterNumberFieldCell.self,
+                                     forCellWithReuseIdentifier: "ZLSearchFilterNumberFieldCell")
         view.collectionView.register(cellType: ZLSearchFilterSingleLineCell.self,
                                      forCellWithReuseIdentifier: "ZLSearchFilterSingleLineCell")
         view.collectionView.policy = self
@@ -63,7 +70,7 @@ extension ZLSearchFilterViewManager {
     
     func showSearchFilterViewFor(searchType: ZLSearchType,
                                  filterBlock: @escaping (ZLSearchFilterInfoModel) -> Void) {
-        guard let view = ZLMainWindow else { return }
+        guard let view = viewModel?.viewController?.view else { return }
         self.filterBlock = filterBlock
         let searchFilterView = self.searchFilterView
         searchFilterView
@@ -127,8 +134,9 @@ extension ZLSearchFilterViewManager {
                         .secondRepo,
                         .firstFollower,
                         .secondFollower:
-                    return ZLSearchFilterTextFieldCellData(textValue: nil,
-                                                           placeHolder: "",
+                    return ZLSearchFilterNumberFieldCellData(textValue: nil,
+                                                           placeHolder: ZLLocalizedString(string: "input number",
+                                                                                          comment: "输入数字"),
                                                            id: cellType.id)
                 case .openStatus:
                     return ZLSearchFilterButtonCellData(buttonValue: true,

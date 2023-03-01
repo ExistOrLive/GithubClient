@@ -47,8 +47,7 @@ open class ZMSingleSelectTitlePopView: ZMInputPopView,ZMInputCollectionScrollVie
     }
         
     @objc open dynamic override func setupContentUI() {
-        
-        contentView.backgroundColor = UIColor(named: "ZLVCBackColor")
+    
         contentView.cornerRadius = 5.0
         
         contentView.addSubview(verticalStackView)

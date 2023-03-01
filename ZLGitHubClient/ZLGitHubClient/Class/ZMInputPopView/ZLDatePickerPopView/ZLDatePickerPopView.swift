@@ -8,6 +8,7 @@
 
 import Foundation
 import ZLBaseExtension
+import ZLBaseUI
 
 @objc public enum ZMDateComponentType: Int {
   case year = 0
@@ -225,7 +226,7 @@ public class ZMDatePickerPopView: ZMPopContainerView {
     // MARK: Lazy View
     public lazy var contentView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "ZLVCBackColor")
         view.layer.masksToBounds = true
         view.layer.cornerRadius = 5.0
         return view
@@ -262,19 +263,13 @@ public class ZMDatePickerPopView: ZMPopContainerView {
     
     public lazy var bottomView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
         return view
     }()
     
     public lazy var confirmButton: UIButton = {
-        let button = UIButton()
+        let button = ZLBaseButton()
         button.setTitle(ZLLocalizedString(string: "Confirm", comment: ""), for: .normal)
-        button.setTitleColor(UIColor.label(withName: "ZLBaseButtonTitleColor"), for: .normal)
         button.titleLabel?.font = .zlMediumFont(withSize: 16)
-        button.backgroundColor = UIColor.back(withName: "ZLBaseButtonBackColor")
-        button.layer.cornerRadius = 2.0
-        button.layer.borderColor = UIColor.back(withName: "ZLBaseButtonBorderColor").cgColor
-        button.layer.borderWidth = 1.0
         button.addTarget(self, action: #selector(onConfirmButtonClicked), for: .touchUpInside)
         return button
     }()

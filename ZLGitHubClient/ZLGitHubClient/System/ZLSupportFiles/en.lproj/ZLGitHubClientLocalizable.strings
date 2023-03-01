@@ -1,8 +1,7 @@
 // ZLGitHubClientLocalizable.strings
-//   ZLGitHubClient
-// 
-//   Created by 朱猛 on 2019/7/30.
-//   Copyright © 2019 ZM. All rights reserved.
+// ZLGitHubClient
+// Created by 朱猛 on 2019/7/30.
+// Copyright © 2019 ZM. All rights reserved.
 "repositories" = "Repos";
 "repository" = "Repo";
 "organizations" = "Organizations";
@@ -204,38 +203,29 @@
 "insults abuse" = "insults abuse";
 "other" = "other";
 "pinned" = "Pinned";
-
 "Copy" = "Copy";
 "Copy URL" = "Copy Link";
 "View in Github" = "View in Github";
 "Open in Safari" = "Open in Safari";
-
 "NoDescription" = "No description provided";
-
 "Assignee" = "Assignee";
 "Label" = "Label";
 "Project" = "Project";
 "Milestone" = "Milestone";
-
 "Comment" = "Comment";
 "Infomation" = "Infomation";
-
 "EnterComment" = "Enter Comment please (Support Markdown)";
-
 "Close" = "Close";
-
 "No one assigned" = "No one assigned";
 "None yet" = "None yet";
 "No milestone" = "No milestone";
-
 "Issue_Close" = "Close Issue";
 "Issue_Reopen" = "Reopen Issue";
 "Issue_Subscribe" = "Subscribe Issue";
 "Issue_Unsubscribe" = "Unsubscribe Issue";
 "Issue_Lock" = "Lock Issue";
 "Issue_Unlock" = "Unlock Issue";
-
 "Save_Success" = "Save Success";
 "Save_Fail" = "Save Fail";
-
 "Discussions" = "Discussions";
+"input number" = "Input number";

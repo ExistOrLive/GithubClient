@@ -53,10 +53,9 @@
 "news" = "动态";
 
 // ZLGitHubClientLocalizable.strings
-//   ZLGitHubClient
-// 
-//   Created by 朱猛 on 2019/7/30.
-//   Copyright © 2019 ZM. All rights reserved.
+// ZLGitHubClient
+// Created by 朱猛 on 2019/7/30.
+// Copyright © 2019 ZM. All rights reserved.
 "repositories" = "仓库";
 "explore" = "探索";
 "profile" = "我";
@@ -205,38 +204,29 @@
 "insults abuse" = "侮辱虐待";
 "other" = "其他";
 "pinned" = "已固定";
-
 "Copy" = "复制";
 "Copy URL" = "复制链接";
 "View in Github" = "在GitHub中打开";
 "Open in Safari" = "在浏览器中打开";
-
 "NoDescription" = "未提供说明";
-
 "Assignee" = "受理者";
 "Label" = "标签";
 "Project" = "项目";
 "Milestone" = "里程碑";
-
 "Comment" = "评论";
 "Infomation" = "信息";
-
 "EnterComment" = "请输入评论信息(支持Markdown)";
-
 "Close" = "关闭";
-
 "No one assigned" = "未分配受理人";
 "None yet" = "暂无";
 "No milestone" = "暂无里程碑";
-
 "Issue_Close" = "关闭问题";
 "Issue_Reopen" = "重新打开问题";
 "Issue_Subscribe" = "订阅问题";
 "Issue_Unsubscribe" = "取消订阅问题";
 "Issue_Lock" = "锁定问题";
 "Issue_Unlock" = "取消锁定问题";
-
 "Save_Success" = "保存成功";
 "Save_Fail" = "保存失败";
-
 "Discussions" = "讨论";
+"input number" = "输入数字";
