@@ -71,12 +71,12 @@ pod 'FFPopup'
 
 
 # 移动监控工具
-pod 'WoodPeckeriOS', :configurations => ['Debug']
-pod 'LookinServer', :configurations => ['Debug']
-pod 'DoraemonKit/Core', :configurations => ['Debug']
-pod 'DoraemonKit/WithLogger', :configurations => ['Debug']
+#pod 'WoodPeckeriOS', :configurations => ['Debug']
+#pod 'LookinServer', :configurations => ['Debug']
+#pod 'DoraemonKit/Core', :configurations => ['Debug']
+#pod 'DoraemonKit/WithLogger', :configurations => ['Debug']
 #pod 'DoraemonKit/WithGPS', :configurations => ['Debug']
-pod 'DoraemonKit/WithMLeaksFinder', :configurations => ['Debug']
+#pod 'DoraemonKit/WithMLeaksFinder', :configurations => ['Debug']
 
 # 异常防护
 pod 'JJException'

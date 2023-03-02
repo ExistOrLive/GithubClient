@@ -2899,7 +2899,6 @@
 				0ADF902621D4B01900BF86CD /* Sources */,
 				0ADF902721D4B01900BF86CD /* Frameworks */,
 				0ADF902821D4B01900BF86CD /* Resources */,
-				390C286527A3295B07634395 /* [CP] Embed Pods Frameworks */,
 				74344A6B258B0FB900903E08 /* Embed App Extensions */,
 				74D3EEBA259BC2120002A2D3 /* Embed Frameworks */,
 				2E5E5E459488BEDF066C4349 /* [CP] Copy Pods Resources */,
@@ -3023,39 +3022,17 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-GithubClient-ZLGitHubClient/Pods-GithubClient-ZLGitHubClient-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/DoraemonKit/DoraemonKit.bundle",
 				"${PODS_ROOT}/FWPopupView/FWPopupView/Resources/FWPopupView.bundle",
-				"${PODS_ROOT}/GCDWebServer/GCDWebUploader/GCDWebUploader.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/DoraemonKit.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FWPopupView.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GCDWebUploader.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GithubClient-ZLGitHubClient/Pods-GithubClient-ZLGitHubClient-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		390C286527A3295B07634395 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-GithubClient-ZLGitHubClient/Pods-GithubClient-ZLGitHubClient-frameworks.sh",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/WoodPeckeriOS/WoodPeckeriOS.framework/WoodPeckeriOS",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WoodPeckeriOS.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GithubClient-ZLGitHubClient/Pods-GithubClient-ZLGitHubClient-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		4ED0727E66FE7CDE45783884 /* [CP] Check Pods Manifest.lock */ = {
@@ -3563,7 +3540,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 247;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 24LG5QVBPR;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
@@ -3623,7 +3600,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 247;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 24LG5QVBPR;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
@@ -3679,10 +3656,11 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 247;
 				DEVELOPMENT_TEAM = 24LG5QVBPR;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 24LG5QVBPR;
 				INFOPLIST_FILE = "Fixed Repo/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -3693,6 +3671,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zm.ZLGitHubClient.Fixed-Repo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development com.zm.*";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.zm.*";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -3715,8 +3694,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 247;
 				DEVELOPMENT_TEAM = 24LG5QVBPR;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 24LG5QVBPR;
 				INFOPLIST_FILE = "Fixed Repo/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -3726,6 +3706,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zm.ZLGitHubClient.Fixed-Repo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.zm.*";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore com.zm.*";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 5.0;
