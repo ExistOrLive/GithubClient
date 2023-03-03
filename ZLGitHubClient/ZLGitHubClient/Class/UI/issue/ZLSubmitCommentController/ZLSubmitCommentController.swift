@@ -39,7 +39,7 @@ class ZLSubmitCommentController: ZLBaseViewController {
     
     override func keyboardWillShow(_ payload: ZLKeyboardNotificationPayload) {
         UIView.animate(withDuration: TimeInterval(payload.duration)) { [weak self] in
-            self?.submitCommentView.snp_remakeConstraints({ make in
+            self?.submitCommentView.snp.remakeConstraints({ make in
                 make.top.left.right.equalToSuperview()
                 make.bottom.equalToSuperview().offset(-payload.endFrame.height)
             })
@@ -48,7 +48,7 @@ class ZLSubmitCommentController: ZLBaseViewController {
     
     override func keyboardWillHide(_ payload: ZLKeyboardNotificationPayload) {
         UIView.animate(withDuration: TimeInterval(payload.duration)) { [weak self] in
-            self?.submitCommentView.snp_remakeConstraints({ make in
+            self?.submitCommentView.snp.remakeConstraints({ make in
                 make.top.left.right.bottom.equalToSuperview()
             })
         }

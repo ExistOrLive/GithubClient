@@ -17,7 +17,7 @@ class ZLLoginViewController: ZLBaseViewController {
         if let loginView: ZLLoginBaseView = Bundle.main.loadNibNamed("ZLLoginBaseView", owner: nil, options: nil)?.first as? ZLLoginBaseView {
 
             self.view.addSubview(loginView)
-            loginView.snp_makeConstraints { (make) in
+            loginView.snp.makeConstraints { (make) in
                 make.edges.equalToSuperview()
             }
 

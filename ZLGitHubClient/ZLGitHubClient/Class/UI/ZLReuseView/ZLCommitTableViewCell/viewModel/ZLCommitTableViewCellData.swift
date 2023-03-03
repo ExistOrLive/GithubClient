@@ -57,7 +57,7 @@ extension ZLCommitTableViewCellData {
     }
 
     func getAssistInfo() -> String? {
-        return "\(String(describing: self.commitModel.committer?.loginName ?? "") ) \(ZLLocalizedString(string: "committed", comment: "提交于")) \((self.commitModel.commit_at as NSDate? ?? NSDate.init()).dateLocalStrSinceCurrentTime() as String) "
+        return "\(String(describing: self.commitModel.committer?.loginName ?? "") ) \(ZLLocalizedString(string: "committed", comment: "提交于")) \((self.commitModel.commit_at as NSDate? ?? NSDate()).dateLocalStrSinceCurrentTime() as String) "
     }
 
 }

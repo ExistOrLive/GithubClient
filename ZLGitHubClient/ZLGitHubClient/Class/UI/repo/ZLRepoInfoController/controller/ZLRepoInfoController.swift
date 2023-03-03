@@ -231,7 +231,7 @@ extension ZLRepoInfoController {
     }
     
     func onPrClicked() {
-        let controller = ZLRepoPullRequestController.init()
+        let controller = ZLRepoPullRequestController()
         controller.repoFullName = fullName
         self.viewController?.navigationController?.pushViewController(controller, animated: true)
     }

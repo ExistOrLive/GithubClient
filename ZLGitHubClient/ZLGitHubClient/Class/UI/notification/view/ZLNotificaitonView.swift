@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ZLBaseUI
 
 protocol ZLNotificationViewDataSourceAndDelagate: ZLGithubItemListViewDelegate {
     // delagate

@@ -66,7 +66,7 @@ class ZLPageTabViewConfig: NSObject {
         self.view.addSubview(self.mainPageView())
         self.mainPageView().snp.makeConstraints { (make) in
             make.left.bottom.right.equalToSuperview()
-            make.top.equalTo(self.headTabView().snp_bottom)
+            make.top.equalTo(self.headTabView().snp.bottom)
         }
 
         if self.children.count > 0 {
@@ -99,7 +99,7 @@ class ZLPageTabViewConfig: NSObject {
         self.pageViewArray.append(view!)
         self._mainPageStackView?.addArrangedSubview(view!)
         view!.snp.makeConstraints { (make) in
-            make.width.equalTo(self.mainPageView().snp_width)
+            make.width.equalTo(self.mainPageView().snp.width)
         }
     }
 

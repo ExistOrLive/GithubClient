@@ -128,7 +128,7 @@ class ZLIssueTableViewCell: UITableViewCell {
 
         containerView.addSubview(labelStackView)
         labelStackView.snp.makeConstraints { (make) in
-            make.left.equalTo(statusTag.snp_right).offset(10)
+            make.left.equalTo(statusTag.snp.right).offset(10)
             make.top.equalTo(titleLabel.snp.bottom).offset(15)
             make.height.equalTo(20)
         }

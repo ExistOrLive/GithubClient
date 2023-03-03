@@ -46,7 +46,7 @@ platform :ios do
         output_directory: "./fastlane/ipa",
         output_name: "ZLGitHubClient.ipa",
         export_options: {
-          method: "adhoc",
+          method: "ad-hoc",
           provisioningProfiles: {
             "com.zm.ZLGitHubClient" => "match AdHoc com.zm.*",
             "com.zm.ZLGitHubClient.Fixed-Repo" => "match AdHoc com.zm.*"

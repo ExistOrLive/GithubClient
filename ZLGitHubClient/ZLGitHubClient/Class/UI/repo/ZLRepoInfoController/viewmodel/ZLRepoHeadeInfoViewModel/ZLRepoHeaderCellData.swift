@@ -10,6 +10,7 @@ import Foundation
 import ZLUIUtilities
 import RxSwift
 import ZLGitRemoteService
+import ZLBaseUI
 
 class ZLRepoHeaderCellData: ZLTableViewBaseCellData {
     

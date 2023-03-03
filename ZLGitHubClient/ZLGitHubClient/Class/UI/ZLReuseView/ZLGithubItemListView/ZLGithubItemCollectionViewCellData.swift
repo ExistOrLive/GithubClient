@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ZLBaseUI
 
 @objc protocol ZLGithubItemCollectionViewCellDataProtocol: NSObjectProtocol {
     func getCellReuseIdentifier() -> String

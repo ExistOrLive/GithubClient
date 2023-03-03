@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ZLBaseUI
 
 protocol ZLAboutContentViewDelegate: AnyObject {
     var version: String {get}

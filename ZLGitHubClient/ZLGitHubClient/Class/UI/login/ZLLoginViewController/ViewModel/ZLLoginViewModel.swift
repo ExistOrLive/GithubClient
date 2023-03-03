@@ -10,6 +10,7 @@ import UIKit
 import ZLGithubOAuth
 import ZLGitRemoteService
 import ZLUIUtilities
+import ZLBaseUI
 
 enum ZLLoginStep {
     case initialize

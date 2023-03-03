@@ -71,8 +71,8 @@ pod 'FFPopup'
 
 
 # 移动监控工具
-#pod 'WoodPeckeriOS', :configurations => ['Debug']
-#pod 'LookinServer', :configurations => ['Debug']
+pod 'WoodPeckeriOS', :configurations => ['Debug']
+pod 'LookinServer', :configurations => ['Debug']
 #pod 'DoraemonKit/Core', :configurations => ['Debug']
 #pod 'DoraemonKit/WithLogger', :configurations => ['Debug']
 #pod 'DoraemonKit/WithGPS', :configurations => ['Debug']
@@ -122,8 +122,8 @@ post_install do |installer|
         end
       end
       config.build_settings['COMPILER_INDEX_STORE_ENABLE'] = "NO"
-      if config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'].to_f < 10.0
-        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '10.0'
+      if config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'].to_f < 12.0
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
       end
     end
   end

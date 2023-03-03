@@ -8,6 +8,7 @@
 
 import UIKit
 import ZLBaseExtension
+import ZLBaseUI
 
 class ZLSearchView: ZLBaseView {
                 

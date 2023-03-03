@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ZLBaseUI
 
 @objc protocol ZLWorkflowTableViewCellDelegate: NSObjectProtocol {
     func onConfigButtonClicked()

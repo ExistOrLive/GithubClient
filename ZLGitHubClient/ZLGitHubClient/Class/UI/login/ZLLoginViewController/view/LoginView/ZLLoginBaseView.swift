@@ -7,12 +7,11 @@
 //
 
 import UIKit
+import ZLBaseUI
 
 @objc protocol ZLLoginBaseViewDelegate: NSObjectProtocol {
     func onLoginButtonClicked()
-
     func onAccessTokenButtonClicked()
-
 }
 
 class ZLLoginBaseView: ZLBaseView {
@@ -24,7 +23,7 @@ class ZLLoginBaseView: ZLBaseView {
 
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var accessTokenButton: UIButton!
-
+    
     override func awakeFromNib() {
         self.loginButton.layer.cornerRadius = 5.0
         self.activityIndicator.isHidden = true
@@ -42,4 +41,10 @@ class ZLLoginBaseView: ZLBaseView {
             self.delegate?.onAccessTokenButtonClicked()
         }
     }
+//    
+//    lazy var loginInfoLabel = {
+//        let label = UILabel()
+//        return label
+//    }()
+    
 }

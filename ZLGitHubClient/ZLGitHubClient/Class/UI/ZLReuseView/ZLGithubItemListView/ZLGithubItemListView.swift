@@ -96,7 +96,7 @@ import ZLBaseExtension
 
         addSubview(self.tableView)
         tableView.snp.makeConstraints({ (make) in
-            make.edges.equalTo(self.snp_edges).inset(UIEdgeInsets.init(top: 10, left: 0, bottom: 0, right: 0))
+            make.edges.equalTo(self.snp.edges).inset(UIEdgeInsets.init(top: 10, left: 0, bottom: 0, right: 0))
         })
         
         addSubview(noDataView)

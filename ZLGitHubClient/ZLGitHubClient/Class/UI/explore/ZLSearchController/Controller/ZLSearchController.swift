@@ -25,7 +25,7 @@ class ZLSearchController: ZLBaseViewController {
         // 创建ZLSearchView
         let baseView: ZLSearchView = ZLSearchView()
         self.view.addSubview(baseView)
-        baseView.snp_makeConstraints { (make) in
+        baseView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
 

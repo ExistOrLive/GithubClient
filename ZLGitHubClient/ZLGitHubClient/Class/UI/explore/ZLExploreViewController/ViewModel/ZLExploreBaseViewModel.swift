@@ -10,6 +10,7 @@ import UIKit
 import JXSegmentedView
 import ZLUIUtilities
 import ZLGitRemoteService
+import ZLBaseUI
 
 class ZLExploreBaseViewModel: ZLBaseViewModel {
 

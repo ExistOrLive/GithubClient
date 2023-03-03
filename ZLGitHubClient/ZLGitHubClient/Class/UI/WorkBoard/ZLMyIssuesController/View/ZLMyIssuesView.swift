@@ -95,7 +95,7 @@ class ZLMyIssuesView: ZLBaseView {
         stateButton.snp.makeConstraints { (make) in
             make.width.equalTo(80)
             make.top.bottom.equalToSuperview()
-            make.right.equalTo(filterButton.snp_left).offset(-10)
+            make.right.equalTo(filterButton.snp.left).offset(-10)
         }
         stateButton.addTarget(self,
                               action: #selector(ZLMyPullRequestsView.onStateButtonClicked),
@@ -104,7 +104,7 @@ class ZLMyIssuesView: ZLBaseView {
         self.addSubview(githubItemListView)
         githubItemListView.snp.makeConstraints { (make) in
             make.right.bottom.left.equalToSuperview()
-            make.top.equalTo(view.snp_bottom)
+            make.top.equalTo(view.snp.bottom)
         }
     }
 

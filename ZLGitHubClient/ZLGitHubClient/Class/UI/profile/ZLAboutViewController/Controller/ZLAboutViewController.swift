@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ZLBaseUI
 
 @objcMembers class ZLAboutViewController: ZLBaseViewController {
 
@@ -19,7 +20,7 @@ import UIKit
 
         let contentView = ZLAboutContentView()
         self.contentView.addSubview(contentView)
-        contentView.snp_makeConstraints({ (make) in
+        contentView.snp.makeConstraints({ (make) in
             make.edges.equalToSuperview()
         })
 

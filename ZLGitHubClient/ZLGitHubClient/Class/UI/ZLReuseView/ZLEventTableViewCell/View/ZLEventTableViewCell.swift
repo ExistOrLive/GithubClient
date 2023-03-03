@@ -64,8 +64,8 @@ class ZLEventTableViewCell: UITableViewCell {
         headImageButton.layer.masksToBounds = true
         self.containerView?.addSubview(headImageButton)
         headImageButton.snp.makeConstraints({(make) -> Void in
-            make.left.equalTo(self.containerView!.snp_left).offset(10)
-            make.top.equalTo(self.containerView!.snp_top).offset(10)
+            make.left.equalTo(self.containerView!.snp.left).offset(10)
+            make.top.equalTo(self.containerView!.snp.top).offset(10)
             make.width.equalTo(40)
             make.height.equalTo(40)
         })
@@ -77,8 +77,8 @@ class ZLEventTableViewCell: UITableViewCell {
         actorNameLabel.font = UIFont.init(name: Font_PingFangSCMedium, size: 16.0)
         self.containerView?.addSubview(actorNameLabel)
         actorNameLabel.snp.makeConstraints({(make) -> Void in
-            make.left.equalTo(self.headImageButton!.snp_right).offset(10)
-            make.centerY.equalTo(self.headImageButton!.snp_centerY)
+            make.left.equalTo(self.headImageButton!.snp.right).offset(10)
+            make.centerY.equalTo(self.headImageButton!.snp.centerY)
         })
         self.actorNameLabel = actorNameLabel
 
@@ -87,8 +87,8 @@ class ZLEventTableViewCell: UITableViewCell {
         timeLabel.font = UIFont.init(name: Font_PingFangSCMedium, size: 15.0)
         self.containerView?.addSubview(timeLabel)
         timeLabel.snp.makeConstraints({(make) -> Void in
-            make.right.equalTo(self.containerView!.snp_right).offset(-10)
-            make.centerY.equalTo(self.actorNameLabel!.snp_centerY)
+            make.right.equalTo(self.containerView!.snp.right).offset(-10)
+            make.centerY.equalTo(self.actorNameLabel!.snp.centerY)
         })
         self.timeLabel = timeLabel
 
@@ -97,8 +97,8 @@ class ZLEventTableViewCell: UITableViewCell {
         eventDesLabel.preferredMaxLayoutWidth = ZLScreenWidth - 50
         self.containerView?.addSubview(eventDesLabel)
         eventDesLabel.snp.makeConstraints({(make) -> Void in
-            make.left.equalTo(self.containerView!.snp_left).offset(15)
-            make.right.equalTo(self.containerView!.snp_right).offset(-10)
+            make.left.equalTo(self.containerView!.snp.left).offset(15)
+            make.right.equalTo(self.containerView!.snp.right).offset(-10)
             make.top.equalTo(self.headImageButton!.snp.bottom).offset(10)
         })
         self.eventDesLabel = eventDesLabel
@@ -106,9 +106,9 @@ class ZLEventTableViewCell: UITableViewCell {
         let assistInfoView = UIView.init()
         self.containerView?.addSubview(assistInfoView)
         assistInfoView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.eventDesLabel!.snp_bottom).offset(20)
-            make.left.equalTo(self.containerView!.snp_left).offset(10)
-            make.right.equalTo(self.containerView!.snp_right).offset(-10)
+            make.top.equalTo(self.eventDesLabel!.snp.bottom).offset(20)
+            make.left.equalTo(self.containerView!.snp.left).offset(10)
+            make.right.equalTo(self.containerView!.snp.right).offset(-10)
             make.height.equalTo(20).priority(.medium)
         }
         self.assistInfoView = assistInfoView
@@ -122,9 +122,9 @@ class ZLEventTableViewCell: UITableViewCell {
         button.snp.makeConstraints { (make) in
             make.width.equalTo(45)
             make.height.equalTo(30)
-            make.right.equalTo(self.containerView!.snp_right).offset(-10)
-            make.bottom.equalTo(self.containerView!.snp_bottom).offset(-10)
-            make.top.equalTo(self.assistInfoView!.snp_bottom).offset(0)
+            make.right.equalTo(self.containerView!.snp.right).offset(-10)
+            make.bottom.equalTo(self.containerView!.snp.bottom).offset(-10)
+            make.top.equalTo(self.assistInfoView!.snp.bottom).offset(0)
         }
         self.reportMoreButton = button
     }
