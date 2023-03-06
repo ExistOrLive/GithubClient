@@ -11,39 +11,105 @@ import FFPopup
 import ZLBaseUI
 
 class ZLInputAccessTokenView: ZLBaseView {
-
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var textField: UITextField!
-    @IBOutlet weak var confirmButton: UIButton!
-    weak var popup: FFPopup?
+    
+    weak var popView: ZMPopContainerView?
     var resultBlock: ((String?) -> Void)?
 
-    class func showInputAccessTokenViewWithResultBlock(resultBlock: @escaping ((String?) -> Void) ) {
-
-        guard let view: ZLInputAccessTokenView = Bundle.main.loadNibNamed("ZLInputAccessTokenView", owner: nil, options: nil)?.first as? ZLInputAccessTokenView else {
-             return
-         }
-         view.resultBlock = resultBlock
-
-         view.frame = CGRect.init(x: 0, y: 0, width: ZLKeyWindowWidth - 80, height: 190)
-         let popup = FFPopup(contentView: view, showType: .bounceIn, dismissType: .bounceOut, maskType: FFPopup.MaskType.dimmed, dismissOnBackgroundTouch: true, dismissOnContentTouch: false)
-         view.popup = popup
-        let layout = FFPopupLayout.init(horizontal: .center, vertical: .aboveCenter)
-        popup.show(layout: layout)
-
-        view.textField.becomeFirstResponder()
+    static func showInputAccessTokenView(resultBlock: @escaping ((String?) -> Void) ) {
+        
+        guard let window = ZLMainWindow else { return }
+        
+        let view = ZLInputAccessTokenView()
+        view.resultBlock = resultBlock
+        
+        let popView = ZMPopContainerView()
+        view.popView = popView
+        popView.frame = UIScreen.main.bounds
+        popView.popDelegate = ZMPopContainerViewDelegate_Center.shared
+        popView.show(window,
+                     contentView: view,
+                     contentSize: CGSize(width: 300,
+                                         height: 190),
+                     contentPoition: .center,
+                     animationDuration: 0.25,
+                     completion: {
+            view.textField.becomeFirstResponder()
+        })
     }
 
-    override func awakeFromNib() {
-        self.titleLabel.text = ZLLocalizedString(string: "Input Access Token", comment: "Input Access Token")
-        self.confirmButton.setTitle(ZLLocalizedString(string: "Confirm", comment: ""), for: .normal)
-        self.textField.delegate = self
+    @objc func onConfirmButtonClicked(_ sender: Any) {
+        resultBlock?(self.textField.text)
+        popView?.dismiss()
     }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    func setupUI() {
+        backgroundColor = UIColor(named: "ZLPopUpTitleBackView")
+        layer.cornerRadius = 8
+        addSubview(titleLabel)
+        addSubview(textField)
+        addSubview(confirmButton)
+        
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalTo(20)
+            make.left.equalTo(10)
+        }
+        
+        textField.snp.makeConstraints { make in
+            make.left.equalTo(10)
+            make.right.equalTo(-10)
+            make.top.equalTo(titleLabel.snp.bottom).offset(20)
+        }
+        
+        confirmButton.snp.makeConstraints { make in
+            make.size.equalTo(CGSize(width: 250, height: 40))
+            make.bottom.equalTo(-20)
+            make.centerX.equalToSuperview()
+        }
+        
+        
+    }
+    
+    // MARK: Lazy View
+    lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = ZLLocalizedString(string: "Input Access Token",
+                                       comment: "Input Access Token")
+        label.font = .zlMediumFont(withSize: 15)
+        label.textColor = UIColor(named: "ZLPopupTitleColor")
+        return label
+    }()
 
-    @IBAction func onConfirmButtonClicked(_ sender: Any) {
-        self.popup?.dismiss(animated: true)
-        self.resultBlock?(self.textField.text)
-    }
+    lazy var textField: UITextField = {
+        let textField = UITextField()
+        textField.delegate = self
+        textField.backgroundColor = UIColor(named:"ZLPopUpTextFieldBackColor")
+        textField.font = .zlRegularFont(withSize: 14)
+        textField.textColor = UIColor(named: "ZLLabelColor1")
+        textField.borderStyle = .roundedRect
+        textField.placeholder = "Access Token"
+        return textField
+    }()
+    
+    lazy var confirmButton: UIButton = {
+        let button = ZLBaseButton()
+        button.titleLabel?.font = .zlMediumFont(withSize: 15)
+        button.setTitle(ZLLocalizedString(string: "Confirm", comment: ""),
+                        for: .normal)
+        button.setTitleColor(UIColor(named: "ZLBaseButtonDisabledTitleColor"), for: .disabled)
+        button.addTarget(self, action: #selector(onConfirmButtonClicked(_:)), for: .touchUpInside)
+        button.isEnabled = false 
+        return button
+    }()
 }
 
 extension ZLInputAccessTokenView: UITextFieldDelegate {

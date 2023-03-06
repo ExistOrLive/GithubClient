@@ -96,7 +96,7 @@ class ZLLoginViewModel: ZLBaseViewModel, ZLLoginBaseViewDelegate {
 
     func onAccessTokenButtonClicked() {
 
-        ZLInputAccessTokenView.showInputAccessTokenViewWithResultBlock(resultBlock: {(token: String?) in
+        ZLInputAccessTokenView.showInputAccessTokenView(resultBlock: {(token: String?) in
             guard let token = token else {
                 ZLToastView.showMessage(ZLLocalizedString(string: "token is nil", comment: ""))
                 return

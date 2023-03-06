@@ -8,26 +8,25 @@
 
 import UIKit
 import WebKit
+import ZLBaseUI
 
 class ZLLoginViewController: ZLBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        if let loginView: ZLLoginBaseView = Bundle.main.loadNibNamed("ZLLoginBaseView", owner: nil, options: nil)?.first as? ZLLoginBaseView {
-
-            self.view.addSubview(loginView)
-            loginView.snp.makeConstraints { (make) in
-                make.edges.equalToSuperview()
-            }
-
-            let viewModel = ZLLoginViewModel()
-            self.addSubViewModel(viewModel)
-            viewModel.bindModel(nil, andView: loginView)
-
-        } else {
-            NSLog("ZLLoginView load failed")
+    
+        self.view.addSubview(loginView)
+        loginView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
         }
+        
+        let viewModel = ZLLoginViewModel()
+        self.addSubViewModel(viewModel)
+        viewModel.bindModel(nil, andView: loginView)
     }
+    
+    lazy var loginView: ZLLoginBaseView = {
+       return ZLLoginBaseView()
+    }()
 
 }
