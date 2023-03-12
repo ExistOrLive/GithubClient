@@ -9,6 +9,43 @@
 import UIKit
 import FFPopup
 import ZLBaseUI
+import ZLGitRemoteService
+import Foundation
+
+class ZMPopContainerViewDelegate_AccessToken: NSObject, ZMPopContainerViewDelegate {
+
+    func popContainerViewShouldChangeFrameWhenDeviceOrientationDidChange(_ view:ZMPopContainerView) -> Bool {
+        ZLDeviceInfo.isIpad()
+    }
+    
+    func popContainerViewShouldChangeContentViewFrameWhenDeviceOrientationDidChange(_ view:ZMPopContainerView) -> Bool {
+        ZLDeviceInfo.isIpad()
+    }
+    
+    func popContainerViewChangeFrameWhenDeviceOrientationDidChange(_ view:ZMPopContainerView) -> CGRect {
+        return ZLScreenBoundsAdjustWithScreenOrientation
+    }
+    
+    func popContainerViewChangeContentViewTargetFrameWhenDeviceOrientationDidChange(_ view:ZMPopContainerView) -> CGRect {
+        guard let contentView = view.content else {
+            return .zero
+        }
+        let origin = CGPoint(x: (view.frame.width - contentView.frame.width) / 2,
+                             y: 200)
+        return CGRect(origin: origin, size: contentView.frame.size)
+    }
+    
+    func popContainerViewChangeContentViewInitFrameWhenDeviceOrientationDidChange(_ view:ZMPopContainerView) -> CGRect {
+        guard let contentView = view.content else {
+            return .zero
+        }
+        let origin = CGPoint(x: (view.frame.width - contentView.frame.width) / 2 ,
+                             y: 0 - contentView.frame.size.height )
+        return CGRect(origin: origin, size: contentView.frame.size)
+    }
+    
+}
+
 
 class ZLInputAccessTokenView: ZLBaseView {
     
@@ -25,12 +62,17 @@ class ZLInputAccessTokenView: ZLBaseView {
         let popView = ZMPopContainerView()
         view.popView = popView
         popView.frame = UIScreen.main.bounds
-        popView.popDelegate = ZMPopContainerViewDelegate_Center.shared
+        popView.popDelegate = view.popDelegateAccessToken
         popView.show(window,
                      contentView: view,
-                     contentSize: CGSize(width: 300,
-                                         height: 190),
-                     contentPoition: .center,
+                     contentInitFrame: CGRect(x: (ZLKeyWindowWidth - 300.0) / 2.0,
+                                              y: -190,
+                                              width: 300,
+                                              height: 190),
+                     contentTargetFrame: CGRect(x: (ZLKeyWindowWidth - 300.0) / 2.0,
+                                                y: 200,
+                                                width: 300,
+                                                height: 190),
                      animationDuration: 0.25,
                      completion: {
             view.textField.becomeFirstResponder()
@@ -78,6 +120,10 @@ class ZLInputAccessTokenView: ZLBaseView {
         
         
     }
+    
+    lazy var popDelegateAccessToken: ZMPopContainerViewDelegate_AccessToken  = {
+        ZMPopContainerViewDelegate_AccessToken()
+    }()
     
     // MARK: Lazy View
     lazy var titleLabel: UILabel = {

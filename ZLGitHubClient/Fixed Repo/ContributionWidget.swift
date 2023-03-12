@@ -190,18 +190,7 @@ struct ContributionView : View {
     @Environment(\.widgetFamily) var family: WidgetFamily
     
     var body: some View {
-        switch family{
-        case .systemSmall:
-            return ContributionMeidumView(entry: entry)
-        case .systemMedium:
-            return ContributionMeidumView(entry: entry)
-        case .systemLarge:
-            return ContributionMeidumView(entry: entry)
-        case .systemExtraLarge:
-            return ContributionMeidumView(entry: entry)
-        @unknown default:
-            return ContributionMeidumView(entry: entry)
-        }
+        return ContributionMeidumView(entry: entry)
     }
 }
 

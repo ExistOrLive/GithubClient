@@ -24,7 +24,7 @@ public class ZMInputCollectionViewSelectTickCell: UICollectionViewCell, ZMInputC
     
     @objc dynamic func setUpUI() {
         
-        contentView.backgroundColor = UIColor(named: "ZLCellBack")
+        contentView.backgroundColor = UIColor(named: "ZLPopUpCellBack")
         
         contentView.addSubview(titleLabel)
         contentView.addSubview(tickLabel)

@@ -167,18 +167,7 @@ struct TrendingRepoEntryView : View {
     @Environment(\.widgetFamily) var family: WidgetFamily
 
     var body: some View {
-        switch family{
-        case .systemSmall:
-            return FixedRepoMediumView(entry: entry)
-        case .systemMedium:
-            return FixedRepoMediumView(entry: entry)
-        case .systemLarge:
-            return FixedRepoMediumView(entry: entry)
-        case .systemExtraLarge:
-            return FixedRepoMediumView(entry: entry)
-        @unknown default:
-            return FixedRepoMediumView(entry: entry)
-        }
+        return FixedRepoMediumView(entry: entry)
     }
 }
 
