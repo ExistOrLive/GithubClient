@@ -52,7 +52,7 @@
     
     ZLUISharedDataManager.githubClientID = MyClientID;
     ZLUISharedDataManager.githubClientSecret = MyClientSecret;
-//    ZLUISharedDataManager.githubClientCallback = MyClientCallback;
+    ZLUISharedDataManager.githubClientCallback = MyClientCallback;
     
     [FIRApp configure];
 

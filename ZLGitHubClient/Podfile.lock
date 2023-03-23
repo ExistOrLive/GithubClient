@@ -264,7 +264,7 @@ DEPENDENCIES:
   - ZLBaseExtension (from `https://github.com/ExistOrLive/ZLBaseExtension.git`)
   - ZLBaseUI (from `https://github.com/ExistOrLive/ZLBaseUI.git`)
   - ZLGithubOAuth (from `https://github.com/ExistOrLive/ZLGithubOAuth.git`, tag `1.2.0`)
-  - ZLGitRemoteService (from `https://github.com/ExistOrLive/ZLGitRemoteService.git`)
+  - ZLGitRemoteService (from `https://github.com/ExistOrLive/ZLGitRemoteService.git`, tag `1.3.1`)
   - ZLUIUtilities (from `https://github.com/ExistOrLive/ZLUIUtilities.git`)
 
 SPEC REPOS:
@@ -325,6 +325,7 @@ EXTERNAL SOURCES:
     :tag: 1.2.0
   ZLGitRemoteService:
     :git: https://github.com/ExistOrLive/ZLGitRemoteService.git
+    :tag: 1.3.1
   ZLUIUtilities:
     :git: https://github.com/ExistOrLive/ZLUIUtilities.git
 
@@ -339,8 +340,8 @@ CHECKOUT OPTIONS:
     :git: https://github.com/ExistOrLive/ZLGithubOAuth.git
     :tag: 1.2.0
   ZLGitRemoteService:
-    :commit: f1d249b6f92f684d6b1e7e2f4870f7df277da6b3
     :git: https://github.com/ExistOrLive/ZLGitRemoteService.git
+    :tag: 1.3.1
   ZLUIUtilities:
     :commit: 3fa0671df2f040a9bf00a56f27bf209f46b18ea1
     :git: https://github.com/ExistOrLive/ZLUIUtilities.git
@@ -397,6 +398,6 @@ SPEC CHECKSUMS:
   ZLGitRemoteService: c57964a471dd83f634c10d323c42fe9800b199db
   ZLUIUtilities: 58cc312400e93051b01ab73e77998865ee43f53a
 
-PODFILE CHECKSUM: 50cffc01bf59032dd60497f924f08cece5afeaa5
+PODFILE CHECKSUM: 59903fe51fa75662f32647a5aa30ee8f3d2ceb91
 
 COCOAPODS: 1.11.3
