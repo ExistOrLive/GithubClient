@@ -9,6 +9,7 @@
 import UIKit
 import ZLGitRemoteService
 import ZLBaseUI
+import ZLBaseExtension
 
 protocol ZLMyIssuesViewDelegate: NSObjectProtocol {
     func onFilterTypeChange(type: ZLIssueFilterType)
@@ -94,7 +95,7 @@ class ZLMyIssuesView: ZLBaseView {
         stateButton.snp.makeConstraints { (make) in
             make.width.equalTo(80)
             make.top.bottom.equalToSuperview()
-            make.right.equalTo(filterButton.snp_left).offset(-10)
+            make.right.equalTo(filterButton.snp.left).offset(-10)
         }
         stateButton.addTarget(self,
                               action: #selector(ZLMyPullRequestsView.onStateButtonClicked),
@@ -103,49 +104,86 @@ class ZLMyIssuesView: ZLBaseView {
         self.addSubview(githubItemListView)
         githubItemListView.snp.makeConstraints { (make) in
             make.right.bottom.left.equalToSuperview()
-            make.top.equalTo(view.snp_bottom)
+            make.top.equalTo(view.snp.bottom)
         }
     }
 
     @objc func onFilterButtonClicked() {
-        CYSinglePickerPopoverView.showCYSinglePickerPopover(withTitle: ZLLocalizedString(string: "Filter", comment: ""),
-                                                            withInitIndex: UInt(self.filterIndex.rawValue),
-                                                            withDataArray: ["Created", "Assigned", "Mentioned"]) { (index: UInt) in
-
-            let str = ["Created", "Assigned", "Mentioned"][Int(index)]
-            let title = NSMutableAttributedString()
-            title.append(NSAttributedString(string: ZLIconFont.DownArrow.rawValue,
-                                            attributes: [.font: UIFont.zlIconFont(withSize: 12),
-                                                         .foregroundColor: UIColor.iconColor(withName: "ICON_Common")]))
-            title.append(NSAttributedString(string: " "))
-            title.append(NSAttributedString(string: str,
-                                            attributes: [.foregroundColor: UIColor.label(withName: "ZLLabelColor3"),
-                                                         .font: UIFont.zlMediumFont(withSize: 12)]))
+        
+        guard let view = viewController?.view else { return }
+        let titles = ["Created", "Assigned", "Mentioned"]
+        var selectedTitle = "Created"
+        if self.stateIndex.rawValue < titles.count {
+            selectedTitle = titles[Int(self.filterIndex.rawValue)]
+        }
+        ZMSingleSelectTitlePopView
+            .showCenterSingleSelectTickBox(to: view,
+                                           title:  ZLLocalizedString(string: "Filter",
+                                                                     comment: ""),
+                                           selectableTitles: titles,
+                                           selectedTitle: selectedTitle)
+        { [weak self] (index, result) in
+            guard let self =  self else { return }
+            
+            let str = titles[index]
+            let title = NSASCContainer(
+                ZLIconFont.DownArrow.rawValue
+                    .asMutableAttributedString()
+                    .font(.zlIconFont(withSize: 12))
+                    .foregroundColor(.iconColor(withName: "ICON_Common")),
+                
+                " ",
+                
+                str
+                    .asMutableAttributedString()
+                    .font(.zlMediumFont(withSize: 12))
+                    .foregroundColor(.label(withName: "ZLLabelColor3"))
+            )
+                .asAttributedString()
+            
             self.filterButton.setAttributedTitle(title, for: .normal)
-
-            self.filterIndex = ZLIssueFilterType.init(rawValue: Int(index)) ?? .created
+            
+            self.filterIndex = ZLIssueFilterType.init(rawValue: NSInteger(index)) ?? .created
             self.delegate?.onFilterTypeChange(type: self.filterIndex)
         }
+        
     }
 
     @objc func onStateButtonClicked() {
-
-        CYSinglePickerPopoverView.showCYSinglePickerPopover(withTitle: ZLLocalizedString(string: "Filter", comment: ""),
-                                                            withInitIndex: UInt(self.stateIndex.rawValue),
-                                                            withDataArray: ["Open", "Closed"]) { (index: UInt) in
-            let str = ["Open", "Closed"][Int(index)]
-            let title = NSMutableAttributedString()
-            title.append(NSAttributedString(string: ZLIconFont.DownArrow.rawValue,
-                                            attributes: [.font: UIFont.zlIconFont(withSize: 12),
-                                                         .foregroundColor: UIColor.iconColor(withName: "ICON_Common")]))
-            title.append(NSAttributedString(string: " "))
-            title.append(NSAttributedString(string: str,
-                                            attributes: [.foregroundColor: UIColor.label(withName: "ZLLabelColor3"),
-                                                         .font: UIFont.zlMediumFont(withSize: 12)]))
+        guard let view = viewController?.view else { return }
+        let titles = ["Open", "Closed"]
+        var selectedTitle = "Open"
+        if self.stateIndex.rawValue < titles.count {
+            selectedTitle = titles[Int(self.stateIndex.rawValue)]
+        }
+        ZMSingleSelectTitlePopView
+            .showCenterSingleSelectTickBox(to: view,
+                                           title:  ZLLocalizedString(string: "Filter",
+                                                                     comment: ""),
+                                           selectableTitles: titles,
+                                           selectedTitle: selectedTitle)
+        { [weak self] (index, result) in
+            guard let self =  self else { return }
+            
+            let str = titles[index]
+            let title = NSASCContainer(
+                ZLIconFont.DownArrow.rawValue
+                    .asMutableAttributedString()
+                    .font(.zlIconFont(withSize: 12))
+                    .foregroundColor(.iconColor(withName: "ICON_Common")),
+                
+                " ",
+                
+                str
+                    .asMutableAttributedString()
+                    .font(.zlMediumFont(withSize: 12))
+                    .foregroundColor(.label(withName: "ZLLabelColor3"))
+            )
+                .asAttributedString()
+            
             self.stateButton.setAttributedTitle(title, for: .normal)
-            self.stateIndex = ZLGithubIssueState.init(rawValue: index) ?? .open
+            self.stateIndex = ZLGithubIssueState.init(rawValue: UInt(index)) ?? .open
             self.delegate?.onStateChange(state: self.stateIndex)
         }
-
     }
 }

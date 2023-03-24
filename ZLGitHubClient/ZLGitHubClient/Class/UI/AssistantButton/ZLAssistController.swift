@@ -168,7 +168,7 @@ class ZLAssistController: ZLBaseViewController {
         button.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { (make) in
             make.centerY.equalToSuperview()
-            make.left.equalTo(label.snp_right).offset(20)
+            make.left.equalTo(label.snp.right).offset(20)
             make.right.equalToSuperview().offset(-20)
         }
 

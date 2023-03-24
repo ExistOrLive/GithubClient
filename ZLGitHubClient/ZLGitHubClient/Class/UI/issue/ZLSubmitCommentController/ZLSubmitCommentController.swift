@@ -39,7 +39,7 @@ class ZLSubmitCommentController: ZLBaseViewController {
     
     override func keyboardWillShow(_ payload: ZLKeyboardNotificationPayload) {
         UIView.animate(withDuration: TimeInterval(payload.duration)) { [weak self] in
-            self?.submitCommentView.snp_remakeConstraints({ make in
+            self?.submitCommentView.snp.remakeConstraints({ make in
                 make.top.left.right.equalToSuperview()
                 make.bottom.equalToSuperview().offset(-payload.endFrame.height)
             })
@@ -48,7 +48,7 @@ class ZLSubmitCommentController: ZLBaseViewController {
     
     override func keyboardWillHide(_ payload: ZLKeyboardNotificationPayload) {
         UIView.animate(withDuration: TimeInterval(payload.duration)) { [weak self] in
-            self?.submitCommentView.snp_remakeConstraints({ make in
+            self?.submitCommentView.snp.remakeConstraints({ make in
                 make.top.left.right.bottom.equalToSuperview()
             })
         }
@@ -83,8 +83,8 @@ extension ZLSubmitCommentController: ZLSubmitCommentViewDelegate {
             
             if model.result {
                 if let data = model.data as? AddIssueCommentMutation.Data,
-                   let cursor = data.addComment?.timelineEdge?.cursor,
-                   let mutationId = data.addComment?.clientMutationId {
+                   let _ = data.addComment?.timelineEdge?.cursor,
+                   let _ = data.addComment?.clientMutationId {
                     
                    self._clearEvent.accept(())
                    self.dismiss(animated: true, completion: nil)

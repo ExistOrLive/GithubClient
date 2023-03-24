@@ -317,7 +317,7 @@ extension ZLRepoCodePreview3Controller: WKUIDelegate, WKNavigationDelegate {
     }
 
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        guard var urlStr = navigationAction.request.url?.absoluteString else {
+        guard let urlStr = navigationAction.request.url?.absoluteString else {
             decisionHandler(.allow)
             return
         }

@@ -81,7 +81,7 @@ import ZLBaseExtension
         segmentedListContainerView.snp.makeConstraints { (make) in
             make.left.right.equalToSuperview()
             make.bottom.equalToSuperview()
-            make.top.equalTo(self.headerView.snp_bottom)
+            make.top.equalTo(self.headerView.snp.bottom)
         }
         
     }

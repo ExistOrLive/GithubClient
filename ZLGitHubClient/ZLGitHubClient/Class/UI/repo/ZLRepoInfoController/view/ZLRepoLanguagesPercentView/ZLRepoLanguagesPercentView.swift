@@ -63,7 +63,7 @@ class ZLRepoLanguagesPercentView: ZLBaseView {
         chartView.drawSlicesUnderHoleEnabled = false
         chartView.holeRadiusPercent = 0.58
         chartView.transparentCircleRadiusPercent = 0.61
-        chartView.chartDescription?.enabled = false
+        chartView.chartDescription.enabled = false
         chartView.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 5)
 
         chartView.drawHoleEnabled = false
@@ -109,7 +109,7 @@ class ZLRepoLanguagesPercentView: ZLBaseView {
             entries.append(entry)
         }
 
-        let set = PieChartDataSet(entries: entries, label: nil)
+        let set = PieChartDataSet(entries: entries, label: "")
         set.drawIconsEnabled = false
         set.sliceSpace = 2
         set.yValuePosition = .outsideSlice

@@ -26,13 +26,33 @@ class ZLRepoContentController: ZLBaseViewController {
     var repoFullName: String?
     var path: String?
     var branch: String?
-
-    // view
-
+    
+    /// 根节点
     var rootContentNode: ZLRepoContentNode?
+    /// 当前节点
     var currentContentNode: ZLRepoContentNode?
 
-    var tableView: UITableView?
+    /// view
+    lazy var tableView: UITableView = {
+        let tableView = UITableView.init(frame: CGRect.init(), style: .plain)
+        tableView.backgroundColor = UIColor.clear
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.separatorStyle = .none
+        tableView.register(ZLRepoContentTableViewCell.self, forCellReuseIdentifier: "ZLRepoContentTableViewCell")
+        tableView.mj_header = ZLRefresh.refreshHeader(refreshingBlock: { [weak self] in
+            self?.setQueryContentRequest()
+        })
+        return tableView
+    }()
+    
+    lazy var closeButton: UIButton = {
+        let button = UIButton.init(type: .custom)
+        button.setImage(UIImage.init(named: "close"), for: .normal)
+        button.frame = CGRect.init(x: 0, y: 0, width: 60, height: 60)
+        button.addTarget(self, action: #selector(onCloseButtonClicked(_button:)), for: .touchUpInside)
+        return button
+    }()
 
     override func viewDidLoad() {
 
@@ -46,7 +66,7 @@ class ZLRepoContentController: ZLBaseViewController {
 
         self.setUpUI()
 
-        self.tableView?.mj_header?.beginRefreshing()
+        self.tableView.mj_header?.beginRefreshing()
 
     }
 
@@ -84,80 +104,30 @@ class ZLRepoContentController: ZLBaseViewController {
     }
 
     func setUpUI() {
+        
         self.title = self.currentContentNode?.name == ""  ? "/" : self.currentContentNode?.name
 
         self.zlNavigationBar.backButton.isHidden = false
-        let button = UIButton.init(type: .custom)
-        button.setImage(UIImage.init(named: "close"), for: .normal)
-        button.frame = CGRect.init(x: 0, y: 0, width: 60, height: 60)
-        button.addTarget(self, action: #selector(onCloseButtonClicked(_button:)), for: .touchUpInside)
+        self.zlNavigationBar.rightButton = closeButton
 
-        self.zlNavigationBar.rightButton = button
-
-        let tableView = UITableView.init(frame: CGRect.init(), style: .plain)
-        tableView.backgroundColor = UIColor.clear
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.separatorStyle = .none
-        tableView.register(ZLRepoContentTableViewCell.self, forCellReuseIdentifier: "ZLRepoContentTableViewCell")
-
-        tableView.mj_header = ZLRefresh.refreshHeader(refreshingBlock: { [weak self] in
-            self?.setQueryContentRequest()
-        })
         self.contentView.addSubview(tableView)
         tableView.snp.makeConstraints({ (make) in
             make.edges.equalToSuperview().inset(UIEdgeInsets.init(top: 10, left: 0, bottom: 0, right: 0))
         })
-        self.tableView = tableView
-    }
-
-    func setQueryContentRequest() {
-        ZLServiceManager.sharedInstance.repoServiceModel?.getRepositoryContentsInfo(withFullName: self.repoFullName ?? "",
-                                                                                    path: self.currentContentNode?.path ?? "",
-                                                                                    branch: self.branch ?? "",
-                                                                                    serialNumber: NSString.generateSerialNumber()) {
-            [weak weakSelf = self](resultModel: ZLOperationResultModel) in
-
-            weakSelf?.tableView?.mj_header?.endRefreshing()
-
-            if resultModel.result == false {
-                let errorModel = resultModel.data as? ZLGithubRequestErrorModel
-                ZLToastView.showMessage("Query content Failed Code [\(errorModel?.statusCode ?? 0)] Message[\(errorModel?.message ?? "")]")
-                return
-            }
-
-            guard let data: [ZLGithubContentModel] = resultModel.data as? [ZLGithubContentModel] else {
-                ZLToastView.showMessage("ZLGithubContentModel transfer error")
-                return
-            }
-
-            var nodeArray: [ZLRepoContentNode] = []
-            for tmpData in data {
-                let contentNode = ZLRepoContentNode()
-                contentNode.name = tmpData.name
-                contentNode.path = tmpData.path
-                contentNode.parentNode = weakSelf?.currentContentNode
-                contentNode.content = tmpData
-                nodeArray.append(contentNode)
-            }
-            weakSelf?.currentContentNode?.subNodes = nodeArray
-
-            weakSelf?.tableView?.reloadData()
-        }
     }
 
     func reloadData() {
         self.title = self.currentContentNode?.name == ""  ? "/" : self.currentContentNode?.name
 
         let block = {
-            self.tableView?.reloadData()
+            self.tableView.reloadData()
             if self.currentContentNode?.subNodes == nil {
-                self.tableView?.mj_header?.beginRefreshing()
+                self.tableView.mj_header?.beginRefreshing()
             }
         }
 
-        if self.tableView?.mj_header?.isRefreshing ?? false {
-            self.tableView?.mj_header?.endRefreshing {
+        if self.tableView.mj_header?.isRefreshing ?? false {
+            self.tableView.mj_header?.endRefreshing {
                 block()
             }
         } else {
@@ -180,14 +150,67 @@ class ZLRepoContentController: ZLBaseViewController {
 
 }
 
+// MARK: - Request
+extension ZLRepoContentController {
+    func setQueryContentRequest() {
+        ZLRepoServiceShared()?.getRepositoryContentsInfo(withFullName: repoFullName ?? "",
+                                                         path: currentContentNode?.path ?? "",
+                                                         branch: branch ?? "",
+                                                         serialNumber: NSString.generateSerialNumber())
+        { [weak self](resultModel: ZLOperationResultModel) in
+            guard let self = self else { return }
+            
+            self.tableView.mj_header?.endRefreshing()
+
+            if resultModel.result == false {
+                let errorModel = resultModel.data as? ZLGithubRequestErrorModel
+                ZLToastView.showMessage("Query content Failed Code [\(errorModel?.statusCode ?? 0)] Message[\(errorModel?.message ?? "")]")
+                return
+            }
+
+            guard let data = resultModel.data as? [ZLGithubContentModel] else {
+                ZLToastView.showMessage("ZLGithubContentModel transfer error")
+                return
+            }
+
+            var dirArray: [ZLRepoContentNode] = []
+            var fileArray: [ZLRepoContentNode] = []
+            for tmpData in data {
+                let contentNode = ZLRepoContentNode()
+                contentNode.name = tmpData.name
+                contentNode.path = tmpData.path
+                contentNode.parentNode = self.currentContentNode
+                contentNode.content = tmpData
+                if tmpData.type == "dir" {
+                    dirArray.append(contentNode)
+                } else {
+                    fileArray.append(contentNode)
+                }
+            }
+            dirArray = dirArray.sorted { node1, node2 in
+                node1.name < node2.name
+            }
+            fileArray = fileArray.sorted { node1, node2 in
+                node1.name < node2.name
+            }
+        
+            self.currentContentNode?.subNodes = dirArray + fileArray
+            self.tableView.reloadData()
+        }
+    }
+}
+
+// MARK: - UITableView
 extension ZLRepoContentController: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.currentContentNode?.subNodes?.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        guard let tableViewCell: ZLRepoContentTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLRepoContentTableViewCell", for: indexPath)  as? ZLRepoContentTableViewCell else {
+        guard let tableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLRepoContentTableViewCell",
+                                                                for: indexPath)  as? ZLRepoContentTableViewCell else {
             return UITableViewCell.init(style: .default, reuseIdentifier: "")
         }
 
@@ -207,7 +230,7 @@ extension ZLRepoContentController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let contentModel: ZLGithubContentModel = self.currentContentNode?.subNodes?[indexPath.row].content else {
+        guard let contentModel = self.currentContentNode?.subNodes?[indexPath.row].content else {
             return
         }
 
@@ -215,7 +238,9 @@ extension ZLRepoContentController: UITableViewDelegate, UITableViewDataSource {
             self.currentContentNode = self.currentContentNode?.subNodes?[indexPath.row]
             self.reloadData()
         } else if "file" == contentModel.type {
-            let controller = ZLRepoCodePreview3Controller.init(repoFullName: self.repoFullName ?? "", contentModel: contentModel, branch: self.branch ?? "")
+            let controller = ZLRepoCodePreview3Controller(repoFullName: repoFullName ?? "",
+                                                          contentModel: contentModel,
+                                                          branch: branch ?? "")
             self.navigationController?.pushViewController(controller, animated: true)
         }
     }

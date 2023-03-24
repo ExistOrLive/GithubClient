@@ -8,6 +8,7 @@
 
 import UIKit
 import ZLGitRemoteService
+import ZLBaseUI
 
 @objcMembers class ZLUserAdditionInfoController: ZLBaseViewController {
 

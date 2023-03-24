@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ZLBaseUI
 
 protocol ZLRepoIssuesViewDelegate: ZLGithubItemListViewDelegate {
     // delagate
@@ -88,16 +89,19 @@ class ZLRepoIssuesView: ZLBaseView {
      }
 
      @objc private func onFilterButtonClicked() {
-
-        CYSinglePickerPopoverView.showCYSinglePickerPopover(withTitle: ZLLocalizedString(string: "Filter", comment: ""),
-                                                            withInitIndex: self.filterOpen ? 0 : 1,
-                                                            withDataArray: ["open", "closed"]) {[weak self](result: UInt) in
-
-            self?.filterLabel.text = result == 0 ? "open" : "closed"
-            self?.filterOpen = result == 0 ? true : false
-
-            self?.delegate?.onFilterTypeChange(result == 0)
-        }
+         
+         guard let view = viewController?.view else { return }
+         ZMSingleSelectTitlePopView
+             .showCenterSingleSelectTickBox(to: view,
+                                            title: ZLLocalizedString(string: "Filter",
+                                                                     comment: ""),
+                                            selectableTitles: ["open", "closed"],
+                                            selectedTitle: self.filterOpen ? "open" : "closed")
+         { [weak self](index, result) in
+             self?.filterLabel.text = index == 0 ? "open" : "closed"
+             self?.filterOpen = index == 0
+             self?.delegate?.onFilterTypeChange(index == 0)
+         }
      }
 
 }

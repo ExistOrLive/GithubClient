@@ -9,6 +9,7 @@
 import UIKit
 import ZLUIUtilities
 import ZLGitRemoteService
+import ZLBaseUI
 
 class ZLEditFixedRepoController: ZLBaseViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -69,7 +70,7 @@ class ZLEditFixedRepoController: ZLBaseViewController, UITableViewDelegate, UITa
         self.contentView.addSubview(self.tableView)
         self.tableView.snp.makeConstraints {(make) in
             make.bottom.left.right.equalToSuperview()
-            make.top.equalTo(self.searchViewController.searchBarContainerView.snp_bottom)
+            make.top.equalTo(self.searchViewController.searchBarContainerView.snp.bottom)
         }
         self.tableView.mj_header = ZLRefresh.refreshHeader(refreshingBlock: { [weak self] in
             self?.loadNewData()

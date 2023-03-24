@@ -9,6 +9,7 @@
 import UIKit
 import ZLUIUtilities
 import ZLGitRemoteService
+import ZLBaseUI
 
 class ZLMyEventBaseViewModel: ZLBaseViewModel {
 

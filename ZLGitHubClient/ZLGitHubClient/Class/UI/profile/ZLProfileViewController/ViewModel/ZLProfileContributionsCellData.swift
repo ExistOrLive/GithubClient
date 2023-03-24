@@ -30,7 +30,7 @@ extension ZLProfileContributionsCellData: ZLProfileContributionsCellDataSourceAn
     }
     
     func onAllUpdateButtonClicked() {
-        let vc = ZLMyEventController.init()
+        let vc = ZLMyEventController()
         vc.hidesBottomBarWhenPushed = true
         self.viewController?.navigationController?.pushViewController(vc, animated: true)
     }

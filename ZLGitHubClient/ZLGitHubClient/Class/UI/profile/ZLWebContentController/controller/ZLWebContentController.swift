@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import RxSwift
+import ZLBaseUI
 
 @objcMembers class ZLWebContentController: ZLBaseViewController {
 

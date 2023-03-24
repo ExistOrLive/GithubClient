@@ -7,39 +7,128 @@
 //
 
 import UIKit
+import ZLBaseUI
 
-@objc protocol ZLLoginBaseViewDelegate: NSObjectProtocol {
+protocol ZLLoginBaseViewDelegate: NSObjectProtocol {
     func onLoginButtonClicked()
-
     func onAccessTokenButtonClicked()
-
 }
 
 class ZLLoginBaseView: ZLBaseView {
 
     weak var delegate: ZLLoginBaseViewDelegate?
-
-    @IBOutlet weak var loginInfoLabel: UILabel!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-
-    @IBOutlet weak var loginButton: UIButton!
-    @IBOutlet weak var accessTokenButton: UIButton!
-
-    override func awakeFromNib() {
-        self.loginButton.layer.cornerRadius = 5.0
-        self.activityIndicator.isHidden = true
-        self.loginButton.setTitle(ZLLocalizedString(string: "login", comment: "登录"), for: .normal)
+    
+    @objc func onLoginButtonClicked(_ sender: Any) {
+        self.delegate?.onLoginButtonClicked()
     }
 
-    @IBAction func onLoginButtonClicked(_ sender: Any) {
-        if self.delegate?.responds(to: #selector(ZLLoginBaseViewDelegate.onLoginButtonClicked)) ?? false {
-            self.delegate?.onLoginButtonClicked()
+    @objc func onAccessTokenButtonClicked(_ sender: Any) {
+         self.delegate?.onAccessTokenButtonClicked()
+    }
+    
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setupUI() {
+        backgroundColor = UIColor.clear
+        addSubview(icon)
+        addSubview(titleLabel)
+        addSubview(activityIndicator)
+        addSubview(loginInfoLabel)
+        addSubview(loginButton)
+        addSubview(accessTokenButton)
+        
+        icon.snp.makeConstraints { make in
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(100)
+            make.size.equalTo(100)
+            make.centerX.equalToSuperview()
+        }
+        
+        titleLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(icon.snp.bottom).offset(40)
+        }
+        
+        loginButton.snp.makeConstraints { make in
+            make.height.equalTo(45)
+            make.left.equalTo(40)
+            make.right.equalTo(-40)
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-100)
+        }
+        
+        loginInfoLabel.snp.makeConstraints { make in
+            make.left.equalTo(45)
+            make.top.equalTo(loginButton.snp.bottom).offset(20)
+        }
+        
+        activityIndicator.snp.makeConstraints { make in
+            make.top.equalTo(loginButton.snp.bottom).offset(20)
+            make.left.equalTo(loginInfoLabel.snp.right).offset(10)
+        }
+        
+        accessTokenButton.snp.makeConstraints { make in
+            make.right.equalTo(-40)
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-10)
+            make.width.equalTo(100)
+            make.height.equalTo(33)
         }
     }
-
-    @IBAction func onAccessTokenButtonClicked(_ sender: Any) {
-        if self.delegate?.responds(to: #selector(ZLLoginBaseViewDelegate.onAccessTokenButtonClicked)) ?? false {
-            self.delegate?.onAccessTokenButtonClicked()
-        }
-    }
+    
+    
+    lazy var icon: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "icon")
+        imageView.cornerRadius = 5.0
+        imageView.clipsToBounds = true
+        return imageView
+    }()
+    
+    lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "ZLGithub"
+        label.textColor = UIColor(named:"ZLLabelColor1")
+        label.font = UIFont.zlMediumFont(withSize: 30)
+        return label
+    }()
+    
+    lazy var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.style = .gray
+        activityIndicator.color = UIColor(named:"ZLLabelColor2")
+        activityIndicator.isHidden = true
+        return activityIndicator
+    }()
+    
+    lazy var loginInfoLabel = {
+        let label = UILabel()
+        label.textColor = UIColor(named:"ZLLabelColor2")
+        label.font = UIFont.zlRegularFont(withSize: 12)
+        return label
+    }()
+    
+    lazy var loginButton: UIButton = {
+        let button = ZLBaseButton()
+        button.titleLabel?.font = UIFont.zlMediumFont(withSize: 16)
+        button.setTitle(ZLLocalizedString(string: "login", comment: "登录"), for: .normal)
+        button.addTarget(self, action: #selector(onLoginButtonClicked), for: .touchUpInside)
+        return button
+    }()
+    
+    lazy var accessTokenButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .clear
+        button.setTitleColor(UIColor(named:"ZLLinkLabelColor1"), for: .normal)
+        button.setTitle("Access Token", for: .normal)
+        button.titleLabel?.font = UIFont.zlMediumFont(withSize: 15)
+        button.addTarget(self, action: #selector(onAccessTokenButtonClicked), for: .touchUpInside)
+        return button
+    }()
+    
 }

@@ -33,18 +33,25 @@ platform :ios do
   end
 
   desc "build one adhoc release local"
-  lane :adhoc do
-    match(type: "adhoc",
-          readonly: true,
-          app_identifier: "com.zm.ZLGitHubClient",
-          git_url: "https://github.com/ExistOrLive/ZLGithubClientCer.git")
+  lane :local_adhoc do
+    # match(type: "adhoc",
+    #       readonly: true,
+    #       app_identifier: "com.zm.*",
+    #       git_url: "git@github.com:ExistOrLive/ZLGithubClientCer.git")
     gym(workspace: "ZLGitHubClient.xcworkspace",
         scheme: "ZLGitHubClient",
-        clean: true,
+        clean: false,
         include_symbols: true,
-        include_bitcode: true,
+        include_bitcode: false,
         output_directory: "./fastlane/ipa",
-        output_name: "ZLGitHubClient.ipa")
+        output_name: "ZLGitHubClient.ipa",
+        export_options: {
+          method: "ad-hoc",
+          provisioningProfiles: {
+            "com.zm.ZLGitHubClient" => "match AdHoc com.zm.*",
+            "com.zm.ZLGitHubClient.Fixed-Repo" => "match AdHoc com.zm.*"
+          }
+        })
   end
 
   desc "just build check, prevent any build or link error"
@@ -54,7 +61,7 @@ platform :ios do
     scheme: "ZLGitHubClient",
     clean: true,
     build_path: "./fastlane/archive/adhoc",
-    skip_codesigning: true,    
+    skip_codesigning: true,
     skip_package_ipa: true)
   end
 
@@ -67,7 +74,7 @@ platform :ios do
       unlock: true,
       timeout: 3600,
       add_to_search_list: true
-    ) 
+    )
      match(type: "adhoc",
           readonly: true,
           app_identifier: "com.zm.*",
@@ -78,7 +85,7 @@ platform :ios do
          scheme: "ZLGitHubClient",
          clean: true,
          include_symbols: true,
-         include_bitcode: true,
+         include_bitcode: false,
          output_directory: "./fastlane/ipa",
          output_name: "ZLGitHubClient.ipa",
          export_options: {
@@ -107,12 +114,12 @@ platform :ios do
           keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
           keychain_password: ENV['MATCH_PASSWORD'],
           git_url: ENV['MATCH_GITHUB_URL'])
-          
+
     gym(workspace: "ZLGitHubClient.xcworkspace",
         scheme: "ZLGitHubClient",
         clean: true,
         include_symbols: true,
-        include_bitcode: true,
+        include_bitcode: false,
         output_directory: "./fastlane/ipa/adhoc",
         output_name: "ZLGitHubClient.ipa",
         export_options: {
@@ -147,7 +154,7 @@ platform :ios do
         scheme: "ZLGitHubClient",
         clean: true,
         include_symbols: true,
-        include_bitcode: true,
+        include_bitcode: false,
         output_directory: "./fastlane/ipa/adhoc",
         output_name: "ZLGitHubClient.ipa",
         export_options: {
@@ -201,7 +208,7 @@ platform :ios do
         export_method: "app-store",
         clean: true,
         include_symbols: true,
-        include_bitcode: true,
+        include_bitcode: false,
         output_directory: "./fastlane/ipa/TestFlight",
         output_name: "ZLGitHubClient.ipa")
     
@@ -226,7 +233,7 @@ platform :ios do
         scheme: "ZLGitHubClient",
         clean: true,
         include_symbols: true,
-        include_bitcode: true)
+        include_bitcode: false)
     # 上传至testflight
     #pilot
   end
@@ -243,7 +250,7 @@ platform :ios do
         scheme: "ZLGitHubClient",
         clean: true,
         include_symbols: true,
-        include_bitcode: true)
+        include_bitcode: false)
     # 上传至apple store connect
     #deliver
   end

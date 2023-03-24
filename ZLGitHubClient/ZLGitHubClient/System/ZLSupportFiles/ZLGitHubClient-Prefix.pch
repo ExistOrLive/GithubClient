@@ -24,8 +24,7 @@
 #import "ZLBaseUI/ZLBaseUIHeader.h"
 #import "UIColor+ZLBase.h"
 
-#pragma mark - swift module
-#import "ZLGitHubClient-Swift.h"
+
 
 #pragma mark - 国际化模块
 

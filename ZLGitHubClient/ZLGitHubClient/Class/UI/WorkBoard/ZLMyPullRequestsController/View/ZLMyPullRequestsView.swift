@@ -8,6 +8,7 @@
 
 import UIKit
 import ZLGitRemoteService
+import ZLBaseUI
 
 protocol ZLMyPullRequestsViewDelegate: NSObjectProtocol {
     func onFilterTypeChange(type: ZLPRFilterType)
@@ -93,7 +94,7 @@ class ZLMyPullRequestsView: ZLBaseView {
         stateButton.snp.makeConstraints { (make) in
             make.width.equalTo(80)
             make.top.bottom.equalToSuperview()
-            make.right.equalTo(filterButton.snp_left).offset(-10)
+            make.right.equalTo(filterButton.snp.left).offset(-10)
         }
         stateButton.addTarget(self,
                               action: #selector(ZLMyPullRequestsView.onStateButtonClicked),
@@ -102,16 +103,28 @@ class ZLMyPullRequestsView: ZLBaseView {
         self.addSubview(githubItemListView)
         githubItemListView.snp.makeConstraints { (make) in
             make.right.bottom.left.equalToSuperview()
-            make.top.equalTo(view.snp_bottom)
+            make.top.equalTo(view.snp.bottom)
         }
     }
 
     @objc func onFilterButtonClicked() {
-        CYSinglePickerPopoverView.showCYSinglePickerPopover(withTitle: ZLLocalizedString(string: "Filter", comment: ""),
-                                                            withInitIndex: UInt(self.filterIndex.rawValue),
-                                                            withDataArray: ["Created", "Assigned", "Mentioned", "Review"]) { (index: UInt) in
-            let str = ["Created", "Assigned", "Mentioned", "Review"][Int(index)]
-
+        guard let view = viewController?.view else { return }
+        let titles = ["Created", "Assigned", "Mentioned", "Review"]
+        var selectedTitle = "Created"
+        if self.filterIndex.rawValue < titles.count {
+            selectedTitle = titles[self.filterIndex.rawValue]
+        }
+        ZMSingleSelectTitlePopView
+            .showCenterSingleSelectTickBox(to: view,
+                                           title:  ZLLocalizedString(string: "Filter",
+                                                                     comment: ""),
+                                           selectableTitles: titles,
+                                           selectedTitle: selectedTitle)
+        { [weak self] (index, result) in
+            guard let self =  self else { return }
+            
+            let str = titles[index]
+            
             let title = NSMutableAttributedString()
             title.append(NSAttributedString(string: ZLIconFont.DownArrow.rawValue,
                                             attributes: [.font: UIFont.zlIconFont(withSize: 12),
@@ -121,17 +134,30 @@ class ZLMyPullRequestsView: ZLBaseView {
                                             attributes: [.foregroundColor: UIColor.label(withName: "ZLLabelColor3"),
                                                          .font: UIFont.zlMediumFont(withSize: 12)]))
             self.filterButton.setAttributedTitle(title, for: .normal)
-
-            self.filterIndex = ZLPRFilterType.init(rawValue: Int(index)) ?? .created
+            
+            self.filterIndex = ZLPRFilterType.init(rawValue: index) ?? .created
             self.delegate?.onFilterTypeChange(type: self.filterIndex)
+            
         }
     }
 
     @objc func onStateButtonClicked() {
-        CYSinglePickerPopoverView.showCYSinglePickerPopover(withTitle: ZLLocalizedString(string: "Filter", comment: ""),
-                                                            withInitIndex: UInt(self.filterIndex.rawValue),
-                                                            withDataArray: ["Open", "Closed"]) { (index: UInt) in
-            let str = ["Open", "Closed"][Int(index)]
+        guard let view = viewController?.view else { return }
+        let titles = ["Open", "Closed"]
+        var selectedTitle = "Open"
+        if self.stateIndex.rawValue < titles.count {
+            selectedTitle = titles[Int(self.stateIndex.rawValue)]
+        }
+        ZMSingleSelectTitlePopView
+            .showCenterSingleSelectTickBox(to: view,
+                                           title:  ZLLocalizedString(string: "Filter",
+                                                                     comment: ""),
+                                           selectableTitles: titles,
+                                           selectedTitle: selectedTitle)
+        { [weak self] (index, result) in
+            guard let self =  self else { return }
+            
+            let str = titles[index]
 
             let title = NSMutableAttributedString()
             title.append(NSAttributedString(string: ZLIconFont.DownArrow.rawValue,
@@ -142,9 +168,10 @@ class ZLMyPullRequestsView: ZLBaseView {
                                             attributes: [.foregroundColor: UIColor.label(withName: "ZLLabelColor3"),
                                                          .font: UIFont.zlMediumFont(withSize: 12)]))
             self.stateButton.setAttributedTitle(title, for: .normal)
-            self.stateIndex = ZLGithubIssueState.init(rawValue: index) ?? .open
+            self.stateIndex = ZLGithubIssueState.init(rawValue: UInt(index)) ?? .open
 
             self.delegate?.onStateChange(state: self.stateIndex)
+            
         }
     }
 }

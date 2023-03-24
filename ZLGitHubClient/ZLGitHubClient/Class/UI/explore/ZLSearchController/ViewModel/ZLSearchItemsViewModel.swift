@@ -21,6 +21,9 @@ class ZLSearchItemsViewModel: ZLBaseViewModel {
 
     // model
     private var currentSearchType: ZLSearchType = .repositories
+    
+    // filterViewManager
+    private lazy var filterViewManager: ZLSearchFilterViewManager = ZLSearchFilterViewManager(viewModel: self)
 
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
 
@@ -60,58 +63,15 @@ class ZLSearchItemsViewModel: ZLBaseViewModel {
 // MARK: ZLSearchItemsViewDelegate
 extension ZLSearchItemsViewModel: ZLSearchItemsViewDelegate {
     func onFilterButtonClicked(button: UIButton) {
-        switch self.currentSearchType {
-        case .repositories:do {
-
-            ZLSearchFilterViewForRepo.showSearchFilterViewForRepo(filterInfo: self.searchFilterInfoDic[.repositories], resultBlock: {(searchFilterInfo: ZLSearchFilterInfoModel) in
-                self.searchFilterInfoDic[.repositories] = searchFilterInfo
-                if let index = ZLSearchItemsView.ZLSearchItemsTypes.firstIndex(of: .repositories) {
-                    self.searchGithubItemListViewModelArray[index].searchWithFilerInfo(searchFilterInfo: searchFilterInfo)
-                }
-            })
-
+        
+        filterViewManager.showSearchFilterViewFor(searchType: currentSearchType ,
+                                                  filterBlock: { [weak self] model in
+            guard let self = self else { return }
+            self.searchFilterInfoDic[self.currentSearchType] = model
+            if let index = ZLSearchItemsView.ZLSearchItemsTypes.firstIndex(of: self.currentSearchType) {
+                self.searchGithubItemListViewModelArray[index].searchWithFilerInfo(searchFilterInfo: model)
             }
-        case .users:do {
-
-            ZLSearchFilterViewForUser.showSearchFilterViewForUser(filterInfo: self.searchFilterInfoDic[.users], resultBlock: {(searchFilterInfo: ZLSearchFilterInfoModel) in
-                self.searchFilterInfoDic[.users] = searchFilterInfo
-                if let index = ZLSearchItemsView.ZLSearchItemsTypes.firstIndex(of: .users) {
-                    self.searchGithubItemListViewModelArray[index].searchWithFilerInfo(searchFilterInfo: searchFilterInfo)
-                }
-            })
-            }
-        case .issues:do {
-
-            ZLSearchFilterViewForIssue.showSearchFilterViewForIssue(filterInfo: self.searchFilterInfoDic[.issues], resultBlock: {(searchFilterInfo: ZLSearchFilterInfoModel) in
-                self.searchFilterInfoDic[.issues] = searchFilterInfo
-                if let index = ZLSearchItemsView.ZLSearchItemsTypes.firstIndex(of: .issues) {
-                    self.searchGithubItemListViewModelArray[index].searchWithFilerInfo(searchFilterInfo: searchFilterInfo)
-                }
-            })
-
-        }
-        case .pullRequests:do {
-
-            ZLSearchFilterViewForPR.showSearchFilterViewForPR(filterInfo: self.searchFilterInfoDic[.pullRequests], resultBlock: {(searchFilterInfo: ZLSearchFilterInfoModel) in
-                self.searchFilterInfoDic[.pullRequests] = searchFilterInfo
-                if let index = ZLSearchItemsView.ZLSearchItemsTypes.firstIndex(of: .pullRequests) {
-                    self.searchGithubItemListViewModelArray[index].searchWithFilerInfo(searchFilterInfo: searchFilterInfo)
-                }
-            })
-
-        }
-        case .organizations:do {
-            ZLSearchFilterViewForOrg.showSearchFilterViewForOrg(filterInfo: self.searchFilterInfoDic[.organizations], resultBlock: {(searchFilterInfo: ZLSearchFilterInfoModel) in
-                self.searchFilterInfoDic[.organizations] = searchFilterInfo
-                if let index = ZLSearchItemsView.ZLSearchItemsTypes.firstIndex(of: .organizations) {
-                    self.searchGithubItemListViewModelArray[index].searchWithFilerInfo(searchFilterInfo: searchFilterInfo)
-                }
-            })
-        }
-        @unknown default:do {
-        }
-        }
-
+        })
     }
 
     func onSearchTypeChanged(searchType: ZLSearchType) {

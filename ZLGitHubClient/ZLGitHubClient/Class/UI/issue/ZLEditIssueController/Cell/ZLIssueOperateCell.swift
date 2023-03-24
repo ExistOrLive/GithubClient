@@ -39,7 +39,7 @@ class ZLIssueOperateCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    private var button: UIButton = {
+    private lazy var button: UIButton = {
         let button = UIButton(type: .custom)
         button.addTarget(self, action: #selector(onButtonClicked(button:)), for: .touchUpInside)
         button.layer.cornerRadius = 8.0

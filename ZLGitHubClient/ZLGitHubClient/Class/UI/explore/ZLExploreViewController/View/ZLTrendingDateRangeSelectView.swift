@@ -9,100 +9,68 @@
 import UIKit
 import FFPopup
 import ZLGitRemoteService
+import ZLUIUtilities
+import ZLBaseExtension
 
-class ZLTrendingDateRangeSelectView: ZLBaseView {
-
-    @IBOutlet weak var titleLabel: UILabel!
-
-    @IBOutlet weak var tableView: UITableView!
-
-    weak var popup: FFPopup?
-
-    var resultBlock: ((ZLDateRange) -> Void)?
-    var initDateRange: ZLDateRange = ZLDateRangeDaily
-
-    let dataSource: [ZLDateRange] = [ZLDateRangeDaily,
-                                      ZLDateRangeWeakly,
-                                      ZLDateRangeMonthly]
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-
-        self.titleLabel.text = ZLLocalizedString(string: "DateRange", comment: "")
-
-        self.tableView.register(UINib.init(nibName: "ZLTrendingDateRangeTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLTrendingDateRangeTableViewCell")
-        self.tableView.dataSource = self
-        self.tableView.delegate = self
-
-    }
-
-    static func showTrendingDateRangeSelectView(initDateRange: ZLDateRange, resultBlock : @escaping ((ZLDateRange) -> Void)) {
-
-        guard let view: ZLTrendingDateRangeSelectView = Bundle.main.loadNibNamed("ZLTrendingDateRangeSelectView", owner: nil, options: nil)?.first as? ZLTrendingDateRangeSelectView else {
-            return
-        }
-        view.resultBlock = resultBlock
-        view.initDateRange = initDateRange
-        view.tableView.reloadData()
-
-        view.frame = CGRect.init(x: 0, y: 0, width: 280, height: 200)
-        let popup = FFPopup(contentView: view, showType: .bounceIn, dismissType: .bounceOut, maskType: FFPopup.MaskType.dimmed, dismissOnBackgroundTouch: true, dismissOnContentTouch: false)
-        view.popup = popup
-        popup.show(layout: .Center)
-
-    }
-
-}
-
-extension ZLTrendingDateRangeSelectView: UITableViewDelegate, UITableViewDataSource {
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell: ZLTrendingDateRangeTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLTrendingDateRangeTableViewCell", for: indexPath) as? ZLTrendingDateRangeTableViewCell else {
-            return UITableViewCell.init()
-        }
-
-        let dateRange = self.dataSource[indexPath.row]
-
-        var title = ZLLocalizedString(string: "Today", comment: "")
-        switch dateRange {
-        case ZLDateRangeDaily : title = ZLLocalizedString(string: "Today", comment: "")
-            break
-        case ZLDateRangeWeakly : title = ZLLocalizedString(string: "This Week", comment: "")
-            break
-        case ZLDateRangeMonthly : title = ZLLocalizedString(string: "This Month", comment: "")
-            break
+extension ZLDateRange {
+    var title: String {
+        switch self {
+        case ZLDateRangeDaily:
+            return ZLLocalizedString(string: "Today", comment: "")
+        case ZLDateRangeWeakly:
+            return ZLLocalizedString(string: "This Week", comment: "")
+        case ZLDateRangeMonthly:
+            return ZLLocalizedString(string: "This Month", comment: "")
         default:
-            break
+            return ZLLocalizedString(string: "Today", comment: "")
         }
-        cell.titleLabel.text = title
-
-        if initDateRange == dateRange {
-            cell.isSelected = true
-        } else {
-            cell.isSelected = false
-        }
-        return cell
-    }
-
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.dataSource.count
-    }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let dateRange = self.dataSource[indexPath.row]
-        self.resultBlock?(dateRange)
-        self.popup?.dismiss(animated: true)
-    }
-
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        self.endEditing(true)
     }
 }
+
+class ZLTrendingFilterManager {
+    
+    /// 时间范围列表
+    let dateRangeArray: [ZLDateRange] = [ZLDateRangeDaily,
+                                         ZLDateRangeWeakly,
+                                         ZLDateRangeMonthly]
+
+    /// 选择时间范围
+    lazy var dateRangeSelectView: ZMSingleSelectTitlePopView = {
+        let dateRangeSelectView = ZMSingleSelectTitlePopView()
+        dateRangeSelectView.frame = UIScreen.main.bounds
+        dateRangeSelectView.textFieldBackView.isHidden = true
+        dateRangeSelectView.contentWidth = 280
+        dateRangeSelectView.contentHeight = 195
+        dateRangeSelectView.collectionView.lineSpacing = .leastNonzeroMagnitude
+        dateRangeSelectView.collectionView.interitemSpacing = .leastNonzeroMagnitude
+        dateRangeSelectView.collectionView.itemSize = CGSize(width: 280, height: 50)
+        dateRangeSelectView.popDelegate = ZMPopContainerViewDelegate_Center.shared
+        return dateRangeSelectView
+    }()
+}
+
+/// show/dismiss
+extension ZLTrendingFilterManager {
+   
+    /// 弹出时间范围弹出选择框
+    func showTrendingDateRangeSelectView(to: UIView,
+                                         initDateRange: ZLDateRange,
+                                         resultBlock : @escaping ((ZLDateRange) -> Void)) {
+        let titles = dateRangeArray.map({ $0.title })
+        let selectedIndex = dateRangeArray.firstIndex(of: initDateRange) ?? 0
+        dateRangeSelectView.titleLabel.text = ZLLocalizedString(string: "DateRange", comment: "")
+        dateRangeSelectView.frame = UIScreen.main.bounds
+        dateRangeSelectView.showSingleSelectTitleBox(to,
+                                                     contentPoition: .center,
+                                                     animationDuration: 0.1,
+                                                     titles: titles,
+                                                     selectedIndex: selectedIndex,
+                                                     cellType: ZMInputCollectionViewSelectTickCell.self)
+        { [weak self] index, title in
+            guard let self = self else { return }
+            resultBlock(self.dateRangeArray[index])
+        }
+    }
+}
+
+

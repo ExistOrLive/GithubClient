@@ -47,7 +47,7 @@ class ZLSimpleUserTableViewCell: UITableViewCell {
 
         self.contentView.addSubview(fullNameLabel)
         fullNameLabel.snp.makeConstraints { (make) in
-            make.left.equalTo(avatarImageView.snp_right).offset(10)
+            make.left.equalTo(avatarImageView.snp.right).offset(10)
             make.centerY.equalToSuperview()
             make.right.equalToSuperview().offset(-10)
         }

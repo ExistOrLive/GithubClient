@@ -9,18 +9,31 @@
 import UIKit
 
 class ZLSettingLogoutTableViewCell: UITableViewCell {
-
-    @IBOutlet weak var titleLabel: UILabel!
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        titleLabel.text = ZLLocalizedString(string: "logout", comment: "注销")
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setUpUI()
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(false, animated: animated)
-
-        // Configure the view for the selected state
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
+    
+    func setUpUI() {
+        contentView.backgroundColor = UIColor(named: "ZLCellBack")
+        contentView.addSubview(titleLabel)
+        titleLabel.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
+    }
+    
+    // MARK: Lazy View
+    lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = ZLLocalizedString(string: "logout", comment: "注销")
+        label.textColor = UIColor(named:"ZLLabelColor1")
+        label.font = .zlRegularFont(withSize: 18)
+        return label
+    }()
 
 }

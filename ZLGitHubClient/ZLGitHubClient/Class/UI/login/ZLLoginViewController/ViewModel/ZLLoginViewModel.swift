@@ -10,12 +10,26 @@ import UIKit
 import ZLGithubOAuth
 import ZLGitRemoteService
 import ZLUIUtilities
+import ZLBaseUI
 
 enum ZLLoginStep {
     case initialize
     case oauth
     case gettoken
     case checktoken
+    
+    var eventTrack: Int {
+        switch self {
+        case .initialize:
+            return 0
+        case .oauth:
+            return 1
+        case .gettoken:
+            return 2
+        case .checktoken:
+            return 3
+        }
+    }
 }
 
 class ZLLoginViewModel: ZLBaseViewModel, ZLLoginBaseViewDelegate {
@@ -28,6 +42,12 @@ class ZLLoginViewModel: ZLBaseViewModel, ZLLoginBaseViewDelegate {
     private var loginSerialNumber: String?
     // 登陆步骤
     private var step: ZLLoginStep = .initialize
+    
+    
+    /// datetime
+    private var startTime: TimeInterval = 0
+    private var endTime: TimeInterval = 0
+    
 
     deinit {
         ZLServiceManager.sharedInstance.loginServiceModel?.unRegisterObserver(self, name: ZLLoginResult_Notification)
@@ -79,7 +99,8 @@ class ZLLoginViewModel: ZLBaseViewModel, ZLLoginBaseViewDelegate {
     
 
     func onLoginButtonClicked() {
-
+        
+        startTime = Date().timeIntervalSince1970
         oauthManager = ZLGithubOAuthManager(client_id: ZLUISharedDataManager.githubClientID,
                                             client_secret: ZLUISharedDataManager.githubClientSecret,
                                             redirect_uri: ZLUISharedDataManager.githubClientCallback)
@@ -95,7 +116,7 @@ class ZLLoginViewModel: ZLBaseViewModel, ZLLoginBaseViewDelegate {
 
     func onAccessTokenButtonClicked() {
 
-        ZLInputAccessTokenView.showInputAccessTokenViewWithResultBlock(resultBlock: {(token: String?) in
+        ZLInputAccessTokenView.showInputAccessTokenView(resultBlock: {(token: String?) in
             guard let token = token else {
                 ZLToastView.showMessage(ZLLocalizedString(string: "token is nil", comment: ""))
                 return
@@ -172,6 +193,11 @@ extension ZLLoginViewModel: ZLGithubOAuthManagerDelegate {
     }
     
     func onOAuthSuccess(token: String) {
+        endTime = Date().timeIntervalSince1970
+        analytics.log(.githubOAuth(result: true,
+                                   step: step.eventTrack,
+                                   msg: "success",
+                                   duration: endTime - startTime))
         oauthManager = nil
         let serialNumber = NSString.generateSerialNumber()
         loginSerialNumber = serialNumber
@@ -182,6 +208,11 @@ extension ZLLoginViewModel: ZLGithubOAuthManagerDelegate {
     }
     
     func onOAuthFail(status: ZLGithubOAuthStatus, error: String) {
+        endTime = Date().timeIntervalSince1970
+        analytics.log(.githubOAuth(result: false,
+                                   step: step.eventTrack,
+                                   msg: error,
+                                   duration: endTime - startTime))
         step = .initialize
         reloadView()
         oauthManager = nil

@@ -182,7 +182,7 @@ class ZLRepositoryTableViewCell: UITableViewCell {
         containerView.addSubview(descriptionLabel)
         containerView.addSubview(languageLabel)
 
-        avatarButton.snp_makeConstraints { (make) in
+        avatarButton.snp.makeConstraints { (make) in
             make.top.equalToSuperview().offset(10)
             make.left.equalToSuperview().offset(10)
             make.size.equalTo(CGSize(width: 50, height: 50))

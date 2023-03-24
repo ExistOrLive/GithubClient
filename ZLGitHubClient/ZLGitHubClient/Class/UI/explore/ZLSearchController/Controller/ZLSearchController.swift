@@ -23,12 +23,9 @@ class ZLSearchController: ZLBaseViewController {
         self.addSubViewModel(viewModel)
 
         // 创建ZLSearchView
-        guard let baseView: ZLSearchView = Bundle.main.loadNibNamed("ZLSearchView", owner: viewModel, options: nil)?.first as? ZLSearchView else {
-            ZLLog_Warn("load ZLSearchView failed")
-            return
-        }
+        let baseView: ZLSearchView = ZLSearchView()
         self.view.addSubview(baseView)
-        baseView.snp_makeConstraints { (make) in
+        baseView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
 

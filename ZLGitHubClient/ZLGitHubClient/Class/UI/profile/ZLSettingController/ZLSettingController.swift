@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ZLBaseUI
 
 class ZLSettingController: ZLBaseViewController {
 
@@ -20,7 +21,7 @@ class ZLSettingController: ZLBaseViewController {
         tableView.backgroundColor = .clear
         tableView.register(ZLSettingItemTableViewCell.self, forCellReuseIdentifier: "ZLSettingItemTableViewCell")
         tableView.register(ZLSettingItemTableViewCell1.self, forCellReuseIdentifier: "ZLSettingItemTableViewCell1")
-        tableView.register(UINib.init(nibName: "ZLSettingLogoutTableViewCell", bundle: nil), forCellReuseIdentifier: "ZLSettingLogoutTableViewCell")
+        tableView.register(ZLSettingLogoutTableViewCell.self, forCellReuseIdentifier: "ZLSettingLogoutTableViewCell")
         self.contentView.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()

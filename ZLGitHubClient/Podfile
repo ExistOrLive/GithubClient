@@ -1,10 +1,10 @@
-platform :ios, '11.0'
+platform :ios, '12.0'
 use_modular_headers!
 inhibit_all_warnings!     # 屏蔽pod中告警
 require "fileutils"
 
 abstract_target 'GithubClient' do
-
+  
 target 'Fixed RepoExtension' do
   pod 'Kanna', '~> 5.2.2'
 end
@@ -21,13 +21,13 @@ pod "SYDCentralPivot"
 pod 'ZLGithubOAuth', :git => 'https://github.com/ExistOrLive/ZLGithubOAuth.git', :tag => '1.2.0'
 #pod "ZLGithubOAuth", :path => '../../ZLGithubOAuth'
 
-pod 'ZLGitRemoteService', :git => 'https://github.com/ExistOrLive/ZLGitRemoteService.git'
+pod 'ZLGitRemoteService', :git => 'https://github.com/ExistOrLive/ZLGitRemoteService.git', :tag => '1.3.1'
 #pod "ZLGitRemoteService", :path => '../../ZLGitRemoteService'
 
 pod 'ZLBaseUI', :git => 'https://github.com/ExistOrLive/ZLBaseUI.git'
 #pod 'ZLBaseUI', :path => "../../ZLBaseUI"
 
-pod 'ZLBaseExtension', :git => "https://github.com/ExistOrLive/ZLBaseExtension.git", :tag => '1.2.0'
+pod 'ZLBaseExtension', :git => "https://github.com/ExistOrLive/ZLBaseExtension.git"
 #pod 'ZLBaseExtension', :path => "../../ZLBaseExtension"
 
 pod 'ZLUIUtilities', :git => "https://github.com/ExistOrLive/ZLUIUtilities.git"
@@ -54,10 +54,10 @@ pod 'IQKeyboardManager'
 #pod 'ChartsRealm'
 pod 'Charts'
 #下载图片
-pod 'SDWebImage', '~> 5.0.0'
+pod 'SDWebImage'
 # AutoLayout
 pod 'Masonry'
-pod 'SnapKit', '~> 4.0.0'
+#pod 'SnapKit'
 
 pod 'YYText'
 
@@ -73,10 +73,10 @@ pod 'FFPopup'
 # 移动监控工具
 pod 'WoodPeckeriOS', :configurations => ['Debug']
 pod 'LookinServer', :configurations => ['Debug']
-pod 'DoraemonKit/Core', '~> 2.0.0', :configurations => ['Debug']
-pod 'DoraemonKit/WithLogger', '~> 2.0.0', :configurations => ['Debug']
-#pod 'DoraemonKit/WithGPS', '~> 2.0.0', :configurations => ['Debug']
-pod 'DoraemonKit/WithMLeaksFinder', '2.0.0', :configurations => ['Debug']
+#pod 'DoraemonKit/Core', :configurations => ['Debug']
+#pod 'DoraemonKit/WithLogger', :configurations => ['Debug']
+#pod 'DoraemonKit/WithGPS', :configurations => ['Debug']
+#pod 'DoraemonKit/WithMLeaksFinder', :configurations => ['Debug']
 
 # 异常防护
 pod 'JJException'
@@ -110,15 +110,24 @@ end
 
 
 post_install do |installer|
-    ## fix oclint issue : one compiler command contains multiple jobs
-    installer.pods_project.targets.each do |target|
+  ## fix oclint issue : one compiler command contains multiple jobs
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      ## fix  CocoaPod config to solve XCode 14, iOS16 Requires a development team. Select a development team in the Signing & Capabilities editor https://stackoverflow.com/questions/73811360/cocoapod-config-to-solve-xcode-14-ios16-requires-a-development-team-select-a-d
+      if target.respond_to?(:product_type) and target.product_type == "com.apple.product-type.bundle"
         target.build_configurations.each do |config|
-            config.build_settings['COMPILER_INDEX_STORE_ENABLE'] = "NO"
-            if config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'].to_f < 9.0
-              config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '9.0'
-            end
+          config.build_settings['EXPANDED_CODE_SIGN_IDENTITY'] = ""
+          config.build_settings['CODE_SIGNING_REQUIRED'] = "NO"
+          config.build_settings['CODE_SIGNING_ALLOWED'] = "NO"
         end
+      end
+      config.build_settings['COMPILER_INDEX_STORE_ENABLE'] = "NO"
+      if config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'].to_f < 12.0
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
+      end
     end
+  end
+    
     ## Fix for XCode 12.5
     find_and_replace("Pods/FBRetainCycleDetector/FBRetainCycleDetector/Layout/Classes/FBClassStrongLayout.mm","layoutCache[currentClass] = ivars;", "layoutCache[(id<NSCopying>)currentClass] = ivars;")
 end

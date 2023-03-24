@@ -131,15 +131,11 @@ struct ZLWidgetService {
             var totalCount = 0
             
             for dayData in htmlDoc.xpath("//rect[@class=\"ContributionCalendar-day\"]") {
-            
-                if let count = dayData["data-count"] {
-                    var contributionModel = ZLSimpleContributionModel()
-                    contributionModel.contributionsNumber = Int(count) ?? 0
-                    contributionModel.contributionsDate = dayData["data-date"] ?? ""
-                    contributionModel.contributionsLevel = Int(dayData["data-level"] ?? "") ?? 0
-                    contributionArray.append(contributionModel)
-                    totalCount += contributionModel.contributionsNumber
-                }
+                var contributionModel = ZLSimpleContributionModel()
+                contributionModel.contributionsDate = dayData["data-date"] ?? ""
+                contributionModel.contributionsLevel = Int(dayData["data-level"] ?? "") ?? 0
+                contributionArray.append(contributionModel)
+                totalCount += contributionModel.contributionsNumber
             }
             
             print(contributionArray)

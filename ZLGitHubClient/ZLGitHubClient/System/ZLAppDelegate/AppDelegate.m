@@ -8,10 +8,11 @@
 
 #import "AppDelegate.h"
 #import "ZLGithubAppKey.h"
+#import "ZLGitHubClient-Swift.h"
 
 #import <JJException/JJException.h>
 #ifdef DEBUG
-#import <DoraemonKit/DoraemonManager.h>
+//#import <DoraemonKit/DoraemonManager.h>
 #endif
 
 #import <UserNotifications/UserNotifications.h>
@@ -51,7 +52,7 @@
     
     ZLUISharedDataManager.githubClientID = MyClientID;
     ZLUISharedDataManager.githubClientSecret = MyClientSecret;
-//    ZLUISharedDataManager.githubClientCallback = MyClientCallback;
+    ZLUISharedDataManager.githubClientCallback = MyClientCallback;
     
     [FIRApp configure];
 
@@ -248,10 +249,10 @@
 - (void) setUpDoraemonKit
 {
     #ifdef DEBUG
-           //默认
-           [[DoraemonManager shareInstance] install];
-           // 或者使用传入位置,解决遮挡关键区域,减少频繁移动
-           [[DoraemonManager shareInstance] installWithStartingPosition:CGPointMake(66, 66)];
+//           //默认
+//           [[DoraemonManager shareInstance] install];
+//           // 或者使用传入位置,解决遮挡关键区域,减少频繁移动
+//           [[DoraemonManager shareInstance] installWithStartingPosition:CGPointMake(66, 66)];
     
        #endif
 }

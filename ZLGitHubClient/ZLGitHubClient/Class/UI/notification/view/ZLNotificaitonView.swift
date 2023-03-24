@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ZLBaseUI
 
 protocol ZLNotificationViewDataSourceAndDelagate: ZLGithubItemListViewDelegate {
     // delagate
@@ -94,15 +95,20 @@ class ZLNotificationView: ZLBaseView {
     }
 
     @objc private func onFilterButtonClicked() {
-
-        CYSinglePickerPopoverView.showCYSinglePickerPopover(withTitle: ZLLocalizedString(string: "Filter", comment: ""),
-                                                            withInitIndex: self.showAllNotification ? 0 : 1,
-                                                            withDataArray: ["all", "unread"]) {[weak self](result: UInt) in
-
-            self?.showAllNotification = result == 0 ? true : false
-            self?.filterLabel.text = result == 0 ? "all" : "unread"
-
-            self?.delegate?.onFilterTypeChange(result == 0)
+        
+        guard let view = ZLMainWindow else { return }
+        ZMSingleSelectTitlePopView
+            .showCenterSingleSelectTickBox(to: view,
+                                           title: ZLLocalizedString(string: "Filter",
+                                                                    comment: ""),
+                                           selectableTitles: ["all", "unread"],
+                                           selectedTitle: showAllNotification ? "all" : "unread")
+        { [weak self](index, result) in
+            
+            self?.showAllNotification = index == 0
+            self?.filterLabel.text = index == 0 ? "all" : "unread"
+            
+            self?.delegate?.onFilterTypeChange(index == 0)
         }
     }
 }

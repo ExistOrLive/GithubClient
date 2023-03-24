@@ -10,6 +10,7 @@ import UIKit
 import WebKit
 import ZLUIUtilities
 import ZLGitRemoteService
+import ZLBaseUI
 
 class ZLRepoCodePreview2Controller: ZLBaseViewController {
 

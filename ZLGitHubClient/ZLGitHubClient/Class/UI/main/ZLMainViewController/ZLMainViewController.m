@@ -9,6 +9,7 @@
 #import "ZLMainViewController.h"
 #import "ZLBaseNavigationController.h"
 #import "UIImage+ZLBase.h"
+#import "ZLGitHubClient-Swift.h"
 
 @interface ZLMainViewController()
 
