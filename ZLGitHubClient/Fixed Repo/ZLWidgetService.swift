@@ -56,9 +56,9 @@ struct ZLWidgetService {
             
             for article in htmlDoc.xpath("//article") {
                 
-                let h1 = article.xpath("//h1").first
+                let h2 = article.xpath("//h2").first
                 let p = article.xpath("//p").first
-                let a = h1?.xpath("//a").first
+                let a = h2?.xpath("//a").first
             
                 guard var fullName = a?["href"] else { continue }
                 fullName = String(fullName.suffix(from: fullName.index(after: fullName.startIndex)))
@@ -99,7 +99,6 @@ struct ZLWidgetService {
                 repoArray.append(repoModel)
                 
             }
-            print(repoArray)
             
             DispatchQueue.main.async {
                 completeHandler(true,repoArray)
@@ -130,16 +129,14 @@ struct ZLWidgetService {
             var contributionArray = [ZLSimpleContributionModel]()
             var totalCount = 0
             
-            for dayData in htmlDoc.xpath("//rect[@class=\"ContributionCalendar-day\"]") {
+            for dayData in htmlDoc.xpath("//g/rect[@class=\"ContributionCalendar-day\"]") {
                 var contributionModel = ZLSimpleContributionModel()
                 contributionModel.contributionsDate = dayData["data-date"] ?? ""
                 contributionModel.contributionsLevel = Int(dayData["data-level"] ?? "") ?? 0
                 contributionArray.append(contributionModel)
                 totalCount += contributionModel.contributionsNumber
             }
-            
-            print(contributionArray)
-            
+    
             var resultArray = contributionArray
             let showCount = resultArray.count % 7 == 0 ? 154 : resultArray.count % 7 + 147
             if resultArray.count > showCount {

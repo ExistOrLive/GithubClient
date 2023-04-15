@@ -96,12 +96,14 @@ class ZLUserContributionsView: ZLBaseView, UICollectionViewDataSource, UICollect
 
         self.loginName = loginName
 
-        let contributionsDatas = ZLServiceManager.sharedInstance.userServiceModel?.getUserContributionsData(withLoginName: loginName,
-                                                                                   serialNumber: NSString.generateSerialNumber()) { [weak self](resultModel) in
+        let contributionsDatas = ZLUserServiceShared()?
+            .getUserContributionsData(withLoginName: loginName,
+                                      serialNumber: NSString.generateSerialNumber()) { [weak self](resultModel) in
 
             if resultModel.result == true {
                 if let array = resultModel.data as? [ZLGithubUserContributionData] {
                     self?.dataArray = array
+                    self?.collectionView.reloadData()
                 }
             }
 
@@ -118,7 +120,8 @@ class ZLUserContributionsView: ZLBaseView, UICollectionViewDataSource, UICollect
         }
 
         self.dataArray = contributionsDatas ?? []
-
+        self.collectionView.reloadData()
+        
         self.collectionView.performBatchUpdates { [weak self] in
             self?.collectionView.reloadData()
         } completion: { [weak self] _ in

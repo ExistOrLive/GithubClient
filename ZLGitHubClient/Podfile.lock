@@ -214,13 +214,14 @@ PODS:
     - Alamofire
     - SnapKit
     - ZLBaseUI
-  - ZLGitRemoteService (1.2.1):
+  - ZLGitRemoteService (1.4.0):
     - AFNetworking
     - Apollo (~> 0.39.0)
     - Bugly
     - CocoaLumberjack
     - Firebase/Analytics
     - FMDB
+    - Kanna
     - MJExtension
     - SYDCentralPivot
     - Umbrella
@@ -264,7 +265,7 @@ DEPENDENCIES:
   - ZLBaseExtension (from `https://github.com/ExistOrLive/ZLBaseExtension.git`)
   - ZLBaseUI (from `https://github.com/ExistOrLive/ZLBaseUI.git`)
   - ZLGithubOAuth (from `https://github.com/ExistOrLive/ZLGithubOAuth.git`, tag `1.2.0`)
-  - ZLGitRemoteService (from `https://github.com/ExistOrLive/ZLGitRemoteService.git`, tag `1.3.1`)
+  - ZLGitRemoteService (from `https://github.com/ExistOrLive/ZLGitRemoteService.git`, tag `1.4.0`)
   - ZLUIUtilities (from `https://github.com/ExistOrLive/ZLUIUtilities.git`)
 
 SPEC REPOS:
@@ -325,7 +326,7 @@ EXTERNAL SOURCES:
     :tag: 1.2.0
   ZLGitRemoteService:
     :git: https://github.com/ExistOrLive/ZLGitRemoteService.git
-    :tag: 1.3.1
+    :tag: 1.4.0
   ZLUIUtilities:
     :git: https://github.com/ExistOrLive/ZLUIUtilities.git
 
@@ -341,7 +342,7 @@ CHECKOUT OPTIONS:
     :tag: 1.2.0
   ZLGitRemoteService:
     :git: https://github.com/ExistOrLive/ZLGitRemoteService.git
-    :tag: 1.3.1
+    :tag: 1.4.0
   ZLUIUtilities:
     :commit: 3fa0671df2f040a9bf00a56f27bf209f46b18ea1
     :git: https://github.com/ExistOrLive/ZLUIUtilities.git
@@ -395,9 +396,9 @@ SPEC CHECKSUMS:
   ZLBaseExtension: 90e59e26595222fb11628a97f4b2951ab843e4f1
   ZLBaseUI: 2815898555602f9bebb23ca0277ff5352d2a2952
   ZLGithubOAuth: 2d9879eac1d41d45206e6e92463afae2537ec44d
-  ZLGitRemoteService: c57964a471dd83f634c10d323c42fe9800b199db
+  ZLGitRemoteService: fe7baec9a8460192b1a9441c30c01cc72697a826
   ZLUIUtilities: 58cc312400e93051b01ab73e77998865ee43f53a
 
-PODFILE CHECKSUM: 59903fe51fa75662f32647a5aa30ee8f3d2ceb91
+PODFILE CHECKSUM: 652c136f82787f4d6507e7c2ab4290811837a6fc
 
 COCOAPODS: 1.11.3
