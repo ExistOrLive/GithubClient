@@ -7,6 +7,8 @@ on:                               # 触发条件
   push:
     branches:
       - 'testflight/**'            # 推送testflight分支
+  
+  workflow_dispatch:               # workflow_dispatch 事件触发
 
 jobs:
   build:
