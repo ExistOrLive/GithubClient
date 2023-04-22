@@ -216,7 +216,7 @@ extension ZLProfileViewController {
 // MARK: - ZLTableContainerViewDelegate
 extension ZLProfileViewController: ZLTableContainerViewDelegate {
     func zlLoadNewData() {
-        guard let userInfo = ZLServiceManager.sharedInstance.viewerServiceModel?.currentUserModel else {
+        guard let userInfo = ZLServiceManager.sharedInstance.viewerServiceModel?.getCurrentUserModelFromServer() else {
             self.reloadCellDatas()
             return
         }

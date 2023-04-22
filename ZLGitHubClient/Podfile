@@ -21,7 +21,7 @@ pod "SYDCentralPivot"
 pod 'ZLGithubOAuth', :git => 'https://github.com/ExistOrLive/ZLGithubOAuth.git', :tag => '1.2.0'
 #pod "ZLGithubOAuth", :path => '../../ZLGithubOAuth'
 
-pod 'ZLGitRemoteService', :git => 'https://github.com/ExistOrLive/ZLGitRemoteService.git', :tag => '1.4.0'
+pod 'ZLGitRemoteService', :git => 'https://github.com/ExistOrLive/ZLGitRemoteService.git'
 #pod "ZLGitRemoteService", :path => '../../ZLGitRemoteService'
 
 pod 'ZLBaseUI', :git => 'https://github.com/ExistOrLive/ZLBaseUI.git'

@@ -1,19 +1,4 @@
 PODS:
-  - AFNetworking (4.0.1):
-    - AFNetworking/NSURLSession (= 4.0.1)
-    - AFNetworking/Reachability (= 4.0.1)
-    - AFNetworking/Security (= 4.0.1)
-    - AFNetworking/Serialization (= 4.0.1)
-    - AFNetworking/UIKit (= 4.0.1)
-  - AFNetworking/NSURLSession (4.0.1):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/Reachability (4.0.1)
-  - AFNetworking/Security (4.0.1)
-  - AFNetworking/Serialization (4.0.1)
-  - AFNetworking/UIKit (4.0.1):
-    - AFNetworking/NSURLSession
   - Alamofire (5.6.4)
   - Apollo (0.39.0):
     - Apollo/Core (= 0.39.0)
@@ -215,7 +200,7 @@ PODS:
     - SnapKit
     - ZLBaseUI
   - ZLGitRemoteService (1.4.0):
-    - AFNetworking
+    - Alamofire
     - Apollo (~> 0.39.0)
     - Bugly
     - CocoaLumberjack
@@ -265,12 +250,11 @@ DEPENDENCIES:
   - ZLBaseExtension (from `https://github.com/ExistOrLive/ZLBaseExtension.git`)
   - ZLBaseUI (from `https://github.com/ExistOrLive/ZLBaseUI.git`)
   - ZLGithubOAuth (from `https://github.com/ExistOrLive/ZLGithubOAuth.git`, tag `1.2.0`)
-  - ZLGitRemoteService (from `https://github.com/ExistOrLive/ZLGitRemoteService.git`, tag `1.4.0`)
+  - ZLGitRemoteService (from `https://github.com/ExistOrLive/ZLGitRemoteService.git`)
   - ZLUIUtilities (from `https://github.com/ExistOrLive/ZLUIUtilities.git`)
 
 SPEC REPOS:
   trunk:
-    - AFNetworking
     - Alamofire
     - Apollo
     - Bugly
@@ -326,7 +310,6 @@ EXTERNAL SOURCES:
     :tag: 1.2.0
   ZLGitRemoteService:
     :git: https://github.com/ExistOrLive/ZLGitRemoteService.git
-    :tag: 1.4.0
   ZLUIUtilities:
     :git: https://github.com/ExistOrLive/ZLUIUtilities.git
 
@@ -341,14 +324,13 @@ CHECKOUT OPTIONS:
     :git: https://github.com/ExistOrLive/ZLGithubOAuth.git
     :tag: 1.2.0
   ZLGitRemoteService:
+    :commit: 4de70e3f57c0171f36dc399869a433caceb62b3e
     :git: https://github.com/ExistOrLive/ZLGitRemoteService.git
-    :tag: 1.4.0
   ZLUIUtilities:
     :commit: 3fa0671df2f040a9bf00a56f27bf209f46b18ea1
     :git: https://github.com/ExistOrLive/ZLUIUtilities.git
 
 SPEC CHECKSUMS:
-  AFNetworking: 3bd23d814e976cd148d7d44c3ab78017b744cd58
   Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
   Apollo: f6c6410ebee82dd5846be87b81cedc8bc7754a82
   Bugly: b8715e6ec4004b7f7fbffab0643ba80545aee3da
@@ -396,9 +378,9 @@ SPEC CHECKSUMS:
   ZLBaseExtension: 90e59e26595222fb11628a97f4b2951ab843e4f1
   ZLBaseUI: 2815898555602f9bebb23ca0277ff5352d2a2952
   ZLGithubOAuth: 2d9879eac1d41d45206e6e92463afae2537ec44d
-  ZLGitRemoteService: fe7baec9a8460192b1a9441c30c01cc72697a826
+  ZLGitRemoteService: 39f29d70e287fc7cc59861f7fc07578b62acca53
   ZLUIUtilities: 58cc312400e93051b01ab73e77998865ee43f53a
 
-PODFILE CHECKSUM: 652c136f82787f4d6507e7c2ab4290811837a6fc
+PODFILE CHECKSUM: 50cffc01bf59032dd60497f924f08cece5afeaa5
 
 COCOAPODS: 1.11.3

@@ -37,7 +37,6 @@
 		740C2FC628393D9F00DAFF0E /* ZLWebContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740C2FC528393D9F00DAFF0E /* ZLWebContentViewModel.swift */; };
 		740C2FC8283A839C00DAFF0E /* ZLUserTableViewCellDataV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740C2FC7283A839C00DAFF0E /* ZLUserTableViewCellDataV2.swift */; };
 		740C7CCE24ADD9070028B452 /* ZLGistTableViewCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740C7CCD24ADD9070028B452 /* ZLGistTableViewCellData.swift */; };
-		740C7CD124AFB2090028B452 /* ZLSearchGIthubItemListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740C7CD024AFB2090028B452 /* ZLSearchGIthubItemListViewModel.swift */; };
 		7417027B27512BB100FDA5DA /* ZLLanguageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7417027A27512BB100FDA5DA /* ZLLanguageView.swift */; };
 		7417027D27521EC100FDA5DA /* ZLAppearanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7417027C27521EC100FDA5DA /* ZLAppearanceView.swift */; };
 		741A2E69246C5D1400A443E4 /* ZLRepoIssuesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741A2E68246C5D1400A443E4 /* ZLRepoIssuesController.swift */; };
@@ -377,7 +376,6 @@
 		740C2FC528393D9F00DAFF0E /* ZLWebContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLWebContentViewModel.swift; sourceTree = "<group>"; };
 		740C2FC7283A839C00DAFF0E /* ZLUserTableViewCellDataV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLUserTableViewCellDataV2.swift; sourceTree = "<group>"; };
 		740C7CCD24ADD9070028B452 /* ZLGistTableViewCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLGistTableViewCellData.swift; sourceTree = "<group>"; };
-		740C7CD024AFB2090028B452 /* ZLSearchGIthubItemListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLSearchGIthubItemListViewModel.swift; sourceTree = "<group>"; };
 		7417027A27512BB100FDA5DA /* ZLLanguageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLLanguageView.swift; sourceTree = "<group>"; };
 		7417027C27521EC100FDA5DA /* ZLAppearanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLAppearanceView.swift; sourceTree = "<group>"; };
 		741A2E68246C5D1400A443E4 /* ZLRepoIssuesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLRepoIssuesController.swift; sourceTree = "<group>"; };
@@ -1070,7 +1068,6 @@
 				7431B43522F5E0510060968A /* ZLSearchViewModel.swift */,
 				74D55DE622FB0A8B004114BC /* ZLSearchItemsViewModel.swift */,
 				74D55DE822FB0AAD004114BC /* ZLSearchRecordViewModel.swift */,
-				740C7CD024AFB2090028B452 /* ZLSearchGIthubItemListViewModel.swift */,
 				743D225E2624ADA400C0B9FD /* ZLSearchGithubItemListSecondViewModel.swift */,
 			);
 			path = ViewModel;
@@ -3096,7 +3093,6 @@
 				74203A0624B1B888007DFC00 /* ZLCommitCommentEventTableViewCell.swift in Sources */,
 				740318CF22F702E6004CE52D /* ZLSearchItemsView.swift in Sources */,
 				740C2FC428392D9B00DAFF0E /* ZLProfileViewController.swift in Sources */,
-				740C7CD124AFB2090028B452 /* ZLSearchGIthubItemListViewModel.swift in Sources */,
 				745CC456275E7FED0036EC06 /* ZLCommonTableViewCellData.swift in Sources */,
 				7444B2912567928000488EF0 /* ZLWorkboardTableViewCell.swift in Sources */,
 				7466025E28C4DC39004D104F /* ZMInputCollectionViewUpdatable.swift in Sources */,
@@ -3485,7 +3481,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.4.0;
+				MARKETING_VERSION = 1.5.0;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zm.ZLGitHubClient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3544,7 +3540,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.4.0;
+				MARKETING_VERSION = 1.5.0;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zm.ZLGitHubClient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3576,7 +3572,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.4.0;
+				MARKETING_VERSION = 1.5.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zm.ZLGitHubClient.Fixed-Repo";
@@ -3612,7 +3608,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.4.0;
+				MARKETING_VERSION = 1.5.0;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zm.ZLGitHubClient.Fixed-Repo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
