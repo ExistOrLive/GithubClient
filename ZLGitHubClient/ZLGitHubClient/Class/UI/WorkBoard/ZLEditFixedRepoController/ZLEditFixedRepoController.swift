@@ -335,7 +335,8 @@ class ZLEditFixedRepoSearchController: ZLBaseViewController, UITableViewDelegate
 
     func loadNewData() {
 
-        guard let searchKey = self.searchKey else {
+        guard let searchKey = self.searchKey,
+              searchKey.isEmpty else {
             self.tableView.mj_header?.endRefreshing()
             return
         }
@@ -376,7 +377,8 @@ class ZLEditFixedRepoSearchController: ZLBaseViewController, UITableViewDelegate
 
     func loadMoreData() {
 
-        guard let searchKey = self.searchKey else {
+        guard let searchKey = self.searchKey,
+              searchKey.isEmpty else {
             self.tableView.mj_footer?.endRefreshing()
             return
         }

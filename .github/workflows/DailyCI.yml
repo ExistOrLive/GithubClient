@@ -4,6 +4,11 @@ name: ZLGithub DailyCI
 on:                               # 触发条件
   schedule:
      - cron: '0 18 * * *'          # 每天北京时间凌晨两点打包 
+  push:
+    branches:
+      - 'testflight/**'            # 推送testflight分支
+  
+  workflow_dispatch:               # workflow_dispatch 事件触发
 
 jobs:
   build:
