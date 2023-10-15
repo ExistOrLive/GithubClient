@@ -12,21 +12,17 @@ import UIKit
 import ZLBaseUI
 
 public protocol ZMInputConfirmPopViewDelegate: AnyObject {
-    func inputConfirmPopViewWillConfirm(_ box: ZMInputConfirmPopView,
-                                        sectionDatas: [ZMInputCollectionViewSectionDataType]) -> Bool
+    func inputConfirmPopViewWillConfirm(_ box: ZMInputConfirmPopView) -> Bool
     
-    func inputConfirmPopViewWillReset(_ box: ZMInputConfirmPopView,
-                                      sectionDatas: [ZMInputCollectionViewSectionDataType]) -> Bool
+    func inputConfirmPopViewWillReset(_ box: ZMInputConfirmPopView) -> Bool
 }
 
 public extension ZMInputConfirmPopViewDelegate {
-    func inputConfirmPopViewWillConfirm(_ box: ZMInputConfirmPopView,
-                                        sectionDatas: [ZMInputCollectionViewSectionDataType]) -> Bool {
+    func inputConfirmPopViewWillConfirm(_ box: ZMInputConfirmPopView) -> Bool {
         return true
     }
     
-    func inputConfirmPopViewWillReset(_ box: ZMInputConfirmPopView,
-                                      sectionDatas: [ZMInputCollectionViewSectionDataType]) -> Bool {
+    func inputConfirmPopViewWillReset(_ box: ZMInputConfirmPopView) -> Bool {
         return true
     }
 }
@@ -112,15 +108,15 @@ open class ZMInputConfirmPopView: ZMInputPopView {
     
     // MARK: Action
     @objc dynamic func onResetButtonClicked() {
-        if delegate?.inputConfirmPopViewWillReset(self, sectionDatas: self.collectionView.sectionDatas) ?? true {
-            collectionView.resetData()
+        if delegate?.inputConfirmPopViewWillReset(self) ?? true {
+            collectionView.resetTemporaryData()
         }
         
     }
     
     @objc dynamic func onConfirmButtonClicked() {
-        if delegate?.inputConfirmPopViewWillConfirm(self, sectionDatas: self.collectionView.sectionDatas) ?? true {
-            collectionView.flushData()
+        if delegate?.inputConfirmPopViewWillConfirm(self) ?? true {
+            collectionView.flushTemporaryData()
             self.dismiss()
         }
     }

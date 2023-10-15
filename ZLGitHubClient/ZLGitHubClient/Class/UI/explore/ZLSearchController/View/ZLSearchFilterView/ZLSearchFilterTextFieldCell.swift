@@ -62,13 +62,12 @@ class ZLSearchFilterNumberFieldCell: UICollectionViewCell {
     }()
 }
 
-extension ZLSearchFilterNumberFieldCell: ZMInputCollectionViewTextFieldCellDataUpdatable {
-    func updateConcreteCellData(cellDataContainer: ZMInputCollectionViewTextFieldCellDataType,
-                                cellData: ZLSearchFilterNumberFieldCellData,
-                                textValue: String?) {
-        self.cellDataContainer = cellDataContainer
-        self.textField.text = textValue
-        self.textField.placeholder = cellData.placeHolder
+extension ZLSearchFilterNumberFieldCell: ZMInputCollectionViewConcreteUpdatable {
+   
+    func updateConcreteViewData(viewData: ZLSearchFilterNumberFieldCellData) {
+        self.cellDataContainer = viewData
+        self.textField.text = viewData.temporaryTextValue
+        self.textField.placeholder = viewData.placeHolder
     }
 }
 
@@ -77,10 +76,10 @@ extension ZLSearchFilterNumberFieldCell: UITextFieldDelegate {
     
     @objc func onTextFieldChange() {
         if let intValue = UInt(textField.text ?? "") {
-            cellDataContainer?.textValue = "\(intValue)"
+            cellDataContainer?.temporaryTextValue = "\(intValue)"
             textField.text = "\(intValue)"
         } else {
-            cellDataContainer?.textValue = nil
+            cellDataContainer?.temporaryTextValue = nil
             textField.text = nil
         }
     }

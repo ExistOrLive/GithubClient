@@ -14,7 +14,7 @@ public protocol ZMInputCollectionViewSelectTitleBoxCellData: ZMInputCollectionVi
 }
 
 /// 带边框的选择框 Cell
-public class ZMInputCollectionViewSelectBorderBoxCell: UICollectionViewCell, ZMInputCollectionViewSelectCellConcreteUpdatable {
+public class ZMInputCollectionViewSelectBorderBoxCell: UICollectionViewCell, ZMInputCollectionViewConcreteUpdatable {
  
     override public init(frame: CGRect) {
         super.init(frame: frame)
@@ -39,11 +39,11 @@ public class ZMInputCollectionViewSelectBorderBoxCell: UICollectionViewCell, ZMI
         }
     }
 
-    public func updateConcreteCellData(cellData: ZMInputCollectionViewSelectTitleBoxCellData, selected: Bool) {
-        titleLabel.text = cellData.title
-        titleLabel.font = selected ? .zlMediumFont(withSize:12) : .zlLightFont(withSize:12)
-        contentView.layer.borderColor = selected ? UIColor.black.cgColor : UIColor.gray.cgColor
-        contentView.layer.borderWidth = selected ? 1.5 : 1.0
+    public func updateConcreteViewData(viewData: ZMInputCollectionViewSelectTitleBoxCellData) {
+        titleLabel.text = viewData.title
+        titleLabel.font = viewData.temporaryCellSelected ? .zlMediumFont(withSize:12) : .zlLightFont(withSize:12)
+        contentView.layer.borderColor = viewData.temporaryCellSelected ? UIColor.black.cgColor : UIColor.gray.cgColor
+        contentView.layer.borderWidth = viewData.temporaryCellSelected ? 1.5 : 1.0
     }
     
     // Lazy View

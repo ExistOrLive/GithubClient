@@ -328,8 +328,16 @@ extension ZLExploreChildListController {
     
     @objc func onDateButtonClicked() {
         guard let view = ZLMainWindow else { return }
+        var dateRange: ZLDateRange = ZLDateRangeDaily
+        switch self.type {
+        case .repo:
+            dateRange = ZLUISharedDataManager.dateRangeForTrendingRepo
+        case .user:
+            dateRange = ZLUISharedDataManager.dateRangeForTrendingUser
+        }
+        
         filterManager.showTrendingDateRangeSelectView(to: view,
-                                                      initDateRange: ZLUISharedDataManager.dateRangeForTrendingRepo) { dateRange in
+                                                      initDateRange: dateRange) { dateRange in
             let dateTitle = self.titleForDateRange(dateRange: dateRange)
             self.setButtonTitle(button: self.dateButton, title: dateTitle)
             

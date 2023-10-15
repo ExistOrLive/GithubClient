@@ -16,15 +16,13 @@ public protocol ZMInputCollectionViewPolicyProtocol: AnyObject {
     ///    - collectionView: ZMInputCollectionView
     ///    - didClickIndexPath: 点击的cell的indexPath
     ///    - cellDataForClickedCell: 点击的cell的cellData
-    ///    - sectionCellDatas: 点击的cell的section的celldata数组
-    ///    - sectionDatas: 所有的sectionData
+    ///    - sectionData: sectionData
     ///    - completionHandler: 处理回调 changes:  数据是否修改  needFlush 是否需要flush cellData的缓存数据
     ///   请在主线程回调 completionHandler
     func inputCollectionView(_ collectionView: ZMInputCollectionView,
                              didSelectIndexPath indexPath: IndexPath,
                              cellDataForClickedCell cellData: ZMInputCollectionViewSelectCellDataType,
-                             sectionCellDatas: [ZMInputCollectionViewBaseCellDataType],
-                             sectionDatas: [ZMInputCollectionViewSectionDataType],
+                             sectionData: ZMInputCollectionViewBaseSectionDataType,
                              completionHandler: @escaping (_ changed:Bool, _ needFlush:Bool) -> Void)
     
     /// 按钮策略
@@ -32,15 +30,13 @@ public protocol ZMInputCollectionViewPolicyProtocol: AnyObject {
     ///    - collectionView: ZMInputCollectionView
     ///    - didClickIndexPath: 点击的cell的indexPath
     ///    - cellDataForClickedCell: 点击的cell的cellData
-    ///    - sectionCellDatas: 点击的cell的section的celldata数组
-    ///    - sectionDatas: 所有的sectionData
+    ///    - sectionData: sectionData
     ///    - completionHandler: 处理回调 changes:  数据是否修改  needFlush 是否需要flush cellData的缓存数据
     ///    请在主线程回调 completionHandler
     func inputCollectionView(_ collectionView: ZMInputCollectionView,
                              didClickIndexPath indexPath: IndexPath,
                              cellDataForClickedCell cellData: ZMInputCollectionViewButtonCellDataType,
-                             sectionCellDatas: [ZMInputCollectionViewBaseCellDataType],
-                             sectionDatas: [ZMInputCollectionViewSectionDataType],
+                             sectionData: ZMInputCollectionViewBaseSectionDataType,
                              completionHandler: @escaping (_ changed:Bool, _ needFlush:Bool) -> Void)
 }
 
@@ -50,15 +46,13 @@ public extension ZMInputCollectionViewPolicyProtocol {
     func inputCollectionView(_ collectionView: ZMInputCollectionView,
                              didSelectIndexPath indexPath: IndexPath,
                              cellDataForClickedCell cellData: ZMInputCollectionViewSelectCellDataType,
-                             sectionCellDatas: [ZMInputCollectionViewBaseCellDataType],
-                             sectionDatas: [ZMInputCollectionViewSectionDataType],
+                             sectionData: ZMInputCollectionViewBaseSectionDataType,
                              completionHandler: @escaping (_ changed:Bool, _ needFlush:Bool) -> Void) {}
     
     func inputCollectionView(_ collectionView: ZMInputCollectionView,
                              didClickIndexPath indexPath: IndexPath,
                              cellDataForClickedCell cellData: ZMInputCollectionViewButtonCellDataType,
-                             sectionCellDatas: [ZMInputCollectionViewBaseCellDataType],
-                             sectionDatas: [ZMInputCollectionViewSectionDataType],
+                             sectionData: ZMInputCollectionViewBaseSectionDataType,
                              completionHandler: @escaping (_ changed:Bool, _ needFlush:Bool) -> Void) {}
 }
 
@@ -80,37 +74,40 @@ public class ZMInputCollectionViewDefaultPolicy: ZMInputCollectionViewPolicyProt
     public func inputCollectionView(_ collectionView: ZMInputCollectionView,
                                     didSelectIndexPath indexPath: IndexPath,
                                     cellDataForClickedCell cellData: ZMInputCollectionViewSelectCellDataType,
-                                    sectionCellDatas: [ZMInputCollectionViewBaseCellDataType],
-                                    sectionDatas: [ZMInputCollectionViewSectionDataType],
+                                    sectionData: ZMInputCollectionViewBaseSectionDataType,
                                     completionHandler: @escaping (_ changed:Bool, _ needFlush:Bool) -> Void) {
         if maxSelectedNum == 1 {
-            if cellData.cellSelected {
+            
+            if cellData.temporaryCellSelected {
                 return
             }
-            sectionCellDatas.forEach {
-                if let tmpSelectData = $0 as? ZMInputCollectionViewSelectCellDataType {
-                    tmpSelectData.cellSelected = false
+            sectionData.cellDatas.forEach {
+                if let selectData = $0 as? ZMInputCollectionViewSelectCellDataType {
+                    selectData.temporaryCellSelected = false
                 }
             }
-            cellData.cellSelected = true
+            cellData.temporaryCellSelected = true
             completionHandler(true,false)
+            
         } else if maxSelectedNum > 1 {
-            if cellData.cellSelected == true {
-                cellData.cellSelected = false
+
+            if cellData.temporaryCellSelected == true {
+                cellData.temporaryCellSelected = false
                 completionHandler(true,false)
-            } else if sectionCellDatas.filter({
-                if let tmpSelectData = $0 as? ZMInputCollectionViewSelectCellDataType, tmpSelectData.cellSelected {
+            } else if sectionData.cellDatas.filter({
+                if let tmpSelectData = $0 as? ZMInputCollectionViewSelectCellDataType, tmpSelectData.temporaryCellSelected {
                     return true
                 }
                 return false
             }).count >= maxSelectedNum {
                 completionHandler(false,false)
             } else {
-                cellData.cellSelected = true
+                cellData.temporaryCellSelected = true
                 completionHandler(true,false)
             }
+            
         } else {
-            cellData.cellSelected = !cellData.cellSelected
+            cellData.temporaryCellSelected = !cellData.temporaryCellSelected
             completionHandler(true,false)
         }
         

@@ -11,7 +11,7 @@ import ZLBaseExtension
 import SnapKit
 
 /// 带✅的选择框 Cell
-public class ZMInputCollectionViewSelectTickCell: UICollectionViewCell, ZMInputCollectionViewSelectCellConcreteUpdatable {
+public class ZMInputCollectionViewSelectTickCell: UICollectionViewCell, ZMInputCollectionViewConcreteUpdatable {
  
     override public init(frame: CGRect) {
         super.init(frame: frame)
@@ -47,10 +47,10 @@ public class ZMInputCollectionViewSelectTickCell: UICollectionViewCell, ZMInputC
         }
     }
 
-    public func updateConcreteCellData(cellData: ZMInputCollectionViewSelectTitleBoxCellData, selected: Bool) {
-        titleLabel.text = cellData.title
-        titleLabel.font = selected ? .zlMediumFont(withSize:16) : .zlLightFont(withSize:15)
-        tickLabel.isHidden = !selected
+    public func updateConcreteViewData(viewData: ZMInputCollectionViewSelectTitleBoxCellData) {
+        titleLabel.text = viewData.title
+        titleLabel.font = viewData.temporaryCellSelected ? .zlMediumFont(withSize:16) : .zlLightFont(withSize:15)
+        tickLabel.isHidden = !viewData.temporaryCellSelected
     }
     
     // Lazy View

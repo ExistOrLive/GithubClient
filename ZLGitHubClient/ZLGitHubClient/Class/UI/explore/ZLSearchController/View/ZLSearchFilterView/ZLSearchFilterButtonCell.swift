@@ -66,11 +66,9 @@ class ZLSearchFilterButtonCell: UICollectionViewCell {
 }
 
 
-extension ZLSearchFilterButtonCell: ZMInputCollectionViewButtonCellUpdatable {
-    
-    func updateConcreteCellData(cellData: ZLSearchFilterButtonCellData,
-                                title: String?,
-                                value: Any?) {
-        titleLabel.text = title ?? cellData.defaultButtonTitle
+extension ZLSearchFilterButtonCell: ZMInputCollectionViewConcreteUpdatable {
+ 
+    func updateConcreteViewData(viewData: ZLSearchFilterButtonCellData) {
+        titleLabel.text = viewData.temporaryButtonTitle ?? viewData.defaultButtonTitle
     }
 }

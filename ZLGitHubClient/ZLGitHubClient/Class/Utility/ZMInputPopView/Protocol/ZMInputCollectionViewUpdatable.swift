@@ -15,17 +15,16 @@ public protocol ZMInputCollectionViewUpdatable {
 }
 
 // MARK: - ZMInputCollectionViewSectionViewConcreteUpdatable
-public protocol ZMInputCollectionViewSectionViewConcreteUpdatable: ZMInputCollectionViewUpdatable {
+public protocol ZMInputCollectionViewConcreteUpdatable: ZMInputCollectionViewUpdatable {
     
-    associatedtype CellDataType
-    func updateConcreteViewData(viewData: CellDataType)
+    associatedtype ViewDataType
+    func updateConcreteViewData(viewData: ViewDataType)
 }
 
-public extension ZMInputCollectionViewSectionViewConcreteUpdatable {
+public extension ZMInputCollectionViewConcreteUpdatable {
     func updateViewData(viewData: Any) {
-        if  let _ = viewData as? ZMInputCollectionViewBaseSectionViewDataType,
-            let sectionViewData = viewData as? CellDataType {
-            updateConcreteViewData(viewData: sectionViewData)
+        if  let viewData = viewData as? ViewDataType {
+            updateConcreteViewData(viewData: viewData)
         }
     }
 }

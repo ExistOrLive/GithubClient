@@ -170,8 +170,7 @@ extension ZLSearchFilterViewManager: ZMInputCollectionViewPolicyProtocol {
     func inputCollectionView(_ collectionView: ZMInputCollectionView,
                              didClickIndexPath indexPath: IndexPath,
                              cellDataForClickedCell cellData: ZMInputCollectionViewButtonCellDataType,
-                             sectionCellDatas: [ZMInputCollectionViewBaseCellDataType],
-                             sectionDatas: [ZMInputCollectionViewSectionDataType],
+                             sectionData: ZMInputCollectionViewBaseSectionDataType,
                              completionHandler: @escaping (_ changed:Bool, _ needFlush:Bool) -> Void) {
         guard let cellType = ZLSearchFilterCellType(rawValue: cellData.id) else {
             completionHandler(false,false)
@@ -181,7 +180,7 @@ extension ZLSearchFilterViewManager: ZMInputCollectionViewPolicyProtocol {
         switch cellType {
         case .repoOrder:
             guard let window = ZLMainWindow else { return }
-            let selectedOrder = cellData.buttonValue as? String
+            let selectedOrder = cellData.temporaryButtonValue as? String
             ZMSingleSelectTitlePopView
                 .showCenterSingleSelectTickBox(to: window,
                                                title: ZLLocalizedString(string: "OrderSelect",
@@ -189,13 +188,13 @@ extension ZLSearchFilterViewManager: ZMInputCollectionViewPolicyProtocol {
                                                selectableTitles: ZLSearchRepoOrderItem.allCases.map({$0.rawValue}),
                                                selectedTitle: selectedOrder ?? "")
             {[weak cellData] (index: Int,result: String) in
-                cellData?.buttonValue = result
-                cellData?.buttonTitle = result
+                cellData?.temporaryButtonValue = result
+                cellData?.temporaryButtonTitle = result
                 completionHandler(true,false)
             }
         case .userOrder:
             guard let window = ZLMainWindow else { return }
-            let selectedOrder = cellData.buttonValue as? String
+            let selectedOrder = cellData.temporaryButtonValue as? String
             ZMSingleSelectTitlePopView
                 .showCenterSingleSelectTickBox(to: window,
                                                title: ZLLocalizedString(string: "OrderSelect",
@@ -203,13 +202,13 @@ extension ZLSearchFilterViewManager: ZMInputCollectionViewPolicyProtocol {
                                                selectableTitles: ZLSearchUserOrderItem.allCases.map({$0.rawValue}),
                                                selectedTitle: selectedOrder ?? "")
             {[weak cellData] (index: Int,result: String) in
-                cellData?.buttonValue = result
-                cellData?.buttonTitle = result
+                cellData?.temporaryButtonValue = result
+                cellData?.temporaryButtonTitle = result
                 completionHandler(true,false)
             }
         case .orgOrder:
             guard let window = ZLMainWindow else { return }
-            let selectedOrder = cellData.buttonValue as? String
+            let selectedOrder = cellData.temporaryButtonValue as? String
             ZMSingleSelectTitlePopView
                 .showCenterSingleSelectTickBox(to: window,
                                                title: ZLLocalizedString(string: "OrderSelect",
@@ -217,13 +216,13 @@ extension ZLSearchFilterViewManager: ZMInputCollectionViewPolicyProtocol {
                                                selectableTitles: ZLSearchOrgOrderItem.allCases.map({$0.rawValue}),
                                                selectedTitle: selectedOrder ?? "")
             {[weak cellData] (index: Int,result: String) in
-                cellData?.buttonValue = result
-                cellData?.buttonTitle = result
+                cellData?.temporaryButtonValue = result
+                cellData?.temporaryButtonTitle = result
                 completionHandler(true,false)
             }
         case .issueOrder:
             guard let window = ZLMainWindow else { return }
-            let selectedOrder = cellData.buttonValue as? String
+            let selectedOrder = cellData.temporaryButtonValue as? String
             ZMSingleSelectTitlePopView
                 .showCenterSingleSelectTickBox(to: window,
                                                title: ZLLocalizedString(string: "OrderSelect",
@@ -231,13 +230,13 @@ extension ZLSearchFilterViewManager: ZMInputCollectionViewPolicyProtocol {
                                                selectableTitles: ZLSearchIssueOrPROrderItem.allCases.map({$0.rawValue}),
                                                selectedTitle: selectedOrder ?? "")
             {[weak cellData] (index: Int,result: String) in
-                cellData?.buttonValue = result
-                cellData?.buttonTitle = result
+                cellData?.temporaryButtonValue = result
+                cellData?.temporaryButtonTitle = result
                 completionHandler(true,false)
             }
         case .prOrder:
             guard let window = ZLMainWindow else { return }
-            let selectedOrder = cellData.buttonValue as? String
+            let selectedOrder = cellData.temporaryButtonValue as? String
             ZMSingleSelectTitlePopView
                 .showCenterSingleSelectTickBox(to: window,
                                                title: ZLLocalizedString(string: "OrderSelect",
@@ -245,35 +244,35 @@ extension ZLSearchFilterViewManager: ZMInputCollectionViewPolicyProtocol {
                                                selectableTitles: ZLSearchIssueOrPROrderItem.allCases.map({$0.rawValue}),
                                                selectedTitle: selectedOrder ?? "")
             {[weak cellData] (index: Int,result: String) in
-                cellData?.buttonValue = result
-                cellData?.buttonTitle = result
+                cellData?.temporaryButtonValue = result
+                cellData?.temporaryButtonTitle = result
                 completionHandler(true,false)
             }
         case .language:
             guard let window = ZLMainWindow else { return }
-            let language = cellData.buttonValue as? String
+            let language = cellData.temporaryButtonValue as? String
             ZMLanguageSelectView.showDevelopLanguageSelectView(to: window,
                                                                   developeLanguage: language) { [weak cellData] language in
-                cellData?.buttonTitle = language ?? "Any"
-                cellData?.buttonValue = language
+                cellData?.temporaryButtonValue = language
+                cellData?.temporaryButtonTitle = language ?? "Any"
                 completionHandler(true,false)
             }
         case .openStatus:
-            let openStatus = cellData.buttonValue as? Bool ?? true
-            cellData.buttonValue = !openStatus
-            cellData.buttonTitle = !openStatus ? "Open" : "Close"
+            let openStatus = cellData.temporaryButtonValue as? Bool ?? true
+            cellData.temporaryButtonValue = !openStatus
+            cellData.temporaryButtonTitle = !openStatus ? "Open" : "Close"
             completionHandler(true,false)
         case .firstCreatedTime, .secondCreatedTime:
             guard let window = ZLMainWindow else { return }
-            let currentDate = (cellData.buttonValue as? String)?.toDate()
+            let currentDate = (cellData.temporaryButtonValue as? String)?.toDate()
             ZMDatePickerPopView.showDatePickerPopView(to: window,
                                                       title: ZLLocalizedString(string: "DateRange", comment: ""),
                                                       startDate: Date(year: 2008, month: 1, day: 1),
                                                       endDate: Date(),
                                                       currentDate: currentDate) { [weak cellData] date in
                 
-                cellData?.buttonValue = date.toString()
-                cellData?.buttonTitle = date.toString()
+                cellData?.temporaryButtonValue = date.toString()
+                cellData?.temporaryButtonTitle = date.toString()
                 completionHandler(true,false)
             }
         default:
@@ -286,22 +285,19 @@ extension ZLSearchFilterViewManager: ZMInputCollectionViewPolicyProtocol {
 // MARK: -  ZMInputCollectionDelegate
 extension ZLSearchFilterViewManager: ZMInputCollectionDelegate {
     /// 当缓存中的数据修改时，回调
-    func inputCollectionView(_ collectionView: ZMInputCollectionView,
-                             allSectionDatasDidChanged sectionDatas: [ZMInputCollectionViewSectionDataType]) {
+    func inputCollectionViewDataDidChange(_ collectionView: ZMInputCollectionView) {
         
     }
     
     /// 当缓存的数据flush时，回调
-    func inputCollectionView(_ collectionView: ZMInputCollectionView,
-                             didFlushData cellDatas: [[ZMInputCollectionViewBaseCellDataType]]) {
+    func inputCollectionViewDataDidFlush(_ collectionView: ZMInputCollectionView) {
         
         let model: ZLSearchFilterInfoModel = ZLSearchFilterInfoModel()
-        for sectionCellDatas in cellDatas {
-            for cellData in sectionCellDatas {
+        collectionView.collectionViewData.sectionDatas.forEach { sectionData in
+            sectionData.cellDatas.forEach { cellData in
                 guard let cellType = ZLSearchFilterCellType(rawValue: cellData.id) else {
-                    continue
+                    return
                 }
-                
                 switch cellType {
                 case .repoOrder:
                     if let buttonCellData = cellData as? ZMInputCollectionViewButtonCellDataType,
@@ -403,7 +399,12 @@ extension ZLSearchFilterViewManager: ZMInputCollectionDelegate {
 extension ZLSearchFilterViewManager: ZMInputCollectionViewUIDelegate {
     
     func inputCollectionView(_ collectionView: ZMInputCollectionView, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let sectionData = collectionView.sectionDatas[indexPath.section]
+        guard indexPath.section < collectionView.collectionViewData.sectionDatas.count,
+              indexPath.row < collectionView.collectionViewData.sectionDatas[indexPath.section].cellDatas.count else {
+            return .zero
+        }
+        
+        let sectionData = collectionView.collectionViewData.sectionDatas[indexPath.section]
         let cellData = sectionData.cellDatas[indexPath.row]
         guard let cellType = ZLSearchFilterCellType(rawValue: cellData.id ) else {
             return .zero

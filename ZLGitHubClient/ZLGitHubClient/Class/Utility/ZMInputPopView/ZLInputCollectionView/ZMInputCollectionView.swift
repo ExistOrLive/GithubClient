@@ -11,12 +11,10 @@ import SnapKit
 
 // MARK: - ZMInputCollectionScrollViewDelegate
 public protocol ZMInputCollectionScrollViewDelegate: AnyObject {
-    
     func inputCollectionScrollViewWillBeginDragging(_ collectionView: ZMInputCollectionView)
 }
 
 public extension ZMInputCollectionDelegate {
-
     func ZMInputCollectionScrollViewDelegate(_ collectionView: ZMInputCollectionView) {}
 }
 
@@ -25,22 +23,18 @@ public extension ZMInputCollectionDelegate {
 public protocol ZMInputCollectionDelegate: AnyObject {
     
     /// 当缓存中的数据修改时，回调
-    func inputCollectionView(_ collectionView: ZMInputCollectionView,
-                                     allSectionDatasDidChanged sectionDatas: [ZMInputCollectionViewSectionDataType])
+    func inputCollectionViewDataDidChange(_ collectionView: ZMInputCollectionView)
     
     /// 当缓存的数据flush时，回调
-    func inputCollectionView(_ collectionView: ZMInputCollectionView,
-                                     didFlushData cellDatas: [[ZMInputCollectionViewBaseCellDataType]])
+    func inputCollectionViewDataDidFlush(_ collectionView: ZMInputCollectionView)
 }
 
 public extension ZMInputCollectionDelegate {
     /// 当缓存中的数据修改时，回调
-    func inputCollectionView(_ collectionView: ZMInputCollectionView,
-                                     allSectionDatasDidChanged sectionDatas: [ZMInputCollectionViewSectionDataType]) {}
+    func inputCollectionViewDataDidChange(_ collectionView: ZMInputCollectionView) {}
     
     /// 当缓存的数据flush时，回调
-    func inputCollectionView(_ collectionView: ZMInputCollectionView,
-                                     didFlushData cellDatas: [[ZMInputCollectionViewBaseCellDataType]]) {}
+    func inputCollectionViewDataDidFlush(_ collectionView: ZMInputCollectionView) {}
 
 }
 
@@ -94,8 +88,8 @@ public class ZMInputCollectionView: UIView {
     
     public let defaultPolicy = ZMInputCollectionViewDefaultPolicy()
     
-    var _sectionDatas: [ZMInputCollectionViewBaseSectionDataContainer] = []
-    
+    var _collectonViewData: ZMInputCollectionViewBaseDataType = ZMInputCollectionViewData()
+   
     weak var _policy: ZMInputCollectionViewPolicyProtocol?
     
     weak var _delegate: ZMInputCollectionDelegate?
@@ -123,10 +117,10 @@ public class ZMInputCollectionView: UIView {
     }
     
     public override var intrinsicContentSize: CGSize {
-            get {
-                return collectionView.contentSize
-            }
+        get {
+            return collectionView.contentSize
         }
+    }
         
     public override func sizeThatFits(_ size: CGSize) -> CGSize  {
         return collectionView.contentSize
@@ -161,56 +155,85 @@ public class ZMInputCollectionView: UIView {
 // MARK: UICollectionViewDelegate UICollectionViewDataSource
 extension ZMInputCollectionView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
+    func cellDataForIndexPath(_ indexPath: IndexPath) -> ZMInputCollectionViewBaseCellDataType? {
+        guard indexPath.section < _collectonViewData.sectionDatas.count,
+              indexPath.row < _collectonViewData.sectionDatas[indexPath.section].cellDatas.count,
+              indexPath.section < _collectonViewData.numberOfSections,
+              indexPath.row < _collectonViewData.sectionDatas[indexPath.section].numberOfCellsInSection else {
+            return nil
+        }
+        
+        let sectionData = _collectonViewData.sectionDatas[indexPath.section]
+        let cellData = sectionData.cellDatas[indexPath.row]
+        return cellData
+    }
+    
+    func sectionDataForSection(_ section: Int) -> ZMInputCollectionViewBaseSectionDataType? {
+        guard section < _collectonViewData.sectionDatas.count,
+              section < _collectonViewData.numberOfSections else {
+            return nil
+        }
+        
+        let sectionData = _collectonViewData.sectionDatas[section]
+        return sectionData
+    }
+    
     public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         _scrollViewDelegate?.inputCollectionScrollViewWillBeginDragging(self)
     }
     
     
     public func numberOfSections(in collectionView: UICollectionView) -> Int {
-        _sectionDatas.count
+        _collectonViewData.numberOfSections
     }
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return _sectionDatas[section].cellDatas.count
+        sectionDataForSection(section)?.numberOfCellsInSection ?? 0
     }
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
      
-        let sectionDataContainer = _sectionDatas[indexPath.section]
-        let cellDataContainer = sectionDataContainer.cellDataContainers[indexPath.row]
-        if let cellData = cellDataContainer.realCellData as? ZMInputCollectionViewSelectCellDataType {
+        guard let sectionData = sectionDataForSection(indexPath.section),
+              let cellData = cellDataForIndexPath(indexPath) else {
+            return
+        }
+            
+        if let cellData = cellData as? ZMInputCollectionViewSelectCellDataType {
             // 选择框逻辑
             self.didSelectCellAt(indexPath: indexPath,
                                  cellData: cellData,
-                                 cellDataContainer: cellDataContainer,
-                                 sectionDataContainer: sectionDataContainer)
-        } else if let cellData = cellDataContainer.realCellData as? ZMInputCollectionViewButtonCellDataType {
+                                 sectionData: sectionData)
+        } else if let cellData = cellData as? ZMInputCollectionViewButtonCellDataType {
             // 按钮逻辑
             self.didClickButtonCellAt(indexPath: indexPath,
                                       cellData: cellData,
-                                      cellDataContainer: cellDataContainer,
-                                      sectionDataContainer: sectionDataContainer)
+                                      sectionData: sectionData)
         }
     }
     
-    
-    
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    
+        guard let cellData = cellDataForIndexPath(indexPath) else {
+            return UICollectionViewCell()
+        }
         
-        let sectionDataContainer = _sectionDatas[indexPath.section]
-        let cellDataContainer = sectionDataContainer.cellDataContainers[indexPath.row]
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier:cellDataContainer.cellIdentifier , for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier:cellData.cellIdentifier ,
+                                                      for: indexPath)
         if let updatable = cell as? ZMInputCollectionViewUpdatable {
-            updatable.updateViewData(viewData: cellDataContainer)
+            updatable.updateViewData(viewData: cellData)
         }
         return cell
         
     }
     
     public func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-       
-        let sectionData = _sectionDatas[indexPath.section]
+            
+        guard let sectionData = sectionDataForSection(indexPath.section) else {
+            return collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                   withReuseIdentifier:"ZMInputCollectionViewSectionPlaceHolderView",
+                                                                   for: indexPath)
+        }
+
         if kind == UICollectionView.elementKindSectionHeader {
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
                                                                          withReuseIdentifier: sectionData.sectionHeaderData?.sectionViewIdentifier ?? "ZMInputCollectionViewSectionPlaceHolderView",
@@ -239,42 +262,87 @@ extension ZMInputCollectionView: UICollectionViewDelegate, UICollectionViewDataS
     
 
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        if let itemSize = cellDataForIndexPath(indexPath)?.cellItemSize {
+            return itemSize
+        }
+        
         if let itemSize = _uiDelegate?.inputCollectionView(self, sizeForItemAt: indexPath) {
             return itemSize
         }
+        
         return self.itemSize
     }
 
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+       
+        if let sectionInset = sectionDataForSection(section)?.sectionInset {
+            return sectionInset
+        }
+        
         if let sectionInset = _uiDelegate?.inputCollectionView(self, insetForSectionAt: section) {
             return sectionInset
         }
+        
         return self.sectionInset
     }
 
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        
+        if let lineSpacing = sectionDataForSection(section)?.sectionLineSpacing {
+            return lineSpacing
+        }
+        
         if let lineSpacing = _uiDelegate?.inputCollectionView(self, lineSpacingForSectionAt: section) {
             return lineSpacing
         }
+        
         return self.lineSpacing
     }
 
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        
+        if let interitemSpacing = sectionDataForSection(section)?.sectionInteritemSpacing {
+            return interitemSpacing
+        }
+        
         if let interitemSpacing = _uiDelegate?.inputCollectionView(self, interitemSpacingForSectionAt: section) {
             return interitemSpacing
         }
+        
         return self.interitemSpacing
         
     }
 
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+       
+        if let sectionData = sectionDataForSection(section),
+           !sectionData.showSectionHeader {
+            return .zero
+        }
+        
+        if let headerReferenceSize = sectionDataForSection(section)?.sectionHeaderData?.sectionViewSize {
+            return headerReferenceSize
+        }
+        
         if let headerReferenceSize = _uiDelegate?.inputCollectionView(self, referenceSizeForHeaderInSection: section) {
             return headerReferenceSize
         }
+        
         return self.headerReferenceSize
     }
 
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+       
+         if let sectionData = sectionDataForSection(section),
+            !sectionData.showSectionFooter{
+             return .zero
+         }
+         
+         if let footerReferenceSize = sectionDataForSection(section)?.sectionFooterData?.sectionViewSize {
+             return footerReferenceSize
+         }
+        
         if let footerReferenceSize = _uiDelegate?.inputCollectionView(self, referenceSizeForFooterInSection: section) {
             return footerReferenceSize
         }
@@ -291,23 +359,21 @@ extension ZMInputCollectionView {
     // 选择框逻辑
     func didSelectCellAt(indexPath: IndexPath,
                          cellData: ZMInputCollectionViewSelectCellDataType,
-                         cellDataContainer: ZMInputCollectionViewBaseCellDataContainer,
-                         sectionDataContainer: ZMInputCollectionViewBaseSectionDataContainer) {
+                         sectionData: ZMInputCollectionViewBaseSectionDataType) {
         
         // 调用选择策略
         _policy?.inputCollectionView(self,
                                      didSelectIndexPath: indexPath,
-                                     cellDataForClickedCell: cellDataContainer,
-                                     sectionCellDatas: sectionDataContainer.cellDatas,
-                                     sectionDatas: _sectionDatas) { [weak self] (changed,needFlush) in
+                                     cellDataForClickedCell: cellData,
+                                     sectionData: sectionData) { [weak self] (changed,needFlush) in
             guard let self = self else { return }
             
             if changed {
                 
-                self._delegate?.inputCollectionView(self, allSectionDatasDidChanged: self._sectionDatas)
+                self._delegate?.inputCollectionViewDataDidChange(self)
                                
                 if needFlush {
-                    self.flushData()
+                    self.flushTemporaryData()
                 }
                 self.reloadData()
             }
@@ -320,21 +386,19 @@ extension ZMInputCollectionView {
     // 按钮逻辑
     func didClickButtonCellAt(indexPath: IndexPath,
                               cellData: ZMInputCollectionViewButtonCellDataType,
-                              cellDataContainer: ZMInputCollectionViewBaseCellDataContainer,
-                              sectionDataContainer: ZMInputCollectionViewBaseSectionDataContainer) {
+                              sectionData: ZMInputCollectionViewBaseSectionDataType) {
         
         // 调用按钮策略
         self._policy?.inputCollectionView(self,
                                           didClickIndexPath: indexPath,
-                                          cellDataForClickedCell: cellDataContainer,
-                                          sectionCellDatas: sectionDataContainer.cellDatas,
-                                          sectionDatas: self._sectionDatas) { [weak self] (changed,needFlush) in
+                                          cellDataForClickedCell: cellData,
+                                          sectionData: sectionData) { [weak self] (changed,needFlush) in
             guard let self = self else { return }
             
             if changed {
-                self._delegate?.inputCollectionView(self, allSectionDatasDidChanged:self._sectionDatas)
+                self._delegate?.inputCollectionViewDataDidChange(self)
                 if needFlush {
-                    self.flushData()
+                    self.flushTemporaryData()
                 }
                 self.reloadData()
             }

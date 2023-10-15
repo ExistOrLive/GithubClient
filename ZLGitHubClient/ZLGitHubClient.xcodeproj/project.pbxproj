@@ -242,6 +242,8 @@
 		74C639EE24B9187400457F94 /* ZLRepoWorkflowRunsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C639ED24B9187400457F94 /* ZLRepoWorkflowRunsViewModel.swift */; };
 		74C861C622F025F100A30B79 /* ZLRepositoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C861C422F025F100A30B79 /* ZLRepositoryTableViewCell.swift */; };
 		74C861CA22F02BED00A30B79 /* ZLGitHubClientLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 74C861CC22F02BED00A30B79 /* ZLGitHubClientLocalizable.strings */; };
+		74CA499D2ADBC9A800B3E02C /* ZMInputCollectionView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CA499C2ADBC9A800B3E02C /* ZMInputCollectionView+Layout.swift */; };
+		74CA499F2ADBCB4B00B3E02C /* ZMInputCollectionViewTemporaryDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CA499E2ADBCB4B00B3E02C /* ZMInputCollectionViewTemporaryDataProtocol.swift */; };
 		74CAB16425BBAD2E00CE26A4 /* WidgetGallary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CAB16325BBAD2E00CE26A4 /* WidgetGallary.swift */; };
 		74CAB16925BBAE2A00CE26A4 /* ContributionWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CAB16825BBAE2A00CE26A4 /* ContributionWidget.swift */; };
 		74CC6031246C3E590076EE3C /* ZLIssueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CC602F246C3E590076EE3C /* ZLIssueTableViewCell.swift */; };
@@ -593,6 +595,8 @@
 		74C861D122F02CA700A30B79 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/ZLGitHubClientLocalizable.strings"; sourceTree = "<group>"; };
 		74C861D222F02CB200A30B79 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		74C861D322F02CB300A30B79 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		74CA499C2ADBC9A800B3E02C /* ZMInputCollectionView+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ZMInputCollectionView+Layout.swift"; sourceTree = "<group>"; };
+		74CA499E2ADBCB4B00B3E02C /* ZMInputCollectionViewTemporaryDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZMInputCollectionViewTemporaryDataProtocol.swift; sourceTree = "<group>"; };
 		74CAB16325BBAD2E00CE26A4 /* WidgetGallary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetGallary.swift; sourceTree = "<group>"; };
 		74CAB16825BBAE2A00CE26A4 /* ContributionWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributionWidget.swift; sourceTree = "<group>"; };
 		74CC602F246C3E590076EE3C /* ZLIssueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLIssueTableViewCell.swift; sourceTree = "<group>"; };
@@ -1406,6 +1410,7 @@
 				7466024B28C4DC39004D104F /* ZMInputCollectionViewTextFieldCellDataType.swift */,
 				7466024828C4DC39004D104F /* ZMInputCollectionViewCellDataProtocol.swift */,
 				7466024A28C4DC39004D104F /* ZMInputCollectionViewUpdatable.swift */,
+				74CA499E2ADBCB4B00B3E02C /* ZMInputCollectionViewTemporaryDataProtocol.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1569,6 +1574,7 @@
 			children = (
 				7466024428C4DC39004D104F /* ZMInputCollectionView.swift */,
 				7466024528C4DC39004D104F /* ZMInputCollectionView+PublicAPI.swift */,
+				74CA499C2ADBC9A800B3E02C /* ZMInputCollectionView+Layout.swift */,
 			);
 			path = ZLInputCollectionView;
 			sourceTree = "<group>";
@@ -2845,7 +2851,7 @@
 					0ADF902921D4B01900BF86CD = {
 						CreatedOnToolsVersion = 9.0.1;
 						LastSwiftMigration = 0900;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					74344A59258B0FB600903E08 = {
 						CreatedOnToolsVersion = 12.3;
@@ -3030,6 +3036,7 @@
 				7496BF5C2600DCFE00DDD1BD /* ZLIssueTimelineTableViewCellData.swift in Sources */,
 				366DB83D241F31A3002A0896 /* ZLCommitTableViewCell.swift in Sources */,
 				74B87A5A2468562400C8EB6B /* ZLFeedbackController.swift in Sources */,
+				74CA499F2ADBCB4B00B3E02C /* ZMInputCollectionViewTemporaryDataProtocol.swift in Sources */,
 				74C639E224B8E9AF00457F94 /* ZLWorkflowRunTableViewCell.swift in Sources */,
 				74B87A5C2468565600C8EB6B /* ZLFeedbackView.swift in Sources */,
 				74AAE5DF284B4B7C0030DA01 /* ZLCommonSectionHeaderFooterViewData.swift in Sources */,
@@ -3189,6 +3196,7 @@
 				7466029328EFD7B3004D104F /* ZLProfileContributionsCellData.swift in Sources */,
 				74C639DB24B7DDA500457F94 /* ZLWorkflowTableViewCell.swift in Sources */,
 				7431B42922F5DDD70060968A /* ZLExploreBaseViewModel.swift in Sources */,
+				74CA499D2ADBC9A800B3E02C /* ZMInputCollectionView+Layout.swift in Sources */,
 				744392C627F4508200965D8F /* ZLCommonButtonCellData.swift in Sources */,
 				74D7B5FD22F1398F00C109CA /* ZLUserAdditionInfoController.swift in Sources */,
 				742935D825B92F4B001CD142 /* ZLLanguageController.swift in Sources */,
@@ -3444,9 +3452,8 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_ENTITLEMENTS = ZLGitHubClient/ZLGitHubClient.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 24LG5QVBPR;
@@ -3486,7 +3493,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.zm.ZLGitHubClient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "match Development com.zm.*";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OBJC_BRIDGING_HEADER = "ZLGitHubClient/System/ZLSupportFiles/ZLGitHubClient-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";

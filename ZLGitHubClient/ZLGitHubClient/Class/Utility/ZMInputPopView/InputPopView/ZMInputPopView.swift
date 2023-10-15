@@ -113,16 +113,16 @@ open class ZMInputPopView: ZMPopContainerView, ZMInputCollectionDelegate {
     
     /// ZMInputCollectionDelegate
     /// 当缓存中的数据修改时，回调  处理单选逻辑
-    public func inputCollectionView(_ collectionView: ZMInputCollectionView,
-                                    allSectionDatasDidChanged sectionDatas: [ZMInputCollectionViewSectionDataType]) {
+    public func inputCollectionViewDataDidChange(_ collectionView: ZMInputCollectionView) {
         
-        if let container = collectionView._sectionDatas.first?.cellDataContainers.first(where: { container in
-            if container.cellType == .select, container.cellSelected == true {
+        if let cellData = collectionView.collectionViewData.sectionDatas.first?.cellDatas.first(where: { cellData in
+            if let selectCellData = cellData as? ZMInputCollectionViewSelectCellDataType,
+               selectCellData.temporaryCellSelected {
                 return true
             }
             return false
         }),
-           let cellData = container.realCellData as? ZMInputCollectionViewSelectCellDataType {
+           let cellData = cellData as? ZMInputCollectionViewSelectCellDataType {
             self.singleSelectDelegate?.inputPopView(self, didSelectedCell: cellData)
             self.dismiss()
         }
