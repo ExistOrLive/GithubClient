@@ -19,6 +19,7 @@ class ZLRepositoryTableViewCellDataV2: ZLTableViewBaseCellData {
     init(data: ZLGithubRepositoryModel) {
         self.data = data
         super.init()
+        self.cellReuseIdentifier = "ZLRepositoryTableViewCell"
     }
 
     override func onCellSingleTap() {
@@ -29,14 +30,6 @@ class ZLRepositoryTableViewCellDataV2: ZLTableViewBaseCellData {
             vc.hidesBottomBarWhenPushed = true
             self.viewController?.navigationController?.pushViewController(vc, animated: true)
         }
-    }
-
-    override var cellReuseIdentifier: String {
-        "ZLRepositoryTableViewCell"
-    }
-    
-    override var cellHeight: CGFloat {
-        UITableView.automaticDimension
     }
     
     override var cellSwipeActions: UISwipeActionsConfiguration? {

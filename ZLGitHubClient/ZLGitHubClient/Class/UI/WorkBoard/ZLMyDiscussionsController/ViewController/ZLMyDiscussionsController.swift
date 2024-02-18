@@ -48,7 +48,7 @@ class ZLMyDiscussionsController: ZLBaseViewController {
 extension ZLMyDiscussionsController: ZLMyDiscussionsBaseViewDelegateAndDataSource {
     
     // DataSource
-    var cellDatas: [ZLTableViewCellProtocol] {
+    var cellDatas: [ZLTableViewCellDataProtocol] {
         _cellDatas
     }
     

@@ -202,30 +202,16 @@ extension ZLIssueTimelineTableViewCellData: ZLIssueTimelineTableViewCellDelegate
                                         .asMutableAttributedString()
                                         .font(.zlRegularFont(withSize: 13))
                                         .foregroundColor(textColor))
-                    .cornerRadius(8.0)
+                    .cornerRadius(4.0)
                     .borderColor(borderColor)
                     .borderWidth(borderWidth)
                     .backgroundColor(backColor)
-                    .edgeInsets(UIEdgeInsets(top: 2, left: 10, bottom: 2, right: 10))
+                    .edgeInsets(UIEdgeInsets(top: 2, left: 4, bottom: 2, right: 4))
                     .asImage()?
                     .asImageTextAttachmentWrapper()
                     .alignment(.centerline)
 
             ).asMutableAttributedString()
-
-//            let string = NSMutableAttributedString(string:tmpdata.actor?.login ?? "",
-//                                                   attributes: [.font:UIFont.zlSemiBoldFont(withSize: 15),
-//                                                                .foregroundColor:UIColor.label(withName: "ZLLabelColor1")])
-//
-//            string.append(NSAttributedString(string: " added label ",
-//                                             attributes: [.font:UIFont.zlRegularFont(withSize: 14),
-//                                                          .foregroundColor:UIColor.label(withName: "ZLLabelColor4")]))
-//
-//            let color = ZLRGBValueStr_H(colorValue:tmpdata.label.color)
-//            string.append(NSAttributedString(string: "\(tmpdata.label.name)",
-//                                             attributes: [.font:UIFont.zlSemiBoldFont(withSize: 13),
-//                                                          .foregroundColor:UIColor.isLightColor(color) ? ZLRGBValue_H(colorValue: 0x333333) : UIColor.white,
-//                                                          .backgroundColor:color]))
             
             let paragraphStyle = NSMutableParagraphStyle().lineSpacing(10)
             attributedString = string.paraghStyle(paragraphStyle)
@@ -397,30 +383,16 @@ extension ZLIssueTimelineTableViewCellData: ZLIssueTimelineTableViewCellDelegate
                                         .asMutableAttributedString()
                                         .font(.zlRegularFont(withSize: 13))
                                         .foregroundColor(textColor))
-                    .cornerRadius(8.0)
+                    .cornerRadius(4.0)
                     .borderColor(borderColor)
                     .borderWidth(borderWidth)
                     .backgroundColor(backColor)
-                    .edgeInsets(UIEdgeInsets(top: 2, left: 10, bottom: 2, right: 10))
+                    .edgeInsets(UIEdgeInsets(top: 2, left: 4, bottom: 2, right: 4))
                     .asImage()?
                     .asImageTextAttachmentWrapper()
                     .alignment(.centerline)
 
             ).asMutableAttributedString()
-
-//            let string = NSMutableAttributedString(string:tmpdata.actor?.login ?? "",
-//                                                   attributes: [.font:UIFont.zlSemiBoldFont(withSize: 15),
-//                                                                .foregroundColor:UIColor.label(withName: "ZLLabelColor1")])
-//
-//            string.append(NSAttributedString(string: " removed label ",
-//                                             attributes: [.font:UIFont.zlRegularFont(withSize: 14),
-//                                                          .foregroundColor:UIColor.label(withName: "ZLLabelColor4")]))
-//
-//            let color = ZLRGBValueStr_H(colorValue:tmpdata.label.color)
-//            string.append(NSAttributedString(string: "\(tmpdata.label.name)",
-//                                             attributes: [.font:UIFont.zlSemiBoldFont(withSize: 13),
-//                                                          .foregroundColor:UIColor.isLightColor(color) ? ZLRGBValue_H(colorValue: 0x333333) : UIColor.white,
-//                                                          .backgroundColor:color]))
 
             let paragraphStyle = NSMutableParagraphStyle().lineSpacing(10)
             attributedString = string.paraghStyle(paragraphStyle)

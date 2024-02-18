@@ -152,6 +152,7 @@
 		7466028F28EFC2FC004D104F /* ZLProfileContributionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7466028E28EFC2FC004D104F /* ZLProfileContributionsCell.swift */; };
 		7466029128EFD509004D104F /* ZLProfileHeaderCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7466029028EFD509004D104F /* ZLProfileHeaderCellData.swift */; };
 		7466029328EFD7B3004D104F /* ZLProfileContributionsCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7466029228EFD7B3004D104F /* ZLProfileContributionsCellData.swift */; };
+		746719CB2B81FA20003E1D4B /* GithubAvatar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746719CA2B81FA20003E1D4B /* GithubAvatar+Extension.swift */; };
 		7467ABB727F5B49C00F8905B /* NSDate+Localize.m in Sources */ = {isa = PBXBuildFile; fileRef = 7467ABB127F5B49C00F8905B /* NSDate+Localize.m */; };
 		7467ABBA27F6F37E00F8905B /* ZLUserInfoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7467ABB927F6F37E00F8905B /* ZLUserInfoPresenter.swift */; };
 		7467ABBC27F704A300F8905B /* ZLPresenterMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7467ABBB27F704A300F8905B /* ZLPresenterMessageModel.swift */; };
@@ -494,6 +495,7 @@
 		7466028E28EFC2FC004D104F /* ZLProfileContributionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLProfileContributionsCell.swift; sourceTree = "<group>"; };
 		7466029028EFD509004D104F /* ZLProfileHeaderCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLProfileHeaderCellData.swift; sourceTree = "<group>"; };
 		7466029228EFD7B3004D104F /* ZLProfileContributionsCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLProfileContributionsCellData.swift; sourceTree = "<group>"; };
+		746719CA2B81FA20003E1D4B /* GithubAvatar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GithubAvatar+Extension.swift"; sourceTree = "<group>"; };
 		7467ABB127F5B49C00F8905B /* NSDate+Localize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Localize.m"; sourceTree = "<group>"; };
 		7467ABB227F5B49C00F8905B /* NSDate+Localize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Localize.h"; sourceTree = "<group>"; };
 		7467ABB927F6F37E00F8905B /* ZLUserInfoPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLUserInfoPresenter.swift; sourceTree = "<group>"; };
@@ -1442,6 +1444,14 @@
 			path = Policy;
 			sourceTree = "<group>";
 		};
+		746719C92B81FA00003E1D4B /* GithubAvatar */ = {
+			isa = PBXGroup;
+			children = (
+				746719CA2B81FA20003E1D4B /* GithubAvatar+Extension.swift */,
+			);
+			path = GithubAvatar;
+			sourceTree = "<group>";
+		};
 		7467ABB827F6F34200F8905B /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
@@ -1652,17 +1662,9 @@
 		74876F2A256AADAD0063A93A /* ZLOrgViewController */ = {
 			isa = PBXGroup;
 			children = (
-				74876F2F256AB3AA0063A93A /* ViewModel */,
 				74876F2B256AADDB0063A93A /* ZLOrgsViewController.swift */,
 			);
 			path = ZLOrgViewController;
-			sourceTree = "<group>";
-		};
-		74876F2F256AB3AA0063A93A /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		748905CF22300B06003562E1 /* View */ = {
@@ -2317,6 +2319,7 @@
 		74D3EF52259BC6050002A2D3 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				746719C92B81FA00003E1D4B /* GithubAvatar */,
 				744392BD27F4460E00965D8F /* IconFont */,
 				7466023F28C4DC39004D104F /* ZMInputPopView */,
 				743F180F2312664C00E39A95 /* Extension */,
@@ -2855,7 +2858,7 @@
 					};
 					74344A59258B0FB600903E08 = {
 						CreatedOnToolsVersion = 12.3;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -3135,6 +3138,7 @@
 				74F837C827D6643000109BAB /* ZLIssueNoneCell.swift in Sources */,
 				74DEC1FE256CFD82007E8A17 /* ZLMyRepoesController.swift in Sources */,
 				7486E05125A3A98400EE38CB /* ZLAssistButtonManager.swift in Sources */,
+				746719CB2B81FA20003E1D4B /* GithubAvatar+Extension.swift in Sources */,
 				3693D8D4246523A400779FC4 /* ZLAboutViewModel.swift in Sources */,
 				74E321DC254CB2CA006CE05D /* ZLAppearanceController.swift in Sources */,
 				74AAE5D6284A63870030DA01 /* ZLRepoInfoHeaderCell.swift in Sources */,
@@ -3569,12 +3573,10 @@
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 24LG5QVBPR;
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 24LG5QVBPR;
 				INFOPLIST_FILE = "Fixed Repo/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -3584,8 +3586,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zm.ZLGitHubClient.Fixed-Repo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "match Development com.zm.*";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.zm.*";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";

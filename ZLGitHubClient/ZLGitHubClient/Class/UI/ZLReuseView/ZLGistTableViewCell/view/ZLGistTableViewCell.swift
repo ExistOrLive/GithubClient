@@ -166,7 +166,8 @@ extension ZLGistTableViewCell: ZLViewUpdatableWithViewData {
     }
     func fillWithViewData(viewData: ZLGistTableViewCellDelegate) {
         self.delegate = viewData
-        self.avatarButton.sd_setBackgroundImage(with: URL.init(string: viewData.getOwnerAvatar()), for: .normal, placeholderImage: UIImage.init(named: "default_avatar"), options: .refreshCached, context: nil)
+        self.avatarButton.loadAvatar(login: viewData.getOwnerName(),
+                                     avatarUrl: viewData.getOwnerAvatar())
 
         let firstFileName = viewData.getFirstFileName()
         self.gistNameLabel.text = NSString.init(format: "%@/%@", viewData.getOwnerName(), firstFileName ?? "") as String

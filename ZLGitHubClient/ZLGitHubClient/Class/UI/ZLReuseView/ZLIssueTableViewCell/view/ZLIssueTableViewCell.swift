@@ -189,7 +189,7 @@ class ZLIssueTableViewCell: UITableViewCell {
             labelView.textAlignment = .center
             labelView.font = font
             labelView.text = label
-            labelView.layer.cornerRadius = 8.0
+            labelView.layer.cornerRadius = 4.0
             labelView.layer.masksToBounds = true
             labelView.backgroundColor = color
             labelView.textColor = UIColor.isLightColor(color) ? ZLRGBValue_H(colorValue: 0x333333) : UIColor.white

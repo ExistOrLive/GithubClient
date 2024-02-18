@@ -63,11 +63,11 @@ extension ZLIssueLabelsCellData: ZLIssueLabelsCellDataSource {
                                     .asMutableAttributedString()
                                     .font(.zlRegularFont(withSize: 13))
                                     .foregroundColor(textColor))
-                .cornerRadius(8.0)
+                .cornerRadius(4.0)
                 .borderColor(borderColor)
                 .borderWidth(borderWidth)
                 .backgroundColor(backColor)
-                .edgeInsets(UIEdgeInsets(top: 2, left: 10, bottom: 2, right: 10))
+                .edgeInsets(UIEdgeInsets(top: 2, left: 4, bottom: 2, right: 4))
                 .asImage()?
                 .asImageTextAttachmentWrapper()
                 .alignment(.centerline)

@@ -48,6 +48,10 @@ extension ZLCommitTableViewCellData {
         return self.commitModel.committer?.avatar_url
     }
 
+    func getCommiterLogin() -> String {
+        return self.commitModel.committer?.loginName ?? ""
+    }
+    
     func getCommitTitle() -> String? {
         return self.commitModel.commit_message
     }

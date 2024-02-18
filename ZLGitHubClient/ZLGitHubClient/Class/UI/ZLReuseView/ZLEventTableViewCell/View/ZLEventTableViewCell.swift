@@ -134,7 +134,8 @@ class ZLEventTableViewCell: UITableViewCell {
     }
 
     func fillWithData(cellData: ZLEventTableViewCellData) {
-        self.headImageButton?.sd_setBackgroundImage(with: URL.init(string: cellData.getActorAvaterURL()), for: .normal, placeholderImage: UIImage.init(named: "default_avatar"), options: .refreshCached, context: nil)
+        self.headImageButton?.loadAvatar(login:cellData.getActorName() ,
+                                         avatarUrl: cellData.getActorAvaterURL())
         self.actorNameLabel?.text = cellData.getActorName()
         self.timeLabel?.text = cellData.getTimeStr()
         self.eventDesLabel?.attributedText = cellData.getEventDescrption()

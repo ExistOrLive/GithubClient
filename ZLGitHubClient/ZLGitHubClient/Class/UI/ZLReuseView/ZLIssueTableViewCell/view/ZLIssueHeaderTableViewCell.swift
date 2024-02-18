@@ -10,6 +10,7 @@ import UIKit
 import YYText
 
 protocol ZLIssueHeaderTableViewCellDelegate: NSObjectProtocol {
+    func getIssueAuthorLogin() -> String
     func getIssueAuthorAvatarURL() -> String
     func getIssueRepoFullName() -> NSAttributedString
     func getIssueNumber() -> Int
@@ -112,7 +113,7 @@ class ZLIssueHeaderTableViewCell: UITableViewCell {
 
         delegate = data
 
-        avatarButton.sd_setImage(with: URL(string: data.getIssueAuthorAvatarURL()), for: .normal, placeholderImage: UIImage(named: "default_avatar"))
+        avatarButton.loadAvatar(login: data.getIssueAuthorLogin(), avatarUrl:  data.getIssueAuthorAvatarURL())
         fullNameLabel.attributedText = data.getIssueRepoFullName()
         numberLabel.text = "#\(data.getIssueNumber())"
         titleLabel.text = data.getIssueTitle()

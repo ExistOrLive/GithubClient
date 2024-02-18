@@ -404,5 +404,35 @@ extension ZMInputCollectionView {
             }
         }
     }
+    
+    // header/footer事件
+    func didTriggleSectionViewEvent(eventId: String,
+                                    isHeader: Bool,
+                                    params: [String:Any],
+                                    didTriggleEventAtSection section: Int) {
+        
+        let sectionData = collectionViewData.sectionDatas[section]
+        guard let sectionViewData = isHeader ? sectionData.sectionHeaderData: sectionData.sectionFooterData else {
+            return
+        }
+        
+        self._policy?.inputCollectionView(self,
+                                          eventId: eventId,
+                                          isHeader: isHeader,
+                                          params: params,
+                                          didTriggleEventAtSection: section,
+                                          sectionViewData: sectionViewData,
+                                          sectionData: sectionData) { [weak self] (changed,needFlush) in
+            guard let self = self else { return }
+            
+            if changed {
+                self._delegate?.inputCollectionViewDataDidChange(self)
+                if needFlush {
+                    self.flushTemporaryData()
+                }
+                self.reloadData()
+            }
+        }
+    }
 }
 

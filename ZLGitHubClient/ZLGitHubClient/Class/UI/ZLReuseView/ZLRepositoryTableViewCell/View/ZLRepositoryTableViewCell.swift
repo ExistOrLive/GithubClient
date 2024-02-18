@@ -291,9 +291,8 @@ extension ZLRepositoryTableViewCell: ZLViewUpdatableWithViewData {
     
     func fillWithViewData(viewData data: ZLRepositoryTableViewCellDelegate)  {
         delegate = data
-        avatarButton.sd_setBackgroundImage(with: URL.init(string: data.getOwnerAvatarURL() ?? ""),
-                                                for: .normal,
-                                                placeholderImage: UIImage.init(named: "default_avatar"))
+        avatarButton.loadAvatar(login: data.getOwnerName() ?? "",
+                                avatarUrl: data.getOwnerAvatarURL() ?? "")
         repostitoryNameLabel.text = data.getRepoName()
         languageLabel.text = data.getRepoMainLanguage()
         descriptionLabel.text = data.getRepoDesc()

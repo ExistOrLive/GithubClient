@@ -38,6 +38,27 @@ public protocol ZMInputCollectionViewPolicyProtocol: AnyObject {
                              cellDataForClickedCell cellData: ZMInputCollectionViewButtonCellDataType,
                              sectionData: ZMInputCollectionViewBaseSectionDataType,
                              completionHandler: @escaping (_ changed:Bool, _ needFlush:Bool) -> Void)
+    
+    
+    /// header / footer view 事件策略
+    ///  - Parameters:
+    ///    - collectionView: ZMInputCollectionView
+    ///    - eventId: 事件id
+    ///    - isHeader: 是否未section Header
+    ///    - params: 参数
+    ///    - section: 触发事件的section
+    ///    - sectionViewData: sectionView 的 data
+    ///    - sectionData: 触发事件的sectionData
+    ///    - completionHandler: 处理回调 changes:  数据是否修改  needFlush 是否需要flush cellData的缓存数据
+    ///    请在主线程回调 completionHandler
+    func inputCollectionView(_ collectionView: ZMInputCollectionView,
+                             eventId: String,
+                             isHeader: Bool,
+                             params: [String:Any],
+                             didTriggleEventAtSection section: Int,
+                             sectionViewData: ZMInputCollectionViewBaseSectionViewDataType,
+                             sectionData: ZMInputCollectionViewBaseSectionDataType,
+                             completionHandler: @escaping (_ changed:Bool, _ needFlush:Bool) -> Void)
 }
 
 
@@ -52,6 +73,15 @@ public extension ZMInputCollectionViewPolicyProtocol {
     func inputCollectionView(_ collectionView: ZMInputCollectionView,
                              didClickIndexPath indexPath: IndexPath,
                              cellDataForClickedCell cellData: ZMInputCollectionViewButtonCellDataType,
+                             sectionData: ZMInputCollectionViewBaseSectionDataType,
+                             completionHandler: @escaping (_ changed:Bool, _ needFlush:Bool) -> Void) {}
+    
+    func inputCollectionView(_ collectionView: ZMInputCollectionView,
+                             eventId: String,
+                             isHeader: Bool,
+                             params: [String:Any],
+                             didTriggleEventAtSection section: Int,
+                             sectionViewData: ZMInputCollectionViewBaseSectionViewDataType,
                              sectionData: ZMInputCollectionViewBaseSectionDataType,
                              completionHandler: @escaping (_ changed:Bool, _ needFlush:Bool) -> Void) {}
 }

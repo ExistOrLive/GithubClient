@@ -30,11 +30,7 @@ class ZLRepoHeaderCellData: ZLTableViewBaseCellData {
         self.presenter = presenter
         super.init()
         bindData()
-    }
-    
-    
-    override var cellReuseIdentifier: String {
-        "ZLRepoInfoHeaderCell"
+        self.cellReuseIdentifier = "ZLRepoInfoHeaderCell"
     }
     
     func bindData() {
@@ -59,6 +55,10 @@ extension ZLRepoHeaderCellData: ZLViewUpdatableDataModel {
 
 // MARK: - ZLRepoInfoHeaderCellDataSourceAndDelegate
 extension ZLRepoHeaderCellData: ZLRepoInfoHeaderCellDataSourceAndDelegate {
+    
+    var ownerLogin: String {
+        repoInfoModel.owner?.loginName ?? ""
+    }
     
     var avatarUrl: String {
         repoInfoModel.owner?.avatar_url ?? ""

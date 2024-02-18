@@ -103,7 +103,8 @@ class ZLCommitTableViewCell: UITableViewCell {
 
     func fillWithData(cellData: ZLCommitTableViewCellData) {
         self.titleLabel.text = cellData.getCommitTitle()
-        self.avatarImageView.sd_setImage(with: URL.init(string: cellData.getCommiterAvaterURL() ?? ""), placeholderImage: UIImage.init(named: "default_avatar"))
+        self.avatarImageView.loadAvatar(login: cellData.getCommiterLogin(),
+                                        avatarUrl: cellData.getCommiterAvaterURL() ?? "")
         self.assitLabel.text = cellData.getAssistInfo()
         self.shaButton.setTitle(cellData.getCommitSha(), for: .normal)
     }

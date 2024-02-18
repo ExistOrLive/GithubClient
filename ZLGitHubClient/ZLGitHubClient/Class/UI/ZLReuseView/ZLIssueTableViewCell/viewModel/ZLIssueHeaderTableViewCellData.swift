@@ -41,6 +41,10 @@ class ZLIssueHeaderTableViewCellData: ZLGithubItemTableViewCellData {
 
 extension ZLIssueHeaderTableViewCellData: ZLIssueHeaderTableViewCellDelegate {
 
+    func getIssueAuthorLogin() -> String {
+        data.repository?.owner.login ?? ""
+    }
+    
     func getIssueAuthorAvatarURL() -> String {
         return data.repository?.owner.avatarUrl ?? ""
     }

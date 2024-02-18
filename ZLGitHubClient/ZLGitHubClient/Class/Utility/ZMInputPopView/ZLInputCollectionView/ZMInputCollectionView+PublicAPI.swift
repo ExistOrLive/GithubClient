@@ -144,6 +144,7 @@ public extension ZMInputCollectionView {
     
     // reload
     func sizeToFitContentView(completion: (()-> Void)? = nil) {
+        self.collectionView.reloadData()
         self.collectionView.performBatchUpdates {
             self.collectionView.reloadData()
         } completion: { _ in
@@ -249,6 +250,13 @@ public extension ZMInputCollectionView {
         }
     }
     
-    
+    var scrollDirection: UICollectionView.ScrollDirection {
+        get {
+            collectionViewLayout.scrollDirection
+        }
+        set {
+            collectionViewLayout.scrollDirection = newValue
+        }
+    }
 }
 

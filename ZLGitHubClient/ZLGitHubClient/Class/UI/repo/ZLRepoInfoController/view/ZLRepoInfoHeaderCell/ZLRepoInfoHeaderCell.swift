@@ -16,6 +16,7 @@ import SDWebImage
 
 protocol ZLRepoInfoHeaderCellDataSourceAndDelegate: NSObjectProtocol {
     
+    var ownerLogin: String {get}
     var avatarUrl: String {get}
     var repoName: String {get}
     var sourceRepoName: String? {get}
@@ -291,7 +292,7 @@ extension ZLRepoInfoHeaderCell: ZLViewUpdatableWithViewData {
     func reloadData() {
         guard let data = delegate else { return }
         
-        avatarButton.sd_setBackgroundImage(with: URL(string: data.avatarUrl), for: .normal, placeholderImage: UIImage(named: "default_avatar"))
+        avatarButton.loadAvatar(login: data.ownerLogin, avatarUrl: data.avatarUrl)
         timeLabel.text = "\(ZLLocalizedString(string: "update at", comment: "更新于"))\(data.updatedTime)"
         descLabel.text = data.desc
         

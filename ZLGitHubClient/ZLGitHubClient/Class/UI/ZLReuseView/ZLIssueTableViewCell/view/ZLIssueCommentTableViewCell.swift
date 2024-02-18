@@ -90,9 +90,7 @@ class ZLIssueCommentTableViewCell: UITableViewCell {
 
     func fillWithData(data: ZLIssueCommentTableViewCellDelegate) {
         self.delegate = data
-        avatarButton.sd_setImage(with: URL(string: data.getActorAvatarUrl()),
-                                 for: .normal,
-                                 placeholderImage: UIImage(named: "default_avatar"))
+        avatarButton.loadAvatar(login: data.getActorName(), avatarUrl: data.getActorAvatarUrl())
         actorLabel.text = data.getActorName()
         timeLabel.text = data.getTime()
         webView.loadHTMLString(data.getCommentHtml(), baseURL: nil)

@@ -12,6 +12,7 @@ import ZLBaseExtension
 
 protocol ZLPullRequestHeaderTableViewCellDelegate: NSObjectProtocol {
 
+    func getPRAuthorLoginName() -> String
     func getPRAuthorAvatarURL() -> String
     func getPRRepoFullName() -> NSAttributedString
     func getPRNumber() -> Int
@@ -257,7 +258,7 @@ class ZLPullRequestHeaderTableViewCell: UITableViewCell {
 
         self.delegate = data
 
-        avatarButton.sd_setBackgroundImage(with: URL(string: data.getPRAuthorAvatarURL()), for: .normal, placeholderImage: UIImage(named: "default_avatar"))
+        avatarButton.loadAvatar(login: data.getPRAuthorLoginName(), avatarUrl: data.getPRAuthorAvatarURL())
         fullNameLabel.attributedText = data.getPRRepoFullName()
         numberLabel.text = "#\(data.getPRNumber())"
         titleLabel.text = data.getPRTitle()

@@ -315,10 +315,10 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   ZLBaseExtension:
-    :commit: b8434184a9da0b804ddd282aa3c11a6a001ae8e3
+    :commit: bb25c16c2e48e69fdef502568ba1b7e716a8cf15
     :git: https://github.com/ExistOrLive/ZLBaseExtension.git
   ZLBaseUI:
-    :commit: 60e7e064882fdfe446f75f045262314809d726e6
+    :commit: 8188110c5cb63e01397a588ff76b478cbc0bfe17
     :git: https://github.com/ExistOrLive/ZLBaseUI.git
   ZLGithubOAuth:
     :git: https://github.com/ExistOrLive/ZLGithubOAuth.git
@@ -327,7 +327,7 @@ CHECKOUT OPTIONS:
     :commit: 4de70e3f57c0171f36dc399869a433caceb62b3e
     :git: https://github.com/ExistOrLive/ZLGitRemoteService.git
   ZLUIUtilities:
-    :commit: 3fa0671df2f040a9bf00a56f27bf209f46b18ea1
+    :commit: bb955210ad7b1f0c28a3d9f3b6e66beeed8bf614
     :git: https://github.com/ExistOrLive/ZLUIUtilities.git
 
 SPEC CHECKSUMS:
