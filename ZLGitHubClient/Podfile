@@ -11,11 +11,6 @@ end
 
 target 'ZLGitHubClient' do
  
-pod 'Firebase/Analytics'
-pod 'Firebase/Crashlytics'
-pod 'Firebase/RemoteConfig'
-pod 'Firebase/Performance'
-
 pod "SYDCentralPivot"
 
 pod 'ZLGithubOAuth', :git => 'https://github.com/ExistOrLive/ZLGithubOAuth.git', :tag => '1.2.0'
@@ -104,7 +99,18 @@ pod 'CircleMenu'
 # 浮动view https://github.com/scenee/FloatingPanel
 #pod 'FloatingPanel'
 
+# firebase 分析监控
+pod 'Firebase/Analytics'
+pod 'Firebase/Crashlytics'
+pod 'Firebase/RemoteConfig'
+pod 'Firebase/Performance'
 
+# huawei 分析监控
+pod 'AGConnectCore','~> 1.9.0.301'
+#pod 'AGConnectCrash', '~> 1.9.0.301'               # 崩溃分析
+pod 'AGConnectRemoteConfig', '~> 1.9.0.301'         # 远程配置
+pod 'HiAnalytics'                                   # 华为分析
+#pod 'AGConnectAPM', '~> 1.2.1'                     # 性能管理
 
 end
 

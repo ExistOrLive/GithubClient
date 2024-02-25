@@ -21,9 +21,6 @@
 #import <Firebase/Firebase.h>
 #import <IQKeyboardManager/IQKeyboardManager.h>
 
-
-
-
 @interface AppDelegate () <UNUserNotificationCenterDelegate>
 
 @end
@@ -48,15 +45,18 @@
      *
      * 初始化工具模块
      **/
-    [[ZLServiceManager sharedInstance] initManagerWithBuglyId:ZLBuyglyAppId];
+    [[ZLServiceManager sharedInstance] initManager];
     
     ZLUISharedDataManager.githubClientID = MyClientID;
     ZLUISharedDataManager.githubClientSecret = MyClientSecret;
     ZLUISharedDataManager.githubClientCallback = MyClientCallback;
     
+    /// firebase
     [FIRApp configure];
-
     
+    /// 华为监控
+    [[ZLAGConnectManager sharedInstance] setup];
+  
     NSString *configFilePath = [[NSBundle mainBundle] pathForResource:@"SYDCenteralFactoryConfig" ofType:@"plist"];
     [[SYDCentralRouter sharedInstance] addConfigWithFilePath:configFilePath withBundle:[NSBundle mainBundle]];;
     
