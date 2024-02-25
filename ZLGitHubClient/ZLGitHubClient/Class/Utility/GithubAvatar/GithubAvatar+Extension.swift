@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import SDWebImage
+import ZLUtilities
 
 func generateAvatarURL(login: String, avatarUrl: String, size: CGFloat) -> (String,Int) {
     

@@ -11,6 +11,7 @@ import SnapKit
 import Foundation
 import ZLUIUtilities
 import MJRefresh
+import ZLUtilities
 
 protocol ZLGistTableViewCellDelegate: AnyObject {
     func onAvatarButtonClicked()

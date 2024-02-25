@@ -12,6 +12,7 @@ import ZLUIUtilities
 import ZLBaseUI
 import ZLBaseExtension
 import ZLGitRemoteService
+import ZLUtilities
 
 /**
   *  利用 REST API 获取 md 内容 ； 代码使用markdown接口渲染

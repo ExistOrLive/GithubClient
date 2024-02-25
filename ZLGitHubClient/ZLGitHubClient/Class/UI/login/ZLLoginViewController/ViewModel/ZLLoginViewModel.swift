@@ -11,6 +11,7 @@ import ZLGithubOAuth
 import ZLGitRemoteService
 import ZLUIUtilities
 import ZLBaseUI
+import ZLUtilities
 
 enum ZLLoginStep {
     case initialize
@@ -194,10 +195,11 @@ extension ZLLoginViewModel: ZLGithubOAuthManagerDelegate {
     
     func onOAuthSuccess(token: String) {
         endTime = Date().timeIntervalSince1970
-        analytics.log(.githubOAuth(result: true,
-                                   step: step.eventTrack,
-                                   msg: "success",
-                                   duration: endTime - startTime))
+        ZLAGC().reportEvent(eventId: "GithubOAuth",
+                            params: ["p_result": true,
+                                     "p_step": step.eventTrack,
+                                     "p_errorMsg": "success",
+                                     "p_time": endTime - startTime])
         oauthManager = nil
         let serialNumber = NSString.generateSerialNumber()
         loginSerialNumber = serialNumber
@@ -209,10 +211,11 @@ extension ZLLoginViewModel: ZLGithubOAuthManagerDelegate {
     
     func onOAuthFail(status: ZLGithubOAuthStatus, error: String) {
         endTime = Date().timeIntervalSince1970
-        analytics.log(.githubOAuth(result: false,
-                                   step: step.eventTrack,
-                                   msg: error,
-                                   duration: endTime - startTime))
+        ZLAGC().reportEvent(eventId: "GithubOAuth",
+                            params: ["p_result": false,
+                                     "p_step": step.eventTrack,
+                                     "p_errorMsg": error,
+                                     "p_time": endTime - startTime])
         step = .initialize
         reloadView()
         oauthManager = nil

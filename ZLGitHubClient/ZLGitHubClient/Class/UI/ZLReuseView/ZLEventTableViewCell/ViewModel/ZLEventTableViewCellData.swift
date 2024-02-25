@@ -9,6 +9,7 @@
 import UIKit
 import ZLBaseExtension
 import ZLGitRemoteService
+import ZLUtilities
 
 class ZLEventTableViewCellData: ZLGithubItemTableViewCellData {
 
@@ -24,7 +25,7 @@ class ZLEventTableViewCellData: ZLGithubItemTableViewCellData {
             return
         }
 
-        var  showReportButton = ZLUISharedDataManager.enbaledReportFunction
+        var showReportButton = ZLAGC().configAsBool(for: "Report_Function_Enabled")
         let currentLoginName = ZLServiceManager.sharedInstance.viewerServiceModel?.currentUserLoginName
         if  currentLoginName == "ExistOrLive1" ||
                 currentLoginName == "existorlive3" ||

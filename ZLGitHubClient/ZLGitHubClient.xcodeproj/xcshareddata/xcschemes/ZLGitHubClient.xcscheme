@@ -52,7 +52,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "-HADebugDisabled"
+            argument = "-HADebugEnabled"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

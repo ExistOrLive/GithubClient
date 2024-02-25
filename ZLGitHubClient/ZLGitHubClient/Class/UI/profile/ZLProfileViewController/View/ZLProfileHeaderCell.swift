@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import SnapKit
 import ZLUIUtilities
+import ZLUtilities
 
 protocol ZLProfileHeaderCellDataSourceAndDelegate: AnyObject {
 

@@ -7,6 +7,7 @@ abstract_target 'GithubClient' do
   
 target 'Fixed RepoExtension' do
   pod 'Kanna', '~> 5.2.2'
+  pod 'HandyJSON'
 end
 
 target 'ZLGitHubClient' do
@@ -27,6 +28,9 @@ pod 'ZLBaseExtension', :git => "https://github.com/ExistOrLive/ZLBaseExtension.g
 
 pod 'ZLUIUtilities', :git => "https://github.com/ExistOrLive/ZLUIUtilities.git"
 #pod 'ZLUIUtilities', :path => "../../ZLUIUtilities"
+
+#pod 'ZLUtilities', :path => '../../ZLUtilities'
+pod 'ZLUtilities', :git => "https://github.com/ExistOrLive/ZLUtilities.git"
 
 #pod 'Google-Mobile-Ads-SDK'
 pod 'Umbrella'
@@ -66,10 +70,10 @@ pod 'FFPopup'
 
 
 # 移动监控工具
-pod 'WoodPeckeriOS', :configurations => ['Debug']
+#pod 'WoodPeckeriOS', :configurations => ['Debug']
 pod 'LookinServer', :configurations => ['Debug']
-#pod 'DoraemonKit/Core', :configurations => ['Debug']
-#pod 'DoraemonKit/WithLogger', :configurations => ['Debug']
+pod 'DoraemonKit/Core', :configurations => ['Debug']
+pod 'DoraemonKit/WithLogger', :configurations => ['Debug']
 #pod 'DoraemonKit/WithGPS', :configurations => ['Debug']
 #pod 'DoraemonKit/WithMLeaksFinder', :configurations => ['Debug']
 
@@ -102,7 +106,6 @@ pod 'CircleMenu'
 # firebase 分析监控
 pod 'Firebase/Analytics'
 pod 'Firebase/Crashlytics'
-pod 'Firebase/RemoteConfig'
 pod 'Firebase/Performance'
 
 # huawei 分析监控

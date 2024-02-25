@@ -45,8 +45,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onNotificationArrived:) name:ZLLanguageTypeChange_Notificaiton object:nil];
     
     [[ZLAssistButtonManager sharedInstance] setHidden:ZLUISharedDataManager.isAssistButtonHidden];
-    
-    [ZLUISharedDataManager initRemoteConfig];
 }
 
 - (void) viewWillAppear:(BOOL)animated{

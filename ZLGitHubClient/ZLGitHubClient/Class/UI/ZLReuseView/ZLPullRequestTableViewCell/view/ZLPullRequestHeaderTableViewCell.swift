@@ -9,6 +9,7 @@
 import UIKit
 import YYText
 import ZLBaseExtension
+import ZLUtilities
 
 protocol ZLPullRequestHeaderTableViewCellDelegate: NSObjectProtocol {
 

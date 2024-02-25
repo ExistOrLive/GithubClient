@@ -11,6 +11,7 @@ import ZLBaseUI
 import ZLGitRemoteService
 import ZLBaseExtension
 import ZLUIUtilities
+import ZLUtilities
 
 class ZLUserOrOrgInfoController: ZLBaseViewController {
 

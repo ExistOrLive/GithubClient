@@ -12,7 +12,7 @@
 
 #import <JJException/JJException.h>
 #ifdef DEBUG
-//#import <DoraemonKit/DoraemonManager.h>
+#import <DoraemonKit/DoraemonManager.h>
 #endif
 
 #import <UserNotifications/UserNotifications.h>
@@ -20,6 +20,7 @@
 #import <ZLGitRemoteService/ZLGitRemoteService.h>
 #import <Firebase/Firebase.h>
 #import <IQKeyboardManager/IQKeyboardManager.h>
+@import ZLUtilities;
 
 @interface AppDelegate () <UNUserNotificationCenterDelegate>
 
@@ -55,10 +56,17 @@
     [FIRApp configure];
     
     /// 华为监控
+    [[ZLAGConnectManager sharedInstance] setFetchRemoteConfigWithCompleteBlock:^(BOOL result, NSTimeInterval timeInterval, NSString * _Nonnull msg) {
+        [[ZLAGConnectManager sharedInstance] reportEventWithEventId:@"AGCConfig_Download" params:@{
+            @"p_result": [NSNumber numberWithBool:result],
+            @"p_errorMsg":msg,
+            @"p_time": [NSNumber numberWithFloat:timeInterval]
+        }];
+    }];
     [[ZLAGConnectManager sharedInstance] setup];
   
     NSString *configFilePath = [[NSBundle mainBundle] pathForResource:@"SYDCenteralFactoryConfig" ofType:@"plist"];
-    [[SYDCentralRouter sharedInstance] addConfigWithFilePath:configFilePath withBundle:[NSBundle mainBundle]];;
+    [[SYDCentralRouter sharedInstance] addConfigWithFilePath:configFilePath withBundle:[NSBundle mainBundle]];
     
     
     ZLLog_Info(@"中间件，工具模块初始化完毕");
@@ -249,10 +257,10 @@
 - (void) setUpDoraemonKit
 {
     #ifdef DEBUG
-//           //默认
-//           [[DoraemonManager shareInstance] install];
-//           // 或者使用传入位置,解决遮挡关键区域,减少频繁移动
-//           [[DoraemonManager shareInstance] installWithStartingPosition:CGPointMake(66, 66)];
+           //默认
+           [[DoraemonManager shareInstance] install];
+           // 或者使用传入位置,解决遮挡关键区域,减少频繁移动
+           [[DoraemonManager shareInstance] installWithStartingPosition:CGPointMake(66, 66)];
     
        #endif
 }

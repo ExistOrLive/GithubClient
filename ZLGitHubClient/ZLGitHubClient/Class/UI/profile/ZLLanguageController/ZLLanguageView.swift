@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import ZLUtilities
 
 protocol ZLLanguageViewDelegate: AnyObject {
     var selectIndex: Int {get}

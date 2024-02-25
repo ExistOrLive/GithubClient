@@ -10,6 +10,7 @@ import UIKit
 import MJRefresh
 import ZLBaseUI
 import ZLGitRemoteService
+import ZLUtilities
 
 enum ZLSettingItemType: Int {
     case language
@@ -49,7 +50,8 @@ class ZLSettingViewModel: ZLBaseViewModel {
         settingItemForFirstSection.append(.monitor)
         #endif
         let currentLoginName = ZLServiceManager.sharedInstance.viewerServiceModel?.currentUserLoginName
-        if ZLUISharedDataManager.enabledBlockFunction ||
+        let showBlockButton = ZLAGC().configAsBool(for: "Block_Function_Enabled")
+        if showBlockButton ||
             currentLoginName == "ExistOrLive1" ||
             currentLoginName == "existorlive3" ||
             currentLoginName == "existorlive11" {

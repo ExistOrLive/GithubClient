@@ -11,6 +11,7 @@ import ZLBaseUI
 import ZLUIUtilities
 import ZLBaseExtension
 import ZLGitRemoteService
+import ZLUtilities
 
 class ZLPRInfoController: ZLBaseViewController {
 

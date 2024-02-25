@@ -11,6 +11,7 @@ import WebKit
 import ZLGitRemoteService
 import ZLBaseUI
 import ZLBaseExtension
+import ZLUtilities
 
 @objc protocol ZLWebContentViewDelegate: NSObjectProtocol {
     @objc func webView(_ webView: WKWebView, navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void)
