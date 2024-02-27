@@ -14,7 +14,6 @@ class ZLCommonTableViewCellDataV2: ZLTableViewBaseCellData {
     private var _canClick: Bool = false
     private var _titleBlock: () -> String = { "" }
     private var _infoBlock: () -> String = { "" }
-    private var _cellHeight: CGFloat = 0.0
     private var _showSeparateLine: Bool = false
     private var _actionBlock: (() -> Void)?
 
@@ -27,22 +26,15 @@ class ZLCommonTableViewCellDataV2: ZLTableViewBaseCellData {
         _canClick = canClick
         _titleBlock = title
         _infoBlock = info
-        _cellHeight = cellHeight
         _showSeparateLine = showSeparateLine
         _actionBlock = actionBlock
         super.init()
+        self.cellReuseIdentifier = "ZLCommonTableViewCell"
+        self.cellHeight = cellHeight
     }
 
     override func onCellSingleTap() {
        _actionBlock?()
-    }
-
-    override var cellReuseIdentifier: String {
-        "ZLCommonTableViewCell"
-    }
-    
-    override var cellHeight: CGFloat {
-        _cellHeight
     }
 }
 

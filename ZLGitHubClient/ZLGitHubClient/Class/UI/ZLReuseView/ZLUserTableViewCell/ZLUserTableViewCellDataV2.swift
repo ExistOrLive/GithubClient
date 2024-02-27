@@ -19,12 +19,9 @@ class ZLUserTableViewCellDataV2: ZLTableViewBaseCellData {
     init(model: ZLGithubUserModel) {
         self.model = model
         super.init()
+        self.cellReuseIdentifier =  "ZLUserTableViewCell"
     }
     
-    override var cellReuseIdentifier: String {
-        "ZLUserTableViewCell"
-    }
-        
     override func onCellSingleTap() {
         if let userInfoVC = ZLUIRouter.getUserInfoViewController(loginName: model.loginName ?? "") {
             userInfoVC.hidesBottomBarWhenPushed = true

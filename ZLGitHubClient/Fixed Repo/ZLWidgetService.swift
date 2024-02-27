@@ -8,6 +8,7 @@
 
 import Foundation
 import Kanna
+import HandyJSON
 
 struct ZLSimpleRepositoryModel{
     let fullName: String
@@ -24,6 +25,58 @@ struct ZLSimpleContributionModel{
 }
 
 struct ZLWidgetService {
+    class TrendingConfig: HandyJSON {
+        required init() {}
+        var path: String = ""
+        var property: String = ""
+        
+        func getTargetElementStr(element: XMLElement) -> String? {
+            guard let targetElement = element.at_xpath(path) else {
+                return nil
+            }
+            var content: String?
+            let set = NSCharacterSet(charactersIn: " \n") as CharacterSet
+            if property == "content" {
+                content = targetElement.content
+            } else {
+                content = targetElement[property]
+            }
+            return content?.trimmingCharacters(in: set)
+        }
+    }
+    class TrendingRepoConfig: HandyJSON {
+        required init() {}
+        var repoArrayPath: String = ""
+        var fullName: TrendingConfig = TrendingConfig()
+        var desc: TrendingConfig = TrendingConfig()
+        var language: TrendingConfig = TrendingConfig()
+        var star: TrendingConfig = TrendingConfig()
+        var fork: TrendingConfig = TrendingConfig()
+    }
+    static let trendingRepoConfig: [String:Any] = [
+        "repoArrayPath": "//article[@class=\"Box-row\"]",
+        "fullName": [
+          "path": "/h2[@class=\"h3 lh-condensed\"]/a[@class=\"Link\"]",
+          "property": "href"
+        ],
+        "desc": [
+          "path": "/p[@class=\"col-9 color-fg-muted my-1 pr-4\"]",
+          "property": "content"
+        ],
+        "language": [
+          "path": "/div[@class=\"f6 color-fg-muted mt-2\"]/span[@class=\"d-inline-block ml-0 mr-3\"]/span[@itemprop=\"programmingLanguage\"]",
+          "property": "content"
+        ],
+        "star": [
+          "path": "/div[@class=\"f6 color-fg-muted mt-2\"]/a[@class=\"Link Link--muted d-inline-block mr-3\"]/svg[@aria-label=\"star\"]/..",
+          "property": "content"
+        ],
+        "fork": [
+          "path": "/div[@class=\"f6 color-fg-muted mt-2\"]/a[@class=\"Link Link--muted d-inline-block mr-3\"]/svg[@aria-label=\"fork\"]/..",
+          "property": "content"
+        ]
+    ]
+    
     static func trendingRepo(dateRange: FixedRepoDateRange,
                              language : FixedRepoLanguage,
                              completeHandler: @escaping (Bool,[ZLSimpleRepositoryModel]) -> Void) {
@@ -45,7 +98,8 @@ struct ZLWidgetService {
         
         DispatchQueue.global().async {
             
-            guard let htmlDoc = try? HTML(url: url, encoding: .utf8) else {
+            guard let htmlDoc = try? HTML(url: url, encoding: .utf8),
+                  let trendConfig = TrendingRepoConfig.deserialize(from: ZLWidgetService.trendingRepoConfig) else {
                 DispatchQueue.main.async {
                     completeHandler(false,[])
                 }
@@ -54,50 +108,37 @@ struct ZLWidgetService {
             
             var repoArray = [ZLSimpleRepositoryModel]()
             
-            for article in htmlDoc.xpath("//article") {
+            for article in htmlDoc.xpath(trendConfig.repoArrayPath) {
                 
-                let h2 = article.xpath("//h2").first
-                let p = article.xpath("//p").first
-                let a = h2?.xpath("//a").first
-            
-                guard var fullName = a?["href"] else { continue }
+                guard var fullName = trendConfig.fullName.getTargetElementStr(element: article) else {
+                    continue
+                }
                 fullName = String(fullName.suffix(from: fullName.index(after: fullName.startIndex)))
                 var repoModel = ZLSimpleRepositoryModel(fullName: fullName)
-                
-                let set = NSCharacterSet(charactersIn: " \n") as CharacterSet
-                if let desc = p?.content?.trimmingCharacters(in: set){
+            
+                if let desc = trendConfig.desc.getTargetElementStr(element: article) {
                     repoModel.desc = desc
                 }
                 
-                for span in article.xpath("//span") {
-                    if let itemprop = span["itemprop"],
-                       itemprop == "programmingLanguage" {
-                        repoModel.language = span.content
-                        break
+                if let language = trendConfig.language.getTargetElementStr(element: article){
+                    repoModel.language = language
+                }
+            
+                if var starStr = trendConfig.star.getTargetElementStr(element: article) {
+                    starStr = (starStr as NSString).replacingOccurrences(of: ",", with: "")
+                    if let num = Int(starStr) {
+                        repoModel.star = num
                     }
                 }
                 
-                for svg in article.xpath("//svg") {
-                    let ariaLabel = svg["aria-label"]
-                    if "star" == ariaLabel,
-                       let content = svg.parent?.content {
-                        var str =  content.trimmingCharacters(in: set)
-                        str = (str as NSString).replacingOccurrences(of: ",", with: "")
-                        if let num = Int(str) {
-                            repoModel.star = num
-                        }
-                    }
-                    if "fork" == ariaLabel,
-                       let content = svg.parent?.content {
-                        var str =  content.trimmingCharacters(in: set)
-                        str = (str as NSString).replacingOccurrences(of: ",", with: "")
-                        if let num = Int(str) {
-                            repoModel.fork = num
-                        }
+                if var forkStr = trendConfig.fork.getTargetElementStr(element: article) {
+                    forkStr = (forkStr as NSString).replacingOccurrences(of: ",", with: "")
+                    if let num = Int(forkStr) {
+                        repoModel.fork = num
                     }
                 }
+               
                 repoArray.append(repoModel)
-                
             }
             
             DispatchQueue.main.async {
@@ -129,7 +170,7 @@ struct ZLWidgetService {
             var contributionArray = [ZLSimpleContributionModel]()
             var totalCount = 0
             
-            for dayData in htmlDoc.xpath("//g/rect[@class=\"ContributionCalendar-day\"]") {
+            for dayData in htmlDoc.xpath("//td[@class=\"ContributionCalendar-day\"]") {
                 var contributionModel = ZLSimpleContributionModel()
                 contributionModel.contributionsDate = dayData["data-date"] ?? ""
                 contributionModel.contributionsLevel = Int(dayData["data-level"] ?? "") ?? 0

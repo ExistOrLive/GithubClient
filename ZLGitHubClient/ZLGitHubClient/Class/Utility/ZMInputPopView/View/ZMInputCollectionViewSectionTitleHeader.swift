@@ -49,7 +49,7 @@ public protocol ZMInputCollectionViewSectionTitleHeaderDataType: ZMInputCollecti
     var titleLeftPadding: CGFloat { get }
 }
 
-public class ZMInputCollectionViewSectionTitleHeader: UICollectionReusableView,ZMInputCollectionViewSectionViewConcreteUpdatable {
+public class ZMInputCollectionViewSectionTitleHeader: UICollectionReusableView,ZMInputCollectionViewConcreteUpdatable {
    
     lazy var titleLabel: UILabel = {
        let label = UILabel()

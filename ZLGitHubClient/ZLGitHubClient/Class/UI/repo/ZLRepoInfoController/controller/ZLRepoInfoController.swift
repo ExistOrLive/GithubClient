@@ -12,6 +12,7 @@ import ZLBaseUI
 import ZLBaseExtension
 import RxSwift
 import ZLGitRemoteService
+import ZLUtilities
 
 class ZLRepoInfoController: ZLBaseViewController {
     

@@ -32,6 +32,10 @@ extension ZLOrgInfoHeaderCellData: ZLOrgInfoHeaderCellDataSourceAndDelegate {
     var name: String {
         return "\(data.name ?? "")(\(data.loginName ?? ""))"
     }
+    
+    var loginName: String {
+        return data.loginName ?? ""
+    }
 
     var time: String {
         let createdAtStr = ZLLocalizedString(string: "created at", comment: "创建于")

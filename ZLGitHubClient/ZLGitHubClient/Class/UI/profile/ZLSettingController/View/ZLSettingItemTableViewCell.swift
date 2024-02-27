@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ZLUtilities
 
 class ZLSettingItemTableViewCell: UITableViewCell {
 

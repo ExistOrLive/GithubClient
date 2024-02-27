@@ -228,7 +228,8 @@ class ZLEditFixedRepoController: ZLBaseViewController, UITableViewDelegate, UITa
 
         if let tableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLSimpleRepoTableViewCell") as? ZLSimpleRepoTableViewCell {
             let repoInfo = indexPath.section == 0 ? selectedRepos[indexPath.row] : unselectedRepos[indexPath.row]
-            tableViewCell.avatarImageView.sd_setImage(with: URL(string: repoInfo.owner_avatarURL ?? ""), placeholderImage: UIImage(named: "default_avatar"))
+            tableViewCell.avatarImageView.loadAvatar(login: repoInfo.owner_login ?? "",
+                                                     avatarUrl: repoInfo.owner_avatarURL ?? "")
             tableViewCell.fullNameLabel.text = repoInfo.full_name
             tableViewCell.singleLineView.isHidden = (indexPath.row == (indexPath.section == 0 ? selectedRepos : unselectedRepos).count - 1)
             return tableViewCell
@@ -420,7 +421,8 @@ class ZLEditFixedRepoSearchController: ZLBaseViewController, UITableViewDelegate
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "ZLSimpleRepoTableViewCell", for: indexPath) as? ZLSimpleRepoTableViewCell {
-            cell.avatarImageView.sd_setImage(with: URL(string: self.items[indexPath.row].owner?.avatar_url ?? ""), placeholderImage: UIImage(named: "default_avatar"))
+            cell.avatarImageView.loadAvatar(login: items[indexPath.row].owner?.loginName ?? "",
+                                            avatarUrl: items[indexPath.row].owner?.avatar_url ?? "")
             cell.fullNameLabel.text = self.items[indexPath.row].full_name
             if indexPath.row == self.items.count - 1 {
                 cell.singleLineView.isHidden = true

@@ -17,15 +17,16 @@ class ZLProfileHeaderCellData: ZLTableViewBaseCellData {
     init(userModel: ZLGithubUserModel) {
         self.data = userModel
         super.init()
-    }
-    
-    override var cellReuseIdentifier: String {
-        "ZLProfileHeaderCell"
+        self.cellReuseIdentifier = "ZLProfileHeaderCell"
     }
 }
 
 extension ZLProfileHeaderCellData: ZLProfileHeaderCellDataSourceAndDelegate {
-        
+      
+    var loginName: String {
+        return data.loginName ?? ""
+    }
+    
     var name: String {
         return "\(data.name ?? "")(\(data.loginName ?? ""))"
     }

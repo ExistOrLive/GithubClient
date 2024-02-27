@@ -17,10 +17,7 @@ class ZLProfileContributionsCellData: ZLTableViewBaseCellData {
     init(userModel: ZLGithubUserModel) {
         self.data = userModel
         super.init()
-    }
-    
-    override var cellReuseIdentifier: String {
-        "ZLProfileContributionsCell"
+        self.cellReuseIdentifier = "ZLProfileContributionsCell"
     }
 }
 

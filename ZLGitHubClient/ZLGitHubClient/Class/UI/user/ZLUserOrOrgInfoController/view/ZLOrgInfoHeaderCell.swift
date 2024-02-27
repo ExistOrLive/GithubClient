@@ -12,6 +12,7 @@ import ZLUIUtilities
 protocol ZLOrgInfoHeaderCellDataSourceAndDelegate: ZLGithubItemTableViewCellDataProtocol {
 
     var name: String {get}
+    var loginName: String {get}
     var time: String {get}
     var desc: String {get}
     var avatarUrl: String {get}
@@ -66,8 +67,8 @@ class ZLOrgInfoHeaderCell: UITableViewCell {
     }
 
     private func reloadData() {
-
-        avatarImageView.sd_setImage(with: URL(string: delegate?.avatarUrl ?? ""), placeholderImage: UIImage(named: "default_avatar"))
+        avatarImageView.loadAvatar(login: delegate?.loginName ?? "",
+                                   avatarUrl: delegate?.avatarUrl ?? "")
         nameLabel.text = delegate?.name
         timeLabel.text = delegate?.time
         descLabel.text = delegate?.desc

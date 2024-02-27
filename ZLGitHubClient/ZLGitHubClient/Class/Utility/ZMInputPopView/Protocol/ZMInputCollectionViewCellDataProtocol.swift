@@ -19,36 +19,63 @@ public enum ZMInputCollectionViewBaseCellType {
 public protocol ZMInputCollectionViewBaseCellDataType {
     var cellIdentifier: String { get }
     var cellType: ZMInputCollectionViewBaseCellType { get }
+    var cellItemSize: CGSize? { get }
     var id: String { get }
 }
 
 public extension ZMInputCollectionViewBaseCellDataType {
     var id: String { "" }
+    var cellItemSize: CGSize? { nil }
 }
 
 
 // MARK: - ZMInputCollectionViewBaseSectionViewDataType
 public protocol ZMInputCollectionViewBaseSectionViewDataType {
     var sectionViewIdentifier: String { get }
+    var sectionViewSize: CGSize? { get }
     var id: String { get }
 }
 
 public extension ZMInputCollectionViewBaseSectionViewDataType {
     var id: String { "" }
+    var sectionViewSize: CGSize? { nil }
 }
 
 // MARK: - ZMInputCollectionViewSectionDataType
-public protocol ZMInputCollectionViewSectionDataType {
+public protocol ZMInputCollectionViewBaseSectionDataType {
     var cellDatas: [ZMInputCollectionViewBaseCellDataType] { get }
     var sectionHeaderData: ZMInputCollectionViewBaseSectionViewDataType? { get }
     var sectionFooterData: ZMInputCollectionViewBaseSectionViewDataType? { get }
+    
+    var sectionInset: UIEdgeInsets? { get }
+    var sectionLineSpacing: CGFloat? { get }
+    var sectionInteritemSpacing: CGFloat? { get }
+    var numberOfCellsInSection: Int { get }
+    var showSectionHeader: Bool { get }
+    var showSectionFooter: Bool { get }
+    
     var id: String { get }
 }
 
-public extension ZMInputCollectionViewSectionDataType {
+public extension ZMInputCollectionViewBaseSectionDataType {
     var id: String { "" }
+    var sectionInset: UIEdgeInsets? { nil }
+    var sectionLineSpacing: CGFloat? { nil }
+    var sectionInteritemSpacing: CGFloat? { nil }
+    var numberOfCellsInSection: Int { cellDatas.count }
+    var showSectionHeader: Bool { sectionHeaderData != nil }
+    var showSectionFooter: Bool { sectionFooterData != nil }
 }
 
+// MARK: - ZMInputCollectionViewDataType
+public protocol ZMInputCollectionViewBaseDataType {
+    var sectionDatas: [ZMInputCollectionViewBaseSectionDataType] { get }
+    var numberOfSections: Int { get }
+}
+
+public extension ZMInputCollectionViewBaseDataType {
+    var numberOfSections: Int { sectionDatas.count }
+}
 
 
 

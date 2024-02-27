@@ -143,17 +143,16 @@ open class ZMSingleSelectTitlePopView: ZMInputPopView,ZMInputCollectionScrollVie
     
     /// ZMInputCollectionDelegate
     /// 当缓存中的数据修改时，回调  处理单选逻辑
-    public override func inputCollectionView(_ collectionView: ZMInputCollectionView,
-                                    allSectionDatasDidChanged sectionDatas: [ZMInputCollectionViewSectionDataType]) {
+    public override func inputCollectionViewDataDidChange(_ collectionView: ZMInputCollectionView) {
         
-        if let containerIndex = collectionView._sectionDatas.first?.cellDataContainers.firstIndex(where: { container in
-            if container.cellType == .select, container.cellSelected == true {
+        if let containerIndex = collectionView.collectionViewData.sectionDatas.first?.cellDatas.firstIndex(where: { cellData in
+            if let selectCellData = cellData as? ZMInputCollectionViewSelectCellDataType,
+               selectCellData.temporaryCellSelected {
                 return true
             }
             return false
         }),
-           let container = collectionView._sectionDatas.first?.cellDataContainers[containerIndex],
-           let cellData = container.realCellData as? ZMInputCollectionViewTitleSelectCellData {
+           let cellData = collectionView.collectionViewData.sectionDatas.first?.cellDatas[containerIndex] as? ZMInputCollectionViewTitleSelectCellData {
             
             self.singleSelectBlock?(containerIndex, cellData.title)
             self.dismiss()
@@ -198,7 +197,7 @@ extension ZMSingleSelectTitlePopView {
         var cellIdentifier: String = ""
     }
     
-    public typealias SelectCell = UICollectionViewCell & ZMInputCollectionViewSelectCellConcreteUpdatable
+    public typealias SelectCell = UICollectionViewCell & ZMInputCollectionViewUpdatable
     
     /// 单选弹窗，
     public dynamic func showSingleSelectTitleBox<T: SelectCell>(_ to: UIView,

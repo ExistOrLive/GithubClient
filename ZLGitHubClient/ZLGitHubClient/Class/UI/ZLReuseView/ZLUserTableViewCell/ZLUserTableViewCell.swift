@@ -143,7 +143,7 @@ extension ZLUserTableViewCell: ZLViewUpdatableWithViewData {
 
         delegate = data
 
-        headImageView.sd_setImage(with: URL.init(string: data.getAvatarUrl() ?? ""), placeholderImage: UIImage.init(named: "default_avatar"))
+        headImageView.loadAvatar(login: data.getLoginName() ?? "", avatarUrl: data.getAvatarUrl() ?? "")
         loginNameLabel.text = data.getLoginName()
         nameLabel.text = "\(data.getName() ?? "")"
         descLabel.text = data.desc()

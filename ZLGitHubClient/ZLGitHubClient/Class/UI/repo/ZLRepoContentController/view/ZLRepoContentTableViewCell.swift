@@ -8,6 +8,7 @@
 
 import UIKit
 import ZLGitRemoteService
+import ZLUtilities
 
 class ZLRepoContentTableViewCell: UITableViewCell {
 

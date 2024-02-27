@@ -228,8 +228,8 @@ extension ZLEditAssigneesView: UITableViewDelegate,UITableViewDataSource {
                 }
             }
             tableViewCell.fullNameLabel.text = assignee?.login
-            tableViewCell.avatarImageView.sd_setImage(with: URL(string: assignee?.avatar ?? ""), placeholderImage: UIImage(named: "default_avatar"))
-        
+            tableViewCell.avatarImageView.loadAvatar(login: assignee?.login ?? "",
+                                                     avatarUrl: assignee?.avatar ?? "")
             return tableViewCell
         } else {
             return UITableViewCell()

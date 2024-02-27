@@ -16,7 +16,7 @@ import ZLBaseExtension
 
 protocol ZLMyDiscussionsBaseViewDelegateAndDataSource: NSObjectProtocol {
     // DataSource
-    var cellDatas: [ZLTableViewCellProtocol] { get }
+    var cellDatas: [ZLTableViewCellDataProtocol] { get }
     
     var hasMoreData: Bool { get }
     

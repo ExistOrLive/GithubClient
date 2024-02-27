@@ -10,11 +10,13 @@ import Foundation
 import UIKit
 import SnapKit
 import ZLUIUtilities
+import ZLUtilities
 
 protocol ZLProfileHeaderCellDataSourceAndDelegate: AnyObject {
 
     var avatarUrl: String {get}
     var name: String {get}
+    var loginName: String {get}
     var createTime: String {get}
     
     var reposNum: String {get}
@@ -203,9 +205,7 @@ extension ZLProfileHeaderCell: ZLViewUpdatableWithViewData {
 
     func fillWithViewData(viewData: ZLProfileHeaderCellDataSourceAndDelegate) {
         delegate = viewData
-        avatarButton.sd_setBackgroundImage(with: URL(string: viewData.avatarUrl ),
-                                           for: .normal,
-                                           placeholderImage: UIImage(named: "default_avatar"))
+        avatarButton.loadAvatar(login: viewData.loginName, avatarUrl: viewData.avatarUrl)
         nameLabel.text = viewData.name
         createTimeLabel.text = viewData.createTime
         reposNumButton.numLabel.text = viewData.reposNum

@@ -9,36 +9,31 @@ import Foundation
 
 // 输入框类型
 // MARK: - ZMInputCollectionViewTextFieldCellDataType
-public protocol ZMInputCollectionViewTextFieldCellDataType: AnyObject & ZMInputCollectionViewBaseCellDataType {
+public protocol ZMInputCollectionViewTextFieldCellDataType: AnyObject & ZMInputCollectionViewBaseCellDataType & ZMInputCollectionViewTemporaryDataProtocol {
     var textValue: String? { set get }
+    var temporaryTextValue: String? { set get }
 }
 
 public extension ZMInputCollectionViewTextFieldCellDataType {
     var cellType: ZMInputCollectionViewBaseCellType {
         .textField
     }
-}
-
-
-// 输入框类型cell协议
-// MARK: - ZMInputCollectionViewButtonCellUpdatable
-public protocol ZMInputCollectionViewTextFieldCellDataUpdatable: ZMInputCollectionViewUpdatable {
-    
-    associatedtype CellDataType
-    func updateConcreteCellData(cellDataContainer:  ZMInputCollectionViewTextFieldCellDataType,
-                                cellData: CellDataType,
-                                textValue: String?)
-}
-
-public extension ZMInputCollectionViewTextFieldCellDataUpdatable {
-    func updateViewData(viewData: Any) {
-        if let cellDataContainer = viewData as? ZMInputCollectionViewBaseCellDataContainer,
-           let realCellData = cellDataContainer.realCellData as? CellDataType {
-            updateConcreteCellData(cellDataContainer:cellDataContainer,
-                                   cellData:realCellData,
-                                   textValue: cellDataContainer.textValue)
+    var temporaryTextValue: String? {
+        get {
+            temporaryDataFor(key: "temporaryTextValue") as? String
+        }
+        set {
+            setTemporaryData(newValue, for: "temporaryTextValue")
         }
     }
+    func flushTemporaryDataToRealData() {
+        textValue = temporaryTextValue
+    }
+    func readTemporaryDataFromRealData() {
+        temporaryTextValue = textValue
+    }
 }
+
+
 
 

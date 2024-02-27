@@ -135,3 +135,4 @@ ZLGitHubClient/Pods
 # ignore ZLGithubAppKey.h
 ZLGitHubClient/ZLGitHubClient/System/ZLSupportFiles/ZLGithubAppKey.h
 ZLGitHubClient/ZLGitHubClient/GoogleService-info.plist
+ZLGitHubClient/ZLGitHubClient/agconnect-services.plist

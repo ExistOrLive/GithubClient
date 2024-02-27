@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ZLUtilities
 
 enum ZLWorkboardType {
     case issues
@@ -115,6 +116,7 @@ class ZLWorkboardTableViewCell: UITableViewCell {
         if cellData.isGithubItem {
             self.avatarImageView.sd_setImage(with: URL.init(string: cellData.avatarURL), placeholderImage: UIImage(named: "default_avatar"))
         } else {
+            self.avatarImageView.sd_cancelCurrentImageLoad() // 取消当前图片加载
             self.avatarImageView.image = UIImage(named: cellData.avatarURL)
         }
         self.titleLabel.text = cellData.title

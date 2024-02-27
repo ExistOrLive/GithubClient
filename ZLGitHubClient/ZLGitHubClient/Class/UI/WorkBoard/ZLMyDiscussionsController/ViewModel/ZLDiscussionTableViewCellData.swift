@@ -21,10 +21,7 @@ class ZLDiscussionTableViewCellData: ZLTableViewBaseCellData {
     init(data: DiscussionData) {
         self.data = data
         super.init()
-    }
-    
-    override var cellReuseIdentifier: String {
-        "ZLDiscussionTableViewCell"
+        self.cellReuseIdentifier = "ZLDiscussionTableViewCell"
     }
     
     override func onCellSingleTap() {
@@ -33,10 +30,6 @@ class ZLDiscussionTableViewCellData: ZLTableViewBaseCellData {
                                   params: ["requestURL": url],
                                   animated: true)
         }
-    }
-    
-    override func clearCache() {
-
     }
 }
 

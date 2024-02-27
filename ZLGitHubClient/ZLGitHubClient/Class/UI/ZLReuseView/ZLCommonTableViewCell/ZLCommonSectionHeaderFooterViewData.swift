@@ -18,7 +18,7 @@ class ZLCommonSectionHeaderFooterViewData: ZLTableViewBaseSectionData {
     private var headerReuseIdentifier: String?
     private var footerReuseIdentifier: String?
     
-    init(cellDatas: [ZLTableViewCellProtocol],
+    init(cellDatas: [ZLTableViewCellDataProtocol],
          headerHeight: CGFloat = CGFloat.leastNonzeroMagnitude ,
          footerHeight: CGFloat = CGFloat.leastNonzeroMagnitude,
          headerColor: UIColor? = nil,
@@ -26,30 +26,21 @@ class ZLCommonSectionHeaderFooterViewData: ZLTableViewBaseSectionData {
          headerReuseIdentifier: String? = nil,
          footerReuseIdentifier: String? = nil) {
         super.init(cellDatas: cellDatas)
-        self.headerHeight = headerHeight
-        self.footerHeight = footerHeight
-        self.headerColor = headerColor
-        self.footerColor = footerColor
-        self.headerReuseIdentifier = headerReuseIdentifier
-        self.footerReuseIdentifier = footerReuseIdentifier
+        
+        if let headerReuseIdentifier {
+            let view = ZLTableViewBaseSectionViewData()
+            view.sectionViewReuseIdentifier = headerReuseIdentifier
+            view.sectionViewHeight = headerHeight
+            sectionHeaderViewData = view
+        }
+        
+        if let footerReuseIdentifier {
+            let view = ZLTableViewBaseSectionViewData()
+            view.sectionViewReuseIdentifier = footerReuseIdentifier
+            view.sectionViewHeight = footerHeight
+            sectionFooterViewData = view
+        }
     }
-    
-    override var sectionHeaderHeight: CGFloat {
-        headerHeight
-    }
-    
-    override var sectionFooterHeight: CGFloat {
-        footerHeight
-    }
-    
-    override  var sectionHeaderReuseIdentifier: String? {
-        headerReuseIdentifier
-    }
-    
-    override var sectionFooterReuseIdentifier: String? {
-        footerReuseIdentifier
-    }
-    
 }
 
 extension ZLCommonSectionHeaderFooterViewData: ZLCommonSectionHeaderViewDelegate {

@@ -11,6 +11,7 @@ import JXSegmentedView
 import ZLBaseExtension
 import ZLGitRemoteService
 import ZLBaseUI
+import ZLUtilities
 
 @objc protocol ZLSearchItemsViewDelegate: NSObjectProtocol {
     func onFilterButtonClicked(button: UIButton)

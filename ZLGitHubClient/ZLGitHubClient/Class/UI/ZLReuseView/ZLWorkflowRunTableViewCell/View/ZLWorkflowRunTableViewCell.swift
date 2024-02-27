@@ -8,6 +8,7 @@
 
 import UIKit
 import YYText
+import ZLUtilities
 
 @objc protocol ZLWorkflowRunTableViewCellDelegate: NSObjectProtocol {
     func onMoreButtonClicked(button: UIButton)

@@ -11,6 +11,7 @@ import MJRefresh
 import ZLBaseUI
 import ZLUIUtilities
 import ZLBaseExtension
+import ZLUtilities
 
 @objc protocol ZLGithubItemListViewDelegate: NSObjectProtocol {
     func githubItemListViewRefreshDragDown(pullRequestListView: ZLGithubItemListView)

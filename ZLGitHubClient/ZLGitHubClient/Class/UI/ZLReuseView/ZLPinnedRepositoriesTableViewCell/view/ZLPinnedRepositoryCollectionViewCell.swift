@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ZLUtilities
 
 protocol ZLPinnedRepositoryCollectionViewCellDataSourceAndDelegate: ZLGithubItemCollectionViewCellDataProtocol {
     var avatarUrl: String {get}
@@ -124,7 +125,7 @@ class ZLPinnedRepositoryCollectionViewCell: UICollectionViewCell {
     func fillWithData(viewData: ZLPinnedRepositoryCollectionViewCellDataSourceAndDelegate) {
         self.delegate = viewData
 
-        avatarButton.sd_setImage(with: URL(string: viewData.avatarUrl), for: .normal, placeholderImage: UIImage(named: "default_avatar"))
+        avatarButton.loadAvatar(login: viewData.ownerName, avatarUrl: viewData.avatarUrl)
         repostitoryNameLabel.text = viewData.repoName
         languageLabel.text = viewData.language
         ownerNameLabel.text = viewData.ownerName

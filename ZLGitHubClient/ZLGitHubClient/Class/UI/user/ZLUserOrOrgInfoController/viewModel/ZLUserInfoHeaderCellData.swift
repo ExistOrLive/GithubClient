@@ -11,6 +11,7 @@ import ZLBaseUI
 import ZLUIUtilities
 import ZLBaseExtension
 import ZLGitRemoteService
+import ZLUtilities
 
 class ZLUserInfoHeaderCellData: ZLGithubItemTableViewCellData {
 
@@ -166,6 +167,10 @@ extension ZLUserInfoHeaderCellData: ZLUserInfoHeaderCellDataSourceAndDelegate {
     var name: String {
         return "\(data.name ?? "")(\(data.loginName ?? ""))"
     }
+    
+    var loginName: String {
+        return data.loginName ?? ""
+    }
 
     var time: String {
         let createdAtStr = ZLLocalizedString(string: "created at", comment: "创建于")
@@ -213,7 +218,7 @@ extension ZLUserInfoHeaderCellData: ZLUserInfoHeaderCellDataSourceAndDelegate {
     }
 
     var showBlockButton: Bool {
-        var showBlockButton = ZLUISharedDataManager.enabledBlockFunction
+        var showBlockButton = ZLAGC().configAsBool(for: "Block_Function_Enabled")
         let currentLoginName = ZLServiceManager.sharedInstance.viewerServiceModel?.currentUserLoginName
         if currentLoginName == "ExistOrLive1" ||
             currentLoginName == "existorlive3" ||

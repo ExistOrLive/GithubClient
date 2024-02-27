@@ -43,6 +43,10 @@ class ZLPullRequestHeaderTableViewCellData: ZLGithubItemTableViewCellData {
 
 extension ZLPullRequestHeaderTableViewCellData: ZLPullRequestHeaderTableViewCellDelegate {
 
+    func getPRAuthorLoginName() -> String {
+        data.repository?.owner.login ?? ""
+    }
+    
     func getPRAuthorAvatarURL() -> String {
         data.repository?.owner.avatarUrl ?? ""
     }

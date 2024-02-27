@@ -30,6 +30,7 @@ jobs:
         python3 DownloadSecretFile/DownloadSecrectFile.py $GITHUBTOKEN
         mv ZLGithubAppKey.h ZLGitHubClient/System/ZLSupportFiles/ZLGithubAppKey.h
         mv GoogleService-Info.plist ZLGitHubClient/GoogleService-Info.plist
+        mv agconnect-services.plist ZLGitHubClient/agconnect-services.plist
         
     - name: construct build enviroment
       working-directory: ./ZLGitHubClient          # 指定run 的工作目录

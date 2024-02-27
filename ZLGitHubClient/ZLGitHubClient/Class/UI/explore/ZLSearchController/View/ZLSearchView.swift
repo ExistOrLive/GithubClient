@@ -9,6 +9,7 @@
 import UIKit
 import ZLBaseExtension
 import ZLBaseUI
+import ZLUtilities
 
 class ZLSearchView: ZLBaseView {
                 
