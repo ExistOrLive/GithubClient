@@ -26,7 +26,6 @@ jobs:
       env: 
         GITHUBTOKEN: ${{ secrets.GITHUBTOKEN }}
       run: |
-        echo ${GITHUBTOKEN}
         pip3 install requests
         python3 DownloadSecretFile/DownloadSecrectFile.py $GITHUBTOKEN
         mv ZLGithubAppKey.h ZLGitHubClient/System/ZLSupportFiles/ZLGithubAppKey.h
@@ -56,14 +55,6 @@ jobs:
         APPSTOREAPIKEYID: ${{ secrets.APPSTOREAPIKEYID }} 
 
       run: |
-        echo ${MATCH_KEYCHAIN_NAME}
-        echo ${MATCH_PASSWORD}
-        echo ${MATCH_GITHUB_URL}
-        echo ${FASTLANE_USER}
-         echo ${FASTLANE_PASSWORD}
-          echo ${APPSTOREAPIISSUERID}
-            echo ${APPSTOREAPIKEY}
-             echo ${APPSTOREAPIKEYID}
         pwd 
         bundle exec fastlane github_action_testFlight
         echo "ipa build and upload success"
