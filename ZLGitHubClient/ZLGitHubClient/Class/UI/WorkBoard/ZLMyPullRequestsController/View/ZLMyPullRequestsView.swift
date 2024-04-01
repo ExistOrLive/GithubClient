@@ -10,6 +10,7 @@ import UIKit
 import ZLGitRemoteService
 import ZLBaseUI
 import ZLUtilities
+import ZLUIUtilities
 
 protocol ZLMyPullRequestsViewDelegate: NSObjectProtocol {
     func onFilterTypeChange(type: ZLPRFilterType)

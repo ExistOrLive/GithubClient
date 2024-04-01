@@ -9,6 +9,7 @@
 import UIKit
 import ZLGitRemoteService
 import ZLBaseUI
+import ZLUtilities
 
 class ZLAboutViewModel: ZLBaseViewModel, ZLAboutContentViewDelegate {
 

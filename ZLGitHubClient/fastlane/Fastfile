@@ -255,4 +255,11 @@ platform :ios do
     #deliver
   end
 
+
+  desc "local match"
+  lane :localMatch  do 
+      match(type: "appstore",
+            app_identifier: ["com.zm.*","com.zm.ZLGiteeClient"])
+  end
+
 end

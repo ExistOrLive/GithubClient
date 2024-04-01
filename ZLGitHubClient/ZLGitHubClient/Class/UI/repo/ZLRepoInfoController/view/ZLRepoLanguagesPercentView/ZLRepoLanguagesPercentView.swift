@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Charts
+import DGCharts
 import FFPopup
 import ZLUIUtilities
 import ZLBaseUI
@@ -16,12 +16,84 @@ import ZLGitRemoteService
 
 class ZLRepoLanguagesPercentView: ZLBaseView {
 
-    @IBOutlet weak var titleLable: UILabel!
-    @IBOutlet weak var chartView: PieChartView!
-
-    //
     var repoFullName: String = ""
     var data: [String: Int] = [:]
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setupUI() {
+        cornerRadius = 8.0
+        clipsToBounds = true
+        backgroundColor = UIColor(named: "ZLPopUpBackColor")
+        addSubview(titleBackView)
+        addSubview(chartView)
+        titleBackView.addSubview(titleLabel)
+        titleBackView.snp.makeConstraints { make in
+            make.top.left.right.equalToSuperview()
+            make.height.equalTo(50)
+        }
+        chartView.snp.makeConstraints { make in
+            make.top.equalTo(titleBackView.snp.bottom)
+            make.left.bottom.right.equalToSuperview()
+        }
+        titleLabel.snp.makeConstraints { make in
+            make.left.equalTo(10)
+            make.centerY.equalToSuperview()
+        }
+    }
+    
+    
+    lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = .zlMediumFont(withSize: 15)
+        label.textColor = UIColor(named: "ZLPopupTitleColor")
+        label.text = ZLLocalizedString(string: "Language", comment: "")
+        return label
+    }()
+    
+    lazy var titleBackView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(named: "ZLPopUpTitleBackView")
+        return view
+    }()
+    
+    lazy var chartView: PieChartView = {
+        let view = PieChartView()
+        
+        view.usePercentValuesEnabled = true
+        view.drawSlicesUnderHoleEnabled = false
+        view.holeRadiusPercent = 0.58
+        view.transparentCircleRadiusPercent = 0.61
+        view.chartDescription.enabled = false
+        view.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 5)
+        
+        view.drawHoleEnabled = false
+        view.rotationAngle = 0
+        view.rotationEnabled = true
+        view.highlightPerTapEnabled = true
+        
+        let l = view.legend
+        l.horizontalAlignment = .right
+        l.verticalAlignment = .top
+        l.orientation = .vertical
+        l.drawInside = false
+        l.xEntrySpace = 7
+        l.yEntrySpace = 0
+        l.yOffset = 0
+        l.font = .zlMediumFont(withSize: 12)
+        l.textColor = UIColor.label(withName: "ZLLabelColor1")
+        
+        view.animate(xAxisDuration: 0, easingOption: .easeOutBack)
+        return view
+    }()
+    
 
     class func showRepoLanguagesPercentView(fullName: String) {
         ZLProgressHUD.show()
@@ -33,10 +105,7 @@ class ZLRepoLanguagesPercentView: ZLBaseView {
                     return
                 }
 
-                guard let view: ZLRepoLanguagesPercentView = Bundle.main.loadNibNamed("ZLRepoLanguagesPercentView", owner: nil, options: nil)?.first as? ZLRepoLanguagesPercentView else {
-                           return
-                       }
-                view.frame = CGRect.init(x: 0, y: 0, width: 280, height: 480)
+                let view = ZLRepoLanguagesPercentView(frame:  CGRect(x: 0, y: 0, width: 280, height: 480))
                 view.repoFullName = fullName
                 view.data = data
                 view.startLoadData()
@@ -52,39 +121,6 @@ class ZLRepoLanguagesPercentView: ZLBaseView {
 
     }
 
-    override func awakeFromNib() {
-
-        self.setUpChartView()
-        self.titleLable.text = ZLLocalizedString(string: "Language", comment: "")
-    }
-
-    func setUpChartView() {
-        chartView.usePercentValuesEnabled = true
-        chartView.drawSlicesUnderHoleEnabled = false
-        chartView.holeRadiusPercent = 0.58
-        chartView.transparentCircleRadiusPercent = 0.61
-        chartView.chartDescription.enabled = false
-        chartView.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 5)
-
-        chartView.drawHoleEnabled = false
-        chartView.rotationAngle = 0
-        chartView.rotationEnabled = true
-        chartView.highlightPerTapEnabled = true
-
-        let l = chartView.legend
-        l.horizontalAlignment = .right
-        l.verticalAlignment = .top
-        l.orientation = .vertical
-        l.drawInside = false
-        l.xEntrySpace = 7
-        l.yEntrySpace = 0
-        l.yOffset = 0
-        l.font = UIFont.init(name: Font_PingFangSCMedium, size: 12) ?? UIFont.systemFont(ofSize: 12)
-        l.textColor = UIColor.label(withName: "ZLLabelColor1")
-
-        chartView.animate(xAxisDuration: 0, easingOption: .easeOutBack)
-    }
-
     func startLoadData() {
 
         var totalSize = 0
@@ -97,7 +133,7 @@ class ZLRepoLanguagesPercentView: ZLBaseView {
         for item in self.data {
             let percent = Double(item.value) / Double(totalSize)
             if percent > 0.01 {
-                let entry = PieChartDataEntry(value: Double(item.value), label: item.key, icon: nil)
+                let entry = PieChartDataEntry(value: percent, label: item.key, icon: nil)
                 entries.append(entry)
             } else {
                 otherSize = otherSize + item.value
@@ -105,7 +141,7 @@ class ZLRepoLanguagesPercentView: ZLBaseView {
         }
 
         if otherSize > 0 {
-            let entry = PieChartDataEntry(value: Double(otherSize), label: "other", icon: nil)
+            let entry = PieChartDataEntry(value: Double(otherSize) / Double(totalSize), label: "Other", icon: nil)
             entries.append(entry)
         }
 
@@ -114,25 +150,24 @@ class ZLRepoLanguagesPercentView: ZLBaseView {
         set.sliceSpace = 2
         set.yValuePosition = .outsideSlice
         set.xValuePosition = .outsideSlice
-
+        
         set.colors = [ZLRGBValue_H(colorValue: 0x438EFF),
                       ZLRGBValue_H(colorValue: 0xFFAC44),
                       ZLRGBValue_H(colorValue: 0x555555),
                       ZLRGBValue_H(colorValue: 0x701516),
                       ZLRGBValue_H(colorValue: 0xEDEDED)]
+        
+        set.valueFont = .zlMediumFont(withSize: 12)
+        set.valueTextColor = UIColor.label(withName: "ZLLabelColor1")
 
         let data = PieChartData(dataSet: set)
-
+        
         let pFormatter = NumberFormatter()
-        pFormatter.numberStyle = .percent
-        pFormatter.maximumFractionDigits = 1
-        pFormatter.multiplier = 1
-        pFormatter.percentSymbol = " %"
+              pFormatter.numberStyle = .percent
+              pFormatter.maximumFractionDigits = 1
+              pFormatter.multiplier = 1
+              pFormatter.percentSymbol = "%"
         data.setValueFormatter(DefaultValueFormatter(formatter: pFormatter))
-
-        data.setValueFont(UIFont.init(name: Font_PingFangSCMedium, size: 12) ?? UIFont.systemFont(ofSize: 12))
-        data.setValueTextColor(UIColor.label(withName: "ZLLabelColor1"))
-
         chartView.data = data
         chartView.highlightValues(nil)
 

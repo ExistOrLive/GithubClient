@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import ZLUIUtilities
 
 class ZLSearchFilterNumberFieldCellData: ZMInputCollectionViewTextFieldCellDataType {
     var textValue: String?
