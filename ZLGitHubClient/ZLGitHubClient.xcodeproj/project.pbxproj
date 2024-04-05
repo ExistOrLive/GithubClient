@@ -129,6 +129,7 @@
 		745D48C8257249D700E67AEE /* github_style_dark_markdown.css in Resources */ = {isa = PBXBuildFile; fileRef = 745D48C6257249D700E67AEE /* github_style_dark_markdown.css */; };
 		745D48C9257249D700E67AEE /* github_style_markdown.css in Resources */ = {isa = PBXBuildFile; fileRef = 745D48C7257249D700E67AEE /* github_style_markdown.css */; };
 		745EADE02616E38600973F86 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 745EADDF2616E38600973F86 /* GoogleService-Info.plist */; };
+		7461C5152BC0657D0008DD16 /* ZLDevelopmentLanguageColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7461C5142BC0657D0008DD16 /* ZLDevelopmentLanguageColor.swift */; };
 		74634D4B27663D9D00A042F4 /* ZLOrgInfoHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74634D4A27663D9D00A042F4 /* ZLOrgInfoHeaderCell.swift */; };
 		74634D4F2766408500A042F4 /* ZLOrgInfoHeaderCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74634D4E2766408500A042F4 /* ZLOrgInfoHeaderCellData.swift */; };
 		7466028D28DB7A7D004D104F /* ZLProfileHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7466028C28DB7A7D004D104F /* ZLProfileHeaderCell.swift */; };
@@ -449,6 +450,7 @@
 		745D48C6257249D700E67AEE /* github_style_dark_markdown.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = github_style_dark_markdown.css; sourceTree = "<group>"; };
 		745D48C7257249D700E67AEE /* github_style_markdown.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = github_style_markdown.css; sourceTree = "<group>"; };
 		745EADDF2616E38600973F86 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		7461C5142BC0657D0008DD16 /* ZLDevelopmentLanguageColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLDevelopmentLanguageColor.swift; sourceTree = "<group>"; };
 		74634D4A27663D9D00A042F4 /* ZLOrgInfoHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLOrgInfoHeaderCell.swift; sourceTree = "<group>"; };
 		74634D4E2766408500A042F4 /* ZLOrgInfoHeaderCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLOrgInfoHeaderCellData.swift; sourceTree = "<group>"; };
 		7466028C28DB7A7D004D104F /* ZLProfileHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLProfileHeaderCell.swift; sourceTree = "<group>"; };
@@ -1324,6 +1326,14 @@
 			path = ZLProgressView;
 			sourceTree = "<group>";
 		};
+		7461C5132BC065580008DD16 /* DevelopmentLanguage */ = {
+			isa = PBXGroup;
+			children = (
+				7461C5142BC0657D0008DD16 /* ZLDevelopmentLanguageColor.swift */,
+			);
+			path = DevelopmentLanguage;
+			sourceTree = "<group>";
+		};
 		746719C92B81FA00003E1D4B /* GithubAvatar */ = {
 			isa = PBXGroup;
 			children = (
@@ -2172,6 +2182,7 @@
 		74D3EF52259BC6050002A2D3 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				7461C5132BC065580008DD16 /* DevelopmentLanguage */,
 				746719C92B81FA00003E1D4B /* GithubAvatar */,
 				743F180F2312664C00E39A95 /* Extension */,
 				7456B740279D6B2C0033AFB1 /* ZLProgressView */,
@@ -3047,6 +3058,7 @@
 				74C5B20A247935EA00D941DF /* ZLRepoStargazersController.swift in Sources */,
 				74478D4C231FF37A007D3832 /* ZLSettingViewModel.swift in Sources */,
 				744678352764D77400301F54 /* ZLPinnedRepositoriesCollectionViewCellData.swift in Sources */,
+				7461C5152BC0657D0008DD16 /* ZLDevelopmentLanguageColor.swift in Sources */,
 				749505C429A537A500341D9E /* ZMLanguageSelectView.swift in Sources */,
 				362EEC90246D2BE500CE99D3 /* ZLFeedbackViewModel.swift in Sources */,
 				7467ABB727F5B49C00F8905B /* NSDate+Localize.m in Sources */,

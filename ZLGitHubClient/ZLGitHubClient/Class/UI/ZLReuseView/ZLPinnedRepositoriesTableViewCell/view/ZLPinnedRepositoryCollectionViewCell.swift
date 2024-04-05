@@ -44,6 +44,7 @@ class ZLPinnedRepositoryCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(repostitoryNameLabel)
         contentView.addSubview(ownerNameLabel)
         contentView.addSubview(descriptionLabel)
+        contentView.addSubview(languageIcon)
         contentView.addSubview(languageLabel)
 
         avatarButton.snp.makeConstraints { (make) in
@@ -63,9 +64,15 @@ class ZLPinnedRepositoryCollectionViewCell: UICollectionViewCell {
             make.left.equalTo(repostitoryNameLabel)
         }
 
+        languageIcon.snp.makeConstraints { make in
+            make.centerY.equalTo(languageLabel)
+            make.size.equalTo(10)
+            make.left.equalTo(ownerNameLabel.snp.right).offset(20)
+        }
+        
         languageLabel.snp.makeConstraints { make in
             make.top.equalTo(repostitoryNameLabel.snp.bottom).offset(10)
-            make.left.equalTo(ownerNameLabel.snp.right).offset(20)
+            make.left.equalTo(languageIcon.snp.right).offset(5)
         }
 
         descriptionLabel.snp.makeConstraints { make in
@@ -128,6 +135,8 @@ class ZLPinnedRepositoryCollectionViewCell: UICollectionViewCell {
         avatarButton.loadAvatar(login: viewData.ownerName, avatarUrl: viewData.avatarUrl)
         repostitoryNameLabel.text = viewData.repoName
         languageLabel.text = viewData.language
+        languageIcon.backgroundColor = ZLDevelopmentLanguageColor.colorForLanguage(viewData.language)
+        languageIcon.isHidden = viewData.language.isEmpty
         ownerNameLabel.text = viewData.ownerName
         descriptionLabel.text = viewData.desc
         forkNumLabel.text = viewData.forkNum < 1000 ? "\(viewData.forkNum)" : String(format: "%.1f", Double(viewData.forkNum)/1000.0) + "k"
@@ -149,6 +158,12 @@ class ZLPinnedRepositoryCollectionViewCell: UICollectionViewCell {
         label.font = UIFont.zlSemiBoldFont(withSize: 17)
         label.textColor = UIColor(named: "ZLLabelColor1")
         return label
+    }()
+    
+    lazy  var languageIcon: UIView = {
+        let view = UIView()
+        view.cornerRadius = 5.0
+        return view
     }()
 
     lazy  var languageLabel: UILabel = {

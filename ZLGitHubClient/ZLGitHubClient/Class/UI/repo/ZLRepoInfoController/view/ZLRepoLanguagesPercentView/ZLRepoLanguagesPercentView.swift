@@ -139,8 +139,11 @@ class ZLRepoLanguagesPercentView: ZLBaseView {
                 otherSize = otherSize + item.value
             }
         }
+        entries = entries.sorted(by: {
+            $0.value > $1.value
+        })
 
-        if otherSize > 0 {
+        if  (Double(otherSize) / Double(totalSize)) > 0.001 {
             let entry = PieChartDataEntry(value: Double(otherSize) / Double(totalSize), label: "Other", icon: nil)
             entries.append(entry)
         }
@@ -150,27 +153,36 @@ class ZLRepoLanguagesPercentView: ZLBaseView {
         set.sliceSpace = 2
         set.yValuePosition = .outsideSlice
         set.xValuePosition = .outsideSlice
+        set.valueLineColor = UIColor.label(withName: "ZLLabelColor1")
         
-        set.colors = [ZLRGBValue_H(colorValue: 0x438EFF),
-                      ZLRGBValue_H(colorValue: 0xFFAC44),
-                      ZLRGBValue_H(colorValue: 0x555555),
-                      ZLRGBValue_H(colorValue: 0x701516),
-                      ZLRGBValue_H(colorValue: 0xEDEDED)]
+        set.colors =  entries.map({
+            return ZLDevelopmentLanguageColor.colorForLanguage($0.label ?? "")
+        })
         
         set.valueFont = .zlMediumFont(withSize: 12)
         set.valueTextColor = UIColor.label(withName: "ZLLabelColor1")
 
         let data = PieChartData(dataSet: set)
+        data.setValueFormatter(ZLRepoLanguageValueFormatter())
         
-        let pFormatter = NumberFormatter()
-              pFormatter.numberStyle = .percent
-              pFormatter.maximumFractionDigits = 1
-              pFormatter.multiplier = 1
-              pFormatter.percentSymbol = "%"
-        data.setValueFormatter(DefaultValueFormatter(formatter: pFormatter))
         chartView.data = data
-        chartView.highlightValues(nil)
 
     }
 
+}
+
+class ZLRepoLanguageValueFormatter: ValueFormatter {
+    
+    func stringForValue(_ value: Double,
+                        entry: ChartDataEntry,
+                        dataSetIndex: Int,
+                        viewPortHandler: ViewPortHandler?) -> String {
+        let pFormatter = NumberFormatter()
+        pFormatter.numberStyle = .percent
+        pFormatter.roundingMode = .halfUp
+        pFormatter.minimumFractionDigits = 1
+        pFormatter.maximumFractionDigits = 1
+        pFormatter.percentSymbol = " %"
+        return pFormatter.string(from: NSNumber(floatLiteral: value / 100 )) ?? ""
+    }
 }
