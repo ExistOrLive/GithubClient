@@ -26,11 +26,11 @@ pod 'ZLBaseUI', :git => 'https://github.com/ExistOrLive/ZLBaseUI.git'
 pod 'ZLBaseExtension', :git => "https://github.com/ExistOrLive/ZLBaseExtension.git"
 #pod 'ZLBaseExtension', :path => "../../ZLBaseExtension"
 
-#pod 'ZLUIUtilities', :git => "https://github.com/ExistOrLive/ZLUIUtilities.git"
-pod 'ZLUIUtilities', :path => "../../ZLUIUtilities"
+pod 'ZLUIUtilities', :git => "https://github.com/ExistOrLive/ZLUIUtilities.git"
+#pod 'ZLUIUtilities', :path => "../../ZLUIUtilities"
 
-pod 'ZLUtilities', :path => '../../ZLUtilities'
-#pod 'ZLUtilities', :git => "https://github.com/ExistOrLive/ZLUtilities.git"
+#pod 'ZLUtilities', :path => '../../ZLUtilities'
+pod 'ZLUtilities', :git => "https://github.com/ExistOrLive/ZLUtilities.git"
 
 pod 'Umbrella'
 pod 'Umbrella/Firebase'

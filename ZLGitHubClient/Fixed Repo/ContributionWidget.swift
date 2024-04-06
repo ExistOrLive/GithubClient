@@ -191,6 +191,7 @@ struct ContributionView : View {
     
     var body: some View {
         return ContributionMeidumView(entry: entry)
+            .widgetBackground(Color("WidgetBackground"))
     }
 }
 
@@ -216,5 +217,18 @@ struct ContributionWidget : Widget {
 struct ContributionWidget_Previews : PreviewProvider {
     static var previews: some View {
         ContributionView(entry:ContributionEntry(date:Date(),data:ZLSimpleContributionModel.getSampleContributionData(),loginName:"ExistOrLive")).previewContext(WidgetPreviewContext(family: .systemMedium))
+    }
+}
+
+
+extension View {
+    func widgetBackground(_ backgroundView: some View) -> some View {
+        if #available(iOSApplicationExtension 17.0, *) {
+            return containerBackground(for: .widget) {
+                backgroundView
+            }
+        } else {
+            return background(backgroundView)
+        }
     }
 }

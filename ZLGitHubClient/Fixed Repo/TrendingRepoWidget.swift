@@ -71,11 +71,11 @@ struct FixedRepoMediumView : View {
                 
                 if entry.model == nil {
                     
+                    
                     Text("             ")
                         .font(.title3)
                         .foregroundColor(Color("ZLTitleColor"))
                         .lineLimit(1)
-                        .background(Color("ZLTitleColor"))
                     
                     Spacer()
                     
@@ -83,7 +83,6 @@ struct FixedRepoMediumView : View {
                         .font(.caption)
                         .foregroundColor(Color("ZLDescColor"))
                         .lineLimit(3)
-                        .background(Color("ZLDescColor"))
                     
                     Spacer()
                     
@@ -96,7 +95,6 @@ struct FixedRepoMediumView : View {
                         Text("     ")
                             .font(.caption2)
                             .foregroundColor(Color("ZLLanguageColor"))
-                            .background(Color("ZLLanguageColor"))
                     }
                     
                 } else {
@@ -168,7 +166,7 @@ struct TrendingRepoEntryView : View {
     @Environment(\.widgetFamily) var family: WidgetFamily
 
     var body: some View {
-        return FixedRepoMediumView(entry: entry)
+        return FixedRepoMediumView(entry: entry).widgetBackground(Color("WidgetBackground"))
     }
 }
 
