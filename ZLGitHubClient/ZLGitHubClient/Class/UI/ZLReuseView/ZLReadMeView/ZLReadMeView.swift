@@ -77,9 +77,14 @@ class ZLReadMeView: ZLBaseView {
         }
     }
 
-    override func tintColorDidChange() {
-        // appearence mode 改变
-        self.reRender()
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        // 外观模式切换
+        super.traitCollectionDidChange(previousTraitCollection)
+        if #available(iOS 13.0, *) {
+            if self.traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+                self.reRender()
+            }
+        }
     }
 
     // 开始渲染页面

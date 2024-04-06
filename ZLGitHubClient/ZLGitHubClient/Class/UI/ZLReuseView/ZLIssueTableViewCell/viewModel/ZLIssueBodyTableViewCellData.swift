@@ -19,9 +19,12 @@ class ZLIssueBodyTableViewCellData: ZLGithubItemTableViewCellData {
     private var cacheHtml: String?
     private var cellHeight: CGFloat = 110
 
-    init(data: IssueData) {
+    init(data: IssueData, cellHeight: CGFloat? = nil ) {
         self.data = data
         super.init()
+        if let cellHeight {
+            self.cellHeight = cellHeight
+        }
     }
 
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {

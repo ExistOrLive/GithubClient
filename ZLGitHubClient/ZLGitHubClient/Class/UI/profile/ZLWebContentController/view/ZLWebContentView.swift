@@ -214,7 +214,12 @@ class ZLWebContentView: ZLBaseView {
         }
     }
     
-    override func tintColorDidChange() {
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        // 外观模式切换
+        super.traitCollectionDidChange(previousTraitCollection)
+        guard #available(iOS 13.0, *), self.traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle else {
+            return
+        }
         if getRealUserInterfaceStyle() == .light {
             bottomView.layer.shadowColor = UIColor.black.cgColor
         } else {

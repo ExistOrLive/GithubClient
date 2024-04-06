@@ -30,7 +30,7 @@ class ZLSettingLogoutTableViewCell: UITableViewCell {
     // MARK: Lazy View
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = ZLLocalizedString(string: "logout", comment: "注销")
+        label.text = ZLLocalizedString(string: "logout", comment: "登出")
         label.textColor = UIColor(named:"ZLLabelColor1")
         label.font = .zlRegularFont(withSize: 18)
         return label

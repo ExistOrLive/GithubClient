@@ -60,7 +60,7 @@ import ZLUtilities
     }()
 
     // viewModel
-    private var cellDatas: [ZLGithubItemTableViewCellData] = []
+    private(set) var cellDatas: [ZLGithubItemTableViewCellData] = []
 
     // delegate
     @objc weak var delegate: ZLGithubItemListViewDelegate?
@@ -85,12 +85,18 @@ import ZLUtilities
         self.tableView.backgroundColor = UIColor.clear
     }
 
-    override func tintColorDidChange() {
-        // appearence mode 改变
-        for cellData in self.cellDatas {
-            cellData.clearCache()
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        // 外观模式切换
+        super.traitCollectionDidChange(previousTraitCollection)
+        if #available(iOS 13.0, *) {
+            if self.traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+                
+                for cellData in self.cellDatas {
+                    cellData.clearCache()
+                }
+                self.tableView.reloadData()
+            }
         }
-        self.tableView.reloadData()
     }
 
     private func setUpUI() {

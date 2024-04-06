@@ -98,9 +98,9 @@ extension ZLPRInfoController: ZLGithubItemListViewDelegate {
                 if let data = resultModel.data as? PrInfoQuery.Data {
 
                     self?.title = data.repository?.pullRequest?.title
-
-                    let cellDatas: [ZLGithubItemTableViewCellData] = ZLPullRequestTableViewCellData.getCellDatasWithPRModel(data: data,
-                                                                                                                             firstPage: true)
+                    
+                    let cellDatas = self?.getCellDatasWithPRModel(data: data,
+                                                                  firstPage: true) ?? []
                     self?.after = data.repository?.pullRequest?.timelineItems.pageInfo.endCursor
                     self?.addSubViewModels(cellDatas)
                     self?.itemListView.resetCellDatas(cellDatas: cellDatas)
@@ -136,8 +136,8 @@ extension ZLPRInfoController: ZLGithubItemListViewDelegate {
 
                     self?.title = data.repository?.pullRequest?.title
 
-                    let cellDatas: [ZLGithubItemTableViewCellData] = ZLPullRequestTableViewCellData.getCellDatasWithPRModel(data: data,
-                                                                                                                             firstPage: false)
+                    let cellDatas = self?.getCellDatasWithPRModel(data: data,
+                                                                  firstPage: false) ?? []
 
                     self?.after = data.repository?.pullRequest?.timelineItems.pageInfo.endCursor
                     self?.addSubViewModels(cellDatas)
@@ -151,4 +151,53 @@ extension ZLPRInfoController: ZLGithubItemListViewDelegate {
 
     }
 
+}
+
+
+extension ZLPRInfoController {
+    
+    func getCellDatasWithPRModel(data: PrInfoQuery.Data, firstPage: Bool) -> [ZLGithubItemTableViewCellData] {
+
+        let preCellDatas = itemListView.cellDatas
+        var cellDatas: [ZLGithubItemTableViewCellData] = []
+
+        if firstPage {
+            let headercellData = ZLPullRequestHeaderTableViewCellData(data: data)
+            cellDatas.append(headercellData)
+
+            if let pullrequest = data.repository?.pullRequest {
+                let preBodyCellData = preCellDatas.first { $0 is ZLPullRequestBodyTableViewCellData }
+                let bodyCellData = ZLPullRequestBodyTableViewCellData(data: pullrequest,
+                                                                      cellHeight: preBodyCellData?.getCellHeight())
+                cellDatas.append(bodyCellData)
+            }
+        }
+
+        if let timelines = data.repository?.pullRequest?.timelineItems.nodes {
+            for timeline in timelines {
+                if let comment =  timeline?.asIssueComment {
+                    let preBodyCellData = preCellDatas.first {
+                        if let commentCellData =  $0 as? ZLPullRequestCommentTableViewCellData,
+                           commentCellData.data.id ==  comment.id {
+                            return true
+                        }
+                        return false
+                    }
+                    let bodyCellData = ZLPullRequestCommentTableViewCellData(data: comment, cellHeight: preBodyCellData?.getCellHeight())
+                    cellDatas.append(bodyCellData)
+                } else if timeline?.asSubscribedEvent != nil ||
+                            timeline?.asUnsubscribedEvent != nil ||
+                            timeline?.asMentionedEvent != nil ||
+                            timeline?.asAddedToProjectEvent != nil ||
+                            timeline?.asRemovedFromProjectEvent != nil {
+                    continue
+                } else if let timeline  = timeline {
+                    let timelinedata = ZLPullRequestTimelineTableViewCellData(data: timeline)
+                    cellDatas.append(timelinedata)
+                }
+            }
+        }
+
+        return cellDatas
+    }
 }

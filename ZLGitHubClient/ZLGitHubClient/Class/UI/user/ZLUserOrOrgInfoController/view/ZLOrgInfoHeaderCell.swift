@@ -9,7 +9,7 @@
 import UIKit
 import ZLUIUtilities
 
-protocol ZLOrgInfoHeaderCellDataSourceAndDelegate: ZLGithubItemTableViewCellDataProtocol {
+protocol ZLOrgInfoHeaderCellDataSourceAndDelegate: AnyObject {
 
     var name: String {get}
     var loginName: String {get}

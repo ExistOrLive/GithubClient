@@ -9,7 +9,7 @@
 import UIKit
 import ZLUIUtilities
 
-protocol ZLUserInfoHeaderCellDataSourceAndDelegate: ZLGithubItemTableViewCellDataProtocol {
+protocol ZLUserInfoHeaderCellDataSourceAndDelegate: AnyObject {
 
     var name: String {get}
     var loginName: String {get}
@@ -21,12 +21,9 @@ protocol ZLUserInfoHeaderCellDataSourceAndDelegate: ZLGithubItemTableViewCellDat
     var gistsNum: String {get}
     var followersNum: String {get}
     var followingNum: String {get}
-
-    var showBlockButton: Bool {get}
-    var showFollowButton: Bool {get}
-
-    var blockStatus: Bool {get}
-    var followStatus: Bool {get}
+    
+    var blockStatus: Bool? {get}
+    var followStatus: Bool? {get}
 
     func onFollowButtonClicked()
     func onBlockButtonClicked()
@@ -35,8 +32,6 @@ protocol ZLUserInfoHeaderCellDataSourceAndDelegate: ZLGithubItemTableViewCellDat
     func onGistsNumButtonClicked()
     func onFollowsNumButtonClicked()
     func onFollowingNumButtonClicked()
-
-    func setUserInfoHeaderCallback(callBack: @escaping () -> Void)
 }
 
 class ZLUserInfoHeaderCell: UITableViewCell {
@@ -127,10 +122,19 @@ class ZLUserInfoHeaderCell: UITableViewCell {
         followersNumButton.numLabel.text = delegate?.followersNum
         followingsNumButton.numLabel.text = delegate?.followingNum
 
-        followButton.isHidden = !(delegate?.showFollowButton ?? false)
-        blockButton.isHidden = !(delegate?.showBlockButton ?? false)
-        followButton.isSelected = delegate?.followStatus ?? false
-        blockButton.isSelected = delegate?.blockStatus ?? false
+        if let followStatus = delegate?.followStatus {
+            followButton.isHidden = false
+            followButton.isSelected = followStatus
+        } else {
+            followButton.isHidden = true
+        }
+        
+        if let blockStatus = delegate?.blockStatus {
+            blockButton.isHidden = false
+            blockButton.isSelected = blockStatus
+        } else {
+            blockButton.isHidden = true
+        }
     }
 
     // MARK: View
@@ -238,9 +242,6 @@ extension ZLUserInfoHeaderCell: ZLViewUpdatableWithViewData {
     // MARK: fillWithdata
     func fillWithViewData(viewData: ZLUserInfoHeaderCellDataSourceAndDelegate){
         delegate = viewData
-        delegate?.setUserInfoHeaderCallback { [weak self] in
-            self?.reloadData()
-        }
         reloadData()
     }
     
