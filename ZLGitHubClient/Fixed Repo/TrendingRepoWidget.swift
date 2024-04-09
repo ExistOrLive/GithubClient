@@ -33,8 +33,6 @@ struct TrendingRepoProvider: IntentTimelineProvider {
     func getTimeline(for configuration: FixedRepoConfigurationIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         var entries: [SimpleEntry] = []
         
-        let colors = [Color.blue,Color.red,Color.orange,Color.yellow,Color.green,Color.purple,Color.pink]
-        
         ZLWidgetService.trendingRepo(dateRange: configuration.DateRange, language: configuration.Language) {(result, repos) in
             
             // Generate a timeline consisting of five entries an hour apart, starting from the current date.

@@ -33,36 +33,32 @@ extension ZLUserInfoHeaderCellData {
 
     func followUser() {
         ZLProgressHUD.show()
-        stateModel.followUser { [weak self] res, msg in
+        stateModel.followUser { res, msg in
             ZLProgressHUD.dismiss()
-            guard let self = self else { return }
             ZLToastView.showMessage(msg)
         }
     }
 
     func unfollowUser() {
         ZLProgressHUD.show()
-        stateModel.unfollowUser { [weak self] res, msg in
+        stateModel.unfollowUser { res, msg in
             ZLProgressHUD.dismiss()
-            guard let self = self else { return }
             ZLToastView.showMessage(msg)
         }
     }
 
     func BlockUser() {
         ZLProgressHUD.show()
-        stateModel.BlockUser { [weak self] res, msg in
+        stateModel.BlockUser { res, msg in
             ZLProgressHUD.dismiss()
-            guard let self = self else { return }
             ZLToastView.showMessage(msg)
         }
     }
 
     func unBlockUser() {
         ZLProgressHUD.show()
-        stateModel.unBlockUser { [weak self] res, msg in
+        stateModel.unBlockUser { res, msg in
             ZLProgressHUD.dismiss()
-            guard let self = self else { return }
             ZLToastView.showMessage(msg)
         }
     }

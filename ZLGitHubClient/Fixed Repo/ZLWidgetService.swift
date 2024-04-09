@@ -8,7 +8,7 @@
 
 import Foundation
 import Kanna
-import HandyJSON
+import ObjectMapper
 
 struct ZLSimpleRepositoryModel{
     let fullName: String
@@ -25,10 +25,17 @@ struct ZLSimpleContributionModel{
 }
 
 struct ZLWidgetService {
-    class TrendingConfig: HandyJSON {
-        required init() {}
+    class TrendingConfig: Mappable {
         var path: String = ""
         var property: String = ""
+        
+        required init() {}
+        required init?(map: Map) { }
+        
+        func mapping(map: Map) {
+            path    <- map["path"]
+            property  <- map["property"]
+        }
         
         func getTargetElementStr(element: XMLElement) -> String? {
             guard let targetElement = element.at_xpath(path) else {
@@ -44,14 +51,24 @@ struct ZLWidgetService {
             return content?.trimmingCharacters(in: set)
         }
     }
-    class TrendingRepoConfig: HandyJSON {
-        required init() {}
+    class TrendingRepoConfig: Mappable {
         var repoArrayPath: String = ""
         var fullName: TrendingConfig = TrendingConfig()
         var desc: TrendingConfig = TrendingConfig()
         var language: TrendingConfig = TrendingConfig()
         var star: TrendingConfig = TrendingConfig()
         var fork: TrendingConfig = TrendingConfig()
+        
+        required init?(map: ObjectMapper.Map) {}
+        
+        func mapping(map: ObjectMapper.Map) {
+            repoArrayPath <- map["repoArrayPath"]
+            fullName <- map["fullName"]
+            desc <- map["desc"]
+            language <- map["language"]
+            star <- map["star"]
+            fork <- map["fork"]
+        }
     }
     static let trendingRepoConfig: [String:Any] = [
         "repoArrayPath": "//article[@class=\"Box-row\"]",
@@ -99,7 +116,7 @@ struct ZLWidgetService {
         DispatchQueue.global().async {
             
             guard let htmlDoc = try? HTML(url: url, encoding: .utf8),
-                  let trendConfig = TrendingRepoConfig.deserialize(from: ZLWidgetService.trendingRepoConfig) else {
+                  let trendConfig = TrendingRepoConfig(JSON: ZLWidgetService.trendingRepoConfig) else {
                 DispatchQueue.main.async {
                     completeHandler(false,[])
                 }

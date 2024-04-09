@@ -19,14 +19,6 @@ PODS:
   - DGCharts (5.1.0):
     - DGCharts/Core (= 5.1.0)
   - DGCharts/Core (5.1.0)
-  - DoraemonKit/Core (3.1.3):
-    - FMDB
-    - GCDWebServer
-    - GCDWebServer/WebDAV
-    - GCDWebServer/WebUploader
-  - DoraemonKit/WithLogger (3.1.3):
-    - CocoaLumberjack
-    - DoraemonKit/Core
   - FFPopup (1.1.5)
   - Firebase/Analytics (10.22.0):
     - Firebase/Core
@@ -110,18 +102,11 @@ PODS:
     - nanopb (< 2.30911.0, >= 2.30908.0)
     - PromisesSwift (~> 2.1)
   - FirebaseSharedSwift (10.23.0)
-  - FMDB (2.7.9):
-    - FMDB/standard (= 2.7.9)
-  - FMDB/standard (2.7.9)
+  - FMDB (2.7.10):
+    - FMDB/standard (= 2.7.10)
+  - FMDB/standard (2.7.10)
   - FWPopupView (4.2.2):
     - SnapKit
-  - GCDWebServer (3.5.4):
-    - GCDWebServer/Core (= 3.5.4)
-  - GCDWebServer/Core (3.5.4)
-  - GCDWebServer/WebDAV (3.5.4):
-    - GCDWebServer/Core
-  - GCDWebServer/WebUploader (3.5.4):
-    - GCDWebServer/Core
   - GoogleAppMeasurement (10.22.0):
     - GoogleAppMeasurement/AdIdSupport (= 10.22.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
@@ -176,7 +161,6 @@ PODS:
   - GoogleUtilities/UserDefaults (7.13.0):
     - GoogleUtilities/Logger
     - GoogleUtilities/Privacy
-  - HandyJSON (5.0.2)
   - HiAnalytics (6.10.0.311):
     - AGConnectCredential
   - HMFoundation (1.9.0.302)
@@ -213,6 +197,7 @@ PODS:
     - nanopb/encode (= 2.30910.0)
   - nanopb/decode (2.30910.0)
   - nanopb/encode (2.30910.0)
+  - ObjectMapper (4.2.0)
   - PromisesObjC (2.4.0)
   - PromisesSwift (2.4.0):
     - PromisesObjC (= 2.4.0)
@@ -254,9 +239,9 @@ PODS:
     - CocoaLumberjack
     - Firebase/Analytics
     - FMDB
-    - HandyJSON
     - Kanna
     - MJExtension
+    - ObjectMapper
     - SYDCentralPivot
     - Umbrella
     - Umbrella/Firebase
@@ -279,14 +264,11 @@ DEPENDENCIES:
   - AGConnectRemoteConfig (~> 1.9.0.301)
   - CircleMenu
   - DGCharts
-  - DoraemonKit/Core
-  - DoraemonKit/WithLogger
   - FFPopup
   - Firebase/Analytics (= 10.22.0)
   - Firebase/Crashlytics (= 10.22.0)
   - Firebase/Performance (= 10.22.0)
   - FWPopupView
-  - HandyJSON
   - HiAnalytics
   - IQKeyboardManager
   - JJException
@@ -296,6 +278,7 @@ DEPENDENCIES:
   - Masonry
   - MBProgressHUD
   - MJRefresh
+  - ObjectMapper
   - RxCocoa
   - RxRelay
   - RxSwift
@@ -324,7 +307,6 @@ SPEC REPOS:
     - CircleMenu
     - CocoaLumberjack
     - DGCharts
-    - DoraemonKit
     - FFPopup
     - Firebase
     - FirebaseABTesting
@@ -341,11 +323,9 @@ SPEC REPOS:
     - FirebaseSharedSwift
     - FMDB
     - FWPopupView
-    - GCDWebServer
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleUtilities
-    - HandyJSON
     - HiAnalytics
     - HMFoundation
     - IQKeyboardManager
@@ -358,6 +338,7 @@ SPEC REPOS:
     - MJExtension
     - MJRefresh
     - nanopb
+    - ObjectMapper
     - PromisesObjC
     - PromisesSwift
     - RxCocoa
@@ -398,7 +379,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/ExistOrLive/ZLGithubOAuth.git
     :tag: 1.2.0
   ZLGitRemoteService:
-    :commit: 0b61731e0faec7e6e46647b329477d3720d2c16c
+    :commit: a4e62be94b1527b5ea00953dcea4ec036bc153a8
     :git: https://github.com/ExistOrLive/ZLGitRemoteService.git
   ZLUIUtilities:
     :commit: a6790ca7e2be4269c81095b16b81ca04c6823ea3
@@ -417,7 +398,6 @@ SPEC CHECKSUMS:
   CircleMenu: a66095199a5e26f19acbb212f077010257767fe5
   CocoaLumberjack: 6a459bc897d6d80bd1b8c78482ec7ad05dffc3f0
   DGCharts: 1c6daf585b6cfc78807af44ea690d357c410627f
-  DoraemonKit: 7448814a80d9ca56bc8db9105c464b7ec2e62623
   FFPopup: a208dcee8db3e54ec4a88fcd6481f6f5d85b7a83
   Firebase: 797fd7297b7e1be954432743a0b3f90038e45a71
   FirebaseABTesting: aec61ed9a34d85a95e2013a3fdf051426a2419df
@@ -432,13 +412,11 @@ SPEC CHECKSUMS:
   FirebaseRemoteConfigInterop: cbc87ffa4932719a7911a08e94510f18f026f5a7
   FirebaseSessions: f06853e30f99fe42aa511014d7ee6c8c319f08a3
   FirebaseSharedSwift: c92645b392db3c41a83a0aa967de16f8bad25568
-  FMDB: aa44149f6fb634b1ac54f64f47064bb0d0c5a032
+  FMDB: eae540775bf7d0c87a5af926ae37af69effe5a19
   FWPopupView: b96d7d46d4afaad8e99d2739f9118a3c43c63a7b
-  GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
   GoogleAppMeasurement: ccefe3eac9b0aa27f96066809fb1a7fe4b462626
   GoogleDataTransport: 6c09b596d841063d76d4288cc2d2f42cc36e1e2a
   GoogleUtilities: d053d902a8edaa9904e1bd00c37535385b8ed152
-  HandyJSON: 9e4e236f5d2dbefad5155a77417bbea438201c03
   HiAnalytics: 07a774c560885f699db1d25af9e0cfc3fcf315e3
   HMFoundation: 07a5cc092dc728e13400df5d24648f03ded00a95
   IQKeyboardManager: 67f92bb29b650c094c40bd11c0545b47bdd25c5b
@@ -451,6 +429,7 @@ SPEC CHECKSUMS:
   MJExtension: e97d164cb411aa9795cf576093a1fa208b4a8dd8
   MJRefresh: ff9e531227924c84ce459338414550a05d2aea78
   nanopb: 438bc412db1928dac798aa6fd75726007be04262
+  ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   PromisesSwift: 9d77319bbe72ebf6d872900551f7eeba9bce2851
   RxCocoa: 44a80de90e25b739b5aeaae3c8c371a32e3343cc
@@ -466,10 +445,10 @@ SPEC CHECKSUMS:
   ZLBaseExtension: 90e59e26595222fb11628a97f4b2951ab843e4f1
   ZLBaseUI: 2815898555602f9bebb23ca0277ff5352d2a2952
   ZLGithubOAuth: 2d9879eac1d41d45206e6e92463afae2537ec44d
-  ZLGitRemoteService: ebcedcbd7f75235e579778cbea98c62b00a48342
+  ZLGitRemoteService: 3ac13558ee6c1d1acf0b2f542712d2dae8dc6a3b
   ZLUIUtilities: c913a60f5ffdd89f3e84325f850dc2a2d2e52838
   ZLUtilities: 65a433eda88c05edb4a48f9209c8736e2a5d3b0a
 
-PODFILE CHECKSUM: 845a60c0e7b9ceb8ea426e335514182b305f6e06
+PODFILE CHECKSUM: 959b1cf23508f64b3fafff67402e642f060f2eb8
 
 COCOAPODS: 1.15.2
