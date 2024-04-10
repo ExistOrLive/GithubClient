@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import ZLUIUtilities
 
-class ZLUserContributionsCellData: ZLGithubItemTableViewCellData {
+class ZLUserContributionsCellData: ZLTableViewBaseCellData {
 
     // data
     private var _loginName: String
@@ -16,21 +17,7 @@ class ZLUserContributionsCellData: ZLGithubItemTableViewCellData {
     init(loginName: String) {
         self._loginName = loginName
         super.init()
-    }
-
-    override func update(_ targetModel: Any?) {
-        guard let loginName = targetModel as? String else {
-            return
-        }
-        self._loginName = loginName
-    }
-
-    override func getCellReuseIdentifier() -> String {
-        "ZLUserContributionsCell"
-    }
-
-    override func getCellHeight() -> CGFloat {
-        UITableView.automaticDimension
+        cellReuseIdentifier =  "ZLUserContributionsCell"
     }
 }
 

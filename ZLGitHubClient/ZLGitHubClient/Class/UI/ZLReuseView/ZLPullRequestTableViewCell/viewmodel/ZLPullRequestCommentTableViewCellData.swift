@@ -14,14 +14,17 @@ class ZLPullRequestCommentTableViewCellData: ZLGithubItemTableViewCellData {
 
     typealias CommentData = PrInfoQuery.Data.Repository.PullRequest.TimelineItem.Node.AsIssueComment
 
-    private let data: CommentData
+    let data: CommentData
 
     private var cacheHtml: String?
     private var cellHeight: CGFloat = 110
 
-    init(data: CommentData) {
+    init(data: CommentData, cellHeight: CGFloat? ) {
         self.data = data
         super.init()
+        if let cellHeight = cellHeight {
+            self.cellHeight = cellHeight
+        }
     }
 
     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {

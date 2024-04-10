@@ -190,14 +190,22 @@ private class ZLIssueInfoBottomView: ZLBaseView {
         }
     }
     
-    override func tintColorDidChange() {
-        if getRealUserInterfaceStyle() == .light {
-            layer.shadowColor = UIColor.black.cgColor
-        } else {
-            layer.shadowColor = UIColor.white.cgColor
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        // 外观模式切换
+        super.traitCollectionDidChange(previousTraitCollection)
+        if #available(iOS 13.0, *) {
+            if self.traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+                
+                if getRealUserInterfaceStyle() == .light {
+                    layer.shadowColor = UIColor.black.cgColor
+                } else {
+                    layer.shadowColor = UIColor.white.cgColor
+                }
+            }
         }
     }
     
+
     // MARK: Lazy View
     lazy var stackView: UIStackView = {
         let stackView = UIStackView()

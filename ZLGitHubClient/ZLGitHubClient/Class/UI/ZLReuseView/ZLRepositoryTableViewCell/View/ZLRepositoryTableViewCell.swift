@@ -89,6 +89,12 @@ class ZLRepositoryTableViewCell: UITableViewCell {
         return label
     }()
 
+    lazy  var languageIcon: UIView = {
+        let view = UIView()
+        view.cornerRadius = 6
+        return view
+    }()
+    
     lazy  var languageLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.zlMediumFont(withSize: 14)
@@ -181,6 +187,7 @@ class ZLRepositoryTableViewCell: UITableViewCell {
         containerView.addSubview(repostitoryNameLabel)
         containerView.addSubview(ownerNameLabel)
         containerView.addSubview(descriptionLabel)
+        containerView.addSubview(languageIcon)
         containerView.addSubview(languageLabel)
 
         avatarButton.snp.makeConstraints { (make) in
@@ -201,9 +208,15 @@ class ZLRepositoryTableViewCell: UITableViewCell {
             make.left.equalTo(repostitoryNameLabel)
         }
 
+        languageIcon.snp.makeConstraints { make in
+            make.centerY.equalTo(languageLabel)
+            make.left.equalTo(ownerNameLabel.snp.right).offset(20)
+            make.size.equalTo(12)
+        }
+        
         languageLabel.snp.makeConstraints { make in
             make.top.equalTo(repostitoryNameLabel.snp.bottom).offset(10)
-            make.left.equalTo(ownerNameLabel.snp.right).offset(20)
+            make.left.equalTo(languageIcon.snp.right).offset(5)
         }
 
         descriptionLabel.snp.makeConstraints { make in
@@ -295,6 +308,8 @@ extension ZLRepositoryTableViewCell: ZLViewUpdatableWithViewData {
         avatarButton.loadAvatar(login: data.getOwnerName() ?? "",
                                 avatarUrl: data.getOwnerAvatarURL() ?? "")
         repostitoryNameLabel.text = data.getRepoName()
+        languageIcon.backgroundColor = ZLDevelopmentLanguageColor.colorForLanguage(data.getRepoMainLanguage() ?? "")
+        languageIcon.isHidden = (data.getRepoMainLanguage() ?? "").isEmpty
         languageLabel.text = data.getRepoMainLanguage()
         descriptionLabel.text = data.getRepoDesc()
         forkNumLabel.text = data.forkNum() < 1000 ? "\(data.forkNum())" : String(format: "%.1f", Double(data.forkNum())/1000.0) + "k"

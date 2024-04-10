@@ -9,6 +9,7 @@
 import UIKit
 import ZLBaseUI
 import ZLUtilities
+import ZLUIUtilities
 
 protocol ZLRepoPullRequestViewDelegate: ZLGithubItemListViewDelegate {
     // delagate

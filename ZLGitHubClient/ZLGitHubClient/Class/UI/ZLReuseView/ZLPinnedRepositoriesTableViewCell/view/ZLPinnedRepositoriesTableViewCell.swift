@@ -11,7 +11,7 @@ import ZLBaseUI
 import ZLUIUtilities
 import ZLBaseExtension
 
-protocol ZLPinnedRepositoriesTableViewCellDelegateAndDataSource: ZLGithubItemTableViewCellDataProtocol {
+protocol ZLPinnedRepositoriesTableViewCellDelegateAndDataSource: AnyObject {
     var cellDatas: [ZLPinnedRepositoryCollectionViewCellDataSourceAndDelegate] {get}
 }
 

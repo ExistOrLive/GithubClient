@@ -9,8 +9,9 @@
 import UIKit
 import ZLGitRemoteService
 import ZLBaseUI
+import ZLUIUtilities
 
-class ZLPinnedRepositoriesTableViewCellData: ZLGithubItemTableViewCellData {
+class ZLPinnedRepositoriesTableViewCellData: ZLTableViewBaseCellData {
 
     private var repos: [ZLGithubRepositoryBriefModel]
 
@@ -24,30 +25,7 @@ class ZLPinnedRepositoriesTableViewCellData: ZLGithubItemTableViewCellData {
         })
         super.init()
         self.addSubViewModels(subCellDatas)
-    }
-
-    override func update(_ targetModel: Any?) {
-        guard let repos = targetModel as? [ZLGithubRepositoryBriefModel] else {
-            return
-        }
-        for subViewModel in self.subViewModels {
-            subViewModel.removeFromSuperViewModel()
-        }
-
-        self.repos = repos
-        subCellDatas = repos.map({ item in
-            let cellData = ZLPinnedRepositoriesCollectionViewCellData(repo: item)
-            return cellData
-        })
-        self.addSubViewModels(subCellDatas)
-    }
-
-    override func getCellReuseIdentifier() -> String {
-        return "ZLPinnedRepositoriesTableViewCell"
-    }
-
-    override func getCellHeight() -> CGFloat {
-        return UITableView.automaticDimension
+        cellReuseIdentifier = "ZLPinnedRepositoriesTableViewCell"
     }
 }
 
@@ -55,5 +33,4 @@ extension ZLPinnedRepositoriesTableViewCellData: ZLPinnedRepositoriesTableViewCe
     var cellDatas: [ZLPinnedRepositoryCollectionViewCellDataSourceAndDelegate] {
         subCellDatas
     }
-
 }

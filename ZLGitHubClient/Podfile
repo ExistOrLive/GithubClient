@@ -7,7 +7,7 @@ abstract_target 'GithubClient' do
   
 target 'Fixed RepoExtension' do
   pod 'Kanna', '~> 5.2.2'
-  pod 'HandyJSON'
+  pod 'ObjectMapper'
 end
 
 target 'ZLGitHubClient' do
@@ -32,11 +32,8 @@ pod 'ZLUIUtilities', :git => "https://github.com/ExistOrLive/ZLUIUtilities.git"
 #pod 'ZLUtilities', :path => '../../ZLUtilities'
 pod 'ZLUtilities', :git => "https://github.com/ExistOrLive/ZLUtilities.git"
 
-#pod 'Google-Mobile-Ads-SDK'
 pod 'Umbrella'
-#pod 'Umbrella/Segment'
 pod 'Umbrella/Firebase'
-#pod 'Analytics', '~> 3.0'
 
 
 # 刷新控件
@@ -44,14 +41,13 @@ pod 'MJRefresh'
 # 转圈控件
 pod 'MBProgressHUD'
 # ToastView https://github.com/scalessec/Toast-Swift
-pod 'Toast'
+pod 'Toast', :podspec => "ZLGitHubClient/System/ZLSupportFiles/Toast.podspec"
 # pageView控件 https://github.com/pujiaxin33/JXSegmentedView
 pod 'JXSegmentedView'
 # 键盘 https://github.com/hackiftekhar/IQKeyboardManager
 pod 'IQKeyboardManager'
 # 图表
-#pod 'ChartsRealm'
-pod 'Charts'
+pod 'DGCharts'
 #下载图片
 pod 'SDWebImage'
 # AutoLayout
@@ -72,8 +68,9 @@ pod 'FFPopup'
 # 移动监控工具
 #pod 'WoodPeckeriOS', :configurations => ['Debug']
 pod 'LookinServer', :configurations => ['Debug']
-pod 'DoraemonKit/Core', :configurations => ['Debug']
-pod 'DoraemonKit/WithLogger', :configurations => ['Debug']
+#pod 'DoraemonKit/Core', :configurations => ['Debug']
+#pod 'DoraemonKit/WithLogger', :configurations => ['Debug']
+#pod 'GCDWebServer', :configurations => ['Debug'], :git => "https://github.com/readium/GCDWebServer.git", :tag => '3.6.3'
 #pod 'DoraemonKit/WithGPS', :configurations => ['Debug']
 #pod 'DoraemonKit/WithMLeaksFinder', :configurations => ['Debug']
 
@@ -104,9 +101,9 @@ pod 'CircleMenu'
 #pod 'FloatingPanel'
 
 # firebase 分析监控
-pod 'Firebase/Analytics'
-pod 'Firebase/Crashlytics'
-pod 'Firebase/Performance'
+pod 'Firebase/Analytics', "= 10.22.0"
+pod 'Firebase/Crashlytics', "= 10.22.0"
+pod 'Firebase/Performance', "= 10.22.0"
 
 # huawei 分析监控
 pod 'AGConnectCore','~> 1.9.0.301'

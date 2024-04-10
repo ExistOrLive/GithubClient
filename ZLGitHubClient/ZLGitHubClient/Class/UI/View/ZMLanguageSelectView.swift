@@ -11,6 +11,7 @@ import UIKit
 import ZLBaseExtension
 import ZLGitRemoteService
 import ZLUIUtilities
+import SnapKit
 
 class ZMLanguageSelectView {
     
@@ -54,7 +55,7 @@ class ZMLanguageSelectView {
                                           animationDuration: 0.1,
                                           titles: developLanguageArray,
                                           selectedIndex: selectedIndex,
-                                          cellType: ZMInputCollectionViewSelectTickCell.self)
+                                          cellType: ZMDevelopmentLanguageSelectTickCell.self)
             { index, title in
                 if title == "Any" {
                     resultBlock(nil)
@@ -337,3 +338,97 @@ extension ZMLanguageSelectView {
         "Zulu":"zu"
      ]
 }
+
+
+/// 带✅的选择框 Cell
+public class ZMDevelopmentLanguageSelectTickCell: UICollectionViewCell, ZMInputCollectionViewConcreteUpdatable {
+ 
+    override public init(frame: CGRect) {
+        super.init(frame: frame)
+        setUpUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc dynamic func setUpUI() {
+        
+        contentView.backgroundColor = UIColor(named: "ZLPopUpCellBack")
+        
+        contentView.addSubview(languageStackView)
+        languageStackView.addArrangedSubview(languageIcon)
+        languageStackView.addArrangedSubview(languageLabel)
+        contentView.addSubview(tickLabel)
+        contentView.addSubview(separateLine)
+        
+        languageStackView.snp.makeConstraints { make in
+            make.left.equalTo(20)
+            make.centerY.equalToSuperview()
+        }
+        
+        languageIcon.snp.makeConstraints { make in
+            make.size.equalTo(14)
+        }
+        
+        tickLabel.snp.makeConstraints { make in
+            make.right.equalTo(-20)
+            make.centerY.equalToSuperview()
+        }
+        
+        separateLine.snp.makeConstraints { make in
+            make.left.equalTo(20)
+            make.bottom.right.equalToSuperview()
+            make.height.equalTo(1.0/UIScreen.main.scale)
+        }
+    }
+
+    public func updateConcreteViewData(viewData: ZMInputCollectionViewSelectTitleBoxCellData) {
+        languageIcon.isHidden = viewData.title == "Any"
+        languageIcon.backgroundColor = ZLDevelopmentLanguageColor.colorForLanguage(viewData.title)
+        languageLabel.text = viewData.title
+        languageLabel.font = viewData.temporaryCellSelected ? .zlMediumFont(withSize:16) : .zlLightFont(withSize:15)
+        tickLabel.isHidden = !viewData.temporaryCellSelected
+    }
+    
+    // Lazy View
+    @objc lazy dynamic var languageStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.spacing = 8.0
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.alignment = .center
+        return stackView
+    }()
+    
+    @objc lazy dynamic var languageIcon: UIView = {
+        let view = UIView()
+        view.cornerRadius = 7.0
+        return view
+    }()
+    
+    @objc lazy dynamic var languageLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.font = .zlLightFont(withSize: 15)
+        label.textColor = UIColor(named: "ZLLabelColor1")
+        return label
+    }()
+    
+    @objc lazy dynamic var tickLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.font = .iconFont(size: 17)
+        label.text = "\u{e689}"
+        label.textColor = UIColor(named: "ZLLabelColor2")
+        return label
+    }()
+    
+    @objc lazy dynamic var separateLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(named:"ZLSeperatorLineColor")
+        return view
+    }()
+    
+}
+

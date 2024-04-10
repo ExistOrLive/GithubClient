@@ -44,8 +44,8 @@ class ZLPinnedRepositoryCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(repostitoryNameLabel)
         contentView.addSubview(ownerNameLabel)
         contentView.addSubview(descriptionLabel)
-        contentView.addSubview(languageLabel)
-
+        contentView.addSubview(bottomStackView)
+        
         avatarButton.snp.makeConstraints { (make) in
             make.top.equalToSuperview().offset(10)
             make.left.equalToSuperview().offset(10)
@@ -63,62 +63,49 @@ class ZLPinnedRepositoryCollectionViewCell: UICollectionViewCell {
             make.left.equalTo(repostitoryNameLabel)
         }
 
-        languageLabel.snp.makeConstraints { make in
-            make.top.equalTo(repostitoryNameLabel.snp.bottom).offset(10)
-            make.left.equalTo(ownerNameLabel.snp.right).offset(20)
-        }
-
         descriptionLabel.snp.makeConstraints { make in
             make.left.equalTo(20)
             make.top.equalTo(avatarButton.snp.bottom).offset(20)
             make.right.equalToSuperview().offset(-20)
         }
 
-        let bottomView = UIView()
-        bottomView.backgroundColor = UIColor.clear
-        contentView.addSubview(bottomView)
-        bottomView.snp.makeConstraints { make in
+        bottomStackView.snp.makeConstraints { make in
             make.top.equalTo(descriptionLabel.snp.bottom).offset(20)
-            make.left.equalTo(repostitoryNameLabel)
             make.bottom.equalToSuperview().offset(-10)
-            make.right.equalToSuperview().offset(-20)
+            make.left.equalTo(20)
             make.height.equalTo(20)
         }
-
-        bottomView.addSubview(privateLabel)
-        bottomView.addSubview(starLabel)
-        bottomView.addSubview(starNumLabel)
-        bottomView.addSubview(forkLabel)
-        bottomView.addSubview(forkNumLabel)
-
-        forkNumLabel.snp.makeConstraints { make in
-            make.right.top.bottom.equalToSuperview()
-            make.width.equalTo(40)
+        
+        bottomStackView.addArrangedSubview(languageIcon)
+        bottomStackView.addArrangedSubview(languageLabel)
+        bottomStackView.addArrangedSubview(starLabel)
+        bottomStackView.addArrangedSubview(starNumLabel)
+        bottomStackView.addArrangedSubview(forkLabel)
+        bottomStackView.addArrangedSubview(forkNumLabel)
+        bottomStackView.addArrangedSubview(privateLabel)
+        
+        languageIcon.snp.makeConstraints { make in
+            make.size.equalTo(CGSize(width: 10, height: 10))
         }
-
+        
         forkLabel.snp.makeConstraints { make in
-            make.size.equalTo(CGSize(width: 20, height: 20))
-            make.centerY.equalToSuperview()
-            make.right.equalTo(forkNumLabel.snp.left).offset(-3)
+            make.size.equalTo(CGSize(width: 15, height: 15))
         }
-
-        starNumLabel.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview()
-            make.width.equalTo(40)
-            make.right.equalTo(forkLabel.snp.left).offset(-20)
-        }
-
+        
         starLabel.snp.makeConstraints { make in
-            make.size.equalTo(CGSize(width: 20, height: 20))
-            make.centerY.equalToSuperview()
-            make.right.equalTo(starNumLabel.snp.left).offset(-3)
+            make.size.equalTo(CGSize(width: 15, height: 15))
         }
 
         privateLabel.snp.makeConstraints { make in
-            make.right.equalTo(starLabel.snp.left).offset(-20)
-            make.size.equalTo(CGSize(width: 20, height: 20))
-            make.centerY.equalToSuperview()
+            make.size.equalTo(CGSize(width: 15, height: 15))
         }
+        
+        bottomStackView.setCustomSpacing(5, after: languageIcon)
+        bottomStackView.setCustomSpacing(12, after: languageLabel)
+        bottomStackView.setCustomSpacing(5, after: starLabel)
+        bottomStackView.setCustomSpacing(12, after: starNumLabel)
+        bottomStackView.setCustomSpacing(5, after: forkLabel)
+        bottomStackView.setCustomSpacing(12, after: forkNumLabel)
     }
 
     // MARK: fillWithData
@@ -127,12 +114,16 @@ class ZLPinnedRepositoryCollectionViewCell: UICollectionViewCell {
 
         avatarButton.loadAvatar(login: viewData.ownerName, avatarUrl: viewData.avatarUrl)
         repostitoryNameLabel.text = viewData.repoName
-        languageLabel.text = viewData.language
         ownerNameLabel.text = viewData.ownerName
         descriptionLabel.text = viewData.desc
         forkNumLabel.text = viewData.forkNum < 1000 ? "\(viewData.forkNum)" : String(format: "%.1f", Double(viewData.forkNum)/1000.0) + "k"
         starNumLabel.text = viewData.starNum < 1000 ? "\(viewData.starNum)" : String(format: "%.1f", Double(viewData.starNum)/1000.0) + "k"
         privateLabel.isHidden = !viewData.isPrivate
+        
+        languageLabel.isHidden = viewData.language.isEmpty
+        languageLabel.text = viewData.language
+        languageIcon.backgroundColor = ZLDevelopmentLanguageColor.colorForLanguage(viewData.language)
+        languageIcon.isHidden = viewData.language.isEmpty
     }
 
     // MARK: View 
@@ -150,14 +141,7 @@ class ZLPinnedRepositoryCollectionViewCell: UICollectionViewCell {
         label.textColor = UIColor(named: "ZLLabelColor1")
         return label
     }()
-
-    lazy  var languageLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.zlMediumFont(withSize: 14)
-        label.textColor = UIColor(named: "ZLLabelColor2")
-        return label
-    }()
-
+    
     lazy var ownerNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.zlMediumFont(withSize: 14)
@@ -196,6 +180,19 @@ class ZLPinnedRepositoryCollectionViewCell: UICollectionViewCell {
         label.textColor = UIColor(named: "ZLLabelColor2")
         return label
     }()
+    
+    lazy  var languageIcon: UIView = {
+        let view = UIView()
+        view.cornerRadius = 5.0
+        return view
+    }()
+
+    lazy  var languageLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.zlMediumFont(withSize: 12)
+        label.textColor = UIColor(named: "ZLLabelColor2")
+        return label
+    }()
 
     lazy var starNumLabel: UILabel = {
         let label = UILabel()
@@ -211,5 +208,14 @@ class ZLPinnedRepositoryCollectionViewCell: UICollectionViewCell {
         label.font = UIFont.zlMediumFont(withSize: 12)
         label.textColor = UIColor(named: "ZLLabelColor2")
         return label
+    }()
+    
+    lazy var bottomStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = 5
+        stackView.alignment = .center
+        stackView.distribution = .fill
+        return stackView
     }()
 }

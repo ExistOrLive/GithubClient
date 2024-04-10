@@ -291,7 +291,15 @@ extension ZLIssueInfoController {
             for tmptimeline in timelinesArray {
                 if let timeline = tmptimeline {
                     if let issueComment = timeline.asIssueComment {
-                        let cellData = ZLIssueCommentTableViewCellData(data: issueComment)
+                        let preCommentData = timelineCellDatas.first(where: {
+                            if let commentCellData = $0 as? ZLIssueCommentTableViewCellData,
+                               commentCellData.data.id == issueComment.id {
+                                return true
+                            }
+                            return false
+                        })
+                        let cellData = ZLIssueCommentTableViewCellData(data: issueComment,
+                                                                       cellHeight: preCommentData?.getCellHeight())
                         cellDatas.append(cellData)
                     } else if timeline.asSubscribedEvent != nil ||
                                 timeline.asUnsubscribedEvent != nil ||
@@ -314,6 +322,7 @@ extension ZLIssueInfoController {
     }
     
     func getIssueBodyCellData(data: IssueInfoQuery.Data.Repository.Issue) -> ZLIssueBodyTableViewCellData {
-        return ZLIssueBodyTableViewCellData(data: data)
+        return ZLIssueBodyTableViewCellData(data: data,
+                                            cellHeight: issueBodyCellData?.getCellHeight())
     }
 }

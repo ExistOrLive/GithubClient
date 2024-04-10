@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import ZLUIUtilities
 
 class ZLSearchFilterButtonCellData: ZMInputCollectionViewButtonCellDataType {
     var buttonValue: Any?

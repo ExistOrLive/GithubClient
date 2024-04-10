@@ -65,7 +65,13 @@ class ZLIssueOperateCell: UITableViewCell {
         clickBlock?(button)
     }
     
-    override func tintColorDidChange() {
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        // 外观模式切换
+        super.traitCollectionDidChange(previousTraitCollection)
+        guard #available(iOS 13.0, *), self.traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle else {
+            return
+        }
+        
         switch opeationType {
         case .subscribe:
             if on {

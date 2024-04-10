@@ -138,8 +138,15 @@ extension ZLEditIssueView {
         }).disposed(by: disposeBag)
     }
     
-    override func tintColorDidChange() {
-        tableView.reloadData()
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        // 外观模式切换
+        super.traitCollectionDidChange(previousTraitCollection)
+        if #available(iOS 13.0, *) {
+            if self.traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+                
+                tableView.reloadData()
+            }
+        }
     }
 }
 

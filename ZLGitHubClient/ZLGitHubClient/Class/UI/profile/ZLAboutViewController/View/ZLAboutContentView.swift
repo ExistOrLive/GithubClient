@@ -15,6 +15,7 @@ protocol ZLAboutContentViewDelegate: AnyObject {
     func onContributorsButtonClicked()
     func onRepoButtonClicked()
     func onAppStoreButtonClicked()
+    func onICPButtonCliked()
 }
 
 class ZLAboutContentView: ZLBaseView {
@@ -61,6 +62,15 @@ class ZLAboutContentView: ZLBaseView {
         button.itemTitle.text = ZLLocalizedString(string: "repository", comment: "版本库")
         return button
     }()
+    
+    private lazy var icpButton: UIButton = {
+        let button = UIButton()
+        button.titleLabel?.font = .zlMediumFont(withSize: 14)
+        button.setTitle("苏ICP备20014152号-2A", for: .normal)
+        button.setTitleColor(UIColor(named: "ZLLinkLabelColor1"), for: .normal)
+        button.addTarget(self, action: #selector(onICPButtonCliked), for: .touchUpInside)
+        return button
+    }()
 
     private lazy var appStoreButton: UIButton = {
         let button = ZLAboutContentViewItemButton(type: .custom)
@@ -85,6 +95,7 @@ class ZLAboutContentView: ZLBaseView {
         addSubview(titleLabel)
         addSubview(versionLabel)
         addSubview(stackView)
+        addSubview(icpButton)
 
         iconImageView.snp.makeConstraints { make in
             make.top.equalTo(50)
@@ -107,6 +118,11 @@ class ZLAboutContentView: ZLBaseView {
             make.left.right.equalToSuperview()
         }
 
+        icpButton.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-10)
+        }
+        
         stackView.addArrangedSubview(contributorButton)
         stackView.addArrangedSubview(repoButton)
         stackView.addArrangedSubview(appStoreButton)
@@ -144,6 +160,9 @@ class ZLAboutContentView: ZLBaseView {
         delegate?.onAppStoreButtonClicked()
     }
 
+    @objc private func onICPButtonCliked() {
+        delegate?.onICPButtonCliked()
+    }
 }
 
 extension ZLAboutContentView {

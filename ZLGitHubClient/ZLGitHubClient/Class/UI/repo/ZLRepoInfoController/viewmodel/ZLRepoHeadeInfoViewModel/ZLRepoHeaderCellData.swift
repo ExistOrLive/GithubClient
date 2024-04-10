@@ -145,7 +145,7 @@ extension ZLRepoHeaderCellData: ZLRepoInfoHeaderCellDataSourceAndDelegate {
             if messageModel.result == false,
                !messageModel.error.isEmpty{
                 ZLToastView.showMessage(messageModel.error, sourceView: self.viewController?.view)
-            }
+            } 
         }).disposed(by: disposeBag)
     }
 

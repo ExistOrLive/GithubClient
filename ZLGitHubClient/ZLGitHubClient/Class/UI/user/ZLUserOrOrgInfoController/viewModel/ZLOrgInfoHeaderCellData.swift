@@ -8,45 +8,42 @@
 
 import UIKit
 import ZLGitRemoteService
+import ZLUIUtilities
 
-class ZLOrgInfoHeaderCellData: ZLGithubItemTableViewCellData {
+class ZLOrgInfoHeaderCellData: ZLTableViewBaseCellData {
 
-    private var data: ZLGithubOrgModel
+    private let stateModel: ZLUserInfoStateModel
 
-    init(data: ZLGithubOrgModel) {
-        self.data = data
+    init(stateModel: ZLUserInfoStateModel) {
+        self.stateModel = stateModel
         super.init()
+        cellReuseIdentifier = "ZLOrgInfoHeaderCell"
     }
-
-    override func getCellReuseIdentifier() -> String {
-        "ZLOrgInfoHeaderCell"
+    
+    var orgModel: ZLGithubOrgModel? {
+        return stateModel.orgModel
     }
-
-    override func getCellHeight() -> CGFloat {
-        UITableView.automaticDimension
-    }
-
 }
 
 extension ZLOrgInfoHeaderCellData: ZLOrgInfoHeaderCellDataSourceAndDelegate {
     var name: String {
-        return "\(data.name ?? "")(\(data.loginName ?? ""))"
+        return "\(orgModel?.name ?? "")(\(orgModel?.loginName ?? ""))"
     }
     
     var loginName: String {
-        return data.loginName ?? ""
+        return orgModel?.loginName ?? ""
     }
 
     var time: String {
         let createdAtStr = ZLLocalizedString(string: "created at", comment: "创建于")
-        return "\(createdAtStr) \((data.created_at as NSDate?)?.dateStrForYYYYMMdd() ?? "")"
+        return "\(createdAtStr) \((orgModel?.created_at as NSDate?)?.dateStrForYYYYMMdd() ?? "")"
     }
 
     var desc: String {
-        data.bio ?? ""
+        orgModel?.bio ?? ""
     }
 
     var avatarUrl: String {
-        data.avatar_url ?? ""
+        orgModel?.avatar_url ?? ""
     }
 }
