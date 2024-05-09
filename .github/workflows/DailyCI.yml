@@ -26,7 +26,8 @@ jobs:
       env: 
         GITHUBTOKEN: ${{ secrets.GITHUBTOKEN }}
       run: |
-        pip3 install requests
+        brew install pipx
+        pipx install requests
         python3 DownloadSecretFile/DownloadSecrectFile.py $GITHUBTOKEN
         mv ZLGithubAppKey.h ZLGitHubClient/System/ZLSupportFiles/ZLGithubAppKey.h
         mv GoogleService-Info.plist ZLGitHubClient/GoogleService-Info.plist
