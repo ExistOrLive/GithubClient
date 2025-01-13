@@ -1,5 +1,4 @@
 # ZLGithubClient
-[<img src="https://api.gitsponsors.com/api/badge/img?id=163291138" height="20">](https://api.gitsponsors.com/api/badge/link?p=aKM9vKebvfwcO5EXcjLxJbS6XzjDScI7qBBTwwQHuovxLpMcGWYpqfjiCCaA/Ed6FuYqPHAhxQDg6HzbzcleM5/p6kzz0CBD2/FHrF/m9Y6k+8eElMqIcn2XCc4jZDgasoIEabEPCei5UE4uOYz56A==)
 
 ![ZLGithub TestFlight](https://github.com/MengAndJie/GithubClient/workflows/ZLGithub%20TestFlight/badge.svg)
 ![language](https://img.shields.io/github/languages/top/existorlive/githubclient)
