@@ -54,17 +54,7 @@
     
     /// firebase
     [FIRApp configure];
-    
-    /// 华为监控
-    [[ZLAGConnectManager sharedInstance] setFetchRemoteConfigWithCompleteBlock:^(BOOL result, NSTimeInterval timeInterval, NSString * _Nonnull msg) {
-        [[ZLAGConnectManager sharedInstance] reportEventWithEventId:@"AGCConfig_Download" params:@{
-            @"p_result": [NSNumber numberWithBool:result],
-            @"p_errorMsg":msg,
-            @"p_time": [NSNumber numberWithFloat:timeInterval]
-        }];
-    }];
-    [[ZLAGConnectManager sharedInstance] setup];
-  
+      
     NSString *configFilePath = [[NSBundle mainBundle] pathForResource:@"SYDCenteralFactoryConfig" ofType:@"plist"];
     [[SYDCentralRouter sharedInstance] addConfigWithFilePath:configFilePath withBundle:[NSBundle mainBundle]];
     

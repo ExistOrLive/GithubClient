@@ -105,12 +105,6 @@ pod 'Firebase/Analytics', "= 10.22.0"
 pod 'Firebase/Crashlytics', "= 10.22.0"
 pod 'Firebase/Performance', "= 10.22.0"
 
-# huawei 分析监控
-pod 'AGConnectCore','~> 1.9.0.301'
-#pod 'AGConnectCrash', '~> 1.9.0.301'               # 崩溃分析
-pod 'AGConnectRemoteConfig', '~> 1.9.0.301'         # 远程配置
-pod 'HiAnalytics'                                   # 华为分析
-#pod 'AGConnectAPM', '~> 1.2.1'                     # 性能管理
 
 end
 
