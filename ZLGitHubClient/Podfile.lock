@@ -1,13 +1,4 @@
 PODS:
-  - AGConnectABTest (1.9.0.302):
-    - AGConnectCredential (~> 1.4)
-  - AGConnectCore (1.9.0.302):
-    - HMFoundation (~> 1.4)
-  - AGConnectCredential (1.9.0.302):
-    - AGConnectCore (~> 1.4)
-  - AGConnectRemoteConfig (1.9.0.302):
-    - AGConnectABTest (~> 1.4)
-    - AGConnectCredential (~> 1.7)
   - Alamofire (5.9.1)
   - Apollo (0.39.0):
     - Apollo/Core (= 0.39.0)
@@ -161,9 +152,6 @@ PODS:
   - GoogleUtilities/UserDefaults (7.13.0):
     - GoogleUtilities/Logger
     - GoogleUtilities/Privacy
-  - HiAnalytics (6.10.0.311):
-    - AGConnectCredential
-  - HMFoundation (1.9.0.302)
   - IQKeyboardManager (6.5.18)
   - JJException (0.2.13):
     - JJException/All (= 0.2.13)
@@ -254,14 +242,12 @@ PODS:
     - ZLBaseExtension
     - ZLBaseUI
     - ZLUtilities
-  - ZLUtilities (0.1.0):
-    - AGConnectCore
-    - AGConnectRemoteConfig
-    - HiAnalytics
+    - ZMMVVM
+  - ZLUtilities (0.1.0)
+  - ZMMVVM (0.1.0):
+    - SnapKit
 
 DEPENDENCIES:
-  - AGConnectCore (~> 1.9.0.301)
-  - AGConnectRemoteConfig (~> 1.9.0.301)
   - CircleMenu
   - DGCharts
   - FFPopup
@@ -269,7 +255,6 @@ DEPENDENCIES:
   - Firebase/Crashlytics (= 10.22.0)
   - Firebase/Performance (= 10.22.0)
   - FWPopupView
-  - HiAnalytics
   - IQKeyboardManager
   - JJException
   - JXSegmentedView
@@ -289,19 +274,16 @@ DEPENDENCIES:
   - Umbrella
   - Umbrella/Firebase
   - YYText
-  - ZLBaseExtension (from `https://github.com/ExistOrLive/ZLBaseExtension.git`)
-  - ZLBaseUI (from `https://github.com/ExistOrLive/ZLBaseUI.git`)
+  - ZLBaseExtension (from `../../ZLBaseExtension`)
+  - ZLBaseUI (from `../../ZLBaseUI`)
   - ZLGithubOAuth (from `https://github.com/ExistOrLive/ZLGithubOAuth.git`, tag `1.2.0`)
-  - ZLGitRemoteService (from `https://github.com/ExistOrLive/ZLGitRemoteService.git`)
-  - ZLUIUtilities (from `https://github.com/ExistOrLive/ZLUIUtilities.git`)
-  - ZLUtilities (from `https://github.com/ExistOrLive/ZLUtilities.git`)
+  - ZLGitRemoteService (from `../../ZLGitRemoteService`)
+  - ZLUIUtilities (from `../../ZLUIUtilities`)
+  - ZLUtilities (from `../../ZLUtilities`)
+  - ZMMVVM (from `../../ZMMVVM`)
 
 SPEC REPOS:
   trunk:
-    - AGConnectABTest
-    - AGConnectCore
-    - AGConnectCredential
-    - AGConnectRemoteConfig
     - Alamofire
     - Apollo
     - CircleMenu
@@ -326,8 +308,6 @@ SPEC REPOS:
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleUtilities
-    - HiAnalytics
-    - HMFoundation
     - IQKeyboardManager
     - JJException
     - JXSegmentedView
@@ -355,44 +335,27 @@ EXTERNAL SOURCES:
   Toast:
     :podspec: ZLGitHubClient/System/ZLSupportFiles/Toast.podspec
   ZLBaseExtension:
-    :git: https://github.com/ExistOrLive/ZLBaseExtension.git
+    :path: "../../ZLBaseExtension"
   ZLBaseUI:
-    :git: https://github.com/ExistOrLive/ZLBaseUI.git
+    :path: "../../ZLBaseUI"
   ZLGithubOAuth:
     :git: https://github.com/ExistOrLive/ZLGithubOAuth.git
     :tag: 1.2.0
   ZLGitRemoteService:
-    :git: https://github.com/ExistOrLive/ZLGitRemoteService.git
+    :path: "../../ZLGitRemoteService"
   ZLUIUtilities:
-    :git: https://github.com/ExistOrLive/ZLUIUtilities.git
+    :path: "../../ZLUIUtilities"
   ZLUtilities:
-    :git: https://github.com/ExistOrLive/ZLUtilities.git
+    :path: "../../ZLUtilities"
+  ZMMVVM:
+    :path: "../../ZMMVVM"
 
 CHECKOUT OPTIONS:
-  ZLBaseExtension:
-    :commit: bb25c16c2e48e69fdef502568ba1b7e716a8cf15
-    :git: https://github.com/ExistOrLive/ZLBaseExtension.git
-  ZLBaseUI:
-    :commit: 8188110c5cb63e01397a588ff76b478cbc0bfe17
-    :git: https://github.com/ExistOrLive/ZLBaseUI.git
   ZLGithubOAuth:
     :git: https://github.com/ExistOrLive/ZLGithubOAuth.git
     :tag: 1.2.0
-  ZLGitRemoteService:
-    :commit: a4e62be94b1527b5ea00953dcea4ec036bc153a8
-    :git: https://github.com/ExistOrLive/ZLGitRemoteService.git
-  ZLUIUtilities:
-    :commit: a6790ca7e2be4269c81095b16b81ca04c6823ea3
-    :git: https://github.com/ExistOrLive/ZLUIUtilities.git
-  ZLUtilities:
-    :commit: db82d315cdd28ca33388ce4d8a628f4d287b3955
-    :git: https://github.com/ExistOrLive/ZLUtilities.git
 
 SPEC CHECKSUMS:
-  AGConnectABTest: f1e5be41719628dc342e27d1139e379845bd8aa6
-  AGConnectCore: 8080cbbee27357ab3d9d97b13d5e3be117eeba35
-  AGConnectCredential: 962f8a4abc33f3ae7b69bcf00f709b2a74096a1d
-  AGConnectRemoteConfig: d84e6bb1ee804a13bb7d09676d00f95a61d7dbee
   Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
   Apollo: f6c6410ebee82dd5846be87b81cedc8bc7754a82
   CircleMenu: a66095199a5e26f19acbb212f077010257767fe5
@@ -417,8 +380,6 @@ SPEC CHECKSUMS:
   GoogleAppMeasurement: ccefe3eac9b0aa27f96066809fb1a7fe4b462626
   GoogleDataTransport: 6c09b596d841063d76d4288cc2d2f42cc36e1e2a
   GoogleUtilities: d053d902a8edaa9904e1bd00c37535385b8ed152
-  HiAnalytics: 07a774c560885f699db1d25af9e0cfc3fcf315e3
-  HMFoundation: 07a5cc092dc728e13400df5d24648f03ded00a95
   IQKeyboardManager: 67f92bb29b650c094c40bd11c0545b47bdd25c5b
   JJException: fce490b5c046078709283d38de73fe2f624bc14c
   JXSegmentedView: 4b0e5506a9883da26472c9c0857d782c13cef05a
@@ -442,13 +403,14 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": d7b0c400921f66523f3a85d74f774512e14f6502
   Umbrella: 4faf9786a6b29197608f6483711271104d237646
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
-  ZLBaseExtension: 90e59e26595222fb11628a97f4b2951ab843e4f1
+  ZLBaseExtension: c052fc930ae508a09d1640580357263896486d3e
   ZLBaseUI: 2815898555602f9bebb23ca0277ff5352d2a2952
   ZLGithubOAuth: 2d9879eac1d41d45206e6e92463afae2537ec44d
   ZLGitRemoteService: 3ac13558ee6c1d1acf0b2f542712d2dae8dc6a3b
-  ZLUIUtilities: c913a60f5ffdd89f3e84325f850dc2a2d2e52838
-  ZLUtilities: 65a433eda88c05edb4a48f9209c8736e2a5d3b0a
+  ZLUIUtilities: e7f87717526b56c479d5839c5aa26c5a0b3a3af9
+  ZLUtilities: f47279dc92b4854fb2e2abb86b841dc8cd16e5a1
+  ZMMVVM: cea3ec4d56906c18b4713e188c177904784bba33
 
-PODFILE CHECKSUM: 959b1cf23508f64b3fafff67402e642f060f2eb8
+PODFILE CHECKSUM: 075fca8c4c77e5226ae70896f2a5d9bfec28f250
 
 COCOAPODS: 1.15.2

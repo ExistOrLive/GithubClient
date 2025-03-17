@@ -17,20 +17,22 @@ pod "SYDCentralPivot"
 pod 'ZLGithubOAuth', :git => 'https://github.com/ExistOrLive/ZLGithubOAuth.git', :tag => '1.2.0'
 #pod "ZLGithubOAuth", :path => '../../ZLGithubOAuth'
 
-pod 'ZLGitRemoteService', :git => 'https://github.com/ExistOrLive/ZLGitRemoteService.git'
-#pod "ZLGitRemoteService", :path => '../../ZLGitRemoteService'
+#pod 'ZLGitRemoteService', :git => 'https://github.com/ExistOrLive/ZLGitRemoteService.git'
+pod "ZLGitRemoteService", :path => '../../ZLGitRemoteService'
 
-pod 'ZLBaseUI', :git => 'https://github.com/ExistOrLive/ZLBaseUI.git'
-#pod 'ZLBaseUI', :path => "../../ZLBaseUI"
+#pod 'ZLBaseUI', :git => 'https://github.com/ExistOrLive/ZLBaseUI.git'
+pod 'ZLBaseUI', :path => "../../ZLBaseUI"
 
-pod 'ZLBaseExtension', :git => "https://github.com/ExistOrLive/ZLBaseExtension.git"
-#pod 'ZLBaseExtension', :path => "../../ZLBaseExtension"
+#pod 'ZLBaseExtension', :git => "https://github.com/ExistOrLive/ZLBaseExtension.git"
+pod 'ZLBaseExtension', :path => "../../ZLBaseExtension"
 
-pod 'ZLUIUtilities', :git => "https://github.com/ExistOrLive/ZLUIUtilities.git"
-#pod 'ZLUIUtilities', :path => "../../ZLUIUtilities"
+#pod 'ZLUIUtilities', :git => "https://github.com/ExistOrLive/ZLUIUtilities.git"
+pod 'ZLUIUtilities', :path => "../../ZLUIUtilities"
 
-#pod 'ZLUtilities', :path => '../../ZLUtilities'
-pod 'ZLUtilities', :git => "https://github.com/ExistOrLive/ZLUtilities.git"
+pod 'ZLUtilities', :path => '../../ZLUtilities'
+#pod 'ZLUtilities', :git => "https://github.com/ExistOrLive/ZLUtilities.git"
+
+pod 'ZMMVVM', :path => '../../ZMMVVM'
 
 pod 'Umbrella'
 pod 'Umbrella/Firebase'

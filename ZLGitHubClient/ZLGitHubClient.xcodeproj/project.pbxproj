@@ -124,6 +124,7 @@
 		7456B746279DBFAC0033AFB1 /* ZLIssueLabelsCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7456B745279DBFAC0033AFB1 /* ZLIssueLabelsCellData.swift */; };
 		7456B748279DC3370033AFB1 /* ZLIssueProjectCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7456B747279DC3370033AFB1 /* ZLIssueProjectCellData.swift */; };
 		7456B74A279DC4AA0033AFB1 /* ZLIssueMileStoneCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7456B749279DC4AA0033AFB1 /* ZLIssueMileStoneCellData.swift */; };
+		74591A822D887647002A9CF7 /* ZLMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74591A812D887647002A9CF7 /* ZLMainViewController.swift */; };
 		745CC456275E7FED0036EC06 /* ZLCommonTableViewCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745CC455275E7FED0036EC06 /* ZLCommonTableViewCellData.swift */; };
 		745D48C8257249D700E67AEE /* github_style_dark_markdown.css in Resources */ = {isa = PBXBuildFile; fileRef = 745D48C6257249D700E67AEE /* github_style_dark_markdown.css */; };
 		745D48C9257249D700E67AEE /* github_style_markdown.css in Resources */ = {isa = PBXBuildFile; fileRef = 745D48C7257249D700E67AEE /* github_style_markdown.css */; };
@@ -140,7 +141,6 @@
 		746719CD2B89DBAE003E1D4B /* agconnect-services.plist in Resources */ = {isa = PBXBuildFile; fileRef = 746719CC2B89DBAE003E1D4B /* agconnect-services.plist */; };
 		7467ABB727F5B49C00F8905B /* NSDate+Localize.m in Sources */ = {isa = PBXBuildFile; fileRef = 7467ABB127F5B49C00F8905B /* NSDate+Localize.m */; };
 		7467ABBC27F704A300F8905B /* ZLPresenterMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7467ABBB27F704A300F8905B /* ZLPresenterMessageModel.swift */; };
-		746B092E21EB7362000EE88B /* ZLMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 746B092D21EB7362000EE88B /* ZLMainViewController.m */; };
 		746FAFCE2316AC25006A0288 /* ZLWebContentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746FAFCD2316AC25006A0288 /* ZLWebContentController.swift */; };
 		746FAFD12316AC42006A0288 /* ZLWebContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746FAFD02316AC42006A0288 /* ZLWebContentView.swift */; };
 		7470B98126219CAD000D2A20 /* ZLUserOrOrgInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7470B98026219CAD000D2A20 /* ZLUserOrOrgInfoController.swift */; };
@@ -441,6 +441,7 @@
 		7456B745279DBFAC0033AFB1 /* ZLIssueLabelsCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLIssueLabelsCellData.swift; sourceTree = "<group>"; };
 		7456B747279DC3370033AFB1 /* ZLIssueProjectCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLIssueProjectCellData.swift; sourceTree = "<group>"; };
 		7456B749279DC4AA0033AFB1 /* ZLIssueMileStoneCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLIssueMileStoneCellData.swift; sourceTree = "<group>"; };
+		74591A812D887647002A9CF7 /* ZLMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLMainViewController.swift; sourceTree = "<group>"; };
 		745CC455275E7FED0036EC06 /* ZLCommonTableViewCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLCommonTableViewCellData.swift; sourceTree = "<group>"; };
 		745D48C6257249D700E67AEE /* github_style_dark_markdown.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = github_style_dark_markdown.css; sourceTree = "<group>"; };
 		745D48C7257249D700E67AEE /* github_style_markdown.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = github_style_markdown.css; sourceTree = "<group>"; };
@@ -459,8 +460,6 @@
 		7467ABB127F5B49C00F8905B /* NSDate+Localize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Localize.m"; sourceTree = "<group>"; };
 		7467ABB227F5B49C00F8905B /* NSDate+Localize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Localize.h"; sourceTree = "<group>"; };
 		7467ABBB27F704A300F8905B /* ZLPresenterMessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLPresenterMessageModel.swift; sourceTree = "<group>"; };
-		746B092C21EB7362000EE88B /* ZLMainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLMainViewController.h; sourceTree = "<group>"; };
-		746B092D21EB7362000EE88B /* ZLMainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLMainViewController.m; sourceTree = "<group>"; };
 		746B093021EB74EF000EE88B /* ZLGitHubClient-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZLGitHubClient-Prefix.pch"; sourceTree = "<group>"; };
 		746FAFCD2316AC25006A0288 /* ZLWebContentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLWebContentController.swift; sourceTree = "<group>"; };
 		746FAFD02316AC42006A0288 /* ZLWebContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLWebContentView.swift; sourceTree = "<group>"; };
@@ -1366,8 +1365,7 @@
 		746B092B21EB7305000EE88B /* ZLMainViewController */ = {
 			isa = PBXGroup;
 			children = (
-				746B092C21EB7362000EE88B /* ZLMainViewController.h */,
-				746B092D21EB7362000EE88B /* ZLMainViewController.m */,
+				74591A812D887647002A9CF7 /* ZLMainViewController.swift */,
 			);
 			path = ZLMainViewController;
 			sourceTree = "<group>";
@@ -3074,11 +3072,11 @@
 				7444B29E2567B8DD00488EF0 /* ZLWorkboardBaseView.swift in Sources */,
 				74EBF5B4275D033B000CF72C /* ZLGithubItemCollectionViewCellData.swift in Sources */,
 				7437978825838B11008AFBE8 /* ZLMyPullRequestsView.swift in Sources */,
+				74591A822D887647002A9CF7 /* ZLMainViewController.swift in Sources */,
 				744F655D281FC95C0045DCE9 /* ZLMyDiscussionsController.swift in Sources */,
 				74DF713323B1073100DB2BD5 /* ZLAboutViewController.swift in Sources */,
 				74299ECE27CA85A30095224E /* ZLSubmitCommentView.swift in Sources */,
 				749DBC8E24B3D61000D02B2C /* ZLPullRequestEventTableViewCell.swift in Sources */,
-				746B092E21EB7362000EE88B /* ZLMainViewController.m in Sources */,
 				743D225F2624ADA400C0B9FD /* ZLSearchGithubItemListSecondViewModel.swift in Sources */,
 				74D3EFF5259BC6060002A2D3 /* ZLBaseSearchController.m in Sources */,
 				743D22712624C5C400C0B9FD /* ZLSearchItemTableViewCellData.swift in Sources */,
