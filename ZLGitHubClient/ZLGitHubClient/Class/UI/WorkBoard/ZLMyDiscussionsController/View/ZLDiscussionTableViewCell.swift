@@ -9,10 +9,10 @@
 import UIKit
 import YYText
 import SnapKit
-import ZLBaseUI
 import ZLUIUtilities
 import ZLBaseExtension
 import ZLUtilities
+import ZMMVVM
 
 protocol ZLDiscussionTableViewCellDataSourceAndDelegate: AnyObject {
     
@@ -37,7 +37,9 @@ protocol ZLDiscussionTableViewCellDataSourceAndDelegate: AnyObject {
 
 class ZLDiscussionTableViewCell: ZLBaseCardTableViewCell {
     
-    weak var delegate: ZLDiscussionTableViewCellDataSourceAndDelegate?
+    var delegate: ZLDiscussionTableViewCellDataSourceAndDelegate? {
+        zm_viewModel as? ZLDiscussionTableViewCellDataSourceAndDelegate
+    }
     
     @objc func onRepoNameClick() {
         self.delegate?.onClickRepoFullName()
@@ -189,15 +191,9 @@ class ZLDiscussionTableViewCell: ZLBaseCardTableViewCell {
     
 }
 
-extension ZLDiscussionTableViewCell: ZLViewUpdatableWithViewData {
+extension ZLDiscussionTableViewCell: ZMBaseViewUpdatableWithViewData {
     
-    func justUpdateView() {
-        
-    }
-    
-    func fillWithViewData(viewData: ZLDiscussionTableViewCellDataSourceAndDelegate) {
-        
-        delegate = viewData
+    func zm_fillWithViewData(viewData: ZLDiscussionTableViewCellDataSourceAndDelegate) {
         
         let title = NSMutableAttributedString(string: viewData.repositoryFullName ,
                                               attributes: [.foregroundColor:ZLRawLabelColor(name: "ZLLabelColor1"),

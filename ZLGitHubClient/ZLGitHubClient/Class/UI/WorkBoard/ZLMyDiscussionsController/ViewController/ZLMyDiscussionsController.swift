@@ -12,56 +12,38 @@ import ZLUIUtilities
 import ZLBaseExtension
 import SnapKit
 import ZLGitRemoteService
+import ZMMVVM
 
-class ZLMyDiscussionsController: ZLBaseViewController {
+class ZLMyDiscussionsController: ZMTableViewController {
     
     // Model
     private var _after: String?
-    
-    private var _cellDatas: [ZLTableViewBaseCellData] = []
+        
+    var hasMoreData: Bool {
+        _after != nil
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        discussionsView.startLoad()
-    }
-    
-    private func setupUI() {
-        title = ZLLocalizedString(string: "Discussions", comment: "")
-        contentView.addSubview(discussionsView)
-        discussionsView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        discussionsView.fillWithData(data: self)
-    }
-
-    // MARK: view
-    
-    private lazy var discussionsView: ZLMyDiscussionsBaseView = {
-        let view = ZLMyDiscussionsBaseView()
-        return view
-    }()
-
-}
-
-// MARK: ZLMyDiscussionsBaseViewDelegateAndDataSource
-extension ZLMyDiscussionsController: ZLMyDiscussionsBaseViewDelegateAndDataSource {
-    
-    // DataSource
-    var cellDatas: [ZLTableViewCellDataProtocol] {
-        _cellDatas
-    }
-    
-    var hasMoreData: Bool {
-        _after != nil
-    }
-    
-    // Delegate
-    func loadNewData() {
+        viewStatus = .loading
         loadData(isLoadNewData: true)
     }
     
-    func loadMoreData() {
+    override func setupUI() {
+        super.setupUI()
+        setRefreshViews(types: [.header,.footer])
+        title = ZLLocalizedString(string: "Discussions", comment: "")
+        tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
+        tableView.register(ZLDiscussionTableViewCell.self,
+                           forCellReuseIdentifier: "ZLDiscussionTableViewCell")
+    }
+    
+    override func refreshLoadNewData() {
+        loadData(isLoadNewData: true)
+    }
+    
+    override func refreshLoadMoreData() {
         loadData(isLoadNewData: false)
     }
 }
@@ -75,12 +57,12 @@ extension ZLMyDiscussionsController {
                                                   serialNumber: NSString.generateSerialNumber(),
                                                   completeHandle: { [weak self] resultModel in
             guard let self = self else { return }
-            self.contentView.dismissProgressHUD()
+            self.viewStatus = .normal
+            self.endRefreshViews()
             
             if resultModel.result {
                 
                 guard let data = resultModel.data as? SearchItemQuery.Data else {
-                    self.discussionsView.reloadData()
                     return
                 }
                 var cellDatas: [ZLDiscussionTableViewCellData] = []
@@ -90,20 +72,21 @@ extension ZLMyDiscussionsController {
                         cellDatas.append(cellData)
                     }
                 }
-                self.addSubViewModels(cellDatas)
+                self.zm_addSubViewModels(cellDatas)
                 if isLoadNewData {
-                    for oldCellData in self._cellDatas {
-                        oldCellData.removeFromSuperViewModel()
-                    }
-                    self._cellDatas = cellDatas
+                    self.sectionDataArray.forEach( { $0.zm_removeFromSuperViewModel()})
+                    self.sectionDataArray = [ZMBaseTableViewSectionData(cellDatas: cellDatas)]
+                    
                 } else {
-                    self._cellDatas.append(contentsOf: cellDatas)
+                    self.sectionDataArray.first?.cellDatas.append(contentsOf: cellDatas)
                 }
+                self.tableViewProxy.reloadData()
                 self._after = data.search.pageInfo.hasNextPage ? data.search.pageInfo.endCursor : nil
-                self.discussionsView.reloadData()
+                self.endRefreshViews(noMoreData: !self.hasMoreData)
+                self.viewStatus = self.tableViewProxy.isEmpty ? .empty : .normal
                 
             } else {
-                self.discussionsView.reloadData()
+                self.viewStatus = self.tableViewProxy.isEmpty ? .error : .normal
                 guard let errorModel = resultModel.data as? ZLGithubRequestErrorModel else {
                     return
                 }

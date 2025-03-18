@@ -11,8 +11,9 @@ import ZLBaseUI
 import ZLUIUtilities
 import ZLBaseExtension
 import ZLGitRemoteService
+import ZMMVVM
 
-class ZLDiscussionTableViewCellData: ZLTableViewBaseCellData {
+class ZLDiscussionTableViewCellData: ZMBaseTableViewCellViewModel {
     
     typealias DiscussionData = SearchItemQuery.Data.Search.Node.AsDiscussion
     
@@ -21,10 +22,13 @@ class ZLDiscussionTableViewCellData: ZLTableViewBaseCellData {
     init(data: DiscussionData) {
         self.data = data
         super.init()
-        self.cellReuseIdentifier = "ZLDiscussionTableViewCell"
     }
     
-    override func onCellSingleTap() {
+    override var zm_cellReuseIdentifier: String {
+        return "ZLDiscussionTableViewCell"
+    }
+    
+    override func zm_onCellSingleTap() {
         if let url = URL.init(string: data.url) {
             ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,
                                   params: ["requestURL": url],
@@ -59,7 +63,7 @@ extension ZLDiscussionTableViewCellData: ZLDiscussionTableViewCellDataSourceAndD
         if let url = URL(string: self.data.url) {
             if url.pathComponents.count >= 5 {
                 if let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: "\(url.pathComponents[1])/\(url.pathComponents[2])") {
-                    self.viewController?.navigationController?.pushViewController(vc, animated: true)
+                    zm_viewController?.navigationController?.pushViewController(vc, animated: true)
                 }
             }
         }
@@ -74,7 +78,7 @@ extension ZLDiscussionTableViewCellData: ZLDiscussionTableViewCellDataSourceAndD
     }
 
     func longPressAction(view: UIView) {
-        guard let vc = viewController,
+        guard let vc = zm_viewController,
               let url = URL(string: self.data.url) else { return }
         view.showShareMenu(title: data.title, url: url, sourceViewController: vc)
     }
