@@ -14,7 +14,7 @@ import ZLBaseUI
 import ZLBaseExtension
 import ZLGitRemoteService
 
-class ZLRepoLanguagesPercentView: ZLBaseView {
+class ZLRepoLanguagesPercentView: UIView {
 
     var repoFullName: String = ""
     var data: [String: Int] = [:]

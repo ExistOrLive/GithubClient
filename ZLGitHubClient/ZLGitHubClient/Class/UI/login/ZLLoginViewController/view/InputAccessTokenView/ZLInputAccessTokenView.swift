@@ -49,7 +49,7 @@ class ZMPopContainerViewDelegate_AccessToken: NSObject, ZMPopContainerViewDelega
 }
 
 
-class ZLInputAccessTokenView: ZLBaseView {
+class ZLInputAccessTokenView: UIView {
     
     weak var popView: ZMPopContainerView?
     var resultBlock: ((String?) -> Void)?

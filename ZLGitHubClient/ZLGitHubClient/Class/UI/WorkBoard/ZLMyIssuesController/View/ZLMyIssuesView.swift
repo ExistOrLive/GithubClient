@@ -18,7 +18,7 @@ protocol ZLMyIssuesViewDelegate: NSObjectProtocol {
     func onStateChange(state: ZLGithubIssueState)
 }
 
-class ZLMyIssuesView: ZLBaseView {
+class ZLMyIssuesView: UIView {
 
     private var filterIndex: ZLIssueFilterType = .created
     private var stateIndex: ZLGithubIssueState = .open

@@ -17,7 +17,7 @@ protocol ZLMyPullRequestsViewDelegate: NSObjectProtocol {
     func onStateChange(state: ZLGithubIssueState)
 }
 
-class ZLMyPullRequestsView: ZLBaseView {
+class ZLMyPullRequestsView: UIView {
 
     private var filterIndex: ZLPRFilterType = .created
     private var stateIndex: ZLGithubIssueState = .open

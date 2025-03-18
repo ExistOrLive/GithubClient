@@ -14,7 +14,7 @@ import ZLBaseUI
     func clearRecord()
 }
 
-class ZLSearchRecordView: ZLBaseView {
+class ZLSearchRecordView: UIView {
 
     weak var delegate: ZLSearchRecordViewDelegate?
 

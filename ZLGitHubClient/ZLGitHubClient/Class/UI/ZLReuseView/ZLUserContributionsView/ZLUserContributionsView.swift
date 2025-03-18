@@ -10,7 +10,7 @@ import UIKit
 import ZLGitRemoteService
 import ZLBaseUI
 
-class ZLUserContributionsView: ZLBaseView, UICollectionViewDataSource, UICollectionViewDelegate {
+class ZLUserContributionsView: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
 
     // model
     private var loginName  = ""

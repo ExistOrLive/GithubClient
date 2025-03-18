@@ -149,7 +149,7 @@ extension ZLIssueInfoView: ZLGithubItemListViewDelegate {
 }
 
 // MARK: ZLIssueInfoBottomView
-private class ZLIssueInfoBottomView: ZLBaseView {
+private class ZLIssueInfoBottomView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)

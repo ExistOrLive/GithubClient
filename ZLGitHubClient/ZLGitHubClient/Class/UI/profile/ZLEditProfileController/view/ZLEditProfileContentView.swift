@@ -10,7 +10,7 @@ import UIKit
 import ZLBaseUI
 import ZLBaseExtension
 
-class ZLEditProfileContentView: ZLBaseView, UITextFieldDelegate, UITextViewDelegate {
+class ZLEditProfileContentView: UIView, UITextFieldDelegate, UITextViewDelegate {
     
     override init(frame: CGRect) {
         super.init(frame: frame)

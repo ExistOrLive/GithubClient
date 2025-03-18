@@ -14,7 +14,7 @@ protocol ZLLoginBaseViewDelegate: NSObjectProtocol {
     func onAccessTokenButtonClicked()
 }
 
-class ZLLoginBaseView: ZLBaseView {
+class ZLLoginBaseView: UIView {
 
     weak var delegate: ZLLoginBaseViewDelegate?
     

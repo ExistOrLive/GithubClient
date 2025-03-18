@@ -19,7 +19,7 @@ protocol ZLNotificationViewDataSourceAndDelagate: ZLGithubItemListViewDelegate {
     var showAllNotification: Bool {get}
 }
 
-class ZLNotificationView: ZLBaseView {
+class ZLNotificationView: UIView {
 
    private weak var delegate: ZLNotificationViewDataSourceAndDelagate?
 

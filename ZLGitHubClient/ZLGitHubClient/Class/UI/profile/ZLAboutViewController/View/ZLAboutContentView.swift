@@ -18,7 +18,7 @@ protocol ZLAboutContentViewDelegate: AnyObject {
     func onICPButtonCliked()
 }
 
-class ZLAboutContentView: ZLBaseView {
+class ZLAboutContentView: UIView {
 
     // MARK: View
     private lazy var iconImageView: UIImageView = {

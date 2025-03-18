@@ -18,7 +18,7 @@ import ZLUtilities
     func githubItemListViewRefreshDragUp(pullRequestListView: ZLGithubItemListView)
 }
 
-@objc class ZLGithubItemListView: ZLBaseView {
+@objc class ZLGithubItemListView: UIView {
 
     // view
     private lazy var tableView: UITableView = {

@@ -11,7 +11,7 @@ import ZLBaseExtension
 import ZLBaseUI
 import ZLUtilities
 
-class ZLSearchView: ZLBaseView {
+class ZLSearchView: UIView {
                 
     override init(frame: CGRect) {
         super.init(frame: frame)

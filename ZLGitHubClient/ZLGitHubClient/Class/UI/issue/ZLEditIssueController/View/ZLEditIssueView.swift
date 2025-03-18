@@ -43,7 +43,7 @@ protocol ZLEditIssueViewDelegateAndSource: NSObjectProtocol {
 }
 
 
-class ZLEditIssueView: ZLBaseView {
+class ZLEditIssueView: UIView {
     
     private let disposeBag: DisposeBag = DisposeBag()
     

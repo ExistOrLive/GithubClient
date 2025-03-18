@@ -27,7 +27,7 @@ protocol ZLMyDiscussionsBaseViewDelegateAndDataSource: NSObjectProtocol {
 }
 
 
-class ZLMyDiscussionsBaseView: ZLBaseView {
+class ZLMyDiscussionsBaseView: UIView {
     
     weak var delegate: ZLMyDiscussionsBaseViewDelegateAndDataSource?
 

@@ -16,7 +16,7 @@ protocol ZLRepoIssuesViewDelegate: ZLGithubItemListViewDelegate {
     func onFilterTypeChange(_ open: Bool)
 }
 
-class ZLRepoIssuesView: ZLBaseView {
+class ZLRepoIssuesView: UIView {
 
     private weak var delegate: ZLRepoIssuesViewDelegate?
 

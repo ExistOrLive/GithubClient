@@ -44,7 +44,7 @@ extension ZLSearchType {
     }
 }
 
-class ZLSearchItemsView: ZLBaseView {
+class ZLSearchItemsView: UIView {
 
     static let ZLSearchItemsTypes: [ZLSearchType] = [.repositories, .users, .organizations, .issues, .pullRequests]
 

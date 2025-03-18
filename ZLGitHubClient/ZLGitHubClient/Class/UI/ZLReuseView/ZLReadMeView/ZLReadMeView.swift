@@ -24,7 +24,7 @@ import ZLUIUtilities
     @objc optional func notifyNewHeight(height: CGFloat)
 }
 
-class ZLReadMeView: ZLBaseView {
+class ZLReadMeView: UIView {
 
     // delegate
     weak var delegate: ZLReadMeViewDelegate?

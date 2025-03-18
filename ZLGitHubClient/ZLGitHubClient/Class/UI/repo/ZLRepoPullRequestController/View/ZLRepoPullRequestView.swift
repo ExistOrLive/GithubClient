@@ -16,7 +16,7 @@ protocol ZLRepoPullRequestViewDelegate: ZLGithubItemListViewDelegate {
     func onFilterTypeChange(_ open: Bool)
 }
 
-class ZLRepoPullRequestView: ZLBaseView {
+class ZLRepoPullRequestView: UIView {
     
     private weak var delegate: ZLRepoPullRequestViewDelegate?
     

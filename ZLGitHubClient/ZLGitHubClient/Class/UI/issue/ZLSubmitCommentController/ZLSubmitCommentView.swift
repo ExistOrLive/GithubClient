@@ -24,7 +24,7 @@ protocol ZLSubmitCommentViewDelegate: NSObjectProtocol {
 }
 
 
-class ZLSubmitCommentView: ZLBaseView {
+class ZLSubmitCommentView: UIView {
 
     /*
     // Only override draw() if you perform custom drawing.

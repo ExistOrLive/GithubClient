@@ -33,7 +33,7 @@ extension ZLWebContentViewDelegate {
     }
 }
 
-class ZLWebContentView: ZLBaseView {
+class ZLWebContentView: UIView {
     
     // MARK: UIView
     private lazy var webView: WKWebView = {
