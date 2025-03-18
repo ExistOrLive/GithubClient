@@ -7,24 +7,25 @@
 //
 
 import UIKit
-import ZLBaseUI
+import ZLUIUtilities
 
-class ZLWorkboardViewController: ZLBaseViewController {
+class ZLWorkboardViewController: ZMViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.title = ZLLocalizedString(string: "Workboard", comment: "")
 
-        let baseView = ZLWorkboardBaseView.init()
+        let baseView = ZLWorkboardBaseView()
         self.contentView.addSubview(baseView)
         baseView.snp.makeConstraints({make in
             make.edges.equalToSuperview()
         })
 
         let viewModel = ZLWorkboardBaseViewModel()
-        self.addSubViewModel(viewModel)
-        viewModel.bindModel(nil, andView: baseView)
+        self.zm_addSubViewModel(viewModel)
+        
+        baseView.zm_fillWithData(data: viewModel)
     }
 
 }

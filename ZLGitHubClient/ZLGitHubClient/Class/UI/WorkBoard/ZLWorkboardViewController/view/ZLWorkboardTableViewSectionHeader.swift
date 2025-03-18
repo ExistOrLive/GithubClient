@@ -7,12 +7,29 @@
 //
 
 import UIKit
-import ZLBaseUI
+import ZLUIUtilities
+import ZMMVVM
 
 class ZLWorkboardTableViewSectionHeader: UITableViewHeaderFooterView {
 
-    var titleLabel: UILabel!
-    var button: UIButton!
+    var viewData: ZLWorkboardTableViewSectionHeaderData? {
+        zm_viewModel as? ZLWorkboardTableViewSectionHeaderData
+    }
+    
+    lazy var titleLabel: UILabel =  {
+        let label = UILabel()
+        label.textColor = UIColor(named: "ZLLabelColor1")
+        label.font = UIFont.init(name: Font_PingFangSCSemiBold, size: 20)
+        return label
+    }()
+    
+    lazy var button: UIButton = {
+        let button = ZMButton()
+        button.titleLabel?.font = UIFont.init(name: Font_PingFangSCRegular, size: 13)
+        button.setTitle(ZLLocalizedString(string: "Edit", comment: ""), for: .normal)
+        button.addTarget(self, action: #selector(onEditButtonClicked), for: .touchUpInside)
+        return button
+    }()
 
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
@@ -23,27 +40,33 @@ class ZLWorkboardTableViewSectionHeader: UITableViewHeaderFooterView {
             self.backgroundColor = UIColor.clear
         }
 
-        self.titleLabel = UILabel()
-        self.titleLabel.textColor = UIColor(named: "ZLLabelColor1")
-        self.titleLabel.font = UIFont.init(name: Font_PingFangSCSemiBold, size: 20)
-        self.addSubview(self.titleLabel)
+        contentView.addSubview(self.titleLabel)
+        contentView.addSubview(self.button)
         self.titleLabel.snp.makeConstraints { (make) in
-            make.left.equalTo(self.safeAreaLayoutGuide.snp.left).offset(20)
+            make.left.equalTo(contentView.safeAreaLayoutGuide.snp.left).offset(20)
             make.bottom.equalToSuperview().offset(-10)
         }
-
-        self.button = ZLBaseButton()
-        self.button.titleLabel?.font = UIFont.init(name: Font_PingFangSCRegular, size: 13)
-        self.button.setTitle(ZLLocalizedString(string: "Edit", comment: ""), for: .normal)
-        self.addSubview(self.button)
         self.button.snp.makeConstraints { (make) in
             make.size.equalTo(CGSize.init(width: 60, height: 30))
             make.centerY.equalTo(self.titleLabel)
-            make.right.equalTo(self.safeAreaLayoutGuide.snp.right).offset(-20)
+            make.right.equalTo(contentView.safeAreaLayoutGuide.snp.right).offset(-20)
         }
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc dynamic func onEditButtonClicked() {
+        viewData?.onEditAction()
+    }
+}
+
+
+extension ZLWorkboardTableViewSectionHeader: ZMBaseViewUpdatableWithViewData {
+    func zm_fillWithViewData(viewData: ZLWorkboardTableViewSectionHeaderData) {
+        self.button.setTitle(viewData.editButtonTitle, for: .normal)
+        self.button.isHidden = !viewData.showEditButton
+        self.titleLabel.text = viewData.title
     }
 }

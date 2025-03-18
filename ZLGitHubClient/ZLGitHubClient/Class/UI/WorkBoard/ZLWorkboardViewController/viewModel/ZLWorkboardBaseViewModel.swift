@@ -8,88 +8,71 @@
 
 import UIKit
 import ZLGitRemoteService
-import ZLBaseUI
+import ZMMVVM
 
-class ZLWorkboardBaseViewModel: ZLBaseViewModel, ZLWorkboardBaseViewDelegate {
+class ZLWorkboardBaseViewModel: ZMBaseViewModel {
 
-    //
-    weak var baseView: ZLWorkboardBaseView!
 
     // subViewModel
-    var fixedRepos: [ZLGithubCollectedRepoModel] = []
-
-    var sectionArray: [ZLWorkboardClassicType] = []
-    var cellDataDic: [ZLWorkboardClassicType: [ZLWorkboardTableViewCellData]] = [:]
-
+    var sectionDataArray: [ZMBaseTableViewSectionData] = []
+    
     deinit {
         NotificationCenter.default.removeObserver(self, name: ZLLanguageTypeChange_Notificaiton, object: nil)
         ZLServiceManager.sharedInstance.viewerServiceModel?.unRegisterObserver(self, name: ZLGetCurrentUserInfoResult_Notification)
     }
 
-    override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
-        guard let view = targetView as? ZLWorkboardBaseView else {
-            return
-        }
-        baseView = view
-        baseView.delegate = self
-
+    override init() {
+        super.init()
         NotificationCenter.default.addObserver(self, selector: #selector(ZLWorkboardBaseViewModel.onNotificationArrived), name: ZLLanguageTypeChange_Notificaiton, object: nil)
         ZLServiceManager.sharedInstance.viewerServiceModel?.registerObserver(self, selector: #selector(ZLWorkboardBaseViewModel.onNotificationArrived), name: ZLGetCurrentUserInfoResult_Notification)
     }
-
-    override func vcLifeCycle_viewWillAppear() {
+    
+    override func zm_viewWillAppear() {
+        super.zm_viewWillAppear()
         self.generateSubViewMode()
-        self.baseView.resetData(sectionArray: self.sectionArray, cellDataDic: self.cellDataDic)
+        self.zm_reloadView()
     }
 
     func generateSubViewMode() {
 
-        for subViewModel in self.subViewModels {
-            subViewModel.removeFromSuperViewModel()
+        sectionDataArray.forEach { $0.zm_removeFromSuperViewModel() }
+        sectionDataArray.removeAll()
+        
+         /// 工作项
+        let workSection = ZMBaseTableViewSectionData(zm_sectionID: ZLWorkboardClassicType.work)
+        workSection.headerData = ZLWorkboardTableViewSectionHeaderData(classicType: .work)
+        workSection.cellDatas = [ZLWorkboardTableViewCellData(type: .issues),
+                                 ZLWorkboardTableViewCellData(type: .pullRequest),
+                                 ZLWorkboardTableViewCellData(type: .orgs),
+                                 ZLWorkboardTableViewCellData(type: .repos),
+                                 ZLWorkboardTableViewCellData(type: .starRepos),
+                                 ZLWorkboardTableViewCellData(type: .events),
+                                 ZLWorkboardTableViewCellData(type: .discussions)]
+        sectionDataArray.append(workSection)
+        
+        /// 收藏仓库
+        let fixRepoSection = ZMBaseTableViewSectionData(zm_sectionID: ZLWorkboardClassicType.fixRepo)
+        fixRepoSection.headerData = ZLWorkboardTableViewSectionHeaderData(classicType: .fixRepo)
+        let fixedRepos = ZLServiceManager.sharedInstance.viewerServiceModel?.fixedRepos as? [ZLGithubCollectedRepoModel] ?? []
+        fixRepoSection.cellDatas = fixedRepos.map({
+            ZLWorkboardTableViewCellData(title: $0.full_name ?? "",
+                                         avatarURL: $0.owner_avatarURL ?? "",
+                                         type: .fixRepo(repo: $0.full_name ?? ""))
+        })
+        if fixedRepos.isEmpty {
+            fixRepoSection.footerData = ZLWorkboardFixedRepoPlaceHolderViewData()
         }
-
-        let sectionArray: [ZLWorkboardClassicType] = [.work, .fixRepo]
-
-        self.fixedRepos = ZLServiceManager.sharedInstance.viewerServiceModel?.fixedRepos as? [ZLGithubCollectedRepoModel] ?? []
-
-        var cellDataArray1 =  [ZLWorkboardTableViewCellData]()
-        for repo in self.fixedRepos {
-            cellDataArray1.append(ZLWorkboardTableViewCellData(title: repo.full_name ?? "", avatarURL: repo.owner_avatarURL ?? "", type: .fixRepo))
-        }
-
-        let cellDataArray2 = [ZLWorkboardTableViewCellData(type: .issues),
-                              ZLWorkboardTableViewCellData(type: .pullRequest),
-                              ZLWorkboardTableViewCellData(type: .orgs),
-                              ZLWorkboardTableViewCellData(type: .repos),
-                              ZLWorkboardTableViewCellData(type: .starRepos),
-                              ZLWorkboardTableViewCellData(type: .events),
-                              ZLWorkboardTableViewCellData(type: .discussions)]
-        for cellData in cellDataArray1 {
-            self.addSubViewModel(cellData)
-        }
-        for cellData in cellDataArray2 {
-            self.addSubViewModel(cellData)
-        }
-        let cellDataDic: [ZLWorkboardClassicType: [ZLWorkboardTableViewCellData]] = [.work: cellDataArray2, .fixRepo: cellDataArray1]
-
-        self.sectionArray = sectionArray
-        self.cellDataDic = cellDataDic
+        sectionDataArray.append(fixRepoSection)
+        
+        sectionDataArray.forEach({ $0.zm_addSuperViewModel(self)})
     }
 
     @objc func onNotificationArrived(notification: Notification) {
         if ZLLanguageTypeChange_Notificaiton == notification.name {
-            self.viewController?.title = ZLLocalizedString(string: "Workboard", comment: "")
+            zm_viewController?.title = ZLLocalizedString(string: "Workboard", comment: "")
         } else if ZLGetCurrentUserInfoResult_Notification == notification.name {
             self.generateSubViewMode()
-            self.baseView.resetData(sectionArray: self.sectionArray, cellDataDic: self.cellDataDic)
+            self.zm_reloadView()
         }
     }
-
-    func onEditFixedRepoButtonClicked() {
-        if let vc = ZLUIRouter.getEditFixedRepoController() {
-            vc.hidesBottomBarWhenPushed = true
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
-        }
-    }
-
 }

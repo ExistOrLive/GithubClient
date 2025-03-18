@@ -7,9 +7,41 @@
 //
 
 import UIKit
-import ZLBaseUI
+import ZMMVVM
 
-class ZLWorkboardTableViewCellData: ZLBaseViewModel, ZLWorkboardTableViewCellDelegate {
+enum ZLWorkboardType: ZMBaseCellUniqueIDProtocol {
+    var zm_ID: String {
+        switch self {
+        case .issues:
+            return "issues"
+        case .pullRequest:
+            return "pullRequest"
+        case .repos:
+            return "repos"
+        case .orgs:
+            return "orgs"
+        case .starRepos:
+            return "starRepos"
+        case .events:
+            return "events"
+        case .discussions:
+            return "discussions"
+        case .fixRepo(let repo):
+            return "fixRepo_\(repo)"
+        }
+    }
+    
+    case issues
+    case pullRequest
+    case repos
+    case orgs
+    case starRepos
+    case events
+    case discussions
+    case fixRepo(repo: String)
+}
+
+class ZLWorkboardTableViewCellData: ZMBaseTableViewCellViewModel{
 
     private let celltitle: String
     private let cellavatarURL: String
@@ -21,6 +53,19 @@ class ZLWorkboardTableViewCellData: ZLBaseViewModel, ZLWorkboardTableViewCellDel
         self.cellavatarURL = avatarURL
         super.init()
     }
+    
+    override var zm_cellID: any ZMBaseCellUniqueIDProtocol {
+        self.type
+    }
+    
+    override var zm_cellReuseIdentifier: String {
+        return "ZLWorkboardTableViewCell"
+    }
+    
+    override dynamic var zm_cellHeight: CGFloat {
+        60
+    }
+    
 
     var title: String {
         get {
@@ -71,55 +116,55 @@ class ZLWorkboardTableViewCellData: ZLBaseViewModel, ZLWorkboardTableViewCellDel
 
     var isGithubItem: Bool {
         get {
-            if self.type == .fixRepo {
+            if case .fixRepo = type {
                 return true
-            } else {
+            }  else {
                 return false
             }
         }
     }
 
-    func onCellClicked() {
+    override func zm_onCellSingleTap() {
         switch self.type {
         case .issues:
             guard let vc = ZLUIRouter.getMyIssuesController() else { return }
             vc.hidesBottomBarWhenPushed = true
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            zm_viewController?.navigationController?.pushViewController(vc, animated: true)
             break
         case .pullRequest:
             guard let vc = ZLUIRouter.getMyPullRequestsController() else {return}
             vc.hidesBottomBarWhenPushed = true
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            zm_viewController?.navigationController?.pushViewController(vc, animated: true)
             break
         case .repos:
             guard let vc = ZLUIRouter.getMyReposController() else { return }
             vc.hidesBottomBarWhenPushed = true
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            zm_viewController?.navigationController?.pushViewController(vc, animated: true)
             break
         case .orgs:
             guard let vc = ZLUIRouter.getOrgsViewController() else { return }
             vc.hidesBottomBarWhenPushed = true
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            zm_viewController?.navigationController?.pushViewController(vc, animated: true)
             break
         case .starRepos:
             guard let vc = ZLUIRouter.getStarRepoViewController() else { return  }
             vc.hidesBottomBarWhenPushed = true
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            zm_viewController?.navigationController?.pushViewController(vc, animated: true)
             break
         case .events:
             guard let vc = ZLUIRouter.getZLNewsViewController() else { return  }
             vc.hidesBottomBarWhenPushed = true
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            zm_viewController?.navigationController?.pushViewController(vc, animated: true)
             break
         case .discussions:
             let vc = ZLMyDiscussionsController()
             vc.hidesBottomBarWhenPushed = true
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            zm_viewController?.navigationController?.pushViewController(vc, animated: true)
             break
         case .fixRepo:
             guard let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: self.celltitle) else { return }
             vc.hidesBottomBarWhenPushed = true
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            zm_viewController?.navigationController?.pushViewController(vc, animated: true)
             break
         }
 

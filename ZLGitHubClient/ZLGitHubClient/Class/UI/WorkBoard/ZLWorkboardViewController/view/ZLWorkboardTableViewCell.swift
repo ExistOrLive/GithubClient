@@ -8,29 +8,9 @@
 
 import UIKit
 import ZLUtilities
+import ZMMVVM
+import ZLBaseExtension
 
-enum ZLWorkboardType {
-    case issues
-    case pullRequest
-    case repos
-    case orgs
-    case starRepos
-    case events
-    case discussions
-    case fixRepo
-}
-
-@objc protocol ZLWorkboardTableViewCellDelegate: NSObjectProtocol {
-
-    func onCellClicked()
-
-    var title: String { get }
-
-    var avatarURL: String { get }
-
-    var isGithubItem: Bool { get }
-
-}
 
 class ZLWorkboardTableViewCell: UITableViewCell {
 
@@ -111,16 +91,7 @@ class ZLWorkboardTableViewCell: UITableViewCell {
         }
     }
 
-    func fillWithData(cellData: ZLWorkboardTableViewCellDelegate) {
-
-        if cellData.isGithubItem {
-            self.avatarImageView.sd_setImage(with: URL.init(string: cellData.avatarURL), placeholderImage: UIImage(named: "default_avatar"))
-        } else {
-            self.avatarImageView.sd_cancelCurrentImageLoad() // 取消当前图片加载
-            self.avatarImageView.image = UIImage(named: cellData.avatarURL)
-        }
-        self.titleLabel.text = cellData.title
-    }
+  
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
@@ -143,4 +114,36 @@ class ZLWorkboardTableViewCell: UITableViewCell {
         }
     }
 
+}
+
+
+extension ZLWorkboardTableViewCell: ZMBaseViewUpdatableWithViewData {
+    func zm_fillWithViewData(viewData: ZLWorkboardTableViewCellData) {
+        if viewData.isGithubItem {
+            self.avatarImageView.sd_setImage(with: URL(string: viewData.avatarURL),
+                                             placeholderImage: UIImage(named: "default_avatar"))
+        } else {
+            self.avatarImageView.sd_cancelCurrentImageLoad() // 取消当前图片加载
+            self.avatarImageView.image = UIImage(named: viewData.avatarURL)
+        }
+        self.titleLabel.text = viewData.title
+        
+        
+        if viewData.zm_rowNumberOfCurrentSection == 1  {
+            backView.cornerDirection = CornerDirection(rawValue: 15)
+            backView.cornerRadius = 10
+            singleLineView.isHidden = true
+        } else if viewData.zm_indexPath.row == 0 {
+            backView.roundTop = true
+            backView.cornerRadius = 10
+            singleLineView.isHidden = false
+        } else if viewData.zm_indexPath.row == viewData.zm_rowNumberOfCurrentSection  - 1 {
+            backView.cornerRadius = 10
+            backView.roundBottom = true
+            singleLineView.isHidden = true
+        } else {
+            backView.cornerRadius = 0
+            singleLineView.isHidden = false
+        }
+    }
 }
