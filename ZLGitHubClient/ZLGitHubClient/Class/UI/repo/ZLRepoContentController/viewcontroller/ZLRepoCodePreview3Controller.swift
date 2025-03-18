@@ -86,7 +86,7 @@ class ZLRepoCodePreview3Controller: ZLBaseViewController {
         super.viewWillTransition(to: size, with: coordinator)
 
         if ZLDeviceInfo.isIPhone() {
-            guard let navigationVC: ZLBaseNavigationController = self.navigationController as? ZLBaseNavigationController else {
+            guard let navigationVC: ZMNavigationController = self.navigationController as? ZMNavigationController else {
                 return
             }
             if size.height > size.width {

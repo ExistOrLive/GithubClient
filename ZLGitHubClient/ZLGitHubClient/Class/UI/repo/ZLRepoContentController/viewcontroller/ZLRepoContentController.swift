@@ -72,14 +72,14 @@ class ZLRepoContentController: ZLBaseViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if let navigationVC = navigationController as? ZLBaseNavigationController {
+        if let navigationVC = navigationController as? ZMNavigationController {
             navigationVC.forbidGestureBack = false
         }
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if let navigationVC = navigationController as? ZLBaseNavigationController {
+        if let navigationVC = navigationController as? ZMNavigationController {
             navigationVC.forbidGestureBack = true
         }
     }

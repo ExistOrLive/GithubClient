@@ -150,15 +150,15 @@ import ZLUIUtilities
             newsNavigationController.tabBarItem.title = ZLLocalizedString(string:"Workboard", comment: "动态")
         }
         
-        if let notificaitonNavigationController = children[1] as? ZLBaseNavigationController {
+        if let notificaitonNavigationController = children[1] as? ZMNavigationController {
             notificaitonNavigationController.tabBarItem.title = ZLLocalizedString(string:"Notification", comment: "通知")
         }
         
-        if let exploreNavigationController = children[2] as? ZLBaseNavigationController {
+        if let exploreNavigationController = children[2] as? ZMNavigationController {
             exploreNavigationController.tabBarItem.title = ZLLocalizedString(string:"explore", comment: "搜索")
         }
         
-        if let profileNavigationController = children[3] as? ZLBaseNavigationController {
+        if let profileNavigationController = children[3] as? ZMNavigationController {
             profileNavigationController.tabBarItem.title = ZLLocalizedString(string:"profile", comment: "我")
         }
     }
