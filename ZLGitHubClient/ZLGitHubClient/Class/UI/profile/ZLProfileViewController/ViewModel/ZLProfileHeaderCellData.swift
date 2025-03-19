@@ -9,15 +9,19 @@
 import Foundation
 import ZLUIUtilities
 import ZLGitRemoteService
+import ZMMVVM
 
-class ZLProfileHeaderCellData: ZLTableViewBaseCellData {
+class ZLProfileHeaderCellData: ZMBaseTableViewCellViewModel {
     
-    private var data: ZLGithubUserModel
+    private let data: ZLGithubUserModel
     
     init(userModel: ZLGithubUserModel) {
         self.data = userModel
         super.init()
-        self.cellReuseIdentifier = "ZLProfileHeaderCell"
+    }
+    
+    override var zm_cellReuseIdentifier: String {
+        return "ZLProfileHeaderCell"
     }
 }
 
@@ -83,7 +87,7 @@ extension ZLProfileHeaderCellData: ZLProfileHeaderCellDataSourceAndDelegate {
                                      params: ["login": login,
                                               "type": ZLUserAdditionInfoType.repositories.rawValue]) {
             vc.hidesBottomBarWhenPushed = true
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            zm_viewController?.navigationController?.pushViewController(vc, animated: true)
         }
     }
     func onGistsNumButtonClicked() {
@@ -92,7 +96,7 @@ extension ZLProfileHeaderCellData: ZLProfileHeaderCellDataSourceAndDelegate {
                                      params: ["login": login,
                                               "type": ZLUserAdditionInfoType.gists.rawValue]) {
             vc.hidesBottomBarWhenPushed = true
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            zm_viewController?.navigationController?.pushViewController(vc, animated: true)
         }
     }
     func onFollowsNumButtonClicked() {
@@ -101,7 +105,7 @@ extension ZLProfileHeaderCellData: ZLProfileHeaderCellDataSourceAndDelegate {
                                      params: ["login": login,
                                               "type": ZLUserAdditionInfoType.followers.rawValue]) {
             vc.hidesBottomBarWhenPushed = true
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            zm_viewController?.navigationController?.pushViewController(vc, animated: true)
         }
     }
     func onFollowingNumButtonClicked() {
@@ -110,7 +114,7 @@ extension ZLProfileHeaderCellData: ZLProfileHeaderCellDataSourceAndDelegate {
                                      params: ["login": login,
                                               "type": ZLUserAdditionInfoType.following.rawValue]) {
             vc.hidesBottomBarWhenPushed = true
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            zm_viewController?.navigationController?.pushViewController(vc, animated: true)
         }
     }
     
@@ -118,13 +122,13 @@ extension ZLProfileHeaderCellData: ZLProfileHeaderCellDataSourceAndDelegate {
         if let login = data.loginName,
            let vc = ZLUIRouter.getUserInfoViewController(loginName: login) {
             vc.hidesBottomBarWhenPushed = true
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            zm_viewController?.navigationController?.pushViewController(vc, animated: true)
         }
     }
     
     func onEditProfileButtonClicked() {
         let vc = ZLEditProfileController.init()
         vc.hidesBottomBarWhenPushed = true
-        self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        zm_viewController?.navigationController?.pushViewController(vc, animated: true)
     }
 }

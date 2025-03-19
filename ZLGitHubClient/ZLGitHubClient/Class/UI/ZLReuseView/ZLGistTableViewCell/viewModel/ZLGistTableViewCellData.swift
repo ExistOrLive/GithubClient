@@ -8,8 +8,9 @@
 
 import UIKit
 import ZLGitRemoteService
+import ZMMVVM
 
-class ZLGistTableViewCellData: ZLGithubItemTableViewCellData {
+class ZLGistTableViewCellData: ZMBaseTableViewCellViewModel {
 
     var gistModel: ZLGithubGistModel
 
@@ -18,29 +19,20 @@ class ZLGistTableViewCellData: ZLGithubItemTableViewCellData {
         super.init()
     }
 
-    override func getCellReuseIdentifier() -> String {
+    override var zm_cellReuseIdentifier: String {
         return "ZLGistTableViewCell"
     }
 
-    override func getCellHeight() -> CGFloat {
+    override var zm_cellHeight: CGFloat {
         return 180
     }
 
-    override func onCellSingleTap() {
+    override func zm_onCellSingleTap() {
         if let url = URL(string: self.gistModel.html_url) {
             ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,
                                   params: ["requestURL": url])
         }
     }
-
-    override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
-        guard let cell: ZLGistTableViewCell = targetView as? ZLGistTableViewCell else {
-            return
-        }
-        cell.fillWithViewData(viewData: self)
-        cell.delegate = self
-    }
-
 }
 
 extension ZLGistTableViewCellData: ZLGistTableViewCellDelegate {
@@ -51,7 +43,7 @@ extension ZLGistTableViewCellData: ZLGistTableViewCellDelegate {
               let vc = ZLUIRouter.getUserInfoViewController(loginName: login) else {
                   return
               }
-        self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        zm_viewController?.navigationController?.pushViewController(vc, animated: true)
     }
     
 

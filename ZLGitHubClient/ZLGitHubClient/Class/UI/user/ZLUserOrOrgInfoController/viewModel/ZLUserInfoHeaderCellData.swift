@@ -7,21 +7,25 @@
 //
 
 import UIKit
-import ZLBaseUI
 import ZLUIUtilities
 import ZLBaseExtension
 import ZLGitRemoteService
 import ZLUtilities
+import ZMMVVM
 
-class ZLUserInfoHeaderCellData: ZLTableViewBaseCellData {
+class ZLUserInfoHeaderCellData: ZMBaseTableViewCellViewModel {
 
     let stateModel: ZLUserInfoStateModel
 
     init(stateModel: ZLUserInfoStateModel) {
         self.stateModel = stateModel
         super.init()
-        cellReuseIdentifier = "ZLUserInfoHeaderCell"
     }
+    
+    override var zm_cellReuseIdentifier: String {
+        return "ZLUserInfoHeaderCell"
+    }
+    
     
     var userModel: ZLGithubUserModel? {
         stateModel.userModel
@@ -151,7 +155,7 @@ extension ZLUserInfoHeaderCellData: ZLUserInfoHeaderCellDataSourceAndDelegate {
            let vc = ZLUIRouter.getVC(key: ZLUIRouter.UserAdditionInfoController,
                                      params: ["login": login,
                                               "type": ZLUserAdditionInfoType.repositories.rawValue]) {
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            zm_viewController?.navigationController?.pushViewController(vc, animated: true)
         }
     }
     func onGistsNumButtonClicked() {
@@ -159,7 +163,7 @@ extension ZLUserInfoHeaderCellData: ZLUserInfoHeaderCellDataSourceAndDelegate {
            let vc = ZLUIRouter.getVC(key: ZLUIRouter.UserAdditionInfoController,
                                      params: ["login": login,
                                               "type": ZLUserAdditionInfoType.gists.rawValue]) {
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            zm_viewController?.navigationController?.pushViewController(vc, animated: true)
         }
     }
     func onFollowsNumButtonClicked() {
@@ -167,7 +171,7 @@ extension ZLUserInfoHeaderCellData: ZLUserInfoHeaderCellDataSourceAndDelegate {
            let vc = ZLUIRouter.getVC(key: ZLUIRouter.UserAdditionInfoController,
                                      params: ["login": login,
                                               "type": ZLUserAdditionInfoType.followers.rawValue]) {
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            zm_viewController?.navigationController?.pushViewController(vc, animated: true)
         }
     }
     func onFollowingNumButtonClicked() {
@@ -175,7 +179,7 @@ extension ZLUserInfoHeaderCellData: ZLUserInfoHeaderCellDataSourceAndDelegate {
            let vc = ZLUIRouter.getVC(key: ZLUIRouter.UserAdditionInfoController,
                                      params: ["login": login,
                                               "type": ZLUserAdditionInfoType.following.rawValue]) {
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            zm_viewController?.navigationController?.pushViewController(vc, animated: true)
         }
     }
 }

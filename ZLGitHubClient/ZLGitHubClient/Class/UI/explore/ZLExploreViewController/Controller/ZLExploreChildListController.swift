@@ -7,20 +7,20 @@
 //
 
 import Foundation
-import ZLBaseUI
 import ZLUIUtilities
 import ZLBaseExtension
 import UIKit
 import JXSegmentedView
 import ZLGitRemoteService
 import ZLUtilities
+import ZMMVVM
 
 enum ZLExploreChildListType: Int, CaseIterable {
     case repo = 0
     case user = 1
 }
 
-class ZLExploreChildListController: ZLBaseViewController {
+class ZLExploreChildListController: ZMTableViewController {
     
     let type: ZLExploreChildListType
     
@@ -33,7 +33,7 @@ class ZLExploreChildListController: ZLBaseViewController {
     init(type: ZLExploreChildListType, superVC: UIViewController?) {
         self.type = type
         self.superVC = superVC
-        super.init(nibName: nil, bundle: nil)
+        super.init()
     }
     
     required init?(coder: NSCoder) {
@@ -42,58 +42,29 @@ class ZLExploreChildListController: ZLBaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpUI()
         bindData()
-    
-        itemListView.startLoad()
+        viewStatus = .loading
+        refreshLoadNewData()
     }
 
-    func setUpUI() {
-                
+    override func setupUI() {
+        super.setupUI()
+        isZmNavigationBarHidden = true
         contentView.addSubview(headerView)
-        contentView.addSubview(itemListView)
-        headerView.addSubview(headerScrollView)
-        headerScrollView.addSubview(stackView)
-        stackView.addArrangedSubview(dateButton)
-        stackView.addArrangedSubview(languageButton)
-        
         headerView.snp.makeConstraints { make in
             make.top.left.right.equalToSuperview()
             make.height.equalTo(40)
         }
-        
-        headerScrollView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+        tableView.snp.remakeConstraints { make in
+            make.left.right.bottom.equalToSuperview()
+            make.top.equalTo(headerView.snp.bottom)
         }
         
-        stackView.snp.makeConstraints { make in
-            make.top.left.right.bottom.equalToSuperview()
-            make.height.equalTo(40)
-        }
-        
-        dateButton.snp.makeConstraints { make in
-            make.width.equalTo(60)
-            make.height.equalTo(25)
-        }
-        
-        languageButton.snp.makeConstraints { make in
-            make.width.equalTo(60)
-            make.height.equalTo(25)
-        }
-        
-        itemListView.snp.makeConstraints { make in
-            make.left.right.equalToSuperview()
-            make.top.equalTo(headerView.snp.bottom).offset(5)
-            make.bottom.equalToSuperview().offset(-5)
-        }
-        
-        if type == .repo {
-            stackView.addArrangedSubview(spokenLanguageButton)
-            spokenLanguageButton.snp.makeConstraints { make in
-                make.width.equalTo(60)
-                make.height.equalTo(25)
-            }
-        }
+        tableView.contentInset = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
+        tableView.register(ZLUserTableViewCell.self, forCellReuseIdentifier: "ZLUserTableViewCell")
+        tableView.register(ZLRepositoryTableViewCell.self, forCellReuseIdentifier: "ZLRepositoryTableViewCell")
+    
+        setRefreshViews(types: [.header])
     }
     
     func setButtonTitle(button: UIButton, title: String) {
@@ -194,6 +165,8 @@ class ZLExploreChildListController: ZLBaseViewController {
             
             let spokenLanguage = ZLUISharedDataManager.spokenLanguageForTrendingRepo ?? "Any"
             setButtonTitle(button: spokenLanguageButton, title: spokenLanguage)
+            
+            spokenLanguageButton.isHidden = false
         }
             
         case .user: do {
@@ -202,6 +175,8 @@ class ZLExploreChildListController: ZLBaseViewController {
             
             let language = ZLUISharedDataManager.languageForTrendingUser ?? "Any"
             setButtonTitle(button: languageButton, title: language)
+            
+            spokenLanguageButton.isHidden = true
         }
         }
         
@@ -226,18 +201,14 @@ class ZLExploreChildListController: ZLBaseViewController {
     
     
     // MARK: View
-    lazy var itemListView: ZLTableContainerView = {
-        let view = ZLTableContainerView()
-        view.setTableViewHeader()
-        view.register(ZLUserTableViewCell.self, forCellReuseIdentifier: "ZLUserTableViewCell")
-        view.register(ZLRepositoryTableViewCell.self, forCellReuseIdentifier: "ZLRepositoryTableViewCell")
-        view.delegate = self
-       return view 
-    }()
     
     lazy var headerView: UIView = {
         let view = UIView()
+        view.addSubview(headerScrollView)
         view.backgroundColor = UIColor(named: "ZLNavigationBarBackColor")
+        headerScrollView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
         return view
     }()
     
@@ -268,6 +239,11 @@ class ZLExploreChildListController: ZLBaseViewController {
         scrollView.bounces = false
         scrollView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         scrollView.showsHorizontalScrollIndicator = false
+        scrollView.addSubview(stackView)
+        stackView.snp.makeConstraints { make in
+            make.top.left.right.bottom.equalToSuperview()
+            make.height.equalTo(40)
+        }
         return scrollView
     }()
     
@@ -277,22 +253,47 @@ class ZLExploreChildListController: ZLBaseViewController {
         stackView.spacing = 10
         stackView.distribution = .equalSpacing
         stackView.alignment = .center
+        stackView.addArrangedSubview(dateButton)
+        stackView.addArrangedSubview(languageButton)
+        stackView.addArrangedSubview(spokenLanguageButton)
+        
+        dateButton.snp.makeConstraints { make in
+            make.width.equalTo(60)
+            make.height.equalTo(25)
+        }
+        
+        languageButton.snp.makeConstraints { make in
+            make.width.equalTo(60)
+            make.height.equalTo(25)
+        }
+        
+        spokenLanguageButton.snp.makeConstraints { make in
+            make.width.equalTo(60)
+            make.height.equalTo(25)
+        }
+ 
         return stackView
     }()
     
     lazy var filterManager: ZLTrendingFilterManager = {
        return ZLTrendingFilterManager()
     }()
+    
+
+    override func refreshLoadNewData() {
+        switch type {
+        case .repo:
+            getTrendRepo()
+        case .user:
+            getTrendUser()
+        }
+    }
 }
 
 // MARK: ZLBaseViewModel
 extension ZLExploreChildListController {
-    override var viewController: ZLBaseViewController? {
-        if let vc = self.superVC as? ZLBaseViewController  {
-            return vc
-        } else {
-            return nil
-        }
+    override var zm_viewController: UIViewController? {
+        self.superVC
     }
 }
 
@@ -323,7 +324,8 @@ extension ZLExploreChildListController {
             case .user:
                 ZLUISharedDataManager.languageForTrendingUser = newLanguage
             }
-            self.itemListView.startLoad()
+            ZLProgressHUD.show()
+            self.refreshLoadNewData()
         }
     }
     
@@ -349,7 +351,8 @@ extension ZLExploreChildListController {
                 ZLUISharedDataManager.dateRangeForTrendingUser = dateRange
             }
             
-            self.itemListView.startLoad()
+            ZLProgressHUD.show()
+            self.refreshLoadNewData()
         }
     }
     
@@ -365,27 +368,11 @@ extension ZLExploreChildListController {
             let languageTitle = newLanguage ?? "Any"
             self.setButtonTitle(button: self.spokenLanguageButton, title: languageTitle)
             ZLUISharedDataManager.spokenLanguageForTrendingRepo = newLanguage
-            self.itemListView.startLoad()
+            ZLProgressHUD.show()
+            self.refreshLoadNewData()
         }
     }
     
-}
-
-// MARK: ZLGithubItemListViewDelegate
-extension ZLExploreChildListController: ZLTableContainerViewDelegate {
-    
-    func zlLoadNewData() {
-        switch type {
-        case .repo:
-            getTrendRepo()
-        case .user:
-            getTrendUser()
-        }
-    }
-    
-    func zlLoadMoreData() {
-        
-    }
 }
 
 // MARK: Request
@@ -409,29 +396,33 @@ extension ZLExploreChildListController {
         {[weak self] (model: ZLOperationResultModel) in
             
             guard let self = self else { return }
+            self.viewStatus = .normal
+            self.endRefreshViews()
+            ZLProgressHUD.dismiss()
             
-            if model.result == true {
+            if dateRange != ZLUISharedDataManager.dateRangeForTrendingRepo ||
+                language != ZLUISharedDataManager.languageForTrendingRepo ||
+                spokenLanguageCode != ZMLanguageSelectView.spokenLanguagueDic[ZLUISharedDataManager.spokenLanguageForTrendingRepo ?? ""] {
+                /// 筛选项不一致，return
+                return
+            }
+            
+            if model.result == true,
+               let repoArray: [ZLGithubRepositoryModel] = model.data as?  [ZLGithubRepositoryModel]  {
+            
+                self.sectionDataArray.forEach { $0.zm_removeFromSuperViewModel() }
                 
-                guard let repoArray: [ZLGithubRepositoryModel] = model.data as?  [ZLGithubRepositoryModel] else {
-                    ZLLog_Info("ZLGithubRepositoryModel transfer failed")
-                    self.itemListView.endRefresh()
-                    return
+                let repoCellDatas: [ZLRepositoryTableViewCellDataV3] = repoArray.map {
+                    ZLRepositoryTableViewCellDataV3(data: $0)
                 }
+                self.zm_addSubViewModels(repoCellDatas)
+                self.sectionDataArray = [ZMBaseTableViewSectionData(cellDatas: repoCellDatas)]
+                self.tableView.reloadData()
                 
-                for subViewModel in self.subViewModels {
-                    subViewModel.removeFromSuperViewModel()
-                }
-                
-                var repoCellDatas: [ZLRepositoryTableViewCellDataV2] = []
-                for item in repoArray {
-                    let cellData = ZLRepositoryTableViewCellDataV2(data: item)
-                    self.addSubViewModel(cellData)
-                    repoCellDatas.append(cellData)
-                }
-                
-                self.itemListView.resetCellDatas(cellDatas: repoCellDatas, hasMoreData: true)
+                self.viewStatus = repoArray.isEmpty ? .empty : .normal
+            
             } else {
-                self.itemListView.endRefresh()
+                self.viewStatus = self.tableViewProxy.isEmpty ? .error : .normal
                 guard let errorModel: ZLGithubRequestErrorModel = model.data as? ZLGithubRequestErrorModel else {
                     return
                 }
@@ -444,17 +435,18 @@ extension ZLExploreChildListController {
     
         if let array = array as? [ZLGithubRepositoryModel] {
             
-            for subViewModel in subViewModels {
-                subViewModel.removeFromSuperViewModel()
-            }
+            self.viewStatus = array.isEmpty ? .empty : .normal
+            self.endRefreshViews()
+            ZLProgressHUD.dismiss()
             
-            var repoCellDatas: [ZLRepositoryTableViewCellDataV2] = []
-            for repo in array {
-                let cellData = ZLRepositoryTableViewCellDataV2(data: repo)
-                self.addSubViewModel(cellData)
-                repoCellDatas.append(cellData)
+            self.sectionDataArray.forEach { $0.zm_removeFromSuperViewModel() }
+            
+            let repoCellDatas: [ZLRepositoryTableViewCellDataV3] = array.map {
+                ZLRepositoryTableViewCellDataV3(data: $0)
             }
-            self.itemListView.resetCellDatas(cellDatas: repoCellDatas, hasMoreData: true)
+            self.zm_addSubViewModels(repoCellDatas)
+            self.sectionDataArray = [ZMBaseTableViewSectionData(cellDatas: repoCellDatas)]
+            self.tableView.reloadData()
         }
         
     }
@@ -472,28 +464,32 @@ extension ZLExploreChildListController {
         { [weak self](model: ZLOperationResultModel) in
             
             guard let self = self else { return }
+            self.viewStatus = .normal
+            self.endRefreshViews()
+            ZLProgressHUD.dismiss()
             
-            if model.result == true {
-                guard let userArray: [ZLGithubUserModel] = model.data as?  [ZLGithubUserModel] else {
-                    ZLLog_Info("ZLGithubUserModel transfer failed")
-                    self.itemListView.endRefresh()
-                    return
-                }
+            if dateRange != ZLUISharedDataManager.dateRangeForTrendingUser || language != ZLUISharedDataManager.languageForTrendingUser {
+                /// 筛选项不一致，return
+                return
+            }
+            
+            if model.result, let userArray = model.data as?  [ZLGithubUserModel] {
+               
+            
+                self.sectionDataArray.forEach { $0.zm_removeFromSuperViewModel() }
                 
-                for subViewModel in self.subViewModels {
-                    subViewModel.removeFromSuperViewModel()
+                let userCellDatas: [ZLUserTableViewCellDataV3] = userArray.map {
+                    ZLUserTableViewCellDataV3(model: $0)
                 }
-                
-                var userCellDatas: [ZLUserTableViewCellDataV2] = []
-                for item in userArray {
-                    let cellData = ZLUserTableViewCellDataV2(model: item)
-                    self.addSubViewModel(cellData)
-                    userCellDatas.append(cellData)
-                }
-                self.itemListView.resetCellDatas(cellDatas: userCellDatas, hasMoreData: true)
+                self.zm_addSubViewModels(userCellDatas)
+                self.sectionDataArray = [ZMBaseTableViewSectionData(cellDatas: userCellDatas)]
+                self.tableView.reloadData()
+
+                self.viewStatus = userCellDatas.isEmpty ? .empty : .normal
         
             } else {
-                self.itemListView.endRefresh()
+                
+                self.viewStatus = self.tableViewProxy.isEmpty ? .error : .normal
                 guard let errorModel: ZLGithubRequestErrorModel = model.data as? ZLGithubRequestErrorModel else {
                     return
                 }
@@ -505,17 +501,18 @@ extension ZLExploreChildListController {
         
         if let array = array as? [ZLGithubUserModel] {
             
-            for subViewModel in subViewModels {
-                subViewModel.removeFromSuperViewModel()
-            }
+            self.viewStatus = array.isEmpty ? .empty : .normal
+            self.endRefreshViews()
+            ZLProgressHUD.dismiss()
             
-            var userCellDatas: [ZLUserTableViewCellDataV2] = []
-            for user in array {
-                let cellData = ZLUserTableViewCellDataV2(model: user)
-                self.addSubViewModel(cellData)
-                userCellDatas.append(cellData)
+            self.sectionDataArray.forEach { $0.zm_removeFromSuperViewModel() }
+            
+            let userCellDatas: [ZLUserTableViewCellDataV3] = array.map {
+                ZLUserTableViewCellDataV3(model: $0)
             }
-            self.itemListView.resetCellDatas(cellDatas: userCellDatas, hasMoreData: true)
+            self.zm_addSubViewModels(userCellDatas)
+            self.sectionDataArray = [ZMBaseTableViewSectionData(cellDatas: userCellDatas)]
+            self.tableView.reloadData()
         }
     }
 }
@@ -535,7 +532,9 @@ extension ZLExploreChildListController {
         switch notication.name {
         case ZLLanguageTypeChange_Notificaiton:do {
  
-            self.itemListView.justRefresh()
+            self.justReloadRefreshView()
+            self.tableView.reloadData()
+            
             switch type {
             case .repo: do {
                 let dateTitle = titleForDateRange(dateRange: ZLUISharedDataManager.dateRangeForTrendingRepo)

@@ -8,101 +8,89 @@
 
 import UIKit
 import ZLUIUtilities
-import ZLBaseUI
+import ZMMVVM
 import ZLBaseExtension
 import ZLGitRemoteService
 
-class ZLMyRepoesController: ZLBaseViewController {
-
-    // view
-    var itemListView: ZLGithubItemListView!
+class ZLMyRepoesController: ZMTableViewController {
 
     // after
     var after: String?
-
+    
+    @objc init() {
+        super.init()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.title = ZLLocalizedString(string: "My Repos", comment: "")
 
-        // view
-        let itemListView = ZLGithubItemListView()
-        itemListView.setTableViewHeader()
-        itemListView.setTableViewFooter()
-        itemListView.delegate = self
-        self.contentView.addSubview(itemListView)
-        itemListView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
-        }
-        self.itemListView = itemListView
-
-        self.itemListView.beginRefresh()
+        self.setRefreshViews(types: [.footer,.header])
+        self.tableView.contentInsetAdjustmentBehavior = .automatic
+        self.tableView.contentInset = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
+        self.tableView.register(ZLRepositoryTableViewCell.self,
+                                forCellReuseIdentifier: "ZLRepositoryTableViewCell")
+        
+        viewStatus = .loading
+        refreshLoadNewData()
+    }
+    
+    override func refreshLoadNewData() {
+        loadData(isLoadNew: true)
+    }
+    
+    override func refreshLoadMoreData() {
+        loadData(isLoadNew: false)
     }
 
 }
 
-extension ZLMyRepoesController: ZLGithubItemListViewDelegate {
+extension ZLMyRepoesController {
 
-    func githubItemListViewRefreshDragDown(pullRequestListView: ZLGithubItemListView) {
-
-        ZLServiceManager.sharedInstance.viewerServiceModel?.getMyTopRepos(after: nil, serialNumber: NSString.generateSerialNumber()) { [weak weakSelf = self] (resultModel: ZLOperationResultModel) in
-
-            if resultModel.result == false {
-                if let errorModel = resultModel.data as? ZLGithubRequestErrorModel {
-                    ZLToastView.showMessage(errorModel.message)
-                }
-                weakSelf?.itemListView.endRefreshWithError()
-            } else {
-                if let data = resultModel.data as? ViewerTopRepositoriesQuery.Data {
-                    weakSelf?.after = data.viewer.topRepositories.pageInfo.endCursor
-                    var cellDatas: [ZLRepoTableViewCellDataForTopRepoQuery] = []
-                    if let nodes =  data.viewer.topRepositories.nodes {
-                        for tmpData in nodes {
-                            if let data = tmpData {
-                                let cellData = ZLRepoTableViewCellDataForTopRepoQuery(data: data)
-                                cellDatas.append(cellData)
-                            }
+    func loadData(isLoadNew: Bool) {
+        ZLViewerServiceShared()?.getMyTopRepos(after: isLoadNew ? nil : after,
+                                               serialNumber: NSString.generateSerialNumber())
+        { [weak self] (resultModel: ZLOperationResultModel) in
+            guard let self else { return }
+            
+            if resultModel.result,
+               let data = resultModel.data as? ViewerTopRepositoriesQuery.Data {
+                
+                var cellDatas: [ZLRepoTableViewCellDataForTopRepoQuery] = []
+                if let nodes =  data.viewer.topRepositories.nodes {
+                    for tmpData in nodes {
+                        if let data = tmpData {
+                            let cellData = ZLRepoTableViewCellDataForTopRepoQuery(data: data)
+                            cellDatas.append(cellData)
                         }
                     }
-                    weakSelf?.addSubViewModels(cellDatas)
-                    weakSelf?.itemListView.resetCellDatas(cellDatas: cellDatas)
-                } else {
-                    weakSelf?.itemListView.endRefreshWithError()
                 }
-            }
-        }
-
-    }
-
-    func githubItemListViewRefreshDragUp(pullRequestListView: ZLGithubItemListView) {
-
-        ZLServiceManager.sharedInstance.viewerServiceModel?.getMyTopRepos(after: self.after, serialNumber: NSString.generateSerialNumber()) {[weak weakSelf = self] (resultModel: ZLOperationResultModel) in
-            if resultModel.result == false {
+                zm_addSubViewModels(cellDatas)
+                if isLoadNew {
+                    self.sectionDataArray.forEach { $0.zm_removeFromSuperViewModel() }
+                    self.sectionDataArray = [ZMBaseTableViewSectionData(cellDatas: cellDatas)]
+                } else {
+                    self.sectionDataArray.first?.cellDatas.append(contentsOf: cellDatas)
+                }
+                
+                self.tableView.reloadData()
+                self.viewStatus = self.tableViewProxy.isEmpty ? .empty : .normal
+                self.endRefreshViews(noMoreData: cellDatas.isEmpty)
+                
+                self.after = data.viewer.topRepositories.pageInfo.endCursor
+                
+            } else {
+                self.endRefreshViews()
+                self.viewStatus = self.tableViewProxy.isEmpty ? .error : .normal
                 if let errorModel = resultModel.data as? ZLGithubRequestErrorModel {
                     ZLToastView.showMessage(errorModel.message)
-                }
-                weakSelf?.itemListView.endRefreshWithError()
-            } else {
-                if let data = resultModel.data as? ViewerTopRepositoriesQuery.Data {
-                    weakSelf?.after = data.viewer.topRepositories.pageInfo.endCursor
-
-                    var cellDatas: [ZLRepoTableViewCellDataForTopRepoQuery] = []
-                    if let nodes = data.viewer.topRepositories.nodes {
-                        for tmpData in nodes {
-                            if let data = tmpData {
-                                let cellData = ZLRepoTableViewCellDataForTopRepoQuery(data: data)
-                                cellDatas.append(cellData)
-                            }
-                        }
-                    }
-
-                    weakSelf?.addSubViewModels(cellDatas)
-                    weakSelf?.itemListView.appendCellDatas(cellDatas: cellDatas)
-                } else {
-                    weakSelf?.itemListView.endRefreshWithError()
                 }
             }
         }
     }
-
 }

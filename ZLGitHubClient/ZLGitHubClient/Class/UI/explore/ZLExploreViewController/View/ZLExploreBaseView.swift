@@ -9,9 +9,9 @@
 import UIKit
 import JXSegmentedView
 import ZLUIUtilities
-import ZLBaseUI
 import ZLBaseExtension
 import ZLUtilities
+import ZMMVVM
 
 @objc protocol ZLExploreBaseViewDelegate {
 
@@ -26,12 +26,8 @@ import ZLUtilities
 
 @objcMembers class ZLExploreBaseView: UIView {
     
-    weak var delegate: ZLExploreBaseViewDelegate? {
-        didSet {
-            let titles: [String] = self.delegate?.exploreTypeTitles() ?? []
-            self.segmentedViewDatasource.titles = titles
-            self.segmentedView.reloadData()
-        }
+    var delegate: ZLExploreBaseViewDelegate? {
+        zm_viewModel as? ZLExploreBaseViewDelegate
     }
     
     override init(frame: CGRect) {
@@ -89,21 +85,12 @@ import ZLUtilities
     
     
     func configSegmentView() {
-        
         self.segmentedView.delegate = self
         self.segmentedView.dataSource = self.segmentedViewDatasource
         self.segmentedView.indicators = [indicator]
         self.segmentedView.listContainer = self.segmentedListContainerView
-
-        self.justReloadView()
     }
     
-    func justReloadView() {
-        let titles: [String] = self.delegate?.exploreTypeTitles() ?? []
-        self.segmentedViewDatasource.titles = titles
-        self.segmentedView.reloadData()
-    }
-
     func onSearchButtonClicked(_ sender: Any) {
         self.delegate?.onSearchButtonClicked()
     }
@@ -208,14 +195,12 @@ extension ZLExploreBaseView: JXSegmentedListContainerViewDataSource {
 }
 
 // MARK: ZLViewUpdatableWithViewData
-extension ZLExploreBaseView: ZLViewUpdatableWithViewData {
+extension ZLExploreBaseView: ZMBaseViewUpdatableWithViewData {
     
-    func fillWithViewData(viewData: ZLExploreBaseViewDelegate) {
-        self.delegate = viewData
-    }
-    
-    func justUpdateView() {
-        
+    func zm_fillWithViewData(viewData: ZLExploreBaseViewDelegate) {
+        let titles: [String] = viewData.exploreTypeTitles()
+        self.segmentedViewDatasource.titles = titles
+        self.segmentedView.reloadData()
     }
 }
 

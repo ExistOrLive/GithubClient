@@ -9,6 +9,7 @@
 import UIKit
 import ZLUIUtilities
 import ZLUtilities
+import ZMMVVM
 
 protocol ZLRepositoryTableViewCellDelegate: NSObjectProtocol {
 
@@ -329,5 +330,12 @@ extension ZLRepositoryTableViewCell {
     @objc func longPressAction(gesture: UILongPressGestureRecognizer) {
         guard gesture.state == .began else { return }
         delegate?.longPressAction(view: self)
+    }
+}
+
+extension ZLRepositoryTableViewCell: ZMBaseViewUpdatableWithViewData {
+    
+    func zm_fillWithViewData(viewData: ZLRepositoryTableViewCellDelegate) {
+        fillWithViewData(viewData:viewData)
     }
 }

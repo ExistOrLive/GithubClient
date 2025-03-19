@@ -8,6 +8,7 @@
 
 import UIKit
 import ZLUIUtilities
+import ZMMVVM
 
 protocol ZLUserTableViewCellDelegate: NSObjectProtocol {
 
@@ -153,5 +154,13 @@ extension ZLUserTableViewCell: ZLViewUpdatableWithViewData {
     
     func justUpdateView() {
         
+    }
+}
+
+
+extension ZLUserTableViewCell: ZMBaseViewUpdatableWithViewData {
+    
+    func zm_fillWithViewData(viewData: ZLUserTableViewCellDelegate) {
+        fillWithViewData(viewData:viewData)
     }
 }

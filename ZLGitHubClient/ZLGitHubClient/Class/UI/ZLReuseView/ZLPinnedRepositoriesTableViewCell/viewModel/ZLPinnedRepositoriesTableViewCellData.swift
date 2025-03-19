@@ -8,10 +8,10 @@
 
 import UIKit
 import ZLGitRemoteService
-import ZLBaseUI
+import ZMMVVM
 import ZLUIUtilities
 
-class ZLPinnedRepositoriesTableViewCellData: ZLTableViewBaseCellData {
+class ZLPinnedRepositoriesTableViewCellData: ZMBaseTableViewCellViewModel {
 
     private var repos: [ZLGithubRepositoryBriefModel]
 
@@ -24,8 +24,12 @@ class ZLPinnedRepositoriesTableViewCellData: ZLTableViewBaseCellData {
             return cellData
         })
         super.init()
-        self.addSubViewModels(subCellDatas)
-        cellReuseIdentifier = "ZLPinnedRepositoriesTableViewCell"
+        self.zm_addSubViewModels(subCellDatas)
+    }
+    
+    
+    override var zm_cellReuseIdentifier: String {
+        return "ZLPinnedRepositoriesTableViewCell"
     }
 }
 

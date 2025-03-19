@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import ZLBaseUI
+import ZMMVVM
 import ZLUIUtilities
 import ZLBaseExtension
 
@@ -17,7 +17,9 @@ protocol ZLPinnedRepositoriesTableViewCellDelegateAndDataSource: AnyObject {
 
 class ZLPinnedRepositoriesTableViewCell: UITableViewCell {
 
-    private weak var delegate: ZLPinnedRepositoriesTableViewCellDelegateAndDataSource?
+    var delegate: ZLPinnedRepositoriesTableViewCellDelegateAndDataSource? {
+        zm_viewModel as? ZLPinnedRepositoriesTableViewCellDelegateAndDataSource
+    }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -106,15 +108,9 @@ extension ZLPinnedRepositoriesTableViewCell: UICollectionViewDelegate, UICollect
 
 }
 
-extension ZLPinnedRepositoriesTableViewCell: ZLViewUpdatableWithViewData {
+extension ZLPinnedRepositoriesTableViewCell: ZMBaseViewUpdatableWithViewData {
    
-    func justUpdateView() {
-        
-    }
-    
-    // MARK: fillWithData
-    func fillWithViewData(viewData: ZLPinnedRepositoriesTableViewCellDelegateAndDataSource) {
-        self.delegate = viewData
+    func zm_fillWithViewData(viewData: ZLPinnedRepositoriesTableViewCellDelegateAndDataSource) {
         self.collectionView.reloadData()
     }
 }

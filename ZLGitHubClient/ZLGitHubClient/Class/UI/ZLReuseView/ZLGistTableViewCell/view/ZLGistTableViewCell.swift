@@ -12,6 +12,7 @@ import Foundation
 import ZLUIUtilities
 import MJRefresh
 import ZLUtilities
+import ZMMVVM
 
 protocol ZLGistTableViewCellDelegate: AnyObject {
     func onAvatarButtonClicked()
@@ -37,7 +38,9 @@ protocol ZLGistTableViewCellDelegate: AnyObject {
 
 class ZLGistTableViewCell: ZLBaseCardTableViewCell {
 
-    weak var delegate: ZLGistTableViewCellDelegate?
+    var delegate: ZLGistTableViewCellDelegate? {
+        zm_viewModel as? ZLGistTableViewCellDelegate
+    }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -160,13 +163,10 @@ extension ZLGistTableViewCell {
     }
 }
 
-// MARK: - ZLViewUpdatableWithViewData
-extension ZLGistTableViewCell: ZLViewUpdatableWithViewData {
+// MARK: - ZMBaseViewUpdatableWithViewData
+extension ZLGistTableViewCell: ZMBaseViewUpdatableWithViewData {
     
-    func justUpdateView() {
-    }
-    func fillWithViewData(viewData: ZLGistTableViewCellDelegate) {
-        self.delegate = viewData
+    func zm_fillWithViewData(viewData: ZLGistTableViewCellDelegate) {
         self.avatarButton.loadAvatar(login: viewData.getOwnerName(),
                                      avatarUrl: viewData.getOwnerAvatar())
 

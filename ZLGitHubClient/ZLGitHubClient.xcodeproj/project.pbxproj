@@ -127,6 +127,9 @@
 		74591A842D89C079002A9CF7 /* ZLWorkboardTableViewSectionHeaderData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74591A832D89C079002A9CF7 /* ZLWorkboardTableViewSectionHeaderData.swift */; };
 		74591A862D89C5F0002A9CF7 /* ZLWorkboardFixedRepoPlaceHolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74591A852D89C5F0002A9CF7 /* ZLWorkboardFixedRepoPlaceHolderView.swift */; };
 		74591A882D89C66C002A9CF7 /* ZLWorkboardFixedRepoPlaceHolderViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74591A872D89C66C002A9CF7 /* ZLWorkboardFixedRepoPlaceHolderViewData.swift */; };
+		74591A8A2D8B0F33002A9CF7 /* ZLRepositoryTableViewCellDataV3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74591A892D8B0F33002A9CF7 /* ZLRepositoryTableViewCellDataV3.swift */; };
+		74591A8C2D8B0F3F002A9CF7 /* ZLUserTableViewCellDataV3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74591A8B2D8B0F3F002A9CF7 /* ZLUserTableViewCellDataV3.swift */; };
+		74591A8E2D8B0F52002A9CF7 /* ZLCommonTableViewCellDataV3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74591A8D2D8B0F52002A9CF7 /* ZLCommonTableViewCellDataV3.swift */; };
 		745CC456275E7FED0036EC06 /* ZLCommonTableViewCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745CC455275E7FED0036EC06 /* ZLCommonTableViewCellData.swift */; };
 		745D48C8257249D700E67AEE /* github_style_dark_markdown.css in Resources */ = {isa = PBXBuildFile; fileRef = 745D48C6257249D700E67AEE /* github_style_dark_markdown.css */; };
 		745D48C9257249D700E67AEE /* github_style_markdown.css in Resources */ = {isa = PBXBuildFile; fileRef = 745D48C7257249D700E67AEE /* github_style_markdown.css */; };
@@ -188,8 +191,6 @@
 		749DBC9824B3E5D000D02B2C /* ZLWatchEventTableViewCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749DBC9724B3E5D000D02B2C /* ZLWatchEventTableViewCellData.swift */; };
 		749DBC9A24B3E65200D02B2C /* ZLReleaseEventTableViewCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749DBC9924B3E65200D02B2C /* ZLReleaseEventTableViewCellData.swift */; };
 		749DBC9E24B4CAC900D02B2C /* ZLNotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749DBC9D24B4CAC900D02B2C /* ZLNotificationController.swift */; };
-		749DBCA024B4CAE500D02B2C /* ZLNotificaitonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749DBC9F24B4CAE500D02B2C /* ZLNotificaitonView.swift */; };
-		749DBCA724B4CE7200D02B2C /* ZLNotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749DBCA624B4CE7200D02B2C /* ZLNotificationViewModel.swift */; };
 		74AAE5D6284A63870030DA01 /* ZLRepoInfoHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AAE5D5284A63870030DA01 /* ZLRepoInfoHeaderCell.swift */; };
 		74AAE5DB284B41A80030DA01 /* ZLRepoInfoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AAE5DA284B41A80030DA01 /* ZLRepoInfoPresenter.swift */; };
 		74AAE5DE284B4B7C0030DA01 /* ZLCommonSectionHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AAE5DC284B4B7C0030DA01 /* ZLCommonSectionHeaderFooterView.swift */; };
@@ -197,7 +198,6 @@
 		74AAE5E1284B4CC20030DA01 /* ZLRepoHeaderCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AAE5E0284B4CC20030DA01 /* ZLRepoHeaderCellData.swift */; };
 		74AAE5E3284B52AC0030DA01 /* ZLCommonTableViewCellDataV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AAE5E2284B52AC0030DA01 /* ZLCommonTableViewCellDataV2.swift */; };
 		74B32E2E2465B61000AF1D6B /* ZLRepoContributorsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B32E2D2465B61000AF1D6B /* ZLRepoContributorsController.swift */; };
-		74B32E302465B63000AF1D6B /* ZLRepoContributorsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B32E2F2465B63000AF1D6B /* ZLRepoContributorsViewModel.swift */; };
 		74B32E322465C16700AF1D6B /* ZLUserTableViewCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B32E312465C16700AF1D6B /* ZLUserTableViewCellData.swift */; };
 		74B87A5A2468562400C8EB6B /* ZLFeedbackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B87A592468562400C8EB6B /* ZLFeedbackController.swift */; };
 		74BEF59F22F2D75900FD1738 /* ZLUserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BEF59D22F2D75900FD1738 /* ZLUserTableViewCell.swift */; };
@@ -252,7 +252,6 @@
 		74DFD9DB2427B515005825D3 /* ZLRepoContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DFD9D92427B515005825D3 /* ZLRepoContentTableViewCell.swift */; };
 		74DFD9E12427BA68005825D3 /* ZLRepoContentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DFD9E02427BA68005825D3 /* ZLRepoContentController.swift */; };
 		74E11E412533F0040072327C /* ZLBlockedUserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E11E402533F0040072327C /* ZLBlockedUserController.swift */; };
-		74E11E462533F02C0072327C /* ZLBlockedUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E11E452533F02C0072327C /* ZLBlockedUserViewModel.swift */; };
 		74E321DC254CB2CA006CE05D /* ZLAppearanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E321DB254CB2CA006CE05D /* ZLAppearanceController.swift */; };
 		74EAB98F260B70CC00784695 /* ZLPRInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EAB98E260B70CC00784695 /* ZLPRInfoController.swift */; };
 		74EAB995260B727000784695 /* ZLPullRequestHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EAB994260B727000784695 /* ZLPullRequestHeaderTableViewCell.swift */; };
@@ -446,6 +445,9 @@
 		74591A832D89C079002A9CF7 /* ZLWorkboardTableViewSectionHeaderData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLWorkboardTableViewSectionHeaderData.swift; sourceTree = "<group>"; };
 		74591A852D89C5F0002A9CF7 /* ZLWorkboardFixedRepoPlaceHolderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLWorkboardFixedRepoPlaceHolderView.swift; sourceTree = "<group>"; };
 		74591A872D89C66C002A9CF7 /* ZLWorkboardFixedRepoPlaceHolderViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLWorkboardFixedRepoPlaceHolderViewData.swift; sourceTree = "<group>"; };
+		74591A892D8B0F33002A9CF7 /* ZLRepositoryTableViewCellDataV3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZLRepositoryTableViewCellDataV3.swift; sourceTree = "<group>"; };
+		74591A8B2D8B0F3F002A9CF7 /* ZLUserTableViewCellDataV3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZLUserTableViewCellDataV3.swift; sourceTree = "<group>"; };
+		74591A8D2D8B0F52002A9CF7 /* ZLCommonTableViewCellDataV3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZLCommonTableViewCellDataV3.swift; sourceTree = "<group>"; };
 		745CC455275E7FED0036EC06 /* ZLCommonTableViewCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLCommonTableViewCellData.swift; sourceTree = "<group>"; };
 		745D48C6257249D700E67AEE /* github_style_dark_markdown.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = github_style_dark_markdown.css; sourceTree = "<group>"; };
 		745D48C7257249D700E67AEE /* github_style_markdown.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = github_style_markdown.css; sourceTree = "<group>"; };
@@ -512,8 +514,6 @@
 		749DBC9724B3E5D000D02B2C /* ZLWatchEventTableViewCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLWatchEventTableViewCellData.swift; sourceTree = "<group>"; };
 		749DBC9924B3E65200D02B2C /* ZLReleaseEventTableViewCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLReleaseEventTableViewCellData.swift; sourceTree = "<group>"; };
 		749DBC9D24B4CAC900D02B2C /* ZLNotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLNotificationController.swift; sourceTree = "<group>"; };
-		749DBC9F24B4CAE500D02B2C /* ZLNotificaitonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLNotificaitonView.swift; sourceTree = "<group>"; };
-		749DBCA624B4CE7200D02B2C /* ZLNotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLNotificationViewModel.swift; sourceTree = "<group>"; };
 		74A5759824A1C76200A38200 /* libgumbo.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgumbo.a; path = ZLGitHubClient/Class/Import/OCGumbo/libgumbo.a; sourceTree = "<group>"; };
 		74AAE5D5284A63870030DA01 /* ZLRepoInfoHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLRepoInfoHeaderCell.swift; sourceTree = "<group>"; };
 		74AAE5DA284B41A80030DA01 /* ZLRepoInfoPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLRepoInfoPresenter.swift; sourceTree = "<group>"; };
@@ -522,7 +522,6 @@
 		74AAE5E0284B4CC20030DA01 /* ZLRepoHeaderCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLRepoHeaderCellData.swift; sourceTree = "<group>"; };
 		74AAE5E2284B52AC0030DA01 /* ZLCommonTableViewCellDataV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLCommonTableViewCellDataV2.swift; sourceTree = "<group>"; };
 		74B32E2D2465B61000AF1D6B /* ZLRepoContributorsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLRepoContributorsController.swift; sourceTree = "<group>"; };
-		74B32E2F2465B63000AF1D6B /* ZLRepoContributorsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLRepoContributorsViewModel.swift; sourceTree = "<group>"; };
 		74B32E312465C16700AF1D6B /* ZLUserTableViewCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLUserTableViewCellData.swift; sourceTree = "<group>"; };
 		74B87A592468562400C8EB6B /* ZLFeedbackController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLFeedbackController.swift; sourceTree = "<group>"; };
 		74BEF59D22F2D75900FD1738 /* ZLUserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLUserTableViewCell.swift; sourceTree = "<group>"; };
@@ -586,7 +585,6 @@
 		74DFD9D92427B515005825D3 /* ZLRepoContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLRepoContentTableViewCell.swift; sourceTree = "<group>"; };
 		74DFD9E02427BA68005825D3 /* ZLRepoContentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLRepoContentController.swift; sourceTree = "<group>"; };
 		74E11E402533F0040072327C /* ZLBlockedUserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLBlockedUserController.swift; sourceTree = "<group>"; };
-		74E11E452533F02C0072327C /* ZLBlockedUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLBlockedUserViewModel.swift; sourceTree = "<group>"; };
 		74E321DB254CB2CA006CE05D /* ZLAppearanceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLAppearanceController.swift; sourceTree = "<group>"; };
 		74EAB98E260B70CC00784695 /* ZLPRInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLPRInfoController.swift; sourceTree = "<group>"; };
 		74EAB994260B727000784695 /* ZLPullRequestHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLPullRequestHeaderTableViewCell.swift; sourceTree = "<group>"; };
@@ -1598,7 +1596,6 @@
 		749DBCA424B4CE4F00D02B2C /* view */ = {
 			isa = PBXGroup;
 			children = (
-				749DBC9F24B4CAE500D02B2C /* ZLNotificaitonView.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1606,7 +1603,6 @@
 		749DBCA524B4CE5600D02B2C /* viewmodel */ = {
 			isa = PBXGroup;
 			children = (
-				749DBCA624B4CE7200D02B2C /* ZLNotificationViewModel.swift */,
 			);
 			path = viewmodel;
 			sourceTree = "<group>";
@@ -1631,17 +1627,8 @@
 			isa = PBXGroup;
 			children = (
 				74B32E2C2465B5E000AF1D6B /* Controller */,
-				74B32E2B2465B5D700AF1D6B /* ViewModel */,
 			);
 			path = ZLRepoContributorsController;
-			sourceTree = "<group>";
-		};
-		74B32E2B2465B5D700AF1D6B /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				74B32E2F2465B63000AF1D6B /* ZLRepoContributorsViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		74B32E2C2465B5E000AF1D6B /* Controller */ = {
@@ -1671,6 +1658,7 @@
 		74BEF59C22F2D72500FD1738 /* ZLUserTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				74591A8B2D8B0F3F002A9CF7 /* ZLUserTableViewCellDataV3.swift */,
 				74876F30256AB3F60063A93A /* ZLUserTableViewCellDataForViewerOrgs.swift */,
 				74BEF59D22F2D75900FD1738 /* ZLUserTableViewCell.swift */,
 				74B32E312465C16700AF1D6B /* ZLUserTableViewCellData.swift */,
@@ -1788,6 +1776,7 @@
 		74C19211239EAEEB00636F24 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				74591A892D8B0F33002A9CF7 /* ZLRepositoryTableViewCellDataV3.swift */,
 				74C19213239EAFF800636F24 /* ZLRepositoryTableViewCellData.swift */,
 				740C2FBD2838E1EB00DAFF0E /* ZLRepositoryTableViewCellDataV2.swift */,
 			);
@@ -2314,7 +2303,6 @@
 		74E11E432533F00A0072327C /* viewModel */ = {
 			isa = PBXGroup;
 			children = (
-				74E11E452533F02C0072327C /* ZLBlockedUserViewModel.swift */,
 			);
 			path = viewModel;
 			sourceTree = "<group>";
@@ -2408,6 +2396,7 @@
 		74EBF5B5275D0D5E000CF72C /* ZLCommonTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				74591A8D2D8B0F52002A9CF7 /* ZLCommonTableViewCellDataV3.swift */,
 				74AAE5DC284B4B7C0030DA01 /* ZLCommonSectionHeaderFooterView.swift */,
 				74AAE5DD284B4B7C0030DA01 /* ZLCommonSectionHeaderFooterViewData.swift */,
 				74EBF5B6275D0D8F000CF72C /* ZLCommonTableViewCell.swift */,
@@ -2910,8 +2899,8 @@
 				742AFDEA242A5A6200DFE87C /* ZLRepoCodePreview2Controller.swift in Sources */,
 				74478D48231FEAE3007D3832 /* ZLSettingLogoutTableViewCell.swift in Sources */,
 				7496BF4826000B1400DDD1BD /* ZLIssueInfoController.swift in Sources */,
-				749DBCA724B4CE7200D02B2C /* ZLNotificationViewModel.swift in Sources */,
 				74DEC24E256D569C007E8A17 /* ZLSimpleRepoTableViewCell.swift in Sources */,
+				74591A8C2D8B0F3F002A9CF7 /* ZLUserTableViewCellDataV3.swift in Sources */,
 				74AAE5E3284B52AC0030DA01 /* ZLCommonTableViewCellDataV2.swift in Sources */,
 				742935E225B939EF001CD142 /* ZLSettingItemTableViewCell1.swift in Sources */,
 				744392B827F4431000965D8F /* UIView+ShareMenu.swift in Sources */,
@@ -2924,12 +2913,12 @@
 				74634D4B27663D9D00A042F4 /* ZLOrgInfoHeaderCell.swift in Sources */,
 				7451F14B247A99750047A186 /* ZLRepoForkedReposViewModel.swift in Sources */,
 				74F837D327D904A300109BAB /* ZLIssueOperateCellData.swift in Sources */,
-				74B32E302465B63000AF1D6B /* ZLRepoContributorsViewModel.swift in Sources */,
 				74C639D524B7DA8100457F94 /* ZLRepoWorkflowsViewModel.swift in Sources */,
 				366DB849241F4B93002A0896 /* ZLRepoCommitController.swift in Sources */,
 				744678332764D63000301F54 /* ZLPinnedRepositoriesTableViewCellData.swift in Sources */,
 				74EF616424226918008C8D27 /* ZLRepoBranchesView.swift in Sources */,
 				746FAFCE2316AC25006A0288 /* ZLWebContentController.swift in Sources */,
+				74591A8E2D8B0F52002A9CF7 /* ZLCommonTableViewCellDataV3.swift in Sources */,
 				7467ABBC27F704A300F8905B /* ZLPresenterMessageModel.swift in Sources */,
 				74EAB99D260B7D5800784695 /* ZLPullRequestHeaderTableViewCellData.swift in Sources */,
 				74B32E322465C16700AF1D6B /* ZLUserTableViewCellData.swift in Sources */,
@@ -2983,7 +2972,7 @@
 				740C7CCE24ADD9070028B452 /* ZLGistTableViewCellData.swift in Sources */,
 				74F1FAB02916404500C03905 /* ZLSearchFilterSingleLineCell.swift in Sources */,
 				749DBC9224B3D88300D02B2C /* ZLPublicEventTableViewCellData.swift in Sources */,
-				74E11E462533F02C0072327C /* ZLBlockedUserViewModel.swift in Sources */,
+				74591A8A2D8B0F33002A9CF7 /* ZLRepositoryTableViewCellDataV3.swift in Sources */,
 				74D55DE722FB0A8B004114BC /* ZLSearchItemsViewModel.swift in Sources */,
 				7437978B258399FD008AFBE8 /* ZLPullRequestTableViewCellDataForViewerPR.swift in Sources */,
 				7451F145247A98DA0047A186 /* ZLRepoWatchedUsersController.swift in Sources */,
@@ -3031,7 +3020,6 @@
 				7461C5152BC0657D0008DD16 /* ZLDevelopmentLanguageColor.swift in Sources */,
 				749505C429A537A500341D9E /* ZMLanguageSelectView.swift in Sources */,
 				7467ABB727F5B49C00F8905B /* NSDate+Localize.m in Sources */,
-				749DBCA024B4CAE500D02B2C /* ZLNotificaitonView.swift in Sources */,
 				7451F14F247AD24F0047A186 /* ZLTrendingDateRangeSelectView.swift in Sources */,
 				7434CA812393E5CF00763220 /* ZLEventTableViewCellDataProvider.swift in Sources */,
 				3628FCE6238CF1C600FC36FC /* ZLEventTableViewCellData.swift in Sources */,

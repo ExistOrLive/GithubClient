@@ -11,6 +11,7 @@ import UIKit
 import SnapKit
 import ZLUIUtilities
 import ZLUtilities
+import ZMMVVM
 
 protocol ZLProfileHeaderCellDataSourceAndDelegate: AnyObject {
 
@@ -35,7 +36,9 @@ protocol ZLProfileHeaderCellDataSourceAndDelegate: AnyObject {
 
 class ZLProfileHeaderCell: UITableViewCell {
     
-    private weak var delegate: ZLProfileHeaderCellDataSourceAndDelegate?
+    var delegate: ZLProfileHeaderCellDataSourceAndDelegate? {
+        zm_viewModel as? ZLProfileHeaderCellDataSourceAndDelegate
+    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -201,10 +204,10 @@ extension ZLProfileHeaderCell {
 
 
 // MARK: - ZLViewUpdatableWithViewData
-extension ZLProfileHeaderCell: ZLViewUpdatableWithViewData {
+extension ZLProfileHeaderCell: ZMBaseViewUpdatableWithViewData {
 
-    func fillWithViewData(viewData: ZLProfileHeaderCellDataSourceAndDelegate) {
-        delegate = viewData
+    func zm_fillWithViewData(viewData: ZLProfileHeaderCellDataSourceAndDelegate) {
+    
         avatarButton.loadAvatar(login: viewData.loginName, avatarUrl: viewData.avatarUrl)
         nameLabel.text = viewData.name
         createTimeLabel.text = viewData.createTime
@@ -213,15 +216,12 @@ extension ZLProfileHeaderCell: ZLViewUpdatableWithViewData {
         followersNumButton.numLabel.text = viewData.followersNum
         followingsNumButton.numLabel.text = viewData.followingNum
        
-        justUpdateView() 
-    }
-    
-    func justUpdateView() {
         reposNumButton.nameLabel.text = ZLLocalizedString(string: "repositories", comment: "仓库")
         gistsNumButton.nameLabel.text = ZLLocalizedString(string: "gists", comment: "代码片段")
         followersNumButton.nameLabel.text = ZLLocalizedString(string: "followers", comment: "粉丝")
         followingsNumButton.nameLabel.text = ZLLocalizedString(string: "following", comment: "关注")
     }
+    
 }
 
 

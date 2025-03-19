@@ -7,24 +7,19 @@
 //
 
 import UIKit
-import ZLBaseUI
+import ZLUIUtilities
 
-class ZLExploreViewController: ZLBaseViewController {
+class ZLExploreViewController: ZMViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupUI()
-    }
-
-    func setupUI() {
-        setZLNavigationBarHidden(true)
+    override func setupUI() {
+        super.setupUI()
+        isZmNavigationBarHidden = true
         contentView.addSubview(exploreView)
         exploreView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
         
-        addSubViewModel(exploreViewModel)
-        exploreViewModel.bindModel(nil, andView: exploreView)
+        exploreView.zm_fillWithData(data: exploreViewModel)
     }
         
     // MARK: ZLExploreView
@@ -33,6 +28,8 @@ class ZLExploreViewController: ZLBaseViewController {
     }()
     
     lazy var exploreViewModel: ZLExploreBaseViewModel = {
-        return ZLExploreBaseViewModel() 
+        let viewModel = ZLExploreBaseViewModel()
+        self.zm_addSubViewModel(viewModel)
+        return viewModel
     }()
 }

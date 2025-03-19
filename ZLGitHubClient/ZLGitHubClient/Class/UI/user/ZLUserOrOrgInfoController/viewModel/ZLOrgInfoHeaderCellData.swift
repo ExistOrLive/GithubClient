@@ -9,15 +9,19 @@
 import UIKit
 import ZLGitRemoteService
 import ZLUIUtilities
+import ZMMVVM
 
-class ZLOrgInfoHeaderCellData: ZLTableViewBaseCellData {
+class ZLOrgInfoHeaderCellData: ZMBaseTableViewCellViewModel {
 
     private let stateModel: ZLUserInfoStateModel
 
     init(stateModel: ZLUserInfoStateModel) {
         self.stateModel = stateModel
         super.init()
-        cellReuseIdentifier = "ZLOrgInfoHeaderCell"
+    }
+    
+    override var zm_cellReuseIdentifier: String {
+        return "ZLOrgInfoHeaderCell"
     }
     
     var orgModel: ZLGithubOrgModel? {

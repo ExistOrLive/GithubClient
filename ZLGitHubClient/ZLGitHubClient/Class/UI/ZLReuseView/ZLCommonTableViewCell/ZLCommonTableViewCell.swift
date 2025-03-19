@@ -11,6 +11,7 @@ import ZLBaseUI
 import ZLUIUtilities
 import ZLBaseExtension
 import ZLUtilities
+import ZMMVVM
 
 protocol ZLCommonTableViewCellDataSourceAndDelegate {
 
@@ -132,5 +133,18 @@ extension ZLCommonTableViewCell: ZLViewUpdatableWithViewData {
     
     func justUpdateView() {
         
+    }
+}
+
+
+extension ZLCommonTableViewCell: ZMBaseViewUpdatableWithViewData {
+    // MARK: fillWithData
+    func zm_fillWithViewData(viewData: ZLCommonTableViewCellDataSourceAndDelegate) {
+        selectionStyle = viewData.canClick ? .gray : .none
+        titleLabel.text = viewData.title
+        subLabel.text = viewData.info
+        nextLabel.isHidden = !viewData.canClick
+        scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+        separateLine.isHidden = !viewData.showSeparateLine
     }
 }

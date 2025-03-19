@@ -7,9 +7,9 @@
 //
 
 import UIKit
-import ZLBaseUI
+import ZLUIUtilities
 
-class ZLSettingController: ZLBaseViewController {
+class ZLSettingController: ZMViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,9 +27,8 @@ class ZLSettingController: ZLBaseViewController {
             make.edges.equalToSuperview()
         }
 
-        let viewModel = ZLSettingViewModel()
-        self.addSubViewModel(viewModel)
-        viewModel.bindModel(nil, andView: tableView)
+        let viewModel = ZLSettingViewModel(tableView: tableView)
+        self.zm_addSubViewModel(viewModel)
     }
 
     /*

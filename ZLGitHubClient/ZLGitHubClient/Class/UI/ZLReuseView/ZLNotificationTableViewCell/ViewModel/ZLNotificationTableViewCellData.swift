@@ -9,13 +9,13 @@
 import UIKit
 import ZLGitRemoteService
 import ZLUIUtilities
-import ZLBaseUI
 import ZLBaseExtension
+import ZMMVVM
 
-class ZLNotificationTableViewCellData: ZLGithubItemTableViewCellData {
+class ZLNotificationTableViewCellData: ZMBaseTableViewCellViewModel {
 
     // model
-    var data: ZLGithubNotificationModel
+    let data: ZLGithubNotificationModel
 
     var attributedNotificationTitle: NSAttributedString?
 
@@ -24,25 +24,12 @@ class ZLNotificationTableViewCellData: ZLGithubItemTableViewCellData {
         super.init()
     }
 
-    override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
-
-        guard let cell: ZLNotificationTableViewCell = targetView as? ZLNotificationTableViewCell else {
-            return
-        }
-
-        cell.fillWithData(data: self)
-        cell.delegate = self
-    }
-
-    override func getCellHeight() -> CGFloat {
-        return UITableView.automaticDimension
-    }
-
-    override func getCellReuseIdentifier() -> String {
+   
+    override var zm_cellReuseIdentifier: String {
         return "ZLNotificationTableViewCell"
     }
 
-    override func getCellSwipeActions() -> UISwipeActionsConfiguration? {
+    override var zm_cellSwipeActions: UISwipeActionsConfiguration? {
         if self.data.unread {
 
             let action: UIContextualAction = UIContextualAction.init(style: UIContextualAction.Style.destructive, title: "Done", handler: {(_: UIContextualAction, _: UIView, block : @escaping (Bool) -> Void) in
@@ -62,10 +49,7 @@ class ZLNotificationTableViewCellData: ZLGithubItemTableViewCellData {
 
                         if result.result == true {
                             self.data.unread = false
-                            guard let superViewModel: ZLNotificationViewModel = self.super as? ZLNotificationViewModel else {
-                                return
-                            }
-                            superViewModel.deleteCellData(cellData: self)
+                            (zm_viewController as? ZLNotificationController)?.deleteCellData(cellData: self)
                         } else {
                             ZLToastView.showMessage("mark notification read failed")
                         }
@@ -82,7 +66,7 @@ class ZLNotificationTableViewCellData: ZLGithubItemTableViewCellData {
         }
     }
 
-    override func onCellSingleTap() {
+    override func zm_onCellSingleTap() {
         guard let originURL = URL.init(string: self.data.subject?.url ?? "") else {
             return
         }
@@ -154,7 +138,7 @@ extension ZLNotificationTableViewCellData {
             if let repoFullName = weakSelf?.data.repository?.full_name,
                let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: repoFullName) {
                 vc.hidesBottomBarWhenPushed = true
-                weakSelf?.viewController?.navigationController?.pushViewController(vc, animated: true)
+                weakSelf?.zm_viewController?.navigationController?.pushViewController(vc, animated: true)
             }
         }
 
@@ -176,15 +160,14 @@ extension ZLNotificationTableViewCellData {
     func getNotificationSubjectType() -> String {
         return self.data.subject?.type ?? ""
     }
-
-}
-
-extension ZLNotificationTableViewCellData: ZLNotificationTableViewCellDelegate {
+    
     func onNotificationTitleClicked() {
         if let repoFullName = self.data.repository?.full_name,
            let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: repoFullName) {
             vc.hidesBottomBarWhenPushed = true
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            zm_viewController?.navigationController?.pushViewController(vc, animated: true)
         }
     }
+
 }
+

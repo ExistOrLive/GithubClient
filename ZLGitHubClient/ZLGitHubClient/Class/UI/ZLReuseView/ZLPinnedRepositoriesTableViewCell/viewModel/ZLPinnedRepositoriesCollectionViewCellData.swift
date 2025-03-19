@@ -8,8 +8,9 @@
 
 import UIKit
 import ZLGitRemoteService
+import ZMMVVM
 
-class ZLPinnedRepositoriesCollectionViewCellData: ZLGithubItemCollectionViewCellData {
+class ZLPinnedRepositoriesCollectionViewCellData: ZMBaseViewModel {
 
     private var repo: ZLGithubRepositoryBriefModel
 
@@ -17,22 +18,21 @@ class ZLPinnedRepositoriesCollectionViewCellData: ZLGithubItemCollectionViewCell
         self.repo = repo
         super.init()
     }
+}
 
-    override func getCellReuseIdentifier() -> String {
+extension ZLPinnedRepositoriesCollectionViewCellData: ZLPinnedRepositoryCollectionViewCellDataSourceAndDelegate {
+    
+    func getCellReuseIdentifier() -> String {
         return "ZLPinnedRepositoryCollectionViewCell"
     }
 
-    override func onCellSingleTap() {
+    func onCellSingleTap() {
         guard let fullName = repo.full_name,
               let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: fullName) else {
             return
         }
-        self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        zm_viewController?.navigationController?.pushViewController(vc, animated: true)
     }
-
-}
-
-extension ZLPinnedRepositoriesCollectionViewCellData: ZLPinnedRepositoryCollectionViewCellDataSourceAndDelegate {
 
     var avatarUrl: String {
         repo.owner?.avatar_url ?? ""

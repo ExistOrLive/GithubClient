@@ -8,9 +8,9 @@
 
 import UIKit
 import MJRefresh
-import ZLBaseUI
 import ZLGitRemoteService
 import ZLUtilities
+import ZMMVVM
 
 enum ZLSettingItemType: Int {
     case language
@@ -21,12 +21,12 @@ enum ZLSettingItemType: Int {
     case assistButton
 }
 
-class ZLSettingViewModel: ZLBaseViewModel {
+class ZLSettingViewModel: ZMBaseViewModel {
 
     static var settingItemTypes: [[ZLSettingItemType]] = [[.language, .blockedUser], [.logout]]
 
     // view
-    var tableView: UITableView?
+    weak var tableView: UITableView?
 
     // Model
     var logoutSerialNumber: String?
@@ -35,20 +35,20 @@ class ZLSettingViewModel: ZLBaseViewModel {
         NotificationCenter.default.removeObserver(self, name: ZLLanguageTypeChange_Notificaiton, object: nil)
         ZLServiceManager.sharedInstance.loginServiceModel?.unRegisterObserver(self, name: ZLLogoutResult_Notification)
     }
-
-    override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
-
-        guard let tableView = targetView as? UITableView else {
-            ZLLog_Error("targetView is not ZLSettingView,so return")
-            return
-        }
+    
+   init(tableView: UITableView?) {
+        super.init()
+        
         self.tableView = tableView
-
+        
         var settingItemForFirstSection: [ZLSettingItemType] = [.language]
 
-        #if DEBUG
+#if DEBUG
         settingItemForFirstSection.append(.monitor)
-        #endif
+#endif
+#if DEBUG
+        settingItemForFirstSection.append(.blockedUser)
+#else
         let currentLoginName = ZLServiceManager.sharedInstance.viewerServiceModel?.currentUserLoginName
         let showBlockButton = ZLAGC().configAsBool(for: "Block_Function_Enabled")
         if showBlockButton ||
@@ -57,6 +57,7 @@ class ZLSettingViewModel: ZLBaseViewModel {
             currentLoginName == "existorlive11" {
             settingItemForFirstSection.append(.blockedUser)
         }
+#endif
         if #available(iOS 13.0, *) {
             settingItemForFirstSection.append(.interfaceStyle)
         }
@@ -72,8 +73,8 @@ class ZLSettingViewModel: ZLBaseViewModel {
         ZLServiceManager.sharedInstance.loginServiceModel?.registerObserver(self, selector: #selector(onNotificationArrived(notication:)), name: ZLLogoutResult_Notification)
     }
 
-    override func vcLifeCycle_viewWillAppear() {
-        super.vcLifeCycle_viewWillAppear()
+    override func zm_viewWillAppear() {
+        super.zm_viewWillAppear()
         self.tableView?.reloadData()
     }
 
@@ -89,7 +90,7 @@ class ZLSettingViewModel: ZLBaseViewModel {
         alertController.addAction(cancelAction)
         alertController.addAction(confirmAction)
 
-        self.viewController?.present(alertController, animated: true, completion: nil)
+        zm_viewController?.present(alertController, animated: true, completion: nil)
 
     }
 
@@ -106,7 +107,7 @@ extension ZLSettingViewModel {
 
         switch notication.name {
         case ZLLanguageTypeChange_Notificaiton:do {
-            self.viewController?.title = ZLLocalizedString(string: "setting", comment: "")
+             zm_viewController?.title = ZLLocalizedString(string: "setting", comment: "")
             self.tableView?.reloadData()
             }
         case ZLLogoutResult_Notification:do {
@@ -250,7 +251,7 @@ extension ZLSettingViewModel: UITableViewDataSource, UITableViewDelegate {
         switch settingItemType {
         case .language:do {
             let vc = ZLLanguageController()
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            zm_viewController?.navigationController?.pushViewController(vc, animated: true)
             }
         case .logout:do {
             self.onLogout()
@@ -260,11 +261,11 @@ extension ZLSettingViewModel: UITableViewDataSource, UITableViewDelegate {
             }
         case .blockedUser:do {
             let vc = ZLBlockedUserController()
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            zm_viewController?.navigationController?.pushViewController(vc, animated: true)
         }
         case .interfaceStyle:do {
             if let vc = ZLUIRouter.getVC(key: ZLUIRouter.AppearanceController) {
-                self.viewController?.navigationController?.pushViewController(vc, animated: true)
+                zm_viewController?.navigationController?.pushViewController(vc, animated: true)
             }
         }
         case .assistButton:do {

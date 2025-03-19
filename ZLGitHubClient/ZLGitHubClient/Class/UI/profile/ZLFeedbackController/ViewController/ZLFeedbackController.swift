@@ -9,11 +9,12 @@
 import UIKit
 import ZLBaseExtension
 import ZLUIUtilities
-import ZLBaseUI
+import ZMMVVM
 import ZLGitRemoteService
 import UITextView_Placeholder
 
-class ZLFeedbackController: ZLBaseViewController {
+
+class ZLFeedbackController: ZMViewController {
     
     let context = "\(ZLDeviceInfo.getDeviceSystemVersion()) - \(ZLDeviceInfo.getDeviceModel()) - \(ZLDeviceInfo.getAppName())\(ZLDeviceInfo.getAppVersion())"
 
@@ -22,7 +23,8 @@ class ZLFeedbackController: ZLBaseViewController {
         setupUI()
     }
     
-    func setupUI() {
+    override func setupUI() {
+        super.setupUI()
         self.title = ZLLocalizedString(string: "feedback", comment: "反馈")
         contentView.addSubview(feedbackTextView)
         contentView.addSubview(submitButton)
@@ -117,7 +119,7 @@ extension ZLFeedbackController {
             
             if resultModel.result == true {
                 ZLToastView .showMessage(ZLLocalizedString(string: "thanks for your feedback", comment: ""))
-                self.viewController?.navigationController?.popViewController(animated: true)
+                self.navigationController?.popViewController(animated: true)
                 
             } else {
                 

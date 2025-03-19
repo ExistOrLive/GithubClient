@@ -8,6 +8,7 @@
 import Foundation
 import ZLUIUtilities
 import UIKit
+import ZMMVVM
 
 class ZLCommonSectionHeaderFooterViewData: ZLTableViewBaseSectionData {
     
@@ -52,5 +53,28 @@ extension ZLCommonSectionHeaderFooterViewData: ZLCommonSectionHeaderViewDelegate
 extension ZLCommonSectionHeaderFooterViewData: ZLCommonSectionFooterViewDelegate {
     var footerBackgroundColor: UIColor {
         footerColor ?? .clear
+    }
+}
+
+
+
+class ZLCommonSectionHeaderFooterViewDataV2: ZMBaseTableViewReuseViewModel {
+    
+    var viewHeight = CGFloat.leastNonzeroMagnitude
+    var backColor: UIColor?
+    
+    override var zm_viewReuseIdentifier: String {
+        return "ZLCommonSectionHeaderFooterView"
+    }
+
+    override var zm_viewHeight: CGFloat {
+        viewHeight
+    }
+    
+    init(backColor: UIColor? = nil,
+         viewHeight: CGFloat = CGFloat.leastNonzeroMagnitude) {
+        self.backColor = backColor
+        self.viewHeight = viewHeight
+        super.init()
     }
 }

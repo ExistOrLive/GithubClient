@@ -8,8 +8,9 @@
 
 import UIKit
 import ZLGitRemoteService
+import ZMMVVM
 
-class ZLRepoTableViewCellDataForTopRepoQuery: ZLGithubItemTableViewCellData {
+class ZLRepoTableViewCellDataForTopRepoQuery: ZMBaseTableViewCellViewModel {
 
     var data: ViewerTopRepositoriesQuery.Data.Viewer.TopRepository.Node
 
@@ -21,26 +22,15 @@ class ZLRepoTableViewCellDataForTopRepoQuery: ZLGithubItemTableViewCellData {
         super.init()
     }
 
-    override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
-        guard let cell: ZLRepositoryTableViewCell = targetView as? ZLRepositoryTableViewCell else {
-            return
-        }
-        cell.fillWithData(data: self)
-        self.cell = cell
-    }
 
-    override func getCellHeight() -> CGFloat {
-        return UITableView.automaticDimension
-    }
-
-    override func getCellReuseIdentifier() -> String {
+    override var zm_cellReuseIdentifier: String {
         return "ZLRepositoryTableViewCell"
     }
 
-    override func onCellSingleTap() {
+    override func zm_onCellSingleTap() {
         if let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: data.nameWithOwner) {
             vc.hidesBottomBarWhenPushed = true
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            zm_viewController?.navigationController?.pushViewController(vc, animated: true)
         }
     }
 }
@@ -50,7 +40,7 @@ extension ZLRepoTableViewCellDataForTopRepoQuery: ZLRepositoryTableViewCellDeleg
     func onRepoAvaterClicked() {
         if let userInfoVC = ZLUIRouter.getUserInfoViewController(loginName: data.owner.login) {
             userInfoVC.hidesBottomBarWhenPushed = true
-            self.viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
+            zm_viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
         }
     }
 
@@ -95,7 +85,7 @@ extension ZLRepoTableViewCellDataForTopRepoQuery: ZLRepositoryTableViewCellDeleg
 
     func longPressAction(view: UIView) {
         guard let url = URL(string: data.url),
-              let vc = viewController else {
+              let vc = zm_viewController else {
                   return
               }
 

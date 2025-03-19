@@ -7,10 +7,10 @@
 //
 
 import UIKit
-import ZLBaseUI
+import ZLUIUtilities
 import ZLGitRemoteService
 
-class ZLLanguageController: ZLBaseViewController, ZLLanguageViewDelegate {
+class ZLLanguageController: ZMViewController, ZLLanguageViewDelegate {
 
     var selectIndex: Int {
         (LANMODULE?.currentLanguageType() ?? ZLLanguageType.auto).rawValue + 1

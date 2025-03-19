@@ -7,19 +7,25 @@
 //
 
 import UIKit
-import ZLBaseUI
 import ZLBaseExtension
 import ZLUIUtilities
 import SnapKit
 import ZLGitRemoteService
+import ZMMVVM
 
-class ZLProfileViewController: ZLBaseViewController {
+ 
+class ZLProfileViewController: ZMTableViewController {
     
     // model
     private var currentUserInfo: ZLGithubUserModel?
     
-    // sectionDatas
-    private var sectionDatas: [ZLTableViewBaseSectionData] = []
+    @objc init() {
+        super.init()
+    }
+    
+    @MainActor required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     deinit {
         removeObservers()
@@ -27,7 +33,6 @@ class ZLProfileViewController: ZLBaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
         // 注册监听
         addObservers()
     }
@@ -46,41 +51,49 @@ class ZLProfileViewController: ZLBaseViewController {
         .lightContent
     }
     
-    func setupUI() {
-        zlNavigationBar.backgroundColor = .black
-        setZLNavigationBarHidden(true)
+    override func setupUI() {
+        super.setupUI()
         
-        contentView.addSubview(tableContainerView)
-        tableContainerView.tableView.addSubview(backView)
+        isZmNavigationBarHidden = true
         
-        tableContainerView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
+        setRefreshViews(types: [.header])
+
+        tableView.addSubview(backView)
+        tableView.showsVerticalScrollIndicator = false
+        tableView.contentInsetAdjustmentBehavior = .automatic
+        tableView.insetsLayoutMarginsFromSafeArea = true
+        tableView.register(ZLProfileHeaderCell.self,
+                           forCellReuseIdentifier: "ZLProfileHeaderCell")
+        tableView.register(ZLProfileContributionsCell.self,
+                           forCellReuseIdentifier: "ZLProfileContributionsCell")
+        tableView.register(ZLCommonTableViewCell.self,
+                           forCellReuseIdentifier: "ZLCommonTableViewCell")
+        tableView.register(ZLCommonSectionHeaderFooterView.self,
+                           forHeaderFooterViewReuseIdentifier: "ZLCommonSectionHeaderFooterView")
         
         backView.snp.makeConstraints { make in
-            make.left.equalTo(tableContainerView.tableView.contentLayoutGuide.snp.left)
-            make.bottom.equalTo(tableContainerView.tableView.contentLayoutGuide.snp.top)
-            make.size.equalTo(tableContainerView.tableView.frameLayoutGuide.snp.size)
+            make.left.equalTo(tableView.contentLayoutGuide.snp.left)
+            make.bottom.equalTo(tableView.contentLayoutGuide.snp.top)
+            make.size.equalTo(tableView.frameLayoutGuide.snp.size)
         }
     }
-    
-    private lazy var tableContainerView: ZLTableContainerView = {
-        let view = ZLTableContainerView()
-        view.setTableViewHeader()
-        view.tableView.showsVerticalScrollIndicator = false
-        view.register(ZLProfileHeaderCell.self, forCellReuseIdentifier: "ZLProfileHeaderCell")
-        view.register(ZLProfileContributionsCell.self, forCellReuseIdentifier: "ZLProfileContributionsCell")
-        view.register(ZLCommonTableViewCell.self, forCellReuseIdentifier: "ZLCommonTableViewCell")
-        view.register(ZLCommonSectionFooterView.self, forViewReuseIdentifier: "ZLCommonSectionFooterView")
-        view.delegate = self
-        return view
-    }()
-    
+        
     private lazy var backView: UIView = {
        let view = UIView()
         view.backgroundColor = .black
         return view
     }()
+    
+    override func refreshLoadNewData() {
+        endRefreshViews()
+        guard let userInfo = ZLServiceManager.sharedInstance.viewerServiceModel?.getCurrentUserModelFromServer() else {
+            self.reloadCellDatas()
+            return
+        }
+        currentUserInfo = userInfo
+        reloadCellDatas()
+        
+    }
 }
 
 // MARK: - cellDatas
@@ -88,56 +101,48 @@ extension ZLProfileViewController {
     
     func reloadCellDatas() {
         
-        for sectionData in sectionDatas {
-            sectionData.removeFromSuperViewModel()
-        }
-        sectionDatas.removeAll()
-        
+        self.sectionDataArray.forEach { $0.zm_removeFromSuperViewModel() }
+        self.sectionDataArray.removeAll()
+  
         guard let userModel = currentUserInfo else {
-            self.tableContainerView.resetSectionDatas(sectionDatas: sectionDatas, hasMoreData: false)
+           
             return
         }
         
         // header
         let headerCellData = ZLProfileHeaderCellData(userModel: userModel)
-        addSubViewModel(headerCellData)
-        
         // contribution
         let contributionsCellData = ZLProfileContributionsCellData(userModel: userModel)
-        addSubViewModel(contributionsCellData)
         
-        let headerSectionData = ZLCommonSectionHeaderFooterViewData(cellDatas: [headerCellData,contributionsCellData],
-                                                                    headerHeight: 0,
-                                                                    footerHeight:20,
-                                                                    headerColor: nil,
-                                                                    footerColor: .clear,
-                                                                    headerReuseIdentifier: nil,
-                                                                    footerReuseIdentifier: "ZLCommonSectionFooterView")
-        addSubViewModel(headerSectionData)
+        let headerSectionFooterData = ZLCommonSectionHeaderFooterViewDataV2(backColor: .clear,
+                                                                            viewHeight: 20)
+        let headerSectionData = ZMBaseTableViewSectionData(cellDatas: [headerCellData,
+                                                                       contributionsCellData],
+                                                           footerData: headerSectionFooterData)
         
         // info
-        let companyCellData = ZLCommonTableViewCellDataV2(canClick: false,
+        let companyCellData = ZLCommonTableViewCellDataV3(canClick: false,
                                                           title: { ZLLocalizedString(string: "company", comment: "公司")},
                                                           info: { userModel.company ?? "" },
                                                           cellHeight: 50,
                                                           showSeparateLine: true)
-        addSubViewModel(companyCellData)
+
         
-        let locationCellData = ZLCommonTableViewCellDataV2(canClick: false,
+        let locationCellData = ZLCommonTableViewCellDataV3(canClick: false,
                                                            title: { ZLLocalizedString(string: "location", comment: "地址")},
                                                            info: { userModel.location ?? "" },
                                                            cellHeight: 50,
                                                            showSeparateLine: true)
-        addSubViewModel(locationCellData)
+
         
-        let emailCellData = ZLCommonTableViewCellDataV2(canClick: false,
+        let emailCellData = ZLCommonTableViewCellDataV3(canClick: false,
                                                         title: { ZLLocalizedString(string: "email", comment: "邮箱")},
                                                         info: { userModel.email ?? "" },
                                                         cellHeight: 50,
                                                         showSeparateLine: true)
-        addSubViewModel(emailCellData)
+
         
-        let blogCellData = ZLCommonTableViewCellDataV2(canClick: !(userModel.blog?.isEmpty ?? true),
+        let blogCellData = ZLCommonTableViewCellDataV3(canClick: !(userModel.blog?.isEmpty ?? true),
                                                        title: { ZLLocalizedString(string: "blog", comment: "博客")},
                                                        info: { userModel.blog ?? "" },
                                                        cellHeight: 50) {
@@ -149,83 +154,64 @@ extension ZLProfileViewController {
                                       animated: true)
             }
         }
-        addSubViewModel(blogCellData)
+                                                          
+        let infoSectionFooterData = ZLCommonSectionHeaderFooterViewDataV2(backColor: .clear,
+                                                                          viewHeight: 20)
         
-        let infoSectionData = ZLCommonSectionHeaderFooterViewData(cellDatas: [companyCellData,locationCellData,emailCellData,blogCellData],
-                                                                  headerHeight: 0,
-                                                                  footerHeight:20,
-                                                                  headerColor: nil,
-                                                                  footerColor: .clear,
-                                                                  headerReuseIdentifier: nil,
-                                                                  footerReuseIdentifier: "ZLCommonSectionFooterView")
-        addSubViewModel(infoSectionData)
+        let infoSectionData = ZMBaseTableViewSectionData(cellDatas: [companyCellData,
+                                                                     locationCellData,
+                                                                     emailCellData,
+                                                                     blogCellData],
+                                                         footerData: infoSectionFooterData)
         
         
         // setting
-        let settingCellData = ZLCommonTableViewCellDataV2(canClick: true,
+        let settingCellData = ZLCommonTableViewCellDataV3(canClick: true,
                                                           title: { ZLLocalizedString(string: "setting", comment: "设置")},
                                                           info: { "" },
                                                           cellHeight: 50,
                                                           showSeparateLine: true) { [weak self] in
             if let vc = ZLUIRouter.getVC(key: ZLUIRouter.SettingController) {
                 vc.hidesBottomBarWhenPushed = true
-                self?.viewController?.navigationController?.pushViewController(vc, animated: true)
+                self?.navigationController?.pushViewController(vc, animated: true)
             }
         }
-        addSubViewModel(settingCellData)
         
-        let aboutCellData = ZLCommonTableViewCellDataV2(canClick: true,
+        let aboutCellData = ZLCommonTableViewCellDataV3(canClick: true,
                                                         title: { ZLLocalizedString(string: "about", comment: "关于")},
                                                         info: { "" },
                                                         cellHeight: 50,
                                                         showSeparateLine: true) { [weak self] in
             if let vc = ZLUIRouter.getZLAboutViewController() {
                 vc.hidesBottomBarWhenPushed = true
-                self?.viewController?.navigationController?.pushViewController(vc, animated: true)
+                self?.navigationController?.pushViewController(vc, animated: true)
             }
         }
-        addSubViewModel(aboutCellData)
         
-        let feedbackCellData = ZLCommonTableViewCellDataV2(canClick: true,
+        let feedbackCellData = ZLCommonTableViewCellDataV3(canClick: true,
                                                            title: { ZLLocalizedString(string: "feedback", comment: "反馈")},
                                                            info: { "" },
                                                            cellHeight: 50) { [weak self] in
             let vc = ZLFeedbackController.init()
             vc.hidesBottomBarWhenPushed = true
-            self?.viewController?.navigationController?.pushViewController(vc, animated: true)
+            self?.navigationController?.pushViewController(vc, animated: true)
         }
-        addSubViewModel(feedbackCellData)
+  
         
+        let settingSectionFooterData = ZLCommonSectionHeaderFooterViewDataV2(backColor: .clear,
+                                                                          viewHeight: 20)
+        let settingSectionData = ZMBaseTableViewSectionData(cellDatas: [settingCellData,
+                                                                        aboutCellData,
+                                                                        feedbackCellData],
+                                                            footerData: settingSectionFooterData)
+ 
+        self.sectionDataArray = [headerSectionData,infoSectionData,settingSectionData]
+        self.sectionDataArray.forEach { $0.zm_addSuperViewModel(self) }
         
-        let settingSectionData = ZLCommonSectionHeaderFooterViewData(cellDatas: [settingCellData,aboutCellData,feedbackCellData],
-                                                                     headerHeight: 0,
-                                                                     footerHeight:20,
-                                                                     headerColor: nil,
-                                                                     footerColor: .clear,
-                                                                     headerReuseIdentifier: nil,
-                                                                     footerReuseIdentifier: "ZLCommonSectionFooterView")
-        addSubViewModel(settingSectionData)
-        
-        sectionDatas = [headerSectionData,infoSectionData,settingSectionData]
-        
-        self.tableContainerView.resetSectionDatas(sectionDatas: sectionDatas, hasMoreData: false)
+        self.tableView.reloadData()
     }
     
 }
-
-// MARK: - ZLTableContainerViewDelegate
-extension ZLProfileViewController: ZLTableContainerViewDelegate {
-    func zlLoadNewData() {
-        guard let userInfo = ZLServiceManager.sharedInstance.viewerServiceModel?.getCurrentUserModelFromServer() else {
-            self.reloadCellDatas()
-            return
-        }
-        currentUserInfo = userInfo
-        reloadCellDatas()
-    }
-    func zlLoadMoreData() {}
-}
-
 
 // MARK: - onNotificationArrived
 extension ZLProfileViewController {
@@ -269,7 +255,8 @@ extension ZLProfileViewController {
             reloadCellDatas()
         }
         case ZLLanguageTypeChange_Notificaiton:do {
-            tableContainerView.justRefresh()
+            self.justReloadRefreshView()
+            self.tableView.reloadData()
             }
         default:
             break

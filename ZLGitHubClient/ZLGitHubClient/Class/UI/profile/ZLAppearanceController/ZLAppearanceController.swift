@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import ZLUIUtilities
 
-class ZLAppearanceController: ZLBaseViewController, ZLAppearanceViewDelegate {
+class ZLAppearanceController: ZMViewController, ZLAppearanceViewDelegate {
 
     var selectIndex: Int {
         if #available(iOS 13.0, *) {

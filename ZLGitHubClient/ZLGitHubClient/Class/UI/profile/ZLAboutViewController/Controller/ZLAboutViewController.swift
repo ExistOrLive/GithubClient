@@ -7,16 +7,14 @@
 //
 
 import UIKit
-import ZLBaseUI
+import ZLUIUtilities
 
-@objcMembers class ZLAboutViewController: ZLBaseViewController {
+@objcMembers class ZLAboutViewController: ZMViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.title = ZLLocalizedString(string: "about", comment: "关于")
-
-        let viewModel = ZLAboutViewModel()
 
         let contentView = ZLAboutContentView()
         self.contentView.addSubview(contentView)
@@ -24,7 +22,9 @@ import ZLBaseUI
             make.edges.equalToSuperview()
         })
 
-        self.addSubViewModel(viewModel)
-        viewModel.bindModel(nil, andView: contentView)
+        let viewModel = ZLAboutViewModel()
+        self.zm_addSubViewModel(viewModel)
+        
+        contentView.zm_fillWithData(data: viewModel)
     }
 }

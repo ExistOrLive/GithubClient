@@ -9,10 +9,10 @@
 import Foundation
 import UIKit
 import SnapKit
-import ZLBaseUI
 import ZLBaseExtension
 import ZLUIUtilities
 import ZLUtilities
+import ZMMVVM
 
 protocol ZLProfileContributionsCellDataSourceAndDelegate: AnyObject {
     
@@ -23,7 +23,9 @@ protocol ZLProfileContributionsCellDataSourceAndDelegate: AnyObject {
 
 class ZLProfileContributionsCell: UITableViewCell {
     
-    private weak var delegate: ZLProfileContributionsCellDataSourceAndDelegate?
+    weak var delegate: ZLProfileContributionsCellDataSourceAndDelegate? {
+        zm_viewModel as? ZLProfileContributionsCellDataSourceAndDelegate
+    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -124,16 +126,11 @@ extension ZLProfileContributionsCell {
 }
 
 // MARK: ZLViewUpdatableWithViewData 
-extension ZLProfileContributionsCell: ZLViewUpdatableWithViewData {
-    
-    func justUpdateView() {
+extension ZLProfileContributionsCell: ZMBaseViewUpdatableWithViewData {
+
+    func zm_fillWithViewData(viewData: ZLProfileContributionsCellDataSourceAndDelegate) {
+        contributionsView.update(loginName: viewData.loginName)
         self.titleLabel.text = ZLLocalizedString(string: "latest update", comment: "最近修改")
         self.allUpdateButton.setTitle("\(ZLLocalizedString(string: "all update", comment: "查看全部修改")) \(ZLIconFont.NextArrow.rawValue)", for: .normal)
-    }
-    
-    func fillWithViewData(viewData: ZLProfileContributionsCellDataSourceAndDelegate) {
-        delegate = viewData
-        contributionsView.update(loginName: viewData.loginName)
-        justUpdateView()
     }
 }

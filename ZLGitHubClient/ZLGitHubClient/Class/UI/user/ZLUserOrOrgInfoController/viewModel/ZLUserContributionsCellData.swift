@@ -8,8 +8,9 @@
 
 import UIKit
 import ZLUIUtilities
+import ZMMVVM
 
-class ZLUserContributionsCellData: ZLTableViewBaseCellData {
+class ZLUserContributionsCellData: ZMBaseTableViewCellViewModel {
 
     // data
     private var _loginName: String
@@ -17,7 +18,10 @@ class ZLUserContributionsCellData: ZLTableViewBaseCellData {
     init(loginName: String) {
         self._loginName = loginName
         super.init()
-        cellReuseIdentifier =  "ZLUserContributionsCell"
+    }
+    
+    override var zm_cellReuseIdentifier: String {
+        "ZLUserContributionsCell"
     }
 }
 

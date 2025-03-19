@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import ZLBaseUI
+import ZMMVVM
 import ZLUtilities
 
 protocol ZLAboutContentViewDelegate: AnyObject {
@@ -78,7 +78,9 @@ class ZLAboutContentView: UIView {
         return button
     }()
 
-    private weak var delegate: ZLAboutContentViewDelegate?
+    var delegate: ZLAboutContentViewDelegate? {
+        zm_viewModel as? ZLAboutContentViewDelegate
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -141,11 +143,6 @@ class ZLAboutContentView: UIView {
             make.height.equalTo(60)
         }
         appStoreButton.addTarget(self, action: #selector(onAppStoreButtonClicked), for: .touchUpInside)
-    }
-
-    func fillWithData(delegate: ZLAboutContentViewDelegate) {
-        self.delegate = delegate
-        versionLabel.text = delegate.version
     }
 
     @objc private func onContributorsButtonClicked() {
@@ -212,3 +209,9 @@ extension ZLAboutContentView {
     }
 }
 
+extension ZLAboutContentView: ZMBaseViewUpdatableWithViewData {
+
+    func zm_fillWithViewData(viewData: ZLAboutContentViewDelegate) {
+        versionLabel.text = viewData.version
+    }
+}

@@ -7,36 +7,57 @@
 //
 
 import UIKit
-import ZLBaseUI
+import ZLUIUtilities
+import ZLGitRemoteService
+import ZMMVVM
 
-class ZLBlockedUserController: ZLBaseViewController {
+class ZLBlockedUserController: ZMTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        viewStatus = .loading
+        refreshLoadNewData()
+    }
+    
+    override func setupUI() {
+        super.setupUI()
         self.title = ZLLocalizedString(string: "Blocked User", comment: "屏蔽的用户")
+        
+        self.setRefreshViews(types: [.header])
+        self.tableView.register(ZLUserTableViewCell.self,
+                           forCellReuseIdentifier: "ZLUserTableViewCell")
+        self.tableView.contentInsetAdjustmentBehavior = .automatic
+        self.tableView.contentInset = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
+    }
 
-        let view = ZLGithubItemListView.init()
-        view.setTableViewHeader()
-
-        self.contentView.addSubview(view)
-        view.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
+    override func refreshLoadNewData() {
+        
+        ZLUserServiceShared()?.getBlockedUsers(withSerialNumber:NSString.generateSerialNumber())
+        { [weak self] (model: ZLOperationResultModel) in
+            guard let self else { return }
+            self.viewStatus = .normal
+            self.endRefreshViews()
+            
+            if model.result,
+               let data: [ZLGithubUserModel] = model.data as? [ZLGithubUserModel]  {
+                
+                self.sectionDataArray.forEach { $0.zm_removeFromSuperViewModel() }
+                let cellDataArray = data.map { ZLUserTableViewCellDataV3(model: $0) }
+                self.zm_addSubViewModels(cellDataArray)
+                self.sectionDataArray = [ZMBaseTableViewSectionData(cellDatas: cellDataArray)]
+                self.tableView.reloadData()
+                
+                self.viewStatus = self.tableViewProxy.isEmpty ? .empty : .normal
+            } else {
+                if let errorModel: ZLGithubRequestErrorModel = model.data as? ZLGithubRequestErrorModel {
+                    ZLToastView.showMessage("query Blocked User list failed statusCode[\(errorModel.statusCode)] errorMessage[\(errorModel.message)]")
+                } else {
+                    ZLToastView.showMessage("query Blocked User list failed")
+                }
+                
+                self.viewStatus = self.tableViewProxy.isEmpty ? .error : .normal
+            }
         }
-
-        let viewModel = ZLBlockedUserViewModel()
-        self.addSubViewModel(viewModel)
-        viewModel.bindModel(nil, andView: view)
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

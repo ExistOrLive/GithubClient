@@ -8,6 +8,7 @@
 
 import UIKit
 import ZLUIUtilities
+import ZMMVVM
 
 protocol ZLUserContributionsCellDelegate: NSObjectProtocol {
     var loginName: String {get}
@@ -44,16 +45,12 @@ class ZLUserContributionsCell: UITableViewCell {
 }
 
 
-extension ZLUserContributionsCell: ZLViewUpdatableWithViewData {
+extension ZLUserContributionsCell: ZMBaseViewUpdatableWithViewData {
     
-    func fillWithViewData(viewData: ZLUserContributionsCellDelegate) {
+    func zm_fillWithViewData(viewData: ZLUserContributionsCellDelegate) {
         let loginName = viewData.loginName
         if !loginName.isEmpty {
             contributionsView.update(loginName: loginName)
         }
-    }
-    
-    func justUpdateView() {
-        
     }
 }

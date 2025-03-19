@@ -8,6 +8,7 @@
 
 import UIKit
 import ZLUIUtilities
+import ZMMVVM
 
 protocol ZLUserInfoHeaderCellDataSourceAndDelegate: AnyObject {
 
@@ -36,7 +37,9 @@ protocol ZLUserInfoHeaderCellDataSourceAndDelegate: AnyObject {
 
 class ZLUserInfoHeaderCell: UITableViewCell {
 
-    private weak var delegate: ZLUserInfoHeaderCellDataSourceAndDelegate?
+    var delegate: ZLUserInfoHeaderCellDataSourceAndDelegate? {
+        zm_viewModel as? ZLUserInfoHeaderCellDataSourceAndDelegate
+    }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -238,15 +241,10 @@ class ZLUserInfoHeaderCell: UITableViewCell {
 }
 
 
-extension ZLUserInfoHeaderCell: ZLViewUpdatableWithViewData {
-    // MARK: fillWithdata
-    func fillWithViewData(viewData: ZLUserInfoHeaderCellDataSourceAndDelegate){
-        delegate = viewData
-        reloadData()
-    }
+extension ZLUserInfoHeaderCell: ZMBaseViewUpdatableWithViewData {
     
-    func justUpdateView() {
-        
+    func zm_fillWithViewData(viewData: ZLUserInfoHeaderCellDataSourceAndDelegate){
+        reloadData()
     }
 }
 

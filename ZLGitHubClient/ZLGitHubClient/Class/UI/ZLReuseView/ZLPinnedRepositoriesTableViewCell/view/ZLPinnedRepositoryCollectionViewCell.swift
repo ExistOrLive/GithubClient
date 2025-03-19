@@ -9,7 +9,7 @@
 import UIKit
 import ZLUtilities
 
-protocol ZLPinnedRepositoryCollectionViewCellDataSourceAndDelegate: ZLGithubItemCollectionViewCellDataProtocol {
+protocol ZLPinnedRepositoryCollectionViewCellDataSourceAndDelegate: NSObjectProtocol {
     var avatarUrl: String {get}
     var repoName: String {get}
     var ownerName: String {get}
@@ -18,6 +18,10 @@ protocol ZLPinnedRepositoryCollectionViewCellDataSourceAndDelegate: ZLGithubItem
     var forkNum: Int {get}
     var starNum: Int {get}
     var isPrivate: Bool {get}
+    
+    func getCellReuseIdentifier() -> String
+
+    func onCellSingleTap()
 }
 
 class ZLPinnedRepositoryCollectionViewCell: UICollectionViewCell {

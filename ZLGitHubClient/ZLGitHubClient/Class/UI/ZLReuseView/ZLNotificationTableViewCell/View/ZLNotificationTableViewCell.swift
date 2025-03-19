@@ -9,12 +9,13 @@
 import UIKit
 import YYText
 import ZLUtilities
-
-@objc protocol  ZLNotificationTableViewCellDelegate: NSObjectProtocol {
-    func onNotificationTitleClicked()
-}
+import ZMMVVM
 
 class ZLNotificationTableViewCell: UITableViewCell {
+    
+    var delegate: ZLNotificationTableViewCellData? {
+        zm_viewModel as? ZLNotificationTableViewCellData
+    }
 
     private lazy var containerView: UIView = {
         let view = UIView()
@@ -59,7 +60,7 @@ class ZLNotificationTableViewCell: UITableViewCell {
          return label
     }()
 
-    weak var delegate: ZLNotificationTableViewCellDelegate?
+   
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -123,12 +124,37 @@ class ZLNotificationTableViewCell: UITableViewCell {
         }
     }
 
-    func fillWithData(data: ZLNotificationTableViewCellData) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        UIView.animate(withDuration: 0.1) {
+            self.containerView.backgroundColor = UIColor.init(named: "ZLCellBackSelected")
+        }
+    }
+
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesCancelled(touches, with: event)
+        UIView.animate(withDuration: 0.1) {
+            self.containerView.backgroundColor = UIColor.init(named: "ZLCellBack")
+        }
+    }
+
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        UIView.animate(withDuration: 0.1) {
+            self.containerView.backgroundColor = UIColor.init(named: "ZLCellBack")
+        }
+    }
+}
+
+
+extension ZLNotificationTableViewCell: ZMBaseViewUpdatableWithViewData {
+    func zm_fillWithViewData(viewData data: ZLNotificationTableViewCellData) {
+        
         self.notificationDescLabel.text = data.getNotificationSubjectTitle()
         self.notificationTitleLabel.attributedText = data.getNotificationTitle()
         self.notificationReasonLabel.text = data.getNotificationReason()
         self.timeLabel.text = data.getNotificationTimeStr()
-
+        
         switch data.getNotificationSubjectType() {
         case "PullRequest":
             self.notificationTypeLabel.text = ZLIconFont.PR.rawValue
@@ -152,26 +178,6 @@ class ZLNotificationTableViewCell: UITableViewCell {
             self.notificationTypeLabel.text = ZLIconFont.Notification.rawValue
             self.notificationTypeLabel.textColor = UIColor.iconColor(withName: "ICON_Common")
         }
-    }
-
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        UIView.animate(withDuration: 0.1) {
-            self.containerView.backgroundColor = UIColor.init(named: "ZLCellBackSelected")
-        }
-    }
-
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesCancelled(touches, with: event)
-        UIView.animate(withDuration: 0.1) {
-            self.containerView.backgroundColor = UIColor.init(named: "ZLCellBack")
-        }
-    }
-
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesEnded(touches, with: event)
-        UIView.animate(withDuration: 0.1) {
-            self.containerView.backgroundColor = UIColor.init(named: "ZLCellBack")
-        }
+        
     }
 }

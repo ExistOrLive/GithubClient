@@ -7,13 +7,17 @@
 //
 
 import UIKit
-import ZLBaseUI
 import ZLGitRemoteService
 import ZLBaseExtension
 import ZLUIUtilities
 import ZLUtilities
+import ZMMVVM
 
-enum ZLUserOrOrgInfoSectionId: String {
+enum ZLUserOrOrgInfoSectionId: String, ZMBaseSectionUniqueIDProtocol {
+    var zm_ID: String {
+        return self.rawValue
+    }
+    
     case header
     case contribution
     case baseInfo
@@ -21,21 +25,26 @@ enum ZLUserOrOrgInfoSectionId: String {
 }
 
 
-class ZLUserOrOrgInfoController: ZLBaseViewController {
+class ZLUserOrOrgInfoController: ZMTableViewController {
 
     // Outer Property
     @objc var loginName: String?
+    
+    @objc init() {
+        super.init()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     lazy var stateModel: ZLUserInfoStateModel = {
         let stateModel = ZLUserInfoStateModel(login: loginName ?? "")
         stateModel.delegate = self
         return stateModel
     }()
+
     
-    // subViewModel
-    private var sectionDataArray: [ZLTableViewBaseSectionData] = []
-
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -43,18 +52,30 @@ class ZLUserOrOrgInfoController: ZLBaseViewController {
             ZLToastView.showMessage(ZLLocalizedString(string: "loginName is nil", comment: ""))
             return
         }
-        
-        setupUI()
-        
-        tableView.startLoad()
+    
+        viewStatus = .loading
+        refreshLoadNewData()
     }
     
-    func setupUI() {
+    override func setupUI() {
+        super.setupUI()
         title = loginName
-        contentView.addSubview(tableView)
-        tableView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
-        }
+        
+        setRefreshViews(types: [.header])
+        
+        tableView.register(ZLUserInfoHeaderCell.self,
+                           forCellReuseIdentifier: "ZLUserInfoHeaderCell")
+        tableView.register(ZLOrgInfoHeaderCell.self, 
+                           forCellReuseIdentifier: "ZLOrgInfoHeaderCell")
+        tableView.register(ZLUserContributionsCell.self,
+                           forCellReuseIdentifier: "ZLUserContributionsCell")
+        tableView.register(ZLCommonTableViewCell.self, 
+                           forCellReuseIdentifier: "ZLCommonTableViewCell")
+        tableView.register(ZLPinnedRepositoriesTableViewCell.self, 
+                           forCellReuseIdentifier: "ZLPinnedRepositoriesTableViewCell")
+        tableView.register(ZLCommonSectionHeaderFooterView.self, 
+                           forHeaderFooterViewReuseIdentifier: "ZLCommonSectionHeaderFooterView")
+
         setSharedButton()
     }
 
@@ -69,30 +90,16 @@ class ZLUserOrOrgInfoController: ZLBaseViewController {
         button.frame = CGRect.init(x: 0, y: 0, width: 60, height: 60)
         button.addTarget(self, action: #selector(onMoreButtonClick(button:)), for: .touchUpInside)
 
-        self.zlNavigationBar.rightButton = button
+        self.zmNavigationBar.addRightView(button)
     }
 
     // action
     @objc func onMoreButtonClick(button: UIButton) {
-
         guard let html_url = stateModel.html_url,
               let url = URL(string: html_url) else { return }
         button.showShareMenu(title: url.absoluteString, url: url, sourceViewController: self)
     }
     
-    lazy var tableView: ZLTableContainerView = {
-        let view = ZLTableContainerView()
-        view.setTableViewHeader()
-        view.delegate = self
-        view.register(ZLUserInfoHeaderCell.self, forCellReuseIdentifier: "ZLUserInfoHeaderCell")
-        view.register(ZLOrgInfoHeaderCell.self, forCellReuseIdentifier: "ZLOrgInfoHeaderCell")
-        view.register(ZLUserContributionsCell.self, forCellReuseIdentifier: "ZLUserContributionsCell")
-        view.register(ZLCommonTableViewCell.self, forCellReuseIdentifier: "ZLCommonTableViewCell")
-        view.register(ZLPinnedRepositoriesTableViewCell.self, forCellReuseIdentifier: "ZLPinnedRepositoriesTableViewCell")
-        view.register(ZLCommonSectionHeaderView.self, forViewReuseIdentifier: "ZLCommonSectionHeaderView")
-        view.register(ZLCommonSectionFooterView.self, forViewReuseIdentifier: "ZLCommonSectionFooterView")
-        return view
-    }()
 
     lazy var readMeView: ZLReadMeView = {
         let readMeView: ZLReadMeView = ZLReadMeView()
@@ -100,17 +107,15 @@ class ZLUserOrOrgInfoController: ZLBaseViewController {
         return readMeView
     }()
 
-}
-
-// MARK: - ZLTableContainerViewDelegate
-extension ZLUserOrOrgInfoController: ZLReadMeViewDelegate {
-    func zlLoadNewData()  {
+    
+    override func refreshLoadNewData() {
         stateModel.getUserInfo()
     }
 }
 
-// MARK: - ZLTableContainerViewDelegate
-extension ZLUserOrOrgInfoController: ZLTableContainerViewDelegate {
+
+// MARK: - ZLReadMeViewDelegate
+extension ZLUserOrOrgInfoController: ZLReadMeViewDelegate {
     
     func onLinkClicked(url: URL?) {
         if let realurl = url {
@@ -119,13 +124,13 @@ extension ZLUserOrOrgInfoController: ZLTableContainerViewDelegate {
     }
 
     func getReadMeContent(result: Bool) {
-        tableView.tableView.tableFooterView = result ?  readMeView : nil
+        tableView.tableFooterView = result ?  readMeView : nil
     }
 
     func notifyNewHeight(height: CGFloat) {
-        if tableView.tableView.tableFooterView != nil {
+        if tableView.tableFooterView == readMeView {
             readMeView.frame = CGRect(x: 0, y: 0, width: 0, height: height)
-            tableView.tableView.tableFooterView = readMeView
+            tableView.tableFooterView = readMeView
         }
     }
 }
@@ -135,43 +140,38 @@ extension ZLUserOrOrgInfoController {
     
     func generateUserSubViewModel() {
         
+        self.sectionDataArray.forEach({ $0.zm_removeFromSuperViewModel() })
         self.sectionDataArray.removeAll()
-        for subViewModel in self.subViewModels {
-            subViewModel.removeFromSuperViewModel()
-        }
+      
 
         // headerCellData
         let headerCellData = ZLUserInfoHeaderCellData(stateModel: stateModel)
-        self.addSubViewModel(headerCellData)
-        let headerSectionData = ZLCommonSectionHeaderFooterViewData(cellDatas: [headerCellData],
-                                                                    headerHeight: 10,
-                                                                    footerHeight: 10,
-                                                                    headerColor: .clear,
-                                                                    footerColor: .clear,
-                                                                    headerReuseIdentifier: "ZLCommonSectionHeaderView",
-                                                                    footerReuseIdentifier: "ZLCommonSectionFooterView")
-        headerSectionData.sectionId = ZLUserOrOrgInfoSectionId.header.rawValue
-        self.sectionDataArray.append(headerSectionData)
-
+       
+        let headerSectionData = ZMBaseTableViewSectionData(zm_sectionID: ZLUserOrOrgInfoSectionId.header)
+        headerSectionData.cellDatas = [headerCellData]
+        headerSectionData.headerData = ZLCommonSectionHeaderFooterViewDataV2(backColor: .clear,
+                                                                             viewHeight: 10)
+        headerSectionData.footerData = ZLCommonSectionHeaderFooterViewDataV2(backColor: .clear,
+                                                                             viewHeight: 10)
+        sectionDataArray.append(headerSectionData)
         
+                
         // contributionCellData
         let contributionCellData = ZLUserContributionsCellData(loginName: stateModel.login)
-        self.addSubViewModel(contributionCellData)
-        let contributionSectionData = ZLCommonSectionHeaderFooterViewData(cellDatas: [contributionCellData],
-                                                                          footerHeight: 10,
-                                                                          footerColor: .clear,
-                                                                          footerReuseIdentifier: "ZLCommonSectionFooterView")
-        contributionSectionData.sectionId = ZLUserOrOrgInfoSectionId.contribution.rawValue
-        self.sectionDataArray.append(contributionSectionData)
-        
+    
+        let contributionSectionData = ZMBaseTableViewSectionData(zm_sectionID: ZLUserOrOrgInfoSectionId.contribution)
+        contributionSectionData.cellDatas = [contributionCellData]
+        contributionSectionData.footerData = ZLCommonSectionHeaderFooterViewDataV2(backColor: .clear,
+                                                                             viewHeight: 10)
+        sectionDataArray.append(contributionSectionData)
        
         // baseInfo
-        var itemCellDatas = [ZLTableViewBaseCellData]()
+        var itemCellDatas = [ZMBaseTableViewCellViewModel]()
 
         // company
         if let company = stateModel.userModel?.company,
            !company.isEmpty {
-            let cellData = ZLCommonTableViewCellDataV2(canClick: false,
+            let cellData = ZLCommonTableViewCellDataV3(canClick: false,
                                                        title: { ZLLocalizedString(string: "company", comment: "")},
                                                        info: {company},
                                                        cellHeight: 50)
@@ -181,7 +181,7 @@ extension ZLUserOrOrgInfoController {
         // address
         if let location = stateModel.userModel?.location,
            !location.isEmpty {
-            let cellData = ZLCommonTableViewCellDataV2(canClick: false,
+            let cellData = ZLCommonTableViewCellDataV3(canClick: false,
                                                        title: { ZLLocalizedString(string: "location", comment: "")},
                                                        info: {location},
                                                        cellHeight: 50)
@@ -192,7 +192,7 @@ extension ZLUserOrOrgInfoController {
         if let email = stateModel.userModel?.email,
            !email.isEmpty {
             
-            let cellData = ZLCommonTableViewCellDataV2(canClick: true,
+            let cellData = ZLCommonTableViewCellDataV3(canClick: true,
                                                        title: { ZLLocalizedString(string: "email", comment: "")},
                                                        info: {email},
                                                        cellHeight: 50) {
@@ -210,7 +210,7 @@ extension ZLUserOrOrgInfoController {
            !blog.isEmpty {
 
             
-            let cellData = ZLCommonTableViewCellDataV2(canClick: true,
+            let cellData = ZLCommonTableViewCellDataV3(canClick: true,
                                                        title: { ZLLocalizedString(string: "blog", comment: "")},
                                                        info: {blog},
                                                        cellHeight: 50) {
@@ -225,25 +225,26 @@ extension ZLUserOrOrgInfoController {
         }
 
         if !itemCellDatas.isEmpty {
-            self.addSubViewModels(itemCellDatas)
-            let baseInfoSectionData = ZLCommonSectionHeaderFooterViewData(cellDatas: itemCellDatas,
-                                                                              footerHeight: 10,
-                                                                              footerColor: .clear,
-                                                                              footerReuseIdentifier: "ZLCommonSectionFooterView")
-            baseInfoSectionData.sectionId = ZLUserOrOrgInfoSectionId.baseInfo.rawValue
+    
+            let baseInfoSectionData = ZMBaseTableViewSectionData(zm_sectionID: ZLUserOrOrgInfoSectionId.baseInfo)
+            baseInfoSectionData.cellDatas = itemCellDatas
+            baseInfoSectionData.footerData = ZLCommonSectionHeaderFooterViewDataV2(backColor: .clear,
+                                                                                 viewHeight: 10)
             self.sectionDataArray.append(baseInfoSectionData)
         }
 
         /// pinnedRepositories
         if !stateModel.pinnedRepositories.isEmpty {
             let pinnedReposCellData = ZLPinnedRepositoriesTableViewCellData(repos: stateModel.pinnedRepositories)
-            let pinnedRepoSectionData = ZLCommonSectionHeaderFooterViewData(cellDatas: [pinnedReposCellData],
-                                                                              footerHeight: 10,
-                                                                              footerColor: .clear,
-                                                                              footerReuseIdentifier: "ZLCommonSectionFooterView")
-            pinnedRepoSectionData.sectionId = ZLUserOrOrgInfoSectionId.pinnedRepos.rawValue
-            self.addSubViewModel(pinnedReposCellData)
+            let pinnedRepoSectionData = ZMBaseTableViewSectionData(zm_sectionID: ZLUserOrOrgInfoSectionId.pinnedRepos)
+            pinnedRepoSectionData.cellDatas = [pinnedReposCellData]
+            pinnedRepoSectionData.footerData = ZLCommonSectionHeaderFooterViewDataV2(backColor: .clear,
+                                                                                 viewHeight: 10)
             self.sectionDataArray.append(pinnedRepoSectionData)
+        }
+        
+        self.sectionDataArray.forEach {
+            $0.zm_addSuperViewModel(self)
         }
     }
     
@@ -251,31 +252,28 @@ extension ZLUserOrOrgInfoController {
         
         guard let model = stateModel.orgModel else { return }
         
+        self.sectionDataArray.forEach({ $0.zm_removeFromSuperViewModel() })
         self.sectionDataArray.removeAll()
-        for subViewModel in self.subViewModels {
-            subViewModel.removeFromSuperViewModel()
-        }
         
+
         // headerCellData
         let headerCellData = ZLOrgInfoHeaderCellData(stateModel: stateModel)
-        self.addSubViewModel(headerCellData)
-        let headerSectionData = ZLCommonSectionHeaderFooterViewData(cellDatas: [headerCellData],
-                                                                    headerHeight: 10,
-                                                                    footerHeight: 10,
-                                                                    headerColor: .clear,
-                                                                    footerColor: .clear,
-                                                                    headerReuseIdentifier: "ZLCommonSectionHeaderView",
-                                                                    footerReuseIdentifier: "ZLCommonSectionFooterView")
-        headerSectionData.sectionId = ZLUserOrOrgInfoSectionId.header.rawValue
-        self.sectionDataArray.append(headerSectionData)
         
-    
+         let headerSectionData = ZMBaseTableViewSectionData(zm_sectionID: ZLUserOrOrgInfoSectionId.header)
+         headerSectionData.cellDatas = [headerCellData]
+         headerSectionData.headerData = ZLCommonSectionHeaderFooterViewDataV2(backColor: .clear,
+                                                                              viewHeight: 10)
+         headerSectionData.footerData = ZLCommonSectionHeaderFooterViewDataV2(backColor: .clear,
+                                                                              viewHeight: 10)
+         sectionDataArray.append(headerSectionData)
+        
+        
         // baseInfo
-        var itemCellDatas = [ZLTableViewBaseCellData]()
+        var itemCellDatas = [ZMBaseTableViewCellViewModel]()
                 
         // company
         if model.repositories > 0 {
-            let cellData = ZLCommonTableViewCellDataV2(canClick: true,
+            let cellData = ZLCommonTableViewCellDataV3(canClick: true,
                                                        title: { ZLLocalizedString(string: "repositories", comment: "")},
                                                        info: { "\(model.repositories)" },
                                                        cellHeight: 50) { [weak self] in
@@ -284,7 +282,7 @@ extension ZLUserOrOrgInfoController {
                 let login = self.stateModel.login
                 if let vc = ZLUIRouter.getVC(key: ZLUIRouter.UserAdditionInfoController, params: ["login": login, "type": ZLUserAdditionInfoType.repositories.rawValue]) {
                     vc.hidesBottomBarWhenPushed = true
-                    self.viewController?.navigationController?.pushViewController(vc, animated: true)
+                    self.navigationController?.pushViewController(vc, animated: true)
                 }
             }
             itemCellDatas.append(cellData)
@@ -293,7 +291,7 @@ extension ZLUserOrOrgInfoController {
         // address
         if let location = model.location,
            !location.isEmpty {
-            let cellData = ZLCommonTableViewCellDataV2(canClick: false,
+            let cellData = ZLCommonTableViewCellDataV3(canClick: false,
                                                        title: { ZLLocalizedString(string: "location", comment: "")},
                                                        info: {location},
                                                        cellHeight: 50)
@@ -304,7 +302,7 @@ extension ZLUserOrOrgInfoController {
         if let email = model.email,
            !email.isEmpty {
         
-            let cellData = ZLCommonTableViewCellDataV2(canClick: true,
+            let cellData = ZLCommonTableViewCellDataV3(canClick: true,
                                                        title: { ZLLocalizedString(string: "email", comment: "")},
                                                        info: {email},
                                                        cellHeight: 50) {
@@ -321,7 +319,7 @@ extension ZLUserOrOrgInfoController {
         if let blog = model.blog,
            !blog.isEmpty {
             
-            let cellData = ZLCommonTableViewCellDataV2(canClick: true,
+            let cellData = ZLCommonTableViewCellDataV3(canClick: true,
                                                        title: { ZLLocalizedString(string: "blog", comment: "")},
                                                        info: {blog},
                                                        cellHeight: 50) {
@@ -336,45 +334,45 @@ extension ZLUserOrOrgInfoController {
         }
         
         if !itemCellDatas.isEmpty {
-            self.addSubViewModels(itemCellDatas)
-            let baseInfoSectionData = ZLCommonSectionHeaderFooterViewData(cellDatas: itemCellDatas,
-                                                                              footerHeight: 10,
-                                                                              footerColor: .clear,
-                                                                              footerReuseIdentifier: "ZLCommonSectionFooterView")
-            baseInfoSectionData.sectionId = ZLUserOrOrgInfoSectionId.baseInfo.rawValue
+        
+            let baseInfoSectionData = ZMBaseTableViewSectionData(zm_sectionID: ZLUserOrOrgInfoSectionId.baseInfo)
+            baseInfoSectionData.cellDatas = itemCellDatas
+            baseInfoSectionData.footerData = ZLCommonSectionHeaderFooterViewDataV2(backColor: .clear,
+                                                                                 viewHeight: 10)
             self.sectionDataArray.append(baseInfoSectionData)
         }
         
         // pinnedRepositories
         if !stateModel.pinnedRepositories.isEmpty {
             let pinnedReposCellData = ZLPinnedRepositoriesTableViewCellData(repos: stateModel.pinnedRepositories)
-            let pinnedRepoSectionData = ZLCommonSectionHeaderFooterViewData(cellDatas: [pinnedReposCellData],
-                                                                              footerHeight: 10,
-                                                                              footerColor: .clear,
-                                                                              footerReuseIdentifier: "ZLCommonSectionFooterView")
-            pinnedRepoSectionData.sectionId = ZLUserOrOrgInfoSectionId.pinnedRepos.rawValue
-            self.addSubViewModel(pinnedReposCellData)
+            let pinnedRepoSectionData = ZMBaseTableViewSectionData(zm_sectionID: ZLUserOrOrgInfoSectionId.pinnedRepos)
+            pinnedRepoSectionData.cellDatas = [pinnedReposCellData]
+            pinnedRepoSectionData.footerData = ZLCommonSectionHeaderFooterViewDataV2(backColor: .clear,
+                                                                                     viewHeight: 10)
             self.sectionDataArray.append(pinnedRepoSectionData)
+        }
+        
+        self.sectionDataArray.forEach {
+            $0.zm_addSuperViewModel(self)
         }
     }
     
     func generatePinnedRepositoriesCellData() {
-        if let index = sectionDataArray.firstIndex(where: { $0.sectionId == ZLUserOrOrgInfoSectionId.pinnedRepos.rawValue }) {
+        if let index = sectionDataArray.firstIndex(where: { $0.zm_sectionID.zm_ID == ZLUserOrOrgInfoSectionId.pinnedRepos.zm_ID }) {
             let sectionData = self.sectionDataArray.remove(at: index)
             sectionData.cellDatas.forEach { 
-                ($0 as? ZLBaseViewModel)?.removeFromSuperViewModel()
+                $0.zm_removeFromSuperViewModel()
             }
         }
         
         // pinnedRepositories
         if !stateModel.pinnedRepositories.isEmpty {
             let pinnedReposCellData = ZLPinnedRepositoriesTableViewCellData(repos: stateModel.pinnedRepositories)
-            let pinnedRepoSectionData = ZLCommonSectionHeaderFooterViewData(cellDatas: [pinnedReposCellData],
-                                                                              footerHeight: 10,
-                                                                              footerColor: .clear,
-                                                                              footerReuseIdentifier: "ZLCommonSectionFooterView")
-            pinnedRepoSectionData.sectionId = ZLUserOrOrgInfoSectionId.pinnedRepos.rawValue
-            self.addSubViewModel(pinnedReposCellData)
+            zm_addSubViewModel(pinnedReposCellData)
+            let pinnedRepoSectionData = ZMBaseTableViewSectionData(zm_sectionID: ZLUserOrOrgInfoSectionId.pinnedRepos)
+            pinnedRepoSectionData.cellDatas = [pinnedReposCellData]
+            pinnedRepoSectionData.footerData = ZLCommonSectionHeaderFooterViewDataV2(backColor: .clear,
+                                                                                     viewHeight: 10)
             self.sectionDataArray.append(pinnedRepoSectionData)
         }
     }
@@ -383,16 +381,18 @@ extension ZLUserOrOrgInfoController {
 
 extension ZLUserOrOrgInfoController: ZLUserInfoStateModelDelegate {
     func onUserInfoLoad(result: Bool, msg: String) {
+        viewStatus = .normal
+        endRefreshViews()
         if result {
             if stateModel.isOrg {
                 generateOrgSubViewModel()
             } else {
                 generateUserSubViewModel()
             }
-            tableView.resetSectionDatas(sectionDatas: sectionDataArray, hasMoreData: false)
+            tableView.reloadData()
             readMeView.startLoad(fullName: "\(stateModel.login)/\(stateModel.login)", branch: nil)
         } else {
-            tableView.endRefresh()
+            viewStatus = self.tableViewProxy.isEmpty ? .error : .normal
             if !msg.isEmpty {
                 ZLToastView.showMessage(msg, sourceView: contentView)
             }
@@ -402,16 +402,16 @@ extension ZLUserOrOrgInfoController: ZLUserInfoStateModelDelegate {
     func onPinnedRepoLoad(result: Bool, msg: String) {
         if result {
             generatePinnedRepositoriesCellData()
-            tableView.resetSectionDatas(sectionDatas: sectionDataArray, hasMoreData: false)
+            tableView.reloadData()
         }
         
     }
     
     func onFollowStatusChanged() {
-        tableView.reloadDataWith(sectionIds: [ZLUserOrOrgInfoSectionId.header.rawValue])
+        tableViewProxy.reloadSections(sectionTypes: [ZLUserOrOrgInfoSectionId.header])
     }
     
     func onBlockStatusChanged() {
-        tableView.reloadDataWith(sectionIds: [ZLUserOrOrgInfoSectionId.header.rawValue])
+        tableViewProxy.reloadSections(sectionTypes: [ZLUserOrOrgInfoSectionId.header])
     }
 }

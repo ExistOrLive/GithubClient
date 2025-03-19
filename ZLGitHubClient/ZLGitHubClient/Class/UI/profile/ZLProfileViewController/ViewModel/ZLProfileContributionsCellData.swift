@@ -9,15 +9,19 @@
 import Foundation
 import ZLUIUtilities
 import ZLGitRemoteService
+import ZMMVVM
 
-class ZLProfileContributionsCellData: ZLTableViewBaseCellData {
+class ZLProfileContributionsCellData: ZMBaseTableViewCellViewModel {
     
     private var data: ZLGithubUserModel
     
     init(userModel: ZLGithubUserModel) {
         self.data = userModel
         super.init()
-        self.cellReuseIdentifier = "ZLProfileContributionsCell"
+    }
+    
+    override var zm_cellReuseIdentifier: String {
+        return "ZLProfileContributionsCell"
     }
 }
 
@@ -29,7 +33,7 @@ extension ZLProfileContributionsCellData: ZLProfileContributionsCellDataSourceAn
     func onAllUpdateButtonClicked() {
         let vc = ZLMyEventController()
         vc.hidesBottomBarWhenPushed = true
-        self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        zm_viewController?.navigationController?.pushViewController(vc, animated: true)
     }
 }
 

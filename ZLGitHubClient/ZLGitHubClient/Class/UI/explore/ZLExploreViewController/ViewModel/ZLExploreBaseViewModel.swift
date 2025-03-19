@@ -10,18 +10,15 @@ import UIKit
 import JXSegmentedView
 import ZLUIUtilities
 import ZLGitRemoteService
-import ZLBaseUI
+import ZMMVVM
 
-class ZLExploreBaseViewModel: ZLBaseViewModel {
-
-    // view
-    var baseView: ZLExploreBaseView?
+class ZLExploreBaseViewModel: ZMBaseViewModel {
     
     // subvc
     lazy var childVC: [ZLExploreChildListController] = {
         var array = [ZLExploreChildListController]()
         for type in ZLExploreChildListType.allCases {
-            array.append(ZLExploreChildListController(type: type, superVC: self.viewController))
+            array.append(ZLExploreChildListController(type: type, superVC: zm_viewController))
         }
         return array
     }()
@@ -29,17 +26,9 @@ class ZLExploreBaseViewModel: ZLBaseViewModel {
     deinit {
         NotificationCenter.default.removeObserver(self, name: ZLLanguageTypeChange_Notificaiton, object: nil)
     }
-
-    override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
-
-        guard let targetView = targetView as? ZLExploreBaseView else {
-            ZLLog_Warn("targetView is not ZLExploreBaseView,so return")
-            return
-        }
-
-        self.baseView = targetView
-        baseView?.fillWithData(data: self)
-
+    
+    override init() {
+        super.init()
         NotificationCenter.default.addObserver(self, selector: #selector(onNotificationArrived(notication:)), name: ZLLanguageTypeChange_Notificaiton, object: nil)
     }
 
@@ -48,7 +37,7 @@ class ZLExploreBaseViewModel: ZLBaseViewModel {
 
         switch notication.name {
         case ZLLanguageTypeChange_Notificaiton:do {
-            self.baseView?.justReloadView()
+            self.zm_reloadView()
             }
         default:
             break
@@ -77,7 +66,7 @@ extension ZLExploreBaseViewModel: ZLExploreBaseViewDelegate {
     func onSearchButtonClicked() {
         if let vc = ZLUIRouter.getVC(key: ZLUIRouter.SearchController) {
             vc.hidesBottomBarWhenPushed = true
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            zm_viewController?.navigationController?.pushViewController(vc, animated: true)
         }
     }
 }
