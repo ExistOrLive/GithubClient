@@ -174,7 +174,8 @@ extension ZLUserOrOrgInfoController {
             let cellData = ZLCommonTableViewCellDataV3(canClick: false,
                                                        title: { ZLLocalizedString(string: "company", comment: "")},
                                                        info: {company},
-                                                       cellHeight: 50)
+                                                       cellHeight: 50,
+                                                       showSeparateLine: true)
             itemCellDatas.append(cellData)
         }
 
@@ -184,7 +185,8 @@ extension ZLUserOrOrgInfoController {
             let cellData = ZLCommonTableViewCellDataV3(canClick: false,
                                                        title: { ZLLocalizedString(string: "location", comment: "")},
                                                        info: {location},
-                                                       cellHeight: 50)
+                                                       cellHeight: 50,
+                                                       showSeparateLine: true)
            itemCellDatas.append(cellData)
         }
 
@@ -195,7 +197,8 @@ extension ZLUserOrOrgInfoController {
             let cellData = ZLCommonTableViewCellDataV3(canClick: true,
                                                        title: { ZLLocalizedString(string: "email", comment: "")},
                                                        info: {email},
-                                                       cellHeight: 50) {
+                                                       cellHeight: 50,
+                                                       showSeparateLine: true) {
                 if let url = URL(string: "mailto:\(email)"),
                    UIApplication.shared.canOpenURL(url) {
 
@@ -213,7 +216,8 @@ extension ZLUserOrOrgInfoController {
             let cellData = ZLCommonTableViewCellDataV3(canClick: true,
                                                        title: { ZLLocalizedString(string: "blog", comment: "")},
                                                        info: {blog},
-                                                       cellHeight: 50) {
+                                                       cellHeight: 50,
+                                                       showSeparateLine: true) {
 
                 if let url = URL.init(string: blog) {
                     ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,
@@ -276,7 +280,8 @@ extension ZLUserOrOrgInfoController {
             let cellData = ZLCommonTableViewCellDataV3(canClick: true,
                                                        title: { ZLLocalizedString(string: "repositories", comment: "")},
                                                        info: { "\(model.repositories)" },
-                                                       cellHeight: 50) { [weak self] in
+                                                       cellHeight: 50,
+                                                       showSeparateLine: true) { [weak self] in
                 guard let self = self else { return }
                 
                 let login = self.stateModel.login
@@ -294,7 +299,8 @@ extension ZLUserOrOrgInfoController {
             let cellData = ZLCommonTableViewCellDataV3(canClick: false,
                                                        title: { ZLLocalizedString(string: "location", comment: "")},
                                                        info: {location},
-                                                       cellHeight: 50)
+                                                       cellHeight: 50,
+                                                       showSeparateLine: true)
            itemCellDatas.append(cellData)
         }
         
@@ -305,7 +311,8 @@ extension ZLUserOrOrgInfoController {
             let cellData = ZLCommonTableViewCellDataV3(canClick: true,
                                                        title: { ZLLocalizedString(string: "email", comment: "")},
                                                        info: {email},
-                                                       cellHeight: 50) {
+                                                       cellHeight: 50,
+                                                       showSeparateLine: true) {
                 if let url = URL(string: "mailto:\(email)"),
                    UIApplication.shared.canOpenURL(url) {
 
@@ -322,7 +329,8 @@ extension ZLUserOrOrgInfoController {
             let cellData = ZLCommonTableViewCellDataV3(canClick: true,
                                                        title: { ZLLocalizedString(string: "blog", comment: "")},
                                                        info: {blog},
-                                                       cellHeight: 50) {
+                                                       cellHeight: 50,
+                                                       showSeparateLine: true) {
 
                 if let url = URL.init(string: blog) {
                     ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,

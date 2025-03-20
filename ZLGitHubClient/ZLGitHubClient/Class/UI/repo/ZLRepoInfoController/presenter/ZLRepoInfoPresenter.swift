@@ -11,18 +11,33 @@ import RxSwift
 import RxRelay
 import ZLGitRemoteService
 
+protocol ZLRepoInfoPresenterDelegate: AnyObject {
+    func onRepoInfoLoad(success: Bool, msg: String)
+    
+    func onBranchChanged()
+    
+    func onWatchStatusLoaded()
+    
+    func onStarStatusLoaded()
+}
+
+
 class ZLRepoInfoPresenter: NSObject {
+    
     // Entry Params
-    private let repoFullName: String
+    let repoFullName: String
     
-    // Obserable
-    let repoInfoObservable = BehaviorRelay<ZLGithubRepositoryModel?>(value:nil)
+    // delegate
+    weak var delegate: ZLRepoInfoPresenterDelegate?
     
-    let viewerIsWatchObservable = BehaviorRelay<Bool>(value:false)
+    /// data
+    private(set) var repoModel: ZLGithubRepositoryModel?
     
-    let viewerIsStarObservable = BehaviorRelay<Bool>(value:false)
+    private(set) var viewerIsWatch: Bool? = nil
     
-    let currentBranchObservable = BehaviorRelay<String?>(value: nil)
+    private(set) var viewerIsStar: Bool? = nil
+    
+    private(set) var currentBranch: String?  = nil
     
     init(repoFullName: String) {
         self.repoFullName = repoFullName
@@ -30,90 +45,54 @@ class ZLRepoInfoPresenter: NSObject {
     }
 }
 
-extension ZLRepoInfoPresenter {
-    
-    // value
-    var repoModel: ZLGithubRepositoryModel? {
-        repoInfoObservable.value
-    }
-    
-    var viewerIsWatch: Bool {
-        viewerIsWatchObservable.value
-    }
-    
-    var viewerIsStar: Bool {
-        viewerIsStarObservable.value
-    }
-    
-    var currentBranch: String? {
-        currentBranchObservable.value
-    }
-}
 
 // MARK: - Action
 extension ZLRepoInfoPresenter {
     
-    func loadRepoRequest() -> Observable<ZLPresenterMessageModel>{
+    func loadRepoRequest() {
         
-        return Observable<ZLPresenterMessageModel>.create { [weak self] obserable in
+        // 从服务器查询
+        let tmpRepoInfo = ZLRepoServiceShared()?
+            .getRepoInfo(withFullName: self.repoFullName,
+                         serialNumber: NSString.generateSerialNumber())
+        { [weak self] (resultModel) in
             
-            guard let self = self else {
-                obserable.onNext(ZLPresenterMessageModel())
-                return Disposables.create()
-            }
+            guard let self = self else { return }
             
-            // 从服务器查询
-            let tmpRepoInfo = ZLRepoServiceShared()?
-                .getRepoInfo(withFullName: self.repoFullName,
-                             serialNumber: NSString.generateSerialNumber())
-            { [weak self] (resultModel) in
+            if resultModel.result,
+               let repoInfoModel = resultModel.data as? ZLGithubRepositoryModel {
                 
-                guard let self = self else { return }
-                
-                if resultModel.result == true, let repoInfoModel = resultModel.data as? ZLGithubRepositoryModel {
-                    
-                    self.repoInfoObservable.accept(repoInfoModel)
-                    if self.currentBranchObservable.value == nil {
-                        self.currentBranchObservable.accept(repoInfoModel.default_branch)
-                    }
-                    
-                    let message = ZLPresenterMessageModel()
-                    message.result = true
-                    obserable.onNext(message)
-                
-                } else if resultModel.result == false, let errorModel = resultModel.data as? ZLGithubRequestErrorModel {
-
-                    let message = ZLPresenterMessageModel()
-                    message.result = false
-                    message.error = "get repo info failed [\(errorModel.statusCode)](\(errorModel.message)"
-                    obserable.onNext(message)
-   
-                } else {
-
-                    let message = ZLPresenterMessageModel()
-                    message.result = false
-                    message.error = "invalid repo info format"
-                    obserable.onNext(message)
+                self.repoModel = repoInfoModel
+                if self.currentBranch == nil {
+                    self.currentBranch = repoInfoModel.default_branch
                 }
-            }
-            
-            if let repoInfoModel = tmpRepoInfo {
+                self.delegate?.onRepoInfoLoad(success: true, msg: "")
                 
-                self.repoInfoObservable.accept(repoInfoModel)
-                let message = ZLPresenterMessageModel()
-                message.result = true
-                obserable.onNext(message)
+            } else {
+                var msg: String = ""
+                if let errorModel = resultModel.data as? ZLGithubRequestErrorModel {
+                    msg = errorModel.message
+                }
+                self.delegate?.onRepoInfoLoad(success: false, msg: msg)
+            }
+        }
+        
+        if let repoInfoModel = tmpRepoInfo {
+            
+            self.repoModel = repoInfoModel
+            if self.currentBranch == nil {
+                self.currentBranch = repoInfoModel.default_branch
             }
             
-            return Disposables.create()
+            self.delegate?.onRepoInfoLoad(success: true, msg: "")
             
-        }.asObservable()
-        
+        }
     }
     
     
     func changeBranch(newBranch: String) {
-        currentBranchObservable.accept(newBranch)
+        self.currentBranch = newBranch
+        delegate?.onBranchChanged()
     }
     
     
@@ -127,153 +106,116 @@ extension ZLRepoInfoPresenter {
                 guard let data: [String: Bool] = resultModel.data as? [String: Bool] else {
                     return
                 }
-                self.viewerIsWatchObservable.accept(data["isWatch"] ?? false)
+                self.viewerIsWatch = data["isWatch"] ?? false
+                self.delegate?.onWatchStatusLoaded()
             }
         }
     }
-
-    func watchRepo() -> Observable<ZLPresenterMessageModel> {
-        
-        Observable<ZLPresenterMessageModel>.create { [weak self] observer in
-           
-            guard let self = self else {
-                observer.onNext(ZLPresenterMessageModel())
-                return Disposables.create()
-            }
-            
-            if self.viewerIsWatch == false {
-                
-                ZLRepoServiceShared()?.watchRepo(withFullName: self.repoFullName,
-                                                 serialNumber: NSString.generateSerialNumber())
-                {[weak self](resultModel: ZLOperationResultModel) in
-                    guard let self = self else { return }
-                    if resultModel.result {
-                        self.viewerIsWatchObservable.accept(true)
-                        let message = ZLPresenterMessageModel()
-                        message.result = true
-                        observer.onNext(message)
-                    } else {
-                        let message = ZLPresenterMessageModel()
-                        message.result = false
-                        message.error = ZLLocalizedString(string: "Watch Fail", comment: "")
-                        observer.onNext(message)
-                    }
-                }
-                
-            } else {
-                
-                ZLRepoServiceShared()?.unwatchRepo(withFullName: self.repoFullName,
-                                                   serialNumber: NSString.generateSerialNumber())
-                {[weak self](resultModel: ZLOperationResultModel) in
-                    guard let self = self else { return }
-                    if resultModel.result {
-                        self.viewerIsWatchObservable.accept(false)
-                        let message = ZLPresenterMessageModel()
-                        message.result = true
-                        observer.onNext(message)
-                    } else {
-                        let message = ZLPresenterMessageModel()
-                        message.result = false
-                        message.error = ZLLocalizedString(string: "Unwatch Fail", comment: "")
-                        observer.onNext(message)
-                    }
-                }
-            }
-            
-            return Disposables.create()
-        }.asObservable()
     
+    func watchRepo(callBack: @escaping (Bool, String) -> Void ) {
+        guard let viewerIsWatch = self.viewerIsWatch else { return }
+        if self.viewerIsWatch == false {
+            
+            ZLRepoServiceShared()?.watchRepo(withFullName: self.repoFullName,
+                                             serialNumber: NSString.generateSerialNumber())
+            {[weak self](resultModel: ZLOperationResultModel) in
+                guard let self = self else { return }
+                if resultModel.result {
+                    self.viewerIsWatch = true
+                    callBack(true, "")
+                    self.loadRepoRequest()
+                    self.delegate?.onWatchStatusLoaded()
+                } else {
+                    callBack(false, ZLLocalizedString(string: "Watch Fail", comment: ""))
+                }
+            }
+            
+        } else {
+            
+            ZLRepoServiceShared()?.unwatchRepo(withFullName: self.repoFullName,
+                                               serialNumber: NSString.generateSerialNumber())
+            {[weak self](resultModel: ZLOperationResultModel) in
+                guard let self = self else { return }
+                if resultModel.result {
+                    self.viewerIsWatch = false
+                    callBack(true, "")
+                    self.loadRepoRequest()
+                    self.delegate?.onWatchStatusLoaded()
+                } else {
+                    callBack(false, ZLLocalizedString(string: "Unwatch Fail", comment: ""))
+                }
+            }
+        }
     }
+    
+    func getRepoStarStatus() {
+        
+        ZLRepoServiceShared()?.getRepoStarStatus(withFullName: repoFullName,
+                                                 serialNumber: NSString.generateSerialNumber())
+        {[weak self](resultModel: ZLOperationResultModel) in
+            guard let self = self else { return }
+            if resultModel.result {
+                guard let data: [String: Bool] = resultModel.data as? [String: Bool] else {
+                    return
+                }
+                self.viewerIsStar = data["isStar"] ?? false
+                self.delegate?.onStarStatusLoaded()
+            }
+        }
+    }
+    
+    func starRepo(callBack: @escaping (Bool, String) -> Void )  {
+        guard let viewerIsStar = self.viewerIsStar else { return }
+        
 
-       func getRepoStarStatus() {
-           
-           ZLRepoServiceShared()?.getRepoStarStatus(withFullName: repoFullName,
-                                                     serialNumber: NSString.generateSerialNumber())
-           {[weak self](resultModel: ZLOperationResultModel) in
-               guard let self = self else { return }
-               if resultModel.result {
-                   guard let data: [String: Bool] = resultModel.data as? [String: Bool] else {
-                       return
-                   }
-                   self.viewerIsStarObservable.accept(data["isStar"] ?? false)
-               }
-           }
-       }
-
-       func starRepo() -> Observable<ZLPresenterMessageModel> {
-           
-           Observable<ZLPresenterMessageModel>.create { [weak self] observer in
-              
-               guard let self = self else {
-                   observer.onNext(ZLPresenterMessageModel())
-                   return Disposables.create()
-               }
-               
-               if self.viewerIsStar == false {
-                   
-                   ZLRepoServiceShared()?.starRepo(withFullName: self.repoFullName,
-                                                    serialNumber: NSString.generateSerialNumber())
-                   {[weak self](resultModel: ZLOperationResultModel) in
-                       guard let self = self else { return }
-                       if resultModel.result {
-                           self.viewerIsStarObservable.accept(true)
-                           let message = ZLPresenterMessageModel()
-                           message.result = true
-                           observer.onNext(message)
-                       } else {
-                           let message = ZLPresenterMessageModel()
-                           message.result = false
-                           message.error = ZLLocalizedString(string: "Star Fail", comment: "")
-                           observer.onNext(message)
-                       }
-                   }
-                   
-               } else {
-                   
-                   ZLRepoServiceShared()?.unstarRepo(withFullName: self.repoFullName,
-                                                      serialNumber: NSString.generateSerialNumber())
-                   {[weak self](resultModel: ZLOperationResultModel) in
-                       guard let self = self else { return }
-                       if resultModel.result {
-                           self.viewerIsStarObservable.accept(false)
-                           let message = ZLPresenterMessageModel()
-                           message.result = true
-                           observer.onNext(message)
-                       } else {
-                           let message = ZLPresenterMessageModel()
-                           message.result = false
-                           message.error = ZLLocalizedString(string: "Unstar Fail", comment: "")
-                           observer.onNext(message)
-                       }
-                   }
-               }
-               return Disposables.create()
-               
-           }.asObservable()
-       }
-
-       func forkRepo() -> Observable<ZLPresenterMessageModel>  {
-           
-           Observable<ZLPresenterMessageModel>.create { [weak self] observer in
-              
-               guard let self = self else {
-                   observer.onNext(ZLPresenterMessageModel())
-                   return Disposables.create()
-               }
-             
-               ZLRepoServiceShared()?.forkRepository(withFullName: self.repoFullName,
-                                                     org: nil,
-                                                     serialNumber: NSString.generateSerialNumber())
-               {(resultModel: ZLOperationResultModel) in
-                   
-                   let message = ZLPresenterMessageModel()
-                   message.result = resultModel.result
-                   observer.onNext(message)
-               }
-               
-               return Disposables.create()
-               
-           }.asObservable()
-       }
-
+        if self.viewerIsStar == false {
+            
+            ZLRepoServiceShared()?.starRepo(withFullName: self.repoFullName,
+                                            serialNumber: NSString.generateSerialNumber())
+            {[weak self](resultModel: ZLOperationResultModel) in
+                guard let self = self else { return }
+                if resultModel.result {
+                    self.viewerIsStar = true
+                    callBack(true, "")
+                    self.loadRepoRequest()
+                    self.delegate?.onStarStatusLoaded()
+                } else {
+                    callBack(false, ZLLocalizedString(string: "Star Fail", comment: ""))
+                }
+            }
+            
+        } else {
+            
+            ZLRepoServiceShared()?.unstarRepo(withFullName: self.repoFullName,
+                                              serialNumber: NSString.generateSerialNumber())
+            {[weak self](resultModel: ZLOperationResultModel) in
+                guard let self = self else { return }
+                if resultModel.result {
+                    self.viewerIsStar = false
+                    callBack(true, "")
+                    self.loadRepoRequest()
+                    self.delegate?.onStarStatusLoaded()
+                } else {
+                    callBack(false, ZLLocalizedString(string: "Unstar Fail", comment: ""))
+                }
+            }
+        }
+        
+    }
+    
+    func forkRepo(callBack: @escaping (Bool, String) -> Void)  {
+        
+        ZLRepoServiceShared()?.forkRepository(withFullName: self.repoFullName,
+                                              org: nil,
+                                              serialNumber: NSString.generateSerialNumber())
+        {(resultModel: ZLOperationResultModel) in
+            var msg: String = ""
+            if let errorModel = resultModel.data as? ZLGithubRequestErrorModel {
+                msg = errorModel.message
+            }
+            
+            callBack(resultModel.result,msg)
+        }
+    }
+    
 }

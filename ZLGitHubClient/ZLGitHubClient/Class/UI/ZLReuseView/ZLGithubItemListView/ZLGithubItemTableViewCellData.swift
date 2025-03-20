@@ -50,10 +50,6 @@ extension ZLGithubItemTableViewCellData {
 
         if data == nil {
             return nil
-        } else if let data = data as? ZLGithubRepositoryModel {
-            return ZLRepositoryTableViewCellData.init(data: data)
-        } else if let data = data as? ZLGithubUserModel {
-            return ZLUserTableViewCellData.init(userModel: data)
         } else if let data = data as? ZLGithubPullRequestModel {
             return ZLPullRequestTableViewCellData.init(eventModel: data)
         } else if let data = data as? ZLGithubEventModel {

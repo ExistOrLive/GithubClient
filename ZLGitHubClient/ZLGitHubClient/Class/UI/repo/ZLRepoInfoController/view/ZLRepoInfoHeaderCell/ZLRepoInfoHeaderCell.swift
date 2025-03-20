@@ -7,12 +7,12 @@
 //
 
 import UIKit
-import ZLBaseUI
 import ZLBaseExtension
 import YYText
 import ZLUIUtilities
 import SnapKit
 import SDWebImage
+import ZMMVVM
 
 protocol ZLRepoInfoHeaderCellDataSourceAndDelegate: NSObjectProtocol {
     
@@ -28,8 +28,8 @@ protocol ZLRepoInfoHeaderCellDataSourceAndDelegate: NSObjectProtocol {
     var forksNum: Int {get}
     var watchersNum: Int {get}
     
-    var watched: Bool {get}
-    var starred: Bool {get}
+    var watched: Bool? {get}
+    var starred: Bool? {get}
     
     func onAvatarButtonClicked()
     func onStarButtonClicked()
@@ -47,7 +47,9 @@ protocol ZLRepoInfoHeaderCellDataSourceAndDelegate: NSObjectProtocol {
 
 class ZLRepoInfoHeaderCell: UITableViewCell {
 
-    weak var delegate: ZLRepoInfoHeaderCellDataSourceAndDelegate?
+    var delegate: ZLRepoInfoHeaderCellDataSourceAndDelegate? {
+        zm_viewModel as? ZLRepoInfoHeaderCellDataSourceAndDelegate
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -222,8 +224,8 @@ class ZLRepoInfoHeaderCell: UITableViewCell {
         return button
     }()
 
-    private lazy var watchButton: ZLBaseButton = {
-        let button = ZLBaseButton()
+    private lazy var watchButton: UIButton = {
+        let button = ZMButton()
         button.setTitle(ZLLocalizedString(string: "Watch", comment: "关注"), for: .normal)
         button.setTitle(ZLLocalizedString(string: "Unwatch", comment: "取消关注"), for: .selected)
         button.titleLabel?.font = UIFont.zlSemiBoldFont(withSize: 10)
@@ -231,8 +233,8 @@ class ZLRepoInfoHeaderCell: UITableViewCell {
         return button
     }()
 
-    private lazy var starButton: ZLBaseButton = {
-        let button = ZLBaseButton()
+    private lazy var starButton: UIButton = {
+        let button = ZMButton()
         button.setTitle(ZLLocalizedString(string: "Star", comment: "标星"), for: .normal)
         button.setTitle(ZLLocalizedString(string: "Unstar", comment: "取消标星"), for: .selected)
         button.titleLabel?.font = UIFont.zlSemiBoldFont(withSize: 10)
@@ -240,8 +242,8 @@ class ZLRepoInfoHeaderCell: UITableViewCell {
         return button
     }()
     
-    private lazy var forkButton: ZLBaseButton = {
-        let button = ZLBaseButton()
+    private lazy var forkButton: UIButton = {
+        let button = ZMButton()
         button.setTitle(ZLLocalizedString(string: "Fork", comment: "拷贝"), for: .normal)
         button.titleLabel?.font = UIFont.zlSemiBoldFont(withSize: 10)
         button.addTarget(self, action: #selector(onForkButtonClicked), for: .touchUpInside)
@@ -287,7 +289,7 @@ extension ZLRepoInfoHeaderCell {
 }
 
 // MARK: - ZLViewUpdatableWithViewData
-extension ZLRepoInfoHeaderCell: ZLViewUpdatableWithViewData {
+extension ZLRepoInfoHeaderCell: ZMBaseViewUpdatableWithViewData {
     
     func reloadData() {
         guard let data = delegate else { return }
@@ -301,8 +303,19 @@ extension ZLRepoInfoHeaderCell: ZLViewUpdatableWithViewData {
         forksNumButton.numLabel.text = data.forksNum >= 1000 ? String(format: "%.1f", Double(data.forksNum) / 1000.0) + "k" : "\(data.forksNum)"
         watchersNumButton.numLabel.text = data.watchersNum >= 1000 ? String(format: "%.1f", Double(data.watchersNum) / 1000.0) + "k" : "\(data.watchersNum)"
         
-        starButton.isSelected = data.starred
-        watchButton.isSelected = data.watched
+        if let starred = data.starred {
+            starButton.isHidden = false
+            starButton.isSelected = starred
+        } else {
+            starButton.isHidden = true
+        }
+        
+        if let watched = data.watched {
+            watchButton.isHidden = false
+            watchButton.isSelected = watched
+        } else {
+            watchButton.isHidden = true
+        }
         
 
         let tmpColor1 = (getRealUserInterfaceStyle() == .light) ? ZLRGBValue_H(colorValue: 0x333333) : ZLRGBValue_H(colorValue: 0xCCCCCC)
@@ -345,8 +358,7 @@ extension ZLRepoInfoHeaderCell: ZLViewUpdatableWithViewData {
         }
     }
     
-    func fillWithViewData(viewData data: ZLRepoInfoHeaderCellDataSourceAndDelegate) {
-        delegate = data
+    func zm_fillWithViewData(viewData data: ZLRepoInfoHeaderCellDataSourceAndDelegate) {
         reloadData()
     }
     

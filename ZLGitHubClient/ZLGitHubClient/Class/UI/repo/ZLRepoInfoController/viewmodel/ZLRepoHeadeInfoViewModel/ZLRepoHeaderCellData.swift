@@ -8,175 +8,160 @@
 
 import Foundation
 import ZLUIUtilities
-import RxSwift
 import ZLGitRemoteService
-import ZLBaseUI
+import ZMMVVM
 
-class ZLRepoHeaderCellData: ZLTableViewBaseCellData {
-    
-    let disposeBag =  DisposeBag()
+class ZLRepoHeaderCellData: ZMBaseTableViewCellViewModel {
+        
+    override var zm_cellID: any ZMBaseCellUniqueIDProtocol {
+        return ZLRepoInfoCellType.header
+    }
     
     // model
-    var repoInfoModel: ZLGithubRepositoryModel
+    var repoInfoModel: ZLGithubRepositoryModel? {
+        presenter.repoModel
+    }
     
     // presenter
-    let presenter: ZLRepoInfoPresenter?
+    let presenter: ZLRepoInfoPresenter
     
-    // ViewUpdatable
-    weak var viewUptable: ZLViewUpdatable?
+
     
-    init(repoInfoModel: ZLGithubRepositoryModel, presenter: ZLRepoInfoPresenter?) {
-        self.repoInfoModel = repoInfoModel
+    init(presenter: ZLRepoInfoPresenter) {
         self.presenter = presenter
         super.init()
-        bindData()
-        self.cellReuseIdentifier = "ZLRepoInfoHeaderCell"
     }
     
-    func bindData() {
-        
-        presenter?.viewerIsStarObservable.share().subscribe(onNext: { [weak self] isStar in
-            self?.viewUptable?.justUpdateView()
-        }).disposed(by: disposeBag)
-        
-        presenter?.viewerIsWatchObservable.share().subscribe(onNext: { [weak self] isWatch in
-            self?.viewUptable?.justUpdateView()
-        }).disposed(by: disposeBag)
+    override var zm_cellReuseIdentifier: String {
+        return "ZLRepoInfoHeaderCell"
     }
 }
 
-
-// MARK: - ZLViewUpdatableDataModel
-extension ZLRepoHeaderCellData: ZLViewUpdatableDataModel {
-    func setViewUpdatable(_ view: ZLViewUpdatable) {
-        self.viewUptable = view
-    }
-}
 
 // MARK: - ZLRepoInfoHeaderCellDataSourceAndDelegate
 extension ZLRepoHeaderCellData: ZLRepoInfoHeaderCellDataSourceAndDelegate {
     
     var ownerLogin: String {
-        repoInfoModel.owner?.loginName ?? ""
+        repoInfoModel?.owner?.loginName ?? ""
     }
     
     var avatarUrl: String {
-        repoInfoModel.owner?.avatar_url ?? ""
+        repoInfoModel?.owner?.avatar_url ?? ""
     }
     var repoName: String {
-        repoInfoModel.full_name ?? ""
+        repoInfoModel?.full_name ?? ""
     }
     var sourceRepoName: String? {
-        repoInfoModel.sourceRepoFullName
+        repoInfoModel?.sourceRepoFullName
     }
     
     var updatedTime: String {
-        guard let date: NSDate = self.repoInfoModel.updated_at as NSDate? else {
+        guard let date: NSDate = self.repoInfoModel?.updated_at as NSDate? else {
             return ""
         }
         return date.dateLocalStrSinceCurrentTime()
     }
     
     var desc: String {
-        repoInfoModel.desc_Repo ?? ""
+        repoInfoModel?.desc_Repo ?? ""
     }
     
     var issueNum: Int {
-        repoInfoModel.open_issues_count
+        repoInfoModel?.open_issues_count ?? 0
     }
 
     var starsNum: Int {
-        repoInfoModel.stargazers_count
+        repoInfoModel?.stargazers_count ?? 0
     }
 
     var forksNum: Int {
-        repoInfoModel.forks_count
+        repoInfoModel?.forks_count ?? 0
     }
 
     var watchersNum: Int {
-        repoInfoModel.subscribers_count
+        repoInfoModel?.subscribers_count ?? 0
     }
     
-    var watched: Bool {
-        presenter?.viewerIsWatch ?? false
+    var watched: Bool? {
+        presenter.viewerIsWatch
     }
-    var starred: Bool {
-        presenter?.viewerIsStar ?? false
+    var starred: Bool? {
+        presenter.viewerIsStar
     }
     
     func onAvatarButtonClicked() {
-        if let loginName = repoInfoModel.owner?.loginName {
+        if let loginName = repoInfoModel?.owner?.loginName {
             if let userInfoVC = ZLUIRouter.getUserInfoViewController(loginName: loginName) {
-                self.viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
+                zm_viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
             }
         }
     }
     
     func onStarButtonClicked() {
-        ZLProgressHUD.show(view: viewController?.view, animated: true)
-        presenter?.starRepo().subscribe(onNext: { [weak self] messageModel in
-            guard let self = self else { return }
-            ZLProgressHUD.dismiss(view: self.viewController?.view, animated: true)
-            if messageModel.result == false,
-               !messageModel.error.isEmpty{
-                ZLToastView.showMessage(messageModel.error, sourceView: self.viewController?.view)
+        ZLProgressHUD.show(view: zm_viewController?.view, animated: true)
+        presenter.starRepo { [weak self] result, msg in
+            guard let self else { return }
+            ZLProgressHUD.dismiss(view: self.zm_viewController?.view, animated: true)
+            if !result, !msg.isEmpty {
+                ZLToastView.showMessage(msg,
+                                        sourceView: self.zm_viewController?.view)
             }
-        }).disposed(by: disposeBag)
+        }
     }
     
     func onForkButtonClicked() {
-        ZLProgressHUD.show(view: viewController?.view, animated: true)
-        presenter?.forkRepo().subscribe(onNext: { [weak self] messageModel in
+        ZLProgressHUD.show(view: zm_viewController?.view, animated: true)
+        presenter.forkRepo { [weak self] result, msg in
             guard let self = self else { return }
-            ZLProgressHUD.dismiss(view: self.viewController?.view, animated: true)
-            if messageModel.result == true {
-                ZLToastView.showMessage(ZLLocalizedString(string: "Fork Success", comment: ""), sourceView: self.viewController?.view)
+            ZLProgressHUD.dismiss(view: self.zm_viewController?.view, animated: true)
+            if result {
+                ZLToastView.showMessage(ZLLocalizedString(string: "Fork Success", comment: ""), sourceView: self.zm_viewController?.view)
             } else {
-                ZLToastView.showMessage(ZLLocalizedString(string: "Fork Fail", comment: ""), sourceView: self.viewController?.view)
+                ZLToastView.showMessage(ZLLocalizedString(string: "Fork Fail", comment: ""), sourceView: self.zm_viewController?.view)
             }
-        }).disposed(by: disposeBag)
+        }
     }
     
     func onWatchButtonClicked() {
-        ZLProgressHUD.show(view: viewController?.view, animated: true)
-        presenter?.watchRepo().subscribe(onNext: { [weak self] messageModel in
+        ZLProgressHUD.show(view: zm_viewController?.view, animated: true)
+        presenter.watchRepo { [weak self] result, msg in
             guard let self = self else { return }
-            ZLProgressHUD.dismiss(view: self.viewController?.view, animated: true)
-            if messageModel.result == false,
-               !messageModel.error.isEmpty{
-                ZLToastView.showMessage(messageModel.error, sourceView: self.viewController?.view)
-            } 
-        }).disposed(by: disposeBag)
+            ZLProgressHUD.dismiss(view: self.zm_viewController?.view, animated: true)
+            if !result, !msg.isEmpty {
+                ZLToastView.showMessage(msg,
+                                        sourceView: self.zm_viewController?.view)
+            }
+        }
     }
 
     func onIssuesNumButtonClicked() {
         let vc: ZLRepoIssuesController = ZLRepoIssuesController()
-        vc.repoFullName = repoInfoModel.full_name
-        self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        vc.repoFullName = presenter.repoFullName
+        zm_viewController?.navigationController?.pushViewController(vc, animated: true)
     }
     
     func onStarsNumButtonClicked() {
         let vc: ZLRepoStargazersController = ZLRepoStargazersController.init()
-        vc.repoFullName = repoInfoModel.full_name
-        self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        vc.repoFullName = presenter.repoFullName
+        zm_viewController?.navigationController?.pushViewController(vc, animated: true)
     }
     
     func onForksNumButtonClicked() {
         let vc: ZLRepoForkedReposController = ZLRepoForkedReposController()
-        vc.repoFullName = repoInfoModel.full_name
-        self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        vc.repoFullName = presenter.repoFullName
+        zm_viewController?.navigationController?.pushViewController(vc, animated: true)
     }
     
     func onWatchersNumButtonClicked() {
         let vc: ZLRepoWatchedUsersController = ZLRepoWatchedUsersController.init()
-        vc.repoFullName = repoInfoModel.full_name
-        self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        vc.repoFullName = presenter.repoFullName
+        zm_viewController?.navigationController?.pushViewController(vc, animated: true)
     }
     
     func onSourceRepoClicked() {
-        if let repoFullName = repoInfoModel.sourceRepoFullName,
+        if let repoFullName = presenter.repoModel?.sourceRepoFullName,
            let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: repoFullName) {
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            zm_viewController?.navigationController?.pushViewController(vc, animated: true)
         }
     }
 }
