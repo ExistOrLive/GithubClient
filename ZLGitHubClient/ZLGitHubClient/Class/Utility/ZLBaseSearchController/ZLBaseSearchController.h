@@ -46,7 +46,7 @@ typedef enum : NSUInteger {
 
 
 
-@interface ZLBaseSearchBar : ZLBaseView
+@interface ZLBaseSearchBar : UIView
 
 @property(nonatomic, readonly) ZLBaseSearchBarStatus status;
 

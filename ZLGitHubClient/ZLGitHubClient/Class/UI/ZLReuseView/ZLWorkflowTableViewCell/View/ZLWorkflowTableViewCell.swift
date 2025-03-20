@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import ZLBaseUI
+import ZMMVVM
 import ZLUtilities
 
 @objc protocol ZLWorkflowTableViewCellDelegate: NSObjectProtocol {
@@ -56,7 +56,9 @@ class ZLWorkflowTableViewCell: UITableViewCell {
         return button
     }()
 
-    weak var delegate: ZLWorkflowTableViewCellDelegate?
+    weak var delegate: ZLWorkflowTableViewCellDelegate? {
+        zm_viewModel as? ZLWorkflowTableViewCellDelegate
+    }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -117,10 +119,6 @@ class ZLWorkflowTableViewCell: UITableViewCell {
         }
     }
 
-    func fillWithData(cellData: ZLWorkflowTableViewCellData) {
-        self.workflowTitleLabel.text = cellData.getWorkflowTitle()
-        self.workflowStateLabel.text = cellData.getWorkflowState()
-    }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
@@ -141,5 +139,12 @@ class ZLWorkflowTableViewCell: UITableViewCell {
         UIView.animate(withDuration: 0.1) {
             self.containerView.backgroundColor = UIColor.init(named: "ZLCellBack")
         }
+    }
+}
+
+extension ZLWorkflowTableViewCell: ZMBaseViewUpdatableWithViewData {
+    func zm_fillWithViewData(viewData: ZLWorkflowTableViewCellData) {
+        self.workflowTitleLabel.text = viewData.getWorkflowTitle()
+        self.workflowStateLabel.text = viewData.getWorkflowState()
     }
 }

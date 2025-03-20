@@ -7,13 +7,16 @@
 //
 
 import UIKit
+import ZMMVVM
 
 @objc protocol ZLCommitTableViewCellDelegate: NSObjectProtocol {
 }
 
 class ZLCommitTableViewCell: UITableViewCell {
 
-    weak var delegate: ZLCommitTableViewCellDelegate?
+    var delegate: ZLCommitTableViewCellDelegate? {
+        zm_viewModel as? ZLCommitTableViewCellDelegate
+    }
 
     private lazy var containerView: UIView = {
         let view = UIView()
@@ -100,15 +103,7 @@ class ZLCommitTableViewCell: UITableViewCell {
         }
 
     }
-
-    func fillWithData(cellData: ZLCommitTableViewCellData) {
-        self.titleLabel.text = cellData.getCommitTitle()
-        self.avatarImageView.loadAvatar(login: cellData.getCommiterLogin(),
-                                        avatarUrl: cellData.getCommiterAvaterURL() ?? "")
-        self.assitLabel.text = cellData.getAssistInfo()
-        self.shaButton.setTitle(cellData.getCommitSha(), for: .normal)
-    }
-
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         UIView.animate(withDuration: 0.1) {
@@ -130,4 +125,15 @@ class ZLCommitTableViewCell: UITableViewCell {
         }
     }
 
+}
+
+extension ZLCommitTableViewCell: ZMBaseViewUpdatableWithViewData {
+    
+    func zm_fillWithViewData(viewData: ZLCommitTableViewCellData) {
+        self.titleLabel.text = viewData.getCommitTitle()
+        self.avatarImageView.loadAvatar(login: viewData.getCommiterLogin(),
+                                        avatarUrl: viewData.getCommiterAvaterURL() ?? "")
+        self.assitLabel.text = viewData.getAssistInfo()
+        self.shaButton.setTitle(viewData.getCommitSha(), for: .normal)
+    }
 }

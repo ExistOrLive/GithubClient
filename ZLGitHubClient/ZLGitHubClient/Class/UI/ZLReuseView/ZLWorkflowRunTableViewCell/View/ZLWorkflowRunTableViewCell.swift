@@ -9,6 +9,7 @@
 import UIKit
 import YYText
 import ZLUtilities
+import ZMMVVM
 
 @objc protocol ZLWorkflowRunTableViewCellDelegate: NSObjectProtocol {
     func onMoreButtonClicked(button: UIButton)
@@ -115,7 +116,32 @@ class ZLWorkflowRunTableViewCell: UITableViewCell {
 
     }
 
-    func fillWithData(data: ZLWorkflowRunTableViewCellData) {
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        UIView.animate(withDuration: 0.1) {
+            self.containerView.backgroundColor = UIColor.init(named: "ZLCellBackSelected")
+        }
+    }
+
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesCancelled(touches, with: event)
+        UIView.animate(withDuration: 0.1) {
+            self.containerView.backgroundColor = UIColor.init(named: "ZLCellBack")
+        }
+    }
+
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        UIView.animate(withDuration: 0.1) {
+            self.containerView.backgroundColor = UIColor.init(named: "ZLCellBack")
+        }
+    }
+
+}
+
+extension ZLWorkflowRunTableViewCell: ZMBaseViewUpdatableWithViewData {
+    func zm_fillWithViewData(viewData data: ZLWorkflowRunTableViewCellData) {
 
         self.workflowRunTitleLabel.text = data.getWorkflowRunTitle()
         self.workflowDescLabel.text = data.getWorkflowRunDesc()
@@ -140,26 +166,4 @@ class ZLWorkflowRunTableViewCell: UITableViewCell {
         }
 
     }
-
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        UIView.animate(withDuration: 0.1) {
-            self.containerView.backgroundColor = UIColor.init(named: "ZLCellBackSelected")
-        }
-    }
-
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesCancelled(touches, with: event)
-        UIView.animate(withDuration: 0.1) {
-            self.containerView.backgroundColor = UIColor.init(named: "ZLCellBack")
-        }
-    }
-
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesEnded(touches, with: event)
-        UIView.animate(withDuration: 0.1) {
-            self.containerView.backgroundColor = UIColor.init(named: "ZLCellBack")
-        }
-    }
-
 }

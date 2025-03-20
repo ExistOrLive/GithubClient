@@ -8,9 +8,9 @@
 
 import UIKit
 import ZLGitRemoteService
-import ZLBaseUI
+import ZMMVVM
 
-class ZLWorkflowTableViewCellData: ZLGithubItemTableViewCellData {
+class ZLWorkflowTableViewCellData: ZMBaseTableViewCellViewModel {
     var data: ZLGithubRepoWorkflowModel
 
     var repoFullName: String = ""
@@ -20,28 +20,18 @@ class ZLWorkflowTableViewCellData: ZLGithubItemTableViewCellData {
         super.init()
     }
 
-    override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
-        guard let tableViewCell: ZLWorkflowTableViewCell = targetView as? ZLWorkflowTableViewCell else {
-            return
-        }
-        tableViewCell.fillWithData(cellData: self)
-        tableViewCell.delegate = self
-    }
 
-    override func getCellReuseIdentifier() -> String {
+    override var zm_cellReuseIdentifier: String {
            return "ZLWorkflowTableViewCell"
     }
 
-    override func getCellHeight() -> CGFloat {
-        return UITableView.automaticDimension
-    }
 
-    override func onCellSingleTap() {
+    override func zm_onCellSingleTap() {
         let workflowRunVc = ZLRepoWorkflowRunsController.init()
         workflowRunVc.fullName = self.repoFullName
         workflowRunVc.workflow_id = self.data.id_workflow ?? ""
         workflowRunVc.workflowTitle = self.data.name ?? ""
-        self.viewController?.navigationController?.pushViewController(workflowRunVc, animated: true)
+        zm_viewController?.navigationController?.pushViewController(workflowRunVc, animated: true)
     }
 }
 

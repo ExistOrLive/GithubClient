@@ -9,50 +9,27 @@
 import UIKit
 import ZLUIUtilities
 import ZLGitRemoteService
+import ZMMVVM
 
-class ZLUserTableViewCellDataForViewerOrgs: ZLGithubItemTableViewCellData {
+class ZLUserTableViewCellDataForViewerOrgs: ZMBaseTableViewCellViewModel {
 
     let data: ViewerOrgsQuery.Data.Viewer.Organization.Edge.Node
-    weak var cell: ZLUserTableViewCell?
 
     init(data: ViewerOrgsQuery.Data.Viewer.Organization.Edge.Node) {
         self.data = data
         super.init()
     }
-
-    override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
-
-        guard let cell: ZLUserTableViewCell = targetView as? ZLUserTableViewCell else {
-            return
-        }
-        cell.fillWithData(data: self)
-        cell.delegate = self
-        self.cell = cell
-    }
-
-    override func getCellReuseIdentifier() -> String {
+    
+    override var zm_cellReuseIdentifier: String {
         return "ZLUserTableViewCell"
     }
 
-    override func getCellHeight() -> CGFloat {
-        return UITableView.automaticDimension
-    }
-
-    override func onCellSingleTap() {
+    override func zm_onCellSingleTap() {
         if let orgInfoVC = ZLUIRouter.getUserInfoViewController(loginName: data.login) {
             orgInfoVC.hidesBottomBarWhenPushed = true
-            self.viewController?.navigationController?.pushViewController(orgInfoVC, animated: true)
+            zm_viewController?.navigationController?.pushViewController(orgInfoVC, animated: true)
         }
     }
-
-    override func getCellSwipeActions() -> UISwipeActionsConfiguration? {
-        return nil
-    }
-
-    override func clearCache() {
-
-    }
-
 }
 
 extension ZLUserTableViewCellDataForViewerOrgs: ZLUserTableViewCellDelegate {
@@ -81,7 +58,7 @@ extension ZLUserTableViewCellDataForViewerOrgs: ZLUserTableViewCellDelegate {
     }
 
     func longPressAction(view: UIView) {
-        guard let sourceViewController = viewController,
+        guard let sourceViewController = zm_viewController,
               let url = URL(string: "https://github.com/\(data.login.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? "")") else {
                   return
               }

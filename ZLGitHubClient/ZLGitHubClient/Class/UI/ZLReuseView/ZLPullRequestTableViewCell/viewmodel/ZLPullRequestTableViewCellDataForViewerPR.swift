@@ -8,8 +8,9 @@
 
 import UIKit
 import ZLGitRemoteService
+import ZMMVVM
 
-class ZLPullRequestTableViewCellDataForViewerPR: ZLGithubItemTableViewCellData {
+class ZLPullRequestTableViewCellDataForViewerPR: ZMBaseTableViewCellViewModel {
 
     let data: SearchItemQuery.Data.Search.Node.AsPullRequest
 
@@ -18,22 +19,12 @@ class ZLPullRequestTableViewCellDataForViewerPR: ZLGithubItemTableViewCellData {
         super.init()
     }
 
-    override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
-        guard let cell: ZLPullRequestTableViewCell = targetView as? ZLPullRequestTableViewCell else {
-            return
-        }
-        cell.fillWithData(data: self)
-    }
-
-    override func getCellHeight() -> CGFloat {
-        return UITableView.automaticDimension
-    }
-
-    override func getCellReuseIdentifier() -> String {
+    override var zm_cellReuseIdentifier: String {
         return "ZLPullRequestTableViewCell"
     }
+    
 
-    override func onCellSingleTap() {
+    override func zm_onCellSingleTap() {
 
         if let url = URL(string: self.data.url) {
             if url.pathComponents.count >= 5 && url.pathComponents[3] == "pull" {
@@ -53,7 +44,7 @@ extension ZLPullRequestTableViewCellDataForViewerPR: ZLPullRequestTableViewCellD
 
     func onClickPullRequestRepoFullName() {
         if let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: data.repository.nameWithOwner) {
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            zm_viewController?.navigationController?.pushViewController(vc, animated: true)
         }
     }
 
@@ -110,7 +101,7 @@ extension ZLPullRequestTableViewCellDataForViewerPR: ZLPullRequestTableViewCellD
     }
 
     func longPressAction(view: UIView) {
-        guard let sourceViewController = viewController,
+        guard let sourceViewController = zm_viewController,
               let url = URL(string: data.url) else { return }
         
         view.showShareMenu(title: url.absoluteString, url: url, sourceViewController: sourceViewController)

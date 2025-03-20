@@ -9,116 +9,92 @@
 import UIKit
 import SnapKit
 import ZLGitRemoteService
-import ZLBaseUI
+import ZMMVVM
 import ZLUIUtilities
 import ZLBaseExtension
 
-class ZLStarRepoViewController: ZLBaseViewController {
+class ZLStarRepoViewController: ZMTableViewController {
     
     // data
     private var pageNum = 1
     
+    static let per_page: UInt = 20  
+    
     override class func getOne() -> UIViewController! {
         return ZLStarRepoViewController()
     }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
-        tableContainerView.startLoad()
+        viewStatus = .loading
+        refreshLoadNewData()
     }
     
-    func setupUI() {
+    override func setupUI() {
+        super.setupUI()
+        
         title = ZLLocalizedString(string: "star", comment: "标星")
         
-        contentView.addSubview(tableContainerView)
-        tableContainerView.snp.makeConstraints { make in
-            make.edges.equalTo(UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0))
-        }
+        tableView.contentInsetAdjustmentBehavior = .automatic
+        tableView.contentInset = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
+        setRefreshViews(types: [.header,.footer])
+        tableView.register(ZLRepositoryTableViewCell.self,
+                           forCellReuseIdentifier: "ZLRepositoryTableViewCell")
     }
     
-    
-    func addData(data: [ZLGithubRepositoryModel], reset: Bool) {
-        
-        if reset {
-            let subViewModels = self.subViewModels
-            for viewModel in subViewModels {
-                viewModel.removeFromSuperViewModel()
-            }
-        }
-        
-        let cellDatas = data.compactMap { model in
-            return ZLRepositoryTableViewCellDataV2(data: model)
-        }
-        addSubViewModels(cellDatas)
-        
-        if reset {
-            pageNum = 2
-            tableContainerView.resetCellDatas(cellDatas: cellDatas, hasMoreData: cellDatas.count >= 20)
-        } else {
-            pageNum += 1
-            tableContainerView.appendCellDatas(cellDatas: cellDatas, hasMoreData: cellDatas.count >= 20)
-        }
-        
+    override func refreshLoadNewData() {
+        loadData(isLoadNew: true)
     }
     
-    // MARK: Lazy view
-    
-    lazy var tableContainerView: ZLTableContainerView = {
-        let tableView = ZLTableContainerView()
-        tableView.register(ZLRepositoryTableViewCell.self, forCellReuseIdentifier: "ZLRepositoryTableViewCell")
-        tableView.delegate = self
-        tableView.setTableViewFooter()
-        tableView.setTableViewHeader()
-        return tableView
-    }()
-
-}
-
-// MARK: ZLTableContainerViewDelegate
-extension ZLStarRepoViewController: ZLTableContainerViewDelegate {
-    func zlLoadNewData() {
-        loadData(loadNew: true)
-    }
-    
-    func zlLoadMoreData() {
-        loadData(loadNew: false)
+    override func refreshLoadMoreData() {
+        loadData(isLoadNew: false)
     }
 }
+
 
 // MARK: request
 extension ZLStarRepoViewController {
     
-    func loadData(loadNew: Bool) {
+    func loadData(isLoadNew: Bool) {
         
-        guard let login = ZLViewerServiceShared()?.currentUserLoginName,
-              !login.isEmpty else {
-                  ZLToastView.showMessage("login is nil")
-                  tableContainerView.endRefresh()
-                  return
-        }
+        let login = ZLViewerServiceShared()?.currentUserLoginName ?? ""
         
         ZLUserServiceShared()?.getAdditionInfo(forUser: login,
                                                infoType: .starredRepos,
-                                               page: UInt(loadNew ? 1 : pageNum) ,
+                                               page: UInt(isLoadNew ? 1 : pageNum) ,
                                                per_page: 20,
                                                serialNumber: NSString.generateSerialNumber())
         { [weak self] resultModel in
-            guard let self = self else { return }
-            
-            if resultModel.result {
-                guard let data = resultModel.data as? [ZLGithubRepositoryModel] else {
-                    self.tableContainerView.endRefresh()
-                    return
+            guard let self else { return }
+            if resultModel.result == true, let itemArray = resultModel.data as? [ZLGithubRepositoryModel] {
+
+                let cellDataArray: [ZMBaseTableViewCellViewModel] = itemArray.map {
+                    ZLRepositoryTableViewCellDataV3(data: $0)
                 }
-                self.addData(data: data, reset: loadNew)
+                self.zm_addSubViewModels(cellDataArray)
                 
-            } else {
-                self.tableContainerView.endRefresh()
-                guard let errorModel = resultModel.data as? ZLGithubRequestErrorModel else {
-                    return
+                if isLoadNew {
+                    self.sectionDataArray.forEach { $0.zm_removeFromSuperViewModel() }
+                    self.sectionDataArray = [ZMBaseTableViewSectionData(cellDatas: cellDataArray)]
+                    self.pageNum = 2
+                } else {
+                    self.sectionDataArray.first?.cellDatas.append(contentsOf: cellDataArray)
+                    self.pageNum = self.pageNum + 1
                 }
-                ZLToastView.showMessage(errorModel.message, sourceView: self.contentView)
+                
+                self.tableView.reloadData()
+                
+                self.endRefreshViews(noMoreData: cellDataArray.count < Self.per_page)
+                self.viewStatus = self.tableViewProxy.isEmpty ? .empty : .normal
+
+            } else {
+                self.endRefreshViews()
+                self.viewStatus = self.tableViewProxy.isEmpty ? .error : .normal
+                
+                if let errorModel = resultModel.data as? ZLGithubRequestErrorModel {
+                    ZLToastView.showMessage(errorModel.message)
+                }
             }
         }
     }

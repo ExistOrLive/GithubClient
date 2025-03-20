@@ -8,8 +8,9 @@
 
 import UIKit
 import ZLGitRemoteService
+import ZMMVVM
 
-class ZLIssueTableViewCellDataForViewerIssue: ZLGithubItemTableViewCellData {
+class ZLIssueTableViewCellDataForViewerIssue: ZMBaseTableViewCellViewModel {
 
     typealias Data = SearchItemQuery.Data.Search.Node.AsIssue
 
@@ -22,29 +23,18 @@ class ZLIssueTableViewCellDataForViewerIssue: ZLGithubItemTableViewCellData {
         super.init()
     }
 
-    override func getCellReuseIdentifier() -> String {
+    override var zm_cellReuseIdentifier: String {
         return "ZLIssueTableViewCell"
     }
 
-    override func getCellHeight() -> CGFloat {
-        return UITableView.automaticDimension
-    }
 
-    override func onCellSingleTap() {
+    override func zm_onCellSingleTap() {
         ZLUIRouter.navigateVC(key: ZLUIRouter.IssueInfoController,
                               params: ["login": String(data.repository.nameWithOwner.split(separator: "/").first ?? ""),
                                        "repoName": data.repository.name,
                                        "number": data.number])
-
+        
     }
-
-    override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
-        guard let cell: ZLIssueTableViewCell = targetView as? ZLIssueTableViewCell else {
-            return
-        }
-        cell.fillWithData(cellData: self)
-    }
-
 }
 
 extension ZLIssueTableViewCellDataForViewerIssue: ZLIssueTableViewCellDelegate {
@@ -84,7 +74,7 @@ extension ZLIssueTableViewCellDataForViewerIssue: ZLIssueTableViewCellDelegate {
 
     func onClickIssueRepoFullName() {
         if let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: data.repository.nameWithOwner) {
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            zm_viewController?.navigationController?.pushViewController(vc, animated: true)
         }
     }
     
@@ -97,7 +87,7 @@ extension ZLIssueTableViewCellDataForViewerIssue: ZLIssueTableViewCellDelegate {
     }
 
     func longPressAction(view: UIView) {
-        guard let sourceViewController = viewController,
+        guard let sourceViewController = zm_viewController,
               let url = URL(string: data.url) else { return }
         
         view.showShareMenu(title: url.absoluteString, url: url, sourceViewController: sourceViewController)

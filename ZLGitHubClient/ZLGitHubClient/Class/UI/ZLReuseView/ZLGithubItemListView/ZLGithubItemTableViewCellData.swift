@@ -58,14 +58,8 @@ extension ZLGithubItemTableViewCellData {
             return ZLPullRequestTableViewCellData.init(eventModel: data)
         } else if let data = data as? ZLGithubEventModel {
             return ZLEventTableViewCellData.getCellDataWithEventModel(eventModel: data)
-        }  else if let data = data as? ZLGithubCommitModel {
-            return ZLCommitTableViewCellData.init(commitModel: data)
         } else if let data = data as? ZLGithubIssueModel {
             return ZLIssueTableViewCellData.init(issueModel: data)
-        } else if let data = data as? ZLGithubRepoWorkflowModel {
-            return ZLWorkflowTableViewCellData.init(data: data)
-        } else if let data = data as? ZLGithubRepoWorkflowRunModel {
-            return ZLWorkflowRunTableViewCellData.init(data: data)
         } else {
             return nil
         }

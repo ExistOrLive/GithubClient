@@ -10,6 +10,7 @@ import UIKit
 import YYText
 import ZLBaseExtension
 import ZLUtilities
+import ZMMVVM
 
 protocol ZLIssueTableViewCellDelegate: NSObjectProtocol {
 
@@ -148,6 +149,41 @@ class ZLIssueTableViewCell: UITableViewCell {
         super.setSelected(false, animated: animated)
     }
 
+    
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        UIView.animate(withDuration: 0.1) {
+            self.containerView.backgroundColor = UIColor.init(named: "ZLCellBackSelected")
+        }
+    }
+
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesCancelled(touches, with: event)
+        UIView.animate(withDuration: 0.1) {
+            self.containerView.backgroundColor = UIColor.init(named: "ZLCellBack")
+        }
+    }
+
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        UIView.animate(withDuration: 0.1) {
+            self.containerView.backgroundColor = UIColor.init(named: "ZLCellBack")
+        }
+    }
+    
+    @objc func longPressAction(gesture: UILongPressGestureRecognizer) {
+        guard gesture.state == .began else { return }
+        delegate?.longPressAction(view: self)
+    }
+
+}
+
+extension ZLIssueTableViewCell: ZMBaseViewUpdatableWithViewData {
+    func zm_fillWithViewData(viewData: ZLIssueTableViewCellDelegate) {
+        fillWithData(cellData: viewData)
+    }
+    
     func fillWithData(cellData: ZLIssueTableViewCellDelegate) {
 
         self.delegate = cellData
@@ -215,31 +251,4 @@ class ZLIssueTableViewCell: UITableViewCell {
         }
 
     }
-
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        UIView.animate(withDuration: 0.1) {
-            self.containerView.backgroundColor = UIColor.init(named: "ZLCellBackSelected")
-        }
-    }
-
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesCancelled(touches, with: event)
-        UIView.animate(withDuration: 0.1) {
-            self.containerView.backgroundColor = UIColor.init(named: "ZLCellBack")
-        }
-    }
-
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesEnded(touches, with: event)
-        UIView.animate(withDuration: 0.1) {
-            self.containerView.backgroundColor = UIColor.init(named: "ZLCellBack")
-        }
-    }
-    
-    @objc func longPressAction(gesture: UILongPressGestureRecognizer) {
-        guard gesture.state == .began else { return }
-        delegate?.longPressAction(view: self)
-    }
-
 }

@@ -9,8 +9,9 @@
 import UIKit
 import ZLBaseExtension
 import ZLGitRemoteService
+import ZMMVVM
 
-class ZLWorkflowRunTableViewCellData: ZLGithubItemTableViewCellData {
+class ZLWorkflowRunTableViewCellData: ZMBaseTableViewCellViewModel {
 
     // 
     var data: ZLGithubRepoWorkflowRunModel
@@ -25,23 +26,13 @@ class ZLWorkflowRunTableViewCellData: ZLGithubItemTableViewCellData {
         super.init()
     }
 
-    override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
-        guard let cell: ZLWorkflowRunTableViewCell = targetView as? ZLWorkflowRunTableViewCell else {
-            return
-        }
-        cell.delegate = self
-        cell.fillWithData(data: self)
-    }
 
-    override func getCellReuseIdentifier() -> String {
+    override var zm_cellReuseIdentifier: String {
         return "ZLWorkflowRunTableViewCell"
     }
 
-    override func getCellHeight() -> CGFloat {
-        return UITableView.automaticDimension
-    }
 
-    override func onCellSingleTap() {
+    override func zm_onCellSingleTap() {
         if let url = URL.init(string: self.data.html_url ?? "") {
             ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,
                                   params: ["requestURL": url])
@@ -129,7 +120,7 @@ extension ZLWorkflowRunTableViewCellData {
 
             if let repoFullName = weakSelf?.data.head_repository?.full_name, let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: repoFullName) {
                 vc.hidesBottomBarWhenPushed = true
-                weakSelf?.viewController?.navigationController?.pushViewController(vc, animated: true)
+                weakSelf?.zm_viewController?.navigationController?.pushViewController(vc, animated: true)
             }
         }
         return str

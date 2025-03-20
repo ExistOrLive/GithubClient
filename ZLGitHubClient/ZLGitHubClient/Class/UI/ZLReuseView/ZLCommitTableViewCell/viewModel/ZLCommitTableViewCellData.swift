@@ -8,8 +8,9 @@
 
 import UIKit
 import ZLGitRemoteService
+import ZMMVVM
 
-class ZLCommitTableViewCellData: ZLGithubItemTableViewCellData {
+class ZLCommitTableViewCellData: ZMBaseTableViewCellViewModel {
 
     let commitModel: ZLGithubCommitModel
 
@@ -18,23 +19,12 @@ class ZLCommitTableViewCellData: ZLGithubItemTableViewCellData {
          super.init()
      }
 
-     override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
-         guard let cell: ZLCommitTableViewCell = targetView as? ZLCommitTableViewCell else {
-             return
-         }
-         cell.fillWithData(cellData: self)
-         cell.delegate = self
-     }
 
-     override func getCellHeight() -> CGFloat {
-        return UITableView.automaticDimension
-     }
-
-     override func getCellReuseIdentifier() -> String {
+     override var zm_cellReuseIdentifier: String {
          return "ZLCommitTableViewCell"
      }
 
-    override func onCellSingleTap() {
+    override func zm_onCellSingleTap() {
         if let url = URL(string: self.commitModel.html_url) {
             ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,
                                   params: ["requestURL": url])

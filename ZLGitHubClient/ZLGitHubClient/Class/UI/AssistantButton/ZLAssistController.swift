@@ -9,7 +9,7 @@
 import UIKit
 import CircleMenu
 import SYDCentralPivot
-import ZLBaseUI
+import ZMMVVM
 import ZLUIUtilities
 import ZLBaseExtension
 import ZLUtilities
@@ -35,7 +35,7 @@ class ZLAssistTableViewCell: UITableViewCell {
     }
 }
 
-class ZLAssistController: ZLBaseViewController {
+class ZLAssistController: ZMViewController {
 
     // MARK: View
     private lazy var tableView: UITableView = {
