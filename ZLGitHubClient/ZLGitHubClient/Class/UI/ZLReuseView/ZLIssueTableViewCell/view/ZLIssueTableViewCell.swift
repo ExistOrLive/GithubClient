@@ -84,7 +84,9 @@ class ZLIssueTableViewCell: UITableViewCell {
         return gesture
     }()
 
-    weak var delegate: ZLIssueTableViewCellDelegate?
+    var delegate: ZLIssueTableViewCellDelegate? {
+        zm_viewModel as? ZLIssueTableViewCellDelegate
+    }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -180,14 +182,8 @@ class ZLIssueTableViewCell: UITableViewCell {
 }
 
 extension ZLIssueTableViewCell: ZMBaseViewUpdatableWithViewData {
-    func zm_fillWithViewData(viewData: ZLIssueTableViewCellDelegate) {
-        fillWithData(cellData: viewData)
-    }
-    
-    func fillWithData(cellData: ZLIssueTableViewCellDelegate) {
-
-        self.delegate = cellData
-        
+    func zm_fillWithViewData(viewData cellData: ZLIssueTableViewCellDelegate) {
+   
         longPressGesture.isEnabled = cellData.hasLongPressAction()
 
         let title = NSMutableAttributedString(string: cellData.getIssueRepoFullName() ?? "",

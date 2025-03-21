@@ -8,8 +8,9 @@
 
 import UIKit
 import ZLGitRemoteService
+import ZMMVVM
 
-class ZLPullRequestTableViewCellData: ZLGithubItemTableViewCellData {
+class ZLPullRequestTableViewCellData: ZMBaseTableViewCellViewModel {
 
     let pullRequestModel: ZLGithubPullRequestModel
 
@@ -18,22 +19,11 @@ class ZLPullRequestTableViewCellData: ZLGithubItemTableViewCellData {
         super.init()
     }
 
-    override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
-        guard let cell: ZLPullRequestTableViewCell = targetView as? ZLPullRequestTableViewCell else {
-            return
-        }
-        cell.fillWithData(data: self)
-    }
-
-    override func getCellHeight() -> CGFloat {
-        return UITableView.automaticDimension
-    }
-
-    override func getCellReuseIdentifier() -> String {
+    override var zm_cellReuseIdentifier: String {
         return "ZLPullRequestTableViewCell"
     }
 
-    override func onCellSingleTap() {
+    override func zm_onCellSingleTap() {
 
         if let url = URL(string: pullRequestModel.html_url) {
             if url.pathComponents.count >= 5 && url.pathComponents[3] == "pull" {
@@ -64,7 +54,7 @@ extension ZLPullRequestTableViewCellData: ZLPullRequestTableViewCellDelegate {
         if let url = URL(string: pullRequestModel.html_url) {
             if url.pathComponents.count >= 5 && url.pathComponents[3] == "pull" {
                 if let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: "\(url.pathComponents[1])/\(url.pathComponents[2])") {
-                    self.viewController?.navigationController?.pushViewController(vc, animated: true)
+                    zm_viewController?.navigationController?.pushViewController(vc, animated: true)
                 }
             }
         }
@@ -118,7 +108,7 @@ extension ZLPullRequestTableViewCellData: ZLPullRequestTableViewCellDelegate {
     }
 
     func longPressAction(view: UIView) {
-        guard let sourceViewController = viewController,
+        guard let sourceViewController = zm_viewController,
               let url = URL(string: self.pullRequestModel.html_url) else { return }
         
         view.showShareMenu(title: url.absoluteString, url: url, sourceViewController: sourceViewController)

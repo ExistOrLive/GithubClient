@@ -34,7 +34,9 @@ import ZMMVVM
 
 class ZLPullRequestTableViewCell: UITableViewCell {
 
-    weak var  delegate: ZLPullRequestTableViewCellDelegate?
+    var delegate: ZLPullRequestTableViewCellDelegate? {
+        zm_viewModel as? ZLPullRequestTableViewCellDelegate
+    }
 
     // MARK: Sub View
     lazy var statusTag: UILabel = {
@@ -165,10 +167,8 @@ class ZLPullRequestTableViewCell: UITableViewCell {
 }
 
 extension ZLPullRequestTableViewCell: ZMBaseViewUpdatableWithViewData {
-    func fillWithData(data: ZLPullRequestTableViewCellDelegate) {
-
-        self.delegate = data
-        
+    
+    func zm_fillWithViewData(viewData data: ZLPullRequestTableViewCellDelegate) {
         longPressGesture.isEnabled = data.hasLongPressAction()
 
         self.titleLabel.text = data.getPullRequestTitle()
@@ -192,10 +192,5 @@ extension ZLPullRequestTableViewCell: ZMBaseViewUpdatableWithViewData {
         } else {
             self.statusTag.textColor = UIColor(named: "ICON_PRCloseColor")
         }
-
-    }
-    
-    func zm_fillWithViewData(viewData: ZLPullRequestTableViewCellDelegate) {
-        fillWithData(data: viewData)
     }
 }

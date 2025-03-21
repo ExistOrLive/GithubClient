@@ -7,50 +7,36 @@
 //
 
 import UIKit
-import ZLBaseUI
 import ZLUIUtilities
 import ZLBaseExtension
 import WebKit
+import ZMMVVM
 
-class ZLWebContentViewModel: ZLBaseViewModel {
+class ZLWebContentViewModel: ZMBaseViewModel {
     
-    private weak var webContentView: ZLWebContentView?
+    private(set) var url: URL?
     
-    private var url: URL?
-
-    override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
-        super.bindModel(targetModel, andView: targetView)
+    init(url: URL?) {
+        super.init()
         
-        guard var url = targetModel as? URL else {
+        guard let url = url,
+              let _ = url.host else {
             ZLToastView.showMessage("Invalid URL")
             return
         }
         
-        if url.scheme == nil {
-            if let newUrl = URL(string: "https://\(url.absoluteString)"),
-               newUrl.host != nil {
-                url = newUrl
-            } else {
-                ZLToastView.showMessage("Invalid URL")
-                return
-            }
-        }
-        
-        guard let view = targetView as? ZLWebContentView else {
-            return
-        }
         self.url = url
-        self.webContentView = view
-        self.webContentView?.delegate = self
-          
-        if let url = self.url {
-            let request = URLRequest(url: url,
-                                     cachePolicy: .useProtocolCachePolicy,
-                                     timeoutInterval: 60)
-            webContentView?.loadRequest(request)
+        
+        if url.scheme == nil {
+            self.url = URL(string: "https://\(url.absoluteString)")
         }
     }
+
+    var webContentView: ZLWebContentView? {
+        zm_view as? ZLWebContentView
+    }
 }
+
 
 extension ZLWebContentViewModel: ZLWebContentViewDelegate {
     
@@ -63,7 +49,7 @@ extension ZLWebContentViewModel: ZLWebContentViewDelegate {
         
         if ZLCommonURLManager.openURL(urlStr: urlStr, completionHandler: { [weak self] result in
             if result, urlStr == self?.url?.absoluteString {
-                self?.viewController?.navigationController?.popViewController(animated: false)
+                self?.zm_viewController?.navigationController?.popViewController(animated: false)
             }
         }) {
             decisionHandler(.cancel)
@@ -95,7 +81,7 @@ extension ZLWebContentViewModel: ZLWebContentViewDelegate {
 
     @objc func onTitleChange(title: String?) {
         if let title = title {
-            viewController?.title = title 
+            zm_viewController?.title = title 
         }
     }
 }

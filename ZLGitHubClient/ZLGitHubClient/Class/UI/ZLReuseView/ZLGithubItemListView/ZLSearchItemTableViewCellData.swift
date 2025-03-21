@@ -32,11 +32,11 @@ class ZLSearchItemTableViewCellData: ZLGithubItemTableViewCellData {
         }
 
         if let cell = targetView as? ZLPullRequestTableViewCell {
-            cell.fillWithData(data: self)
+           // cell.fillWithData(data: self)
         }
 
         if let cell = targetView as? ZLIssueTableViewCell {
-            cell.fillWithData(cellData: self)
+           // cell.fillWithData(cellData: self)
         }
     }
 

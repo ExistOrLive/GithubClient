@@ -8,11 +8,10 @@
 
 import UIKit
 import ZLUIUtilities
-import ZLBaseUI
 import ZLBaseExtension
 import ZLGitRemoteService
 
-class ZLReportController: ZLBaseViewController {
+class ZLReportController: ZMViewController {
 
     var loginName: String?
 

@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import ZLGitRemoteService
 import ZLUIUtilities
+import ZLUtilities
 
 class ZLSearchFilterViewManager {
     

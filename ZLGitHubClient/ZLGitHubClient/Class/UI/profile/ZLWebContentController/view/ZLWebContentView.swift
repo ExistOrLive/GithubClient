@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 import ZLGitRemoteService
-import ZLBaseUI
+import ZMMVVM
 import ZLBaseExtension
 import ZLUtilities
 
@@ -21,6 +21,8 @@ import ZLUtilities
     @objc optional func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!)
 
     @objc optional func onTitleChange(title: String?)
+    
+    @objc var url: URL? { get }
 }
 
 extension ZLWebContentViewDelegate {
@@ -149,7 +151,9 @@ class ZLWebContentView: UIView {
         webView.url 
     }
 
-    @objc weak var delegate: ZLWebContentViewDelegate?
+    var delegate: ZLWebContentViewDelegate? {
+        zm_viewModel as? ZLWebContentViewDelegate
+    }
     
 
     deinit {
@@ -419,5 +423,16 @@ extension ZLWebContentView: WKUIDelegate, WKNavigationDelegate {
     func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
        /// 当页面白屏时，reloadData
         webView.reload()
+    }
+}
+
+// MARK: - ZMBaseViewUpdatableWithViewData
+extension ZLWebContentView: ZMBaseViewUpdatableWithViewData {
+    func zm_fillWithViewData(viewData: ZLWebContentViewDelegate) {
+        guard let url = viewData.url else { return }
+        let request = URLRequest(url: url,
+                                 cachePolicy: .useProtocolCachePolicy,
+                                 timeoutInterval: 60)
+        loadRequest(request)
     }
 }
