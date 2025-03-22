@@ -49,7 +49,7 @@ class ZLReleaseEventTableViewCellData: ZLEventTableViewCellData {
                let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: repoFullName) {
 
                 vc.hidesBottomBarWhenPushed = true
-                self?.viewController?.navigationController?.pushViewController(vc, animated: true)
+                self?.zm_viewController?.navigationController?.pushViewController(vc, animated: true)
             }
         }
 
@@ -58,15 +58,7 @@ class ZLReleaseEventTableViewCellData: ZLEventTableViewCellData {
         return attributedStr
     }
 
-    override func getCellReuseIdentifier() -> String {
-        return "ZLEventTableViewCell"
-    }
-
-    override func getCellHeight() -> CGFloat {
-        return UITableView.automaticDimension
-    }
-
-    override func onCellSingleTap() {
+    override func zm_onCellSingleTap() {
 
         guard let payload = self.eventModel.payload as? ZLReleaseEventPayloadModel else {
             return
@@ -78,7 +70,7 @@ class ZLReleaseEventTableViewCellData: ZLEventTableViewCellData {
         }
     }
 
-    override func clearCache() {
+    override func zm_clearCache() {
         self._eventDescription = nil
     }
 

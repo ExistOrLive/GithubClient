@@ -8,149 +8,99 @@
 
 import UIKit
 import ZLUIUtilities
-import ZLBaseUI
 import ZLBaseExtension
 import ZLGitRemoteService
+import ZMMVVM
 
-class ZLSearchGithubItemListSecondViewModel: ZLBaseViewModel {
+class ZLSearchGithubItemListSecondViewModel: ZMBaseViewModel {
 
     // model
-    private var searchType: ZLSearchType = .repositories
+    private let searchType: ZLSearchType
 
     private var searchFilterInfo: ZLSearchFilterInfoModel =  ZLSearchFilterInfoModel()
 
     private var searchKey: String?
 
     private var after: String?
-
-    // view
-    private var githubItemListView: ZLGithubItemListView?
-
-    override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
-
-        guard let githubItemListView: ZLGithubItemListView = targetView as? ZLGithubItemListView  else {
-            return
-        }
-        self.githubItemListView = githubItemListView
-        self.githubItemListView?.setTableViewFooter()
-        self.githubItemListView?.setTableViewHeader()
-        self.githubItemListView?.delegate = self
-
-        guard let searchType: ZLSearchType = targetModel as? ZLSearchType else {
-            return
-        }
-        self.searchType = searchType
+    
+    var sectionDataArray: [ZMBaseTableViewSectionData] = []
+    
+    var searchItemSecondView:  ZLSearchItemSecondView? {
+        zm_view as? ZLSearchItemSecondView
     }
+    
+    init(searchType: ZLSearchType) {
+        self.searchType = searchType
+        super.init()
+    }
+
+
 
     func searchWithKeyStr(searchKey: String?) {
         self.searchKey = searchKey
-        self.githubItemListView?.clearListView()
-        self.githubItemListView?.beginRefresh()
+        searchItemSecondView?.viewStatus = .loading
+        loadData(isLoadNew: true)
     }
 
     func searchWithFilerInfo(searchFilterInfo: ZLSearchFilterInfoModel) {
         self.searchFilterInfo = searchFilterInfo
-        self.githubItemListView?.clearListView()
-        self.githubItemListView?.beginRefresh()
+        searchItemSecondView?.viewStatus = .loading
+        loadData(isLoadNew: true)
     }
-
-    func startInput() {
-        self.githubItemListView?.resetContentOffset()
-    }
-
 }
 
-extension ZLSearchGithubItemListSecondViewModel: ZLGithubItemListViewDelegate {
+// MARK: - Request
+extension ZLSearchGithubItemListSecondViewModel {
 
-    func githubItemListViewRefreshDragDown(pullRequestListView: ZLGithubItemListView) {
-
-        if let searchKey = self.searchKey {
-
-            ZLServiceManager.sharedInstance.searchServiceModel?.searchInfo(withKeyWord: searchKey,
-                                                                           type: self.searchType,
-                                                                           filterInfo: self.searchFilterInfo,
-                                                                           after: nil,
-                                                                           serialNumber: NSString.generateSerialNumber()) { [weak self](resultModel) in
-
-                if resultModel.result == true,
-                   let data = resultModel.data as? SearchItemQuery.Data {
-
-                    var tableViewCellDatas = [ZLGithubItemTableViewCellData]()
-                    if let nodes = data.search.nodes {
-                        for node in nodes {
-                            if let realNode = node {
-                                let cellData = ZLSearchItemTableViewCellData(data: realNode)
-                                tableViewCellDatas.append(cellData)
-                            }
+    func loadData(isLoadNew: Bool) {
+        
+        ZLSearchServiceShared()?.searchInfo(withKeyWord: searchKey ?? "",
+                                            type: searchType,
+                                            filterInfo: searchFilterInfo,
+                                            after: isLoadNew ? nil: after,
+                                            serialNumber: NSString.generateSerialNumber())
+        { [weak self](resultModel) in
+            guard let self else { return }
+            
+            if resultModel.result, let data = resultModel.data as? SearchItemQuery.Data {
+                
+                var tableViewCellDatas = [ZMBaseTableViewCellViewModel]()
+                if let nodes = data.search.nodes {
+                    for node in nodes {
+                        if let realNode = node {
+                            let cellData = ZLSearchItemTableViewCellData(data: realNode)
+                            tableViewCellDatas.append(cellData)
                         }
-
                     }
-
-                    self?.addSubViewModels(tableViewCellDatas)
-                    self?.after = data.search.pageInfo.endCursor
-
-                    self?.githubItemListView?.resetCellDatas(cellDatas: tableViewCellDatas)
-
-                } else if resultModel.result == false, let data = resultModel.data as? ZLGithubRequestErrorModel {
-
-                    ZLToastView.showMessage("Search Error: [\(data.statusCode)](\(data.message)")
-                    self?.githubItemListView?.endRefreshWithError()
-
-                } else {
-                    ZLToastView.showMessage("Search Error: invalid format data")
-                    self?.githubItemListView?.endRefreshWithError()
                 }
-
-            }
-        } else {
-            self.githubItemListView?.resetCellDatas(cellDatas: nil)
-        }
-    }
-
-    func githubItemListViewRefreshDragUp(pullRequestListView: ZLGithubItemListView) {
-
-        if let searchKey = self.searchKey {
-
-            ZLServiceManager.sharedInstance.searchServiceModel?.searchInfo(withKeyWord: searchKey,
-                                                                           type: self.searchType,
-                                                                           filterInfo: self.searchFilterInfo,
-                                                                           after: self.after,
-                                                                           serialNumber: NSString.generateSerialNumber()) { [weak self](resultModel) in
-
-                if resultModel.result == true,
-                   let data = resultModel.data as? SearchItemQuery.Data {
-
-                    var tableViewCellDatas = [ZLGithubItemTableViewCellData]()
-                    if let nodes = data.search.nodes {
-                        for node in nodes {
-                            if let realNode = node {
-                                let cellData = ZLSearchItemTableViewCellData(data: realNode)
-                                tableViewCellDatas.append(cellData)
-                            }
-                        }
-
-                    }
-                    self?.addSubViewModels(tableViewCellDatas)
-                    self?.after = data.search.pageInfo.endCursor
-
-                    self?.githubItemListView?.appendCellDatas(cellDatas: tableViewCellDatas)
-
-                } else if resultModel.result == false,
-                          let data = resultModel.data as? ZLGithubRequestErrorModel {
-
-                    ZLToastView.showMessage("Search Error: [\(data.statusCode)](\(data.message)")
-                    self?.githubItemListView?.endRefreshWithError()
-
+                self.zm_addSubViewModels(tableViewCellDatas)
+                
+                if isLoadNew {
+                    self.sectionDataArray.forEach { $0.zm_removeFromSuperViewModel() }
+                    self.sectionDataArray = [ZMBaseTableViewSectionData(cellDatas: tableViewCellDatas)]
                 } else {
-                    ZLToastView.showMessage("Search Error: invalid format data")
-                    self?.githubItemListView?.endRefreshWithError()
+                    self.sectionDataArray.first?.cellDatas.append(contentsOf: tableViewCellDatas)
                 }
-
+                self.after = data.search.pageInfo.endCursor
+                
+                guard let searchItemSecondView = self.searchItemSecondView else { return }
+                searchItemSecondView.sectionDataArray = self.sectionDataArray
+                searchItemSecondView.endRefreshViews(noMoreData: tableViewCellDatas.isEmpty)
+                searchItemSecondView.viewStatus = (self.searchItemSecondView?.tableViewProxy.isEmpty ?? true) ? .empty : .normal
+                
+                if searchItemSecondView.tableView.contentOffset.y > 0, isLoadNew {
+                    searchItemSecondView.tableView.zl_reloadAndScrollToTop()
+                } else {
+                    searchItemSecondView.tableView.reloadData()
+                }
+                
+            } else {
+                self.searchItemSecondView?.endRefreshViews()
+                self.searchItemSecondView?.viewStatus = (self.searchItemSecondView?.tableViewProxy.isEmpty ?? true) ? .error : .normal
+                if let data = resultModel.data as? ZLGithubRequestErrorModel {
+                    ZLToastView.showMessage("Search Error: [\(data.statusCode)](\(data.message)")
+                }
             }
-
-        } else {
-            self.githubItemListView?.resetCellDatas(cellDatas: nil)
         }
-
     }
 }

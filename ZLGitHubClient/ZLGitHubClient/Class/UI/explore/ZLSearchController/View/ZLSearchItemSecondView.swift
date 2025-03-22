@@ -1,0 +1,77 @@
+//
+//  ZLSearchItemSecondView.swift
+//  ZLGitHubClient
+//
+//  Created by 朱猛 on 2025/3/22.
+//  Copyright © 2025 ZM. All rights reserved.
+//
+
+import Foundation
+import ZLUIUtilities
+import ZMMVVM
+import JXSegmentedView
+
+class ZLSearchItemSecondView: UIView, ZMBaseTableViewContainerProtocol, ZLRefreshProtocol, ZLViewStatusProtocol {
+
+    var delegate: ZLSearchGithubItemListSecondViewModel? {
+        zm_viewModel as? ZLSearchGithubItemListSecondViewModel
+    }
+    
+    var scrollView: UIScrollView {
+        tableView
+    }
+    
+    var targetView: UIView {
+        tableView
+    }
+    
+    lazy var tableViewProxy: ZMBaseTableViewProxy = {
+        return ZMBaseTableViewProxy(style: .grouped)
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        addSubview(tableView)
+        tableView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+    
+        tableView.contentInset = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
+        tableView.register(ZLRepositoryTableViewCell.self,
+                           forCellReuseIdentifier: "ZLRepositoryTableViewCell")
+        tableView.register(ZLUserTableViewCell.self,
+                           forCellReuseIdentifier: "ZLUserTableViewCell")
+        tableView.register(ZLIssueTableViewCell.self,
+                           forCellReuseIdentifier: "ZLIssueTableViewCell")
+        tableView.register(ZLPullRequestTableViewCell.self,
+                           forCellReuseIdentifier: "ZLPullRequestTableViewCell")
+        
+        setRefreshViews(types: [.header,.footer])
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func refreshLoadNewData() {
+        delegate?.loadData(isLoadNew: true)
+    }
+    
+    func refreshLoadMoreData() {
+        delegate?.loadData(isLoadNew: false)
+    }
+    
+}
+
+extension ZLSearchItemSecondView: ZMBaseViewUpdatableWithViewData {
+    func zm_fillWithViewData(viewData: ZLSearchGithubItemListSecondViewModel) {
+        self.sectionDataArray = viewData.sectionDataArray
+        self.tableView.reloadData()
+    }
+}
+
+extension ZLSearchItemSecondView: JXSegmentedListContainerViewListDelegate {
+    func listView() -> UIView {
+        return self
+    }
+}

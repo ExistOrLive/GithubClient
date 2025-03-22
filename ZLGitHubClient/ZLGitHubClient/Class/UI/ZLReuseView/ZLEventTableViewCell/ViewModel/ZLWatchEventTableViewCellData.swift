@@ -31,7 +31,7 @@ class ZLWatchEventTableViewCellData: ZLEventTableViewCellData {
 
             if let repoFullName = weakSelf?.eventModel.repo.name, let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: repoFullName) {
                 vc.hidesBottomBarWhenPushed = true
-                weakSelf?.viewController?.navigationController?.pushViewController(vc, animated: true)
+                weakSelf?.zm_viewController?.navigationController?.pushViewController(vc, animated: true)
             }
         }
 
@@ -40,15 +40,7 @@ class ZLWatchEventTableViewCellData: ZLEventTableViewCellData {
         return attributedStr
     }
 
-    override func getCellReuseIdentifier() -> String {
-        return "ZLEventTableViewCell"
-    }
-
-    override func getCellHeight() -> CGFloat {
-        return UITableView.automaticDimension
-    }
-
-    override func clearCache() {
+    override func zm_clearCache() {
         self._eventDescription = nil
     }
 

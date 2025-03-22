@@ -62,7 +62,7 @@ class ZLPullRequestEventTableViewCellData: ZLEventTableViewCellData {
             if let repoFullName = weakSelf?.eventModel.repo.name,
                let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: repoFullName) {
                 vc.hidesBottomBarWhenPushed = true
-                weakSelf?.viewController?.navigationController?.pushViewController(vc, animated: true)
+                weakSelf?.zm_viewController?.navigationController?.pushViewController(vc, animated: true)
             }
         }
 
@@ -71,15 +71,12 @@ class ZLPullRequestEventTableViewCellData: ZLEventTableViewCellData {
         return attributedStr
     }
 
-    override func getCellReuseIdentifier() -> String {
+    override var zm_cellReuseIdentifier: String {
         return "ZLPullRequestEventTableViewCell"
     }
 
-    override func getCellHeight() -> CGFloat {
-        return UITableView.automaticDimension
-    }
 
-    override func onCellSingleTap() {
+    override func zm_onCellSingleTap() {
 
         guard let payload = self.eventModel.payload as? ZLPullRequestEventPayloadModel else {
             return
@@ -100,7 +97,7 @@ class ZLPullRequestEventTableViewCellData: ZLEventTableViewCellData {
 
     }
 
-    override func clearCache() {
+    override func zm_clearCache() {
         self._eventDescription = nil
         self._pullRequestBody = nil
     }

@@ -44,17 +44,3 @@ class ZLGithubItemTableViewCellData: ZLBaseViewModel, ZLGithubItemTableViewCellD
 
 }
 
-extension ZLGithubItemTableViewCellData {
-
-    class func getCellDataWithData(data: Any?) -> ZLGithubItemTableViewCellData? {
-
-        if data == nil {
-            return nil
-        } else if let data = data as? ZLGithubEventModel {
-            return ZLEventTableViewCellData.getCellDataWithEventModel(eventModel: data)
-        }  else {
-            return nil
-        }
-    }
-
-}

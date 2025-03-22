@@ -9,7 +9,6 @@
 import UIKit
 import FFPopup
 import ZLUIUtilities
-import ZLBaseUI
 import ZLBaseExtension
 import ZLGitRemoteService
 

@@ -28,9 +28,10 @@ class ZLIssueCommentEventTableViewCell: ZLEventTableViewCell {
        fatalError("init(coder:) has not been implemented")
    }
 
-   override func fillWithData(cellData: ZLEventTableViewCellData) {
+    
+   override func zm_fillWithViewData(viewData cellData: ZLEventTableViewCellData) {
 
-       super.fillWithData(cellData: cellData)
+       super.zm_fillWithViewData(viewData: cellData)
 
        guard let issueCommentCellData: ZLIssueCommentEventTableViewCellData = cellData as? ZLIssueCommentEventTableViewCellData else {
            return

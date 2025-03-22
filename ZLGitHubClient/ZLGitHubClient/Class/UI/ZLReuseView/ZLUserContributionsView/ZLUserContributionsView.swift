@@ -8,7 +8,6 @@
 
 import UIKit
 import ZLGitRemoteService
-import ZLBaseUI
 
 class ZLUserContributionsView: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
 

@@ -9,18 +9,14 @@
 import UIKit
 import YYText
 import ZLUtilities
+import ZMMVVM
 
-@objc protocol ZLEventTableViewCellDelegate: NSObjectProtocol {
-    func onAvatarClicked()
 
-    func onCellSingleTap()
+class ZLEventTableViewCell: UITableViewCell, ZMBaseViewUpdatableWithViewData {
 
-    func onReportClicked()
-}
-
-class ZLEventTableViewCell: UITableViewCell {
-
-    weak var delegate: ZLEventTableViewCellDelegate?
+    var delegate: ZLEventTableViewCellData? {
+        zm_viewModel as? ZLEventTableViewCellData
+    }
 
     var containerView: UIView?
 
@@ -134,14 +130,6 @@ class ZLEventTableViewCell: UITableViewCell {
         super.setSelected(false, animated: animated)
     }
 
-    func fillWithData(cellData: ZLEventTableViewCellData) {
-        self.headImageButton?.loadAvatar(login:cellData.getActorName() ,
-                                         avatarUrl: cellData.getActorAvaterURL())
-        self.actorNameLabel?.text = cellData.getActorName()
-        self.timeLabel?.text = cellData.getTimeStr()
-        self.eventDesLabel?.attributedText = cellData.getEventDescrption()
-    }
-
     func hiddenReportButton(hidden: Bool) {
         self.reportMoreButton?.isHidden = hidden
         if hidden {
@@ -154,26 +142,25 @@ class ZLEventTableViewCell: UITableViewCell {
             }
         }
     }
+    
+    func zm_fillWithViewData(viewData cellData: ZLEventTableViewCellData) {
+        self.headImageButton?.loadAvatar(login:cellData.getActorName() ,
+                                         avatarUrl: cellData.getActorAvaterURL())
+        self.actorNameLabel?.text = cellData.getActorName()
+        self.timeLabel?.text = cellData.getTimeStr()
+        self.eventDesLabel?.attributedText = cellData.getEventDescrption()
+        self.hiddenReportButton(hidden: !cellData.showReportButton)
+    }
 }
 
 // MARK: action
 extension ZLEventTableViewCell {
     @objc func onAvatarButtonClicked(button: UIButton) {
-        if self.delegate?.responds(to: #selector(ZLEventTableViewCellDelegate.onAvatarClicked)) ?? false {
-            self.delegate?.onAvatarClicked()
-        }
-    }
-
-    @objc func onCellSingleTap() {
-        if self.delegate?.responds(to: #selector(ZLEventTableViewCellDelegate.onCellSingleTap)) ?? false {
-            self.delegate?.onCellSingleTap()
-        }
+       self.delegate?.onAvatarClicked()
     }
 
     @objc func onReportButtonClicked() {
-        if self.delegate?.responds(to: #selector(ZLEventTableViewCellDelegate.onReportClicked)) ?? false {
-            self.delegate?.onReportClicked()
-        }
+        self.delegate?.onReportClicked()
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

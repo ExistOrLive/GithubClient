@@ -10,13 +10,15 @@ import UIKit
 import JXSegmentedView
 import ZLBaseExtension
 import ZLGitRemoteService
-import ZLBaseUI
+import ZMMVVM
 import ZLUtilities
 
 @objc protocol ZLSearchItemsViewDelegate: NSObjectProtocol {
     func onFilterButtonClicked(button: UIButton)
 
     func onSearchTypeChanged(searchType: ZLSearchType)
+    
+    var searchGithubItemListViewModelArray: [ZLSearchGithubItemListSecondViewModel] { get }
 }
 
 
@@ -48,7 +50,9 @@ class ZLSearchItemsView: UIView {
 
     static let ZLSearchItemsTypes: [ZLSearchType] = [.repositories, .users, .organizations, .issues, .pullRequests]
 
-    weak var delegate: ZLSearchItemsViewDelegate?
+    var delegate: ZLSearchItemsViewDelegate? {
+        zm_viewModel as? ZLSearchItemsViewDelegate
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -144,8 +148,8 @@ class ZLSearchItemsView: UIView {
         return containerView
     }()
     
-    lazy var githubItemListViewArray: [ZLGithubItemListView] = {
-        ZLSearchItemsView.ZLSearchItemsTypes.map { _ in ZLGithubItemListView() }
+    lazy var githubItemListViewArray: [ZLSearchItemSecondView] = {
+        ZLSearchItemsView.ZLSearchItemsTypes.map { _ in ZLSearchItemSecondView() }
     }()
 
 }
@@ -174,18 +178,18 @@ extension ZLSearchItemsView: JXSegmentedListContainerViewDataSource {
     }
 
     func listContainerView(_ listContainerView: JXSegmentedListContainerView, initListAt index: Int) -> JXSegmentedListContainerViewListDelegate {
-        return self.githubItemListViewArray[index]
+        let view = self.githubItemListViewArray[index]
+        if let subViewModel = delegate?.searchGithubItemListViewModelArray[index] {
+            view.zm_fillWithData(data: subViewModel)
+        }
+        return view
     }
 }
 
-extension ZLSearchItemsView: JXSegmentedListContainerViewListDelegate {
-    func listView() -> UIView {
-        return self
+// MARK: - JXSegmentedListContainerViewDataSource
+extension ZLSearchItemsView: ZMBaseViewUpdatableWithViewData {
+    func zm_fillWithViewData(viewData: ZLSearchItemsViewModel) {
+        segmentedView.reloadData()
     }
 }
 
-extension ZLGithubItemListView: JXSegmentedListContainerViewListDelegate {
-    func listView() -> UIView {
-        return self
-    }
-}

@@ -8,15 +8,21 @@
 
 import UIKit
 import ZLBaseExtension
-import ZLBaseUI
+import ZMMVVM
 
 @objc protocol ZLSearchRecordViewDelegate: NSObjectProtocol {
+    func didSelectRecord(record: String)
+    
     func clearRecord()
+    
+    var tmpSearchRecordArray: [String] { get }
 }
 
 class ZLSearchRecordView: UIView {
 
-    weak var delegate: ZLSearchRecordViewDelegate?
+    var delegate: ZLSearchRecordViewDelegate? {
+        zm_viewModel as? ZLSearchRecordViewDelegate
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -78,6 +84,8 @@ class ZLSearchRecordView: UIView {
         tableView.contentInsetAdjustmentBehavior = .never
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
+        tableView.delegate = self
+        tableView.dataSource = self
         
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = .leastNonzeroMagnitude
@@ -107,4 +115,49 @@ class ZLSearchRecordView: UIView {
         button.addTarget(self, action: #selector(onClearButtonClicked(sender:)), for: .touchUpInside)
         return button
     }()
+}
+
+extension ZLSearchRecordView: UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if let delegate {
+            return delegate.tmpSearchRecordArray.count
+        } else {
+            return 0
+        }
+        
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let record = delegate?.tmpSearchRecordArray[indexPath.row],
+              let tableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLCommonTableViewCell", for: indexPath) as? ZLCommonTableViewCell else {
+            return UITableViewCell.init(style: .default, reuseIdentifier: "")
+        }
+        tableViewCell.titleLabel.text = record
+        tableViewCell.titleLabel.font = .zlRegularFont(withSize: 13)
+        tableViewCell.titleLabel.textColor = UIColor(named: "ZLLabelColor3")
+        tableViewCell.nextLabel.isHidden = false
+        tableViewCell.separateLine.isHidden = false
+        return tableViewCell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        guard let record = delegate?.tmpSearchRecordArray[indexPath.row] else { return }
+        delegate?.didSelectRecord(record: record)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return CGFloat.leastNonzeroMagnitude
+    }
+}
+
+extension ZLSearchRecordView: ZMBaseViewUpdatableWithViewData {
+    func zm_fillWithViewData(viewData: ZLSearchRecordViewDelegate) {
+        tableView.reloadData()
+    }
 }

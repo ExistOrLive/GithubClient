@@ -36,7 +36,7 @@ class ZLMemberEventTableViewCellData: ZLEventTableViewCellData {
             if let userInfoVC = ZLUIRouter.getUserInfoViewController(loginName: payload.member.loginName ?? "") {
 
                 userInfoVC.hidesBottomBarWhenPushed = true
-                self?.viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
+                self?.zm_viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
             }
 
         }
@@ -50,7 +50,7 @@ class ZLMemberEventTableViewCellData: ZLEventTableViewCellData {
                let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: repoFullName) {
 
                 vc.hidesBottomBarWhenPushed = true
-                weakSelf?.viewController?.navigationController?.pushViewController(vc, animated: true)
+                weakSelf?.zm_viewController?.navigationController?.pushViewController(vc, animated: true)
             }
         }
 
@@ -59,15 +59,7 @@ class ZLMemberEventTableViewCellData: ZLEventTableViewCellData {
         return attributedStr
     }
 
-    override func getCellReuseIdentifier() -> String {
-        return "ZLEventTableViewCell"
-    }
-
-    override func getCellHeight() -> CGFloat {
-        return UITableView.automaticDimension
-    }
-
-    override func clearCache() {
+    override func zm_clearCache() {
         self._eventDescription = nil
     }
 

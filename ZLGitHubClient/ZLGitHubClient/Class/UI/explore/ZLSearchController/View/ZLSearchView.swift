@@ -8,11 +8,15 @@
 
 import UIKit
 import ZLBaseExtension
-import ZLBaseUI
+import ZMMVVM
 import ZLUtilities
 
 class ZLSearchView: UIView {
-                
+    
+    var viewModel: ZLSearchViewModel? {
+        zm_viewModel as? ZLSearchViewModel
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -31,7 +35,7 @@ class ZLSearchView: UIView {
         topNavigationView.addSubview(cancelButton)
         contentView.addSubview(searchItemsView)
         contentView.addSubview(searchRecordView)
-                
+        
         topBackView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.left.right.equalToSuperview()
@@ -75,7 +79,7 @@ class ZLSearchView: UIView {
             make.edges.equalToSuperview()
         }
     }
-
+    
     func setEditStatus() {
         backButton.snp.updateConstraints { make in
             make.width.equalTo(0.0)
@@ -94,8 +98,9 @@ class ZLSearchView: UIView {
             make.width.equalTo(0.0)
         }
         self.searchRecordView.isHidden = true
+        self.searchRecordView.tableView.reloadData()
     }
-        
+    
     // MARK: Lazy View
     lazy var topBackView: UIView = {
         let view = UIView()
@@ -122,32 +127,35 @@ class ZLSearchView: UIView {
         textField.leftView = leftView
         textField.leftViewMode = .always
         textField.cornerRadius = 4.0
+        textField.delegate = self
         return textField
     }()
     
     lazy var backButton: UIButton = {
-       let button = UIButton()
+        let button = UIButton()
         button.setTitle(ZLIconFont.BackArrow.rawValue, for: .normal)
         button.setTitleColor(UIColor.label(withName: "ZLLabelColor1"), for: .normal)
         button.titleLabel?.font = .iconFont(size: 24)
+        button.addTarget(self, action: #selector(onCancelButtonClicked), for: .touchUpInside)
         return button
     }()
     
     lazy var cancelButton: UIButton = {
-       let button = UIButton()
+        let button = UIButton()
         button.setTitleColor(UIColor.label(withName: "ZLLabelColor1"), for: .normal)
         button.titleLabel?.font = .zlMediumFont(withSize: 14)
         button.setTitle(ZLLocalizedString(string: "Cancel", comment: ""), for: .normal)
+        button.addTarget(self, action: #selector(onBackButtonClicked), for: .touchUpInside)
         return button
     }()
     
     lazy var contentView: UIView = {
-       let view = UIView()
+        let view = UIView()
         view.backgroundColor = .clear
         return view
     }()
     
-
+    
     lazy var searchRecordView: ZLSearchRecordView = {
         let searchRecordView = ZLSearchRecordView()
         searchRecordView.isHidden = true
@@ -157,4 +165,65 @@ class ZLSearchView: UIView {
         let searchItemsView = ZLSearchItemsView()
         return searchItemsView
     }()
+}
+
+// MARK: - Action
+extension ZLSearchView {
+    @objc func onBackButtonClicked() {
+        viewModel?.onBackButtonClicked()
+    }
+    
+    @objc func onCancelButtonClicked() {
+        searchTextField.text = viewModel?.preSearchKeyWord
+        searchTextField.resignFirstResponder()
+        setUnEditStatus()
+    }
+}
+
+
+
+
+// MARK: UITextFieldDelegate
+extension ZLSearchView: UITextFieldDelegate {
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        viewModel?.preSearchKeyWord  = textField.text
+        setEditStatus()
+        viewModel?.searchRecordViewModel.onSearchKeyChanged(searchKey: textField.text)
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let textStr: NSString? = textField.text as NSString?
+        let text: String = textStr?.replacingCharacters(in: range, with: string) ?? ""
+        viewModel?.searchRecordViewModel.onSearchKeyChanged(searchKey: text)
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+    }
+    
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        viewModel?.searchRecordViewModel.onSearchKeyChanged(searchKey: "")
+        return true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        setUnEditStatus()
+        textField.resignFirstResponder()
+        viewModel?.searchItemsViewModel.startSearch(keyWord: textField.text)
+        viewModel?.searchRecordViewModel.onSearhKeyConfirmed(searchKey: textField.text)
+        return false
+    }
+}
+
+
+extension ZLSearchView: ZMBaseViewUpdatableWithViewData {
+    func zm_fillWithViewData(viewData: ZLSearchViewModel) {
+        self.searchTextField.text = viewData.searchKey
+    }
 }

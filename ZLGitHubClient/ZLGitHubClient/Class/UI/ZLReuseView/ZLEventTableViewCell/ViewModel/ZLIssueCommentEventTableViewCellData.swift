@@ -46,7 +46,7 @@ class ZLIssueCommentEventTableViewCellData: ZLEventTableViewCellData {
             if let repoFullName = weakSelf?.eventModel.repo.name,
                let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: repoFullName) {
                 vc.hidesBottomBarWhenPushed = true
-                weakSelf?.viewController?.navigationController?.pushViewController(vc, animated: true)
+                weakSelf?.zm_viewController?.navigationController?.pushViewController(vc, animated: true)
             }
         }
 
@@ -55,15 +55,11 @@ class ZLIssueCommentEventTableViewCellData: ZLEventTableViewCellData {
         return attributedStr
     }
 
-    override func getCellReuseIdentifier() -> String {
+    override var zm_cellReuseIdentifier: String {
         return "ZLIssueCommentEventTableViewCell"
     }
 
-    override func getCellHeight() -> CGFloat {
-        return UITableView.automaticDimension
-    }
-
-    override func onCellSingleTap() {
+    override func zm_onCellSingleTap() {
 
         guard let payload: ZLIssueCommentEventPayloadModel = self.eventModel.payload as? ZLIssueCommentEventPayloadModel else {
             return
@@ -91,7 +87,7 @@ class ZLIssueCommentEventTableViewCellData: ZLEventTableViewCellData {
 
     }
 
-    override func clearCache() {
+    override func zm_clearCache() {
         self._eventDescription = nil
         self._commentBody = nil
     }

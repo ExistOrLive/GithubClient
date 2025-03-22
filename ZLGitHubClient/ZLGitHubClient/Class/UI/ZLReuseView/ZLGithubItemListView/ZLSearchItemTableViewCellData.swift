@@ -8,8 +8,9 @@
 
 import UIKit
 import ZLGitRemoteService
+import ZMMVVM
 
-class ZLSearchItemTableViewCellData: ZLGithubItemTableViewCellData {
+class ZLSearchItemTableViewCellData: ZMBaseTableViewCellViewModel {
 
     typealias Data = SearchItemQuery.Data.Search.Node
 
@@ -21,26 +22,7 @@ class ZLSearchItemTableViewCellData: ZLGithubItemTableViewCellData {
         super.init()
     }
 
-    override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
-
-        if let cell = targetView as? ZLUserTableViewCell {
-            cell.fillWithData(data: self)
-        }
-
-        if let cell = targetView as? ZLRepositoryTableViewCell {
-            cell.fillWithData(data: self)
-        }
-
-        if let cell = targetView as? ZLPullRequestTableViewCell {
-           // cell.fillWithData(data: self)
-        }
-
-        if let cell = targetView as? ZLIssueTableViewCell {
-           // cell.fillWithData(cellData: self)
-        }
-    }
-
-    override func getCellReuseIdentifier() -> String {
+    override var zm_cellReuseIdentifier: String {
         if data?.asUser != nil ||
             data?.asOrganization != nil {
             return "ZLUserTableViewCell"
@@ -59,27 +41,24 @@ class ZLSearchItemTableViewCellData: ZLGithubItemTableViewCellData {
 
     }
 
-    override func getCellHeight() -> CGFloat {
-        return UITableView.automaticDimension
-    }
 
-    override func onCellSingleTap() {
+    override func zm_onCellSingleTap() {
 
         if let login = data?.asUser?.login, let vc = ZLUIRouter.getUserInfoViewController(loginName: login) {
             vc.hidesBottomBarWhenPushed = true
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            self.zm_viewController?.navigationController?.pushViewController(vc, animated: true)
             return
         }
 
         if let login = data?.asOrganization?.login, let vc = ZLUIRouter.getUserInfoViewController(loginName: login) {
             vc.hidesBottomBarWhenPushed = true
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            self.zm_viewController?.navigationController?.pushViewController(vc, animated: true)
             return
         }
 
         if let fullName = data?.asRepository?.nameWithOwner, let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: fullName) {
             vc.hidesBottomBarWhenPushed = true
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            self.zm_viewController?.navigationController?.pushViewController(vc, animated: true)
             return
         }
 
@@ -88,7 +67,7 @@ class ZLSearchItemTableViewCellData: ZLGithubItemTableViewCellData {
                                                                                     "repoName": issue.repository.name,
                                                                                     "number": issue.number]) {
                 vc.hidesBottomBarWhenPushed = true
-                self.viewController?.navigationController?.pushViewController(vc, animated: true)
+                self.zm_viewController?.navigationController?.pushViewController(vc, animated: true)
             }
 
             return
@@ -99,22 +78,13 @@ class ZLSearchItemTableViewCellData: ZLGithubItemTableViewCellData {
                                                                                   "repoName": pr.repository.name,
                                                                                   "number": pr.number]) {
                 vc.hidesBottomBarWhenPushed = true
-                self.viewController?.navigationController?.pushViewController(vc, animated: true)
+                self.zm_viewController?.navigationController?.pushViewController(vc, animated: true)
             }
 
             return
         }
 
     }
-
-    override func getCellSwipeActions() -> UISwipeActionsConfiguration? {
-        return nil
-    }
-
-    override func clearCache() {
-
-    }
-
 }
 
 extension ZLSearchItemTableViewCellData: ZLUserTableViewCellDelegate {
@@ -174,7 +144,7 @@ extension ZLSearchItemTableViewCellData: ZLRepositoryTableViewCellDelegate {
         if let login = data?.asRepository?.owner.login {
             if let userInfoVC = ZLUIRouter.getUserInfoViewController(loginName: login) {
                 userInfoVC.hidesBottomBarWhenPushed = true
-                self.viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
+                self.zm_viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
             }
         }
     }
@@ -257,7 +227,7 @@ extension ZLSearchItemTableViewCellData: ZLIssueTableViewCellDelegate {
     func onClickIssueRepoFullName() {
 
         if let fullName = data?.asIssue?.repository.nameWithOwner, let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: fullName) {
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            self.zm_viewController?.navigationController?.pushViewController(vc, animated: true)
         }
 
     }
@@ -268,7 +238,7 @@ extension ZLSearchItemTableViewCellData: ZLPullRequestTableViewCellDelegate {
 
     func onClickPullRequestRepoFullName() {
         if let fullName = data?.asPullRequest?.repository.nameWithOwner, let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: fullName) {
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            self.zm_viewController?.navigationController?.pushViewController(vc, animated: true)
         }
     }
 
@@ -348,7 +318,7 @@ extension ZLSearchItemTableViewCellData {
 
     func longPressAction(view: UIView) {
 
-        guard let sourceViewController = viewController else { return }
+        guard let sourceViewController = zm_viewController else { return }
 
         if let userModel = data?.asUser,
            let url = URL(string: userModel.url) {

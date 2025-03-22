@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ZMMVVM
 
 class ZLCommitCommentEventTableViewCell: ZLEventTableViewCell {
 
@@ -28,9 +29,9 @@ class ZLCommitCommentEventTableViewCell: ZLEventTableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func fillWithData(cellData: ZLEventTableViewCellData) {
+    override func zm_fillWithViewData(viewData cellData: ZLEventTableViewCellData)  {
 
-        super.fillWithData(cellData: cellData)
+        super.zm_fillWithViewData(viewData: cellData)
 
         guard let commitCommentCellData: ZLCommitCommentEventTableViewCellData = cellData as? ZLCommitCommentEventTableViewCellData else {
             return

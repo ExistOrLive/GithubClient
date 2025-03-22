@@ -41,7 +41,7 @@ class ZLCommitCommentEventTableViewCellData: ZLEventTableViewCellData {
 
             if let userInfoVC = ZLUIRouter.getUserInfoViewController(loginName: loginName) {
                 userInfoVC.hidesBottomBarWhenPushed = true
-                self?.viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
+                self?.zm_viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
             }
         }
 
@@ -65,7 +65,7 @@ class ZLCommitCommentEventTableViewCellData: ZLEventTableViewCellData {
             if let repoFullName = self?.eventModel.repo.name,
                let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: repoFullName) {
                 vc.hidesBottomBarWhenPushed = true
-                self?.viewController?.navigationController?.pushViewController(vc, animated: true)
+                self?.zm_viewController?.navigationController?.pushViewController(vc, animated: true)
             }
         }
 
@@ -74,15 +74,11 @@ class ZLCommitCommentEventTableViewCellData: ZLEventTableViewCellData {
         return attributedString
     }
 
-    override func getCellHeight() -> CGFloat {
-        return UITableView.automaticDimension
-    }
-
-    override func getCellReuseIdentifier() -> String {
+    override var zm_cellReuseIdentifier: String {
         return "ZLCommitCommentEventTableViewCell"
     }
 
-    override func onCellSingleTap() {
+    override func zm_onCellSingleTap() {
         guard let payload = self.eventModel.payload as? ZLCommitCommentEventPayloadModel,
               let url =  URL.init(string: payload.comment.html_url) else {
             return
@@ -92,7 +88,7 @@ class ZLCommitCommentEventTableViewCellData: ZLEventTableViewCellData {
 
     }
 
-    override func clearCache() {
+    override func zm_clearCache() {
         self._eventDescription = nil
         self._commitBody = nil
     }

@@ -10,8 +10,9 @@ import UIKit
 import ZLBaseExtension
 import ZLGitRemoteService
 import ZLUtilities
+import ZMMVVM
 
-class ZLEventTableViewCellData: ZLGithubItemTableViewCellData {
+class ZLEventTableViewCellData: ZMBaseTableViewCellViewModel {
 
     let eventModel: ZLGithubEventModel
 
@@ -20,40 +21,16 @@ class ZLEventTableViewCellData: ZLGithubItemTableViewCellData {
         super.init()
     }
 
-    override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
-        guard let cell: ZLEventTableViewCell = targetView as? ZLEventTableViewCell else {
-            return
-        }
 
-        var showReportButton = ZLAGC().configAsBool(for: "Report_Function_Enabled")
-        let currentLoginName = ZLServiceManager.sharedInstance.viewerServiceModel?.currentUserLoginName
-        if  currentLoginName == "ExistOrLive1" ||
-                currentLoginName == "existorlive3" ||
-                currentLoginName == "existorlive11"{
-            showReportButton = true
-        }
-        if currentLoginName == self.eventModel.actor.login {
-            showReportButton = false
-        }
-
-        cell.hiddenReportButton(hidden: !showReportButton)
-
-        cell.fillWithData(cellData: self)
-        cell.delegate = self
-    }
-
-    override func getCellReuseIdentifier() -> String {
+    override var zm_cellReuseIdentifier: String {
         return "ZLEventTableViewCell"
     }
 
-    override func getCellHeight() -> CGFloat {
-        return UITableView.automaticDimension
-    }
 
-    override  func onCellSingleTap() {
+    override  func zm_onCellSingleTap() {
         if let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: self.eventModel.repo.name) {
             vc.hidesBottomBarWhenPushed = true
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            zm_viewController?.navigationController?.pushViewController(vc, animated: true)
         }
     }
 
@@ -81,11 +58,11 @@ extension ZLEventTableViewCellData {
     }
 }
 
-extension ZLEventTableViewCellData: ZLEventTableViewCellDelegate {
+extension ZLEventTableViewCellData {
     func onAvatarClicked() {
         if let userInfoVC = ZLUIRouter.getUserInfoViewController(loginName: self.eventModel.actor.login) {
             userInfoVC.hidesBottomBarWhenPushed = true
-            self.viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
+            zm_viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
         }
     }
 
@@ -93,7 +70,25 @@ extension ZLEventTableViewCellData: ZLEventTableViewCellDelegate {
         let vc = ZLReportController.init()
         vc.loginName = self.eventModel.actor.login
         vc.hidesBottomBarWhenPushed = true
-        self.viewController?.navigationController?.pushViewController(vc, animated: true)
+        zm_viewController?.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    var showReportButton: Bool {
+#if DEBUG
+        return true
+#else
+        var showReportButton = ZLAGC().configAsBool(for: "Report_Function_Enabled")
+        let currentLoginName = ZLServiceManager.sharedInstance.viewerServiceModel?.currentUserLoginName
+        if  currentLoginName == "ExistOrLive1" ||
+                currentLoginName == "existorlive3" ||
+                currentLoginName == "existorlive11" {
+            showReportButton = true
+        }
+        if currentLoginName == self.eventModel.actor.login {
+            showReportButton = false
+        }
+        return showReportButton
+#endif
     }
 
 }

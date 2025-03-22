@@ -59,7 +59,7 @@ class ZLGollumEventTableViewCellData: ZLEventTableViewCellData {
                let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: repoFullName) {
 
                 vc.hidesBottomBarWhenPushed = true
-                self?.viewController?.navigationController?.pushViewController(vc, animated: true)
+                self?.zm_viewController?.navigationController?.pushViewController(vc, animated: true)
             }
         }
         attributedStr.append(tmpAttributedStr)
@@ -69,15 +69,11 @@ class ZLGollumEventTableViewCellData: ZLEventTableViewCellData {
         return attributedStr
     }
 
-    override func getCellReuseIdentifier() -> String {
+    override var zm_cellReuseIdentifier: String {
         return "ZLEventTableViewCell"
     }
 
-    override func getCellHeight() -> CGFloat {
-        return UITableView.automaticDimension
-    }
-
-    override func clearCache() {
+    override func zm_clearCache() {
         self._eventDescription = nil
     }
 }

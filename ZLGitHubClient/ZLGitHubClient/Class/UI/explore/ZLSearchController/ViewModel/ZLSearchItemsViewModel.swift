@@ -7,16 +7,13 @@
 //
 
 import UIKit
-import ZLBaseUI
 import ZLGitRemoteService
+import ZMMVVM
 
-class ZLSearchItemsViewModel: ZLBaseViewModel {
-
-    // view
-    private var searchItemsView: ZLSearchItemsView?
+class ZLSearchItemsViewModel: ZMBaseViewModel {
 
     // subViewModel
-    private var searchGithubItemListViewModelArray: [ZLSearchGithubItemListSecondViewModel] = []
+    internal var searchGithubItemListViewModelArray: [ZLSearchGithubItemListSecondViewModel] = []
     private var searchFilterInfoDic: [ZLSearchType: ZLSearchFilterInfoModel] = [:]
 
     // model
@@ -25,39 +22,21 @@ class ZLSearchItemsViewModel: ZLBaseViewModel {
     // filterViewManager
     private lazy var filterViewManager: ZLSearchFilterViewManager = ZLSearchFilterViewManager(viewModel: self)
 
-    override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
-
-        guard let targetView = targetView as? ZLSearchItemsView else {
-
-            ZLLog_Warn("tagtegteViw is not ZLSearchItemsView, so return")
-            return
-        }
-
-        self.searchItemsView = targetView
-        self.searchItemsView?.delegate = self
-
+    override init() {
+        super.init()
         for i in 0...(ZLSearchItemsView.ZLSearchItemsTypes.count - 1) {
             let searchType = ZLSearchItemsView.ZLSearchItemsTypes[i]
-            let githubItemListView = targetView.githubItemListViewArray[i]
-            let githubItemListViewModel = ZLSearchGithubItemListSecondViewModel()
-            self.searchGithubItemListViewModelArray.append(githubItemListViewModel)
-            self.addSubViewModel(githubItemListViewModel)
-            githubItemListViewModel.bindModel(searchType, andView: githubItemListView)
+            let subViewModel = ZLSearchGithubItemListSecondViewModel(searchType: searchType)
+            searchGithubItemListViewModelArray.append(subViewModel)
         }
+        zm_addSubViewModels(searchGithubItemListViewModelArray)
     }
-
+    
     func startSearch(keyWord: String?) {
         for githubItemListViewModel in self.searchGithubItemListViewModelArray {
             githubItemListViewModel.searchWithKeyStr(searchKey: keyWord)
         }
     }
-
-    func startInput() {
-        for githubItemListViewModel in self.searchGithubItemListViewModelArray {
-            githubItemListViewModel.startInput()
-        }
-    }
-
 }
 
 // MARK: ZLSearchItemsViewDelegate

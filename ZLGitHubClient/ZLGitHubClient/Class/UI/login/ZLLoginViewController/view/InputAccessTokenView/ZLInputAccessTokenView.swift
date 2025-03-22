@@ -8,7 +8,6 @@
 
 import UIKit
 import FFPopup
-import ZLBaseUI
 import ZLGitRemoteService
 import Foundation
 import ZLUIUtilities

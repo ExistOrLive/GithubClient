@@ -8,30 +8,34 @@
 
 import UIKit
 import ZLGitRemoteService
+import ZLUIUtilities
 
-class ZLSearchController: ZLBaseViewController {
+class ZLSearchController: ZMViewController {
 
     @objc var searchKey: String?
+    
+    lazy var viewModel: ZLSearchViewModel =  {
+        let viewModel = ZLSearchViewModel(searchKey: self.searchKey)
+        return viewModel
+    }()
+    
+    lazy var searchView: ZLSearchView = {
+        ZLSearchView()
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.setZLNavigationBarHidden(true)
-
-        // 创建ViewModel
-        let viewModel = ZLSearchViewModel()
-        self.addSubViewModel(viewModel)
-
-        // 创建ZLSearchView
-        let baseView: ZLSearchView = ZLSearchView()
-        self.view.addSubview(baseView)
-        baseView.snp.makeConstraints { (make) in
+        zm_addSubViewModel(viewModel)
+        searchView.zm_fillWithData(data: viewModel)
+    }
+    
+    override func setupUI() {
+        super.setupUI()
+        isZmNavigationBarHidden = true
+        self.contentView.addSubview(searchView)
+        searchView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
-
-        // 绑定view viewModel VC
-        viewModel.bindModel(searchKey, andView: baseView)
-
     }
 
     /*

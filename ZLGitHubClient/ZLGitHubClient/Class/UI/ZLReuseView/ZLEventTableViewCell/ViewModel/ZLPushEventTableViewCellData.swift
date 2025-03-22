@@ -34,7 +34,7 @@ class ZLPushEventTableViewCellData: ZLEventTableViewCellData {
 
             if let userInfoVC = ZLUIRouter.getUserInfoViewController(loginName: self?.eventModel.actor.login ?? "") {
                 userInfoVC.hidesBottomBarWhenPushed = true
-                self?.viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
+                self?.zm_viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
             }
         }
 
@@ -46,7 +46,7 @@ class ZLPushEventTableViewCellData: ZLEventTableViewCellData {
             if let repoFullName = self?.eventModel.repo.name,
                let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: repoFullName) {
                 vc.hidesBottomBarWhenPushed = true
-                self?.viewController?.navigationController?.pushViewController(vc, animated: true)
+                self?.zm_viewController?.navigationController?.pushViewController(vc, animated: true)
             }
         }
 
@@ -55,15 +55,11 @@ class ZLPushEventTableViewCellData: ZLEventTableViewCellData {
         return attributedString
     }
 
-    override func getCellHeight() -> CGFloat {
-        return UITableView.automaticDimension
-    }
-
-    override func getCellReuseIdentifier() -> String {
+    override var zm_cellReuseIdentifier: String {
         return "ZLPushEventTableViewCell"
     }
 
-    override func clearCache() {
+    override func zm_clearCache() {
         self._eventDescrition = nil
         self._commitInfoAttributedStr = nil
     }

@@ -8,108 +8,55 @@
 
 import UIKit
 import ZLGitRemoteService
-import ZLBaseUI
+import ZMMVVM
 
-class ZLSearchViewModel: ZLBaseViewModel {
+class ZLSearchViewModel: ZMBaseViewModel {
 
     // view
-    var searchView: ZLSearchView?
+    var searchView: ZLSearchView? {
+        zm_view as? ZLSearchView
+    }
 
     // viewModel
-    var searchItemsViewModel: ZLSearchItemsViewModel?
-    var searchRecordViewModel: ZLSearchRecordViewModel?
+    lazy var searchItemsViewModel: ZLSearchItemsViewModel = {
+        let viewModel = ZLSearchItemsViewModel()
+        self.zm_addSubViewModel(viewModel)
+        return viewModel
+    }()
+    lazy var searchRecordViewModel: ZLSearchRecordViewModel = {
+        let viewModel = ZLSearchRecordViewModel()
+        viewModel.resultBlock = {[weak self](searchKey: String) in
+            self?.searchView?.setUnEditStatus()
+            self?.searchView?.searchTextField.text = searchKey
+            self?.searchView?.searchTextField.resignFirstResponder()
+            self?.searchItemsViewModel.startSearch(keyWord: searchKey)
+            self?.searchRecordViewModel.onSearhKeyConfirmed(searchKey: searchKey)
+        }
+        self.zm_addSubViewModel(viewModel)
+        return viewModel
+    }()
 
+    var searchKey: String? 
     var preSearchKeyWord: String?                // 保存之前搜索的关键字
-
-    override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
-
-        guard let targetView = targetView as? ZLSearchView else {
-            ZLLog_Warn("targetView is not ZLSearchView")
-            return
-        }
-
-        self.searchView = targetView
-        self.searchView?.searchTextField.delegate = self
-        self.searchView?.cancelButton.addTarget(self, action: #selector(onCancelButtonClicked), for: .touchUpInside)
-        self.searchView?.backButton.addTarget(self, action: #selector(onBackButtonClicked), for: .touchUpInside)
-
-        if let searchItemsView = self.searchView?.searchItemsView {
-            let searchItemsViewModel = ZLSearchItemsViewModel.init()
-            self.addSubViewModel(searchItemsViewModel)
-            self.searchItemsViewModel = searchItemsViewModel
-            searchItemsViewModel.bindModel(nil, andView: searchItemsView)
-        }
-
-        if let searchRecordView = self.searchView?.searchRecordView {
-            let searchRecordViewModel = ZLSearchRecordViewModel.init()
-            searchRecordViewModel.resultBlock = {[weak self](searchKey: String) in
-                self?.searchView?.setUnEditStatus()
-                self?.searchView?.searchTextField.text = searchKey
-                self?.searchView?.searchTextField.resignFirstResponder()
-                self?.searchItemsViewModel?.startSearch(keyWord: searchKey)
-                self?.searchRecordViewModel?.onSearhKeyConfirmed(searchKey: searchKey)
-            }
-            self.addSubViewModel(searchRecordViewModel)
-            self.searchRecordViewModel = searchRecordViewModel
-            searchRecordViewModel.bindModel(nil, andView: searchRecordView)
-        }
-
-        if let searchKey = targetModel as? String {
+    
+    init(searchKey: String? ) {
+        self.searchKey = searchKey
+        super.init()
+    }
+    
+    override func zm_onViewUpdated() {
+        searchView?.searchRecordView.zm_fillWithData(data: searchRecordViewModel)
+        searchView?.searchItemsView.zm_fillWithData(data: searchItemsViewModel)
+        
+        if let searchKey = searchKey {
             self.searchView?.searchTextField.text = searchKey
-            self.searchItemsViewModel?.startSearch(keyWord: searchKey)
-            self.searchRecordViewModel?.onSearhKeyConfirmed(searchKey: searchKey)
+            self.searchItemsViewModel.startSearch(keyWord: searchKey)
+            self.searchRecordViewModel.onSearhKeyConfirmed(searchKey: searchKey)
         }
-
     }
-
+    
     @objc func onBackButtonClicked() {
-        self.viewController?.navigationController?.popViewController(animated: true)
+        zm_viewController?.navigationController?.popViewController(animated: true)
     }
-
-    @objc func onCancelButtonClicked() {
-        self.searchView?.searchTextField.text = self.preSearchKeyWord
-        self.searchView?.searchTextField.resignFirstResponder()
-        self.searchView?.setUnEditStatus()
-    }
-
-}
-
-// MARK: UITextFieldDelegate
-extension ZLSearchViewModel: UITextFieldDelegate {
-    @available(iOS 2.0, *)
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        return true
-    }
-
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        self.preSearchKeyWord  = self.searchView?.searchTextField.text
-        self.searchView?.setEditStatus()
-        self.searchItemsViewModel?.startInput()
-        self.searchRecordViewModel?.onSearchKeyChanged(searchKey: textField.text)
-    }
-
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let textStr: NSString? = textField.text as NSString?
-        let text: String = textStr?.replacingCharacters(in: range, with: string) ?? ""
-        self.searchRecordViewModel?.onSearchKeyChanged(searchKey: text)
-        return true
-    }
-
-    func textFieldDidEndEditing(_ textField: UITextField) {
-
-    }
-
-    func textFieldShouldClear(_ textField: UITextField) -> Bool {
-        self.searchRecordViewModel?.onSearchKeyChanged(searchKey: "")
-        return true
-    }
-
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.searchView?.setUnEditStatus()
-        textField.resignFirstResponder()
-        self.searchItemsViewModel?.startSearch(keyWord: self.searchView?.searchTextField.text)
-        self.searchRecordViewModel?.onSearhKeyConfirmed(searchKey: self.searchView?.searchTextField.text)
-        return false
-     }
 
 }

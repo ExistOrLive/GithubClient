@@ -13,15 +13,12 @@ class ZLDeleteEventTableViewCellData: ZLEventTableViewCellData {
 
     private var _eventDescription: NSAttributedString?
 
-    override func getCellReuseIdentifier() -> String {
+    override var zm_cellReuseIdentifier: String {
         return "ZLEventTableViewCell"
     }
 
-    override func getCellHeight() -> CGFloat {
-        return UITableView.automaticDimension
-    }
-
-    override func clearCache() {
+ 
+    override func zm_clearCache() {
         self._eventDescription = nil
     }
 
@@ -79,7 +76,7 @@ class ZLDeleteEventTableViewCellData: ZLEventTableViewCellData {
                 if let repoFullName = self?.eventModel.repo.name,
                    let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: repoFullName) {
                     vc.hidesBottomBarWhenPushed = true
-                    self?.viewController?.navigationController?.pushViewController(vc, animated: true)
+                    self?.zm_viewController?.navigationController?.pushViewController(vc, animated: true)
                 }
             }
 
@@ -108,7 +105,7 @@ class ZLDeleteEventTableViewCellData: ZLEventTableViewCellData {
                    let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: repoFullName) {
 
                     vc.hidesBottomBarWhenPushed = true
-                    self?.viewController?.navigationController?.pushViewController(vc, animated: true)
+                    self?.zm_viewController?.navigationController?.pushViewController(vc, animated: true)
                 }
             }
 

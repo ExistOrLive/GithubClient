@@ -270,7 +270,7 @@ extension ZLGithubItemListView {
     }
 
     @objc func resetContentOffset() {
-        self.tableView.setContentOffset(CGPoint.zero, animated: false)
+        self.tableView
     }
 
     @objc  func clearListView() {

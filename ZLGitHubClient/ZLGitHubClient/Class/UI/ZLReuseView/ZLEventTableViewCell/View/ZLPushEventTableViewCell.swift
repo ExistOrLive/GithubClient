@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import ZMMVVM
 
 class ZLPushEventTableViewCell: ZLEventTableViewCell {
 
@@ -27,15 +28,13 @@ class ZLPushEventTableViewCell: ZLEventTableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    override func fillWithData(cellData: ZLEventTableViewCellData) {
-
-        super.fillWithData(cellData: cellData)
-
-        guard let pushEventCellData: ZLPushEventTableViewCellData = cellData as? ZLPushEventTableViewCellData else {
+    
+    override func zm_fillWithViewData(viewData cellData: ZLEventTableViewCellData) {
+        super.zm_fillWithViewData(viewData: cellData)
+    
+        guard let pushEventCellData = cellData as? ZLPushEventTableViewCellData else {
             return
         }
-
         self.commitInfoLabel.attributedText = pushEventCellData.commitInfoAttributedStr()
     }
 }

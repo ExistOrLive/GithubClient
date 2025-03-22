@@ -72,7 +72,7 @@ extension ZLSearchFilterViewManager {
     
     func showSearchFilterViewFor(searchType: ZLSearchType,
                                  filterBlock: @escaping (ZLSearchFilterInfoModel) -> Void) {
-        guard let view = viewModel?.viewController?.view else { return }
+        guard let view = viewModel?.zm_viewController?.view else { return }
         self.filterBlock = filterBlock
         let searchFilterView = self.searchFilterView
         searchFilterView

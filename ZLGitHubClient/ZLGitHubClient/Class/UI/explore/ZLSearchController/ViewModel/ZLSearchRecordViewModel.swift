@@ -8,12 +8,14 @@
 
 import UIKit
 import ZLGitRemoteService
-import ZLBaseUI
+import ZMMVVM
 
-class ZLSearchRecordViewModel: ZLBaseViewModel {
-
+class ZLSearchRecordViewModel: ZMBaseTableViewCellViewModel {
+    
     // view
-    var searchRecordView: ZLSearchRecordView?
+    var searchRecordView: ZLSearchRecordView? {
+        zm_view as? ZLSearchRecordView
+    }
 
     // model
     var searchRecordArray: [String] = []
@@ -24,17 +26,9 @@ class ZLSearchRecordViewModel: ZLBaseViewModel {
     // resultBlocl
     var resultBlock: ((String) -> Void)?
 
-    override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
-        if !(targetView is ZLSearchRecordView) {
-            ZLLog_Warn("targteView is not ZLSearchRecordView, so return")
-            return
-        }
-
-        self.searchRecordView = targetView as? ZLSearchRecordView
-        self.searchRecordView?.delegate = self
-        self.searchRecordView?.tableView.delegate = self
-        self.searchRecordView?.tableView.dataSource = self
-
+    
+    override init() {
+        super.init()
         self.searchRecordArray = ZLUISharedDataManager.searchRecordArray ?? []
         self.filterRecord()
     }
@@ -82,40 +76,8 @@ extension ZLSearchRecordViewModel: ZLSearchRecordViewDelegate {
         self.filterRecord()
         ZLUISharedDataManager.searchRecordArray = []
     }
-}
-
-extension ZLSearchRecordViewModel: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.tmpSearchRecordArray.count
-    }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        let record = self.tmpSearchRecordArray[indexPath.row]
-        guard  let tableViewCell = tableView.dequeueReusableCell(withIdentifier: "ZLCommonTableViewCell", for: indexPath) as? ZLCommonTableViewCell else {
-            return UITableViewCell.init(style: .default, reuseIdentifier: "")
-        }
-        tableViewCell.titleLabel.text = record
-        tableViewCell.titleLabel.font = .zlRegularFont(withSize: 13)
-        tableViewCell.titleLabel.textColor = UIColor(named: "ZLLabelColor3")
-        tableViewCell.nextLabel.isHidden = false
-        tableViewCell.separateLine.isHidden = false
-        return tableViewCell
-    }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let record = self.tmpSearchRecordArray[indexPath.row]
-        self.resultBlock?(record)
-    }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return CGFloat.leastNonzeroMagnitude
+    func didSelectRecord(record: String) {
+        resultBlock?(record)
     }
-    
-    
-
 }

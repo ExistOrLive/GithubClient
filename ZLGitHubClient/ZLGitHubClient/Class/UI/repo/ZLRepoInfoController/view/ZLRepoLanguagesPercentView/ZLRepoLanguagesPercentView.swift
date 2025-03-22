@@ -10,7 +10,6 @@ import UIKit
 import DGCharts
 import FFPopup
 import ZLUIUtilities
-import ZLBaseUI
 import ZLBaseExtension
 import ZLGitRemoteService
 
