@@ -8,25 +8,27 @@
 
 import UIKit
 import WebKit
-import ZLBaseUI
+import ZLUIUtilities
 
-class ZLLoginViewController: ZLBaseViewController {
+class ZLLoginViewController: ZMViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-    
-        self.view.addSubview(loginView)
+        self.contentView.addSubview(loginView)
         loginView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
-        
-        let viewModel = ZLLoginViewModel()
-        self.addSubViewModel(viewModel)
-        viewModel.bindModel(nil, andView: loginView)
+        loginView.zm_fillWithData(data: loginViewModel)
     }
     
     lazy var loginView: ZLLoginBaseView = {
        return ZLLoginBaseView()
+    }()
+    
+    lazy var loginViewModel: ZLLoginViewModel = {
+       let viewModel = ZLLoginViewModel()
+        self.zm_addSubViewModel(viewModel)
+        return viewModel
     }()
 
 }

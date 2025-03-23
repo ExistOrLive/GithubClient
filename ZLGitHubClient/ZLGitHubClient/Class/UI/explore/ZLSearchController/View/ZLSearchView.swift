@@ -10,6 +10,7 @@ import UIKit
 import ZLBaseExtension
 import ZMMVVM
 import ZLUtilities
+import ZLUIUtilities
 
 class ZLSearchView: UIView {
     
@@ -39,12 +40,12 @@ class ZLSearchView: UIView {
         topBackView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.left.right.equalToSuperview()
-            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.top).offset(ZLBaseUIConfig.sharedInstance().navigationBarHeight)
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.top).offset(ZMUIConfig.shared.navigationBarHeight)
         }
         
         topNavigationView.snp.makeConstraints { make in
             make.left.right.bottom.equalToSuperview()
-            make.height.equalTo(ZLBaseUIConfig.sharedInstance().navigationBarHeight)
+            make.height.equalTo(ZMUIConfig.shared.navigationBarHeight)
         }
         
         backButton.snp.makeConstraints { make in
@@ -225,5 +226,8 @@ extension ZLSearchView: UITextFieldDelegate {
 extension ZLSearchView: ZMBaseViewUpdatableWithViewData {
     func zm_fillWithViewData(viewData: ZLSearchViewModel) {
         self.searchTextField.text = viewData.searchKey
+        
+        searchRecordView.zm_fillWithData(data: viewData.searchRecordViewModel)
+        searchItemsView.zm_fillWithData(data: viewData.searchItemsViewModel)
     }
 }

@@ -7,25 +7,20 @@
 //
 
 import UIKit
-import ZLBaseUI
+import ZMMVVM
+import ZLUIUtilities
 
 protocol ZLLoginBaseViewDelegate: NSObjectProtocol {
     func onLoginButtonClicked()
     func onAccessTokenButtonClicked()
+    var step: ZLLoginStep { get }
 }
 
 class ZLLoginBaseView: UIView {
 
-    weak var delegate: ZLLoginBaseViewDelegate?
-    
-    @objc func onLoginButtonClicked(_ sender: Any) {
-        self.delegate?.onLoginButtonClicked()
+    var delegate: ZLLoginBaseViewDelegate? {
+        zm_viewModel as? ZLLoginBaseViewDelegate
     }
-
-    @objc func onAccessTokenButtonClicked(_ sender: Any) {
-         self.delegate?.onAccessTokenButtonClicked()
-    }
-    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -113,8 +108,8 @@ class ZLLoginBaseView: UIView {
         return label
     }()
     
-    lazy var loginButton: UIButton = {
-        let button = ZLBaseButton()
+    lazy var loginButton: ZMButton = {
+        let button = ZMButton()
         button.titleLabel?.font = UIFont.zlMediumFont(withSize: 16)
         button.setTitle(ZLLocalizedString(string: "login", comment: "登录"), for: .normal)
         button.addTarget(self, action: #selector(onLoginButtonClicked), for: .touchUpInside)
@@ -130,5 +125,53 @@ class ZLLoginBaseView: UIView {
         button.addTarget(self, action: #selector(onAccessTokenButtonClicked), for: .touchUpInside)
         return button
     }()
-    
 }
+
+// MARK: - Action
+extension ZLLoginBaseView {
+    @objc func onLoginButtonClicked(_ sender: Any) {
+        self.delegate?.onLoginButtonClicked()
+    }
+
+    @objc func onAccessTokenButtonClicked(_ sender: Any) {
+         self.delegate?.onAccessTokenButtonClicked()
+    }
+}
+// MARK: - Update
+extension ZLLoginBaseView: ZMBaseViewUpdatableWithViewData {
+    
+    func zm_fillWithViewData(viewData: ZLLoginBaseViewDelegate) {
+        reloadView()
+    }
+    
+    func reloadView() {
+        guard let step = delegate?.step else { return }
+        switch step {
+        case .initialize:
+            loginButton.isEnabled = true
+            accessTokenButton.isEnabled = true
+            loginInfoLabel.text = nil
+            activityIndicator.isHidden = true
+            activityIndicator.stopAnimating()
+        case .oauth:
+            loginButton.isEnabled = false
+            accessTokenButton.isEnabled = false
+            loginInfoLabel.text = ZLLocalizedString(string: "ZLLoginStep_logining", comment: "登录中...")
+            activityIndicator.isHidden = false
+            activityIndicator.startAnimating()
+        case .gettoken:
+            loginButton.isEnabled = false
+            accessTokenButton.isEnabled = false
+            loginInfoLabel.text = ZLLocalizedString(string: "ZLLoginStep_getToken", comment: "正在获取token....")
+            activityIndicator.isHidden = false
+            activityIndicator.startAnimating()
+        case .checktoken:
+            loginButton.isEnabled = false
+            accessTokenButton.isEnabled = false
+            loginInfoLabel.text = ZLLocalizedString(string: "ZLLoginStep_checkToken", comment: "检查token是否有效...")
+            activityIndicator.isHidden = false
+            activityIndicator.startAnimating()
+        }
+    }
+}
+ 

@@ -26,7 +26,7 @@ class ZLReportController: ZMViewController {
     @IBOutlet weak var reasonPickerView: UIPickerView!
     @IBOutlet weak var reportedUserLabel: UILabel!
     @IBOutlet weak var reportReasonLabel: UILabel!
-    @IBOutlet weak var submitButton: ZLBaseButton!
+    @IBOutlet weak var submitButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()

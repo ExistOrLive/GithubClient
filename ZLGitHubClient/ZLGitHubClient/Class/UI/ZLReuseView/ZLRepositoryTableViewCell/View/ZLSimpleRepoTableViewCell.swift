@@ -7,6 +7,14 @@
 //
 
 import UIKit
+import ZMMVVM
+
+protocol ZLSimpleRepoTableViewCellDelegate: AnyObject {
+    var owner_login: String { get }
+    var owner_avatarURL: String { get }
+    var full_name: String { get }
+    var showSingleLineView: Bool { get }
+}
 
 class ZLSimpleRepoTableViewCell: UITableViewCell {
 
@@ -76,4 +84,15 @@ class ZLSimpleRepoTableViewCell: UITableViewCell {
         view.backgroundColor = UIColor(named: "ZLSeperatorLineColor")
         return view
     }()
+}
+
+
+extension ZLSimpleRepoTableViewCell: ZMBaseViewUpdatableWithViewData {
+    func zm_fillWithViewData(viewData: ZLSimpleRepoTableViewCellDelegate) {
+        avatarImageView.loadAvatar(login: viewData.owner_login,
+                                                 avatarUrl: viewData.owner_avatarURL)
+        fullNameLabel.text = viewData.full_name
+        singleLineView.isHidden = !viewData.showSingleLineView
+    }
+    
 }

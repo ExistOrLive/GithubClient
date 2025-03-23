@@ -62,7 +62,7 @@ class ZLFeedbackController: ZMViewController {
     }()
     
     lazy var submitButton: UIButton = {
-       let button = ZLBaseButton()
+       let button = ZMButton()
         button.setTitle(ZLLocalizedString(string: "submit", comment: "提交"), for: .normal)
         button.titleLabel?.font = .zlMediumFont(withSize: 16)
         button.addTarget(self, action: #selector(onSubmitButtonClicked), for: .touchUpInside)

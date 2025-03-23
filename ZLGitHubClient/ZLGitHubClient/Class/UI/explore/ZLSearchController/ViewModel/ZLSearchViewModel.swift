@@ -45,11 +45,7 @@ class ZLSearchViewModel: ZMBaseViewModel {
     }
     
     override func zm_onViewUpdated() {
-        searchView?.searchRecordView.zm_fillWithData(data: searchRecordViewModel)
-        searchView?.searchItemsView.zm_fillWithData(data: searchItemsViewModel)
-        
         if let searchKey = searchKey {
-            self.searchView?.searchTextField.text = searchKey
             self.searchItemsViewModel.startSearch(keyWord: searchKey)
             self.searchRecordViewModel.onSearhKeyConfirmed(searchKey: searchKey)
         }

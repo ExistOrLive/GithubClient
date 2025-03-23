@@ -9,16 +9,16 @@
 import UIKit
 import WebKit
 import ZLUIUtilities
-import ZLBaseUI
 import ZLBaseExtension
 import ZLGitRemoteService
 import ZLUtilities
+import ZMMVVM
 
 /**
   *  利用 REST API 获取 md 内容 ； 代码使用markdown接口渲染
  */
 
-class ZLRepoCodePreview3Controller: ZLBaseViewController {
+class ZLRepoCodePreview3Controller: ZMViewController {
 
     // model
     let contentModel: ZLGithubContentModel
@@ -26,8 +26,7 @@ class ZLRepoCodePreview3Controller: ZLBaseViewController {
     let branch: String
 
     var htmlStr: String?
-    // view
-    var webView: WKWebView?
+   
 
     init(repoFullName: String, contentModel: ZLGithubContentModel, branch: String) {
         self.repoFullName = repoFullName
@@ -48,9 +47,7 @@ class ZLRepoCodePreview3Controller: ZLBaseViewController {
         super.viewDidLoad()
 
         NotificationCenter.default.addObserver(self, selector: #selector(onNotificationArrived(notification:)), name: ZLUserInterfaceStyleChange_Notification, object: nil)
-
-        self.setUpUI()
-
+        
         let fileExtension = (URL.init(string: self.contentModel.name.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed) ?? "") as NSURL?)?.pathExtension ?? ""
         if fileExtension.lowercased() == "md" || fileExtension.lowercased() == "markdown" {
             self.sendQueryContentRequest()
@@ -91,41 +88,26 @@ class ZLRepoCodePreview3Controller: ZLBaseViewController {
             }
             if size.height > size.width {
                 // 横屏变竖屏
-                self.setZLNavigationBarHidden(false)
+                self.isZmNavigationBarHidden = false
                 navigationVC.forbidGestureBack = false
             } else {
-                self.setZLNavigationBarHidden(true)
+                self.isZmNavigationBarHidden = true
                 navigationVC.forbidGestureBack = true
             }
         }
     }
 
-    func setUpUI() {
+    override func setupUI() {
+        super.setupUI()
         self.title = self.contentModel.path
 
-        self.zlNavigationBar.backButton.isHidden = false
-        let button = UIButton.init(type: .custom)
-        button.setAttributedTitle(NSAttributedString(string: ZLIconFont.More.rawValue,
-                                                     attributes: [.font: UIFont.zlIconFont(withSize: 30),
-                                                                  .foregroundColor: UIColor.label(withName: "ICON_Common")]),
-                                  for: .normal)
-        button.frame = CGRect(x: 0, y: 0, width: 60, height: 60)
-        button.addTarget(self, action: #selector(onMoreButtonClick(button:)), for: .touchUpInside)
+        self.zmNavigationBar.backButton.isHidden = false
+        self.zmNavigationBar.addRightView(moreButton)
 
-        self.zlNavigationBar.rightButton = button
-
-        let wv = WKWebView(frame: CGRect.init())
-        wv.backgroundColor = UIColor.clear
-        wv.scrollView.backgroundColor = UIColor.clear
-
-        self.contentView.addSubview(wv)
-        wv.snp.makeConstraints({(make) in
+        self.contentView.addSubview(webView)
+        webView.snp.makeConstraints({(make) in
             make.edges.equalToSuperview()
         })
-        wv.uiDelegate = self
-        wv.navigationDelegate = self
-
-        self.webView = wv
     }
 
     func switchToWebVC() {
@@ -145,7 +127,40 @@ class ZLRepoCodePreview3Controller: ZLBaseViewController {
             ZLUIRouter.openURL(url: realurl)
         }
     }
+    
+    
+    // view
+    lazy var webView: WKWebView = {
+        let wv = WKWebView(frame: CGRect.init())
+        wv.backgroundColor = UIColor.clear
+        wv.scrollView.backgroundColor = UIColor.clear
+        wv.uiDelegate = self
+        wv.navigationDelegate = self
+        return wv
+    }()
+    
+    lazy var moreButton: UIButton = {
+        let button = UIButton.init(type: .custom)
+        button.setAttributedTitle(NSAttributedString(string: ZLIconFont.More.rawValue,
+                                                     attributes: [.font: UIFont.zlIconFont(withSize: 30),
+                                                                  .foregroundColor: UIColor.label(withName: "ICON_Common")]),
+                                  for: .normal)
+        button.snp.makeConstraints({ make in
+            make.size.equalTo(60)
+        })
+        button.addTarget(self, action: #selector(onMoreButtonClick(button:)), for: .touchUpInside)
+        return button
+    }()
+}
 
+// MARK: - Action
+extension ZLRepoCodePreview3Controller {
+    @objc func onNotificationArrived(notification: Notification) {
+        if let html = self.htmlStr {
+            self.startLoadCode(codeHtml: html)
+        }
+    }
+    
     @objc func onMoreButtonClick(button: UIButton) {
 
         guard let url = URL(string: self.contentModel.html_url) else {
@@ -153,17 +168,9 @@ class ZLRepoCodePreview3Controller: ZLBaseViewController {
         }
         button.showShareMenu(title: url.absoluteString, url: url, sourceViewController: self )
     }
-
 }
 
-extension ZLRepoCodePreview3Controller {
-    @objc func onNotificationArrived(notification: Notification) {
-        if let html = self.htmlStr {
-            self.startLoadCode(codeHtml: html)
-        }
-    }
-}
-
+// MARK: - Request
 extension ZLRepoCodePreview3Controller {
 
     func sendQueryContentRequest() {
@@ -285,7 +292,7 @@ extension ZLRepoCodePreview3Controller {
                     newHtmlStr.insert(codeHtml, at: range.location)
                 }
 
-                self.webView?.loadHTMLString(newHtmlStr as String, baseURL: nil)
+                self.webView.loadHTMLString(newHtmlStr as String, baseURL: nil)
 
             } catch {
                 ZLToastView.showMessage("load Code index html failed")

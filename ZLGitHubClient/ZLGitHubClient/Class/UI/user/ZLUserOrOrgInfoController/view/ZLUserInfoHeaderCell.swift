@@ -220,8 +220,8 @@ class ZLUserInfoHeaderCell: UITableViewCell {
         return button
     }()
 
-    private lazy var followButton: ZLBaseButton = {
-        let button = ZLBaseButton()
+    private lazy var followButton: ZMButton = {
+        let button = ZMButton()
         button.setTitle(ZLLocalizedString(string: "Follow", comment: ""), for: .normal)
         button.setTitle(ZLLocalizedString(string: "Unfollow", comment: ""), for: .selected)
         button.titleLabel?.font = UIFont.zlSemiBoldFont(withSize: 10)
@@ -229,8 +229,8 @@ class ZLUserInfoHeaderCell: UITableViewCell {
         return button
     }()
 
-    private lazy var blockButton: ZLBaseButton = {
-        let button = ZLBaseButton()
+    private lazy var blockButton: ZMButton = {
+        let button = ZMButton()
         button.setTitle(ZLLocalizedString(string: "Block", comment: ""), for: .normal)
         button.setTitle(ZLLocalizedString(string: "Unblock", comment: ""), for: .selected)
         button.titleLabel?.font = UIFont.zlSemiBoldFont(withSize: 10)

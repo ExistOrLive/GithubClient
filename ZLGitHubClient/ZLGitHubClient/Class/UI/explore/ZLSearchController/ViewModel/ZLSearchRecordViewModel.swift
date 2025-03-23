@@ -12,10 +12,6 @@ import ZMMVVM
 
 class ZLSearchRecordViewModel: ZMBaseTableViewCellViewModel {
     
-    // view
-    var searchRecordView: ZLSearchRecordView? {
-        zm_view as? ZLSearchRecordView
-    }
 
     // model
     var searchRecordArray: [String] = []
@@ -43,7 +39,7 @@ class ZLSearchRecordViewModel: ZMBaseTableViewCellViewModel {
         } else {
             self.tmpSearchRecordArray = Array.init(searchRecordArray.prefix(10))
         }
-        self.searchRecordView?.tableView.reloadData()
+        self.zm_reloadView()
     }
 
     func onSearchKeyChanged(searchKey: String?) {

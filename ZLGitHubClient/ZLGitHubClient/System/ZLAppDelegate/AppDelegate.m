@@ -159,6 +159,7 @@
         self.allowRotation = YES;    // iPad 允许旋转
     }
     
+    ZMUIConfig.shared.navigationBarHeight = 60;
     ZMUIConfig.shared.navigationBarTitleColor = [UIColor colorNamed:@"ZLNavigationBarTitleColor"];
     ZMUIConfig.shared.navigationBarBackgoundColor = [UIColor colorNamed:@"ZLNavigationBarBackColor"];
     ZMUIConfig.shared.navigationBarTitleFont = [UIFont fontWithName:Font_PingFangSCMedium size:18];

@@ -179,7 +179,7 @@ class ZLReadMeView: UIView {
     }()
 
     lazy var refreshButton: UIButton = {
-        let button = ZLBaseButton()
+        let button = ZMButton()
         button.titleLabel?.font = .zlMediumFont(withSize: 10)
         button.setTitle(ZLLocalizedString(string: "refresh", comment: "刷新"), for: .normal)
         button.addTarget(self, action: #selector(onRefreshButtonClicked(_:)), for: .touchUpInside)

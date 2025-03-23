@@ -10,54 +10,6 @@ import ZLUIUtilities
 import UIKit
 import ZMMVVM
 
-class ZLCommonSectionHeaderFooterViewData: ZLTableViewBaseSectionData {
-    
-    private var headerHeight = CGFloat.leastNonzeroMagnitude
-    private var footerHeight = CGFloat.leastNonzeroMagnitude
-    private var headerColor: UIColor?
-    private var footerColor: UIColor?
-    private var headerReuseIdentifier: String?
-    private var footerReuseIdentifier: String?
-    
-    init(cellDatas: [ZLTableViewCellDataProtocol],
-         headerHeight: CGFloat = CGFloat.leastNonzeroMagnitude ,
-         footerHeight: CGFloat = CGFloat.leastNonzeroMagnitude,
-         headerColor: UIColor? = nil,
-         footerColor: UIColor? = nil,
-         headerReuseIdentifier: String? = nil,
-         footerReuseIdentifier: String? = nil) {
-        super.init(cellDatas: cellDatas)
-        
-        if let headerReuseIdentifier {
-            let view = ZLTableViewBaseSectionViewData()
-            view.sectionViewReuseIdentifier = headerReuseIdentifier
-            view.sectionViewHeight = headerHeight
-            sectionHeaderViewData = view
-        }
-        
-        if let footerReuseIdentifier {
-            let view = ZLTableViewBaseSectionViewData()
-            view.sectionViewReuseIdentifier = footerReuseIdentifier
-            view.sectionViewHeight = footerHeight
-            sectionFooterViewData = view
-        }
-    }
-}
-
-extension ZLCommonSectionHeaderFooterViewData: ZLCommonSectionHeaderViewDelegate {
-    var headerBackgroundColor: UIColor {
-        headerColor ?? .clear
-    }
-}
-
-extension ZLCommonSectionHeaderFooterViewData: ZLCommonSectionFooterViewDelegate {
-    var footerBackgroundColor: UIColor {
-        footerColor ?? .clear
-    }
-}
-
-
-
 class ZLCommonSectionHeaderFooterViewDataV2: ZMBaseTableViewReuseViewModel {
     
     var viewHeight = CGFloat.leastNonzeroMagnitude

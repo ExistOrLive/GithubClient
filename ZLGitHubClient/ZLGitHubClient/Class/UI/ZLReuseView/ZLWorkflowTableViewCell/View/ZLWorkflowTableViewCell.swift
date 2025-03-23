@@ -9,6 +9,7 @@
 import UIKit
 import ZMMVVM
 import ZLUtilities
+import ZLUIUtilities
 
 @objc protocol ZLWorkflowTableViewCellDelegate: NSObjectProtocol {
     func onConfigButtonClicked()
@@ -48,7 +49,7 @@ class ZLWorkflowTableViewCell: UITableViewCell {
     }()
 
     private lazy var configButton: UIButton = {
-        let button = ZLBaseButton()
+        let button = ZMButton()
         let title = NSAttributedString(string: ZLLocalizedString(string: "config", comment: ""),
                                        attributes: [.font: UIFont.zlSemiBoldFont(withSize: 14),
                                                     .foregroundColor: UIColor.label(withName: "ZLLabelColor1")])

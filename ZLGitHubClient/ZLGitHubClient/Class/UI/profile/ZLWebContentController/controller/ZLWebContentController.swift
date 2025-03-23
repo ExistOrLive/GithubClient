@@ -45,6 +45,9 @@ import ZLUIUtilities
             .font(UIFont.zlIconFont(withSize: 30))
             .foregroundColor(UIColor.label(withName: "ICON_Common"))
         button.setAttributedTitle(attributedTitle, for: .normal)
+        button.snp.makeConstraints { make in
+            make.size.equalTo(60)
+        }
         button.addTarget(self, action: #selector(onRightButtonClicked(button:)), for: .touchUpInside)
         return button
     }()

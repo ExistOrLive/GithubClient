@@ -213,21 +213,21 @@ class ZLExploreChildListController: ZMTableViewController {
     }()
     
     lazy var languageButton: UIButton = {
-        let button = ZLBaseButton(type: .custom)
+        let button = ZMButton(type: .custom)
         button.titleLabel?.font = UIFont.zlMediumFont(withSize: 11)
         button.addTarget(self, action: #selector(onLanguageButtonClicked), for: .touchUpInside)
         return button
     }()
     
     lazy var dateButton: UIButton = {
-        let button = ZLBaseButton(type: .custom)
+        let button = ZMButton(type: .custom)
         button.titleLabel?.font = UIFont.zlMediumFont(withSize: 11)
         button.addTarget(self, action: #selector(onDateButtonClicked), for: .touchUpInside)
         return button
     }()
     
     lazy var spokenLanguageButton: UIButton = {
-        let button = ZLBaseButton(type: .custom)
+        let button = ZMButton(type: .custom)
         button.titleLabel?.font = UIFont.zlMediumFont(withSize: 11)
         button.addTarget(self, action: #selector(onSpokenLanguageButtonClicked), for: .touchUpInside)
         return button

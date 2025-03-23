@@ -148,7 +148,7 @@ class ZLInputAccessTokenView: UIView {
     }()
     
     lazy var confirmButton: UIButton = {
-        let button = ZLBaseButton()
+        let button = ZMButton()
         button.titleLabel?.font = .zlMediumFont(withSize: 15)
         button.setTitle(ZLLocalizedString(string: "Confirm", comment: ""),
                         for: .normal)

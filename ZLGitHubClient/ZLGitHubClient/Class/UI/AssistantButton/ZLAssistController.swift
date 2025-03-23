@@ -67,7 +67,7 @@ class ZLAssistController: ZMViewController {
         return tableView
     }()
 
-    private var searchBar: ZLBaseSearchBar?
+    private var searchBar: ZMSearchBar?
     private var clipBoardButton: UIButton?
     private var userInterfaceSegmentedControl: UISegmentedControl?
     private var assistButton: UIButton?
@@ -138,7 +138,7 @@ class ZLAssistController: ZMViewController {
     }
 
     func setSearchBar() {
-        searchBar = ZLBaseSearchBar()
+        searchBar = ZMSearchBar()
         searchBar?.backgroundColor = UIColor.clear
         searchBar?.delegate = self
     }
@@ -233,7 +233,7 @@ class ZLAssistController: ZMViewController {
     }
 
     func setAssistButton() {
-        let button = ZLBaseButton(type: .custom)
+        let button = ZMButton(type: .custom)
         button.setTitle(ZLLocalizedString(string: "Hide Assist Button", comment: ""), for: .normal)
         button.addTarget(self, action: #selector(onAssitButtonClicked), for: .touchUpInside)
         button.titleLabel?.font = UIFont.init(name: Font_PingFangSCSemiBold, size: 14)
@@ -249,14 +249,18 @@ class ZLAssistController: ZMViewController {
 
 }
 
-extension ZLAssistController: ZLBaseSearchBarDelegate {
+extension ZLAssistController: ZMSearchBarDelegate {
 
-    func searchBarConfirmSearch(_ searchBar: ZLBaseSearchBar, withSearchKey searchKey: String) {
-        if searchKey.count > 0 {
+    func onCancelButtonClicked() {}
+    func onSearchTextChanged(text: String) {}
+    func onSearchTextEndEditing() {}
+    func onSearchTextConfirmed(text: String) {
+        if !text.isEmpty {
             ZLAssistButtonManager.shared.dismissAssistDetailView()
-            ZLUIRouter.navigateVC(key: ZLUIRouter.SearchController, params: ["searchKey": searchKey], animated: false)
+            ZLUIRouter.navigateVC(key: ZLUIRouter.SearchController, params: ["searchKey": text], animated: false)
         }
     }
+    func onSearchTextFieldShouldEndEditing() -> Bool { return true}
 }
 
 extension ZLAssistController: CircleMenuDelegate {

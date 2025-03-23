@@ -8,9 +8,9 @@
 
 import UIKit
 import ZLUIUtilities
-import ZLBaseUI
 import ZLBaseExtension
 import ZLGitRemoteService
+import ZMMVVM
 
 class ZLRepoContentNode: ZLBaseObject {
     var path: String = ""
@@ -20,8 +20,8 @@ class ZLRepoContentNode: ZLBaseObject {
     var parentNode: ZLRepoContentNode?
 }
 
-class ZLRepoContentController: ZLBaseViewController {
-
+class ZLRepoContentController: ZMViewController, ZLRefreshProtocol {
+    
     // model
     var repoFullName: String?
     var path: String?
@@ -32,42 +32,58 @@ class ZLRepoContentController: ZLBaseViewController {
     /// 当前节点
     var currentContentNode: ZLRepoContentNode?
 
-    /// view
-    lazy var tableView: UITableView = {
-        let tableView = UITableView.init(frame: CGRect.init(), style: .plain)
-        tableView.backgroundColor = UIColor.clear
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.separatorStyle = .none
-        tableView.register(ZLRepoContentTableViewCell.self, forCellReuseIdentifier: "ZLRepoContentTableViewCell")
-        tableView.mj_header = ZLRefresh.refreshHeader(refreshingBlock: { [weak self] in
-            self?.setQueryContentRequest()
-        })
-        return tableView
-    }()
-    
+
     lazy var closeButton: UIButton = {
         let button = UIButton.init(type: .custom)
         button.setImage(UIImage.init(named: "close"), for: .normal)
         button.frame = CGRect.init(x: 0, y: 0, width: 60, height: 60)
         button.addTarget(self, action: #selector(onCloseButtonClicked(_button:)), for: .touchUpInside)
+        button.snp.makeConstraints { make in
+            make.size.equalTo(60)
+        }
         return button
     }()
-
-    override func viewDidLoad() {
-
-        super.viewDidLoad()
-
-        guard repoFullName != nil && path != nil else {
-            return
+    
+    lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .grouped)
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.backgroundColor = .clear
+        if #available(iOS 11, *) {
+            tableView.estimatedRowHeight = UITableView.automaticDimension
+            tableView.estimatedSectionFooterHeight = UITableView.automaticDimension
+            tableView.estimatedSectionHeaderHeight = UITableView.automaticDimension
+        } else {
+            tableView.estimatedRowHeight = 44
+            tableView.estimatedSectionFooterHeight = 44
+            tableView.estimatedSectionHeaderHeight = 44
         }
+        tableView.separatorStyle = .none
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.sectionHeaderHeight = CGFloat.leastNonzeroMagnitude
+        tableView.sectionFooterHeight = CGFloat.leastNonzeroMagnitude
+        let nRect = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 0.01)
+        tableView.tableHeaderView = UIView(frame: nRect)
+        tableView.tableFooterView = UIView(frame: nRect)
+        tableView.keyboardDismissMode = .onDrag
+        tableView.contentInsetAdjustmentBehavior = .automatic
+        tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
+        tableView.register(ZLRepoContentTableViewCell.self, forCellReuseIdentifier: "ZLRepoContentTableViewCell")
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0
+        }
+        return tableView
+    }()
 
+    var scrollView: UIScrollView {
+        tableView
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         self.generateContentTree()
-
-        self.setUpUI()
-
-        self.tableView.mj_header?.beginRefreshing()
-
+        self.viewStatus = .loading
+        self.refreshLoadNewData()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -103,39 +119,55 @@ class ZLRepoContentController: ZLBaseViewController {
         }
     }
 
-    func setUpUI() {
+    override func setupUI() {
+        super.setupUI()
         
-        self.title = self.currentContentNode?.name == ""  ? "/" : self.currentContentNode?.name
-
-        self.zlNavigationBar.backButton.isHidden = false
-        self.zlNavigationBar.rightButton = closeButton
+        if let name = self.currentContentNode?.name,
+           !name.isEmpty {
+            self.title = self.currentContentNode?.name
+        } else {
+            self.title = "/"
+        }
+   
+        self.zmNavigationBar.backButton.isHidden = false
+        self.zmNavigationBar.addRightView(closeButton)
 
         self.contentView.addSubview(tableView)
-        tableView.snp.makeConstraints({ (make) in
-            make.edges.equalToSuperview().inset(UIEdgeInsets.init(top: 10, left: 0, bottom: 0, right: 0))
-        })
+        tableView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        setRefreshView(type: .header)
+    
     }
 
     func reloadData() {
-        self.title = self.currentContentNode?.name == ""  ? "/" : self.currentContentNode?.name
-
-        let block = {
-            self.tableView.reloadData()
-            if self.currentContentNode?.subNodes == nil {
-                self.tableView.mj_header?.beginRefreshing()
-            }
+        if let name = self.currentContentNode?.name,
+           !name.isEmpty {
+            self.title = self.currentContentNode?.name
+        } else {
+            self.title = "/"
         }
 
         if self.tableView.mj_header?.isRefreshing ?? false {
-            self.tableView.mj_header?.endRefreshing {
-                block()
-            }
-        } else {
-            block()
+            self.endRefreshViews()
+        }
+        self.tableView.reloadData()
+        if self.currentContentNode?.subNodes == nil {
+            self.viewStatus = .loading
+            self.refreshLoadNewData()
         }
     }
-
-    override func onBackButtonClicked(_ button: UIButton!) {
+    
+    func refreshLoadNewData() {
+        self.setQueryContentRequest()
+    }
+    
+    func refreshLoadMoreData() {
+        //
+    }
+    
+    // MARK: - Action
+    override func onBackButtonClicked(_ button: UIButton) {
         if self.currentContentNode?.parentNode != nil {
             self.currentContentNode = self.currentContentNode?.parentNode
             self.reloadData()
@@ -143,11 +175,10 @@ class ZLRepoContentController: ZLBaseViewController {
             self.navigationController?.popViewController(animated: true)
         }
     }
-
+    
     @objc func onCloseButtonClicked(_button: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
-
 }
 
 // MARK: - Request
@@ -159,43 +190,37 @@ extension ZLRepoContentController {
                                                          serialNumber: NSString.generateSerialNumber())
         { [weak self](resultModel: ZLOperationResultModel) in
             guard let self = self else { return }
-            
-            self.tableView.mj_header?.endRefreshing()
+            self.viewStatus = .normal
+            self.endRefreshViews()
 
-            if resultModel.result == false {
+            if resultModel.result, let data = resultModel.data as? [ZLGithubContentModel] {
+                var dirArray: [ZLRepoContentNode] = []
+                var fileArray: [ZLRepoContentNode] = []
+                for tmpData in data {
+                    let contentNode = ZLRepoContentNode()
+                    contentNode.name = tmpData.name
+                    contentNode.path = tmpData.path
+                    contentNode.parentNode = self.currentContentNode
+                    contentNode.content = tmpData
+                    if tmpData.type == "dir" {
+                        dirArray.append(contentNode)
+                    } else {
+                        fileArray.append(contentNode)
+                    }
+                }
+                dirArray = dirArray.sorted { node1, node2 in
+                    node1.name < node2.name
+                }
+                fileArray = fileArray.sorted { node1, node2 in
+                    node1.name < node2.name
+                }
+            
+                self.currentContentNode?.subNodes = dirArray + fileArray
+                self.tableView.reloadData()
+            } else {
                 let errorModel = resultModel.data as? ZLGithubRequestErrorModel
                 ZLToastView.showMessage("Query content Failed Code [\(errorModel?.statusCode ?? 0)] Message[\(errorModel?.message ?? "")]")
-                return
             }
-
-            guard let data = resultModel.data as? [ZLGithubContentModel] else {
-                ZLToastView.showMessage("ZLGithubContentModel transfer error")
-                return
-            }
-
-            var dirArray: [ZLRepoContentNode] = []
-            var fileArray: [ZLRepoContentNode] = []
-            for tmpData in data {
-                let contentNode = ZLRepoContentNode()
-                contentNode.name = tmpData.name
-                contentNode.path = tmpData.path
-                contentNode.parentNode = self.currentContentNode
-                contentNode.content = tmpData
-                if tmpData.type == "dir" {
-                    dirArray.append(contentNode)
-                } else {
-                    fileArray.append(contentNode)
-                }
-            }
-            dirArray = dirArray.sorted { node1, node2 in
-                node1.name < node2.name
-            }
-            fileArray = fileArray.sorted { node1, node2 in
-                node1.name < node2.name
-            }
-        
-            self.currentContentNode?.subNodes = dirArray + fileArray
-            self.tableView.reloadData()
         }
     }
 }

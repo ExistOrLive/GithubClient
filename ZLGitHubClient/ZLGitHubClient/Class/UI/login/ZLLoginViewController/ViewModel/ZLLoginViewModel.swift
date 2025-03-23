@@ -10,8 +10,8 @@ import UIKit
 import ZLGithubOAuth
 import ZLGitRemoteService
 import ZLUIUtilities
-import ZLBaseUI
 import ZLUtilities
+import ZMMVVM
 
 enum ZLLoginStep {
     case initialize
@@ -33,16 +33,18 @@ enum ZLLoginStep {
     }
 }
 
-class ZLLoginViewModel: ZLBaseViewModel, ZLLoginBaseViewDelegate {
+class ZLLoginViewModel: ZMBaseViewModel, ZLLoginBaseViewDelegate {
 
-    weak var baseView: ZLLoginBaseView?
+    var baseView: ZLLoginBaseView? {
+        zm_view as? ZLLoginBaseView
+    }
 
     private var oauthManager: ZLGithubOAuthManager?
-    
+
     // 登陆操作的流水号
     private var loginSerialNumber: String?
     // 登陆步骤
-    private var step: ZLLoginStep = .initialize
+    private(set) var step: ZLLoginStep = .initialize
     
     
     /// datetime
@@ -54,50 +56,14 @@ class ZLLoginViewModel: ZLBaseViewModel, ZLLoginBaseViewDelegate {
         ZLServiceManager.sharedInstance.loginServiceModel?.unRegisterObserver(self, name: ZLLoginResult_Notification)
     }
 
-    override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
-       
-        guard let targetView = targetView as? ZLLoginBaseView else {
-            return
-        }
-
+    override init() {
+        super.init()
         // 注册对于登陆结果的通知
         ZLServiceManager.sharedInstance.loginServiceModel?.registerObserver(self, selector: #selector(onNotificationArrived(notificaiton:)), name: ZLLoginResult_Notification)
+    }
+    
 
-        baseView = targetView
-        baseView?.delegate = self
-        
-        self.reloadView()
-    }
-    
-    func reloadView() {
-        switch step {
-        case .initialize:
-            self.baseView?.loginButton.isEnabled = true
-            self.baseView?.accessTokenButton.isEnabled = true
-            self.baseView?.loginInfoLabel.text = nil
-            self.baseView?.activityIndicator.isHidden = true
-            self.baseView?.activityIndicator.stopAnimating()
-        case .oauth:
-            self.baseView?.loginButton.isEnabled = false
-            self.baseView?.accessTokenButton.isEnabled = false
-            self.baseView?.loginInfoLabel.text = ZLLocalizedString(string: "ZLLoginStep_logining", comment: "登录中...")
-            self.baseView?.activityIndicator.isHidden = false
-            self.baseView?.activityIndicator.startAnimating()
-        case .gettoken:
-            self.baseView?.loginButton.isEnabled = false
-            self.baseView?.accessTokenButton.isEnabled = false
-            self.baseView?.loginInfoLabel.text = ZLLocalizedString(string: "ZLLoginStep_getToken", comment: "正在获取token....")
-            self.baseView?.activityIndicator.isHidden = false
-            self.baseView?.activityIndicator.startAnimating()
-        case .checktoken:
-            self.baseView?.loginButton.isEnabled = false
-            self.baseView?.accessTokenButton.isEnabled = false
-            self.baseView?.loginInfoLabel.text = ZLLocalizedString(string: "ZLLoginStep_checkToken", comment: "检查token是否有效...")
-            self.baseView?.activityIndicator.isHidden = false
-            self.baseView?.activityIndicator.startAnimating()
-        }
-    }
-    
+   
 
     func onLoginButtonClicked() {
         
@@ -110,7 +76,7 @@ class ZLLoginViewModel: ZLBaseViewModel, ZLLoginBaseViewDelegate {
                                  delegate: self,
                                  vcBlock: { [weak self] vc in
             vc.modalPresentationStyle = .fullScreen
-            self?.viewController?.present(vc, animated: true, completion: nil)
+            self?.zm_viewController?.present(vc, animated: true, completion: nil)
         },
                                  scopes:[.user,.repo,.gist,.notifications,.read_org])
     }
@@ -129,7 +95,7 @@ class ZLLoginViewModel: ZLBaseViewModel, ZLLoginBaseViewDelegate {
             ZLServiceManager.sharedInstance.loginServiceModel?.setAccessToken(token,
                                                                               serialNumber: serialNumber)
             self.step = .checktoken
-            self.reloadView()
+            self.zm_reloadView()
         })
     }
 
@@ -151,7 +117,7 @@ class ZLLoginViewModel: ZLBaseViewModel, ZLLoginBaseViewDelegate {
             if resultModel.result == false {
                 step = .initialize
                 loginSerialNumber = nil
-                reloadView()
+                zm_reloadView()
                 guard let errorModel = resultModel.data as? ZLGithubRequestErrorModel else {
                     return
                 }
@@ -160,7 +126,7 @@ class ZLLoginViewModel: ZLBaseViewModel, ZLLoginBaseViewDelegate {
             } else if resultModel.result  {
                 step = .initialize
                 loginSerialNumber = nil
-                reloadView()
+                zm_reloadView()
                 ZLToastView.showMessage("Login Success")
                 let appDelegate = UIApplication.shared.delegate as? AppDelegate
                 appDelegate?.switch(toMainController: true)
@@ -181,10 +147,10 @@ extension ZLLoginViewModel: ZLGithubOAuthManagerDelegate {
             break
         case .authorize:
             step = .oauth
-            reloadView()
+            zm_reloadView()
         case .getToken:
             step = .gettoken
-            reloadView()
+            zm_reloadView()
             break
         case .fail:
             break
@@ -206,7 +172,7 @@ extension ZLLoginViewModel: ZLGithubOAuthManagerDelegate {
         ZLServiceManager.sharedInstance.loginServiceModel?.setAccessToken(token,
                                                                           serialNumber: serialNumber)
         step = .checktoken
-        reloadView()
+        zm_reloadView()
     }
     
     func onOAuthFail(status: ZLGithubOAuthStatus, error: String) {
@@ -217,7 +183,7 @@ extension ZLLoginViewModel: ZLGithubOAuthManagerDelegate {
                                      "p_errorMsg": error,
                                      "p_time": endTime - startTime])
         step = .initialize
-        reloadView()
+        zm_reloadView()
         oauthManager = nil
         ZLToastView.showMessage(error)
     }

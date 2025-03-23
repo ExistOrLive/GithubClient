@@ -87,7 +87,9 @@ class ZLUserOrOrgInfoController: ZMTableViewController {
                                                      attributes: [.font: UIFont.zlIconFont(withSize: 30),
                                                                   .foregroundColor: UIColor.label(withName: "ICON_Common")]),
                                   for: .normal)
-        button.frame = CGRect.init(x: 0, y: 0, width: 60, height: 60)
+        button.snp.makeConstraints { make in
+            make.size.equalTo(60)
+        }
         button.addTarget(self, action: #selector(onMoreButtonClick(button:)), for: .touchUpInside)
 
         self.zmNavigationBar.addRightView(button)

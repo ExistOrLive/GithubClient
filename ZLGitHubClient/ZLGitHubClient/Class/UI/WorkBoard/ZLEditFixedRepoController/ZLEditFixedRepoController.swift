@@ -9,19 +9,22 @@
 import UIKit
 import ZLUIUtilities
 import ZLGitRemoteService
-import ZLBaseUI
 
-class ZLEditFixedRepoController: ZLBaseViewController, UITableViewDelegate, UITableViewDataSource {
-
+class ZLEditFixedRepoController: ZMViewController, ZLRefreshProtocol {
+   
     var selectedRepos: [ZLGithubCollectedRepoModel] = []
-
+    
     var topRepositories: [ViewerTopRepositoriesQuery.Data.Viewer.TopRepository.Node?] = []
-
+    
     var unselectedRepos: [ZLGithubCollectedRepoModel] = []
-
+    
     var after: String?
-
+    
     // view
+    var scrollView: UIScrollView {
+        tableView
+    }
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: CGRect.zero, style: .grouped)
         tableView.delegate = self
@@ -30,119 +33,81 @@ class ZLEditFixedRepoController: ZLBaseViewController, UITableViewDelegate, UITa
         tableView.register(ZLSimpleRepoTableViewCell.self, forCellReuseIdentifier: "ZLSimpleRepoTableViewCell")
         return tableView
     }()
-
-    var searchViewController: ZLBaseSearchController!
-
-    var searchResulController: ZLEditFixedRepoSearchController!
-
+    
     override func viewDidLoad() {
-
+        
         super.viewDidLoad()
-
-        selectedRepos = ZLServiceManager.sharedInstance.viewerServiceModel?.fixedRepos as? [ZLGithubCollectedRepoModel] ?? []
-
-        self.title = ZLLocalizedString(string: "Repos", comment: "")
-
-        let button = ZLBaseButton.init(type: .custom)
-        button.titleLabel?.font = UIFont.init(name: Font_PingFangSCRegular, size: 14) ?? UIFont.systemFont(ofSize: 14)
-        button.setTitle(ZLLocalizedString(string: "Save", comment: "保存"), for: .normal)
-
-        button.frame = CGRect.init(x: 0, y: 0, width: 70, height: 30)
-        button.addTarget(self, action: #selector(onSaveButtonClicked), for: .touchUpInside)
-
-        let vc = self.viewController
-        vc?.zlNavigationBar.rightButton = button
-
-        let searchResultController = ZLEditFixedRepoSearchController()
-        searchResultController.delegate = self
-        self.searchResulController = searchResultController
-
-        self.searchViewController = ZLBaseSearchController(resultController: searchResultController)
-        self.searchViewController.sourceViewController = self
-        self.searchViewController.delegate = self
-
-        self.contentView.addSubview(self.searchViewController.searchBarContainerView)
-        self.searchViewController.searchBarContainerView.snp.makeConstraints { (make) in
+        
+        selectedRepos = ZLViewerServiceShared()?.fixedRepos as? [ZLGithubCollectedRepoModel] ?? []
+        
+        viewStatus = .loading
+        refreshLoadNewData()
+    }
+    
+    override func setupUI() {
+        super.setupUI()
+        title = ZLLocalizedString(string: "Repos", comment: "")
+        
+        contentView.addSubview(searchBackView)
+        contentView.addSubview(tableView)
+        searchBackView.snp.makeConstraints { make in
             make.top.left.right.equalToSuperview()
             make.height.equalTo(70)
         }
-
-        self.contentView.addSubview(self.tableView)
-        self.tableView.snp.makeConstraints {(make) in
-            make.bottom.left.right.equalToSuperview()
-            make.top.equalTo(self.searchViewController.searchBarContainerView.snp.bottom)
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(searchBackView.snp.bottom)
+            make.left.right.bottom.equalToSuperview()
         }
-        self.tableView.mj_header = ZLRefresh.refreshHeader(refreshingBlock: { [weak self] in
-            self?.loadNewData()
-        })
-        self.tableView.mj_footer = ZLRefresh.refreshFooter(refreshingBlock: { [weak self] in
-            self?.loadMoreData()
-        })
-        self.tableView.mj_header?.beginRefreshing()
+        
+        setRefreshViews(types: [.header,.footer])
+        
+        zmNavigationBar.addRightView(saveButton)
     }
-
-    @objc func onSaveButtonClicked() {
-
-        ZLServiceManager.sharedInstance.viewerServiceModel?.fixedRepos = self.selectedRepos
-        self.navigationController?.popViewController(animated: true)
-    }
-
-    // MARK: - loadData
-    func loadNewData() {
-
-        self.tableView.mj_footer?.resetNoMoreData()
-        ZLServiceManager.sharedInstance.viewerServiceModel?.getMyTopRepos(after: nil ,
-                                                                          serialNumber: NSString.generateSerialNumber()) { [weak weakSelf = self](resultModel: ZLOperationResultModel) in
-
-            if resultModel.result == false {
-                if let errorModel = resultModel.data as? ZLGithubRequestErrorModel {
-                    ZLToastView.showMessage(errorModel.message)
-                }
-                weakSelf?.tableView.mj_header?.endRefreshing()
-                weakSelf?.tableView.mj_footer?.endRefreshing()
-            } else {
-                if let data = resultModel.data as? ViewerTopRepositoriesQuery.Data {
-                    weakSelf?.after = data.viewer.topRepositories.pageInfo.endCursor
-                    weakSelf?.topRepositories.removeAll()
-                    weakSelf?.topRepositories.append(contentsOf: data.viewer.topRepositories.nodes ?? [])
-                    weakSelf?.tableView.mj_header?.endRefreshing()
-                    weakSelf?.reloadData()
-                } else {
-                    weakSelf?.tableView.mj_header?.endRefreshing()
-                }
-            }
+    
+    lazy var searchBackView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(named: "SearchBarBack")
+        view.addSubview(searchButton)
+        searchButton.snp.makeConstraints { make in
+            make.left.equalTo(20)
+            make.top.equalTo(15)
+            make.right.equalTo(-20)
+            make.bottom.equalTo(-15)
+            make.height.equalTo(40)
         }
-    }
-
-    func loadMoreData() {
-
-        ZLServiceManager.sharedInstance.viewerServiceModel?.getMyTopRepos(after: after ,
-                                                                          serialNumber: NSString.generateSerialNumber()) { [weak weakSelf = self] (resultModel: ZLOperationResultModel) in
-
-            if resultModel.result == false {
-                if let errorModel = resultModel.data as? ZLGithubRequestErrorModel {
-                    ZLToastView.showMessage(errorModel.message)
-                }
-                weakSelf?.tableView.mj_header?.endRefreshing()
-                weakSelf?.tableView.mj_footer?.endRefreshing()
-            } else {
-                if let data = resultModel.data as? ViewerTopRepositoriesQuery.Data {
-                    weakSelf?.after = data.viewer.topRepositories.pageInfo.endCursor
-                    weakSelf?.topRepositories.append(contentsOf: data.viewer.topRepositories.nodes ?? [])
-                    if data.viewer.topRepositories.nodes?.count == 0 {
-                        weakSelf?.tableView.mj_footer?.endRefreshingWithNoMoreData()
-                    } else {
-                        weakSelf?.tableView.mj_footer?.endRefreshing()
-                    }
-                    weakSelf?.reloadData()
-                } else {
-                    weakSelf?.tableView.mj_footer?.endRefreshing()
-                }
-            }
+        return view
+    }()
+    
+    lazy var searchButton: UIButton = {
+        let button = ZMButton()
+        button.setTitle(ZLLocalizedString(string: "Search", comment: ""), for: .normal)
+        button.addTarget(self, action: #selector(onSearchButtonClicked), for: .touchUpInside)
+        return button
+    }()
+    
+    
+    lazy var saveButton: UIButton = {
+        let button = ZMButton()
+        button.titleLabel?.font = UIFont.init(name: Font_PingFangSCRegular, size: 14) ?? UIFont.systemFont(ofSize: 14)
+        button.setTitle(ZLLocalizedString(string: "Save", comment: "保存"), for: .normal)
+        button.addTarget(self, action: #selector(onSaveButtonClicked), for: .touchUpInside)
+        button.snp.makeConstraints { make in
+            make.size.equalTo(CGSize(width: 70, height: 30))
         }
-
+        return button
+    }()
+    
+    
+    func refreshLoadNewData() {
+        loadData(isLoadNew: true)
     }
+    
+    func refreshLoadMoreData() {
+        loadData(isLoadNew: false)
+    }
+    
 
+    
     func reloadData() {
         self.unselectedRepos.removeAll()
         for node in self.topRepositories {
@@ -160,8 +125,50 @@ class ZLEditFixedRepoController: ZLBaseViewController, UITableViewDelegate, UITa
         }
         self.tableView.reloadData()
     }
+}
 
-    // MARK: UITableViewDelegate
+extension ZLEditFixedRepoController {
+    
+    func loadData(isLoadNew: Bool) {
+        var after: String? = nil
+        if !isLoadNew {
+            after = self.after
+        }
+        ZLViewerServiceShared()?.getMyTopRepos(after: after ,
+                                               serialNumber: NSString.generateSerialNumber())
+        { [weak self](resultModel: ZLOperationResultModel) in
+            guard let self else { return }
+            self.viewStatus = .normal
+            if resultModel.result,
+               let data = resultModel.data as? ViewerTopRepositoriesQuery.Data {
+                if isLoadNew {
+                    self.topRepositories.removeAll()
+                    self.topRepositories.append(contentsOf: data.viewer.topRepositories.nodes ?? [])
+                } else {
+                    self.topRepositories.append(contentsOf: data.viewer.topRepositories.nodes ?? [])
+                }
+                self.after = data.viewer.topRepositories.pageInfo.endCursor
+                   
+                if data.viewer.topRepositories.nodes?.count == 0 {
+                    self.endRefreshViews(noMoreData: true)
+                } else {
+                    self.endRefreshViews(noMoreData: false)
+                }
+                self.reloadData()
+            } else {
+                if let errorModel = resultModel.data as? ZLGithubRequestErrorModel {
+                    ZLToastView.showMessage(errorModel.message)
+                }
+                self.endRefreshViews()
+            
+            }
+        }
+    }
+}
+
+// MARK: - UITableViewDelegate
+extension ZLEditFixedRepoController: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             self.selectedRepos.remove(at: indexPath.row)
@@ -243,11 +250,23 @@ class ZLEditFixedRepoController: ZLBaseViewController, UITableViewDelegate, UITa
     }
 }
 
+//MARK: - Action
+extension ZLEditFixedRepoController {
+    @objc func onSaveButtonClicked() {
+        ZLServiceManager.sharedInstance.viewerServiceModel?.fixedRepos = self.selectedRepos
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func onSearchButtonClicked() {
+        let vc = ZLEditFixedRepoSearchController()
+        vc.delegate = self
+        self.navigationController?.pushViewController(vc, animated: false)
+    }
+}
+
+//MARK: - ZLEditFixedRepoSearchControllerDelegate
 extension ZLEditFixedRepoController: ZLEditFixedRepoSearchControllerDelegate {
     func onSelectResult(repo: ZLGithubRepositoryModel) {
-
-        self.searchViewController.endSearch(true)
-
         for selectedRepo in self.selectedRepos {
             if selectedRepo.full_name == repo.full_name {
                 return
@@ -258,203 +277,6 @@ extension ZLEditFixedRepoController: ZLEditFixedRepoSearchControllerDelegate {
         collectedRepo.owner_login = repo.owner?.loginName
         collectedRepo.owner_avatarURL = repo.owner?.avatar_url
         selectedRepos.append(collectedRepo)
-        self.tableView.reloadData()
-
-    }
-}
-
-extension ZLEditFixedRepoController: ZLBaseSearchControllerDelegate {
-
-    func searchControllerDidEndEdit(_ searchController: ZLBaseSearchController) {
-
-    }
-
-    func searchControllerDidBecomeEdit(_ searchController: ZLBaseSearchController) {
-
-    }
-
-    func searchControllerDidShowResultController(_ searchController: ZLBaseSearchController) {
-
-    }
-
-    func searchControllerConfirmSearch(_ searchController: ZLBaseSearchController, withSearchKey searchKey: String) {
-
-    }
-
-    func searchControllerCancel(_ searchController: ZLBaseSearchController) {
-        self.searchResulController.reset()
-    }
-
-}
-
-// MARK: ZLEditFixedRepoSearchControllerDelegate
-
-protocol ZLEditFixedRepoSearchControllerDelegate: NSObjectProtocol {
-    func onSelectResult(repo: ZLGithubRepositoryModel)
-}
-
-class ZLEditFixedRepoSearchController: ZLBaseViewController, UITableViewDelegate, UITableViewDataSource {
-
-    weak var delegate: ZLEditFixedRepoSearchControllerDelegate?
-
-    private var tableView: UITableView!
-    private var items: [ZLGithubRepositoryModel] = []
-    private var searchKey: String?
-    private var pageNum: UInt = 0
-
-    override func onZLSearchKeyUpdate(_ searchKey: String) {
-
-    }
-
-    override func onZLSearchKeyConfirm(_ searchKey: String) {
-        self.searchKey = searchKey
-        self.tableView.mj_header?.beginRefreshing()
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        self.tableView = UITableView(frame: CGRect.zero, style: .plain)
-        self.contentView.addSubview(self.tableView)
-        self.tableView.snp.makeConstraints {(make) in
-            make.edges.equalToSuperview()
-        }
-
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        self.tableView.separatorStyle = .none
-        self.tableView.register(ZLSimpleRepoTableViewCell.self, forCellReuseIdentifier: "ZLSimpleRepoTableViewCell")
-
-        weak var selfWeak = self
-        self.tableView?.mj_header = ZLRefresh.refreshHeader(refreshingBlock: {
-            selfWeak?.loadNewData()
-        })
-        self.tableView?.mj_footer = ZLRefresh.refreshFooter(refreshingBlock: {
-            selfWeak?.loadMoreData()
-        })
-    }
-
-    func loadNewData() {
-
-        guard let searchKey = self.searchKey,
-              searchKey.isEmpty else {
-            self.tableView.mj_header?.endRefreshing()
-            return
-        }
-
-        self.items.removeAll()
-        self.tableView.mj_footer?.resetNoMoreData()
-        self.tableView.reloadData()
-
-        ZLServiceManager.sharedInstance.searchServiceModel?.searchInfo(withKeyWord: searchKey,
-                                                 type: .repositories,
-                                                 filterInfo: nil,
-                                                 page: 0,
-                                                 per_page: 20,
-                                                 serialNumber: NSString.generateSerialNumber()) { [weak weakSelf = self](resultModel: ZLOperationResultModel) in
-
-             weakSelf?.tableView.mj_header?.endRefreshing()
-
-            if resultModel.result == true {
-                if let searchResultModel = resultModel.data as? ZLSearchResultModel,
-                   let repos = searchResultModel.data as? [ZLGithubRepositoryModel] {
-                    if repos.count == 0 {
-                        weakSelf?.tableView.mj_footer?.endRefreshingWithNoMoreData()
-                    } else {
-                        self.items.append(contentsOf: repos)
-                        weakSelf?.pageNum = 1
-                        weakSelf?.tableView.reloadData()
-                    }
-                }
-            } else {
-                if let errorModel = resultModel.data as? ZLGithubRequestErrorModel {
-                    ZLToastView.showMessage(errorModel.message)
-                }
-                weakSelf?.tableView.mj_header?.endRefreshing()
-            }
-        }
-
-    }
-
-    func loadMoreData() {
-
-        guard let searchKey = self.searchKey,
-              searchKey.isEmpty else {
-            self.tableView.mj_footer?.endRefreshing()
-            return
-        }
-        ZLServiceManager.sharedInstance.searchServiceModel?.searchInfo(withKeyWord: searchKey,
-                                                 type: .repositories,
-                                                 filterInfo: nil,
-                                                 page: pageNum,
-                                                 per_page: 20,
-                                                 serialNumber: NSString.generateSerialNumber()) {[weak weakSelf = self] (resultModel: ZLOperationResultModel) in
-
-            if resultModel.result == true {
-                if let searchResultModel = resultModel.data as? ZLSearchResultModel,
-                   let repos = searchResultModel.data as? [ZLGithubRepositoryModel] {
-
-                    if repos.count == 0 {
-                        weakSelf?.tableView.mj_footer?.endRefreshingWithNoMoreData()
-                    } else {
-                        weakSelf?.tableView.mj_footer?.endRefreshing()
-                        self.items.append(contentsOf: repos)
-                        weakSelf?.pageNum += 1
-                        weakSelf?.tableView.reloadData()
-                    }
-                }
-
-            } else {
-                if let errorModel = resultModel.data as? ZLGithubRequestErrorModel {
-                    ZLToastView.showMessage(errorModel.message)
-                }
-                weakSelf?.tableView.mj_footer?.endRefreshing()
-            }
-        }
-
-    }
-
-    // UITableView
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.items.count
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "ZLSimpleRepoTableViewCell", for: indexPath) as? ZLSimpleRepoTableViewCell {
-            cell.avatarImageView.loadAvatar(login: items[indexPath.row].owner?.loginName ?? "",
-                                            avatarUrl: items[indexPath.row].owner?.avatar_url ?? "")
-            cell.fullNameLabel.text = self.items[indexPath.row].full_name
-            if indexPath.row == self.items.count - 1 {
-                cell.singleLineView.isHidden = true
-            } else {
-                cell.singleLineView.isHidden = false
-            }
-            return cell
-        } else {
-            return UITableViewCell()
-        }
-    }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
-    }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-        self.delegate?.onSelectResult(repo: self.items[indexPath.row])
-
-        self.searchKey = nil
-        self.items.removeAll()
-        self.pageNum = 0
-
-        self.tableView.reloadData()
-    }
-
-    func reset() {
-        self.searchKey = nil
-        self.items.removeAll()
-        self.pageNum = 0
-
         self.tableView.reloadData()
     }
 }
