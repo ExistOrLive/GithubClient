@@ -131,7 +131,7 @@ class ZLEditAssigneesView: UIView {
     }()
 
     private lazy var saveButton: UIButton = {
-        let button = ZLBaseButton()
+        let button = ZMButton()
         button.setTitle(ZLLocalizedString(string: "Save", comment: ""), for: .normal)
         button.addTarget(self, action: #selector(onSaveButtonClicked), for: .touchUpInside)
         button.titleLabel?.font = UIFont.zlRegularFont(withSize: 12)

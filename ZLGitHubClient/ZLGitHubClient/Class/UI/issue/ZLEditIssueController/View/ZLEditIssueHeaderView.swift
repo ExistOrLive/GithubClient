@@ -37,7 +37,7 @@ class ZLEditIssueHeaderView: UITableViewHeaderFooterView {
     }()
     
     lazy var editButton: UIButton = {
-        let button = ZLBaseButton()
+        let button = ZMButton()
         button.setTitle(ZLLocalizedString(string: "Edit", comment: ""), for: .normal)
         button.titleLabel?.font = .zlRegularFont(withSize: 13)
         return button

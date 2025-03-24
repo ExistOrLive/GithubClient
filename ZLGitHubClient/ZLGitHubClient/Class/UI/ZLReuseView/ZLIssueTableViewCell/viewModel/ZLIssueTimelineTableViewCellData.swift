@@ -9,8 +9,9 @@
 import UIKit
 import ZLBaseExtension
 import ZLGitRemoteService
+import ZMMVVM
 
-class ZLIssueTimelineTableViewCellData: ZLGithubItemTableViewCellData {
+class ZLIssueTimelineTableViewCellData: ZMBaseTableViewCellViewModel {
 
     typealias IssueTimelineData = IssueTimeLineInfoQuery.Data.Repository.Issue.TimelineItem.Node
 
@@ -23,23 +24,13 @@ class ZLIssueTimelineTableViewCellData: ZLGithubItemTableViewCellData {
         super.init()
     }
 
-    override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
-        super.bindModel(targetModel, andView: targetView)
-        if let cell: ZLIssueTimelineTableViewCell = targetView as? ZLIssueTimelineTableViewCell {
-            cell.fillWithData(data: self)
-        }
-    }
-
-    override func getCellReuseIdentifier() -> String {
+    override var zm_cellReuseIdentifier: String {
         return "ZLIssueTimelineTableViewCell"
     }
 
-    override func getCellHeight() -> CGFloat {
-        return UITableView.automaticDimension
-    }
 
-    override func clearCache() {
-        super.clearCache()
+    override func zm_clearCache() {
+        super.zm_clearCache()
         attributedString = nil
     }
 

@@ -7,14 +7,12 @@
 //
 
 import UIKit
-import ZLBaseUI
-import RxSwift
-import RxRelay
 import ZLGitRemoteService
 import ZLUIUtilities
 import ZLUtilities
+import ZMMVVM
 
-class ZLIssueInfoController: ZLBaseViewController {
+class ZLIssueInfoController: ZMTableViewController {
 
     // input model
     @objc var login: String?
@@ -22,6 +20,7 @@ class ZLIssueInfoController: ZLBaseViewController {
     @objc var number: Int = 0
 
     // model
+    var issueData: IssueInfoQuery.Data?
     var after: String?
     var issueId: String?
     
@@ -29,36 +28,54 @@ class ZLIssueInfoController: ZLBaseViewController {
     var commentVC: ZLSubmitCommentController?
     
     // ViewModel
-    var issueHeaderCellData: ZLIssueHeaderTableViewCellData?
     var issueBodyCellData: ZLIssueBodyTableViewCellData?
-    var timelineCellDatas: [ZLGithubItemTableViewCellData] = []
+    var timelineCellDatas: [ZMBaseTableViewCellViewModel] = []
     
-    // Observer
-    let _errorObserver = PublishRelay<Void>()
-    let _setObserver = PublishRelay<([ZLGithubItemTableViewCellData],Bool)>()
-    let _reloadVisibleCellObserver = PublishRelay<[ZLGithubItemTableViewCellData]>()
-    let _canReactObserver = BehaviorRelay<Bool>(value:false)
-
-    private lazy var issueInfoView: ZLIssueInfoView = {
-       let view = ZLIssueInfoView()
-       return view
-    }()
-
+    @objc init() {
+        super.init()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
-        setupUI()
-        
-        issueInfoView.beginRefresh()
+        viewStatus = .loading
+        refreshLoadNewData()
     }
     
     
-    func setupUI() {
+    override func setupUI() {
+        super.setupUI()
         
         self.title = ZLLocalizedString(string: "issue", comment: "")
-
-        self.zlNavigationBar.backButton.isHidden = false
+        
+        self.zmNavigationBar.addRightView(moreButton)
+        
+        self.contentView.addSubview(bottomView)
+        tableView.snp.remakeConstraints { make in
+            make.top.left.right.equalToSuperview()
+        }
+        bottomView.snp.makeConstraints { make in
+            make.top.equalTo(tableView.snp.bottom)
+            make.left.right.bottom.equalToSuperview()
+        }
+        
+        tableView.register(ZLIssueHeaderTableViewCell.self,
+                           forCellReuseIdentifier: "ZLIssueHeaderTableViewCell")
+        tableView.register(ZLIssueCommentTableViewCell.self,
+                           forCellReuseIdentifier: "ZLIssueCommentTableViewCell")
+        tableView.register(ZLIssueTimelineTableViewCell.self,
+                           forCellReuseIdentifier: "ZLIssueTimelineTableViewCell")
+        
+        self.setRefreshViews(types: [.header,.footer])
+    }
+    
+    lazy var moreButton: UIButton = {
         let button = UIButton.init(type: .custom)
         button.setAttributedTitle(NSAttributedString(string: ZLIconFont.More.rawValue,
                                                      attributes: [.font: UIFont.zlIconFont(withSize: 30),
@@ -66,20 +83,34 @@ class ZLIssueInfoController: ZLBaseViewController {
                                   for: .normal)
         button.frame = CGRect.init(x: 0, y: 0, width: 60, height: 60)
         button.addTarget(self, action: #selector(onMoreButtonClick(button:)), for: .touchUpInside)
-
-        self.zlNavigationBar.rightButton = button
-
-        // view
-        self.contentView.addSubview(issueInfoView)
-        issueInfoView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
+        button.snp.makeConstraints { make in
+            make.size.equalTo(60)
         }
-        
-        issueInfoView.fillWithData(viewData: self)
+        return button
+    }()
     
+    lazy private var bottomView: ZLIssueInfoBottomView = {
+        let view = ZLIssueInfoBottomView()
+        view.commentButton.addTarget(self,
+                                     action: #selector(onCommentButtonClick),
+                                     for: .touchUpInside)
+        view.infoButton.addTarget(self,
+                                     action: #selector(onInfoButtonClick),
+                                     for: .touchUpInside)
+        return view
+    }()
+    
+    override func refreshLoadNewData() {
+        requestIssueInfo()
     }
     
+    override func refreshLoadMoreData() {
+        requestIssueTimeline(loadNewData: false)
+    }
+}
 
+// MARK: - Action
+extension ZLIssueInfoController {
     @objc func onMoreButtonClick(button: UIButton) {
 
         let path = "https://www.github.com/\(login?.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? "")/\(repoName?.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? "")/issues/\(number)"
@@ -87,52 +118,7 @@ class ZLIssueInfoController: ZLBaseViewController {
         button.showShareMenu(title: path, url: url, sourceViewController: self)
     }
     
-    func reloadData() {
-        
-        var cellDatas = [ZLGithubItemTableViewCellData]()
-        guard let issueHeaderCellData = issueHeaderCellData,
-           let issueBodyCellData = issueBodyCellData else {
-               _setObserver.accept((cellDatas,false))
-               return
-        }
-        
-        cellDatas.append(issueHeaderCellData)
-        cellDatas.append(issueBodyCellData)
-        cellDatas.append(contentsOf: timelineCellDatas)
-        
-        _setObserver.accept((cellDatas,false))
-    }
-}
-
-extension ZLIssueInfoController {
-    override func getEvent(_ event: Any?, fromSubViewModel subViewModel: ZLBaseViewModel) {
-        if let cellData = subViewModel as? ZLGithubItemTableViewCellData {
-            _reloadVisibleCellObserver.accept([cellData])
-        }
-    }
-}
-
-// MARK: ZLIssueInfoViewDelegateAndDataSource
-extension ZLIssueInfoController: ZLIssueInfoViewDelegateAndDataSource {
-    
-    var setObservable: Observable<([ZLGithubItemTableViewCellData], Bool)> {
-        _setObserver.asObservable()
-    }
-    
-    
-    var canReactObservale: Observable<Bool> {
-        _canReactObserver.asObservable()
-    }
-    
-    var errorObservable: Observable<Void> {
-        _errorObserver.asObservable()
-    }
-    
-    var reloadVisibleCellObservale: Observable<([ZLGithubItemTableViewCellData])> {
-        _reloadVisibleCellObserver.asObservable()
-    }
-    
-    func onCommentButtonClick() {
+    @objc func onCommentButtonClick() {
         guard let issueId = self.issueId else { return }
         if commentVC == nil {
             commentVC = ZLSubmitCommentController()
@@ -144,7 +130,7 @@ extension ZLIssueInfoController: ZLIssueInfoViewDelegateAndDataSource {
         }
     }
     
-    func onInfoButtonClick() {
+    @objc func onInfoButtonClick() {
         let vc = ZLEditIssueController()
         vc.loginName = login
         vc.repoName = repoName
@@ -155,126 +141,92 @@ extension ZLIssueInfoController: ZLIssueInfoViewDelegateAndDataSource {
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
     }
-    
-    func onRefreshPullDown() {
-        requestIssueInfo()
-        requestIssueTimeline(loadNewData: true)
-    }
-
-    func onRefreshPullUp() {
-        requestIssueTimeline(loadNewData: false)
-    }
 }
+
+
+//extension ZLIssueInfoController {
+//    override func getEvent(_ event: Any?, fromSubViewModel subViewModel: ZLBaseViewModel) {
+//        if let cellData = subViewModel as? ZLGithubItemTableViewCellData {
+//            _reloadVisibleCellObserver.accept([cellData])
+//        }
+//    }
+//}
+
 
 //
 extension ZLIssueInfoController {
     
     func requestIssueInfo() {
         
-        guard let login = self.login, let repoName = self.repoName else {
-            _errorObserver.accept(())
-            return
-        }
-
-        ZLEventServiceShared()?.getRepositoryIssueInfo(withLoginName: login,
-                                                       repoName: repoName,
+        ZLEventServiceShared()?.getRepositoryIssueInfo(withLoginName: login ?? "",
+                                                       repoName: repoName ?? "",
                                                        number: Int32(number),
                                                        serialNumber: NSString.generateSerialNumber())
         { [weak self](resultModel: ZLOperationResultModel) in
             
             guard let self = self else { return }
             
-            if resultModel.result == false {
+            if resultModel.result,
+               let data = resultModel.data as? IssueInfoQuery.Data,
+               let issue = data.repository?.issue {
+                self.issueData = data
+                self.title = issue.title
+                self.issueId = issue.id
+                self.bottomView.commentButton.isEnabled = issue.viewerCanReact
+                self.requestIssueTimeline(loadNewData: true)
+            } else {
                 if let errorModel = resultModel.data as? ZLGithubRequestErrorModel {
                     ZLToastView.showMessage(errorModel.message)
                 }
-                self._errorObserver.accept(())
-            } else {
-                if let data = resultModel.data as? IssueInfoQuery.Data {
-                    if let issue = data.repository?.issue {
-                        
-                        if let issueBodyCellData = self.issueBodyCellData,
-                           let issueHeaderCellData = self.issueHeaderCellData {
-                            issueBodyCellData.removeFromSuperViewModel()
-                            issueHeaderCellData.removeFromSuperViewModel()
-                        }
-            
-                        let issueBodyCellData = self.getIssueBodyCellData(data: issue)
-                        let issueHeaderCellData = self.getIssueHeaderCellData(data: data)
-                        self.addSubViewModel(issueBodyCellData)
-                        self.addSubViewModel(issueHeaderCellData)
-                        
-                        self.issueBodyCellData = issueBodyCellData
-                        self.issueHeaderCellData = issueHeaderCellData
-                        self.title = issue.title
-                        self.issueId = issue.id
-                        self._canReactObserver.accept(issue.viewerCanReact)
-                        self.reloadData()
-                        
-                    } else {
-                        ZLToastView.showMessage("Not Found")
-                        self._errorObserver.accept(())
-                    }
-                } else {
-                    self._errorObserver.accept(())
-                }
+                self.endRefreshViews()
+                self.viewStatus = self.tableViewProxy.isEmpty ? .error : .normal
             }
         }
     }
     
     
     func requestIssueTimeline(loadNewData: Bool) {
-        
-        guard let login = self.login, let repoName = self.repoName else {
-            _errorObserver.accept(())
-            return
-        }
-        
-        ZLEventServiceShared()?.getRepositoryIssueTimeline(withLoginName: login,
-                                                           repoName: repoName,
+                
+        ZLEventServiceShared()?.getRepositoryIssueTimeline(withLoginName: login ?? "",
+                                                           repoName: repoName ?? "",
                                                            number: Int32(number),
                                                            after: loadNewData ? nil : after,
                                                            serialNumber: NSString.generateSerialNumber())
         { [weak self](resultModel: ZLOperationResultModel) in
             
             guard let self = self else { return }
-            
-            if resultModel.result == false {
+            if resultModel.result,
+               let data = resultModel.data as? IssueTimeLineInfoQuery.Data,
+               let timelines = data.repository?.issue?.timelineItems {
+                let timelineCellDatas = self.getIssueTimelineCellData(data: timelines)
+                if loadNewData {
+                    self.timelineCellDatas = timelineCellDatas
+                    self.sectionDataArray.forEach { $0.zm_removeFromSuperViewModel() }
+                    var cellDatas: [ZMBaseTableViewCellViewModel] = []
+                    if let issueData, let issue = issueData.repository?.issue  {
+                        cellDatas.append(self.getIssueHeaderCellData(data: issueData))
+                        cellDatas.append(self.getIssueBodyCellData(data: issue))
+                    }
+                    cellDatas.append(contentsOf: timelineCellDatas)
+                    self.sectionDataArray = [ZMBaseTableViewSectionData(cellDatas: cellDatas)]
+                    self.sectionDataArray.forEach { $0.zm_addSuperViewModel(self) }
+                } else {
+                    self.timelineCellDatas.append(contentsOf: timelineCellDatas)
+                    self.sectionDataArray.first?.cellDatas.append(contentsOf: timelineCellDatas)
+                    self.zm_addSubViewModels(timelineCellDatas)
+                }
+                self.after = timelines.pageInfo.endCursor
+                self.tableView.reloadData()
+                self.endRefreshViews(noMoreData: timelineCellDatas.isEmpty)
+                self.viewStatus = self.tableViewProxy.isEmpty ? .empty : .normal
+                
+            } else {
                 if let errorModel = resultModel.data as? ZLGithubRequestErrorModel {
                     ZLToastView.showMessage(errorModel.message)
                 }
-                self._errorObserver.accept(())
-            } else {
-                
-                if let data = resultModel.data as? IssueTimeLineInfoQuery.Data,
-                   let timelines = data.repository?.issue?.timelineItems {
-                    
-                    let cellDatas = self.getIssueTimelineCellData(data: timelines)
-                    if !cellDatas.isEmpty {
-                        
-                        if loadNewData {
-                            for cellData in self.timelineCellDatas {
-                                cellData.removeFromSuperViewModel()
-                            }
-                            self.timelineCellDatas = cellDatas
-                        } else {
-                            self.timelineCellDatas.append(contentsOf: cellDatas)
-                        }
-                        self.addSubViewModels(cellDatas)
-                        self.reloadData()
-                        if let after = timelines.pageInfo.endCursor {
-                            self.after = after
-                        }
-                    } else if cellDatas.isEmpty && !loadNewData {
-                        ZLToastView.showMessage("No More Data")
-                        self._errorObserver.accept(())
-                    } else {
-                        self._errorObserver.accept(())
-                    }
-                
-                } else {
-                    self._errorObserver.accept(())
-                }
+              
+                self.endRefreshViews()
+                self.viewStatus = self.tableViewProxy.isEmpty ? .error : .normal
             }
         }
     }
@@ -283,9 +235,9 @@ extension ZLIssueInfoController {
 
 extension ZLIssueInfoController {
     
-    func getIssueTimelineCellData(data: IssueTimeLineInfoQuery.Data.Repository.Issue.TimelineItem) -> [ZLGithubItemTableViewCellData] {
+    func getIssueTimelineCellData(data: IssueTimeLineInfoQuery.Data.Repository.Issue.TimelineItem) -> [ZMBaseTableViewCellViewModel] {
 
-        var cellDatas: [ZLGithubItemTableViewCellData] = []
+        var cellDatas: [ZMBaseTableViewCellViewModel] = []
 
         if let timelinesArray = data.nodes {
             for tmptimeline in timelinesArray {
@@ -299,7 +251,7 @@ extension ZLIssueInfoController {
                             return false
                         })
                         let cellData = ZLIssueCommentTableViewCellData(data: issueComment,
-                                                                       cellHeight: preCommentData?.getCellHeight())
+                                                                       cellHeight: preCommentData?.zm_cellHeight)
                         cellDatas.append(cellData)
                     } else if timeline.asSubscribedEvent != nil ||
                                 timeline.asUnsubscribedEvent != nil ||
@@ -322,7 +274,9 @@ extension ZLIssueInfoController {
     }
     
     func getIssueBodyCellData(data: IssueInfoQuery.Data.Repository.Issue) -> ZLIssueBodyTableViewCellData {
-        return ZLIssueBodyTableViewCellData(data: data,
-                                            cellHeight: issueBodyCellData?.getCellHeight())
+        let issueBodyCellData = ZLIssueBodyTableViewCellData(data: data,
+                                            cellHeight: issueBodyCellData?.zm_cellHeight)
+        self.issueBodyCellData = issueBodyCellData
+        return issueBodyCellData
     }
 }

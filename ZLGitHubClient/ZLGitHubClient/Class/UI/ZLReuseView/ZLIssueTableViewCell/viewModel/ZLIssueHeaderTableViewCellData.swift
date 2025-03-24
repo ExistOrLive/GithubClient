@@ -9,8 +9,9 @@
 import UIKit
 import ZLBaseExtension
 import ZLGitRemoteService
+import ZMMVVM
 
-class ZLIssueHeaderTableViewCellData: ZLGithubItemTableViewCellData {
+class ZLIssueHeaderTableViewCellData: ZMBaseTableViewCellViewModel {
 
     var data: IssueInfoQuery.Data
 
@@ -19,23 +20,12 @@ class ZLIssueHeaderTableViewCellData: ZLGithubItemTableViewCellData {
         super.init()
     }
     
-    func update(data: IssueInfoQuery.Data) {
-        self.data = data
-    }
+//    func update(data: IssueInfoQuery.Data) {
+//        self.data = data
+//    }
 
-    override func getCellReuseIdentifier() -> String {
+    override var zm_cellReuseIdentifier: String {
         return "ZLIssueHeaderTableViewCell"
-    }
-
-    override func getCellHeight() -> CGFloat {
-        return UITableView.automaticDimension
-    }
-
-    override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
-        super.bindModel(targetModel, andView: targetView)
-        if let cell: ZLIssueHeaderTableViewCell = targetView as? ZLIssueHeaderTableViewCell {
-            cell.fillWithData(data: self)
-        }
     }
 }
 
@@ -60,7 +50,7 @@ extension ZLIssueHeaderTableViewCellData: ZLIssueHeaderTableViewCellDelegate {
                                  backgroundColor: ZLRawLabelColor(name: "ZLLabelColor1")) { [weak self](_, _, _, _) in
 
             if let fullName = self?.data.repository?.nameWithOwner, let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: fullName) {
-                self?.viewController?.navigationController?.pushViewController(vc, animated: true)
+                self?.zm_viewController?.navigationController?.pushViewController(vc, animated: true)
             }
         }
         return text
@@ -80,7 +70,7 @@ extension ZLIssueHeaderTableViewCellData: ZLIssueHeaderTableViewCellDelegate {
 
     func onIssueAvatarClicked() {
         if let name = data.repository?.owner.login, let vc = ZLUIRouter.getUserInfoViewController(loginName: name) {
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            self.zm_viewController?.navigationController?.pushViewController(vc, animated: true)
         }
     }
 }

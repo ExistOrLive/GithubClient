@@ -8,6 +8,7 @@
 
 import UIKit
 import YYText
+import ZMMVVM
 
 protocol ZLIssueHeaderTableViewCellDelegate: NSObjectProtocol {
     func getIssueAuthorLogin() -> String
@@ -22,7 +23,9 @@ protocol ZLIssueHeaderTableViewCellDelegate: NSObjectProtocol {
 
 class ZLIssueHeaderTableViewCell: UITableViewCell {
 
-    weak var delegate: ZLIssueHeaderTableViewCellDelegate?
+    var delegate: ZLIssueHeaderTableViewCellDelegate? {
+        zm_viewModel as? ZLIssueHeaderTableViewCellDelegate
+    }
 
     var avatarButton: UIButton!
     var fullNameLabel: YYLabel!
@@ -109,10 +112,16 @@ class ZLIssueHeaderTableViewCell: UITableViewCell {
         statusLabel = label4
     }
 
-    func fillWithData(data: ZLIssueHeaderTableViewCellDelegate) {
+ 
 
-        delegate = data
+    @objc func onAvatarButtonClicked() {
+        self.delegate?.onIssueAvatarClicked()
+    }
 
+}
+
+extension ZLIssueHeaderTableViewCell: ZMBaseViewUpdatableWithViewData {
+    func zm_fillWithViewData(viewData data: ZLIssueHeaderTableViewCellDelegate) {
         avatarButton.loadAvatar(login: data.getIssueAuthorLogin(), avatarUrl:  data.getIssueAuthorAvatarURL())
         fullNameLabel.attributedText = data.getIssueRepoFullName()
         numberLabel.text = "#\(data.getIssueNumber())"
@@ -130,9 +139,4 @@ class ZLIssueHeaderTableViewCell: UITableViewCell {
             statusLabel.borderColor = UIColor(named: "ZLIssueClosedColor")
         }
     }
-
-    @objc func onAvatarButtonClicked() {
-        self.delegate?.onIssueAvatarClicked()
-    }
-
 }

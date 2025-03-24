@@ -67,7 +67,7 @@ class ZLEditIssueView: UIView {
     }()
     
     private lazy var closeButton: UIButton = {
-       let button = ZLBaseButton()
+       let button = ZMButton()
         button.setTitle(ZLLocalizedString(string: "Close", comment: ""), for: .normal)
         button.titleLabel?.font = UIFont.zlRegularFont(withSize: 14)
         return button

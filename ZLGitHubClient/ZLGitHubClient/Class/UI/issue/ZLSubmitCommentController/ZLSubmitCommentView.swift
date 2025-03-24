@@ -117,14 +117,14 @@ class ZLSubmitCommentView: UIView {
     }()
     
     private lazy var cancelButton: UIButton = {
-       let button = ZLBaseButton()
+       let button = ZMButton()
         button.setTitle(ZLLocalizedString(string: "Cancel", comment: ""), for: .normal)
         button.titleLabel?.font = UIFont.zlRegularFont(withSize: 14)
         return button
     }()
     
     private lazy var submitButton: UIButton = {
-        let button = ZLBaseButton()
+        let button = ZMButton()
         button.setTitle(ZLLocalizedString(string: "submit", comment: ""), for: .normal)
         button.titleLabel?.font = UIFont.zlRegularFont(withSize: 14)
          return button

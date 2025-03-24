@@ -8,6 +8,7 @@
 
 import UIKit
 import WebKit
+import ZMMVVM
 
 protocol ZLIssueCommentTableViewCellDelegate: NSObjectProtocol {
     func getActorAvatarUrl() -> String
@@ -23,7 +24,9 @@ protocol ZLIssueCommentTableViewCellDelegate: NSObjectProtocol {
 
 class ZLIssueCommentTableViewCell: UITableViewCell {
 
-    fileprivate weak var delegate: ZLIssueCommentTableViewCellDelegate?
+    var delegate: ZLIssueCommentTableViewCellDelegate? {
+        zm_viewModel as? ZLIssueCommentTableViewCellDelegate
+    }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -88,13 +91,7 @@ class ZLIssueCommentTableViewCell: UITableViewCell {
         }
     }
 
-    func fillWithData(data: ZLIssueCommentTableViewCellDelegate) {
-        self.delegate = data
-        avatarButton.loadAvatar(login: data.getActorName(), avatarUrl: data.getActorAvatarUrl())
-        actorLabel.text = data.getActorName()
-        timeLabel.text = data.getTime()
-        webView.loadHTMLString(data.getCommentHtml(), baseURL: nil)
-    }
+    
 
     @objc func onAvatarButtonClicked() {
         self.delegate?.onAvatarButtonClicked()
@@ -193,6 +190,15 @@ extension ZLIssueCommentTableViewCell: WKNavigationDelegate {
 //            self?.delegate?.didRowHeightChange(height: height + 110)
 //        }
 //      }
+    }
+}
+
+extension ZLIssueCommentTableViewCell: ZMBaseViewUpdatableWithViewData {
+    func zm_fillWithViewData(viewData data: ZLIssueCommentTableViewCellDelegate) {
+        avatarButton.loadAvatar(login: data.getActorName(), avatarUrl: data.getActorAvatarUrl())
+        actorLabel.text = data.getActorName()
+        timeLabel.text = data.getTime()
+        webView.loadHTMLString(data.getCommentHtml(), baseURL: nil)
     }
 }
 

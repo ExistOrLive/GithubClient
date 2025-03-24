@@ -7,12 +7,13 @@
 //
 
 import UIKit
+import ZMMVVM
 
 protocol ZLIssueTimelineTableViewCellDelegate: NSObjectProtocol {
     func getTimelineMessage() -> NSAttributedString
 }
 
-class ZLIssueTimelineTableViewCell: UITableViewCell {
+class ZLIssueTimelineTableViewCell: UITableViewCell, ZMBaseViewUpdatableWithViewData {
 
     var timelineMessageLabel: UILabel!
 
@@ -60,7 +61,7 @@ class ZLIssueTimelineTableViewCell: UITableViewCell {
         }
     }
 
-    func fillWithData(data: ZLIssueTimelineTableViewCellDelegate) {
+    func zm_fillWithViewData(viewData data: ZLIssueTimelineTableViewCellDelegate) {
         timelineMessageLabel.attributedText = data.getTimelineMessage()
     }
 }

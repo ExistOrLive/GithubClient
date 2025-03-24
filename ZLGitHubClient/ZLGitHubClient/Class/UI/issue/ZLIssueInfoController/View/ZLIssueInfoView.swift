@@ -32,7 +32,7 @@ protocol ZLIssueInfoViewDelegateAndDataSource: NSObjectProtocol {
     func onRefreshPullUp()
 }
 
-class ZLIssueInfoView: ZLBaseView {
+class ZLIssueInfoView: UIView {
     
     private weak var delegate: ZLIssueInfoViewDelegateAndDataSource?
    
@@ -149,7 +149,7 @@ extension ZLIssueInfoView: ZLGithubItemListViewDelegate {
 }
 
 // MARK: ZLIssueInfoBottomView
-private class ZLIssueInfoBottomView: UIView {
+class ZLIssueInfoBottomView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)

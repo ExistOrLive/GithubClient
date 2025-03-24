@@ -9,8 +9,9 @@
 import UIKit
 import WebKit
 import ZLGitRemoteService
+import ZMMVVM
 
-class ZLIssueBodyTableViewCellData: ZLGithubItemTableViewCellData {
+class ZLIssueBodyTableViewCellData: ZMBaseTableViewCellViewModel {
 
     typealias IssueData = IssueInfoQuery.Data.Repository.Issue
 
@@ -27,23 +28,16 @@ class ZLIssueBodyTableViewCellData: ZLGithubItemTableViewCellData {
         }
     }
 
-    override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
-        super.bindModel(targetModel, andView: targetView)
-        if let cell: ZLIssueCommentTableViewCell = targetView as? ZLIssueCommentTableViewCell {
-            cell.fillWithData(data: self)
-        }
-    }
-
-    override func getCellReuseIdentifier() -> String {
+    override var zm_cellReuseIdentifier: String {
         return "ZLIssueCommentTableViewCell"
     }
 
-    override func getCellHeight() -> CGFloat {
+    override var zm_cellHeight: CGFloat {
         return cellHeight
     }
 
-    override func clearCache() {
-        super.clearCache()
+    override func zm_clearCache() {
+        super.zm_clearCache()
         self.cacheHtml = nil
     }
 
@@ -129,7 +123,7 @@ extension ZLIssueBodyTableViewCellData: ZLIssueCommentTableViewCellDelegate {
 
     func onAvatarButtonClicked() {
         if let login = data.author?.login, let vc = ZLUIRouter.getUserInfoViewController(loginName: login) {
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            self.zm_viewController?.navigationController?.pushViewController(vc, animated: true)
         }
     }
 
@@ -138,7 +132,10 @@ extension ZLIssueBodyTableViewCellData: ZLIssueCommentTableViewCellDelegate {
             return
         }
         cellHeight = height
-        self.super?.getEvent(nil, fromSubViewModel: self)
+        (self.zm_superViewModel as? ZLIssueInfoController)?.tableView.performBatchUpdates({
+            
+        })
+       // self.super?.getEvent(nil, fromSubViewModel: self)
     }
 
     func didClickLink(url: URL) {
