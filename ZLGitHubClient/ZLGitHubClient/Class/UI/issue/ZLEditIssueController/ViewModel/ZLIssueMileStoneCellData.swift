@@ -8,9 +8,9 @@
 
 import UIKit
 import ZLGitRemoteService
-import ZLBaseUI
+import ZMMVVM
 
-class ZLIssueMileStoneCellData: ZLGithubItemTableViewCellData {
+class ZLIssueMileStoneCellData: ZMBaseTableViewCellViewModel {
     
     let data: IssueEditInfoQuery.Data.Repository.Issue.Milestone
     
@@ -19,12 +19,8 @@ class ZLIssueMileStoneCellData: ZLGithubItemTableViewCellData {
         super.init()
     }
     
-    override func getCellReuseIdentifier() -> String {
+    override var zm_cellReuseIdentifier: String {
         return "ZLIssueMilestoneCell"
-    }
-
-    override func getCellHeight() -> CGFloat {
-        UITableView.automaticDimension
     }
 }
 

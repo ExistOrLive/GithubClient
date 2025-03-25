@@ -8,8 +8,8 @@
 
 import UIKit
 import ZLUIUtilities
-import ZLBaseUI
 import ZLBaseExtension
+import ZMMVVM
 
 protocol ZLIssueMilestoneCellDelegateAndDataSource {
     
@@ -80,12 +80,9 @@ extension ZLIssueMilestoneCell {
     }
 }
 
-extension ZLIssueMilestoneCell: ZLViewUpdatableWithViewData {
-    func justUpdateView() {
-        
-    }
+extension ZLIssueMilestoneCell: ZMBaseViewUpdatableWithViewData {
     
-    func fillWithViewData(viewData: ZLIssueMilestoneCellDelegateAndDataSource) {
+    func zm_fillWithViewData(viewData: ZLIssueMilestoneCellDelegateAndDataSource) {
         
         milestoneTitleLabel.text = viewData.title
         progressView.set(params: [(viewData.percent,UIColor.back(withName: "done")),

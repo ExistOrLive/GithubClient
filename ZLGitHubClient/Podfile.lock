@@ -215,12 +215,10 @@ PODS:
   - YYText (1.0.7)
   - ZLBaseExtension (1.2.0):
     - YYText
-  - ZLBaseUI (1.2.1):
-    - Masonry
   - ZLGithubOAuth (1.2.0):
     - Alamofire
     - SnapKit
-    - ZLBaseUI
+    - ZLUIUtilities
   - ZLGitRemoteService (1.4.0):
     - Alamofire
     - Apollo (~> 0.39.0)
@@ -240,7 +238,6 @@ PODS:
     - SnapKit
     - Toast
     - ZLBaseExtension
-    - ZLBaseUI
     - ZLUtilities
     - ZMMVVM
   - ZLUtilities (0.1.0)
@@ -275,8 +272,7 @@ DEPENDENCIES:
   - Umbrella/Firebase
   - YYText
   - ZLBaseExtension (from `../../ZLBaseExtension`)
-  - ZLBaseUI (from `../../ZLBaseUI`)
-  - ZLGithubOAuth (from `https://github.com/ExistOrLive/ZLGithubOAuth.git`, tag `1.2.0`)
+  - ZLGithubOAuth (from `../../ZLGithubOAuth`)
   - ZLGitRemoteService (from `../../ZLGitRemoteService`)
   - ZLUIUtilities (from `../../ZLUIUtilities`)
   - ZLUtilities (from `../../ZLUtilities`)
@@ -336,11 +332,8 @@ EXTERNAL SOURCES:
     :podspec: ZLGitHubClient/System/ZLSupportFiles/Toast.podspec
   ZLBaseExtension:
     :path: "../../ZLBaseExtension"
-  ZLBaseUI:
-    :path: "../../ZLBaseUI"
   ZLGithubOAuth:
-    :git: https://github.com/ExistOrLive/ZLGithubOAuth.git
-    :tag: 1.2.0
+    :path: "../../ZLGithubOAuth"
   ZLGitRemoteService:
     :path: "../../ZLGitRemoteService"
   ZLUIUtilities:
@@ -349,11 +342,6 @@ EXTERNAL SOURCES:
     :path: "../../ZLUtilities"
   ZMMVVM:
     :path: "../../ZMMVVM"
-
-CHECKOUT OPTIONS:
-  ZLGithubOAuth:
-    :git: https://github.com/ExistOrLive/ZLGithubOAuth.git
-    :tag: 1.2.0
 
 SPEC CHECKSUMS:
   Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
@@ -404,13 +392,12 @@ SPEC CHECKSUMS:
   Umbrella: 4faf9786a6b29197608f6483711271104d237646
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZLBaseExtension: c052fc930ae508a09d1640580357263896486d3e
-  ZLBaseUI: 2815898555602f9bebb23ca0277ff5352d2a2952
-  ZLGithubOAuth: 2d9879eac1d41d45206e6e92463afae2537ec44d
+  ZLGithubOAuth: 1bda62ff6ab23bccc254531480f429154e97dcef
   ZLGitRemoteService: 3ac13558ee6c1d1acf0b2f542712d2dae8dc6a3b
-  ZLUIUtilities: e7f87717526b56c479d5839c5aa26c5a0b3a3af9
+  ZLUIUtilities: 216d4b7d5babfb1f4f5ff69c930ae3e60c7b7ea0
   ZLUtilities: f47279dc92b4854fb2e2abb86b841dc8cd16e5a1
   ZMMVVM: cea3ec4d56906c18b4713e188c177904784bba33
 
-PODFILE CHECKSUM: 075fca8c4c77e5226ae70896f2a5d9bfec28f250
+PODFILE CHECKSUM: 1e3c2bc7a532e2922c28203a7047f9a6090f8f9c
 
 COCOAPODS: 1.15.2

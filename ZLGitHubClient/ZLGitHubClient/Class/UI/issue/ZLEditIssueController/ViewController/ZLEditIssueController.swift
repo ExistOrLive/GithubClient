@@ -7,14 +7,27 @@
 //
 
 import UIKit
-import ZLBaseUI
 import ZLUIUtilities
 import ZLBaseExtension
-import RxSwift
-import RxRelay
+import ZMMVVM
 import ZLGitRemoteService
 
-class ZLEditIssueController: ZLBaseViewController {
+enum ZLEditIssueSectionType: String, ZMBaseSectionUniqueIDProtocol {
+    var zm_ID: String { return self.rawValue }
+    case assignees
+    case label
+    case project
+    case milestone
+    case operation
+}
+
+enum ZLEditIssueOperationType {
+    case closeOrOpen
+    case lock
+    case subscribe
+}
+
+class ZLEditIssueController: ZMTableViewController {
     
     // Entry Params
     var loginName: String?
@@ -25,50 +38,87 @@ class ZLEditIssueController: ZLBaseViewController {
     
     private var data: IssueEditInfoQuery.Data?
     
-    private var _sectionType = [ZLEditIssueSectionType]()
-    private var _refreshEvent = PublishRelay<Void>()
-    private var _titleEvent = BehaviorRelay<String>(value: ZLLocalizedString(string: "Issue", comment: ""))
-
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
-        editIssueView.viewStatus = .loading
+        viewStatus = .loading
         requestNewData()
     }
     
-    lazy var editIssueView: ZLEditIssueView = {
-        ZLEditIssueView()
-    }()
-
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func setupUI() {
+        super.setupUI()
+        contentView.addSubview(headerView)
+        
+        headerView.snp.makeConstraints { make in
+            make.top.left.right.equalToSuperview()
+            make.bottom.equalTo(contentView.safeAreaLayoutGuide.snp.top).offset(60)
+        }
+        
+        tableView.snp.remakeConstraints { make in
+            make.top.equalTo(headerView.snp.bottom)
+            make.left.right.bottom.equalToSuperview()
+        }
+        
+        tableView.register(ZLSimpleUserTableViewCell.self, forCellReuseIdentifier: "ZLSimpleUserTableViewCell")
+        tableView.register(ZLIssueLabelsCell.self, forCellReuseIdentifier: "ZLIssueLabelsCell")
+        tableView.register(ZLIssueProjectCell.self, forCellReuseIdentifier: "ZLIssueProjectCell")
+        tableView.register(ZLIssueMilestoneCell.self, forCellReuseIdentifier: "ZLIssueMilestoneCell")
+        tableView.register(ZLIssueNoneCell.self, forCellReuseIdentifier: "ZLIssueNoneCell")
+        tableView.register(ZLIssueOperateCell.self, forCellReuseIdentifier: "ZLIssueOperateCell")
+        tableView.register(ZLEditIssueHeaderView.self, forHeaderFooterViewReuseIdentifier: "ZLEditIssueHeaderView")
+        tableView.register(ZLCommonSectionHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: "ZLCommonSectionHeaderFooterView")
     }
+    
+    private lazy var headerView: UIView = {
+       let view = UIView()
+        view.backgroundColor = UIColor(named:"ZLNavigationBarBackColor")
+        view.addSubview(closeButton)
+        view.addSubview(titleLabel)
+        titleLabel.snp.makeConstraints { make in
+            make.height.equalTo(60)
+            make.bottom.equalToSuperview()
+            make.left.equalTo(100)
+            make.right.equalTo(-100)
+        }
+        closeButton.snp.makeConstraints { make in
+            make.size.equalTo(CGSize(width: 70, height: 30))
+            make.bottom.equalTo(-15)
+            make.left.equalTo(10)
+        }
+        return view
+    }()
+    
+    private lazy var closeButton: UIButton = {
+       let button = ZMButton()
+        button.setTitle(ZLLocalizedString(string: "Close", comment: ""), for: .normal)
+        button.titleLabel?.font = UIFont.zlRegularFont(withSize: 14)
+        button.addTarget(self, action: #selector(onBackButtonClicked(_ :)), for:.touchUpInside)
+        return button
+    }()
+        
+    private lazy var titleLabel: UILabel = {
+       let label = UILabel()
+        label.textColor = UIColor(named: "ZLNavigationBarTitleColor")
+        label.font = UIFont(name:Font_PingFangSCMedium , size: 18)
+        label.text = ZLLocalizedString(string: "Issue", comment: "")
+        label.textAlignment = .center
+        label.adjustsFontSizeToFitWidth = true
+        label.numberOfLines = 2
+        return label
+    }()
+    
 }
 
 extension ZLEditIssueController {
-    
-    func setupUI() {
-    
-        contentView.addSubview(editIssueView)
-        editIssueView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        
-        // bind 
-        editIssueView.fillWithData(data: self)
-    }
-    
+  
+
     func generateSubViewModel() {
         
-        let subViewModels = self.subViewModels
-        for viewModel in subViewModels {
-            viewModel.removeFromSuperViewModel()
-        }
-        _sectionType.removeAll()
+        self.sectionDataArray.forEach { $0.zm_removeFromSuperViewModel() }
+        self.sectionDataArray.removeAll()
         
         // assignees
+        let assigneesSectionData = ZMBaseTableViewSectionData(zm_sectionID: ZLEditIssueSectionType.assignees)
+        assigneesSectionData.headerData = ZLEditIssueHeaderViewData(sectionType: .assignees)
         if let assignees = data?.repository?.issue?.assignees.nodes,
            !assignees.isEmpty {
             var assigneesViewModels = [ZLSimpleUserTableViewCellData]()
@@ -76,45 +126,56 @@ extension ZLEditIssueController {
                 let viewModel = ZLSimpleUserTableViewCellData(loginName: assignee?.login ?? "", avatarUrl: assignee?.avatarUrl ?? "")
                 assigneesViewModels.append(viewModel)
             }
-            _sectionType.append(.assignees(assigneesViewModels))
+            assigneesSectionData.cellDatas = assigneesViewModels
         } else {
-            _sectionType.append(.assignees([ZLIssueNoneCellData(info: ZLLocalizedString(string: "No one assigned", comment: ""))]))
+            assigneesSectionData.cellDatas = [ZLIssueNoneCellData(info: ZLLocalizedString(string: "No one assigned", comment: ""))]
         }
+        self.sectionDataArray.append(assigneesSectionData)
         
         // label
+        let labelSectionData = ZMBaseTableViewSectionData(zm_sectionID: ZLEditIssueSectionType.label)
+        labelSectionData.headerData = ZLEditIssueHeaderViewData(sectionType: .label)
         if let labels = data?.repository?.issue?.labels,
            !(labels.nodes?.isEmpty ?? false) {
             let viewModel = ZLIssueLabelsCellData(data: labels)
-            _sectionType.append(.label(viewModel))
+            labelSectionData.cellDatas = [viewModel]
         } else {
-            _sectionType.append(.label(ZLIssueNoneCellData(info: ZLLocalizedString(string: "None yet", comment: ""))))
+            labelSectionData.cellDatas = [ZLIssueNoneCellData(info: ZLLocalizedString(string: "None yet", comment: ""))]
         }
+        self.sectionDataArray.append(labelSectionData)
         
         // project
+        let projectSectionData = ZMBaseTableViewSectionData(zm_sectionID: ZLEditIssueSectionType.project)
+        projectSectionData.headerData = ZLEditIssueHeaderViewData(sectionType: .project)
         if let projects = data?.repository?.issue?.projectCards.nodes,
            !projects.isEmpty {
-            var projectViewModels = [ZLIssueProjectCellData]()
-            for project in projects {
-                if let project = project {
-                    let viewModel = ZLIssueProjectCellData(data: project)
-                    projectViewModels.append(viewModel)
+            let projectViewModels = projects.compactMap {
+                if let project = $0 {
+                    return ZLIssueProjectCellData(data: project)
+                } else {
+                    return nil
                 }
             }
-            _sectionType.append(.project(projectViewModels))
+            projectSectionData.cellDatas = projectViewModels
         } else {
-            _sectionType.append(.project([ZLIssueNoneCellData(info: ZLLocalizedString(string: "None yet", comment: ""))]))
+            projectSectionData.cellDatas = [ZLIssueNoneCellData(info: ZLLocalizedString(string: "None yet", comment: ""))]
         }
+        self.sectionDataArray.append(projectSectionData)
         
         // milestone
+        let milestoneSectionData = ZMBaseTableViewSectionData(zm_sectionID: ZLEditIssueSectionType.milestone)
+        milestoneSectionData.headerData = ZLEditIssueHeaderViewData(sectionType: .milestone)
         if let milestone = data?.repository?.issue?.milestone {
             let viewModel = ZLIssueMileStoneCellData(data: milestone)
-            _sectionType.append(.milestone([viewModel]))
+            milestoneSectionData.cellDatas = [viewModel]
         } else {
-            _sectionType.append(.milestone([ZLIssueNoneCellData(info: ZLLocalizedString(string: "No milestone", comment: ""))]))
+            milestoneSectionData.cellDatas = [ZLIssueNoneCellData(info: ZLLocalizedString(string: "No milestone", comment: ""))]
         }
+        self.sectionDataArray.append(milestoneSectionData)
+        
         
         // Operation
-        var operationsCellDatas = [ZLGithubItemTableViewCellData]()
+        var operationsCellDatas = [ZMBaseTableViewCellViewModel]()
         if data?.repository?.issue?.viewerCanSubscribe ?? false {
             let turnOn = data?.repository?.issue?.viewerSubscription == .subscribed
             operationsCellDatas.append(ZLIssueOperateCellData(operationType: .subscribe,
@@ -139,17 +200,27 @@ extension ZLEditIssueController {
         }
         
         if !operationsCellDatas.isEmpty {
-            _sectionType.append(.operation(operationsCellDatas))
+            let operationsSectionData = ZMBaseTableViewSectionData(zm_sectionID: ZLEditIssueSectionType.operation)
+            operationsSectionData.cellDatas = operationsCellDatas
+            operationsSectionData.headerData = ZLCommonSectionHeaderFooterViewDataV2(viewHeight: 20)
+            operationsSectionData.footerData = ZLCommonSectionHeaderFooterViewDataV2(viewHeight: 30)
+            self.sectionDataArray.append(operationsSectionData)
         }
-        
-
+    
+        self.sectionDataArray.forEach { $0.zm_addSuperViewModel(self) }
     }
     
     func reloadView() {
-        // 刷新
-        _refreshEvent.accept(())
+        guard let data else { return }
+        self.titleLabel.text = data.repository?.issue?.title ?? ""
+        self.tableView.reloadData()
     }
     
+    
+}
+
+// MARK: - Action
+extension ZLEditIssueController {
     func onOperationAction(type: ZLEditIssueOperationType) {
         switch type {
         case .closeOrOpen:
@@ -160,30 +231,12 @@ extension ZLEditIssueController {
             requestLockIssue()
         }
     }
-}
-
-// MARK: - ZLEditIssueViewDelegateAndSource
-extension ZLEditIssueController: ZLEditIssueViewDelegateAndSource {
-   
-    var sectionTypes: [ZLEditIssueSectionType] {
-        _sectionType
-    }
-    
-    var refreshEvent: Observable<Void> {
-        _refreshEvent.asObservable()
-    }
-    
-    var titleObservable: Observable<String> {
-        _titleEvent.asObservable()
-    }
     
     var viewerCanUpdate: Bool {
         data?.repository?.issue?.viewerCanUpdate ?? false
     }
     
-    func onCloseAction() {
-        onBackButtonClicked(nil)
-    }
+  
     
     func onEditAssigneeAction() {
         guard let participants = data?.repository?.issue?.participants.nodes,
@@ -207,8 +260,8 @@ extension ZLEditIssueController: ZLEditIssueViewDelegateAndSource {
             self?.requestEditAssignee(addID: addIds, removeID: removeIds)
         }
     }
-
 }
+
 
 // MARK: -  Request
 
@@ -216,39 +269,25 @@ extension ZLEditIssueController {
     
     func requestNewData() {
         
-        guard let loginName = self.loginName,
-              let repoName = self.repoName else {
-                  return
-              }
-        
-
-        
-        ZLEventServiceShared()?.getIssueEditInfo(withLoginName: loginName,
-                                                 repoName: repoName,
+        ZLEventServiceShared()?.getIssueEditInfo(withLoginName: loginName ?? "",
+                                                 repoName: repoName ?? "" ,
                                                  number: Int32(number),
                                                  serialNumber: NSString.generateSerialNumber())
         { [weak self] result in
             
             guard let self = self else { return }
             
-
-            
-            
-            if result.result {
-                guard let data = result.data as? IssueEditInfoQuery.Data else {
-                    return
-                }
-                self.editIssueView.viewStatus = .normal
+            if result.result,
+               let data = result.data as? IssueEditInfoQuery.Data {
+                self.viewStatus = .normal
                 self.data = data
                 self.generateSubViewModel()
-                let title = data.repository?.issue?.title ?? ""
-                self._titleEvent.accept(title)
                 self.reloadView()
             } else {
                 guard let errorModel = result.data as? ZLGithubRequestErrorModel else {
                     return
                 }
-                self.editIssueView.viewStatus = .error
+                self.viewStatus = .error
                 ZLToastView.showMessage(errorModel.message)
             }
         }

@@ -9,8 +9,9 @@
 import UIKit
 import ZLBaseExtension
 import ZLGitRemoteService
+import ZMMVVM
 
-class ZLIssueLabelsCellData: ZLGithubItemTableViewCellData {
+class ZLIssueLabelsCellData: ZMBaseTableViewCellViewModel {
     
     let data: IssueEditInfoQuery.Data.Repository.Issue.Label
     
@@ -19,13 +20,10 @@ class ZLIssueLabelsCellData: ZLGithubItemTableViewCellData {
         super.init()
     }
     
-    override func getCellReuseIdentifier() -> String {
+    override var zm_cellReuseIdentifier: String {
         return "ZLIssueLabelsCell"
     }
 
-    override func getCellHeight() -> CGFloat {
-        UITableView.automaticDimension
-    }
 }
 
 extension ZLIssueLabelsCellData: ZLIssueLabelsCellDataSource {

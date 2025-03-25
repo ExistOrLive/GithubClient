@@ -7,13 +7,13 @@
 //
 
 import UIKit
-import ZLBaseUI
 import ZLUIUtilities
 import ZLBaseExtension
 import ZLGitRemoteService
 import ZLUtilities
+import ZMMVVM
 
-class ZLPRInfoController: ZLBaseViewController {
+class ZLPRInfoController: ZMTableViewController {
 
     // input model
     @objc var login: String?
@@ -21,22 +21,51 @@ class ZLPRInfoController: ZLBaseViewController {
     @objc var number: Int = 0
 
     var after: String?
+    
+    var tmpCellDatas: [ZMBaseTableViewCellViewModel] = []
 
-    // view
-    private lazy var itemListView: ZLGithubItemListView = {
-        let itemListView = ZLGithubItemListView()
-        itemListView.setTableViewHeader()
-        itemListView.setTableViewFooter()
-        itemListView.delegate = self
-        return itemListView
-    }()
-
+    @objc init() {
+        super.init()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+  
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewStatus = .loading
+        refreshLoadNewData()
+    }
 
+    override func setupUI() {
+        super.setupUI()
+        
         self.title = ZLLocalizedString(string: "PullRequest", comment: "")
-
-        self.zlNavigationBar.backButton.isHidden = false
+    
+        self.zmNavigationBar.addRightView(moreButton)
+      
+        tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 20, right: 0)
+        tableView.register(ZLPullRequestHeaderTableViewCell.self,
+                           forCellReuseIdentifier: "ZLPullRequestHeaderTableViewCell")
+        tableView.register(ZLPullRequestCommentTableViewCell.self,
+                           forCellReuseIdentifier: "ZLPullRequestCommentTableViewCell")
+        tableView.register(ZLPullRequestTimelineTableViewCell.self, 
+                           forCellReuseIdentifier: "ZLPullRequestTimelineTableViewCell")
+        
+        self.setRefreshViews(types: [.header,.footer])
+    }
+    
+    override func refreshLoadNewData() {
+        loadData(isLoadNew:true)
+    }
+    
+    override func refreshLoadMoreData() {
+        loadData(isLoadNew:false)
+    }
+    
+    lazy var moreButton: UIButton = {
         let button = UIButton.init(type: .custom)
         button.setAttributedTitle(NSAttributedString(string: ZLIconFont.More.rawValue,
                                                      attributes: [.font: UIFont.zlIconFont(withSize: 30),
@@ -44,17 +73,15 @@ class ZLPRInfoController: ZLBaseViewController {
                                   for: .normal)
         button.frame = CGRect.init(x: 0, y: 0, width: 60, height: 60)
         button.addTarget(self, action: #selector(onMoreButtonClick(button:)), for: .touchUpInside)
-
-        self.zlNavigationBar.rightButton = button
-
-        // view
-        self.contentView.addSubview(itemListView)
-        itemListView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
+        button.snp.makeConstraints { make in
+            make.size.equalTo(60)
         }
-        itemListView.beginRefresh()
-    }
+        return button
+    }()
+}
 
+// MARK: - Action
+extension ZLPRInfoController {
     @objc func onMoreButtonClick(button: UIButton) {
 
         let path = "https://www.github.com/\(login?.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? "")/\(repoName?.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? "")/pull/\(number)"
@@ -65,101 +92,60 @@ class ZLPRInfoController: ZLBaseViewController {
     }
 }
 
+// MARK: - Request
 extension ZLPRInfoController {
-    override func getEvent(_ event: Any?, fromSubViewModel subViewModel: ZLBaseViewModel) {
-        if subViewModel is ZLGithubItemTableViewCellData {
-            self.itemListView.batchUpdatesHeight()
-        }
-    }
-}
 
-extension ZLPRInfoController: ZLGithubItemListViewDelegate {
+    func loadData(isLoadNew: Bool) {
+        ZLEventServiceShared()?.getPRInfo(withLogin: login ?? "",
+                                          repoName: repoName ?? "",
+                                          number: Int32(number),
+                                          after: isLoadNew ? nil : after,
+                                          serialNumber: NSString.generateSerialNumber())
+        { [weak self](resultModel: ZLOperationResultModel) in
+            guard let self else { return }
+    
+            
+            if resultModel.result,
+               let data = resultModel.data as? PrInfoQuery.Data {
+                
+                self.title = data.repository?.pullRequest?.title
+                self.after = data.repository?.pullRequest?.timelineItems.pageInfo.endCursor
+                let cellDatas = self.getCellDatasWithPRModel(data: data,
+                                                             firstPage: isLoadNew)
+                self.zm_addSubViewModels(cellDatas)
+                if isLoadNew {
+                    self.tmpCellDatas = cellDatas
+                    self.sectionDataArray.forEach { $0.zm_removeFromSuperViewModel() }
+                    self.sectionDataArray = [ZMBaseTableViewSectionData(cellDatas: cellDatas)]
+                } else {
+                    self.tmpCellDatas.append(contentsOf: cellDatas)
+                    self.sectionDataArray.first?.cellDatas.append(contentsOf: cellDatas)
+                }
+                
+                
+                self.tableView.reloadData()
+                self.endRefreshViews(noMoreData: cellDatas.isEmpty)
+                self.viewStatus = self.tableViewProxy.isEmpty ? .empty : .normal
 
-    func githubItemListViewRefreshDragDown(pullRequestListView: ZLGithubItemListView) {
-
-        guard let login = self.login, let repoName = self.repoName else {
-            self.itemListView.endRefreshWithError()
-            return
-        }
-
-        ZLServiceManager.sharedInstance.eventServiceModel?.getPRInfo(withLogin: login,
-                                                                        repoName: repoName,
-                                                                        number: Int32(number),
-                                                                        after: nil,
-                                                                        serialNumber: NSString.generateSerialNumber()) { [weak self](resultModel: ZLOperationResultModel) in
-
-            if resultModel.result == false {
+            } else {
                 if let errorModel = resultModel.data as? ZLGithubRequestErrorModel {
                     ZLToastView.showMessage(errorModel.message)
                 }
-                self?.itemListView.endRefreshWithError()
-            } else {
-
-                if let data = resultModel.data as? PrInfoQuery.Data {
-
-                    self?.title = data.repository?.pullRequest?.title
-                    
-                    let cellDatas = self?.getCellDatasWithPRModel(data: data,
-                                                                  firstPage: true) ?? []
-                    self?.after = data.repository?.pullRequest?.timelineItems.pageInfo.endCursor
-                    self?.addSubViewModels(cellDatas)
-                    self?.itemListView.resetCellDatas(cellDatas: cellDatas)
-                } else {
-                    self?.itemListView.endRefreshWithError()
-                }
+                self.endRefreshViews()
+                self.viewStatus = self.tableViewProxy.isEmpty ? .error : .normal
             }
         }
-
     }
-
-    func githubItemListViewRefreshDragUp(pullRequestListView: ZLGithubItemListView) {
-
-        guard let login = self.login, let repoName = self.repoName else {
-            self.itemListView.endRefreshWithError()
-            return
-        }
-
-        ZLServiceManager.sharedInstance.eventServiceModel?.getPRInfo(withLogin: login,
-                                                                        repoName: repoName,
-                                                                        number: Int32(number),
-                                                                        after: after,
-                                                                        serialNumber: NSString.generateSerialNumber()) { [weak self](resultModel: ZLOperationResultModel) in
-
-            if resultModel.result == false {
-                if let errorModel = resultModel.data as? ZLGithubRequestErrorModel {
-                    ZLToastView.showMessage(errorModel.message)
-                }
-                self?.itemListView.endRefreshWithError()
-            } else {
-
-                if let data = resultModel.data as? PrInfoQuery.Data {
-
-                    self?.title = data.repository?.pullRequest?.title
-
-                    let cellDatas = self?.getCellDatasWithPRModel(data: data,
-                                                                  firstPage: false) ?? []
-
-                    self?.after = data.repository?.pullRequest?.timelineItems.pageInfo.endCursor
-                    self?.addSubViewModels(cellDatas)
-                    self?.itemListView.appendCellDatas(cellDatas: cellDatas)
-
-                } else {
-                    self?.itemListView.endRefreshWithError()
-                }
-            }
-        }
-
-    }
-
 }
 
 
 extension ZLPRInfoController {
     
-    func getCellDatasWithPRModel(data: PrInfoQuery.Data, firstPage: Bool) -> [ZLGithubItemTableViewCellData] {
+    func getCellDatasWithPRModel(data: PrInfoQuery.Data, firstPage: Bool) -> [ZMBaseTableViewCellViewModel] {
 
-        let preCellDatas = itemListView.cellDatas
-        var cellDatas: [ZLGithubItemTableViewCellData] = []
+        let preCellDatas = tmpCellDatas
+        
+        var cellDatas: [ZMBaseTableViewCellViewModel] = []
 
         if firstPage {
             let headercellData = ZLPullRequestHeaderTableViewCellData(data: data)
@@ -168,7 +154,7 @@ extension ZLPRInfoController {
             if let pullrequest = data.repository?.pullRequest {
                 let preBodyCellData = preCellDatas.first { $0 is ZLPullRequestBodyTableViewCellData }
                 let bodyCellData = ZLPullRequestBodyTableViewCellData(data: pullrequest,
-                                                                      cellHeight: preBodyCellData?.getCellHeight())
+                                                                      cellHeight: preBodyCellData?.zm_cellHeight)
                 cellDatas.append(bodyCellData)
             }
         }
@@ -183,7 +169,8 @@ extension ZLPRInfoController {
                         }
                         return false
                     }
-                    let bodyCellData = ZLPullRequestCommentTableViewCellData(data: comment, cellHeight: preBodyCellData?.getCellHeight())
+                    let bodyCellData = ZLPullRequestCommentTableViewCellData(data: comment, 
+                                                                             cellHeight: preBodyCellData?.zm_cellHeight)
                     cellDatas.append(bodyCellData)
                 } else if timeline?.asSubscribedEvent != nil ||
                             timeline?.asUnsubscribedEvent != nil ||

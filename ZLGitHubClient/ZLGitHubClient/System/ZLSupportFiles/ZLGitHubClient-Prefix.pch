@@ -15,13 +15,11 @@
 
 #pragma mark - BaseFramework
 #import <ZLGitRemoteService/ZLGitRemoteService.h>
-#import <ZLBaseUI/ZLBaseViewController.h>
 #import <SYDCentralPivot/SYDCentralPivot.h>
 
 #pragma mark -
 #import <Masonry/Masonry.h>
 #import "ZLLanguageModuleProtocol.h"
-#import "ZLBaseUI/ZLBaseUIHeader.h"
 #import "UIColor+ZLBase.h"
 
 

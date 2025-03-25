@@ -8,16 +8,14 @@
 
 import UIKit
 import ZLUIUtilities
-import ZLBaseUI
 import ZLBaseExtension
-import RxSwift
-import RxCocoa
+import ZMMVVM
 
 class ZLEditIssueHeaderView: UITableViewHeaderFooterView {
     
-    private var disposeBag = DisposeBag()
-    
-    private var buttonBlock: (() -> Void)?
+    var viewData: ZLEditIssueHeaderViewData? {
+        zm_viewModel as? ZLEditIssueHeaderViewData
+    }
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
@@ -40,6 +38,8 @@ class ZLEditIssueHeaderView: UITableViewHeaderFooterView {
         let button = ZMButton()
         button.setTitle(ZLLocalizedString(string: "Edit", comment: ""), for: .normal)
         button.titleLabel?.font = .zlRegularFont(withSize: 13)
+        button.addTarget(self, action: #selector(onEditButtonClicked), for: .touchUpInside)
+        button.isHidden = true
         return button
     }()
     
@@ -77,25 +77,20 @@ extension ZLEditIssueHeaderView {
             make.right.equalToSuperview()
             make.bottom.equalToSuperview()
         }
-        
-        editButton.rx.tap.subscribe { [weak self] (button) in
-            self?.buttonBlock?()
-        }.disposed(by: disposeBag)
-        
-        editButton.isHidden = true
+    }
+}
+
+extension ZLEditIssueHeaderView {
+    @objc func onEditButtonClicked() {
+        viewData?.onEditButtonAction()
     }
 }
 
 
-extension ZLEditIssueHeaderView: ZLViewUpdatableWithViewData {
-    
-    func justUpdateView() {
-        
-    }
-    
-    func fillWithViewData(viewData: (String,(() -> Void)?)) {
-        let (title,block) = viewData
-        titleLabel.text = title
-        buttonBlock = block
+extension ZLEditIssueHeaderView: ZMBaseViewUpdatableWithViewData {
+
+    func zm_fillWithViewData(viewData: ZLEditIssueHeaderViewData) {
+        titleLabel.text = viewData.title
+        editButton.isHidden = !viewData.showEditButton
     }
 }

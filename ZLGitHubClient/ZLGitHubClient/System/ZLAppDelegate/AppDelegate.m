@@ -21,6 +21,7 @@
 #import <Firebase/Firebase.h>
 #import <IQKeyboardManager/IQKeyboardManager.h>
 @import ZLUtilities;
+@import ZLBaseExtension;
 
 @interface AppDelegate () <UNUserNotificationCenterDelegate>
 
@@ -162,27 +163,16 @@
     ZMUIConfig.shared.navigationBarHeight = 60;
     ZMUIConfig.shared.navigationBarTitleColor = [UIColor colorNamed:@"ZLNavigationBarTitleColor"];
     ZMUIConfig.shared.navigationBarBackgoundColor = [UIColor colorNamed:@"ZLNavigationBarBackColor"];
-    ZMUIConfig.shared.navigationBarTitleFont = [UIFont fontWithName:Font_PingFangSCMedium size:18];
+    ZMUIConfig.shared.navigationBarTitleFont = [UIFont zlMediumFontWithSize: 18];
     
     ZMUIConfig.shared.viewControllerBackgoundColor = [UIColor colorNamed:@"ZLVCBackColor"];
     
     ZMUIConfig.shared.buttonTitleColor = [UIColor colorNamed:@"ZLBaseButtonTitleColor"];
-    ZMUIConfig.shared.buttonBorderWidth = 1.0 / ZLScreenScale;
+    ZMUIConfig.shared.buttonBorderWidth = 1.0 / (UIScreen.mainScreen.scale);
     ZMUIConfig.shared.buttonBackColor = [UIColor colorNamed:@"ZLBaseButtonBackColor"];
     ZMUIConfig.shared.buttonBorderColor = [UIColor colorNamed:@"ZLBaseButtonBorderColor"];
     ZMUIConfig.shared.buttonCornerRadius = 4.0;
     
-    
-    [ZLBaseUIConfig sharedInstance].navigationBarTitleColor = [UIColor colorNamed:@"ZLNavigationBarTitleColor"];
-    [ZLBaseUIConfig sharedInstance].navigationBarBackgoundColor = [UIColor colorNamed:@"ZLNavigationBarBackColor"];
-    
-    [ZLBaseUIConfig sharedInstance].viewControllerBackgoundColor = [UIColor colorNamed:@"ZLVCBackColor"];
-    
-    [ZLBaseUIConfig sharedInstance].buttonTitleColor = [UIColor colorNamed:@"ZLBaseButtonTitleColor"];
-    [ZLBaseUIConfig sharedInstance].buttonBorderWidth = 1.0 / ZLScreenScale;
-    [ZLBaseUIConfig sharedInstance].buttonBackColor = [UIColor colorNamed:@"ZLBaseButtonBackColor"];
-    [ZLBaseUIConfig sharedInstance].buttonBorderColor = [UIColor colorNamed:@"ZLBaseButtonBorderColor"];
-    [ZLBaseUIConfig sharedInstance].buttonCornerRadius = 4.0;
     
     [ZLRefresh setWithHeaderIdleTextBlock:^NSString * {
         return ZLLocalizedString(@"MJRefreshHeaderIdleText", @"");
@@ -197,7 +187,7 @@
     }];
     
     [ZLViewStatusPresenter setWithNoDataImageBlock:^UIImage * _Nonnull{
-        return [UIImage iconFontImageWithText:@"\ue60e" fontSize:45 imageSize: CGSizeMake(70, 60) color:ZLRGBValue_H(0x999999)];
+        return [UIImage iconFontImageWithText:@"\ue60e" fontSize:45 imageSize: CGSizeMake(70, 60) color:[UIColor colorWithRGB:0x999999 alpha:1]];
      }];
 }
 

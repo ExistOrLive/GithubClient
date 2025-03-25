@@ -9,8 +9,9 @@
 import UIKit
 import WebKit
 import ZLGitRemoteService
+import ZMMVVM
 
-class ZLPullRequestBodyTableViewCellData: ZLGithubItemTableViewCellData {
+class ZLPullRequestBodyTableViewCellData: ZMBaseTableViewCellViewModel {
 
     typealias IssueData = PrInfoQuery.Data.Repository.PullRequest
 
@@ -27,23 +28,16 @@ class ZLPullRequestBodyTableViewCellData: ZLGithubItemTableViewCellData {
         }
     }
 
-    override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
-        super.bindModel(targetModel, andView: targetView)
-        if let cell: ZLPullRequestCommentTableViewCell = targetView as? ZLPullRequestCommentTableViewCell {
-            cell.fillWithData(data: self)
-        }
-    }
-
-    override func getCellReuseIdentifier() -> String {
+    override var zm_cellReuseIdentifier: String {
         return "ZLPullRequestCommentTableViewCell"
     }
 
-    override func getCellHeight() -> CGFloat {
+    override var zm_cellHeight: CGFloat {
         return cellHeight
     }
 
-    override func clearCache() {
-        super.clearCache()
+    override func zm_clearCache() {
+        super.zm_clearCache()
         self.cacheHtml = nil
     }
 
@@ -129,7 +123,7 @@ extension ZLPullRequestBodyTableViewCellData: ZLPullRequestCommentTableViewCellD
 
     func onAvatarButtonClicked() {
         if let login = data.author?.login, let vc = ZLUIRouter.getUserInfoViewController(loginName: login) {
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            self.zm_viewController?.navigationController?.pushViewController(vc, animated: true)
         }
     }
 
@@ -138,7 +132,10 @@ extension ZLPullRequestBodyTableViewCellData: ZLPullRequestCommentTableViewCellD
             return
         }
         cellHeight = height
-        self.super?.getEvent(nil, fromSubViewModel: self)
+        
+        (self.zm_superViewModel as? ZMBaseTableViewContainerProtocol)?.tableView.performBatchUpdates({
+            
+        })
     }
 
     func didClickLink(url: URL) {

@@ -8,8 +8,9 @@
 
 import UIKit
 import ZLGitRemoteService
+import ZMMVVM
 
-class ZLIssueProjectCellData: ZLGithubItemTableViewCellData {
+class ZLIssueProjectCellData: ZMBaseTableViewCellViewModel {
     
     let data: IssueEditInfoQuery.Data.Repository.Issue.ProjectCard.Node
     
@@ -18,14 +19,9 @@ class ZLIssueProjectCellData: ZLGithubItemTableViewCellData {
         super.init()
     }
     
-    override func getCellReuseIdentifier() -> String {
+    override var zm_cellReuseIdentifier: String {
         return "ZLIssueProjectCell"
     }
-
-    override func getCellHeight() -> CGFloat {
-        UITableView.automaticDimension
-    }
-
 }
 
 extension ZLIssueProjectCellData: ZLIssueProjectCellDataSourceAndDeledate {

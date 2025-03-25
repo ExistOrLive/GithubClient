@@ -133,7 +133,7 @@ extension ZLIssueCommentTableViewCellData: ZLIssueCommentTableViewCellDelegate {
         }
         cellHeight = height
         
-        (self.zm_superViewModel as? ZLIssueInfoController)?.tableView.performBatchUpdates({
+        (self.zm_superViewModel as? ZMBaseTableViewContainerProtocol)?.tableView.performBatchUpdates({
             
         })
     }

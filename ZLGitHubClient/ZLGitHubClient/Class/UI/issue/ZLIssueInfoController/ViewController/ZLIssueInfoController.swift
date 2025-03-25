@@ -65,6 +65,7 @@ class ZLIssueInfoController: ZMTableViewController {
             make.left.right.bottom.equalToSuperview()
         }
         
+        tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 20, right: 0)
         tableView.register(ZLIssueHeaderTableViewCell.self,
                            forCellReuseIdentifier: "ZLIssueHeaderTableViewCell")
         tableView.register(ZLIssueCommentTableViewCell.self,

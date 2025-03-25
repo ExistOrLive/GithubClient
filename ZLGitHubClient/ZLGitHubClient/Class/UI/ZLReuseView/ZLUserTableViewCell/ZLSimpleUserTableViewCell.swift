@@ -9,6 +9,7 @@
 import UIKit
 import ZLUIUtilities
 import ZLBaseExtension
+import ZMMVVM
 
 protocol ZLSimpleUserTableViewCellDataSource {
     
@@ -89,9 +90,9 @@ class ZLSimpleUserTableViewCell: UITableViewCell {
     }()
 }
 
-extension ZLSimpleUserTableViewCell: ZLViewUpdatableWithViewData {
+extension ZLSimpleUserTableViewCell: ZMBaseViewUpdatableWithViewData {
     
-    func fillWithViewData(viewData: ZLSimpleUserTableViewCellDataSource) {
+    func zm_fillWithViewData(viewData: ZLSimpleUserTableViewCellDataSource) {
         avatarImageView.loadAvatar(login: viewData.loginName, avatarUrl: viewData.avatarUrl)
         fullNameLabel.text = viewData.loginName
     }

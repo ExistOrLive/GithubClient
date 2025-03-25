@@ -9,8 +9,9 @@
 import UIKit
 import ZLBaseExtension
 import ZLGitRemoteService
+import ZMMVVM
 
-class ZLPullRequestHeaderTableViewCellData: ZLGithubItemTableViewCellData {
+class ZLPullRequestHeaderTableViewCellData: ZMBaseTableViewCellViewModel {
 
     typealias Data = PrInfoQuery.Data
 
@@ -21,23 +22,12 @@ class ZLPullRequestHeaderTableViewCellData: ZLGithubItemTableViewCellData {
         super.init()
     }
 
-    override func getCellReuseIdentifier() -> String {
+    override var zm_cellReuseIdentifier: String {
         return "ZLPullRequestHeaderTableViewCell"
     }
 
-    override func getCellHeight() -> CGFloat {
-        return UITableView.automaticDimension
-    }
+    override func zm_clearCache() {
 
-    override func clearCache() {
-
-    }
-
-    override func bindModel(_ targetModel: Any?, andView targetView: UIView) {
-        super.bindModel(targetModel, andView: targetView)
-        if let cell: ZLPullRequestHeaderTableViewCell = targetView as? ZLPullRequestHeaderTableViewCell {
-            cell.fillWithData(data: self)
-        }
     }
 }
 
@@ -61,7 +51,7 @@ extension ZLPullRequestHeaderTableViewCellData: ZLPullRequestHeaderTableViewCell
                                  backgroundColor: ZLRawLabelColor(name: "ZLLabelColor1")) { [weak self](_, _, _, _) in
 
             if let fullName = self?.data.repository?.nameWithOwner, let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: fullName) {
-                self?.viewController?.navigationController?.pushViewController(vc, animated: true)
+                self?.zm_viewController?.navigationController?.pushViewController(vc, animated: true)
             }
         }
         return text
@@ -102,19 +92,19 @@ extension ZLPullRequestHeaderTableViewCellData: ZLPullRequestHeaderTableViewCell
 
     func onAvatarButtonClicked() {
         if let name = data.repository?.owner.login, let vc = ZLUIRouter.getUserInfoViewController(loginName: name) {
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            self.zm_viewController?.navigationController?.pushViewController(vc, animated: true)
         }
     }
     func onFileButtonClicked() {
 
         if let url = URL(string: "\(data.repository?.pullRequest?.url ?? "")/files"), let vc = ZLUIRouter.getVC(key: ZLUIRouter.WebContentController, params: ["requestURL": url]) {
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            self.zm_viewController?.navigationController?.pushViewController(vc, animated: true)
         }
     }
     func onCommitButtonClicked() {
 
         if let url = URL(string: "\(data.repository?.pullRequest?.url ?? "")/commits"), let vc = ZLUIRouter.getVC(key: ZLUIRouter.WebContentController, params: ["requestURL": url]) {
-            self.viewController?.navigationController?.pushViewController(vc, animated: true)
+            self.zm_viewController?.navigationController?.pushViewController(vc, animated: true)
         }
     }
 }

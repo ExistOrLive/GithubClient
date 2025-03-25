@@ -7,20 +7,15 @@
 //
 
 import UIKit
-import ZLBaseUI
 import ZLUIUtilities
 import ZLBaseExtension
 import ZLGitRemoteService
-import RxRelay
-import RxSwift
 
-class ZLSubmitCommentController: ZLBaseViewController {
+
+class ZLSubmitCommentController: ZMViewController {
     
     //
     var issueId: String?
-    
-    // observale
-    let _clearEvent: PublishRelay<Void> = PublishRelay<Void>()
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,29 +24,8 @@ class ZLSubmitCommentController: ZLBaseViewController {
         submitCommentView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        
-        submitCommentView.fillWithData(data: self)
-    }
-    
-    override func watchKeyboardStatusNotification() -> Bool{
-        return true 
-    }
-    
-    override func keyboardWillShow(_ payload: ZLKeyboardNotificationPayload) {
-        UIView.animate(withDuration: TimeInterval(payload.duration)) { [weak self] in
-            self?.submitCommentView.snp.remakeConstraints({ make in
-                make.top.left.right.equalToSuperview()
-                make.bottom.equalToSuperview().offset(-payload.endFrame.height)
-            })
-        }
-    }
-    
-    override func keyboardWillHide(_ payload: ZLKeyboardNotificationPayload) {
-        UIView.animate(withDuration: TimeInterval(payload.duration)) { [weak self] in
-            self?.submitCommentView.snp.remakeConstraints({ make in
-                make.top.left.right.bottom.equalToSuperview()
-            })
-        }
+        submitCommentView.textView.becomeFirstResponder()
+        submitCommentView.zm_fillWithData(data: self)
     }
     
     // MARK: Lazy View
@@ -65,7 +39,7 @@ extension ZLSubmitCommentController: ZLSubmitCommentViewDelegate {
     
     
     func onCancelButtonClicked() {
-        onBackButtonClicked(nil)
+        onBackButtonClicked(UIButton())
     }
     
     func onSubmitButtonClicked(comment: String) {
@@ -86,7 +60,7 @@ extension ZLSubmitCommentController: ZLSubmitCommentViewDelegate {
                    let _ = data.addComment?.timelineEdge?.cursor,
                    let _ = data.addComment?.clientMutationId {
                     
-                   self._clearEvent.accept(())
+                   self.submitCommentView.textView.text = nil
                    self.dismiss(animated: true, completion: nil)
                 } else {
                     ZLToastView.showMessage("Nerwork Error")
@@ -96,10 +70,6 @@ extension ZLSubmitCommentController: ZLSubmitCommentViewDelegate {
             }
         
         })
-    }
-    
-    var clearObservable: Observable<Void> {
-        _clearEvent.asObservable()
     }
 }
 

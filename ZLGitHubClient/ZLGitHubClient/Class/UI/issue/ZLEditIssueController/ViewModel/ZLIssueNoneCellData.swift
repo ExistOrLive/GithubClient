@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import ZMMVVM
 
-class ZLIssueNoneCellData: ZLGithubItemTableViewCellData {
+class ZLIssueNoneCellData: ZMBaseTableViewCellViewModel {
     
     private let infoText: String
     
@@ -17,14 +18,9 @@ class ZLIssueNoneCellData: ZLGithubItemTableViewCellData {
         super.init()
     }
     
-    override func getCellReuseIdentifier() -> String {
+    override var zm_cellReuseIdentifier: String {
         return "ZLIssueNoneCell"
     }
-
-    override func getCellHeight() -> CGFloat {
-        UITableView.automaticDimension
-    }
-    
 }
 
 

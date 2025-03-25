@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import ZMMVVM
 
-class ZLIssueOperateCellData: ZLGithubItemTableViewCellData {
+class ZLIssueOperateCellData: ZMBaseTableViewCellViewModel {
     
     private let type: ZLEditIssueOperationType
     private let turnOn: Bool
@@ -23,14 +24,9 @@ class ZLIssueOperateCellData: ZLGithubItemTableViewCellData {
         super.init()
     }
     
-    override func getCellReuseIdentifier() -> String {
+    override var zm_cellReuseIdentifier: String {
         return "ZLIssueOperateCell"
     }
-
-    override func getCellHeight() -> CGFloat {
-        UITableView.automaticDimension
-    }
-    
 }
 
 

@@ -10,6 +10,7 @@ import UIKit
 import YYText
 import ZLBaseExtension
 import ZLUtilities
+import ZMMVVM
 
 protocol ZLPullRequestHeaderTableViewCellDelegate: NSObjectProtocol {
 
@@ -35,7 +36,9 @@ protocol ZLPullRequestHeaderTableViewCellDelegate: NSObjectProtocol {
 
 class ZLPullRequestHeaderTableViewCell: UITableViewCell {
 
-    private weak var delegate: ZLPullRequestHeaderTableViewCellDelegate?
+    var delegate: ZLPullRequestHeaderTableViewCellDelegate? {
+        zm_viewModel as? ZLPullRequestHeaderTableViewCellDelegate
+    }
 
     var avatarButton: UIButton!
     var fullNameLabel: YYLabel!
@@ -255,9 +258,24 @@ class ZLPullRequestHeaderTableViewCell: UITableViewCell {
         }
     }
 
-    func fillWithData(data: ZLPullRequestHeaderTableViewCellDelegate) {
+    @objc func onAvatarButtonClicked() {
+        self.delegate?.onAvatarButtonClicked()
+    }
 
-        self.delegate = data
+    @objc func onFileButtonClicked() {
+        self.delegate?.onFileButtonClicked()
+    }
+
+    @objc func onCommitButtonClicked() {
+        self.delegate?.onCommitButtonClicked()
+    }
+
+}
+
+
+extension ZLPullRequestHeaderTableViewCell: ZMBaseViewUpdatableWithViewData {
+   
+    func zm_fillWithViewData(viewData data: ZLPullRequestHeaderTableViewCellDelegate) {
 
         avatarButton.loadAvatar(login: data.getPRAuthorLoginName(), avatarUrl: data.getPRAuthorAvatarURL())
         fullNameLabel.attributedText = data.getPRRepoFullName()
@@ -305,17 +323,4 @@ class ZLPullRequestHeaderTableViewCell: UITableViewCell {
             statusLabel.borderColor = UIColor(named: "ZLPRMergedColor")
         }
      }
-
-    @objc func onAvatarButtonClicked() {
-        self.delegate?.onAvatarButtonClicked()
-    }
-
-    @objc func onFileButtonClicked() {
-        self.delegate?.onFileButtonClicked()
-    }
-
-    @objc func onCommitButtonClicked() {
-        self.delegate?.onCommitButtonClicked()
-    }
-
 }

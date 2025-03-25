@@ -8,6 +8,7 @@
 
 import UIKit
 import WebKit
+import ZMMVVM
 
 protocol ZLPullRequestCommentTableViewCellDelegate: NSObjectProtocol {
     func getActorAvatarUrl() -> String
@@ -23,7 +24,9 @@ protocol ZLPullRequestCommentTableViewCellDelegate: NSObjectProtocol {
 
 class ZLPullRequestCommentTableViewCell: UITableViewCell {
 
-    fileprivate weak var delegate: ZLPullRequestCommentTableViewCellDelegate?
+    var delegate: ZLPullRequestCommentTableViewCellDelegate? {
+        zm_viewModel as? ZLPullRequestCommentTableViewCellDelegate
+    }
 
     private var cacheHtml: String?
 
@@ -91,16 +94,7 @@ class ZLPullRequestCommentTableViewCell: UITableViewCell {
             make.width.equalTo(1)
         }
     }
-
-    func fillWithData(data: ZLPullRequestCommentTableViewCellDelegate) {
-        self.delegate = data
-        avatarButton.loadAvatar(login: data.getActorName(),
-                                avatarUrl: data.getActorAvatarUrl())
-        actorLabel.text = data.getActorName()
-        timeLabel.text = data.getTime()
-        webView.loadHTMLString(data.getCommentHtml(), baseURL: nil)
-    }
-
+    
     @objc func onAvatarButtonClicked() {
         self.delegate?.onAvatarButtonClicked()
     }
@@ -219,5 +213,16 @@ class ZLPullRequestCommentScriptMessageHandler: NSObject, WKScriptMessageHandler
             }
             cell?.delegate?.didRowHeightChange(height: height + 110)
         }
+    }
+}
+
+extension ZLPullRequestCommentTableViewCell: ZMBaseViewUpdatableWithViewData {
+    
+    func zm_fillWithViewData(viewData data: ZLPullRequestCommentTableViewCellDelegate) {
+        avatarButton.loadAvatar(login: data.getActorName(),
+                                avatarUrl: data.getActorAvatarUrl())
+        actorLabel.text = data.getActorName()
+        timeLabel.text = data.getTime()
+        webView.loadHTMLString(data.getCommentHtml(), baseURL: nil)
     }
 }

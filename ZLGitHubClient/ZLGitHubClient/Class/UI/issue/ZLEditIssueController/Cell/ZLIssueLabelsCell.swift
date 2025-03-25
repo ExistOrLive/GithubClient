@@ -8,7 +8,7 @@
 
 import UIKit
 import ZLUIUtilities
-import ZLBaseUI
+import ZMMVVM
 import ZLBaseExtension
 
 protocol ZLIssueLabelsCellDataSource: NSObjectProtocol {
@@ -56,12 +56,9 @@ class ZLIssueLabelsCell: UITableViewCell {
 
 }
 
-extension ZLIssueLabelsCell: ZLViewUpdatableWithViewData {
-    func justUpdateView() {
-        
-    }
-    
-    func fillWithViewData(viewData: ZLIssueLabelsCellDataSource) {
+extension ZLIssueLabelsCell: ZMBaseViewUpdatableWithViewData {
+  
+    func zm_fillWithViewData(viewData : ZLIssueLabelsCellDataSource) {
         labelsLabel.attributedText = viewData.labelsStr
     }
 }

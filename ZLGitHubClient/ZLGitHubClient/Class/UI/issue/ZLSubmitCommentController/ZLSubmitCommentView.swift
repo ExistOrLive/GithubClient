@@ -7,20 +7,16 @@
 //
 
 import UIKit
-import ZLBaseUI
 import ZLUIUtilities
 import ZLBaseExtension
 import SnapKit
-import RxSwift
-import RxCocoa
+import ZMMVVM
 
 protocol ZLSubmitCommentViewDelegate: NSObjectProtocol {
     
     func onCancelButtonClicked()
     
     func onSubmitButtonClicked(comment: String)
-    
-    var clearObservable: Observable<Void> { get }
 }
 
 
@@ -33,10 +29,10 @@ class ZLSubmitCommentView: UIView {
         // Drawing code
     }
     */
-    private weak var delagate: ZLSubmitCommentViewDelegate?
-    
-    private let disposeBag = DisposeBag()
-    
+    var delegate: ZLSubmitCommentViewDelegate? {
+        zm_viewModel as? ZLSubmitCommentViewDelegate
+    }
+        
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -84,28 +80,6 @@ class ZLSubmitCommentView: UIView {
             make.right.equalTo(-10)
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-10)
         }
-        
-        cancelButton.rx.tap.subscribe(onNext: { [weak self]_ in
-            self?.delagate?.onCancelButtonClicked()
-        },
-                                      onError: nil,
-                                      onCompleted: nil,
-                                      onDisposed: nil)
-            .disposed(by: disposeBag)
-        
-        submitButton.rx.tap.subscribe(onNext: { [weak self]_ in
-            guard let self = self,
-                  let comment = self.textView.text else { return }
-            if comment.isEmpty {
-                ZLToastView.showMessage("Comment is Empty")
-                return
-            }
-            self.delagate?.onSubmitButtonClicked(comment: comment)
-        },
-                                      onError: nil,
-                                      onCompleted: nil,
-                                      onDisposed: nil)
-            .disposed(by: disposeBag)
     }
     
     // MARK: Lazy View
@@ -120,12 +94,14 @@ class ZLSubmitCommentView: UIView {
        let button = ZMButton()
         button.setTitle(ZLLocalizedString(string: "Cancel", comment: ""), for: .normal)
         button.titleLabel?.font = UIFont.zlRegularFont(withSize: 14)
+        button.addTarget(self, action: #selector(onCancelButtonClicked), for: .touchUpInside)
         return button
     }()
     
     private lazy var submitButton: UIButton = {
         let button = ZMButton()
         button.setTitle(ZLLocalizedString(string: "submit", comment: ""), for: .normal)
+        button.addTarget(self, action: #selector(onSubmitButtonClicked), for: .touchUpInside)
         button.titleLabel?.font = UIFont.zlRegularFont(withSize: 14)
          return button
     }()
@@ -142,7 +118,7 @@ class ZLSubmitCommentView: UIView {
     }()
     
     
-    private lazy var textView: UITextView = {
+    lazy var textView: UITextView = {
        let textView = UITextView()
         textView.placeholder = ZLLocalizedString(string: "EnterComment", comment: "")
         textView.font = UIFont.zlRegularFont(withSize: 13)
@@ -153,15 +129,24 @@ class ZLSubmitCommentView: UIView {
     }()
 }
 
-extension ZLSubmitCommentView: ZLViewUpdatableWithViewData {
-    func justUpdateView() {
-        
+extension ZLSubmitCommentView {
+    @objc func onCancelButtonClicked() {
+        delegate?.onCancelButtonClicked()
     }
     
-    func fillWithViewData(viewData: ZLSubmitCommentViewDelegate) {
-        delagate = viewData
-        viewData.clearObservable.subscribe(onNext: { [weak self] _ in
-            self?.textView.text = nil
-        }).disposed(by:disposeBag)
+    @objc func onSubmitButtonClicked() {
+        guard let comment = self.textView.text else { return }
+        if comment.isEmpty {
+            ZLToastView.showMessage("Comment is Empty")
+            return
+        }
+        self.delegate?.onSubmitButtonClicked(comment: comment)
+    }
+}
+
+
+extension ZLSubmitCommentView: ZMBaseViewUpdatableWithViewData {
+    func zm_fillWithViewData(viewData: ZLSubmitCommentViewDelegate) {
+
     }
 }

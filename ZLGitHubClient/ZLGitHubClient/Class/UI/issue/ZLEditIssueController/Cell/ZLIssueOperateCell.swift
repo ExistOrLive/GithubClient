@@ -8,7 +8,7 @@
 
 import UIKit
 import ZLUIUtilities
-import ZLBaseUI
+import ZMMVVM
 import ZLBaseExtension
 
 protocol ZLIssueOperateCellDataSource {
@@ -113,13 +113,9 @@ class ZLIssueOperateCell: UITableViewCell {
     }
 }
 
-extension ZLIssueOperateCell: ZLViewUpdatableWithViewData {
+extension ZLIssueOperateCell: ZMBaseViewUpdatableWithViewData {
     
-    func justUpdateView() {
-        
-    }
-    
-    func fillWithViewData(viewData: ZLIssueOperateCellDataSource) {
+    func zm_fillWithViewData(viewData: ZLIssueOperateCellDataSource) {
         clickBlock = viewData.clickBlock
         opeationType = viewData.opeationType
         on = viewData.on
