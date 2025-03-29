@@ -36,6 +36,7 @@ open class ZMSearchViewController: ZMTableViewController, ZMSearchBarDelegate {
         fatalError("init(coder:) has not been implemented")
     }
 
+
     @objc open override dynamic func viewDidLoad() {
         super.viewDidLoad()
         searchBar.becomeFirst()
@@ -260,38 +261,20 @@ public class ZMSearchTextField: UITextField {
     @objc open override dynamic var placeholder: String?{
         didSet{
             if let placeholderStr = placeholder {
-                let attributeString = NSAttributedString.init(string: placeholderStr, attributes:
-                                                                [NSAttributedString.Key.foregroundColor : UIColor(named:"ZLLabelColor2"),
-                                                                 NSAttributedString.Key.font : UIFont.zlRegularFont(withSize: 14)] )
+                let attributeString = NSAttributedString(string: placeholderStr,
+                                                         attributes:
+                                                            [NSAttributedString.Key.foregroundColor : UIColor.label(withName: "ZLLabelColor2"),
+                                                             NSAttributedString.Key.font : UIFont.zlRegularFont(withSize: 12)] )
                 attributedPlaceholder = attributeString
             }
         }
         
     }
 
-//    @objc private lazy dynamic var leftIconView: UIView = {
-//        let iconView = UIView(frame: CGRect(x: 0, y: 0, width: 34, height: 34))
-//        let iconImg = UIImageView(image: UIImage(iconfont: "\u{e62e}", fontSize: 18, color: UIColor(hex:0x7f7f8e)))
-//        iconImg.center = iconView.center
-//        iconView.addSubview(iconImg)
-//        return iconView
-//    }()
-
-//    @objc private lazy dynamic var rightClearView: UIView = {
-//        let rect = CGRect(x: 0, y: 0, width: 34, height: 34)
-//        let rightClearView = UIView(frame: rect)
-//        let rightClearBtn = UIButton(frame: rect)
-//        rightClearBtn.addTarget(self, action: #selector(rightViewAction), for: .touchUpInside)
-//        rightClearBtn.setImage( UIImage(iconfont: "\u{e65f}", fontSize: 18, color: UIColor(hex:0xAAAABB)), for: .normal)
-//        rightClearView.addSubview(rightClearBtn)
-//        return rightClearView
-//    }()
-
-
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        layer.cornerRadius = 5.0
+        layer.cornerRadius = 4.0
         borderStyle = .none
         font = .zlRegularFont(withSize: 14)
         textColor = UIColor(named: "ZLLabelColor1")
@@ -301,15 +284,6 @@ public class ZMSearchTextField: UITextField {
         autocorrectionType = .no
         // 关闭自动大写
         autocapitalizationType = .none
-        //attributedPlaceholder = attributeString
-
-//        leftViewMode = .always
-//        leftView = leftIconView
-//
-//
-//        rightViewMode = .whileEditing
-//        rightView = rightClearView
-
     }
 
     @objc private dynamic func rightViewAction() {
@@ -318,6 +292,14 @@ public class ZMSearchTextField: UITextField {
 
     required public init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    public override func textRect(forBounds bounds: CGRect) -> CGRect {
+        return bounds.insetBy(dx: 20, dy: 0)
+    }
+
+    public override func editingRect(forBounds bounds: CGRect) -> CGRect {
+        return bounds.insetBy(dx: 20, dy: 0)
     }
 
 }

@@ -8,7 +8,10 @@
 
 import UIKit
 
+let ZLAssistButtonShowOrHiddenNotification = Notification.Name("AssistButtonShowOrHiddenNotification")
+
 @objcMembers class ZLAssistButtonManager: NSObject {
+    
 
     private let floatButtonView: ZLFloatView
     private let assistButton: UIButton
@@ -46,6 +49,7 @@ import UIKit
 
     func setHidden(_ hidden: Bool) {
         self.floatButtonView.isHidden = hidden
+        NotificationCenter.default.post(name: ZLAssistButtonShowOrHiddenNotification, object: nil)
     }
 
     func dismissAssistDetailView() {

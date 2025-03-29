@@ -19,6 +19,28 @@ class ZLPullRequestBodyTableViewCellData: ZMBaseTableViewCellViewModel {
 
     private var cacheHtml: String?
     private var cellHeight: CGFloat = 110
+    
+    lazy var webView: ZLReportHeightWebView = {
+        let webView = ZLReportHeightWebView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width - 30, height: UIScreen.main.bounds.size.height))
+        webView.navigationDelegate = self
+        webView.scrollView.backgroundColor = UIColor.clear
+        webView.backgroundColor = UIColor.clear
+        webView.scrollView.isScrollEnabled = false
+        webView.reportHeightBlock = { [weak self] in
+            
+            guard let self ,
+                  let webViewHeight = self.webView.cacheHeight,
+                  webViewHeight + 110 != self.cellHeight else {
+                return
+            }
+            
+            self.cellHeight =  webViewHeight + 110
+            (self.zm_superViewModel as? ZMBaseTableViewContainerProtocol)?.tableView.performBatchUpdates({
+                
+            })
+        }
+        return webView
+    }()
 
     init(data: IssueData,cellHeight: CGFloat? = nil ) {
         self.data = data
@@ -26,7 +48,9 @@ class ZLPullRequestBodyTableViewCellData: ZMBaseTableViewCellViewModel {
         if let cellHeight {
             self.cellHeight = cellHeight
         }
+        webView.loadHTMLString(self.getCommentHtml(), baseURL: nil)
     }
+        
 
     override var zm_cellReuseIdentifier: String {
         return "ZLPullRequestCommentTableViewCell"
@@ -39,6 +63,7 @@ class ZLPullRequestBodyTableViewCellData: ZMBaseTableViewCellViewModel {
     override func zm_clearCache() {
         super.zm_clearCache()
         self.cacheHtml = nil
+        self.webView.loadHTMLString(self.getCommentHtml(), baseURL: nil)
     }
 
     func getHtmlStr() -> String {
@@ -127,19 +152,34 @@ extension ZLPullRequestBodyTableViewCellData: ZLPullRequestCommentTableViewCellD
         }
     }
 
-    func didRowHeightChange(height: CGFloat) {
-        if height == cellHeight {
-            return
-        }
-        cellHeight = height
-        
-        (self.zm_superViewModel as? ZMBaseTableViewContainerProtocol)?.tableView.performBatchUpdates({
-            
-        })
-    }
+//    func didRowHeightChange(height: CGFloat) {
+//        if height == cellHeight {
+//            return
+//        }
+//        cellHeight = height
+//        
+//        (self.zm_superViewModel as? ZMBaseTableViewContainerProtocol)?.tableView.performBatchUpdates({
+//            
+//        })
+//    }
 
     func didClickLink(url: URL) {
         ZLUIRouter.openURL(url: url)
     }
 
+}
+
+extension ZLPullRequestBodyTableViewCellData: WKNavigationDelegate {
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+
+        if navigationAction.navigationType == .linkActivated {
+            if let url = navigationAction.request.url {
+                ZLUIRouter.openURL(url: url)
+            }
+            decisionHandler(.cancel)
+        } else {
+            decisionHandler(.allow)
+        }
+
+    }
 }

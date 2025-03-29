@@ -80,7 +80,7 @@ struct ContributionMeidumView : View {
     let entry : ContributionProvider.Entry
     
     var body : some View {
-        VStack{
+        let view: some View = VStack{
             if entry.isPlaceHolder {
                 
                 HStack{
@@ -161,7 +161,12 @@ struct ContributionMeidumView : View {
         }
         .padding(EdgeInsets(top: 20, leading: 35, bottom: 20, trailing: 25))
         .widgetURL(URL(string: "https://github.com/\(entry.loginName ?? "")"))
-        
+  
+        if #available(iOS 17.0, *) {
+            return view.containerBackground(.background, for: .widget)
+        } else {
+            return view
+        }
     }
     
     func getColor(contribution : Int) -> Color {

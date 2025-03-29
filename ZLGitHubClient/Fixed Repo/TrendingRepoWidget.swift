@@ -60,12 +60,11 @@ struct SimpleEntry: TimelineEntry {
 
 
 struct FixedRepoMediumView : View {
-    
     var entry: TrendingRepoProvider.Entry
     
     var body: some View {
-        HStack{
-            VStack(alignment: .leading){
+        let view: some View = HStack {
+            VStack(alignment: .leading) {
                 
                 if entry.model == nil {
                     
@@ -155,10 +154,13 @@ struct FixedRepoMediumView : View {
         .unredacted()
         .widgetURL(URL(string: "https://github.com/\(entry.model?.fullName ?? "")"))
         
+        if #available(iOS 17.0, *) {
+            return view.containerBackground(.background, for: .widget)
+        } else {
+            return view
+        }
     }
-    
 }
-
 
 
 struct TrendingRepoEntryView : View {

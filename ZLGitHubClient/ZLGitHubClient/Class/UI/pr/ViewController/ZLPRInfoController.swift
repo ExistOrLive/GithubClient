@@ -112,21 +112,24 @@ extension ZLPRInfoController {
                 self.after = data.repository?.pullRequest?.timelineItems.pageInfo.endCursor
                 let cellDatas = self.getCellDatasWithPRModel(data: data,
                                                              firstPage: isLoadNew)
-                self.zm_addSubViewModels(cellDatas)
-                if isLoadNew {
-                    self.tmpCellDatas = cellDatas
-                    self.sectionDataArray.forEach { $0.zm_removeFromSuperViewModel() }
-                    self.sectionDataArray = [ZMBaseTableViewSectionData(cellDatas: cellDatas)]
-                } else {
-                    self.tmpCellDatas.append(contentsOf: cellDatas)
-                    self.sectionDataArray.first?.cellDatas.append(contentsOf: cellDatas)
-                }
+               
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.milliseconds(200), execute: {
+                    self.zm_addSubViewModels(cellDatas)
+                    if isLoadNew {
+                        self.tmpCellDatas = cellDatas
+                        self.sectionDataArray.forEach { $0.zm_removeFromSuperViewModel() }
+                        self.sectionDataArray = [ZMBaseTableViewSectionData(cellDatas: cellDatas)]
+                    } else {
+                        self.tmpCellDatas.append(contentsOf: cellDatas)
+                        self.sectionDataArray.first?.cellDatas.append(contentsOf: cellDatas)
+                    }
+                    
+                    
+                    self.tableView.reloadData()
+                    self.endRefreshViews(noMoreData: cellDatas.isEmpty)
+                    self.viewStatus = self.tableViewProxy.isEmpty ? .empty : .normal
+                })
                 
-                
-                self.tableView.reloadData()
-                self.endRefreshViews(noMoreData: cellDatas.isEmpty)
-                self.viewStatus = self.tableViewProxy.isEmpty ? .empty : .normal
-
             } else {
                 if let errorModel = resultModel.data as? ZLGithubRequestErrorModel {
                     ZLToastView.showMessage(errorModel.message)

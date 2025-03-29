@@ -19,6 +19,34 @@ class ZLIssueCommentTableViewCellData: ZMBaseTableViewCellViewModel {
 
     private var cacheHtml: String?
     private var cellHeight: CGFloat = 110
+    
+    var date = Date().timeIntervalSince1970
+    
+    lazy var webView: ZLReportHeightWebView = {
+        let webView = ZLReportHeightWebView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width - 30, height: UIScreen.main.bounds.size.height))
+        webView.navigationDelegate = self
+        webView.scrollView.backgroundColor = UIColor.clear
+        webView.backgroundColor = UIColor.clear
+        webView.scrollView.isScrollEnabled = false
+        webView.reportHeightBlock = { [weak self] in
+            
+            guard let self ,
+                  let webViewHeight = self.webView.cacheHeight,
+                  webViewHeight + 110 != self.cellHeight else {
+                return
+            }
+            
+            var enddate = Date().timeIntervalSince1970
+            
+            print("dasdasdas \(enddate - self.date)")
+            
+            self.cellHeight =  webViewHeight + 110
+            (self.zm_superViewModel as? ZMBaseTableViewContainerProtocol)?.tableView.performBatchUpdates({
+                
+            })
+        }
+        return webView
+    }()
 
     init(data: IssueCommentData, cellHeight: CGFloat? = nil) {
         self.data = data
@@ -26,6 +54,7 @@ class ZLIssueCommentTableViewCellData: ZMBaseTableViewCellViewModel {
         if let cellHeight {
             self.cellHeight = cellHeight
         }
+        self.webView.loadHTMLString(self.getCommentHtml(), baseURL: nil)
     }
 
     override var zm_cellReuseIdentifier: String {
@@ -39,6 +68,7 @@ class ZLIssueCommentTableViewCellData: ZMBaseTableViewCellViewModel {
     override func zm_clearCache() {
         super.zm_clearCache()
         self.cacheHtml = nil
+        self.webView.loadHTMLString(self.getCommentHtml(), baseURL: nil)
     }
 
     func getHtmlStr() -> String {
@@ -125,17 +155,6 @@ extension ZLIssueCommentTableViewCellData: ZLIssueCommentTableViewCellDelegate {
         if let login = data.author?.login, let vc = ZLUIRouter.getUserInfoViewController(loginName: login) {
             self.zm_viewController?.navigationController?.pushViewController(vc, animated: true)
         }
-    }
-
-    func didRowHeightChange(height: CGFloat) {
-        if height == cellHeight {
-            return
-        }
-        cellHeight = height
-        
-        (self.zm_superViewModel as? ZMBaseTableViewContainerProtocol)?.tableView.performBatchUpdates({
-            
-        })
     }
 
     func didClickLink(url: URL) {

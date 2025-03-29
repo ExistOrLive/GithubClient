@@ -241,9 +241,9 @@ class ZLAssistController: ZMViewController {
     }
 
     @objc func onAssitButtonClicked() {
+        ZLUISharedDataManager.isAssistButtonHidden = true
         ZLAssistButtonManager.shared.dismissAssistDetailView()
         ZLAssistButtonManager.shared.setHidden(true)
-        ZLUISharedDataManager.isAssistButtonHidden = true
         ZLToastView.showMessage(ZLLocalizedString(string: "ReShow Assist Button", comment: ""))
     }
 

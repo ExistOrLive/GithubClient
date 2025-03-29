@@ -17,7 +17,7 @@ class ZLRepoCommitController: ZMTableViewController {
     
     var branch: String?
     
-    var untilDate: Date?
+    let date: Date = Date()
     
     
     private var pageNum = 1
@@ -57,12 +57,15 @@ class ZLRepoCommitController: ZMTableViewController {
 extension ZLRepoCommitController {
     func loadData(isLoadNew: Bool) {
         
-        var date: Date? = Date.init()
+        var page = 1
         if !isLoadNew {
-            date = Date.init(timeInterval: -1, since: self.untilDate ?? Date.init())
+            page = self.pageNum
+            
         }
         
         ZLRepoServiceShared()?.getRepoCommit(withFullName: repoFullName ?? "",
+                                             page: UInt(page),
+                                             per_page: UInt(Self.per_page),
                                              branch: branch,
                                              until: date,
                                              since: nil,
@@ -70,8 +73,7 @@ extension ZLRepoCommitController {
         { [weak self] resultModel in
             guard let self else { return }
             if resultModel.result == true, let itemArray = resultModel.data as? [ZLGithubCommitModel] {
-                
-                self.untilDate = itemArray.last?.commit_at
+      
                 let cellDataArray: [ZLCommitTableViewCellData] = itemArray.map {
                     let cellData = ZLCommitTableViewCellData(commitModel: $0)
                     return cellData
@@ -89,7 +91,7 @@ extension ZLRepoCommitController {
                 
                 self.tableView.reloadData()
                 
-                self.endRefreshViews(noMoreData: cellDataArray.isEmpty)
+                self.endRefreshViews(noMoreData: cellDataArray.count < Self.per_page)
                 self.viewStatus = self.tableViewProxy.isEmpty ? .empty : .normal
                 
             } else {

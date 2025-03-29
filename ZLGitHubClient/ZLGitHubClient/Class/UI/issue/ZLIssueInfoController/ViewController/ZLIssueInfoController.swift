@@ -199,27 +199,41 @@ extension ZLIssueInfoController {
             if resultModel.result,
                let data = resultModel.data as? IssueTimeLineInfoQuery.Data,
                let timelines = data.repository?.issue?.timelineItems {
-                let timelineCellDatas = self.getIssueTimelineCellData(data: timelines)
-                if loadNewData {
-                    self.timelineCellDatas = timelineCellDatas
-                    self.sectionDataArray.forEach { $0.zm_removeFromSuperViewModel() }
-                    var cellDatas: [ZMBaseTableViewCellViewModel] = []
-                    if let issueData, let issue = issueData.repository?.issue  {
-                        cellDatas.append(self.getIssueHeaderCellData(data: issueData))
-                        cellDatas.append(self.getIssueBodyCellData(data: issue))
-                    }
-                    cellDatas.append(contentsOf: timelineCellDatas)
-                    self.sectionDataArray = [ZMBaseTableViewSectionData(cellDatas: cellDatas)]
-                    self.sectionDataArray.forEach { $0.zm_addSuperViewModel(self) }
-                } else {
-                    self.timelineCellDatas.append(contentsOf: timelineCellDatas)
-                    self.sectionDataArray.first?.cellDatas.append(contentsOf: timelineCellDatas)
-                    self.zm_addSubViewModels(timelineCellDatas)
-                }
+                
                 self.after = timelines.pageInfo.endCursor
-                self.tableView.reloadData()
-                self.endRefreshViews(noMoreData: timelineCellDatas.isEmpty)
-                self.viewStatus = self.tableViewProxy.isEmpty ? .empty : .normal
+                
+                var issueHeaderCellData: ZLIssueHeaderTableViewCellData?
+                var issueBodyCellData: ZLIssueBodyTableViewCellData?
+                if loadNewData, let issueData = self.issueData, let issue = issueData.repository?.issue  {
+                    issueHeaderCellData = self.getIssueHeaderCellData(data: issueData)
+                    issueBodyCellData = self.getIssueBodyCellData(data: issue)
+                }
+                
+                let timelineCellDatas = self.getIssueTimelineCellData(data: timelines)
+                
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.milliseconds(200), execute: {
+                    if loadNewData {
+                        self.timelineCellDatas = timelineCellDatas
+                        self.sectionDataArray.forEach { $0.zm_removeFromSuperViewModel() }
+                        var cellDatas: [ZMBaseTableViewCellViewModel] = []
+                        if let issueHeaderCellData,let issueBodyCellData  {
+                            cellDatas.append(issueHeaderCellData)
+                            cellDatas.append(issueBodyCellData)
+                        }
+                        cellDatas.append(contentsOf: timelineCellDatas)
+                        self.sectionDataArray = [ZMBaseTableViewSectionData(cellDatas: cellDatas)]
+                        self.sectionDataArray.forEach { $0.zm_addSuperViewModel(self) }
+                    } else {
+                        self.timelineCellDatas.append(contentsOf: timelineCellDatas)
+                        self.sectionDataArray.first?.cellDatas.append(contentsOf: timelineCellDatas)
+                        self.zm_addSubViewModels(timelineCellDatas)
+                    }
+                   
+                    self.tableView.reloadData()
+                    self.endRefreshViews(noMoreData: timelineCellDatas.isEmpty)
+                    self.viewStatus = self.tableViewProxy.isEmpty ? .empty : .normal
+                })
+                
                 
             } else {
                 if let errorModel = resultModel.data as? ZLGithubRequestErrorModel {

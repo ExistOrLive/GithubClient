@@ -46,7 +46,7 @@ class ZLEditFixedRepoController: ZMViewController, ZLRefreshProtocol {
     
     override func setupUI() {
         super.setupUI()
-        title = ZLLocalizedString(string: "Repos", comment: "")
+        title = ZLLocalizedString(string: "repository", comment: "")
         
         contentView.addSubview(searchBackView)
         contentView.addSubview(tableView)
@@ -79,10 +79,24 @@ class ZLEditFixedRepoController: ZMViewController, ZLRefreshProtocol {
     }()
     
     lazy var searchButton: UIButton = {
-        let button = ZMButton()
-        button.setTitle(ZLLocalizedString(string: "Search", comment: ""), for: .normal)
+        let button = UIButton()
+        button.layer.cornerRadius = 4.0
+        button.backgroundColor = UIColor(named: "ZLExploreTextFieldBackColor")
+        button.addSubview(searchButtonText)
         button.addTarget(self, action: #selector(onSearchButtonClicked), for: .touchUpInside)
+        searchButtonText.snp.makeConstraints { make in
+            make.left.equalTo(20)
+            make.centerY.equalToSuperview()
+        }
         return button
+    }()
+    
+    lazy var searchButtonText: UILabel = {
+        let label = UILabel()
+        label.font = .zlRegularFont(withSize: 12)
+        label.textColor = UIColor(named: "ZLLabelColor2")
+        label.text = ZLLocalizedString(string: "Search", comment: "")
+        return label
     }()
     
     

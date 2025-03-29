@@ -33,6 +33,7 @@ class ZLSettingViewModel: ZMBaseViewModel {
 
     deinit {
         NotificationCenter.default.removeObserver(self, name: ZLLanguageTypeChange_Notificaiton, object: nil)
+        NotificationCenter.default.removeObserver(self, name: ZLAssistButtonShowOrHiddenNotification, object: nil)
         ZLServiceManager.sharedInstance.loginServiceModel?.unRegisterObserver(self, name: ZLLogoutResult_Notification)
     }
     
@@ -70,6 +71,7 @@ class ZLSettingViewModel: ZMBaseViewModel {
         self.tableView?.delegate = self
 
         NotificationCenter.default.addObserver(self, selector: #selector(onNotificationArrived(notication:)), name: ZLLanguageTypeChange_Notificaiton, object: nil)
+       NotificationCenter.default.addObserver(self, selector: #selector(onNotificationArrived(notication:)), name: ZLAssistButtonShowOrHiddenNotification, object: nil)
         ZLServiceManager.sharedInstance.loginServiceModel?.registerObserver(self, selector: #selector(onNotificationArrived(notication:)), name: ZLLogoutResult_Notification)
     }
 
@@ -114,6 +116,9 @@ extension ZLSettingViewModel {
             let appDelegate  = UIApplication.shared.delegate as? AppDelegate
             appDelegate?.switch(toLoginController: true)
             }
+        case ZLAssistButtonShowOrHiddenNotification: do {
+            self.tableView?.reloadData()
+        }
         default:
             break
         }
