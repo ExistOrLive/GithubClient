@@ -1,19 +1,13 @@
 name: ZLGithub Test
 
-on: [push,pull_request]
+on: [push,pull_request,workflow_dispatch]
 
 jobs:
   build:
     name: build
     runs-on: macos-latest # runner 系统 
     steps:
-    - name: checkout
-      uses: actions/checkout@v2.0.0
-    - name: email send for success
-      working-directory: ./ZLGitHubClient/EmailSender
-      if: ${{ failure() }}
-      env: 
-        NOREPLEY_PWD: ${{ secrets.NOREPLY_PASSWD }}
-        Email_Receivers: ${{ secrets.Email_Receivers }}
+    - name: sw_vers
       run: |
-        python3 BuildCheckEmailSender.py $NOREPLEY_PWD $Email_Receivers false
+         sw_vers
+
