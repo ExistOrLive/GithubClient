@@ -1,6 +1,6 @@
 # ZLGithubClient
 
-![ZLGithub TestFlight](https://github.com/MengAndJie/GithubClient/workflows/ZLGithub%20TestFlight/badge.svg)
+![ZLGithub TestFlight](https://github.com/existorlive/GithubClient/workflows/ZLGithub%20TestFlight/badge.svg)
 ![language](https://img.shields.io/github/languages/top/existorlive/githubclient)
 ![CodeSize](https://img.shields.io/github/languages/code-size/existorlive/GitHubClient)
 ![license](https://img.shields.io/github/license/existorlive/githubclient)
