@@ -1,6 +1,6 @@
 # ZLGithubClient
 
-![ZLGithub TestFlight](https://github.com/existorlive/GithubClient/workflows/ZLGithub%20TestFlight/badge.svg)
+[![ZLGithub DailyCI](https://github.com/ExistOrLive/GithubClient/actions/workflows/DailyCI.yml/badge.svg)](https://github.com/ExistOrLive/GithubClient/actions/workflows/DailyCI.yml)
 ![language](https://img.shields.io/github/languages/top/existorlive/githubclient)
 ![CodeSize](https://img.shields.io/github/languages/code-size/existorlive/GitHubClient)
 ![license](https://img.shields.io/github/license/existorlive/githubclient)
