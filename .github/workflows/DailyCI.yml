@@ -13,7 +13,7 @@ on:                               # 触发条件
 jobs:
   build:
     name: build
-    runs-on: macos-latest # runner 系统 
+    runs-on: macos-15 # runner 系统 
     steps:
     
     - name: checkout
