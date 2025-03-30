@@ -5,7 +5,7 @@ on: [push,pull_request,workflow_dispatch]
 jobs:
   build:
     name: build
-    runs-on: macos-latest # runner 系统 
+    runs-on: macos-15 # runner 系统 
     steps:
     - name: sw_vers
       run: |
