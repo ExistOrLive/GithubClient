@@ -7,8 +7,6 @@
 //
 
 import Foundation
-import RxSwift
-import RxRelay
 import ZLGitRemoteService
 
 protocol ZLRepoInfoPresenterDelegate: AnyObject {

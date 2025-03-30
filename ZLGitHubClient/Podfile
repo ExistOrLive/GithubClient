@@ -80,11 +80,6 @@ pod 'JJException'
 # 扩展
 pod 'UITextView+Placeholder'
 
-# Rx
-pod 'RxSwift'
-pod 'RxCocoa'
-pod 'RxRelay'
-
 # 转场动画
 #pod 'Hero'
 
