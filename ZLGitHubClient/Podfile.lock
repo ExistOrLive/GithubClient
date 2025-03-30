@@ -271,12 +271,12 @@ DEPENDENCIES:
   - Umbrella
   - Umbrella/Firebase
   - YYText
-  - ZLBaseExtension (from `../../ZLBaseExtension`)
-  - ZLGithubOAuth (from `../../ZLGithubOAuth`)
-  - ZLGitRemoteService (from `../../ZLGitRemoteService`)
-  - ZLUIUtilities (from `../../ZLUIUtilities`)
-  - ZLUtilities (from `../../ZLUtilities`)
-  - ZMMVVM (from `../../ZMMVVM`)
+  - ZLBaseExtension (from `https://github.com/ExistOrLive/ZLBaseExtension.git`)
+  - ZLGithubOAuth (from `https://github.com/ExistOrLive/ZLGithubOAuth.git`)
+  - ZLGitRemoteService (from `https://github.com/ExistOrLive/ZLGitRemoteService.git`)
+  - ZLUIUtilities (from `https://github.com/ExistOrLive/ZLUIUtilities.git`)
+  - ZLUtilities (from `https://github.com/ExistOrLive/ZLUtilities.git`)
+  - ZMMVVM (from `https://github.com/ExistOrLive/ZMMVVM.git`)
 
 SPEC REPOS:
   trunk:
@@ -331,17 +331,37 @@ EXTERNAL SOURCES:
   Toast:
     :podspec: ZLGitHubClient/System/ZLSupportFiles/Toast.podspec
   ZLBaseExtension:
-    :path: "../../ZLBaseExtension"
+    :git: https://github.com/ExistOrLive/ZLBaseExtension.git
   ZLGithubOAuth:
-    :path: "../../ZLGithubOAuth"
+    :git: https://github.com/ExistOrLive/ZLGithubOAuth.git
   ZLGitRemoteService:
-    :path: "../../ZLGitRemoteService"
+    :git: https://github.com/ExistOrLive/ZLGitRemoteService.git
   ZLUIUtilities:
-    :path: "../../ZLUIUtilities"
+    :git: https://github.com/ExistOrLive/ZLUIUtilities.git
   ZLUtilities:
-    :path: "../../ZLUtilities"
+    :git: https://github.com/ExistOrLive/ZLUtilities.git
   ZMMVVM:
-    :path: "../../ZMMVVM"
+    :git: https://github.com/ExistOrLive/ZMMVVM.git
+
+CHECKOUT OPTIONS:
+  ZLBaseExtension:
+    :commit: 4eac8ad92f0dcbe4678451acddfe6cc54bf857ba
+    :git: https://github.com/ExistOrLive/ZLBaseExtension.git
+  ZLGithubOAuth:
+    :commit: ea8de4f7bac522fe0ff08b8b70b8655af8068fd7
+    :git: https://github.com/ExistOrLive/ZLGithubOAuth.git
+  ZLGitRemoteService:
+    :commit: 105aad352556fdace64f437f94b99c7ddf110549
+    :git: https://github.com/ExistOrLive/ZLGitRemoteService.git
+  ZLUIUtilities:
+    :commit: 8223e266c0beae07ec375a819b54fd8ccad31d0c
+    :git: https://github.com/ExistOrLive/ZLUIUtilities.git
+  ZLUtilities:
+    :commit: e598a9d8c8f11e0e9c05359a6c28846031ab1444
+    :git: https://github.com/ExistOrLive/ZLUtilities.git
+  ZMMVVM:
+    :commit: ac7e8e7c66e9e7876c8b1639dd53add22b61c319
+    :git: https://github.com/ExistOrLive/ZMMVVM.git
 
 SPEC CHECKSUMS:
   Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
@@ -398,6 +418,6 @@ SPEC CHECKSUMS:
   ZLUtilities: f47279dc92b4854fb2e2abb86b841dc8cd16e5a1
   ZMMVVM: cea3ec4d56906c18b4713e188c177904784bba33
 
-PODFILE CHECKSUM: 1e3c2bc7a532e2922c28203a7047f9a6090f8f9c
+PODFILE CHECKSUM: 9b974b1165eaa75b7ee0d8c45f379253c0a88c1a
 
 COCOAPODS: 1.15.2

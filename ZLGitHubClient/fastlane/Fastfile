@@ -22,37 +22,37 @@ platform :ios do
 #    upload_to_testflight
 #  end
 
-  lane :local_test do
-    # 跳过签名,出包，仅做archive 编译检查
-    gym(workspace: "ZLGitHubClient.xcworkspace",
-    scheme: "ZLGitHubClient",
-    clean: true,
-    build_path: "./fastlane/archive/adhoc",
-    skip_codesigning: true,    
-    skip_package_ipa: true)
-  end
+  # lane :local_test do
+  #   # 跳过签名,出包，仅做archive 编译检查
+  #   gym(workspace: "ZLGitHubClient.xcworkspace",
+  #   scheme: "ZLGitHubClient",
+  #   clean: true,
+  #   build_path: "./fastlane/archive/adhoc",
+  #   skip_codesigning: true,    
+  #   skip_package_ipa: true)
+  # end
 
-  desc "build one adhoc release local"
-  lane :local_adhoc do
-    # match(type: "adhoc",
-    #       readonly: true,
-    #       app_identifier: "com.zm.*",
-    #       git_url: "git@github.com:ExistOrLive/ZLGithubClientCer.git")
-    gym(workspace: "ZLGitHubClient.xcworkspace",
-        scheme: "ZLGitHubClient",
-        clean: false,
-        include_symbols: true,
-        include_bitcode: false,
-        output_directory: "./fastlane/ipa",
-        output_name: "ZLGitHubClient.ipa",
-        export_options: {
-          method: "ad-hoc",
-          provisioningProfiles: {
-            "com.zm.ZLGitHubClient" => "match AdHoc com.zm.*",
-            "com.zm.ZLGitHubClient.Fixed-Repo" => "match AdHoc com.zm.*"
-          }
-        })
-  end
+  # desc "build one adhoc release local"
+  # lane :local_adhoc do
+  #   # match(type: "adhoc",
+  #   #       readonly: true,
+  #   #       app_identifier: "com.zm.*",
+  #   #       git_url: "git@github.com:ExistOrLive/ZLGithubClientCer.git")
+  #   gym(workspace: "ZLGitHubClient.xcworkspace",
+  #       scheme: "ZLGitHubClient",
+  #       clean: false,
+  #       include_symbols: true,
+  #       include_bitcode: false,
+  #       output_directory: "./fastlane/ipa",
+  #       output_name: "ZLGitHubClient.ipa",
+  #       export_options: {
+  #         method: "ad-hoc",
+  #         provisioningProfiles: {
+  #           "com.zm.ZLGitHubClient" => "match AdHoc com.zm.*",
+  #           "com.zm.ZLGitHubClient.Fixed-Repo" => "match AdHoc com.zm.*"
+  #         }
+  #       })
+  # end
 
   desc "just build check, prevent any build or link error"
   lane :github_action_build_check do
@@ -65,56 +65,63 @@ platform :ios do
     skip_package_ipa: true)
   end
 
-  desc "build one adhoc release local"
-  lane :jenkins_adhoc do
-     create_keychain(
-      name: ENV['MATCH_KEYCHAIN_NAME'],
-      password: ENV['MATCH_PASSWORD'],
-      default_keychain: true,
-      unlock: true,
-      timeout: 3600,
-      add_to_search_list: true
-    )
-     match(type: "adhoc",
-          readonly: true,
-          app_identifier: "com.zm.*",
-          keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
-          keychain_password: ENV['MATCH_PASSWORD'],
-          git_url: ENV['MATCH_GITHUB_URL'])
-     gym(workspace: "ZLGitHubClient.xcworkspace",
-         scheme: "ZLGitHubClient",
-         clean: true,
-         include_symbols: true,
-         include_bitcode: false,
-         output_directory: "./fastlane/ipa",
-         output_name: "ZLGitHubClient.ipa",
-         export_options: {
-          method: "adhoc",
-          provisioningProfiles: {
-            "com.zm.ZLGitHubClient" => "*** AdHoc com.zm.*",
-            "com.zm.ZLGitHubClient.Fixed-Repo" => "*** AdHoc com.zm.*"
-          }
-        })
-  end
+  # desc "build one adhoc release local"
+  # lane :jenkins_adhoc do
+  #    create_keychain(
+  #     name: ENV['MATCH_KEYCHAIN_NAME'],
+  #     password: ENV['MATCH_PASSWORD'],
+  #     default_keychain: true,
+  #     unlock: true,
+  #     timeout: 3600,
+  #     add_to_search_list: true
+  #   )
+  #    match(type: "adhoc",
+  #         readonly: true,
+  #         app_identifier: "com.zm.*",
+  #         keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
+  #         keychain_password: ENV['MATCH_PASSWORD'],
+  #         git_url: ENV['MATCH_GITHUB_URL'])
+  #    gym(workspace: "ZLGitHubClient.xcworkspace",
+  #        scheme: "ZLGitHubClient",
+  #        clean: true,
+  #        include_symbols: true,
+  #        include_bitcode: false,
+  #        output_directory: "./fastlane/ipa",
+  #        output_name: "ZLGitHubClient.ipa",
+  #        export_options: {
+  #         method: "adhoc",
+  #         provisioningProfiles: {
+  #           "com.zm.ZLGitHubClient" => "*** AdHoc com.zm.*",
+  #           "com.zm.ZLGitHubClient.Fixed-Repo" => "*** AdHoc com.zm.*"
+  #         }
+  #       })
+  # end
 
   desc "build one adhoc release on github actions"
   lane :github_action_adhoc do
+    # 创建keychain 用于保存证书
     create_keychain(
       name: ENV['MATCH_KEYCHAIN_NAME'],
-      password: ENV['MATCH_PASSWORD'],
+      password: ENV['MATCH_KEYCHAIN_PASSWORD'],
       default_keychain: true,
       unlock: true,
       timeout: 3600,
       add_to_search_list: true
     ) 
+
+    # 从 MATCH_GITHUB_URL 下载证书，
+    # 使用MATCH_GIT_BASIC_AUTHORIZATION作为token访问私有仓库
+    # 保存在 MATCH_KEYCHAIN_NAME 指定的keychain中
+    # 并使用 MATCH_PASSWORD 解密
     match(type: "adhoc",
           readonly: true,
           app_identifier: "com.zm.*",
           profile_name: "*** AdHoc com.zm.*",
           keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
-          keychain_password: ENV['MATCH_PASSWORD'],
+          keychain_password: ENV['MATCH_KEYCHAIN_PASSWORD'],
           git_url: ENV['MATCH_GITHUB_URL'])
 
+    # 构建ipa包
     gym(workspace: "ZLGitHubClient.xcworkspace",
         scheme: "ZLGitHubClient",
         clean: true,
@@ -129,80 +136,86 @@ platform :ios do
             "com.zm.ZLGitHubClient.Fixed-Repo" => "*** AdHoc com.zm.*"
           }
         })
+    
+    # 删除keychain
+    delete_keychain(name: ENV['MATCH_KEYCHAIN_NAME'])
+
   end
 
 
-  desc "build one adhoc release on travis"
-  lane :travis_adhoc do
-    create_keychain(
-      name: ENV["MATCH_KEYCHAIN_NAME"],
-      password: ENV["MATCH_PASSWORD"],
-      default_keychain: true,
-      unlock: true,
-      timeout: 3600,
-      add_to_search_list: true
-    ) 
-    match(type: "adhoc",
-          readonly: true,
-          app_identifier: "com.zm.*",
-          profile_name: "*** AdHoc com.zm.*",
-          keychain_name: ENV["MATCH_KEYCHAIN_NAME"],
-          keychain_password: ENV["MATCH_PASSWORD"],
-          git_url: ENV["MATCH_GITHUB_URL"])
+  # desc "build one adhoc release on travis"
+  # lane :travis_adhoc do
+  #   create_keychain(
+  #     name: ENV["MATCH_KEYCHAIN_NAME"],
+  #     password: ENV["MATCH_PASSWORD"],
+  #     default_keychain: true,
+  #     unlock: true,
+  #     timeout: 3600,
+  #     add_to_search_list: true
+  #   ) 
+  #   match(type: "adhoc",
+  #         readonly: true,
+  #         app_identifier: "com.zm.*",
+  #         profile_name: "*** AdHoc com.zm.*",
+  #         keychain_name: ENV["MATCH_KEYCHAIN_NAME"],
+  #         keychain_password: ENV["MATCH_PASSWORD"],
+  #         git_url: ENV["MATCH_GITHUB_URL"])
 
-    gym(workspace: "ZLGitHubClient.xcworkspace",
-        scheme: "ZLGitHubClient",
-        clean: true,
-        include_symbols: true,
-        include_bitcode: false,
-        output_directory: "./fastlane/ipa/adhoc",
-        output_name: "ZLGitHubClient.ipa",
-        export_options: {
-          method: "adhoc",
-          provisioningProfiles: {
-            "com.zm.ZLGitHubClient" => "*** AdHoc com.zm.*",
-            "com.zm.ZLGitHubClient.Fixed-Repo" => "*** AdHoc com.zm.*"
-          }
-        })
-  end
+  #   gym(workspace: "ZLGitHubClient.xcworkspace",
+  #       scheme: "ZLGitHubClient",
+  #       clean: true,
+  #       include_symbols: true,
+  #       include_bitcode: false,
+  #       output_directory: "./fastlane/ipa/adhoc",
+  #       output_name: "ZLGitHubClient.ipa",
+  #       export_options: {
+  #         method: "adhoc",
+  #         provisioningProfiles: {
+  #           "com.zm.ZLGitHubClient" => "*** AdHoc com.zm.*",
+  #           "com.zm.ZLGitHubClient.Fixed-Repo" => "*** AdHoc com.zm.*"
+  #         }
+  #       })
+  # end
 
   desc "build one TestFlight release on github action"
   lane :github_action_testFlight do
 
-    api_key = app_store_connect_api_key(
-    key_id: ENV['APPSTOREAPIKEYID'],
-    issuer_id: ENV['APPSTOREAPIISSUERID'],
-    key_content: ENV['APPSTOREAPIKEY'],
-    duration: 1200, # optional
-    in_house: false, # optional but may be required if using match/sigh
-    )
-    create_keychain(
-      name: ENV['MATCH_KEYCHAIN_NAME'],
-      password: ENV['MATCH_PASSWORD'],
-      default_keychain: true,
-      unlock: true,
-      timeout: 3600,
-      add_to_search_list: true
-    ) 
+    # 创建api_key用于访问app store connect
+    api_key = app_store_connect_api_key(key_id: ENV['APPSTOREAPIKEYID'],
+                                        issuer_id: ENV['APPSTOREAPIISSUERID'],
+                                        key_content: ENV['APPSTOREAPIKEY'],
+                                        duration: 1200, # optional
+                                        in_house: false)
+    # 创建keychain 用于保存证书
+    create_keychain(name: ENV['MATCH_KEYCHAIN_NAME'],
+                    password: ENV['MATCH_KEYCHAIN_PASSWORD'],
+                    default_keychain: true,
+                    unlock: true,
+                    timeout: 3600,
+                    add_to_search_list: true) 
 
+    # 从 MATCH_GITHUB_URL 下载证书，使用MATCH_GIT_BASIC_AUTHORIZATION作为token
+    # 保存在 MATCH_KEYCHAIN_NAME 指定的keychain中
+    # 并使用 MATCH_PASSWORD 解密
     match(type: "appstore",
           readonly: true,
           app_identifier: "com.zm.*",
           profile_name: "*** AppStore com.zm.*",
           keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
-          keychain_password: ENV['MATCH_PASSWORD'],
+          keychain_password: ENV['MATCH_KEYCHAIN_PASSWORD'],
           git_url: ENV['MATCH_GITHUB_URL'])
 
+     # 更新build number
     build_num = app_store_build_number(
       app_identifier: "com.zm.ZLGitHubClient",
       live: false,
       api_key: api_key
     )
-      
     increment_build_number(
       build_number: build_num + 1
     )
     
+    # 构建ipa包
     gym(workspace: "ZLGitHubClient.xcworkspace",
         scheme: "ZLGitHubClient",
         export_method: "app-store",
@@ -212,6 +225,7 @@ platform :ios do
         output_directory: "./fastlane/ipa/TestFlight",
         output_name: "ZLGitHubClient.ipa")
     
+    # 上传到TestFlight
     pilot(
       api_key: api_key,
       app_identifier: "com.zm.ZLGitHubClient",
@@ -219,42 +233,10 @@ platform :ios do
       ipa: "./fastlane/ipa/TestFlight/ZLGitHubClient.ipa"
       )
 
-  end
+    # 删除keychain
+    delete_keychain(name: ENV['MATCH_KEYCHAIN_NAME'])
 
-  desc "build one TestFlight release"
-  lane :beta do
-    # 配置证书和描述配置文件
-    match(type: "appstore",
-          readonly: true,
-          app_identifier: "com.zm.ZLGitHubClient",
-          git_url: "https://github.com/ExistOrLive/ZLGithubClientCer.git")
-    # 编译，签名，打包
-    gym(workspace: "ZLGitHubClient.xcworkspace",
-        scheme: "ZLGitHubClient",
-        clean: true,
-        include_symbols: true,
-        include_bitcode: false)
-    # 上传至testflight
-    #pilot
   end
-
-  desc "build one release for apple check"
-  lane :release do
-    # 配置证书和描述配置文件
-    match(type: "appstore",
-          readonly: true,
-          app_identifier: "com.zm.ZLGitHubClient",
-          git_url: "https://github.com/ExistOrLive/ZLGithubClientCer.git")
-    # 编译，签名，打包
-    gym(workspace: "ZLGitHubClient.xcworkspace",
-        scheme: "ZLGitHubClient",
-        clean: true,
-        include_symbols: true,
-        include_bitcode: false)
-    # 上传至apple store connect
-    #deliver
-  end
-
 
   desc "local match"
   lane :localMatch  do 

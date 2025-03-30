@@ -23,14 +23,6 @@ def main():
    else :
        print(result)
 
-   result = requests.get("https://api.github.com/repos/ExistOrLive/SecretFile/contents/GithubClient/agconnect-services.plist",
-                      headers={"Authorization":"token "+token,"Accept":"application/vnd.github.v3.raw+json"})
-   if result.status_code == 200 :
-       open("agconnect-services.plist",'wb').write(result.content)
-       print("agconnect-services.plist download success")
-   else :
-       print(result)
-
 if __name__ == '__main__':
     main()
 

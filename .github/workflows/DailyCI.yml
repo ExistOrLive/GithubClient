@@ -18,20 +18,19 @@ jobs:
     
     - name: checkout
       uses: actions/checkout@v2.0.0
-      with: 
-        ref: master 
-        
+      with:
+        ref: master
+
     - name: download secret file
       working-directory: ./ZLGitHubClient          # 指定run 的工作目录
-      env: 
+      env:
         GITHUBTOKEN: ${{ secrets.GITHUBTOKEN }}
       run: |
         pip3 install requests --break-system-packages
         python3 DownloadSecretFile/DownloadSecrectFile.py $GITHUBTOKEN
         mv ZLGithubAppKey.h ZLGitHubClient/System/ZLSupportFiles/ZLGithubAppKey.h
         mv GoogleService-Info.plist ZLGitHubClient/GoogleService-Info.plist
-        mv agconnect-services.plist ZLGitHubClient/agconnect-services.plist
-        
+
     - name: construct build enviroment
       working-directory: ./ZLGitHubClient          # 指定run 的工作目录
       run: |
@@ -41,15 +40,15 @@ jobs:
         bundle exec pod repo update
         bundle exec pod install
         echo "construct build enviroment success"
-        
+
     - name: archive and upload app
       working-directory: ./ZLGitHubClient          # 指定run 的工作目录
       env: 
         MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
-        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+        MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
         MATCH_GITHUB_URL: ${{ secrets.MATCH_GITHUB_URL }}
-        FASTLANE_USER: ${{ secrets.FASTLANE_USER }}                                    
-        FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }} 
+        MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}
+        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
         APPSTOREAPIISSUERID: ${{ secrets.APPSTOREAPIISSUERID }} 
         APPSTOREAPIKEY: ${{ secrets.APPSTOREAPIKEY }} 
         APPSTOREAPIKEYID: ${{ secrets.APPSTOREAPIKEYID }} 
