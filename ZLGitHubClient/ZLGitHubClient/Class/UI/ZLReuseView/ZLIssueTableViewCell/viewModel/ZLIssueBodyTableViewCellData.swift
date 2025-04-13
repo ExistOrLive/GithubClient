@@ -50,7 +50,7 @@ class ZLIssueBodyTableViewCellData: ZMBaseTableViewCellViewModel {
         if let cellHeight {
             self.cellHeight = cellHeight
         }
-        self.webView.loadHTMLString(self.getCommentHtml(), baseURL: nil)
+        webView.loadHTML(self.getCommentHtml())
     }
 
     override var zm_cellReuseIdentifier: String {
@@ -64,7 +64,7 @@ class ZLIssueBodyTableViewCellData: ZMBaseTableViewCellViewModel {
     override func zm_clearCache() {
         super.zm_clearCache()
         self.cacheHtml = nil
-        self.webView.loadHTMLString(self.getCommentHtml(), baseURL: nil)
+        self.webView.loadHTML(self.getCommentHtml())
     }
 
     func getHtmlStr() -> String {

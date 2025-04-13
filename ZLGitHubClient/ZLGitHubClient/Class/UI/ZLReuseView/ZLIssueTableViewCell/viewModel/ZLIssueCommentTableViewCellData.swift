@@ -38,8 +38,6 @@ class ZLIssueCommentTableViewCellData: ZMBaseTableViewCellViewModel {
             
             var enddate = Date().timeIntervalSince1970
             
-            print("dasdasdas \(enddate - self.date)")
-            
             self.cellHeight =  webViewHeight + 110
             (self.zm_superViewModel as? ZMBaseTableViewContainerProtocol)?.tableView.performBatchUpdates({
                 
@@ -54,7 +52,7 @@ class ZLIssueCommentTableViewCellData: ZMBaseTableViewCellViewModel {
         if let cellHeight {
             self.cellHeight = cellHeight
         }
-        self.webView.loadHTMLString(self.getCommentHtml(), baseURL: nil)
+        webView.loadHTML(self.getCommentHtml())
     }
 
     override var zm_cellReuseIdentifier: String {
@@ -68,7 +66,7 @@ class ZLIssueCommentTableViewCellData: ZMBaseTableViewCellViewModel {
     override func zm_clearCache() {
         super.zm_clearCache()
         self.cacheHtml = nil
-        self.webView.loadHTMLString(self.getCommentHtml(), baseURL: nil)
+        self.webView.loadHTML(self.getCommentHtml())
     }
 
     func getHtmlStr() -> String {

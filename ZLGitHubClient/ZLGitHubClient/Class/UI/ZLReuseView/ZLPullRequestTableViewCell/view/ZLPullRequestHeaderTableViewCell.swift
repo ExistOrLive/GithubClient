@@ -128,7 +128,7 @@ class ZLPullRequestHeaderTableViewCell: UITableViewCell {
         label4.backgroundColor = UIColor(named: "ZLPRRefBackColor")
         label4.borderColor = UIColor(named: "ZLPRRefColor")
         label4.borderWidth = 1.0 / 3
-        label4.cornerRadius = 5
+        label4.cornerRadius = 3
         label4.font = UIFont(name: Font_PingFangSCMedium, size: 12)
         scrollView.addSubview(label4)
         label4.snp.makeConstraints { (make) in
@@ -152,7 +152,7 @@ class ZLPullRequestHeaderTableViewCell: UITableViewCell {
         label6.backgroundColor = UIColor(named: "ZLPRRefBackColor")
         label6.borderColor = UIColor(named: "ZLPRRefColor")
         label6.borderWidth = 1.0 / 3
-        label6.cornerRadius = 5
+        label6.cornerRadius = 3
         label6.font = UIFont(name: Font_PingFangSCMedium, size: 12)
         scrollView.addSubview(label6)
         label6.snp.makeConstraints { (make) in
@@ -164,16 +164,10 @@ class ZLPullRequestHeaderTableViewCell: UITableViewCell {
         refLabel2 = label6
 
         let label5 = UILabel()
-        label5.font = UIFont(name: Font_PingFangSCMedium, size: 12)
-        label5.borderWidth = 1.0 / 3
-        label5.cornerRadius = 5
-        label5.textAlignment = .center
         self.contentView.addSubview(label5)
         label5.snp.makeConstraints { (make) in
             make.left.equalToSuperview().offset(20)
             make.top.equalTo(scrollView.snp.bottom).offset(10)
-            make.width.equalTo(60)
-            make.height.equalTo(25)
         }
         statusLabel = label5
 
@@ -309,18 +303,39 @@ extension ZLPullRequestHeaderTableViewCell: ZMBaseViewUpdatableWithViewData {
         refLabel2.text = data.getBaseRef()
 
         statusLabel.text = " \(data.getPRState()) "
-        if data.getPRState() == "OPEN" {
-            statusLabel.textColor = UIColor(named: "ZLPROpenedColor")
-            statusLabel.backgroundColor = UIColor(named: "ZLPROpenedBackColor")
-            statusLabel.borderColor = UIColor(named: "ZLPROpenedColor")
-        } else if data.getPRState() == "CLOSED" {
-            statusLabel.textColor = UIColor(named: "ZLPRClosedColor")
-            statusLabel.backgroundColor = UIColor(named: "ZLPRClosedBackColor")
-            statusLabel.borderColor = UIColor(named: "ZLPRClosedColor")
-        } else if data.getPRState() == "MERGED" {
-            statusLabel.textColor = UIColor(named: "ZLPRMergedColor")
-            statusLabel.backgroundColor = UIColor(named: "ZLPRMergedBackColor")
-            statusLabel.borderColor = UIColor(named: "ZLPRMergedColor")
+        switch data.getPRState() {
+        case "OPEN":
+            statusLabel.attributedText = generateStatusTag(statusStr: data.getPRState(),
+                                                           foregroudColor: .label(withName: "ZLPROpenedColor"),
+                                                           backgroundColor: .label(withName: "ZLPROpenedBackColor"))
+        case "CLOSED":
+            statusLabel.attributedText = generateStatusTag(statusStr: data.getPRState(),
+                                                           foregroudColor: .label(withName: "ZLPRClosedColor"),
+                                                           backgroundColor: .label(withName: "ZLPRClosedBackColor"))
+        case "MERGED":
+            statusLabel.attributedText = generateStatusTag(statusStr: data.getPRState(),
+                                                           foregroudColor: .label(withName: "ZLPRMergedColor"),
+                                                           backgroundColor: .label(withName: "ZLPRMergedBackColor"))
+        default:
+            break
         }
      }
+    
+    func generateStatusTag(statusStr: String, foregroudColor: UIColor, backgroundColor: UIColor) -> NSAttributedString? {
+        
+        let tag = NSTagWrapper()
+            .attributedString(statusStr
+                                .asMutableAttributedString()
+                                .font(.zlMediumFont(withSize: 12))
+                                .foregroundColor(foregroudColor))
+            .cornerRadius(3.0)
+            .borderWidth(1 / 3.0)
+            .borderColor(foregroudColor)
+            .backgroundColor(backgroundColor)
+            .edgeInsets(UIEdgeInsets(top: 4, left: 6, bottom: 4, right: 6))
+            .asImage()?
+            .asImageTextAttachmentWrapper()
+            .alignment(.centerline)
+        return tag?.asAttributedString()
+    }
 }

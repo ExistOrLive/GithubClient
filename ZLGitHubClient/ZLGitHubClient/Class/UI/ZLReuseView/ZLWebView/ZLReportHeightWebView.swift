@@ -10,8 +10,21 @@ import Foundation
 import WebKit
 
 class ZLReportHeightWebView: WKWebView {
+
+
+    private func addAppStateObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(appWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+    }
+
+    @objc private func appWillEnterForeground() {
+       self.loadHTML(cacheStr)
+    }
+
+  
     
     var cacheHeight: CGFloat?
+    
+    var cacheStr: String = ""
     
     var reportHeightBlock: (() -> Void)?
     
@@ -20,7 +33,6 @@ class ZLReportHeightWebView: WKWebView {
         let scriptHandler = ZLReportHeightScriptMessageHandler()
         scriptHandler.reportHeight = { [weak self] height in
             guard let self else { return }
-            print("dasdasdas \(height)")
             if let cacheHeight = self.cacheHeight, cacheHeight == height {
                 return
             }
@@ -32,6 +44,7 @@ class ZLReportHeightWebView: WKWebView {
     }()
     
     deinit {
+        NotificationCenter.default.removeObserver(self, name: UIApplication.willEnterForegroundNotification, object: nil)
         configuration.userContentController.removeAllUserScripts()
         configuration.userContentController.removeScriptMessageHandler(forName: "onHTMLHeightChange")
     }
@@ -41,17 +54,22 @@ class ZLReportHeightWebView: WKWebView {
         let webViewConfig = WKWebViewConfiguration()
         webViewConfig.userContentController = userContentController
         super.init(frame: frame,configuration: webViewConfig)
+        addAppStateObserver()
         
         // 注册回调 传入的scriptHandler是强引用
         userContentController.add(scriptHandler, name: "onHTMLHeightChange")
         // 在HTML页面加载前插入脚本
         let script = WKUserScript(source: Self.getHTMLHeightScript, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
         userContentController.addUserScript(script)
+        
+        
     }
     
-    override func loadHTMLString(_ string: String, baseURL: URL?) -> WKNavigation? {
+    
+    func loadHTML(_ string: String) {
         cacheHeight = nil
-        return super.loadHTMLString(string, baseURL: baseURL)
+        cacheStr = string
+         super.loadHTMLString(string, baseURL: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -82,10 +100,6 @@ class ZLReportHeightWebView: WKWebView {
 class ZLReportHeightScriptMessageHandler: NSObject, WKScriptMessageHandler {
     
     var reportHeight: ((CGFloat) -> Void)?
-    
-    deinit {
-        print("ZLReportHeightScriptMessageHandler deinit")
-    }
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         // height change

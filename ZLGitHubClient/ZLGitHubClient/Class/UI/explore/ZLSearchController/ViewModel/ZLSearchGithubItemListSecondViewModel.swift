@@ -85,7 +85,7 @@ extension ZLSearchGithubItemListSecondViewModel {
                 
                 guard let searchItemSecondView = self.searchItemSecondView else { return }
                 searchItemSecondView.sectionDataArray = self.sectionDataArray
-                searchItemSecondView.endRefreshViews(noMoreData: tableViewCellDatas.isEmpty)
+                searchItemSecondView.endRefreshViews(noMoreData: !data.search.pageInfo.hasNextPage)
                 searchItemSecondView.viewStatus = (self.searchItemSecondView?.tableViewProxy.isEmpty ?? true) ? .empty : .normal
                 
                 if searchItemSecondView.tableView.contentOffset.y > 0, isLoadNew {

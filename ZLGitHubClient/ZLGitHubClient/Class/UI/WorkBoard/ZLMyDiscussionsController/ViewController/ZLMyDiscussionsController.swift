@@ -80,8 +80,8 @@ extension ZLMyDiscussionsController {
                     self.sectionDataArray.first?.cellDatas.append(contentsOf: cellDatas)
                 }
                 self.tableViewProxy.reloadData()
-                self._after = data.search.pageInfo.hasNextPage ? data.search.pageInfo.endCursor : nil
-                self.endRefreshViews(noMoreData: !self.hasMoreData)
+                self._after = data.search.pageInfo.endCursor
+                self.endRefreshViews(noMoreData: !data.search.pageInfo.hasNextPage)
                 self.viewStatus = self.tableViewProxy.isEmpty ? .empty : .normal
                 
             } else {

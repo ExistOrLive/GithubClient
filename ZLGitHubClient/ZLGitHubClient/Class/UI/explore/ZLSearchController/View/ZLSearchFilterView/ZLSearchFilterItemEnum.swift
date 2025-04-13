@@ -151,6 +151,42 @@ enum ZLSearchIssueOrPROrderItem: String, CaseIterable {
     }
 }
 
+// IssueOrPR 排序
+enum ZLSearchDiscussionOrderItem: String, CaseIterable {
+    
+    case Best_macth = "Best macth"
+    case Most_commented = "Most commented"
+    case Least_commented = "Least commented"
+    case Newest = "Newest"
+    case Oldest = "Oldest"
+    case Recently_updated = "Recently updated"
+    case Least_recently_updated = "Least recently updated"
+    
+    var isAsc: Bool {
+        switch self {
+        case .Newest,.Most_commented,.Recently_updated:
+            return false
+        case .Oldest,.Least_commented,.Least_recently_updated:
+            return true
+        default:
+            return false
+        }
+    }
+    
+    var order: String? {
+        switch self {
+        case .Newest,.Oldest :
+            return "created"
+        case .Most_commented,.Least_commented:
+            return "comments"
+        case .Recently_updated,.Least_recently_updated:
+            return "updated"
+        default:
+            return nil
+        }
+    }
+}
+
 
 // MARK: Filter Section
 extension ZLSearchType {
@@ -166,6 +202,8 @@ extension ZLSearchType {
             return ZLSearchPrFilterSectionType.allCases
         case .issues:
             return ZLSearchIssueFilterSectionType.allCases
+        case .discussion:
+            return ZLSearchDiscussionFilterSectionType.allCases
         @unknown default:
             return ZLSearchRepoFilterSectionType.allCases
         }
@@ -371,6 +409,34 @@ enum ZLSearchPrFilterSectionType:String, ZLSearchFilterSectionProtocol, CaseIter
     }
 }
 
+enum ZLSearchDiscussionFilterSectionType:String, ZLSearchFilterSectionProtocol, CaseIterable {
+    
+    case order = "order"
+    case createTime = "createTime"
+    
+    var titleKey: String {
+        switch self {
+        case .order:
+            return "Order"
+        case .createTime:
+            return "CreateTime"
+        }
+    }
+    
+    var id: String {
+        return self.rawValue
+    }
+    
+    var cellTypes: [ZLSearchFilterCellType] {
+        switch self {
+        case .order:
+            return [.discussionOrder]
+        case .createTime:
+            return [.firstCreatedTime,.singline,.secondCreatedTime]
+        }
+    }
+}
+
 // MARK: Filter Cell
 
 enum ZLSearchFilterCellType:String, CaseIterable {
@@ -380,6 +446,7 @@ enum ZLSearchFilterCellType:String, CaseIterable {
     case orgOrder = "orgOrder"
     case issueOrder = "issueOrder"
     case prOrder = "prOrder"
+    case discussionOrder = "discussionOrder"
     case language = "language"
     case openStatus = "openStatus"
     case firstCreatedTime = "firstCreatedTime"

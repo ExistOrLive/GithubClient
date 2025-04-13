@@ -51,8 +51,8 @@ class ZLIssueInfoController: ZMTableViewController {
     
     override func setupUI() {
         super.setupUI()
-        
-        self.title = ZLLocalizedString(string: "issue", comment: "")
+           
+        self.title = "#\(number)"
         
         self.zmNavigationBar.addRightView(moreButton)
         
@@ -171,7 +171,6 @@ extension ZLIssueInfoController {
                let data = resultModel.data as? IssueInfoQuery.Data,
                let issue = data.repository?.issue {
                 self.issueData = data
-                self.title = issue.title
                 self.issueId = issue.id
                 self.bottomView.commentButton.isEnabled = issue.viewerCanReact
                 self.requestIssueTimeline(loadNewData: true)

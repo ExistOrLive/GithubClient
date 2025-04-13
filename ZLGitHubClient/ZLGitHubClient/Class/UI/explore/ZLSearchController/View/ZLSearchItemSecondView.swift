@@ -45,6 +45,8 @@ class ZLSearchItemSecondView: UIView, ZMBaseTableViewContainerProtocol, ZLRefres
                            forCellReuseIdentifier: "ZLIssueTableViewCell")
         tableView.register(ZLPullRequestTableViewCell.self,
                            forCellReuseIdentifier: "ZLPullRequestTableViewCell")
+        tableView.register(ZLDiscussionTableViewCell.self,
+                           forCellReuseIdentifier: "ZLDiscussionTableViewCell")
         
         setRefreshViews(types: [.header,.footer])
     }

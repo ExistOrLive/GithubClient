@@ -43,6 +43,9 @@ class ZLSearchFilterViewManager {
         return generateFilterSectionDatas(searchType: .issues)
     }()
 
+    lazy var discussionDatas: [ZMInputCollectionSectionData] = {
+        return generateFilterSectionDatas(searchType: .discussion)
+    }()
     
     // MARK: Lazy View
     var searchFilterView: ZMInputConfirmPopView {
@@ -98,6 +101,8 @@ extension ZLSearchFilterViewManager {
             return prDatas
         case .organizations:
             return orgDatas
+        case .discussion:
+            return discussionDatas
         @unknown default:
             return repoDatas
         }
@@ -114,7 +119,7 @@ extension ZLSearchFilterViewManager {
             
             let cellDatas =  section.cellTypes.map { cellType -> ZMInputCollectionViewBaseCellDataType in
                 switch cellType {
-                case .repoOrder,.userOrder,.orgOrder,.prOrder,.issueOrder:
+                case .repoOrder,.userOrder,.orgOrder,.prOrder,.issueOrder, .discussionOrder:
                     return ZLSearchFilterButtonCellData(buttonValue: nil,
                                                         buttonTitle: "Best Match",
                                                         defaultButtonTitle: "Best Match",
@@ -250,6 +255,20 @@ extension ZLSearchFilterViewManager: ZMInputCollectionViewPolicyProtocol {
                 cellData?.temporaryButtonTitle = result
                 completionHandler(true,false)
             }
+        case .discussionOrder:
+            guard let window = ZLMainWindow else { return }
+            let selectedOrder = cellData.temporaryButtonValue as? String
+            ZMSingleSelectTitlePopView
+                .showCenterSingleSelectTickBox(to: window,
+                                               title: ZLLocalizedString(string: "OrderSelect",
+                                                                        comment: ""),
+                                               selectableTitles: ZLSearchDiscussionOrderItem.allCases.map({$0.rawValue}),
+                                               selectedTitle: selectedOrder ?? "")
+            {[weak cellData] (index: Int,result: String) in
+                cellData?.temporaryButtonValue = result
+                cellData?.temporaryButtonTitle = result
+                completionHandler(true,false)
+            }
         case .language:
             guard let window = ZLMainWindow else { return }
             let language = cellData.temporaryButtonValue as? String
@@ -326,6 +345,13 @@ extension ZLSearchFilterViewManager: ZMInputCollectionDelegate {
                     if let buttonCellData = cellData as? ZMInputCollectionViewButtonCellDataType,
                        let value = buttonCellData.buttonValue as? String,
                        let orderType = ZLSearchIssueOrPROrderItem(rawValue: value){
+                        model.isAsc = orderType.isAsc
+                        model.order = orderType.order
+                    }
+                case .discussionOrder:
+                    if let buttonCellData = cellData as? ZMInputCollectionViewButtonCellDataType,
+                       let value = buttonCellData.buttonValue as? String,
+                       let orderType = ZLSearchDiscussionOrderItem(rawValue: value){
                         model.isAsc = orderType.isAsc
                         model.order = orderType.order
                     }
@@ -412,7 +438,7 @@ extension ZLSearchFilterViewManager: ZMInputCollectionViewUIDelegate {
             return .zero
         }
         switch cellType {
-        case .repoOrder,.userOrder,.orgOrder,.issueOrder,.prOrder,.language,.openStatus:
+        case .repoOrder,.userOrder,.orgOrder,.issueOrder,.prOrder,.language,.openStatus,.discussionOrder:
             return CGSize(width: 260, height: 35)
         case .firstFork,.firstRepo,.firstFollower,.firstStar,.firstCreatedTime,
                 .secondFork,.secondRepo,.secondFollower,.secondStar,.secondCreatedTime:

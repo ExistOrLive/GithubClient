@@ -19,8 +19,8 @@ protocol ZLDiscussionTableViewCellDataSourceAndDelegate: AnyObject {
     var repositoryFullName: String { get }
     
     var title: String { get }
-    
-    var createTime: String { get }
+        
+    var updateOrCreateTime: String { get }
     
     var upvoteNumber: Int { get }
     
@@ -58,7 +58,7 @@ class ZLDiscussionTableViewCell: ZLBaseCardTableViewCell {
         bottomView.addSubview(thumbsUpNumLabel)
         bottomView.addSubview(commentLabel)
         bottomView.addSubview(commentNumLabel)
-        bottomView.addSubview(createTimeLabel)
+        bottomView.addSubview(timeLabel)
         
         iconTag.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(10)
@@ -109,7 +109,7 @@ class ZLDiscussionTableViewCell: ZLBaseCardTableViewCell {
             make.width.equalTo(40)
         }
         
-        createTimeLabel.snp.makeConstraints { (make) in
+        timeLabel.snp.makeConstraints { (make) in
             make.top.bottom.right.equalToSuperview()
             make.centerY.equalToSuperview()
         }
@@ -145,7 +145,7 @@ class ZLDiscussionTableViewCell: ZLBaseCardTableViewCell {
         return view
     }()
     
-    private lazy var createTimeLabel: UILabel = {
+    private lazy var timeLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(named: "ZLLabelColor2")
         label.font = UIFont(name: Font_PingFangSCRegular, size: 12)
@@ -206,7 +206,7 @@ extension ZLDiscussionTableViewCell: ZMBaseViewUpdatableWithViewData {
         
         repoNameTitleLabel.attributedText = title
         titleLabel.text = viewData.title
-        createTimeLabel.text = viewData.createTime
+        timeLabel.text = viewData.updateOrCreateTime
         
         thumbsUpNumLabel.text = viewData.upvoteNumber < 1000 ? "\(viewData.upvoteNumber)" : String(format: "%.1f", Double(viewData.upvoteNumber)/1000.0) + "k"
         commentNumLabel.text = viewData.commentNumber < 1000 ? "\(viewData.commentNumber)" : String(format: "%.1f", Double(viewData.commentNumber)/1000.0) + "k"

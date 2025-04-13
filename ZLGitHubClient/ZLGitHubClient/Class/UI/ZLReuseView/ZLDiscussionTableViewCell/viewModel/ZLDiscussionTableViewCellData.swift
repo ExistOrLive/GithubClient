@@ -1,3 +1,4 @@
+
 //
 //  ZLDiscussionTableViewCellData.swift
 //  ZLGitHubClient
@@ -28,11 +29,11 @@ class ZLDiscussionTableViewCellData: ZMBaseTableViewCellViewModel {
     }
     
     override func zm_onCellSingleTap() {
-        if let url = URL.init(string: data.url) {
-            ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,
-                                  params: ["requestURL": url],
-                                  animated: true)
-        }
+        let discussionInfo = ZLDiscussionInfoController()
+        discussionInfo.login = data.repository.owner.login
+        discussionInfo.repoName = data.repository.name
+        discussionInfo.number = data.number
+        zm_viewController?.navigationController?.pushViewController(discussionInfo, animated: true)
     }
 }
 
@@ -46,8 +47,17 @@ extension ZLDiscussionTableViewCellData: ZLDiscussionTableViewCellDataSourceAndD
         data.title
     }
     
-    var createTime: String {
-        NSDate.getLocalStrSinceCurrentTime(withGithubTime: data.createdAt)
+    
+    var updateOrCreateTime: String {
+        if !data.updatedAt.isEmpty  {
+            let timeStr = NSDate.getLocalStrSinceCurrentTime(withGithubTime: data.updatedAt)
+            return "\(ZLLocalizedString(string: "update at", comment: "更新于")) \(timeStr)"
+        } else if  !data.createdAt.isEmpty {
+            let timeStr = NSDate.getLocalStrSinceCurrentTime(withGithubTime: data.createdAt)
+            return "\(ZLLocalizedString(string: "created at", comment: "创建于")) \(timeStr)"
+        } else {
+            return ""
+        }
     }
     
     var upvoteNumber: Int {

@@ -36,6 +36,9 @@ class ZLSearchItemTableViewCellData: ZMBaseTableViewCellViewModel {
         if data?.asPullRequest != nil {
             return "ZLPullRequestTableViewCell"
         }
+        if data?.asDiscussion != nil {
+            return "ZLDiscussionTableViewCell"
+        }
 
         return "UITableViewCell"
 
@@ -82,6 +85,14 @@ class ZLSearchItemTableViewCellData: ZMBaseTableViewCellViewModel {
             }
 
             return
+        }
+        
+        if let data = data?.asDiscussion {
+            let discussionInfo = ZLDiscussionInfoController()
+            discussionInfo.login = data.repository.owner.login
+            discussionInfo.repoName = data.repository.name
+            discussionInfo.number = data.number
+            zm_viewController?.navigationController?.pushViewController(discussionInfo, animated: true)
         }
 
     }
@@ -292,6 +303,47 @@ extension ZLSearchItemTableViewCellData: ZLPullRequestTableViewCellDelegate {
 
 }
 
+extension ZLSearchItemTableViewCellData: ZLDiscussionTableViewCellDataSourceAndDelegate {
+    
+    var updateOrCreateTime: String {
+        guard let data = data?.asDiscussion else { return "" }
+        if !data.updatedAt.isEmpty  {
+            let timeStr = NSDate.getLocalStrSinceCurrentTime(withGithubTime: data.updatedAt)
+            return "\(ZLLocalizedString(string: "update at", comment: "更新于")) \(timeStr)"
+        } else if  !data.createdAt.isEmpty {
+            let timeStr = NSDate.getLocalStrSinceCurrentTime(withGithubTime: data.createdAt)
+            return "\(ZLLocalizedString(string: "created at", comment: "创建于")) \(timeStr)"
+        } else {
+            return ""
+        }
+    }
+    
+    var repositoryFullName: String {
+        data?.asDiscussion?.repository.nameWithOwner ?? ""
+    }
+    
+    var title: String {
+        data?.asDiscussion?.title ?? ""
+    }
+        
+    var upvoteNumber: Int {
+        data?.asDiscussion?.upvoteCount ?? 0
+    }
+    
+    var commentNumber: Int {
+        data?.asDiscussion?.comments.totalCount ?? 0
+    }
+    
+
+    func onClickRepoFullName() {
+        if let fullName = data?.asDiscussion?.repository.nameWithOwner, let vc = ZLUIRouter.getRepoInfoViewController(repoFullName: fullName) {
+            self.zm_viewController?.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+}
+
+
 extension ZLSearchItemTableViewCellData {
 
     func hasLongPressAction() -> Bool {
@@ -310,6 +362,9 @@ extension ZLSearchItemTableViewCellData {
             return true
         } else if let orgModel = data?.asOrganization,
                   let _ = URL(string: orgModel.url) {
+            return true
+        } else if let discussion = data?.asDiscussion,
+                  let _ = URL(string: discussion.url) {
             return true
         }
 
@@ -334,6 +389,9 @@ extension ZLSearchItemTableViewCellData {
             view.showShareMenu(title: url.absoluteString, url: url, sourceViewController: sourceViewController)
         } else if let orgModel = data?.asOrganization,
                   let url = URL(string: orgModel.url) {
+            view.showShareMenu(title: url.absoluteString, url: url, sourceViewController: sourceViewController)
+        } else if let discussion = data?.asDiscussion,
+             let url = URL(string: discussion.url) {
             view.showShareMenu(title: url.absoluteString, url: url, sourceViewController: sourceViewController)
         }
 

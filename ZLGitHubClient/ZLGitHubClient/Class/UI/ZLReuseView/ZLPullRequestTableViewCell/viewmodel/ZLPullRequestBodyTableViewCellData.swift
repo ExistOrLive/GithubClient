@@ -48,7 +48,7 @@ class ZLPullRequestBodyTableViewCellData: ZMBaseTableViewCellViewModel {
         if let cellHeight {
             self.cellHeight = cellHeight
         }
-        webView.loadHTMLString(self.getCommentHtml(), baseURL: nil)
+        webView.loadHTML(self.getCommentHtml())
     }
         
 
@@ -63,7 +63,7 @@ class ZLPullRequestBodyTableViewCellData: ZMBaseTableViewCellViewModel {
     override func zm_clearCache() {
         super.zm_clearCache()
         self.cacheHtml = nil
-        self.webView.loadHTMLString(self.getCommentHtml(), baseURL: nil)
+        self.webView.loadHTML(self.getCommentHtml())
     }
 
     func getHtmlStr() -> String {

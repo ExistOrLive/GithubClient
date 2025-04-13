@@ -76,3 +76,23 @@ extension UIButton {
         }
     }
 }
+
+
+extension UIImage {
+    
+    static func image(with attributedString: NSAttributedString, size: CGSize) -> UIImage {
+        let render =  UIGraphicsImageRenderer(size: size)
+        return  render.image { context in
+            
+            let textSize = attributedString.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude,
+                                                                      height: CGFloat.greatestFiniteMagnitude),
+                                                         options: .usesLineFragmentOrigin,
+                                                         context: nil).size
+            attributedString.draw(in: CGRect(x:(size.width - textSize.width)/2.0,
+                                             y: (size.height - textSize.height)/2.0,
+                                             width: textSize.width,
+                                             height: textSize.height))
+        }
+    }
+
+}

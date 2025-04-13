@@ -30,6 +30,8 @@ enum ZLRepoInfoCellType: String, ZMBaseCellUniqueIDProtocol {
     case code
     case action
     case pullRequest
+    case discusstion
+    case release
     
     var zm_ID: String {
         self.rawValue
@@ -112,7 +114,7 @@ class ZLRepoInfoController: ZMTableViewController {
         presenter.getRepoWatchStatus()
          
         readMeView.startLoad(fullName: fullName ?? "", branch: presenter.currentBranch)
-
+        
     }
 }
 
@@ -135,12 +137,20 @@ extension ZLRepoInfoController {
         
         let itemsSection = ZMBaseTableViewSectionData(zm_sectionID: ZLRepoInfoSectionType.items)
         itemsSection.cellDatas = [
+            ZLRepoItemCellData(cellType: .pullRequest, presenter: presenter),
+            ZLRepoItemCellData(cellType: .code, presenter: presenter),
             ZLRepoItemCellData(cellType: .commit, presenter: presenter),
             ZLRepoItemCellData(cellType: .branch, presenter: presenter),
             ZLRepoItemCellData(cellType: .language, presenter: presenter),
-            ZLRepoItemCellData(cellType: .code, presenter: presenter),
             ZLRepoItemCellData(cellType: .action, presenter: presenter),
-            ZLRepoItemCellData(cellType: .pullRequest, presenter: presenter)]
+           ]
+        if model.discussions_count > 0 {
+            itemsSection.cellDatas.append(ZLRepoItemCellData(cellType: .discusstion, presenter: presenter))
+        }
+//        if model.releases_count > 0 {
+//            itemsSection.cellDatas.append(ZLRepoItemCellData(cellType: .release, presenter: presenter))
+//        }
+        
         itemsSection.headerData = ZLCommonSectionHeaderFooterViewDataV2(backColor: .clear,
                                                                        viewHeight: 10)
         itemsSection.footerData = ZLCommonSectionHeaderFooterViewDataV2(backColor: .clear,
@@ -174,14 +184,16 @@ extension ZLRepoInfoController: ZLReadMeViewDelegate {
     }
 
     @objc func notifyNewHeight(height: CGFloat) {
+        readMeView.frame = CGRect(x: 0, y: 0, width: 0, height: height)
         if tableView.tableFooterView == readMeView {
-            readMeView.frame = CGRect(x: 0, y: 0, width: 0, height: height)
             tableView.tableFooterView = readMeView
         }
     }
     
     func getReadMeContent(result: Bool) {
-        tableView.tableFooterView = result ?  readMeView : nil
+        if result, tableView.tableFooterView != readMeView, presenter.repoModel != nil   {
+            tableView.tableFooterView = readMeView
+        }
     }
 }
 
@@ -192,6 +204,9 @@ extension ZLRepoInfoController: ZLRepoInfoPresenterDelegate {
             self.viewStatus = .normal
             self.generateCellDatas()
             self.tableView.reloadData()
+            if readMeView.hasRequestData {
+                tableView.tableFooterView = readMeView // 等repoinfo数据请求到才展示readme
+            }
         } else {
             self.viewStatus = self.presenter.repoModel == nil ? .error : .normal
             ZLToastView.showMessage(msg)

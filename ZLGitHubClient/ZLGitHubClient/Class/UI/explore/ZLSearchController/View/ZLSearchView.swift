@@ -137,7 +137,7 @@ class ZLSearchView: UIView {
         button.setTitle(ZLIconFont.BackArrow.rawValue, for: .normal)
         button.setTitleColor(UIColor.label(withName: "ZLLabelColor1"), for: .normal)
         button.titleLabel?.font = .iconFont(size: 24)
-        button.addTarget(self, action: #selector(onCancelButtonClicked), for: .touchUpInside)
+        button.addTarget(self, action: #selector(onBackButtonClicked), for: .touchUpInside)
         return button
     }()
     
@@ -146,7 +146,7 @@ class ZLSearchView: UIView {
         button.setTitleColor(UIColor.label(withName: "ZLLabelColor1"), for: .normal)
         button.titleLabel?.font = .zlMediumFont(withSize: 14)
         button.setTitle(ZLLocalizedString(string: "Cancel", comment: ""), for: .normal)
-        button.addTarget(self, action: #selector(onBackButtonClicked), for: .touchUpInside)
+        button.addTarget(self, action: #selector(onCancelButtonClicked), for: .touchUpInside)
         return button
     }()
     

@@ -1,9 +1,9 @@
 //
-//  ZLPullRequestCommentTableViewCellData.swift
+//  ZLDiscussionCommentTableViewCellData.swift
 //  ZLGitHubClient
 //
-//  Created by 朱猛 on 2021/3/26.
-//  Copyright © 2021 ZM. All rights reserved.
+//  Created by 朱猛 on 2025/4/12.
+//  Copyright © 2025 ZM. All rights reserved.
 //
 
 import UIKit
@@ -11,14 +11,16 @@ import WebKit
 import ZLGitRemoteService
 import ZMMVVM
 
-class ZLPullRequestCommentTableViewCellData: ZMBaseTableViewCellViewModel {
+class ZLDiscussionCommentTableViewCellData: ZMBaseTableViewCellViewModel {
 
-    typealias CommentData = PrInfoQuery.Data.Repository.PullRequest.TimelineItem.Node.AsIssueComment
+    typealias DiscussionData = DiscussionCommentsQuery.Data.Repository.Discussion.Comment.Node
 
-    let data: CommentData
+    let data: DiscussionData
 
     private var cacheHtml: String?
-    private var cellHeight: CGFloat = 110
+    private var cellHeight: CGFloat = ZLDiscussionBodyTableViewCellData.extraCellHeight
+    
+    static let extraCellHeight: CGFloat = 160
     
     lazy var webView: ZLReportHeightWebView = {
         let webView = ZLReportHeightWebView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width - 30, height: UIScreen.main.bounds.size.height))
@@ -30,40 +32,40 @@ class ZLPullRequestCommentTableViewCellData: ZMBaseTableViewCellViewModel {
             
             guard let self ,
                   let webViewHeight = self.webView.cacheHeight,
-                  webViewHeight + 110 != self.cellHeight else {
+                  webViewHeight + Self.extraCellHeight != self.cellHeight else {
                 return
             }
             
-            self.cellHeight =  webViewHeight + 110
+            self.cellHeight =  webViewHeight + Self.extraCellHeight
             (self.zm_superViewModel as? ZMBaseTableViewContainerProtocol)?.tableView.performBatchUpdates({
                 
             })
         }
         return webView
     }()
+    
 
-    init(data: CommentData, cellHeight: CGFloat? ) {
+    init(data: DiscussionData, cellHeight: CGFloat? = nil ) {
         self.data = data
         super.init()
-        if let cellHeight = cellHeight {
+        if let cellHeight {
             self.cellHeight = cellHeight
         }
         webView.loadHTML(self.getCommentHtml())
     }
-    
 
     override var zm_cellReuseIdentifier: String {
-        return "ZLPullRequestCommentTableViewCell"
+        return "ZLDiscussionCommentTableViewCell"
     }
 
-    override  var zm_cellHeight: CGFloat {
+    override var zm_cellHeight: CGFloat {
         return cellHeight
     }
 
     override func zm_clearCache() {
         super.zm_clearCache()
         self.cacheHtml = nil
-        self.webView.loadHTML(self.getCommentHtml())
+        webView.loadHTML(self.getCommentHtml())
     }
 
     func getHtmlStr() -> String {
@@ -118,7 +120,8 @@ class ZLPullRequestCommentTableViewCellData: ZMBaseTableViewCellViewModel {
 
 }
 
-extension ZLPullRequestCommentTableViewCellData: ZLPullRequestCommentTableViewCellDelegate {
+extension ZLDiscussionCommentTableViewCellData: ZLDiscussionCommentTableViewCellDelegate {
+    
 
     func getActorAvatarUrl() -> String {
         return data.author?.avatarUrl ?? ""
@@ -129,7 +132,7 @@ extension ZLPullRequestCommentTableViewCellData: ZLPullRequestCommentTableViewCe
     }
 
     func getTime() -> String {
-        return NSDate.getLocalStrSinceCurrentTime(withGithubTime: data.publishedAt ?? "" )
+        return  NSDate.getLocalStrSinceCurrentTime(withGithubTime: data.createdAt )
     }
 
     func getCommentHtml() -> String {
@@ -143,7 +146,7 @@ extension ZLPullRequestCommentTableViewCellData: ZLPullRequestCommentTableViewCe
     }
 
     func getCommentText() -> String {
-        return data.bodyText
+        return ""
     }
 
     func onAvatarButtonClicked() {
@@ -152,24 +155,31 @@ extension ZLPullRequestCommentTableViewCellData: ZLPullRequestCommentTableViewCe
         }
     }
 
-    func didRowHeightChange(height: CGFloat) {
-        if height == cellHeight {
-            return
-        }
-        cellHeight = height
-        (self.zm_superViewModel as? ZMBaseTableViewContainerProtocol)?.tableView.performBatchUpdates({
-            
-        })
-       // self.super?.getEvent(nil, fromSubViewModel: self)
-    }
-
     func didClickLink(url: URL) {
         ZLUIRouter.openURL(url: url)
     }
-
+    
+    var upvoteNum: Int {
+        data.upvoteCount
+    }
+        
+    var reactions: [ReactionContent: Int] {
+        var reactions: [ReactionContent: Int] = [:]
+        for node in data.reactions.nodes ?? [] {
+            if let node {
+                if let num = reactions[node.content] {
+                    reactions[node.content] = num + 1
+                } else {
+                    reactions[node.content] = 1
+                }
+            }
+        }
+        return reactions
+    }
 }
 
-extension ZLPullRequestCommentTableViewCellData: WKNavigationDelegate {
+
+extension ZLDiscussionCommentTableViewCellData: WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
 
         if navigationAction.navigationType == .linkActivated {

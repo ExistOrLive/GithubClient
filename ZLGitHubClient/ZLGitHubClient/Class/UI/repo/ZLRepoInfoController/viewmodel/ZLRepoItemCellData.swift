@@ -51,6 +51,8 @@ class ZLRepoItemCellData: ZMBaseTableViewCellViewModel {
             onActionClicked()
         case .pullRequest:
             onPrClicked()
+        case .discusstion:
+            onDiscussionClicked()
         default:
             break
         }
@@ -78,6 +80,10 @@ extension ZLRepoItemCellData: ZLCommonTableViewCellDataSourceAndDelegate {
             return ZLLocalizedString(string: "action", comment: "action")
         case .pullRequest:
             return ZLLocalizedString(string: "pull request", comment: "合并请求")
+        case .discusstion:
+            return ZLLocalizedString(string: "Discussions", comment: "讨论")
+        case .release:
+            return ZLLocalizedString(string: "Releases", comment: "发行版")
         default:
             return ""
         }
@@ -89,6 +95,40 @@ extension ZLRepoItemCellData: ZLCommonTableViewCellDataSourceAndDelegate {
             return presenter.currentBranch ?? ""
         case .language:
             return presenter.repoModel?.language ?? ""
+        case .pullRequest:
+            let count = presenter.repoModel?.open_pullRequests_count ?? 0
+            if count > 0 {
+                return "\(count)"
+            } else {
+                return ""
+            }
+        case .release:
+            let count = presenter.repoModel?.releases_count ?? 0
+            if count > 0 {
+                return "\(count)"
+            } else {
+                return ""
+            }
+        case .code:
+            let diskUsage = presenter.repoModel?.diskUsage ?? 0
+            if diskUsage > 0 {
+                if diskUsage > 1000000 {
+                    return "\(diskUsage / 1000000) GB"
+                } else if diskUsage > 1000 {
+                    return "\(diskUsage / 1000) MB"
+                } else {
+                    return "\(diskUsage) KB"
+                }
+            } else {
+                return  ""
+            }
+        case .discusstion:
+            let count = presenter.repoModel?.discussions_count ?? 0
+            if count > 0 {
+                return "\(count)"
+            } else {
+                return  ""
+            }
         default:
             return ""
         }
@@ -145,6 +185,13 @@ extension ZLRepoItemCellData {
     func onPrClicked() {
         let controller = ZLRepoPullRequestController()
         controller.repoFullName = presenter.repoFullName
+        zm_viewController?.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    func onDiscussionClicked() {
+        let controller = ZLRepoDiscussionController()
+        controller.login = presenter.repoModel?.owner?.loginName
+        controller.repoName = presenter.repoModel?.name
         zm_viewController?.navigationController?.pushViewController(controller, animated: true)
     }
 }

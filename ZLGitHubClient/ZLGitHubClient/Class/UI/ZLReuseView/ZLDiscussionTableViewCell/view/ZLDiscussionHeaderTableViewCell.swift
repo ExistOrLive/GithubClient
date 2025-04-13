@@ -11,21 +11,22 @@ import YYText
 import ZMMVVM
 import ZLBaseExtension
 
-protocol ZLIssueHeaderTableViewCellDelegate: NSObjectProtocol {
-    func getIssueAuthorLogin() -> String
-    func getIssueAuthorAvatarURL() -> String
-    func getIssueRepoFullName() -> NSAttributedString
-    func getIssueNumber() -> Int
-    func getIssueState() -> String
-    func getIssueTitle() -> String
+protocol ZLDiscussionHeaderTableViewCellDelegate: NSObjectProtocol {
+    var title: String { get }
+    var category: String { get }
+    var categoryEmoji: String { get }
+    func getAuthorLogin() -> String
+    func getAuthorAvatarURL() -> String
+    func getRepoFullName() -> NSAttributedString
+    func getDiscussionNumber() -> Int
 
-    func onIssueAvatarClicked()
+    func onAvatarClicked()
 }
 
-class ZLIssueHeaderTableViewCell: UITableViewCell {
+class ZLDiscussionHeaderTableViewCell: UITableViewCell {
 
-    var delegate: ZLIssueHeaderTableViewCellDelegate? {
-        zm_viewModel as? ZLIssueHeaderTableViewCellDelegate
+    var delegate: ZLDiscussionHeaderTableViewCellDelegate? {
+        zm_viewModel as? ZLDiscussionHeaderTableViewCellDelegate
     }
 
     var avatarButton: UIButton!
@@ -98,11 +99,16 @@ class ZLIssueHeaderTableViewCell: UITableViewCell {
         titleLabel = label3
 
         let label4 = UILabel()
+        label4.font = UIFont(name: Font_PingFangSCMedium, size: 12)
+        label4.borderWidth = 1 / 3
+        label4.cornerRadius = 5
+        label4.textAlignment = .center
         self.contentView.addSubview(label4)
         label4.snp.makeConstraints { (make) in
             make.left.equalToSuperview().offset(20)
             make.top.equalTo(label3.snp.bottom).offset(10)
             make.bottom.equalToSuperview().offset(-10)
+            make.height.equalTo(25)
         }
         statusLabel = label4
     }
@@ -110,47 +116,49 @@ class ZLIssueHeaderTableViewCell: UITableViewCell {
  
 
     @objc func onAvatarButtonClicked() {
-        self.delegate?.onIssueAvatarClicked()
+        self.delegate?.onAvatarClicked()
     }
 
 }
 
-extension ZLIssueHeaderTableViewCell: ZMBaseViewUpdatableWithViewData {
-    func zm_fillWithViewData(viewData data: ZLIssueHeaderTableViewCellDelegate) {
-        avatarButton.loadAvatar(login: data.getIssueAuthorLogin(), avatarUrl:  data.getIssueAuthorAvatarURL())
-        fullNameLabel.attributedText = data.getIssueRepoFullName()
-        numberLabel.text = "#\(data.getIssueNumber())"
-        titleLabel.text = data.getIssueTitle()
+extension ZLDiscussionHeaderTableViewCell: ZMBaseViewUpdatableWithViewData {
+    func zm_fillWithViewData(viewData data: ZLDiscussionHeaderTableViewCellDelegate) {
+        avatarButton.loadAvatar(login: data.getAuthorLogin(), avatarUrl:  data.getAuthorAvatarURL())
+        fullNameLabel.attributedText = data.getRepoFullName()
+        numberLabel.text = "#\(data.getDiscussionNumber())"
+        titleLabel.text = data.title
 
-        statusLabel.text = data.getIssueState()
-
-        switch(data.getIssueState()) {
-        case "OPEN":
-            statusLabel.attributedText =
-            generateStatusTag(statusStr: "OPEN",
-                              foregroudColor: .label(withName: "ZLIssueOpenedColor"),
-                              backgroundColor: .label(withName: "ZLIssueOpenedBackColor"))
-        case "CLOSED":
-            statusLabel.attributedText =
-            generateStatusTag(statusStr: "CLOSED",
-                              foregroudColor: .label(withName: "ZLIssueClosedColor"),
-                              backgroundColor: .label(withName: "ZLIssueClosedBackColor"))
+        var categoryTitle = ""
+        switch data.categoryEmoji {
+        case ":pray:": // 🙏
+            categoryTitle = "\u{1F64F} \(data.category)"
+        case ":bulb:": // 💡
+            categoryTitle = "\u{1F4A1} \(data.category)"
+        case ":speech_balloon:": // 💬
+            categoryTitle = "\u{1F4AC} \(data.category)"
+        case ":raised_hands:": // 🙌
+            categoryTitle = "\u{1F64C} \(data.category)"
         default:
-            statusLabel.attributedText = nil
+            categoryTitle = data.category
         }
+        
+        statusLabel.attributedText = generateCategoryTag(category: categoryTitle,
+                                                         foregroudColor: UIColor.label(withName: "categoryfor"),
+                                                         backgroundColor: UIColor.label(withName: "categoryback"),
+                                                         borderColor: UIColor.label(withName: "categoryborder"))
     }
     
-    func generateStatusTag(statusStr: String, foregroudColor: UIColor, backgroundColor: UIColor) -> NSAttributedString? {
+    func generateCategoryTag(category: String, foregroudColor: UIColor, backgroundColor: UIColor, borderColor: UIColor) -> NSAttributedString? {
         
         
         let tag = NSTagWrapper()
-            .attributedString(statusStr
+            .attributedString(category
                                 .asMutableAttributedString()
                                 .font(.zlMediumFont(withSize: 12))
                                 .foregroundColor(foregroudColor))
             .cornerRadius(3.0)
             .borderWidth(1 / 3.0)
-            .borderColor(foregroudColor)
+            .borderColor(borderColor)
             .backgroundColor(backgroundColor)
             .edgeInsets(UIEdgeInsets(top: 4, left: 6, bottom: 4, right: 6))
             .asImage()?

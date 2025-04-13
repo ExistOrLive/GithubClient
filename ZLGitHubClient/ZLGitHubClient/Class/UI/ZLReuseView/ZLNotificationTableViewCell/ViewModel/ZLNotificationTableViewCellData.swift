@@ -91,7 +91,12 @@ class ZLNotificationTableViewCellData: ZMBaseTableViewCellViewModel {
             url = URL.init(string: "https://github.com/\(self.data.repository?.full_name ?? "")/security")
         } else if "Discussion" == self.data.subject?.type {
             let discussionNumber = originURL.lastPathComponent
-            url = URL.init(string: "https://github.com/\(self.data.repository?.full_name ?? "")/discussions/\(discussionNumber)")
+            let discussionInfo = ZLDiscussionInfoController()
+            discussionInfo.login = data.repository?.owner?.loginName ?? ""
+            discussionInfo.repoName = data.repository?.name ?? ""
+            discussionInfo.number = Int(discussionNumber) ?? 0
+            discussionInfo.hidesBottomBarWhenPushed = true
+            zm_viewController?.navigationController?.pushViewController(discussionInfo, animated: true)
         } else if "Release" == self.data.subject?.type {
             url = URL.init(string: "https://github.com/\(self.data.repository?.full_name ?? "")/releases")
         } else if "Commit" == self.data.subject?.type {

@@ -94,35 +94,19 @@ extension ZLUserInfoHeaderCellData: ZLUserInfoHeaderCellDataSourceAndDelegate {
     }
 
     var reposNum: String {
-        if (userModel?.repositories ?? 0) >= 1000 {
-            return String(format: "%.1f", Double(userModel?.repositories ?? 0) / 1000.0) + "k"
-        } else {
-            return "\(userModel?.repositories ?? 0)"
-        }
+        "\(userModel?.repositories ?? 0)"
     }
 
     var gistsNum: String {
-        if (userModel?.gists ?? 0) >= 1000 {
-            return String(format: "%.1f", Double(userModel?.gists ?? 0) / 1000.0) + "k"
-        } else {
-            return "\(userModel?.gists ?? 0)"
-        }
+        "\(userModel?.gists ?? 0)"
     }
 
     var followersNum: String {
-        if (userModel?.followers ?? 0) >= 1000 {
-            return String(format: "%.1f", Double(userModel?.followers ?? 0) / 1000.0) + "k"
-        } else {
-            return "\(userModel?.followers ?? 0)"
-        }
+        "\(userModel?.followers ?? 0)"
     }
 
     var followingNum: String {
-        if (userModel?.following ?? 0) >= 1000 {
-            return String(format: "%.1f", Double(userModel?.following ?? 0) / 1000.0) + "k"
-        } else {
-            return "\(userModel?.following ?? 0)"
-        }
+        "\(userModel?.following ?? 0)"
     }
 
 

@@ -8,6 +8,7 @@ abstract_target 'GithubClient' do
 target 'Fixed RepoExtension' do
   pod 'Kanna', '~> 5.2.2'
   pod 'ObjectMapper'
+  pod 'Alamofire'
 end
 
 target 'ZLGitHubClient' do
@@ -66,7 +67,7 @@ pod 'FFPopup'
 
 
 # 移动监控工具
-#pod 'WoodPeckeriOS', :configurations => ['Debug']
+pod 'WoodPeckeriOS', :configurations => ['Debug']
 pod 'LookinServer', :configurations => ['Debug']
 #pod 'DoraemonKit/Core', :configurations => ['Debug']
 #pod 'DoraemonKit/WithLogger', :configurations => ['Debug']

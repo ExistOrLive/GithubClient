@@ -25,6 +25,7 @@ import ZLUIUtilities
 
 class ZLReadMeView: UIView {
 
+
     // delegate
     weak var delegate: ZLReadMeViewDelegate?
     
@@ -35,6 +36,8 @@ class ZLReadMeView: UIView {
     private var readMeModel: ZLGithubContentModel?
     private var htmlStr: String?
     private var serialNumber: String?
+    
+    var hasRequestData: Bool = false
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -235,7 +238,7 @@ extension ZLReadMeView {
             if weakSelf?.serialNumber ?? "" != resultModel.serialNumber {
                 return
             }
-
+            
             if resultModel.result == false {
                 weakSelf?.startRender(codeHtml: "Some Error Happened")
                 return
@@ -245,6 +248,8 @@ extension ZLReadMeView {
                 weakSelf?.startRender(codeHtml: "Some Error Happened")
                 return
             }
+            
+            weakSelf?.hasRequestData = true
 
             if weakSelf?.delegate?.responds(to: #selector(ZLReadMeViewDelegate.getReadMeContent(result:))) ?? false {
                 weakSelf?.delegate?.getReadMeContent?(result: resultModel.result)

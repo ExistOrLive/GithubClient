@@ -206,6 +206,7 @@ PODS:
   - Umbrella/Core (0.12.0)
   - Umbrella/Firebase (0.12.0):
     - Umbrella/Core
+  - WoodPeckeriOS (1.4.3)
   - YYText (1.0.7)
   - ZLBaseExtension (1.2.0):
     - YYText
@@ -239,6 +240,7 @@ PODS:
     - SnapKit
 
 DEPENDENCIES:
+  - Alamofire
   - CircleMenu
   - DGCharts
   - FFPopup
@@ -261,6 +263,7 @@ DEPENDENCIES:
   - "UITextView+Placeholder"
   - Umbrella
   - Umbrella/Firebase
+  - WoodPeckeriOS
   - YYText
   - ZLBaseExtension (from `https://github.com/ExistOrLive/ZLBaseExtension.git`)
   - ZLGithubOAuth (from `https://github.com/ExistOrLive/ZLGithubOAuth.git`)
@@ -313,6 +316,7 @@ SPEC REPOS:
     - SYDCentralPivot
     - "UITextView+Placeholder"
     - Umbrella
+    - WoodPeckeriOS
     - YYText
 
 EXTERNAL SOURCES:
@@ -339,7 +343,7 @@ CHECKOUT OPTIONS:
     :commit: ea8de4f7bac522fe0ff08b8b70b8655af8068fd7
     :git: https://github.com/ExistOrLive/ZLGithubOAuth.git
   ZLGitRemoteService:
-    :commit: 105aad352556fdace64f437f94b99c7ddf110549
+    :commit: 329fbc1de0b60e83d0c9831aaa7eb711c866579a
     :git: https://github.com/ExistOrLive/ZLGitRemoteService.git
   ZLUIUtilities:
     :commit: 8223e266c0beae07ec375a819b54fd8ccad31d0c
@@ -395,14 +399,15 @@ SPEC CHECKSUMS:
   Toast: eee67a2f904f7526ee8c8efb10e530d460c9744e
   "UITextView+Placeholder": d7b0c400921f66523f3a85d74f774512e14f6502
   Umbrella: 4faf9786a6b29197608f6483711271104d237646
+  WoodPeckeriOS: d76940519d27513155959a659f0d1142b5ccc081
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZLBaseExtension: c052fc930ae508a09d1640580357263896486d3e
   ZLGithubOAuth: 1bda62ff6ab23bccc254531480f429154e97dcef
-  ZLGitRemoteService: 3ac13558ee6c1d1acf0b2f542712d2dae8dc6a3b
+  ZLGitRemoteService: 675ada3a6e630d1d8d03742b9907f99bb7299475
   ZLUIUtilities: 216d4b7d5babfb1f4f5ff69c930ae3e60c7b7ea0
   ZLUtilities: f47279dc92b4854fb2e2abb86b841dc8cd16e5a1
   ZMMVVM: cea3ec4d56906c18b4713e188c177904784bba33
 
-PODFILE CHECKSUM: 65fa88131da572c5255d5706ae8abba6c357fc5d
+PODFILE CHECKSUM: 6b1e184c0fafe459b1c95c301555336800adff46
 
 COCOAPODS: 1.16.2

@@ -94,7 +94,7 @@ class ZLRepoInfoHeaderCell: UITableViewCell {
         avatarButton.snp.makeConstraints { make in
             make.left.equalTo(30)
             make.top.equalTo(15)
-            make.size.equalTo(CGSize(width: 60, height: 60))
+            make.size.equalTo(CGSize(width: 40, height: 40))
         }
 
         nameLabel.snp.makeConstraints { make in
@@ -145,7 +145,7 @@ class ZLRepoInfoHeaderCell: UITableViewCell {
     
     // MARK: View
     private lazy var avatarButton: UIButton = {
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
         button.circle = true
         button.addTarget(self, action: #selector(onAvatarButtonClicked), for: .touchUpInside)
         return button 
@@ -298,11 +298,10 @@ extension ZLRepoInfoHeaderCell: ZMBaseViewUpdatableWithViewData {
         timeLabel.text = "\(ZLLocalizedString(string: "update at", comment: "更新于"))\(data.updatedTime)"
         descLabel.text = data.desc
         
-        issuesNumButton.numLabel.text = data.issueNum >= 1000 ? String(format: "%.1f", Double(data.issueNum) / 1000.0) + "k" : "\(data.issueNum)"
-        starsNumButton.numLabel.text = data.starsNum >= 1000 ? String(format: "%.1f", Double(data.starsNum) / 1000.0) + "k" : "\(data.starsNum)"
-        forksNumButton.numLabel.text = data.forksNum >= 1000 ? String(format: "%.1f", Double(data.forksNum) / 1000.0) + "k" : "\(data.forksNum)"
-        watchersNumButton.numLabel.text = data.watchersNum >= 1000 ? String(format: "%.1f", Double(data.watchersNum) / 1000.0) + "k" : "\(data.watchersNum)"
-        
+        issuesNumButton.numLabel.text = "\(data.issueNum)"
+        starsNumButton.numLabel.text = "\(data.starsNum)"
+        forksNumButton.numLabel.text = "\(data.forksNum)"
+        watchersNumButton.numLabel.text = "\(data.watchersNum)"
         if let starred = data.starred {
             starButton.isHidden = false
             starButton.isSelected = starred

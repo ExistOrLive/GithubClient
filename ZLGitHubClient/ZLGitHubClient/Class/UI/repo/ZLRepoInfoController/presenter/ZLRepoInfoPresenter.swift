@@ -29,7 +29,7 @@ class ZLRepoInfoPresenter: NSObject {
     weak var delegate: ZLRepoInfoPresenterDelegate?
     
     /// data
-    private(set) var repoModel: ZLGithubRepositoryModel?
+    private(set) var repoModel: ZLGithubRepositoryModelV2?
     
     private(set) var viewerIsWatch: Bool? = nil
     
@@ -58,7 +58,7 @@ extension ZLRepoInfoPresenter {
             guard let self = self else { return }
             
             if resultModel.result,
-               let repoInfoModel = resultModel.data as? ZLGithubRepositoryModel {
+               let repoInfoModel = resultModel.data as? ZLGithubRepositoryModelV2 {
                 
                 self.repoModel = repoInfoModel
                 if self.currentBranch == nil {

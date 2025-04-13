@@ -42,7 +42,7 @@ class ZLPRInfoController: ZMTableViewController {
     override func setupUI() {
         super.setupUI()
         
-        self.title = ZLLocalizedString(string: "PullRequest", comment: "")
+        self.title = "#\(number)"
     
         self.zmNavigationBar.addRightView(moreButton)
       
@@ -108,8 +108,8 @@ extension ZLPRInfoController {
             if resultModel.result,
                let data = resultModel.data as? PrInfoQuery.Data {
                 
-                self.title = data.repository?.pullRequest?.title
                 self.after = data.repository?.pullRequest?.timelineItems.pageInfo.endCursor
+                let hasNextPage = data.repository?.pullRequest?.timelineItems.pageInfo.hasNextPage ?? false
                 let cellDatas = self.getCellDatasWithPRModel(data: data,
                                                              firstPage: isLoadNew)
                
@@ -126,7 +126,7 @@ extension ZLPRInfoController {
                     
                     
                     self.tableView.reloadData()
-                    self.endRefreshViews(noMoreData: cellDatas.isEmpty)
+                    self.endRefreshViews(noMoreData: !hasNextPage)
                     self.viewStatus = self.tableViewProxy.isEmpty ? .empty : .normal
                 })
                 

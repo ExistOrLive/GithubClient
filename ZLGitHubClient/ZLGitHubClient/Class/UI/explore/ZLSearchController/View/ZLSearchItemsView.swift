@@ -40,6 +40,8 @@ extension ZLSearchType {
         case .pullRequests:do {
             return ZLLocalizedString(string: "pull requests", comment: "")
         }
+        case .discussion:
+            return ZLLocalizedString(string: "Discussions", comment: "")
         @unknown default:
             return ""
         }
@@ -48,7 +50,7 @@ extension ZLSearchType {
 
 class ZLSearchItemsView: UIView {
 
-    static let ZLSearchItemsTypes: [ZLSearchType] = [.repositories, .users, .organizations, .issues, .pullRequests]
+    static let ZLSearchItemsTypes: [ZLSearchType] = [.repositories, .users, .organizations, .issues, .pullRequests, .discussion]
 
     var delegate: ZLSearchItemsViewDelegate? {
         zm_viewModel as? ZLSearchItemsViewDelegate

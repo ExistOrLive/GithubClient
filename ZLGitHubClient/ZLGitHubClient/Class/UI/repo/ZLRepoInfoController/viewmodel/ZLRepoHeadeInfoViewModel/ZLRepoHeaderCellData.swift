@@ -18,7 +18,7 @@ class ZLRepoHeaderCellData: ZMBaseTableViewCellViewModel {
     }
     
     // model
-    var repoInfoModel: ZLGithubRepositoryModel? {
+    var repoInfoModel: ZLGithubRepositoryModelV2? {
         presenter.repoModel
     }
     
