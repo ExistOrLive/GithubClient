@@ -250,7 +250,7 @@ extension ZLMyIssuesController {
                 }
                 
                 self.viewStatus = self.tableViewProxy.isEmpty ? .empty : .normal
-                self.endRefreshViews(noMoreData: cellDatas.isEmpty)
+                self.endRefreshViews(noMoreData: !data.search.pageInfo.hasNextPage)
                 
                 if self.tableView.contentOffset.y > 0, isLoadNew {
                     self.tableView.zl_reloadAndScrollToTop()

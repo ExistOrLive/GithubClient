@@ -37,6 +37,7 @@ class ZLSearchItemSecondView: UIView, ZMBaseTableViewContainerProtocol, ZLRefres
         }
     
         tableView.contentInset = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
+        tableView.contentInsetAdjustmentBehavior = .automatic
         tableView.register(ZLRepositoryTableViewCell.self,
                            forCellReuseIdentifier: "ZLRepositoryTableViewCell")
         tableView.register(ZLUserTableViewCell.self,
@@ -63,11 +64,35 @@ class ZLSearchItemSecondView: UIView, ZMBaseTableViewContainerProtocol, ZLRefres
         delegate?.loadData(isLoadNew: false)
     }
     
+    // 外观模式切换
+    override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        if #available(iOS 13.0, *) {
+            if self.traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+                
+                for sectionData in sectionDataArray {
+                    for cellData in sectionData.cellDatas {
+                        cellData.zm_clearCache()
+                    }
+                    sectionData.headerData?.zm_clearCache()
+                    sectionData.footerData?.zm_clearCache()
+                }
+                tableView.reloadData()
+            }
+        }
+    }
+    
 }
 
 extension ZLSearchItemSecondView: ZMBaseViewUpdatableWithViewData {
     func zm_fillWithViewData(viewData: ZLSearchGithubItemListSecondViewModel) {
         self.sectionDataArray = viewData.sectionDataArray
+        self.viewStatus = viewData.viewStatus
+        if viewData.hasNextPage {
+            self.showRefreshView(type: .footer)
+        } else {
+            self.hiddenRefreshView(type: .footer)
+        }
         self.tableView.reloadData()
     }
 }

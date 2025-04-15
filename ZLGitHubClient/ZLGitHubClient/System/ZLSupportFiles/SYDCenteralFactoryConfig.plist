@@ -270,5 +270,16 @@
 		<key>moduleName</key>
 		<string>ZLGitHubClient</string>
 	</dict>
+	<key>ZLDiscussionInfoController</key>
+	<dict>
+		<key>claStr</key>
+		<string>ZLDiscussionInfoController</string>
+		<key>type</key>
+		<integer>0</integer>
+		<key>isSingle</key>
+		<false/>
+		<key>moduleName</key>
+		<string>ZLGitHubClient</string>
+	</dict>
 </dict>
 </plist>

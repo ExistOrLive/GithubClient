@@ -55,16 +55,15 @@ class ZLIssueInfoController: ZMTableViewController {
         self.title = "#\(number)"
         
         self.zmNavigationBar.addRightView(moreButton)
-        
-        self.contentView.addSubview(bottomView)
-        tableView.snp.remakeConstraints { make in
-            make.top.left.right.equalToSuperview()
+       
+        self.tableView.removeFromSuperview()
+        self.contentView.addSubview(verticalStackView)
+        verticalStackView.addArrangedSubview(tableView)
+        verticalStackView.addArrangedSubview(bottomView)
+        verticalStackView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
-        bottomView.snp.makeConstraints { make in
-            make.top.equalTo(tableView.snp.bottom)
-            make.left.right.bottom.equalToSuperview()
-        }
-        
+
         tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 20, right: 0)
         tableView.register(ZLIssueHeaderTableViewCell.self,
                            forCellReuseIdentifier: "ZLIssueHeaderTableViewCell")
@@ -90,8 +89,18 @@ class ZLIssueInfoController: ZMTableViewController {
         return button
     }()
     
+    lazy private var verticalStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 0
+        stackView.distribution = .fill
+        stackView.alignment = .fill
+        return stackView
+    }()
+    
     lazy private var bottomView: ZLIssueInfoBottomView = {
         let view = ZLIssueInfoBottomView()
+        view.isHidden = true
         view.commentButton.addTarget(self,
                                      action: #selector(onCommentButtonClick),
                                      for: .touchUpInside)
@@ -172,8 +181,31 @@ extension ZLIssueInfoController {
                let issue = data.repository?.issue {
                 self.issueData = data
                 self.issueId = issue.id
-                self.bottomView.commentButton.isEnabled = issue.viewerCanReact
+      
                 self.requestIssueTimeline(loadNewData: true)
+                
+                var cellDatas: [ZMBaseTableViewCellViewModel] = [
+                    self.getIssueHeaderCellData(data: data)
+                ]
+                if let issue = data.repository?.issue {
+                    cellDatas.append(self.getIssueBodyCellData(data: issue))
+                }
+             
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.milliseconds(200), execute: {
+                    
+                    self.bottomView.isHidden = false
+                    self.bottomView.commentButton.isEnabled = issue.viewerCanReact
+                    
+                    self.zm_addSubViewModels(cellDatas)
+                    
+                    self.sectionDataArray.forEach { $0.zm_removeFromSuperViewModel() }
+                    self.sectionDataArray = [ZMBaseTableViewSectionData(cellDatas: cellDatas)]
+                    
+
+                    self.tableView.reloadData()
+                    self.endRefreshViews(noMoreData: true)
+                    self.viewStatus = self.tableViewProxy.isEmpty ? .empty : .normal
+                })
             } else {
                 if let errorModel = resultModel.data as? ZLGithubRequestErrorModel {
                     ZLToastView.showMessage(errorModel.message)
@@ -200,36 +232,21 @@ extension ZLIssueInfoController {
                let timelines = data.repository?.issue?.timelineItems {
                 
                 self.after = timelines.pageInfo.endCursor
-                
-                var issueHeaderCellData: ZLIssueHeaderTableViewCellData?
-                var issueBodyCellData: ZLIssueBodyTableViewCellData?
-                if loadNewData, let issueData = self.issueData, let issue = issueData.repository?.issue  {
-                    issueHeaderCellData = self.getIssueHeaderCellData(data: issueData)
-                    issueBodyCellData = self.getIssueBodyCellData(data: issue)
-                }
+                let hasNextPage = timelines.pageInfo.hasNextPage
                 
                 let timelineCellDatas = self.getIssueTimelineCellData(data: timelines)
                 
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.milliseconds(200), execute: {
                     if loadNewData {
                         self.timelineCellDatas = timelineCellDatas
-                        self.sectionDataArray.forEach { $0.zm_removeFromSuperViewModel() }
-                        var cellDatas: [ZMBaseTableViewCellViewModel] = []
-                        if let issueHeaderCellData,let issueBodyCellData  {
-                            cellDatas.append(issueHeaderCellData)
-                            cellDatas.append(issueBodyCellData)
-                        }
-                        cellDatas.append(contentsOf: timelineCellDatas)
-                        self.sectionDataArray = [ZMBaseTableViewSectionData(cellDatas: cellDatas)]
-                        self.sectionDataArray.forEach { $0.zm_addSuperViewModel(self) }
                     } else {
                         self.timelineCellDatas.append(contentsOf: timelineCellDatas)
-                        self.sectionDataArray.first?.cellDatas.append(contentsOf: timelineCellDatas)
-                        self.zm_addSubViewModels(timelineCellDatas)
                     }
-                   
+                    self.zm_addSubViewModels(timelineCellDatas)
+                    self.sectionDataArray.first?.cellDatas.append(contentsOf: timelineCellDatas)
+                
                     self.tableView.reloadData()
-                    self.endRefreshViews(noMoreData: timelineCellDatas.isEmpty)
+                    self.endRefreshViews(noMoreData: !hasNextPage)
                     self.viewStatus = self.tableViewProxy.isEmpty ? .empty : .normal
                 })
                 

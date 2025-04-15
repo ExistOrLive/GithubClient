@@ -60,7 +60,6 @@ class ZLEditIssueController: ZMTableViewController {
         
         tableView.register(ZLSimpleUserTableViewCell.self, forCellReuseIdentifier: "ZLSimpleUserTableViewCell")
         tableView.register(ZLIssueLabelsCell.self, forCellReuseIdentifier: "ZLIssueLabelsCell")
-        tableView.register(ZLIssueProjectCell.self, forCellReuseIdentifier: "ZLIssueProjectCell")
         tableView.register(ZLIssueMilestoneCell.self, forCellReuseIdentifier: "ZLIssueMilestoneCell")
         tableView.register(ZLIssueNoneCell.self, forCellReuseIdentifier: "ZLIssueNoneCell")
         tableView.register(ZLIssueOperateCell.self, forCellReuseIdentifier: "ZLIssueOperateCell")
@@ -144,23 +143,23 @@ extension ZLEditIssueController {
         }
         self.sectionDataArray.append(labelSectionData)
         
-        // project
-        let projectSectionData = ZMBaseTableViewSectionData(zm_sectionID: ZLEditIssueSectionType.project)
-        projectSectionData.headerData = ZLEditIssueHeaderViewData(sectionType: .project)
-        if let projects = data?.repository?.issue?.projectCards.nodes,
-           !projects.isEmpty {
-            let projectViewModels = projects.compactMap {
-                if let project = $0 {
-                    return ZLIssueProjectCellData(data: project)
-                } else {
-                    return nil
-                }
-            }
-            projectSectionData.cellDatas = projectViewModels
-        } else {
-            projectSectionData.cellDatas = [ZLIssueNoneCellData(info: ZLLocalizedString(string: "None yet", comment: ""))]
-        }
-        self.sectionDataArray.append(projectSectionData)
+//        // project
+//        let projectSectionData = ZMBaseTableViewSectionData(zm_sectionID: ZLEditIssueSectionType.project)
+//        projectSectionData.headerData = ZLEditIssueHeaderViewData(sectionType: .project)
+//        if let projects = data?.repository?.issue?.projectCards.nodes,
+//           !projects.isEmpty {
+//            let projectViewModels = projects.compactMap {
+//                if let project = $0 {
+//                    return ZLIssueProjectCellData(data: project)
+//                } else {
+//                    return nil
+//                }
+//            }
+//            projectSectionData.cellDatas = projectViewModels
+//        } else {
+//            projectSectionData.cellDatas = [ZLIssueNoneCellData(info: ZLLocalizedString(string: "None yet", comment: ""))]
+//        }
+//        self.sectionDataArray.append(projectSectionData)
         
         // milestone
         let milestoneSectionData = ZMBaseTableViewSectionData(zm_sectionID: ZLEditIssueSectionType.milestone)

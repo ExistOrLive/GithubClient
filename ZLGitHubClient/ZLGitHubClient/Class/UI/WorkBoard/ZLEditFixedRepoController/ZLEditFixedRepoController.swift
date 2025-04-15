@@ -162,12 +162,7 @@ extension ZLEditFixedRepoController {
                     self.topRepositories.append(contentsOf: data.viewer.topRepositories.nodes ?? [])
                 }
                 self.after = data.viewer.topRepositories.pageInfo.endCursor
-                   
-                if data.viewer.topRepositories.nodes?.count == 0 {
-                    self.endRefreshViews(noMoreData: true)
-                } else {
-                    self.endRefreshViews(noMoreData: false)
-                }
+                self.endRefreshViews(noMoreData: !data.viewer.topRepositories.pageInfo.hasNextPage)
                 self.reloadData()
             } else {
                 if let errorModel = resultModel.data as? ZLGithubRequestErrorModel {

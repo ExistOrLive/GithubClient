@@ -24,6 +24,8 @@ import ZLUIUtilities
 /// 1. 重写 refreshLoadNewData 和 refreshLoadMoreData 提供网络请求的实现
 /// 2. 重写 UITableView 相关方法提示列表样式
 open class ZMSearchViewController: ZMTableViewController, ZMSearchBarDelegate {
+    
+    
 
     /// 搜索关键字
     @objc open dynamic var searchText: String = ""
@@ -90,6 +92,8 @@ open class ZMSearchViewController: ZMTableViewController, ZMSearchBarDelegate {
     @objc open dynamic func onSearchTextChanged(text: String) {
 
     }
+    
+    
 
     /// 输入框结束编辑
     @objc open dynamic func onSearchTextEndEditing() {
@@ -120,6 +124,10 @@ open class ZMSearchViewController: ZMTableViewController, ZMSearchBarDelegate {
                 endRefreshViews(noMoreData: true)
             }
         }
+    }
+    
+    @objc open dynamic func onSearchTextDidBeginEditing() {
+        // todo 
     }
 
     // MARK: Lazy View
@@ -156,6 +164,7 @@ open class ZMSearchViewController: ZMTableViewController, ZMSearchBarDelegate {
 @objc public protocol ZMSearchBarDelegate: AnyObject {
     func onCancelButtonClicked()
     func onSearchTextChanged(text: String)
+    func onSearchTextDidBeginEditing()
     func onSearchTextEndEditing()
     func onSearchTextConfirmed(text: String)
     func onSearchTextFieldShouldEndEditing() -> Bool
@@ -251,6 +260,10 @@ public class ZMSearchBar: UIView, UITextFieldDelegate {
 
     @objc dynamic public func textFieldDidChanged(_ textField: UITextField) {
         self.delegate?.onSearchTextChanged(text: textField.text ?? "")
+    }
+    
+    @objc dynamic public func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.delegate?.onSearchTextDidBeginEditing()
     }
 }
 

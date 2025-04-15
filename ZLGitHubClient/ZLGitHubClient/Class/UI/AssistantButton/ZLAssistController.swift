@@ -139,6 +139,7 @@ class ZLAssistController: ZMViewController {
 
     func setSearchBar() {
         searchBar = ZMSearchBar()
+        searchBar?.cancleBtn.isHidden = true 
         searchBar?.backgroundColor = UIColor.clear
         searchBar?.delegate = self
     }
@@ -250,10 +251,16 @@ class ZLAssistController: ZMViewController {
 }
 
 extension ZLAssistController: ZMSearchBarDelegate {
-
-    func onCancelButtonClicked() {}
+    func onSearchTextDidBeginEditing() {
+        searchBar?.cancleBtn.isHidden = false
+    }
+    func onCancelButtonClicked() {
+        searchBar?.resignFirst()
+    }
     func onSearchTextChanged(text: String) {}
-    func onSearchTextEndEditing() {}
+    func onSearchTextEndEditing() {
+        searchBar?.cancleBtn.isHidden = true 
+    }
     func onSearchTextConfirmed(text: String) {
         if !text.isEmpty {
             ZLAssistButtonManager.shared.dismissAssistDetailView()

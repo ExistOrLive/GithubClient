@@ -80,7 +80,7 @@ extension ZLMyRepoesController {
                 
                 self.tableView.reloadData()
                 self.viewStatus = self.tableViewProxy.isEmpty ? .empty : .normal
-                self.endRefreshViews(noMoreData: cellDatas.isEmpty)
+                self.endRefreshViews(noMoreData: !data.viewer.topRepositories.pageInfo.hasNextPage)
                 
                 self.after = data.viewer.topRepositories.pageInfo.endCursor
                 

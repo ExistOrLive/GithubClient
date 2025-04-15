@@ -83,6 +83,7 @@ extension ZLUIRouter {
    // static let OrgInfoController : ZLUIKey = "ZLOrgInfoController"
     static let IssueInfoController: ZLUIKey = "ZLIssueInfoController"
     static let PRInfoController: ZLUIKey = "ZLPRInfoController"
+    static let DiscussionInfoController: ZLUIKey = "ZLDiscussionInfoController"
     static let WebContentController: ZLUIKey = "ZLWebContentController"
 
     static let UserAdditionInfoController: ZLUIKey = "ZLUserAdditionInfoController"
@@ -197,6 +198,10 @@ extension ZLUIRouter {
             if pathComponents.count == 5 && pathComponents[3] == "issues" {
                 return true
             }
+            
+            if pathComponents.count == 5 && pathComponents[3] == "discussions" {
+                return true
+            }
         }
 
         return false
@@ -248,6 +253,13 @@ extension ZLUIRouter {
             } else if pathComponents.count == 5 && pathComponents[3] == "issues" {
                 
                 self.navigateVC(key: IssueInfoController, params: ["login": pathComponents[1],
+                                                                   "repoName": pathComponents[2],
+                                                                   "number": Int(pathComponents[4]) ?? 0], animated: animated)
+                return
+                
+            } else if pathComponents.count == 5 && pathComponents[3] == "discussions" {
+                
+                self.navigateVC(key: DiscussionInfoController, params: ["login": pathComponents[1],
                                                                    "repoName": pathComponents[2],
                                                                    "number": Int(pathComponents[4]) ?? 0], animated: animated)
                 return

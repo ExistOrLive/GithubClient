@@ -31,9 +31,7 @@ class ZLSearchView: UIView {
         addSubview(topBackView)
         addSubview(contentView)
         topBackView.addSubview(topNavigationView)
-        topNavigationView.addSubview(backButton)
-        topNavigationView.addSubview(searchTextField)
-        topNavigationView.addSubview(cancelButton)
+        topNavigationView.addSubview(searchStackView)
         contentView.addSubview(searchItemsView)
         contentView.addSubview(searchRecordView)
         
@@ -48,23 +46,10 @@ class ZLSearchView: UIView {
             make.height.equalTo(ZMUIConfig.shared.navigationBarHeight)
         }
         
-        backButton.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview()
-            make.width.equalTo(30)
+        searchStackView.snp.makeConstraints { make in
             make.left.equalTo(10)
-        }
-        
-        cancelButton.snp.makeConstraints { make in
-            make.right.top.bottom.equalToSuperview()
-            make.width.equalTo(0)
             make.right.equalTo(-10)
-        }
-        
-        searchTextField.snp.makeConstraints { make in
-            make.height.equalTo(40)
-            make.centerY.equalToSuperview()
-            make.left.equalTo(backButton.snp.right).offset(10)
-            make.right.equalTo(cancelButton.snp.left).offset(-10)
+            make.top.bottom.equalToSuperview()
         }
         
         contentView.snp.makeConstraints { make in
@@ -82,24 +67,16 @@ class ZLSearchView: UIView {
     }
     
     func setEditStatus() {
-        backButton.snp.updateConstraints { make in
-            make.width.equalTo(0.0)
-        }
-        cancelButton.snp.updateConstraints { make in
-            make.width.equalTo(60.0)
-        }
-        self.searchRecordView.isHidden = false
+        backButton.isHidden = true
+        cancelButton.isHidden = false
+        searchRecordView.isHidden = false
     }
     
     func setUnEditStatus() {
-        backButton.snp.updateConstraints { make in
-            make.width.equalTo(30.0)
-        }
-        cancelButton.snp.updateConstraints { make in
-            make.width.equalTo(0.0)
-        }
-        self.searchRecordView.isHidden = true
-        self.searchRecordView.tableView.reloadData()
+        backButton.isHidden = false
+        cancelButton.isHidden = true
+        searchRecordView.isHidden = true
+        searchRecordView.tableView.reloadData()
     }
     
     // MARK: Lazy View
@@ -113,6 +90,29 @@ class ZLSearchView: UIView {
         let view = UIView()
         view.backgroundColor = UIColor(named:"ZLCellBack")
         return view
+    }()
+    
+    lazy var searchStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.alignment = .center
+        stackView.spacing = 10
+        stackView.addArrangedSubview(backButton)
+        stackView.addArrangedSubview(searchTextField)
+        stackView.addArrangedSubview(cancelButton)
+        backButton.snp.makeConstraints { make in
+            make.width.equalTo(30)
+            make.height.equalToSuperview()
+        }
+        cancelButton.snp.makeConstraints { make in
+            make.width.equalTo(60)
+            make.height.equalToSuperview()
+        }
+        searchTextField.snp.makeConstraints { make in
+            make.height.equalTo(40)
+        }
+        return stackView
     }()
     
     lazy var searchTextField: UITextField = {
@@ -143,6 +143,7 @@ class ZLSearchView: UIView {
     
     lazy var cancelButton: UIButton = {
         let button = UIButton()
+        button.isHidden = true
         button.setTitleColor(UIColor.label(withName: "ZLLabelColor1"), for: .normal)
         button.titleLabel?.font = .zlMediumFont(withSize: 14)
         button.setTitle(ZLLocalizedString(string: "Cancel", comment: ""), for: .normal)

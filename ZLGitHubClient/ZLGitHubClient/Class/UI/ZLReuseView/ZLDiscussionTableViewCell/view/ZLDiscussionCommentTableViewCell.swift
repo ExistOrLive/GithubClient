@@ -142,6 +142,7 @@ class ZLDiscussionCommentTableViewCell: UITableViewCell {
     
     private lazy var upvoteAndReactView: UIScrollView = {
         let scrollView = UIScrollView()
+        scrollView.showsHorizontalScrollIndicator = false
         scrollView.addSubview(upvoteAndReactStackView)
         upvoteAndReactStackView.snp.makeConstraints { make in
             make.edges.equalToSuperview()

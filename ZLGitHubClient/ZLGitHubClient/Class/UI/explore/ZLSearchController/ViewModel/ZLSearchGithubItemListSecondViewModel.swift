@@ -25,6 +25,10 @@ class ZLSearchGithubItemListSecondViewModel: ZMBaseViewModel {
     
     var sectionDataArray: [ZMBaseTableViewSectionData] = []
     
+    var viewStatus: ZLViewStatus = .normal
+    
+    var hasNextPage: Bool = false
+    
     var searchItemSecondView:  ZLSearchItemSecondView? {
         zm_view as? ZLSearchItemSecondView
     }
@@ -38,12 +42,14 @@ class ZLSearchGithubItemListSecondViewModel: ZMBaseViewModel {
 
     func searchWithKeyStr(searchKey: String?) {
         self.searchKey = searchKey
+        viewStatus = .loading
         searchItemSecondView?.viewStatus = .loading
         loadData(isLoadNew: true)
     }
 
     func searchWithFilerInfo(searchFilterInfo: ZLSearchFilterInfoModel) {
         self.searchFilterInfo = searchFilterInfo
+        viewStatus = .loading
         searchItemSecondView?.viewStatus = .loading
         loadData(isLoadNew: true)
     }
@@ -83,11 +89,15 @@ extension ZLSearchGithubItemListSecondViewModel {
                 }
                 self.after = data.search.pageInfo.endCursor
                 
-                guard let searchItemSecondView = self.searchItemSecondView else { return }
-                searchItemSecondView.sectionDataArray = self.sectionDataArray
-                searchItemSecondView.endRefreshViews(noMoreData: !data.search.pageInfo.hasNextPage)
-                searchItemSecondView.viewStatus = (self.searchItemSecondView?.tableViewProxy.isEmpty ?? true) ? .empty : .normal
+                self.hasNextPage = data.search.pageInfo.hasNextPage
+                self.viewStatus = (self.sectionDataArray.first?.cellDatas.isEmpty ?? true) ? .empty : .normal
                 
+                guard let searchItemSecondView = self.searchItemSecondView else { return }
+                
+                searchItemSecondView.sectionDataArray = self.sectionDataArray
+                searchItemSecondView.endRefreshViews(noMoreData: !hasNextPage)
+                searchItemSecondView.viewStatus = self.viewStatus
+    
                 if searchItemSecondView.tableView.contentOffset.y > 0, isLoadNew {
                     searchItemSecondView.tableView.zl_reloadAndScrollToTop()
                 } else {
@@ -95,8 +105,9 @@ extension ZLSearchGithubItemListSecondViewModel {
                 }
                 
             } else {
+                self.viewStatus =  (self.sectionDataArray.first?.cellDatas.isEmpty ?? true) ? .error : .normal
                 self.searchItemSecondView?.endRefreshViews()
-                self.searchItemSecondView?.viewStatus = (self.searchItemSecondView?.tableViewProxy.isEmpty ?? true) ? .error : .normal
+                self.searchItemSecondView?.viewStatus = self.viewStatus
                 if let data = resultModel.data as? ZLGithubRequestErrorModel {
                     ZLToastView.showMessage("Search Error: [\(data.statusCode)](\(data.message)")
                 }
