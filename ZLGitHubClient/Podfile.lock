@@ -343,10 +343,10 @@ CHECKOUT OPTIONS:
     :commit: ea8de4f7bac522fe0ff08b8b70b8655af8068fd7
     :git: https://github.com/ExistOrLive/ZLGithubOAuth.git
   ZLGitRemoteService:
-    :commit: d2ff974c85b6111e85388c864aa9ff553c19a938
+    :commit: e5a9e2014dc09ee19d949ce74f3b617ff7993bd1
     :git: https://github.com/ExistOrLive/ZLGitRemoteService.git
   ZLUIUtilities:
-    :commit: 8223e266c0beae07ec375a819b54fd8ccad31d0c
+    :commit: 6b203e00e5c27c2da1b79f27d0149e49aa4bdf3f
     :git: https://github.com/ExistOrLive/ZLUIUtilities.git
   ZLUtilities:
     :commit: e598a9d8c8f11e0e9c05359a6c28846031ab1444
@@ -402,9 +402,9 @@ SPEC CHECKSUMS:
   WoodPeckeriOS: d76940519d27513155959a659f0d1142b5ccc081
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZLBaseExtension: c052fc930ae508a09d1640580357263896486d3e
-  ZLGithubOAuth: 1bda62ff6ab23bccc254531480f429154e97dcef
+  ZLGithubOAuth: d49dba37d546a820779e2b85ca510962a33bc201
   ZLGitRemoteService: 675ada3a6e630d1d8d03742b9907f99bb7299475
-  ZLUIUtilities: 216d4b7d5babfb1f4f5ff69c930ae3e60c7b7ea0
+  ZLUIUtilities: edd5e985cd53c3cdbc4d592fa7e495622d7ea38f
   ZLUtilities: f47279dc92b4854fb2e2abb86b841dc8cd16e5a1
   ZMMVVM: cea3ec4d56906c18b4713e188c177904784bba33
 
