@@ -98,10 +98,10 @@ extension ZLRepoHeaderCellData: ZLRepoInfoHeaderCellDataSourceAndDelegate {
     }
     
     func onStarButtonClicked() {
-        ZLProgressHUD.show(view: zm_viewController?.view, animated: true)
+        let hud = ZLProgressHUD.show(view: zm_viewController?.view, animated: false)
         presenter.starRepo { [weak self] result, msg in
+            ZLProgressHUD.dismiss(hud: hud, animated: false)
             guard let self else { return }
-            ZLProgressHUD.dismiss(view: self.zm_viewController?.view, animated: true)
             if !result, !msg.isEmpty {
                 ZLToastView.showMessage(msg,
                                         sourceView: self.zm_viewController?.view)
@@ -110,10 +110,10 @@ extension ZLRepoHeaderCellData: ZLRepoInfoHeaderCellDataSourceAndDelegate {
     }
     
     func onForkButtonClicked() {
-        ZLProgressHUD.show(view: zm_viewController?.view, animated: true)
+        let hud = ZLProgressHUD.show(view: zm_viewController?.view, animated: false)
         presenter.forkRepo { [weak self] result, msg in
+            ZLProgressHUD.dismiss(hud: hud, animated: false)
             guard let self = self else { return }
-            ZLProgressHUD.dismiss(view: self.zm_viewController?.view, animated: true)
             if result {
                 ZLToastView.showMessage(ZLLocalizedString(string: "Fork Success", comment: ""), sourceView: self.zm_viewController?.view)
             } else {
@@ -123,10 +123,10 @@ extension ZLRepoHeaderCellData: ZLRepoInfoHeaderCellDataSourceAndDelegate {
     }
     
     func onWatchButtonClicked() {
-        ZLProgressHUD.show(view: zm_viewController?.view, animated: true)
+        let hud =  ZLProgressHUD.show(view: zm_viewController?.view, animated: false)
         presenter.watchRepo { [weak self] result, msg in
+            ZLProgressHUD.dismiss(hud: hud, animated: false)
             guard let self = self else { return }
-            ZLProgressHUD.dismiss(view: self.zm_viewController?.view, animated: true)
             if !result, !msg.isEmpty {
                 ZLToastView.showMessage(msg,
                                         sourceView: self.zm_viewController?.view)

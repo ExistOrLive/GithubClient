@@ -38,9 +38,10 @@ class ZLReadMeView: UIView {
     private var serialNumber: String?
     
     var hasRequestData: Bool = false
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+  
+
+    init() {
+        super.init(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 60))
         setupUI()
     }
     
@@ -66,16 +67,15 @@ class ZLReadMeView: UIView {
         }
         
         progressView.snp.makeConstraints { make in
-            make.top.equalTo(60)
+            make.top.equalTo(50)
             make.height.equalTo(1)
             make.left.equalTo(20)
             make.right.equalTo(-20)
         }
         
         webView.snp.makeConstraints { make in
-            make.top.equalTo(progressView.snp.bottom).offset(20)
-            make.height.equalTo(20)
-            make.left.right.equalToSuperview()
+            make.top.equalTo(progressView.snp.bottom).offset(10)
+            make.left.right.bottom.equalToSuperview()
         }
     }
 
@@ -129,8 +129,8 @@ class ZLReadMeView: UIView {
                 if  range.location != NSNotFound {
                     newHtmlStr.insert(codeHtml, at: range.location)
                 }
-
-                self.webView.loadHTMLString(newHtmlStr as String, baseURL: nil)
+                
+                webView.loadHTML(newHtmlStr as String)
 
             } catch {
                 ZLToastView.showMessage("load Code index html failed")
@@ -139,30 +139,6 @@ class ZLReadMeView: UIView {
         }
     }
 
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
-
-        if keyPath == "contentSize"{
-
-            guard let size: CGSize = change?[NSKeyValueChangeKey.newKey] as? CGSize else {
-                return
-            }
-
-            if (self.delegate?.responds(to: #selector(ZLReadMeViewDelegate.notifyNewHeight(height:)))) ?? false {
-                self.delegate?.notifyNewHeight?(height: size.height + 81)
-            }
-            
-            ZLMainThreadDispatch {
-                self.webView.snp.updateConstraints { make in
-                    make.height.equalTo(size.height)
-                }
-            }
-        }
-
-    }
-
-    deinit {
-        self.webView.scrollView.removeObserver(self, forKeyPath: "contentSize")
-    }
     
     // MARK: Lazy view
     lazy var titleLabel: UILabel = {
@@ -189,19 +165,29 @@ class ZLReadMeView: UIView {
         return button
     }()
 
-    lazy var webView: WKWebView = {
-        let webview = WKWebView()
-        webview.scrollView.backgroundColor = UIColor.clear
-        webview.scrollView.isScrollEnabled = false
-        webview.contentScaleFactor = 1.0
-        webview.backgroundColor = UIColor.clear
-        webview.uiDelegate = self
-        webview.navigationDelegate = self
+    lazy var webView: ZLReportHeightWebView = {
+        let webView = ZLReportHeightWebView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height))
+        webView.uiDelegate = self
+        webView.navigationDelegate = self
+        webView.scrollView.backgroundColor = UIColor.clear
+        webView.backgroundColor = UIColor.clear
+        webView.scrollView.isScrollEnabled = false
+        webView.contentScaleFactor = 1.0
         
-        webview.scrollView.maximumZoomScale = 1
-        webview.scrollView.minimumZoomScale = 1
-        webview.scrollView.addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
-        return webview
+        webView.scrollView.maximumZoomScale = 1
+        webView.scrollView.minimumZoomScale = 1
+        webView.reportHeightBlock = { [weak self] in
+            
+            guard let self ,
+                  let webViewHeight = self.webView.cacheHeight else {
+                return
+            }
+        
+            if (self.delegate?.responds(to: #selector(ZLReadMeViewDelegate.notifyNewHeight(height:)))) ?? false {
+                self.delegate?.notifyNewHeight?(height: webViewHeight + 61)
+            }
+        }
+        return webView
     }()
 
 }
@@ -314,18 +300,6 @@ extension ZLReadMeView {
 
 // MARK: - WKWebview
 extension ZLReadMeView: WKNavigationDelegate, WKUIDelegate {
-
-    func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
-
-    }
-
-    func webView(_ webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (Bool) -> Void) {
-
-    }
-
-    func webView(_ webView: WKWebView, runJavaScriptTextInputPanelWithPrompt prompt: String, defaultText: String?, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (String?) -> Void) {
-
-    }
 
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         guard var urlStr = navigationAction.request.url?.absoluteString else {

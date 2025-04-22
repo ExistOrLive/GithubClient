@@ -111,7 +111,7 @@ extension ZLRepoInfoPresenter {
     }
     
     func watchRepo(callBack: @escaping (Bool, String) -> Void ) {
-        guard let viewerIsWatch = self.viewerIsWatch else { return }
+       // guard let viewerIsWatch = self.viewerIsWatch else { return }
         if self.viewerIsWatch == false {
             
             ZLRepoServiceShared()?.watchRepo(withFullName: self.repoFullName,
@@ -163,9 +163,8 @@ extension ZLRepoInfoPresenter {
     }
     
     func starRepo(callBack: @escaping (Bool, String) -> Void )  {
-        guard let viewerIsStar = self.viewerIsStar else { return }
         
-
+        
         if self.viewerIsStar == false {
             
             ZLRepoServiceShared()?.starRepo(withFullName: self.repoFullName,
