@@ -343,7 +343,7 @@ CHECKOUT OPTIONS:
     :commit: ea8de4f7bac522fe0ff08b8b70b8655af8068fd7
     :git: https://github.com/ExistOrLive/ZLGithubOAuth.git
   ZLGitRemoteService:
-    :commit: e5a9e2014dc09ee19d949ce74f3b617ff7993bd1
+    :commit: f30cec5250f97e6b991890eec4ea555a46ba01e4
     :git: https://github.com/ExistOrLive/ZLGitRemoteService.git
   ZLUIUtilities:
     :commit: 6b203e00e5c27c2da1b79f27d0149e49aa4bdf3f

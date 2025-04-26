@@ -142,13 +142,8 @@ struct FixedRepoMediumView : View {
                             .font(.caption2)
                             .foregroundColor(Color("ZLLanguageColor"))
                     }
-                    
-                    
                 }
-                
-                
             }
-            .padding(EdgeInsets(top: 20, leading: 25, bottom: 15, trailing: 25))
             Spacer()
         }
         .unredacted()

@@ -22,6 +22,16 @@ platform :ios do
 #    upload_to_testflight
 #  end
 
+  lane :matchNewCert do
+    match(type: "appstore",
+          app_identifier: "com.zm.ZLGitHubClient",
+          git_url:"git@github.com:ExistOrLive/ZLGithubClientCer.git")
+
+    match(type: "appstore",
+          app_identifier: "com.zm.ZLGitHubClient.Fixed-Repo",
+          git_url:"git@github.com:ExistOrLive/ZLGithubClientCer.git")
+  end
+
   # lane :local_test do
   #   # 跳过签名,出包，仅做archive 编译检查
   #   gym(workspace: "ZLGitHubClient.xcworkspace",
@@ -199,8 +209,16 @@ platform :ios do
     # 并使用 MATCH_PASSWORD 解密
     match(type: "appstore",
           readonly: true,
-          app_identifier: "com.zm.*",
-          profile_name: "*** AppStore com.zm.*",
+          app_identifier: "com.zm.ZLGitHubClient",
+          profile_name: "match AppStore com.zm.ZLGitHubClient",
+          keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
+          keychain_password: ENV['MATCH_KEYCHAIN_PASSWORD'],
+          git_url: ENV['MATCH_GITHUB_URL'])
+
+    match(type: "appstore",
+          readonly: true,
+          app_identifier: "com.zm.ZLGitHubClient.Fixed-Repo",
+          profile_name: "match AppStore com.zm.ZLGitHubClient.Fixed-Repo",
           keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
           keychain_password: ENV['MATCH_KEYCHAIN_PASSWORD'],
           git_url: ENV['MATCH_GITHUB_URL'])

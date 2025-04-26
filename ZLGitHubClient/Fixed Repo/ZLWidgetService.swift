@@ -9,6 +9,7 @@
 import Foundation
 import Kanna
 import ObjectMapper
+import Alamofire
 
 struct ZLSimpleRepositoryModel{
     let fullName: String
@@ -18,10 +19,90 @@ struct ZLSimpleRepositoryModel{
     var fork: Int = 0
 }
 
-struct ZLSimpleContributionModel{
+class ZLViewersContributionModel: Mappable {
+    var login: String = ""
+    var name: String = ""
+    var contributionsModel: ZLContributionCalendarModel?
+    
+    init() {}
+    
+    required init?(map: ObjectMapper.Map) {}
+    
+    func mapping(map: ObjectMapper.Map) {
+       
+        login <- map["login"]
+        name <- map["name"]
+        contributionsModel <- map["contributionsCollection.contributionCalendar"]
+    }
+}
+
+
+class ZLContributionCalendarModel: Mappable {
+    var totalContributions: Int = 0
+    var weeks: [ZLContributionWeekModel] = []
+    
+    init() {}
+    
+    required init?(map: ObjectMapper.Map) {}
+    
+    func mapping(map: ObjectMapper.Map) {
+        totalContributions <- map["totalContributions"]
+        weeks <- map["weeks"]
+    }
+}
+
+class ZLContributionWeekModel: Mappable {
+    var firstDay: String = ""
+    var contributionDays: [ZLSimpleContributionModel] = []
+    
+    init() {}
+    required init?(map: ObjectMapper.Map) {}
+    
+    func mapping(map: ObjectMapper.Map) {
+        firstDay <- map["firstDay"]
+        contributionDays <- map["contributionDays"]
+    }
+}
+
+class ZLSimpleContributionModel: Mappable {
     var contributionsNumber = 0
     var contributionsDate = ""
     var contributionsLevel = 0
+    var contributionsWeekDay = 0
+    
+    init() {}
+    
+    required init?(map: ObjectMapper.Map) {}
+    
+    func mapping(map: ObjectMapper.Map) {
+        
+        let levelTransform = TransformOf<Int, String>(fromJSON: { (value: String?) -> Int? in
+            // transform value from String? to Int?
+            switch(value) {
+            case "NONE": return 0
+            case "FIRST_QUARTILE": return 1
+            case "SECOND_QUARTILE": return 2
+            case "THIRD_QUARTILE": return 3
+            case "FOURTH_QUARTILE": return 4
+            default: return 0
+            }
+        }, toJSON: { (value: Int?) -> String? in
+            // transform value from Int? to String?
+            switch(value) {
+            case 0: return "NONE"
+            case 1: return "FIRST_QUARTILE"
+            case 2: return "SECOND_QUARTILE"
+            case 3: return "THIRD_QUARTILE"
+            case 4: return "FOURTH_QUARTILE"
+            default: return "NONE"
+            }
+        })
+        
+        contributionsNumber <- map["contributionCount"]
+        contributionsDate <- map["date"]
+        contributionsLevel <- (map["contributionLevel"],levelTransform)
+        contributionsWeekDay <- map["weekday"]
+    }
 }
 
 struct ZLWidgetService {
@@ -96,7 +177,8 @@ struct ZLWidgetService {
     
     static func trendingRepo(dateRange: FixedRepoDateRange,
                              language : FixedRepoLanguage,
-                             completeHandler: @escaping (Bool,[ZLSimpleRepositoryModel]) -> Void) {
+                             completeHandler: @escaping (Bool,[ZLSimpleRepositoryModel]) -> Void)
+    {
         
         var urlStr = "https://github.com/trending"
         
@@ -166,47 +248,104 @@ struct ZLWidgetService {
     }
     
     
-    static func contributions(loginName : String,
-                              completeHandler: @escaping (Bool,[ZLSimpleContributionModel],Int) -> Void) {
+    static func contributions(completeHandler: @escaping (Bool,ZLViewersContributionModel?) -> Void) {
         
-        guard let loginNamePath = loginName.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed),
-              let url = URL(string: "https://github.com/users/\(loginNamePath)/contributions") else {
-            completeHandler(false,[],0)
+        let userDefaults = UserDefaults(suiteName: "group.com.zm.ZLGithubClient")
+        let token = userDefaults?.object(forKey: "ZLAccessTokenKey") as? String
+        
+        guard let token, !token.isEmpty else {
+            completeHandler(false,nil)
             return
         }
         
-        DispatchQueue.global().async {
-            
-            guard let htmlDoc = try? HTML(url: url, encoding: .utf8) else {
-                DispatchQueue.main.async {
-                    completeHandler(false,[],0)
+        
+        var query: String = """
+query viewerContributions {
+        viewer {
+          name
+          login
+          contributionsCollection {
+            contributionCalendar{
+              totalContributions
+              weeks{
+                firstDay
+                contributionDays{
+                  contributionCount
+                  contributionLevel
+                  date
+                  weekday
                 }
-                return
+              }
             }
-            
-            var contributionArray = [ZLSimpleContributionModel]()
-            var totalCount = 0
-            
-            for dayData in htmlDoc.xpath("//td[@class=\"ContributionCalendar-day\"]") {
-                var contributionModel = ZLSimpleContributionModel()
-                contributionModel.contributionsDate = dayData["data-date"] ?? ""
-                contributionModel.contributionsLevel = Int(dayData["data-level"] ?? "") ?? 0
-                contributionArray.append(contributionModel)
-                totalCount += contributionModel.contributionsNumber
-            }
-    
-            var resultArray = contributionArray
-            let showCount = resultArray.count % 7 == 0 ? 154 : resultArray.count % 7 + 147
-            if resultArray.count > showCount {
-                let startIndex = resultArray.count - showCount
-                resultArray = Array(resultArray[startIndex...])
-            }
-            
-            DispatchQueue.main.async {
-                completeHandler(true,resultArray,totalCount)
-            }
-           
+          }
         }
+}
+"""
+        let headers: [String: String] = ["Authorization": "Bearer \(token)",
+                                               "Accept": "*/*",
+                                               "content-type":"application/json"]
+        let httpHeaders = HTTPHeaders(headers)
+        
+        let params: [String:Any] = ["query": query]
+        
+        AF.request("https://api.github.com/graphql",
+                   method: .post,
+                   parameters: params,
+                   encoding: JSONEncoding.default,
+                   headers: httpHeaders).responseData { (dataResponse : AFDataResponse<Data>) in
+            switch dataResponse.result {
+            case .success(let value):
+                if let jsonObject = try? JSONSerialization.jsonObject(with: value) as? [String: Any],
+                   let viewer = (jsonObject["data"] as? [String:Any])?["viewer"] as? [String:Any],
+                   let model = ZLViewersContributionModel(JSON: viewer) {
+                    completeHandler(true, model)
+                } else {
+                    completeHandler(false, nil)
+                }
+            case .failure(let error):
+                completeHandler(false, nil)
+            }
+        }
+        
+        
+//        guard let loginNamePath = loginName.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed),
+//              let url = URL(string: "https://github.com/users/\(loginNamePath)/contributions") else {
+//            completeHandler(false,[],0)
+//            return
+//        }
+//        
+//        DispatchQueue.global().async {
+//            
+//            guard let htmlDoc = try? HTML(url: url, encoding: .utf8) else {
+//                DispatchQueue.main.async {
+//                    completeHandler(false,[],0)
+//                }
+//                return
+//            }
+//            
+//            var contributionArray = [ZLSimpleContributionModel]()
+//            var totalCount = 0
+//            
+//            for dayData in htmlDoc.xpath("//td[@class=\"ContributionCalendar-day\"]") {
+//                var contributionModel = ZLSimpleContributionModel()
+//                contributionModel.contributionsDate = dayData["data-date"] ?? ""
+//                contributionModel.contributionsLevel = Int(dayData["data-level"] ?? "") ?? 0
+//                contributionArray.append(contributionModel)
+//                totalCount += contributionModel.contributionsNumber
+//            }
+//    
+//            var resultArray = contributionArray
+//            let showCount = resultArray.count % 7 == 0 ? 154 : resultArray.count % 7 + 147
+//            if resultArray.count > showCount {
+//                let startIndex = resultArray.count - showCount
+//                resultArray = Array(resultArray[startIndex...])
+//            }
+//            
+//            DispatchQueue.main.async {
+//                completeHandler(true,resultArray,totalCount)
+//            }
+//           
+//        }
         
     }
 }

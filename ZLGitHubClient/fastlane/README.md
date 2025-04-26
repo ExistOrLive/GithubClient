@@ -15,21 +15,13 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## iOS
 
-### ios local_test
+### ios matchNewCert
 
 ```sh
-[bundle exec] fastlane ios local_test
+[bundle exec] fastlane ios matchNewCert
 ```
 
 
-
-### ios local_adhoc
-
-```sh
-[bundle exec] fastlane ios local_adhoc
-```
-
-build one adhoc release local
 
 ### ios github_action_build_check
 
@@ -39,14 +31,6 @@ build one adhoc release local
 
 just build check, prevent any build or link error
 
-### ios jenkins_adhoc
-
-```sh
-[bundle exec] fastlane ios jenkins_adhoc
-```
-
-build one adhoc release local
-
 ### ios github_action_adhoc
 
 ```sh
@@ -55,14 +39,6 @@ build one adhoc release local
 
 build one adhoc release on github actions
 
-### ios travis_adhoc
-
-```sh
-[bundle exec] fastlane ios travis_adhoc
-```
-
-build one adhoc release on travis
-
 ### ios github_action_testFlight
 
 ```sh
@@ -70,22 +46,6 @@ build one adhoc release on travis
 ```
 
 build one TestFlight release on github action
-
-### ios beta
-
-```sh
-[bundle exec] fastlane ios beta
-```
-
-build one TestFlight release
-
-### ios release
-
-```sh
-[bundle exec] fastlane ios release
-```
-
-build one release for apple check
 
 ### ios localMatch
 

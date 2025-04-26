@@ -11,31 +11,45 @@ import WidgetKit
 import SwiftUI
 
 extension ZLSimpleContributionModel {
-    static func getSampleContributionData() -> [ZLSimpleContributionModel] {
-        var datas = [ZLSimpleContributionModel]()
-        for i in 1...154 {
-            var data = ZLSimpleContributionModel()
-            data.contributionsNumber = i % 30
-            datas.append(data)
-        }
-        return datas
+    static func getSampleContributionData() -> ZLViewersContributionModel {
+        let contributionsModel = ZLViewersContributionModel()
+        contributionsModel.login = "ExistOrLive"
+        let calendarModel = ZLContributionCalendarModel()
+        calendarModel.totalContributions = 101
+        calendarModel.weeks = Array(0...19).map({ _  in
+            let weekModel = ZLContributionWeekModel()
+            weekModel.contributionDays = Array(0...6).map({ _ in
+                let data = ZLSimpleContributionModel()
+                data.contributionsLevel = Int.random(in: 0...4)
+                return data
+            })
+            return weekModel
+        })
+        contributionsModel.contributionsModel = calendarModel
+        return contributionsModel
     }
-    static func getPlaceHolderContributionData() -> [ZLSimpleContributionModel] {
-        var datas = [ZLSimpleContributionModel]()
-        for _ in 1...154 {
-            var data = ZLSimpleContributionModel()
-            data.contributionsNumber = 0
-            datas.append(data)
-        }
-        return datas
+    static func getPlaceHolderContributionData() -> ZLViewersContributionModel {
+        let contributionsModel = ZLViewersContributionModel()
+        contributionsModel.login = "--"
+        let calendarModel = ZLContributionCalendarModel()
+        calendarModel.totalContributions = 0
+        calendarModel.weeks = Array(0...19).map({ _  in
+            let weekModel = ZLContributionWeekModel()
+            weekModel.contributionDays = Array(0...6).map({ _ in
+                let data = ZLSimpleContributionModel()
+                data.contributionsLevel = 0
+                return data
+            })
+            return weekModel
+        })
+        contributionsModel.contributionsModel = calendarModel
+        return contributionsModel
     }
 }
 
 struct ContributionEntry : TimelineEntry {
     var date: Date
-    var data: [ZLSimpleContributionModel]
-    var totalContributions : Int = 0
-    var loginName : String?
+    var model: ZLViewersContributionModel?
     var isPlaceHolder : Bool = false
 }
 
@@ -46,24 +60,26 @@ struct ContributionProvider : IntentTimelineProvider {
     typealias Intent = ContributionConfigurationIntent
     
     func placeholder(in context: Self.Context) -> Self.Entry {
-        ContributionEntry(date:Date(),data:ZLSimpleContributionModel.getPlaceHolderContributionData(),loginName:nil,isPlaceHolder:true)
+        ContributionEntry(date:Date(),model:ZLSimpleContributionModel.getPlaceHolderContributionData(),isPlaceHolder:true)
     }
     
     func getSnapshot(for configuration: Self.Intent, in context: Self.Context, completion: @escaping (Self.Entry) -> Void) {
         if context.isPreview {
-            completion(ContributionEntry(date:Date(),data:ZLSimpleContributionModel.getSampleContributionData(),loginName:"ExistOrLive"))
+            completion(ContributionEntry(date:Date(),model:ZLSimpleContributionModel.getSampleContributionData(), isPlaceHolder: false))
         } else {
-            completion(ContributionEntry(date:Date(),data:ZLSimpleContributionModel.getPlaceHolderContributionData(),loginName:nil,isPlaceHolder:true))
+            completion(ContributionEntry(date:Date(),model:ZLSimpleContributionModel.getPlaceHolderContributionData(),isPlaceHolder:true))
         }
         
     }
     
     func getTimeline(for configuration: Self.Intent, in context: Self.Context, completion: @escaping (Timeline<Self.Entry>) -> Void){
         
-        ZLWidgetService.contributions(loginName: configuration.loginName ?? "") { (result, data, count) in
+        ZLWidgetService.contributions() { (result, data) in
+            
+            
             
             let currentDate  = Date()
-            let entry = ContributionEntry(date:currentDate,data:data,totalContributions:count,loginName:configuration.loginName ?? "")
+            let entry = ContributionEntry(date:currentDate,model: data, isPlaceHolder: false)
             let entryDate = Calendar.current.date(byAdding: .hour, value: 2, to: currentDate)!
             let timeLine = Timeline(entries: [entry], policy: .after(entryDate))
             
@@ -86,7 +102,6 @@ struct ContributionMeidumView : View {
                 HStack{
                     Text("      ")
                         .foregroundColor(Color("ZLTitleColor1"))
-                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 10))
                     
                     Text("      ")
                         .foregroundColor(Color("ZLDescColor"))
@@ -97,15 +112,14 @@ struct ContributionMeidumView : View {
                 Spacer()
                 
                 HStack(alignment: .top, spacing: 3){
-                    ForEach(Range(0...21)) { column in
+                    ForEach(Array(0...19),id: \.self) { column in
                         VStack(alignment: .leading, spacing: 3){
-                            ForEach(Range(0...6)) { row in
-                                let index = column * 7 + row
-                                if index < entry.data.count {
-                                    RoundedRectangle(cornerRadius: 2, style: .circular)
-                                        .fill(getColor(contribution: entry.data[index].contributionsLevel))
-                                        .frame(width: 10, height: 10, alignment: .center)
-                                }
+                            ForEach(Array(0...6),id: \.self) { row in
+                                
+                                RoundedRectangle(cornerRadius: 2, style: .circular)
+                                    .fill(getColor(contribution:0))
+                                    .frame(width: 13, height: 13, alignment: .center)
+                                
                             }
                         }
                     }
@@ -114,53 +128,49 @@ struct ContributionMeidumView : View {
                 
             } else {
                 
-                HStack{
-                    Text(entry.loginName ?? "")
-                        .font(.title2)
-                        .foregroundColor(Color("ZLTitleColor1"))
-                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 10))
+                if let model = entry.model,
+                   let contributionsModel = model.contributionsModel {
                     
-                    if entry.totalContributions != 0{
-                        Text("\(entry.totalContributions) contribution")
-                            .foregroundColor(Color("ZLDescColor"))
-                            .font(.caption)
+                    HStack{
+                        Text(model.login)
+                            .font(.title3)
+                            .foregroundColor(Color("ZLTitleColor1"))
+                        
+                        if contributionsModel.totalContributions > 0 {
+                            Text("\(contributionsModel.totalContributions) contribution")
+                                .foregroundColor(Color("ZLDescColor"))
+                                .font(.caption)
+                        }
+                       
+                        Spacer()
                     }
-                   
-                    Spacer()
-                }
-                
-                Spacer()
-                
-                if entry.data.count == 0 {
                     
-                    Text("No Data")
-                        .font(.footnote)
-                        .foregroundColor(Color("ZLDescColor"))
                     Spacer()
-                    
-                } else {
                     
                     HStack(alignment: .top, spacing: 3){
-                        ForEach(Range(0...21)) { column in
+                        ForEach(contributionsModel.weeks.suffix(20), id: \.self.firstDay) { week in
                             VStack(alignment: .leading, spacing: 3){
-                                ForEach(Range(0...6)) { row in
-                                    let index = column * 7 + row
-                                    if index < entry.data.count {
-                                        RoundedRectangle(cornerRadius: 2, style: .circular)
-                                            .fill(getColor(contribution: entry.data[index].contributionsLevel))
-                                            .frame(width: 10, height: 10, alignment: .center)
-                                    }
+                                ForEach(week.contributionDays,id: \.self.contributionsDate) { day in
+                                    RoundedRectangle(cornerRadius: 2, style: .circular)
+                                        .fill(getColor(contribution: day.contributionsLevel))
+                                        .frame(width: 13, height: 13, alignment: .center)
+                                    
                                 }
                             }
                         }
                         Spacer()
                     }
+                    
+                   
+                } else {
+                    Text("No Data")
+                        .font(.footnote)
+                        .foregroundColor(Color("ZLDescColor"))
                 }
             }
             
         }
-        .padding(EdgeInsets(top: 20, leading: 35, bottom: 20, trailing: 25))
-        .widgetURL(URL(string: "https://github.com/\(entry.loginName ?? "")"))
+        .widgetURL(URL(string: "https://github.com/\(entry.model?.login ?? "")"))
   
         if #available(iOS 17.0, *) {
             return view.containerBackground(.background, for: .widget)
@@ -220,6 +230,6 @@ struct ContributionWidget : Widget {
 
 struct ContributionWidget_Previews : PreviewProvider {
     static var previews: some View {
-        ContributionView(entry:ContributionEntry(date:Date(),data:ZLSimpleContributionModel.getSampleContributionData(),loginName:"ExistOrLive")).previewContext(WidgetPreviewContext(family: .systemMedium))
+        ContributionView(entry:ContributionEntry(date:Date(),model:ZLSimpleContributionModel.getSampleContributionData())).previewContext(WidgetPreviewContext(family: .systemMedium))
     }
 }
