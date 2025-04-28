@@ -173,9 +173,11 @@ struct ContributionMeidumView : View {
         .widgetURL(URL(string: "https://github.com/\(entry.model?.login ?? "")"))
   
         if #available(iOS 17.0, *) {
-            return view.containerBackground(.background, for: .widget)
+            return view.containerBackground(for: .widget) {
+                Color(.widgetBackground)
+            }
         } else {
-            return view
+            return view.padding(EdgeInsets(top: 20, leading: 35, bottom: 20, trailing: 25))
         }
     }
     
@@ -194,8 +196,7 @@ struct ContributionMeidumView : View {
         default:
             return Color("ZLContributionColor1")
         }
-    }
-    
+    }    
 }
 
 

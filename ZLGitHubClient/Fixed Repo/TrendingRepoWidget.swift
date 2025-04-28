@@ -142,7 +142,11 @@ struct FixedRepoMediumView : View {
                             .font(.caption2)
                             .foregroundColor(Color("ZLLanguageColor"))
                     }
+                    
+                    
                 }
+                
+                
             }
             Spacer()
         }
@@ -150,12 +154,18 @@ struct FixedRepoMediumView : View {
         .widgetURL(URL(string: "https://github.com/\(entry.model?.fullName ?? "")"))
         
         if #available(iOS 17.0, *) {
-            return view.containerBackground(.background, for: .widget)
+            return view.containerBackground(for: .widget) {
+                Color(.widgetBackground)
+            }
         } else {
-            return view
+            return view.padding(EdgeInsets(top: 20, leading: 25, bottom: 15, trailing: 25))
         }
     }
 }
+
+
+
+
 
 
 struct TrendingRepoEntryView : View {
