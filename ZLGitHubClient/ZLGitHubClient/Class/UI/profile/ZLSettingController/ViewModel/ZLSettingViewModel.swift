@@ -11,6 +11,7 @@ import MJRefresh
 import ZLGitRemoteService
 import ZLUtilities
 import ZMMVVM
+import WidgetKit
 
 enum ZLSettingItemType: Int {
     case language
@@ -113,6 +114,9 @@ extension ZLSettingViewModel {
             self.tableView?.reloadData()
             }
         case ZLLogoutResult_Notification:do {
+            if #available(iOS 14.0, *) {
+                WidgetCenter.shared.reloadAllTimelines()
+            } 
             let appDelegate  = UIApplication.shared.delegate as? AppDelegate
             appDelegate?.switch(toLoginController: true)
             }

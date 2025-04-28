@@ -16,11 +16,14 @@ extension ZLSimpleContributionModel {
         contributionsModel.login = "ExistOrLive"
         let calendarModel = ZLContributionCalendarModel()
         calendarModel.totalContributions = 101
-        calendarModel.weeks = Array(0...19).map({ _  in
+        calendarModel.weeks = Array(0...19).map({ week  in
             let weekModel = ZLContributionWeekModel()
-            weekModel.contributionDays = Array(0...6).map({ _ in
+            weekModel.contributionDays = Array(0...6).map({ day in
                 let data = ZLSimpleContributionModel()
-                data.contributionsLevel = Int.random(in: 0...4)
+                if [1,6,9,10,17].contains(week),
+                   [1,5,6,2].contains(day) {
+                    data.contributionsLevel = (week + day) % 5
+                }
                 return data
             })
             return weekModel
@@ -50,6 +53,7 @@ extension ZLSimpleContributionModel {
 struct ContributionEntry : TimelineEntry {
     var date: Date
     var model: ZLViewersContributionModel?
+    var errorMsg: String
     var isPlaceHolder : Bool = false
 }
 
@@ -60,33 +64,24 @@ struct ContributionProvider : IntentTimelineProvider {
     typealias Intent = ContributionConfigurationIntent
     
     func placeholder(in context: Self.Context) -> Self.Entry {
-        ContributionEntry(date:Date(),model:ZLSimpleContributionModel.getPlaceHolderContributionData(),isPlaceHolder:true)
+        ContributionEntry(date:Date(),model:ZLSimpleContributionModel.getPlaceHolderContributionData(),errorMsg:"",isPlaceHolder:true)
     }
     
     func getSnapshot(for configuration: Self.Intent, in context: Self.Context, completion: @escaping (Self.Entry) -> Void) {
-        if context.isPreview {
-            completion(ContributionEntry(date:Date(),model:ZLSimpleContributionModel.getSampleContributionData(), isPlaceHolder: false))
-        } else {
-            completion(ContributionEntry(date:Date(),model:ZLSimpleContributionModel.getPlaceHolderContributionData(),isPlaceHolder:true))
-        }
-        
+        completion(ContributionEntry(date:Date(),model:ZLSimpleContributionModel.getSampleContributionData(),errorMsg:"", isPlaceHolder: false))
     }
     
     func getTimeline(for configuration: Self.Intent, in context: Self.Context, completion: @escaping (Timeline<Self.Entry>) -> Void){
         
-        ZLWidgetService.contributions() { (result, data) in
-            
-            
-            
+        ZLWidgetService.contributions() { (result, data, msg) in
+    
             let currentDate  = Date()
-            let entry = ContributionEntry(date:currentDate,model: data, isPlaceHolder: false)
+            let entry = ContributionEntry(date:currentDate,model: data, errorMsg: msg, isPlaceHolder: false)
             let entryDate = Calendar.current.date(byAdding: .hour, value: 2, to: currentDate)!
             let timeLine = Timeline(entries: [entry], policy: .after(entryDate))
             
             completion(timeLine)
         }
-        
-      
     }
 }
 
@@ -163,7 +158,7 @@ struct ContributionMeidumView : View {
                     
                    
                 } else {
-                    Text("No Data")
+                    Text(entry.errorMsg)
                         .font(.footnote)
                         .foregroundColor(Color("ZLDescColor"))
                 }
@@ -231,6 +226,6 @@ struct ContributionWidget : Widget {
 
 struct ContributionWidget_Previews : PreviewProvider {
     static var previews: some View {
-        ContributionView(entry:ContributionEntry(date:Date(),model:ZLSimpleContributionModel.getSampleContributionData())).previewContext(WidgetPreviewContext(family: .systemMedium))
+        ContributionView(entry:ContributionEntry(date:Date(),model:ZLSimpleContributionModel.getSampleContributionData(), errorMsg: "")).previewContext(WidgetPreviewContext(family: .systemMedium))
     }
 }

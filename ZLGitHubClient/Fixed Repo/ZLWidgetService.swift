@@ -248,13 +248,13 @@ struct ZLWidgetService {
     }
     
     
-    static func contributions(completeHandler: @escaping (Bool,ZLViewersContributionModel?) -> Void) {
+    static func contributions(completeHandler: @escaping (Bool,ZLViewersContributionModel?,String) -> Void) {
         
         let userDefaults = UserDefaults(suiteName: "group.com.zm.ZLGithubClient")
         let token = userDefaults?.object(forKey: "ZLAccessTokenKey") as? String
         
         guard let token, !token.isEmpty else {
-            completeHandler(false,nil)
+            completeHandler(false,nil,"Not logged in")
             return
         }
         
@@ -298,55 +298,14 @@ query viewerContributions {
                 if let jsonObject = try? JSONSerialization.jsonObject(with: value) as? [String: Any],
                    let viewer = (jsonObject["data"] as? [String:Any])?["viewer"] as? [String:Any],
                    let model = ZLViewersContributionModel(JSON: viewer) {
-                    completeHandler(true, model)
+                    completeHandler(true, model,"")
                 } else {
-                    completeHandler(false, nil)
+                    completeHandler(false, nil,"No data")
                 }
             case .failure(let error):
-                completeHandler(false, nil)
+                completeHandler(false, nil,"An unexpected error occurred")
             }
         }
-        
-        
-//        guard let loginNamePath = loginName.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed),
-//              let url = URL(string: "https://github.com/users/\(loginNamePath)/contributions") else {
-//            completeHandler(false,[],0)
-//            return
-//        }
-//        
-//        DispatchQueue.global().async {
-//            
-//            guard let htmlDoc = try? HTML(url: url, encoding: .utf8) else {
-//                DispatchQueue.main.async {
-//                    completeHandler(false,[],0)
-//                }
-//                return
-//            }
-//            
-//            var contributionArray = [ZLSimpleContributionModel]()
-//            var totalCount = 0
-//            
-//            for dayData in htmlDoc.xpath("//td[@class=\"ContributionCalendar-day\"]") {
-//                var contributionModel = ZLSimpleContributionModel()
-//                contributionModel.contributionsDate = dayData["data-date"] ?? ""
-//                contributionModel.contributionsLevel = Int(dayData["data-level"] ?? "") ?? 0
-//                contributionArray.append(contributionModel)
-//                totalCount += contributionModel.contributionsNumber
-//            }
-//    
-//            var resultArray = contributionArray
-//            let showCount = resultArray.count % 7 == 0 ? 154 : resultArray.count % 7 + 147
-//            if resultArray.count > showCount {
-//                let startIndex = resultArray.count - showCount
-//                resultArray = Array(resultArray[startIndex...])
-//            }
-//            
-//            DispatchQueue.main.async {
-//                completeHandler(true,resultArray,totalCount)
-//            }
-//           
-//        }
-        
     }
 }
 

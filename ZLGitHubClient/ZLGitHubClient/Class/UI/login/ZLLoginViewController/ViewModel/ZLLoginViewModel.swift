@@ -12,6 +12,7 @@ import ZLGitRemoteService
 import ZLUIUtilities
 import ZLUtilities
 import ZMMVVM
+import WidgetKit
 
 enum ZLLoginStep {
     case initialize
@@ -114,7 +115,21 @@ class ZLLoginViewModel: ZMBaseViewModel, ZLLoginBaseViewDelegate {
                 return
             }
             
-            if resultModel.result == false {
+            if resultModel.result  {
+                step = .initialize
+                loginSerialNumber = nil
+                zm_reloadView()
+                ZLToastView.showMessage("Login Success")
+                
+                let appDelegate = UIApplication.shared.delegate as? AppDelegate
+                appDelegate?.switch(toMainController: true)
+            
+                
+                // 通知所有Widget更新
+                if #available(iOS 14.0, *) {
+                    WidgetCenter.shared.reloadAllTimelines()
+                } 
+            } else {
                 step = .initialize
                 loginSerialNumber = nil
                 zm_reloadView()
@@ -122,14 +137,6 @@ class ZLLoginViewModel: ZMBaseViewModel, ZLLoginBaseViewDelegate {
                     return
                 }
                 ZLToastView.showMessage("Login Failed: status[\(errorModel.statusCode)] \(errorModel.message)")
-                
-            } else if resultModel.result  {
-                step = .initialize
-                loginSerialNumber = nil
-                zm_reloadView()
-                ZLToastView.showMessage("Login Success")
-                let appDelegate = UIApplication.shared.delegate as? AppDelegate
-                appDelegate?.switch(toMainController: true)
             }
         }
         default:
