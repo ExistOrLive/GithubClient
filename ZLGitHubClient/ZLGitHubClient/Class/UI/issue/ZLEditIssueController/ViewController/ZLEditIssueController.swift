@@ -36,6 +36,8 @@ class ZLEditIssueController: ZMTableViewController {
     
     var refreshStatusBlock: (() -> Void)?
     
+    var loadMoreTimelineBlock: (() -> Void)?
+    
     private var data: IssueEditInfoQuery.Data?
     
     override func viewDidLoad() {
@@ -174,15 +176,15 @@ extension ZLEditIssueController {
         
         
         // Operation
-        var operationsCellDatas = [ZMBaseTableViewCellViewModel]()
-        if data?.repository?.issue?.viewerCanSubscribe ?? false {
-            let turnOn = data?.repository?.issue?.viewerSubscription == .subscribed
-            operationsCellDatas.append(ZLIssueOperateCellData(operationType: .subscribe,
-                                                              turnOn: turnOn,
-                                                              clickBlock: { [weak self] _ in
-                self?.onOperationAction(type: .subscribe)
-            }))
-        }
+         var operationsCellDatas = [ZMBaseTableViewCellViewModel]()
+//        if data?.repository?.issue?.viewerCanSubscribe ?? false {
+//            let turnOn = data?.repository?.issue?.viewerSubscription == .subscribed
+//            operationsCellDatas.append(ZLIssueOperateCellData(operationType: .subscribe,
+//                                                              turnOn: turnOn,
+//                                                              clickBlock: { [weak self] _ in
+//                self?.onOperationAction(type: .subscribe)
+//            }))
+//        }
         
         
         if data?.repository?.issue?.viewerCanUpdate ?? false {
@@ -391,6 +393,7 @@ extension ZLEditIssueController {
             self.view.dismissProgressHUD()
             if resultModel.result {
                 self.requestNewData()
+                self.loadMoreTimelineBlock?()
             } else {
                 ZLToastView.showMessage("Request Failed")
             }

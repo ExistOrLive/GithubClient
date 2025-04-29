@@ -73,7 +73,7 @@ class ZLProfileViewController: ZMTableViewController {
         
         backView.snp.makeConstraints { make in
             make.left.equalTo(tableView.contentLayoutGuide.snp.left)
-            make.bottom.equalTo(tableView.contentLayoutGuide.snp.top)
+            make.bottom.equalTo(tableView.contentLayoutGuide.snp.top).offset(10)
             make.size.equalTo(tableView.frameLayoutGuide.snp.size)
         }
     }

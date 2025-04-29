@@ -33,6 +33,9 @@ import ZLUIUtilities
         NotificationCenter.default.addObserver(self, selector: #selector(onNotificationArrived(_:)), name: ZLLanguageTypeChange_Notificaiton, object: nil)
         
         ZLAssistButtonManager.sharedInstance().setHidden(ZLUISharedDataManager.isAssistButtonHidden)
+        
+        
+        ZLUISharedDataManager.initRemoteConfig()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

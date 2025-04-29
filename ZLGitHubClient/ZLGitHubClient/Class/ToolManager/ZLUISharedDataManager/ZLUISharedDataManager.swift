@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseRemoteConfig
 import ZLGitRemoteService
 
 private let ZLCurrentUserInterfaceStyleKey = "ZLCurrentUserInterfaceStyleKey"
@@ -152,7 +153,20 @@ private let ZLTrendingRepoSpokenLanguage = "trendingRepoSpokenLanguage"
             UserDefaults.standard.synchronize()
         }
     }
+    
+    static var enabledBlockFunction: Bool {
+        get {
+            RemoteConfig.remoteConfig().configValue(forKey: "Block_Function_Enabled").boolValue
+        }
+    }
 
+    static var enbaledReportFunction: Bool {
+        get {
+            RemoteConfig.remoteConfig().configValue(forKey: "Report_Function_Enabled").boolValue
+        }
+    }
+    
+    
     // MARK:  Github Secret
     
     static var githubClientID: String = ""
@@ -160,4 +174,28 @@ private let ZLTrendingRepoSpokenLanguage = "trendingRepoSpokenLanguage"
     static var githubClientSecret: String = ""
     
     static var githubClientCallback: String = ""
+}
+
+extension ZLUISharedDataManager {
+
+    @objc static func initRemoteConfig() {
+        // 初始化google remote config
+        let remoteConfig = RemoteConfig.remoteConfig()
+        let setting = RemoteConfigSettings()
+        setting.minimumFetchInterval = 0
+        remoteConfig.configSettings = setting
+        // 设置默认值
+        remoteConfig.setDefaults(fromPlist: "RemoteConfigDefault")
+        // 获取远程配置
+        remoteConfig.fetchAndActivate { status, error in
+            switch status {
+            case .successFetchedFromRemote, .successUsingPreFetchedData:
+                print("fetch success")
+            case .error:
+                print(error?.localizedDescription ?? "")
+            @unknown default:
+                print("unknow error")
+            }
+        }
+    }
 }

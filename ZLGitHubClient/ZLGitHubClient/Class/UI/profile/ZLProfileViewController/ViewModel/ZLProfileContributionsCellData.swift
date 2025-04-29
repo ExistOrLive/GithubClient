@@ -15,6 +15,8 @@ class ZLProfileContributionsCellData: ZMBaseTableViewCellViewModel {
     
     private var data: ZLGithubUserModel
     
+    private var _isForce: Bool = true
+    
     init(userModel: ZLGithubUserModel) {
         self.data = userModel
         super.init()
@@ -28,6 +30,12 @@ class ZLProfileContributionsCellData: ZMBaseTableViewCellViewModel {
 extension ZLProfileContributionsCellData: ZLProfileContributionsCellDataSourceAndDelegate {
     var loginName: String {
         data.loginName ?? ""
+    }
+    
+    var isForce: Bool {
+        let isForce = _isForce
+        _isForce = false
+        return isForce
     }
     
     func onAllUpdateButtonClicked() {

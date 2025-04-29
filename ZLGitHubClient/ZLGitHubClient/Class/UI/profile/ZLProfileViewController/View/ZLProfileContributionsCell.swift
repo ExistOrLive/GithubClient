@@ -18,6 +18,8 @@ protocol ZLProfileContributionsCellDataSourceAndDelegate: AnyObject {
     
     var loginName: String { get }
     
+    var isForce: Bool { get }
+    
     func onAllUpdateButtonClicked()
 }
 
@@ -129,7 +131,7 @@ extension ZLProfileContributionsCell {
 extension ZLProfileContributionsCell: ZMBaseViewUpdatableWithViewData {
 
     func zm_fillWithViewData(viewData: ZLProfileContributionsCellDataSourceAndDelegate) {
-        contributionsView.update(loginName: viewData.loginName)
+        contributionsView.update(loginName: viewData.loginName, force: viewData.isForce)
         self.titleLabel.text = ZLLocalizedString(string: "latest update", comment: "最近修改")
         self.allUpdateButton.setTitle("\(ZLLocalizedString(string: "all update", comment: "查看全部修改")) \(ZLIconFont.NextArrow.rawValue)", for: .normal)
     }

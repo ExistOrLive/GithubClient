@@ -35,16 +35,19 @@ struct TrendingRepoProvider: IntentTimelineProvider {
         
         ZLWidgetService.trendingRepo(dateRange: configuration.DateRange, language: configuration.Language) {(result, repos) in
             
-            // Generate a timeline consisting of five entries an hour apart, starting from the current date.
             let currentDate = Date()
-            for hourOffset in 0 ..< repos.count {
-                let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-                let model = repos[hourOffset]
+            
+            for offset in 0 ..< repos.count {
+                /// 每个repo展示时间相差15分钟
+                let entryDate = Calendar.current.date(byAdding: .minute, value: offset * 15, to: currentDate)!
+                let model = repos[offset]
                 let entry = SimpleEntry(date: entryDate,model: model,color: colorForLanguage(language: model.language ?? ""))
                 entries.append(entry)
             }
             
+            ///repo列表都展示完，重新请求
             let timeline = Timeline(entries: entries, policy: .atEnd)
+            
             completion(timeline)
             
         }
@@ -53,7 +56,7 @@ struct TrendingRepoProvider: IntentTimelineProvider {
 }
 
 struct SimpleEntry: TimelineEntry {
-    let date: Date
+    let date: Date                          /// repo 显示的时间
     let model : ZLSimpleRepositoryModel?
     let color : Color
 }
@@ -182,7 +185,9 @@ struct TrendingRepoWidget: Widget {
     let kind: String = "Fixed_Repo"
 
     var body: some WidgetConfiguration {
-        IntentConfiguration(kind: kind, intent: FixedRepoConfigurationIntent.self, provider: TrendingRepoProvider()) { entry in
+        IntentConfiguration(kind: kind,
+                            intent: FixedRepoConfigurationIntent.self,
+                            provider: TrendingRepoProvider()) { entry in
             TrendingRepoEntryView(entry: entry)
         }
         .configurationDisplayName("Trending")
@@ -193,7 +198,9 @@ struct TrendingRepoWidget: Widget {
 
 struct Fixed_Repo_Previews: PreviewProvider {
     static var previews: some View {
-        TrendingRepoEntryView(entry: SimpleEntry(date: Date(), model: ZLSimpleRepositoryModel.getSampleModel(),color:Color.blue))
+        TrendingRepoEntryView(entry: SimpleEntry(date: Date(),
+                                                 model: ZLSimpleRepositoryModel.getSampleModel(),
+                                                 color:Color.blue))
             .previewContext(WidgetPreviewContext(family: .systemMedium))
     }
 }

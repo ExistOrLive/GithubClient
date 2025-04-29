@@ -16,6 +16,8 @@ class ZLSubmitCommentController: ZMViewController {
     
     //
     var issueId: String?
+    
+    var submitSuccessBlock: (() -> Void)?
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +26,6 @@ class ZLSubmitCommentController: ZMViewController {
         submitCommentView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        submitCommentView.textView.becomeFirstResponder()
         submitCommentView.zm_fillWithData(data: self)
     }
     
@@ -32,6 +33,11 @@ class ZLSubmitCommentController: ZMViewController {
     lazy var submitCommentView: ZLSubmitCommentView = {
         ZLSubmitCommentView()
     }()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        submitCommentView.textView.becomeFirstResponder()
+    }
 }
 
 
@@ -61,6 +67,7 @@ extension ZLSubmitCommentController: ZLSubmitCommentViewDelegate {
                    let _ = data.addComment?.clientMutationId {
                     
                    self.submitCommentView.textView.text = nil
+                    self.submitSuccessBlock?()
                    self.dismiss(animated: true, completion: nil)
                 } else {
                     ZLToastView.showMessage("Nerwork Error")

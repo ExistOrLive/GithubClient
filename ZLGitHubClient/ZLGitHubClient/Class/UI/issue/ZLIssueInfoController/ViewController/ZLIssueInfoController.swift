@@ -136,6 +136,9 @@ extension ZLIssueInfoController {
         }
         commentVC?.issueId = issueId
         if let vc = commentVC {
+            vc.submitSuccessBlock = { [weak self] in
+                self?.requestIssueTimeline(loadNewData: false)
+            }
             self.present(vc, animated: true, completion: nil)
         }
     }
@@ -146,7 +149,11 @@ extension ZLIssueInfoController {
         vc.repoName = repoName
         vc.number = number
         vc.refreshStatusBlock = { [weak self] in
-            self?.requestIssueInfo()
+            self?.justRequestIssueInfo()
+            self?.requestIssueTimeline(loadNewData: false)
+        }
+        vc.loadMoreTimelineBlock = { [weak self] in
+            self?.requestIssueTimeline(loadNewData: false)
         }
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
@@ -258,6 +265,52 @@ extension ZLIssueInfoController {
               
                 self.endRefreshViews()
                 self.viewStatus = self.tableViewProxy.isEmpty ? .error : .normal
+            }
+        }
+    }
+    
+    
+    func justRequestIssueInfo() {
+        
+        ZLEventServiceShared()?.getRepositoryIssueInfo(withLoginName: login ?? "",
+                                                       repoName: repoName ?? "",
+                                                       number: Int32(number),
+                                                       serialNumber: NSString.generateSerialNumber())
+        { [weak self](resultModel: ZLOperationResultModel) in
+            
+            guard let self = self else { return }
+            
+            if resultModel.result,
+               let data = resultModel.data as? IssueInfoQuery.Data,
+               let issue = data.repository?.issue {
+                
+                if var cellDataArray = self.sectionDataArray.first?.cellDatas {
+                    self.issueData = data
+                    self.issueId = issue.id
+                    
+                   
+                    /// headerData
+                    let headerData = self.getIssueHeaderCellData(data: data)
+                    if let index = cellDataArray.firstIndex(where: { $0 is ZLIssueHeaderTableViewCellData}) {
+                        self.zm_addSubViewModel(headerData)
+                        cellDataArray[index].zm_removeFromSuperViewModel()
+                        cellDataArray[index] = headerData
+                    }
+                    
+                    /// bodyData
+                    if let issue = data.repository?.issue,
+                       let index = cellDataArray.firstIndex(where: { $0 is ZLIssueBodyTableViewCellData}) {
+                        let boydData = self.getIssueBodyCellData(data: issue)
+                        self.zm_addSubViewModel(boydData)
+                        cellDataArray[index].zm_removeFromSuperViewModel()
+                        cellDataArray[index] = boydData
+                    }
+                       
+                    self.sectionDataArray.first?.cellDatas = cellDataArray
+                    self.tableView.reloadData()
+            
+                }
+            
             }
         }
     }

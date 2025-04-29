@@ -137,9 +137,10 @@ extension ZLSubmitCommentView {
     @objc func onSubmitButtonClicked() {
         guard let comment = self.textView.text else { return }
         if comment.isEmpty {
-            ZLToastView.showMessage("Comment is Empty")
+            ZLToastView.showMessage(ZLLocalizedString(string: "Comment is Empty", comment: "Comment is Empty"))
             return
         }
+        self.textView.resignFirstResponder()
         self.delegate?.onSubmitButtonClicked(comment: comment)
     }
 }

@@ -20,6 +20,7 @@ extension ZLSimpleContributionModel {
             let weekModel = ZLContributionWeekModel()
             weekModel.contributionDays = Array(0...6).map({ day in
                 let data = ZLSimpleContributionModel()
+                data.contributionsDate = "\(week) + \(day)"
                 if [1,6,9,10,17].contains(week),
                    [1,5,6,2].contains(day) {
                     data.contributionsLevel = (week + day) % 5
@@ -91,7 +92,7 @@ struct ContributionMeidumView : View {
     let entry : ContributionProvider.Entry
     
     var body : some View {
-        let view: some View = VStack{
+        let view: some View = VStack {
             if entry.isPlaceHolder {
                 
                 HStack{
