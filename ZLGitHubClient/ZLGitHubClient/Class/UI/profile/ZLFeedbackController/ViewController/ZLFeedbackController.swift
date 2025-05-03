@@ -17,7 +17,7 @@ import ZLUtilities
 
 class ZLFeedbackController: ZMViewController {
     
-    let context = "\(ZLDeviceInfo.getDeviceSystemVersion()) - \(ZLDeviceInfo.getDeviceModel()) - \(ZLDeviceInfo.getAppName())\(ZLDeviceInfo.getAppVersion())"
+    let context = "\(ZLDeviceInfo.getDeviceSystemNameVersion()) - \(ZLDeviceInfo.getDeviceModel()) - \(ZLDeviceInfo.getAppName())\(ZLDeviceInfo.getAppVersion())"
 
     override func viewDidLoad() {
         super.viewDidLoad()

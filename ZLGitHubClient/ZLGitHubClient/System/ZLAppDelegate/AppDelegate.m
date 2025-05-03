@@ -55,10 +55,16 @@
     
     /// firebase
     [FIRApp configure];
-      
+    
+    /// 路由组件： SYDCentralRouter
     NSString *configFilePath = [[NSBundle mainBundle] pathForResource:@"SYDCenteralFactoryConfig" ofType:@"plist"];
     [[SYDCentralRouter sharedInstance] addConfigWithFilePath:configFilePath withBundle:[NSBundle mainBundle]];
-    
+        
+#if DEBUG
+    [[ZLRemoteConfigManager sharedInstance] setupManagerWithConfigURL:ZLRemoteConfigURLDebug];
+#else
+    [[ZLRemoteConfigManager sharedInstance] setupManagerWithConfigURL:ZLRemoteConfigURLRelease];
+#endif
     
     ZLLog_Info(@"中间件，工具模块初始化完毕");
     

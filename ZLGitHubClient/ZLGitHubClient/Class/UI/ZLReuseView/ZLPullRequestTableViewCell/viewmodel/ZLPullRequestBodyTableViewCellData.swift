@@ -10,6 +10,7 @@ import UIKit
 import WebKit
 import ZLGitRemoteService
 import ZMMVVM
+import ZLUtilities
 
 class ZLPullRequestBodyTableViewCellData: ZMBaseTableViewCellViewModel {
 
@@ -151,20 +152,30 @@ extension ZLPullRequestBodyTableViewCellData: ZLPullRequestCommentTableViewCellD
             self.zm_viewController?.navigationController?.pushViewController(vc, animated: true)
         }
     }
-
-//    func didRowHeightChange(height: CGFloat) {
-//        if height == cellHeight {
-//            return
-//        }
-//        cellHeight = height
-//        
-//        (self.zm_superViewModel as? ZMBaseTableViewContainerProtocol)?.tableView.performBatchUpdates({
-//            
-//        })
-//    }
-
+    
     func didClickLink(url: URL) {
         ZLUIRouter.openURL(url: url)
+    }
+    
+    var showReportButton: Bool {
+        var showReportButton = ZLRCM().configAsBool(for: "ReportFunction")
+        let currentLoginName = ZLServiceManager.sharedInstance.viewerServiceModel?.currentUserLoginName
+        if  currentLoginName == "ExistOrLive1" ||
+                currentLoginName == "existorlive3" ||
+                currentLoginName == "existorlive11" {
+            showReportButton = true
+        }
+        if currentLoginName == self.getActorName() {
+            showReportButton = false
+        }
+        return showReportButton
+    }
+    
+    func onReportButtonClicked() {
+        let vc = ZLReportController()
+        vc.loginName = self.getActorName()
+        vc.hidesBottomBarWhenPushed = true
+        zm_viewController?.navigationController?.pushViewController(vc, animated: true)
     }
 
 }

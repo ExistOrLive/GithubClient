@@ -9,6 +9,7 @@
 import UIKit
 import WebKit
 import ZMMVVM
+import ZLUtilities
 
 protocol ZLPullRequestCommentTableViewCellDelegate: NSObjectProtocol {
     
@@ -18,9 +19,11 @@ protocol ZLPullRequestCommentTableViewCellDelegate: NSObjectProtocol {
     func getTime() -> String
     func getCommentHtml() -> String
     func getCommentText() -> String
+    var showReportButton: Bool { get }
 
     func onAvatarButtonClicked()
     func didClickLink(url: URL)
+    func onReportButtonClicked()
 }
 
 class ZLPullRequestCommentTableViewCell: UITableViewCell {
@@ -71,6 +74,14 @@ class ZLPullRequestCommentTableViewCell: UITableViewCell {
             make.left.equalTo(avatarButton.snp.right).offset(10)
             make.bottom.equalTo(avatarButton)
         }
+        
+        backView.addSubview(reportButton)
+        reportButton.snp.makeConstraints { make in
+            make.centerY.equalTo(avatarButton)
+            make.right.equalTo(-15)
+            make.width.equalTo(45)
+            make.height.equalTo(30)
+        }
 
         backView.addSubview(webViewContainer)
         webViewContainer.snp.makeConstraints { make in
@@ -89,10 +100,6 @@ class ZLPullRequestCommentTableViewCell: UITableViewCell {
             make.left.equalToSuperview().offset(40)
             make.width.equalTo(1)
         }
-    }
-    
-    @objc func onAvatarButtonClicked() {
-        self.delegate?.onAvatarButtonClicked()
     }
 
     // MARK: View
@@ -123,6 +130,16 @@ class ZLPullRequestCommentTableViewCell: UITableViewCell {
         label2.font = UIFont(name: Font_PingFangSCRegular, size: 12)
         return label2
     }()
+    
+    
+    private lazy var reportButton: UIButton = {
+        let button = UIButton.init(type: .custom)
+        button.addTarget(self, action: #selector(onReportButtonClicked), for: .touchUpInside)
+        let str = NSAttributedString(string: ZLIconFont.More.rawValue, attributes: [.font: UIFont.zlIconFont(withSize: 30),
+                                                                                    .foregroundColor: UIColor.label(withName: "ICON_Common")])
+        button.setAttributedTitle(str, for: .normal)
+        return button
+    }()
 
     lazy var webViewContainer: UIView = {
         let view = UIView()
@@ -131,6 +148,15 @@ class ZLPullRequestCommentTableViewCell: UITableViewCell {
 
 }
 
+extension ZLPullRequestCommentTableViewCell {
+    @objc func onAvatarButtonClicked() {
+        self.delegate?.onAvatarButtonClicked()
+    }
+    
+    @objc func onReportButtonClicked() {
+        self.delegate?.onReportButtonClicked()
+    }
+}
 
 
 extension ZLPullRequestCommentTableViewCell: ZMBaseViewUpdatableWithViewData {
@@ -140,6 +166,7 @@ extension ZLPullRequestCommentTableViewCell: ZMBaseViewUpdatableWithViewData {
                                 avatarUrl: data.getActorAvatarUrl())
         actorLabel.text = data.getActorName()
         timeLabel.text = data.getTime()
+        reportButton.isHidden = !data.showReportButton
         let subViews = webViewContainer.subviews
         subViews.forEach { $0.removeFromSuperview() }
         webViewContainer.addSubview(data.webView)

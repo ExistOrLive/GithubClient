@@ -18,14 +18,17 @@ protocol ZLDiscussionCommentTableViewCellDelegate: NSObjectProtocol {
     func getActorAvatarUrl() -> String
     func getActorName() -> String
     func getTime() -> String
+    var showReportButton: Bool { get }
     func getCommentHtml() -> String
     func getCommentText() -> String
+ 
     
     var upvoteNum: Int { get }
     var reactions: [ReactionContent: Int] { get }
 
     func onAvatarButtonClicked()
     func didClickLink(url: URL)
+    func onReportButtonClicked()
 }
 
 class ZLDiscussionCommentTableViewCell: UITableViewCell {
@@ -72,6 +75,14 @@ class ZLDiscussionCommentTableViewCell: UITableViewCell {
             make.left.equalTo(avatarButton.snp.right).offset(10)
             make.bottom.equalTo(avatarButton)
         }
+        
+        backView.addSubview(reportButton)
+        reportButton.snp.makeConstraints { make in
+            make.centerY.equalTo(avatarButton)
+            make.right.equalTo(-15)
+            make.width.equalTo(45)
+            make.height.equalTo(30)
+        }
 
         backView.addSubview(webViewContainer)
         webViewContainer.snp.makeConstraints { make in
@@ -102,9 +113,7 @@ class ZLDiscussionCommentTableViewCell: UITableViewCell {
 
     
 
-    @objc func onAvatarButtonClicked() {
-        self.delegate?.onAvatarButtonClicked()
-    }
+
 
     // MARK: View
 
@@ -134,6 +143,15 @@ class ZLDiscussionCommentTableViewCell: UITableViewCell {
         label2.font = UIFont(name: Font_PingFangSCRegular, size: 12)
         return label2
     }()
+    
+    private lazy var reportButton: UIButton = {
+        let button = UIButton.init(type: .custom)
+        button.addTarget(self, action: #selector(onReportButtonClicked), for: .touchUpInside)
+        let str = NSAttributedString(string: ZLIconFont.More.rawValue, attributes: [.font: UIFont.zlIconFont(withSize: 30),
+                                                                                    .foregroundColor: UIColor.label(withName: "ICON_Common")])
+        button.setAttributedTitle(str, for: .normal)
+        return button
+    }()
 
     private lazy var webViewContainer: UIView = {
         let view = UIView()
@@ -161,6 +179,16 @@ class ZLDiscussionCommentTableViewCell: UITableViewCell {
     }()
 }
 
+extension ZLDiscussionCommentTableViewCell {
+    @objc func onAvatarButtonClicked() {
+        self.delegate?.onAvatarButtonClicked()
+    }
+    
+    @objc func onReportButtonClicked() {
+        self.delegate?.onReportButtonClicked()
+    }
+    
+}
 
 
 extension ZLDiscussionCommentTableViewCell: ZMBaseViewUpdatableWithViewData {
@@ -168,6 +196,7 @@ extension ZLDiscussionCommentTableViewCell: ZMBaseViewUpdatableWithViewData {
         avatarButton.loadAvatar(login: data.getActorName(), avatarUrl: data.getActorAvatarUrl())
         actorLabel.text = data.getActorName()
         timeLabel.text = data.getTime()
+        reportButton.isHidden = !data.showReportButton
         let subViews = webViewContainer.subviews
         subViews.forEach { $0.removeFromSuperview() }
         webViewContainer.addSubview(data.webView)

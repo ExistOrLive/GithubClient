@@ -13,12 +13,13 @@ import ZLUtilities
 
 func generateAvatarURL(login: String, avatarUrl: String, size: CGFloat) -> (String,Int) {
     
-    let type = ZLAGC().configAsInt(for: "GithubAvatarImageLoad")
+    let type = ZLRCM().configAsInt(for: "GithubAvatarImageLoad")
     
     switch type {
     case 1:
+        let scale = Int(UIScreen.main.scale)
         /// 使用login拼接avatar链接
-        let avatarURLWithLogin = "https://avatars.githubusercontent.com/\(login.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? "")"
+        let avatarURLWithLogin = "https://avatars.githubusercontent.com/\(login.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? "")"+"?s=\(60 * scale)"
         return (avatarURLWithLogin,type)
     case 2:
         /// 原生链接拼接size
@@ -35,44 +36,53 @@ func generateAvatarURL(login: String, avatarUrl: String, size: CGFloat) -> (Stri
 
 extension UIImageView {
     
-    func loadAvatar(login: String, avatarUrl: String, size: CGFloat = 60) {
+    func loadAvatar(login: String, avatarUrl: String, size: CGFloat = 60, forceFromRemote: Bool = false, remoteCallBack: ((UIImage?) -> Void)? = nil) {
         let startTime = Date().timeIntervalSince1970
         let (urlStr,type) = generateAvatarURL(login: login, avatarUrl: avatarUrl, size: size * UIScreen.main.scale)
         
         self.sd_setImage(with: URL.init(string: urlStr),
-                         placeholderImage: UIImage.init(named: "default_avatar")) { image, error, cacheType, url in
-            let result = image != nil ? 1 : 0
+                         placeholderImage: UIImage.init(named: "default_avatar"),
+                         options: forceFromRemote ? [.refreshCached] : [] ) { image, error, cacheType, url in
+            let result = image != nil
             let time = Date().timeIntervalSince1970 - startTime
             
-            ZLAGC().reportEvent(eventId: "GitHub_Avatar_Download",
-                                params: ["p_result":result,
-                                         "p_time":time,
-                                         "p_type":type,
-                                         "p_url": urlStr,
-                                         "p_cacheType": cacheType.rawValue,
-                                         "p_errorMsg": error?.localizedDescription ?? ""])
+            if forceFromRemote && cacheType == .none { /// 非缓存
+                remoteCallBack?(image)
+            }
+            
+            analytics.log(.githubAvatarDownload(result: result,
+                                                duration: time,
+                                                type: type,
+                                                url: urlStr,
+                                                cacheType: cacheType.rawValue,
+                                                errorMsg: error?.localizedDescription ?? ""))
         }
     }
 }
 
 extension UIButton {
     
-    func loadAvatar(login: String, avatarUrl: String, size: CGFloat = 60) {
+    func loadAvatar(login: String, avatarUrl: String, size: CGFloat = 60, forceFromRemote: Bool = false,remoteCallBack: ((UIImage?) -> Void)? = nil) {
         let startTime = Date().timeIntervalSince1970
         let (urlStr,type) = generateAvatarURL(login: login, avatarUrl: avatarUrl, size: size * UIScreen.main.scale)
         self.sd_setBackgroundImage(with: URL.init(string: urlStr),
                                    for: .normal,
-                                   placeholderImage: UIImage.init(named: "default_avatar")){ image, error, cacheType, url in
-            let result = image != nil ? 1 : 0
+                                   placeholderImage: UIImage.init(named: "default_avatar"),
+                                   options: forceFromRemote ? [.refreshCached] : [] ){ image, error, cacheType, url in
+            let result = image != nil
             let time = Date().timeIntervalSince1970 - startTime
             
-            ZLAGC().reportEvent(eventId: "GitHub_Avatar_Download",
-                                params: ["p_result":result,
-                                         "p_time":time,
-                                         "p_type":type,
-                                         "p_url": urlStr,
-                                         "p_cacheType": cacheType.rawValue,
-                                         "p_errorMsg": error?.localizedDescription ?? ""])
+            if forceFromRemote && cacheType == .none { /// 非缓存
+                remoteCallBack?(image)
+            }
+            
+            
+            analytics.log(.githubAvatarDownload(result: result,
+                                                duration: time,
+                                                type: type,
+                                                url: urlStr,
+                                                cacheType: cacheType.rawValue,
+                                                errorMsg: error?.localizedDescription ?? ""))
         }
     }
 }

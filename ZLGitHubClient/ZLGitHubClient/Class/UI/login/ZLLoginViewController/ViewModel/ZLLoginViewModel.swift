@@ -128,7 +128,7 @@ class ZLLoginViewModel: ZMBaseViewModel, ZLLoginBaseViewDelegate {
                 // 通知所有Widget更新
                 if #available(iOS 14.0, *) {
                     WidgetCenter.shared.reloadAllTimelines()
-                } 
+                }
             } else {
                 step = .initialize
                 loginSerialNumber = nil
@@ -168,11 +168,10 @@ extension ZLLoginViewModel: ZLGithubOAuthManagerDelegate {
     
     func onOAuthSuccess(token: String) {
         endTime = Date().timeIntervalSince1970
-        ZLAGC().reportEvent(eventId: "GithubOAuth",
-                            params: ["p_result": true,
-                                     "p_step": step.eventTrack,
-                                     "p_errorMsg": "success",
-                                     "p_time": endTime - startTime])
+        analytics.log(.githubOAuth(result: true,
+                                   step: step.eventTrack,
+                                   msg: "success",
+                                   duration: endTime - startTime))
         oauthManager = nil
         let serialNumber = NSString.generateSerialNumber()
         loginSerialNumber = serialNumber
@@ -184,11 +183,10 @@ extension ZLLoginViewModel: ZLGithubOAuthManagerDelegate {
     
     func onOAuthFail(status: ZLGithubOAuthStatus, error: String) {
         endTime = Date().timeIntervalSince1970
-        ZLAGC().reportEvent(eventId: "GithubOAuth",
-                            params: ["p_result": false,
-                                     "p_step": step.eventTrack,
-                                     "p_errorMsg": error,
-                                     "p_time": endTime - startTime])
+        analytics.log(.githubOAuth(result: false,
+                                   step: step.eventTrack,
+                                   msg: error,
+                                   duration: endTime - startTime))
         step = .initialize
         zm_reloadView()
         oauthManager = nil

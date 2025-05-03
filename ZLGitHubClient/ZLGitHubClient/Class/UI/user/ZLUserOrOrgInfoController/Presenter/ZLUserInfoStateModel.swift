@@ -47,15 +47,7 @@ class ZLUserInfoStateModel: NSObject {
     
     
     var hasBlockFunction: Bool {
-#if DEBUG
-        var showBlockButton = ZLUISharedDataManager.enabledBlockFunction
-        let currentLoginName = ZLServiceManager.sharedInstance.viewerServiceModel?.currentUserLoginName
-        if currentLoginName == login {
-            showBlockButton = false
-        }
-        return showBlockButton
-#else
-        var showBlockButton = ZLAGC().configAsBool(for: "Block_Function_Enabled")
+        var showBlockButton = ZLRCM().configAsBool(for: "BlockFunction")
         let currentLoginName = ZLServiceManager.sharedInstance.viewerServiceModel?.currentUserLoginName
         if currentLoginName == "ExistOrLive1" ||
             currentLoginName == "existorlive3" ||
@@ -66,7 +58,6 @@ class ZLUserInfoStateModel: NSObject {
             showBlockButton = false
         }
         return showBlockButton
-#endif 
     }
 
     var hasFollowFunction: Bool {

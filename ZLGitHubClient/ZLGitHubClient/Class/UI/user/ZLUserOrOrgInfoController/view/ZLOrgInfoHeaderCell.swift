@@ -71,7 +71,12 @@ class ZLOrgInfoHeaderCell: UITableViewCell {
 
     private func reloadData() {
         avatarImageView.loadAvatar(login: delegate?.loginName ?? "",
-                                   avatarUrl: delegate?.avatarUrl ?? "")
+                                   avatarUrl: delegate?.avatarUrl ?? "",
+                                   forceFromRemote: true) { [weak self] image in
+            if let self , let image {
+                self.avatarImageView.image = image
+            }
+        }
         nameLabel.text = delegate?.name
         timeLabel.text = delegate?.time
         descLabel.text = delegate?.desc

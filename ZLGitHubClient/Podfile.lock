@@ -93,9 +93,11 @@ PODS:
     - nanopb (< 2.30911.0, >= 2.30908.0)
     - PromisesSwift (~> 2.1)
   - FirebaseSharedSwift (10.23.0)
-  - FMDB (2.7.10):
-    - FMDB/standard (= 2.7.10)
-  - FMDB/standard (2.7.10)
+  - FMDB (2.7.12):
+    - FMDB/standard (= 2.7.12)
+  - FMDB/Core (2.7.12)
+  - FMDB/standard (2.7.12):
+    - FMDB/Core
   - FWPopupView (4.2.2):
     - SnapKit
   - GoogleAppMeasurement (10.22.0):
@@ -199,7 +201,7 @@ PODS:
   - SYDCentralPivot/Core (1.4.1)
   - SYDCentralPivot/VC (1.4.1):
     - SYDCentralPivot/Core
-  - Toast (4.1.0)
+  - Toast-Swift (5.1.1)
   - "UITextView+Placeholder (1.4.0)"
   - Umbrella (0.12.0):
     - Umbrella/Core (= 0.12.0)
@@ -208,35 +210,36 @@ PODS:
     - Umbrella/Core
   - WoodPeckeriOS (1.4.3)
   - YYText (1.0.7)
-  - ZLBaseExtension (1.2.0):
+  - ZLBaseExtension (1.3.0):
     - YYText
-  - ZLGithubOAuth (1.2.0):
+  - ZLGithubOAuth (1.3.0):
     - Alamofire
     - SnapKit
     - ZLUIUtilities
-  - ZLGitRemoteService (1.4.0):
+  - ZLGitRemoteService (1.7.0):
     - Alamofire
     - Apollo (~> 0.39.0)
     - CocoaLumberjack
-    - Firebase/Analytics
     - FMDB
     - Kanna
     - MJExtension
     - ObjectMapper
     - SYDCentralPivot
-    - Umbrella
-    - Umbrella/Firebase
     - ZLUtilities
-  - ZLUIUtilities (0.1.0):
+  - ZLUIUtilities (1.3.0):
     - MBProgressHUD
     - MJRefresh
     - SnapKit
-    - Toast
+    - Toast-Swift
     - ZLBaseExtension
     - ZLUtilities
     - ZMMVVM
-  - ZLUtilities (0.1.0)
-  - ZMMVVM (0.1.0):
+  - ZLUtilities (1.3.0):
+    - Firebase/Analytics
+    - ObjectMapper
+    - Umbrella
+    - Umbrella/Firebase
+  - ZMMVVM (1.3.0):
     - SnapKit
 
 DEPENDENCIES:
@@ -254,23 +257,23 @@ DEPENDENCIES:
   - Kanna (~> 5.2.2)
   - LookinServer
   - Masonry
-  - MBProgressHUD
+  - MBProgressHUD (from `https://github.com/jdg/MBProgressHUD.git`)
   - MJRefresh
   - ObjectMapper
   - SDWebImage
   - SYDCentralPivot
-  - Toast (from `ZLGitHubClient/System/ZLSupportFiles/Toast.podspec`)
+  - Toast-Swift
   - "UITextView+Placeholder"
   - Umbrella
   - Umbrella/Firebase
   - WoodPeckeriOS
   - YYText
-  - ZLBaseExtension (from `https://github.com/ExistOrLive/ZLBaseExtension.git`)
-  - ZLGithubOAuth (from `https://github.com/ExistOrLive/ZLGithubOAuth.git`)
-  - ZLGitRemoteService (from `https://github.com/ExistOrLive/ZLGitRemoteService.git`)
-  - ZLUIUtilities (from `https://github.com/ExistOrLive/ZLUIUtilities.git`)
-  - ZLUtilities (from `https://github.com/ExistOrLive/ZLUtilities.git`)
-  - ZMMVVM (from `https://github.com/ExistOrLive/ZMMVVM.git`)
+  - ZLBaseExtension (from `https://github.com/ExistOrLive/ZLBaseExtension.git`, tag `1.3.0`)
+  - ZLGithubOAuth (from `https://github.com/ExistOrLive/ZLGithubOAuth.git`, tag `1.3.0`)
+  - ZLGitRemoteService (from `https://github.com/ExistOrLive/ZLGitRemoteService.git`, tag `1.7.0`)
+  - ZLUIUtilities (from `https://github.com/ExistOrLive/ZLUIUtilities.git`, tag `1.3.0`)
+  - ZLUtilities (from `https://github.com/ExistOrLive/ZLUtilities.git`, tag `1.3.0`)
+  - ZMMVVM (from `https://github.com/ExistOrLive/ZMMVVM.git`, tag `1.3.0`)
 
 SPEC REPOS:
   trunk:
@@ -304,7 +307,6 @@ SPEC REPOS:
     - Kanna
     - LookinServer
     - Masonry
-    - MBProgressHUD
     - MJExtension
     - MJRefresh
     - nanopb
@@ -314,46 +316,56 @@ SPEC REPOS:
     - SDWebImage
     - SnapKit
     - SYDCentralPivot
+    - Toast-Swift
     - "UITextView+Placeholder"
     - Umbrella
     - WoodPeckeriOS
     - YYText
 
 EXTERNAL SOURCES:
-  Toast:
-    :podspec: ZLGitHubClient/System/ZLSupportFiles/Toast.podspec
+  MBProgressHUD:
+    :git: https://github.com/jdg/MBProgressHUD.git
   ZLBaseExtension:
     :git: https://github.com/ExistOrLive/ZLBaseExtension.git
+    :tag: 1.3.0
   ZLGithubOAuth:
     :git: https://github.com/ExistOrLive/ZLGithubOAuth.git
+    :tag: 1.3.0
   ZLGitRemoteService:
     :git: https://github.com/ExistOrLive/ZLGitRemoteService.git
+    :tag: 1.7.0
   ZLUIUtilities:
     :git: https://github.com/ExistOrLive/ZLUIUtilities.git
+    :tag: 1.3.0
   ZLUtilities:
     :git: https://github.com/ExistOrLive/ZLUtilities.git
+    :tag: 1.3.0
   ZMMVVM:
     :git: https://github.com/ExistOrLive/ZMMVVM.git
+    :tag: 1.3.0
 
 CHECKOUT OPTIONS:
+  MBProgressHUD:
+    :commit: 4a7c5f3e53cdea77c5dcb8578c2ee5acacdf6781
+    :git: https://github.com/jdg/MBProgressHUD.git
   ZLBaseExtension:
-    :commit: 4eac8ad92f0dcbe4678451acddfe6cc54bf857ba
     :git: https://github.com/ExistOrLive/ZLBaseExtension.git
+    :tag: 1.3.0
   ZLGithubOAuth:
-    :commit: ea8de4f7bac522fe0ff08b8b70b8655af8068fd7
     :git: https://github.com/ExistOrLive/ZLGithubOAuth.git
+    :tag: 1.3.0
   ZLGitRemoteService:
-    :commit: f30cec5250f97e6b991890eec4ea555a46ba01e4
     :git: https://github.com/ExistOrLive/ZLGitRemoteService.git
+    :tag: 1.7.0
   ZLUIUtilities:
-    :commit: 6b203e00e5c27c2da1b79f27d0149e49aa4bdf3f
     :git: https://github.com/ExistOrLive/ZLUIUtilities.git
+    :tag: 1.3.0
   ZLUtilities:
-    :commit: e598a9d8c8f11e0e9c05359a6c28846031ab1444
     :git: https://github.com/ExistOrLive/ZLUtilities.git
+    :tag: 1.3.0
   ZMMVVM:
-    :commit: ac7e8e7c66e9e7876c8b1639dd53add22b61c319
     :git: https://github.com/ExistOrLive/ZMMVVM.git
+    :tag: 1.3.0
 
 SPEC CHECKSUMS:
   Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
@@ -375,7 +387,7 @@ SPEC CHECKSUMS:
   FirebaseRemoteConfigInterop: cbc87ffa4932719a7911a08e94510f18f026f5a7
   FirebaseSessions: f06853e30f99fe42aa511014d7ee6c8c319f08a3
   FirebaseSharedSwift: c92645b392db3c41a83a0aa967de16f8bad25568
-  FMDB: eae540775bf7d0c87a5af926ae37af69effe5a19
+  FMDB: 728731dd336af3936ce00f91d9d8495f5718a0e6
   FWPopupView: b96d7d46d4afaad8e99d2739f9118a3c43c63a7b
   GoogleAppMeasurement: ccefe3eac9b0aa27f96066809fb1a7fe4b462626
   GoogleDataTransport: 6c09b596d841063d76d4288cc2d2f42cc36e1e2a
@@ -386,7 +398,7 @@ SPEC CHECKSUMS:
   Kanna: 01cfbddc127f5ff0963692f285fcbc8a9d62d234
   LookinServer: 36f1a0ad280de34b9794cf8825867fcc2dd93e75
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
+  MBProgressHUD: 1b0fb447e80a0fda94808180750e8b78a07b3cd2
   MJExtension: e97d164cb411aa9795cf576093a1fa208b4a8dd8
   MJRefresh: ff9e531227924c84ce459338414550a05d2aea78
   nanopb: 438bc412db1928dac798aa6fd75726007be04262
@@ -396,18 +408,18 @@ SPEC CHECKSUMS:
   SDWebImage: 40b0b4053e36c660a764958bff99eed16610acbb
   SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
   SYDCentralPivot: 744303ae0997af1b829fab7ef9772bba692222bd
-  Toast: eee67a2f904f7526ee8c8efb10e530d460c9744e
+  Toast-Swift: 7a03a532afe3a560d4044bc7c237e2864d295173
   "UITextView+Placeholder": d7b0c400921f66523f3a85d74f774512e14f6502
   Umbrella: 4faf9786a6b29197608f6483711271104d237646
   WoodPeckeriOS: d76940519d27513155959a659f0d1142b5ccc081
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
-  ZLBaseExtension: c052fc930ae508a09d1640580357263896486d3e
-  ZLGithubOAuth: d49dba37d546a820779e2b85ca510962a33bc201
-  ZLGitRemoteService: 675ada3a6e630d1d8d03742b9907f99bb7299475
-  ZLUIUtilities: edd5e985cd53c3cdbc4d592fa7e495622d7ea38f
-  ZLUtilities: f47279dc92b4854fb2e2abb86b841dc8cd16e5a1
-  ZMMVVM: cea3ec4d56906c18b4713e188c177904784bba33
+  ZLBaseExtension: b19ba7680506b4e3211ec31dac27f2355f189845
+  ZLGithubOAuth: 20b4dbe247959dfd499822b9d5e8933e2098a8b2
+  ZLGitRemoteService: e00d6e47f7da6d4b94f85412e8d8f11e6eee973c
+  ZLUIUtilities: 4971f48f43971fe39eb65832abb47af68d21a9de
+  ZLUtilities: cc526fb2d1a47ca55345cc2dc03ed05f11068bf7
+  ZMMVVM: 92ef04990cd7d0ae5bb3ea9ddf778023bc5c5d9e
 
-PODFILE CHECKSUM: 6b1e184c0fafe459b1c95c301555336800adff46
+PODFILE CHECKSUM: 248338d1d8c739794b16e59bc52a4a89c45b145f
 
 COCOAPODS: 1.16.2

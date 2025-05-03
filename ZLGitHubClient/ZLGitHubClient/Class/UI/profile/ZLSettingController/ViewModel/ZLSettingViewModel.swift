@@ -38,41 +38,40 @@ class ZLSettingViewModel: ZMBaseViewModel {
         ZLServiceManager.sharedInstance.loginServiceModel?.unRegisterObserver(self, name: ZLLogoutResult_Notification)
     }
     
-   init(tableView: UITableView?) {
+    init(tableView: UITableView?) {
         super.init()
         
         self.tableView = tableView
         
         var settingItemForFirstSection: [ZLSettingItemType] = [.language]
-
+        
 #if DEBUG
         settingItemForFirstSection.append(.monitor)
 #endif
-#if DEBUG
-        settingItemForFirstSection.append(.blockedUser)
-#else
+        
+        
         let currentLoginName = ZLServiceManager.sharedInstance.viewerServiceModel?.currentUserLoginName
-        let showBlockButton = ZLAGC().configAsBool(for: "Block_Function_Enabled")
+        let showBlockButton = ZLRCM().configAsBool(for: "BlockFunction")
         if showBlockButton ||
             currentLoginName == "ExistOrLive1" ||
             currentLoginName == "existorlive3" ||
             currentLoginName == "existorlive11" {
             settingItemForFirstSection.append(.blockedUser)
         }
-#endif
+        
         if #available(iOS 13.0, *) {
             settingItemForFirstSection.append(.interfaceStyle)
         }
-
+        
         settingItemForFirstSection.append(.assistButton)
-
+        
         ZLSettingViewModel.settingItemTypes = [settingItemForFirstSection, [.logout]]
-
+        
         self.tableView?.dataSource = self
         self.tableView?.delegate = self
-
+        
         NotificationCenter.default.addObserver(self, selector: #selector(onNotificationArrived(notication:)), name: ZLLanguageTypeChange_Notificaiton, object: nil)
-       NotificationCenter.default.addObserver(self, selector: #selector(onNotificationArrived(notication:)), name: ZLAssistButtonShowOrHiddenNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onNotificationArrived(notication:)), name: ZLAssistButtonShowOrHiddenNotification, object: nil)
         ZLServiceManager.sharedInstance.loginServiceModel?.registerObserver(self, selector: #selector(onNotificationArrived(notication:)), name: ZLLogoutResult_Notification)
     }
 

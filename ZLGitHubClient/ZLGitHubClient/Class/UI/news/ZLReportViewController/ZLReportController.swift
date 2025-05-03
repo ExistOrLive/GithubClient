@@ -45,6 +45,9 @@ class ZLReportController: ZMViewController {
         self.userLabel.text = self.loginName
         self.reportedUserLabel.text = ZLLocalizedString(string: "Reported User", comment: "")
         self.reportReasonLabel.text = ZLLocalizedString(string: "Report Reason", comment: "")
+        self.submitButton.backgroundColor = UIColor.blue
+        self.submitButton.setTitleColor(.white, for: .normal)
+        self.submitButton.cornerRadius = 2.0
         self.submitButton.setTitle(ZLLocalizedString(string: "submit", comment: ""), for: .normal)
 
         self.reasonPickerView.delegate = self

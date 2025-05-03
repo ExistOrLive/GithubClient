@@ -120,8 +120,12 @@ class ZLWorkboardTableViewCell: UITableViewCell {
 extension ZLWorkboardTableViewCell: ZMBaseViewUpdatableWithViewData {
     func zm_fillWithViewData(viewData: ZLWorkboardTableViewCellData) {
         if viewData.isGithubItem {
-            self.avatarImageView.sd_setImage(with: URL(string: viewData.avatarURL),
-                                             placeholderImage: UIImage(named: "default_avatar"))
+            if let login = viewData.title.split(separator: "/").first, !login.isEmpty {
+                self.avatarImageView.loadAvatar(login: String(login), avatarUrl: viewData.avatarURL)
+            } else {
+                self.avatarImageView.sd_setImage(with: URL(string: viewData.avatarURL),
+                                                 placeholderImage: UIImage(named: "default_avatar"))
+            }
         } else {
             self.avatarImageView.sd_cancelCurrentImageLoad() // 取消当前图片加载
             self.avatarImageView.image = UIImage(named: viewData.avatarURL)

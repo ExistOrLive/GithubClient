@@ -74,10 +74,7 @@ extension ZLEventTableViewCellData {
     }
     
     var showReportButton: Bool {
-#if DEBUG
-        return true
-#else
-        var showReportButton = ZLAGC().configAsBool(for: "Report_Function_Enabled")
+        var showReportButton = ZLRCM().configAsBool(for: "ReportFunction")
         let currentLoginName = ZLServiceManager.sharedInstance.viewerServiceModel?.currentUserLoginName
         if  currentLoginName == "ExistOrLive1" ||
                 currentLoginName == "existorlive3" ||
@@ -85,10 +82,9 @@ extension ZLEventTableViewCellData {
             showReportButton = true
         }
         if currentLoginName == self.eventModel.actor.login {
-            showReportButton = false
+            showReportButton = false 
         }
         return showReportButton
-#endif
     }
 
 }
