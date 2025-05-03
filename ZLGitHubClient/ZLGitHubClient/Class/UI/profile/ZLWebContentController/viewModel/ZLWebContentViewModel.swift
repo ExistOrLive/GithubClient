@@ -19,8 +19,7 @@ class ZLWebContentViewModel: ZMBaseViewModel {
     init(url: URL?) {
         super.init()
         
-        guard let url = url,
-              let _ = url.host else {
+        guard let url = url else {
             ZLToastView.showMessage("Invalid URL")
             return
         }

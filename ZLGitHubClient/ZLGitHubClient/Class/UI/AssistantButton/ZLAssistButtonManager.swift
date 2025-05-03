@@ -49,11 +49,13 @@ let ZLAssistButtonShowOrHiddenNotification = Notification.Name("AssistButtonShow
 
     func setHidden(_ hidden: Bool) {
         self.floatButtonView.isHidden = hidden
+        self.floatButtonView.window?.isHidden = hidden
         NotificationCenter.default.post(name: ZLAssistButtonShowOrHiddenNotification, object: nil)
     }
 
     func dismissAssistDetailView() {
         self.floatButtonView.isHidden = false
+        self.floatButtonView.window?.isHidden = false
         self.floatCircleWindow?.isHidden = true
         self.floatCircleWindow = nil
     }
@@ -68,6 +70,7 @@ let ZLAssistButtonShowOrHiddenNotification = Notification.Name("AssistButtonShow
         if self.floatCircleWindow == nil {
 
             self.floatButtonView.isHidden = true
+            self.floatButtonView.window?.isHidden = true
 
             self.floatCircleWindow = ZLFloatWindow()
             if #available(iOS 13.0, *) {

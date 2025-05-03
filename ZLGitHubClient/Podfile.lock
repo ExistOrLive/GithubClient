@@ -212,11 +212,11 @@ PODS:
   - YYText (1.0.7)
   - ZLBaseExtension (1.3.0):
     - YYText
-  - ZLGithubOAuth (1.3.0):
+  - ZLGithubOAuth (1.3.1):
     - Alamofire
     - SnapKit
     - ZLUIUtilities
-  - ZLGitRemoteService (1.7.0):
+  - ZLGitRemoteService (1.7.1):
     - Alamofire
     - Apollo (~> 0.39.0)
     - CocoaLumberjack
@@ -269,8 +269,8 @@ DEPENDENCIES:
   - WoodPeckeriOS
   - YYText
   - ZLBaseExtension (from `https://github.com/ExistOrLive/ZLBaseExtension.git`, tag `1.3.0`)
-  - ZLGithubOAuth (from `https://github.com/ExistOrLive/ZLGithubOAuth.git`, tag `1.3.0`)
-  - ZLGitRemoteService (from `https://github.com/ExistOrLive/ZLGitRemoteService.git`, tag `1.7.0`)
+  - ZLGithubOAuth (from `https://github.com/ExistOrLive/ZLGithubOAuth.git`, tag `1.3.1`)
+  - ZLGitRemoteService (from `https://github.com/ExistOrLive/ZLGitRemoteService.git`, tag `1.7.1`)
   - ZLUIUtilities (from `https://github.com/ExistOrLive/ZLUIUtilities.git`, tag `1.3.0`)
   - ZLUtilities (from `https://github.com/ExistOrLive/ZLUtilities.git`, tag `1.3.0`)
   - ZMMVVM (from `https://github.com/ExistOrLive/ZMMVVM.git`, tag `1.3.0`)
@@ -330,10 +330,10 @@ EXTERNAL SOURCES:
     :tag: 1.3.0
   ZLGithubOAuth:
     :git: https://github.com/ExistOrLive/ZLGithubOAuth.git
-    :tag: 1.3.0
+    :tag: 1.3.1
   ZLGitRemoteService:
     :git: https://github.com/ExistOrLive/ZLGitRemoteService.git
-    :tag: 1.7.0
+    :tag: 1.7.1
   ZLUIUtilities:
     :git: https://github.com/ExistOrLive/ZLUIUtilities.git
     :tag: 1.3.0
@@ -353,10 +353,10 @@ CHECKOUT OPTIONS:
     :tag: 1.3.0
   ZLGithubOAuth:
     :git: https://github.com/ExistOrLive/ZLGithubOAuth.git
-    :tag: 1.3.0
+    :tag: 1.3.1
   ZLGitRemoteService:
     :git: https://github.com/ExistOrLive/ZLGitRemoteService.git
-    :tag: 1.7.0
+    :tag: 1.7.1
   ZLUIUtilities:
     :git: https://github.com/ExistOrLive/ZLUIUtilities.git
     :tag: 1.3.0
@@ -414,12 +414,12 @@ SPEC CHECKSUMS:
   WoodPeckeriOS: d76940519d27513155959a659f0d1142b5ccc081
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZLBaseExtension: b19ba7680506b4e3211ec31dac27f2355f189845
-  ZLGithubOAuth: 20b4dbe247959dfd499822b9d5e8933e2098a8b2
-  ZLGitRemoteService: e00d6e47f7da6d4b94f85412e8d8f11e6eee973c
+  ZLGithubOAuth: 19f4b9c205ff550131f004a140e09e0f5f9f3ae7
+  ZLGitRemoteService: 5d98f351b2b762782aa4fe736f3f33aa9dfa3cca
   ZLUIUtilities: 4971f48f43971fe39eb65832abb47af68d21a9de
   ZLUtilities: cc526fb2d1a47ca55345cc2dc03ed05f11068bf7
   ZMMVVM: 92ef04990cd7d0ae5bb3ea9ddf778023bc5c5d9e
 
-PODFILE CHECKSUM: 248338d1d8c739794b16e59bc52a4a89c45b145f
+PODFILE CHECKSUM: deb755e667a2c3ddd83e7fe5eee4dcd9135b3eea
 
 COCOAPODS: 1.16.2
