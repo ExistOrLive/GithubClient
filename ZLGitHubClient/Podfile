@@ -51,9 +51,9 @@ pod 'IQKeyboardManager'
 pod 'DGCharts'
 #下载图片
 pod 'SDWebImage'
+
 # AutoLayout
-pod 'Masonry'
-#pod 'SnapKit'
+pod 'SnapKit'
 
 pod 'YYText'
 

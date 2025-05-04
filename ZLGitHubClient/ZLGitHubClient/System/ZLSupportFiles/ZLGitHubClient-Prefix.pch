@@ -18,7 +18,6 @@
 #import <SYDCentralPivot/SYDCentralPivot.h>
 
 #pragma mark -
-#import <Masonry/Masonry.h>
 #import "ZLLanguageModuleProtocol.h"
 #import "UIColor+ZLBase.h"
 
