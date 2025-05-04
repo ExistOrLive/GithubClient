@@ -1,5 +1,5 @@
 # action 语法 https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions
-name: ZLGithub DailyCI
+name: ZLGithub Release_DailyCI
 
 on:                               # 触发条件
   schedule:
