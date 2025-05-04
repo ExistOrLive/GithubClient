@@ -178,7 +178,6 @@ PODS:
   - LookinServer (1.2.7):
     - LookinServer/Core (= 1.2.7)
   - LookinServer/Core (1.2.7)
-  - Masonry (1.1.0)
   - MBProgressHUD (1.2.0)
   - MJExtension (3.4.2)
   - MJRefresh (3.7.9)
@@ -256,11 +255,11 @@ DEPENDENCIES:
   - JXSegmentedView
   - Kanna (~> 5.2.2)
   - LookinServer
-  - Masonry
   - MBProgressHUD (from `https://github.com/jdg/MBProgressHUD.git`)
   - MJRefresh
   - ObjectMapper
   - SDWebImage
+  - SnapKit
   - SYDCentralPivot
   - Toast-Swift
   - "UITextView+Placeholder"
@@ -306,7 +305,6 @@ SPEC REPOS:
     - JXSegmentedView
     - Kanna
     - LookinServer
-    - Masonry
     - MJExtension
     - MJRefresh
     - nanopb
@@ -397,7 +395,6 @@ SPEC CHECKSUMS:
   JXSegmentedView: 4b0e5506a9883da26472c9c0857d782c13cef05a
   Kanna: 01cfbddc127f5ff0963692f285fcbc8a9d62d234
   LookinServer: 36f1a0ad280de34b9794cf8825867fcc2dd93e75
-  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: 1b0fb447e80a0fda94808180750e8b78a07b3cd2
   MJExtension: e97d164cb411aa9795cf576093a1fa208b4a8dd8
   MJRefresh: ff9e531227924c84ce459338414550a05d2aea78
@@ -420,6 +417,6 @@ SPEC CHECKSUMS:
   ZLUtilities: cc526fb2d1a47ca55345cc2dc03ed05f11068bf7
   ZMMVVM: 92ef04990cd7d0ae5bb3ea9ddf778023bc5c5d9e
 
-PODFILE CHECKSUM: deb755e667a2c3ddd83e7fe5eee4dcd9135b3eea
+PODFILE CHECKSUM: bd0c78cf82614b08cefe3def57274373a48bab85
 
 COCOAPODS: 1.16.2
