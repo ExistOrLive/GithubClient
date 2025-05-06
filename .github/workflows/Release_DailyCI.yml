@@ -68,4 +68,4 @@ jobs:
       working-directory: ./ZLGitHubClient          # 指定run 的工作目录
       run: |
         unzip fastlane/ipa/TestFlight/ZLGitHubClient.app.dSYM.zip -d dSYMS
-        find ./dSYMS -name "*.dSYM" | sed 's/\ /\\ /' | xargs Pods/FirebaseCrashlytics/upload-symbols -gsp ZLGitHubClient/GoogleService-Info.plist 
+        find ./dSYMS -name "*.dSYM" | sed 's/\ /\\ /' | xargs Pods/FirebaseCrashlytics/upload-symbols -gsp ZLGitHubClient/GoogleService-Info.plist -p ios 
