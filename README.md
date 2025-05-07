@@ -4,7 +4,7 @@
 ![language](https://img.shields.io/github/languages/top/existorlive/githubclient)
 ![CodeSize](https://img.shields.io/github/languages/code-size/existorlive/GitHubClient)
 ![license](https://img.shields.io/github/license/existorlive/githubclient)
-![commit](https://img.shields.io/github/last-commit/mengandjie/githubclient)
+![commit](https://img.shields.io/github/last-commit/existorlive/githubclient)
 ![stars](https://img.shields.io/github/stars/existorlive/githubclient)
 
 
