@@ -53,6 +53,8 @@ class ZLRepoItemCellData: ZMBaseTableViewCellViewModel {
             onPrClicked()
         case .discusstion:
             onDiscussionClicked()
+        case .release:
+            onReleaseClicked()
         default:
             break
         }
@@ -190,6 +192,13 @@ extension ZLRepoItemCellData {
     
     func onDiscussionClicked() {
         let controller = ZLRepoDiscussionController()
+        controller.login = presenter.repoModel?.owner?.loginName
+        controller.repoName = presenter.repoModel?.name
+        zm_viewController?.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    func onReleaseClicked() {
+        let controller = ZLRepoReleasesController()
         controller.login = presenter.repoModel?.owner?.loginName
         controller.repoName = presenter.repoModel?.name
         zm_viewController?.navigationController?.pushViewController(controller, animated: true)

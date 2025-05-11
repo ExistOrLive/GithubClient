@@ -232,3 +232,9 @@
 "Releases" = "Releases";
 
 "Comment is Empty" = "Comment is Empty";
+
+// release
+"Latest Release" = "Latest";
+"Draft Release" = "Draft";
+"Pre Release" = "Pre";
+"released" = "released";
