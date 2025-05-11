@@ -84,6 +84,7 @@ extension ZLUIRouter {
     static let IssueInfoController: ZLUIKey = "ZLIssueInfoController"
     static let PRInfoController: ZLUIKey = "ZLPRInfoController"
     static let DiscussionInfoController: ZLUIKey = "ZLDiscussionInfoController"
+    static let ReleaseInfoController: ZLUIKey = "ZLReleaseInfoController"
     static let WebContentController: ZLUIKey = "ZLWebContentController"
 
     static let UserAdditionInfoController: ZLUIKey = "ZLUserAdditionInfoController"
@@ -202,6 +203,10 @@ extension ZLUIRouter {
             if pathComponents.count == 5 && pathComponents[3] == "discussions" {
                 return true
             }
+            
+            if pathComponents.count == 6 && pathComponents[3] == "releases" && pathComponents[4] == "tag" {
+                return true
+            }
         }
 
         return false
@@ -232,19 +237,23 @@ extension ZLUIRouter {
                 return
             }
             
+            
             if pathComponents.count == 2 {
                 
+                /// https://github.com/existorlive
                 self.navigateVC(key: UserOrOrgInfoController, params: ["loginName": pathComponents[1]], animated: animated)
                 return
                 
             } else if pathComponents.count == 3 {
                 
+                /// https://github.com/existorlive/githubclient
                 let repoFullName = "\(pathComponents[1])/\(pathComponents[2])"
                 self.navigateVC(key: RepoInfoController, params: ["fullName": repoFullName], animated: animated)
                 return
                 
             } else if pathComponents.count == 5 && pathComponents[3] == "pull" {
                 
+                /// https://github.com/existorlive/githubclient/pull/1
                 self.navigateVC(key: PRInfoController, params: ["login": pathComponents[1],
                                                                 "repoName": pathComponents[2],
                                                                 "number": Int(pathComponents[4]) ?? 0], animated: animated)
@@ -252,6 +261,7 @@ extension ZLUIRouter {
                 
             } else if pathComponents.count == 5 && pathComponents[3] == "issues" {
                 
+                /// https://github.com/existorlive/githubclient/issues/1
                 self.navigateVC(key: IssueInfoController, params: ["login": pathComponents[1],
                                                                    "repoName": pathComponents[2],
                                                                    "number": Int(pathComponents[4]) ?? 0], animated: animated)
@@ -259,9 +269,20 @@ extension ZLUIRouter {
                 
             } else if pathComponents.count == 5 && pathComponents[3] == "discussions" {
                 
+                /// https://github.com/existorlive/githubclient/discussions/1
                 self.navigateVC(key: DiscussionInfoController, params: ["login": pathComponents[1],
                                                                    "repoName": pathComponents[2],
                                                                    "number": Int(pathComponents[4]) ?? 0], animated: animated)
+                return
+                
+            } else if pathComponents.count == 6 && pathComponents[3] == "releases" && pathComponents[4] == "tag" {
+                
+                /// https://github.com/existorlive/githubclient/releases/tag/1.6.0
+                self.navigateVC(key: ReleaseInfoController,
+                                params: ["login": pathComponents[1],
+                                         "repoName": pathComponents[2],
+                                         "tagName": pathComponents[5]],
+                                animated: animated)
                 return
                 
             }

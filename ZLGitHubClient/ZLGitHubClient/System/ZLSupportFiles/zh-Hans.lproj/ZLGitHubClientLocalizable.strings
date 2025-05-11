@@ -233,3 +233,9 @@
 "Releases" = "发行版";
 
 "Comment is Empty" = "评论为空";
+
+// release
+"Latest Release" = "最新发行版";
+"Draft Release" = "草稿";
+"Pre Release" = "预发版";
+"released" = "发布于";

@@ -42,7 +42,7 @@ class ZLPRInfoController: ZMTableViewController {
     override func setupUI() {
         super.setupUI()
         
-        self.title = "#\(number)"
+        self.title = "\(ZLLocalizedString(string: "pull request", comment: "合并请求")) #\(number)"
     
         self.zmNavigationBar.addRightView(moreButton)
       

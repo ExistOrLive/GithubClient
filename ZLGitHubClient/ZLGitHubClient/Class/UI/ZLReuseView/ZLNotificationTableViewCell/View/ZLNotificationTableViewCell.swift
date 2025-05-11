@@ -28,6 +28,7 @@ class ZLNotificationTableViewCell: UITableViewCell {
         let label = UILabel()
         label.text = ZLIconFont.Workflow.rawValue
         label.font = UIFont.zlIconFont(withSize: 20)
+        label.textAlignment = .center
         return label
     }()
 

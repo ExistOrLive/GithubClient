@@ -147,9 +147,9 @@ extension ZLRepoInfoController {
         if model.discussions_count > 0 {
             itemsSection.cellDatas.append(ZLRepoItemCellData(cellType: .discusstion, presenter: presenter))
         }
-//        if model.releases_count > 0 {
-//            itemsSection.cellDatas.append(ZLRepoItemCellData(cellType: .release, presenter: presenter))
-//        }
+        if model.releases_count > 0 {
+            itemsSection.cellDatas.append(ZLRepoItemCellData(cellType: .release, presenter: presenter))
+        }
         
         itemsSection.headerData = ZLCommonSectionHeaderFooterViewDataV2(backColor: .clear,
                                                                        viewHeight: 10)
