@@ -25,9 +25,14 @@ class ZLCommitTableViewCellData: ZMBaseTableViewCellViewModel {
      }
 
     override func zm_onCellSingleTap() {
-        if let url = URL(string: self.commitModel.html_url) {
-            ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,
-                                  params: ["requestURL": url])
+        if let url = URL(string: self.commitModel.html_url),
+           url.pathComponents.count >= 5 {
+            let vc = ZLCommitInfoController()
+            vc.login = url.pathComponents[1]
+            vc.repoName = url.pathComponents[2]
+            vc.ref = url.pathComponents[4]
+            
+            zm_viewController?.navigationController?.pushViewController(vc, animated: true)
         }
     }
 
