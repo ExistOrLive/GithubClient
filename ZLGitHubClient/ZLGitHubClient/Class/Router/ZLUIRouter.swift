@@ -85,6 +85,7 @@ extension ZLUIRouter {
     static let PRInfoController: ZLUIKey = "ZLPRInfoController"
     static let DiscussionInfoController: ZLUIKey = "ZLDiscussionInfoController"
     static let ReleaseInfoController: ZLUIKey = "ZLReleaseInfoController"
+    static let CommitInfoController: ZLUIKey = "ZLCommitInfoController"
     static let WebContentController: ZLUIKey = "ZLWebContentController"
 
     static let UserAdditionInfoController: ZLUIKey = "ZLUserAdditionInfoController"
@@ -207,6 +208,10 @@ extension ZLUIRouter {
             if pathComponents.count == 6 && pathComponents[3] == "releases" && pathComponents[4] == "tag" {
                 return true
             }
+            
+            if pathComponents.count == 5 && pathComponents[3] == "commit"  {
+                return true
+            }
         }
 
         return false
@@ -282,6 +287,16 @@ extension ZLUIRouter {
                                 params: ["login": pathComponents[1],
                                          "repoName": pathComponents[2],
                                          "tagName": pathComponents[5]],
+                                animated: animated)
+                return
+                
+            } else if pathComponents.count == 5 && pathComponents[3] == "commit"  {
+                
+                /// https://github.com/ExistOrLive/GithubClient/commit/9d0c17b5dbf0b168ee3680d569559c7d8c6b0df3
+                self.navigateVC(key: CommitInfoController,
+                                params: ["login": pathComponents[1],
+                                         "repoName": pathComponents[2],
+                                         "ref": pathComponents[4]],
                                 animated: animated)
                 return
                 
