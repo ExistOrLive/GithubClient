@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="gitpatch.css" />
+    <script src="gitpatch.js"></script>
+</head>
+<body>
+    <div id="diff-viewer"></div>
+
+    <script>
+        // 示例git diff patch
+       
+        
+             // 初始化diff2html
+            const diff2htmlUi = new Diff2HtmlUI(document.getElementById('diff-viewer'), diffContent, {
+                drawFileList: false,
+                matching: 'none',
+                outputFormat: 'line-by-line',
+                synchronisedScroll: false,
+                highlight: false,
+                colorScheme: colorScheme
+            });
+
+            // 渲染diff
+            diff2htmlUi.draw();
+        
+    </script>
+</body>
+</html>

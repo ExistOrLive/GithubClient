@@ -55,8 +55,8 @@ class ZLCommitInfoController: ZMTableViewController {
         tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 20, right: 0)
         tableView.register(ZLCommitInfoHeaderCell.self,
                            forCellReuseIdentifier: "ZLCommitInfoHeaderCell")
-        tableView.register(ZLCommitInfoFileCell.self,
-                           forCellReuseIdentifier: "ZLCommitInfoFileCell")
+        tableView.register(ZLCommitInfoPatchCell.self,
+                           forCellReuseIdentifier: "ZLCommitInfoPatchCell")
         
         self.setRefreshViews(types: [.header])
     }
@@ -112,21 +112,23 @@ extension ZLCommitInfoController {
                let data = resultModel.data as? ZLGithubCommitModel {
                 self.model = data
                 
-                let cellDatas = self.getCellDatas(data: data)
+                var cellDatas: [ZMBaseTableViewCellViewModel] = [ZLCommitInfoHeaderCellData(model: data)]
                 
-    
-         
+                cellDatas.append(contentsOf: data.files.map({ model in
+                    return ZLCommitInfoPatchCellData(model: model, cellHeight: nil)
+                }))
+                
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.milliseconds(400), execute: {
                     self.zm_addSubViewModels(cellDatas)
                     
                     self.sectionDataArray.forEach { $0.zm_removeFromSuperViewModel() }
                     self.sectionDataArray = [ZMBaseTableViewSectionData(cellDatas: cellDatas)]
                     
-
                     self.tableView.reloadData()
                     self.endRefreshViews(noMoreData: true)
                     self.viewStatus = self.tableViewProxy.isEmpty ? .empty : .normal
-            
-
+                })
+                
             } else {
                 if let errorModel = resultModel.data as? ZLGithubRequestErrorModel {
                     ZLToastView.showMessage(errorModel.message)
@@ -136,72 +138,28 @@ extension ZLCommitInfoController {
             }
         })
     }
-//    
-//    func requestDiscussionComment(isLoadNew: Bool) {
+    
+//    func requestCommitDiffInfo() {
 //        
-//        ZLEventServiceShared()?.getDiscussionComment(withLogin: login ?? "",
-//                                                     repoName: repoName ?? "",
-//                                                     number: Int32(number),
-//                                                     per_page: 20,
-//                                                     after: isLoadNew ? nil : after,
-//                                                     serialNumber: NSString.generateSerialNumber())
-//        { [weak self](resultModel: ZLOperationResultModel) in
-//    
+//        
+//        ZLRepoServiceShared()?.getRepoCommitDiff(withLogin: login ?? "",
+//                                                 repoName: repoName ?? "",
+//                                                 ref: ref ?? "",
+//                                                 serialNumber: NSString.generateSerialNumber(),
+//                                                 completeHandle: {  [weak self](resultModel: ZLOperationResultModel) in
 //            guard let self else { return }
 //            
 //            if resultModel.result,
-//               let data = resultModel.data as? DiscussionCommentsQuery.Data {
-//         
-//                let cellDatas = self.getCommentCellDatas(data: data)
+//               let data = resultModel.data as? String {
 //                
-//                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.milliseconds(200), execute: {
-//                    self.zm_addSubViewModels(cellDatas)
-//                    
-//                    let hasNextPage = data.repository?.discussion?.comments.pageInfo.hasNextPage ?? false
-//                    self.after = data.repository?.discussion?.comments.pageInfo.endCursor
-//                    self.sectionDataArray.first?.cellDatas.append(contentsOf: cellDatas)
-//                    self.endRefreshViews(noMoreData: !hasNextPage)
-//                    self.tableView.reloadData()
-//                    self.viewStatus = self.tableViewProxy.isEmpty ? .empty : .normal
-//                })
-//
-//            } else {
-//                if let errorModel = resultModel.data as? ZLGithubRequestErrorModel {
-//                    ZLToastView.showMessage(errorModel.message)
-//                }
-//                self.endRefreshViews()
-//                self.viewStatus = self.tableViewProxy.isEmpty ? .error : .normal
+//                let cellData = ZLCommitInfoPatchCellData(patchStr: data, cellHeight: nil)
+//                self.zm_addSubViewModels([cellData])
+//                self.sectionDataArray.first?.cellDatas.append(cellData)
+//                self.tableView.reloadData()
+//                
 //            }
-//        }
-//    }
-//                                                 
-//    
-    func getCellDatas(data: ZLGithubCommitModel) -> [ZMBaseTableViewCellViewModel] {
-        
-        var cellDatas: [ZMBaseTableViewCellViewModel] = []
-      
-        cellDatas = [ZLCommitInfoHeaderCellData(model: data)]
-        
-        cellDatas.append(contentsOf: data.files.map({ fileModel in
-            return ZLCommitInfoFileCellData(model: fileModel)
-        }))
-        
-        return cellDatas
-    }
-//    
-//    func getCommentCellDatas(data: DiscussionCommentsQuery.Data) -> [ZMBaseTableViewCellViewModel] {
-//        
-//        var cellDatas: [ZMBaseTableViewCellViewModel] = []
-//        if let comments = data.repository?.discussion?.comments.nodes {
-//            cellDatas = comments.compactMap({
-//                if let data = $0 {
-//                    return ZLDiscussionCommentTableViewCellData(data: data)
-//                } else {
-//                    return nil
-//                }
-//            })
-//        }
-//        return cellDatas
+//           
+//        })
 //    }
 
 }
