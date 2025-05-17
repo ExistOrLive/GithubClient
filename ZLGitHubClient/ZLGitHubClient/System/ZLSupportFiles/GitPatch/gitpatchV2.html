@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <link rel="stylesheet" href="gitpatchV2.css" />
+
+</head>
+
+<body>
+    <div class="git-patch">
+
+    </div>
+
+
+    <script>
+        function parseGitChangeLine(str) {
+            const rangeMatch = str.match(/^@@ -(\d+),(\d+) \+(\d+),(\d+) @@/);
+            if (rangeMatch) {
+                currentChange = {
+                    oldStart: parseInt(rangeMatch[1], 10),
+                    oldLines: parseInt(rangeMatch[2], 10),
+                    newStart: parseInt(rangeMatch[3], 10),
+                    newLines: parseInt(rangeMatch[4], 10),
+                };
+                return currentChange
+            }
+        }
+
+
+        function render(patchText, isDark) {
+            const html = document.querySelector('html');
+             if (isDark) {
+                html.classList.add("dark")
+            } else {
+                html.classList.remove("dark")
+            }
+            const patch = document.querySelector('.git-patch');
+            const patchLines = patchText.split('\n');
+            if (patchLines.length > 0) {
+
+                const table = document.createElement('table')
+                const tbody = document.createElement('tbody')
+                table.appendChild(tbody)
+
+                let lineNumber = 0
+                let deleteLineNumber = 0
+                let addLineNumber = 0
+
+                patchLines.forEach((line, index) => {
+                    const tr = document.createElement('tr')
+
+                    if (line.startsWith("diff --git") || line.startsWith("index") || line.startsWith("--- a") || line.startsWith("+++ b")) {
+                        return
+                    }
+
+                    const td_lineNumber = document.createElement('td')
+                    const div_lineNumber = document.createElement('div')
+                    const td_lineContent = document.createElement('td')
+                    const div_lineContent = document.createElement('div')
+                    td_lineNumber.appendChild(div_lineNumber)
+                    td_lineContent.appendChild(div_lineContent)
+                    td_lineNumber.classList.add("td_linenum")
+                    td_lineContent.classList.add("td_lineContent")
+                    div_lineContent.classList.add("div_lineContent")
+                    if(isDark) {
+                        td_lineNumber.classList.add("dark")
+                        td_lineContent.classList.add("dark")
+                    }
+
+                    if (line.startsWith('@@')) {
+
+                        const result = parseGitChangeLine(line)
+                        lineNumber = Math.max(result.oldStart,result.newStart)
+                        deleteLineNumber = lineNumber
+                        addLineNumber = lineNumber
+
+                        div_lineContent.textContent = line
+
+                        td_lineNumber.classList.add("patch")
+                        td_lineContent.classList.add("patch")
+
+                    } else if (line.startsWith('+')) {
+
+                        div_lineNumber.textContent = addLineNumber.toString()
+                        td_lineNumber.appendChild(div_lineNumber)
+                        addLineNumber++;
+                        if(addLineNumber > lineNumber) {
+                            lineNumber = addLineNumber;
+                        }
+
+                        div_lineContent.textContent = line
+                        td_lineNumber.classList.add("add")
+                        td_lineContent.classList.add("add")
+                    } else if (line.startsWith('-')) {
+
+                        div_lineNumber.textContent = deleteLineNumber.toString()
+                        td_lineNumber.appendChild(div_lineNumber)
+                        deleteLineNumber++;
+                        if(deleteLineNumber > lineNumber) {
+                            lineNumber = deleteLineNumber;
+                        }
+
+                        div_lineContent.textContent = line
+                        td_lineNumber.classList.add("delete")
+                        td_lineContent.classList.add("delete")
+                    } else {
+                        div_lineNumber.textContent = lineNumber.toString()
+                        lineNumber++;
+                        deleteLineNumber = lineNumber;
+                        addLineNumber = lineNumber;
+
+                        div_lineContent.textContent = line
+                    }
+                    tr.appendChild(td_lineNumber)
+                    tr.appendChild(td_lineContent)
+                    tbody.appendChild(tr)
+                });
+                
+                while (patch.firstChild) {
+                    patch.removeChild(patch.firstChild);
+                }
+                patch.appendChild(table)
+            }
+        }
+
+        function renderImage(imagePath,isDark) {
+            const html = document.querySelector('html');
+            if (isDark) {
+                html.classList.add("dark")
+            } else {
+                html.classList.remove("dark")
+            }
+            const patch = document.querySelector('.git-patch');
+            const img = document.createElement('img')
+            img.classList.add("img_binary")
+            img.src = imagePath
+            while (patch.firstChild) {
+                patch.removeChild(patch.firstChild);
+            }
+            patch.appendChild(img)
+        }
+
+        function renderBinary(isDark) {
+            const html = document.querySelector('html');
+            if (isDark) {
+                html.classList.add("dark")
+            } else {
+                html.classList.remove("dark")
+            }
+           const patch = document.querySelector('.git-patch');
+           const div = document.createElement('div')
+           div.classList.add("div_binary")
+           if(isDark) {
+              div.classList.add("dark")
+           }
+           div.textContent = "Binary File"
+           while (patch.firstChild) {
+               patch.removeChild(patch.firstChild);
+           }
+           patch.appendChild(div)
+        }
+
+
+       // renderImage("https://pic.existorlive.cn/NSURLSessionDelegate.png",false)
+       // renderBinary(true)
+       // render("@@ -9,10 +9,13 @@ target 'ZLGiteeClient' do\n   use_frameworks!\n \n   pod 'ZLBaseUI', :git => 'https://github.com/ExistOrLive/ZLBaseUI.git', :tag => '1.2.1'\n-  #pod 'ZLBaseUI', :path => \"../../ZLBaseUI\"\n+  #pod 'ZLBaseUI', :path => \"../ZLBaseUI\"\n \n  pod 'ZLBaseExtension', :git => \"https://github.com/ExistOrLive/ZLBaseExtension.git\", :tag => '1.2.0'\n- #pod 'ZLBaseExtension', :path => \"../../ZLBaseExtension\"\n+ #pod 'ZLBaseExtension', :path => \"../ZLBaseExtension\"\n+ \n+ pod 'ZLUIUtilities', :git => \"https://github.com/ExistOrLive/ZLUIUtilities.git\"\n+ #pod 'ZLUIUtilities', :path => \"../ZLUIUtilities\"\n \n # 弹出框 弹出菜单\n pod 'FWPopupView'", true)
+
+    </script>
+
+
+</body>
+
+</html>
