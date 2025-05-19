@@ -1,18 +1,163 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <link rel="stylesheet" href="gitpatchV2.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <style>
+        html {
+            font-size: 12px;
+            /* 默认根字体大小 */
+            font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+            background-color: #FFFFFF;
+        }
 
-</head>
+        html.dark {
+            background-color: #0D1116;
+        }
 
-<body>
-    <div class="git-patch">
+        body {
+            margin: 0px;
+        }
 
-    </div>
+        div.git-patch {
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+        }
+
+        table {
+            border-collapse: collapse;
+            min-width: 100%;
+        }
 
 
+        /* 二进制图片 默认根字体大小 */
+        .img_binary {
+            width: 50%;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* 二进制文安 默认根字体大小 */
+        .div_binary {
+            width: 50%;
+            height: 100px;
+            font-size: 1.5rem;
+            color: #093069;
+            display: flex;
+            justify-content: center;
+            /* 横向居中 */
+            align-items: center;
+            /* 纵向居中 */
+        }
+
+        .div_binary.dark {
+            color: #F0F6FC;
+        }
+
+        /* 代码 diff  */
+
+
+        .div_lineContent {
+            white-space: pre
+        }
+
+        .td_lineContent {
+            font-size: 1rem;
+            height: 100%;
+            white-space: nowrap;
+            height: 20px;
+            padding-left: 20px;
+        }
+
+        .td_linenum {
+            left: 0;
+            position: sticky;
+            font-size: 0.7rem;
+            height: 100%;
+            padding-left: 20;
+            padding-right: 20;
+            height: 20px;
+            padding: 2px 5px 2px 5px;
+        }
+
+        .td_lineContent {
+            color: #093069;
+        }
+
+        .td_lineContent.patch {
+            background-color: #DDF4FF;
+            color: #59636E;
+        }
+
+        .td_lineContent.add {
+            background-color: #DAFBE1;
+            color: #093069;
+        }
+
+        .td_lineContent.delete {
+            background-color: #FFEBE9;
+            color: #093069;
+        }
+
+        .td_linenum {
+            background-color: #FFFFFF;
+            color: #1F2329;
+        }
+
+        .td_linenum.patch {
+            background-color: #B6E3FF;
+        }
+
+        .td_linenum.add {
+            background-color: #ACEEBB;
+            color: #1F2329;
+        }
+
+        .td_linenum.delete {
+            background-color: #FFCECB;
+            color: #1F2329;
+        }
+
+
+
+        .td_lineContent.dark {
+            color: #F0F6FC;
+        }
+
+        .td_lineContent.patch.dark {
+            background-color: #131D2E;
+            color: #9198A1;
+        }
+
+        .td_lineContent.add.dark {
+            background-color: #14261F;
+            color: #F0F6FC;
+        }
+
+        .td_lineContent.delete.dark {
+            background-color: #26181C;
+            color: #F0F6FC;
+        }
+
+        .td_linenum.dark {
+            color: #9198A1;
+            background-color: #0D1116;
+        }
+
+        .td_linenum.patch.dark {
+            background-color: #0C2D6B;
+        }
+
+        .td_linenum.add.dark {
+            background-color: #1F4429;
+            color: #E7E8EE;
+        }
+
+        .td_linenum.delete.dark {
+            background-color: #552527;
+            color: #E7E8EE;
+        }
+    </style>
     <script>
         function parseGitChangeLine(str) {
             const rangeMatch = str.match(/^@@ -(\d+),(\d+) \+(\d+),(\d+) @@/);
@@ -23,152 +168,221 @@
                     newStart: parseInt(rangeMatch[3], 10),
                     newLines: parseInt(rangeMatch[4], 10),
                 };
-                return currentChange
+                return currentChange;
             }
+        }
+
+        function generatePatchLineTr(isDark) {
+            const tr = document.createElement("tr");
+
+            const td_lineNumber = document.createElement("td");
+            const div_lineNumber = document.createElement("div");
+            const td_lineContent = document.createElement("td");
+            const div_lineContent = document.createElement("div");
+            td_lineNumber.appendChild(div_lineNumber);
+            td_lineContent.appendChild(div_lineContent);
+
+            td_lineNumber.classList.add("td_linenum");
+            td_lineContent.classList.add("td_lineContent");
+            div_lineContent.classList.add("div_lineContent");
+            if (isDark) {
+                td_lineNumber.classList.add("dark");
+                td_lineContent.classList.add("dark");
+            }
+
+            tr.appendChild(td_lineNumber);
+            tr.appendChild(td_lineContent);
+
+            return { tr, td_lineNumber, td_lineContent, div_lineNumber, div_lineContent };
+        }
+
+        // @@ -138,28 +136,72 @@ extension ZLCommitInfoController
+        function generateFileLineTr(line, isDark) {
+            const { tr, td_lineNumber, td_lineContent, div_lineNumber, div_lineContent } =
+                generatePatchLineTr(isDark);
+
+            const result = parseGitChangeLine(line);
+            const oldLineNumber = result.oldStart;
+            const newLineNumber = result.newStart;
+
+            div_lineContent.textContent = line;
+
+            td_lineNumber.classList.add("patch");
+            td_lineContent.classList.add("patch");
+
+            return { tr, oldLineNumber, newLineNumber };
+        }
+
+        // +//    func requestDiscussionComment(isLoadNew: Bool) {
+        function generateAdditionTr(line, isDark, newLineNumber) {
+            const { tr, td_lineNumber, td_lineContent, div_lineNumber, div_lineContent } =
+                generatePatchLineTr(isDark);
+
+            div_lineNumber.textContent = newLineNumber.toString();
+
+            div_lineContent.textContent = line;
+            td_lineNumber.classList.add("add");
+            td_lineContent.classList.add("add");
+
+            const newNum = newLineNumber + 1;
+            return { tr, newNum };
+        }
+
+        // -//    func requestCommitDiffInfo() {
+        function generateDeletionTr(line, isDark, oldLineNumber) {
+            const { tr, td_lineNumber, td_lineContent, div_lineNumber, div_lineContent } =
+                generatePatchLineTr(isDark);
+
+            div_lineNumber.textContent = oldLineNumber.toString();
+            div_lineContent.textContent = line;
+            td_lineNumber.classList.add("delete");
+            td_lineContent.classList.add("delete");
+
+            const newNum = oldLineNumber + 1;
+            return { tr, newNum };
+        }
+
+        function generateNormalTr(line, isDark, oldLineNumber, newLineNumber) {
+            const { tr, td_lineNumber, td_lineContent, div_lineNumber, div_lineContent } =
+                generatePatchLineTr(isDark);
+
+            div_lineNumber.textContent = newLineNumber.toString();
+            div_lineContent.textContent = line;
+
+            const newNum1 = oldLineNumber + 1;
+            const newNum2 = newLineNumber + 1;
+            return { tr, newNum1, newNum2 };
         }
 
 
         function render(patchText, isDark) {
-            const html = document.querySelector('html');
-             if (isDark) {
-                html.classList.add("dark")
-            } else {
-                html.classList.remove("dark")
-            }
-            const patch = document.querySelector('.git-patch');
-            const patchLines = patchText.split('\n');
-            if (patchLines.length > 0) {
-
-                const table = document.createElement('table')
-                const tbody = document.createElement('tbody')
-                table.appendChild(tbody)
-
-                let lineNumber = 0
-                let deleteLineNumber = 0
-                let addLineNumber = 0
-
-                patchLines.forEach((line, index) => {
-                    const tr = document.createElement('tr')
-
-                    if (line.startsWith("diff --git") || line.startsWith("index") || line.startsWith("--- a") || line.startsWith("+++ b")) {
-                        return
-                    }
-
-                    const td_lineNumber = document.createElement('td')
-                    const div_lineNumber = document.createElement('div')
-                    const td_lineContent = document.createElement('td')
-                    const div_lineContent = document.createElement('div')
-                    td_lineNumber.appendChild(div_lineNumber)
-                    td_lineContent.appendChild(div_lineContent)
-                    td_lineNumber.classList.add("td_linenum")
-                    td_lineContent.classList.add("td_lineContent")
-                    div_lineContent.classList.add("div_lineContent")
-                    if(isDark) {
-                        td_lineNumber.classList.add("dark")
-                        td_lineContent.classList.add("dark")
-                    }
-
-                    if (line.startsWith('@@')) {
-
-                        const result = parseGitChangeLine(line)
-                        lineNumber = Math.max(result.oldStart,result.newStart)
-                        deleteLineNumber = lineNumber
-                        addLineNumber = lineNumber
-
-                        div_lineContent.textContent = line
-
-                        td_lineNumber.classList.add("patch")
-                        td_lineContent.classList.add("patch")
-
-                    } else if (line.startsWith('+')) {
-
-                        div_lineNumber.textContent = addLineNumber.toString()
-                        td_lineNumber.appendChild(div_lineNumber)
-                        addLineNumber++;
-                        if(addLineNumber > lineNumber) {
-                            lineNumber = addLineNumber;
-                        }
-
-                        div_lineContent.textContent = line
-                        td_lineNumber.classList.add("add")
-                        td_lineContent.classList.add("add")
-                    } else if (line.startsWith('-')) {
-
-                        div_lineNumber.textContent = deleteLineNumber.toString()
-                        td_lineNumber.appendChild(div_lineNumber)
-                        deleteLineNumber++;
-                        if(deleteLineNumber > lineNumber) {
-                            lineNumber = deleteLineNumber;
-                        }
-
-                        div_lineContent.textContent = line
-                        td_lineNumber.classList.add("delete")
-                        td_lineContent.classList.add("delete")
-                    } else {
-                        div_lineNumber.textContent = lineNumber.toString()
-                        lineNumber++;
-                        deleteLineNumber = lineNumber;
-                        addLineNumber = lineNumber;
-
-                        div_lineContent.textContent = line
-                    }
-                    tr.appendChild(td_lineNumber)
-                    tr.appendChild(td_lineContent)
-                    tbody.appendChild(tr)
-                });
-                
-                while (patch.firstChild) {
-                    patch.removeChild(patch.firstChild);
-                }
-                patch.appendChild(table)
-            }
-        }
-
-        function renderImage(imagePath,isDark) {
-            const html = document.querySelector('html');
+            const html = document.querySelector("html");
             if (isDark) {
-                html.classList.add("dark")
+                html.classList.add("dark");
             } else {
-                html.classList.remove("dark")
+                html.classList.remove("dark");
             }
-            const patch = document.querySelector('.git-patch');
-            const img = document.createElement('img')
-            img.classList.add("img_binary")
-            img.src = imagePath
+
+            const patch = document.querySelector(".git-patch");
             while (patch.firstChild) {
                 patch.removeChild(patch.firstChild);
             }
-            patch.appendChild(img)
+            /// 移除所有的子元素
+
+            const patchLines = patchText.split("\n");
+
+            if (patchLines.length > 0) {
+
+                const table = document.createElement("table");
+                const tbody = document.createElement("tbody");
+                patch.appendChild(table);
+                table.appendChild(tbody);
+
+                let currentOldLineNumber = 0;
+                let currentNewLineNumber = 0;
+
+                patchLines.forEach((line, index) => {
+
+                    if (
+                        line.startsWith("diff --git") ||
+                        line.startsWith("index") ||
+                        line.startsWith("--- a") ||
+                        line.startsWith("+++ b")
+                    ) {
+                        return;
+                    }
+
+
+                    if (line.startsWith("@@")) {
+                        const { tr, oldLineNumber, newLineNumber } = generateFileLineTr(
+                            line,
+                            isDark
+                        );
+                        tbody.appendChild(tr);
+                        currentOldLineNumber = oldLineNumber;
+                        currentNewLineNumber = newLineNumber;
+
+                    } else if (line.startsWith("+")) {
+                        const { tr, newNum } = generateAdditionTr(
+                            line,
+                            isDark,
+                            currentNewLineNumber
+                        );
+                        tbody.appendChild(tr);
+                        currentNewLineNumber = newNum;
+                    } else if (line.startsWith("-")) {
+                        const { tr, newNum } = generateDeletionTr(
+                            line,
+                            isDark,
+                            currentOldLineNumber
+                        );
+                        tbody.appendChild(tr);
+                        currentOldLineNumber = newNum;
+                    } else {
+                        const { tr, newNum1, newNum2 } = generateNormalTr(
+                            line,
+                            isDark,
+                            currentOldLineNumber,
+                            currentNewLineNumber
+                        );
+                        tbody.appendChild(tr);
+                        currentOldLineNumber = newNum1;
+                        currentNewLineNumber = newNum2;
+                    }
+                });
+            }
+        }
+
+        function renderImage(imagePath, isDark) {
+            const html = document.querySelector("html");
+            if (isDark) {
+                html.classList.add("dark");
+            } else {
+                html.classList.remove("dark");
+            }
+            const patch = document.querySelector(".git-patch");
+            while (patch.firstChild) {
+                patch.removeChild(patch.firstChild);
+            }
+
+            const img = document.createElement("img");
+            img.classList.add("img_binary");
+            img.src = imagePath;
+            patch.appendChild(img);
         }
 
         function renderBinary(isDark) {
-            const html = document.querySelector('html');
+            const html = document.querySelector("html");
             if (isDark) {
-                html.classList.add("dark")
+                html.classList.add("dark");
             } else {
-                html.classList.remove("dark")
+                html.classList.remove("dark");
             }
-           const patch = document.querySelector('.git-patch');
-           const div = document.createElement('div')
-           div.classList.add("div_binary")
-           if(isDark) {
-              div.classList.add("dark")
-           }
-           div.textContent = "Binary File"
-           while (patch.firstChild) {
-               patch.removeChild(patch.firstChild);
-           }
-           patch.appendChild(div)
+            const patch = document.querySelector(".git-patch");
+            while (patch.firstChild) {
+                patch.removeChild(patch.firstChild);
+            }
+
+            const div = document.createElement("div");
+            div.classList.add("div_binary");
+            if (isDark) {
+                div.classList.add("dark");
+            }
+            div.textContent = "Binary File";
+            patch.appendChild(div);
         }
+    </script>
+</head>
+<body>
+    <div class="git-patch">
+    </div>
 
 
-       // renderImage("https://pic.existorlive.cn/NSURLSessionDelegate.png",false)
-       // renderBinary(true)
-       // render("@@ -9,10 +9,13 @@ target 'ZLGiteeClient' do\n   use_frameworks!\n \n   pod 'ZLBaseUI', :git => 'https://github.com/ExistOrLive/ZLBaseUI.git', :tag => '1.2.1'\n-  #pod 'ZLBaseUI', :path => \"../../ZLBaseUI\"\n+  #pod 'ZLBaseUI', :path => \"../ZLBaseUI\"\n \n  pod 'ZLBaseExtension', :git => \"https://github.com/ExistOrLive/ZLBaseExtension.git\", :tag => '1.2.0'\n- #pod 'ZLBaseExtension', :path => \"../../ZLBaseExtension\"\n+ #pod 'ZLBaseExtension', :path => \"../ZLBaseExtension\"\n+ \n+ pod 'ZLUIUtilities', :git => \"https://github.com/ExistOrLive/ZLUIUtilities.git\"\n+ #pod 'ZLUIUtilities', :path => \"../ZLUIUtilities\"\n \n # 弹出框 弹出菜单\n pod 'FWPopupView'", true)
-
+    <script>
+        //renderImage("https://pic.existorlive.cn/NSURLSessionDelegate.png",true)
+        //renderBinary(true)
+       //render("@@ -9,10 +9,13 @@ target 'ZLGiteeClient' do\n   use_frameworks!\n \n   pod 'ZLBaseUI', :git => 'https://github.com/ExistOrLive/ZLBaseUI.git', :tag => '1.2.1'\n-  #pod 'ZLBaseUI', :path => \"../../ZLBaseUI\"\n+  #pod 'ZLBaseUI', :path => \"../ZLBaseUI\"\n \n  pod 'ZLBaseExtension', :git => \"https://github.com/ExistOrLive/ZLBaseExtension.git\", :tag => '1.2.0'\n- #pod 'ZLBaseExtension', :path => \"../../ZLBaseExtension\"\n+ #pod 'ZLBaseExtension', :path => \"../ZLBaseExtension\"\n+ \n+ pod 'ZLUIUtilities', :git => \"https://github.com/ExistOrLive/ZLUIUtilities.git\"\n+ #pod 'ZLUIUtilities', :path => \"../ZLUIUtilities\"\n \n # 弹出框 弹出菜单\n pod 'FWPopupView'", true)
     </script>
 
-
 </body>
-
 </html>

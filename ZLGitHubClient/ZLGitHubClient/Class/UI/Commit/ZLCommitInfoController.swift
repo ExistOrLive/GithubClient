@@ -19,18 +19,18 @@ class ZLCommitInfoController: ZMTableViewController {
     @objc var repoName: String?
     @objc var ref: String?
     
-
-
     // model
     var model: ZLGithubCommitModel?
+    
+    var lastIndex: Int = 0
+    
+    var per_page: Int = 10
 
     
     @objc init() {
-        super.init()
+        super.init(style: .plain)
     }
 
-    
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -52,13 +52,17 @@ class ZLCommitInfoController: ZMTableViewController {
         
         self.zmNavigationBar.addRightView(moreButton)
         
-        tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 20, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         tableView.register(ZLCommitInfoHeaderCell.self,
                            forCellReuseIdentifier: "ZLCommitInfoHeaderCell")
         tableView.register(ZLCommitInfoPatchCell.self,
                            forCellReuseIdentifier: "ZLCommitInfoPatchCell")
+        tableView.register(ZLCommitInfoFilePathHeaderView.self,
+                           forHeaderFooterViewReuseIdentifier: "ZLCommitInfoFilePathHeaderView")
+        tableView.register(ZLCommonSectionHeaderFooterView.self,
+                           forHeaderFooterViewReuseIdentifier: "ZLCommonSectionHeaderFooterView")
         
-        self.setRefreshViews(types: [.header])
+        self.setRefreshViews(types: [.header,.footer])
     }
     
     lazy var moreButton: UIButton = {
@@ -80,6 +84,10 @@ class ZLCommitInfoController: ZMTableViewController {
         requestCommitInfo()
     }
     
+    override func refreshLoadMoreData() {
+        generateMoreFileData()
+    }
+    
   
 }
 
@@ -96,7 +104,7 @@ extension ZLCommitInfoController {
 }
 
 
-//
+// MARK: - Request
 extension ZLCommitInfoController {
     
     func requestCommitInfo() {
@@ -111,21 +119,21 @@ extension ZLCommitInfoController {
             if resultModel.result,
                let data = resultModel.data as? ZLGithubCommitModel {
                 self.model = data
+                self.lastIndex = 0
                 
-                var cellDatas: [ZMBaseTableViewCellViewModel] = [ZLCommitInfoHeaderCellData(model: data)]
+                let sectionDatas = self.generateFirstPageSectionDatas(data: data)
                 
-                cellDatas.append(contentsOf: data.files.map({ model in
-                    return ZLCommitInfoPatchCellData(model: model, cellHeight: nil)
-                }))
-                
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.milliseconds(400), execute: {
-                    self.zm_addSubViewModels(cellDatas)
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.milliseconds(200), execute: {
                     
                     self.sectionDataArray.forEach { $0.zm_removeFromSuperViewModel() }
-                    self.sectionDataArray = [ZMBaseTableViewSectionData(cellDatas: cellDatas)]
+                    
+                    sectionDatas.forEach { $0.zm_addSuperViewModel(self) }
+               
+                
+                    self.sectionDataArray = sectionDatas
                     
                     self.tableView.reloadData()
-                    self.endRefreshViews(noMoreData: true)
+                    self.endRefreshViews(noMoreData: data.files.count <= self.lastIndex)
                     self.viewStatus = self.tableViewProxy.isEmpty ? .empty : .normal
                 })
                 
@@ -139,28 +147,81 @@ extension ZLCommitInfoController {
         })
     }
     
-//    func requestCommitDiffInfo() {
-//        
-//        
-//        ZLRepoServiceShared()?.getRepoCommitDiff(withLogin: login ?? "",
-//                                                 repoName: repoName ?? "",
-//                                                 ref: ref ?? "",
-//                                                 serialNumber: NSString.generateSerialNumber(),
-//                                                 completeHandle: {  [weak self](resultModel: ZLOperationResultModel) in
-//            guard let self else { return }
-//            
-//            if resultModel.result,
-//               let data = resultModel.data as? String {
-//                
-//                let cellData = ZLCommitInfoPatchCellData(patchStr: data, cellHeight: nil)
-//                self.zm_addSubViewModels([cellData])
-//                self.sectionDataArray.first?.cellDatas.append(cellData)
-//                self.tableView.reloadData()
-//                
-//            }
-//           
-//        })
-//    }
+    func generateMoreFileData() {
+        let sectionDatas = self.generateNextPageFileData()
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.milliseconds(200), execute: {
+            
+      
+            sectionDatas.forEach { $0.zm_addSuperViewModel(self) }
+       
+        
+            self.sectionDataArray.append(contentsOf: sectionDatas)
+            
+            self.tableView.reloadData()
+            
+            self.endRefreshViews(noMoreData: (self.model?.files.count ?? 0) <= self.lastIndex)
+        })
+    }
 
 }
+
+// MARK: - generate Data
+extension ZLCommitInfoController {
+    
+    @objc dynamic func generateFirstPageSectionDatas(data: ZLGithubCommitModel) -> [ZMBaseTableViewSectionData] {
+        var sectionDatas: [ZMBaseTableViewSectionData] = []
+        
+        sectionDatas.append(ZMBaseTableViewSectionData(
+            cellDatas: [ZLCommitInfoHeaderCellData(model: data)],
+            headerData: ZLCommonSectionHeaderFooterViewDataV2(backColor: .clear, viewHeight: 8),
+            footerData: ZLCommonSectionHeaderFooterViewDataV2(backColor: .clear, viewHeight: 8)))
+   
+    
+        var files = data.files
+        if files.count > per_page {
+            files = Array(files[0..<per_page])
+            self.lastIndex = per_page
+        } else {
+            self.lastIndex = files.count
+        }
+        
+        
+        let fileSectionDatas = files.map({ fileModel in
+            let sectionData = ZMBaseTableViewSectionData()
+            sectionData.headerData = ZLCommitInfoFilePathHeaderViewData(filePath:fileModel.filename)
+            sectionData.cellDatas = [ZLCommitInfoPatchCellData(model: fileModel,
+                                                               cellHeight: nil)]
+            return sectionData
+        })
+        sectionDatas.append(contentsOf: fileSectionDatas)
+    
+        return sectionDatas
+    }
+    
+    @objc dynamic func generateNextPageFileData() -> [ZMBaseTableViewSectionData] {
+        guard let model else { return [] }
+        
+        var files = model.files
+        let newLastIndex = self.lastIndex + self.per_page
+        if files.count > newLastIndex {
+            files = Array(files[self.lastIndex..<newLastIndex])
+            self.lastIndex = newLastIndex
+        } else {
+            files = Array(files[self.lastIndex..<files.count])
+            self.lastIndex = model.files.count
+        }
+        
+        let fileSectionDatas = files.map({ fileModel in
+            let sectionData = ZMBaseTableViewSectionData()
+            sectionData.headerData = ZLCommitInfoFilePathHeaderViewData(filePath:fileModel.filename)
+            sectionData.cellDatas = [ZLCommitInfoPatchCellData(model: fileModel,
+                                                               cellHeight: nil)]
+            return sectionData
+        })
+    
+        return fileSectionDatas
+    }
+}
+
 

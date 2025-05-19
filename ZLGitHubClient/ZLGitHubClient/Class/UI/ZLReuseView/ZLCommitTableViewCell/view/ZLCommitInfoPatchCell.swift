@@ -32,53 +32,14 @@ class ZLCommitInfoPatchCell: UITableViewCell {
         selectionStyle = .none
         backgroundColor = .clear
         contentView.backgroundColor = .clear
-        contentView.addSubview(backView)
+        contentView.addSubview(webContainerView)
        
-        backView.snp.makeConstraints { make in
-            make.top.equalTo(10)
-            make.left.right.bottom.equalToSuperview()
+        webContainerView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
     }
     
-    // MARK: View
-    lazy var backView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .back(withName: "ZLCellBack")
-        view.addSubview(filePathView)
-        view.addSubview(webContainerView)
-        filePathView.snp.makeConstraints { make in
-            make.top.left.right.equalToSuperview()
-            make.height.equalTo(50)
-        }
-        webContainerView.snp.makeConstraints { make in
-            make.left.right.bottom.equalToSuperview()
-            make.top.equalTo(filePathView.snp.bottom)
-        }
-        return view
-        
-    }()
-    
-    lazy var filePathView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.addSubview(filePathLabel)
-        scrollView.showsVerticalScrollIndicator = false
-        scrollView.showsHorizontalScrollIndicator = false 
-        filePathLabel.snp.makeConstraints { make in
-            make.left.equalTo(10)
-            make.top.equalTo(10)
-            make.bottom.equalTo(-5)
-            make.right.equalTo(-10)
-        }
-        return scrollView
-    }()
-    
-    lazy var filePathLabel: UILabel = {
-        let label = UILabel()
-        label.font = .zlMediumFont(withSize: 16)
-        label.textColor = .label(withName: "ZLLabelColor1")
-        return label
-    }()
-    
+ 
     lazy var webContainerView: UIView = {
         let view = UIView()
         view.backgroundColor = .back(withName: "ZLCellBack")
@@ -109,7 +70,6 @@ class ZLCommitInfoPatchCell: UITableViewCell {
 extension ZLCommitInfoPatchCell: ZMBaseViewUpdatableWithViewData {
     
     func zm_fillWithViewData(viewData: ZLCommitInfoPatchCellSourceAndDelegate) {
-        filePathLabel.text = viewData.fileName
         let subViews = webContainerView.subviews
         subViews.forEach { $0.removeFromSuperview() }
         webContainerView.addSubview(viewData.webView)

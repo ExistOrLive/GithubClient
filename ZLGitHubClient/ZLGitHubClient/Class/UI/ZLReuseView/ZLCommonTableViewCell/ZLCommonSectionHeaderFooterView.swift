@@ -25,5 +25,6 @@ class ZLCommonSectionHeaderFooterView: UITableViewHeaderFooterView {
 extension ZLCommonSectionHeaderFooterView: ZMBaseViewUpdatableWithViewData {
     func zm_fillWithViewData(viewData: ZLCommonSectionHeaderFooterViewDataV2) {
         contentView.backgroundColor = viewData.backColor
+        backgroundColor = viewData.backColor
     }
 }
