@@ -15,7 +15,6 @@ import WebKit
 
 class ZLCommitInfoPatchCellData: ZMBaseTableViewCellViewModel {
     
-    private var cacheHtml: String?
     private var cellHeight: CGFloat = 0
     
     let model: ZLGithubFileModel
@@ -23,7 +22,7 @@ class ZLCommitInfoPatchCellData: ZMBaseTableViewCellViewModel {
     var imagePath: String = ""
     var isBinary: Bool = false
     var isImage: Bool = false
-        
+    
     lazy var _webView: ZLReportHeightWebViewV2 = {
         let frame = CGRect(x: 0,
                            y: 0,
@@ -33,7 +32,7 @@ class ZLCommitInfoPatchCellData: ZMBaseTableViewCellViewModel {
         webView.scrollView.backgroundColor = UIColor.clear
         webView.scrollView.showsVerticalScrollIndicator = false
         webView.scrollView.showsHorizontalScrollIndicator = false
-        webView.scrollView.bounces = false 
+        webView.scrollView.bounces = false
         webView.backgroundColor = UIColor.clear
         webView.scrollView.isScrollEnabled = true
         webView.reportHeightBlock = { [weak self, weak webView] in
@@ -55,9 +54,9 @@ class ZLCommitInfoPatchCellData: ZMBaseTableViewCellViewModel {
         
         return webView
     }()
-        
+    
     override var zm_cellHeight: CGFloat {
-        return cellHeight + 60
+        return cellHeight
     }
     
     override var zm_cellReuseIdentifier: String {
@@ -67,11 +66,11 @@ class ZLCommitInfoPatchCellData: ZMBaseTableViewCellViewModel {
     override func zm_clearCache() {
         super.zm_clearCache()
         _webView.evaluateJavaScript(renderDiffContentScript()) { (result, error) in
-                        if let error = error {
-                            print("JavaScript 执行错误: \(error)")
-                        } else if let result = result {
-                            print("JavaScript 执行结果: \(result)")
-                        }
+            if let error = error {
+                print("JavaScript 执行错误: \(error)")
+            } else if let result = result {
+                print("JavaScript 执行结果: \(result)")
+            }
         }
     }
     
@@ -82,16 +81,11 @@ class ZLCommitInfoPatchCellData: ZMBaseTableViewCellViewModel {
         if let cellHeight = cellHeight {
             self.cellHeight = cellHeight
         }
-        _webView.loadHTML(self.getGitPatchtHtml(), baseURL: Bundle.main.bundleURL)
-//        _webView.evaluateJavaScript(renderDiffContentScript()){ (result, error) in
-//            if let error = error {
-//                print("JavaScript 执行错误: \(error)")
-//            } else if let result = result {
-//                print("JavaScript 执行结果: \(result)")
-//            }
-//        }
+        guard let url = Bundle.main.url(forResource: "gitpatchV2", withExtension: "html") else {
+            return
+        }
+        _webView.loadFileURL(url, allowingReadAccessTo: url.deletingLastPathComponent())
     }
-    
     
     func initData(model: ZLGithubFileModel) {
         if !model.patch.isEmpty {
@@ -120,7 +114,6 @@ class ZLCommitInfoPatchCellData: ZMBaseTableViewCellViewModel {
 // MARK: - HTML
 extension ZLCommitInfoPatchCellData {
     
-    
     func renderDiffContentScript() -> String {
         if !isBinary {
             return """
@@ -128,52 +121,20 @@ extension ZLCommitInfoPatchCellData {
             """
         } else if isImage {
             return """
-            renderImage(`\(imagePath)`);
+            renderImage(`\(imagePath)`,\(isLight ? "false" : "true"));
             """
         } else {
             return """
             renderBinary()
             """
         }
-        
     }
-    
     
     var isLight: Bool {
         if #available(iOS 12.0, *) {
             return getRealUserInterfaceStyle() == .light
         } else {
             return true
-        }
-    }
-    
-
-    func getGitPatchtHtml() -> String {
-        if let html = cacheHtml {
-            return html
-        } else {
-            let html = getHtmlStr()
-            cacheHtml = html
-            return html
-        }
-    }
-    
-    
-    func getHtmlStr() -> String {
-        let htmlURL: URL? = Bundle.main.url(forResource: "gitpatchV2", withExtension: "html")
-
-        if let url = htmlURL {
-            do {
-                let htmlStr = try String.init(contentsOf: url)
-                let newHtmlStr = NSMutableString.init(string: htmlStr)
-                return newHtmlStr as String
-
-            } catch {
-                print(error)
-            }
-            return patchStr
-        } else {
-            return patchStr
         }
     }
 }

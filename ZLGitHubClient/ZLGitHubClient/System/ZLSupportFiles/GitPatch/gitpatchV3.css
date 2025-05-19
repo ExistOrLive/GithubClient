@@ -1,26 +1,53 @@
  html {
-     font-size: 12px; /* 默认根字体大小 */
+     font-size: 12px;
+     /* 默认根字体大小 */
      font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
      background-color: #FFFFFF;
  }
 
-html.dark {
-    background-color: #0D1116;
-}
+ html.dark {
+     background-color: #0D1116;
+ }
 
  body {
      margin: 0px;
  }
 
- div.git-patch{
+ div.git-patch {
      width: 100%;
      height: 100%;
-     background-color: transparent ;
+     background-color: transparent;
+ }
+
+ div.file {
+    margin-bottom: 3rem;
+    background-color: transparent;
+    overflow: scroll;  
+ }
+ div.filePath {
+     width: 100%;
+     background-color: #f6fbfa;
+     color: #1F2329;
+     font-size: 1.2rem;
+     padding-left: 20px;
+     height: 4rem;
+     display: flex;
+     align-items: center;
+     position: sticky;
+     top: 0;/* 吸顶位置 */
+     left: 0;
+     z-index: 1;/* 确保在内容上方 */
+     text-overflow: ellipsis;
+ }
+
+ div.filePath.dark {
+     background-color: #151B23;
+     color: #F0F6FC;
  }
 
  table {
-      border-collapse: collapse;
-      min-width: 100%;
+     border-collapse: collapse;
+     width: 100%;
  }
 
 
@@ -38,12 +65,14 @@ html.dark {
      font-size: 1.5rem;
      color: #093069;
      display: flex;
-     justify-content: center;/* 横向居中 */
-     align-items: center; /* 纵向居中 */
+     justify-content: center;
+     /* 横向居中 */
+     align-items: center;
+     /* 纵向居中 */
  }
 
- .div_binary.dark{
-    color: #F0F6FC;
+ .div_binary.dark {
+     color: #F0F6FC;
  }
 
  /* 代码 diff  */
@@ -53,13 +82,13 @@ html.dark {
      white-space: pre
  }
 
-  .td_lineContent {
-      font-size: 1rem;
-      height: 100%;
-      white-space: nowrap;
-      height: 20px;
-      padding-left: 20px;
-  }
+ .td_lineContent {
+     font-size: 1rem;
+     height: 100%;
+     white-space: nowrap;
+     height: 20px;
+     padding-left: 20px;
+ }
 
  .td_linenum {
      left: 0;
@@ -73,7 +102,7 @@ html.dark {
  }
 
  .td_lineContent {
-    color: #093069;
+     color: #093069;
  }
 
  .td_lineContent.patch {
@@ -112,9 +141,9 @@ html.dark {
 
 
 
-  .td_lineContent.dark  {
-      color: #F0F6FC;
-  }
+ .td_lineContent.dark {
+     color: #F0F6FC;
+ }
 
  .td_lineContent.patch.dark {
      background-color: #131D2E;
@@ -131,10 +160,10 @@ html.dark {
      color: #F0F6FC;
  }
 
-  .td_linenum.dark {
-      color: #9198A1;
-      background-color: #0D1116;
-  }
+ .td_linenum.dark {
+     color: #9198A1;
+     background-color: #0D1116;
+ }
 
  .td_linenum.patch.dark {
      background-color: #0C2D6B;
@@ -149,4 +178,3 @@ html.dark {
      background-color: #552527;
      color: #E7E8EE;
  }
-
