@@ -23,6 +23,8 @@ class ZLCommitInfoPatchCellData: ZMBaseTableViewCellViewModel {
     var isBinary: Bool = false
     var isImage: Bool = false
     
+    var cacheHtml: String?
+    
     lazy var _webView: ZLReportHeightWebViewV2 = {
         let frame = CGRect(x: 0,
                            y: 0,
@@ -65,13 +67,8 @@ class ZLCommitInfoPatchCellData: ZMBaseTableViewCellViewModel {
     
     override func zm_clearCache() {
         super.zm_clearCache()
-        _webView.evaluateJavaScript(renderDiffContentScript()) { (result, error) in
-            if let error = error {
-                print("JavaScript 执行错误: \(error)")
-            } else if let result = result {
-                print("JavaScript 执行结果: \(result)")
-            }
-        }
+        generateHTML()
+        _webView.loadHTML(cacheHtml ?? "", baseURL: Bundle.main.bundleURL)
     }
     
     init(model: ZLGithubFileModel, cellHeight: CGFloat?) {
@@ -81,18 +78,14 @@ class ZLCommitInfoPatchCellData: ZMBaseTableViewCellViewModel {
         if let cellHeight = cellHeight {
             self.cellHeight = cellHeight
         }
-        guard let url = Bundle.main.url(forResource: "gitpatchV2", withExtension: "html") else {
-            return
-        }
-        _webView.loadFileURL(url, allowingReadAccessTo: url.deletingLastPathComponent())
+        generateHTML()
+        _webView.loadHTML(cacheHtml ?? "", baseURL: Bundle.main.bundleURL)
     }
     
     func initData(model: ZLGithubFileModel) {
         if !model.patch.isEmpty {
-            var patch = model.patch
-            patch = patch.replacingOccurrences(of: "`", with: "\\`")
-            patch = patch.replacingOccurrences(of: "$", with: "\\$")
-            self.patchStr = patch
+            let patch = model.patch
+            self.patchStr = patch.htmlEscaped()
             self.isBinary = false
             self.isImage = false
         } else {
@@ -100,10 +93,8 @@ class ZLCommitInfoPatchCellData: ZMBaseTableViewCellViewModel {
             let pathExtension = (model.filename as NSString).pathExtension.lowercased()
             if ["png","jpg","jpeg","gif","svg","webp","bmp","icon"].contains(pathExtension) {
                 self.isImage = true
-                var imagePath = model.blob_url
-                imagePath = imagePath.replacingOccurrences(of: "`", with: "\\`")
-                imagePath = imagePath.replacingOccurrences(of: "$", with: "\\$")
-                self.imagePath = imagePath
+                let imagePath = model.raw_url
+                self.imagePath = imagePath.htmlEscaped()
             }
         }
         
@@ -150,3 +141,259 @@ extension ZLCommitInfoPatchCellData: ZLCommitInfoPatchCellSourceAndDelegate {
     }
 }
 
+extension ZLCommitInfoPatchCellData {
+    
+    func generateHTML() {
+        var gitPatchDivContent = ""
+        if !isBinary {
+            let tag = parsePatchAndGenerateHTML(patchText: self.patchStr)
+            gitPatchDivContent = tag?.toHTMLString() ?? ""
+        } else if isImage {
+            gitPatchDivContent = "<img src=\"\(imagePath)\" class=\"img_binary\"/>"
+        } else {
+            if isLight {
+                gitPatchDivContent = "<div class=\"div_binary\">Binary File</div>"
+            } else {
+                gitPatchDivContent = "<div class=\"div_binary dark\">Binary File</div>"
+            }
+            
+        }
+        
+        let htmlURL: URL? = Bundle.main.url(forResource: "gitpatchV2", withExtension: "html")
+        
+        if let url = htmlURL {
+            
+            do {
+                let htmlStr = try String.init(contentsOf: url)
+                let newHtmlStr = NSMutableString.init(string: htmlStr)
+                
+                let htmlRange = (newHtmlStr as NSString).range(of: "<html>")
+                if  htmlRange.location != NSNotFound, !isLight {
+                    newHtmlStr.insert(" class=\"dark\"", at: htmlRange.location + 5 )
+                }
+                
+                let divRange = (newHtmlStr as NSString).range(of: "</div>")
+                if  divRange.location != NSNotFound {
+                    newHtmlStr.insert(gitPatchDivContent, at: divRange.location)
+                }
+                
+                self.cacheHtml = newHtmlStr as String
+                
+            } catch {
+                ZLToastView.showMessage("load Code index html failed")
+            }
+        }
+    }
+}
+
+// MARK: - parse and generate html
+extension ZLCommitInfoPatchCellData {
+    
+    class HTMLTag {
+        let name: String
+        var classList: [String] = []
+        var children: [HTMLTag] = []
+        var textContent: String = ""
+        
+        init(name: String) {
+            self.name = name
+        }
+        
+        func toHTMLString() -> String {
+                var html = "<" + name
+                
+                // 添加class属性
+                if !classList.isEmpty {
+                    html += " class=\"" + classList.joined(separator: " ") + "\""
+                }
+                
+                html += ">"
+                
+                // 添加文本内容
+                if !textContent.isEmpty {
+                    html += textContent
+                }
+                
+                // 添加子元素
+                for child in children {
+                    html += child.toHTMLString()
+                }
+                
+                html += "</" + name + ">"
+                
+                return html
+            }
+    }
+    
+
+    func parsePatchAndGenerateHTML(patchText: String) -> HTMLTag? {
+        let patchLines = patchText.split(separator: "\n")
+        guard !patchLines.isEmpty else { return nil }
+        
+        var currentOldLineNumber = 0;
+        var currentNewLineNumber = 0;
+        
+        let tableTag = HTMLTag(name: "table")
+        let tbody = HTMLTag(name: "tbody")
+        tableTag.children = [tbody]
+        
+        
+        patchLines.forEach { line in
+            
+            if (
+                line.hasPrefix("diff --git") ||
+                line.hasPrefix("index") ||
+                line.hasPrefix("--- a") ||
+                line.hasPrefix("+++ b")
+            ) {
+                return;
+            }
+            
+            if (line.hasPrefix("@@")) {
+                let (tr, oldLineNumber, newLineNumber ) = generateFileLineTr(line: String(line));
+                tbody.children.append(tr)
+                currentOldLineNumber = oldLineNumber;
+                currentNewLineNumber = newLineNumber;
+
+            } else if (line.hasPrefix("+")) {
+                let ( tr, newNum ) = generateAdditionTr(
+                    line: String(line),
+                    newLineNumber: currentNewLineNumber
+                );
+                tbody.children.append(tr)
+                currentNewLineNumber = newNum;
+            } else if (line.hasPrefix("-")) {
+                let ( tr, oldNum ) = generateDeletionTr(
+                    line: String(line),
+                    oldLineNumber: currentOldLineNumber
+                );
+                tbody.children.append(tr);
+                currentOldLineNumber = oldNum;
+            } else {
+                let (tr, oldNum, newNum) = generateNormalTr(
+                    line: String(line),
+                    oldLineNumber: currentOldLineNumber,
+                    newLineNumber: currentNewLineNumber
+                );
+                tbody.children.append(tr);
+                currentOldLineNumber = oldNum;
+                currentNewLineNumber = newNum;
+            }
+        }
+        
+        return tableTag
+    }
+        
+    // @@ -138,28 +136,72 @@ extension ZLCommitInfoController
+    func generateFileLineTr(line: String) -> (HTMLTag, Int, Int) {
+        let ( tr, td_lineNumber, td_lineContent, div_lineNumber, div_lineContent ) =
+            generatePatchLineTr();
+        
+        let (oldStart, oldLines, newStart, newLines) = parseGitChangeLine(line);
+
+        div_lineContent.textContent = line;
+
+        td_lineNumber.classList.append("patch");
+        td_lineContent.classList.append("patch");
+
+        return ( tr, oldStart, newStart );
+    }
+    
+    // +//    func requestDiscussionComment(isLoadNew: Bool) {
+    func generateAdditionTr(line: String, newLineNumber: Int) -> (HTMLTag, Int) {
+        let ( tr, td_lineNumber, td_lineContent, div_lineNumber, div_lineContent ) =
+            generatePatchLineTr();
+
+        div_lineNumber.textContent = "\(newLineNumber)"
+        div_lineContent.textContent = line;
+        td_lineNumber.classList.append("add");
+        td_lineContent.classList.append("add");
+
+        let newNum = newLineNumber + 1;
+        
+        return ( tr, newNum );
+    }
+
+    // -//    func requestCommitDiffInfo() {
+    func generateDeletionTr(line: String, oldLineNumber: Int) -> (HTMLTag, Int) {
+        let (tr, td_lineNumber, td_lineContent, div_lineNumber, div_lineContent) =
+            generatePatchLineTr();
+
+        div_lineNumber.textContent = "\(oldLineNumber)"
+        div_lineContent.textContent = line;
+        td_lineNumber.classList.append("delete");
+        td_lineContent.classList.append("delete");
+
+        let oldNum = oldLineNumber + 1;
+        return ( tr, oldNum );
+    }
+
+    func generateNormalTr(line: String, oldLineNumber: Int, newLineNumber: Int) -> (HTMLTag, Int, Int) {
+        let ( tr, td_lineNumber, td_lineContent, div_lineNumber, div_lineContent ) =
+            generatePatchLineTr();
+
+        div_lineNumber.textContent = "\(newLineNumber)";
+        div_lineContent.textContent = line;
+
+        let oldNum = oldLineNumber + 1;
+        let newNum = newLineNumber + 1;
+        return ( tr, oldNum, newNum );
+    }
+    
+    
+    
+    func parseGitChangeLine(_ str: String) -> (Int,Int,Int,Int) {
+        let pattern = #"^@@ -(\d+),(\d+) \+(\d+),(\d+) @@"#
+        
+        guard let rangeMatch = str.range(of: pattern, options: .regularExpression) else {
+            return (0,0,0,0)
+        }
+        
+        let numbers = str[rangeMatch].components(separatedBy: CharacterSet.decimalDigits.inverted)
+            .filter { !$0.isEmpty }
+            .compactMap { Int($0) }
+        
+        guard numbers.count == 4 else {
+            return (0,0,0,0)
+        }
+        
+        return (numbers[0],numbers[1],numbers[2],numbers[3])
+    }
+    
+    
+    func generatePatchLineTr() -> (HTMLTag,HTMLTag,HTMLTag,HTMLTag,HTMLTag){
+        let tr = HTMLTag(name: "tr")
+        let td_lineNumber = HTMLTag(name: "td")
+        let div_lineNumber = HTMLTag(name:"div")
+        let td_lineContent = HTMLTag(name:"td")
+        let div_lineContent = HTMLTag(name:"div")
+        td_lineNumber.children = [div_lineNumber]
+        td_lineContent.children = [div_lineContent]
+        
+        td_lineNumber.classList = ["td_linenum"]
+        td_lineContent.classList = ["td_lineContent"]
+        div_lineContent.classList = ["div_lineContent"]
+        
+        if(!isLight) {
+            td_lineNumber.classList.append("dark");
+            td_lineContent.classList.append("dark");
+        }
+   
+        tr.children.append(td_lineNumber);
+        tr.children.append(td_lineContent);
+
+        return (tr, td_lineNumber, td_lineContent, div_lineNumber, div_lineContent)
+    }
+
+}
+
+extension String {
+    func htmlEscaped() -> String {
+        return self
+            .replacingOccurrences(of: "&", with: "&amp;")
+            .replacingOccurrences(of: "<", with: "&lt;")
+            .replacingOccurrences(of: ">", with: "&gt;")
+            .replacingOccurrences(of: "\"", with: "&quot;")
+            .replacingOccurrences(of: "'", with: "&#39;")
+    }
+}
