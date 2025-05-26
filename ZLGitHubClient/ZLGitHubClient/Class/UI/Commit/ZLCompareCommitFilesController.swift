@@ -37,6 +37,47 @@ class ZLCompareCommitFilesController: ZMTableViewController {
         refreshLoadNewData()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        if ZLDeviceInfo.isIPhone() {
+            guard let appdelegate: AppDelegate = UIApplication.shared.delegate as? AppDelegate else {
+                return
+            }
+            appdelegate.allowRotation = true
+        }
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        if ZLDeviceInfo.isIPhone() {
+            guard let appdelegate: AppDelegate = UIApplication.shared.delegate as? AppDelegate else {
+                return
+            }
+            appdelegate.allowRotation = false
+        }
+    }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+
+        super.viewWillTransition(to: size, with: coordinator)
+
+        if ZLDeviceInfo.isIPhone() {
+            guard let navigationVC: ZMNavigationController = self.navigationController as? ZMNavigationController else {
+                return
+            }
+            if size.height > size.width {
+                // 横屏变竖屏
+                self.isZmNavigationBarHidden = false
+                navigationVC.forbidGestureBack = false
+            } else {
+                self.isZmNavigationBarHidden = true
+                navigationVC.forbidGestureBack = true
+            }
+        }
+    }
+    
     override func setupUI() {
         super.setupUI()
         

@@ -239,3 +239,8 @@
 "Draft Release" = "草稿";
 "Pre Release" = "预发版";
 "released" = "发布于";
+
+// git diff
+"Binary File Patch" = "二进制文件不展示";
+"File Renamed" = "文件重命名，没有修改";
+"Large File Changed" = "文件差异过大，不直接展示";

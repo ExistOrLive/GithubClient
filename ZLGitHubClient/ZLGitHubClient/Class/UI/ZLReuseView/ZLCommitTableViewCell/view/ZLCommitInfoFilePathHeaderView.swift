@@ -27,6 +27,8 @@ class ZLCommitInfoFilePathHeaderView: UITableViewHeaderFooterView {
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
 
+        backgroundView = UIView()
+        backgroundView?.backgroundColor = .clear 
         contentView.backgroundColor = .back(withName: "ZLCellBack")
         contentView.addSubview(self.titleLabel)
  

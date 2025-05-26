@@ -58,27 +58,21 @@ extension ZLCommitInfoHeaderCellData: ZLCommitInfoHeaderCellSourceAndDelegate {
         
         if let additions = model.stats?.additions ,
            additions > 0 {
-            str.append("\(additions)"
+            str.append("+\(additions)"
                 .asMutableAttributedString()
                 .font(.zlMediumFont(withSize: 13))
                 .foregroundColor(.label(withName: "addColor")))
-            str.append(" 个添加 "
-                .asMutableAttributedString()
-                .font(.zlRegularFont(withSize: 13))
-                .foregroundColor(.label(withName: "ZLLabelColor1")))
         }
         
         if let deletions = model.stats?.deletions ,
            deletions > 0 {
-            str.append("\(deletions)"
+            str.append(" -\(deletions)"
                 .asMutableAttributedString()
                 .font(.zlMediumFont(withSize: 13))
                 .foregroundColor(.label(withName: "deleteColor")))
-            str.append(" 个删除"
-                .asMutableAttributedString()
-                .font(.zlRegularFont(withSize: 13))
-                .foregroundColor(.label(withName: "ZLLabelColor1")))
         }
+        
+        str.paraghStyle(NSMutableParagraphStyle().lineSpacing(10))
         
         return str
     }

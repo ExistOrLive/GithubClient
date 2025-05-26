@@ -238,3 +238,8 @@
 "Draft Release" = "Draft";
 "Pre Release" = "Pre";
 "released" = "released";
+
+/// diff patch
+"Binary File Patch" = "Binary file not shown";
+"File Renamed" = "File renamed without changes";
+"Large File Changed" = "File vary greatly not shown";
