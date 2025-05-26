@@ -13,15 +13,23 @@ import ZLGitRemoteService
 import ZMMVVM
 import WebKit
 
+enum PatchType {
+    case normal
+    case renamed
+    case image
+    case binary
+    case largeChanged
+}
+
 class ZLCommitInfoPatchCellData: ZMBaseTableViewCellViewModel {
     
     private var cellHeight: CGFloat = 0
     
-    let model: ZLGithubFileModel
+    let model: ZLGithubFileDiffModel
     var patchStr: String = ""
     var imagePath: String = ""
-    var isBinary: Bool = false
-    var isImage: Bool = false
+    var type: PatchType = .normal
+  
     
     var cacheHtml: String?
     
@@ -51,9 +59,6 @@ class ZLCommitInfoPatchCellData: ZMBaseTableViewCellViewModel {
                 
             })
         }
-        let script = WKUserScript(source: self.renderDiffContentScript(), injectionTime: .atDocumentEnd, forMainFrameOnly: false)
-        webView.configuration.userContentController.addUserScript(script)
-        
         return webView
     }()
     
@@ -71,7 +76,7 @@ class ZLCommitInfoPatchCellData: ZMBaseTableViewCellViewModel {
         _webView.loadHTML(cacheHtml ?? "", baseURL: Bundle.main.bundleURL)
     }
     
-    init(model: ZLGithubFileModel, cellHeight: CGFloat?) {
+    init(model: ZLGithubFileDiffModel, cellHeight: CGFloat?) {
         self.model = model
         super.init()
         self.initData(model: model)
@@ -82,22 +87,25 @@ class ZLCommitInfoPatchCellData: ZMBaseTableViewCellViewModel {
         _webView.loadHTML(cacheHtml ?? "", baseURL: Bundle.main.bundleURL)
     }
     
-    func initData(model: ZLGithubFileModel) {
+    func initData(model: ZLGithubFileDiffModel) {
         if !model.patch.isEmpty {
             let patch = model.patch
             self.patchStr = patch.htmlEscaped()
-            self.isBinary = false
-            self.isImage = false
+            self.type = .normal
+        } else if model.changes == 0 && model.status == "renamed" {
+            self.type = .renamed
+        } else if model.changes > 0 {
+            self.type = .largeChanged
         } else {
-            self.isBinary = true
             let pathExtension = (model.filename as NSString).pathExtension.lowercased()
             if ["png","jpg","jpeg","gif","svg","webp","bmp","icon"].contains(pathExtension) {
-                self.isImage = true
+                self.type = .image
                 let imagePath = model.raw_url
                 self.imagePath = imagePath.htmlEscaped()
+            } else {
+                self.type = .binary
             }
         }
-        
     }
     
 }
@@ -105,22 +113,7 @@ class ZLCommitInfoPatchCellData: ZMBaseTableViewCellViewModel {
 // MARK: - HTML
 extension ZLCommitInfoPatchCellData {
     
-    func renderDiffContentScript() -> String {
-        if !isBinary {
-            return """
-            render(`\(patchStr)`,\(isLight ? "false" : "true"));
-            """
-        } else if isImage {
-            return """
-            renderImage(`\(imagePath)`,\(isLight ? "false" : "true"));
-            """
-        } else {
-            return """
-            renderBinary()
-            """
-        }
-    }
-    
+ 
     var isLight: Bool {
         if #available(iOS 12.0, *) {
             return getRealUserInterfaceStyle() == .light
@@ -145,20 +138,31 @@ extension ZLCommitInfoPatchCellData {
     
     func generateHTML() {
         var gitPatchDivContent = ""
-        if !isBinary {
+        switch type {
+        case .normal:
             let tag = parsePatchAndGenerateHTML(patchText: self.patchStr)
             gitPatchDivContent = tag?.toHTMLString() ?? ""
-        } else if isImage {
+        case .image:
             gitPatchDivContent = "<img src=\"\(imagePath)\" class=\"img_binary\"/>"
-        } else {
-            if isLight {
-                gitPatchDivContent = "<div class=\"div_binary\">Binary File</div>"
-            } else {
-                gitPatchDivContent = "<div class=\"div_binary dark\">Binary File</div>"
+        case .binary,.largeChanged,.renamed:
+            var text = ""
+            switch type {
+            case .binary:
+                text = ZLLocalizedString(string:"Binary File Patch", comment: "")
+            case .largeChanged:
+                text = ZLLocalizedString(string:"Large File Changed", comment: "")
+            case .renamed:
+                text = ZLLocalizedString(string:"File Renamed", comment: "")
+            default:
+                break
             }
-            
+            if isLight {
+                gitPatchDivContent = "<div class=\"div_binary\">\(text)</div>"
+            } else {
+                gitPatchDivContent = "<div class=\"div_binary dark\">\(text)</div>"
+            }
         }
-        
+     
         let htmlURL: URL? = Bundle.main.url(forResource: "gitpatchV2", withExtension: "html")
         
         if let url = htmlURL {
@@ -180,7 +184,7 @@ extension ZLCommitInfoPatchCellData {
                 self.cacheHtml = newHtmlStr as String
                 
             } catch {
-                ZLToastView.showMessage("load Code index html failed")
+                ZLToastView.showMessage("load Diff Patch failed")
             }
         }
     }

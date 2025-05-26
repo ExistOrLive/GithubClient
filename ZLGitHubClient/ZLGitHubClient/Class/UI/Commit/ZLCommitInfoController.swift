@@ -44,6 +44,47 @@ class ZLCommitInfoController: ZMTableViewController {
         refreshLoadNewData()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        if ZLDeviceInfo.isIPhone() {
+            guard let appdelegate: AppDelegate = UIApplication.shared.delegate as? AppDelegate else {
+                return
+            }
+            appdelegate.allowRotation = true
+        }
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        if ZLDeviceInfo.isIPhone() {
+            guard let appdelegate: AppDelegate = UIApplication.shared.delegate as? AppDelegate else {
+                return
+            }
+            appdelegate.allowRotation = false
+        }
+    }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+
+        super.viewWillTransition(to: size, with: coordinator)
+
+        if ZLDeviceInfo.isIPhone() {
+            guard let navigationVC: ZMNavigationController = self.navigationController as? ZMNavigationController else {
+                return
+            }
+            if size.height > size.width {
+                // 横屏变竖屏
+                self.isZmNavigationBarHidden = false
+                navigationVC.forbidGestureBack = false
+            } else {
+                self.isZmNavigationBarHidden = true
+                navigationVC.forbidGestureBack = true
+            }
+        }
+    }
+    
     
     override func setupUI() {
         super.setupUI()
@@ -174,8 +215,8 @@ extension ZLCommitInfoController {
         
         sectionDatas.append(ZMBaseTableViewSectionData(
             cellDatas: [ZLCommitInfoHeaderCellData(model: data)],
-            headerData: ZLCommonSectionHeaderFooterViewDataV2(backColor: .clear, viewHeight: 8),
-            footerData: ZLCommonSectionHeaderFooterViewDataV2(backColor: .clear, viewHeight: 8)))
+            headerData: ZLCommonSectionHeaderFooterViewDataV2(backColor: .back(withName: "ZLVCBackColor"), viewHeight: 8),
+            footerData: ZLCommonSectionHeaderFooterViewDataV2(backColor: .back(withName: "ZLVCBackColor"), viewHeight: 8)))
    
     
         var files = data.files

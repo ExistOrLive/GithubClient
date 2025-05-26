@@ -34,6 +34,7 @@ class ZLCommitInfoHeaderCell: UITableViewCell {
     
     func setupUI() {
         selectionStyle = .none
+        backgroundColor = .clear
         contentView.backgroundColor = UIColor(named: "ZLIssueCommentCellColor")
         contentView.addSubview(titleLabel)
         contentView.addSubview(authorAvatarButton)

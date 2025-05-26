@@ -16,6 +16,7 @@ class ZLCommonSectionHeaderFooterView: UITableViewHeaderFooterView {
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
+        backgroundView = UIView()
     }
     
     required init?(coder: NSCoder) {
@@ -26,5 +27,6 @@ extension ZLCommonSectionHeaderFooterView: ZMBaseViewUpdatableWithViewData {
     func zm_fillWithViewData(viewData: ZLCommonSectionHeaderFooterViewDataV2) {
         contentView.backgroundColor = viewData.backColor
         backgroundColor = viewData.backColor
+        backgroundView?.backgroundColor = viewData.backColor
     }
 }
