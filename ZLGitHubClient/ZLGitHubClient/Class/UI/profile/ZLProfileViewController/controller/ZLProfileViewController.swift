@@ -149,7 +149,7 @@ extension ZLProfileViewController {
             if let blog = userModel.blog,
                !blog.isEmpty,
                let url = URL.init(string: blog) {
-                ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,
+                ZLUIRouter.navigateVC(key: .WebContentController,
                                       params: ["requestURL": url],
                                       animated: true)
             }
@@ -171,7 +171,7 @@ extension ZLProfileViewController {
                                                           info: { "" },
                                                           cellHeight: 50,
                                                           showSeparateLine: true) { [weak self] in
-            if let vc = ZLUIRouter.getVC(key: ZLUIRouter.SettingController) {
+            if let vc = ZLUIRouter.getVC(key: .SettingController) {
                 vc.hidesBottomBarWhenPushed = true
                 self?.navigationController?.pushViewController(vc, animated: true)
             }

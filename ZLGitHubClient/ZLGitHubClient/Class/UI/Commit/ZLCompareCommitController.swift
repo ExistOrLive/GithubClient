@@ -28,6 +28,14 @@ class ZLRepoCompareCommitController: ZMTableViewController {
     
     var model: ZLGithubCompareModel?
     
+    @objc init() {
+        super.init(style: .plain)
+    }
+    
+    @MainActor required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewStatus = .loading

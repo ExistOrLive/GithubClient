@@ -303,5 +303,16 @@
 		<key>moduleName</key>
 		<string>ZLGitHubClient</string>
 	</dict>
+	<key>ZLRepoCompareCommitController</key>
+	<dict>
+		<key>claStr</key>
+		<string>ZLRepoCompareCommitController</string>
+		<key>type</key>
+		<string>0</string>
+		<key>isSingle</key>
+		<string>NO</string>
+		<key>moduleName</key>
+		<string>ZLGitHubClient</string>
+	</dict>
 </dict>
 </plist>

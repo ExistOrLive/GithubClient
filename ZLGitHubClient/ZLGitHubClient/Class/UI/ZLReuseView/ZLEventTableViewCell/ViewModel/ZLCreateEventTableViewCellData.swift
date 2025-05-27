@@ -72,10 +72,9 @@ class ZLCreateEventTableViewCellData: ZLEventTableViewCellData {
                                                  color: UIColor.init(cgColor: UIColor.linkColor(withName: "ZLLinkLabelColor1").cgColor),
                                                  backgroundColor: UIColor.clear) {[weak self](_: UIView, _: NSAttributedString, _: NSRange, _: CGRect) in
 
-                let urlStr = "https://github.com/\(self?.eventModel.repo.name ?? "")/releases/tag/\(payload.ref)"
+                let urlStr = "https://github.com/\(self?.eventModel.repo.name ?? "")/releases/tag/\(payload.ref.urlPathEncoding)"
                 if let url = URL(string: urlStr) {
-                    ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,
-                                          params: ["requestURL": url])
+                    ZLUIRouter.openURL(url: url)
                 }
             }
 

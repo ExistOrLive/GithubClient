@@ -113,7 +113,7 @@ class ZLRepoCodePreview3Controller: ZMViewController {
     func switchToWebVC() {
 
         if let url = URL.init(string: self.contentModel.html_url),
-           let vc = ZLUIRouter.getVC(key: ZLUIRouter.WebContentController, params: ["requestURL": url]) {
+           let vc = ZLUIRouter.getVC(key: .WebContentController, params: ["requestURL": url]) {
             if var viewControllers = self.navigationController?.viewControllers,
                !viewControllers.isEmpty {
                 viewControllers[viewControllers.count - 1] = vc

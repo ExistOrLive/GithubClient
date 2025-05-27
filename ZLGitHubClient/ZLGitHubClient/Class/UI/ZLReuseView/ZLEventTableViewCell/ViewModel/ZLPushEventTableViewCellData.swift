@@ -63,6 +63,16 @@ class ZLPushEventTableViewCellData: ZLEventTableViewCellData {
         self._eventDescrition = nil
         self._commitInfoAttributedStr = nil
     }
+    
+    override func zm_onCellSingleTap() {
+        guard let payload: ZLPushEventPayloadModel = self.eventModel.payload as? ZLPushEventPayloadModel else {
+            return
+        }
+        
+        let urlStr = "https://github.com/\(eventModel.repo.name)/compare/\(payload.before.urlPathEncoding)...\(payload.head.urlPathEncoding)"
+        guard let url = URL(string: urlStr) else { return }
+        ZLUIRouter.openURL(url: url)
+    }
 
 }
 
