@@ -34,22 +34,8 @@ class ZLIssueEventTableViewCellData: ZLEventTableViewCellData {
                                           color: UIColor.init(cgColor: UIColor.linkColor(withName: "ZLLinkLabelColor1").cgColor),
                                           backgroundColor: UIColor.clear) {[weak self](_: UIView, _: NSAttributedString, _: NSRange, _: CGRect) in
 
-            if let repoFullName = self?.eventModel.repo.name {
-
-                let array = repoFullName.split(separator: "/")
-                if array.count == 2 {
-                    let login = String(array[0])
-                    let name = String(array[1])
-                    ZLUIRouter.navigateVC(key: ZLUIRouter.IssueInfoController,
-                                          params: ["login": login,
-                                                   "repoName": name,
-                                                   "number": payload.issue.number])
-                }
-
-            } else if let url = URL.init(string: payload.issue.html_url) {
-
-                ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,
-                                      params: ["requestURL": url])
+            if let url = URL.init(string: payload.issue.html_url) {
+                ZLUIRouter.openURL(url: url)
             }
 
         }
@@ -83,23 +69,7 @@ class ZLIssueEventTableViewCellData: ZLEventTableViewCellData {
         }
 
         if let url = URL(string: payload.issue.html_url) {
-
-            if url.pathComponents.count >= 5 && url.pathComponents[3] == "issues" {
-                ZLUIRouter.navigateVC(key: ZLUIRouter.IssueInfoController,
-                                      params: ["login": url.pathComponents[1],
-                                               "repoName": url.pathComponents[2],
-                                               "number": Int(url.pathComponents[4]) ?? 0])
-            } else if url.pathComponents.count >= 5 && url.pathComponents[3] == "pull" {
-                ZLUIRouter.navigateVC(key: ZLUIRouter.PRInfoController,
-                                      params: ["login": url.pathComponents[1],
-                                               "repoName": url.pathComponents[2],
-                                               "number": Int(url.pathComponents[4]) ?? 0])
-            } else {
-
-                ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,
-                                      params: ["requestURL": url])
-            }
-
+            ZLUIRouter.openURL(url: url)
         }
     }
 

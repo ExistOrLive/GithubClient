@@ -24,17 +24,8 @@ class ZLPullRequestTableViewCellData: ZMBaseTableViewCellViewModel {
     }
 
     override func zm_onCellSingleTap() {
-
         if let url = URL(string: pullRequestModel.html_url) {
-            if url.pathComponents.count >= 5 && url.pathComponents[3] == "pull" {
-                ZLUIRouter.navigateVC(key: ZLUIRouter.PRInfoController,
-                                      params: ["login": url.pathComponents[1],
-                                               "repoName": url.pathComponents[2],
-                                               "number": Int(url.pathComponents[4]) ?? 0])
-            } else {
-                ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,
-                                      params: ["requestURL": url])
-            }
+            ZLUIRouter.openURL(url: url)
         }
     }
 }

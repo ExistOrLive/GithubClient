@@ -35,8 +35,7 @@ class ZLPullRequestReviewCommentEventTableViewCellData: ZLEventTableViewCellData
                                           backgroundColor: UIColor.clear) {(_: UIView, _: NSAttributedString, _: NSRange, _: CGRect) in
 
             if let url = URL.init(string: payload.pull_request.html_url) {
-                ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,
-                                      params: ["requestURL": url])
+                ZLUIRouter.openURL(url: url)
             }
         }
 
@@ -64,17 +63,7 @@ class ZLPullRequestReviewCommentEventTableViewCellData: ZLEventTableViewCellData
         }
 
         if let url = URL(string: payload.pull_request.html_url) {
-            if url.pathComponents.count >= 5 && url.pathComponents[3] == "pull" {
-
-                ZLUIRouter.navigateVC(key: ZLUIRouter.PRInfoController,
-                                      params: ["login": url.pathComponents[1],
-                                               "repoName": url.pathComponents[2],
-                                               "number": Int(url.pathComponents[4]) ?? 0])
-            } else {
-
-                ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,
-                                      params: ["requestURL": url])
-            }
+            ZLUIRouter.openURL(url: url)
         }
 
     }

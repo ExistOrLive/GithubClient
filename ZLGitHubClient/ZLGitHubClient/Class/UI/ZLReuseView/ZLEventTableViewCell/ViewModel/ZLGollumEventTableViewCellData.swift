@@ -38,8 +38,7 @@ class ZLGollumEventTableViewCellData: ZLEventTableViewCellData {
                                                  backgroundColor: UIColor.clear) {(_: UIView, _: NSAttributedString, _: NSRange, _: CGRect) in
 
                 if let url = URL.init(string: pageModel.html_url) {
-                    ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,
-                                          params: ["requestURL": url])
+                    ZLUIRouter.openURL(url: url)
                 }
             }
             attributedStr.append(tmpAttributedStr)

@@ -50,10 +50,9 @@ class ZLCommitCommentEventTableViewCellData: ZLEventTableViewCellData {
                                              color: UIColor(cgColor: UIColor.linkColor(withName: "ZLLinkLabelColor1").cgColor),
                                              backgroundColor: UIColor.clear) {(_: UIView, _: NSAttributedString, _: NSRange, _: CGRect) in
 
-            let urlStr = "https://github.com/\(repoFullName)/commit/\(payload.comment.commit_id)"
+            let urlStr = "https://github.com/\(repoFullName)/commit/\(payload.comment.commit_id.urlPathEncoding)"
             if let url = URL(string: urlStr) {
-                ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,
-                                      params: ["requestURL": url])
+                ZLUIRouter.openURL(url: url)
             }
         }
 
@@ -83,9 +82,7 @@ class ZLCommitCommentEventTableViewCellData: ZLEventTableViewCellData {
               let url =  URL.init(string: payload.comment.html_url) else {
             return
         }
-        ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,
-                              params: ["requestURL": url])
-
+        ZLUIRouter.openURL(url: url)
     }
 
     override func zm_clearCache() {

@@ -107,7 +107,7 @@ extension UIView {
         }
 
         let alertAction1 = UIAlertAction.init(title: ZLLocalizedString(string: "View in Github", comment: ""), style: UIAlertAction.Style.default) { (_: UIAlertAction) in
-            ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController, params: ["requestURL": url])
+            ZLUIRouter.navigateVC(key: .WebContentController, params: ["requestURL": url])
         }
 
         let alertAction2 = UIAlertAction.init(title: ZLLocalizedString(string: "Open in Safari", comment: ""), style: UIAlertAction.Style.default) { (_: UIAlertAction) in

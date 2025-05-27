@@ -66,7 +66,7 @@ class ZLSearchItemTableViewCellData: ZMBaseTableViewCellViewModel {
         }
 
         if let issue = data?.asIssue {
-            if let vc = ZLUIRouter.getVC(key: ZLUIRouter.IssueInfoController, params: ["login": issue.repository.owner.login,
+            if let vc = ZLUIRouter.getVC(key: .IssueInfoController, params: ["login": issue.repository.owner.login,
                                                                                     "repoName": issue.repository.name,
                                                                                     "number": issue.number]) {
                 vc.hidesBottomBarWhenPushed = true
@@ -77,7 +77,7 @@ class ZLSearchItemTableViewCellData: ZMBaseTableViewCellViewModel {
         }
 
         if let pr = data?.asPullRequest {
-            if let vc = ZLUIRouter.getVC(key: ZLUIRouter.PRInfoController, params: ["login": pr.repository.owner.login,
+            if let vc = ZLUIRouter.getVC(key: .PRInfoController, params: ["login": pr.repository.owner.login,
                                                                                   "repoName": pr.repository.name,
                                                                                   "number": pr.number]) {
                 vc.hidesBottomBarWhenPushed = true

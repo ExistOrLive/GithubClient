@@ -29,7 +29,7 @@ class ZLIssueTableViewCellDataForViewerIssue: ZMBaseTableViewCellViewModel {
 
 
     override func zm_onCellSingleTap() {
-        ZLUIRouter.navigateVC(key: ZLUIRouter.IssueInfoController,
+        ZLUIRouter.navigateVC(key: .IssueInfoController,
                               params: ["login": String(data.repository.nameWithOwner.split(separator: "/").first ?? ""),
                                        "repoName": data.repository.name,
                                        "number": data.number])

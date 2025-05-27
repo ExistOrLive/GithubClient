@@ -166,7 +166,7 @@ class ZLAssistController: ZMViewController {
         titleLabel.textColor = UIColor(named: "ZLLinkLabelColor1")
         titleLabel.text = self.pasteURL?.absoluteString
         titleLabel.font = UIFont.init(name: Font_PingFangSCSemiBold, size: 14)
-        titleLabel.numberOfLines = 2
+        titleLabel.numberOfLines = 4
         button.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { (make) in
             make.centerY.equalToSuperview()
@@ -209,15 +209,15 @@ class ZLAssistController: ZMViewController {
     func setCircleMenu() {
 
         let topVC = UIViewController.getTop()
-        if topVC?.vcKey == ZLUIRouter.WorkboardViewController ||
-            topVC?.vcKey == ZLUIRouter.NotificationViewController ||
-            topVC?.vcKey == ZLUIRouter.ExploreViewController ||
-            topVC?.vcKey == ZLUIRouter.ProfileViewController {
+        if topVC?.vcKey == ZLRouterKey.WorkboardViewController ||
+            topVC?.vcKey == ZLRouterKey.NotificationViewController ||
+            topVC?.vcKey == ZLRouterKey.ExploreViewController ||
+            topVC?.vcKey == ZLRouterKey.ProfileViewController {
             self.buttonTypes = [.search, .setting]
-        } else if topVC?.vcKey == ZLUIRouter.SettingController ||
-                    topVC?.vcKey == ZLUIRouter.AppearanceController {
+        } else if topVC?.vcKey == ZLRouterKey.SettingController ||
+                    topVC?.vcKey == ZLRouterKey.AppearanceController {
             self.buttonTypes = [.home, .search]
-        } else if topVC?.vcKey == ZLUIRouter.SearchController {
+        } else if topVC?.vcKey == ZLRouterKey.SearchController {
             self.buttonTypes = [.home, .setting]
         } else {
             self.buttonTypes = [.home, .search, .setting]
@@ -264,7 +264,7 @@ extension ZLAssistController: ZMSearchBarDelegate {
     func onSearchTextConfirmed(text: String) {
         if !text.isEmpty {
             ZLAssistButtonManager.shared.dismissAssistDetailView()
-            ZLUIRouter.navigateVC(key: ZLUIRouter.SearchController, params: ["searchKey": text], animated: false)
+            ZLUIRouter.navigateVC(key: .SearchController, params: ["searchKey": text], animated: false)
         }
     }
     func onSearchTextFieldShouldEndEditing() -> Bool { return true}
@@ -338,7 +338,7 @@ extension ZLAssistController: CircleMenuDelegate {
             topVC?.navigationController?.popToRootViewController(animated: true)
             break
         case .search:
-            if let searchVC = ZLUIRouter.getVC(key: ZLUIRouter.SearchController) {
+            if let searchVC = ZLUIRouter.getVC(key: .SearchController) {
                 searchVC.hidesBottomBarWhenPushed = true
                 topVC?.navigationController?.pushViewController(searchVC, animated: false)
             }
@@ -346,7 +346,7 @@ extension ZLAssistController: CircleMenuDelegate {
         case .pasteboard:
             break
         case .setting:
-            if let settingVC = ZLUIRouter.getVC(key: ZLUIRouter.SettingController) {
+            if let settingVC = ZLUIRouter.getVC(key: .SettingController) {
                 settingVC.hidesBottomBarWhenPushed = true
                 topVC?.navigationController?.pushViewController(settingVC, animated: false)
             }

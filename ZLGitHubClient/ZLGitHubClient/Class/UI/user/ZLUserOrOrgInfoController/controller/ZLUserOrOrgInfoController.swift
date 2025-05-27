@@ -222,7 +222,7 @@ extension ZLUserOrOrgInfoController {
                                                        showSeparateLine: true) {
 
                 if let url = URL.init(string: blog) {
-                    ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,
+                    ZLUIRouter.navigateVC(key: .WebContentController,
                                           params: ["requestURL": url],
                                           animated: true)
                 }
@@ -287,7 +287,7 @@ extension ZLUserOrOrgInfoController {
                 guard let self = self else { return }
                 
                 let login = self.stateModel.login
-                if let vc = ZLUIRouter.getVC(key: ZLUIRouter.UserAdditionInfoController, params: ["login": login, "type": ZLUserAdditionInfoType.repositories.rawValue]) {
+                if let vc = ZLUIRouter.getVC(key: .UserAdditionInfoController, params: ["login": login, "type": ZLUserAdditionInfoType.repositories.rawValue]) {
                     vc.hidesBottomBarWhenPushed = true
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
@@ -335,7 +335,7 @@ extension ZLUserOrOrgInfoController {
                                                        showSeparateLine: true) {
 
                 if let url = URL.init(string: blog) {
-                    ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,
+                    ZLUIRouter.navigateVC(key: .WebContentController,
                                           params: ["requestURL": url],
                                           animated: true)
                 }

@@ -83,7 +83,7 @@ extension ZLProfileHeaderCellData: ZLProfileHeaderCellDataSourceAndDelegate {
 
     func onReposNumButtonClicked() {
         if let login = data.loginName,
-           let vc = ZLUIRouter.getVC(key: ZLUIRouter.UserAdditionInfoController,
+           let vc = ZLUIRouter.getVC(key: .UserAdditionInfoController,
                                      params: ["login": login,
                                               "type": ZLUserAdditionInfoType.repositories.rawValue]) {
             vc.hidesBottomBarWhenPushed = true
@@ -92,7 +92,7 @@ extension ZLProfileHeaderCellData: ZLProfileHeaderCellDataSourceAndDelegate {
     }
     func onGistsNumButtonClicked() {
         if let login = data.loginName,
-           let vc = ZLUIRouter.getVC(key: ZLUIRouter.UserAdditionInfoController,
+           let vc = ZLUIRouter.getVC(key: .UserAdditionInfoController,
                                      params: ["login": login,
                                               "type": ZLUserAdditionInfoType.gists.rawValue]) {
             vc.hidesBottomBarWhenPushed = true
@@ -101,7 +101,7 @@ extension ZLProfileHeaderCellData: ZLProfileHeaderCellDataSourceAndDelegate {
     }
     func onFollowsNumButtonClicked() {
         if let login = data.loginName,
-           let vc = ZLUIRouter.getVC(key: ZLUIRouter.UserAdditionInfoController,
+           let vc = ZLUIRouter.getVC(key: .UserAdditionInfoController,
                                      params: ["login": login,
                                               "type": ZLUserAdditionInfoType.followers.rawValue]) {
             vc.hidesBottomBarWhenPushed = true
@@ -110,7 +110,7 @@ extension ZLProfileHeaderCellData: ZLProfileHeaderCellDataSourceAndDelegate {
     }
     func onFollowingNumButtonClicked() {
         if let login = data.loginName,
-           let vc = ZLUIRouter.getVC(key: ZLUIRouter.UserAdditionInfoController,
+           let vc = ZLUIRouter.getVC(key: .UserAdditionInfoController,
                                      params: ["login": login,
                                               "type": ZLUserAdditionInfoType.following.rawValue]) {
             vc.hidesBottomBarWhenPushed = true

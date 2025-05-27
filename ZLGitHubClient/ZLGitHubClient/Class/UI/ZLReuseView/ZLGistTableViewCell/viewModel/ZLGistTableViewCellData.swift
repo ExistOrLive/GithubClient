@@ -29,8 +29,7 @@ class ZLGistTableViewCellData: ZMBaseTableViewCellViewModel {
 
     override func zm_onCellSingleTap() {
         if let url = URL(string: self.gistModel.html_url) {
-            ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,
-                                  params: ["requestURL": url])
+            ZLUIRouter.openURL(url: url)
         }
     }
 }

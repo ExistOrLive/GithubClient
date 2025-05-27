@@ -64,7 +64,7 @@ extension ZLExploreBaseViewModel: ZLExploreBaseViewDelegate {
     }
 
     func onSearchButtonClicked() {
-        if let vc = ZLUIRouter.getVC(key: ZLUIRouter.SearchController) {
+        if let vc = ZLUIRouter.getVC(key: .SearchController) {
             vc.hidesBottomBarWhenPushed = true
             zm_viewController?.navigationController?.pushViewController(vc, animated: true)
         }
