@@ -89,6 +89,9 @@ extension ZLRouterKey {
     static let ReleaseInfoController: ZLRouterKey = "ZLReleaseInfoController"
     static let CommitInfoController: ZLRouterKey = "ZLCommitInfoController"
     static let CompareInfoController: ZLRouterKey = "ZLRepoCompareCommitController"
+    static let RepoContentController: ZLRouterKey = "ZLRepoContentController"
+    static let RepoCodePreview3Controller: ZLRouterKey = "ZLRepoCodePreview3Controller"
+    
     
     static let WebContentController: ZLRouterKey = "ZLWebContentController"
 

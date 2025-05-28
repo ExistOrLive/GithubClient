@@ -17,6 +17,8 @@ enum ZLGithubPathType {
     case release(login: String, repoName: String, tagName: String)
     case commit(login: String, repoName: String, ref: String)
     case compare(login: String, repoName: String, baseRef: String, headRef: String)
+    case tree(login: String, repoName: String, ref: String, path: String)
+    case blob(login: String, repoName: String, ref: String, path: String)
     
     func routerParams() -> (SYDCentralRouterModelType, ZLRouterKey, [String:Any]) {
         switch self {
@@ -73,6 +75,20 @@ enum ZLGithubPathType {
                      "repoName": repoName,
                      "baseRef": baseRef,
                      "headRef": headRef])
+            
+        case .tree(let login, let repoName,let ref, let path):
+            return (.uiViewController,
+                    .RepoContentController,
+                    ["repoFullName": "\(login)/\(repoName)",
+                     "branch": ref,
+                     "path": path])
+            
+        case .blob(let login, let repoName, let ref, let path):
+            return (.uiViewController,
+                    .RepoCodePreview3Controller,
+                    ["repoFullName": "\(login)/\(repoName)",
+                     "branch": ref,
+                     "path": path])
         }
     }
     
@@ -86,6 +102,8 @@ extension ZLGithubKeyWord {
     static let releases: ZLGithubKeyWord = "releases"
     static let commit: ZLGithubKeyWord = "commit"
     static let compare: ZLGithubKeyWord = "compare"
+    static let tree: ZLGithubKeyWord = "tree"
+    static let blob: ZLGithubKeyWord = "blob"
 }
 
 
@@ -187,6 +205,27 @@ extension ZLUIRouter {
                                             baseRef: String(refs[0]),
                                             headRef: String(refs[1]))
                     }
+                }
+            case .tree:
+                // https://github.com/ExistOrLive/GithubClient/tree/master/Document
+                if pathCount >= 5 {
+                    let ref = pathComponents[4]
+                    let paths = Array(pathComponents[5...])
+                    pathType = .tree(login: pathComponents[1],
+                                     repoName: pathComponents[2],
+                                     ref: pathComponents[4],
+                                     path: paths.joined(separator: "/"))
+                }
+                
+            case .blob:
+                // https://github.com/ExistOrLive/GithubClient/blob/master/Document/GithubAction/DailyCI%E8%AF%B4%E6%98%8E.md
+                if pathCount >= 5 {
+                    let ref = pathComponents[4]
+                    let paths = Array(pathComponents[5...])
+                    pathType = .blob(login: pathComponents[1],
+                                     repoName: pathComponents[2],
+                                     ref: pathComponents[4],
+                                     path: paths.joined(separator: "/"))
                 }
                 
             default:

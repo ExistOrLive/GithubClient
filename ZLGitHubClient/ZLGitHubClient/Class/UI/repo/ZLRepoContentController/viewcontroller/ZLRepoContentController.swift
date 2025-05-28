@@ -23,15 +23,23 @@ class ZLRepoContentNode: ZLBaseObject {
 class ZLRepoContentController: ZMViewController, ZLRefreshProtocol {
     
     // model
-    var repoFullName: String?
-    var path: String?
-    var branch: String?
+    @objc var repoFullName: String?
+    @objc var path: String?
+    @objc var branch: String?
     
     /// 根节点
     var rootContentNode: ZLRepoContentNode?
     /// 当前节点
     var currentContentNode: ZLRepoContentNode?
 
+    @objc init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @MainActor required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 
     lazy var closeButton: UIButton = {
         let button = UIButton.init(type: .custom)
@@ -263,9 +271,10 @@ extension ZLRepoContentController: UITableViewDelegate, UITableViewDataSource {
             self.currentContentNode = self.currentContentNode?.subNodes?[indexPath.row]
             self.reloadData()
         } else if "file" == contentModel.type {
-            let controller = ZLRepoCodePreview3Controller(repoFullName: repoFullName ?? "",
-                                                          contentModel: contentModel,
-                                                          branch: branch ?? "")
+            let controller = ZLRepoCodePreview3Controller()
+            controller.repoFullName = repoFullName ?? ""
+            controller.path = contentModel.path
+            controller.branch = branch ?? ""
             self.navigationController?.pushViewController(controller, animated: true)
         }
     }
