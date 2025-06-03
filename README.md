@@ -177,3 +177,13 @@ This project follows the [all-contributors](https://github.com/all-contributors/
 
 ## 结语
 普通的代码千篇一律，优秀的代码万里挑一。开源就如星星之火正在燎原，本项目是开源世界中小小一隅，如果有感兴趣的开发者欢迎加入, 若有意请联系<a src="2068531506@qq.com">2068531506@qq.com</a>.
+
+## Star History
+
+<a href="https://www.star-history.com/#existorlive/githubclient&Date">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=existorlive/githubclient&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=existorlive/githubclient&type=Date" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=existorlive/githubclient&type=Date" />
+ </picture>
+</a>
