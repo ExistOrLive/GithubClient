@@ -24,8 +24,19 @@ class ZLRepoCodePreview3Controller: ZMViewController {
     @objc var repoFullName: String = ""
     @objc var branch: String = ""
     @objc var path: String = ""
+    @objc var fragment: String = ""
 
     var htmlStr: String?
+    
+    lazy var linkRouter: ZLGithubMarkDownLinkRouter = {
+        let linkRouter = ZLGithubMarkDownLinkRouter(needDealWithRelativePath: true,
+                                                    needDealWithAboutBlank: false,
+                                                    needDealWithCommonURL: true,
+                                                    forbidSamePathNavigation: true,
+                                                    rootRepoHTMLPath: root_html_url(),
+                                                    markdownHTMLPath: html_url())
+        return linkRouter
+    }()
    
 
     @objc init() {
@@ -110,6 +121,11 @@ class ZLRepoCodePreview3Controller: ZMViewController {
 
     func html_url() -> String {
         let html_url = "https://github.com/\(repoFullName.urlPathEncoding)/blob/\(branch.urlPathEncoding)/\(path.urlPathEncoding)"
+        return html_url
+    }
+    
+    func root_html_url() -> String {
+        let html_url = "https://github.com/\(repoFullName.urlPathEncoding)/blob/\(branch.urlPathEncoding)"
         return html_url
     }
     
@@ -289,6 +305,8 @@ extension ZLRepoCodePreview3Controller {
                 let range1 = (newHtmlStr as NSString).range(of: "<style>")
                 if  range1.location != NSNotFound {
                     newHtmlStr.insert("<meta name=\"viewport\" content=\"width=device-width\"/>", at: range1.location)
+                    
+                    newHtmlStr.insert("<base href=\"\(html_url())\" target=\"_blank\">", at: range1.location)
                 }
 
                 if let tmoCSSURL = cssURL {
@@ -341,26 +359,13 @@ extension ZLRepoCodePreview3Controller: WKUIDelegate, WKNavigationDelegate {
             decisionHandler(.allow)
             return
         }
-
-        if navigationAction.navigationType == .linkActivated {
-            decisionHandler(.cancel)
-            
-            if ZLCommonURLManager.openURL(urlStr: urlStr) {
-                return
-            }
-
-            var url = URL(string: urlStr)
-            if url?.host == nil {               // 如果是相对路径，组装baseurl
-                url = (URL.init(string: html_url()) as NSURL?)?.deletingLastPathComponent
-                url = URL(string: "\(url?.absoluteString ?? "" )\(urlStr)")
-            }
         
-            guard let appdelegate: AppDelegate = UIApplication.shared.delegate as? AppDelegate else {
-                return
+        if navigationAction.navigationType == .linkActivated {
+            if  linkRouter.dealWithLink(urlStr: urlStr) {
+                decisionHandler(.cancel)
+            } else {
+                decisionHandler(.allow)
             }
-            appdelegate.allowRotation = false
-
-            self.openURL(url: url)
         } else {
             decisionHandler(.allow)
         }
@@ -368,14 +373,13 @@ extension ZLRepoCodePreview3Controller: WKUIDelegate, WKNavigationDelegate {
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         
-            let baseURLStr = (URL.init(string: download_url()) as NSURL?)?.deletingLastPathComponent?.absoluteString
-            let addBaseScript = "let a = '\(baseURLStr ?? "")';let array = document.getElementsByTagName('img');for(i=0;i<array.length;i++){let item=array[i];if(item.getAttribute('src').indexOf('http') == -1){item.src = a + item.getAttribute('src');}}"
-
-            webView.evaluateJavaScript(addBaseScript) { (_: Any?, _: Error?) in
-
+        let baseURLStr = (URL.init(string: download_url()) as NSURL?)?.deletingLastPathComponent?.absoluteString
+        let addBaseScript = "let a = '\(baseURLStr ?? "")';let array = document.getElementsByTagName('img');for(i=0;i<array.length;i++){let item=array[i];if(item.getAttribute('src').indexOf('http') == -1){item.src = a + item.getAttribute('src');}}"
+        
+        webView.evaluateJavaScript(addBaseScript) { (_: Any?, _: Error?) in
             
         }
-
+        
     }
 
 }

@@ -18,7 +18,7 @@ enum ZLGithubPathType {
     case commit(login: String, repoName: String, ref: String)
     case compare(login: String, repoName: String, baseRef: String, headRef: String)
     case tree(login: String, repoName: String, ref: String, path: String)
-    case blob(login: String, repoName: String, ref: String, path: String)
+    case blob(login: String, repoName: String, ref: String, path: String, fragment: String)
     
     func routerParams() -> (SYDCentralRouterModelType, ZLRouterKey, [String:Any]) {
         switch self {
@@ -83,12 +83,13 @@ enum ZLGithubPathType {
                      "branch": ref,
                      "path": path])
             
-        case .blob(let login, let repoName, let ref, let path):
+        case .blob(let login, let repoName, let ref, let path, let fragment):
             return (.uiViewController,
                     .RepoCodePreview3Controller,
                     ["repoFullName": "\(login)/\(repoName)",
                      "branch": ref,
-                     "path": path])
+                     "path": path,
+                     "fragment": fragment])
         }
     }
     
@@ -211,21 +212,30 @@ extension ZLUIRouter {
                 if pathCount >= 5 {
                     let ref = pathComponents[4]
                     let paths = Array(pathComponents[5...])
+                    let path = paths.joined(separator: "/")
                     pathType = .tree(login: pathComponents[1],
                                      repoName: pathComponents[2],
-                                     ref: pathComponents[4],
-                                     path: paths.joined(separator: "/"))
+                                     ref: ref,
+                                     path: path)
                 }
                 
             case .blob:
-                // https://github.com/ExistOrLive/GithubClient/blob/master/Document/GithubAction/DailyCI%E8%AF%B4%E6%98%8E.md
+                // https://github.com/ExistOrLive/GithubClient/blob/master/Document/GithubAction/DailyCI%E8%AF%B4%E6%98%8E.md#certicate
                 if pathCount >= 5 {
                     let ref = pathComponents[4]
                     let paths = Array(pathComponents[5...])
+                    let path = paths.joined(separator: "/")
+                    var fragment = ""
+                    if #available(iOS 16.0, *)  {
+                        fragment = url.fragment(percentEncoded: false) ?? ""
+                    } else  {
+                        fragment = url.fragment ?? ""
+                    }
                     pathType = .blob(login: pathComponents[1],
                                      repoName: pathComponents[2],
-                                     ref: pathComponents[4],
-                                     path: paths.joined(separator: "/"))
+                                     ref: ref,
+                                     path: path,
+                                     fragment: fragment)
                 }
                 
             default:

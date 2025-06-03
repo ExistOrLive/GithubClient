@@ -38,6 +38,16 @@ class ZLReadMeView: UIView {
     private var serialNumber: String?
     
     var hasRequestData: Bool = false
+    
+    lazy var linkRouter: ZLGithubMarkDownLinkRouter = {
+        let linkRouter = ZLGithubMarkDownLinkRouter(needDealWithRelativePath: true,
+                                                    needDealWithAboutBlank: true,
+                                                    needDealWithCommonURL: true,
+                                                    forbidSamePathNavigation: false,
+                                                    rootRepoHTMLPath: root_html_url(),
+                                                    markdownHTMLPath: "")
+        return linkRouter
+    }()
   
 
     init() {
@@ -115,6 +125,11 @@ class ZLReadMeView: UIView {
                 let range1 = (newHtmlStr as NSString).range(of: "<style>")
                 if  range1.location != NSNotFound {
                     newHtmlStr.insert("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no\"/>", at: range1.location)
+                    
+                    if let html_url = readMeModel?.html_url, !html_url.isEmpty {
+                        newHtmlStr.insert("<base href=\"\(html_url)\" target=\"_blank\">", at: range1.location)
+                    }
+                    
                 }
 
                 if let cssURL = cssURL {
@@ -259,6 +274,7 @@ extension ZLReadMeView {
             }
 
             self.readMeModel = data
+            self.linkRouter.markdownHTMLPath = data.html_url 
 
             if self.webView.isLoading == false
                 && self.htmlStr != nil {
@@ -308,34 +324,11 @@ extension ZLReadMeView: WKNavigationDelegate, WKUIDelegate {
         }
         
         if navigationAction.navigationType == .linkActivated {
-            
-            decisionHandler(.cancel)
-            
-            if ZLCommonURLManager.openURL(urlStr: urlStr) {
-                return
+            if  linkRouter.dealWithLink(urlStr: urlStr) {
+                decisionHandler(.cancel)
+            } else {
+                decisionHandler(.allow)
             }
-        
-            if urlStr.starts(with: "about:blank%23") {
-                if  let range = urlStr.range(of: "about:blank%23") {
-                    urlStr.removeSubrange(range)
-                    let url = URL(string: "\(self.readMeModel?.html_url ?? "")#\(urlStr))")
-                    if self.delegate?.responds(to: #selector(ZLReadMeViewDelegate.onLinkClicked(url:))) ?? false {
-                        self.delegate?.onLinkClicked?(url: url)
-                    }
-                    return
-                }
-            }
-            
-            var url = URL(string: urlStr)
-            if url?.host == nil {
-                // 如果是相对路径，组装baseurl
-                url = (URL.init(string: self.readMeModel?.html_url ?? "") as NSURL?)?.deletingLastPathComponent
-                url = URL(string: "\(url?.absoluteString ?? "")\(urlStr)")
-            }
-            if self.delegate?.responds(to: #selector(ZLReadMeViewDelegate.onLinkClicked(url:))) ?? false {
-                self.delegate?.onLinkClicked?(url: url)
-            }
-            
         } else {
             decisionHandler(.allow)
         }
@@ -366,5 +359,9 @@ extension ZLReadMeView: WKNavigationDelegate, WKUIDelegate {
             }
         }
     }
-
+    
+    func root_html_url() -> String {
+        let html_url = "https://github.com/\(fullName?.urlPathEncoding ?? "")/blob/\(branch?.urlPathEncoding ?? "")"
+        return html_url
+    }
 }
