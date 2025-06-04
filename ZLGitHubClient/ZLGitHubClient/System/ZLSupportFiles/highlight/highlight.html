@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- 引入 Highlight.js 的 CSS 文件 (这里使用默认主题) -->
+<!--    <link rel="stylesheet" href="./nord.css">-->
+
+
+    <script>
+        /// 切换主题
+        function switchTheme(themePath) {
+            // 移除旧的样式表
+            const oldLink = document.querySelector('link[href="./styles/nord.css"]');
+            if (oldLink) {
+                oldLink.remove();
+            }
+
+            // 创建新的样式表链接
+            const newLink = document.createElement('link');
+            newLink.rel = 'stylesheet';
+            newLink.href = themePath;
+
+            // 添加到 head
+            document.head.appendChild(newLink);
+        }
+        function switchSize() {
+            document.body.style.margin = '0 auto';
+            document.body.style.fontSize = '2px';
+            document.body.style.fontFamily = 'Arial, sans-serif';
+            document.body.style.lineHeight = '1.6';
+        }
+    </script>
+
+    <style>
+        body {
+            margin: 0 auto;
+            /* 去除外边距/
+            font-size: 15px;                        /* 字号 */
+            font-family: Arial, sans-serif;
+            /* 字体 */
+            line-height: 1.6;
+            /* 行间距 */
+            /* word-wrap: break-word;*/
+        }
+        
+        code {
+            width: 100%,
+            height: 100%
+        }
+        pre {
+            border-radius: 5px;
+            margin: 0px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <pre>
+        <code class="language"></code>
+    </pre>
+
+
+    <!-- 引入 Highlight.js 库文件 -->
+    <script src="./highlight.min.js"></script>
+
+    <!-- 初始化高亮 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightElement(block);
+            });
+        });
+    </script>
+</body>
+
+</html>

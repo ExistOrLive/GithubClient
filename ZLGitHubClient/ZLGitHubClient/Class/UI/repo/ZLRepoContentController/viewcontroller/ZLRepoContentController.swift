@@ -271,10 +271,9 @@ extension ZLRepoContentController: UITableViewDelegate, UITableViewDataSource {
             self.currentContentNode = self.currentContentNode?.subNodes?[indexPath.row]
             self.reloadData()
         } else if "file" == contentModel.type {
-            let controller = ZLRepoCodePreview3Controller()
-            controller.repoFullName = repoFullName ?? ""
-            controller.path = contentModel.path
-            controller.branch = branch ?? ""
+            let controller = ZLRepoCodePreview4Controller(repoFullName: repoFullName ?? "",
+                                                          contentModel: contentModel,
+                                                          branch: branch ?? "")
             self.navigationController?.pushViewController(controller, animated: true)
         }
     }
