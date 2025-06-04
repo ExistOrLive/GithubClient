@@ -45,6 +45,8 @@ protocol ZLReleaseInfoHeaderCellDataSourceAndDelegate: AnyObject {
     func onRepoOwnerAvatarAction()
     
     func onRepoFullNameAction()
+    
+    func onCommitAction()
 }
 
 
@@ -199,6 +201,8 @@ class ZLReleaseInfoHeaderCell: UITableViewCell {
         let view = UIView()
         view.addSubview(commitIcon)
         view.addSubview(commitLabel)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(onCommitInfoClicked))
+        view.addGestureRecognizer(tap)
         commitIcon.snp.makeConstraints { make in
             make.left.top.bottom.equalToSuperview()
             make.size.equalTo(15)
@@ -256,6 +260,10 @@ extension ZLReleaseInfoHeaderCell {
     
     @objc func onAuthorAvatarButtonClicked(_ button: UIButton) {
         delegate?.onAuthorAvatarAction()
+    }
+    
+    @objc func onCommitInfoClicked() {
+        delegate?.onCommitAction()
     }
 }
 

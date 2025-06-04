@@ -162,6 +162,14 @@ extension ZLUIRouter {
         return self.getVC(key: .RepoInfoController, params: params)
     }
 
+    static func getCommitInfoViewController(login: String,
+                                            repoName: String,
+                                            ref: String) -> UIViewController? {
+        let params = ["login": login,
+                      "repoName": repoName,
+                      "ref": ref]
+        return self.getVC(key: .CommitInfoController, params: params)
+    }
 }
 
 // MARK: 解析URL

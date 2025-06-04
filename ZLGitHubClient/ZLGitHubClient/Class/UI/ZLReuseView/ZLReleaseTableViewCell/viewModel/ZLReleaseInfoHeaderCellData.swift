@@ -41,6 +41,10 @@ extension ZLReleaseInfoHeaderCellData: ZLReleaseInfoHeaderCellDataSourceAndDeleg
         data?.repository.nameWithOwner ?? ""
     }
     
+    var repoName: String {
+        data?.repository.name ?? ""
+    }
+    
     var commitSha: String {
         String(data?.tagCommit?.oid.prefix(7) ?? "")
     }
@@ -56,6 +60,13 @@ extension ZLReleaseInfoHeaderCellData: ZLReleaseInfoHeaderCellDataSourceAndDeleg
         if let userInfoVC = ZLUIRouter.getRepoInfoViewController(repoFullName: repoFullName) {
             userInfoVC.hidesBottomBarWhenPushed = true
             zm_viewController?.navigationController?.pushViewController(userInfoVC, animated: true)
+        }
+    }
+    
+    func onCommitAction() {
+        if let commitInfoVC = ZLUIRouter.getCommitInfoViewController(login: repoOwnerLogin, repoName: repoName, ref: data?.tagCommit?.oid ?? "") {
+            commitInfoVC.hidesBottomBarWhenPushed = true
+            zm_viewController?.navigationController?.pushViewController(commitInfoVC, animated: true)
         }
     }
     

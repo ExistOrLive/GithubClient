@@ -16,6 +16,7 @@ import ZMMVVM
     var type: ZLUserAdditionInfoType = .repositories                       // ! 附加信息类型 仓库/代码片段等
     var login: String = ""                                        // login
     var currentPage: Int  =  0                     // 当前页号
+    var isOrg: Bool = false
     static let per_page: UInt = 20                            // 每页多少记录
     
     @objc init() {
@@ -86,6 +87,7 @@ extension ZLUserAdditionInfoController {
         }
         
         ZLUserServiceShared()?.getAdditionInfo(forUser: login,
+                                               isOrg: isOrg,
                                                infoType: type,
                                                page: UInt(page),
                                                per_page: Self.per_page,

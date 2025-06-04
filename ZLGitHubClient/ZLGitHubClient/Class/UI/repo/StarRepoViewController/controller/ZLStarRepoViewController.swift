@@ -61,6 +61,7 @@ extension ZLStarRepoViewController {
         let login = ZLViewerServiceShared()?.currentUserLoginName ?? ""
         
         ZLUserServiceShared()?.getAdditionInfo(forUser: login,
+                                               isOrg: false,
                                                infoType: .starredRepos,
                                                page: UInt(isLoadNew ? 1 : pageNum) ,
                                                per_page: 20,
