@@ -6,14 +6,6 @@
 //  Copyright © 2025 ZM. All rights reserved.
 //
 
-//
-//  ZLRepoCommitController.swift
-//  ZLGitHubClient
-//
-//  Created by 朱猛 on 2020/3/16.
-//  Copyright © 2020 ZM. All rights reserved.
-//
-
 import UIKit
 import ZMMVVM
 import ZLUIUtilities
@@ -26,8 +18,11 @@ class ZLRepoCompareCommitController: ZMTableViewController {
     @objc var baseRef: String?
     @objc var headRef: String?
     
-    var model: ZLGithubCompareModel?
+    // data
+    private var pageNum = 1
     
+    static let per_page: UInt = 20
+        
     @objc init() {
         super.init(style: .plain)
     }
@@ -49,7 +44,7 @@ class ZLRepoCompareCommitController: ZMTableViewController {
         
         tableView.contentInsetAdjustmentBehavior = .automatic
         tableView.contentInset = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
-        setRefreshViews(types: [.header])
+        setRefreshViews(types: [.header,.footer])
         tableView.register(ZLCommitTableViewCell.self,
                            forCellReuseIdentifier: "ZLCommitTableViewCell")
     }
@@ -58,35 +53,48 @@ class ZLRepoCompareCommitController: ZMTableViewController {
         loadData(isLoadNew: true)
     }
     
+    
+    override func refreshLoadMoreData() {
+        loadData(isLoadNew: false)
+    }
+    
 
     
 }
 
 
 extension ZLRepoCompareCommitController {
+    
     func loadData(isLoadNew: Bool) {
         
         ZLRepoServiceShared()?.getRepoCommitCompare(withLogin: login ?? "",
                                                     repoName: repoName ?? "",
                                                     baseRef: baseRef ?? "",
                                                     headRef: headRef ?? "",
+                                                    per_page: Int(Self.per_page),
+                                                    page: isLoadNew ? 1 : pageNum,
                                                     serialNumber: NSString.generateSerialNumber())
         { [weak self] resultModel in
             guard let self else { return }
             if resultModel.result == true, let model = resultModel.data as? ZLGithubCompareModel {
-                self.model = model
                 let cellDataArray: [ZLCommitTableViewCellData] = model.commits.map {
                     let cellData = ZLCommitTableViewCellData(commitModel: $0)
                     return cellData
                 }
                 self.zm_addSubViewModels(cellDataArray)
-            
-                self.sectionDataArray.forEach { $0.zm_removeFromSuperViewModel() }
-                self.sectionDataArray = [ZMBaseTableViewSectionData(cellDatas: cellDataArray)]
-               
+                
+                if isLoadNew {
+                    self.sectionDataArray.forEach { $0.zm_removeFromSuperViewModel() }
+                    self.sectionDataArray = [ZMBaseTableViewSectionData(cellDatas: cellDataArray)]
+                    self.pageNum = 2
+                } else {
+                    self.sectionDataArray.first?.cellDatas.append(contentsOf: cellDataArray)
+                    self.pageNum = self.pageNum + 1
+                }
+                
                 self.tableView.reloadData()
                 
-                self.endRefreshViews(noMoreData: true )
+                self.endRefreshViews(noMoreData: cellDataArray.count < Self.per_page)
                 self.viewStatus = self.tableViewProxy.isEmpty ? .empty : .normal
                 
             } else {

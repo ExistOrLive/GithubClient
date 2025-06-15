@@ -243,3 +243,7 @@
 "Binary File Patch" = "Binary file not shown";
 "File Renamed" = "File renamed without changes";
 "Large File Changed" = "File vary greatly not shown";
+"File Diff" = "File Diff";
+
+// gist
+"Gist Files" = "Gist Files";

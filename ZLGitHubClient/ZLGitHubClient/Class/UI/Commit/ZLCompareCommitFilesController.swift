@@ -116,6 +116,8 @@ extension ZLCompareCommitFilesController {
                                                         repoName: repoName ?? "",
                                                         baseRef: baseRef ?? "",
                                                         headRef: headRef ?? "",
+                                                        per_page: 30,
+                                                        page: 1,
                                                         serialNumber: NSString.generateSerialNumber())
             { [weak self] resultModel in
                 guard let self else { return }
