@@ -49,7 +49,7 @@ class ZLReleaseInfoController: ZMTableViewController {
     override func setupUI() {
         super.setupUI()
         
-        self.title = "\(ZLLocalizedString(string: "Releases", comment: "发行版")) \(tagName ?? "")"
+        self.title = "\(ZLLocalizedString(string: "Release", comment: "发行版")) \(tagName ?? "")"
         
         self.zmNavigationBar.addRightView(moreButton)
         

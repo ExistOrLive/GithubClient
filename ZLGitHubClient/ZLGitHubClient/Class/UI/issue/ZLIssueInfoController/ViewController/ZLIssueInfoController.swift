@@ -53,7 +53,7 @@ class ZLIssueInfoController: ZMTableViewController {
         super.setupUI()
            
         
-        self.title = "\(ZLLocalizedString(string: "issues", comment: "合并请求")) #\(number)"
+        self.title = "\(ZLLocalizedString(string: "issue", comment: "合并请求")) #\(number)"
         
         self.zmNavigationBar.addRightView(moreButton)
        

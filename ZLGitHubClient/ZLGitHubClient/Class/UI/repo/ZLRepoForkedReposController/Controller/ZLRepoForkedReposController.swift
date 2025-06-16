@@ -30,7 +30,6 @@ class ZLRepoForkedReposController: ZMTableViewController {
         super.setupUI()
         
         title = ZLLocalizedString(string: "fork", comment: "")
-        title = ZLLocalizedString(string: "star", comment: "标星")
         
         tableView.contentInsetAdjustmentBehavior = .automatic
         tableView.contentInset = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)

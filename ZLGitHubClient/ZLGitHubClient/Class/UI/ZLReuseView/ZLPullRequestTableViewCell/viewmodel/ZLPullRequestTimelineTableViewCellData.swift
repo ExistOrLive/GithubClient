@@ -10,6 +10,7 @@ import UIKit
 import ZLBaseExtension
 import ZLGitRemoteService
 import ZMMVVM
+import ZLUtilities
 
 class ZLPullRequestTimelineTableViewCellData: ZMBaseTableViewCellViewModel {
 
@@ -493,6 +494,8 @@ extension ZLPullRequestTimelineTableViewCellData: ZLPullRequestTimelineTableView
             return string
 
         }
+        
+        analytics.log(.unknownPrTimelineType(type: data.__typename))
 
         return NSAttributedString(string: data.__typename,
                                   attributes: [.font: UIFont.zlSemiBoldFont(withSize: 15),

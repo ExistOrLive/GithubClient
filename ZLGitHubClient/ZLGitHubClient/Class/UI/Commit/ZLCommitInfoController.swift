@@ -89,7 +89,7 @@ class ZLCommitInfoController: ZMTableViewController {
     override func setupUI() {
         super.setupUI()
         
-        self.title = "\(ZLLocalizedString(string: "Commit", comment: "提交")) #\(ref?.prefix(7) ?? "")"
+        self.title = "\(ZLLocalizedString(string: "commit", comment: "提交")) #\(ref?.prefix(7) ?? "")"
         
         self.zmNavigationBar.addRightView(moreButton)
         

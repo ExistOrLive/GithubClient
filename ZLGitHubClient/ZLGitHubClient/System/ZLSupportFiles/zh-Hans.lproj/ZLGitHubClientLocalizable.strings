@@ -228,9 +228,8 @@
 "Issue_Unlock" = "取消锁定问题";
 "Save_Success" = "保存成功";
 "Save_Fail" = "保存失败";
-"Discussions" = "讨论";
 "input number" = "输入数字";
-"Releases" = "发行版";
+
 
 "Comment is Empty" = "评论为空";
 
@@ -248,3 +247,11 @@
 
 // gist
 "Gist Files" = "代码片段文件";
+
+// release
+"Release" = "发行版";
+"Releases" = "发行版";
+
+// Discussion
+"Discussions" = "讨论";
+"Discussion" = "讨论";

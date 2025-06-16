@@ -81,7 +81,7 @@ class ZLCompareCommitFilesController: ZMTableViewController {
     override func setupUI() {
         super.setupUI()
         
-        self.title = ZLLocalizedString(string: "commits", comment: "提交")
+        self.title = ZLLocalizedString(string: "File Diff", comment: "文件差异")
         
 
         tableView.register(ZLCommitInfoPatchCell.self,

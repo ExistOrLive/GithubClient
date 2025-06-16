@@ -227,9 +227,9 @@
 "Issue_Unlock" = "Unlock Issue";
 "Save_Success" = "Save Success";
 "Save_Fail" = "Save Fail";
-"Discussions" = "Discussions";
+
 "input number" = "Input number";
-"Releases" = "Releases";
+
 
 "Comment is Empty" = "Comment is Empty";
 
@@ -247,3 +247,11 @@
 
 // gist
 "Gist Files" = "Gist Files";
+
+// release
+"Releases" = "Releases";
+"Release" = "Release";
+
+// Discussion
+"Discussions" = "Discussions";
+"Discussion" = "Discussion";
