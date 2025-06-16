@@ -47,7 +47,7 @@ class ZLDiscussionInfoController: ZMTableViewController {
     override func setupUI() {
         super.setupUI()
         
-        self.title = "#\(number)"
+        self.title = "\(ZLLocalizedString(string: "Discussion", comment: "讨论")) #\(number)"
         
         self.zmNavigationBar.addRightView(moreButton)
         

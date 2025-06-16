@@ -227,8 +227,31 @@
 "Issue_Unlock" = "Unlock Issue";
 "Save_Success" = "Save Success";
 "Save_Fail" = "Save Fail";
-"Discussions" = "Discussions";
+
 "input number" = "Input number";
-"Releases" = "Releases";
+
 
 "Comment is Empty" = "Comment is Empty";
+
+// release
+"Latest Release" = "Latest";
+"Draft Release" = "Draft";
+"Pre Release" = "Pre";
+"released" = "released";
+
+/// diff patch
+"Binary File Patch" = "Binary file not shown";
+"File Renamed" = "File renamed without changes";
+"Large File Changed" = "File vary greatly not shown";
+"File Diff" = "File Diff";
+
+// gist
+"Gist Files" = "Gist Files";
+
+// release
+"Releases" = "Releases";
+"Release" = "Release";
+
+// Discussion
+"Discussions" = "Discussions";
+"Discussion" = "Discussion";

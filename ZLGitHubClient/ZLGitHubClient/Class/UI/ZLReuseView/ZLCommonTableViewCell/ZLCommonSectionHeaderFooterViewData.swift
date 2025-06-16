@@ -30,3 +30,21 @@ class ZLCommonSectionHeaderFooterViewDataV2: ZMBaseTableViewReuseViewModel {
         super.init()
     }
 }
+
+class ZLCommonSectionHeaderFooterViewDataV3: ZMBaseTableViewReuseViewModel {
+    
+    var viewHeight = CGFloat.leastNonzeroMagnitude
+    
+    override var zm_viewReuseIdentifier: String {
+        return ""
+    }
+
+    override var zm_viewHeight: CGFloat {
+        viewHeight
+    }
+    
+    init(viewHeight: CGFloat = CGFloat.leastNonzeroMagnitude) {
+        self.viewHeight = viewHeight
+        super.init()
+    }
+}

@@ -111,7 +111,7 @@ class ZLUserOrOrgInfoController: ZMTableViewController {
 
     
     override func refreshLoadNewData() {
-        stateModel.getUserInfo()
+        stateModel.getUserOrOrgInfo()
     }
 }
 
@@ -222,7 +222,7 @@ extension ZLUserOrOrgInfoController {
                                                        showSeparateLine: true) {
 
                 if let url = URL.init(string: blog) {
-                    ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,
+                    ZLUIRouter.navigateVC(key: .WebContentController,
                                           params: ["requestURL": url],
                                           animated: true)
                 }
@@ -277,23 +277,25 @@ extension ZLUserOrOrgInfoController {
         // baseInfo
         var itemCellDatas = [ZMBaseTableViewCellViewModel]()
                 
-        // company
-        if model.repositories > 0 {
-            let cellData = ZLCommonTableViewCellDataV3(canClick: true,
-                                                       title: { ZLLocalizedString(string: "repositories", comment: "")},
-                                                       info: { "\(model.repositories)" },
-                                                       cellHeight: 50,
-                                                       showSeparateLine: true) { [weak self] in
-                guard let self = self else { return }
-                
-                let login = self.stateModel.login
-                if let vc = ZLUIRouter.getVC(key: ZLUIRouter.UserAdditionInfoController, params: ["login": login, "type": ZLUserAdditionInfoType.repositories.rawValue]) {
-                    vc.hidesBottomBarWhenPushed = true
-                    self.navigationController?.pushViewController(vc, animated: true)
-                }
+        // repo
+        let cellData = ZLCommonTableViewCellDataV3(canClick: true,
+                                                   title: { ZLLocalizedString(string: "repositories", comment: "")},
+                                                   info: { [weak self] in
+            guard let self, let repositories = stateModel.orgModel?.repositories else { return "" }
+            return repositories > 0 ? "\(repositories)" : ""
+        },
+                                                   cellHeight: 50,
+                                                   showSeparateLine: true) { [weak self] in
+            guard let self = self else { return }
+            
+            let login = self.stateModel.login
+            if let vc = ZLUIRouter.getVC(key: .UserAdditionInfoController, params: ["login": login, "type": ZLUserAdditionInfoType.repositories.rawValue, "isOrg": true]) {
+                vc.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(vc, animated: true)
             }
-            itemCellDatas.append(cellData)
         }
+        itemCellDatas.append(cellData)
+        
         
         // address
         if let location = model.location,
@@ -335,7 +337,7 @@ extension ZLUserOrOrgInfoController {
                                                        showSeparateLine: true) {
 
                 if let url = URL.init(string: blog) {
-                    ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,
+                    ZLUIRouter.navigateVC(key: .WebContentController,
                                           params: ["requestURL": url],
                                           animated: true)
                 }
@@ -390,6 +392,10 @@ extension ZLUserOrOrgInfoController {
 }
 
 extension ZLUserOrOrgInfoController: ZLUserInfoStateModelDelegate {
+    func onOrgRepoInfoLoad() {
+        tableView.reloadData()
+    }
+    
     func onUserInfoLoad(result: Bool, msg: String) {
         viewStatus = .normal
         endRefreshViews()

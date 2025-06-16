@@ -10,19 +10,20 @@ import UIKit
 import SYDCentralPivot
 import ZLGitRemoteService
 
+typealias ZLRouterKey = String
+
+// MARK: - 创建VC，VC跳转逻辑
 @objcMembers class ZLUIRouter: NSObject {
 
-    typealias ZLUIKey = String
-
-    static func getVC(key: ZLUIKey, params: [AnyHashable: Any] = [:]) -> UIViewController? {
+    static func getVC(key: ZLRouterKey, params: [AnyHashable: Any] = [:]) -> UIViewController? {
         return SYDCentralFactory.sharedInstance().getOneUIViewController(key, withInjectParam: params)
     }
 
-    static func openVC(key: ZLUIKey, params: [AnyHashable: Any] = [:], enterConfig: SYDCentralRouterViewControllerConfig) {
+    static func openVC(key: ZLRouterKey, params: [AnyHashable: Any] = [:], enterConfig: SYDCentralRouterViewControllerConfig) {
         SYDCentralRouter.sharedInstance().enterViewController(key, withViewControllerConfig: enterConfig, withParam: params)
     }
 
-    static func openVC(key: ZLUIKey, params: [AnyHashable: Any] = [:]) {
+    static func openVC(key: ZLRouterKey, params: [AnyHashable: Any] = [:]) {
         if let vc = UIViewController.getTop() {
             let config = SYDCentralRouterViewControllerConfig()
             config.sourceViewController = vc
@@ -33,7 +34,7 @@ import ZLGitRemoteService
         }
     }
 
-    static func navigateVC(key: ZLUIKey, params: [AnyHashable: Any] = [:], animated: Bool = true) {
+    static func navigateVC(key: ZLRouterKey, params: [AnyHashable: Any] = [:], animated: Bool = true) {
         if let topVC = UIViewController.getTop() {
             if topVC.navigationController == nil {
                 if topVC.presentingViewController == nil {
@@ -55,218 +56,153 @@ import ZLGitRemoteService
     }
 }
 
-extension ZLUIRouter {
-    static let MainViewController: ZLUIKey = "ZLMainViewController"
+// MARK: - VC Key
+extension ZLRouterKey {
+    static let MainViewController: ZLRouterKey = "ZLMainViewController"
 
-    static let WorkboardViewController: ZLUIKey = "ZLWorkboardViewController"
-    static let NotificationViewController: ZLUIKey = "ZLNotificationController"
-    static let ExploreViewController: ZLUIKey = "ZLExploreViewController"
-    static let ProfileViewController: ZLUIKey = "ZLProfileViewController"
+    static let WorkboardViewController: ZLRouterKey = "ZLWorkboardViewController"
+    static let NotificationViewController: ZLRouterKey = "ZLNotificationController"
+    static let ExploreViewController: ZLRouterKey = "ZLExploreViewController"
+    static let ProfileViewController: ZLRouterKey = "ZLProfileViewController"
 
-    static let NewsViewController: ZLUIKey = "ZLNewsViewController"
-    static let StarRepoViewController: ZLUIKey = "ZLStarRepoViewController"
-    static let OrgsViewController: ZLUIKey = "ZLOrgsViewController"
-    static let MyPullRequestsController: ZLUIKey = "ZLMyPullRequestsController"
-    static let EditFixedRepoController: ZLUIKey = "ZLEditFixedRepoController"
-    static let MyRepoesController: ZLUIKey = "ZLMyRepoesController"
-    static let MyIssuesController: ZLUIKey = "ZLMyIssuesController"
+    static let NewsViewController: ZLRouterKey = "ZLNewsViewController"
+    static let StarRepoViewController: ZLRouterKey = "ZLStarRepoViewController"
+    static let OrgsViewController: ZLRouterKey = "ZLOrgsViewController"
+    static let MyPullRequestsController: ZLRouterKey = "ZLMyPullRequestsController"
+    static let EditFixedRepoController: ZLRouterKey = "ZLEditFixedRepoController"
+    static let MyRepoesController: ZLRouterKey = "ZLMyRepoesController"
+    static let MyIssuesController: ZLRouterKey = "ZLMyIssuesController"
 
-    static let SearchController: ZLUIKey = "ZLSearchController"
+    static let SearchController: ZLRouterKey = "ZLSearchController"
 
-    static let SettingController: ZLUIKey = "ZLSettingController"
-    static let AppearanceController: ZLUIKey = "ZLAppearanceController"
-    static let AboutViewController: ZLUIKey = "ZLAboutViewController"
+    static let SettingController: ZLRouterKey = "ZLSettingController"
+    static let AppearanceController: ZLRouterKey = "ZLAppearanceController"
+    static let AboutViewController: ZLRouterKey = "ZLAboutViewController"
 
-   // static let UserInfoController : ZLUIKey = "ZLUserInfoController"
-    static let RepoInfoController: ZLUIKey = "ZLRepoInfoController"
-    static let UserOrOrgInfoController: ZLUIKey = "ZLUserOrOrgInfoController"
-   // static let OrgInfoController : ZLUIKey = "ZLOrgInfoController"
-    static let IssueInfoController: ZLUIKey = "ZLIssueInfoController"
-    static let PRInfoController: ZLUIKey = "ZLPRInfoController"
-    static let DiscussionInfoController: ZLUIKey = "ZLDiscussionInfoController"
-    static let WebContentController: ZLUIKey = "ZLWebContentController"
+   // static let UserInfoController : ZLRouterKey = "ZLUserInfoController"
+    static let RepoInfoController: ZLRouterKey = "ZLRepoInfoController"
+    static let UserOrOrgInfoController: ZLRouterKey = "ZLUserOrOrgInfoController"
+   // static let OrgInfoController : ZLRouterKey = "ZLOrgInfoController"
+    static let IssueInfoController: ZLRouterKey = "ZLIssueInfoController"
+    static let PRInfoController: ZLRouterKey = "ZLPRInfoController"
+    static let DiscussionInfoController: ZLRouterKey = "ZLDiscussionInfoController"
+    static let ReleaseInfoController: ZLRouterKey = "ZLReleaseInfoController"
+    static let CommitInfoController: ZLRouterKey = "ZLCommitInfoController"
+    static let CompareInfoController: ZLRouterKey = "ZLRepoCompareCommitController"
+    static let RepoContentController: ZLRouterKey = "ZLRepoContentController"
+    static let RepoCodePreview3Controller: ZLRouterKey = "ZLRepoCodePreview3Controller"
+    
+    
+    static let WebContentController: ZLRouterKey = "ZLWebContentController"
 
-    static let UserAdditionInfoController: ZLUIKey = "ZLUserAdditionInfoController"
+    static let UserAdditionInfoController: ZLRouterKey = "ZLUserAdditionInfoController"
 }
 
+// MARK: 获取指定Vc
 extension ZLUIRouter {
 
     static func getMainViewController() -> UIViewController? {
-        self.getVC(key: MainViewController)
+        self.getVC(key: .MainViewController)
     }
 
     static func getWorkboardViewController() -> UIViewController? {
-        self.getVC(key: WorkboardViewController)
+        self.getVC(key: .WorkboardViewController)
     }
 
     static func getNotificationViewController() -> UIViewController? {
-        self.getVC(key: NotificationViewController)
+        self.getVC(key: .NotificationViewController)
     }
 
     static func getExploreViewController() -> UIViewController? {
-        self.getVC(key: ExploreViewController)
+        self.getVC(key: .ExploreViewController)
     }
 
     static func getProfileViewController() -> UIViewController? {
-        self.getVC(key: ProfileViewController)
+        self.getVC(key: .ProfileViewController)
     }
 
     static func getZLNewsViewController() -> UIViewController? {
-        self.getVC(key: NewsViewController)
+        self.getVC(key: .NewsViewController)
     }
 
     static func getStarRepoViewController() -> UIViewController? {
-        self.getVC(key: StarRepoViewController)
+        self.getVC(key: .StarRepoViewController)
     }
 
     static func getOrgsViewController() -> UIViewController? {
-        self.getVC(key: OrgsViewController)
+        self.getVC(key: .OrgsViewController)
     }
 
     static func getZLAboutViewController() -> UIViewController? {
-        self.getVC(key: AboutViewController)
+        self.getVC(key: .AboutViewController)
     }
 
     static func getMyIssuesController() -> UIViewController? {
-        self.getVC(key: MyIssuesController)
+        self.getVC(key: .MyIssuesController)
     }
 
     static func getMyReposController() -> UIViewController? {
-        self.getVC(key: MyRepoesController)
+        self.getVC(key: .MyRepoesController)
     }
 
     static func getEditFixedRepoController() -> UIViewController? {
-        self.getVC(key: EditFixedRepoController)
+        self.getVC(key: .EditFixedRepoController)
     }
 
     static func getMyPullRequestsController() -> UIViewController? {
-        self.getVC(key: MyPullRequestsController)
+        self.getVC(key: .MyPullRequestsController)
     }
 
     static func getUserInfoViewController(loginName: String) -> UIViewController? {
-        self.getVC(key: UserOrOrgInfoController, params: ["loginName": loginName])
+        self.getVC(key: .UserOrOrgInfoController, params: ["loginName": loginName])
     }
 
     static func getRepoInfoViewController(repoFullName: String) -> UIViewController? {
         let params = ["fullName": repoFullName]
-        return self.getVC(key: RepoInfoController, params: params)
+        return self.getVC(key: .RepoInfoController, params: params)
     }
 
+    static func getCommitInfoViewController(login: String,
+                                            repoName: String,
+                                            ref: String) -> UIViewController? {
+        let params = ["login": login,
+                      "repoName": repoName,
+                      "ref": ref]
+        return self.getVC(key: .CommitInfoController, params: params)
+    }
 }
 
+// MARK: 解析URL
 extension ZLUIRouter {
-
-    static func isGithubURL(url: URL) -> Bool {
-        if url.host == "github.com" ||
-            url.host == "www.github.com" {
-            return true
-        }
-        return false
-    }
 
     static func isParsedGithubURL(url: URL) -> Bool {
 
-        let pathComponents = url.pathComponents
-
-        if (url.host == "github.com" ||
-            url.host == "www.github.com") &&
-            pathComponents.count >= 2 {
-
-            let login = pathComponents[1]
-
-            if "issues" == login ||
-                "pulls" == login ||
-                "marketplace" == login ||
-                "explore" == login ||
-                "topics" == login ||
-                "trending" == login ||
-                "collections" == login ||
-                "events" == login ||
-                "sponsors" == login {
-                return false
-            }
-
-            if pathComponents.count == 2 ||
-                pathComponents.count == 3 {
-                return true
-            }
-
-            if pathComponents.count == 5 && pathComponents[3] == "pull" {
-                return true
-            }
-
-            if pathComponents.count == 5 && pathComponents[3] == "issues" {
-                return true
-            }
-            
-            if pathComponents.count == 5 && pathComponents[3] == "discussions" {
-                return true
-            }
+        if let githubPathType = parseGithubURL(url: url) {
+            return true
+        } else {
+            return false
         }
-
-        return false
+        
     }
 
     static func openURL(url: URL, animated: Bool = true) {
 
-        // github url
-
-        let pathComponents = url.pathComponents
-
-        if (url.host == "github.com" ||
-            url.host == "www.github.com") &&
-            pathComponents.count >= 2 {
+       
+        if let githubPathType = parseGithubURL(url: url) {
             
-            let login = pathComponents[1]
-            if "issues" == login ||
-                "pulls" == login ||
-                "marketplace" == login ||
-                "explore" == login ||
-                "topics" == login ||
-                "trending" == login ||
-                "collections" == login ||
-                "events" == login ||
-                "sponsors" == login {
-                
-                self.navigateVC(key: WebContentController, params: ["requestURL": url], animated: animated)
-                return
-            }
+            // github url
             
-            if pathComponents.count == 2 {
-                
-                self.navigateVC(key: UserOrOrgInfoController, params: ["loginName": pathComponents[1]], animated: animated)
-                return
-                
-            } else if pathComponents.count == 3 {
-                
-                let repoFullName = "\(pathComponents[1])/\(pathComponents[2])"
-                self.navigateVC(key: RepoInfoController, params: ["fullName": repoFullName], animated: animated)
-                return
-                
-            } else if pathComponents.count == 5 && pathComponents[3] == "pull" {
-                
-                self.navigateVC(key: PRInfoController, params: ["login": pathComponents[1],
-                                                                "repoName": pathComponents[2],
-                                                                "number": Int(pathComponents[4]) ?? 0], animated: animated)
-                return
-                
-            } else if pathComponents.count == 5 && pathComponents[3] == "issues" {
-                
-                self.navigateVC(key: IssueInfoController, params: ["login": pathComponents[1],
-                                                                   "repoName": pathComponents[2],
-                                                                   "number": Int(pathComponents[4]) ?? 0], animated: animated)
-                return
-                
-            } else if pathComponents.count == 5 && pathComponents[3] == "discussions" {
-                
-                self.navigateVC(key: DiscussionInfoController, params: ["login": pathComponents[1],
-                                                                   "repoName": pathComponents[2],
-                                                                   "number": Int(pathComponents[4]) ?? 0], animated: animated)
-                return
-                
+            let (routerType, routerKey, routerParams) = githubPathType.routerParams()
+            
+            switch(routerType) {
+            case .uiViewController:
+                self.navigateVC(key: routerKey, params: routerParams, animated: animated)
+            default:
+                break
             }
+        
+        } else {
+            self.navigateVC(key: .WebContentController, params: ["requestURL": url], animated: animated)
         }
-
-        self.navigateVC(key: WebContentController, params: ["requestURL": url], animated: animated)
     }
 }

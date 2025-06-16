@@ -67,47 +67,26 @@ class ZLNotificationTableViewCellData: ZMBaseTableViewCellViewModel {
     }
 
     override func zm_onCellSingleTap() {
-        guard let originURL = URL.init(string: self.data.subject?.url ?? "") else {
+        guard let apiURL = self.data.subject?.url,
+              let view = zm_viewController?.view else {
             return
         }
-
-        var url: URL?
-
-        if "Issue" == self.data.subject?.type {
-            let notificationNumber = Int(originURL.lastPathComponent) ?? 0
-            ZLUIRouter.navigateVC(key: ZLUIRouter.IssueInfoController,
-                                  params: ["login": self.data.repository?.owner?.loginName ?? "" ,
-                                           "repoName": self.data.repository?.name ?? "",
-                                           "number": notificationNumber])
-            return
-        } else if "PullRequest" == self.data.subject?.type {
-            let notificationNumber = Int(originURL.lastPathComponent) ?? 0
-            ZLUIRouter.navigateVC(key: ZLUIRouter.PRInfoController,
-                                  params: ["login": self.data.repository?.owner?.loginName ?? "" ,
-                                           "repoName": self.data.repository?.name ?? "",
-                                           "number": notificationNumber])
-            return
-        } else if "RepositoryVulnerabilityAlert" == self.data.subject?.type {
-            url = URL.init(string: "https://github.com/\(self.data.repository?.full_name ?? "")/security")
-        } else if "Discussion" == self.data.subject?.type {
-            let discussionNumber = originURL.lastPathComponent
-            let discussionInfo = ZLDiscussionInfoController()
-            discussionInfo.login = data.repository?.owner?.loginName ?? ""
-            discussionInfo.repoName = data.repository?.name ?? ""
-            discussionInfo.number = Int(discussionNumber) ?? 0
-            discussionInfo.hidesBottomBarWhenPushed = true
-            zm_viewController?.navigationController?.pushViewController(discussionInfo, animated: true)
-        } else if "Release" == self.data.subject?.type {
-            url = URL.init(string: "https://github.com/\(self.data.repository?.full_name ?? "")/releases")
-        } else if "Commit" == self.data.subject?.type {
-            let commitIndex = originURL.lastPathComponent
-            url = URL.init(string: "https://github.com/\(self.data.repository?.full_name ?? "")/commit/\(commitIndex)")
-        }
-
-        if let url = url {
-            ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,
-                                  params: ["requestURL": url])
-        }
+        view.showProgressHUD()
+        ZLServiceManager().additionServiceModel?.getHtmlURL(withApi: apiURL,
+                                                            serialNumber: NSString.generateSerialNumber(),
+                                                            completeHandle: { [weak view] result in
+            guard let view else { return }
+            view.dismissProgressHUD()
+            if result.result,
+                let htmlURL = (result.data as? [String:Any])?["html_url"] as? String,
+               let url = URL(string: htmlURL){
+                ZLUIRouter.openURL(url: url, animated: true)
+            } else {
+                if let errorModel = result.data as? ZLGithubRequestErrorModel {
+                    ZLToastView.showMessage(errorModel.message)
+                }
+            }
+        })
     }
 
 }

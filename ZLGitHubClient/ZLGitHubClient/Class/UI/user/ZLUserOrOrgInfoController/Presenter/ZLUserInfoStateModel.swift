@@ -17,6 +17,8 @@ protocol ZLUserInfoStateModelDelegate: AnyObject {
     
     func onPinnedRepoLoad(result: Bool, msg: String)
     
+    func onOrgRepoInfoLoad()
+    
     func onFollowStatusChanged()
     
     func onBlockStatusChanged()
@@ -86,14 +88,14 @@ extension ZLUserInfoStateModel {
 // MARK: - Request
 extension ZLUserInfoStateModel {
     
-    func getUserInfo() {
+    func getUserOrOrgInfo() {
 
         guard !login.isEmpty else {
             self.delegate?.onUserInfoLoad(result: false, msg: "login name is nil")
             return
         }
 
-        let userOrOrgInfo = ZLUserServiceShared()?.getUserInfo(withLoginName: login,
+        let userOrOrgInfo = ZLUserServiceShared()?.getUserOrOrgInfo(withLoginName: login,
                                                                serialNumber: NSString.generateSerialNumber())
         { [weak self] model in
 
@@ -108,9 +110,11 @@ extension ZLUserInfoStateModel {
                     self.getBlockStatus()
                     self.delegate?.onUserInfoLoad(result: true, msg: "")
                 } else if let model = model.data as? ZLGithubOrgModel {
+                    model.repositories = self.orgModel?.repositories ?? 0
                     self.infoModel = model
                     self.isOrg = true
                     self.getOrgPinnedRepos()
+                    self.getOrgReposInfo() 
                     self.delegate?.onUserInfoLoad(result: true, msg: "")
                 } else {
                     self.delegate?.onUserInfoLoad(result: false, msg: "Get User Info Failed ")
@@ -185,6 +189,23 @@ extension ZLUserInfoStateModel {
                 if let model = model.data as? ZLGithubRequestErrorModel {
                     ZLLog_Info(model.message)
                 }
+            }
+        }
+    }
+    
+    /// 更新组织的仓库数量
+    /** https://docs.github.com/en/organizations/managing-programmatic-access-to-your-organization/limiting-oauth-app-and-github-app-access-requests
+         * 如果组织的所有者没有授权，oauth app 不能通过 graphql api 访问组织的私有数据，因此这里通过rest api 获取
+     **/
+    func getOrgReposInfo() {
+        ZLUserServiceShared()?.getOrgInfo(withLoginName: login, serialNumber: NSString.generateSerialNumber())
+        { [weak self] model in
+
+            guard let self = self else { return }
+
+            if model.result,let model = model.data as? ZLGithubOrgModel {
+                self.orgModel?.repositories = model.repositories
+                self.delegate?.onOrgRepoInfoLoad()
             }
         }
     }

@@ -23,15 +23,10 @@ class ZLGistTableViewCellData: ZMBaseTableViewCellViewModel {
         return "ZLGistTableViewCell"
     }
 
-    override var zm_cellHeight: CGFloat {
-        return 180
-    }
-
-    override func zm_onCellSingleTap() {
-        if let url = URL(string: self.gistModel.html_url) {
-            ZLUIRouter.navigateVC(key: ZLUIRouter.WebContentController,
-                                  params: ["requestURL": url])
-        }
+    override func zm_onCellSingleTap() {        
+        let vc = ZLGistCodeFileListController()
+        vc.gistId = gistModel.id_gist
+        zm_viewController?.navigationController?.pushViewController(vc, animated: true)
     }
 }
 

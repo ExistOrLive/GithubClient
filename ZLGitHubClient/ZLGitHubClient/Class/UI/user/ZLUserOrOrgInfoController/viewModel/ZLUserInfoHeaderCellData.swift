@@ -136,7 +136,7 @@ extension ZLUserInfoHeaderCellData: ZLUserInfoHeaderCellDataSourceAndDelegate {
 
     func onReposNumButtonClicked() {
         if let login = userModel?.loginName,
-           let vc = ZLUIRouter.getVC(key: ZLUIRouter.UserAdditionInfoController,
+           let vc = ZLUIRouter.getVC(key: .UserAdditionInfoController,
                                      params: ["login": login,
                                               "type": ZLUserAdditionInfoType.repositories.rawValue]) {
             zm_viewController?.navigationController?.pushViewController(vc, animated: true)
@@ -144,7 +144,7 @@ extension ZLUserInfoHeaderCellData: ZLUserInfoHeaderCellDataSourceAndDelegate {
     }
     func onGistsNumButtonClicked() {
         if let login = userModel?.loginName,
-           let vc = ZLUIRouter.getVC(key: ZLUIRouter.UserAdditionInfoController,
+           let vc = ZLUIRouter.getVC(key: .UserAdditionInfoController,
                                      params: ["login": login,
                                               "type": ZLUserAdditionInfoType.gists.rawValue]) {
             zm_viewController?.navigationController?.pushViewController(vc, animated: true)
@@ -152,7 +152,7 @@ extension ZLUserInfoHeaderCellData: ZLUserInfoHeaderCellDataSourceAndDelegate {
     }
     func onFollowsNumButtonClicked() {
         if let login = userModel?.loginName,
-           let vc = ZLUIRouter.getVC(key: ZLUIRouter.UserAdditionInfoController,
+           let vc = ZLUIRouter.getVC(key: .UserAdditionInfoController,
                                      params: ["login": login,
                                               "type": ZLUserAdditionInfoType.followers.rawValue]) {
             zm_viewController?.navigationController?.pushViewController(vc, animated: true)
@@ -160,7 +160,7 @@ extension ZLUserInfoHeaderCellData: ZLUserInfoHeaderCellDataSourceAndDelegate {
     }
     func onFollowingNumButtonClicked() {
         if let login = userModel?.loginName,
-           let vc = ZLUIRouter.getVC(key: ZLUIRouter.UserAdditionInfoController,
+           let vc = ZLUIRouter.getVC(key: .UserAdditionInfoController,
                                      params: ["login": login,
                                               "type": ZLUserAdditionInfoType.following.rawValue]) {
             zm_viewController?.navigationController?.pushViewController(vc, animated: true)

@@ -1,0 +1,180 @@
+ html {
+     font-size: 12px;
+     /* 默认根字体大小 */
+     font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+     background-color: #FFFFFF;
+ }
+
+ html.dark {
+     background-color: #0D1116;
+ }
+
+ body {
+     margin: 0px;
+ }
+
+ div.git-patch {
+     width: 100%;
+     height: 100%;
+     background-color: transparent;
+ }
+
+ div.file {
+    margin-bottom: 3rem;
+    background-color: transparent;
+    overflow: scroll;  
+ }
+ div.filePath {
+     width: 100%;
+     background-color: #f6fbfa;
+     color: #1F2329;
+     font-size: 1.2rem;
+     padding-left: 20px;
+     height: 4rem;
+     display: flex;
+     align-items: center;
+     position: sticky;
+     top: 0;/* 吸顶位置 */
+     left: 0;
+     z-index: 1;/* 确保在内容上方 */
+     text-overflow: ellipsis;
+ }
+
+ div.filePath.dark {
+     background-color: #151B23;
+     color: #F0F6FC;
+ }
+
+ table {
+     border-collapse: collapse;
+     width: 100%;
+ }
+
+
+ /* 二进制图片 默认根字体大小 */
+ .img_binary {
+     width: 50%;
+     display: block;
+     margin: 0 auto;
+ }
+
+ /* 二进制文安 默认根字体大小 */
+ .div_binary {
+     width: 50%;
+     height: 100px;
+     font-size: 1.5rem;
+     color: #093069;
+     display: flex;
+     justify-content: center;
+     /* 横向居中 */
+     align-items: center;
+     /* 纵向居中 */
+ }
+
+ .div_binary.dark {
+     color: #F0F6FC;
+ }
+
+ /* 代码 diff  */
+
+
+ .div_lineContent {
+     white-space: pre
+ }
+
+ .td_lineContent {
+     font-size: 1rem;
+     height: 100%;
+     white-space: nowrap;
+     height: 20px;
+     padding-left: 20px;
+ }
+
+ .td_linenum {
+     left: 0;
+     position: sticky;
+     font-size: 0.7rem;
+     height: 100%;
+     padding-left: 20;
+     padding-right: 20;
+     height: 20px;
+     padding: 2px 5px 2px 5px;
+ }
+
+ .td_lineContent {
+     color: #093069;
+ }
+
+ .td_lineContent.patch {
+     background-color: #DDF4FF;
+     color: #59636E;
+ }
+
+ .td_lineContent.add {
+     background-color: #DAFBE1;
+     color: #093069;
+ }
+
+ .td_lineContent.delete {
+     background-color: #FFEBE9;
+     color: #093069;
+ }
+
+ .td_linenum {
+     background-color: #FFFFFF;
+     color: #1F2329;
+ }
+
+ .td_linenum.patch {
+     background-color: #B6E3FF;
+ }
+
+ .td_linenum.add {
+     background-color: #ACEEBB;
+     color: #1F2329;
+ }
+
+ .td_linenum.delete {
+     background-color: #FFCECB;
+     color: #1F2329;
+ }
+
+
+
+ .td_lineContent.dark {
+     color: #F0F6FC;
+ }
+
+ .td_lineContent.patch.dark {
+     background-color: #131D2E;
+     color: #9198A1;
+ }
+
+ .td_lineContent.add.dark {
+     background-color: #14261F;
+     color: #F0F6FC;
+ }
+
+ .td_lineContent.delete.dark {
+     background-color: #26181C;
+     color: #F0F6FC;
+ }
+
+ .td_linenum.dark {
+     color: #9198A1;
+     background-color: #0D1116;
+ }
+
+ .td_linenum.patch.dark {
+     background-color: #0C2D6B;
+ }
+
+ .td_linenum.add.dark {
+     background-color: #1F4429;
+     color: #E7E8EE;
+ }
+
+ .td_linenum.delete.dark {
+     background-color: #552527;
+     color: #E7E8EE;
+ }

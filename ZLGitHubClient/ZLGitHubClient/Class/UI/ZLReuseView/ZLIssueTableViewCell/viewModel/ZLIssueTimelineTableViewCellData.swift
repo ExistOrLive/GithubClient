@@ -10,6 +10,7 @@ import UIKit
 import ZLBaseExtension
 import ZLGitRemoteService
 import ZMMVVM
+import ZLUtilities
 
 class ZLIssueTimelineTableViewCellData: ZMBaseTableViewCellViewModel {
 
@@ -427,6 +428,9 @@ extension ZLIssueTimelineTableViewCellData: ZLIssueTimelineTableViewCellDelegate
             return string
         }
 
+        analytics.log(.unknownIssueTimelineType(type: data.__typename))
+        
+        
         return NSAttributedString(string: data.__typename,
                                   attributes: [.font: UIFont.zlSemiBoldFont(withSize: 15),
                                                .foregroundColor: UIColor.label(withName: "ZLLabelColor1")])

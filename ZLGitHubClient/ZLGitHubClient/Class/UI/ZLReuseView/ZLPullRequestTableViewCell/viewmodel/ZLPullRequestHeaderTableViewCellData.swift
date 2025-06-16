@@ -96,15 +96,25 @@ extension ZLPullRequestHeaderTableViewCellData: ZLPullRequestHeaderTableViewCell
         }
     }
     func onFileButtonClicked() {
-
-        if let url = URL(string: "\(data.repository?.pullRequest?.url ?? "")/files"), let vc = ZLUIRouter.getVC(key: ZLUIRouter.WebContentController, params: ["requestURL": url]) {
-            self.zm_viewController?.navigationController?.pushViewController(vc, animated: true)
-        }
+        let vc = ZLCompareCommitFilesController()
+        vc.login = data.repository?.owner.login
+        vc.repoName = data.repository?.name
+        vc.baseRef = data.repository?.pullRequest?.baseRefOid
+        vc.headRef = data.repository?.pullRequest?.headRefOid
+        self.zm_viewController?.navigationController?.pushViewController(vc,animated: true)
+//        if let url = URL(string: "\(data.repository?.pullRequest?.url ?? "")/files"), let vc = ZLUIRouter.getVC(key: ZLUIRouter.WebContentController, params: ["requestURL": url]) {
+//            self.zm_viewController?.navigationController?.pushViewController(vc, animated: true)
+//        }
     }
     func onCommitButtonClicked() {
-
-        if let url = URL(string: "\(data.repository?.pullRequest?.url ?? "")/commits"), let vc = ZLUIRouter.getVC(key: ZLUIRouter.WebContentController, params: ["requestURL": url]) {
-            self.zm_viewController?.navigationController?.pushViewController(vc, animated: true)
-        }
+        let vc = ZLRepoCompareCommitController()
+        vc.login = data.repository?.owner.login
+        vc.repoName = data.repository?.name
+        vc.baseRef = data.repository?.pullRequest?.baseRefOid
+        vc.headRef = data.repository?.pullRequest?.headRefOid
+        self.zm_viewController?.navigationController?.pushViewController(vc,animated: true)
+//        if let url = URL(string: "\(data.repository?.pullRequest?.url ?? "")/commits"), let vc = ZLUIRouter.getVC(key: ZLUIRouter.WebContentController, params: ["requestURL": url]) {
+//            self.zm_viewController?.navigationController?.pushViewController(vc, animated: true)
+//        }
     }
 }

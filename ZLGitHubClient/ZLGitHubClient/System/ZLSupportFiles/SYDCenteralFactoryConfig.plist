@@ -281,5 +281,60 @@
 		<key>moduleName</key>
 		<string>ZLGitHubClient</string>
 	</dict>
+	<key>ZLReleaseInfoController</key>
+	<dict>
+		<key>claStr</key>
+		<string>ZLReleaseInfoController</string>
+		<key>type</key>
+		<integer>0</integer>
+		<key>isSingle</key>
+		<false/>
+		<key>moduleName</key>
+		<string>ZLGitHubClient</string>
+	</dict>
+	<key>ZLCommitInfoController</key>
+	<dict>
+		<key>claStr</key>
+		<string>ZLCommitInfoController</string>
+		<key>type</key>
+		<integer>0</integer>
+		<key>isSingle</key>
+		<false/>
+		<key>moduleName</key>
+		<string>ZLGitHubClient</string>
+	</dict>
+	<key>ZLRepoCompareCommitController</key>
+	<dict>
+		<key>claStr</key>
+		<string>ZLRepoCompareCommitController</string>
+		<key>type</key>
+		<integer>0</integer>
+		<key>isSingle</key>
+		<false/>
+		<key>moduleName</key>
+		<string>ZLGitHubClient</string>
+	</dict>
+	<key>ZLRepoContentController</key>
+	<dict>
+		<key>claStr</key>
+		<string>ZLRepoContentController</string>
+		<key>type</key>
+		<integer>0</integer>
+		<key>isSingle</key>
+		<false/>
+		<key>moduleName</key>
+		<string>ZLGitHubClient</string>
+	</dict>
+	<key>ZLRepoCodePreview3Controller</key>
+	<dict>
+		<key>claStr</key>
+		<string>ZLRepoCodePreview3Controller</string>
+		<key>type</key>
+		<integer>0</integer>
+		<key>isSingle</key>
+		<false/>
+		<key>moduleName</key>
+		<string>ZLGitHubClient</string>
+	</dict>
 </dict>
 </plist>

@@ -58,12 +58,11 @@ class ZLGistTableViewCell: ZLBaseCardTableViewCell {
         containerView.addSubview(fileLabel)
         containerView.addSubview(commentLabel)
         containerView.addSubview(timeLabel)
-        containerView.addSubview(descLabel)
         containerView.addSubview(privateLabel)
         
         avatarButton.snp.makeConstraints { make in
             make.top.left.equalTo(10)
-            make.size.equalTo(50)
+            make.size.equalTo(40)
         }
         
         gistNameLabel.snp.makeConstraints { make in
@@ -79,7 +78,7 @@ class ZLGistTableViewCell: ZLBaseCardTableViewCell {
         
         fileLabel.snp.makeConstraints { make in
             make.left.equalTo(gistNameLabel)
-            make.top.equalTo(avatarButton.snp.bottom).offset(5)
+            make.top.equalTo(gistNameLabel.snp.bottom).offset(20)
         }
         
         commentLabel.snp.makeConstraints { make in
@@ -90,21 +89,14 @@ class ZLGistTableViewCell: ZLBaseCardTableViewCell {
         timeLabel.snp.makeConstraints { make in
             make.left.equalTo(fileLabel)
             make.top.equalTo(fileLabel.snp.bottom).offset(10)
-        }
-        
-        descLabel.snp.makeConstraints { make in
-            make.left.equalTo(fileLabel)
-            make.right.equalTo(-20)
-            make.top.equalTo(timeLabel.snp.bottom).offset(10)
             make.bottom.equalTo(-15)
         }
-    
     }
 
     // MARK: Lazy View
     lazy var avatarButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.cornerRadius = 25
+        button.cornerRadius = 20
         button.clipsToBounds = true
         button.addTarget(self, action: #selector(onAvatarButtonClicked), for: .touchUpInside)
         return button
@@ -114,7 +106,7 @@ class ZLGistTableViewCell: ZLBaseCardTableViewCell {
        let label = UILabel()
         label.textColor = UIColor(named:"ZLLinkLabelColor2")
         label.font = .zlMediumFont(withSize: 17)
-        label.numberOfLines = 0
+        label.numberOfLines = 2
         return label
     }()
     
@@ -138,15 +130,7 @@ class ZLGistTableViewCell: ZLBaseCardTableViewCell {
         label.font = .zlRegularFont(withSize: 12)
         return label
     }()
-    
-    lazy var descLabel: UILabel = {
-       let label = UILabel()
-        label.textColor = UIColor(named:"ZLLabelColor2")
-        label.font = .zlRegularFont(withSize: 12)
-        label.numberOfLines = 0
-        return label
-    }()
-    
+        
     lazy var privateLabel: UILabel = {
        let label = UILabel()
         label.text = ZLIconFont.RepoPrivate.rawValue
@@ -170,8 +154,13 @@ extension ZLGistTableViewCell: ZMBaseViewUpdatableWithViewData {
         self.avatarButton.loadAvatar(login: viewData.getOwnerName(),
                                      avatarUrl: viewData.getOwnerAvatar())
 
-        let firstFileName = viewData.getFirstFileName()
-        self.gistNameLabel.text = NSString.init(format: "%@/%@", viewData.getOwnerName(), firstFileName ?? "") as String
+        var desc = viewData.getDesc()
+        if desc.isEmpty {
+            desc = viewData.getFirstFileName() ?? ""
+        }
+        self.gistNameLabel.text = desc
+        
+        
         self.fileLabel.text = "\(String(describing: viewData.getFileCount()))\(ZLLocalizedString(string: "gistFiles", comment: "条代码片段"))"
         self.commentLabel.text = "\(String(describing: viewData.getCommentsCount()))\(ZLLocalizedString(string: "comments", comment: "条评论"))"
 
@@ -184,7 +173,5 @@ extension ZLGistTableViewCell: ZMBaseViewUpdatableWithViewData {
         } else {
             self.timeLabel.text = nil
         }
-
-        self.descLabel.text = viewData.getDesc()
     }
 }
