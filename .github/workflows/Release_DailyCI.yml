@@ -16,7 +16,7 @@ jobs:
     - name: checkout
       uses: actions/checkout@v2.0.0
       with:
-        ref: release-1.8.0
+        ref: release-1.9.0
 
     - name: download secret file
       working-directory: ./ZLGitHubClient          # 指定run 的工作目录
